@@ -1,0 +1,30 @@
+syntax = "v1"
+
+info(
+	title: "captcha api"
+	desc: "captcha api"
+	author: "ryansu"
+	email: "yuansu.china.work@gmail.com"
+	version: "v1.0"
+)
+
+import "base.api"
+
+type CaptchaInfoResp {
+	BaseMsg
+	Data CaptchaInfo `json:"data"`
+}
+
+type CaptchaInfo {
+	CaptchaId string `json:"captchaId"`
+	ImgPath   string `json:"imgPath"`
+}
+
+@server(
+	group: captcha
+)
+
+service core {
+	@handler getCaptchaHandler
+	get /captcha returns (CaptchaInfo)
+}

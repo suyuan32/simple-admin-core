@@ -1,0 +1,98 @@
+syntax = "v1"
+
+info(
+    title: "menu management"
+    desc: "menu management APIs"
+    author: "ryansu"
+    email: "yuansu.china.work@gmail.com"
+    version: "v1.0"
+)
+
+import "base.api"
+
+type (
+    Menu {
+        BaseInfo
+        menuType     uint32      `json:"type"`
+        ParentId     uint        `json:"parentId"`
+        MenuLevel    uint32      `json:"level"`
+        Path         string      `json:"path,omitempty"`            // index path
+        Name         string      `json:"name"`            // index name
+        Redirect     string      `json:"redirect,omitempty"`
+        Component    string      `json:"component"`       // the path of vue file
+        OrderNo      uint32      `json:"orderNo"`
+        Disabled     bool        `json:"disabled"`
+        Meta
+        Children     []*Menu      `json:"children"`
+    }
+
+    Meta {
+        KeepAlive bool           `json:"keepAlive"` // save in cache
+        HideMenu  bool           `json:"hideMenu"`
+        HideBreadcrumb bool      `json:"hideBreadcrumb"`
+        CurrentActiveMenu string `json:"currentActiveMenu"`
+        Title     string         `json:"title"`    // menu name
+        Icon      string         `json:"icon"`      // menu icon
+        CloseTab  bool           `json:"closeTab"`  // auto close tab
+    }
+
+    MenuParam {
+        BaseInfo
+        MenuId uint   `json:"menuId"`
+        Type   string `json:"type"`  // pass parameters via params or query
+        Key    string `json:"key"`   // the key of parameters
+        Value  string `json:"value"` // the value of parameters
+    }
+
+    MenuListResp {
+        PageList
+        Data []*Menu `json:"data"`
+    }
+
+    GetMenuListBase {
+        menuType     uint32      `json:"type"`
+        MenuLevel    uint32      `json:"level"`
+        Path         string      `json:"path"`            // index path
+        Name         string      `json:"name"`            // index name
+        Redirect     string      `json:"redirect,omitempty"`
+        Component    string      `json:"component"`       // the path of vue file
+        OrderNo      uint32      `json:"orderNo"`
+        Disabled     bool        `json:"disabled"`
+        Meta         Meta        `json:"meta"`            // extra parameters
+        Children     []*GetMenuListBase      `json:"children"`
+    }
+
+    CreateOrUpdateMenuReq {
+        id           uint32      `json:"id"`
+        menuType     uint32      `json:"type"`
+        ParentId     uint32      `json:"parentId"`
+        Path         string      `json:"path,omitempty"`            // index path
+        Name         string      `json:"name"`            // index name
+        Redirect     string      `json:"redirect"`
+        Component    string      `json:"component"`       // the path of vue file
+        OrderNo      uint32      `json:"orderNo"`
+        Disabled     bool        `json:"disabled"`
+        Meta
+    }
+)
+
+@server(
+    jwt: Auth
+    group: menu
+    middleware: Authority
+)
+
+service core {
+    // menu management
+    @handler createOrUpdateMenuHandler
+    post /menu (CreateOrUpdateMenuReq) returns (SimpleMsg)
+
+    @handler deleteMenuHandler
+    delete /menu (IdReq) returns (SimpleMsg)
+
+    @handler getMenuListHandler
+    get /menu/list returns (MenuListResp)
+
+    @handler  getMenuByRoleHandler
+    get /menu/role returns (GetMenuListBase)
+}

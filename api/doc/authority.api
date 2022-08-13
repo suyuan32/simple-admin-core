@@ -1,0 +1,58 @@
+syntax = "v1"
+
+info(
+    title: "authority control"
+    desc:  "authority control including authority management, role access control"
+    author: "ryansu"
+    email: "yuansu.china.work@gmail.com"
+    version: "v1.0"
+)
+
+import "base.api"
+
+type (
+    // api struct
+    ApiAuthorityInfo {
+        Path string   `json:"path"`
+        Method string `json:"method"`
+    }
+
+    CreateOrUpdateApiAuthorityReq {
+        RoleId  uint64            `json:"roleId"`
+        Data    []ApiAuthorityInfo  `json:"data"`
+    }
+
+    ApiAuthorityListResp {
+        PageList
+        Data []ApiAuthorityInfo `json:"data"`
+    }
+
+    // menu struct
+    MenuAuthorityInfo {
+        RoleId  uint64   `json:"roleId"`
+        MenuIds []uint64 `json:"menuIds"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: authority
+    middleware: Authority
+)
+
+service core {
+    // api authorization management
+    // api 访问权限管理
+    @handler createOrUpdateApiAuthorityHandler
+    post /authority/api (CreateOrUpdateApiAuthorityReq) returns (SimpleMsg)
+
+    @handler getApiAuthorityhandler
+    post /authority/api/role (IdReq) returns (ApiAuthorityListResp)
+
+    // menu authorization management
+    @handler createOrUpdateMenuAuthorityHandler
+    post /authority/menu (MenuAuthorityInfo) returns (SimpleMsg)
+
+    @handler getMenuAuthorityHandler
+    post /authority/menu/role (IdReq) returns (MenuAuthorityInfo)
+}

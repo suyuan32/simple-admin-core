@@ -1,0 +1,27 @@
+syntax = "v1"
+
+info(
+	title: "core service"
+	desc: "this is the api discribe file for core services"
+	author: "ryansu"
+	email: "yuansu.china.work@gmail.com"
+	version: "v1.0"
+)
+
+import "role.api"
+import "user.api"
+import "menu.api"
+import "captcha.api"
+import "apis.api"
+import "authority.api"
+
+@server(
+	jwt: Auth
+	group: core
+)
+
+service core {
+	@doc "core"
+	@handler healthCheckHandler
+	get /core/health
+}

@@ -1,0 +1,54 @@
+syntax = "v1"
+
+info(
+    title: "role control"
+    desc: "role control including role management, role access control"
+    author: "ryansu"
+    email: "yuansu.china.work@gmail.com"
+    version: "v1.0"
+)
+
+import "base.api"
+
+type (
+    RoleInfo {
+        Id            uint64 `json:"id"`
+        Name          string `json:"name"`
+        Value         string `json:"value"`
+        DefaultRouter string `json:"defaultRouter"`
+        Status        uint32 `json:"status"`
+        Remark        string `json:"remark"`
+        OrderNo       uint32 `json:"orderNo"`
+        CreateAt      int64  `json:"createAt"`
+    }
+
+    RoleListResp {
+        PageList
+        Data  []RoleInfo  `json:"data"`
+    }
+
+    SetStatusReq {
+        Id     uint64  `json:"id"`
+        Status uint32  `json:"status"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: role
+    middleware: Authority
+)
+
+service core {
+    @handler createOrUpdateRoleHandler
+    post /role (RoleInfo) returns (SimpleMsg)
+
+    @handler deleteRoleHandler
+    delete /role (IdReq) returns (SimpleMsg)
+
+    @handler getRoleListHandler
+    post /role/list (PageInfo) returns (RoleListResp)
+
+    @handler setRoleStatusHandler
+    post /role/status (SetStatusReq) returns (SimpleMsg)
+}

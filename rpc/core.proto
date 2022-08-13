@@ -1,0 +1,290 @@
+syntax = "proto3";
+
+package core;
+
+option go_package = "./core";
+
+// base message
+
+message IDReq {
+  uint64 ID = 1;
+}
+
+message UUIDReq {
+  string UUID = 1;
+}
+
+message BaseResp {
+  string msg = 1;
+}
+
+message PageInfoReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+}
+
+// user message
+
+message LoginReq {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResp {
+  string id = 1;
+  string role_name = 2;
+  string role_value = 3;
+  uint32 role_id = 4;
+}
+
+message ChangePasswordReq {
+  uint64 user_id = 1;
+  string old_password = 2;
+  string new_password = 3;
+}
+
+message CreateOrUpdateUserReq {
+  uint64 id = 1;
+  string avatar = 2;
+  uint32 role_id = 3;
+  string mobile = 4;
+  string email = 5;
+  int32  status = 6;
+  string username = 7;
+  string nickname = 8;
+  string password = 9;
+}
+
+message UserInfoResp {
+  uint64 id = 1;
+  string avatar = 2;
+  uint32 role_id = 3;
+  string mobile = 4;
+  string email = 5;
+  int32  status = 6;
+  string username = 7;
+  string UUID = 8;
+  string nickname = 9;
+  string roleName = 10;
+  int64 create_at = 11;
+  int64 update_at = 12;
+  string roleValue = 13;
+}
+
+message UserListResp {
+  uint32 total = 1;
+  repeated UserInfoResp data = 2;
+}
+
+message GetUserListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string username = 3;
+  string nickname = 4;
+  string email = 5;
+  string mobile = 6;
+  uint64 role_id = 7;
+}
+
+
+// menu messages
+
+message CreateOrUpdateMenuReq {
+  uint32 level = 1;
+  uint32 parent_id = 2;
+  string path = 3;
+  string name = 4;
+  string redirect = 5;
+  string component = 6;
+  uint32 order_no = 7;
+  bool disabled = 8;
+  Meta meta = 9;
+  uint64 id = 10;
+  uint32 menu_type = 11;
+}
+
+message MenuInfo {
+  uint64 id = 1;
+  int64 create_at = 2;
+  int64 update_at = 3;
+  uint32 level = 4;
+  uint32 parent_id = 5;
+  string path = 6;
+  string name = 7;
+  string redirect = 8;
+  string component = 9;
+  uint32 order_no = 10;
+  bool disabled = 11;
+  Meta meta = 12;
+  repeated MenuInfo children = 13;
+  uint32 menu_type = 14;
+}
+
+message Meta {
+  bool keep_alive = 1;
+  bool hide_menu = 2;
+  bool hide_breadcrumb = 3;
+  string current_active_menu = 4;
+  string title = 5;
+  string icon = 6;
+  bool close_tab = 7;
+}
+
+message MenuInfoList {
+  uint64 total = 1;
+  repeated MenuInfo data = 2;
+}
+
+message MenuRoleInfo {
+  uint64 id = 1;
+  uint64 menu_id = 2;
+  uint64 role_id = 3;
+}
+
+message MenuRoleListResp {
+  uint64 total = 1;
+  repeated MenuRoleInfo data = 2;
+}
+
+message CreateMenuParamReq {
+  uint64 menu_id = 1;
+  string type = 2;
+  string key = 3;
+  string value = 4;
+}
+
+message UpdateMenuParamReq {
+  uint64 menu_id = 1;
+  string type = 2;
+  string key = 3;
+  string value = 4;
+  uint64 id = 5;
+}
+
+message MenuParamResp {
+  uint64 id = 5;
+  uint64 menu_id = 1;
+  string type = 2;
+  string key = 3;
+  string value = 4;
+  int64 create_at = 6;
+  int64 update_at = 7;
+}
+
+message MenuParamListResp {
+  uint64 total = 1;
+  repeated MenuParamResp data = 2;
+}
+
+// role messages
+
+message RoleInfo {
+  uint64 id = 1;
+  string name = 2;
+  string value = 3;
+  string default_router = 4;
+  uint32 status = 5;
+  string remark = 6;
+  uint32 order_no = 7;
+  int64 createAt = 8;
+}
+
+message RoleListResp {
+  uint64 total = 1;
+  repeated RoleInfo data = 2;
+}
+
+message SetStatusReq {
+  uint64 id = 1;
+  uint32 status = 2;
+}
+
+// casbin
+message UpdatePolicyReq {
+  uint64 role_id = 1;
+  repeated PolicyPartInfo rules = 2;
+}
+
+message PolicyPartInfo {
+  string path = 1;
+  string method = 2;
+}
+
+message CreatePolicyReq {
+  uint64 role_id = 1;
+  PolicyPartInfo info = 2;
+}
+
+// api message
+message ApiInfo {
+  uint64 id = 1;
+  int64 create_at = 2;
+  string path = 3;
+  string description = 5;
+  string group = 6;
+  string method = 7;
+}
+
+message ApiListResp {
+  uint64 total = 1;
+  repeated ApiInfo data = 2;
+}
+
+message ApiPageReq {
+  PageInfoReq page = 1;
+  string path = 2;
+  string description = 3;
+  string method = 4;
+  string group = 5;
+}
+
+// authorization message
+
+message RoleMenuAuthorityReq {
+  uint64 role_id = 1;
+  repeated uint64 menu_id = 2;
+}
+// return the role's authorization menu's ids
+message RoleMenuAuthorityResp {
+  repeated uint64 menu_id = 1;
+}
+// service
+
+service core {
+  // user service
+  rpc login(LoginReq) returns (LoginResp);
+  rpc changePassword (ChangePasswordReq) returns (BaseResp);
+  rpc createOrUpdateUser (CreateOrUpdateUserReq) returns (BaseResp);
+  rpc getUserById (UUIDReq) returns (UserInfoResp);
+  rpc getUserList (GetUserListReq) returns (UserListResp);
+  rpc deleteUser (IDReq) returns (BaseResp);
+
+  // menu service
+  //menu management
+  rpc createOrUpdateMenu (CreateOrUpdateMenuReq) returns (BaseResp);
+  rpc deleteMenu (IDReq) returns (BaseResp);
+  rpc getMenuListByRole (IDReq) returns (MenuInfoList);
+  rpc getMenuByPage (PageInfoReq) returns (MenuInfoList);
+  rpc createMenuParam (CreateMenuParamReq) returns (BaseResp);
+  rpc updateMenuParam (UpdateMenuParamReq) returns (BaseResp);
+  rpc deleteMenuParam (IDReq) returns (BaseResp);
+  rpc getMenuParamById (IDReq) returns (MenuParamResp);
+  rpc geMenuParamListById (IDReq) returns (MenuParamListResp);
+
+  // role service
+  rpc createOrUpdateRole (RoleInfo) returns (BaseResp);
+  rpc deleteRole (IDReq) returns (BaseResp);
+  rpc getRoleById (IDReq) returns (RoleInfo);
+  rpc getRoleList (PageInfoReq) returns (RoleListResp);
+  rpc setRoleStatus (SetStatusReq) returns (BaseResp);
+
+  // api management service
+  rpc createOrUpdateApi (ApiInfo) returns (BaseResp);
+  rpc deleteApi (IDReq) returns (BaseResp);
+  rpc getApiList (ApiPageReq) returns (ApiListResp);
+
+  // authorization management service
+  rpc getMenuAuthority (IDReq) returns (RoleMenuAuthorityResp);
+  rpc createOrUpdateMenuAuthority (RoleMenuAuthorityReq) returns (BaseResp);
+
+}

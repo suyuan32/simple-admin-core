@@ -1,0 +1,52 @@
+syntax = "v1"
+
+info(
+    title: "api management"
+    desc: "api management is used to register apis and manage apis"
+    author: "ryansu"
+    email: "yuansu.china.work@gmail.com"
+    version: "v1.0"
+)
+
+import "base.api"
+
+type (
+    ApiInfo {
+        Id            uint64 `json:"id"`
+        CreateAt      int64  `json:"createAt"`
+        Path          string `json:"path"`
+        Description   string `json:"description"`
+        Group         string `json:"group"`
+        Method        string `json:"method"`
+    }
+
+    ApiListResp {
+        PageList
+        Data  []ApiInfo  `json:"data"`
+    }
+
+    ApiListReq {
+        PageInfo
+        Path          string `json:"path"`
+        Description   string `json:"description"`
+        Group         string `json:"group"`
+        Method        string `json:"method"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: api
+    middleware: Authority
+)
+
+service core {
+    @handler createOrUpdateApiHandler
+    post /api (ApiInfo) returns (SimpleMsg)
+
+    @handler deleteApiHandler
+    delete /api (IdReq) returns (SimpleMsg)
+
+    @handler getApiListHandler
+    post /api/list (ApiListReq) returns (ApiListResp)
+}
