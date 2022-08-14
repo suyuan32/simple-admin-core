@@ -14,6 +14,11 @@ type ApiErrorResponse struct {
 func NewApiError(code int, msg string) error {
 	return &ApiError{Code: code, Msg: msg}
 }
+
+func NewApiErrorWithoutMsg(code int) error {
+	return &ApiError{Code: code, Msg: ""}
+}
+
 func NewDefaultApiError(msg string) error {
 	return NewApiError(defaultApiCode, msg)
 }

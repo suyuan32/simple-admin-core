@@ -126,7 +126,7 @@ service core {
     post /user/login (LoginReq) returns (LoginResp)
 
     @handler registerHandler
-    post /user/register (RegisterReq) returns (BaseResp)
+    post /user/register (RegisterReq) returns (SimpleMsg)
 }
 
 @server(

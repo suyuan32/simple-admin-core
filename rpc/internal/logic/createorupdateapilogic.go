@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"time"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
@@ -43,9 +44,9 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, "sys.role.duplicateRoleValue")
+			return nil, status.Error(codes.InvalidArgument, errorx.DuplicateRoleValue)
 		}
-		return &core.BaseResp{Msg: "common.createSuccess"}, nil
+		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {
 		var origin *model.Api
 		check := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
@@ -53,7 +54,7 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 		if check.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, "common.updateFailure")
+			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 		data := &model.Api{
 			Model:       gorm.Model{ID: origin.ID, CreatedAt: origin.CreatedAt, UpdatedAt: time.Now()},
@@ -67,8 +68,8 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, "common.updateFailure")
+			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
-		return &core.BaseResp{Msg: "common.updateSuccess"}, nil
+		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 	}
 }

@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -31,8 +32,8 @@ func (l *SetRoleStatusLogic) SetRoleStatus(in *core.SetStatusReq) (*core.BaseRes
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {
-		return nil, status.Error(codes.InvalidArgument, "common.updateFailure")
+		return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 	}
 
-	return &core.BaseResp{Msg: "common.updateSuccess"}, nil
+	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 }

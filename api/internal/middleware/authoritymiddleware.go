@@ -35,24 +35,24 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		// check the role status
 		roleStatus, err := m.Rds.Hget("roleData", fmt.Sprintf("%s_status", roleId))
 		if err != nil {
-			httpx.Error(w, errorx.NewApiError(http.StatusUnauthorized, ""))
+			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
 			return
 		} else if roleStatus == "0" {
-			httpx.Error(w, errorx.NewApiError(http.StatusBadRequest, "sys.role.roleForbidden"))
+			httpx.Error(w, errorx.NewApiError(http.StatusBadRequest, errorx.RoleForbidden))
 			return
 		}
 
 		sub := roleId
 		result, err := m.Cbn.Enforce(sub, obj, act)
 		if err != nil {
-			httpx.Error(w, errorx.NewApiError(http.StatusInternalServerError, "sys.api.apiRequestFailed"))
+			httpx.Error(w, errorx.NewApiError(http.StatusInternalServerError, errorx.ApiRequestFailed))
 			return
 		}
 		if result {
 			next(w, r)
 			return
 		} else {
-			httpx.Error(w, errorx.NewApiError(http.StatusUnauthorized, "sys.api.errMsg401"))
+			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
 			return
 		}
 

@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -35,8 +36,8 @@ func (l *DeleteUserLogic) DeleteUser(in *core.IDReq) (*core.BaseResp, error) {
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {
-		return nil, status.Error(codes.InvalidArgument, "common.deleteFailure")
+		return nil, status.Error(codes.InvalidArgument, errorx.DeleteFailed)
 	}
 
-	return &core.BaseResp{Msg: "common.deleteSuccess"}, nil
+	return &core.BaseResp{Msg: errorx.DeleteSuccess}, nil
 }

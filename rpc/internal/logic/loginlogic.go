@@ -36,15 +36,15 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 	result := l.svcCtx.DB.Where(&model.User{Username: in.Username}).First(&u)
 	if result.Error != nil {
 		l.Logger.Error("login logic: database error ", result.Error)
-		return nil, status.Error(codes.Internal, "database err")
+		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 
 	if result.RowsAffected == 0 {
-		return nil, status.Error(codes.InvalidArgument, "sys.login.userNotExist")
+		return nil, status.Error(codes.InvalidArgument, errorx.UserNotExists)
 	}
 
 	if ok := util.BcryptCheck(in.Password, u.Password); !ok {
-		return nil, status.Error(codes.InvalidArgument, "sys.login.wrongUsernameOrPassword")
+		return nil, status.Error(codes.InvalidArgument, errorx.WrongUsernameOrPassword)
 	}
 
 	// get role data from redis
@@ -53,14 +53,14 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 		var roleData []model.Role
 		res := l.svcCtx.DB.Find(&roleData)
 		if res.RowsAffected == 0 {
-			return nil, errorx.NewRpcError(codes.NotFound, "role not exist")
+			return nil, status.Error(codes.NotFound, "role not found")
 		}
 		for _, v := range roleData {
 			err = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d", v.ID), v.Name)
 			err = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d_value", v.ID), v.Value)
 			err = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d_status", v.ID), strconv.Itoa(int(v.Status)))
 			if err != nil {
-				return nil, errorx.NewRpcError(codes.Internal, "redis error")
+				return nil, status.Error(codes.Internal, errorx.RedisError)
 			}
 			if v.ID == uint(u.RoleId) {
 				roleName = v.Name
@@ -71,7 +71,7 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 		roleName = s
 		value, err = l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d_value", u.RoleId))
 		if err != nil {
-			return nil, errorx.NewRpcError(codes.NotFound, "role not exist")
+			return nil, errorx.NewRpcError(codes.NotFound, errorx.TargetNotExist)
 		}
 	}
 

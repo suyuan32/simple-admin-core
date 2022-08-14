@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 	"fmt"
+	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"strings"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -40,5 +41,5 @@ func (l *CreateOrUpdateMenuAuthorityLogic) CreateOrUpdateMenuAuthority(in *core.
 		}
 	}
 	l.svcCtx.DB.Exec(insertString.String())
-	return &core.BaseResp{Msg: "common.successful"}, nil
+	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 }

@@ -48,13 +48,13 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, "sys.role.duplicateRoleValue")
+			return nil, status.Error(codes.InvalidArgument, errorx.DuplicateRoleValue)
 		}
 		err := l.UpdateRoleInfoInRedis()
 		if err != nil {
 			return nil, err
 		}
-		return &core.BaseResp{Msg: "common.createSuccess"}, nil
+		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {
 		var origin *model.Role
 		check := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
@@ -62,7 +62,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 		if check.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, "common.updateFailure")
+			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 		data := &model.Role{
 			Model:         gorm.Model{ID: origin.ID, CreatedAt: origin.CreatedAt, UpdatedAt: time.Now()},
@@ -78,13 +78,13 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, "common.updateFailure")
+			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 		err := l.UpdateRoleInfoInRedis()
 		if err != nil {
 			return nil, err
 		}
-		return &core.BaseResp{Msg: "common.updateSuccess"}, nil
+		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 	}
 }
 
@@ -92,14 +92,14 @@ func (l *CreateOrUpdateRoleLogic) UpdateRoleInfoInRedis() error {
 	var roleData []model.Role
 	res := l.svcCtx.DB.Find(&roleData)
 	if res.RowsAffected == 0 {
-		return errorx.NewRpcError(codes.NotFound, "role not exist")
+		return errorx.NewRpcError(codes.NotFound, errorx.TargetNotExist)
 	}
 	for _, v := range roleData {
 		err := l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d", v.ID), v.Name)
 		err = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d_value", v.ID), v.Value)
 		err = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d_status", v.ID), strconv.Itoa(int(v.Status)))
 		if err != nil {
-			return errorx.NewRpcError(codes.Internal, "redis error")
+			return errorx.NewRpcError(codes.Internal, errorx.RedisError)
 		}
 	}
 	return nil

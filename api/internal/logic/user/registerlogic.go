@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/captcha"
@@ -26,10 +27,11 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 	}
 }
 
-func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseResp, err error) {
+func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.SimpleMsg, err error) {
 	if ok := captcha.Store.Verify(req.CaptchaId, req.Captcha, true); ok {
 		user, err := l.svcCtx.CoreRpc.CreateOrUpdateUser(context.Background(),
 			&core.CreateOrUpdateUserReq{
+				Id:       0,
 				Username: req.Username,
 				Password: req.Password,
 				Email:    req.Email,
@@ -38,16 +40,11 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseResp, 
 			l.Logger.Error("register logic: create user err: ", err.Error())
 			return nil, err
 		}
-		resp = &types.BaseResp{
-			Code: http.StatusOK,
-			Msg:  user.Msg,
+		resp = &types.SimpleMsg{
+			Msg: user.Msg,
 		}
 		return resp, nil
 	} else {
-		resp = &types.BaseResp{
-			Code: http.StatusBadRequest,
-			Msg:  "wrong captcha",
-		}
-		return resp, nil
+		return nil, errorx.NewApiError(http.StatusBadRequest, errorx.WrongCaptcha)
 	}
 }

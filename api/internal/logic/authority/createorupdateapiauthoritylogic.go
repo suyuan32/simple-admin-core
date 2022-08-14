@@ -53,8 +53,8 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 		return nil, err
 	}
 	if addResult {
-		return &types.SimpleMsg{Msg: "common.updateSuccess"}, nil
+		return &types.SimpleMsg{Msg: errorx.UpdateSuccess}, nil
 	} else {
-		return nil, errorx.NewApiError(http.StatusBadRequest, "common.updateFailure")
+		return nil, errorx.NewApiError(http.StatusBadRequest, errorx.UpdateFailed)
 	}
 }
