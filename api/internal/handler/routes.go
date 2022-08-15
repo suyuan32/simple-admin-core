@@ -24,8 +24,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/core/health",
 				Handler: core.HealthCheckHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/core/init_database",
+				Handler: core.InitDatabaseHandler(serverCtx),
+			},
 		},
-		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 	)
 
 	server.AddRoutes(

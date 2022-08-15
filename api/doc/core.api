@@ -14,9 +14,10 @@ import "menu.api"
 import "captcha.api"
 import "apis.api"
 import "authority.api"
+import "base.api"
+
 
 @server(
-	jwt: Auth
 	group: core
 )
 
@@ -24,4 +25,7 @@ service core {
 	@doc "core"
 	@handler healthCheckHandler
 	get /core/health
+	
+	@handler initDatabaseHandler
+	get /core/init_database returns (SimpleMsg)
 }

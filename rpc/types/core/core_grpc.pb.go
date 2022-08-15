@@ -22,6 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CoreClient interface {
+	// init
+	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
 	// user service
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 	ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -61,6 +63,15 @@ type coreClient struct {
 
 func NewCoreClient(cc grpc.ClientConnInterface) CoreClient {
 	return &coreClient{cc}
+}
+
+func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/initDatabase", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *coreClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
@@ -292,6 +303,8 @@ func (c *coreClient) CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMe
 // All implementations must embed UnimplementedCoreServer
 // for forward compatibility
 type CoreServer interface {
+	// init
+	InitDatabase(context.Context, *Empty) (*BaseResp, error)
 	// user service
 	Login(context.Context, *LoginReq) (*LoginResp, error)
 	ChangePassword(context.Context, *ChangePasswordReq) (*BaseResp, error)
@@ -330,6 +343,9 @@ type CoreServer interface {
 type UnimplementedCoreServer struct {
 }
 
+func (UnimplementedCoreServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
+}
 func (UnimplementedCoreServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
@@ -416,6 +432,24 @@ type UnsafeCoreServer interface {
 
 func RegisterCoreServer(s grpc.ServiceRegistrar, srv CoreServer) {
 	s.RegisterService(&Core_ServiceDesc, srv)
+}
+
+func _Core_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).InitDatabase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/initDatabase",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).InitDatabase(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Core_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -875,6 +909,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "core.core",
 	HandlerType: (*CoreServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "initDatabase",
+			Handler:    _Core_InitDatabase_Handler,
+		},
 		{
 			MethodName: "login",
 			Handler:    _Core_Login_Handler,

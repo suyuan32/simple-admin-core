@@ -5,6 +5,7 @@ package core;
 option go_package = "./core";
 
 // base message
+message Empty {}
 
 message IDReq {
   uint64 ID = 1;
@@ -251,6 +252,9 @@ message RoleMenuAuthorityResp {
 // service
 
 service core {
+  // init
+  rpc initDatabase (Empty) returns (BaseResp);
+
   // user service
   rpc login(LoginReq) returns (LoginResp);
   rpc changePassword (ChangePasswordReq) returns (BaseResp);

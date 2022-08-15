@@ -22,6 +22,7 @@ type (
 	CreateOrUpdateMenuReq = core.CreateOrUpdateMenuReq
 	CreateOrUpdateUserReq = core.CreateOrUpdateUserReq
 	CreatePolicyReq       = core.CreatePolicyReq
+	Empty                 = core.Empty
 	GetUserListReq        = core.GetUserListReq
 	IDReq                 = core.IDReq
 	LoginReq              = core.LoginReq
@@ -47,6 +48,8 @@ type (
 	UserListResp          = core.UserListResp
 
 	Core interface {
+		//  init
+		InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
 		//  user service
 		Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 		ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -88,6 +91,12 @@ func NewCore(cli zrpc.Client) Core {
 	return &defaultCore{
 		cli: cli,
 	}
+}
+
+//  init
+func (m *defaultCore) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.InitDatabase(ctx, in, opts...)
 }
 
 //  user service

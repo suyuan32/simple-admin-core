@@ -4,9 +4,9 @@ import "gorm.io/gorm"
 
 type Menu struct {
 	gorm.Model
-	MenuLevel uint32      `json:"level" gorm:"default:1;comment:menu level"`
-	MenuType  uint32      `json:"type" gorm:"default:1;comment:menu type: 1. group 2. menu"`
-	ParentId  uint        `json:"parentId" gorm:"default:1;comment:parent menu id"`        // parent menu id
+	MenuLevel uint32      `json:"level" gorm:"comment:menu level"`
+	MenuType  uint32      `json:"type" gorm:"comment:menu type: 1. group 2. menu"`
+	ParentId  uint        `json:"parentId" gorm:"comment:parent menu id"`                  // parent menu id
 	Path      string      `json:"path" gorm:"comment:index path"`                          // index path
 	Name      string      `json:"name" gorm:"comment:index name"`                          // index name
 	Redirect  string      `json:"redirect" gorm:"comment: redirect path"`                  // redirect path

@@ -22,6 +22,12 @@ func NewCoreServer(svcCtx *svc.ServiceContext) *CoreServer {
 	}
 }
 
+//  init
+func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.BaseResp, error) {
+	l := logic.NewInitDatabaseLogic(ctx, s.svcCtx)
+	return l.InitDatabase(in)
+}
+
 //  user service
 func (s *CoreServer) Login(ctx context.Context, in *core.LoginReq) (*core.LoginResp, error) {
 	l := logic.NewLoginLogic(ctx, s.svcCtx)
