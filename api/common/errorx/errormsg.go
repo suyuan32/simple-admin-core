@@ -133,10 +133,16 @@ const (
 
 	// RoleForbidden
 	// EN: Your role is forbidden
-	// ZH_CN: 正在初始化...
+	// ZH_CN: 您的角色已停用
 	RoleForbidden string = "sys.role.roleForbidden"
 
 	// InitRunning
 	// EN: The initialization is running...
+	// ZH_CN: 正在初始化...
 	InitRunning string = "sys.init.initializeIsRunning"
+
+	// AlreadyInit
+	// EN: The database had been initialized.
+	// ZH_CN: 数据库已被初始化。
+	AlreadyInit string = "sys.init.alreadyInit"
 )

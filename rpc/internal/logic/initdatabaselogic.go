@@ -63,7 +63,7 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		if err != nil {
 			return nil, status.Error(codes.Internal, errorx.RedisError)
 		}
-		return &core.BaseResp{Msg: "Already initialize"}, nil
+		return &core.BaseResp{Msg: errorx.AlreadyInit}, nil
 	}
 
 	// set default state value
