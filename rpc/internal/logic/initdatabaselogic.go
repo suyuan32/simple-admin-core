@@ -3,10 +3,10 @@ package logic
 import (
 	"context"
 	"fmt"
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"log"
 	"strings"
 
+	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/util"
@@ -17,6 +17,7 @@ import (
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"github.com/google/uuid"
 	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/stores/redis"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
@@ -36,45 +37,78 @@ func NewInitDatabaseLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Init
 	}
 }
 
-//  init
+//  init database
+
 func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error) {
+	// add lock to avoid duplicate initialization
+	lock := redis.NewRedisLock(l.svcCtx.Redis, "init_database_lock")
+	lock.SetExpire(60)
+	if ok, err := lock.Acquire(); !ok || err != nil {
+		if !ok {
+			return nil, status.Error(codes.InvalidArgument, errorx.InitRunning)
+		} else {
+			return nil, status.Error(codes.Internal, errorx.RedisError)
+		}
+	}
+	defer func() {
+		recover()
+		lock.Release()
+	}()
+
 	// judge if the initialization had been done
 	var apis []model.Api
 	check := l.svcCtx.DB.Find(&apis)
 	if check.RowsAffected != 0 {
+		err := l.svcCtx.Redis.Set("database_init_state", "1")
+		if err != nil {
+			return nil, status.Error(codes.Internal, errorx.RedisError)
+		}
 		return &core.BaseResp{Msg: "Already initialize"}, nil
 	}
+
+	// set default state value
+	l.svcCtx.Redis.Setex("database_error_msg", "", 300)
+	l.svcCtx.Redis.Set("database_init_state", "0")
+
 	// initialize table structure
 	err := l.svcCtx.DB.AutoMigrate(&model.User{}, &model.Role{}, &model.Api{}, &model.Menu{}, &model.MenuParam{})
 	if err != nil {
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
 	err = l.insertUserData()
 	if err != nil {
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	err = l.insertRoleData()
 	if err != nil {
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	err = l.insertMenuData()
 	if err != nil {
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	err = l.insertApiData()
 	if err != nil {
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	err = l.insertRoleMenuAuthorityData()
 	if err != nil {
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	err = l.insertCasbinPoliciesData()
 	if err != nil {
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
+	l.svcCtx.Redis.Set("database_init_state", "1")
 	return &core.BaseResp{Msg: errorx.Success}, nil
 }
 

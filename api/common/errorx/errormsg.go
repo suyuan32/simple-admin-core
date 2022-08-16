@@ -133,6 +133,10 @@ const (
 
 	// RoleForbidden
 	// EN: Your role is forbidden
-	// ZH_CN: 您的角色已停用
+	// ZH_CN: 正在初始化...
 	RoleForbidden string = "sys.role.roleForbidden"
+
+	// InitRunning
+	// EN: The initialization is running...
+	InitRunning string = "sys.init.initializeIsRunning"
 )
