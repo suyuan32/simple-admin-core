@@ -2,7 +2,8 @@ package user
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
+	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/captcha"
@@ -45,6 +46,6 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.SimpleMsg,
 		}
 		return resp, nil
 	} else {
-		return nil, errorx.NewApiError(http.StatusBadRequest, errorx.WrongCaptcha)
+		return nil, httpx.NewApiError(http.StatusBadRequest, message.WrongCaptcha)
 	}
 }

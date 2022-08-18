@@ -2,10 +2,11 @@ package user
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
 	"time"
 
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/captcha"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -56,7 +57,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		}
 		return resp, nil
 	} else {
-		return nil, errorx.NewApiError(http.StatusBadRequest, errorx.WrongCaptcha)
+		return nil, httpx.NewApiError(http.StatusBadRequest, message.WrongCaptcha)
 	}
 }
 

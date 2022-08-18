@@ -3,9 +3,9 @@ package user
 import (
 	"context"
 	"fmt"
+	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
 
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 
@@ -30,7 +30,7 @@ func (l *GetUserPermCodeLogic) GetUserPermCode() (resp *types.PermCodeResp, err 
 	roleId := l.ctx.Value("roleId")
 	fmt.Println(roleId)
 	if roleId == nil {
-		return nil, &errorx.ApiError{
+		return nil, &httpx.ApiError{
 			Code: http.StatusUnauthorized,
 			Msg:  "sys.login.requireLogin",
 		}

@@ -3,9 +3,9 @@ package middleware
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"net/http"
-
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/zeromicro/go-zero/core/stores/redis"
@@ -35,24 +35,24 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		// check the role status
 		roleStatus, err := m.Rds.Hget("roleData", fmt.Sprintf("%s_status", roleId))
 		if err != nil {
-			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
+			httpx.Error(w, httpx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
 			return
 		} else if roleStatus == "0" {
-			httpx.Error(w, errorx.NewApiError(http.StatusBadRequest, errorx.RoleForbidden))
+			httpx.Error(w, httpx.NewApiError(http.StatusBadRequest, message.RoleForbidden))
 			return
 		}
 
 		sub := roleId
 		result, err := m.Cbn.Enforce(sub, obj, act)
 		if err != nil {
-			httpx.Error(w, errorx.NewApiError(http.StatusInternalServerError, errorx.ApiRequestFailed))
+			httpx.Error(w, httpx.NewApiError(http.StatusInternalServerError, errorx.ApiRequestFailed))
 			return
 		}
 		if result {
 			next(w, r)
 			return
 		} else {
-			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
+			httpx.Error(w, httpx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
 			return
 		}
 

@@ -2,9 +2,10 @@ package svc
 
 import (
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
-	"github.com/suyuan32/simple-admin-core/api/internal/initialize"
 	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
 	"github.com/suyuan32/simple-admin-core/rpc/core"
+	"github.com/zeromicro/go-zero/core/utils"
+	"log"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/zeromicro/go-zero/core/stores/redis"
@@ -21,10 +22,12 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
-	initialize.InitErrorHandler()
-	rds := initialize.InitRedis(c)
-	db := initialize.InitGORM(c)
-	cbn := initialize.InitCasbin(db)
+	rds := c.RedisConf.NewRedis()
+	db, err := c.DB.NewGORM()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	cbn := utils.NewCasbin(db)
 	return &ServiceContext{
 		Config:    c,
 		Authority: middleware.NewAuthorityMiddleware(cbn, rds).Handle,

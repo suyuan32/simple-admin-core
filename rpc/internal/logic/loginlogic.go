@@ -3,9 +3,10 @@ package logic
 import (
 	"context"
 	"fmt"
+	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"strconv"
 
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/util"
@@ -40,11 +41,11 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 	}
 
 	if result.RowsAffected == 0 {
-		return nil, status.Error(codes.InvalidArgument, errorx.UserNotExists)
+		return nil, status.Error(codes.InvalidArgument, message.UserNotExists)
 	}
 
 	if ok := util.BcryptCheck(in.Password, u.Password); !ok {
-		return nil, status.Error(codes.InvalidArgument, errorx.WrongUsernameOrPassword)
+		return nil, status.Error(codes.InvalidArgument, message.WrongUsernameOrPassword)
 	}
 
 	// get role data from redis
@@ -71,7 +72,7 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 		roleName = s
 		value, err = l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d_value", u.RoleId))
 		if err != nil {
-			return nil, errorx.NewRpcError(codes.NotFound, errorx.TargetNotExist)
+			return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
 		}
 	}
 

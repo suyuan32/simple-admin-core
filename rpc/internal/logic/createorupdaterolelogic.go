@@ -3,10 +3,11 @@ package logic
 import (
 	"context"
 	"fmt"
+	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"strconv"
 	"time"
 
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -48,7 +49,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, errorx.DuplicateRoleValue)
+			return nil, status.Error(codes.InvalidArgument, message.DuplicateRoleValue)
 		}
 		err := l.UpdateRoleInfoInRedis()
 		if err != nil {
@@ -92,14 +93,14 @@ func (l *CreateOrUpdateRoleLogic) UpdateRoleInfoInRedis() error {
 	var roleData []model.Role
 	res := l.svcCtx.DB.Find(&roleData)
 	if res.RowsAffected == 0 {
-		return errorx.NewRpcError(codes.NotFound, errorx.TargetNotExist)
+		return status.Error(codes.NotFound, errorx.TargetNotExist)
 	}
 	for _, v := range roleData {
 		err := l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d", v.ID), v.Name)
 		err = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d_value", v.ID), v.Value)
 		err = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d_status", v.ID), strconv.Itoa(int(v.Status)))
 		if err != nil {
-			return errorx.NewRpcError(codes.Internal, errorx.RedisError)
+			return status.Error(codes.Internal, errorx.RedisError)
 		}
 	}
 	return nil

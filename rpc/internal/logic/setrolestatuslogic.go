@@ -2,7 +2,7 @@ package logic
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"

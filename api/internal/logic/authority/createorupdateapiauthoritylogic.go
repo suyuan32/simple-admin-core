@@ -2,10 +2,11 @@ package authority
 
 import (
 	"context"
+	"github.com/zeromicro/go-zero/core/errorx"
+	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
 	"strconv"
 
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 
@@ -34,13 +35,13 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	if len(oldPolicies) != 0 {
 		removeResult, err := l.svcCtx.Casbin.RemoveFilteredPolicy(0, roleIdString)
 		if err != nil {
-			return nil, &errorx.ApiError{
+			return nil, &httpx.ApiError{
 				Code: http.StatusInternalServerError,
 				Msg:  err.Error(),
 			}
 		}
 		if !removeResult {
-			return nil, errorx.NewApiError(http.StatusInternalServerError, "cannot clear old policies")
+			return nil, httpx.NewApiError(http.StatusInternalServerError, "cannot clear old policies")
 		}
 	}
 	// add new policies
@@ -55,6 +56,6 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	if addResult {
 		return &types.SimpleMsg{Msg: errorx.UpdateSuccess}, nil
 	} else {
-		return nil, errorx.NewApiError(http.StatusBadRequest, errorx.UpdateFailed)
+		return nil, httpx.NewApiError(http.StatusBadRequest, errorx.UpdateFailed)
 	}
 }

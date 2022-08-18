@@ -2,7 +2,8 @@ package logic
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
+	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"time"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
@@ -44,7 +45,7 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, errorx.DuplicateRoleValue)
+			return nil, status.Error(codes.InvalidArgument, message.DuplicateRoleValue)
 		}
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {

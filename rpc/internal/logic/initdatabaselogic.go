@@ -3,10 +3,10 @@ package logic
 import (
 	"context"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"log"
 	"strings"
 
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/util"

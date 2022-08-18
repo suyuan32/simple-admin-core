@@ -2,9 +2,9 @@ package core
 
 import (
 	"context"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"time"
 
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-core/rpc/core"

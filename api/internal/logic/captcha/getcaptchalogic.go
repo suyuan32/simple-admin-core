@@ -2,9 +2,9 @@ package captcha
 
 import (
 	"context"
+	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
 
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -39,7 +39,7 @@ func (l *GetCaptchaLogic) GetCaptcha() (resp *types.CaptchaInfoResp, err error) 
 	gen := base64Captcha.NewCaptcha(driver, Store)
 	if id, b64s, err := gen.Generate(); err != nil {
 		l.Logger.Error("getcaptchalogic: fail to generate captcha!", err)
-		return nil, errorx.NewApiError(http.StatusInternalServerError, "内部错误")
+		return nil, httpx.NewApiError(http.StatusInternalServerError, "内部错误")
 	} else {
 		resp = &types.CaptchaInfoResp{
 			BaseMsg: types.BaseMsg{

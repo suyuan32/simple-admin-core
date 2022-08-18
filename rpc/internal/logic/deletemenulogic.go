@@ -2,7 +2,8 @@ package logic
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
+	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -35,7 +36,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 		return nil, status.Error(codes.Internal, check.Error.Error())
 	}
 	if check.RowsAffected != 0 {
-		return nil, status.Error(codes.InvalidArgument, errorx.ChildrenExistError)
+		return nil, status.Error(codes.InvalidArgument, message.ChildrenExistError)
 	}
 	result := l.svcCtx.DB.Delete(&model.Menu{
 		Model: gorm.Model{ID: uint(in.ID)},
@@ -44,7 +45,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {
-		return nil, status.Error(codes.InvalidArgument, errorx.MenuNotExists)
+		return nil, status.Error(codes.InvalidArgument, message.MenuNotExists)
 	}
 	return &core.BaseResp{Msg: errorx.DeleteSuccess}, nil
 }

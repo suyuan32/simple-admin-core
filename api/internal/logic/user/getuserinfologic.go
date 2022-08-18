@@ -2,9 +2,9 @@ package user
 
 import (
 	"context"
+	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
 
-	"github.com/suyuan32/simple-admin-core/api/common/errorx"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-core/rpc/core"
@@ -28,7 +28,7 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 
 func (l *GetUserInfoLogic) GetUserInfo() (resp *types.GetUserInfoResp, err error) {
 	if l.ctx.Value("userId").(string) == "" {
-		return nil, errorx.NewApiError(http.StatusUnauthorized, "Please log in")
+		return nil, httpx.NewApiError(http.StatusUnauthorized, "Please log in")
 	}
 	user, err := l.svcCtx.CoreRpc.GetUserById(context.Background(),
 		&core.UUIDReq{UUID: l.ctx.Value("userId").(string)})
