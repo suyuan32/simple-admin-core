@@ -16,7 +16,6 @@ import "apis.api"
 import "authority.api"
 import "base.api"
 
-
 @server(
 	group: core
 )

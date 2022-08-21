@@ -90,8 +90,8 @@ type RegisterReq struct {
 }
 
 type ChangePasswordReq struct {
-	Username    string `json:"username"`
-	Password    string `json:"password"`
+	UUID        string `json:"uuid"`
+	OldPassword string `json:"oldPassword"`
 	NewPassword string `json:"newPassword"`
 }
 

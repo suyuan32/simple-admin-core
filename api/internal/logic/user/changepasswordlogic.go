@@ -2,6 +2,9 @@ package user
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-core/rpc/core"
+	"github.com/zeromicro/go-zero/rest/httpx"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -23,8 +26,17 @@ func NewChangePasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ch
 	}
 }
 
-func (l *ChangePasswordLogic) ChangePassword(req *types.ChangePasswordReq) (resp *types.ChangePasswordResp, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+func (l *ChangePasswordLogic) ChangePassword(req *types.ChangePasswordReq) (resp *types.SimpleMsg, err error) {
+	if l.ctx.Value("userId").(string) != req.UUID && l.ctx.Value("roleId").(string) != "1" {
+		return nil, httpx.NewApiErrorWithoutMsg(http.StatusUnauthorized)
+	}
+	result, err := l.svcCtx.CoreRpc.ChangePassword(context.Background(), &core.ChangePasswordReq{
+		Uuid:        req.UUID,
+		OldPassword: req.OldPassword,
+		NewPassword: req.NewPassword,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &types.SimpleMsg{Msg: result.Msg}, nil
 }

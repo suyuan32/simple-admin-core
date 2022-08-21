@@ -471,9 +471,9 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			MenuLevel: 1,
 			MenuType:  1,
 			ParentId:  1,
-			Path:      "/upload_management",
+			Path:      "/file_management",
 			Name:      "File Management",
-			Component: "/uploader/index",
+			Component: "/file/index",
 			OrderNo:   1,
 			Disabled:  false,
 			Meta: model.Meta{

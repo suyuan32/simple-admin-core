@@ -39,8 +39,8 @@ type (
     }
 
     ChangePasswordReq {
-        Username string    `json:"username"`
-        Password string    `json:"password"`
+        UUID        string `json:"uuid"`
+        OldPassword string `json:"oldPassword"`
         NewPassword string `json:"newPassword"`
     }
 
@@ -137,7 +137,7 @@ service core {
 
 service core {
     @handler changePasswordHandler
-    post /user/change-password (ChangePasswordReq) returns (ChangePasswordResp)
+    post /user/change-password (ChangePasswordReq) returns (SimpleMsg)
 
     // get base info when log in including role id and avatar
     @handler getUserInfoHandler
