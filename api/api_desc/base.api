@@ -8,43 +8,52 @@ info(
     version: "v1.0"
 )
 
-
+// swagger: response BaseMsg
+// The basic response with data | 基础带数据信息
 type BaseMsg {
     Code int32  `json:"code"`
     Msg  string `json:"msg"`
     Data string `json:"data"`
 }
 
+// swagger: response BaseMsg
+// The basic response without data | 基础不带数据信息
 type BaseResp {
     Code int32  `json:"code"`
     Msg  string `json:"msg"`
 }
 
+// swagger: response SimpleMsg
+// The simplest message | 最简单的信息
 type SimpleMsg {
     Msg string `json:"msg"`
 }
 
+
 type PageInfo {
+    // Page number | 第几页
     Page      uint64    `json:"page"`
+    // Page size | 单页数据行数
     PageSize  uint64    `json:"pageSize"`
 }
 
 type PageList {
+    // Total number | 数据总数
     Total    uint64      `json:"total"`
+    // Data | 数据
     Data     []string    `json:"data"`
 }
 
-type BaseInfo {
-    ID        uint      `json:"id"`
-    CreatedAt int64     `json:"createdAt"`
-    UpdatedAt int64     `json:"updatedAt"`
-    DeletedAt int64     `json:"deletedAt"`
-}
-
+// swagger:parameters deleteUser
+// Basic id request
+// 基础id参数请求
 type IdReq {
     ID  uint `json:"id"`
 }
 
+// swagger:parameters deleteUser
+// Basic UUID request
+// 基础UUID参数请求
 type UUIDReq {
     UUID string `json:"uuid"`
 }
