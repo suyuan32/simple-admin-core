@@ -37,7 +37,7 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.GetUserInfoResp, err error
 	}
 
 	return &types.GetUserInfoResp{
-		UserId:   user.UUID,
+		UUID:     user.UUID,
 		Username: user.Username,
 		Nickname: user.Nickname,
 		Avatar:   user.Avatar,

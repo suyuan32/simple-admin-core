@@ -32,7 +32,7 @@ func NewGetCaptchaLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetCap
 	}
 }
 
-func (l *GetCaptchaLogic) GetCaptcha() (resp *types.CaptchaInfoResp, err error) {
+func (l *GetCaptchaLogic) GetCaptcha() (resp *types.CaptchaInfo, err error) {
 	if driver == nil || Store == nil {
 		initStoreAndDriver(l.svcCtx.Config, l.svcCtx.Redis)
 	}
@@ -41,16 +41,9 @@ func (l *GetCaptchaLogic) GetCaptcha() (resp *types.CaptchaInfoResp, err error) 
 		l.Logger.Error("getcaptchalogic: fail to generate captcha!", err)
 		return nil, httpx.NewApiError(http.StatusInternalServerError, "内部错误")
 	} else {
-		resp = &types.CaptchaInfoResp{
-			BaseMsg: types.BaseMsg{
-				Code: http.StatusOK,
-				Msg:  "ok",
-				Data: "",
-			},
-			Data: types.CaptchaInfo{
-				CaptchaId: id,
-				ImgPath:   b64s,
-			},
+		resp = &types.CaptchaInfo{
+			CaptchaId: id,
+			ImgPath:   b64s,
 		}
 		return resp, nil
 	}
