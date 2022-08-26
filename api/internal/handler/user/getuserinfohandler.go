@@ -8,6 +8,13 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
+// swagger:route GET /user/info user getUserInfo
+// Get user basic infomation | 获取用户基本信息
+// Responses:
+//   200: GetUserInfoResp
+//   401: SimpleMsg
+//   500: SimpleMsg
+
 func GetUserInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		l := user.NewGetUserInfoLogic(r.Context(), svcCtx)

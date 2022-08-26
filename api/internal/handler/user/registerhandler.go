@@ -6,9 +6,15 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
+
+// swagger:route POST /user/register user register
+// Register | 注册
+// Responses:
+//   200: SimpleMsg
+//   401: SimpleMsg
+//   500: SimpleMsg
 
 func RegisterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -20,7 +26,6 @@ func RegisterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 
 		l := user.NewRegisterLogic(r.Context(), svcCtx)
 		resp, err := l.Register(&req)
-
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

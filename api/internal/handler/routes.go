@@ -26,7 +26,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodGet,
-				Path:    "/core/init_database",
+				Path:    "/core/init/database",
 				Handler: core.InitDatabaseHandler(serverCtx),
 			},
 		},

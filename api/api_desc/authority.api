@@ -11,25 +11,44 @@ info(
 import "base.api"
 
 type (
-    // api struct
+    // The response data of api authorization | API授权数据
+    // swagger:response ApiAuthorityInfo
     ApiAuthorityInfo {
+        // API path | API 路径
         Path string   `json:"path"`
+        // API method | API请求方法
         Method string `json:"method"`
     }
 
+    // swagger:parameters createOrUpdateApiAuthority
+    // Create or update api authorization information request | 创建或更新API授权信息
     CreateOrUpdateApiAuthorityReq {
+        // Role ID | 角色ID
+        // Required: true
         RoleId  uint64            `json:"roleId"`
+        // API authorization list | API授权列表数据
+        // Required: true
         Data    []ApiAuthorityInfo  `json:"data"`
     }
 
+    // The response data of api authorization list | API授权列表数据
+    // swagger:response ApiAuthorityListResp
     ApiAuthorityListResp {
-        PageList
+        // The total number of data | 数据总数
+        Total uint64   `json:"total"`
+        // The api authorization list data | API授权列表数据
+        // in: body
         Data []ApiAuthorityInfo `json:"data"`
     }
 
-    // menu struct
+    // swagger:parameters createOrUpdateMenuAuthority
+    // Create or update menu authorization information request params | 创建或更新菜单授权信息参数
     MenuAuthorityInfo {
+        // role ID | 角色ID
+        // Required: true
         RoleId  uint64   `json:"roleId"`
+        // menu ID array | 菜单ID数组
+        // Required: true
         MenuIds []uint64 `json:"menuIds"`
     }
 )
@@ -41,18 +60,39 @@ type (
 )
 
 service core {
-    // api authorization management
-    // api 访问权限管理
-    @handler createOrUpdateApiAuthorityHandler
+    // swagger:route POST /authority/api authority createOrUpdateApiAuthority
+    // Create or update API authorization information | 创建或更新API权限
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler createOrUpdateApiAuthority
     post /authority/api (CreateOrUpdateApiAuthorityReq) returns (SimpleMsg)
 
-    @handler getApiAuthorityhandler
+    // swagger:route GET /authority/api/role authority getApiAuthority
+    // Get role's API authorization list | 获取角色api权限列表
+    // Responses:
+    //   200: ApiAuthorityListResp
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler getApiAuthority
     post /authority/api/role (IdReq) returns (ApiAuthorityListResp)
 
-    // menu authorization management
-    @handler createOrUpdateMenuAuthorityHandler
+    // swagger:route POST /authority/menu authority createOrUpdateMenuAuthority
+    // Create or update menu authorization information | 创建或更新菜单权限
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler createOrUpdateMenuAuthority
     post /authority/menu (MenuAuthorityInfo) returns (SimpleMsg)
 
-    @handler getMenuAuthorityHandler
+    // swagger:route GET /authority/menu/role authority getMenuAuthority
+    // Get role's menu authorization list | 获取角色菜单权限列表
+    // Responses:
+    //   200: MenuAuthorityInfo
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler getMenuAuthority
     post /authority/menu/role (IdReq) returns (MenuAuthorityInfo)
 }

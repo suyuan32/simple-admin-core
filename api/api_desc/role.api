@@ -11,24 +11,53 @@ info(
 import "base.api"
 
 type (
+    // swagger:parameters createOrUpdateRole
+    // Create or update role information params | 创建或更新角色信息参数
     RoleInfo {
+        // Role ID | 角色 ID
+        // Required : true
         Id            uint64 `json:"id"`
+        // Role Name | 角色名
+        // Required : true
         Name          string `json:"name"`
+        // Role value | 角色值
+        // Required : true
         Value         string `json:"value"`
+        // Role's default page | 角色默认管理页面
+        // Required : true
         DefaultRouter string `json:"defaultRouter"`
+        // Role status | 角色状态
+        // Required : true
         Status        uint32 `json:"status"`
+        // Role remark | 角色备注
+        // Required : true
         Remark        string `json:"remark"`
+        // Role's sorting number | 角色排序
+        // Required : true
         OrderNo       uint32 `json:"orderNo"`
+        // Create time | 创建日期
+        // Required: true
         CreateAt      int64  `json:"createAt"`
     }
 
+    // The response data of role list | 角色列表数据
+    // swagger:response RoleListResp
     RoleListResp {
-        PageList
+        // The total number of data | 数据总数
+        Total uint64      `json:"total"`
+        // The role list data | 角色列表数据
+        // in: body
         Data  []RoleInfo  `json:"data"`
     }
 
+    // swagger:parameters setRoleStatus
+    // The request params of setting role status | 设置角色状态参数
     SetStatusReq {
+        // ID
+        // Required: true
         Id     uint64  `json:"id"`
+        // Status code | 状态码
+        // Required: true
         Status uint32  `json:"status"`
     }
 )
@@ -40,15 +69,39 @@ type (
 )
 
 service core {
-    @handler createOrUpdateRoleHandler
+    // swagger:route POST /role role createOrUpdateRole
+    // Create or update role information | 创建或更新角色
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler createOrUpdateRole
     post /role (RoleInfo) returns (SimpleMsg)
 
-    @handler deleteRoleHandler
+    // swagger:route DELETE /role role deleteRole
+    // Delete role information | 删除角色信息
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler deleteRole
     delete /role (IdReq) returns (SimpleMsg)
 
-    @handler getRoleListHandler
+    // swagger:route POST /role/list role getRoleList
+    // Get role list | 获取角色列表
+    // Responses:
+    //   200: RoleListResp
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler getRoleList
     post /role/list (PageInfo) returns (RoleListResp)
 
-    @handler setRoleStatusHandler
+    // swagger:route POST /role/status role setRoleStatus
+    // Set role status | 设置角色状态
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler setRoleStatus
     post /role/status (SetStatusReq) returns (SimpleMsg)
 }

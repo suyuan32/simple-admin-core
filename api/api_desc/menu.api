@@ -11,67 +11,128 @@ info(
 import "base.api"
 
 type (
+    // The response data of menu information | 菜单返回数据
+    // swagger:response Menu
     Menu {
+        // in: body
         BaseInfo
+        // Menu type: directory or menu | 菜单类型: 目录或菜单
+        // 0. directory group 1. menu | 0 目录 1 菜单
         menuType     uint32      `json:"type"`
+        // Parent menu ID | 父级菜单ID
         ParentId     uint        `json:"parentId"`
+        // The menu level | 菜单等级
         MenuLevel    uint32      `json:"level"`
-        Path         string      `json:"path,omitempty"`            // index path
-        Name         string      `json:"name"`            // index name
-        Redirect     string      `json:"redirect,omitempty"`
-        Component    string      `json:"component"`       // the path of vue file
+        // The path to visit menu | 菜单访问路径
+        Path         string      `json:"path"`
+        // Menu name | 菜单名
+        Name         string      `json:"name"`
+        // Redirect path | 跳转路径
+        Redirect     string      `json:"redirect"`
+        // The component path | 组件路径
+        Component    string      `json:"component"`
+        // The sorting number | 排序编号
         OrderNo      uint32      `json:"orderNo"`
+        // Wether disabled | 是否禁用菜单
         Disabled     bool        `json:"disabled"`
+        // in: body
         Meta
+        // children | 子集
+        // in: body
         Children     []*Menu      `json:"children"`
     }
 
+    // The meta data of menu | 菜单的meta数据
+    // swagger:response Meta
     Meta {
-        KeepAlive bool           `json:"keepAlive"` // save in cache
+        // keep alive the tab in cache | 是否保持窗口的缓存
+        KeepAlive bool           `json:"keepAlive"`
+        // Hide menu | 隐藏菜单
         HideMenu  bool           `json:"hideMenu"`
+        // Wether hide the breadcrumb | 隐藏面包屑
         HideBreadcrumb bool      `json:"hideBreadcrumb"`
+        // Current active menu, if not nil, it will active the tab | 当前激活的菜单
         CurrentActiveMenu string `json:"currentActiveMenu"`
-        Title     string         `json:"title"`    // menu name
-        Icon      string         `json:"icon"`      // menu icon
-        CloseTab  bool           `json:"closeTab"`  // auto close tab
+        // Menu title show in page | 菜单显示名
+        Title     string         `json:"title"`
+        // Menu Icon | 菜单图标
+        Icon      string         `json:"icon"`
+        // Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+        CloseTab  bool           `json:"closeTab"`
     }
 
-    MenuParam {
-        BaseInfo
-        MenuId uint   `json:"menuId"`
-        Type   string `json:"type"`  // pass parameters via params or query
-        Key    string `json:"key"`   // the key of parameters
-        Value  string `json:"value"` // the value of parameters
-    }
-
+    // The response data of menu list | 菜单列表数据
+    // swagger:response MenuListResp
     MenuListResp {
-        PageList
+        // The total number of data | 数据总数
+        Total uint64 `json:"total"`
+        // The menu list data | 菜单列表数据
+        // in: body
         Data []*Menu `json:"data"`
     }
 
+    // The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
+    // swagger:response MenuListResp
     GetMenuListBase {
+        // Menu type: directory or menu | 菜单类型: 目录或菜单
         menuType     uint32      `json:"type"`
+        // Parent menu ID | 父级菜单ID
+        ParentId     uint        `json:"parentId"`
+        // The menu level | 菜单等级
         MenuLevel    uint32      `json:"level"`
-        Path         string      `json:"path"`            // index path
-        Name         string      `json:"name"`            // index name
-        Redirect     string      `json:"redirect,omitempty"`
-        Component    string      `json:"component"`       // the path of vue file
+        // The path to visit menu | 菜单访问路径
+        Path         string      `json:"path"`
+        // Menu name | 菜单名
+        Name         string      `json:"name"`
+        // Redirect path | 跳转路径
+        Redirect     string      `json:"redirect"`
+         // The component path | 组件路径
+        Component    string      `json:"component"`
+        // The sorting number | 排序编号
         OrderNo      uint32      `json:"orderNo"`
+        // Wether disabled | 是否禁用菜单
         Disabled     bool        `json:"disabled"`
-        Meta         Meta        `json:"meta"`            // extra parameters
+        // in: body
+        Meta         Meta        `json:"meta"`
+        // children | 子集
+        // in: body
         Children     []*GetMenuListBase      `json:"children"`
     }
 
+    // swagger:parameters createOrUpdateMenu
+    // Create or update menu information request params | 创建或更新菜单信息参数
     CreateOrUpdateMenuReq {
+        // ID
+        // Required: true
         id           uint32      `json:"id"`
+        // Menu type: directory or menu | 菜单类型: 目录或菜单
+        // Required: true
         menuType     uint32      `json:"type"`
-        ParentId     uint32      `json:"parentId"`
-        Path         string      `json:"path,omitempty"`            // index path
-        Name         string      `json:"name"`            // index name
+        // Parent menu ID | 父级菜单ID
+        // Required: true
+        ParentId     uint        `json:"parentId"`
+        // The menu level | 菜单等级
+        // Required: true
+        MenuLevel    uint32      `json:"level"`
+        // The path to visit menu | 菜单访问路径
+        // Required: true
+        Path         string      `json:"path"`
+        // Menu name | 菜单名
+        // Required: true
+        Name         string      `json:"name"`
+        // Redirect path | 跳转路径
+        // Required: true
         Redirect     string      `json:"redirect"`
-        Component    string      `json:"component"`       // the path of vue file
+        // The component path | 组件路径
+        // Required: true
+        Component    string      `json:"component"`
+        // The sorting number | 排序编号
+        // Required: true
         OrderNo      uint32      `json:"orderNo"`
+        // Wether disabled | 是否禁用菜单
+        // Required: true
         Disabled     bool        `json:"disabled"`
+        // in: body
         Meta
     }
 )
@@ -83,16 +144,39 @@ type (
 )
 
 service core {
-    // menu management
-    @handler createOrUpdateMenuHandler
+    // swagger:route POST /menu menu createOrUpdateMenu
+    // Create or update menu information | 创建或更新菜单
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler createOrUpdateMenu
     post /menu (CreateOrUpdateMenuReq) returns (SimpleMsg)
 
-    @handler deleteMenuHandler
+    // swagger:route DELETE /menu menu deleteMenu
+    // Delete menu information | 删除菜单信息
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler deleteMenu
     delete /menu (IdReq) returns (SimpleMsg)
 
-    @handler getMenuListHandler
+    // swagger:route POST /menu/list menu getMenuList
+    // Get menu list | 获取菜单列表
+    // Responses:
+    //   200: MenuListResp
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler getMenuList
     get /menu/list returns (MenuListResp)
 
-    @handler  getMenuByRoleHandler
+    // swagger:route GET /menu/role menu getMenuByRole
+    // Get role's menu list API | 获取角色菜单列表
+    // Responses:
+    //   200: GetMenuListBase
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler  getMenuByRole
     get /menu/role returns (GetMenuListBase)
 }

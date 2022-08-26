@@ -8,6 +8,13 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
+// swagger:route GET /user/perm user getUserPermCode
+// Get user's permission code | 获取用户权限码
+// Responses:
+//   200: PermCodeResp
+//   401: SimpleMsg
+//   500: SimpleMsg
+
 func GetUserPermCodeHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		l := user.NewGetUserPermCodeLogic(r.Context(), svcCtx)

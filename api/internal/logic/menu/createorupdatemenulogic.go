@@ -28,7 +28,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(req *types.CreateOrUpdateMe
 	data, err := l.svcCtx.CoreRpc.CreateOrUpdateMenu(context.Background(), &core.CreateOrUpdateMenuReq{
 		Id:        uint64(req.Id),
 		MenuType:  req.MenuType,
-		ParentId:  req.ParentId,
+		ParentId:  uint32(req.ParentId),
 		Path:      req.Path,
 		Name:      req.Name,
 		Redirect:  req.Redirect,

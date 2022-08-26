@@ -6,9 +6,15 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/role"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
+
+// swagger:route POST /role role createOrUpdateRole
+// Create or update role information | 创建或更新角色
+// Responses:
+//   200: SimpleMsg
+//   401: SimpleMsg
+//   500: SimpleMsg
 
 func CreateOrUpdateRoleHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
