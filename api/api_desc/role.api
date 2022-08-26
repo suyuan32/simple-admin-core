@@ -12,28 +12,28 @@ import "base.api"
 
 type (
     // swagger:parameters createOrUpdateRole
-    // Create or update role information request | 创建或更新角色信息
+    // Create or update role information params | 创建或更新角色信息参数
     RoleInfo {
         // Role ID | 角色 ID
-        // required : true
+        // Required : true
         Id            uint64 `json:"id"`
         // Role Name | 角色名
-        // required : true
+        // Required : true
         Name          string `json:"name"`
         // Role value | 角色值
-        // required : true
+        // Required : true
         Value         string `json:"value"`
         // Role's default page | 角色默认管理页面
-        // required : true
+        // Required : true
         DefaultRouter string `json:"defaultRouter"`
         // Role status | 角色状态
-        // required : true
+        // Required : true
         Status        uint32 `json:"status"`
         // Role remark | 角色备注
-        // required : true
+        // Required : true
         Remark        string `json:"remark"`
         // Role's sorting number | 角色排序
-        // required : true
+        // Required : true
         OrderNo       uint32 `json:"orderNo"`
         // Create time | 创建日期
         // Required: true

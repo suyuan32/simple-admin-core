@@ -204,7 +204,9 @@ definitions:
         type: string
         x-go-name: Title
       type:
-        description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
+        description: |-
+          Menu type: directory or menu | 菜单类型: 目录或菜单
+          0. directory group 1. menu | 0 目录 1 菜单
         format: uint32
         type: integer
         x-go-name: MenuType
@@ -1481,7 +1483,9 @@ responses:
         description: Menu title show in page | 菜单显示名
         type: string
       type:
-        description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
+        description: |-
+          Menu type: directory or menu | 菜单类型: 目录或菜单
+          0. directory group 1. menu | 0 目录 1 菜单
         format: uint32
         type: integer
       updatedAt:

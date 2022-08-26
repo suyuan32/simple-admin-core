@@ -17,17 +17,18 @@ type (
         // in: body
         BaseInfo
         // Menu type: directory or menu | 菜单类型: 目录或菜单
+        // 0. directory group 1. menu | 0 目录 1 菜单
         menuType     uint32      `json:"type"`
         // Parent menu ID | 父级菜单ID
         ParentId     uint        `json:"parentId"`
         // The menu level | 菜单等级
         MenuLevel    uint32      `json:"level"`
         // The path to visit menu | 菜单访问路径
-        Path         string      `json:"path,omitempty"`
+        Path         string      `json:"path"`
         // Menu name | 菜单名
         Name         string      `json:"name"`
         // Redirect path | 跳转路径
-        Redirect     string      `json:"redirect,omitempty"`
+        Redirect     string      `json:"redirect"`
         // The component path | 组件路径
         Component    string      `json:"component"`
         // The sorting number | 排序编号
@@ -80,11 +81,11 @@ type (
         // The menu level | 菜单等级
         MenuLevel    uint32      `json:"level"`
         // The path to visit menu | 菜单访问路径
-        Path         string      `json:"path,omitempty"`
+        Path         string      `json:"path"`
         // Menu name | 菜单名
         Name         string      `json:"name"`
         // Redirect path | 跳转路径
-        Redirect     string      `json:"redirect,omitempty"`
+        Redirect     string      `json:"redirect"`
          // The component path | 组件路径
         Component    string      `json:"component"`
         // The sorting number | 排序编号
@@ -115,13 +116,13 @@ type (
         MenuLevel    uint32      `json:"level"`
         // The path to visit menu | 菜单访问路径
         // Required: true
-        Path         string      `json:"path,omitempty"`
+        Path         string      `json:"path"`
         // Menu name | 菜单名
         // Required: true
         Name         string      `json:"name"`
         // Redirect path | 跳转路径
         // Required: true
-        Redirect     string      `json:"redirect,omitempty"`
+        Redirect     string      `json:"redirect"`
         // The component path | 组件路径
         // Required: true
         Component    string      `json:"component"`

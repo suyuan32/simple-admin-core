@@ -2,28 +2,28 @@
 package types
 
 // swagger:parameters createOrUpdateRole
-// Create or update role information request | 创建或更新角色信息
+// Create or update role information params | 创建或更新角色信息参数
 type RoleInfo struct {
 	// Role ID | 角色 ID
-	// required : true
+	// Required : true
 	Id uint64 `json:"id"`
 	// Role Name | 角色名
-	// required : true
+	// Required : true
 	Name string `json:"name"`
 	// Role value | 角色值
-	// required : true
+	// Required : true
 	Value string `json:"value"`
 	// Role's default page | 角色默认管理页面
-	// required : true
+	// Required : true
 	DefaultRouter string `json:"defaultRouter"`
 	// Role status | 角色状态
-	// required : true
+	// Required : true
 	Status uint32 `json:"status"`
 	// Role remark | 角色备注
-	// required : true
+	// Required : true
 	Remark string `json:"remark"`
 	// Role's sorting number | 角色排序
-	// required : true
+	// Required : true
 	OrderNo uint32 `json:"orderNo"`
 	// Create time | 创建日期
 	// Required: true
@@ -359,17 +359,18 @@ type GetUserListReq struct {
 type Menu struct {
 	BaseInfo
 	// Menu type: directory or menu | 菜单类型: 目录或菜单
+	// 0. directory group 1. menu | 0 目录 1 菜单
 	MenuType uint32 `json:"type"`
 	// Parent menu ID | 父级菜单ID
 	ParentId uint `json:"parentId"`
 	// The menu level | 菜单等级
 	MenuLevel uint32 `json:"level"`
 	// The path to visit menu | 菜单访问路径
-	Path string `json:"path,omitempty"`
+	Path string `json:"path"`
 	// Menu name | 菜单名
 	Name string `json:"name"`
 	// Redirect path | 跳转路径
-	Redirect string `json:"redirect,omitempty"`
+	Redirect string `json:"redirect"`
 	// The component path | 组件路径
 	Component string `json:"component"`
 	// The sorting number | 排序编号
@@ -421,11 +422,11 @@ type GetMenuListBase struct {
 	// The menu level | 菜单等级
 	MenuLevel uint32 `json:"level"`
 	// The path to visit menu | 菜单访问路径
-	Path string `json:"path,omitempty"`
+	Path string `json:"path"`
 	// Menu name | 菜单名
 	Name string `json:"name"`
 	// Redirect path | 跳转路径
-	Redirect string `json:"redirect,omitempty"`
+	Redirect string `json:"redirect"`
 	// The component path | 组件路径
 	Component string `json:"component"`
 	// The sorting number | 排序编号
@@ -456,13 +457,13 @@ type CreateOrUpdateMenuReq struct {
 	MenuLevel uint32 `json:"level"`
 	// The path to visit menu | 菜单访问路径
 	// Required: true
-	Path string `json:"path,omitempty"`
+	Path string `json:"path"`
 	// Menu name | 菜单名
 	// Required: true
 	Name string `json:"name"`
 	// Redirect path | 跳转路径
 	// Required: true
-	Redirect string `json:"redirect,omitempty"`
+	Redirect string `json:"redirect"`
 	// The component path | 组件路径
 	// Required: true
 	Component string `json:"component"`
