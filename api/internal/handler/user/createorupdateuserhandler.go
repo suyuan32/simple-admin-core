@@ -6,9 +6,15 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
+
+// swagger:route POST /user user createOrUpdateUser
+// Create or update user's information | 新增或更新用户
+// Responses:
+//   200: SimpleMsg
+//   401: SimpleMsg
+//   500: SimpleMsg
 
 func CreateOrUpdateUserHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

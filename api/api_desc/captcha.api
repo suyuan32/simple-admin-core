@@ -10,11 +10,8 @@ info(
 
 import "base.api"
 
-type CaptchaInfoResp {
-	BaseMsg
-	Data CaptchaInfo `json:"data"`
-}
-
+// The response data of captcha | 验证码返回数据
+// swagger:response CaptchaInfo
 type CaptchaInfo {
 	CaptchaId string `json:"captchaId"`
 	ImgPath   string `json:"imgPath"`
@@ -25,6 +22,12 @@ type CaptchaInfo {
 )
 
 service core {
-	@handler getCaptchaHandler
+	// swagger:route GET /captcha captcha getCaptcha
+	// Get captcha | 获取验证码
+	// Responses:
+	//   200: CaptchaInfo
+	//   401: SimpleMsg
+	//   500: SimpleMsg
+	@handler getCaptcha
 	get /captcha returns (CaptchaInfo)
 }

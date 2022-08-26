@@ -22,17 +22,15 @@ import "base.api"
 
 service core {
 	// swagger:route get /core/health core healthCheck
-	// Check the system status
-	// 检查系统状态
-	@handler healthCheckHandler
+	// Check the system status | 检查系统状态
+	@handler healthCheck
 	get /core/health
-
-	// swagger:route get /core/health core healthCheck
-	// Initialize database
-	// 初始化数据库
+	
+	// swagger:route get /core/init/database core initDatabase
+	// Initialize database | 初始化数据库
 	// Responses:
 	//   200: SimpleMsg
 	//   500: SimpleMsg
-	@handler initDatabaseHandler
+	@handler initDatabase
 	get /core/init/database returns (SimpleMsg)
 }

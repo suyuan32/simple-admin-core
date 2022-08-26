@@ -1,0 +1,1660 @@
+basePath: /api
+consumes:
+- application/json
+definitions:
+  ApiAuthorityInfo:
+    description: The response data of api authorization | API授权数据
+    properties:
+      method:
+        description: API method | API请求方法
+        type: string
+        x-go-name: Method
+      path:
+        description: API path | API 路径
+        type: string
+        x-go-name: Path
+    type: object
+    x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+  ApiInfo:
+    description: The response data of API information | API信息
+    properties:
+      createAt:
+        format: int64
+        type: integer
+        x-go-name: CreateAt
+      description:
+        description: API Description | API 描述
+        type: string
+        x-go-name: Description
+      group:
+        description: API group | API分组
+        type: string
+        x-go-name: Group
+      id:
+        description: ID
+        format: uint64
+        type: integer
+        x-go-name: Id
+      method:
+        description: API request method e.g. POST | API请求类型 如POST
+        type: string
+        x-go-name: Method
+      path:
+        description: API path | API路径
+        type: string
+        x-go-name: Path
+    type: object
+    x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+  GetMenuListBase:
+    description: The response data of role menu list, show after user login | 角色菜单列表数据，
+      登录后自动获取
+    properties:
+      children:
+        description: |-
+          children | 子集
+          in: body
+        items:
+          $ref: '#/definitions/GetMenuListBase'
+        type: array
+        x-go-name: Children
+      component:
+        description: The component path | 组件路径
+        type: string
+        x-go-name: Component
+      disabled:
+        description: Wether disabled | 是否禁用菜单
+        type: boolean
+        x-go-name: Disabled
+      level:
+        description: The menu level | 菜单等级
+        format: uint32
+        type: integer
+        x-go-name: MenuLevel
+      meta:
+        $ref: '#/definitions/Meta'
+      name:
+        description: Menu name | 菜单名
+        type: string
+        x-go-name: Name
+      orderNo:
+        description: The sorting number | 排序编号
+        format: uint32
+        type: integer
+        x-go-name: OrderNo
+      parentId:
+        description: Parent menu ID | 父级菜单ID
+        format: uint64
+        type: integer
+        x-go-name: ParentId
+      path:
+        description: The path to visit menu | 菜单访问路径
+        type: string
+        x-go-name: Path
+      redirect:
+        description: Redirect path | 跳转路径
+        type: string
+        x-go-name: Redirect
+      type:
+        description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
+        format: uint32
+        type: integer
+        x-go-name: MenuType
+    type: object
+    x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+  GetUserRoleInfo:
+    description: The response data of user's basic role information | 用户角色信息数据
+    properties:
+      roleName:
+        description: Role name | 角色名
+        type: string
+        x-go-name: RoleName
+      value:
+        description: Role value for permission control | 角色值用于前端页面组件显示权限
+        type: string
+        x-go-name: Value
+    type: object
+    x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+  Menu:
+    description: The response data of menu information | 菜单返回数据
+    properties:
+      children:
+        description: |-
+          children | 子集
+          in: body
+        items:
+          $ref: '#/definitions/Menu'
+        type: array
+        x-go-name: Children
+      closeTab:
+        description: Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+        type: boolean
+        x-go-name: CloseTab
+      component:
+        description: The component path | 组件路径
+        type: string
+        x-go-name: Component
+      createdAt:
+        description: Create date | 创建日期
+        format: int64
+        type: integer
+        x-go-name: CreatedAt
+      currentActiveMenu:
+        description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
+        type: string
+        x-go-name: CurrentActiveMenu
+      deletedAt:
+        description: Delete date | 删除日期
+        format: int64
+        type: integer
+        x-go-name: DeletedAt
+      disabled:
+        description: Wether disabled | 是否禁用菜单
+        type: boolean
+        x-go-name: Disabled
+      hideBreadcrumb:
+        description: Wether hide the breadcrumb | 隐藏面包屑
+        type: boolean
+        x-go-name: HideBreadcrumb
+      hideMenu:
+        description: Hide menu | 隐藏菜单
+        type: boolean
+        x-go-name: HideMenu
+      icon:
+        description: Menu Icon | 菜单图标
+        type: string
+        x-go-name: Icon
+      id:
+        description: ID
+        format: uint64
+        type: integer
+        x-go-name: ID
+      keepAlive:
+        description: keep alive the tab in cache | 是否保持窗口的缓存
+        type: boolean
+        x-go-name: KeepAlive
+      level:
+        description: The menu level | 菜单等级
+        format: uint32
+        type: integer
+        x-go-name: MenuLevel
+      name:
+        description: Menu name | 菜单名
+        type: string
+        x-go-name: Name
+      orderNo:
+        description: The sorting number | 排序编号
+        format: uint32
+        type: integer
+        x-go-name: OrderNo
+      parentId:
+        description: Parent menu ID | 父级菜单ID
+        format: uint64
+        type: integer
+        x-go-name: ParentId
+      path:
+        description: The path to visit menu | 菜单访问路径
+        type: string
+        x-go-name: Path
+      redirect:
+        description: Redirect path | 跳转路径
+        type: string
+        x-go-name: Redirect
+      title:
+        description: Menu title show in page | 菜单显示名
+        type: string
+        x-go-name: Title
+      type:
+        description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
+        format: uint32
+        type: integer
+        x-go-name: MenuType
+      updatedAt:
+        description: Update date | 更新日期
+        format: int64
+        type: integer
+        x-go-name: UpdatedAt
+    type: object
+    x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+  Meta:
+    description: The meta data of menu | 菜单的meta数据
+    properties:
+      closeTab:
+        description: Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+        type: boolean
+        x-go-name: CloseTab
+      currentActiveMenu:
+        description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
+        type: string
+        x-go-name: CurrentActiveMenu
+      hideBreadcrumb:
+        description: Wether hide the breadcrumb | 隐藏面包屑
+        type: boolean
+        x-go-name: HideBreadcrumb
+      hideMenu:
+        description: Hide menu | 隐藏菜单
+        type: boolean
+        x-go-name: HideMenu
+      icon:
+        description: Menu Icon | 菜单图标
+        type: string
+        x-go-name: Icon
+      keepAlive:
+        description: keep alive the tab in cache | 是否保持窗口的缓存
+        type: boolean
+        x-go-name: KeepAlive
+      title:
+        description: Menu title show in page | 菜单显示名
+        type: string
+        x-go-name: Title
+    type: object
+    x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+  RoleInfo:
+    properties:
+      createAt:
+        description: Create time | 创建日期
+        format: int64
+        type: integer
+        x-go-name: CreateAt
+      defaultRouter:
+        description: Role's default page | 角色默认管理页面
+        type: string
+        x-go-name: DefaultRouter
+      id:
+        description: Role ID | 角色 ID
+        format: uint64
+        type: integer
+        x-go-name: Id
+      name:
+        description: Role Name | 角色名
+        type: string
+        x-go-name: Name
+      orderNo:
+        description: Role's sorting number | 角色排序
+        format: uint32
+        type: integer
+        x-go-name: OrderNo
+      remark:
+        description: Role remark | 角色备注
+        type: string
+        x-go-name: Remark
+      status:
+        description: Role status | 角色状态
+        format: uint32
+        type: integer
+        x-go-name: Status
+      value:
+        description: Role value | 角色值
+        type: string
+        x-go-name: Value
+    required:
+    - id
+    - name
+    - value
+    - defaultRouter
+    - status
+    - remark
+    - orderNo
+    - createAt
+    type: object
+    x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+  RoleInfoSimple:
+    description: The simple role data | 简单的角色数据
+    properties:
+      roleName:
+        description: Role name | 角色名
+        type: string
+        x-go-name: RoleName
+      value:
+        description: Role value | 角色值
+        type: string
+        x-go-name: Value
+    type: object
+    x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+  UserInfoResp:
+    description: The response data of user's information | 用户信息返回数据
+    properties:
+      avatar:
+        description: The user's avatar path | 用户的头像路径
+        type: string
+        x-go-name: Avatar
+      createAt:
+        format: int64
+        type: integer
+        x-go-name: CreateAt
+      email:
+        description: The user's email address | 用户的邮箱
+        type: string
+        x-go-name: Email
+      id:
+        description: User's id | 用户Id
+        format: int64
+        type: integer
+        x-go-name: Id
+      mobile:
+        description: User's mobile phone number | 用户的手机号码
+        type: string
+        x-go-name: Mobile
+      nickname:
+        description: User's nickname | 用户的昵称
+        type: string
+        x-go-name: Nickname
+      roleId:
+        description: User's role id | 用户的角色Id
+        format: uint32
+        type: integer
+        x-go-name: RoleId
+      sideMode:
+        description: The user's layout mode | 用户的布局
+        type: string
+        x-go-name: SideMode
+      status:
+        description: |-
+          The user's status | 用户状态
+          1 normal, 2 ban | 1 正常 2 拉黑
+        format: int32
+        type: integer
+        x-go-name: Status
+      updateAt:
+        format: int64
+        type: integer
+        x-go-name: UpdateAt
+      username:
+        description: User Name | 用户名
+        type: string
+        x-go-name: Username
+    type: object
+    x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+host: localhost
+info:
+  contact:
+    email: yuansu.china.work@gmail.com
+  description: This is simple admin api doc
+  title: Simple Admin
+  version: 0.0.1
+paths:
+  /api:
+    delete:
+      description: Delete API information | 删除API信息
+      operationId: deleteApi
+      parameters:
+      - description: ID
+        format: uint64
+        in: query
+        name: id
+        required: true
+        type: integer
+        x-go-name: ID
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - api
+    post:
+      description: Create or update API information | 创建或更新API
+      operationId: createOrUpdateApi
+      parameters:
+      - description: ID
+        format: uint64
+        in: query
+        name: id
+        required: true
+        type: integer
+        x-go-name: Id
+      - description: Create date | 创建日期
+        format: int64
+        in: query
+        name: createAt
+        required: true
+        type: integer
+        x-go-name: CreateAt
+      - description: API path | API路径
+        in: query
+        name: path
+        required: true
+        type: string
+        x-go-name: Path
+      - description: API Description | API 描述
+        in: query
+        name: description
+        required: true
+        type: string
+        x-go-name: Description
+      - description: |-
+          API group | API分组
+          Require: true
+        in: query
+        name: group
+        type: string
+        x-go-name: Group
+      - description: API request method e.g. POST | API请求类型 如POST
+        in: query
+        name: method
+        required: true
+        type: string
+        x-go-name: Method
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - api
+  /api/list:
+    post:
+      description: Get API list | 获取API列表
+      operationId: getApiList
+      parameters:
+      - description: Page number | 第几页
+        format: uint64
+        in: query
+        name: page
+        required: true
+        type: integer
+        x-go-name: Page
+      - description: Page size | 单页数据行数
+        format: uint64
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+        x-go-name: PageSize
+      - description: API path | API路径
+        in: query
+        name: path
+        required: true
+        type: string
+        x-go-name: Path
+      - description: API Description | API 描述
+        in: query
+        name: description
+        required: true
+        type: string
+        x-go-name: Description
+      - description: API group | API分组
+        in: query
+        name: group
+        required: true
+        type: string
+        x-go-name: Group
+      - description: API request method e.g. POST | API请求类型 如POST
+        in: query
+        name: method
+        required: true
+        type: string
+        x-go-name: Method
+      responses:
+        "200":
+          $ref: '#/responses/ApiListResp'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - api
+  /authority/api:
+    post:
+      description: Create or update API authorization information | 创建或更新API权限
+      operationId: createOrUpdateApiAuthority
+      parameters:
+      - description: Role ID | 角色ID
+        format: uint64
+        in: query
+        name: roleId
+        required: true
+        type: integer
+        x-go-name: RoleId
+      - description: API authorization list | API授权列表数据
+        in: query
+        items:
+          $ref: '#/definitions/ApiAuthorityInfo'
+        name: data
+        required: true
+        type: array
+        x-go-name: Data
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - authority
+  /authority/api/role:
+    get:
+      description: Get role's API authorization list | 获取角色api权限列表
+      operationId: getApiAuthority
+      parameters:
+      - description: ID
+        format: uint64
+        in: query
+        name: id
+        required: true
+        type: integer
+        x-go-name: ID
+      responses:
+        "200":
+          $ref: '#/responses/ApiAuthorityListResp'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - authority
+  /authority/menu:
+    post:
+      description: Create or update menu authorization information | 创建或更新菜单权限
+      operationId: createOrUpdateMenuAuthority
+      parameters:
+      - description: role ID | 角色ID
+        format: uint64
+        in: query
+        name: roleId
+        required: true
+        type: integer
+        x-go-name: RoleId
+      - description: menu ID array | 菜单ID数组
+        in: query
+        items:
+          format: uint64
+          type: integer
+        name: menuIds
+        required: true
+        type: array
+        x-go-name: MenuIds
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - authority
+  /authority/menu/role:
+    get:
+      description: Get role's menu authorization list | 获取角色菜单权限列表
+      operationId: getMenuAuthority
+      parameters:
+      - description: ID
+        format: uint64
+        in: query
+        name: id
+        required: true
+        type: integer
+        x-go-name: ID
+      responses:
+        "200":
+          $ref: '#/responses/MenuAuthorityInfo'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - authority
+  /captcha:
+    get:
+      description: Get captcha | 获取验证码
+      operationId: getCaptcha
+      responses:
+        "200":
+          $ref: '#/responses/CaptchaInfo'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - captcha
+  /core/health:
+    get:
+      description: Check the system status | 检查系统状态
+      operationId: healthCheck
+      tags:
+      - core
+  /core/init/database:
+    get:
+      description: Initialize database | 初始化数据库
+      operationId: initDatabase
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - core
+  /menu:
+    delete:
+      description: Delete menu information | 删除菜单信息
+      operationId: deleteMenu
+      parameters:
+      - description: ID
+        format: uint64
+        in: query
+        name: id
+        required: true
+        type: integer
+        x-go-name: ID
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - menu
+    post:
+      description: Create or update menu information | 创建或更新菜单
+      operationId: createOrUpdateMenu
+      parameters:
+      - description: keep alive the tab in cache | 是否保持窗口的缓存
+        in: query
+        name: keepAlive
+        type: boolean
+        x-go-name: KeepAlive
+      - description: Hide menu | 隐藏菜单
+        in: query
+        name: hideMenu
+        type: boolean
+        x-go-name: HideMenu
+      - description: Wether hide the breadcrumb | 隐藏面包屑
+        in: query
+        name: hideBreadcrumb
+        type: boolean
+        x-go-name: HideBreadcrumb
+      - description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
+        in: query
+        name: currentActiveMenu
+        type: string
+        x-go-name: CurrentActiveMenu
+      - description: Menu title show in page | 菜单显示名
+        in: query
+        name: title
+        type: string
+        x-go-name: Title
+      - description: Menu Icon | 菜单图标
+        in: query
+        name: icon
+        type: string
+        x-go-name: Icon
+      - description: Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+        in: query
+        name: closeTab
+        type: boolean
+        x-go-name: CloseTab
+      - description: ID
+        format: uint32
+        in: query
+        name: id
+        required: true
+        type: integer
+        x-go-name: Id
+      - description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
+        format: uint32
+        in: query
+        name: type
+        required: true
+        type: integer
+        x-go-name: MenuType
+      - description: Parent menu ID | 父级菜单ID
+        format: uint64
+        in: query
+        name: parentId
+        required: true
+        type: integer
+        x-go-name: ParentId
+      - description: The menu level | 菜单等级
+        format: uint32
+        in: query
+        name: level
+        required: true
+        type: integer
+        x-go-name: MenuLevel
+      - description: The path to visit menu | 菜单访问路径
+        in: query
+        name: path
+        required: true
+        type: string
+        x-go-name: Path
+      - description: Menu name | 菜单名
+        in: query
+        name: name
+        required: true
+        type: string
+        x-go-name: Name
+      - description: Redirect path | 跳转路径
+        in: query
+        name: redirect
+        required: true
+        type: string
+        x-go-name: Redirect
+      - description: The component path | 组件路径
+        in: query
+        name: component
+        required: true
+        type: string
+        x-go-name: Component
+      - description: The sorting number | 排序编号
+        format: uint32
+        in: query
+        name: orderNo
+        required: true
+        type: integer
+        x-go-name: OrderNo
+      - description: Wether disabled | 是否禁用菜单
+        in: query
+        name: disabled
+        required: true
+        type: boolean
+        x-go-name: Disabled
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - menu
+  /menu/list:
+    post:
+      description: Get menu list | 获取菜单列表
+      operationId: getMenuList
+      responses:
+        "200":
+          $ref: '#/responses/MenuListResp'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - menu
+  /menu/role:
+    get:
+      description: Get role's menu list API | 获取角色菜单列表
+      operationId: getMenuByRole
+      responses:
+        "200":
+          description: GetMenuListBase
+          schema:
+            $ref: '#/definitions/GetMenuListBase'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - menu
+  /role:
+    delete:
+      description: Delete role information | 删除角色信息
+      operationId: deleteRole
+      parameters:
+      - description: ID
+        format: uint64
+        in: query
+        name: id
+        required: true
+        type: integer
+        x-go-name: ID
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - role
+    post:
+      description: Create or update role information | 创建或更新角色
+      operationId: createOrUpdateRole
+      parameters:
+      - description: Role ID | 角色 ID
+        format: uint64
+        in: query
+        name: id
+        required: true
+        type: integer
+        x-go-name: Id
+      - description: Role Name | 角色名
+        in: query
+        name: name
+        required: true
+        type: string
+        x-go-name: Name
+      - description: Role value | 角色值
+        in: query
+        name: value
+        required: true
+        type: string
+        x-go-name: Value
+      - description: Role's default page | 角色默认管理页面
+        in: query
+        name: defaultRouter
+        required: true
+        type: string
+        x-go-name: DefaultRouter
+      - description: Role status | 角色状态
+        format: uint32
+        in: query
+        name: status
+        required: true
+        type: integer
+        x-go-name: Status
+      - description: Role remark | 角色备注
+        in: query
+        name: remark
+        required: true
+        type: string
+        x-go-name: Remark
+      - description: Role's sorting number | 角色排序
+        format: uint32
+        in: query
+        name: orderNo
+        required: true
+        type: integer
+        x-go-name: OrderNo
+      - description: Create time | 创建日期
+        format: int64
+        in: query
+        name: createAt
+        required: true
+        type: integer
+        x-go-name: CreateAt
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - role
+  /role/list:
+    post:
+      description: Get role list | 获取角色列表
+      operationId: getRoleList
+      parameters:
+      - description: Page number | 第几页
+        format: uint64
+        in: query
+        name: page
+        required: true
+        type: integer
+        x-go-name: Page
+      - description: Page size | 单页数据行数
+        format: uint64
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+        x-go-name: PageSize
+      responses:
+        "200":
+          $ref: '#/responses/RoleListResp'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - role
+  /role/status:
+    post:
+      description: Set role status | 设置角色状态
+      operationId: setRoleStatus
+      parameters:
+      - description: ID
+        format: uint64
+        in: query
+        name: id
+        required: true
+        type: integer
+        x-go-name: Id
+      - description: Status code | 状态码
+        format: uint32
+        in: query
+        name: status
+        required: true
+        type: integer
+        x-go-name: Status
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - role
+  /user:
+    post:
+      description: Create or update user's information | 新增或更新用户
+      operationId: createOrUpdateUser
+      parameters:
+      - description: User's id | 用户Id
+        format: int64
+        in: query
+        name: id
+        required: true
+        type: integer
+        x-go-name: Id
+      - description: User Name | 用户名
+        in: query
+        name: username
+        required: true
+        type: string
+        x-go-name: Username
+      - description: User's nickname | 用户的昵称
+        in: query
+        name: nickname
+        required: true
+        type: string
+        x-go-name: Nickname
+      - description: Password | 密码
+        in: query
+        name: password
+        required: true
+        type: string
+        x-go-name: Password
+      - description: User's mobile phone number | 用户的手机号码
+        in: query
+        name: mobile
+        required: true
+        type: string
+        x-go-name: Mobile
+      - description: User's role id | 用户的角色Id
+        format: uint32
+        in: query
+        name: roleId
+        required: true
+        type: integer
+        x-go-name: RoleId
+      - description: The user's email address | 用户的邮箱
+        in: query
+        name: email
+        required: true
+        type: string
+        x-go-name: Email
+      - description: The user's avatar path | 用户的头像路径
+        in: query
+        name: avatar
+        required: true
+        type: string
+        x-go-name: Avatar
+      - description: |-
+          The user's status | 用户状态
+          1 normal, 2 ban | 1 正常 2 拉黑
+        format: int32
+        in: query
+        name: status
+        required: true
+        type: integer
+        x-go-name: Status
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - user
+  /user/change-password:
+    post:
+      description: Change Password | 修改密码
+      operationId: changePassword
+      parameters:
+      - description: User's UUID | 用户的UUID
+        in: query
+        name: uuid
+        required: true
+        type: string
+        x-go-name: UUID
+      - description: User's old password | 用户旧密码
+        in: query
+        name: oldPassword
+        required: true
+        type: string
+        x-go-name: OldPassword
+      - description: User's new password | 用户新密码
+        in: query
+        name: newPassword
+        required: true
+        type: string
+        x-go-name: NewPassword
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - user
+  /user/info:
+    get:
+      description: Get user basic infomation | 获取用户基本信息
+      operationId: getUserInfo
+      responses:
+        "200":
+          $ref: '#/responses/GetUserInfoResp'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - user
+  /user/list:
+    post:
+      description: Get user list | 获取用户列表
+      operationId: getUserList
+      parameters:
+      - description: Page number | 第几页
+        format: uint64
+        in: query
+        name: page
+        required: true
+        type: integer
+        x-go-name: Page
+      - description: Page size | 单页数据行数
+        format: uint64
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+        x-go-name: PageSize
+      - description: User Name | 用户名
+        in: query
+        name: username
+        required: true
+        type: string
+        x-go-name: Username
+      - description: User's nickname | 用户的昵称
+        in: query
+        name: nickname
+        required: true
+        type: string
+        x-go-name: Nickname
+      - description: User's mobile phone number | 用户的手机号码
+        in: query
+        name: mobile
+        required: true
+        type: string
+        x-go-name: Mobile
+      - description: The user's email address | 用户的邮箱
+        in: query
+        name: email
+        required: true
+        type: string
+        x-go-name: Email
+      - description: User's role id | 用户的角色Id
+        format: uint64
+        in: query
+        name: roleId
+        required: true
+        type: integer
+        x-go-name: RoleId
+      responses:
+        "200":
+          $ref: '#/responses/UserListResp'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - user
+  /user/login:
+    post:
+      description: Log in | 登录
+      operationId: login
+      parameters:
+      - description: User Name | 用户名
+        in: query
+        name: username
+        required: true
+        type: string
+        x-go-name: Username
+      - description: Password | 密码
+        in: query
+        name: password
+        required: true
+        type: string
+        x-go-name: Password
+      - description: Captcha Id which store in redis | 验证码编号, 存在redis中
+        in: query
+        name: captchaId
+        required: true
+        type: string
+        x-go-name: CaptchaId
+      - description: The Captcha which users input | 用户输入的验证码
+        in: query
+        name: captcha
+        required: true
+        type: string
+        x-go-name: Captcha
+      responses:
+        "200":
+          $ref: '#/responses/LoginResp'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - user
+  /user/modify:
+    delete:
+      description: Delete user infomation | 删除用户信息
+      operationId: deleteUser
+      parameters:
+      - description: ID
+        format: uint64
+        in: query
+        name: id
+        required: true
+        type: integer
+        x-go-name: ID
+      - description: UUID
+        in: query
+        name: uuid
+        required: true
+        type: string
+        x-go-name: UUID
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - user
+    post:
+      description: Modify user infomation | 修改用户信息
+      operationId: modifyUser
+      parameters:
+      - description: User's UUID | 用户的UUID
+        in: query
+        name: UUID
+        required: true
+        type: string
+      - description: User's nickname | 用户的昵称
+        in: query
+        name: nickname
+        required: true
+        type: string
+        x-go-name: Nickname
+      - description: User's mobile phone number | 用户的手机号码
+        in: query
+        name: mobile
+        required: true
+        type: string
+        x-go-name: Mobile
+      - description: User's role id | 用户的角色Id
+        format: uint32
+        in: query
+        name: roleId
+        required: true
+        type: integer
+        x-go-name: RoleId
+      - description: The user's email address | 用户的邮箱
+        in: query
+        name: email
+        required: true
+        type: string
+        x-go-name: Email
+      - description: The user's avatar path | 用户的头像路径
+        in: query
+        name: avatar
+        required: true
+        type: string
+        x-go-name: Avatar
+      - description: The user's layout mode | 用户的布局
+        in: query
+        name: sideMode
+        required: true
+        type: string
+        x-go-name: SideMode
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - user
+  /user/perm:
+    get:
+      description: Get user's permission code | 获取用户权限码
+      operationId: getUserPermCode
+      responses:
+        "200":
+          $ref: '#/responses/PermCodeResp'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - user
+  /user/register:
+    post:
+      description: Register | 注册
+      operationId: register
+      parameters:
+      - description: User Name | 用户名
+        in: query
+        name: username
+        required: true
+        type: string
+        x-go-name: Username
+      - description: Password | 密码
+        in: query
+        name: password
+        required: true
+        type: string
+        x-go-name: Password
+      - description: Captcha Id which store in redis | 验证码编号, 存在redis中
+        in: query
+        name: captchaId
+        required: true
+        type: string
+        x-go-name: CaptchaId
+      - description: The Captcha which users input | 用户输入的验证码
+        in: query
+        name: captcha
+        required: true
+        type: string
+        x-go-name: Captcha
+      - description: The user's email address | 用户的邮箱
+        in: query
+        name: email
+        required: true
+        type: string
+        x-go-name: Email
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - user
+produces:
+- application/json
+responses:
+  ApiAuthorityInfo:
+    description: The response data of api authorization | API授权数据
+    headers:
+      method:
+        description: API method | API请求方法
+        type: string
+      path:
+        description: API path | API 路径
+        type: string
+  ApiAuthorityListResp:
+    description: The response data of api authorization list | API授权列表数据
+    headers:
+      total:
+        description: The total number of data | 数据总数
+        format: uint64
+        type: integer
+    schema:
+      items:
+        $ref: '#/definitions/ApiAuthorityInfo'
+      type: array
+  ApiInfo:
+    description: The response data of API information | API信息
+    headers:
+      createAt:
+        format: int64
+        type: integer
+      description:
+        description: API Description | API 描述
+        type: string
+      group:
+        description: API group | API分组
+        type: string
+      id:
+        description: ID
+        format: uint64
+        type: integer
+      method:
+        description: API request method e.g. POST | API请求类型 如POST
+        type: string
+      path:
+        description: API path | API路径
+        type: string
+  ApiListResp:
+    description: The response data of API list | API列表数据
+    headers:
+      total:
+        description: The total number of data | 数据总数
+        format: uint64
+        type: integer
+    schema:
+      items:
+        $ref: '#/definitions/ApiInfo'
+      type: array
+  BaseInfo:
+    description: The base response data | 基础信息
+    headers:
+      createdAt:
+        description: Create date | 创建日期
+        format: int64
+        type: integer
+      deletedAt:
+        description: Delete date | 删除日期
+        format: int64
+        type: integer
+      id:
+        description: ID
+        format: uint64
+        type: integer
+      updatedAt:
+        description: Update date | 更新日期
+        format: int64
+        type: integer
+  BaseMsg:
+    description: The basic response without data | 基础不带数据信息
+    headers:
+      code:
+        format: int32
+        type: integer
+      msg:
+        type: string
+  CaptchaInfo:
+    description: The response data of captcha | 验证码返回数据
+    headers:
+      captchaId:
+        type: string
+      imgPath:
+        type: string
+  GetUserInfoResp:
+    description: The response data of user's basic information | 用户基本信息返回数据
+    headers:
+      UUID:
+        description: User's UUID | 用户的UUID
+        type: string
+      avatar:
+        description: The user's avatar path | 用户的头像路径
+        type: string
+      nickname:
+        description: user's nickname | 用户的昵称
+        type: string
+      username:
+        description: User name | 用户名
+        type: string
+    schema:
+      $ref: '#/definitions/GetUserRoleInfo'
+  GetUserRoleInfo:
+    description: The response data of user's basic role information | 用户角色信息数据
+    headers:
+      roleName:
+        description: Role name | 角色名
+        type: string
+      value:
+        description: Role value for permission control | 角色值用于前端页面组件显示权限
+        type: string
+  LoginResp:
+    description: The login response data | 登录返回数据
+    headers:
+      expire:
+        description: Expire timestamp | 过期时间戳
+        format: uint64
+        type: integer
+      token:
+        description: Token for authorization | 验证身份的token
+        type: string
+      userId:
+        description: User's UUID | 用户的UUID
+        type: string
+    schema:
+      $ref: '#/definitions/RoleInfoSimple'
+  Menu:
+    description: The response data of menu information | 菜单返回数据
+    headers:
+      closeTab:
+        description: Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+        type: boolean
+      component:
+        description: The component path | 组件路径
+        type: string
+      createdAt:
+        description: Create date | 创建日期
+        format: int64
+        type: integer
+      currentActiveMenu:
+        description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
+        type: string
+      deletedAt:
+        description: Delete date | 删除日期
+        format: int64
+        type: integer
+      disabled:
+        description: Wether disabled | 是否禁用菜单
+        type: boolean
+      hideBreadcrumb:
+        description: Wether hide the breadcrumb | 隐藏面包屑
+        type: boolean
+      hideMenu:
+        description: Hide menu | 隐藏菜单
+        type: boolean
+      icon:
+        description: Menu Icon | 菜单图标
+        type: string
+      id:
+        description: ID
+        format: uint64
+        type: integer
+      keepAlive:
+        description: keep alive the tab in cache | 是否保持窗口的缓存
+        type: boolean
+      level:
+        description: The menu level | 菜单等级
+        format: uint32
+        type: integer
+      name:
+        description: Menu name | 菜单名
+        type: string
+      orderNo:
+        description: The sorting number | 排序编号
+        format: uint32
+        type: integer
+      parentId:
+        description: Parent menu ID | 父级菜单ID
+        format: uint64
+        type: integer
+      path:
+        description: The path to visit menu | 菜单访问路径
+        type: string
+      redirect:
+        description: Redirect path | 跳转路径
+        type: string
+      title:
+        description: Menu title show in page | 菜单显示名
+        type: string
+      type:
+        description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
+        format: uint32
+        type: integer
+      updatedAt:
+        description: Update date | 更新日期
+        format: int64
+        type: integer
+    schema:
+      items:
+        $ref: '#/definitions/Menu'
+      type: array
+  MenuListResp:
+    description: The response data of role menu list, show after user login | 角色菜单列表数据，
+      登录后自动获取
+    headers:
+      component:
+        description: The component path | 组件路径
+        type: string
+      disabled:
+        description: Wether disabled | 是否禁用菜单
+        type: boolean
+      level:
+        description: The menu level | 菜单等级
+        format: uint32
+        type: integer
+      name:
+        description: Menu name | 菜单名
+        type: string
+      orderNo:
+        description: The sorting number | 排序编号
+        format: uint32
+        type: integer
+      parentId:
+        description: Parent menu ID | 父级菜单ID
+        format: uint64
+        type: integer
+      path:
+        description: The path to visit menu | 菜单访问路径
+        type: string
+      redirect:
+        description: Redirect path | 跳转路径
+        type: string
+      type:
+        description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
+        format: uint32
+        type: integer
+    schema:
+      $ref: '#/definitions/Meta'
+      items:
+        $ref: '#/definitions/GetMenuListBase'
+      type: array
+  Meta:
+    description: The meta data of menu | 菜单的meta数据
+    headers:
+      closeTab:
+        description: Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+        type: boolean
+      currentActiveMenu:
+        description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
+        type: string
+      hideBreadcrumb:
+        description: Wether hide the breadcrumb | 隐藏面包屑
+        type: boolean
+      hideMenu:
+        description: Hide menu | 隐藏菜单
+        type: boolean
+      icon:
+        description: Menu Icon | 菜单图标
+        type: string
+      keepAlive:
+        description: keep alive the tab in cache | 是否保持窗口的缓存
+        type: boolean
+      title:
+        description: Menu title show in page | 菜单显示名
+        type: string
+  PageList:
+    description: The page response data model | 列表返回信息
+    headers:
+      data:
+        description: Data | 数据
+        items:
+          type: string
+        type: array
+      total:
+        description: Total number | 数据总数
+        format: uint64
+        type: integer
+  PermCodeResp:
+    description: The permission code for front end permission control | 权限码： 用于前端权限控制
+    headers:
+      data:
+        description: Permission code data | 权限码数据
+        items:
+          type: string
+        type: array
+  RoleInfoSimple:
+    description: The simple role data | 简单的角色数据
+    headers:
+      roleName:
+        description: Role name | 角色名
+        type: string
+      value:
+        description: Role value | 角色值
+        type: string
+  RoleListResp:
+    description: The response data of role list | 角色列表数据
+    headers:
+      total:
+        description: The total number of data | 数据总数
+        format: uint64
+        type: integer
+    schema:
+      items:
+        $ref: '#/definitions/RoleInfo'
+      type: array
+  SimpleMsg:
+    description: The simplest message | 最简单的信息
+    headers:
+      msg:
+        description: Message | 信息
+        type: string
+  UserInfoResp:
+    description: The response data of user's information | 用户信息返回数据
+    headers:
+      avatar:
+        description: The user's avatar path | 用户的头像路径
+        type: string
+      createAt:
+        format: int64
+        type: integer
+      email:
+        description: The user's email address | 用户的邮箱
+        type: string
+      id:
+        description: User's id | 用户Id
+        format: int64
+        type: integer
+      mobile:
+        description: User's mobile phone number | 用户的手机号码
+        type: string
+      nickname:
+        description: User's nickname | 用户的昵称
+        type: string
+      roleId:
+        description: User's role id | 用户的角色Id
+        format: uint32
+        type: integer
+      sideMode:
+        description: The user's layout mode | 用户的布局
+        type: string
+      status:
+        description: |-
+          The user's status | 用户状态
+          1 normal, 2 ban | 1 正常 2 拉黑
+        format: int32
+        type: integer
+      updateAt:
+        format: int64
+        type: integer
+      username:
+        description: User Name | 用户名
+        type: string
+  UserListResp:
+    description: The response data of user list | 用户列表数据
+    headers:
+      total:
+        description: The total number of data | 数据总数
+        format: uint64
+        type: integer
+    schema:
+      items:
+        $ref: '#/definitions/UserInfoResp'
+      type: array
+schemes:
+- http
+- https
+swagger: "2.0"

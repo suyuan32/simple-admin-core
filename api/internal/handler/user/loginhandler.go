@@ -6,9 +6,15 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
+
+// swagger:route POST /user/login user login
+// Log in | 登录
+// Responses:
+//   200: LoginResp
+//   401: SimpleMsg
+//   500: SimpleMsg
 
 func LoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

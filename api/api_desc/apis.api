@@ -11,25 +11,70 @@ info(
 import "base.api"
 
 type (
+    // The response data of API information | API信息
+    // swagger:response ApiInfo
     ApiInfo {
+        // ID
         Id            uint64 `json:"id"`
         CreateAt      int64  `json:"createAt"`
+        // API path | API路径
         Path          string `json:"path"`
+        // API Description | API 描述
         Description   string `json:"description"`
+        // API group | API分组
         Group         string `json:"group"`
+        // API request method e.g. POST | API请求类型 如POST
         Method        string `json:"method"`
     }
 
+    // swagger:parameters createOrUpdateApi
+    // Create or update API information request | 创建或更新API信息
+    CreateOrUpdateApiReq {
+        // ID
+        // Required: true
+        Id            uint64 `json:"id"`
+        // Create date | 创建日期
+        // Required: true
+        CreateAt      int64  `json:"createAt"`
+        // API path | API路径
+        // Required: true
+        Path          string `json:"path"`
+        // API Description | API 描述
+        // Required: true
+        Description   string `json:"description"`
+        // API group | API分组
+        // Require: true
+        Group         string `json:"group"`
+        // API request method e.g. POST | API请求类型 如POST
+        // Required: true
+        Method        string `json:"method"`
+    }
+
+    // The response data of API list | API列表数据
+    // swagger:response ApiListResp
     ApiListResp {
-        PageList
+        // The total number of data | 数据总数
+        Total uint64 `json:"total"`
+        // The api list data | 角色列表数据
+        // in: body
         Data  []ApiInfo  `json:"data"`
     }
 
+    // swagger:parameters getApiList
+    // Get API list request params | API列表请求参数
     ApiListReq {
         PageInfo
+        // API path | API路径
+        // Required: true
         Path          string `json:"path"`
+        // API Description | API 描述
+        // Required: true
         Description   string `json:"description"`
+        // API group | API分组
+        // Required: true
         Group         string `json:"group"`
+        // API request method e.g. POST | API请求类型 如POST
+        // Required: true
         Method        string `json:"method"`
     }
 )
@@ -41,12 +86,30 @@ type (
 )
 
 service core {
-    @handler createOrUpdateApiHandler
-    post /api (ApiInfo) returns (SimpleMsg)
+    // swagger:route POST /api api createOrUpdateApi
+    // Create or update API information | 创建或更新API
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler createOrUpdateApi
+    post /api (CreateOrUpdateApiReq) returns (SimpleMsg)
 
-    @handler deleteApiHandler
+    // swagger:route DELETE /api api deleteApi
+    // Delete API information | 删除API信息
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler deleteApi
     delete /api (IdReq) returns (SimpleMsg)
 
-    @handler getApiListHandler
+    // swagger:route POST /api/list api getApiList
+    // Get API list | 获取API列表
+    // Responses:
+    //   200: ApiListResp
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler getApiList
     post /api/list (ApiListReq) returns (ApiListResp)
 }

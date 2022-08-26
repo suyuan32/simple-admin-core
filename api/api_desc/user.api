@@ -12,8 +12,7 @@ import "base.api"
 
 type (
     // swagger:parameters login
-    // login request
-    // 登录参数
+    // login request | 登录参数
     LoginReq {
         // User Name | 用户名
         // required : true
@@ -29,12 +28,13 @@ type (
         Captcha    string `json:"captcha"`
     }
 
-    // swagger: response LoginResp
     // The login response data | 登录返回数据
+    // swagger:response LoginResp
     LoginResp {
         // User's UUID | 用户的UUID
         UserId       string          `json:"userId"`
         // User's role information| 用户的角色信息
+        // in: body
         Role         RoleInfoSimple  `json:"role"`
         // Token for authorization | 验证身份的token
         Token        string          `json:"token"`
@@ -42,8 +42,12 @@ type (
         Expire       uint64          `json:"expire"`
     }
 
+    // The simple role data | 简单的角色数据
+    // swagger:response RoleInfoSimple
     RoleInfoSimple {
+        // Role name | 角色名
         RoleName   string `json:"roleName"`
+        // Role value | 角色值
         Value      string `json:"value"`
     }
 
@@ -110,8 +114,8 @@ type (
         SideMode     string       `json:"sideMode"`
     }
 
-    // swagger: response UserInfoResp
     // The response data of user's information | 用户信息返回数据
+    // swagger:response UserInfoResp
     UserInfoResp {
         // User's id | 用户Id
         Id           int64        `json:"id"`
@@ -136,8 +140,8 @@ type (
         UpdateAt     int64        `json:"updateAt"`
     }
 
-    // swagger: response GetUserInfoResp
     // The response data of user's basic information | 用户基本信息返回数据
+    // swagger:response GetUserInfoResp
     GetUserInfoResp {
         // User's UUID | 用户的UUID
         UUID         string       `json:"UUID"`
@@ -148,10 +152,12 @@ type (
         // The user's avatar path | 用户的头像路径
         Avatar       string       `json:"avatar"`
         // User's role information| 用户的角色信息
+        // in: body
         Roles        GetUserRoleInfo `json:"roles"`
     }
 
-
+    // The response data of user's basic role information | 用户角色信息数据
+    // swagger:response GetUserRoleInfo
     GetUserRoleInfo {
         // Role name | 角色名
         RoleName   string `json:"roleName"`
@@ -159,17 +165,18 @@ type (
         Value      string `json:"value"`
     }
 
-    // swagger: response UserListResp
-    // The response data of user's basic information | 用户基本信息返回数据
+    // The response data of user list | 用户列表数据
+    // swagger:response UserListResp
     UserListResp {
-        PageList
+        // The total number of data | 数据总数
+        Total uint64 `json:"total"`
         // The user list data | 用户列表数据
+        // in: body
         Data    []UserInfoResp  `json:"data"`
     }
 
-    // swagger: response UserListResp
-    // The permission code for front end permission contrl
-    // 权限码： 用于前端权限控制
+    // The permission code for front end permission control | 权限码： 用于前端权限控制
+    // swagger:response PermCodeResp
     PermCodeResp {
         // Permission code data | 权限码数据
         Data []string `json:"data"`
@@ -180,23 +187,32 @@ type (
     // 创建或更新用户信息
     CreateOrUpdateUserReq {
         // User's id | 用户Id
+        // Required: true
         Id           int64        `json:"id"`
         // User Name | 用户名
+        // Required: true
         Username     string       `json:"username"`
         // User's nickname | 用户的昵称
+        // Required: true
         Nickname     string       `json:"nickname"`
         // Password | 密码
+        // Required: true
         Password     string       `json:"password"`
         // User's mobile phone number | 用户的手机号码
+        // Required: true
         Mobile       string       `json:"mobile"`
         // User's role id | 用户的角色Id
+        // Required: true
         RoleId       uint32       `json:"roleId"`
         // The user's email address | 用户的邮箱
+        // Required: true
         Email        string       `json:"email"`
         // The user's avatar path | 用户的头像路径
+        // Required: true
         Avatar       string       `json:"avatar"`
         // The user's status | 用户状态
         // 1 normal, 2 ban | 1 正常 2 拉黑
+        // Required: true
         Status       int32        `json:"status"`
     }
 
@@ -234,21 +250,21 @@ type (
 
 service core {
     // swagger:route POST /user/login user login
-    // Login API | 登录API
+    // Log in | 登录
     // Responses:
     //   200: LoginResp
     //   401: SimpleMsg
     //   500: SimpleMsg
-    @handler loginHandler
+    @handler login
     post /user/login (LoginReq) returns (LoginResp)
 
     // swagger:route POST /user/register user register
-    // Register API | 注册API
+    // Register | 注册
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
     //   500: SimpleMsg
-    @handler registerHandler
+    @handler register
     post /user/register (RegisterReq) returns (SimpleMsg)
 }
 
@@ -260,65 +276,65 @@ service core {
 
 service core {
     // swagger:route POST /user/change-password user changePassword
-    // Change Password API | 修改密码API
+    // Change Password | 修改密码
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
     //   500: SimpleMsg
-    @handler changePasswordHandler
+    @handler changePassword
     post /user/change-password (ChangePasswordReq) returns (SimpleMsg)
 
     // swagger:route GET /user/info user getUserInfo
-    // Get user basic infomation API | 获取用户基本信息API
+    // Get user basic infomation | 获取用户基本信息
     // Responses:
     //   200: GetUserInfoResp
     //   401: SimpleMsg
     //   500: SimpleMsg
-    @handler getUserInfoHandler
+    @handler getUserInfo
     get /user/info returns (GetUserInfoResp)
 
     // swagger:route POST /user user createOrUpdateUser
-    // Create or update user's information API | 新增或更新用户
+    // Create or update user's information | 新增或更新用户
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
     //   500: SimpleMsg
-    @handler createOrUpdateUserHandler
+    @handler createOrUpdateUser
     post /user (CreateOrUpdateUserReq) returns (SimpleMsg)
 
     // swagger:route POST /user/list user getUserList
-    // Get user list API | 获取用户列表
+    // Get user list | 获取用户列表
     // Responses:
     //   200: UserListResp
     //   401: SimpleMsg
     //   500: SimpleMsg
-    @handler getUserListHandler
+    @handler getUserList
     post /user/list (GetUserListReq) returns (UserListResp)
 
     // swagger:route POST /user/modify user modifyUser
-    // Modify user infomation API | 修改用户信息
+    // Modify user infomation | 修改用户信息
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
     //   500: SimpleMsg
-    @handler modifyUserHandler
+    @handler modifyUser
     post /user/modify  (ModifyInfoReq) returns (SimpleMsg)
 
     // swagger:route DELETE /user/modify user deleteUser
-    // Delete user infomation API | 删除用户信息
+    // Delete user infomation | 删除用户信息
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
     //   500: SimpleMsg
-    @handler deleteUserHandler
+    @handler deleteUser
     delete /user (IdReq) returns (SimpleMsg)
 
     // swagger:route GET /user/perm user getUserPermCode
-    // Get user's permission code API | 获取用户权限码
+    // Get user's permission code | 获取用户权限码
     // Responses:
     //   200: PermCodeResp
     //   401: SimpleMsg
     //   500: SimpleMsg
-    @handler getUserPermCodeHandler
+    @handler getUserPermCode
     get /user/perm returns (PermCodeResp)
 }
