@@ -61,4 +61,9 @@ const (
 	// EN: Your role is forbidden
 	// ZH_CN: 您的角色已停用
 	RoleForbidden string = "sys.role.roleForbidden"
+
+	// WrongPassword
+	// EN: Wrong Password
+	// ZH_CN: 密码错误
+	WrongPassword string = "sys.user.wrongPassword"
 )

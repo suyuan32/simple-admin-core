@@ -30,7 +30,6 @@ func NewCreateOrUpdateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 	}
 }
 
-//  menu service
 func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenuReq) (*core.BaseResp, error) {
 	// get parent level
 	var menuLevel uint32
@@ -45,6 +44,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		}
 		menuLevel = parent.MenuLevel + 1
 	} else {
+		in.ParentId = 1
 		menuLevel = 1
 	}
 	var data *model.Menu

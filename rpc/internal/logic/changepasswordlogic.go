@@ -49,7 +49,7 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 	} else {
-		return nil, status.Error(codes.InvalidArgument, message.WrongUsernameOrPassword)
+		return nil, status.Error(codes.InvalidArgument, message.WrongPassword)
 	}
 	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 }

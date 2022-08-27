@@ -59,6 +59,11 @@ func (s *CoreServer) DeleteUser(ctx context.Context, in *core.IDReq) (*core.Base
 	return l.DeleteUser(in)
 }
 
+func (s *CoreServer) UpdateProfile(ctx context.Context, in *core.UpdateProfileReq) (*core.BaseResp, error) {
+	l := logic.NewUpdateProfileLogic(ctx, s.svcCtx)
+	return l.UpdateProfile(in)
+}
+
 //  menu service
 func (s *CoreServer) CreateOrUpdateMenu(ctx context.Context, in *core.CreateOrUpdateMenuReq) (*core.BaseResp, error) {
 	l := logic.NewCreateOrUpdateMenuLogic(ctx, s.svcCtx)
