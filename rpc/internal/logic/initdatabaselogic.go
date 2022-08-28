@@ -220,6 +220,18 @@ func (l *InitDatabaseLogic) insertApiData() error {
 			ApiGroup:    "user",
 			Method:      "GET",
 		},
+		{
+			Path:        "/user/profile",
+			Description: "api_desc.userProfile",
+			ApiGroup:    "user",
+			Method:      "GET",
+		},
+		{
+			Path:        "/user/profile",
+			Description: "api_desc.updateProfile",
+			ApiGroup:    "user",
+			Method:      "POST",
+		},
 		// role
 		{
 			Path:        "/role",
@@ -474,7 +486,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Path:      "/file_management",
 			Name:      "File Management",
 			Component: "/file/index",
-			OrderNo:   1,
+			OrderNo:   2,
 			Disabled:  false,
 			Meta: model.Meta{
 				KeepAlive:         false,
@@ -483,6 +495,25 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 				CurrentActiveMenu: "",
 				Title:             "routes.system.fileManagementTitle",
 				Icon:              "ant-design:folder-open-outlined",
+				CloseTab:          false,
+			},
+		},
+		{
+			MenuLevel: 1,
+			MenuType:  1,
+			ParentId:  1,
+			Path:      "/profile",
+			Name:      "Profile",
+			Component: "/sys/profile/index",
+			OrderNo:   3,
+			Disabled:  false,
+			Meta: model.Meta{
+				KeepAlive:         false,
+				HideMenu:          true,
+				HideBreadcrumb:    true,
+				CurrentActiveMenu: "",
+				Title:             "routes.system.userProfileTitle",
+				Icon:              "ant-design:profile-outlined",
 				CloseTab:          false,
 			},
 		},
