@@ -2,11 +2,12 @@ package logic
 
 import (
 	"context"
-	"github.com/zeromicro/go-zero/core/errorx"
 
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -29,11 +30,15 @@ func NewSetRoleStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Set
 func (l *SetRoleStatusLogic) SetRoleStatus(in *core.SetStatusReq) (*core.BaseResp, error) {
 	result := l.svcCtx.DB.Table("roles").Where("id = ?", in.Id).Update("status", in.Status)
 	if result.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {
+		logx.Errorw("Update role status failed, please check the role id", logx.Field("RoleId", in.Id))
 		return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 	}
 
+	logx.Infow("Update role status successfully", logx.Field("RoleId", in.Id),
+		logx.Field("Status", in.Status))
 	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 }

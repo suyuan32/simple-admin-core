@@ -87,6 +87,13 @@ message GetUserListReq {
   uint64 role_id = 7;
 }
 
+message UpdateProfileReq {
+  string uuid = 1;
+  string nickname = 2;
+  string email = 3;
+  string mobile = 4;
+  string avatar = 5;
+}
 
 // menu messages
 
@@ -262,6 +269,7 @@ service core {
   rpc getUserById (UUIDReq) returns (UserInfoResp);
   rpc getUserList (GetUserListReq) returns (UserListResp);
   rpc deleteUser (IDReq) returns (BaseResp);
+  rpc updateProfile (UpdateProfileReq) returns (BaseResp);
 
   // menu service
   //menu management

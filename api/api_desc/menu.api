@@ -111,9 +111,6 @@ type (
         // Parent menu ID | 父级菜单ID
         // Required: true
         ParentId     uint        `json:"parentId"`
-        // The menu level | 菜单等级
-        // Required: true
-        MenuLevel    uint32      `json:"level"`
         // The path to visit menu | 菜单访问路径
         // Required: true
         Path         string      `json:"path"`

@@ -31,6 +31,7 @@ type CoreClient interface {
 	GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error)
 	GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error)
 	DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// menu service
 	//menu management
 	CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -122,6 +123,15 @@ func (c *coreClient) GetUserList(ctx context.Context, in *GetUserListReq, opts .
 func (c *coreClient) DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.core/deleteUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/updateProfile", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -312,6 +322,7 @@ type CoreServer interface {
 	GetUserById(context.Context, *UUIDReq) (*UserInfoResp, error)
 	GetUserList(context.Context, *GetUserListReq) (*UserListResp, error)
 	DeleteUser(context.Context, *IDReq) (*BaseResp, error)
+	UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error)
 	// menu service
 	//menu management
 	CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error)
@@ -363,6 +374,9 @@ func (UnimplementedCoreServer) GetUserList(context.Context, *GetUserListReq) (*U
 }
 func (UnimplementedCoreServer) DeleteUser(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
+}
+func (UnimplementedCoreServer) UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
 }
 func (UnimplementedCoreServer) CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenu not implemented")
@@ -556,6 +570,24 @@ func _Core_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteUser(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateProfileReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/updateProfile",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateProfile(ctx, req.(*UpdateProfileReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -936,6 +968,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteUser",
 			Handler:    _Core_DeleteUser_Handler,
+		},
+		{
+			MethodName: "updateProfile",
+			Handler:    _Core_UpdateProfile_Handler,
 		},
 		{
 			MethodName: "createOrUpdateMenu",

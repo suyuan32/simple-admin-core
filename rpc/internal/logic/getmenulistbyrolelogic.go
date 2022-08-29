@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -33,6 +34,7 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.IDReq) (*core.MenuIn
 		return db.Order("menus.order_no DESC")
 	}).Where(&model.Role{Model: gorm.Model{ID: uint(in.ID)}}).First(&r)
 	if result.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, "database error")
 	}
 	if result.RowsAffected == 0 {

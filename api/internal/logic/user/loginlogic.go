@@ -2,18 +2,18 @@ package user
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/common/message"
-	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
 	"time"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/captcha"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/common/message"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 type LoginLogic struct {

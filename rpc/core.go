@@ -3,12 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
-
 	"github.com/suyuan32/simple-admin-core/rpc/internal/config"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/server"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
-
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/zrpc"

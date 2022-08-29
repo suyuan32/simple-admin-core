@@ -44,6 +44,7 @@ type (
 	UUIDReq               = core.UUIDReq
 	UpdateMenuParamReq    = core.UpdateMenuParamReq
 	UpdatePolicyReq       = core.UpdatePolicyReq
+	UpdateProfileReq      = core.UpdateProfileReq
 	UserInfoResp          = core.UserInfoResp
 	UserListResp          = core.UserListResp
 
@@ -57,6 +58,7 @@ type (
 		GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error)
 		GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error)
 		DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error)
 		//  menu service
 		CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -128,6 +130,11 @@ func (m *defaultCore) GetUserList(ctx context.Context, in *GetUserListReq, opts 
 func (m *defaultCore) DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteUser(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateProfile(ctx, in, opts...)
 }
 
 //  menu service

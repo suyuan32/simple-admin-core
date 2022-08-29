@@ -115,6 +115,16 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/user/perm",
 					Handler: user.GetUserPermCodeHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/user/profile",
+					Handler: user.GetUserProfileHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/user/profile",
+					Handler: user.UpdateUserProfileHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),

@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -27,13 +28,14 @@ func NewGetMenuAuthorityLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	}
 }
 
-//  authorization management service
+// authorization management service
 func (l *GetMenuAuthorityLogic) GetMenuAuthority(in *core.IDReq) (*core.RoleMenuAuthorityResp, error) {
 	var r model.Role
 	result := l.svcCtx.DB.Preload("Menus").Where(&model.Role{
 		Model: gorm.Model{ID: uint(in.ID)},
 	}).First(&r)
 	if result.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	var menuIds []uint64

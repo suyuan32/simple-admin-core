@@ -153,6 +153,36 @@ type LoginResp struct {
 	Expire uint64 `json:"expire"`
 }
 
+// The profile response data | 个人信息返回数据
+// swagger:response ProfileResp
+type ProfileResp struct {
+	// user's nickname | 用户的昵称
+	Nickname string `json:"nickname"`
+	// The user's avatar path | 用户的头像路径
+	Avatar string `json:"avatar"`
+	// User's mobile phone number | 用户的手机号码
+	Mobile string `json:"mobile"`
+	// The user's email address | 用户的邮箱
+	Email string `json:"email"`
+}
+
+// swagger:parameters updateUserProfile
+// The profile request data | 个人信息请求参数
+type ProfileReq struct {
+	// user's nickname | 用户的昵称
+	// required: true
+	Nickname string `json:"nickname"`
+	// The user's avatar path | 用户的头像路径
+	// required: true
+	Avatar string `json:"avatar"`
+	// User's mobile phone number | 用户的手机号码
+	// required: true
+	Mobile string `json:"mobile"`
+	// The user's email address | 用户的邮箱
+	// required: true
+	Email string `json:"email"`
+}
+
 // The simple role data | 简单的角色数据
 // swagger:response RoleInfoSimple
 type RoleInfoSimple struct {
@@ -163,8 +193,7 @@ type RoleInfoSimple struct {
 }
 
 // swagger:parameters register
-// register request
-// 注册参数
+// register request | 注册参数
 type RegisterReq struct {
 	// User Name | 用户名
 	// required : true
@@ -184,12 +213,8 @@ type RegisterReq struct {
 }
 
 // swagger:parameters changePassword
-// change user's password request
-// 注册参数
+// change user's password request | 修改密码请求参数
 type ChangePasswordReq struct {
-	// User's UUID | 用户的UUID
-	// required: true
-	UUID string `json:"uuid"`
 	// User's old password | 用户旧密码
 	// required: true
 	OldPassword string `json:"oldPassword"`
@@ -452,9 +477,6 @@ type CreateOrUpdateMenuReq struct {
 	// Parent menu ID | 父级菜单ID
 	// Required: true
 	ParentId uint `json:"parentId"`
-	// The menu level | 菜单等级
-	// Required: true
-	MenuLevel uint32 `json:"level"`
 	// The path to visit menu | 菜单访问路径
 	// Required: true
 	Path string `json:"path"`

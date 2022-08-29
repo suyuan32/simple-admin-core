@@ -711,13 +711,6 @@ paths:
         required: true
         type: integer
         x-go-name: ParentId
-      - description: The menu level | 菜单等级
-        format: uint32
-        in: query
-        name: level
-        required: true
-        type: integer
-        x-go-name: MenuLevel
       - description: The path to visit menu | 菜单访问路径
         in: query
         name: path
@@ -1244,6 +1237,56 @@ paths:
           $ref: '#/responses/SimpleMsg'
       tags:
       - user
+  /user/profile:
+    get:
+      description: Get user's profile | 获取用户个人信息
+      operationId: getUserProfile
+      responses:
+        "200":
+          $ref: '#/responses/ProfileResp'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - user
+    post:
+      description: Update user's profile | 更新用户个人信息
+      operationId: updateUserProfile
+      parameters:
+      - description: user's nickname | 用户的昵称
+        in: query
+        name: nickname
+        required: true
+        type: string
+        x-go-name: Nickname
+      - description: The user's avatar path | 用户的头像路径
+        in: query
+        name: avatar
+        required: true
+        type: string
+        x-go-name: Avatar
+      - description: User's mobile phone number | 用户的手机号码
+        in: query
+        name: mobile
+        required: true
+        type: string
+        x-go-name: Mobile
+      - description: The user's email address | 用户的邮箱
+        in: query
+        name: email
+        required: true
+        type: string
+        x-go-name: Email
+      responses:
+        "200":
+          $ref: '#/responses/SimpleMsg'
+        "401":
+          $ref: '#/responses/SimpleMsg'
+        "500":
+          $ref: '#/responses/SimpleMsg'
+      tags:
+      - user
   /user/register:
     post:
       description: Register | 注册
@@ -1580,6 +1623,21 @@ responses:
         items:
           type: string
         type: array
+  ProfileResp:
+    description: The profile response data | 个人信息返回数据
+    headers:
+      avatar:
+        description: The user's avatar path | 用户的头像路径
+        type: string
+      email:
+        description: The user's email address | 用户的邮箱
+        type: string
+      mobile:
+        description: User's mobile phone number | 用户的手机号码
+        type: string
+      nickname:
+        description: user's nickname | 用户的昵称
+        type: string
   RoleInfoSimple:
     description: The simple role data | 简单的角色数据
     headers:
