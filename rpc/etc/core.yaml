@@ -9,7 +9,7 @@ DatabaseConf:
   Path: 127.0.0.1
   Port: 3306
   Config: charset=utf8mb4&parseTime=True&loc=Local
-  DBName: go-easy-boot
+  DBName: simple_admin
   Username:
   Password:
   MaxIdleConn: 10
@@ -17,16 +17,17 @@ DatabaseConf:
   LogMode: error
   LogZap: false
 LogConf:
-  ServiceName: coreLogger
+  ServiceName: coreRpcLogger
   Mode: file
-  Path:
-  Level: error
+  Path: /data/logs/rpc
+  Level: info
   Compress: false
   KeepDays: 7
   StackCooldownMillis: 100
 RedisConf:
   Host: 127.0.0.1:6379
   Type: node
+  Pass:
 
 
 

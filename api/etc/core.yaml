@@ -5,10 +5,10 @@ Auth:
   AccessSecret:
   AccessExpire:   # Seconds
 LogConf:
-  ServiceName: coreLogger
-  Mode: console
-  Path: logs
-  Level: error
+  ServiceName: coreApiLogger
+  Mode: file
+  Path: /data/logs/api
+  Level: info
   Compress: false
   KeepDays: 7
   StackCooldownMillis: 100
@@ -29,7 +29,7 @@ DatabaseConf:
   Path: 127.0.0.1
   Port: 3306
   Config: charset=utf8mb4&parseTime=True&loc=Local
-  DBName: go-easy-boot
+  DBName: simple_admin
   Username:
   Password:
   MaxIdleConn: 10
