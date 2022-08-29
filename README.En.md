@@ -14,6 +14,7 @@ It can help you to develop a microservice back-end management core in a short ti
 ## Feature
 
 - **State of The Art Development**：Use latest back-end technology development such as gorm, go-zero, casbin
+- **Fully support go-swagger**: Write comment in api file and generate swagger doc easily
 - **Error handling**: Handle error messages via one module
 - **International**：support different languages show in the front-end via put locale path in the message 
 - **Service Discover** builtin service discovery, load balancing
@@ -22,14 +23,14 @@ It can help you to develop a microservice back-end management core in a short ti
 
 ## Current Progress
 
-| Module             | Status      |
-|--------------------|-------------|
-| Login and Register | finished    |
-| Menu Management    | finished    |
-| Role Management    | finished    |
-| Role Authority     | finished    |
-| User Management    | finished    |
-| Operation log      | in progress |
+| Module             | Status   |
+|--------------------|----------|
+| Login and Register | finished |
+| Menu Management    | finished |
+| Role Management    | finished |
+| Role Authority     | finished |
+| User Management    | finished |
+| Operation log      | finished |
 
 
 
