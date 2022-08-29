@@ -2,7 +2,6 @@ package core
 
 import (
 	"context"
-	"github.com/zeromicro/go-zero/core/errorx"
 	"time"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -10,6 +9,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/core"
 
 	"github.com/pkg/errors"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

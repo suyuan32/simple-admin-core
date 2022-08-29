@@ -2,15 +2,16 @@ package logic
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
-	"github.com/zeromicro/go-zero/core/errorx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type UpdateProfileLogic struct {
@@ -31,9 +32,11 @@ func (l *UpdateProfileLogic) UpdateProfile(in *core.UpdateProfileReq) (*core.Bas
 	var origin model.User
 	result := l.svcCtx.DB.Where("uuid = ?", in.Uuid).First(&origin)
 	if result.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 	if result.RowsAffected == 0 {
+		logx.Errorw("Fail to find user, please check the UUID", logx.Field("UUID", in.Uuid))
 		return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
 	}
 
@@ -44,9 +47,11 @@ func (l *UpdateProfileLogic) UpdateProfile(in *core.UpdateProfileReq) (*core.Bas
 
 	result = l.svcCtx.DB.Save(&origin)
 	if result.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 	if result.RowsAffected == 0 {
+		logx.Errorw("Fail to update the user profile", logx.Field("Detail", origin))
 		return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 	}
 

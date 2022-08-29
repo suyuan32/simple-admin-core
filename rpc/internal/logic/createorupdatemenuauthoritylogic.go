@@ -3,13 +3,16 @@ package logic
 import (
 	"context"
 	"fmt"
-	"github.com/zeromicro/go-zero/core/errorx"
 	"strings"
 
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type CreateOrUpdateMenuAuthorityLogic struct {
@@ -29,7 +32,11 @@ func NewCreateOrUpdateMenuAuthorityLogic(ctx context.Context, svcCtx *svc.Servic
 func (l *CreateOrUpdateMenuAuthorityLogic) CreateOrUpdateMenuAuthority(in *core.RoleMenuAuthorityReq) (*core.BaseResp, error) {
 	// delete the data create before
 	deleteString := fmt.Sprintf("DELETE from role_menus where role_id = %d", in.RoleId)
-	l.svcCtx.DB.Exec(deleteString)
+	result := l.svcCtx.DB.Exec(deleteString)
+	if result.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		return nil, status.Error(codes.Internal, errorx.DatabaseError)
+	}
 
 	var insertString strings.Builder
 	insertString.WriteString("insert into role_menus values ")
@@ -40,6 +47,12 @@ func (l *CreateOrUpdateMenuAuthorityLogic) CreateOrUpdateMenuAuthority(in *core.
 			insertString.WriteString(fmt.Sprintf("(%d, %d);", in.MenuId[i], in.RoleId))
 		}
 	}
-	l.svcCtx.DB.Exec(insertString.String())
+	result = l.svcCtx.DB.Exec(insertString.String())
+	if result.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		return nil, status.Error(codes.Internal, errorx.DatabaseError)
+	}
+
+	logx.Infow(logmessage.UpdateSuccess, logx.Field("authorityRelation", insertString.String()))
 	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 }

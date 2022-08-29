@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -34,6 +35,7 @@ func (l *GetMenuByPageLogic) GetMenuByPage(in *core.PageInfoReq) (*core.MenuInfo
 	}).Limit(int(in.PageSize)).Offset(int(in.Page * in.PageSize)).
 		Order("order_no ASC").Find(&data)
 	if result.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, "database error")
 	}
 	var res *core.MenuInfoList

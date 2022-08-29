@@ -3,13 +3,13 @@ package user
 import (
 	"context"
 	"fmt"
-	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 type GetUserPermCodeLogic struct {

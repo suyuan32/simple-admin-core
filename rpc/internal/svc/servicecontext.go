@@ -1,11 +1,12 @@
 package svc
 
 import (
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/config"
-	"gorm.io/gorm"
-	"log"
-
+	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
+	"github.com/zeromicro/zero-contrib/logx/zapx"
+	"gorm.io/gorm"
 )
 
 type ServiceContext struct {
@@ -15,11 +16,20 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
+	// initialize logx
+	writer, err := zapx.NewZapWriter()
+	logx.Must(err)
+	logx.SetWriter(writer)
+	logx.MustSetup(c.LogConf)
+	// initialize database connection
 	db, err := c.DB.NewGORM()
 	if err != nil {
-		log.Fatal(err.Error())
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
+		return nil
 	}
+	logx.Info("Initialize database connection successful")
 	rds := c.RedisConf.NewRedis()
+	logx.Info("Initialize redis connection successful")
 	return &ServiceContext{
 		Config: c,
 		DB:     db,

@@ -2,14 +2,15 @@ package logic
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/common/message"
-	"github.com/zeromicro/go-zero/core/errorx"
 	"time"
 
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/message"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -37,9 +38,11 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		var parent model.Menu
 		result := l.svcCtx.DB.Where("id = ?", in.ParentId).First(&parent)
 		if result.Error != nil {
+			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
+			logx.Errorw("Wrong parent ID", logx.Field("parentId", in.ParentId))
 			return nil, status.Error(codes.InvalidArgument, message.ParentNotExist)
 		}
 		menuLevel = parent.MenuLevel + 1
@@ -73,17 +76,21 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		}
 		result := l.svcCtx.DB.Create(data)
 		if result.Error != nil {
-			return nil, status.Error(codes.Internal, result.Error.Error())
+			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			return nil, status.Error(codes.Internal, errorx.DatabaseError)
 		}
 		if result.RowsAffected == 0 {
 			return nil, status.Error(codes.InvalidArgument, message.MenuAlreadyExists)
 		}
+
+		logx.Infow("Create menu successfully", logx.Field("menuDetail", data))
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {
 		var origin *model.Menu
 		result := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
 		if result.Error != nil {
-			return nil, status.Error(codes.Internal, result.Error.Error())
+			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			return nil, status.Error(codes.Internal, errorx.DatabaseError)
 		}
 		if result.RowsAffected == 0 {
 			return nil, status.Error(codes.InvalidArgument, message.MenuNotExists)
@@ -111,11 +118,14 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		}
 		result = l.svcCtx.DB.Save(data)
 		if result.Error != nil {
+			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, message.MenuNotExists)
+			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
+
+		logx.Infow("Update menu successfully", logx.Field("Detail", data))
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 	}
 }

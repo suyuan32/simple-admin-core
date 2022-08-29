@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -50,6 +51,7 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, er
 		Order("api_group desc").Find(&apis)
 
 	if result.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 
@@ -65,6 +67,5 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, er
 			Method:      v.Method,
 		})
 	}
-
 	return resp, nil
 }

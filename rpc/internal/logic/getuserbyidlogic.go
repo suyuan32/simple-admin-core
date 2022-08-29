@@ -4,10 +4,12 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -31,9 +33,11 @@ func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfoResp, er
 	var u model.User
 	result := l.svcCtx.DB.Where("uuid = ?", in.UUID).First(&u)
 	if result.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 		return nil, result.Error
 	} else if result.RowsAffected == 0 {
-		return nil, status.Error(codes.NotFound, "user not found")
+		logx.Errorw("User dose not find, please check the UUID", logx.Field("UUID", in.UUID))
+		return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
 	}
 	roleName, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d", u.RoleId))
 	roleValue, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d_value", u.RoleId))

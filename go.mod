@@ -1,6 +1,6 @@
 module github.com/suyuan32/simple-admin-core
 
-go 1.18
+go 1.19
 
 require (
 	github.com/casbin/casbin/v2 v2.52.1
@@ -9,7 +9,10 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/pkg/errors v0.9.1
+	github.com/rs/zerolog v1.15.0
+	github.com/stretchr/testify v1.8.0
 	github.com/zeromicro/go-zero v1.4.0
+	github.com/zeromicro/zero-contrib/logx/zapx v0.0.0-20220708020647-d13169872f75
 	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa
 	google.golang.org/grpc v1.48.0
 	google.golang.org/protobuf v1.28.1
@@ -61,6 +64,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/openzipkin/zipkin-go v0.4.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.3 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_golang v1.13.0 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.37.0 // indirect

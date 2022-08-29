@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -30,6 +31,7 @@ func (l *GetRoleListLogic) GetRoleList(in *core.PageInfoReq) (*core.RoleListResp
 	var roles []*model.Role
 	result := l.svcCtx.DB.Limit(int(in.PageSize)).Offset(int((in.Page - 1) * in.PageSize)).Find(&roles)
 	if result.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	resp := &core.RoleListResp{}
