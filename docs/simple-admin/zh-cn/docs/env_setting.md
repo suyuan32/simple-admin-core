@@ -144,3 +144,15 @@ yarn install
 ```shell
 yarn serve
 ```
+
+## 初始化数据库
+
+```shell
+# 访问前端地址端口
+
+https://address:port/#/init
+```
+
+进入界面
+
+![pic](../../assets/init_zh_cn.png)

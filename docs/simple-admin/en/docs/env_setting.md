@@ -144,3 +144,15 @@ yarn install
 ```shell
 yarn serve
 ```
+
+## Initialize the database
+
+```shell
+# visit the url 
+
+https://address:port/#/init
+```
+
+You can see the ui to do this.
+
+![pic](../../assets/init_en.png)
