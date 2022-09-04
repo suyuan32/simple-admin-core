@@ -32,11 +32,13 @@ It can help you to develop a microservice back-end management core in a short ti
 | User Management    | finished |
 | Operation log      | finished |
 
+## Preview
 
+[Preview](https://suyuan32.github.io/simple-admin-core/#/simple-admin/en/docs/screenshoot)
 
 ## Documentation
 
-Native document will come soon.
+[文档](https://suyuan32.github.io/simple-admin-core/)
 
 - go-zero
   [Document](https://go-zero.dev/)
