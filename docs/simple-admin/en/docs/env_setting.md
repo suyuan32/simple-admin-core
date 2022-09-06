@@ -147,8 +147,12 @@ yarn serve
 
 ## Initialize the database
 
+***Important:***  You must create the database before initialize
+The database name is the same as your configuration.
+
 ```shell
 # visit the url 
+
 
 https://address:port/#/init
 ```
