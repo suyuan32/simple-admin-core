@@ -22,13 +22,13 @@ func NewCoreServer(svcCtx *svc.ServiceContext) *CoreServer {
 	}
 }
 
-//  init
+// init
 func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.BaseResp, error) {
 	l := logic.NewInitDatabaseLogic(ctx, s.svcCtx)
 	return l.InitDatabase(in)
 }
 
-//  user service
+// user service
 func (s *CoreServer) Login(ctx context.Context, in *core.LoginReq) (*core.LoginResp, error) {
 	l := logic.NewLoginLogic(ctx, s.svcCtx)
 	return l.Login(in)
@@ -64,7 +64,7 @@ func (s *CoreServer) UpdateProfile(ctx context.Context, in *core.UpdateProfileRe
 	return l.UpdateProfile(in)
 }
 
-//  menu service
+// menu service
 func (s *CoreServer) CreateOrUpdateMenu(ctx context.Context, in *core.CreateOrUpdateMenuReq) (*core.BaseResp, error) {
 	l := logic.NewCreateOrUpdateMenuLogic(ctx, s.svcCtx)
 	return l.CreateOrUpdateMenu(in)
@@ -110,7 +110,7 @@ func (s *CoreServer) GeMenuParamListById(ctx context.Context, in *core.IDReq) (*
 	return l.GeMenuParamListById(in)
 }
 
-//  role service
+// role service
 func (s *CoreServer) CreateOrUpdateRole(ctx context.Context, in *core.RoleInfo) (*core.BaseResp, error) {
 	l := logic.NewCreateOrUpdateRoleLogic(ctx, s.svcCtx)
 	return l.CreateOrUpdateRole(in)
@@ -136,7 +136,7 @@ func (s *CoreServer) SetRoleStatus(ctx context.Context, in *core.SetStatusReq) (
 	return l.SetRoleStatus(in)
 }
 
-//  api management service
+// api management service
 func (s *CoreServer) CreateOrUpdateApi(ctx context.Context, in *core.ApiInfo) (*core.BaseResp, error) {
 	l := logic.NewCreateOrUpdateApiLogic(ctx, s.svcCtx)
 	return l.CreateOrUpdateApi(in)
@@ -152,7 +152,7 @@ func (s *CoreServer) GetApiList(ctx context.Context, in *core.ApiPageReq) (*core
 	return l.GetApiList(in)
 }
 
-//  authorization management service
+// authorization management service
 func (s *CoreServer) GetMenuAuthority(ctx context.Context, in *core.IDReq) (*core.RoleMenuAuthorityResp, error) {
 	l := logic.NewGetMenuAuthorityLogic(ctx, s.svcCtx)
 	return l.GetMenuAuthority(in)

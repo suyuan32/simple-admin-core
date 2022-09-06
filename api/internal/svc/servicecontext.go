@@ -4,7 +4,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
 	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
 	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/rpc/core"
+	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -18,7 +18,7 @@ import (
 type ServiceContext struct {
 	Config    config.Config
 	Authority rest.Middleware
-	CoreRpc   core.Core
+	CoreRpc   coreclient.Core
 	Redis     *redis.Redis
 	Casbin    *casbin.SyncedEnforcer
 }
@@ -43,7 +43,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:    c,
 		Authority: middleware.NewAuthorityMiddleware(cbn, rds).Handle,
-		CoreRpc:   core.NewCore(zrpc.MustNewClient(c.CoreRpc)),
+		CoreRpc:   coreclient.NewCore(zrpc.MustNewClient(c.CoreRpc)),
 		Redis:     rds,
 		Casbin:    cbn,
 	}
