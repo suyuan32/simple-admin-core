@@ -34,7 +34,7 @@ It can help you to develop a microservice back-end management core in a short ti
 
 ## Preview
 
-[Preview](https://suyuan32.github.io/simple-admin-core/#/simple-admin/en/docs/screenshoot)
+[Preview](https://suyuan32.github.io/simple-admin-core/#/simple-admin/en/docs/screenshot)
 
 ## Documentation
 

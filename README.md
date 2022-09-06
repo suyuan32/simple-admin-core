@@ -33,7 +33,7 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 
 ## 预览
 
-[预览](https://suyuan32.github.io/simple-admin-core/#/simple-admin/zh-cn/docs/screenshoot)
+[预览](https://suyuan32.github.io/simple-admin-core/#/simple-admin/zh-cn/docs/screenshot)
 
 
 
