@@ -545,8 +545,8 @@ github.com/stretchr/testify v1.7.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/
 github.com/stretchr/testify v1.7.5/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
 github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PKk=
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
-github.com/suyuan32/simple-admin-tools v0.0.2 h1:PsF4lxt/haJ1rDPioR7C6X5jL/uX9/6dBxJq8r2ApFs=
-github.com/suyuan32/simple-admin-tools v0.0.2/go.mod h1:N1xrVCMEuy7LULiyfnNjMga+kJQ6e8LSVEnrJqrDsAI=
+github.com/suyuan32/simple-admin-tools v0.0.3 h1:FhWw7qjh3PBdVSUi6ODbQv7/ez24p3WT70R5JrpJR9U=
+github.com/suyuan32/simple-admin-tools v0.0.3/go.mod h1:N1xrVCMEuy7LULiyfnNjMga+kJQ6e8LSVEnrJqrDsAI=
 github.com/tidwall/pretty v1.0.0/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhVysOjyk=
 github.com/tklauser/go-sysconf v0.3.10/go.mod h1:C8XykCvCb+Gn0oNCWPIlcb0RuglQTYaQ2hGm7jmxEFk=
 github.com/tklauser/numcpus v0.4.0/go.mod h1:1+UI3pD8NW14VMwdgJNJ1ESk2UnwhAnz5hMwiKKqXCQ=

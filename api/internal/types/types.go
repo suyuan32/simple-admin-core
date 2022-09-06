@@ -4,50 +4,27 @@ package types
 // swagger:parameters createOrUpdateRole
 // Create or update role information params | 创建或更新角色信息参数
 type RoleInfo struct {
-	// Role ID | 角色 ID
-	// Required : true
-	Id uint64 `json:"id"`
-	// Role Name | 角色名
-	// Required : true
-	Name string `json:"name"`
-	// Role value | 角色值
-	// Required : true
-	Value string `json:"value"`
-	// Role's default page | 角色默认管理页面
-	// Required : true
+	Id            uint64 `json:"id"`
+	Name          string `json:"name"`
+	Value         string `json:"value"`
 	DefaultRouter string `json:"defaultRouter"`
-	// Role status | 角色状态
-	// Required : true
-	Status uint32 `json:"status"`
-	// Role remark | 角色备注
-	// Required : true
-	Remark string `json:"remark"`
-	// Role's sorting number | 角色排序
-	// Required : true
-	OrderNo uint32 `json:"orderNo"`
-	// Create time | 创建日期
-	// Required: true
-	CreateAt int64 `json:"createAt"`
+	Status        uint32 `json:"status"`
+	Remark        string `json:"remark"`
+	OrderNo       uint32 `json:"orderNo"`
+	CreateAt      int64  `json:"createAt"`
 }
 
 // The response data of role list | 角色列表数据
 // swagger:response RoleListResp
 type RoleListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
-	// The role list data | 角色列表数据
-	// in: body
-	Data []RoleInfo `json:"data"`
+	Total uint64     `json:"total"`
+	Data  []RoleInfo `json:"data"`
 }
 
 // swagger:parameters setRoleStatus
 // The request params of setting role status | 设置角色状态参数
 type SetStatusReq struct {
-	// ID
-	// Required: true
-	Id uint64 `json:"id"`
-	// Status code | 状态码
-	// Required: true
+	Id     uint64 `json:"id"`
 	Status uint32 `json:"status"`
 }
 
@@ -69,157 +46,103 @@ type BaseResp struct {
 // The simplest message | 最简单的信息
 // swagger:response SimpleMsg
 type SimpleMsg struct {
-	// Message | 信息
 	Msg string `json:"msg"`
 }
 
 // The page request parameters | 列表请求参数
 // swagger:parameters getRoleList
 type PageInfo struct {
-	// Page number | 第几页
-	// Required: true
-	Page uint64 `json:"page"`
-	// Page size | 单页数据行数
-	// Required: true
+	Page     uint64 `json:"page"`
 	PageSize uint64 `json:"pageSize"`
 }
 
 // The page response data model | 列表返回信息
 // swagger:response PageList
 type PageList struct {
-	// Total number | 数据总数
-	Total uint64 `json:"total"`
-	// Data | 数据
-	Data []string `json:"data"`
+	Total uint64   `json:"total"`
+	Data  []string `json:"data"`
 }
 
 // swagger:parameters deleteUser deleteApi getApiAuthority getMenuAuthority deleteMenu deleteRole
 // Basic id request | 基础id参数请求
 type IdReq struct {
-	// ID
-	// Required: true
 	ID uint `json:"id"`
 }
 
 // swagger:parameters deleteUser
 // Basic UUID request | 基础UUID参数请求
 type UUIDReq struct {
-	// UUID
-	// Required: true
 	UUID string `json:"uuid"`
 }
 
 // The base response data | 基础信息
 // swagger:response BaseInfo
 type BaseInfo struct {
-	// ID
-	ID uint `json:"id"`
-	// Create date | 创建日期
+	ID        uint  `json:"id"`
 	CreatedAt int64 `json:"createdAt"`
-	// Update date | 更新日期
 	UpdatedAt int64 `json:"updatedAt"`
-	// Delete date | 删除日期
 	DeletedAt int64 `json:"deletedAt"`
 }
 
 // swagger:parameters login
 // login request | 登录参数
 type LoginReq struct {
-	// User Name | 用户名
-	// required : true
-	Username string `json:"username"`
-	// Password | 密码
-	// required : true
-	Password string `json:"password"`
-	// Captcha Id which store in redis | 验证码编号, 存在redis中
-	// required : true
+	Username  string `json:"username"`
+	Password  string `json:"password"`
 	CaptchaId string `json:"captchaId"`
-	// The Captcha which users input | 用户输入的验证码
-	// required : true
-	Captcha string `json:"captcha"`
+	Captcha   string `json:"captcha"`
 }
 
 // The login response data | 登录返回数据
 // swagger:response LoginResp
 type LoginResp struct {
-	// User's UUID | 用户的UUID
 	UserId string `json:"userId"`
-	// User's role information| 用户的角色信息
-	// in: body
-	Role RoleInfoSimple `json:"role"`
-	// Token for authorization | 验证身份的token
-	Token string `json:"token"`
-	// Expire timestamp | 过期时间戳
-	Expire uint64 `json:"expire"`
+	// The simple role data | 简单的角色数据
+	// swagger:response RoleInfoSimple
+	Role   RoleInfoSimple `json:"role"`
+	Token  string         `json:"token"`
+	Expire uint64         `json:"expire"`
 }
 
 // The profile response data | 个人信息返回数据
 // swagger:response ProfileResp
 type ProfileResp struct {
-	// user's nickname | 用户的昵称
 	Nickname string `json:"nickname"`
-	// The user's avatar path | 用户的头像路径
-	Avatar string `json:"avatar"`
-	// User's mobile phone number | 用户的手机号码
-	Mobile string `json:"mobile"`
-	// The user's email address | 用户的邮箱
-	Email string `json:"email"`
+	Avatar   string `json:"avatar"`
+	Mobile   string `json:"mobile"`
+	Email    string `json:"email"`
 }
 
 // swagger:parameters updateUserProfile
 // The profile request data | 个人信息请求参数
 type ProfileReq struct {
-	// user's nickname | 用户的昵称
-	// required: true
 	Nickname string `json:"nickname"`
-	// The user's avatar path | 用户的头像路径
-	// required: true
-	Avatar string `json:"avatar"`
-	// User's mobile phone number | 用户的手机号码
-	// required: true
-	Mobile string `json:"mobile"`
-	// The user's email address | 用户的邮箱
-	// required: true
-	Email string `json:"email"`
+	Avatar   string `json:"avatar"`
+	Mobile   string `json:"mobile"`
+	Email    string `json:"email"`
 }
 
 // The simple role data | 简单的角色数据
 // swagger:response RoleInfoSimple
 type RoleInfoSimple struct {
-	// Role name | 角色名
 	RoleName string `json:"roleName"`
-	// Role value | 角色值
-	Value string `json:"value"`
+	Value    string `json:"value"`
 }
 
 // swagger:parameters register
 // register request | 注册参数
 type RegisterReq struct {
-	// User Name | 用户名
-	// required : true
-	Username string `json:"username"`
-	// Password | 密码
-	// required : true
-	Password string `json:"password"`
-	// Captcha Id which store in redis | 验证码编号, 存在redis中
-	// required : true
+	Username  string `json:"username"`
+	Password  string `json:"password"`
 	CaptchaId string `json:"captchaId"`
-	// The Captcha which users input | 用户输入的验证码
-	// required : true
-	Captcha string `json:"captcha"`
-	// The user's email address | 用户的邮箱
-	// required : true
-	Email string `json:"email"`
+	Captcha   string `json:"captcha"`
+	Email     string `json:"email"`
 }
 
 // swagger:parameters changePassword
 // change user's password request | 修改密码请求参数
 type ChangePasswordReq struct {
-	// User's old password | 用户旧密码
-	// required: true
 	OldPassword string `json:"oldPassword"`
-	// User's new password | 用户新密码
-	// required: true
 	NewPassword string `json:"newPassword"`
 }
 
@@ -227,94 +150,60 @@ type ChangePasswordReq struct {
 // modify user's infomation request
 // 修改用户信息参数
 type ModifyInfoReq struct {
-	// User's UUID | 用户的UUID
-	// required: true
-	UUID string `json:"UUID"`
-	// User's nickname | 用户的昵称
-	// required: true
+	UUID     string `json:"UUID"`
 	Nickname string `json:"nickname"`
-	// User's mobile phone number | 用户的手机号码
-	// required: true
-	Mobile string `json:"mobile"`
-	// User's role id | 用户的角色Id
-	// required: true
-	RoleId uint32 `json:"roleId"`
-	// The user's email address | 用户的邮箱
-	// required : true
-	Email string `json:"email"`
-	// The user's avatar path | 用户的头像路径
-	// required : true
-	Avatar string `json:"avatar"`
-	// The user's layout mode | 用户的布局
-	// required : true
+	Mobile   string `json:"mobile"`
+	RoleId   uint32 `json:"roleId"`
+	Email    string `json:"email"`
+	Avatar   string `json:"avatar"`
 	SideMode string `json:"sideMode"`
 }
 
 // The response data of user's information | 用户信息返回数据
 // swagger:response UserInfoResp
 type UserInfoResp struct {
-	// User's id | 用户Id
-	Id int64 `json:"id"`
-	// User Name | 用户名
+	Id       int64  `json:"id"`
 	Username string `json:"username"`
-	// User's nickname | 用户的昵称
 	Nickname string `json:"nickname"`
-	// User's mobile phone number | 用户的手机号码
-	Mobile string `json:"mobile"`
-	// User's role id | 用户的角色Id
-	RoleId uint32 `json:"roleId"`
-	// The user's email address | 用户的邮箱
-	Email string `json:"email"`
-	// The user's avatar path | 用户的头像路径
-	Avatar string `json:"avatar"`
-	// The user's layout mode | 用户的布局
+	Mobile   string `json:"mobile"`
+	RoleId   uint32 `json:"roleId"`
+	Email    string `json:"email"`
+	Avatar   string `json:"avatar"`
 	SideMode string `json:"sideMode"`
-	// The user's status | 用户状态
-	// 1 normal, 2 ban | 1 正常 2 拉黑
-	Status   int32 `json:"status"`
-	CreateAt int64 `json:"createAt"`
-	UpdateAt int64 `json:"updateAt"`
+	Status   int32  `json:"status"`
+	CreateAt int64  `json:"createAt"`
+	UpdateAt int64  `json:"updateAt"`
 }
 
 // The response data of user's basic information | 用户基本信息返回数据
 // swagger:response GetUserInfoResp
 type GetUserInfoResp struct {
-	// User's UUID | 用户的UUID
-	UUID string `json:"UUID"`
-	// User name | 用户名
+	UUID     string `json:"UUID"`
 	Username string `json:"username"`
-	// user's nickname | 用户的昵称
 	Nickname string `json:"nickname"`
-	// The user's avatar path | 用户的头像路径
-	Avatar string `json:"avatar"`
-	// User's role information| 用户的角色信息
-	// in: body
+	Avatar   string `json:"avatar"`
+	// The response data of user's basic role information | 用户角色信息数据
+	// swagger:response GetUserRoleInfo
 	Roles GetUserRoleInfo `json:"roles"`
 }
 
 // The response data of user's basic role information | 用户角色信息数据
 // swagger:response GetUserRoleInfo
 type GetUserRoleInfo struct {
-	// Role name | 角色名
 	RoleName string `json:"roleName"`
-	// Role value for permission control | 角色值用于前端页面组件显示权限
-	Value string `json:"value"`
+	Value    string `json:"value"`
 }
 
 // The response data of user list | 用户列表数据
 // swagger:response UserListResp
 type UserListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
-	// The user list data | 用户列表数据
-	// in: body
-	Data []UserInfoResp `json:"data"`
+	Total uint64         `json:"total"`
+	Data  []UserInfoResp `json:"data"`
 }
 
 // The permission code for front end permission control | 权限码： 用于前端权限控制
 // swagger:response PermCodeResp
 type PermCodeResp struct {
-	// Permission code data | 权限码数据
 	Data []string `json:"data"`
 }
 
@@ -322,179 +211,102 @@ type PermCodeResp struct {
 // Create or update user information request
 // 创建或更新用户信息
 type CreateOrUpdateUserReq struct {
-	// User's id | 用户Id
-	// Required: true
-	Id int64 `json:"id"`
-	// User Name | 用户名
-	// Required: true
+	Id       int64  `json:"id"`
 	Username string `json:"username"`
-	// User's nickname | 用户的昵称
-	// Required: true
 	Nickname string `json:"nickname"`
-	// Password | 密码
-	// Required: true
 	Password string `json:"password"`
-	// User's mobile phone number | 用户的手机号码
-	// Required: true
-	Mobile string `json:"mobile"`
-	// User's role id | 用户的角色Id
-	// Required: true
-	RoleId uint32 `json:"roleId"`
-	// The user's email address | 用户的邮箱
-	// Required: true
-	Email string `json:"email"`
-	// The user's avatar path | 用户的头像路径
-	// Required: true
-	Avatar string `json:"avatar"`
-	// The user's status | 用户状态
-	// 1 normal, 2 ban | 1 正常 2 拉黑
-	// Required: true
-	Status int32 `json:"status"`
+	Mobile   string `json:"mobile"`
+	RoleId   uint32 `json:"roleId"`
+	Email    string `json:"email"`
+	Avatar   string `json:"avatar"`
+	Status   int32  `json:"status"`
 }
 
 // swagger:parameters getUserList
 // Get user list request
 // 获取用户列表请求参数
 type GetUserListReq struct {
-	// Page number | 第几页
-	// required : true
-	Page uint64 `json:"page"`
-	// Page size | 单页数据行数
-	// required : true
+	Page     uint64 `json:"page"`
 	PageSize uint64 `json:"pageSize"`
-	// User Name | 用户名
-	// required : true
 	Username string `json:"username"`
-	// User's nickname | 用户的昵称
-	// required: true
 	Nickname string `json:"nickname"`
-	// User's mobile phone number | 用户的手机号码
-	// required: true
-	Mobile string `json:"mobile"`
-	// The user's email address | 用户的邮箱
-	// required : true
-	Email string `json:"email"`
-	// User's role id | 用户的角色Id
-	// required: true
-	RoleId uint64 `json:"roleId"`
+	Mobile   string `json:"mobile"`
+	Email    string `json:"email"`
+	RoleId   uint64 `json:"roleId"`
 }
 
 // The response data of menu information | 菜单返回数据
 // swagger:response Menu
 type Menu struct {
+	// The base response data | 基础信息
+	// swagger:response BaseInfo
 	BaseInfo
-	// Menu type: directory or menu | 菜单类型: 目录或菜单
-	// 0. directory group 1. menu | 0 目录 1 菜单
-	MenuType uint32 `json:"type"`
-	// Parent menu ID | 父级菜单ID
-	ParentId uint `json:"parentId"`
-	// The menu level | 菜单等级
+	MenuType  uint32 `json:"type"`
+	ParentId  uint   `json:"parentId"`
 	MenuLevel uint32 `json:"level"`
-	// The path to visit menu | 菜单访问路径
-	Path string `json:"path"`
-	// Menu name | 菜单名
-	Name string `json:"name"`
-	// Redirect path | 跳转路径
-	Redirect string `json:"redirect"`
-	// The component path | 组件路径
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Redirect  string `json:"redirect"`
 	Component string `json:"component"`
-	// The sorting number | 排序编号
-	OrderNo uint32 `json:"orderNo"`
-	// Wether disabled | 是否禁用菜单
-	Disabled bool `json:"disabled"`
+	OrderNo   uint32 `json:"orderNo"`
+	Disabled  bool   `json:"disabled"`
+	// The meta data of menu | 菜单的meta数据
+	// swagger:response Meta
 	Meta
-	// children | 子集
-	// in: body
 	Children []*Menu `json:"children"`
 }
 
 // The meta data of menu | 菜单的meta数据
 // swagger:response Meta
 type Meta struct {
-	// keep alive the tab in cache | 是否保持窗口的缓存
-	KeepAlive bool `json:"keepAlive"`
-	// Hide menu | 隐藏菜单
-	HideMenu bool `json:"hideMenu"`
-	// Wether hide the breadcrumb | 隐藏面包屑
-	HideBreadcrumb bool `json:"hideBreadcrumb"`
-	// Current active menu, if not nil, it will active the tab | 当前激活的菜单
+	KeepAlive         bool   `json:"keepAlive"`
+	HideMenu          bool   `json:"hideMenu"`
+	HideBreadcrumb    bool   `json:"hideBreadcrumb"`
 	CurrentActiveMenu string `json:"currentActiveMenu"`
-	// Menu title show in page | 菜单显示名
-	Title string `json:"title"`
-	// Menu Icon | 菜单图标
-	Icon string `json:"icon"`
-	// Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
-	CloseTab bool `json:"closeTab"`
+	Title             string `json:"title"`
+	Icon              string `json:"icon"`
+	CloseTab          bool   `json:"closeTab"`
 }
 
 // The response data of menu list | 菜单列表数据
 // swagger:response MenuListResp
 type MenuListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
-	// The menu list data | 菜单列表数据
-	// in: body
-	Data []*Menu `json:"data"`
+	Total uint64  `json:"total"`
+	Data  []*Menu `json:"data"`
 }
 
 // The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
 // swagger:response MenuListResp
 type GetMenuListBase struct {
-	// Menu type: directory or menu | 菜单类型: 目录或菜单
-	MenuType uint32 `json:"type"`
-	// Parent menu ID | 父级菜单ID
-	ParentId uint `json:"parentId"`
-	// The menu level | 菜单等级
+	MenuType  uint32 `json:"type"`
+	ParentId  uint   `json:"parentId"`
 	MenuLevel uint32 `json:"level"`
-	// The path to visit menu | 菜单访问路径
-	Path string `json:"path"`
-	// Menu name | 菜单名
-	Name string `json:"name"`
-	// Redirect path | 跳转路径
-	Redirect string `json:"redirect"`
-	// The component path | 组件路径
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Redirect  string `json:"redirect"`
 	Component string `json:"component"`
-	// The sorting number | 排序编号
-	OrderNo uint32 `json:"orderNo"`
-	// Wether disabled | 是否禁用菜单
-	Disabled bool `json:"disabled"`
-	// in: body
-	Meta Meta `json:"meta"`
-	// children | 子集
-	// in: body
+	OrderNo   uint32 `json:"orderNo"`
+	Disabled  bool   `json:"disabled"`
+	// The meta data of menu | 菜单的meta数据
+	// swagger:response Meta
+	Meta     Meta               `json:"meta"`
 	Children []*GetMenuListBase `json:"children"`
 }
 
 // swagger:parameters createOrUpdateMenu
 // Create or update menu information request params | 创建或更新菜单信息参数
 type CreateOrUpdateMenuReq struct {
-	// ID
-	// Required: true
-	Id uint32 `json:"id"`
-	// Menu type: directory or menu | 菜单类型: 目录或菜单
-	// Required: true
-	MenuType uint32 `json:"type"`
-	// Parent menu ID | 父级菜单ID
-	// Required: true
-	ParentId uint `json:"parentId"`
-	// The path to visit menu | 菜单访问路径
-	// Required: true
-	Path string `json:"path"`
-	// Menu name | 菜单名
-	// Required: true
-	Name string `json:"name"`
-	// Redirect path | 跳转路径
-	// Required: true
-	Redirect string `json:"redirect"`
-	// The component path | 组件路径
-	// Required: true
+	Id        uint32 `json:"id"`
+	MenuType  uint32 `json:"type"`
+	ParentId  uint   `json:"parentId"`
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Redirect  string `json:"redirect"`
 	Component string `json:"component"`
-	// The sorting number | 排序编号
-	// Required: true
-	OrderNo uint32 `json:"orderNo"`
-	// Wether disabled | 是否禁用菜单
-	// Required: true
-	Disabled bool `json:"disabled"`
+	OrderNo   uint32 `json:"orderNo"`
+	Disabled  bool   `json:"disabled"`
+	// The meta data of menu | 菜单的meta数据
+	// swagger:response Meta
 	Meta
 }
 
@@ -508,107 +320,68 @@ type CaptchaInfo struct {
 // The response data of API information | API信息
 // swagger:response ApiInfo
 type ApiInfo struct {
-	// ID
-	Id       uint64 `json:"id"`
-	CreateAt int64  `json:"createAt"`
-	// API path | API路径
-	Path string `json:"path"`
-	// API Description | API 描述
+	Id          uint64 `json:"id"`
+	CreateAt    int64  `json:"createAt"`
+	Path        string `json:"path"`
 	Description string `json:"description"`
-	// API group | API分组
-	Group string `json:"group"`
-	// API request method e.g. POST | API请求类型 如POST
-	Method string `json:"method"`
+	Group       string `json:"group"`
+	Method      string `json:"method"`
 }
 
 // swagger:parameters createOrUpdateApi
 // Create or update API information request | 创建或更新API信息
 type CreateOrUpdateApiReq struct {
-	// ID
-	// Required: true
-	Id uint64 `json:"id"`
-	// Create date | 创建日期
-	// Required: true
-	CreateAt int64 `json:"createAt"`
-	// API path | API路径
-	// Required: true
-	Path string `json:"path"`
-	// API Description | API 描述
-	// Required: true
+	Id          uint64 `json:"id"`
+	CreateAt    int64  `json:"createAt"`
+	Path        string `json:"path"`
 	Description string `json:"description"`
-	// API group | API分组
-	// Require: true
-	Group string `json:"group"`
-	// API request method e.g. POST | API请求类型 如POST
-	// Required: true
-	Method string `json:"method"`
+	Group       string `json:"group"`
+	Method      string `json:"method"`
 }
 
 // The response data of API list | API列表数据
 // swagger:response ApiListResp
 type ApiListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
-	// The api list data | 角色列表数据
-	// in: body
-	Data []ApiInfo `json:"data"`
+	Total uint64    `json:"total"`
+	Data  []ApiInfo `json:"data"`
 }
 
 // swagger:parameters getApiList
 // Get API list request params | API列表请求参数
 type ApiListReq struct {
+	// The page request parameters | 列表请求参数
+	// swagger:parameters getRoleList
 	PageInfo
-	// API path | API路径
-	// Required: true
-	Path string `json:"path"`
-	// API Description | API 描述
-	// Required: true
+	Path        string `json:"path"`
 	Description string `json:"description"`
-	// API group | API分组
-	// Required: true
-	Group string `json:"group"`
-	// API request method e.g. POST | API请求类型 如POST
-	// Required: true
-	Method string `json:"method"`
+	Group       string `json:"group"`
+	Method      string `json:"method"`
 }
 
 // The response data of api authorization | API授权数据
 // swagger:response ApiAuthorityInfo
 type ApiAuthorityInfo struct {
-	// API path | API 路径
-	Path string `json:"path"`
-	// API method | API请求方法
+	Path   string `json:"path"`
 	Method string `json:"method"`
 }
 
 // swagger:parameters createOrUpdateApiAuthority
 // Create or update api authorization information request | 创建或更新API授权信息
 type CreateOrUpdateApiAuthorityReq struct {
-	// Role ID | 角色ID
-	// Required: true
-	RoleId uint64 `json:"roleId"`
-	// API authorization list | API授权列表数据
-	// Required: true
-	Data []ApiAuthorityInfo `json:"data"`
+	RoleId uint64             `json:"roleId"`
+	Data   []ApiAuthorityInfo `json:"data"`
 }
 
 // The response data of api authorization list | API授权列表数据
 // swagger:response ApiAuthorityListResp
 type ApiAuthorityListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
-	// The api authorization list data | API授权列表数据
-	// in: body
-	Data []ApiAuthorityInfo `json:"data"`
+	Total uint64             `json:"total"`
+	Data  []ApiAuthorityInfo `json:"data"`
 }
 
 // swagger:parameters createOrUpdateMenuAuthority
 // Create or update menu authorization information request params | 创建或更新菜单授权信息参数
 type MenuAuthorityInfo struct {
-	// role ID | 角色ID
-	// Required: true
-	RoleId uint64 `json:"roleId"`
-	// menu ID array | 菜单ID数组
-	// Required: true
+	RoleId  uint64   `json:"roleId"`
 	MenuIds []uint64 `json:"menuIds"`
 }
