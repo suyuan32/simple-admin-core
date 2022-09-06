@@ -36,10 +36,15 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 [预览](https://suyuan32.github.io/simple-admin-core/#/simple-admin/zh-cn/docs/screenshot)
 
 
-
 ## 文档
 
 [文档](https://suyuan32.github.io/simple-admin-core/)
+
+或者直接本地运行
+```shell
+cd docs
+docsify serve .
+```
 
 - vue-vben-admin [文档地址](https://vvbin.cn/doc-next/)
 - ant-design-vue [地址](https://antdv.com/components/overview)

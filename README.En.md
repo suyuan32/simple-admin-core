@@ -40,6 +40,13 @@ It can help you to develop a microservice back-end management core in a short ti
 
 [文档](https://suyuan32.github.io/simple-admin-core/)
 
+or running locally
+
+```shell
+cd docs
+docsify serve .
+```
+
 - go-zero
   [Document](https://go-zero.dev/)
 - ant-design-vue [Document](https://antdv.com/components/overview)
