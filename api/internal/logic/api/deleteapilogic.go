@@ -23,7 +23,7 @@ func NewDeleteApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteA
 	}
 }
 
-func (l *DeleteApiLogic) DeleteApi(req *types.IdReq) (resp *types.SimpleMsg, err error) {
+func (l *DeleteApiLogic) DeleteApi(req *types.IDReq) (resp *types.SimpleMsg, err error) {
 	data, err := l.svcCtx.CoreRpc.DeleteApi(context.Background(), &core.IDReq{
 		ID: uint64(req.ID),
 	})

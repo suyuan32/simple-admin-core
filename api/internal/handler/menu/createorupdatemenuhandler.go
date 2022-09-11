@@ -11,6 +11,11 @@ import (
 
 // swagger:route POST /menu menu createOrUpdateMenu
 // Create or update menu information | 创建或更新菜单
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: CreateOrUpdateMenuReq
 // Responses:
 //   200: SimpleMsg
 //   401: SimpleMsg

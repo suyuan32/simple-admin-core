@@ -23,14 +23,14 @@ func NewGetMenuAuthorityLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	}
 }
 
-func (l *GetMenuAuthorityLogic) GetMenuAuthority(req *types.IdReq) (resp *types.MenuAuthorityInfo, err error) {
+func (l *GetMenuAuthorityLogic) GetMenuAuthority(req *types.IDReq) (resp *types.MenuAuthorityInfoResp, err error) {
 	data, err := l.svcCtx.CoreRpc.GetMenuAuthority(context.Background(), &core.IDReq{
 		ID: uint64(req.ID),
 	})
 	if err != nil {
 		return nil, err
 	}
-	resp = &types.MenuAuthorityInfo{
+	resp = &types.MenuAuthorityInfoResp{
 		RoleId:  uint64(req.ID),
 		MenuIds: []uint64{},
 	}

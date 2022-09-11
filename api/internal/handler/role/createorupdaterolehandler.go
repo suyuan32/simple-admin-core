@@ -11,6 +11,11 @@ import (
 
 // swagger:route POST /role role createOrUpdateRole
 // Create or update role information | 创建或更新角色
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: RoleInfo
 // Responses:
 //   200: SimpleMsg
 //   401: SimpleMsg

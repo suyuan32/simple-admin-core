@@ -3,7 +3,7 @@ syntax = "v1"
 info(
 	title: "captcha api"
 	desc: "captcha api"
-	author: "ryansu"
+	author: "Ryan Su"
 	email: "yuansu.china.work@gmail.com"
 	version: "v1.0"
 )

@@ -24,7 +24,7 @@ func NewGetApiAuthorityLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 	}
 }
 
-func (l *GetApiAuthorityLogic) GetApiAuthority(req *types.IdReq) (resp *types.ApiAuthorityListResp, err error) {
+func (l *GetApiAuthorityLogic) GetApiAuthority(req *types.IDReq) (resp *types.ApiAuthorityListResp, err error) {
 	roleId := strconv.Itoa(int(req.ID))
 	data := l.svcCtx.Casbin.GetFilteredPolicy(0, roleId)
 	resp = &types.ApiAuthorityListResp{}

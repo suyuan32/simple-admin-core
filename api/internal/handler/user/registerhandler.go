@@ -11,6 +11,11 @@ import (
 
 // swagger:route POST /user/register user register
 // Register | 注册
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: RegisterReq
 // Responses:
 //   200: SimpleMsg
 //   401: SimpleMsg

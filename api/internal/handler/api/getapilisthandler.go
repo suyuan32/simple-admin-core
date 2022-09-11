@@ -11,6 +11,11 @@ import (
 
 // swagger:route POST /api/list api getApiList
 // Get API list | 获取API列表
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: ApiListReq
 // Responses:
 //   200: ApiListResp
 //   401: SimpleMsg

@@ -11,6 +11,11 @@ import (
 
 // swagger:route POST /user/change-password user changePassword
 // Change Password | 修改密码
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: ChangePasswordReq
 // Responses:
 //   200: SimpleMsg
 //   401: SimpleMsg

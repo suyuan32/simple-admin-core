@@ -24,7 +24,7 @@ func NewCreateOrUpdateApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 	}
 }
 
-func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(req *types.ApiInfo) (resp *types.SimpleMsg, err error) {
+func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(req *types.CreateOrUpdateApiReq) (resp *types.SimpleMsg, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateOrUpdateApi(context.Background(),
 		&core.ApiInfo{
 			Id:          req.Id,

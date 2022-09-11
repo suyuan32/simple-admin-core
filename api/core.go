@@ -1,18 +1,24 @@
-//  Simple Admin
+//		Simple Admin
 //
-//  This is simple admin api doc
+//		This is simple admin api doc
 //
-//  Schemes: http, https
-//  Host: localhost
-//  BasePath: /api
-//  Version: 0.0.1
-//  Contact: yuansu.china.work@gmail.com
+//		Schemes: http, https
+//		Host: localhost:8500
+//		BasePath: /
+//		Version: 0.0.1
+//		Contact: yuansu.china.work@gmail.com
+//		securityDefinitions:
+//		  Token:
+//		    type: apiKey
+//		    name: Authorization
+//		    in: header
+//		security:
+//		  - Token: []
+//	    Consumes:
+//		  - application/json
 //
-//  Consumes:
-//    - application/json
-//
-//  Produces:
-//    - application/json
+//		Produces:
+//		  - application/json
 //
 // swagger:meta
 package main

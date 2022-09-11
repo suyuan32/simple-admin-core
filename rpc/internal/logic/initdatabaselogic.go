@@ -295,6 +295,24 @@ func (l *InitDatabaseLogic) insertApiData() error {
 			ApiGroup:    "menu",
 			Method:      "GET",
 		},
+		{
+			Path:        "/menu/param",
+			Description: "api_desc.createOrUpdateMenuParam",
+			ApiGroup:    "menu",
+			Method:      "POST",
+		},
+		{
+			Path:        "/menu/param",
+			Description: "api_desc.menuParamListByMenuId",
+			ApiGroup:    "menu",
+			Method:      "GET",
+		},
+		{
+			Path:        "/menu/param",
+			Description: "api_desc.deleteMenuParam",
+			ApiGroup:    "menu",
+			Method:      "DELETE",
+		},
 		// captcha
 		{
 			Path:        "/captcha",

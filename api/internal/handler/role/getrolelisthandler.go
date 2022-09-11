@@ -11,6 +11,11 @@ import (
 
 // swagger:route POST /role/list role getRoleList
 // Get role list | 获取角色列表
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: PageInfo
 // Responses:
 //   200: RoleListResp
 //   401: SimpleMsg

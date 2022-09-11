@@ -154,6 +154,21 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/menu/role",
 					Handler: menu.GetMenuByRoleHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/menu/param",
+					Handler: menu.CreateOrUpdateMenuParamHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/menu/param/list",
+					Handler: menu.GetMenuParamListByMenuIdHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/menu/param",
+					Handler: menu.DeleteMenuParamHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),

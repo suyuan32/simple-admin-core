@@ -10,7 +10,12 @@ import (
 )
 
 // swagger:route POST /user/modify user modifyUser
-// Modify user infomation | 修改用户信息
+// Modify user information | 修改用户信息
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: ModifyInfoReq
 // Responses:
 //   200: SimpleMsg
 //   401: SimpleMsg

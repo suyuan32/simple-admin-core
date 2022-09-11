@@ -3,7 +3,7 @@ syntax = "v1"
 info(
     title: "user management"
     desc: "user management api"
-    author: "ryansu"
+    author: "Ryan Su"
     email: "yuansu.china.work@gmail.com"
     version: "v1.0"
 )
@@ -11,20 +11,16 @@ info(
 import "base.api"
 
 type (
-    // swagger:parameters login
     // login request | 登录参数
+    // swagger:model LoginReq
     LoginReq {
         // User Name | 用户名
-        // required : true
         Username   string `json:"username"`
         // Password | 密码
-        // required : true
         Password   string `json:"password"`
         // Captcha Id which store in redis | 验证码编号, 存在redis中
-        // required : true
         CaptchaId  string `json:"captchaId"`
         // The Captcha which users input | 用户输入的验证码
-        // required : true
         Captcha    string `json:"captcha"`
     }
 
@@ -55,8 +51,8 @@ type (
         Email        string       `json:"email"`
     }
 
-    // swagger:parameters updateUserProfile
     // The profile request data | 个人信息请求参数
+    // swagger:model ProfileReq
     ProfileReq {
         // user's nickname | 用户的昵称
         // required: true
@@ -81,28 +77,23 @@ type (
         Value      string `json:"value"`
     }
 
-    // swagger:parameters register
     // register request | 注册参数
+    // swagger:model RegisterReq
     RegisterReq {
         // User Name | 用户名
-        // required : true
         Username  string `json:"username"`
         // Password | 密码
-        // required : true
         Password  string `json:"password"`
         // Captcha Id which store in redis | 验证码编号, 存在redis中
-        // required : true
         CaptchaId string `json:"captchaId"`
         // The Captcha which users input | 用户输入的验证码
-        // required : true
         Captcha   string `json:"captcha"`
         // The user's email address | 用户的邮箱
-        // required : true
         Email     string `json:"email"`
     }
 
-    // swagger:parameters changePassword
     // change user's password request | 修改密码请求参数
+    // swagger:model ChangePasswordReq
     ChangePasswordReq {
         // User's old password | 用户旧密码
         // required: true
@@ -112,30 +103,23 @@ type (
         NewPassword string `json:"newPassword"`
     }
 
-    // swagger:parameters modifyUser
-    // modify user's infomation request
+    // swagger:model ModifyInfoReq
+    // modify user's information request
     // 修改用户信息参数
     ModifyInfoReq {
         // User's UUID | 用户的UUID
-        // required: true
         UUID         string       `json:"UUID"`
         // User's nickname | 用户的昵称
-        // required: true
         Nickname     string       `json:"nickname"`
         // User's mobile phone number | 用户的手机号码
-        // required: true
         Mobile       string       `json:"mobile"`
         // User's role id | 用户的角色Id
-        // required: true
         RoleId       uint32       `json:"roleId"`
         // The user's email address | 用户的邮箱
-        // required : true
         Email        string       `json:"email"`
         // The user's avatar path | 用户的头像路径
-        // required : true
         Avatar       string       `json:"avatar"`
         // The user's layout mode | 用户的布局
-        // required : true
         SideMode     string       `json:"sideMode"`
     }
 
@@ -207,9 +191,8 @@ type (
         Data []string `json:"data"`
     }
 
-    // swagger:parameters createOrUpdateUser
-    // Create or update user information request
-    // 创建或更新用户信息
+    // Create or update user information request | 创建或更新用户信息
+    // swagger:model CreateOrUpdateUserReq
     CreateOrUpdateUserReq {
         // User's id | 用户Id
         // Required: true
@@ -241,30 +224,23 @@ type (
         Status       int32        `json:"status"`
     }
 
-    // swagger:parameters getUserList
     // Get user list request
+    // swagger:model GetUserListReq
     // 获取用户列表请求参数
     GetUserListReq {
         // Page number | 第几页
-        // required : true
         Page uint64 `json:"page"`
         // Page size | 单页数据行数
-        // required : true
         PageSize uint64 `json:"pageSize"`
         // User Name | 用户名
-        // required : true
         Username string `json:"username"`
         // User's nickname | 用户的昵称
-        // required: true
         Nickname string `json:"nickname"`
         // User's mobile phone number | 用户的手机号码
-        // required: true
         Mobile string `json:"mobile"`
         // The user's email address | 用户的邮箱
-        // required : true
         Email string  `json:"email"`
-        // User's role id | 用户的角色Id
-        // required: true
+        // User's role ID | 用户的角色Id
         RoleId uint64 `json:"roleId"`
     }
 )
@@ -276,6 +252,11 @@ type (
 service core {
     // swagger:route POST /user/login user login
     // Log in | 登录
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: LoginReq
     // Responses:
     //   200: LoginResp
     //   401: SimpleMsg
@@ -285,6 +266,11 @@ service core {
 
     // swagger:route POST /user/register user register
     // Register | 注册
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: RegisterReq
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
@@ -302,6 +288,11 @@ service core {
 service core {
     // swagger:route POST /user/change-password user changePassword
     // Change Password | 修改密码
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: ChangePasswordReq
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
@@ -320,6 +311,11 @@ service core {
 
     // swagger:route POST /user user createOrUpdateUser
     // Create or update user's information | 新增或更新用户
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: CreateOrUpdateUserReq
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
@@ -329,6 +325,11 @@ service core {
 
     // swagger:route POST /user/list user getUserList
     // Get user list | 获取用户列表
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: GetUserListReq
     // Responses:
     //   200: UserListResp
     //   401: SimpleMsg
@@ -337,7 +338,12 @@ service core {
     post /user/list (GetUserListReq) returns (UserListResp)
 
     // swagger:route POST /user/modify user modifyUser
-    // Modify user infomation | 修改用户信息
+    // Modify user information | 修改用户信息
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: ModifyInfoReq
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
@@ -345,14 +351,19 @@ service core {
     @handler modifyUser
     post /user/modify  (ModifyInfoReq) returns (SimpleMsg)
 
-    // swagger:route DELETE /user/modify user deleteUser
-    // Delete user infomation | 删除用户信息
+    // swagger:route DELETE /user user deleteUser
+    // Delete user information | 删除用户信息
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: IDReq
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
     //   500: SimpleMsg
     @handler deleteUser
-    delete /user (IdReq) returns (SimpleMsg)
+    delete /user (IDReq) returns (SimpleMsg)
 
     // swagger:route GET /user/perm user getUserPermCode
     // Get user's permission code | 获取用户权限码
@@ -374,6 +385,11 @@ service core {
 
     // swagger:route POST /user/profile user updateUserProfile
     // Update user's profile | 更新用户个人信息
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: ProfileReq
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg

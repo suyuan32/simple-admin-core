@@ -11,6 +11,11 @@ import (
 
 // swagger:route POST /user/login user login
 // Log in | 登录
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: LoginReq
 // Responses:
 //   200: LoginResp
 //   401: SimpleMsg

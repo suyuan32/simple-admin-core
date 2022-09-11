@@ -555,7 +555,7 @@ simple-admin-backend-ui/src/api/sys
 ```typescript
 import { defHttp } from '/@/utils/http/axios';
 import { ErrorMessageMode } from '/#/axios';
-import { BaseIdReq, BasePageReq, BaseResp } from '/@/api/model/baseModel';
+import { BaseIDReq, BasePageReq, BaseResp } from '/@/api/model/baseModel';
 import { ApiInfo, ApiListResp } from './model/apiModel';
 
 enum Api {

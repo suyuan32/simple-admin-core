@@ -3,7 +3,7 @@ syntax = "v1"
 info(
     title: "menu management"
     desc: "menu management APIs"
-    author: "ryansu"
+    author: "Ryan Su"
     email: "yuansu.china.work@gmail.com"
     version: "v1.0"
 )
@@ -99,38 +99,70 @@ type (
         Children     []*GetMenuListBase      `json:"children"`
     }
 
-    // swagger:parameters createOrUpdateMenu
     // Create or update menu information request params | 创建或更新菜单信息参数
+    // swagger:model CreateOrUpdateMenuReq
     CreateOrUpdateMenuReq {
         // ID
-        // Required: true
-        id           uint32      `json:"id"`
+        ID            uint32      `json:"id"`
         // Menu type: directory or menu | 菜单类型: 目录或菜单
-        // Required: true
         menuType     uint32      `json:"type"`
         // Parent menu ID | 父级菜单ID
-        // Required: true
         ParentId     uint        `json:"parentId"`
         // The path to visit menu | 菜单访问路径
-        // Required: true
         Path         string      `json:"path"`
         // Menu name | 菜单名
-        // Required: true
         Name         string      `json:"name"`
         // Redirect path | 跳转路径
-        // Required: true
         Redirect     string      `json:"redirect"`
         // The component path | 组件路径
-        // Required: true
         Component    string      `json:"component"`
         // The sorting number | 排序编号
-        // Required: true
         OrderNo      uint32      `json:"orderNo"`
         // Wether disabled | 是否禁用菜单
-        // Required: true
         Disabled     bool        `json:"disabled"`
         // in: body
         Meta
+    }
+
+
+    // Create or update menu extra parameters request params | 创建或更新菜单额外参数的请求参数
+    // swagger:model CreateOrUpdateMenuParamReq
+    CreateOrUpdateMenuParamReq {
+        // ID
+        ID        uint32      `json:"id"`
+        // Menu ID | 菜单ID
+        MenuID    uint32      `json:"menuID"`
+        // Data Type | 数据类型
+        DataType  string      `json:"dataType"`
+        // Key | 键
+        Key       string      `json:"key"`
+        // Value | 值
+        Value     string      `json:"value"`
+    }
+
+    // The response data of menu parameters  | 菜单参数列表数据
+    // swagger:response MenuParamResp
+    MenuParamResp {
+        // in: body
+        BaseInfo
+        // Menu ID | 菜单ID
+        MenuID    uint32      `json:"menuID"`
+        // Data Type | 数据类型
+        DataType  string      `json:"dataType"`
+        // Key | 键
+        Key       string      `json:"key"`
+        // Value | 值
+        Value     string      `json:"value"`
+    }
+
+    // The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
+    // swagger:response MenuParamListByMenuIdResp
+    MenuParamListByMenuIdResp {
+        // The total number of data | 数据总数
+        Total uint64 `json:"total"`
+        // The menu list data | 菜单列表数据
+        // in: body
+        Data []MenuParamResp `json:"data"`
     }
 )
 
@@ -143,6 +175,11 @@ type (
 service core {
     // swagger:route POST /menu menu createOrUpdateMenu
     // Create or update menu information | 创建或更新菜单
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: CreateOrUpdateMenuReq
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
@@ -152,14 +189,19 @@ service core {
 
     // swagger:route DELETE /menu menu deleteMenu
     // Delete menu information | 删除菜单信息
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: IDReq
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
     //   500: SimpleMsg
     @handler deleteMenu
-    delete /menu (IdReq) returns (SimpleMsg)
+    delete /menu (IDReq) returns (SimpleMsg)
 
-    // swagger:route POST /menu/list menu getMenuList
+    // swagger:route GET /menu/list menu getMenuList
     // Get menu list | 获取菜单列表
     // Responses:
     //   200: MenuListResp
@@ -176,4 +218,41 @@ service core {
     //   500: SimpleMsg
     @handler  getMenuByRole
     get /menu/role returns (GetMenuListBase)
+
+    // swagger:route POST /menu/param menu createOrUpdateMenuParam
+    // Create or update menu parameters | 创建或更新菜单参数
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: CreateOrUpdateMenuParamReq
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler createOrUpdateMenuParam
+    post /menu/param (CreateOrUpdateMenuParamReq) returns (SimpleMsg)
+
+    // swagger:route GET /menu/param/list menu getMenuParamListByMenuId
+    // Get menu extra parameters by menu ID | 获取某个菜单的额外参数列表
+    // Responses:
+    //   200: MenuParamListByMenuIdResp
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler getMenuParamListByMenuId
+    post /menu/param/list (IDReq) returns (MenuParamListByMenuIdResp)
+
+    // swagger:route DELETE /menu/param menu deleteMenuParam
+    // Delete menu extra parameters | 删除菜单额外参数
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: IDReq
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler deleteMenuParam
+    delete /menu/param (IDReq) returns (SimpleMsg)
 }

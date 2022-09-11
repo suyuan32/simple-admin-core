@@ -85,14 +85,9 @@ func (s *CoreServer) GetMenuByPage(ctx context.Context, in *core.PageInfoReq) (*
 	return l.GetMenuByPage(in)
 }
 
-func (s *CoreServer) CreateMenuParam(ctx context.Context, in *core.CreateMenuParamReq) (*core.BaseResp, error) {
-	l := logic.NewCreateMenuParamLogic(ctx, s.svcCtx)
-	return l.CreateMenuParam(in)
-}
-
-func (s *CoreServer) UpdateMenuParam(ctx context.Context, in *core.UpdateMenuParamReq) (*core.BaseResp, error) {
-	l := logic.NewUpdateMenuParamLogic(ctx, s.svcCtx)
-	return l.UpdateMenuParam(in)
+func (s *CoreServer) CreateOrUpdateMenuParam(ctx context.Context, in *core.CreateOrUpdateMenuParamReq) (*core.BaseResp, error) {
+	l := logic.NewCreateOrUpdateMenuParamLogic(ctx, s.svcCtx)
+	return l.CreateOrUpdateMenuParam(in)
 }
 
 func (s *CoreServer) DeleteMenuParam(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
@@ -100,14 +95,9 @@ func (s *CoreServer) DeleteMenuParam(ctx context.Context, in *core.IDReq) (*core
 	return l.DeleteMenuParam(in)
 }
 
-func (s *CoreServer) GetMenuParamById(ctx context.Context, in *core.IDReq) (*core.MenuParamResp, error) {
-	l := logic.NewGetMenuParamByIdLogic(ctx, s.svcCtx)
-	return l.GetMenuParamById(in)
-}
-
-func (s *CoreServer) GeMenuParamListById(ctx context.Context, in *core.IDReq) (*core.MenuParamListResp, error) {
-	l := logic.NewGeMenuParamListByIdLogic(ctx, s.svcCtx)
-	return l.GeMenuParamListById(in)
+func (s *CoreServer) GeMenuParamListByMenuId(ctx context.Context, in *core.IDReq) (*core.MenuParamListResp, error) {
+	l := logic.NewGeMenuParamListByMenuIdLogic(ctx, s.svcCtx)
+	return l.GeMenuParamListByMenuId(in)
 }
 
 // role service

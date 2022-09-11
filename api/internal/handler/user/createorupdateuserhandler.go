@@ -11,6 +11,11 @@ import (
 
 // swagger:route POST /user user createOrUpdateUser
 // Create or update user's information | 新增或更新用户
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: CreateOrUpdateUserReq
 // Responses:
 //   200: SimpleMsg
 //   401: SimpleMsg

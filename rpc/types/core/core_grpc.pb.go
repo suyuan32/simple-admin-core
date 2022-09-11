@@ -38,11 +38,9 @@ type CoreClient interface {
 	DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 	GetMenuByPage(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
-	CreateMenuParam(ctx context.Context, in *CreateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
-	UpdateMenuParam(ctx context.Context, in *UpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
+	CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
 	DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-	GetMenuParamById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamResp, error)
-	GeMenuParamListById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
+	GeMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
 	// role service
 	CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -174,18 +172,9 @@ func (c *coreClient) GetMenuByPage(ctx context.Context, in *PageInfoReq, opts ..
 	return out, nil
 }
 
-func (c *coreClient) CreateMenuParam(ctx context.Context, in *CreateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createMenuParam", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) UpdateMenuParam(ctx context.Context, in *UpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/updateMenuParam", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateMenuParam", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -201,18 +190,9 @@ func (c *coreClient) DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grp
 	return out, nil
 }
 
-func (c *coreClient) GetMenuParamById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamResp, error) {
-	out := new(MenuParamResp)
-	err := c.cc.Invoke(ctx, "/core.core/getMenuParamById", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) GeMenuParamListById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
+func (c *coreClient) GeMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
 	out := new(MenuParamListResp)
-	err := c.cc.Invoke(ctx, "/core.core/geMenuParamListById", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.core/geMenuParamListByMenuId", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -329,11 +309,9 @@ type CoreServer interface {
 	DeleteMenu(context.Context, *IDReq) (*BaseResp, error)
 	GetMenuListByRole(context.Context, *IDReq) (*MenuInfoList, error)
 	GetMenuByPage(context.Context, *PageInfoReq) (*MenuInfoList, error)
-	CreateMenuParam(context.Context, *CreateMenuParamReq) (*BaseResp, error)
-	UpdateMenuParam(context.Context, *UpdateMenuParamReq) (*BaseResp, error)
+	CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error)
 	DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error)
-	GetMenuParamById(context.Context, *IDReq) (*MenuParamResp, error)
-	GeMenuParamListById(context.Context, *IDReq) (*MenuParamListResp, error)
+	GeMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error)
 	// role service
 	CreateOrUpdateRole(context.Context, *RoleInfo) (*BaseResp, error)
 	DeleteRole(context.Context, *IDReq) (*BaseResp, error)
@@ -390,20 +368,14 @@ func (UnimplementedCoreServer) GetMenuListByRole(context.Context, *IDReq) (*Menu
 func (UnimplementedCoreServer) GetMenuByPage(context.Context, *PageInfoReq) (*MenuInfoList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMenuByPage not implemented")
 }
-func (UnimplementedCoreServer) CreateMenuParam(context.Context, *CreateMenuParamReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateMenuParam not implemented")
-}
-func (UnimplementedCoreServer) UpdateMenuParam(context.Context, *UpdateMenuParamReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenuParam not implemented")
+func (UnimplementedCoreServer) CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenuParam not implemented")
 }
 func (UnimplementedCoreServer) DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenuParam not implemented")
 }
-func (UnimplementedCoreServer) GetMenuParamById(context.Context, *IDReq) (*MenuParamResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMenuParamById not implemented")
-}
-func (UnimplementedCoreServer) GeMenuParamListById(context.Context, *IDReq) (*MenuParamListResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GeMenuParamListById not implemented")
+func (UnimplementedCoreServer) GeMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GeMenuParamListByMenuId not implemented")
 }
 func (UnimplementedCoreServer) CreateOrUpdateRole(context.Context, *RoleInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateRole not implemented")
@@ -664,38 +636,20 @@ func _Core_GetMenuByPage_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_CreateMenuParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateMenuParamReq)
+func _Core_CreateOrUpdateMenuParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOrUpdateMenuParamReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).CreateMenuParam(ctx, in)
+		return srv.(CoreServer).CreateOrUpdateMenuParam(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/createMenuParam",
+		FullMethod: "/core.core/createOrUpdateMenuParam",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).CreateMenuParam(ctx, req.(*CreateMenuParamReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_UpdateMenuParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateMenuParamReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).UpdateMenuParam(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/updateMenuParam",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).UpdateMenuParam(ctx, req.(*UpdateMenuParamReq))
+		return srv.(CoreServer).CreateOrUpdateMenuParam(ctx, req.(*CreateOrUpdateMenuParamReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -718,38 +672,20 @@ func _Core_DeleteMenuParam_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_GetMenuParamById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Core_GeMenuParamListByMenuId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(IDReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).GetMenuParamById(ctx, in)
+		return srv.(CoreServer).GeMenuParamListByMenuId(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getMenuParamById",
+		FullMethod: "/core.core/geMenuParamListByMenuId",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetMenuParamById(ctx, req.(*IDReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_GeMenuParamListById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).GeMenuParamListById(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/geMenuParamListById",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GeMenuParamListById(ctx, req.(*IDReq))
+		return srv.(CoreServer).GeMenuParamListByMenuId(ctx, req.(*IDReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -990,24 +926,16 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_GetMenuByPage_Handler,
 		},
 		{
-			MethodName: "createMenuParam",
-			Handler:    _Core_CreateMenuParam_Handler,
-		},
-		{
-			MethodName: "updateMenuParam",
-			Handler:    _Core_UpdateMenuParam_Handler,
+			MethodName: "createOrUpdateMenuParam",
+			Handler:    _Core_CreateOrUpdateMenuParam_Handler,
 		},
 		{
 			MethodName: "deleteMenuParam",
 			Handler:    _Core_DeleteMenuParam_Handler,
 		},
 		{
-			MethodName: "getMenuParamById",
-			Handler:    _Core_GetMenuParamById_Handler,
-		},
-		{
-			MethodName: "geMenuParamListById",
-			Handler:    _Core_GeMenuParamListById_Handler,
+			MethodName: "geMenuParamListByMenuId",
+			Handler:    _Core_GeMenuParamListByMenuId_Handler,
 		},
 		{
 			MethodName: "createOrUpdateRole",

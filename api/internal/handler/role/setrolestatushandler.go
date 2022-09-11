@@ -11,6 +11,11 @@ import (
 
 // swagger:route POST /role/status role setRoleStatus
 // Set role status | 设置角色状态
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: SetStatusReq
 // Responses:
 //   200: SimpleMsg
 //   401: SimpleMsg

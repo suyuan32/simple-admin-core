@@ -3,7 +3,7 @@ syntax = "v1"
 info(
     title: "api management"
     desc: "api management is used to register apis and manage apis"
-    author: "ryansu"
+    author: "Ryan Su"
     email: "yuansu.china.work@gmail.com"
     version: "v1.0"
 )
@@ -27,8 +27,8 @@ type (
         Method        string `json:"method"`
     }
 
-    // swagger:parameters createOrUpdateApi
     // Create or update API information request | 创建或更新API信息
+    // swagger:model CreateOrUpdateApiReq
     CreateOrUpdateApiReq {
         // ID
         // Required: true
@@ -60,8 +60,8 @@ type (
         Data  []ApiInfo  `json:"data"`
     }
 
-    // swagger:parameters getApiList
     // Get API list request params | API列表请求参数
+    // swagger:model ApiListReq
     ApiListReq {
         PageInfo
         // API path | API路径
@@ -88,6 +88,11 @@ type (
 service core {
     // swagger:route POST /api api createOrUpdateApi
     // Create or update API information | 创建或更新API
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: CreateOrUpdateApiReq
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
@@ -97,15 +102,25 @@ service core {
 
     // swagger:route DELETE /api api deleteApi
     // Delete API information | 删除API信息
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: IDReq
     // Responses:
     //   200: SimpleMsg
     //   401: SimpleMsg
     //   500: SimpleMsg
     @handler deleteApi
-    delete /api (IdReq) returns (SimpleMsg)
+    delete /api (IDReq) returns (SimpleMsg)
 
     // swagger:route POST /api/list api getApiList
     // Get API list | 获取API列表
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: ApiListReq
     // Responses:
     //   200: ApiListResp
     //   401: SimpleMsg

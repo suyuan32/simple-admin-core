@@ -11,6 +11,11 @@ import (
 
 // swagger:route POST /authority/api authority createOrUpdateApiAuthority
 // Create or update API authorization information | 创建或更新API权限
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: CreateOrUpdateApiAuthorityReq
 // Responses:
 //   200: SimpleMsg
 //   401: SimpleMsg

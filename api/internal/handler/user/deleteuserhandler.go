@@ -10,7 +10,12 @@ import (
 )
 
 // swagger:route DELETE /user/modify user deleteUser
-// Delete user infomation | 删除用户信息
+// Delete user information | 删除用户信息
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: IDReq
 // Responses:
 //   200: SimpleMsg
 //   401: SimpleMsg
@@ -18,7 +23,7 @@ import (
 
 func DeleteUserHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.IdReq
+		var req types.IDReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, err)
 			return

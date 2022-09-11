@@ -8,7 +8,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /menu/list menu getMenuList
+// swagger:route GET /menu/list menu getMenuList
 // Get menu list | 获取菜单列表
 // Responses:
 //   200: MenuListResp

@@ -13,40 +13,39 @@ import (
 )
 
 type (
-	ApiInfo               = core.ApiInfo
-	ApiListResp           = core.ApiListResp
-	ApiPageReq            = core.ApiPageReq
-	BaseResp              = core.BaseResp
-	ChangePasswordReq     = core.ChangePasswordReq
-	CreateMenuParamReq    = core.CreateMenuParamReq
-	CreateOrUpdateMenuReq = core.CreateOrUpdateMenuReq
-	CreateOrUpdateUserReq = core.CreateOrUpdateUserReq
-	CreatePolicyReq       = core.CreatePolicyReq
-	Empty                 = core.Empty
-	GetUserListReq        = core.GetUserListReq
-	IDReq                 = core.IDReq
-	LoginReq              = core.LoginReq
-	LoginResp             = core.LoginResp
-	MenuInfo              = core.MenuInfo
-	MenuInfoList          = core.MenuInfoList
-	MenuParamListResp     = core.MenuParamListResp
-	MenuParamResp         = core.MenuParamResp
-	MenuRoleInfo          = core.MenuRoleInfo
-	MenuRoleListResp      = core.MenuRoleListResp
-	Meta                  = core.Meta
-	PageInfoReq           = core.PageInfoReq
-	PolicyPartInfo        = core.PolicyPartInfo
-	RoleInfo              = core.RoleInfo
-	RoleListResp          = core.RoleListResp
-	RoleMenuAuthorityReq  = core.RoleMenuAuthorityReq
-	RoleMenuAuthorityResp = core.RoleMenuAuthorityResp
-	SetStatusReq          = core.SetStatusReq
-	UUIDReq               = core.UUIDReq
-	UpdateMenuParamReq    = core.UpdateMenuParamReq
-	UpdatePolicyReq       = core.UpdatePolicyReq
-	UpdateProfileReq      = core.UpdateProfileReq
-	UserInfoResp          = core.UserInfoResp
-	UserListResp          = core.UserListResp
+	ApiInfo                    = core.ApiInfo
+	ApiListResp                = core.ApiListResp
+	ApiPageReq                 = core.ApiPageReq
+	BaseResp                   = core.BaseResp
+	ChangePasswordReq          = core.ChangePasswordReq
+	CreateOrUpdateMenuParamReq = core.CreateOrUpdateMenuParamReq
+	CreateOrUpdateMenuReq      = core.CreateOrUpdateMenuReq
+	CreateOrUpdateUserReq      = core.CreateOrUpdateUserReq
+	CreatePolicyReq            = core.CreatePolicyReq
+	Empty                      = core.Empty
+	GetUserListReq             = core.GetUserListReq
+	IDReq                      = core.IDReq
+	LoginReq                   = core.LoginReq
+	LoginResp                  = core.LoginResp
+	MenuInfo                   = core.MenuInfo
+	MenuInfoList               = core.MenuInfoList
+	MenuParamListResp          = core.MenuParamListResp
+	MenuParamResp              = core.MenuParamResp
+	MenuRoleInfo               = core.MenuRoleInfo
+	MenuRoleListResp           = core.MenuRoleListResp
+	Meta                       = core.Meta
+	PageInfoReq                = core.PageInfoReq
+	PolicyPartInfo             = core.PolicyPartInfo
+	RoleInfo                   = core.RoleInfo
+	RoleListResp               = core.RoleListResp
+	RoleMenuAuthorityReq       = core.RoleMenuAuthorityReq
+	RoleMenuAuthorityResp      = core.RoleMenuAuthorityResp
+	SetStatusReq               = core.SetStatusReq
+	UUIDReq                    = core.UUIDReq
+	UpdatePolicyReq            = core.UpdatePolicyReq
+	UpdateProfileReq           = core.UpdateProfileReq
+	UserInfoResp               = core.UserInfoResp
+	UserListResp               = core.UserListResp
 
 	Core interface {
 		//  init
@@ -64,11 +63,9 @@ type (
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 		GetMenuByPage(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
-		CreateMenuParam(ctx context.Context, in *CreateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
-		UpdateMenuParam(ctx context.Context, in *UpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
+		CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		GetMenuParamById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamResp, error)
-		GeMenuParamListById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
+		GeMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
 		// role service
 		CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -158,14 +155,9 @@ func (m *defaultCore) GetMenuByPage(ctx context.Context, in *PageInfoReq, opts .
 	return client.GetMenuByPage(ctx, in, opts...)
 }
 
-func (m *defaultCore) CreateMenuParam(ctx context.Context, in *CreateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateMenuParam(ctx, in, opts...)
-}
-
-func (m *defaultCore) UpdateMenuParam(ctx context.Context, in *UpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.UpdateMenuParam(ctx, in, opts...)
+	return client.CreateOrUpdateMenuParam(ctx, in, opts...)
 }
 
 func (m *defaultCore) DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
@@ -173,14 +165,9 @@ func (m *defaultCore) DeleteMenuParam(ctx context.Context, in *IDReq, opts ...gr
 	return client.DeleteMenuParam(ctx, in, opts...)
 }
 
-func (m *defaultCore) GetMenuParamById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamResp, error) {
+func (m *defaultCore) GeMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.GetMenuParamById(ctx, in, opts...)
-}
-
-func (m *defaultCore) GeMenuParamListById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.GeMenuParamListById(ctx, in, opts...)
+	return client.GeMenuParamListByMenuId(ctx, in, opts...)
 }
 
 // role service

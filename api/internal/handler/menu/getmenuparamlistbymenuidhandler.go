@@ -9,19 +9,14 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route DELETE /menu menu deleteMenu
-// Delete menu information | 删除菜单信息
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: IDReq
+// swagger:route GET /menu/param/list menu getMenuParamListByMenuId
+// Get menu extra parameters by menu ID | 获取某个菜单的额外参数列表
 // Responses:
-//   200: SimpleMsg
+//   200: MenuParamListByMenuIdResp
 //   401: SimpleMsg
 //   500: SimpleMsg
 
-func DeleteMenuHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func GetMenuParamListByMenuIdHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.IDReq
 		if err := httpx.Parse(r, &req); err != nil {
@@ -29,8 +24,8 @@ func DeleteMenuHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := menu.NewDeleteMenuLogic(r.Context(), svcCtx)
-		resp, err := l.DeleteMenu(&req)
+		l := menu.NewGetMenuParamListByMenuIdLogic(r.Context(), svcCtx)
+		resp, err := l.GetMenuParamListByMenuId(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

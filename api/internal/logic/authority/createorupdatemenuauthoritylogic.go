@@ -24,7 +24,7 @@ func NewCreateOrUpdateMenuAuthorityLogic(ctx context.Context, svcCtx *svc.Servic
 	}
 }
 
-func (l *CreateOrUpdateMenuAuthorityLogic) CreateOrUpdateMenuAuthority(req *types.MenuAuthorityInfo) (resp *types.SimpleMsg, err error) {
+func (l *CreateOrUpdateMenuAuthorityLogic) CreateOrUpdateMenuAuthority(req *types.MenuAuthorityInfoReq) (resp *types.SimpleMsg, err error) {
 	authority, err := l.svcCtx.CoreRpc.CreateOrUpdateMenuAuthority(l.ctx, &core.RoleMenuAuthorityReq{
 		RoleId: req.RoleId,
 		MenuId: req.MenuIds,

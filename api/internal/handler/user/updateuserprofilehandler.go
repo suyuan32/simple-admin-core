@@ -11,6 +11,11 @@ import (
 
 // swagger:route POST /user/profile user updateUserProfile
 // Update user's profile | 更新用户个人信息
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: ProfileReq
 // Responses:
 //   200: SimpleMsg
 //   401: SimpleMsg

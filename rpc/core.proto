@@ -154,27 +154,20 @@ message MenuRoleListResp {
   repeated MenuRoleInfo data = 2;
 }
 
-message CreateMenuParamReq {
-  uint64 menu_id = 1;
-  string type = 2;
-  string key = 3;
-  string value = 4;
-}
-
-message UpdateMenuParamReq {
-  uint64 menu_id = 1;
-  string type = 2;
-  string key = 3;
-  string value = 4;
-  uint64 id = 5;
+message CreateOrUpdateMenuParamReq {
+  uint64 id = 1;
+  uint64 menu_id = 2;
+  string type = 3;
+  string key = 4;
+  string value = 5;
 }
 
 message MenuParamResp {
-  uint64 id = 5;
-  uint64 menu_id = 1;
-  string type = 2;
-  string key = 3;
-  string value = 4;
+  uint64 id = 1;
+  uint64 menu_id = 2;
+  string type = 3;
+  string key = 4;
+  string value = 5;
   int64 create_at = 6;
   int64 update_at = 7;
 }
@@ -277,11 +270,9 @@ service core {
   rpc deleteMenu (IDReq) returns (BaseResp);
   rpc getMenuListByRole (IDReq) returns (MenuInfoList);
   rpc getMenuByPage (PageInfoReq) returns (MenuInfoList);
-  rpc createMenuParam (CreateMenuParamReq) returns (BaseResp);
-  rpc updateMenuParam (UpdateMenuParamReq) returns (BaseResp);
+  rpc createOrUpdateMenuParam (CreateOrUpdateMenuParamReq) returns (BaseResp);
   rpc deleteMenuParam (IDReq) returns (BaseResp);
-  rpc getMenuParamById (IDReq) returns (MenuParamResp);
-  rpc geMenuParamListById (IDReq) returns (MenuParamListResp);
+  rpc geMenuParamListByMenuId (IDReq) returns (MenuParamListResp);
 
   // role service
   rpc createOrUpdateRole (RoleInfo) returns (BaseResp);
