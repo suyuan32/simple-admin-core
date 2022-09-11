@@ -2,7 +2,7 @@
 
 ## 安装goctls
 - 方法1： 直接下载最新release
-
+### ***建议: 使用 v0.0.1 , 目前官方的goctl修改后有bug, 无法生成go-swagger***
 [Release](https://github.com/suyuan32/simple-admin-tools/releases)
 
 将文件放到 $GOPATH/bin 目录下
