@@ -4,7 +4,7 @@
 
 ## Install goctls
 - Method 1： download the latest release
-### ***Recommend: use v0.0.1 , the latest version now has some bugs***
+
 [Release](https://github.com/suyuan32/simple-admin-tools/releases)
 
 Put it to  $GOPATH/bin
