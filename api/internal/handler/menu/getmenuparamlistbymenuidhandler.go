@@ -9,8 +9,13 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route GET /menu/param/list menu getMenuParamListByMenuId
+// swagger:route POST /menu/param/list menu getMenuParamListByMenuId
 // Get menu extra parameters by menu ID | 获取某个菜单的额外参数列表
+// Parameters:
+//  + name: body
+//    require: true
+//    in: body
+//    type: IDReq
 // Responses:
 //   200: MenuParamListByMenuIdResp
 //   401: SimpleMsg

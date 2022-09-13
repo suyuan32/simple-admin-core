@@ -479,7 +479,7 @@ type CreateOrUpdateMenuParamReq struct {
 	// ID
 	ID uint32 `json:"id"`
 	// Menu ID | 菜单ID
-	MenuID uint32 `json:"menuID"`
+	MenuId uint32 `json:"menuId"`
 	// Data Type | 数据类型
 	DataType string `json:"dataType"`
 	// Key | 键
@@ -493,7 +493,7 @@ type CreateOrUpdateMenuParamReq struct {
 type MenuParamResp struct {
 	BaseInfo
 	// Menu ID | 菜单ID
-	MenuID uint32 `json:"menuID"`
+	MenuId uint32 `json:"menuId"`
 	// Data Type | 数据类型
 	DataType string `json:"dataType"`
 	// Key | 键

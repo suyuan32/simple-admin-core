@@ -173,11 +173,11 @@ definitions:
                 description: Key | 键
                 type: string
                 x-go-name: Key
-            menuID:
+            menuId:
                 description: Menu ID | 菜单ID
                 format: uint32
                 type: integer
-                x-go-name: MenuID
+                x-go-name: MenuId
             value:
                 description: Value | 值
                 type: string
@@ -397,7 +397,7 @@ definitions:
                 description: User's role ID | 用户的角色Id
                 format: uint64
                 type: integer
-                x-go-name: RoleID
+                x-go-name: RoleId
             username:
                 description: User Name | 用户名
                 type: string
@@ -610,11 +610,11 @@ definitions:
                 description: Key | 键
                 type: string
                 x-go-name: Key
-            menuID:
+            menuId:
                 description: Menu ID | 菜单ID
                 format: uint32
                 type: integer
-                x-go-name: MenuID
+                x-go-name: MenuId
             updatedAt:
                 description: Update date | 更新日期
                 format: int64
@@ -1162,9 +1162,15 @@ paths:
             tags:
                 - menu
     /menu/param/list:
-        get:
+        post:
             description: Get menu extra parameters by menu ID | 获取某个菜单的额外参数列表
             operationId: getMenuParamListByMenuId
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
             responses:
                 "200":
                     $ref: '#/responses/MenuParamListByMenuIdResp'
@@ -1745,7 +1751,7 @@ responses:
             key:
                 description: Key | 键
                 type: string
-            menuID:
+            menuId:
                 description: Menu ID | 菜单ID
                 format: uint32
                 type: integer

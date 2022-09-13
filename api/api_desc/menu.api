@@ -131,7 +131,7 @@ type (
         // ID
         ID        uint32      `json:"id"`
         // Menu ID | 菜单ID
-        MenuID    uint32      `json:"menuID"`
+        MenuId    uint32      `json:"menuId"`
         // Data Type | 数据类型
         DataType  string      `json:"dataType"`
         // Key | 键
@@ -146,7 +146,7 @@ type (
         // in: body
         BaseInfo
         // Menu ID | 菜单ID
-        MenuID    uint32      `json:"menuID"`
+        MenuId    uint32      `json:"menuId"`
         // Data Type | 数据类型
         DataType  string      `json:"dataType"`
         // Key | 键
@@ -233,8 +233,13 @@ service core {
     @handler createOrUpdateMenuParam
     post /menu/param (CreateOrUpdateMenuParamReq) returns (SimpleMsg)
 
-    // swagger:route GET /menu/param/list menu getMenuParamListByMenuId
+    // swagger:route POST /menu/param/list menu getMenuParamListByMenuId
     // Get menu extra parameters by menu ID | 获取某个菜单的额外参数列表
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: IDReq
     // Responses:
     //   200: MenuParamListByMenuIdResp
     //   401: SimpleMsg

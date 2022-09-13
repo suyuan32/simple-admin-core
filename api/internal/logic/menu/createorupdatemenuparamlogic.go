@@ -27,7 +27,7 @@ func NewCreateOrUpdateMenuParamLogic(ctx context.Context, svcCtx *svc.ServiceCon
 func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(req *types.CreateOrUpdateMenuParamReq) (resp *types.SimpleMsg, err error) {
 	result, err := l.svcCtx.CoreRpc.CreateOrUpdateMenuParam(l.ctx, &core.CreateOrUpdateMenuParamReq{
 		Id:     uint64(req.ID),
-		MenuId: uint64(req.MenuID),
+		MenuId: uint64(req.MenuId),
 		Type:   req.DataType,
 		Key:    req.Key,
 		Value:  req.Value,

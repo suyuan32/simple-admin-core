@@ -44,7 +44,7 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, er
 	}
 
 	if in.Group != "" {
-		db = db.Where("group = ?", in.Group)
+		db = db.Where("api_group = ?", in.Group)
 	}
 
 	result := db.Limit(int(in.Page.PageSize)).Offset(int((in.Page.Page - 1) * in.Page.PageSize)).
