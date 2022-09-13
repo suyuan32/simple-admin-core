@@ -17,7 +17,7 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 - **统一的额错误处理**: 整个系统拥有国际化的统一错误处理
 - **国际化**：内置完善的国际化方案
 - **服务注册发现** 完善的服务注册发现机制
-- **权限** 内置完善的动态路由权限生成方案
+- **权限** 内置完善的动态路由权限生成方案, 集成RBAC权限控制
 - **其他** 流量控制， ES服务
 
 ## 当前进度
@@ -46,36 +46,35 @@ cd docs
 docsify serve .
 ```
 
-- vue-vben-admin [文档地址](https://vvbin.cn/doc-next/)
-- ant-design-vue [地址](https://antdv.com/components/overview)
+- go-zero
+  [Document](https://go-zero.dev/)
+- ant-design-vue [Document](https://antdv.com/components/overview)
 
 ## 准备
 
-- [node](http://nodejs.org/) 和 [git](https://git-scm.com/) -项目开发环境
-- [Vite](https://vitejs.dev/) - 熟悉 vite 特性
-- [Vue3](https://v3.vuejs.org/) - 熟悉 Vue 基础语法
-- [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
-- [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
-- [Vue-Router-Next](https://next.router.vuejs.org/) - 熟悉 vue-router 基本使用
-- [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/) - ui 基本使用
-- [Mock.js](https://github.com/nuysoft/Mock) - mockjs 基本语法
+- [Golang](http://go.dev/) and [git](https://git-scm.com/) - Go 语言
+- [Mysql](https://www.mysql.com/) - Mysql数据库
+- [GORM](https://gorm.io/) - GORM 数据库ORM组件
+- [Casbin](https://casbin.org/) - 权限管理
+- [Go-swagger](https://goswagger.io/) - Go-swagger 文档生成调试
 
 ## 安装使用
 
 - 获取项目代码
 
 ```bash
-git clone https://github.com/suyuan32/Simple-Admin.git
+git clone https://github.com/suyuan32/simple-admin-core.git
 ```
 
 - 安装依赖
 
 ```bash
-cd Simple-Admin/core
+cd simple-admin-core/
 
 go mod tidy
 ```
-
+- 编辑配置文件 api/etc/core.yaml  rpc/etc/core.yaml
+- 
 - 运行
 
 ```bash

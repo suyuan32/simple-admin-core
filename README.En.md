@@ -56,25 +56,28 @@ docsify serve .
 - [Mysql](https://www.mysql.com/) - Familiar with mysql database
 - [GORM](https://gorm.io/) - Familiar with GORM apis
 - [Casbin](https://casbin.org/) - Familiar with Casbin apis
+- [Go-swagger](https://goswagger.io/) - Go-swagger document generation
 
 ## Install and use
 
 - Get the project code
 
 ```bash
-git clone https://github.com/suyuan32/Simple-Admin.git
+git clone https://github.com/suyuan32/simple-admin-core.git
 ```
 
 - Installation dependencies
 
 ```bash
-cd Simple-Admin/core
+cd simple-admin-core/
 
 go mod tidy
 
 ```
 
-- run
+- Edit api/etc/core.yaml  rpc/etc/core.yaml
+
+- Run
 
 ```bash
 # run core api
@@ -86,7 +89,7 @@ cd rpc
 go run core.go -f etc/core.yaml
 ```
 
-- build
+- Build
 
 ```bash
 go build -o core core.go
