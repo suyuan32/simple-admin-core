@@ -134,12 +134,16 @@ type BaseInfo struct {
 // swagger:model LoginReq
 type LoginReq struct {
 	// User Name | 用户名
+	// Required: true
 	Username string `json:"username"`
 	// Password | 密码
+	// Required: true
 	Password string `json:"password"`
 	// Captcha Id which store in redis | 验证码编号, 存在redis中
+	// Required: true
 	CaptchaId string `json:"captchaId"`
 	// The Captcha which users input | 用户输入的验证码
+	// Required: true
 	Captcha string `json:"captcha"`
 }
 
@@ -174,16 +178,16 @@ type ProfileResp struct {
 // swagger:model ProfileReq
 type ProfileReq struct {
 	// user's nickname | 用户的昵称
-	// required: true
+	// Required: true
 	Nickname string `json:"nickname"`
 	// The user's avatar path | 用户的头像路径
-	// required: true
+	// Required: true
 	Avatar string `json:"avatar"`
 	// User's mobile phone number | 用户的手机号码
-	// required: true
+	// Required: true
 	Mobile string `json:"mobile"`
 	// The user's email address | 用户的邮箱
-	// required: true
+	// Required: true
 	Email string `json:"email"`
 }
 
@@ -200,14 +204,19 @@ type RoleInfoSimple struct {
 // swagger:model RegisterReq
 type RegisterReq struct {
 	// User Name | 用户名
+	// Required: true
 	Username string `json:"username"`
 	// Password | 密码
+	// Required: true
 	Password string `json:"password"`
 	// Captcha Id which store in redis | 验证码编号, 存在redis中
+	// Required: true
 	CaptchaId string `json:"captchaId"`
 	// The Captcha which users input | 用户输入的验证码
+	// Required: true
 	Captcha string `json:"captcha"`
 	// The user's email address | 用户的邮箱
+	// Required: true
 	Email string `json:"email"`
 }
 
@@ -215,30 +224,36 @@ type RegisterReq struct {
 // swagger:model ChangePasswordReq
 type ChangePasswordReq struct {
 	// User's old password | 用户旧密码
-	// required: true
+	// Required: true
 	OldPassword string `json:"oldPassword"`
 	// User's new password | 用户新密码
-	// required: true
+	// Required: true
 	NewPassword string `json:"newPassword"`
 }
 
+// modify user's information request | 修改用户信息参数
 // swagger:model ModifyInfoReq
-// modify user's information request
-// 修改用户信息参数
 type ModifyInfoReq struct {
 	// User's UUID | 用户的UUID
+	// Required: true
 	UUID string `json:"UUID"`
 	// User's nickname | 用户的昵称
+	// Required: true
 	Nickname string `json:"nickname"`
 	// User's mobile phone number | 用户的手机号码
+	// Required: true
 	Mobile string `json:"mobile"`
 	// User's role id | 用户的角色Id
+	// Required: true
 	RoleId uint32 `json:"roleId"`
 	// The user's email address | 用户的邮箱
+	// Required: true
 	Email string `json:"email"`
 	// The user's avatar path | 用户的头像路径
+	// Required: true
 	Avatar string `json:"avatar"`
 	// The user's layout mode | 用户的布局
+	// Required: true
 	SideMode string `json:"sideMode"`
 }
 
@@ -343,23 +358,29 @@ type CreateOrUpdateUserReq struct {
 	Status int32 `json:"status"`
 }
 
-// Get user list request
+// Get user list request | 获取用户列表请求参数
 // swagger:model GetUserListReq
-// 获取用户列表请求参数
 type GetUserListReq struct {
 	// Page number | 第几页
+	// Required: true
 	Page uint64 `json:"page"`
 	// Page size | 单页数据行数
+	// Required: true
 	PageSize uint64 `json:"pageSize"`
 	// User Name | 用户名
+	// Required: true
 	Username string `json:"username"`
 	// User's nickname | 用户的昵称
+	// Required: true
 	Nickname string `json:"nickname"`
 	// User's mobile phone number | 用户的手机号码
+	// Required: true
 	Mobile string `json:"mobile"`
 	// The user's email address | 用户的邮箱
+	// Required: true
 	Email string `json:"email"`
 	// User's role ID | 用户的角色Id
+	// Required: true
 	RoleId uint64 `json:"roleId"`
 }
 
@@ -453,22 +474,30 @@ type GetMenuListBase struct {
 // swagger:model CreateOrUpdateMenuReq
 type CreateOrUpdateMenuReq struct {
 	// ID
+	// Required: true
 	ID uint32 `json:"id"`
 	// Menu type: directory or menu | 菜单类型: 目录或菜单
 	MenuType uint32 `json:"type"`
 	// Parent menu ID | 父级菜单ID
+	// Required: true
 	ParentId uint `json:"parentId"`
 	// The path to visit menu | 菜单访问路径
+	// Required: true
 	Path string `json:"path"`
 	// Menu name | 菜单名
+	// Required: true
 	Name string `json:"name"`
 	// Redirect path | 跳转路径
+	// Required: true
 	Redirect string `json:"redirect"`
 	// The component path | 组件路径
+	// Required: true
 	Component string `json:"component"`
 	// The sorting number | 排序编号
+	// Required: true
 	OrderNo uint32 `json:"orderNo"`
 	// Wether disabled | 是否禁用菜单
+	// Required: true
 	Disabled bool `json:"disabled"`
 	Meta
 }
@@ -477,14 +506,19 @@ type CreateOrUpdateMenuReq struct {
 // swagger:model CreateOrUpdateMenuParamReq
 type CreateOrUpdateMenuParamReq struct {
 	// ID
+	// Required: true
 	ID uint32 `json:"id"`
 	// Menu ID | 菜单ID
+	// Required: true
 	MenuId uint32 `json:"menuId"`
 	// Data Type | 数据类型
+	// Required: true
 	DataType string `json:"dataType"`
 	// Key | 键
+	// Required: true
 	Key string `json:"key"`
 	// Value | 值
+	// Required: true
 	Value string `json:"value"`
 }
 

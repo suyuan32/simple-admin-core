@@ -103,22 +103,30 @@ type (
     // swagger:model CreateOrUpdateMenuReq
     CreateOrUpdateMenuReq {
         // ID
+        // Required: true
         ID            uint32      `json:"id"`
         // Menu type: directory or menu | 菜单类型: 目录或菜单
         menuType     uint32      `json:"type"`
         // Parent menu ID | 父级菜单ID
+        // Required: true
         ParentId     uint        `json:"parentId"`
         // The path to visit menu | 菜单访问路径
+        // Required: true
         Path         string      `json:"path"`
         // Menu name | 菜单名
+        // Required: true
         Name         string      `json:"name"`
         // Redirect path | 跳转路径
+        // Required: true
         Redirect     string      `json:"redirect"`
         // The component path | 组件路径
+        // Required: true
         Component    string      `json:"component"`
         // The sorting number | 排序编号
+        // Required: true
         OrderNo      uint32      `json:"orderNo"`
         // Wether disabled | 是否禁用菜单
+        // Required: true
         Disabled     bool        `json:"disabled"`
         // in: body
         Meta
@@ -129,14 +137,19 @@ type (
     // swagger:model CreateOrUpdateMenuParamReq
     CreateOrUpdateMenuParamReq {
         // ID
+        // Required: true
         ID        uint32      `json:"id"`
         // Menu ID | 菜单ID
+        // Required: true
         MenuId    uint32      `json:"menuId"`
         // Data Type | 数据类型
+        // Required: true
         DataType  string      `json:"dataType"`
         // Key | 键
+        // Required: true
         Key       string      `json:"key"`
         // Value | 值
+        // Required: true
         Value     string      `json:"value"`
     }
 

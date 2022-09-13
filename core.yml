@@ -182,6 +182,12 @@ definitions:
                 description: Value | 值
                 type: string
                 x-go-name: Value
+        required:
+            - id
+            - menuId
+            - dataType
+            - key
+            - value
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateMenuReq:
@@ -255,6 +261,15 @@ definitions:
                 format: uint32
                 type: integer
                 x-go-name: MenuType
+        required:
+            - id
+            - parentId
+            - path
+            - name
+            - redirect
+            - component
+            - orderNo
+            - disabled
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateUserReq:
@@ -369,7 +384,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetUserListReq:
-        description: Get user list request
+        description: Get user list request | 获取用户列表请求参数
         properties:
             email:
                 description: The user's email address | 用户的邮箱
@@ -402,6 +417,14 @@ definitions:
                 description: User Name | 用户名
                 type: string
                 x-go-name: Username
+        required:
+            - page
+            - pageSize
+            - username
+            - nickname
+            - mobile
+            - email
+            - roleId
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetUserRoleInfo:
@@ -459,6 +482,11 @@ definitions:
                 description: User Name | 用户名
                 type: string
                 x-go-name: Username
+        required:
+            - username
+            - password
+            - captchaId
+            - captcha
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     Menu:
@@ -660,6 +688,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ModifyInfoReq:
+        description: modify user's information request | 修改用户信息参数
         properties:
             UUID:
                 description: User's UUID | 用户的UUID
@@ -689,6 +718,14 @@ definitions:
                 description: The user's layout mode | 用户的布局
                 type: string
                 x-go-name: SideMode
+        required:
+            - UUID
+            - nickname
+            - mobile
+            - roleId
+            - email
+            - avatar
+            - sideMode
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     PageInfo:
@@ -757,6 +794,12 @@ definitions:
                 description: User Name | 用户名
                 type: string
                 x-go-name: Username
+        required:
+            - username
+            - password
+            - captchaId
+            - captcha
+            - email
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleInfo:
