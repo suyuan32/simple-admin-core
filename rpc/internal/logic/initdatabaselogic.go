@@ -198,6 +198,12 @@ func (l *InitDatabaseLogic) insertApiData() error {
 			Method:      "POST",
 		},
 		{
+			Path:        "/user",
+			Description: "api_desc.createOrUpdateUser",
+			ApiGroup:    "user",
+			Method:      "POST",
+		},
+		{
 			Path:        "/user/change-password",
 			Description: "api_desc.userChangePassword",
 			ApiGroup:    "user",
@@ -220,12 +226,6 @@ func (l *InitDatabaseLogic) insertApiData() error {
 			Description: "api_desc.deleteUser",
 			ApiGroup:    "user",
 			Method:      "DELETE",
-		},
-		{
-			Path:        "/user/modify",
-			Description: "api_desc.userModify",
-			ApiGroup:    "user",
-			Method:      "POST",
 		},
 		{
 			Path:        "/user/perm",

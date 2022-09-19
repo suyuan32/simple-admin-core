@@ -27,9 +27,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
 		return nil
 	}
-	logx.Info("Initialize database connection successful")
+	logx.Info("Initialize database connection successfully")
 	rds := c.RedisConf.NewRedis()
-	logx.Info("Initialize redis connection successful")
+	logx.Info("Initialize redis connection successfully")
 	return &ServiceContext{
 		Config: c,
 		DB:     db,

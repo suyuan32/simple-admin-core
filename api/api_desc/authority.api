@@ -26,7 +26,7 @@ type (
     CreateOrUpdateApiAuthorityReq {
         // Role ID | 角色ID
         // Required: true
-        RoleId  uint64            `json:"roleId"`
+        RoleId  uint64            `json:"roleId" validate:"number,max=3"`
         // API authorization list | API授权列表数据
         // Required: true
         Data    []ApiAuthorityInfo  `json:"data"`
@@ -47,7 +47,7 @@ type (
     MenuAuthorityInfoReq {
         // role ID | 角色ID
         // Required: true
-        RoleId  uint64   `json:"roleId"`
+        RoleId  uint64   `json:"roleId" validate:"number,max=3"`
         // menu ID array | 菜单ID数组
         // Required: true
         MenuIds []uint64 `json:"menuIds"`

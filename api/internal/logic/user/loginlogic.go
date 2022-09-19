@@ -12,8 +12,8 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 type LoginLogic struct {
@@ -57,7 +57,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		}
 		return resp, nil
 	} else {
-		return nil, httpx.NewApiError(http.StatusBadRequest, message.WrongCaptcha)
+		return nil, errorx.NewApiError(http.StatusBadRequest, message.WrongCaptcha)
 	}
 }
 

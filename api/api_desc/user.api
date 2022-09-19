@@ -16,16 +16,16 @@ type (
     LoginReq {
         // User Name | 用户名
         // Required: true
-        Username   string `json:"username"`
+        Username   string `json:"username" validate:"alphanum,max=20"`
         // Password | 密码
         // Required: true
-        Password   string `json:"password"`
+        Password   string `json:"password" validate:"max=20,min=6"`
         // Captcha Id which store in redis | 验证码编号, 存在redis中
         // Required: true
-        CaptchaId  string `json:"captchaId"`
+        CaptchaId  string `json:"captchaId"  validate:"len=20"`
         // The Captcha which users input | 用户输入的验证码
         // Required: true
-        Captcha    string `json:"captcha"`
+        Captcha    string `json:"captcha" validate:"len=5"`
     }
 
     // The login response data | 登录返回数据
@@ -60,16 +60,16 @@ type (
     ProfileReq {
         // user's nickname | 用户的昵称
         // Required: true
-        Nickname     string       `json:"nickname"`
+        Nickname     string       `json:"nickname" validate:"alphanumunicode,max=10"`
         // The user's avatar path | 用户的头像路径
         // Required: true
         Avatar       string       `json:"avatar"`
         // User's mobile phone number | 用户的手机号码
         // Required: true
-        Mobile       string       `json:"mobile"`
+        Mobile       string       `json:"mobile" validate:"numeric,max=18"`
         // The user's email address | 用户的邮箱
         // Required: true
-        Email        string       `json:"email"`
+        Email        string       `json:"email" validate:"email"`
     }
 
     // The simple role data | 简单的角色数据
@@ -86,19 +86,19 @@ type (
     RegisterReq {
         // User Name | 用户名
         // Required: true
-        Username  string `json:"username"`
+        Username  string `json:"username" validate:"alphanum"`
         // Password | 密码
         // Required: true
-        Password  string `json:"password"`
+        Password  string `json:"password" validate:"max=20,min=6"`
         // Captcha Id which store in redis | 验证码编号, 存在redis中
         // Required: true
-        CaptchaId string `json:"captchaId"`
+        CaptchaId string `json:"captchaId" validate:"len=20"`
         // The Captcha which users input | 用户输入的验证码
         // Required: true
-        Captcha   string `json:"captcha"`
+        Captcha   string `json:"captcha" validate:"len=5"`
         // The user's email address | 用户的邮箱
         // Required: true
-        Email     string `json:"email"`
+        Email     string `json:"email" validate:"email"`
     }
 
     // change user's password request | 修改密码请求参数
@@ -106,37 +106,12 @@ type (
     ChangePasswordReq {
         // User's old password | 用户旧密码
         // Required: true
-        OldPassword string `json:"oldPassword"`
+        OldPassword string `json:"oldPassword" validate:""`
         // User's new password | 用户新密码
         // Required: true
-        NewPassword string `json:"newPassword"`
+        NewPassword string `json:"newPassword" validate:""`
     }
 
-    // modify user's information request | 修改用户信息参数
-    // swagger:model ModifyInfoReq
-    ModifyInfoReq {
-        // User's UUID | 用户的UUID
-        // Required: true
-        UUID         string       `json:"UUID"`
-        // User's nickname | 用户的昵称
-        // Required: true
-        Nickname     string       `json:"nickname"`
-        // User's mobile phone number | 用户的手机号码
-        // Required: true
-        Mobile       string       `json:"mobile"`
-        // User's role id | 用户的角色Id
-        // Required: true
-        RoleId       uint32       `json:"roleId"`
-        // The user's email address | 用户的邮箱
-        // Required: true
-        Email        string       `json:"email"`
-        // The user's avatar path | 用户的头像路径
-        // Required: true
-        Avatar       string       `json:"avatar"`
-        // The user's layout mode | 用户的布局
-        // Required: true
-        SideMode     string       `json:"sideMode"`
-    }
 
     // The response data of user's information | 用户信息返回数据
     // swagger:response UserInfoResp
@@ -211,32 +186,32 @@ type (
     CreateOrUpdateUserReq {
         // User's id | 用户Id
         // Required: true
-        Id           int64        `json:"id"`
+        Id           int64        `json:"id" validate:"numeric"`
         // User Name | 用户名
         // Required: true
-        Username     string       `json:"username"`
+        Username     string       `json:"username" validate:"alphanum,max=20"`
         // User's nickname | 用户的昵称
         // Required: true
-        Nickname     string       `json:"nickname"`
+        Nickname     string       `json:"nickname" validate:"alphanumunicode,max=10"`
         // Password | 密码
         // Required: true
-        Password     string       `json:"password"`
+        Password     string       `json:"password" validate:"max=20,min=6"`
         // User's mobile phone number | 用户的手机号码
         // Required: true
-        Mobile       string       `json:"mobile"`
+        Mobile       string       `json:"mobile" validate:"number,max=18"`
         // User's role id | 用户的角色Id
         // Required: true
-        RoleId       uint32       `json:"roleId"`
+        RoleId       uint32       `json:"roleId" validate:"number,max=3"`
         // The user's email address | 用户的邮箱
         // Required: true
-        Email        string       `json:"email"`
+        Email        string       `json:"email" validate:"email"`
         // The user's avatar path | 用户的头像路径
         // Required: true
         Avatar       string       `json:"avatar"`
         // The user's status | 用户状态
         // 1 normal, 2 ban | 1 正常 2 拉黑
         // Required: true
-        Status       int32        `json:"status"`
+        Status       int32        `json:"status" validate:"number.max=3"`
     }
 
     // Get user list request | 获取用户列表请求参数
@@ -244,25 +219,25 @@ type (
     GetUserListReq {
         // Page number | 第几页
         // Required: true
-        Page uint64 `json:"page"`
+        Page uint64 `json:"page" validate:"number,max=8"`
         // Page size | 单页数据行数
         // Required: true
-        PageSize uint64 `json:"pageSize"`
+        PageSize uint64 `json:"pageSize" validate:"number,max=5"`
         // User Name | 用户名
         // Required: true
-        Username string `json:"username"`
+        Username string `json:"username" validate:"alphanum,max=20"`
         // User's nickname | 用户的昵称
         // Required: true
-        Nickname string `json:"nickname"`
+        Nickname string `json:"nickname" validate:"alphanumunicode,max=10"`
         // User's mobile phone number | 用户的手机号码
         // Required: true
-        Mobile string `json:"mobile"`
+        Mobile string `json:"mobile" validate:"number,max=18"`
         // The user's email address | 用户的邮箱
         // Required: true
-        Email string  `json:"email"`
+        Email string  `json:"email" validate:"email"`
         // User's role ID | 用户的角色Id
         // Required: true
-        RoleId uint64 `json:"roleId"`
+        RoleId uint64 `json:"roleId" validate:"number,max=3"`
     }
 )
 
@@ -357,20 +332,6 @@ service core {
     //   500: SimpleMsg
     @handler getUserList
     post /user/list (GetUserListReq) returns (UserListResp)
-
-    // swagger:route POST /user/modify user modifyUser
-    // Modify user information | 修改用户信息
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: ModifyInfoReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
-    @handler modifyUser
-    post /user/modify  (ModifyInfoReq) returns (SimpleMsg)
 
     // swagger:route DELETE /user user deleteUser
     // Delete user information | 删除用户信息

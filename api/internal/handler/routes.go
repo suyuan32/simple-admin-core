@@ -101,11 +101,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: user.GetUserListHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodPost,
-					Path:    "/user/modify",
-					Handler: user.ModifyUserHandler(serverCtx),
-				},
-				{
 					Method:  http.MethodDelete,
 					Path:    "/user",
 					Handler: user.DeleteUserHandler(serverCtx),

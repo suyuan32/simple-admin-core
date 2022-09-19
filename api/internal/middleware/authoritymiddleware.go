@@ -39,11 +39,11 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		roleStatus, err := m.Rds.Hget("roleData", fmt.Sprintf("%s_status", roleId))
 		if err != nil {
 			logx.Errorw(logmessage.RedisError, logx.Field("Detail", err.Error()))
-			httpx.Error(w, httpx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
+			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
 			return
 		} else if roleStatus == "0" {
 			logx.Errorw("Role is on forbidden status", logx.Field("RoleId", roleId))
-			httpx.Error(w, httpx.NewApiError(http.StatusBadRequest, message.RoleForbidden))
+			httpx.Error(w, errorx.NewApiError(http.StatusBadRequest, message.RoleForbidden))
 			return
 		}
 
@@ -51,7 +51,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		result, err := m.Cbn.Enforce(sub, obj, act)
 		if err != nil {
 			logx.Errorw("Casbin enforce error", logx.Field("Detail", err.Error()))
-			httpx.Error(w, httpx.NewApiError(http.StatusInternalServerError, errorx.ApiRequestFailed))
+			httpx.Error(w, errorx.NewApiError(http.StatusInternalServerError, errorx.ApiRequestFailed))
 			return
 		}
 		if result {
@@ -62,7 +62,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		} else {
 			logx.Errorw("The role is not permitted to access the API", logx.Field("RoleId", roleId),
 				logx.Field("Path", obj), logx.Field("Method", act))
-			httpx.Error(w, httpx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
+			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
 			return
 		}
 	}

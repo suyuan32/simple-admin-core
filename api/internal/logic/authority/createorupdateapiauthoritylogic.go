@@ -10,7 +10,6 @@ import (
 
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 type CreateOrUpdateApiAuthorityLogic struct {
@@ -35,13 +34,13 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	if len(oldPolicies) != 0 {
 		removeResult, err := l.svcCtx.Casbin.RemoveFilteredPolicy(0, roleIdString)
 		if err != nil {
-			return nil, &httpx.ApiError{
+			return nil, &errorx.ApiError{
 				Code: http.StatusInternalServerError,
 				Msg:  err.Error(),
 			}
 		}
 		if !removeResult {
-			return nil, httpx.NewApiError(http.StatusInternalServerError, "cannot clear old policies")
+			return nil, errorx.NewApiError(http.StatusInternalServerError, "cannot clear old policies")
 		}
 	}
 	// add new policies
@@ -56,6 +55,6 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	if addResult {
 		return &types.SimpleMsg{Msg: errorx.UpdateSuccess}, nil
 	} else {
-		return nil, httpx.NewApiError(http.StatusBadRequest, errorx.UpdateFailed)
+		return nil, errorx.NewApiError(http.StatusBadRequest, errorx.UpdateFailed)
 	}
 }

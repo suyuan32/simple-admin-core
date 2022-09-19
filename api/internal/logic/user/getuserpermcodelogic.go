@@ -8,8 +8,8 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 type GetUserPermCodeLogic struct {
@@ -30,7 +30,7 @@ func (l *GetUserPermCodeLogic) GetUserPermCode() (resp *types.PermCodeResp, err 
 	roleId := l.ctx.Value("roleId")
 	fmt.Println(roleId)
 	if roleId == nil {
-		return nil, &httpx.ApiError{
+		return nil, &errorx.ApiError{
 			Code: http.StatusUnauthorized,
 			Msg:  "sys.login.requireLogin",
 		}

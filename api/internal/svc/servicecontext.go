@@ -29,9 +29,11 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	logx.Must(err)
 	logx.SetWriter(writer)
 	logx.MustSetup(c.LogConf)
+
 	// initialize redis
 	rds := c.RedisConf.NewRedis()
-	logx.Info("Initialize redis connection successful")
+	logx.Info("Initialize redis connection successfully")
+
 	// initialize database connection
 	db, err := c.DB.NewGORM()
 	if err != nil {
@@ -39,7 +41,10 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		return nil
 	}
 	logx.Info("Initialize database connection successful")
+
+	// initialize casbin
 	cbn := utils.NewCasbin(db)
+
 	return &ServiceContext{
 		Config:    c,
 		Authority: middleware.NewAuthorityMiddleware(cbn, rds).Handle,

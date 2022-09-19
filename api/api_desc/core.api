@@ -2,7 +2,7 @@ syntax = "v1"
 
 info(
 	title: "core service"
-	desc: "this is the api discribe file for core services"
+	desc: "this is the api describe file for core services"
 	author: "Ryan Su"
 	email: "yuansu.china.work@gmail.com"
 	version: "v1.0"

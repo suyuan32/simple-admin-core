@@ -10,9 +10,9 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/util"
 
 	"github.com/mojocn/base64Captcha"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 var Store *util.RedisStore
@@ -38,8 +38,8 @@ func (l *GetCaptchaLogic) GetCaptcha() (resp *types.CaptchaInfo, err error) {
 	}
 	gen := base64Captcha.NewCaptcha(driver, Store)
 	if id, b64s, err := gen.Generate(); err != nil {
-		l.Logger.Error("getcaptchalogic: fail to generate captcha!", err)
-		return nil, httpx.NewApiError(http.StatusInternalServerError, "内部错误")
+		logx.Errorw("Fail to generate captcha", logx.Field("Detail", err.Error()))
+		return nil, errorx.NewApiError(http.StatusInternalServerError, "内部错误")
 	} else {
 		resp = &types.CaptchaInfo{
 			CaptchaId: id,

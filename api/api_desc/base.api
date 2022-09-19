@@ -35,10 +35,10 @@ type SimpleMsg {
 type PageInfo {
     // Page number | 第几页
     // Required: true
-    Page      uint64    `json:"page"`
+    Page      uint64    `json:"page" validate:"number,max=8"`
     // Page size | 单页数据行数
     // Required: true
-    PageSize  uint64    `json:"pageSize"`
+    PageSize  uint64    `json:"pageSize" validate:"number,max=5"`
 }
 
 // The page response data model | 列表返回信息
@@ -55,7 +55,7 @@ type PageList {
 type IDReq {
     // ID
     // Required: true
-    ID  uint `json:"id"`
+    ID  uint `json:"id" validate:"number,max=10"`
 }
 
 
@@ -72,7 +72,7 @@ type IDPathReq {
 type UUIDReq {
     // UUID
     // Required: true
-    UUID string `json:"UUID" path:"UUID"`
+    UUID string `json:"UUID" path:"UUID" validate:"len=36"`
 }
 
 // The base response data | 基础信息
