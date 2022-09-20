@@ -50,14 +50,20 @@ definitions:
         properties:
             description:
                 description: API Description | API 描述
+                maxLength: 30
                 type: string
                 x-go-name: Description
             group:
-                description: API group | API分组
+                description: |-
+                    API group | API分组
+                    Require: true
+                maxLength: 10
                 type: string
                 x-go-name: Group
             method:
                 description: API request method e.g. POST | API请求类型 如POST
+                maxLength: 30
+                minLength: 3
                 type: string
                 x-go-name: Method
             page:
@@ -68,10 +74,12 @@ definitions:
             pageSize:
                 description: Page size | 单页数据行数
                 format: uint64
+                maximum: 100000
                 type: integer
                 x-go-name: PageSize
             path:
                 description: API path | API路径
+                maxLength: 30
                 type: string
                 x-go-name: Path
         required:
@@ -79,7 +87,6 @@ definitions:
             - pageSize
             - path
             - description
-            - group
             - method
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
@@ -88,10 +95,12 @@ definitions:
         properties:
             newPassword:
                 description: User's new password | 用户新密码
+                maxLength: 30
                 type: string
                 x-go-name: NewPassword
             oldPassword:
                 description: User's old password | 用户旧密码
+                maxLength: 30
                 type: string
                 x-go-name: OldPassword
         required:
@@ -111,6 +120,7 @@ definitions:
             roleId:
                 description: Role ID | 角色ID
                 format: uint64
+                maximum: 1000
                 type: integer
                 x-go-name: RoleId
         required:
@@ -128,12 +138,15 @@ definitions:
                 x-go-name: CreateAt
             description:
                 description: API Description | API 描述
+                maxLength: 30
                 type: string
                 x-go-name: Description
             group:
                 description: |-
                     API group | API分组
                     Require: true
+                maxLength: 10
+                minLength: 1
                 type: string
                 x-go-name: Group
             id:
@@ -143,10 +156,14 @@ definitions:
                 x-go-name: Id
             method:
                 description: API request method e.g. POST | API请求类型 如POST
+                maxLength: 4
+                minLength: 3
                 type: string
                 x-go-name: Method
             path:
                 description: API path | API路径
+                maxLength: 30
+                minLength: 1
                 type: string
                 x-go-name: Path
         required:
@@ -162,6 +179,8 @@ definitions:
         properties:
             dataType:
                 description: Data Type | 数据类型
+                maxLength: 8
+                minLength: 1
                 type: string
                 x-go-name: DataType
             id:
@@ -171,6 +190,8 @@ definitions:
                 x-go-name: ID
             key:
                 description: Key | 键
+                maxLength: 20
+                minLength: 1
                 type: string
                 x-go-name: Key
             menuId:
@@ -180,6 +201,8 @@ definitions:
                 x-go-name: MenuId
             value:
                 description: Value | 值
+                maxLength: 100
+                minLength: 1
                 type: string
                 x-go-name: Value
         required:
@@ -194,23 +217,26 @@ definitions:
         description: Create or update menu information request params | 创建或更新菜单信息参数
         properties:
             closeTab:
-                description: Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+                description: If auto close tab when too much | 是否在菜单太多时自动关闭tab
                 type: boolean
                 x-go-name: CloseTab
             component:
                 description: The component path | 组件路径
+                example: /sys/menu/index
+                maxLength: 100
                 type: string
                 x-go-name: Component
             currentActiveMenu:
                 description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
+                maxLength: 30
                 type: string
                 x-go-name: CurrentActiveMenu
             disabled:
-                description: Wether disabled | 是否禁用菜单
+                description: If disabled | 是否禁用菜单
                 type: boolean
                 x-go-name: Disabled
             hideBreadcrumb:
-                description: Wether hide the breadcrumb | 隐藏面包屑
+                description: If hide the breadcrumb | 隐藏面包屑
                 type: boolean
                 x-go-name: HideBreadcrumb
             hideMenu:
@@ -219,6 +245,7 @@ definitions:
                 x-go-name: HideMenu
             icon:
                 description: Menu Icon | 菜单图标
+                maxLength: 50
                 type: string
                 x-go-name: Icon
             id:
@@ -232,11 +259,13 @@ definitions:
                 x-go-name: KeepAlive
             name:
                 description: Menu name | 菜单名
+                maxLength: 20
                 type: string
                 x-go-name: Name
             orderNo:
                 description: The sorting number | 排序编号
                 format: uint32
+                maximum: 1000
                 type: integer
                 x-go-name: OrderNo
             parentId:
@@ -246,23 +275,29 @@ definitions:
                 x-go-name: ParentId
             path:
                 description: The path to visit menu | 菜单访问路径
+                maxLength: 30
                 type: string
                 x-go-name: Path
             redirect:
                 description: Redirect path | 跳转路径
+                example: https://www.google.com
+                maxLength: 100
                 type: string
                 x-go-name: Redirect
             title:
                 description: Menu title show in page | 菜单显示名
+                maxLength: 30
                 type: string
                 x-go-name: Title
             type:
                 description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
                 format: uint32
+                maximum: 10
                 type: integer
                 x-go-name: MenuType
         required:
             - id
+            - type
             - parentId
             - path
             - name
@@ -277,10 +312,12 @@ definitions:
         properties:
             avatar:
                 description: The user's avatar path | 用户的头像路径
+                example: https://localhost/static/1.png
                 type: string
                 x-go-name: Avatar
             email:
                 description: The user's email address | 用户的邮箱
+                maxLength: 100
                 type: string
                 x-go-name: Email
             id:
@@ -290,19 +327,24 @@ definitions:
                 x-go-name: Id
             mobile:
                 description: User's mobile phone number | 用户的手机号码
+                maxLength: 18
                 type: string
                 x-go-name: Mobile
             nickname:
                 description: User's nickname | 用户的昵称
+                maxLength: 10
                 type: string
                 x-go-name: Nickname
             password:
                 description: Password | 密码
+                maxLength: 30
+                minLength: 6
                 type: string
                 x-go-name: Password
             roleId:
                 description: User's role id | 用户的角色Id
                 format: uint32
+                maximum: 1000
                 type: integer
                 x-go-name: RoleId
             status:
@@ -310,10 +352,12 @@ definitions:
                     The user's status | 用户状态
                     1 normal, 2 ban | 1 正常 2 拉黑
                 format: int32
+                maximum: 20
                 type: integer
                 x-go-name: Status
             username:
                 description: User Name | 用户名
+                maxLength: 20
                 type: string
                 x-go-name: Username
         required:
@@ -388,14 +432,17 @@ definitions:
         properties:
             email:
                 description: The user's email address | 用户的邮箱
+                maxLength: 100
                 type: string
                 x-go-name: Email
             mobile:
                 description: User's mobile phone number | 用户的手机号码
+                maxLength: 18
                 type: string
                 x-go-name: Mobile
             nickname:
                 description: User's nickname | 用户的昵称
+                maxLength: 10
                 type: string
                 x-go-name: Nickname
             page:
@@ -406,15 +453,18 @@ definitions:
             pageSize:
                 description: Page size | 单页数据行数
                 format: uint64
+                maximum: 100000
                 type: integer
                 x-go-name: PageSize
             roleId:
                 description: User's role ID | 用户的角色Id
                 format: uint64
+                maximum: 1000
                 type: integer
                 x-go-name: RoleId
             username:
                 description: User Name | 用户名
+                maxLength: 20
                 type: string
                 x-go-name: Username
         required:
@@ -468,18 +518,23 @@ definitions:
         properties:
             captcha:
                 description: The Captcha which users input | 用户输入的验证码
+                maxLength: 5
                 type: string
                 x-go-name: Captcha
             captchaId:
                 description: Captcha Id which store in redis | 验证码编号, 存在redis中
+                maxLength: 20
                 type: string
                 x-go-name: CaptchaId
             password:
                 description: Password | 密码
+                maxLength: 30
+                minLength: 6
                 type: string
                 x-go-name: Password
             username:
                 description: User Name | 用户名
+                maxLength: 20
                 type: string
                 x-go-name: Username
         required:
@@ -501,7 +556,7 @@ definitions:
                 type: array
                 x-go-name: Children
             closeTab:
-                description: Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+                description: If auto close tab when too much | 是否在菜单太多时自动关闭tab
                 type: boolean
                 x-go-name: CloseTab
             component:
@@ -515,6 +570,7 @@ definitions:
                 x-go-name: CreatedAt
             currentActiveMenu:
                 description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
+                maxLength: 30
                 type: string
                 x-go-name: CurrentActiveMenu
             deletedAt:
@@ -527,7 +583,7 @@ definitions:
                 type: boolean
                 x-go-name: Disabled
             hideBreadcrumb:
-                description: Wether hide the breadcrumb | 隐藏面包屑
+                description: If hide the breadcrumb | 隐藏面包屑
                 type: boolean
                 x-go-name: HideBreadcrumb
             hideMenu:
@@ -536,6 +592,7 @@ definitions:
                 x-go-name: HideMenu
             icon:
                 description: Menu Icon | 菜单图标
+                maxLength: 50
                 type: string
                 x-go-name: Icon
             id:
@@ -576,6 +633,7 @@ definitions:
                 x-go-name: Redirect
             title:
                 description: Menu title show in page | 菜单显示名
+                maxLength: 30
                 type: string
                 x-go-name: Title
             type:
@@ -605,6 +663,7 @@ definitions:
             roleId:
                 description: role ID | 角色ID
                 format: uint64
+                maximum: 1000
                 type: integer
                 x-go-name: RoleId
         required:
@@ -658,15 +717,16 @@ definitions:
         description: The meta data of menu | 菜单的meta数据
         properties:
             closeTab:
-                description: Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+                description: If auto close tab when too much | 是否在菜单太多时自动关闭tab
                 type: boolean
                 x-go-name: CloseTab
             currentActiveMenu:
                 description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
+                maxLength: 30
                 type: string
                 x-go-name: CurrentActiveMenu
             hideBreadcrumb:
-                description: Wether hide the breadcrumb | 隐藏面包屑
+                description: If hide the breadcrumb | 隐藏面包屑
                 type: boolean
                 x-go-name: HideBreadcrumb
             hideMenu:
@@ -675,6 +735,7 @@ definitions:
                 x-go-name: HideMenu
             icon:
                 description: Menu Icon | 菜单图标
+                maxLength: 50
                 type: string
                 x-go-name: Icon
             keepAlive:
@@ -683,49 +744,9 @@ definitions:
                 x-go-name: KeepAlive
             title:
                 description: Menu title show in page | 菜单显示名
+                maxLength: 30
                 type: string
                 x-go-name: Title
-        type: object
-        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-    ModifyInfoReq:
-        description: modify user's information request | 修改用户信息参数
-        properties:
-            UUID:
-                description: User's UUID | 用户的UUID
-                type: string
-            avatar:
-                description: The user's avatar path | 用户的头像路径
-                type: string
-                x-go-name: Avatar
-            email:
-                description: The user's email address | 用户的邮箱
-                type: string
-                x-go-name: Email
-            mobile:
-                description: User's mobile phone number | 用户的手机号码
-                type: string
-                x-go-name: Mobile
-            nickname:
-                description: User's nickname | 用户的昵称
-                type: string
-                x-go-name: Nickname
-            roleId:
-                description: User's role id | 用户的角色Id
-                format: uint32
-                type: integer
-                x-go-name: RoleId
-            sideMode:
-                description: The user's layout mode | 用户的布局
-                type: string
-                x-go-name: SideMode
-        required:
-            - UUID
-            - nickname
-            - mobile
-            - roleId
-            - email
-            - avatar
-            - sideMode
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     PageInfo:
@@ -738,6 +759,7 @@ definitions:
             pageSize:
                 description: Page size | 单页数据行数
                 format: uint64
+                maximum: 100000
                 type: integer
                 x-go-name: PageSize
         required:
@@ -750,18 +772,22 @@ definitions:
         properties:
             avatar:
                 description: The user's avatar path | 用户的头像路径
+                maxLength: 30
                 type: string
                 x-go-name: Avatar
             email:
                 description: The user's email address | 用户的邮箱
+                maxLength: 100
                 type: string
                 x-go-name: Email
             mobile:
                 description: User's mobile phone number | 用户的手机号码
+                maxLength: 18
                 type: string
                 x-go-name: Mobile
             nickname:
                 description: user's nickname | 用户的昵称
+                maxLength: 10
                 type: string
                 x-go-name: Nickname
         required:
@@ -776,22 +802,28 @@ definitions:
         properties:
             captcha:
                 description: The Captcha which users input | 用户输入的验证码
+                maxLength: 5
                 type: string
                 x-go-name: Captcha
             captchaId:
                 description: Captcha Id which store in redis | 验证码编号, 存在redis中
+                maxLength: 20
                 type: string
                 x-go-name: CaptchaId
             email:
                 description: The user's email address | 用户的邮箱
+                maxLength: 100
                 type: string
                 x-go-name: Email
             password:
                 description: Password | 密码
+                maxLength: 30
+                minLength: 6
                 type: string
                 x-go-name: Password
             username:
                 description: User Name | 用户名
+                maxLength: 20
                 type: string
                 x-go-name: Username
         required:
@@ -812,33 +844,40 @@ definitions:
                 x-go-name: CreateAt
             defaultRouter:
                 description: Role's default page | 角色默认管理页面
+                maxLength: 20
                 type: string
                 x-go-name: DefaultRouter
             id:
                 description: Role ID | 角色 ID
                 format: uint64
+                maximum: 1000
                 type: integer
                 x-go-name: Id
             name:
                 description: Role Name | 角色名
+                maxLength: 20
                 type: string
                 x-go-name: Name
             orderNo:
                 description: Role's sorting number | 角色排序
                 format: uint32
+                maximum: 1000
                 type: integer
                 x-go-name: OrderNo
             remark:
                 description: Role remark | 角色备注
+                maxLength: 40
                 type: string
                 x-go-name: Remark
             status:
                 description: Role status | 角色状态
                 format: uint32
+                maximum: 20
                 type: integer
                 x-go-name: Status
             value:
                 description: Role value | 角色值
+                maxLength: 10
                 type: string
                 x-go-name: Value
         required:
@@ -871,11 +910,13 @@ definitions:
             id:
                 description: ID
                 format: uint64
+                maximum: 1000
                 type: integer
                 x-go-name: Id
             status:
                 description: Status code | 状态码
                 format: uint32
+                maximum: 20
                 type: integer
                 x-go-name: Status
         required:
@@ -888,6 +929,7 @@ definitions:
         properties:
             UUID:
                 description: UUID
+                maxLength: 36
                 type: string
         required:
             - UUID
@@ -1421,24 +1463,6 @@ paths:
                     $ref: '#/responses/SimpleMsg'
             tags:
                 - user
-        post:
-            description: Modify user information | 修改用户信息
-            operationId: modifyUser
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/ModifyInfoReq'
-                    type: object
-            responses:
-                "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
-            tags:
-                - user
     /user/perm:
         get:
             description: Get user's permission code | 获取用户权限码
@@ -1637,7 +1661,7 @@ responses:
         description: The response data of menu information | 菜单返回数据
         headers:
             closeTab:
-                description: Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+                description: If auto close tab when too much | 是否在菜单太多时自动关闭tab
                 type: boolean
             component:
                 description: The component path | 组件路径
@@ -1648,6 +1672,7 @@ responses:
                 type: integer
             currentActiveMenu:
                 description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
+                maxLength: 30
                 type: string
             deletedAt:
                 description: Delete date | 删除日期
@@ -1657,13 +1682,14 @@ responses:
                 description: Wether disabled | 是否禁用菜单
                 type: boolean
             hideBreadcrumb:
-                description: Wether hide the breadcrumb | 隐藏面包屑
+                description: If hide the breadcrumb | 隐藏面包屑
                 type: boolean
             hideMenu:
                 description: Hide menu | 隐藏菜单
                 type: boolean
             icon:
                 description: Menu Icon | 菜单图标
+                maxLength: 50
                 type: string
             id:
                 description: ID
@@ -1695,6 +1721,7 @@ responses:
                 type: string
             title:
                 description: Menu title show in page | 菜单显示名
+                maxLength: 30
                 type: string
             type:
                 description: |-
@@ -1809,25 +1836,28 @@ responses:
         description: The meta data of menu | 菜单的meta数据
         headers:
             closeTab:
-                description: Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+                description: If auto close tab when too much | 是否在菜单太多时自动关闭tab
                 type: boolean
             currentActiveMenu:
                 description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
+                maxLength: 30
                 type: string
             hideBreadcrumb:
-                description: Wether hide the breadcrumb | 隐藏面包屑
+                description: If hide the breadcrumb | 隐藏面包屑
                 type: boolean
             hideMenu:
                 description: Hide menu | 隐藏菜单
                 type: boolean
             icon:
                 description: Menu Icon | 菜单图标
+                maxLength: 50
                 type: string
             keepAlive:
                 description: keep alive the tab in cache | 是否保持窗口的缓存
                 type: boolean
             title:
                 description: Menu title show in page | 菜单显示名
+                maxLength: 30
                 type: string
     PageList:
         description: The page response data model | 列表返回信息

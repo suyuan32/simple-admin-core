@@ -49,15 +49,18 @@ type (
         KeepAlive bool           `json:"keepAlive" validate:"boolean"`
         // Hide menu | 隐藏菜单
         HideMenu  bool           `json:"hideMenu" validate:"boolean"`
-        // Wether hide the breadcrumb | 隐藏面包屑
+        // If hide the breadcrumb | 隐藏面包屑
         HideBreadcrumb bool      `json:"hideBreadcrumb" validate:"boolean"`
         // Current active menu, if not nil, it will active the tab | 当前激活的菜单
+        // Max length: 30
         CurrentActiveMenu string `json:"currentActiveMenu" validate:"max=30"`
         // Menu title show in page | 菜单显示名
+        // Max length: 30
         Title     string         `json:"title" validate:"max=30"`
         // Menu Icon | 菜单图标
-        Icon      string         `json:"icon" validate:"max=20"`
-        // Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+        // Max length: 50
+        Icon      string         `json:"icon" validate:"max=50"`
+        // If auto close tab when too much | 是否在菜单太多时自动关闭tab
         CloseTab  bool           `json:"closeTab" validate:"boolean"`
     }
 
@@ -104,28 +107,37 @@ type (
     CreateOrUpdateMenuReq {
         // ID
         // Required: true
-        ID            uint32     `json:"id" validate:"number,max=4"`
+        ID            uint32     `json:"id" validate:"number"`
         // Menu type: directory or menu | 菜单类型: 目录或菜单
-        menuType     uint32      `json:"type" validate:"alpha,max=10"`
+        // Required: true
+        // Maximum: 10
+        menuType     uint32      `json:"type" validate:"number,max=10"`
         // Parent menu ID | 父级菜单ID
         // Required: true
-        ParentId     uint        `json:"parentId" validate:"number,max=4"`
+        ParentId     uint        `json:"parentId" validate:"number"`
         // The path to visit menu | 菜单访问路径
         // Required: true
+        // Max length: 30
         Path         string      `json:"path" validate:"max=30"`
         // Menu name | 菜单名
         // Required: true
+        // Max length: 20
         Name         string      `json:"name" validate:"max=20"`
         // Redirect path | 跳转路径
         // Required: true
+        // Max length: 100
+        // Example: https://www.google.com
         Redirect     string      `json:"redirect" validate:"max=100"`
         // The component path | 组件路径
         // Required: true
+        // Max length: 100
+        // Example: /sys/menu/index
         Component    string      `json:"component" validate:"max=100"`
         // The sorting number | 排序编号
         // Required: true
-        OrderNo      uint32      `json:"orderNo" validate:"number,max=5"`
-        // Wether disabled | 是否禁用菜单
+        // Maximum: 1000
+        OrderNo      uint32      `json:"orderNo" validate:"number,max=1000"`
+        // If disabled | 是否禁用菜单
         // Required: true
         Disabled     bool        `json:"disabled" validate:"boolean"`
         // in: body
@@ -138,19 +150,25 @@ type (
     CreateOrUpdateMenuParamReq {
         // ID
         // Required: true
-        ID        uint32      `json:"id"`
+        ID        uint32      `json:"id" validate:"number"`
         // Menu ID | 菜单ID
         // Required: true
-        MenuId    uint32      `json:"menuId"`
+        MenuId    uint32      `json:"menuId" validate:"number"`
         // Data Type | 数据类型
         // Required: true
-        DataType  string      `json:"dataType"`
+        // Min length: 1
+        // Max length: 8
+        DataType  string      `json:"dataType" validate:"min=1,max=8"`
         // Key | 键
         // Required: true
-        Key       string      `json:"key"`
+        // Min length: 1
+        // Max length: 20
+        Key       string      `json:"key" validate:"min=1,max=20"`
         // Value | 值
         // Required: true
-        Value     string      `json:"value"`
+        // Min length: 1
+        // Max length: 100
+        Value     string      `json:"value" validate:"min=1,max=100"`
     }
 
     // The response data of menu parameters  | 菜单参数列表数据

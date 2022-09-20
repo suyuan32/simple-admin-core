@@ -44,7 +44,7 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 	}
 
 	if in.Mobile != "" {
-		db = db.Where("group = ?", in.Mobile)
+		db = db.Where("mobile = ?", in.Mobile)
 	}
 
 	if in.RoleId != 0 {

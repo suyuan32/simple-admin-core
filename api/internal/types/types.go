@@ -6,28 +6,35 @@ package types
 type RoleInfo struct {
 	// Role ID | 角色 ID
 	// Required : true
-	Id uint64 `json:"id" validate:"number,max=5"`
+	// Maximum: 1000
+	Id uint64 `json:"id" validate:"number,max=1000"`
 	// Role Name | 角色名
 	// Required : true
+	// Max length: 20
 	Name string `json:"name" validate:"max=20"`
 	// Role value | 角色值
 	// Required : true
+	// Max length: 10
 	Value string `json:"value" validate:"max=10"`
 	// Role's default page | 角色默认管理页面
 	// Required : true
+	// Max length: 20
 	DefaultRouter string `json:"defaultRouter" validate:"max=20"`
 	// Role status | 角色状态
 	// Required : true
-	Status uint32 `json:"status" validate:"number,max=3"`
+	// Maximum: 20
+	Status uint32 `json:"status" validate:"number,max=20"`
 	// Role remark | 角色备注
 	// Required : true
-	Remark string `json:"remark" validate:"max=40"`
+	// Max length: 40
+	Remark string `json:"remark" validate:"omitempty,max=40"`
 	// Role's sorting number | 角色排序
 	// Required : true
-	OrderNo uint32 `json:"orderNo" validate:"number,max=5"`
+	// Maximum: 1000
+	OrderNo uint32 `json:"orderNo" validate:"number,max=1000"`
 	// Create time | 创建日期
 	// Required: true
-	CreateAt int64 `json:"createAt" validate:"number,max=15"`
+	CreateAt int64 `json:"createAt" validate:"number"`
 }
 
 // The response data of role list | 角色列表数据
@@ -45,10 +52,12 @@ type RoleListResp struct {
 type SetStatusReq struct {
 	// ID
 	// Required: true
-	Id uint64 `json:"id" validate:"number,max=10"`
+	// Maximum: 1000
+	Id uint64 `json:"id" validate:"number,max=1000"`
 	// Status code | 状态码
 	// Required: true
-	Status uint32 `json:"status" validate:"number,max=3"`
+	// Maximum: 20
+	Status uint32 `json:"status" validate:"number,max=20"`
 }
 
 // The basic response with data | 基础带数据信息
@@ -78,10 +87,11 @@ type SimpleMsg struct {
 type PageInfo struct {
 	// Page number | 第几页
 	// Required: true
-	Page uint64 `json:"page" validate:"number,max=8"`
+	Page uint64 `json:"page" validate:"number"`
 	// Page size | 单页数据行数
 	// Required: true
-	PageSize uint64 `json:"pageSize" validate:"number,max=5"`
+	// Maximum: 100000
+	PageSize uint64 `json:"pageSize" validate:"number,max=100000"`
 }
 
 // The page response data model | 列表返回信息
@@ -98,7 +108,7 @@ type PageList struct {
 type IDReq struct {
 	// ID
 	// Required: true
-	ID uint `json:"id" validate:"number,max=10"`
+	ID uint `json:"id" validate:"number"`
 }
 
 // Basic id request | 基础id参数请求
@@ -114,6 +124,7 @@ type IDPathReq struct {
 type UUIDReq struct {
 	// UUID
 	// Required: true
+	// Max length: 36
 	UUID string `json:"UUID" path:"UUID" validate:"len=36"`
 }
 
@@ -135,15 +146,20 @@ type BaseInfo struct {
 type LoginReq struct {
 	// User Name | 用户名
 	// Required: true
+	// Max length: 20
 	Username string `json:"username" validate:"alphanum,max=20"`
 	// Password | 密码
 	// Required: true
-	Password string `json:"password" validate:"max=20,min=6"`
+	// Min length: 6
+	// Max length: 30
+	Password string `json:"password" validate:"max=30,min=6"`
 	// Captcha Id which store in redis | 验证码编号, 存在redis中
 	// Required: true
+	// Max length: 20
 	CaptchaId string `json:"captchaId"  validate:"len=20"`
 	// The Captcha which users input | 用户输入的验证码
 	// Required: true
+	// Max length: 5
 	Captcha string `json:"captcha" validate:"len=5"`
 }
 
@@ -179,16 +195,20 @@ type ProfileResp struct {
 type ProfileReq struct {
 	// user's nickname | 用户的昵称
 	// Required: true
+	// Max length: 10
 	Nickname string `json:"nickname" validate:"alphanumunicode,max=10"`
 	// The user's avatar path | 用户的头像路径
 	// Required: true
+	// Max length: 30
 	Avatar string `json:"avatar"`
 	// User's mobile phone number | 用户的手机号码
 	// Required: true
+	// Max length: 18
 	Mobile string `json:"mobile" validate:"numeric,max=18"`
 	// The user's email address | 用户的邮箱
 	// Required: true
-	Email string `json:"email" validate:"email"`
+	// Max length: 100
+	Email string `json:"email" validate:"email,max=100"`
 }
 
 // The simple role data | 简单的角色数据
@@ -205,19 +225,25 @@ type RoleInfoSimple struct {
 type RegisterReq struct {
 	// User Name | 用户名
 	// Required: true
-	Username string `json:"username" validate:"alphanum"`
+	// Max length: 20
+	Username string `json:"username" validate:"alphanum,max=20"`
 	// Password | 密码
 	// Required: true
-	Password string `json:"password" validate:"max=20,min=6"`
+	// Min length: 6
+	// Max length: 30
+	Password string `json:"password" validate:"max=30,min=6"`
 	// Captcha Id which store in redis | 验证码编号, 存在redis中
 	// Required: true
+	// Max length: 20
 	CaptchaId string `json:"captchaId" validate:"len=20"`
 	// The Captcha which users input | 用户输入的验证码
 	// Required: true
+	// Max length: 5
 	Captcha string `json:"captcha" validate:"len=5"`
 	// The user's email address | 用户的邮箱
 	// Required: true
-	Email string `json:"email" validate:"email"`
+	// Max length: 100
+	Email string `json:"email" validate:"email,max=100"`
 }
 
 // change user's password request | 修改密码请求参数
@@ -225,10 +251,12 @@ type RegisterReq struct {
 type ChangePasswordReq struct {
 	// User's old password | 用户旧密码
 	// Required: true
-	OldPassword string `json:"oldPassword" validate:""`
+	// Max length: 30
+	OldPassword string `json:"oldPassword" validate:"max=30"`
 	// User's new password | 用户新密码
 	// Required: true
-	NewPassword string `json:"newPassword" validate:""`
+	// Max length: 30
+	NewPassword string `json:"newPassword" validate:"max=30"`
 }
 
 // The response data of user's information | 用户信息返回数据
@@ -304,32 +332,41 @@ type PermCodeResp struct {
 type CreateOrUpdateUserReq struct {
 	// User's id | 用户Id
 	// Required: true
-	Id int64 `json:"id" validate:"numeric"`
+	Id int64 `json:"id" validate:"number"`
 	// User Name | 用户名
 	// Required: true
+	// Max length: 20
 	Username string `json:"username" validate:"alphanum,max=20"`
 	// User's nickname | 用户的昵称
 	// Required: true
+	// Max length: 10
 	Nickname string `json:"nickname" validate:"alphanumunicode,max=10"`
 	// Password | 密码
 	// Required: true
-	Password string `json:"password" validate:"max=20,min=6"`
+	// Max length: 30
+	// Min length: 6
+	Password string `json:"password" validate:"omitempty,max=30,min=6"`
 	// User's mobile phone number | 用户的手机号码
 	// Required: true
-	Mobile string `json:"mobile" validate:"number,max=18"`
+	// Max length: 18
+	Mobile string `json:"mobile" validate:"numeric,max=18"`
 	// User's role id | 用户的角色Id
 	// Required: true
-	RoleId uint32 `json:"roleId" validate:"number,max=3"`
+	// Maximum: 1000
+	RoleId uint32 `json:"roleId" validate:"number,max=1000"`
 	// The user's email address | 用户的邮箱
 	// Required: true
-	Email string `json:"email" validate:"email"`
+	// Max length: 100
+	Email string `json:"email" validate:"email,max=100"`
 	// The user's avatar path | 用户的头像路径
 	// Required: true
+	// Example: https://localhost/static/1.png
 	Avatar string `json:"avatar"`
 	// The user's status | 用户状态
 	// 1 normal, 2 ban | 1 正常 2 拉黑
 	// Required: true
-	Status int32 `json:"status" validate:"number.max=3"`
+	// Maximum: 20
+	Status int32 `json:"status" validate:"number,max=20"`
 }
 
 // Get user list request | 获取用户列表请求参数
@@ -337,25 +374,31 @@ type CreateOrUpdateUserReq struct {
 type GetUserListReq struct {
 	// Page number | 第几页
 	// Required: true
-	Page uint64 `json:"page" validate:"number,max=8"`
+	Page uint64 `json:"page" validate:"number"`
 	// Page size | 单页数据行数
 	// Required: true
-	PageSize uint64 `json:"pageSize" validate:"number,max=5"`
+	// Maximum: 100000
+	PageSize uint64 `json:"pageSize" validate:"number,max=100000"`
 	// User Name | 用户名
 	// Required: true
-	Username string `json:"username" validate:"alphanum,max=20"`
+	// Max length: 20
+	Username string `json:"username" validate:"omitempty,alphanum,max=20"`
 	// User's nickname | 用户的昵称
 	// Required: true
-	Nickname string `json:"nickname" validate:"alphanumunicode,max=10"`
+	// Max length: 10
+	Nickname string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
 	// User's mobile phone number | 用户的手机号码
 	// Required: true
-	Mobile string `json:"mobile" validate:"number,max=18"`
+	// Max length: 18
+	Mobile string `json:"mobile" validate:"omitempty,numeric,max=18"`
 	// The user's email address | 用户的邮箱
 	// Required: true
-	Email string `json:"email" validate:"email"`
+	// Max length: 100
+	Email string `json:"email" validate:"omitempty,email,max=100"`
 	// User's role ID | 用户的角色Id
 	// Required: true
-	RoleId uint64 `json:"roleId" validate:"number,max=3"`
+	// Maximum: 1000
+	RoleId uint64 `json:"roleId" validate:"omitempty,number,max=1000"`
 }
 
 // The response data of menu information | 菜单返回数据
@@ -394,15 +437,18 @@ type Meta struct {
 	KeepAlive bool `json:"keepAlive" validate:"boolean"`
 	// Hide menu | 隐藏菜单
 	HideMenu bool `json:"hideMenu" validate:"boolean"`
-	// Wether hide the breadcrumb | 隐藏面包屑
+	// If hide the breadcrumb | 隐藏面包屑
 	HideBreadcrumb bool `json:"hideBreadcrumb" validate:"boolean"`
 	// Current active menu, if not nil, it will active the tab | 当前激活的菜单
+	// Max length: 30
 	CurrentActiveMenu string `json:"currentActiveMenu" validate:"max=30"`
 	// Menu title show in page | 菜单显示名
+	// Max length: 30
 	Title string `json:"title" validate:"max=30"`
 	// Menu Icon | 菜单图标
-	Icon string `json:"icon" validate:"max=20"`
-	// Wether auto close tab when too much | 是否在菜单太多时自动关闭tab
+	// Max length: 50
+	Icon string `json:"icon" validate:"max=50"`
+	// If auto close tab when too much | 是否在菜单太多时自动关闭tab
 	CloseTab bool `json:"closeTab" validate:"boolean"`
 }
 
@@ -449,28 +495,37 @@ type GetMenuListBase struct {
 type CreateOrUpdateMenuReq struct {
 	// ID
 	// Required: true
-	ID uint32 `json:"id" validate:"number,max=4"`
+	ID uint32 `json:"id" validate:"number"`
 	// Menu type: directory or menu | 菜单类型: 目录或菜单
-	MenuType uint32 `json:"type" validate:"alpha,max=10"`
+	// Required: true
+	// Maximum: 10
+	MenuType uint32 `json:"type" validate:"number,max=10"`
 	// Parent menu ID | 父级菜单ID
 	// Required: true
-	ParentId uint `json:"parentId" validate:"number,max=4"`
+	ParentId uint `json:"parentId" validate:"number"`
 	// The path to visit menu | 菜单访问路径
 	// Required: true
+	// Max length: 30
 	Path string `json:"path" validate:"max=30"`
 	// Menu name | 菜单名
 	// Required: true
+	// Max length: 20
 	Name string `json:"name" validate:"max=20"`
 	// Redirect path | 跳转路径
 	// Required: true
+	// Max length: 100
+	// Example: https://www.google.com
 	Redirect string `json:"redirect" validate:"max=100"`
 	// The component path | 组件路径
 	// Required: true
+	// Max length: 100
+	// Example: /sys/menu/index
 	Component string `json:"component" validate:"max=100"`
 	// The sorting number | 排序编号
 	// Required: true
-	OrderNo uint32 `json:"orderNo" validate:"number,max=5"`
-	// Wether disabled | 是否禁用菜单
+	// Maximum: 1000
+	OrderNo uint32 `json:"orderNo" validate:"number,max=1000"`
+	// If disabled | 是否禁用菜单
 	// Required: true
 	Disabled bool `json:"disabled" validate:"boolean"`
 	Meta
@@ -481,19 +536,25 @@ type CreateOrUpdateMenuReq struct {
 type CreateOrUpdateMenuParamReq struct {
 	// ID
 	// Required: true
-	ID uint32 `json:"id"`
+	ID uint32 `json:"id" validate:"number"`
 	// Menu ID | 菜单ID
 	// Required: true
-	MenuId uint32 `json:"menuId"`
+	MenuId uint32 `json:"menuId" validate:"number"`
 	// Data Type | 数据类型
 	// Required: true
-	DataType string `json:"dataType"`
+	// Min length: 1
+	// Max length: 8
+	DataType string `json:"dataType" validate:"min=1,max=8"`
 	// Key | 键
 	// Required: true
-	Key string `json:"key"`
+	// Min length: 1
+	// Max length: 20
+	Key string `json:"key" validate:"min=1,max=20"`
 	// Value | 值
 	// Required: true
-	Value string `json:"value"`
+	// Min length: 1
+	// Max length: 100
+	Value string `json:"value" validate:"min=1,max=100"`
 }
 
 // The response data of menu parameters  | 菜单参数列表数据
@@ -548,22 +609,29 @@ type ApiInfo struct {
 type CreateOrUpdateApiReq struct {
 	// ID
 	// Required: true
-	Id uint64 `json:"id" validate:"number,max=8"`
+	Id uint64 `json:"id" validate:"number"`
 	// Create date | 创建日期
 	// Required: true
-	CreateAt int64 `json:"createAt" validate:"number,max=15"`
+	CreateAt int64 `json:"createAt" validate:"number"`
 	// API path | API路径
 	// Required: true
-	Path string `json:"path" validate:"max=30"`
+	// Min length: 1
+	// Max length: 30
+	Path string `json:"path" validate:"min=1,max=30"`
 	// API Description | API 描述
 	// Required: true
+	// Max length: 30
 	Description string `json:"description" validate:"max=30"`
 	// API group | API分组
 	// Require: true
-	Group string `json:"group" validate:"alphanum,max=10"`
+	// Min length: 1
+	// Max length: 10
+	Group string `json:"group" validate:"alphanum,min=1,max=10"`
 	// API request method e.g. POST | API请求类型 如POST
 	// Required: true
-	Method string `json:"method" validate:"uppercase,max=4"`
+	// Min length: 3
+	// Max length: 4
+	Method string `json:"method" validate:"uppercase,min=3,max=4"`
 }
 
 // The response data of API list | API列表数据
@@ -582,16 +650,21 @@ type ApiListReq struct {
 	PageInfo
 	// API path | API路径
 	// Required: true
-	Path string `json:"path" validate:"number,max=8"`
+	// Max length: 30
+	Path string `json:"path" validate:"omitempty,max=30"`
 	// API Description | API 描述
 	// Required: true
-	Description string `json:"description" validate:"max=30"`
+	// Max length: 30
+	Description string `json:"description" validate:"omitempty,max=30"`
 	// API group | API分组
 	// Require: true
-	Group string `json:"group" validate:"alphanum,max=10"`
+	// Max length: 10
+	Group string `json:"group" validate:"omitempty,alphanum,max=10"`
 	// API request method e.g. POST | API请求类型 如POST
 	// Required: true
-	Method string `json:"method" validate:"uppercase,max=4"`
+	// Min length: 3
+	// Max length: 30
+	Method string `json:"method" validate:"omitempty,uppercase,max=4"`
 }
 
 // The response data of api authorization | API授权数据
@@ -608,7 +681,8 @@ type ApiAuthorityInfo struct {
 type CreateOrUpdateApiAuthorityReq struct {
 	// Role ID | 角色ID
 	// Required: true
-	RoleId uint64 `json:"roleId" validate:"number,max=3"`
+	// Maximum: 1000
+	RoleId uint64 `json:"roleId" validate:"number,max=1000"`
 	// API authorization list | API授权列表数据
 	// Required: true
 	Data []ApiAuthorityInfo `json:"data"`
@@ -629,7 +703,8 @@ type ApiAuthorityListResp struct {
 type MenuAuthorityInfoReq struct {
 	// role ID | 角色ID
 	// Required: true
-	RoleId uint64 `json:"roleId" validate:"number,max=3"`
+	// Maximum: 1000
+	RoleId uint64 `json:"roleId" validate:"number,max=1000"`
 	// menu ID array | 菜单ID数组
 	// Required: true
 	MenuIds []uint64 `json:"menuIds"`

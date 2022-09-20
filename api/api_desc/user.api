@@ -16,15 +16,20 @@ type (
     LoginReq {
         // User Name | 用户名
         // Required: true
+        // Max length: 20
         Username   string `json:"username" validate:"alphanum,max=20"`
         // Password | 密码
         // Required: true
-        Password   string `json:"password" validate:"max=20,min=6"`
+        // Min length: 6
+        // Max length: 30
+        Password   string `json:"password" validate:"max=30,min=6"`
         // Captcha Id which store in redis | 验证码编号, 存在redis中
         // Required: true
+        // Max length: 20
         CaptchaId  string `json:"captchaId"  validate:"len=20"`
         // The Captcha which users input | 用户输入的验证码
         // Required: true
+        // Max length: 5
         Captcha    string `json:"captcha" validate:"len=5"`
     }
 
@@ -60,16 +65,20 @@ type (
     ProfileReq {
         // user's nickname | 用户的昵称
         // Required: true
+        // Max length: 10
         Nickname     string       `json:"nickname" validate:"alphanumunicode,max=10"`
         // The user's avatar path | 用户的头像路径
         // Required: true
+        // Max length: 30
         Avatar       string       `json:"avatar"`
         // User's mobile phone number | 用户的手机号码
         // Required: true
+        // Max length: 18
         Mobile       string       `json:"mobile" validate:"numeric,max=18"`
         // The user's email address | 用户的邮箱
         // Required: true
-        Email        string       `json:"email" validate:"email"`
+        // Max length: 100
+        Email        string       `json:"email" validate:"email,max=100"`
     }
 
     // The simple role data | 简单的角色数据
@@ -86,19 +95,25 @@ type (
     RegisterReq {
         // User Name | 用户名
         // Required: true
-        Username  string `json:"username" validate:"alphanum"`
+        // Max length: 20
+        Username  string `json:"username" validate:"alphanum,max=20"`
         // Password | 密码
         // Required: true
-        Password  string `json:"password" validate:"max=20,min=6"`
+        // Min length: 6
+        // Max length: 30
+        Password  string `json:"password" validate:"max=30,min=6"`
         // Captcha Id which store in redis | 验证码编号, 存在redis中
         // Required: true
+        // Max length: 20
         CaptchaId string `json:"captchaId" validate:"len=20"`
         // The Captcha which users input | 用户输入的验证码
         // Required: true
+        // Max length: 5
         Captcha   string `json:"captcha" validate:"len=5"`
         // The user's email address | 用户的邮箱
         // Required: true
-        Email     string `json:"email" validate:"email"`
+        // Max length: 100
+        Email     string `json:"email" validate:"email,max=100"`
     }
 
     // change user's password request | 修改密码请求参数
@@ -106,10 +121,12 @@ type (
     ChangePasswordReq {
         // User's old password | 用户旧密码
         // Required: true
-        OldPassword string `json:"oldPassword" validate:""`
+        // Max length: 30
+        OldPassword string `json:"oldPassword" validate:"max=30"`
         // User's new password | 用户新密码
         // Required: true
-        NewPassword string `json:"newPassword" validate:""`
+        // Max length: 30
+        NewPassword string `json:"newPassword" validate:"max=30"`
     }
 
 
@@ -186,32 +203,41 @@ type (
     CreateOrUpdateUserReq {
         // User's id | 用户Id
         // Required: true
-        Id           int64        `json:"id" validate:"numeric"`
+        Id           int64        `json:"id" validate:"number"`
         // User Name | 用户名
         // Required: true
+        // Max length: 20
         Username     string       `json:"username" validate:"alphanum,max=20"`
         // User's nickname | 用户的昵称
         // Required: true
+        // Max length: 10
         Nickname     string       `json:"nickname" validate:"alphanumunicode,max=10"`
         // Password | 密码
         // Required: true
-        Password     string       `json:"password" validate:"max=20,min=6"`
+        // Max length: 30
+        // Min length: 6
+        Password     string       `json:"password" validate:"omitempty,max=30,min=6"`
         // User's mobile phone number | 用户的手机号码
         // Required: true
-        Mobile       string       `json:"mobile" validate:"number,max=18"`
+        // Max length: 18
+        Mobile       string       `json:"mobile" validate:"numeric,max=18"`
         // User's role id | 用户的角色Id
         // Required: true
-        RoleId       uint32       `json:"roleId" validate:"number,max=3"`
+        // Maximum: 1000
+        RoleId       uint32       `json:"roleId" validate:"number,max=1000"`
         // The user's email address | 用户的邮箱
         // Required: true
-        Email        string       `json:"email" validate:"email"`
+        // Max length: 100
+        Email        string       `json:"email" validate:"email,max=100"`
         // The user's avatar path | 用户的头像路径
         // Required: true
+        // Example: https://localhost/static/1.png
         Avatar       string       `json:"avatar"`
         // The user's status | 用户状态
         // 1 normal, 2 ban | 1 正常 2 拉黑
         // Required: true
-        Status       int32        `json:"status" validate:"number.max=3"`
+        // Maximum: 20
+        Status       int32        `json:"status" validate:"number,max=20"`
     }
 
     // Get user list request | 获取用户列表请求参数
@@ -219,25 +245,31 @@ type (
     GetUserListReq {
         // Page number | 第几页
         // Required: true
-        Page uint64 `json:"page" validate:"number,max=8"`
+        Page uint64 `json:"page" validate:"number"`
         // Page size | 单页数据行数
         // Required: true
-        PageSize uint64 `json:"pageSize" validate:"number,max=5"`
+        // Maximum: 100000
+        PageSize uint64 `json:"pageSize" validate:"number,max=100000"`
         // User Name | 用户名
         // Required: true
-        Username string `json:"username" validate:"alphanum,max=20"`
+        // Max length: 20
+        Username string `json:"username" validate:"omitempty,alphanum,max=20"`
         // User's nickname | 用户的昵称
         // Required: true
-        Nickname string `json:"nickname" validate:"alphanumunicode,max=10"`
+        // Max length: 10
+        Nickname string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
         // User's mobile phone number | 用户的手机号码
         // Required: true
-        Mobile string `json:"mobile" validate:"number,max=18"`
+        // Max length: 18
+        Mobile string `json:"mobile" validate:"omitempty,numeric,max=18"`
         // The user's email address | 用户的邮箱
         // Required: true
-        Email string  `json:"email" validate:"email"`
+        // Max length: 100
+        Email string  `json:"email" validate:"omitempty,email,max=100"`
         // User's role ID | 用户的角色Id
         // Required: true
-        RoleId uint64 `json:"roleId" validate:"number,max=3"`
+        // Maximum: 1000
+        RoleId uint64 `json:"roleId" validate:"omitempty,number,max=1000"`
     }
 )
 

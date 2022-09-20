@@ -32,22 +32,29 @@ type (
     CreateOrUpdateApiReq {
         // ID
         // Required: true
-        Id            uint64 `json:"id" validate:"number,max=8"`
+        Id            uint64 `json:"id" validate:"number"`
         // Create date | 创建日期
         // Required: true
-        CreateAt      int64  `json:"createAt" validate:"number,max=15"`
+        CreateAt      int64  `json:"createAt" validate:"number"`
         // API path | API路径
         // Required: true
-        Path          string `json:"path" validate:"max=30"`
+        // Min length: 1
+        // Max length: 30
+        Path          string `json:"path" validate:"min=1,max=30"`
         // API Description | API 描述
         // Required: true
+        // Max length: 30
         Description   string `json:"description" validate:"max=30"`
         // API group | API分组
         // Require: true
-        Group         string `json:"group" validate:"alphanum,max=10"`
+        // Min length: 1
+        // Max length: 10
+        Group         string `json:"group" validate:"alphanum,min=1,max=10"`
         // API request method e.g. POST | API请求类型 如POST
         // Required: true
-        Method        string `json:"method" validate:"uppercase,max=4"`
+        // Min length: 3
+        // Max length: 4
+        Method        string `json:"method" validate:"uppercase,min=3,max=4"`
     }
 
     // The response data of API list | API列表数据
@@ -66,16 +73,21 @@ type (
         PageInfo
         // API path | API路径
         // Required: true
-        Path          string `json:"path" validate:"number,max=8"`
+        // Max length: 30
+        Path          string `json:"path" validate:"omitempty,max=30"`
         // API Description | API 描述
         // Required: true
-        Description   string `json:"description" validate:"max=30"`
+        // Max length: 30
+        Description   string `json:"description" validate:"omitempty,max=30"`
         // API group | API分组
         // Require: true
-        Group         string `json:"group" validate:"alphanum,max=10"`
+        // Max length: 10
+        Group         string `json:"group" validate:"omitempty,alphanum,max=10"`
         // API request method e.g. POST | API请求类型 如POST
         // Required: true
-        Method        string `json:"method" validate:"uppercase,max=4"`
+        // Min length: 3
+        // Max length: 30
+        Method        string `json:"method" validate:"omitempty,uppercase,max=4"`
     }
 )
 

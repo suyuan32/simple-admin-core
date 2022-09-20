@@ -16,28 +16,35 @@ type (
     RoleInfo {
         // Role ID | 角色 ID
         // Required : true
-        Id            uint64 `json:"id" validate:"number,max=5"`
+        // Maximum: 1000
+        Id            uint64 `json:"id" validate:"number,max=1000"`
         // Role Name | 角色名
         // Required : true
+        // Max length: 20
         Name          string `json:"name" validate:"max=20"`
         // Role value | 角色值
         // Required : true
+        // Max length: 10
         Value         string `json:"value" validate:"max=10"`
         // Role's default page | 角色默认管理页面
         // Required : true
+        // Max length: 20
         DefaultRouter string `json:"defaultRouter" validate:"max=20"`
         // Role status | 角色状态
         // Required : true
-        Status        uint32 `json:"status" validate:"number,max=3"`
+        // Maximum: 20
+        Status        uint32 `json:"status" validate:"number,max=20"`
         // Role remark | 角色备注
         // Required : true
-        Remark        string `json:"remark" validate:"max=40"`
+        // Max length: 40
+        Remark        string `json:"remark" validate:"omitempty,max=40"`
         // Role's sorting number | 角色排序
         // Required : true
-        OrderNo       uint32 `json:"orderNo" validate:"number,max=5"`
+        // Maximum: 1000
+        OrderNo       uint32 `json:"orderNo" validate:"number,max=1000"`
         // Create time | 创建日期
         // Required: true
-        CreateAt      int64  `json:"createAt" validate:"number,max=15"`
+        CreateAt      int64  `json:"createAt" validate:"number"`
     }
 
     // The response data of role list | 角色列表数据
@@ -55,10 +62,12 @@ type (
     SetStatusReq {
         // ID
         // Required: true
-        Id     uint64  `json:"id" validate:"number,max=10"`
+        // Maximum: 1000
+        Id     uint64  `json:"id" validate:"number,max=1000"`
         // Status code | 状态码
         // Required: true
-        Status uint32  `json:"status" validate:"number,max=3"`
+        // Maximum: 20
+        Status uint32  `json:"status" validate:"number,max=20"`
     }
 )
 
