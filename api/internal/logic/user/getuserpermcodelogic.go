@@ -28,7 +28,6 @@ func NewGetUserPermCodeLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 
 func (l *GetUserPermCodeLogic) GetUserPermCode() (resp *types.PermCodeResp, err error) {
 	roleId := l.ctx.Value("roleId")
-	fmt.Println(roleId)
 	if roleId == nil {
 		return nil, &errorx.ApiError{
 			Code: http.StatusUnauthorized,

@@ -12,7 +12,6 @@ import (
 	"github.com/zeromicro/go-zero/core/utils"
 	"github.com/zeromicro/go-zero/rest"
 	"github.com/zeromicro/go-zero/zrpc"
-	"github.com/zeromicro/zero-contrib/logx/zapx"
 )
 
 type ServiceContext struct {
@@ -25,9 +24,6 @@ type ServiceContext struct {
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	// initialize logx
-	writer, err := zapx.NewZapWriter()
-	logx.Must(err)
-	logx.SetWriter(writer)
 	logx.MustSetup(c.LogConf)
 
 	// initialize redis

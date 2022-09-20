@@ -3,7 +3,7 @@ syntax = "v1"
 info(
     title: "base api"
     desc: "base api"
-    author: "ryansu"
+    author: "Ryan SU"
     email: "yuansu.china.work@gmail.com"
     version: "v1.0"
 )

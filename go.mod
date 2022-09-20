@@ -12,7 +12,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.8.0
 	github.com/zeromicro/go-zero v1.4.1
-	github.com/zeromicro/zero-contrib/logx/zapx v0.0.0-20220909060747-217517c21c16
 	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa
 	google.golang.org/grpc v1.49.0
 	google.golang.org/protobuf v1.28.1
@@ -20,8 +19,6 @@ require (
 )
 
 replace github.com/zeromicro/go-zero v1.4.1 => github.com/suyuan32/simple-admin-tools v0.0.5-beta-2
-
-replace github.com/zeromicro/zero-contrib/logx/zapx v0.0.0-20220909060747-217517c21c16 => github.com/suyuan32/zapx v0.0.1-beta-1
 
 require (
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
