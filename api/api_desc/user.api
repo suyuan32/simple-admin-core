@@ -18,15 +18,18 @@ type (
         // Required: true
         // Max length: 20
         Username   string `json:"username" validate:"alphanum,max=20"`
+
         // Password | 密码
         // Required: true
         // Min length: 6
         // Max length: 30
         Password   string `json:"password" validate:"max=30,min=6"`
+
         // Captcha Id which store in redis | 验证码编号, 存在redis中
         // Required: true
         // Max length: 20
         CaptchaId  string `json:"captchaId"  validate:"len=20"`
+
         // The Captcha which users input | 用户输入的验证码
         // Required: true
         // Max length: 5
@@ -38,11 +41,14 @@ type (
     LoginResp {
         // User's UUID | 用户的UUID
         UserId       string          `json:"userId"`
+
         // User's role information| 用户的角色信息
         // in: body
         Role         RoleInfoSimple  `json:"role"`
+
         // Token for authorization | 验证身份的token
         Token        string          `json:"token"`
+
         // Expire timestamp | 过期时间戳
         Expire       uint64          `json:"expire"`
     }
@@ -52,10 +58,13 @@ type (
     ProfileResp {
         // user's nickname | 用户的昵称
         Nickname     string       `json:"nickname"`
+
         // The user's avatar path | 用户的头像路径
         Avatar       string       `json:"avatar"`
+
         // User's mobile phone number | 用户的手机号码
         Mobile       string       `json:"mobile"`
+
         // The user's email address | 用户的邮箱
         Email        string       `json:"email"`
     }
@@ -67,14 +76,17 @@ type (
         // Required: true
         // Max length: 10
         Nickname     string       `json:"nickname" validate:"alphanumunicode,max=10"`
+
         // The user's avatar path | 用户的头像路径
         // Required: true
         // Max length: 30
         Avatar       string       `json:"avatar"`
+
         // User's mobile phone number | 用户的手机号码
         // Required: true
         // Max length: 18
         Mobile       string       `json:"mobile" validate:"numeric,max=18"`
+
         // The user's email address | 用户的邮箱
         // Required: true
         // Max length: 100
@@ -86,6 +98,7 @@ type (
     RoleInfoSimple {
         // Role name | 角色名
         RoleName   string `json:"roleName"`
+
         // Role value | 角色值
         Value      string `json:"value"`
     }
@@ -97,19 +110,23 @@ type (
         // Required: true
         // Max length: 20
         Username  string `json:"username" validate:"alphanum,max=20"`
+
         // Password | 密码
         // Required: true
         // Min length: 6
         // Max length: 30
         Password  string `json:"password" validate:"max=30,min=6"`
+
         // Captcha Id which store in redis | 验证码编号, 存在redis中
         // Required: true
         // Max length: 20
         CaptchaId string `json:"captchaId" validate:"len=20"`
+
         // The Captcha which users input | 用户输入的验证码
         // Required: true
         // Max length: 5
         Captcha   string `json:"captcha" validate:"len=5"`
+
         // The user's email address | 用户的邮箱
         // Required: true
         // Max length: 100
@@ -123,6 +140,7 @@ type (
         // Required: true
         // Max length: 30
         OldPassword string `json:"oldPassword" validate:"max=30"`
+
         // User's new password | 用户新密码
         // Required: true
         // Max length: 30
@@ -135,24 +153,34 @@ type (
     UserInfoResp {
         // User's id | 用户Id
         Id           int64        `json:"id"`
+
         // User Name | 用户名
         Username     string       `json:"username"`
+
         // User's nickname | 用户的昵称
         Nickname     string       `json:"nickname"`
+
         // User's mobile phone number | 用户的手机号码
         Mobile       string       `json:"mobile"`
+
         // User's role id | 用户的角色Id
         RoleId       uint32       `json:"roleId"`
+
         // The user's email address | 用户的邮箱
         Email        string       `json:"email"`
+
         // The user's avatar path | 用户的头像路径
         Avatar       string       `json:"avatar"`
+
         // The user's layout mode | 用户的布局
         SideMode     string       `json:"sideMode"`
+
         // The user's status | 用户状态
         // 1 normal, 2 ban | 1 正常 2 拉黑
         Status       int32        `json:"status"`
+
         CreateAt     int64        `json:"createAt"`
+
         UpdateAt     int64        `json:"updateAt"`
     }
 
@@ -161,12 +189,16 @@ type (
     GetUserInfoResp {
         // User's UUID | 用户的UUID
         UUID         string       `json:"UUID"`
+
         // User name | 用户名
         Username     string       `json:"username"`
+
         // user's nickname | 用户的昵称
         Nickname     string       `json:"nickname"`
+
         // The user's avatar path | 用户的头像路径
         Avatar       string       `json:"avatar"`
+
         // User's role information| 用户的角色信息
         // in: body
         Roles        GetUserRoleInfo `json:"roles"`
@@ -177,6 +209,7 @@ type (
     GetUserRoleInfo {
         // Role name | 角色名
         RoleName   string `json:"roleName"`
+
         // Role value for permission control | 角色值用于前端页面组件显示权限
         Value      string `json:"value"`
     }
@@ -186,6 +219,7 @@ type (
     UserListResp {
         // The total number of data | 数据总数
         Total uint64 `json:"total"`
+
         // The user list data | 用户列表数据
         // in: body
         Data    []UserInfoResp  `json:"data"`
@@ -204,35 +238,43 @@ type (
         // User's id | 用户Id
         // Required: true
         Id           int64        `json:"id" validate:"number"`
+
         // User Name | 用户名
         // Required: true
         // Max length: 20
         Username     string       `json:"username" validate:"alphanum,max=20"`
+
         // User's nickname | 用户的昵称
         // Required: true
         // Max length: 10
         Nickname     string       `json:"nickname" validate:"alphanumunicode,max=10"`
+
         // Password | 密码
         // Required: true
         // Max length: 30
         // Min length: 6
         Password     string       `json:"password" validate:"omitempty,max=30,min=6"`
+
         // User's mobile phone number | 用户的手机号码
         // Required: true
         // Max length: 18
         Mobile       string       `json:"mobile" validate:"numeric,max=18"`
+
         // User's role id | 用户的角色Id
         // Required: true
         // Maximum: 1000
         RoleId       uint32       `json:"roleId" validate:"number,max=1000"`
+
         // The user's email address | 用户的邮箱
         // Required: true
         // Max length: 100
         Email        string       `json:"email" validate:"email,max=100"`
+
         // The user's avatar path | 用户的头像路径
         // Required: true
         // Example: https://localhost/static/1.png
         Avatar       string       `json:"avatar"`
+
         // The user's status | 用户状态
         // 1 normal, 2 ban | 1 正常 2 拉黑
         // Required: true
@@ -246,26 +288,32 @@ type (
         // Page number | 第几页
         // Required: true
         Page uint64 `json:"page" validate:"number"`
+
         // Page size | 单页数据行数
         // Required: true
         // Maximum: 100000
         PageSize uint64 `json:"pageSize" validate:"number,max=100000"`
+
         // User Name | 用户名
         // Required: true
         // Max length: 20
         Username string `json:"username" validate:"omitempty,alphanum,max=20"`
+
         // User's nickname | 用户的昵称
         // Required: true
         // Max length: 10
         Nickname string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
+
         // User's mobile phone number | 用户的手机号码
         // Required: true
         // Max length: 18
         Mobile string `json:"mobile" validate:"omitempty,numeric,max=18"`
+
         // The user's email address | 用户的邮箱
         // Required: true
         // Max length: 100
         Email string  `json:"email" validate:"omitempty,email,max=100"`
+
         // User's role ID | 用户的角色Id
         // Required: true
         // Maximum: 1000

@@ -16,13 +16,18 @@ type (
     ApiInfo {
         // ID
         Id            uint64 `json:"id"`
+
         CreateAt      int64  `json:"createAt"`
+
         // API path | API路径
         Path          string `json:"path"`
+
         // API Description | API 描述
         Description   string `json:"description"`
+
         // API group | API分组
         Group         string `json:"group"`
+
         // API request method e.g. POST | API请求类型 如POST
         Method        string `json:"method"`
     }
@@ -33,23 +38,28 @@ type (
         // ID
         // Required: true
         Id            uint64 `json:"id" validate:"number"`
+
         // Create date | 创建日期
         // Required: true
         CreateAt      int64  `json:"createAt" validate:"number"`
+
         // API path | API路径
         // Required: true
         // Min length: 1
         // Max length: 30
         Path          string `json:"path" validate:"min=1,max=30"`
+
         // API Description | API 描述
         // Required: true
         // Max length: 30
         Description   string `json:"description" validate:"max=30"`
+
         // API group | API分组
         // Require: true
         // Min length: 1
         // Max length: 10
         Group         string `json:"group" validate:"alphanum,min=1,max=10"`
+
         // API request method e.g. POST | API请求类型 如POST
         // Required: true
         // Min length: 3
@@ -62,6 +72,7 @@ type (
     ApiListResp {
         // The total number of data | 数据总数
         Total uint64 `json:"total"`
+
         // The api list data | 角色列表数据
         // in: body
         Data  []ApiInfo  `json:"data"`
@@ -75,14 +86,17 @@ type (
         // Required: true
         // Max length: 30
         Path          string `json:"path" validate:"omitempty,max=30"`
+
         // API Description | API 描述
         // Required: true
         // Max length: 30
         Description   string `json:"description" validate:"omitempty,max=30"`
+
         // API group | API分组
         // Require: true
         // Max length: 10
         Group         string `json:"group" validate:"omitempty,alphanum,max=10"`
+
         // API request method e.g. POST | API请求类型 如POST
         // Required: true
         // Min length: 3

@@ -422,7 +422,7 @@ type Menu struct {
 	Component string `json:"component"`
 	// The sorting number | 排序编号
 	OrderNo uint32 `json:"orderNo"`
-	// Wether disabled | 是否禁用菜单
+	// If disabled | 是否禁用菜单
 	Disabled bool `json:"disabled"`
 	Meta
 	// children | 子集
@@ -433,23 +433,35 @@ type Menu struct {
 // The meta data of menu | 菜单的meta数据
 // swagger:response Meta
 type Meta struct {
-	// keep alive the tab in cache | 是否保持窗口的缓存
-	KeepAlive bool `json:"keepAlive" validate:"boolean"`
+	// Menu title show in page | 菜单显示名
+	// Max length: 50
+	Title string `json:"title" validate:"max=50"`
+	// Menu Icon | 菜单图标
+	// Max length: 50
+	Icon string `json:"icon" validate:"max=50"`
 	// Hide menu | 隐藏菜单
 	HideMenu bool `json:"hideMenu" validate:"boolean"`
 	// If hide the breadcrumb | 隐藏面包屑
 	HideBreadcrumb bool `json:"hideBreadcrumb" validate:"boolean"`
 	// Current active menu, if not nil, it will active the tab | 当前激活的菜单
 	// Max length: 30
-	CurrentActiveMenu string `json:"currentActiveMenu" validate:"max=30"`
-	// Menu title show in page | 菜单显示名
-	// Max length: 30
-	Title string `json:"title" validate:"max=30"`
-	// Menu Icon | 菜单图标
-	// Max length: 50
-	Icon string `json:"icon" validate:"max=50"`
-	// If auto close tab when too much | 是否在菜单太多时自动关闭tab
-	CloseTab bool `json:"closeTab" validate:"boolean"`
+	CurrentActiveMenu string `json:"currentActiveMenu,omitempty" validate:"max=30"`
+	// Do not keep alive the tab | 不缓存Tab
+	IgnoreKeepAlive bool `json:"ignoreKeepAlive" validate:"boolean"`
+	// Hide the tab header | 当前路由不在标签页显示
+	HideTab bool `json:"hideTab" validate:"boolean"`
+	// Iframe path | 内嵌iframe的地址
+	FrameSrc string `json:"frameSrc,omitempty" validate:"max=100"`
+	// The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
+	CarryParam bool `json:"carryParam" validate:"boolean"`
+	// Hide children menu or not | 隐藏所有子菜单
+	HideChildrenInMenu bool `json:"hideChildrenInMenu" validate:"boolean"`
+	// Affix tab | 是否固定标签
+	Affix bool `json:"affix" validate:"boolean"`
+	// The maximum number of pages the router can open | 动态路由可打开Tab页数
+	DynamicLevel uint32 `json:"dynamicLevel" validate:"number,lt=30"`
+	// The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
+	RealPath string `json:"realPath,omitempty" validate:"max=50"`
 }
 
 // The response data of menu list | 菜单列表数据
@@ -481,7 +493,7 @@ type GetMenuListBase struct {
 	Component string `json:"component"`
 	// The sorting number | 排序编号
 	OrderNo uint32 `json:"orderNo"`
-	// Wether disabled | 是否禁用菜单
+	// If disabled | 是否禁用菜单
 	Disabled bool `json:"disabled"`
 	// in: body
 	Meta Meta `json:"meta"`

@@ -36,6 +36,7 @@ type PageInfo {
     // Page number | 第几页
     // Required: true
     Page      uint64    `json:"page" validate:"number"`
+
     // Page size | 单页数据行数
     // Required: true
     // Maximum: 100000
@@ -47,6 +48,7 @@ type PageInfo {
 type PageList {
     // Total number | 数据总数
     Total    uint64      `json:"total"`
+
     // Data | 数据
     Data     []string    `json:"data"`
 }
@@ -82,10 +84,13 @@ type UUIDReq {
 type BaseInfo {
     // ID
     ID        uint      `json:"id"`
+
     // Create date | 创建日期
     CreatedAt int64     `json:"createdAt"`
+
     // Update date | 更新日期
     UpdatedAt int64     `json:"updatedAt"`
+
     // Delete date | 删除日期
     DeletedAt int64     `json:"deletedAt"`
 }

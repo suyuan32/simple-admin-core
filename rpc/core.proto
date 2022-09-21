@@ -129,13 +129,19 @@ message MenuInfo {
 }
 
 message Meta {
-  bool keep_alive = 1;
-  bool hide_menu = 2;
-  bool hide_breadcrumb = 3;
-  string current_active_menu = 4;
-  string title = 5;
-  string icon = 6;
-  bool close_tab = 7;
+  string title = 1;
+  string icon = 2;
+  bool hide_menu = 3;
+  bool hide_breadcrumb = 4;
+  string current_active_menu = 5;
+  bool ignore_keep_alive = 6;
+  bool hide_tab = 7;
+  string frame_src = 8;
+  bool carry_param = 9;
+  bool hide_children_in_menu = 10;
+  bool affix = 11;
+  uint32 dynamic_level = 12;
+  string real_path = 13;
 }
 
 message MenuInfoList {

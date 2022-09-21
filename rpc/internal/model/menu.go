@@ -20,13 +20,19 @@ type Menu struct {
 }
 
 type Meta struct {
-	KeepAlive         bool   `json:"keepAlive" gorm:"default:false;comment:save in cache?"`           // save in cache
-	HideMenu          bool   `json:"hideMenu" gorm:"default:false;comment:hide the menu"`             // hide menu
-	HideBreadcrumb    bool   `json:"hideBreadcrumb" gorm:"default:true;comment: hide the breadcrumb"` // hide the breadcrumb
-	CurrentActiveMenu string `json:"currentActiveMenu" gorm:"comment:set the active menu"`            // set the active menu
-	Title             string `json:"title" gorm:"comment:menu name"`                                  // menu name
-	Icon              string `json:"icon" gorm:"comment:menu icon"`                                   // menu icon
-	CloseTab          bool   `json:"closeTab" gorm:"default:true;comment:auto close tab"`             // auto close tab
+	Title              string `json:"title" gorm:"comment:menu name"`                                          // menu name
+	Icon               string `json:"icon" gorm:"comment:menu icon"`                                           // menu icon
+	HideMenu           bool   `json:"hideMenu" gorm:"default:false;comment:hide the menu"`                     // hide menu
+	HideBreadcrumb     bool   `json:"hideBreadcrumb" gorm:"default:true;comment: hide the breadcrumb"`         // hide the breadcrumb
+	CurrentActiveMenu  string `json:"currentActiveMenu" gorm:"comment:set the active menu"`                    // set the active menu
+	IgnoreKeepAlive    bool   `json:"ignoreKeepAlive" gorm:"comment: do not keep alive the tab"`               // do not keep alive the tab
+	HideTab            bool   `json:"hideTab" gorm:"comment: hide the tab header"`                             // hide the tab header
+	FrameSrc           string `json:"frameSrc" gorm:"comment:iframe path"`                                     // show iframe
+	CarryParam         bool   `json:"carryParam" gorm:"comment:the route carries parameters or not"`           // the route carries parameters or not
+	HideChildrenInMenu bool   `json:"hideChildrenInMenu" gorm:"comment:hide children menu or not"`             //  hide children menu or not
+	Affix              bool   `json:"affix" gorm:"comment: affix tab"`                                         // affix tab
+	DynamicLevel       uint32 `json:"dynamicLevel" gorm:"the maximum number of pages the router can open"`     // the maximum number of pages the router can open
+	RealPath           string `json:"realPath" gorm:"comment:the real path of the route without dynamic part"` // the real path of the route without dynamic part
 }
 
 type MenuParam struct {

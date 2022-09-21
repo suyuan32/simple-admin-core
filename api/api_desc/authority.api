@@ -16,6 +16,7 @@ type (
     ApiAuthorityInfo {
         // API path | API 路径
         Path string   `json:"path"`
+
         // API method | API请求方法
         Method string `json:"method"`
     }
@@ -28,6 +29,7 @@ type (
         // Required: true
         // Maximum: 1000
         RoleId  uint64            `json:"roleId" validate:"number,max=1000"`
+
         // API authorization list | API授权列表数据
         // Required: true
         Data    []ApiAuthorityInfo  `json:"data"`
@@ -38,6 +40,7 @@ type (
     ApiAuthorityListResp {
         // The total number of data | 数据总数
         Total uint64   `json:"total"`
+
         // The api authorization list data | API授权列表数据
         // in: body
         Data []ApiAuthorityInfo `json:"data"`
@@ -50,6 +53,7 @@ type (
         // Required: true
         // Maximum: 1000
         RoleId  uint64   `json:"roleId" validate:"number,max=1000"`
+
         // menu ID array | 菜单ID数组
         // Required: true
         MenuIds []uint64 `json:"menuIds"`
@@ -60,6 +64,7 @@ type (
     MenuAuthorityInfoResp {
         // role ID | 角色ID
         RoleId  uint64   `json:"roleId"`
+
         // menu ID array | 菜单ID数组
         MenuIds []uint64 `json:"menuIds"`
     }

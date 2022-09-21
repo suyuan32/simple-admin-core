@@ -216,10 +216,14 @@ definitions:
     CreateOrUpdateMenuReq:
         description: Create or update menu information request params | 创建或更新菜单信息参数
         properties:
-            closeTab:
-                description: If auto close tab when too much | 是否在菜单太多时自动关闭tab
+            affix:
+                description: Affix tab | 是否固定标签
                 type: boolean
-                x-go-name: CloseTab
+                x-go-name: Affix
+            carryParam:
+                description: The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
+                type: boolean
+                x-go-name: CarryParam
             component:
                 description: The component path | 组件路径
                 example: /sys/menu/index
@@ -235,14 +239,31 @@ definitions:
                 description: If disabled | 是否禁用菜单
                 type: boolean
                 x-go-name: Disabled
+            dynamicLevel:
+                description: The maximum number of pages the router can open | 动态路由可打开Tab页数
+                format: uint32
+                type: integer
+                x-go-name: DynamicLevel
+            frameSrc:
+                description: Iframe path | 内嵌iframe的地址
+                type: string
+                x-go-name: FrameSrc
             hideBreadcrumb:
                 description: If hide the breadcrumb | 隐藏面包屑
                 type: boolean
                 x-go-name: HideBreadcrumb
+            hideChildrenInMenu:
+                description: Hide children menu or not | 隐藏所有子菜单
+                type: boolean
+                x-go-name: HideChildrenInMenu
             hideMenu:
                 description: Hide menu | 隐藏菜单
                 type: boolean
                 x-go-name: HideMenu
+            hideTab:
+                description: Hide the tab header | 当前路由不在标签页显示
+                type: boolean
+                x-go-name: HideTab
             icon:
                 description: Menu Icon | 菜单图标
                 maxLength: 50
@@ -253,10 +274,10 @@ definitions:
                 format: uint32
                 type: integer
                 x-go-name: ID
-            keepAlive:
-                description: keep alive the tab in cache | 是否保持窗口的缓存
+            ignoreKeepAlive:
+                description: Do not keep alive the tab | 不缓存Tab
                 type: boolean
-                x-go-name: KeepAlive
+                x-go-name: IgnoreKeepAlive
             name:
                 description: Menu name | 菜单名
                 maxLength: 20
@@ -278,6 +299,10 @@ definitions:
                 maxLength: 30
                 type: string
                 x-go-name: Path
+            realPath:
+                description: The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
+                type: string
+                x-go-name: RealPath
             redirect:
                 description: Redirect path | 跳转路径
                 example: https://www.google.com
@@ -286,7 +311,7 @@ definitions:
                 x-go-name: Redirect
             title:
                 description: Menu title show in page | 菜单显示名
-                maxLength: 30
+                maxLength: 50
                 type: string
                 x-go-name: Title
             type:
@@ -388,7 +413,7 @@ definitions:
                 type: string
                 x-go-name: Component
             disabled:
-                description: Wether disabled | 是否禁用菜单
+                description: If disabled | 是否禁用菜单
                 type: boolean
                 x-go-name: Disabled
             level:
@@ -547,6 +572,14 @@ definitions:
     Menu:
         description: The response data of menu information | 菜单返回数据
         properties:
+            affix:
+                description: Affix tab | 是否固定标签
+                type: boolean
+                x-go-name: Affix
+            carryParam:
+                description: The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
+                type: boolean
+                x-go-name: CarryParam
             children:
                 description: |-
                     children | 子集
@@ -555,10 +588,6 @@ definitions:
                     $ref: '#/definitions/Menu'
                 type: array
                 x-go-name: Children
-            closeTab:
-                description: If auto close tab when too much | 是否在菜单太多时自动关闭tab
-                type: boolean
-                x-go-name: CloseTab
             component:
                 description: The component path | 组件路径
                 type: string
@@ -579,17 +608,34 @@ definitions:
                 type: integer
                 x-go-name: DeletedAt
             disabled:
-                description: Wether disabled | 是否禁用菜单
+                description: If disabled | 是否禁用菜单
                 type: boolean
                 x-go-name: Disabled
+            dynamicLevel:
+                description: The maximum number of pages the router can open | 动态路由可打开Tab页数
+                format: uint32
+                type: integer
+                x-go-name: DynamicLevel
+            frameSrc:
+                description: Iframe path | 内嵌iframe的地址
+                type: string
+                x-go-name: FrameSrc
             hideBreadcrumb:
                 description: If hide the breadcrumb | 隐藏面包屑
                 type: boolean
                 x-go-name: HideBreadcrumb
+            hideChildrenInMenu:
+                description: Hide children menu or not | 隐藏所有子菜单
+                type: boolean
+                x-go-name: HideChildrenInMenu
             hideMenu:
                 description: Hide menu | 隐藏菜单
                 type: boolean
                 x-go-name: HideMenu
+            hideTab:
+                description: Hide the tab header | 当前路由不在标签页显示
+                type: boolean
+                x-go-name: HideTab
             icon:
                 description: Menu Icon | 菜单图标
                 maxLength: 50
@@ -600,10 +646,10 @@ definitions:
                 format: uint64
                 type: integer
                 x-go-name: ID
-            keepAlive:
-                description: keep alive the tab in cache | 是否保持窗口的缓存
+            ignoreKeepAlive:
+                description: Do not keep alive the tab | 不缓存Tab
                 type: boolean
-                x-go-name: KeepAlive
+                x-go-name: IgnoreKeepAlive
             level:
                 description: The menu level | 菜单等级
                 format: uint32
@@ -627,13 +673,17 @@ definitions:
                 description: The path to visit menu | 菜单访问路径
                 type: string
                 x-go-name: Path
+            realPath:
+                description: The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
+                type: string
+                x-go-name: RealPath
             redirect:
                 description: Redirect path | 跳转路径
                 type: string
                 x-go-name: Redirect
             title:
                 description: Menu title show in page | 菜单显示名
-                maxLength: 30
+                maxLength: 50
                 type: string
                 x-go-name: Title
             type:
@@ -716,35 +766,60 @@ definitions:
     Meta:
         description: The meta data of menu | 菜单的meta数据
         properties:
-            closeTab:
-                description: If auto close tab when too much | 是否在菜单太多时自动关闭tab
+            affix:
+                description: Affix tab | 是否固定标签
                 type: boolean
-                x-go-name: CloseTab
+                x-go-name: Affix
+            carryParam:
+                description: The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
+                type: boolean
+                x-go-name: CarryParam
             currentActiveMenu:
                 description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
                 maxLength: 30
                 type: string
                 x-go-name: CurrentActiveMenu
+            dynamicLevel:
+                description: The maximum number of pages the router can open | 动态路由可打开Tab页数
+                format: uint32
+                type: integer
+                x-go-name: DynamicLevel
+            frameSrc:
+                description: Iframe path | 内嵌iframe的地址
+                type: string
+                x-go-name: FrameSrc
             hideBreadcrumb:
                 description: If hide the breadcrumb | 隐藏面包屑
                 type: boolean
                 x-go-name: HideBreadcrumb
+            hideChildrenInMenu:
+                description: Hide children menu or not | 隐藏所有子菜单
+                type: boolean
+                x-go-name: HideChildrenInMenu
             hideMenu:
                 description: Hide menu | 隐藏菜单
                 type: boolean
                 x-go-name: HideMenu
+            hideTab:
+                description: Hide the tab header | 当前路由不在标签页显示
+                type: boolean
+                x-go-name: HideTab
             icon:
                 description: Menu Icon | 菜单图标
                 maxLength: 50
                 type: string
                 x-go-name: Icon
-            keepAlive:
-                description: keep alive the tab in cache | 是否保持窗口的缓存
+            ignoreKeepAlive:
+                description: Do not keep alive the tab | 不缓存Tab
                 type: boolean
-                x-go-name: KeepAlive
+                x-go-name: IgnoreKeepAlive
+            realPath:
+                description: The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
+                type: string
+                x-go-name: RealPath
             title:
                 description: Menu title show in page | 菜单显示名
-                maxLength: 30
+                maxLength: 50
                 type: string
                 x-go-name: Title
         type: object
@@ -1660,8 +1735,11 @@ responses:
     Menu:
         description: The response data of menu information | 菜单返回数据
         headers:
-            closeTab:
-                description: If auto close tab when too much | 是否在菜单太多时自动关闭tab
+            affix:
+                description: Affix tab | 是否固定标签
+                type: boolean
+            carryParam:
+                description: The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
                 type: boolean
             component:
                 description: The component path | 组件路径
@@ -1679,13 +1757,26 @@ responses:
                 format: int64
                 type: integer
             disabled:
-                description: Wether disabled | 是否禁用菜单
+                description: If disabled | 是否禁用菜单
                 type: boolean
+            dynamicLevel:
+                description: The maximum number of pages the router can open | 动态路由可打开Tab页数
+                format: uint32
+                type: integer
+            frameSrc:
+                description: Iframe path | 内嵌iframe的地址
+                type: string
             hideBreadcrumb:
                 description: If hide the breadcrumb | 隐藏面包屑
                 type: boolean
+            hideChildrenInMenu:
+                description: Hide children menu or not | 隐藏所有子菜单
+                type: boolean
             hideMenu:
                 description: Hide menu | 隐藏菜单
+                type: boolean
+            hideTab:
+                description: Hide the tab header | 当前路由不在标签页显示
                 type: boolean
             icon:
                 description: Menu Icon | 菜单图标
@@ -1695,8 +1786,8 @@ responses:
                 description: ID
                 format: uint64
                 type: integer
-            keepAlive:
-                description: keep alive the tab in cache | 是否保持窗口的缓存
+            ignoreKeepAlive:
+                description: Do not keep alive the tab | 不缓存Tab
                 type: boolean
             level:
                 description: The menu level | 菜单等级
@@ -1716,12 +1807,15 @@ responses:
             path:
                 description: The path to visit menu | 菜单访问路径
                 type: string
+            realPath:
+                description: The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
+                type: string
             redirect:
                 description: Redirect path | 跳转路径
                 type: string
             title:
                 description: Menu title show in page | 菜单显示名
-                maxLength: 30
+                maxLength: 50
                 type: string
             type:
                 description: |-
@@ -1757,7 +1851,7 @@ responses:
                 description: The component path | 组件路径
                 type: string
             disabled:
-                description: Wether disabled | 是否禁用菜单
+                description: If disabled | 是否禁用菜单
                 type: boolean
             level:
                 description: The menu level | 菜单等级
@@ -1835,29 +1929,48 @@ responses:
     Meta:
         description: The meta data of menu | 菜单的meta数据
         headers:
-            closeTab:
-                description: If auto close tab when too much | 是否在菜单太多时自动关闭tab
+            affix:
+                description: Affix tab | 是否固定标签
+                type: boolean
+            carryParam:
+                description: The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
                 type: boolean
             currentActiveMenu:
                 description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
                 maxLength: 30
                 type: string
+            dynamicLevel:
+                description: The maximum number of pages the router can open | 动态路由可打开Tab页数
+                format: uint32
+                type: integer
+            frameSrc:
+                description: Iframe path | 内嵌iframe的地址
+                type: string
             hideBreadcrumb:
                 description: If hide the breadcrumb | 隐藏面包屑
                 type: boolean
+            hideChildrenInMenu:
+                description: Hide children menu or not | 隐藏所有子菜单
+                type: boolean
             hideMenu:
                 description: Hide menu | 隐藏菜单
+                type: boolean
+            hideTab:
+                description: Hide the tab header | 当前路由不在标签页显示
                 type: boolean
             icon:
                 description: Menu Icon | 菜单图标
                 maxLength: 50
                 type: string
-            keepAlive:
-                description: keep alive the tab in cache | 是否保持窗口的缓存
+            ignoreKeepAlive:
+                description: Do not keep alive the tab | 不缓存Tab
                 type: boolean
+            realPath:
+                description: The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
+                type: string
             title:
                 description: Menu title show in page | 菜单显示名
-                maxLength: 30
+                maxLength: 50
                 type: string
     PageList:
         description: The page response data model | 列表返回信息
