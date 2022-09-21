@@ -581,10 +581,8 @@ github.com/stretchr/testify v1.7.5/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO
 github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PKk=
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
 github.com/suyuan32/simple-admin-core v0.0.4/go.mod h1:qVCiNpYAJrTqj+iAitlcpxgFSdnz9+EQffgaJjEqDBI=
-github.com/suyuan32/simple-admin-tools v0.0.5-beta-2 h1:U8IkAp85qpg/dZym9ehsjYAoe7JNaUScmEnlkmpXJIE=
-github.com/suyuan32/simple-admin-tools v0.0.5-beta-2/go.mod h1:cyw17YGckuAIt8ccUgfc/ul7zB76D8qWvULIiz0RyFw=
-github.com/suyuan32/zapx v0.0.1-beta-1 h1:OGmGxBlrVT607LLogwQWmk4P64IJyLUoTH8FlbAGFZw=
-github.com/suyuan32/zapx v0.0.1-beta-1/go.mod h1:ZxombEDVE7Ea1QpDsxH/EiQyeDscY2rht1ldk45k7OM=
+github.com/suyuan32/simple-admin-tools v0.0.5 h1:hCdxnkUrUysEuzViNpG5dRysVbkGuqEhiOc1Fhbavx0=
+github.com/suyuan32/simple-admin-tools v0.0.5/go.mod h1:cyw17YGckuAIt8ccUgfc/ul7zB76D8qWvULIiz0RyFw=
 github.com/tidwall/pretty v1.0.0/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhVysOjyk=
 github.com/tklauser/go-sysconf v0.3.10/go.mod h1:C8XykCvCb+Gn0oNCWPIlcb0RuglQTYaQ2hGm7jmxEFk=
 github.com/tklauser/numcpus v0.4.0/go.mod h1:1+UI3pD8NW14VMwdgJNJ1ESk2UnwhAnz5hMwiKKqXCQ=
