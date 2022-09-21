@@ -145,6 +145,20 @@ yarn install
 yarn serve
 ```
 
+### 编译
+```shell
+yarn build
+```
+
+### 预览
+```shell
+# build and preview
+yarn preview
+
+# preview exist files
+yarn preview:dist
+```
+
 ## 初始化数据库
 ***重要:*** 在初始化数据库前必须先创建数据库, 数据库名称和配置文件中的名称相同.
 

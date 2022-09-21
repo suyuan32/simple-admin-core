@@ -145,6 +145,20 @@ yarn install
 yarn serve
 ```
 
+### Compile
+```shell
+yarn build
+```
+
+### Preview
+```shell
+# build and preview
+yarn preview
+
+# preview exist files
+yarn preview:dist
+```
+
 ## Initialize the database
 
 ***Important:***  You must create the database before initialize
@@ -152,7 +166,6 @@ The database name is the same as your configuration.
 
 ```shell
 # visit the url 
-
 
 https://address:port/#/init
 ```
