@@ -32,7 +32,7 @@ type (
         // Role's default page | 角色默认管理页面
         // Required : true
         // Max length: 20
-        DefaultRouter string `json:"defaultRouter" validate:"max=20"`
+        DefaultRouter string `json:"defaultRouter" validate:"max=50"`
 
         // Role status | 角色状态
         // Required : true
@@ -41,8 +41,8 @@ type (
 
         // Role remark | 角色备注
         // Required : true
-        // Max length: 40
-        Remark        string `json:"remark" validate:"omitempty,max=40"`
+        // Max length: 200
+        Remark        string `json:"remark" validate:"omitempty,max=200"`
 
         // Role's sorting number | 角色排序
         // Required : true

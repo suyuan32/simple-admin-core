@@ -4,3 +4,4 @@
 * [Swagger](simple-admin/zh-cn/docs/swagger.md)
 * [文件上传管理](/simple-admin/zh-cn/docs/file_manager.md)
 * [前端设置](/simple-admin/zh-cn/docs/web-setting.md)
+* [验证器](/simple-admin/zh-cn/docs/validator.md)

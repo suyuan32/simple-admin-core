@@ -84,13 +84,13 @@ type (
         PageInfo
         // API path | API路径
         // Required: true
-        // Max length: 30
-        Path          string `json:"path" validate:"omitempty,max=30"`
+        // Max length: 100
+        Path          string `json:"path" validate:"omitempty,max=100"`
 
         // API Description | API 描述
         // Required: true
-        // Max length: 30
-        Description   string `json:"description" validate:"omitempty,max=30"`
+        // Max length: 50
+        Description   string `json:"description" validate:"omitempty,max=50"`
 
         // API group | API分组
         // Require: true

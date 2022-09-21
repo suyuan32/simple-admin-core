@@ -19,15 +19,15 @@ type RoleInfo struct {
 	// Role's default page | 角色默认管理页面
 	// Required : true
 	// Max length: 20
-	DefaultRouter string `json:"defaultRouter" validate:"max=20"`
+	DefaultRouter string `json:"defaultRouter" validate:"max=50"`
 	// Role status | 角色状态
 	// Required : true
 	// Maximum: 20
 	Status uint32 `json:"status" validate:"number,max=20"`
 	// Role remark | 角色备注
 	// Required : true
-	// Max length: 40
-	Remark string `json:"remark" validate:"omitempty,max=40"`
+	// Max length: 200
+	Remark string `json:"remark" validate:"omitempty,max=200"`
 	// Role's sorting number | 角色排序
 	// Required : true
 	// Maximum: 1000
@@ -461,7 +461,7 @@ type Meta struct {
 	// The maximum number of pages the router can open | 动态路由可打开Tab页数
 	DynamicLevel uint32 `json:"dynamicLevel" validate:"number,lt=30"`
 	// The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
-	RealPath string `json:"realPath,omitempty" validate:"max=50"`
+	RealPath string `json:"realPath,omitempty" validate:"max=200"`
 }
 
 // The response data of menu list | 菜单列表数据
@@ -518,7 +518,7 @@ type CreateOrUpdateMenuReq struct {
 	// The path to visit menu | 菜单访问路径
 	// Required: true
 	// Max length: 30
-	Path string `json:"path" validate:"max=30"`
+	Path string `json:"path" validate:"max=200"`
 	// Menu name | 菜单名
 	// Required: true
 	// Max length: 20

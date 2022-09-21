@@ -101,7 +101,7 @@ go build -o core core.go
 
 ## 更新日志
 
-[CHANGELOG](./CHANGELOG.zh_CN.md)
+[CHANGELOG](./CHANGELOG.md)
 
 ## 项目地址
 
