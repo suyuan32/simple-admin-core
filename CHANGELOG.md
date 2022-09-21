@@ -1,3 +1,22 @@
+# 0.0.5 (2022/09/21)
+
+### Features
+
+- feat: validator doc
+- feat: add translation test
+- feat: validator
+
+### Bug Fixes
+
+- fix: update simple admin tools version
+- fix: add ui build doc
+- fix: menu meta setting logic
+- fix: use default logger and fix some bugs
+- feat: validator definition fix: swagger doc about conditions
+- fix: update readme
+- fix: update doc
+- fix: update readme
+
 # 0.0.4 (2022/09/13)
 
 ### Features
