@@ -26,15 +26,14 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/suyuan32/simple-admin-tools/plugins/registry/consul"
-	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
 	"github.com/suyuan32/simple-admin-core/api/internal/handler"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
-	_ "github.com/suyuan32/simple-admin-tools/plugins/registry/consul"
 
+	"github.com/suyuan32/simple-admin-tools/plugins/registry/consul"
 	"github.com/zeromicro/go-zero/core/conf"
+	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest"
 )
 

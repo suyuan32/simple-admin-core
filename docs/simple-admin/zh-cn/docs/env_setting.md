@@ -18,7 +18,7 @@ git clone https://github.com/suyuan32/simple-admin-core.git
 
 ### 配置
 
-[Consul](/simple-admin/en/docs/consul.md)
+[Consul](/simple-admin/zh-cn/docs/consul.md)
 
 ### 配置依赖
 

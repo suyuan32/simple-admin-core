@@ -677,8 +677,8 @@ github.com/stretchr/testify v1.7.5/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO
 github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PKk=
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
 github.com/suyuan32/simple-admin-core v0.0.4/go.mod h1:qVCiNpYAJrTqj+iAitlcpxgFSdnz9+EQffgaJjEqDBI=
-github.com/suyuan32/simple-admin-tools v0.0.6-beta-7 h1:ek4tESkuefE2DDBg5zM3xnqdjJSzhdb4TF6MZTjqZXw=
-github.com/suyuan32/simple-admin-tools v0.0.6-beta-7/go.mod h1:cyw17YGckuAIt8ccUgfc/ul7zB76D8qWvULIiz0RyFw=
+github.com/suyuan32/simple-admin-tools v0.0.6 h1:eHj/MYE6rs5qJfojf1XoPlZJeQn8zRzY0ETllPgseuE=
+github.com/suyuan32/simple-admin-tools v0.0.6/go.mod h1:cyw17YGckuAIt8ccUgfc/ul7zB76D8qWvULIiz0RyFw=
 github.com/suyuan32/simple-admin-tools/plugins/registry/consul v0.0.0-20220923060146-bde681863b8d h1:E9UEnIwR43TqNNI+Wyc9S7Bxq24MCrRV4Kc0iNXbKNM=
 github.com/suyuan32/simple-admin-tools/plugins/registry/consul v0.0.0-20220923060146-bde681863b8d/go.mod h1:7I+wy4gz60s4XKx0Ll16k/vxr4rWAxS37qwDAHafozk=
 github.com/tidwall/pretty v1.0.0/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhVysOjyk=

@@ -3,15 +3,15 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/config"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/server"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+
 	"github.com/suyuan32/simple-admin-tools/plugins/registry/consul"
-	_ "github.com/suyuan32/simple-admin-tools/plugins/registry/consul"
 	"github.com/zeromicro/go-zero/core/conf"
+	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
@@ -32,10 +32,9 @@ func main() {
 	consul.LoadYAMLConf(client, "coreRpcConf", &c)
 
 	ctx := svc.NewServiceContext(c)
-	svr := server.NewCoreServer(ctx)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
-		core.RegisterCoreServer(grpcServer, svr)
+		core.RegisterCoreServer(grpcServer, server.NewCoreServer(ctx))
 
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
 			reflection.Register(grpcServer)
