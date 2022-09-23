@@ -1,3 +1,13 @@
+# 0.0.6 (2022/09/23)
+
+### Features
+
+- feat: use consul to do service discover and get configuration feat: dockerfile feat: consul doc
+
+### Bug Fixes
+
+- fix: update change log
+
 # 0.0.5 (2022/09/21)
 
 ### Features
