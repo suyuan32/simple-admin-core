@@ -16,9 +16,6 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
-	// initialize logx
-	logx.MustSetup(c.LogConf)
-
 	// initialize database connection
 	db, err := c.DB.NewGORM()
 	if err != nil {

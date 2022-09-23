@@ -1,38 +1,10 @@
-Name: core.api
-Host: 0.0.0.0
-Port: 8500
-Auth:
-  AccessSecret:
-  AccessExpire:   # Seconds
-LogConf:
-  ServiceName: coreApiLogger
-  Mode: file
-  Path: /data/logs/api
-  Level: info
-  Compress: false
-  KeepDays: 7
-  StackCooldownMillis: 100
-RedisConf:
-  Host: 127.0.0.1:6379
-  Type: node
-CoreRpc:
-  Etcd:
-    Hosts:
-      - 127.0.0.1:2379
-    Key: core.rpc
-Captcha:
-  KeyLong: 5
-  ImgWidth: 240
-  ImgHeight: 80
-DatabaseConf:
-  Type: mysql
-  Path: 127.0.0.1
-  Port: 3306
-  Config: charset=utf8mb4&parseTime=True&loc=Local
-  DBName: simple_admin
-  Username:
-  Password:
-  MaxIdleConn: 10
-  MaxOpenConn: 100
-  LogMode: error
-  LogZap: false
+Consul:
+  Host: 127.0.0.1:8500 # consul endpoint
+  ListenOn: 127.0.0.1:9100
+  #Token: 'f0512db6-76d6-f25e-f344-a98cc3484d42' # consul ACL token (optional)
+  Key: core.api
+  Meta:
+    Protocol: grpc
+  Tag:
+    - core
+    - api

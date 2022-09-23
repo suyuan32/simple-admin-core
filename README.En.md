@@ -17,20 +17,22 @@ It can help you to develop a microservice back-end management core in a short ti
 - **Fully support go-swagger**: Write comment in api file and generate swagger doc easily
 - **Error handling**: Handle error messages via one module
 - **International**：support different languages show in the front-end via put locale path in the message 
-- **Service Discover** builtin service discovery, load balancing
+- **Service Discover** cunsul, load balancing
 - **Authority** Manage authority via casbin
 - **Other** builtin concurrency control, adaptive circuit breaker, adaptive load shedding, auto-trigger, auto recover
 
 ## Current Progress
 
-| Module             | Status   |
-|--------------------|----------|
-| Login and Register | finished |
-| Menu Management    | finished |
-| Role Management    | finished |
-| Role Authority     | finished |
-| User Management    | finished |
-| Operation log      | finished |
+| Module               | Status   |
+|----------------------|----------|
+| Login and Register   | finished |
+| Menu Management      | finished |
+| Role Management      | finished |
+| Role Authority       | finished |
+| User Management      | finished |
+| Operation log        | finished |
+| Service discovery    | finished |
+| configuration center | finished |
 
 ## Preview
 
@@ -61,6 +63,7 @@ docsify serve .
 - [GORM](https://gorm.io/) - Familiar with GORM apis
 - [Casbin](https://casbin.org/) - Familiar with Casbin apis
 - [Go-swagger](https://goswagger.io/) - Go-swagger document generation
+- [Consul](https://www.consul.io/docs) - Consul
 
 ## Install and use
 

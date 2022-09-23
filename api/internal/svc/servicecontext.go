@@ -23,9 +23,6 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
-	// initialize logx
-	logx.MustSetup(c.LogConf)
-
 	// initialize redis
 	rds := c.RedisConf.NewRedis()
 	logx.Info("Initialize redis connection successfully")

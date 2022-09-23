@@ -30,6 +30,9 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 | 角色权限 | 已完成 |
 | 用户管理 | 已完成 |
 | 操作日志 | 已完成 |
+| 服务注册发现 | 已完成 |
+| 配置中心 | 已完成 |
+
 
 ## 预览
 
@@ -61,6 +64,7 @@ docsify serve .
 - [GORM](https://gorm.io/) - GORM 数据库ORM组件
 - [Casbin](https://casbin.org/) - 权限管理
 - [Go-swagger](https://goswagger.io/) - Go-swagger 文档生成调试
+- [Consul](https://www.consul.io/docs) - Consul
 
 ## 安装使用
 

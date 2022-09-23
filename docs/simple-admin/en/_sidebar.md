@@ -4,4 +4,5 @@
 * [Swagger](simple-admin/en/docs/swagger.md)
 * [File Manager](/simple-admin/en/docs/file_manager.md)
 * [Web setting](/simple-admin/en/docs/web-setting.md)
-* [Validator](/simple-admin/zh-cn/docs/validator.md)
+* [Validator](/simple-admin/en/docs/validator.md)
+* [Consul](/simple-admin/en/docs/consul.md)
