@@ -7,10 +7,17 @@ git clone https://github.com/suyuan32/simple-admin-file.git
 
 ### Modify configuration file
 
+Add kv in consul
+
+#### key
+fileApiConf
+
+#### value
+
 ```yaml
 Name: file_manager_0
 Host: 0.0.0.0
-Port: 8502
+Port: 9102
 MaxBytes: 1073741824 # max content length : 1 gb
 Timeout: 30000 # bigger max bytes need longer timeout
 Auth:

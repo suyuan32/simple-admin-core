@@ -9,7 +9,11 @@
 ## Backend deployment
 
 ### simple admin core
-simple admin core is the core codes of the system, it must be running.
+simple admin core is the core codes of the system, it must be running. 
+
+#### Default account
+username:     admin  \
+password:     simple-admin
 
 ### Get codes
 ```bash
@@ -92,3 +96,5 @@ https://address:port/#/init
 You can see the ui to do this.
 
 ![pic](../../assets/init_en.png)
+
+## **When the initialization finished, you should restart api and rpc service.**

@@ -11,6 +11,10 @@
 ### simple admin core
 simple admin core 是核心代码，必须运行
 
+#### 默认账号
+username:     admin  \
+password:     simple-admin
+
 ### 下载代码 
 ```bash
 git clone https://github.com/suyuan32/simple-admin-core.git
@@ -83,10 +87,11 @@ yarn preview:dist
 
 ```shell
 # 访问前端地址端口
-
 https://address:port/#/init
-```
 
+```
 进入界面
 
 ![pic](../../assets/init_zh_cn.png)
+
+## **初始化完成后需要重启 api 和 rpc。**

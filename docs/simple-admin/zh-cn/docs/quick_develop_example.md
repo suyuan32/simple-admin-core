@@ -9,23 +9,7 @@
 
 - 方法2: 下载代码编译
 
-```shell
-git clone https://github.com/suyuan32/simple-admin-tools.git
 
-cd tools/goctl
-
-go build -o goctls goctl.go
-
-cp ./goctls $GOPATH/bin/goctls
-```
-
-初始化环境
-
-```shell
-goctls env check -i -f --verbose
-```
-
-也可直接使用官方goctl，不过官方没有gorm支持和go-swagger支持
 
 ## RPC服务例子
 
