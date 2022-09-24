@@ -3,8 +3,10 @@
 <h1>Simple Admin</h1>
 </div>
 
-**English** | [中文](./README.md)
-
+**English** | [中文](./README.md) \
+[![Release](https://img.shields.io/badge/Release-v0.0.6-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
 ## Introduction
 
 Simple Admin is a powerful microservice framework for basic management. 

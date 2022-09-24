@@ -3,7 +3,11 @@
 <h1>Simple Admin</h1>
 </div>
 
-**中文** | [English](./README.En.md)
+**中文** | [English](./README.En.md) \
+[![Release](https://img.shields.io/badge/Release-v0.0.6-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
+
 
 ## Introduction
 
@@ -141,6 +145,9 @@ go build -o core core.go
     - `ci` 持续集成
     - `types` 类型定义文件更改
     - `wip` 开发中
+
+## 交流群
+QQ 801043319
 ## 维护者
 
 [@Ryan Su](https://github.com/suyuan32)
