@@ -5,15 +5,15 @@
 - simple-admin-tool (goctls)
 
 
-## 创建 API 项目
+## 创建 RPC 项目
 创建 example
 ```shell
 goctls api new example
 ```
-你可以看到如下项目结构
+你可以看到如下项目结构 \
 ![Example](../../assets/example_rpc_struct.png)
 
-The go.mod is
+go.mod文件
 
 ```shell
 module example

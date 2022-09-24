@@ -5,12 +5,12 @@ Make sure that you have been installed follow software:
 - simple-admin-tool (goctls)
 
 
-## Create api project
+## Create RPC project
 Create example project
 ```shell
 goctls api new example
 ```
-You can see the struct
+You can see the struct \
 ![Example](../../assets/example_rpc_struct.png)
 
 The go.mod is
