@@ -4,6 +4,7 @@
   * [Simple-admin-tool](simple-admin/zh-cn/docs/simple-admin-tools.md)
   * [文件上传管理](/simple-admin/zh-cn/docs/file_manager.md)
   * [前端设置](/simple-admin/zh-cn/docs/web-setting.md)
+  * [全局变量](/simple-admin/zh-cn/docs/global_vars.md)
 * 快速开始
   * 集成到原项目
     * [后端](simple-admin/zh-cn/docs/quick_develop_example.md)
@@ -14,4 +15,6 @@
   * [验证器](/simple-admin/zh-cn/docs/validator.md)
   * [Consul](/simple-admin/zh-cn/docs/consul.md)
   * [Swagger](simple-admin/zh-cn/docs/swagger.md)
+  * [GORM](simple-admin/zh-cn/docs/gorm.md)
+  * [权限验证](simple-admin/zh-cn/docs/authorization.md)
 * [常见问题](simple-admin/zh-cn/docs/FAQ.md) 
