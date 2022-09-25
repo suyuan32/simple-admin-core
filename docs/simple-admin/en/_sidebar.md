@@ -4,7 +4,9 @@
     * [File Manager](/simple-admin/en/docs/file_manager.md)
     * [Web setting](/simple-admin/en/docs/web-setting.md)
 * Quick Start
-    * [Develop origin project](simple-admin/en/docs/quick_develop_example.md)
+    * Develop core project
+      * [Develop backend](simple-admin/en/docs/quick_develop_example.md)
+      * [Develop frontend](simple-admin/en/docs/web_develop_example.md)
     * [API service](simple-admin/en/docs/api_example.md)
     * [RPC service](simple-admin/en/docs/rpc_example.md)
 * Tools

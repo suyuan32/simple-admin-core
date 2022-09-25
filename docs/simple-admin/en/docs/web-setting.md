@@ -2,7 +2,7 @@
 
 ### Mainly modify env file
 
-.env
+#### .env
 
 ```text
 # port
@@ -16,7 +16,9 @@ VITE_GLOB_APP_SHORT_NAME = Simple_Admin
 
 ```
 
-.env.development
+You can set develop port and the name or system.
+
+#### .env.development
 
 ```text
 # Whether to open mock
@@ -27,7 +29,7 @@ VITE_PUBLIC_PATH = /
 
 # Cross-domain proxy, you can configure multiple
 # Please note that no line breaks
-VITE_PROXY = [["/sys-api","http://localhost:8500"],["/file-manager","http://localhost:8502"]]
+VITE_PROXY = [["/sys-api","http://localhost:9100"],["/file-manager","http://localhost:9102"]]
 
 VITE_BUILD_COMPRESS = 'none'
 
@@ -47,3 +49,7 @@ VITE_FILE_STORE_URL=http://localhost:8080
 VITE_GLOB_API_URL_PREFIX=
 
 ```
+
+Mainly modify the VITE_PROXY to CROS request to different host. 
+### You must write your code in one line.
+VITE_PROXY = [["/sys-api","http://localhost:9100"],["/file-manager","http://localhost:9102"]]

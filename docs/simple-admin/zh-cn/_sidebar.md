@@ -5,7 +5,9 @@
   * [文件上传管理](/simple-admin/zh-cn/docs/file_manager.md)
   * [前端设置](/simple-admin/zh-cn/docs/web-setting.md)
 * 快速开始
-  * [集成到原项目](simple-admin/zh-cn/docs/quick_develop_example.md)
+  * 集成到原项目
+    * [后端](simple-admin/zh-cn/docs/quick_develop_example.md)
+    * [前端](simple-admin/zh-cn/docs/web_develop_example.md)
   * [API微服务](simple-admin/zh-cn/docs/api_example.md)
   * [RPC 微服务](simple-admin/zh-cn/docs/rpc_example.md)
 * 工具

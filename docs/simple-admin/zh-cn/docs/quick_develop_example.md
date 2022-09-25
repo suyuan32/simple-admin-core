@@ -1,15 +1,7 @@
 ## 快速开发demo
-
+[例子](https://github.com/suyuan32/simple-admin-core/tree/example)
 ## 安装goctls
-- 方法1： 直接下载最新release
-
-[Release](https://github.com/suyuan32/simple-admin-tools/releases)
-
-将文件放到 $GOPATH/bin 目录下
-
-- 方法2: 下载代码编译
-
-
+[Simple-admin-tool](simple-admin/zh-cn/docs/simple-admin-tools.md)
 
 ## RPC服务例子
 
@@ -379,11 +371,11 @@ func (l *HelloLogic) Hello(in *core.HelloReq) (*core.BaseResp, error) {
 syntax = "v1"
 
 info(
-    title: "example"
-    desc: "example"
-    author: "ryansu"
-    email: "yuansu.china.work@gmail.com"
-    version: "v1.0"
+    title: "type title here"
+    desc: "type desc here"
+    author: "type author here"
+    email: "type email here"
+    version: "type version here"
 )
 
 type (
@@ -395,28 +387,34 @@ type (
 
     }
 
-    // swagger:parameters hello
-    // Hello request | Hello请求
+        // Hello request | Hello请求
+        // swagger:model HelloReq
     HelloReq {
         // Name | 名称
         // Required: true
-        Name   string `path:"name"`
+        Name   string `json:"name" validate:"max=10"`
     }
 )
 
 @server(
+    jwt: Auth
     group: example
 )
 
 service core {
-    // swagger:route POST /example/hello/:name example hello
+    // swagger:route POST /example/hello example hello
     // Hello | Hello
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: HelloReq
     // Responses:
     //   200: HelloResp
     //   401: HelloResp
     //   500: HelloResp
     @handler hello
-    get /example/hello/:name (HelloReq) returns (HelloResp)
+    post /example/hello (HelloReq) returns (HelloResp)
 }
 
 ```
@@ -512,47 +510,9 @@ func (l *HelloLogic) Hello(req *types.HelloReq) (resp *types.HelloResp, err erro
 分别在 api rpc 目录下执行
 
 ```shell
-go run core.go -f etc/core_dev.yaml 
+go run core.go -f etc/core.yaml 
 ```
 
-### 浏览器访问
+## 网页端开发
+[Simple Admin UI](simple-admin/zh-cn/docs/web_develop_example.md)
 
-http://localhost:8500/example/hello/ryan
-
-可以看到
-
-{"msg":"ryan"}
-
-如果添加了jwt则需要在角色权限页面配置权限
-![pic](../../assets/add_example_api.png)
-![pic](../../assets/add_example_api_authority.png)
-
-## web修改
-
-如果要在网页上调用
-首先修改代码中的api
-
-simple-admin-backend-ui/src/api/sys
-
-添加 example.ts
-
-```typescript
-import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/#/axios';
-import { BaseIDReq, BasePageReq, BaseResp } from '/@/api/model/baseModel';
-import { ApiInfo, ApiListResp } from './model/apiModel';
-
-enum Api {
-  Hello = '/sys-api/example/hello',
-}
-
-/**
- * @description: Get hello msg
- */
-
-export const getApiList = (name: string) => {
-  return defHttp.get<BaseResp>({ url: Api.GetApiList + '/' + name });
-};
-```
-
-在 src/views/sys 中添加view即可

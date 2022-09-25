@@ -1,37 +1,11 @@
-                                     ## Quick start demo
-
+## Back end example demo
 [Example](https://github.com/suyuan32/simple-admin-core/tree/example)
-
 ## Install goctls
-- Method 1： download the latest release
+[Simple-admin-tool](simple-admin/zh-cn/docs/simple-admin-tools.md)
 
-[Release](https://github.com/suyuan32/simple-admin-tools/releases)
+## RPC service
 
-Put it to  $GOPATH/bin
-
-- Method 2: clone the code and build
-
-```shell
-git clone https://github.com/suyuan32/simple-admin-tools.git
-
-cd tools/goctl
-
-go build -o goctls goctl.go
-
-cp ./goctls $GOPATH/bin/goctls
-```
-
-Environment initialization
-
-```shell
-goctls env check -i -f --verbose
-```
-
-You can also use official goctl， but it does not support gorm and go-swagger
-
-## RPC service example
-
-### Firstly, edit rpc/core.proto
+### Firstly, modify rpc/core.proto
 
 ```protobuf
 syntax = "proto3";
@@ -346,17 +320,17 @@ service core {
 }
 ```
 
-add example rpc interface
+To add example rpc interface
 
-run in rpc directory
+#### run in rpc directory
 
 ```shell
 goctls rpc protoc core.proto --proto_path=/home/ryan/GolandProjects/simple-admin-core/rpc/ --go_out=./types --go-grpc_out=./types --zrpc_out=./
 ```
 
-proto_path is the absolute directory of proto file
+proto_path better use absolute path
 
-modify internal/logic/hellologic.go
+#### modify internal/logic/hellologic.go
 
 ```go
 package logic
@@ -391,17 +365,17 @@ func (l *HelloLogic) Hello(in *core.HelloReq) (*core.BaseResp, error) {
 
 ```
 
-Then add example.api to api/api_desc/
+And the add example.api into api/api_desc/ 
 
 ```api
 syntax = "v1"
 
 info(
-    title: "example"
-    desc: "example"
-    author: "ryansu"
-    email: "yuansu.china.work@gmail.com"
-    version: "v1.0"
+    title: "type title here"
+    desc: "type desc here"
+    author: "type author here"
+    email: "type email here"
+    version: "type version here"
 )
 
 type (
@@ -413,28 +387,34 @@ type (
 
     }
 
-    // swagger:parameters hello
-    // Hello request | Hello请求
+        // Hello request | Hello请求
+        // swagger:model HelloReq
     HelloReq {
         // Name | 名称
         // Required: true
-        Name   string `path:"name"`
+        Name   string `json:"name" validate:"max=10"`
     }
 )
 
 @server(
+    jwt: Auth
     group: example
 )
 
 service core {
-    // swagger:route POST /example/hello/:name example hello
+    // swagger:route POST /example/hello example hello
     // Hello | Hello
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: HelloReq
     // Responses:
     //   200: HelloResp
     //   401: HelloResp
     //   500: HelloResp
     @handler hello
-    get /example/hello/:name (HelloReq) returns (HelloResp)
+    post /example/hello (HelloReq) returns (HelloResp)
 }
 
 ```
@@ -481,7 +461,7 @@ service core {
 }
 ```
 
-Run in api_desc/
+Run in api_desc directory
 ```shell
 goctls api go -api core.api -dir ..
 ```
@@ -525,51 +505,14 @@ func (l *HelloLogic) Hello(req *types.HelloReq) (resp *types.HelloResp, err erro
 
 ```
 
-### Run rpc and api services
-run in api/ and rpc/ directory respectively
+### Run rpc and api service
+
+Run in api and rpc directory respectively
 
 ```shell
-go run core.go -f etc/core_dev.yaml 
+go run core.go -f etc/core.yaml 
 ```
 
-### browse the URL
+## Front end development
+[Simple Admin UI](simple-admin/en/docs/web_develop_example.md)
 
-http://localhost:8500/example/hello/ryan
-
-And you can see
-
-{"msg":"ryan"}
-
-If you add Auth: jwt in api description file you need to add api and authorization in web
-![pic](../../assets/add_example_api.png)
-![pic](../../assets/add_example_api_authority.png)
-
-## web modification
-
-If you want to use the API in vue
-Firstly, add api file in the path below:
-
-simple-admin-backend-ui/src/api/sys
-
-Add example.ts
-
-```typescript
-import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/#/axios';
-import { BaseIDReq, BasePageReq, BaseResp } from '/@/api/model/baseModel';
-import { ApiInfo, ApiListResp } from './model/apiModel';
-
-enum Api {
-  Hello = '/sys-api/example/hello',
-}
-
-/**
- * @description: Get hello msg
- */
-
-export const getApiList = (name: string) => {
-  return defHttp.get<BaseResp>({ url: Api.GetApiList + '/' + name });
-};
-```
-
-Then add page file in  src/views/sys 
