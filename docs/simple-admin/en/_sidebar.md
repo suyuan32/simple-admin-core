@@ -16,3 +16,4 @@
     * [Swagger](simple-admin/en/docs/swagger.md)
     * [GORM](simple-admin/en/docs/gorm.md)
     * [Authorization](simple-admin/en/docs/authorization.md)
+    * [Error Handling](simple-admin/en/docs/error_handling.md)
