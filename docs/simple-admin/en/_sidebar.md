@@ -10,6 +10,7 @@
       * [Develop Frontend](simple-admin/en/docs/web_develop_example.md)
     * [API Service](simple-admin/en/docs/api_example.md)
     * [RPC Service](simple-admin/en/docs/rpc_example.md)
+    * [Docker](simple-admin/en/docs/docker.md)
 * Tools
     * [Validator](/simple-admin/en/docs/validator.md)
     * [Consul](/simple-admin/en/docs/consul.md)

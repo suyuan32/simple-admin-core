@@ -11,6 +11,7 @@
     * [前端](simple-admin/zh-cn/docs/web_develop_example.md)
   * [API微服务](simple-admin/zh-cn/docs/api_example.md)
   * [RPC 微服务](simple-admin/zh-cn/docs/rpc_example.md)
+  * [Docker](simple-admin/zh-cn/docs/docker.md)
 * 工具
   * [验证器](/simple-admin/zh-cn/docs/validator.md)
   * [Consul](/simple-admin/zh-cn/docs/consul.md)
