@@ -171,3 +171,100 @@ Starting server at 127.0.0.1:9101...
 ```
 
 说明运行成功.
+
+# simple admin core 的 API 中如何远程调用该 RPC 
+
+### 添加 config
+```go
+package config
+
+import (
+	"github.com/suyuan32/simple-admin-tools/plugins/registry/consul"
+	"github.com/zeromicro/go-zero/core/stores/gormsql"
+	"github.com/zeromicro/go-zero/core/stores/redis"
+	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/zrpc"
+)
+
+type Config struct {
+	rest.RestConf `yaml:",inline"`
+	Auth          Auth               `json:"auth" yaml:"Auth"`
+	RedisConf     redis.RedisConf    `json:"redisConf" yaml:"RedisConf"`
+	CoreRpc       zrpc.RpcClientConf `json:"coreRpc" yaml:"CoreRpc"`
+	ExampleRpc    zrpc.RpcClientConf  `json:"exampleRpc" yaml:"ExampleRpc"`
+	Captcha       Captcha            `json:"captcha" yaml:"Captcha"`
+	DB            gormsql.GORMConf   `json:"databaseConf" yaml:"DatabaseConf"`
+}
+
+type Captcha struct {
+	KeyLong   int `json:"keyLong" yaml:"KeyLong"`     // captcha length
+	ImgWidth  int `json:"imgWidth" yaml:"ImgWidth"`   // captcha width
+	ImgHeight int `json:"imgHeight" yaml:"ImgHeight"` // captcha height
+}
+
+type Auth struct {
+	AccessSecret string `json:"accessSecret" yaml:"AccessSecret"`
+	AccessExpire int64  `json:"accessExpire" yaml:"AccessExpire"`
+}
+
+type ConsulConfig struct {
+	Consul consul.Conf
+}
+
+```
+### 修改 service context
+```go
+package svc
+
+import (
+	"github.com/suyuan32/simple-admin-core/api/internal/config"
+	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
+
+	"github.com/casbin/casbin/v2"
+	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/stores/redis"
+	"github.com/zeromicro/go-zero/core/utils"
+	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/zrpc"
+)
+
+type ServiceContext struct {
+	Config    config.Config
+	Authority rest.Middleware
+	CoreRpc   coreclient.Core
+	ExampleRpc exampleclient.Example
+	Redis     *redis.Redis
+	Casbin    *casbin.SyncedEnforcer
+}
+
+func NewServiceContext(c config.Config) *ServiceContext {
+	// initialize redis
+	rds := c.RedisConf.NewRedis()
+	logx.Info("Initialize redis connection successfully")
+
+	// initialize database connection
+	db, err := c.DB.NewGORM()
+	if err != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
+		return nil
+	}
+	logx.Info("Initialize database connection successful")
+
+	// initialize casbin
+	cbn := utils.NewCasbin(db)
+
+	return &ServiceContext{
+		Config:    c,
+		Authority: middleware.NewAuthorityMiddleware(cbn, rds).Handle,
+		CoreRpc:   coreclient.NewCore(zrpc.MustNewClient(c.CoreRpc)),
+		ExampleRpc: exampleclient.NewExample(zrpc.MustNewClient(c.ExampleRpc)),
+		Redis:     rds,
+		Casbin:    cbn,
+	}
+}
+
+```
+
+然后在 logic 直接调用 l.svcCtx.Example 即可
