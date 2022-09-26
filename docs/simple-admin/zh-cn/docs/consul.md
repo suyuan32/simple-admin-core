@@ -69,6 +69,9 @@ DatabaseConf:
   LogZap: false
 ```
 
+## 访问网址
+http://localhost:8500
+
 #### key
 coreRpcConf
 
