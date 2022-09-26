@@ -23,7 +23,7 @@ volumes:
     driver: local
 ```
 
-## 访问网址
+## Visit url
 http://localhost:8500
 
 ### Add Key / Value
