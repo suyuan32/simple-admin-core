@@ -23,4 +23,4 @@ docker-compose up -d
 #### default mysql account: root
 #### password： 123456
 
-### consul and redis do not have password adn token.
+### consul and redis do not have password and token.
