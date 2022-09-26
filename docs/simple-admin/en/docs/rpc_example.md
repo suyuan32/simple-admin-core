@@ -211,6 +211,51 @@ type ConsulConfig struct {
 }
 
 ```
+
+#### consul
+```yaml
+Name: core.api
+Host: 127.0.0.1
+Port: 9100
+Timeout: 30000
+Auth:
+  AccessSecret:         # longer than 8
+  AccessExpire: 259200  # Seconds
+Log:
+  ServiceName: coreApiLogger
+  Mode: file
+  Path: /home/ryan/logs/core/api  # set your own path
+  Level: info
+  Compress: false
+  KeepDays: 7
+  StackCooldownMillis: 100
+RedisConf:
+  Host: 192.168.50.216:6379
+  Type: node
+CoreRpc:
+  Target: consul://127.0.0.1:8500/core.rpc?wait=14s
+  #Token: 'f0512db6-76d6-f25e-f344-a98cc3484d42' # consul ACL token (optional)
+Captcha:
+  KeyLong: 5
+  ImgWidth: 240
+  ImgHeight: 80
+DatabaseConf:
+  Type: mysql
+  Path: 127.0.0.1
+  Port: 3306
+  Config: charset=utf8mb4&parseTime=True&loc=Local
+  DBName: simple_admin
+  Username: 
+  Password: 
+  MaxIdleConn: 10
+  MaxOpenConn: 100
+  LogMode: error
+  LogZap: false
+ExampleRpc:
+  Target: consul://127.0.0.1:8500/example.rpc?wait=14s
+```
+Add example rpc configuration.
+
 ### Modify service context
 ```go
 package svc
