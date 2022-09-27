@@ -86,8 +86,8 @@ DatabaseConf:
   Port: 3306
   Config: charset=utf8mb4&parseTime=True&loc=Local
   DBName: simple_admin
-  Username: 
-  Password: 
+  Username:     # mysql username
+  Password:     # mysql password
   MaxIdleConn: 10
   MaxOpenConn: 100
   LogMode: error

@@ -1,6 +1,6 @@
 Consul:
   Host: 127.0.0.1:8500 # consul endpoint
-  ListenOn: 127.0.0.1:9100
+  ListenOn: 127.0.0.1:9100  # this is used for other services to find this service
   #Token: 'f0512db6-76d6-f25e-f344-a98cc3484d42' # consul ACL token (optional)
   Key: core.api
   Meta:

@@ -1,5 +1,14 @@
 version: '3'
 
+volumes:
+  mysql:
+  redis:
+  consul:
+
+networks:
+  simple-admin:
+    driver: bridge
+
 services:
   mysql:
     image: mysql:8.0.21
@@ -12,7 +21,11 @@ services:
       MYSQL_DATABASE: 'simple-admin'
       MYSQL_ROOT_PASSWORD: '123456'
     volumes:
-      - /data/mysql:/var/lib/mysql
+      - mysql:/var/lib/mysql
+    networks:
+      simple-admin:
+        aliases:
+          - mysqlserver
 
   redis:
     image: redis:7.0.5-alpine
@@ -21,13 +34,17 @@ services:
     ports:
       - '6379:6379'
     volumes:
-      - /data/redis:/data
+      - redis:/data
+    networks:
+      simple-admin:
+        aliases:
+          - redisserver
 
   consul:
     image: docker.io/bitnami/consul:latest
     container_name: consul
     volumes:
-      - /data/consul:/bitnami/consul
+      - consul:/bitnami/consul
     ports:
       - '8300:8300'
       - '8301:8301'
@@ -35,4 +52,8 @@ services:
       - '8500:8500'
       - '8600:8600'
       - '8600:8600/udp'
+    networks:
+      simple-admin:
+        aliases:
+          - consulserver
 

@@ -55,6 +55,6 @@ UploadConf:
 ```
 你可以使用nginx 将 PublicStorePath 转发为静态地址方便前端调用
 
-确保 AccessSecret 和 simple-admin-core的pai配置文件内一致
+确保 AccessSecret 和 simple-admin-core的api配置文件内一致
 配置方式参考core
 运行方式同理
