@@ -4,6 +4,10 @@
 </div>
 
 **English** | [中文](./README.md) \
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.4.1-brightgreen.svg)](https://go-zero.dev/)
+[![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.8.0-yellow.svg)](https://vvbin.cn/doc-next/)
+[![GORM](https://img.shields.io/badge/GORM-v1.23.8-blue.svg)](https://gorm.io/)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.52.1-orange.svg)](https://github.com/casbin/casbin)
 [![Release](https://img.shields.io/badge/Release-v0.0.6-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
