@@ -44,6 +44,7 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 [在线预览](http://101.132.124.135/#/dashboard)
 账号 admin
 密码 simple-admin
+#### 只读，不可修改和注册
 
 ![pic](https://s1.imagehub.cc/images/2022/09/15/-2022-09-05-21-49-00.png)
 ![pic](https://s1.imagehub.cc/images/2022/09/15/register_zh_cn.png)
