@@ -3,9 +3,9 @@
 //		This is simple admin api doc
 //
 //		Schemes: http, https
-//		Host: localhost:8500
+//		Host: localhost:9100
 //		BasePath: /
-//		Version: 0.0.1
+//		Version: 0.0.6
 //		Contact: yuansu.china.work@gmail.com
 //		securityDefinitions:
 //		  Token:

@@ -14,3 +14,12 @@ swagger serve --no-open -F=swagger --port 36666 core.yaml
 ```
 
 ![pic](../../assets/swagger.png)
+
+### 获取 Token
+#### 先登录系统，在任意请求中复制 authorization
+![pic](../../assets/get_token.png)
+
+#### 粘贴到 swagger
+![pic](../../assets/swagger_authority.png)
+
+

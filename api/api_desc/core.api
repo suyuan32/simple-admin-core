@@ -14,6 +14,7 @@ import "menu.api"
 import "captcha.api"
 import "apis.api"
 import "authority.api"
+import "dictionary.api"
 import "base.api"
 
 @server(

@@ -1,0 +1,253 @@
+syntax = "v1"
+
+info(
+    title: "dictionary management"
+    desc: "dictionary management is used to register dictionaries and manage dictionaries"
+    author: "Ryan Su"
+    email: "yuansu.china.work@gmail.com"
+    version: "v1.0"
+)
+
+import "base.api"
+
+type (
+    // The response data of dictionary information | 字典信息
+    // swagger:model DictionaryInfo
+    DictionaryInfo {
+        // ID
+        Id            uint64 `json:"id"`
+
+        CreateAt      int64  `json:"createAt"`
+
+        // Dictionary title | 字典显示名称
+        Title         string `json:"title"`
+
+        // Dictionary name | 字典名称
+        Name          string `json:"name"`
+
+        // Dictionary status | 字典状态
+        Status         bool   `json:"status"`
+
+        // Dictionary description | 字典描述
+        Description   string `json:"description"`
+    }
+
+    // Create or update dictionary information request | 创建或更新字典信息请求
+    // swagger:model CreateOrUpdateDictionaryReq
+    CreateOrUpdateDictionaryReq {
+        // ID
+        // Required: true
+        Id            uint64 `json:"id" validate:"number"`
+
+        // Dictionary title | 字典显示名称
+        // Required: true
+        // Min length: 1
+        // Max length: 50
+        Title         string `json:"title" validate:"min=1,max=50"`
+
+        // Dictionary name | 字典名称
+        // Required: true
+        // Min length: 1
+        // Max length: 50
+        Name          string `json:"name" validate:"min=1,max=50"`
+
+        // Dictionary status | 字典状态
+        // Required: true
+        Status         bool   `json:"status" validator:"boolean"`
+
+        // Dictionary description | 字典描述
+        // Required: true
+        // Max length: 50
+        Description   string `json:"description" validate:"max=50"`
+    }
+
+    // The response data of dictionary list | 字典列表数据
+    // swagger:response DictionaryListResp
+    DictionaryListResp {
+        // The total number of data | 数据总数
+        Total uint64 `json:"total"`
+
+        // The dictionary list data | 字典列表数据
+        // in: body
+        Data  []DictionaryInfo  `json:"data"`
+    }
+
+    // Get dictionary list request params | 字典列表请求参数
+    // swagger:model DictionaryListReq
+    DictionaryListReq {
+       PageInfo
+
+       // Dictionary title | 字典显示名称
+       // Required: true
+       // Max length: 50
+       Title         string `json:"title" validate:"max=50"`
+
+       // Dictionary name | 字典名称
+       // Required: true
+       // Max length: 50
+       Name          string `json:"name" validate:"max=50"`
+    }
+
+    // The response data of dictionary information | 字典信息
+    // swagger:model DictionaryDetailInfo
+    DictionaryDetailInfo {
+        // ID
+        Id            uint64 `json:"id"`
+
+        CreateAt      int64  `json:"createAt"`
+
+        // Dictionary title | 字典显示名称
+        Title         string `json:"title"`
+
+        // Key name | 键
+        Key          string `json:"key"`
+
+        // Value | 值
+        Value          string `json:"value"`
+
+        // Status | 状态
+        Status         bool   `json:"status" validate:"boolean"`
+    }
+
+    // The response data of dictionary KV list | 字典值的列表数据
+    // swagger:response DictionaryDetailListResp
+    DictionaryDetailListResp {
+        // The total number of data | 数据总数
+        Total uint64 `json:"total"`
+
+        // The dictionary list data | 字典列表数据
+        // in: body
+        Data  []DictionaryDetailInfo  `json:"data"`
+    }
+
+    // Create or update dictionary KV information request | 创建或更新字典键值信息请求
+    // swagger:model CreateOrUpdateDictionaryDetailReq
+    CreateOrUpdateDictionaryDetailReq {
+        // ID
+        // Required: true
+        Id            uint64 `json:"id" validate:"number"`
+
+        // Detail title | 字典值显示名称
+        // Required: true
+        // Min length: 1
+        // Max length: 50
+        Title         string `json:"title" validate:"min=1,max=50"`
+
+        // Detail key | 键
+        // Required: true
+        // Min length: 1
+        // Max length: 50
+        Key          string `json:"key" validate:"min=1,max=50"`
+
+        // Detail value | 值
+        // Required: true
+        Value        string `json:"value"`
+
+        // Status | 状态
+        // Required: true
+        Status       bool   `json:"status" validate:"boolean"`
+
+        // Parent ID | 所属字典ID
+        // Required: true
+        ParentId     uint64 `json:"parentId" validate:"number"`
+    }
+
+    // Get dictionary detail list by dictionary name request | 根据字典名称获取对应键值请求
+    // swagger:model DictionaryDetailReq
+    DictionaryDetailReq {
+        // Dictionary name | 字典名
+        Name    string  `json:"name"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: dictionary
+    middleware: Authority
+)
+
+service core {
+    // swagger:route POST /dict dictionary createOrUpdateDictionary
+    // Create or update dictionary information | 创建或更新字典信息
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: CreateOrUpdateDictionaryReq
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler createOrUpdateDictionary
+    post /dict (CreateOrUpdateDictionaryReq) returns (SimpleMsg)
+
+    // swagger:route DELETE /dict dictionary deleteDictionary
+    // Delete dictionary information | 删除字典信息
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: IDReq
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler deleteDictionary
+    delete /dict (IDReq) returns (SimpleMsg)
+
+    // swagger:route POST /dict/list dictionary getDictionaryList
+    // Get dictionary list | 获取字典列表
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: DictionaryListReq
+    // Responses:
+    //   200: DictionaryListResp
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler getDictionaryList
+    post /dict/list (DictionaryListReq) returns (DictionaryListResp)
+
+    // swagger:route POST /dict/detail dictionary createOrUpdateDictionaryDetail
+    // Create or update dictionary KV information | 创建或更新字典键值信息
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: CreateOrUpdateDictionaryDetailReq
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler createOrUpdateDictionaryDetail
+    post /dict/detail (CreateOrUpdateDictionaryDetailReq) returns (SimpleMsg)
+
+    // swagger:route DELETE /dict/detail dictionary deleteDictionaryDetail
+    // Delete dictionary KV information | 删除字典键值信息
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: IDReq
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler deleteDictionaryDetail
+    delete /dict/detail (IDReq) returns (SimpleMsg)
+
+    // swagger:route POST /dict/detail/list dictionary getDetailByDictionaryName
+    // Get dictionary detail list by dictionary name | 根据字典名获取字典键值列表
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: DictionaryDetailReq
+    // Responses:
+    //   200: DictionaryDetailListResp
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler getDetailByDictionaryName
+    post /dict/detail/list (DictionaryDetailReq) returns (DictionaryDetailListResp)
+}

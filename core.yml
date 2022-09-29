@@ -50,7 +50,7 @@ definitions:
         properties:
             description:
                 description: API Description | API 描述
-                maxLength: 30
+                maxLength: 50
                 type: string
                 x-go-name: Description
             group:
@@ -62,8 +62,7 @@ definitions:
                 x-go-name: Group
             method:
                 description: API request method e.g. POST | API请求类型 如POST
-                maxLength: 30
-                minLength: 3
+                maxLength: 4
                 type: string
                 x-go-name: Method
             page:
@@ -79,7 +78,7 @@ definitions:
                 x-go-name: PageSize
             path:
                 description: API path | API路径
-                maxLength: 30
+                maxLength: 100
                 type: string
                 x-go-name: Path
         required:
@@ -138,7 +137,7 @@ definitions:
                 x-go-name: CreateAt
             description:
                 description: API Description | API 描述
-                maxLength: 30
+                maxLength: 50
                 type: string
                 x-go-name: Description
             group:
@@ -162,7 +161,7 @@ definitions:
                 x-go-name: Method
             path:
                 description: API path | API路径
-                maxLength: 30
+                maxLength: 50
                 minLength: 1
                 type: string
                 x-go-name: Path
@@ -172,6 +171,85 @@ definitions:
             - path
             - description
             - method
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    CreateOrUpdateDictionaryDetailReq:
+        description: Create or update dictionary KV information request | 创建或更新字典键值信息请求
+        properties:
+            id:
+                description: ID
+                format: uint64
+                type: integer
+                x-go-name: Id
+            key:
+                description: Detail key | 键
+                maxLength: 50
+                minLength: 1
+                type: string
+                x-go-name: Key
+            parentId:
+                description: Parent ID | 所属字典ID
+                format: uint64
+                type: integer
+                x-go-name: ParentId
+            status:
+                description: Status | 状态
+                type: boolean
+                x-go-name: Status
+            title:
+                description: Detail title | 字典值显示名称
+                maxLength: 50
+                minLength: 1
+                type: string
+                x-go-name: Title
+            value:
+                description: Detail value | 值
+                type: string
+                x-go-name: Value
+        required:
+            - id
+            - title
+            - key
+            - value
+            - status
+            - parentId
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    CreateOrUpdateDictionaryReq:
+        description: Create or update dictionary information request | 创建或更新字典信息请求
+        properties:
+            description:
+                description: Dictionary description | 字典描述
+                maxLength: 50
+                type: string
+                x-go-name: Description
+            id:
+                description: ID
+                format: uint64
+                type: integer
+                x-go-name: Id
+            name:
+                description: Dictionary name | 字典名称
+                maxLength: 50
+                minLength: 1
+                type: string
+                x-go-name: Name
+            status:
+                description: Dictionary status | 字典状态
+                type: boolean
+                x-go-name: Status
+            title:
+                description: Dictionary title | 字典显示名称
+                maxLength: 50
+                minLength: 1
+                type: string
+                x-go-name: Title
+        required:
+            - id
+            - title
+            - name
+            - status
+            - description
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateMenuParamReq:
@@ -395,6 +473,106 @@ definitions:
             - email
             - avatar
             - status
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    DictionaryDetailInfo:
+        description: The response data of dictionary information | 字典信息
+        properties:
+            createAt:
+                format: int64
+                type: integer
+                x-go-name: CreateAt
+            id:
+                description: ID
+                format: uint64
+                type: integer
+                x-go-name: Id
+            key:
+                description: Key name | 键
+                type: string
+                x-go-name: Key
+            status:
+                description: Status | 状态
+                type: boolean
+                x-go-name: Status
+            title:
+                description: Dictionary title | 字典显示名称
+                type: string
+                x-go-name: Title
+            value:
+                description: Value | 值
+                type: string
+                x-go-name: Value
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    DictionaryDetailReq:
+        description: Get dictionary detail list by dictionary name request | 根据字典名称获取对应键值请求
+        properties:
+            name:
+                description: Dictionary name | 字典名
+                type: string
+                x-go-name: Name
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    DictionaryInfo:
+        description: The response data of dictionary information | 字典信息
+        properties:
+            createAt:
+                format: int64
+                type: integer
+                x-go-name: CreateAt
+            description:
+                description: Dictionary description | 字典描述
+                type: string
+                x-go-name: Description
+            id:
+                description: ID
+                format: uint64
+                type: integer
+                x-go-name: Id
+            name:
+                description: Dictionary name | 字典名称
+                type: string
+                x-go-name: Name
+            status:
+                description: Dictionary status | 字典状态
+                type: boolean
+                x-go-name: Status
+            title:
+                description: Dictionary title | 字典显示名称
+                type: string
+                x-go-name: Title
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    DictionaryListReq:
+        description: Get dictionary list request params | 字典列表请求参数
+        properties:
+            name:
+                description: Dictionary name | 字典名称
+                maxLength: 50
+                type: string
+                x-go-name: Name
+            page:
+                description: Page number | 第几页
+                format: uint64
+                type: integer
+                x-go-name: Page
+            pageSize:
+                description: Page size | 单页数据行数
+                format: uint64
+                maximum: 100000
+                type: integer
+                x-go-name: PageSize
+            title:
+                description: Dictionary title | 字典显示名称
+                maxLength: 50
+                type: string
+                x-go-name: Title
+        required:
+            - page
+            - pageSize
+            - title
+            - name
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetMenuListBase:
@@ -941,7 +1119,7 @@ definitions:
                 x-go-name: OrderNo
             remark:
                 description: Role remark | 角色备注
-                maxLength: 40
+                maxLength: 200
                 type: string
                 x-go-name: Remark
             status:
@@ -1064,13 +1242,13 @@ definitions:
                 x-go-name: Username
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-host: localhost:8500
+host: localhost:9100
 info:
     contact:
         email: yuansu.china.work@gmail.com
     description: This is simple admin api doc
     title: Simple Admin
-    version: 0.0.1
+    version: 0.0.6
 paths:
     /api:
         delete:
@@ -1234,6 +1412,118 @@ paths:
                     $ref: '#/responses/SimpleMsg'
             tags:
                 - core
+    /dict:
+        delete:
+            description: Delete dictionary information | 删除字典信息
+            operationId: deleteDictionary
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - dictionary
+        post:
+            description: Create or update dictionary information | 创建或更新字典信息
+            operationId: createOrUpdateDictionary
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/CreateOrUpdateDictionaryReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - dictionary
+    /dict/detail:
+        delete:
+            description: Delete dictionary KV information | 删除字典键值信息
+            operationId: deleteDictionaryDetail
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - dictionary
+        post:
+            description: Create or update dictionary KV information | 创建或更新字典键值信息
+            operationId: createOrUpdateDictionaryDetail
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/CreateOrUpdateDictionaryDetailReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - dictionary
+    /dict/detail/list:
+        post:
+            description: Get dictionary detail list by dictionary name | 根据字典名获取字典键值列表
+            operationId: getDetailByDictionaryName
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/DictionaryDetailReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/DictionaryDetailListResp'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - dictionary
+    /dict/list:
+        post:
+            description: Get dictionary list | 获取字典列表
+            operationId: getDictionaryList
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/DictionaryListReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/DictionaryListResp'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - dictionary
     /menu:
         delete:
             description: Delete menu information | 删除菜单信息
@@ -1691,6 +1981,28 @@ responses:
                 type: string
             imgPath:
                 type: string
+    DictionaryDetailListResp:
+        description: The response data of dictionary KV list | 字典值的列表数据
+        headers:
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+        schema:
+            items:
+                $ref: '#/definitions/DictionaryDetailInfo'
+            type: array
+    DictionaryListResp:
+        description: The response data of dictionary list | 字典列表数据
+        headers:
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+        schema:
+            items:
+                $ref: '#/definitions/DictionaryInfo'
+            type: array
     GetUserInfoResp:
         description: The response data of user's basic information | 用户基本信息返回数据
         headers:

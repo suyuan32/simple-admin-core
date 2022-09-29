@@ -152,3 +152,34 @@ func (s *CoreServer) CreateOrUpdateMenuAuthority(ctx context.Context, in *core.R
 	l := logic.NewCreateOrUpdateMenuAuthorityLogic(ctx, s.svcCtx)
 	return l.CreateOrUpdateMenuAuthority(in)
 }
+
+// dictionary management service
+func (s *CoreServer) CreateOrUpdateDictionary(ctx context.Context, in *core.DictionaryInfo) (*core.BaseResp, error) {
+	l := logic.NewCreateOrUpdateDictionaryLogic(ctx, s.svcCtx)
+	return l.CreateOrUpdateDictionary(in)
+}
+
+func (s *CoreServer) DeleteDictionary(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+	l := logic.NewDeleteDictionaryLogic(ctx, s.svcCtx)
+	return l.DeleteDictionary(in)
+}
+
+func (s *CoreServer) GetDictionaryList(ctx context.Context, in *core.DictionaryPageReq) (*core.DictionaryList, error) {
+	l := logic.NewGetDictionaryListLogic(ctx, s.svcCtx)
+	return l.GetDictionaryList(in)
+}
+
+func (s *CoreServer) GetDetailByDictionaryName(ctx context.Context, in *core.DictionaryDetailReq) (*core.DictionaryDetailList, error) {
+	l := logic.NewGetDetailByDictionaryNameLogic(ctx, s.svcCtx)
+	return l.GetDetailByDictionaryName(in)
+}
+
+func (s *CoreServer) CreateOrUpdateDictionaryDetail(ctx context.Context, in *core.DictionaryDetail) (*core.BaseResp, error) {
+	l := logic.NewCreateOrUpdateDictionaryDetailLogic(ctx, s.svcCtx)
+	return l.CreateOrUpdateDictionaryDetail(in)
+}
+
+func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+	l := logic.NewDeleteDictionaryDetailLogic(ctx, s.svcCtx)
+	return l.DeleteDictionaryDetail(in)
+}

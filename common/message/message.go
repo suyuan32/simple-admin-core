@@ -71,4 +71,9 @@ const (
 	// En: API already exists
 	// ZH_CN: API已存在
 	ApiAlreadyExists string = "sys.apis.apiExists"
+
+	// DictionaryAlreadyExists
+	// En: Dictionary already exists
+	// ZH_CN: 字典已存在
+	DictionaryAlreadyExists string = "sys.dict.dictExists"
 )

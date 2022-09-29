@@ -75,7 +75,8 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	l.svcCtx.Redis.Set("database_init_state", "0")
 
 	// initialize table structure
-	err := l.svcCtx.DB.AutoMigrate(&model.User{}, &model.Role{}, &model.Api{}, &model.Menu{}, &model.MenuParam{})
+	err := l.svcCtx.DB.AutoMigrate(&model.User{}, &model.Role{}, &model.Api{}, &model.Menu{}, &model.MenuParam{},
+		&model.Dictionary{}, &model.DictionaryDetail{})
 	if err != nil {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
@@ -362,6 +363,43 @@ func (l *InitDatabaseLogic) insertApiData() error {
 			Path:        "/api/list",
 			Description: "api_desc.APIList",
 			ApiGroup:    "api",
+			Method:      "POST",
+		},
+		// dictionary
+		{
+			Path:        "/dict",
+			Description: "api_desc.createOrUpdateDictionary",
+			ApiGroup:    "dictionary",
+			Method:      "POST",
+		},
+		{
+			Path:        "/dict",
+			Description: "api_desc.deleteDictionary",
+			ApiGroup:    "dictionary",
+			Method:      "DELETE",
+		},
+		{
+			Path:        "/dict/detail",
+			Description: "api_desc.deleteDictionaryDetail",
+			ApiGroup:    "dictionary",
+			Method:      "DELETE",
+		},
+		{
+			Path:        "/dict/detail",
+			Description: "api_desc.createOrUpdateDictionaryDetail",
+			ApiGroup:    "dictionary",
+			Method:      "POST",
+		},
+		{
+			Path:        "/dict/detail/list",
+			Description: "api_desc.getDictionaryListDetail",
+			ApiGroup:    "dictionary",
+			Method:      "POST",
+		},
+		{
+			Path:        "/dict/list",
+			Description: "api_desc.getDictionaryList",
+			ApiGroup:    "dictionary",
 			Method:      "POST",
 		},
 	}

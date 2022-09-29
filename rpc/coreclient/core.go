@@ -22,6 +22,12 @@ type (
 	CreateOrUpdateMenuReq      = core.CreateOrUpdateMenuReq
 	CreateOrUpdateUserReq      = core.CreateOrUpdateUserReq
 	CreatePolicyReq            = core.CreatePolicyReq
+	DictionaryDetail           = core.DictionaryDetail
+	DictionaryDetailList       = core.DictionaryDetailList
+	DictionaryDetailReq        = core.DictionaryDetailReq
+	DictionaryInfo             = core.DictionaryInfo
+	DictionaryList             = core.DictionaryList
+	DictionaryPageReq          = core.DictionaryPageReq
 	Empty                      = core.Empty
 	GetUserListReq             = core.GetUserListReq
 	IDReq                      = core.IDReq
@@ -79,6 +85,13 @@ type (
 		// authorization management service
 		GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
 		CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// dictionary management service
+		CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteDictionary(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		GetDictionaryList(ctx context.Context, in *DictionaryPageReq, opts ...grpc.CallOption) (*DictionaryList, error)
+		GetDetailByDictionaryName(ctx context.Context, in *DictionaryDetailReq, opts ...grpc.CallOption) (*DictionaryDetailList, error)
+		CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	}
 
 	defaultCore struct {
@@ -221,4 +234,35 @@ func (m *defaultCore) GetMenuAuthority(ctx context.Context, in *IDReq, opts ...g
 func (m *defaultCore) CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.CreateOrUpdateMenuAuthority(ctx, in, opts...)
+}
+
+// dictionary management service
+func (m *defaultCore) CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateOrUpdateDictionary(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteDictionary(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteDictionary(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetDictionaryList(ctx context.Context, in *DictionaryPageReq, opts ...grpc.CallOption) (*DictionaryList, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetDictionaryList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetDetailByDictionaryName(ctx context.Context, in *DictionaryDetailReq, opts ...grpc.CallOption) (*DictionaryDetailList, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetDetailByDictionaryName(ctx, in, opts...)
+}
+
+func (m *defaultCore) CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateOrUpdateDictionaryDetail(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteDictionaryDetail(ctx, in, opts...)
 }

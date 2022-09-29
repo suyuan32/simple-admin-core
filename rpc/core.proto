@@ -246,7 +246,6 @@ message ApiPageReq {
 }
 
 // authorization message
-
 message RoleMenuAuthorityReq {
   uint64 role_id = 1;
   repeated uint64 menu_id = 2;
@@ -255,8 +254,51 @@ message RoleMenuAuthorityReq {
 message RoleMenuAuthorityResp {
   repeated uint64 menu_id = 1;
 }
-// service
 
+// dictionary message
+message DictionaryInfo {
+  uint64 id = 1;
+  string title = 2;
+  string name = 3;
+  bool status = 4;
+  string desc = 5;
+  int64 create_at = 6;
+  int64 update_at = 7;
+}
+
+message DictionaryDetail {
+  uint64 id = 1;
+  string title = 2;
+  string key = 3;
+  string value = 4;
+  bool  status = 5;
+  int64 create_at = 6;
+  int64 update_at = 7;
+  int64 parent_id = 8;
+}
+
+message DictionaryList {
+  uint64 total = 1;
+  repeated DictionaryInfo data = 2;
+}
+
+message DictionaryDetailList {
+  uint64 total = 1;
+  repeated DictionaryDetail data = 2;
+}
+
+message DictionaryDetailReq {
+  string name = 1;
+}
+
+message DictionaryPageReq {
+  string title = 1;
+  string name = 2;
+  uint64 page = 3;
+  uint64 page_size = 4;
+}
+
+// service
 service core {
   // init
   rpc initDatabase (Empty) returns (BaseResp);
@@ -296,4 +338,11 @@ service core {
   rpc getMenuAuthority (IDReq) returns (RoleMenuAuthorityResp);
   rpc createOrUpdateMenuAuthority (RoleMenuAuthorityReq) returns (BaseResp);
 
+  // dictionary management service
+  rpc createOrUpdateDictionary (DictionaryInfo) returns (BaseResp);
+  rpc deleteDictionary (IDReq) returns (BaseResp);
+  rpc getDictionaryList (DictionaryPageReq) returns (DictionaryList);
+  rpc getDetailByDictionaryName (DictionaryDetailReq) returns (DictionaryDetailList);
+  rpc createOrUpdateDictionaryDetail (DictionaryDetail) returns (BaseResp);
+  rpc deleteDictionaryDetail (IDReq) returns (BaseResp);
 }

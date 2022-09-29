@@ -54,6 +54,13 @@ type CoreClient interface {
 	// authorization management service
 	GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
 	CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// dictionary management service
+	CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	DeleteDictionary(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	GetDictionaryList(ctx context.Context, in *DictionaryPageReq, opts ...grpc.CallOption) (*DictionaryList, error)
+	GetDetailByDictionaryName(ctx context.Context, in *DictionaryDetailReq, opts ...grpc.CallOption) (*DictionaryDetailList, error)
+	CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error)
+	DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 }
 
 type coreClient struct {
@@ -289,6 +296,60 @@ func (c *coreClient) CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMe
 	return out, nil
 }
 
+func (c *coreClient) CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateDictionary", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteDictionary(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/deleteDictionary", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetDictionaryList(ctx context.Context, in *DictionaryPageReq, opts ...grpc.CallOption) (*DictionaryList, error) {
+	out := new(DictionaryList)
+	err := c.cc.Invoke(ctx, "/core.core/getDictionaryList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetDetailByDictionaryName(ctx context.Context, in *DictionaryDetailReq, opts ...grpc.CallOption) (*DictionaryDetailList, error) {
+	out := new(DictionaryDetailList)
+	err := c.cc.Invoke(ctx, "/core.core/getDetailByDictionaryName", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateDictionaryDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/deleteDictionaryDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoreServer is the server API for Core service.
 // All implementations must embed UnimplementedCoreServer
 // for forward compatibility
@@ -325,6 +386,13 @@ type CoreServer interface {
 	// authorization management service
 	GetMenuAuthority(context.Context, *IDReq) (*RoleMenuAuthorityResp, error)
 	CreateOrUpdateMenuAuthority(context.Context, *RoleMenuAuthorityReq) (*BaseResp, error)
+	// dictionary management service
+	CreateOrUpdateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error)
+	DeleteDictionary(context.Context, *IDReq) (*BaseResp, error)
+	GetDictionaryList(context.Context, *DictionaryPageReq) (*DictionaryList, error)
+	GetDetailByDictionaryName(context.Context, *DictionaryDetailReq) (*DictionaryDetailList, error)
+	CreateOrUpdateDictionaryDetail(context.Context, *DictionaryDetail) (*BaseResp, error)
+	DeleteDictionaryDetail(context.Context, *IDReq) (*BaseResp, error)
 	mustEmbedUnimplementedCoreServer()
 }
 
@@ -406,6 +474,24 @@ func (UnimplementedCoreServer) GetMenuAuthority(context.Context, *IDReq) (*RoleM
 }
 func (UnimplementedCoreServer) CreateOrUpdateMenuAuthority(context.Context, *RoleMenuAuthorityReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenuAuthority not implemented")
+}
+func (UnimplementedCoreServer) CreateOrUpdateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateDictionary not implemented")
+}
+func (UnimplementedCoreServer) DeleteDictionary(context.Context, *IDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionary not implemented")
+}
+func (UnimplementedCoreServer) GetDictionaryList(context.Context, *DictionaryPageReq) (*DictionaryList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDictionaryList not implemented")
+}
+func (UnimplementedCoreServer) GetDetailByDictionaryName(context.Context, *DictionaryDetailReq) (*DictionaryDetailList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDetailByDictionaryName not implemented")
+}
+func (UnimplementedCoreServer) CreateOrUpdateDictionaryDetail(context.Context, *DictionaryDetail) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateDictionaryDetail not implemented")
+}
+func (UnimplementedCoreServer) DeleteDictionaryDetail(context.Context, *IDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionaryDetail not implemented")
 }
 func (UnimplementedCoreServer) mustEmbedUnimplementedCoreServer() {}
 
@@ -870,6 +956,114 @@ func _Core_CreateOrUpdateMenuAuthority_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_CreateOrUpdateDictionary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DictionaryInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateOrUpdateDictionary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/createOrUpdateDictionary",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateOrUpdateDictionary(ctx, req.(*DictionaryInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteDictionary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteDictionary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/deleteDictionary",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteDictionary(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetDictionaryList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DictionaryPageReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetDictionaryList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/getDictionaryList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetDictionaryList(ctx, req.(*DictionaryPageReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetDetailByDictionaryName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DictionaryDetailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetDetailByDictionaryName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/getDetailByDictionaryName",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetDetailByDictionaryName(ctx, req.(*DictionaryDetailReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreateOrUpdateDictionaryDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DictionaryDetail)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateOrUpdateDictionaryDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/createOrUpdateDictionaryDetail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateOrUpdateDictionaryDetail(ctx, req.(*DictionaryDetail))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteDictionaryDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteDictionaryDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/deleteDictionaryDetail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteDictionaryDetail(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Core_ServiceDesc is the grpc.ServiceDesc for Core service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -976,6 +1170,30 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "createOrUpdateMenuAuthority",
 			Handler:    _Core_CreateOrUpdateMenuAuthority_Handler,
+		},
+		{
+			MethodName: "createOrUpdateDictionary",
+			Handler:    _Core_CreateOrUpdateDictionary_Handler,
+		},
+		{
+			MethodName: "deleteDictionary",
+			Handler:    _Core_DeleteDictionary_Handler,
+		},
+		{
+			MethodName: "getDictionaryList",
+			Handler:    _Core_GetDictionaryList_Handler,
+		},
+		{
+			MethodName: "getDetailByDictionaryName",
+			Handler:    _Core_GetDetailByDictionaryName_Handler,
+		},
+		{
+			MethodName: "createOrUpdateDictionaryDetail",
+			Handler:    _Core_CreateOrUpdateDictionaryDetail_Handler,
+		},
+		{
+			MethodName: "deleteDictionaryDetail",
+			Handler:    _Core_DeleteDictionaryDetail_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

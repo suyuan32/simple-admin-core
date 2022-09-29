@@ -8,6 +8,7 @@ import (
 	authority "github.com/suyuan32/simple-admin-core/api/internal/handler/authority"
 	captcha "github.com/suyuan32/simple-admin-core/api/internal/handler/captcha"
 	core "github.com/suyuan32/simple-admin-core/api/internal/handler/core"
+	dictionary "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionary"
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
 	user "github.com/suyuan32/simple-admin-core/api/internal/handler/user"
@@ -226,6 +227,45 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/authority/menu/role",
 					Handler: authority.GetMenuAuthorityHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/dict",
+					Handler: dictionary.CreateOrUpdateDictionaryHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/dict",
+					Handler: dictionary.DeleteDictionaryHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/dict/list",
+					Handler: dictionary.GetDictionaryListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/dict/detail",
+					Handler: dictionary.CreateOrUpdateDictionaryDetailHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/dict/detail",
+					Handler: dictionary.DeleteDictionaryDetailHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/dict/detail/list",
+					Handler: dictionary.GetDetailByDictionaryNameHandler(serverCtx),
 				},
 			}...,
 		),
