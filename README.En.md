@@ -29,16 +29,17 @@ It can help you to develop a microservice back-end management core in a short ti
 
 ## Current Progress
 
-| Module               | Status   |
-|----------------------|----------|
-| Login and Register   | finished |
-| Menu Management      | finished |
-| Role Management      | finished |
-| Role Authority       | finished |
-| User Management      | finished |
-| Operation log        | finished |
-| Service discovery    | finished |
-| configuration center | finished |
+| Module               | Status    |
+|----------------------|-----------|
+| Login and Register   | finished  |
+| Menu Management      | finished  |
+| Role Management      | finished  |
+| Role Authority       | finished  |
+| User Management      | finished  |
+| Operation log        | finished  |
+| Service discovery    | finished  |
+| Configuration center | finished  |
+| Dictionary management | finished  |                    
 
 ## Preview
 
