@@ -40,55 +40,49 @@ func (l *GetMenuByPageLogic) GetMenuByPage(in *core.PageInfoReq) (*core.MenuInfo
 	}
 	var res *core.MenuInfoList
 	res = &core.MenuInfoList{}
-	res.Data = findMenuChildren(data)
-	// delete menus whose menu levels are not 1
-	var tmp []*core.MenuInfo
-	for _, v := range res.Data {
-		if v.Level == 1 {
-			tmp = append(tmp, v)
-		}
-	}
-	res.Data = tmp
-	res.Total = uint64(len(tmp))
+	res.Data = findMenuChildren(data, 1)
+	res.Total = uint64(len(res.Data))
 	return res, nil
 }
 
-func findMenuChildren(data []model.Menu) []*core.MenuInfo {
+func findMenuChildren(data []model.Menu, parentId uint) []*core.MenuInfo {
 	if data == nil {
 		return nil
 	}
 	var result []*core.MenuInfo
 	for _, v := range data {
-		tmp := &core.MenuInfo{
-			Id:        uint64(v.ID),
-			CreateAt:  v.CreatedAt.UnixMilli(),
-			UpdateAt:  v.UpdatedAt.UnixMilli(),
-			MenuType:  v.MenuType,
-			Level:     v.MenuLevel,
-			ParentId:  uint32(v.ParentId),
-			Path:      v.Path,
-			Name:      v.Name,
-			Redirect:  v.Redirect,
-			Component: v.Component,
-			OrderNo:   v.OrderNo,
-			Meta: &core.Meta{
-				Title:              v.Meta.Title,
-				Icon:               v.Meta.Icon,
-				HideMenu:           v.Meta.HideMenu,
-				HideBreadcrumb:     v.Meta.HideBreadcrumb,
-				CurrentActiveMenu:  v.Meta.CurrentActiveMenu,
-				IgnoreKeepAlive:    v.Meta.IgnoreKeepAlive,
-				HideTab:            v.Meta.HideTab,
-				FrameSrc:           v.Meta.FrameSrc,
-				CarryParam:         v.Meta.CarryParam,
-				HideChildrenInMenu: v.Meta.HideChildrenInMenu,
-				Affix:              v.Meta.Affix,
-				DynamicLevel:       v.Meta.DynamicLevel,
-				RealPath:           v.Meta.RealPath,
-			},
-			Children: findMenuChildren(v.Children),
+		if v.ParentId == parentId && v.ID != v.ParentId {
+			tmp := &core.MenuInfo{
+				Id:        uint64(v.ID),
+				CreateAt:  v.CreatedAt.UnixMilli(),
+				UpdateAt:  v.UpdatedAt.UnixMilli(),
+				MenuType:  v.MenuType,
+				Level:     v.MenuLevel,
+				ParentId:  uint32(v.ParentId),
+				Path:      v.Path,
+				Name:      v.Name,
+				Redirect:  v.Redirect,
+				Component: v.Component,
+				OrderNo:   v.OrderNo,
+				Meta: &core.Meta{
+					Title:              v.Meta.Title,
+					Icon:               v.Meta.Icon,
+					HideMenu:           v.Meta.HideMenu,
+					HideBreadcrumb:     v.Meta.HideBreadcrumb,
+					CurrentActiveMenu:  v.Meta.CurrentActiveMenu,
+					IgnoreKeepAlive:    v.Meta.IgnoreKeepAlive,
+					HideTab:            v.Meta.HideTab,
+					FrameSrc:           v.Meta.FrameSrc,
+					CarryParam:         v.Meta.CarryParam,
+					HideChildrenInMenu: v.Meta.HideChildrenInMenu,
+					Affix:              v.Meta.Affix,
+					DynamicLevel:       v.Meta.DynamicLevel,
+					RealPath:           v.Meta.RealPath,
+				},
+				Children: findMenuChildren(data, v.ID),
+			}
+			result = append(result, tmp)
 		}
-		result = append(result, tmp)
 	}
 	return result
 }

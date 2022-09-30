@@ -521,8 +521,8 @@ type CreateOrUpdateMenuReq struct {
 	Path string `json:"path" validate:"max=200"`
 	// Menu name | 菜单名
 	// Required: true
-	// Max length: 20
-	Name string `json:"name" validate:"max=20"`
+	// Max length: 50
+	Name string `json:"name" validate:"max=50"`
 	// Redirect path | 跳转路径
 	// Required: true
 	// Max length: 100

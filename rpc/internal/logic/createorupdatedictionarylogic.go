@@ -53,7 +53,7 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {
 		var origin model.Dictionary
-		check := l.svcCtx.DB.Where("id = ?").First(&origin)
+		check := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
 		if check.Error != nil {
 			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
