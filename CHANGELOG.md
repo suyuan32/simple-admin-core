@@ -1,3 +1,39 @@
+# 0.0.7 (2022/09/30)
+
+### Bug Fixes
+
+- fix: authority tree generation and init database code
+- fix: bugs in menu tree generation
+
+# 0.0.7-beta (2022/09/29)
+
+### Features
+
+- feat: dictionary
+- feat: dictionary
+- docs: add badges
+- docs: read only notice
+- feat: online preview
+- feat: online preview
+- docs: deploy in docker
+- docs: add consul url
+- docs: add consul url
+- docs: rpc example service config
+- docs: call rpc service
+- docs: docker
+- docs: docker
+- feat: error handling doc
+- feat: global variable, GORM and authorization doc
+- feat: example doc
+- feat: discord link and qq link
+- feat: API and RPC example doc
+- feat: update changelog
+
+### Bug Fixes
+
+- fix: docker compose and rpc doc
+- fix: update tool version
+
 # 0.0.6 (2022/09/23)
 
 ### Features
