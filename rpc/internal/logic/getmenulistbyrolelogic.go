@@ -48,55 +48,57 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.IDReq) (*core.MenuIn
 	for _, v := range r.Menus {
 		validId[v.ID] = struct{}{}
 	}
-	res.Data = findRoleMenuChildren(r.Menus, validId)
+	res.Data = findRoleMenuChildren(r.Menus, validId, 1)
 	// delete menus whose menu levels are not 1
-	var tmp []*core.MenuInfo
-	for _, v := range res.Data {
-		if v.Level == 1 {
-			tmp = append(tmp, v)
-		}
-	}
-	res.Data = tmp
+	//var tmp []*core.MenuInfo
+	//for _, v := range res.Data {
+	//	if v.Level == 1 {
+	//		tmp = append(tmp, v)
+	//	}
+	//}
+	//res.Data = tmp
 	return res, nil
 }
 
-func findRoleMenuChildren(data []model.Menu, validId map[uint]struct{}) []*core.MenuInfo {
+func findRoleMenuChildren(data []model.Menu, validId map[uint]struct{}, parentId uint) []*core.MenuInfo {
 	if data == nil {
 		return nil
 	}
 	var result []*core.MenuInfo
 	for _, v := range data {
-		if _, ok := validId[v.ID]; ok {
-			tmp := &core.MenuInfo{
-				Id:        uint64(v.ID),
-				CreateAt:  v.CreatedAt.Unix(),
-				UpdateAt:  v.UpdatedAt.Unix(),
-				MenuType:  v.MenuType,
-				Level:     v.MenuLevel,
-				ParentId:  uint32(v.ParentId),
-				Path:      v.Path,
-				Name:      v.Name,
-				Redirect:  v.Redirect,
-				Component: v.Component,
-				OrderNo:   v.OrderNo,
-				Meta: &core.Meta{
-					Title:              v.Meta.Title,
-					Icon:               v.Meta.Icon,
-					HideMenu:           v.Meta.HideMenu,
-					HideBreadcrumb:     v.Meta.HideBreadcrumb,
-					CurrentActiveMenu:  v.Meta.CurrentActiveMenu,
-					IgnoreKeepAlive:    v.Meta.IgnoreKeepAlive,
-					HideTab:            v.Meta.HideTab,
-					FrameSrc:           v.Meta.FrameSrc,
-					CarryParam:         v.Meta.CarryParam,
-					HideChildrenInMenu: v.Meta.HideChildrenInMenu,
-					Affix:              v.Meta.Affix,
-					DynamicLevel:       v.Meta.DynamicLevel,
-					RealPath:           v.Meta.RealPath,
-				},
-				Children: findRoleMenuChildren(v.Children, validId),
+		if v.ParentId == parentId && v.ID != v.ParentId {
+			if _, ok := validId[v.ID]; ok {
+				tmp := &core.MenuInfo{
+					Id:        uint64(v.ID),
+					CreateAt:  v.CreatedAt.UnixMilli(),
+					UpdateAt:  v.UpdatedAt.UnixMilli(),
+					MenuType:  v.MenuType,
+					Level:     v.MenuLevel,
+					ParentId:  uint32(v.ParentId),
+					Path:      v.Path,
+					Name:      v.Name,
+					Redirect:  v.Redirect,
+					Component: v.Component,
+					OrderNo:   v.OrderNo,
+					Meta: &core.Meta{
+						Title:              v.Meta.Title,
+						Icon:               v.Meta.Icon,
+						HideMenu:           v.Meta.HideMenu,
+						HideBreadcrumb:     v.Meta.HideBreadcrumb,
+						CurrentActiveMenu:  v.Meta.CurrentActiveMenu,
+						IgnoreKeepAlive:    v.Meta.IgnoreKeepAlive,
+						HideTab:            v.Meta.HideTab,
+						FrameSrc:           v.Meta.FrameSrc,
+						CarryParam:         v.Meta.CarryParam,
+						HideChildrenInMenu: v.Meta.HideChildrenInMenu,
+						Affix:              v.Meta.Affix,
+						DynamicLevel:       v.Meta.DynamicLevel,
+						RealPath:           v.Meta.RealPath,
+					},
+					Children: findRoleMenuChildren(data, validId, v.ID),
+				}
+				result = append(result, tmp)
 			}
-			result = append(result, tmp)
 		}
 	}
 	return result

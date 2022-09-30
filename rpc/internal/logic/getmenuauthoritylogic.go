@@ -40,7 +40,9 @@ func (l *GetMenuAuthorityLogic) GetMenuAuthority(in *core.IDReq) (*core.RoleMenu
 	}
 	var menuIds []uint64
 	for _, v := range r.Menus {
-		menuIds = append(menuIds, uint64(v.ID))
+		if v.ID != 1 {
+			menuIds = append(menuIds, uint64(v.ID))
+		}
 	}
 	return &core.RoleMenuAuthorityResp{MenuId: menuIds}, nil
 }
