@@ -10,6 +10,7 @@ import (
 	core "github.com/suyuan32/simple-admin-core/api/internal/handler/core"
 	dictionary "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionary"
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
+	oauth "github.com/suyuan32/simple-admin-core/api/internal/handler/oauth"
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
 	user "github.com/suyuan32/simple-admin-core/api/internal/handler/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -266,6 +267,40 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/dict/detail/list",
 					Handler: dictionary.GetDetailByDictionaryNameHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/oauth/login",
+				Handler: oauth.OauthLoginHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/oauth/provider",
+					Handler: oauth.CreateOrUpdateProviderHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/oauth/provideroauth",
+					Handler: oauth.DeleteProviderHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/oauth/provider/list",
+					Handler: oauth.GetProviderListHandler(serverCtx),
 				},
 			}...,
 		),
