@@ -40,8 +40,12 @@ type (
 	MenuRoleInfo               = core.MenuRoleInfo
 	MenuRoleListResp           = core.MenuRoleListResp
 	Meta                       = core.Meta
+	OauthLoginReq              = core.OauthLoginReq
+	OauthRedirectResp          = core.OauthRedirectResp
 	PageInfoReq                = core.PageInfoReq
 	PolicyPartInfo             = core.PolicyPartInfo
+	ProviderInfo               = core.ProviderInfo
+	ProviderListResp           = core.ProviderListResp
 	RoleInfo                   = core.RoleInfo
 	RoleListResp               = core.RoleListResp
 	RoleMenuAuthorityReq       = core.RoleMenuAuthorityReq
@@ -92,6 +96,11 @@ type (
 		GetDetailByDictionaryName(ctx context.Context, in *DictionaryDetailReq, opts ...grpc.CallOption) (*DictionaryDetailList, error)
 		CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// oauth management
+		CreateOrUpdateProvider(ctx context.Context, in *ProviderInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteProvider(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		GetProviderList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*ProviderListResp, error)
+		OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
 	}
 
 	defaultCore struct {
@@ -265,4 +274,25 @@ func (m *defaultCore) CreateOrUpdateDictionaryDetail(ctx context.Context, in *Di
 func (m *defaultCore) DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteDictionaryDetail(ctx, in, opts...)
+}
+
+// oauth management
+func (m *defaultCore) CreateOrUpdateProvider(ctx context.Context, in *ProviderInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateOrUpdateProvider(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteProvider(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteProvider(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetProviderList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*ProviderListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetProviderList(ctx, in, opts...)
+}
+
+func (m *defaultCore) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.OauthLogin(ctx, in, opts...)
 }

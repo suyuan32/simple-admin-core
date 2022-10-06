@@ -183,3 +183,24 @@ func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDReq)
 	l := logic.NewDeleteDictionaryDetailLogic(ctx, s.svcCtx)
 	return l.DeleteDictionaryDetail(in)
 }
+
+// oauth management
+func (s *CoreServer) CreateOrUpdateProvider(ctx context.Context, in *core.ProviderInfo) (*core.BaseResp, error) {
+	l := logic.NewCreateOrUpdateProviderLogic(ctx, s.svcCtx)
+	return l.CreateOrUpdateProvider(in)
+}
+
+func (s *CoreServer) DeleteProvider(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+	l := logic.NewDeleteProviderLogic(ctx, s.svcCtx)
+	return l.DeleteProvider(in)
+}
+
+func (s *CoreServer) GetProviderList(ctx context.Context, in *core.PageInfoReq) (*core.ProviderListResp, error) {
+	l := logic.NewGetProviderListLogic(ctx, s.svcCtx)
+	return l.GetProviderList(in)
+}
+
+func (s *CoreServer) OauthLogin(ctx context.Context, in *core.OauthLoginReq) (*core.OauthRedirectResp, error) {
+	l := logic.NewOauthLoginLogic(ctx, s.svcCtx)
+	return l.OauthLogin(in)
+}

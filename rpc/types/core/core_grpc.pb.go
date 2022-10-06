@@ -61,6 +61,11 @@ type CoreClient interface {
 	GetDetailByDictionaryName(ctx context.Context, in *DictionaryDetailReq, opts ...grpc.CallOption) (*DictionaryDetailList, error)
 	CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error)
 	DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// oauth management
+	CreateOrUpdateProvider(ctx context.Context, in *ProviderInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	DeleteProvider(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	GetProviderList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*ProviderListResp, error)
+	OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
 }
 
 type coreClient struct {
@@ -350,6 +355,42 @@ func (c *coreClient) DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts
 	return out, nil
 }
 
+func (c *coreClient) CreateOrUpdateProvider(ctx context.Context, in *ProviderInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateProvider", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteProvider(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/deleteProvider", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetProviderList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*ProviderListResp, error) {
+	out := new(ProviderListResp)
+	err := c.cc.Invoke(ctx, "/core.core/getProviderList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error) {
+	out := new(OauthRedirectResp)
+	err := c.cc.Invoke(ctx, "/core.core/oauthLogin", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoreServer is the server API for Core service.
 // All implementations must embed UnimplementedCoreServer
 // for forward compatibility
@@ -393,6 +434,11 @@ type CoreServer interface {
 	GetDetailByDictionaryName(context.Context, *DictionaryDetailReq) (*DictionaryDetailList, error)
 	CreateOrUpdateDictionaryDetail(context.Context, *DictionaryDetail) (*BaseResp, error)
 	DeleteDictionaryDetail(context.Context, *IDReq) (*BaseResp, error)
+	// oauth management
+	CreateOrUpdateProvider(context.Context, *ProviderInfo) (*BaseResp, error)
+	DeleteProvider(context.Context, *IDReq) (*BaseResp, error)
+	GetProviderList(context.Context, *PageInfoReq) (*ProviderListResp, error)
+	OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error)
 	mustEmbedUnimplementedCoreServer()
 }
 
@@ -492,6 +538,18 @@ func (UnimplementedCoreServer) CreateOrUpdateDictionaryDetail(context.Context, *
 }
 func (UnimplementedCoreServer) DeleteDictionaryDetail(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionaryDetail not implemented")
+}
+func (UnimplementedCoreServer) CreateOrUpdateProvider(context.Context, *ProviderInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateProvider not implemented")
+}
+func (UnimplementedCoreServer) DeleteProvider(context.Context, *IDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteProvider not implemented")
+}
+func (UnimplementedCoreServer) GetProviderList(context.Context, *PageInfoReq) (*ProviderListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProviderList not implemented")
+}
+func (UnimplementedCoreServer) OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OauthLogin not implemented")
 }
 func (UnimplementedCoreServer) mustEmbedUnimplementedCoreServer() {}
 
@@ -1064,6 +1122,78 @@ func _Core_DeleteDictionaryDetail_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_CreateOrUpdateProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProviderInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateOrUpdateProvider(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/createOrUpdateProvider",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateOrUpdateProvider(ctx, req.(*ProviderInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteProvider(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/deleteProvider",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteProvider(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetProviderList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetProviderList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/getProviderList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetProviderList(ctx, req.(*PageInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_OauthLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OauthLoginReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).OauthLogin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/oauthLogin",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).OauthLogin(ctx, req.(*OauthLoginReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Core_ServiceDesc is the grpc.ServiceDesc for Core service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1194,6 +1324,22 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteDictionaryDetail",
 			Handler:    _Core_DeleteDictionaryDetail_Handler,
+		},
+		{
+			MethodName: "createOrUpdateProvider",
+			Handler:    _Core_CreateOrUpdateProvider_Handler,
+		},
+		{
+			MethodName: "deleteProvider",
+			Handler:    _Core_DeleteProvider_Handler,
+		},
+		{
+			MethodName: "getProviderList",
+			Handler:    _Core_GetProviderList_Handler,
+		},
+		{
+			MethodName: "oauthLogin",
+			Handler:    _Core_OauthLogin_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
