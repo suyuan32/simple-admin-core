@@ -76,7 +76,7 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 
 	// initialize table structure
 	err := l.svcCtx.DB.AutoMigrate(&model.User{}, &model.Role{}, &model.Api{}, &model.Menu{}, &model.MenuParam{},
-		&model.Dictionary{}, &model.DictionaryDetail{})
+		&model.Dictionary{}, &model.DictionaryDetail{}, &model.OauthProvider{})
 	if err != nil {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
@@ -114,6 +114,20 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	err = l.insertCasbinPoliciesData()
+	if err != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
+		return nil, status.Error(codes.Internal, err.Error())
+	}
+
+	err = l.insertCasbinPoliciesData()
+	if err != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
+		return nil, status.Error(codes.Internal, err.Error())
+	}
+
+	err = l.insertProviderData()
 	if err != nil {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
@@ -400,6 +414,31 @@ func (l *InitDatabaseLogic) insertApiData() error {
 			Path:        "/dict/list",
 			Description: "api_desc.getDictionaryList",
 			ApiGroup:    "dictionary",
+			Method:      "POST",
+		},
+		// oauth APIs
+		{
+			Path:        "/oauth/provider",
+			Description: "api_desc.createOrUpdateProvider",
+			ApiGroup:    "oauth",
+			Method:      "POST",
+		},
+		{
+			Path:        "/oauth/provider",
+			Description: "api_desc.deleteProvider",
+			ApiGroup:    "oauth",
+			Method:      "DELETE",
+		},
+		{
+			Path:        "/oauth/provider/list",
+			Description: "api_desc.geProviderList",
+			ApiGroup:    "oauth",
+			Method:      "POST",
+		},
+		{
+			Path:        "/oauth/login",
+			Description: "api_desc.oauthLogin",
+			ApiGroup:    "oauth",
 			Method:      "POST",
 		},
 	}
@@ -784,4 +823,27 @@ func getCasbin(db *gorm.DB) *casbin.SyncedEnforcer {
 		return nil
 	}
 	return syncedEnforcer
+}
+
+func (l *InitDatabaseLogic) insertProviderData() error {
+	providers := []model.OauthProvider{
+		{
+			Name:         "google",
+			ClientID:     "your client id",
+			ClientSecret: "your client secret",
+			RedirectURL:  "redirect url",
+			Scopes:       "https://www.googleapis.com/auth/userinfo.email",
+			AuthURL:      "https://accounts.google.com/o/oauth2/auth",
+			TokenURL:     "https://oauth2.googleapis.com/token",
+			AuthStyle:    1,
+			InfoURL:      "https://www.googleapis.com/oauth2/v2/userinfo?access_token=",
+		},
+	}
+	result := l.svcCtx.DB.CreateInBatches(providers, 10)
+	if result.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		return status.Error(codes.Internal, result.Error.Error())
+	} else {
+		return nil
+	}
 }

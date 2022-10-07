@@ -280,6 +280,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/oauth/login",
 				Handler: oauth.OauthLoginHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/oauth/login/callback",
+				Handler: oauth.OauthCallbackHandler(serverCtx),
+			},
 		},
 	)
 
@@ -294,7 +299,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				},
 				{
 					Method:  http.MethodDelete,
-					Path:    "/oauth/provideroauth",
+					Path:    "/oauth/provider",
 					Handler: oauth.DeleteProviderHandler(serverCtx),
 				},
 				{

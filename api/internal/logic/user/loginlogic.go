@@ -41,7 +41,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			return nil, err
 		}
 
-		token, err := l.getJwtToken(l.svcCtx.Config.Auth.AccessSecret, user.Id, time.Now().Unix(),
+		token, err := GetJwtToken(l.svcCtx.Config.Auth.AccessSecret, user.Id, time.Now().Unix(),
 			l.svcCtx.Config.Auth.AccessExpire, int64(user.RoleId))
 		if err != nil {
 			return nil, err
@@ -61,7 +61,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 	}
 }
 
-func (l *LoginLogic) getJwtToken(secretKey, uuid string, iat, seconds, roleId int64) (string, error) {
+func GetJwtToken(secretKey, uuid string, iat, seconds, roleId int64) (string, error) {
 	claims := make(jwt.MapClaims)
 	claims["exp"] = iat + seconds
 	claims["iat"] = iat

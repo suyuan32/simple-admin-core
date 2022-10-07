@@ -204,3 +204,8 @@ func (s *CoreServer) OauthLogin(ctx context.Context, in *core.OauthLoginReq) (*c
 	l := logic.NewOauthLoginLogic(ctx, s.svcCtx)
 	return l.OauthLogin(in)
 }
+
+func (s *CoreServer) OauthCallback(ctx context.Context, in *core.CallbackReq) (*core.LoginResp, error) {
+	l := logic.NewOauthCallbackLogic(ctx, s.svcCtx)
+	return l.OauthCallback(in)
+}

@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/zeromicro/go-zero/core/stores/redis"
+	"gorm.io/gorm"
+
 	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/common/message"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
@@ -51,35 +54,9 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 		return nil, status.Error(codes.InvalidArgument, message.WrongUsernameOrPassword)
 	}
 
-	// get role data from redis
-	var roleName, value string
-	if s, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d", u.RoleId)); err != nil {
-		var roleData []model.Role
-		res := l.svcCtx.DB.Find(&roleData)
-		if res.RowsAffected == 0 {
-			logx.Error("Fail to find any role")
-			return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
-		}
-		for _, v := range roleData {
-			err = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d", v.ID), v.Name)
-			err = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d_value", v.ID), v.Value)
-			err = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d_status", v.ID), strconv.Itoa(int(v.Status)))
-			if err != nil {
-				logx.Errorw(logmessage.RedisError, logx.Field("Detail", err.Error()))
-				return nil, status.Error(codes.Internal, errorx.RedisError)
-			}
-			if v.ID == uint(u.RoleId) {
-				roleName = v.Name
-				value = v.Value
-			}
-		}
-	} else {
-		roleName = s
-		value, err = l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d_value", u.RoleId))
-		if err != nil {
-			logx.Error("Fail to find the role data")
-			return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
-		}
+	roleName, value, err := getRoleInfo(u.RoleId, l.svcCtx.Redis, l.svcCtx.DB)
+	if err != nil {
+		return nil, err
 	}
 
 	logx.Infow("Log in successfully", logx.Field("UUID", u.UUID))
@@ -90,4 +67,36 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 		RoleId:    u.RoleId,
 	}, nil
 
+}
+
+func getRoleInfo(roleId uint32, rds *redis.Redis, db *gorm.DB) (roleName, roleValue string, err error) {
+	if s, err := rds.Hget("roleData", strconv.Itoa(int(roleId))); err != nil {
+		var roleData []model.Role
+		res := db.Find(&roleData)
+		if res.RowsAffected == 0 {
+			logx.Error("Fail to find any role")
+			return "", "", status.Error(codes.NotFound, errorx.TargetNotExist)
+		}
+		for _, v := range roleData {
+			err = rds.Hset("roleData", strconv.Itoa(int(v.ID)), v.Name)
+			err = rds.Hset("roleData", fmt.Sprintf("%d_value", v.ID), v.Value)
+			err = rds.Hset("roleData", fmt.Sprintf("%d_status", v.ID), strconv.Itoa(int(v.Status)))
+			if err != nil {
+				logx.Errorw(logmessage.RedisError, logx.Field("Detail", err.Error()))
+				return "", "", status.Error(codes.Internal, errorx.RedisError)
+			}
+			if v.ID == uint(roleId) {
+				roleName = v.Name
+				roleValue = v.Value
+			}
+		}
+	} else {
+		roleName = s
+		roleValue, err = rds.Hget("roleData", fmt.Sprintf("%d_value", roleId))
+		if err != nil {
+			logx.Error("Fail to find the role data")
+			return "", "", status.Error(codes.NotFound, errorx.TargetNotExist)
+		}
+	}
+	return roleName, roleValue, nil
 }

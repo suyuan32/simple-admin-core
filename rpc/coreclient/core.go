@@ -17,6 +17,7 @@ type (
 	ApiListResp                = core.ApiListResp
 	ApiPageReq                 = core.ApiPageReq
 	BaseResp                   = core.BaseResp
+	CallbackReq                = core.CallbackReq
 	ChangePasswordReq          = core.ChangePasswordReq
 	CreateOrUpdateMenuParamReq = core.CreateOrUpdateMenuParamReq
 	CreateOrUpdateMenuReq      = core.CreateOrUpdateMenuReq
@@ -101,6 +102,7 @@ type (
 		DeleteProvider(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetProviderList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*ProviderListResp, error)
 		OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
+		OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error)
 	}
 
 	defaultCore struct {
@@ -295,4 +297,9 @@ func (m *defaultCore) GetProviderList(ctx context.Context, in *PageInfoReq, opts
 func (m *defaultCore) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.OauthLogin(ctx, in, opts...)
+}
+
+func (m *defaultCore) OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.OauthCallback(ctx, in, opts...)
 }

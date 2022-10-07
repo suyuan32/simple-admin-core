@@ -358,7 +358,7 @@ definitions:
                 x-go-name: IgnoreKeepAlive
             name:
                 description: Menu name | 菜单名
-                maxLength: 20
+                maxLength: 50
                 type: string
                 x-go-name: Name
             orderNo:
@@ -408,6 +408,78 @@ definitions:
             - component
             - orderNo
             - disabled
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    CreateOrUpdateProviderReq:
+        description: Create or update provider information request | 创建或更新提供商信息
+        properties:
+            authStyle:
+                description: |-
+                    Auth Style is specifies how the endpoint wants the client ID & client secret sent. The zero value means to auto-detect. | 鉴权方式, 0 表示自动检测
+                    0 auto detect 1 client ID and client secret 2 username and password
+                example: 0
+                format: int64
+                type: integer
+                x-go-name: AuthStyle
+            authURL:
+                description: Auth URL | 鉴权URL
+                maxLength: 200
+                type: string
+                x-go-name: AuthURL
+            clientID:
+                description: Client ID | 客户端ID
+                maxLength: 100
+                type: string
+                x-go-name: ClientID
+            clientSecret:
+                description: |-
+                    Client secret | 客户端密码
+                    Require: true
+                maxLength: 100
+                minLength: 1
+                type: string
+                x-go-name: ClientSecret
+            createAt:
+                description: Create date | 创建日期
+                format: int64
+                type: integer
+                x-go-name: CreateAt
+            id:
+                description: ID
+                format: uint64
+                type: integer
+                x-go-name: Id
+            name:
+                description: Provider name | 提供商名字
+                maxLength: 50
+                minLength: 1
+                type: string
+                x-go-name: Name
+            redirectURL:
+                description: Redirect URL | 跳转URL
+                maxLength: 200
+                type: string
+                x-go-name: RedirectURL
+            scopes:
+                description: Scopes | 范围
+                maxLength: 200
+                type: string
+                x-go-name: Scopes
+            tokenURL:
+                description: Token URL | 获取 Token 的网址
+                maxLength: 200
+                type: string
+                x-go-name: TokenURL
+        required:
+            - id
+            - createAt
+            - name
+            - clientID
+            - redirectURL
+            - scopes
+            - authURL
+            - tokenURL
+            - authStyle
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateUserReq:
@@ -1002,6 +1074,25 @@ definitions:
                 x-go-name: Title
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    OauthLoginReq:
+        description: Oauth log in request | Oauth 登录请求
+        properties:
+            provider:
+                description: Provider name | 提供商名字
+                example: google
+                maxLength: 40
+                type: string
+                x-go-name: Provider
+            state:
+                description: State code to avoid hack | 状态码，请求前后相同避免安全问题
+                maxLength: 30
+                type: string
+                x-go-name: State
+        required:
+            - state
+            - provider
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     PageInfo:
         properties:
             page:
@@ -1048,6 +1139,53 @@ definitions:
             - avatar
             - mobile
             - email
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    ProviderInfo:
+        description: The response data of oauth provider information | 提供者信息
+        properties:
+            authStyle:
+                description: Auth Style is specifies how the endpoint wants the client ID & client secret sent. The zero value means to auto-detect. | 鉴权方式, 0 表示自动检测
+                format: int64
+                type: integer
+                x-go-name: AuthStyle
+            authURL:
+                description: Auth URL | 鉴权URL
+                type: string
+                x-go-name: AuthURL
+            clientID:
+                description: Client ID | 客户端ID
+                type: string
+                x-go-name: ClientID
+            clientSecret:
+                description: Client secret | 客户端密码
+                type: string
+                x-go-name: ClientSecret
+            createAt:
+                format: int64
+                type: integer
+                x-go-name: CreateAt
+            id:
+                description: ID
+                format: uint64
+                type: integer
+                x-go-name: Id
+            name:
+                description: Provider name | 提供商名字
+                type: string
+                x-go-name: Name
+            redirectURL:
+                description: Redirect URL | 跳转URL
+                type: string
+                x-go-name: RedirectURL
+            scopes:
+                description: Scopes | 范围
+                type: string
+                x-go-name: Scopes
+            tokenURL:
+                description: Token URL | 获取 Token 的网址
+                type: string
+                x-go-name: TokenURL
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RegisterReq:
@@ -1645,6 +1783,94 @@ paths:
                     $ref: '#/responses/SimpleMsg'
             tags:
                 - menu
+    /oauth/login:
+        post:
+            description: Oauth log in | Oauth 登录
+            operationId: oauthLogin
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/OauthLoginReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/RedirectResp'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - oauth
+    /oauth/login/callback:
+        post:
+            description: Oauth log in callback route | Oauth 登录返回调接口
+            operationId: oauthCallback
+            responses:
+                "200":
+                    $ref: '#/responses/CallbackResp'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - oauth
+    /oauth/provider:
+        delete:
+            description: Delete provider information | 删除提供商信息
+            operationId: deleteProvider
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - oauth
+        post:
+            description: Create or update Provider information | 创建或更新提供商
+            operationId: createOrUpdateProvider
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/CreateOrUpdateProviderReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - oauth
+    /oauth/provider/list:
+        post:
+            description: Get provider list | 获取提供商列表
+            operationId: getProviderList
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/PageInfo'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/ProviderListResp'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - oauth
     /role:
         delete:
             description: Delete role information | 删除角色信息
@@ -1974,6 +2200,21 @@ responses:
                 type: integer
             msg:
                 type: string
+    CallbackResp:
+        description: The oauth callback response data | Oauth回调数据
+        headers:
+            expire:
+                description: Expire timestamp | 过期时间戳
+                format: uint64
+                type: integer
+            token:
+                description: Token for authorization | 验证身份的token
+                type: string
+            userId:
+                description: User's UUID | 用户的UUID
+                type: string
+        schema:
+            $ref: '#/definitions/RoleInfoSimple'
     CaptchaInfo:
         description: The response data of captcha | 验证码返回数据
         headers:
@@ -2318,6 +2559,57 @@ responses:
                 type: string
             nickname:
                 description: user's nickname | 用户的昵称
+                type: string
+    ProviderInfo:
+        description: The response data of oauth provider information | 提供者信息
+        headers:
+            authStyle:
+                description: Auth Style is specifies how the endpoint wants the client ID & client secret sent. The zero value means to auto-detect. | 鉴权方式, 0 表示自动检测
+                format: int64
+                type: integer
+            authURL:
+                description: Auth URL | 鉴权URL
+                type: string
+            clientID:
+                description: Client ID | 客户端ID
+                type: string
+            clientSecret:
+                description: Client secret | 客户端密码
+                type: string
+            createAt:
+                format: int64
+                type: integer
+            id:
+                description: ID
+                format: uint64
+                type: integer
+            name:
+                description: Provider name | 提供商名字
+                type: string
+            redirectURL:
+                description: Redirect URL | 跳转URL
+                type: string
+            scopes:
+                description: Scopes | 范围
+                type: string
+            tokenURL:
+                description: Token URL | 获取 Token 的网址
+                type: string
+    ProviderListResp:
+        description: The response data of provider list | 提供商列表数据
+        headers:
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+        schema:
+            items:
+                $ref: '#/definitions/ProviderInfo'
+            type: array
+    RedirectResp:
+        description: Redirect response | 跳转网址
+        headers:
+            URL:
                 type: string
     RoleInfoSimple:
         description: The simple role data | 简单的角色数据

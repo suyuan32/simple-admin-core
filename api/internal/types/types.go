@@ -919,8 +919,9 @@ type CreateOrUpdateProviderReq struct {
 	// Max length: 200
 	TokenURL string `json:"tokenURL" validate:"max=200"`
 	// Auth Style is specifies how the endpoint wants the client ID & client secret sent. The zero value means to auto-detect. | 鉴权方式, 0 表示自动检测
+	// 0 auto detect 1 client ID and client secret 2 username and password
 	// Required: true
-	// Example: 0 auto detect 1 client ID and client secret 2 username and password
+	// Example: 0
 	AuthStyle int `json:"authStyle" validate:"number"`
 }
 
@@ -935,7 +936,7 @@ type ProviderListResp struct {
 }
 
 // Oauth log in request | Oauth 登录请求
-// swagger:model CreateOrUpdateProviderReq
+// swagger:model OauthLoginReq
 type OauthLoginReq struct {
 	// State code to avoid hack | 状态码，请求前后相同避免安全问题
 	// Required: true
@@ -952,4 +953,18 @@ type OauthLoginReq struct {
 // swagger:response RedirectResp
 type RedirectResp struct {
 	URL string `json:"URL"`
+}
+
+// The oauth callback response data | Oauth回调数据
+// swagger:response CallbackResp
+type CallbackResp struct {
+	// User's UUID | 用户的UUID
+	UserId string `json:"userId"`
+	// User's role information| 用户的角色信息
+	// in: body
+	Role RoleInfoSimple `json:"role"`
+	// Token for authorization | 验证身份的token
+	Token string `json:"token"`
+	// Expire timestamp | 过期时间戳
+	Expire uint64 `json:"expire"`
 }

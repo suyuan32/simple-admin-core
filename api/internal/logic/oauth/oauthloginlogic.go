@@ -7,6 +7,7 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 )
 
 type OauthLoginLogic struct {
@@ -24,5 +25,13 @@ func NewOauthLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *OauthL
 }
 
 func (l *OauthLoginLogic) OauthLogin(req *types.OauthLoginReq) (resp *types.RedirectResp, err error) {
-	return
+	result, err := l.svcCtx.CoreRpc.OauthLogin(context.Background(), &core.OauthLoginReq{
+		State:    req.State,
+		Provider: req.Provider,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &types.RedirectResp{URL: result.Url}, nil
 }

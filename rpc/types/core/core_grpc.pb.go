@@ -66,6 +66,7 @@ type CoreClient interface {
 	DeleteProvider(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	GetProviderList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*ProviderListResp, error)
 	OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
+	OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error)
 }
 
 type coreClient struct {
@@ -391,6 +392,15 @@ func (c *coreClient) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...
 	return out, nil
 }
 
+func (c *coreClient) OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error) {
+	out := new(LoginResp)
+	err := c.cc.Invoke(ctx, "/core.core/oauthCallback", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoreServer is the server API for Core service.
 // All implementations must embed UnimplementedCoreServer
 // for forward compatibility
@@ -439,6 +449,7 @@ type CoreServer interface {
 	DeleteProvider(context.Context, *IDReq) (*BaseResp, error)
 	GetProviderList(context.Context, *PageInfoReq) (*ProviderListResp, error)
 	OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error)
+	OauthCallback(context.Context, *CallbackReq) (*LoginResp, error)
 	mustEmbedUnimplementedCoreServer()
 }
 
@@ -550,6 +561,9 @@ func (UnimplementedCoreServer) GetProviderList(context.Context, *PageInfoReq) (*
 }
 func (UnimplementedCoreServer) OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OauthLogin not implemented")
+}
+func (UnimplementedCoreServer) OauthCallback(context.Context, *CallbackReq) (*LoginResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OauthCallback not implemented")
 }
 func (UnimplementedCoreServer) mustEmbedUnimplementedCoreServer() {}
 
@@ -1194,6 +1208,24 @@ func _Core_OauthLogin_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_OauthCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CallbackReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).OauthCallback(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/oauthCallback",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).OauthCallback(ctx, req.(*CallbackReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Core_ServiceDesc is the grpc.ServiceDesc for Core service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1340,6 +1372,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "oauthLogin",
 			Handler:    _Core_OauthLogin_Handler,
+		},
+		{
+			MethodName: "oauthCallback",
+			Handler:    _Core_OauthCallback_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

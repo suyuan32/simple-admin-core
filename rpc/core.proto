@@ -327,6 +327,11 @@ message ProviderListResp {
   repeated ProviderInfo data = 2;
 }
 
+message CallbackReq {
+  string state = 1;
+  string code = 2;
+}
+
 // service
 service core {
   // init
@@ -380,4 +385,5 @@ service core {
   rpc deleteProvider (IDReq) returns (BaseResp);
   rpc getProviderList (PageInfoReq) returns (ProviderListResp);
   rpc oauthLogin (OauthLoginReq) returns (OauthRedirectResp);
+  rpc oauthCallback (CallbackReq) returns (LoginResp);
 }

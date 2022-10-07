@@ -3,21 +3,22 @@ package oauth
 import (
 	"net/http"
 
+	"github.com/zeromicro/go-zero/rest/httpx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/oauth"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /oauth/login oauth getProviderList
-// Get provider list | 获取提供商列表
+// swagger:route POST /oauth/login oauth oauthLogin
+// Oauth log in | Oauth 登录
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
-//    type: PageInfo
+//    type: OauthLoginReq
 // Responses:
-//   200: ProviderListResp
+//   200: RedirectResp
 //   401: SimpleMsg
 //   500: SimpleMsg
 
@@ -34,7 +35,7 @@ func OauthLoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
-			httpx.OkJson(w, resp)
+			http.Redirect(w, r, resp.URL, http.StatusTemporaryRedirect)
 		}
 	}
 }
