@@ -96,6 +96,8 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(in *core.ProviderIn
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 
+		delete(providerConfig, in.Name)
+
 		logx.Infow(logmessage.UpdateSuccess, logx.Field("Detail", data))
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 	}
