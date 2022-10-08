@@ -48,6 +48,7 @@ func (l *GetProviderListLogic) GetProviderList(in *core.PageInfoReq) (*core.Prov
 			AuthUrl:      v.AuthURL,
 			TokenUrl:     v.TokenURL,
 			AuthStyle:    uint64(v.AuthStyle),
+			InfoUrl:      v.InfoURL,
 			CreateAt:     v.CreatedAt.UnixMilli(),
 		})
 	}

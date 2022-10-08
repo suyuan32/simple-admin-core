@@ -47,6 +47,7 @@ func (l *GetProviderListLogic) GetProviderList(req *types.PageInfo) (resp *types
 				Scopes:       v.Scopes,
 				AuthURL:      v.AuthUrl,
 				TokenURL:     v.TokenUrl,
+				InfoURL:      v.InfoUrl,
 				AuthStyle:    int(v.AuthStyle),
 			})
 	}

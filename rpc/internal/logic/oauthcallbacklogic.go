@@ -8,17 +8,15 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/google/uuid"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"golang.org/x/oauth2"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
 
 	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/message"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/util"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -68,7 +66,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 				AuthStyle: oauth2.AuthStyle(target.AuthStyle),
 			},
 			RedirectURL: target.RedirectURL,
-			Scopes:      strings.Split(target.Scopes, ","),
+			Scopes:      strings.Split(target.Scopes, " "),
 		}
 		if _, ok := userInfoURL[target.Name]; !ok {
 			userInfoURL[target.Name] = target.InfoURL
@@ -78,7 +76,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 	// get user information
 	content, err := getUserInfo(providerConfig[provider], userInfoURL[provider], in.Code)
 	if err != nil {
-		return nil, status.Error(codes.Internal, err.Error())
+		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
 
 	// find or register user
@@ -92,31 +90,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 		var targetUser model.User
 		check := l.svcCtx.DB.Where("email = ?", u.Email).First(&targetUser)
 		if check.RowsAffected == 0 {
-			userUUID := uuid.NewString()
-			result := l.svcCtx.DB.Save(&model.User{
-				Model:    gorm.Model{},
-				UUID:     userUUID,
-				Username: u.Email,
-				Password: util.BcryptEncrypt(u.Email),
-				Nickname: userUUID[30:],
-				Email:    u.Email,
-			})
-			if result.Error != nil {
-				logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
-				return nil, status.Error(codes.Internal, result.Error.Error())
-			}
-
-			roleName, roleValue, err := getRoleInfo(2, l.svcCtx.Redis, l.svcCtx.DB)
-			if err != nil {
-				return nil, err
-			}
-
-			return &core.LoginResp{
-				Id:        userUUID,
-				RoleName:  roleName,
-				RoleValue: roleValue,
-				RoleId:    2,
-			}, nil
+			return nil, status.Error(codes.InvalidArgument, message.CreateAccountFirst)
 		} else {
 			roleName, roleValue, err := getRoleInfo(targetUser.RoleId, l.svcCtx.Redis, l.svcCtx.DB)
 			if err != nil {

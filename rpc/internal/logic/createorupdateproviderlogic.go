@@ -45,6 +45,7 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(in *core.ProviderIn
 			AuthURL:      in.AuthUrl,
 			TokenURL:     in.TokenUrl,
 			AuthStyle:    int(in.AuthStyle),
+			InfoURL:      in.InfoUrl,
 		}
 		result := l.svcCtx.DB.Create(&data)
 
@@ -83,6 +84,7 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(in *core.ProviderIn
 			AuthURL:      in.AuthUrl,
 			TokenURL:     in.TokenUrl,
 			AuthStyle:    int(in.AuthStyle),
+			InfoURL:      in.InfoUrl,
 		}
 		result := l.svcCtx.DB.Save(&data)
 		if result.Error != nil {

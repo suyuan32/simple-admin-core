@@ -35,7 +35,8 @@ func OauthLoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
-			http.Redirect(w, r, resp.URL, http.StatusTemporaryRedirect)
+			//http.Redirect(w, r, resp.URL, http.StatusTemporaryRedirect)
+			httpx.OkJson(w, &resp)
 		}
 	}
 }

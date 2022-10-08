@@ -62,7 +62,7 @@ func (l *OauthLoginLogic) OauthLogin(in *core.OauthLoginReq) (*core.OauthRedirec
 				AuthStyle: oauth2.AuthStyle(provider.AuthStyle),
 			},
 			RedirectURL: provider.RedirectURL,
-			Scopes:      strings.Split(provider.Scopes, ","),
+			Scopes:      strings.Split(provider.Scopes, " "),
 		}
 		config = providerConfig[provider.Name]
 	}

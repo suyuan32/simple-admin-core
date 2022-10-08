@@ -76,4 +76,9 @@ const (
 	// En: Dictionary already exists
 	// ZH_CN: 字典已存在
 	DictionaryAlreadyExists string = "sys.dict.dictExists"
+
+	// CreateAccountFirst
+	// En: Please register an account with this email or bind the email to an account
+	// ZH_CH: 请创建一个该邮箱的账号或绑定该邮箱到一个账号
+	CreateAccountFirst string = "sys.oauth.createAccount"
 )

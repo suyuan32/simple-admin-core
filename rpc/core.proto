@@ -318,8 +318,9 @@ message ProviderInfo {
   string auth_url = 7;
   string token_url = 8;
   uint64 auth_style = 9;
-  int64  create_at = 10;
-  int64  update_at = 11;
+  string info_url = 10;
+  int64  create_at = 11;
+  int64  update_at = 12;
 }
 
 message ProviderListResp {

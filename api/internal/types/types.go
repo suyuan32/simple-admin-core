@@ -877,6 +877,8 @@ type ProviderInfo struct {
 	TokenURL string `json:"tokenURL"`
 	// Auth Style is specifies how the endpoint wants the client ID & client secret sent. The zero value means to auto-detect. | 鉴权方式, 0 表示自动检测
 	AuthStyle int `json:"authStyle"`
+	// Get User information URL | 获取用户信息地址
+	InfoURL string `json:"infoURL"`
 }
 
 // Create or update provider information request | 创建或更新提供商信息
@@ -923,6 +925,10 @@ type CreateOrUpdateProviderReq struct {
 	// Required: true
 	// Example: 0
 	AuthStyle int `json:"authStyle" validate:"number"`
+	// Get User information URL | 获取用户信息地址
+	// Required: true
+	// Max length: 200
+	InfoURL string `json:"infoURL" validate:"max=200"`
 }
 
 // The response data of provider list | 提供商列表数据
