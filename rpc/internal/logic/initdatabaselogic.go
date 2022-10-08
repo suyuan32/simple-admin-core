@@ -120,13 +120,6 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	err = l.insertCasbinPoliciesData()
-	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
-		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, status.Error(codes.Internal, err.Error())
-	}
-
 	err = l.insertProviderData()
 	if err != nil {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
@@ -853,12 +846,23 @@ func (l *InitDatabaseLogic) insertProviderData() error {
 			Name:         "google",
 			ClientID:     "your client id",
 			ClientSecret: "your client secret",
-			RedirectURL:  "redirect url",
+			RedirectURL:  "http://localhost:3100/oauth/login/callback",
 			Scopes:       "email openid",
 			AuthURL:      "https://accounts.google.com/o/oauth2/auth",
 			TokenURL:     "https://oauth2.googleapis.com/token",
 			AuthStyle:    1,
 			InfoURL:      "https://www.googleapis.com/oauth2/v2/userinfo?access_token=",
+		},
+		{
+			Name:         "github",
+			ClientID:     "your client id",
+			ClientSecret: "your client secret",
+			RedirectURL:  "http://localhost:3100/oauth/login/callback",
+			Scopes:       "email openid",
+			AuthURL:      "https://github.com/login/oauth/authorize",
+			TokenURL:     "https://github.com/login/oauth/access_token",
+			AuthStyle:    2,
+			InfoURL:      "https://api.github.com/user",
 		},
 	}
 	result := l.svcCtx.DB.CreateInBatches(providers, 10)

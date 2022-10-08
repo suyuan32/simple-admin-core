@@ -14,7 +14,6 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/common/message"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -90,7 +89,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 		var targetUser model.User
 		check := l.svcCtx.DB.Where("email = ?", u.Email).First(&targetUser)
 		if check.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, message.CreateAccountFirst)
+			return nil, status.Error(codes.InvalidArgument, u.Email)
 		} else {
 			roleName, roleValue, err := getRoleInfo(targetUser.RoleId, l.svcCtx.Redis, l.svcCtx.DB)
 			if err != nil {
@@ -115,9 +114,26 @@ func getUserInfo(c oauth2.Config, infoURL string, code string) ([]byte, error) {
 		return nil, fmt.Errorf("code exchange failed: %s", err.Error())
 	}
 
-	response, err := http.Get(infoURL + token.AccessToken)
-	if err != nil {
-		return nil, fmt.Errorf("failed getting user info: %s", err.Error())
+	var response *http.Response
+	if c.Endpoint.AuthStyle == 1 {
+		response, err = http.Get(infoURL + token.AccessToken)
+		if err != nil {
+			return nil, fmt.Errorf("failed getting user info: %s", err.Error())
+		}
+	} else if c.Endpoint.AuthStyle == 2 {
+		client := &http.Client{}
+		request, err := http.NewRequest("GET", infoURL, nil)
+		if err != nil {
+			return nil, status.Error(codes.Internal, err.Error())
+		}
+
+		request.Header.Set("Accept", "application/json")
+		request.Header.Set("Authorization", "Bearer "+token.AccessToken)
+
+		response, err = client.Do(request)
+		if err != nil {
+			return nil, fmt.Errorf("failed getting user info: %s", err.Error())
+		}
 	}
 
 	defer response.Body.Close()
