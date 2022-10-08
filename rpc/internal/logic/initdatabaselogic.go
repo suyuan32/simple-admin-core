@@ -721,6 +721,28 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 				DynamicLevel:       20,
 			},
 		},
+		{
+			MenuLevel: 2,
+			MenuType:  1,
+			ParentId:  3,
+			Path:      "/oauth",
+			Name:      "Oauth Management",
+			Component: "/sys/oauth/index",
+			OrderNo:   6,
+			Disabled:  false,
+			Meta: model.Meta{
+				Title:              "routes.system.oauthManagement",
+				Icon:               "ant-design:unlock-filled",
+				HideMenu:           false,
+				HideBreadcrumb:     true,
+				IgnoreKeepAlive:    false,
+				HideTab:            false,
+				CarryParam:         false,
+				HideChildrenInMenu: false,
+				Affix:              false,
+				DynamicLevel:       20,
+			},
+		},
 	}
 	result := l.svcCtx.DB.CreateInBatches(menus, 100)
 	if result.Error != nil {
@@ -832,7 +854,7 @@ func (l *InitDatabaseLogic) insertProviderData() error {
 			ClientID:     "your client id",
 			ClientSecret: "your client secret",
 			RedirectURL:  "redirect url",
-			Scopes:       "https://www.googleapis.com/auth/userinfo.email",
+			Scopes:       "email openid",
 			AuthURL:      "https://accounts.google.com/o/oauth2/auth",
 			TokenURL:     "https://oauth2.googleapis.com/token",
 			AuthStyle:    1,
