@@ -1,3 +1,20 @@
+# 0.0.8 (2022/10/08)
+
+### Features
+
+- docs: add oauth doc
+- feat: oauth api service
+- feat: oauth rpc service
+- docs: update change log
+
+### Bug Fixes
+
+- docs: fix nginx config
+- fix: oauth initialize bugs and callback bugs
+- fix: add oauth menu insert in initialization code
+- fix: change create account rules when use oauth log in
+- fix: google oauth
+
 # 0.0.7 (2022/09/30)
 
 ### Bug Fixes

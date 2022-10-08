@@ -39,7 +39,8 @@ It can help you to develop a microservice back-end management core in a short ti
 | Operation log        | finished  |
 | Service discovery    | finished  |
 | Configuration center | finished  |
-| Dictionary management | finished  |                    
+| Dictionary management | finished  |    
+| Oauth management | finished |
 
 ## Preview
 
