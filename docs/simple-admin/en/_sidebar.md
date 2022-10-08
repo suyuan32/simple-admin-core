@@ -18,3 +18,4 @@
     * [GORM](simple-admin/en/docs/gorm.md)
     * [Authorization](simple-admin/en/docs/authorization.md)
     * [Error Handling](simple-admin/en/docs/error_handling.md)
+    * [Oauth](simple-admin/en/docs/oauth.md)
