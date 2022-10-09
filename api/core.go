@@ -7,12 +7,12 @@
 //		BasePath: /
 //		Version: 0.0.6
 //		Contact: yuansu.china.work@gmail.com
-//		securityDefinitions:
+//		SecurityDefinitions:
 //		  Token:
 //		    type: apiKey
 //		    name: Authorization
 //		    in: header
-//		security:
+//		Security:
 //		  - Token: []
 //	    Consumes:
 //		  - application/json

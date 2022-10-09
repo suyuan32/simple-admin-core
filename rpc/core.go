@@ -9,9 +9,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/suyuan32/simple-admin-tools/plugins/registry/consul"
 	"github.com/zeromicro/go-zero/core/conf"
-	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
@@ -23,14 +21,8 @@ var configFile = flag.String("f", "etc/core.yaml", "the config file")
 func main() {
 	flag.Parse()
 
-	var consulConfig config.ConsulConfig
-	conf.MustLoad(*configFile, &consulConfig)
-
 	var c config.Config
-	client, err := consulConfig.Consul.NewClient()
-	logx.Must(err)
-	consul.LoadYAMLConf(client, "coreRpcConf", &c)
-
+	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
@@ -41,9 +33,6 @@ func main() {
 		}
 	})
 	defer s.Stop()
-
-	err = consul.RegisterService(consulConfig.Consul)
-	logx.Must(err)
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
 	s.Start()

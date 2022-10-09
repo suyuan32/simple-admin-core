@@ -1,10 +1,42 @@
-Consul:
-  Host: 127.0.0.1:8500 # consul endpoint
-  ListenOn: 127.0.0.1:9100  # this is used for other services to find this service
-  #Token: 'f0512db6-76d6-f25e-f344-a98cc3484d42' # consul ACL token (optional)
-  Key: core.api
-  Meta:
-    Protocol: grpc
-  Tag:
-    - core
-    - api
+Name: core.api
+Host: 0.0.0.0
+Port: 9100
+Timeout: 30000
+
+Auth:
+  AccessSecret: jS6VKDtsJf3z1n2VKDtsJf3z1n2
+  AccessExpire: 259200  # Seconds
+
+Log:
+  ServiceName: coreApiLogger
+  Mode: file
+  Path: /home/ryan/logs/core/api
+  Level: info
+  Compress: false
+  KeepDays: 7
+  StackCooldownMillis: 100
+
+RedisConf:
+  Host: 192.168.50.216:6379  # change to your own ip or address
+  Type: node
+
+CoreRpc:
+  Target: k8s://simple-admin/core-rpc-svc:1101
+
+Captcha:
+  KeyLong: 5
+  ImgWidth: 240
+  ImgHeight: 80
+
+DatabaseConf:
+  Type: mysql
+  Path: "192.168.50.216"
+  Port: 3306
+  Config: charset=utf8mb4&parseTime=True&loc=Local
+  DBName: simple_admin
+  Username: root
+  Password: "123456"
+  MaxIdleConn: 10
+  MaxOpenConn: 100
+  LogMode: error
+  LogZap: false
