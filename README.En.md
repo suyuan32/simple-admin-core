@@ -29,18 +29,21 @@ It can help you to develop a microservice back-end management core in a short ti
 
 ## Current Progress
 
-| Module               | Status    |
-|----------------------|-----------|
-| Login and Register   | finished  |
-| Menu Management      | finished  |
-| Role Management      | finished  |
-| Role Authority       | finished  |
-| User Management      | finished  |
-| Operation log        | finished  |
-| Service discovery    | finished  |
-| Configuration center | finished  |
-| Dictionary management | finished  |    
-| Oauth management | finished |
+| Module                | Status      |
+|-----------------------|-------------|
+| Login and Register    | finished    |
+| Menu Management       | finished    |
+| Role Management       | finished    |
+| Role Authority        | finished    |
+| User Management       | finished    |
+| Operation log         | finished    |
+| Service discovery     | finished    |
+| Configuration center  | finished    |
+| Dictionary management | finished    |    
+| Oauth management      | finished    |
+| Fully support K8s     | In progress | 
+
+### The use of consul for service registration discovery in the early stage of the project is mainly to adapt to low-configuration servers. In the near future, the deployment process of K8s will be mainly optimized, and the project will mainly use K8s for deployment in the future.
 
 ## Preview
 
@@ -58,7 +61,7 @@ Password:  simple-admin
 
 ## Documentation
 
-[文档](https://suyuan32.github.io/simple-admin-core/)
+[Document](https://suyuan32.github.io/simple-admin-core/)
 
 or running locally
 

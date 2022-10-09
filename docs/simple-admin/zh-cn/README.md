@@ -3,7 +3,7 @@
 <h1>Simple Admin</h1>
 </div>
 
-**中文** | [English](/simple-admin/en/README.md) \
+**中文** | [English](./README.En.md) \
 [![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.4.1-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.8.0-yellow.svg)](https://vvbin.cn/doc-next/)
 [![GORM](https://img.shields.io/badge/GORM-v1.23.8-blue.svg)](https://gorm.io/)
@@ -40,7 +40,11 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 | 操作日志 | 已完成 |
 | 服务注册发现 | 已完成 |
 | 配置中心 | 已完成 |
+| 字典功能 | 已完成 |
+| 三方登录管理 | 已完成 |
+| 全面支持 K8s | 进行中 | 
 
+### 项目前期使用consul进行服务注册发现主要是为了适应低配置服务器，近期将会主要优化 K8s 的部署流程，项目未来也会主要使用K8s进行部署。
 
 ## 预览
 
