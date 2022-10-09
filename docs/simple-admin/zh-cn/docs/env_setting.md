@@ -87,7 +87,7 @@ yarn preview:dist
 
 ```shell
 # 访问前端地址端口
-https://address:port/#/init
+https://address:port/init
 
 ```
 进入界面

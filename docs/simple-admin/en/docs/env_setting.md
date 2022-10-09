@@ -90,7 +90,7 @@ The database name is the same as your configuration.
 ```shell
 # visit the url 
 
-https://address:port/#/init
+https://address:port/init
 ```
 
 You can see the ui to do this.
