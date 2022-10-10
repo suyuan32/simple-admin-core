@@ -1,5 +1,5 @@
 variables:
-  VERSION: 0.0.14
+  VERSION: 0.0.15
 
 stages:          # List of stages for jobs, and their order of execution
   - info

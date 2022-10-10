@@ -19,7 +19,7 @@ spec:
       serviceAccountName: endpoints-finder
       containers:
       - name: corerpc
-        image: ryanpower/corerpc:0.0.13
+        image: ryanpower/corerpc:0.0.15
         ports:
         - containerPort: 9101
         readinessProbe:
