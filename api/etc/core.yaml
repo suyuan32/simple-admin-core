@@ -21,7 +21,7 @@ RedisConf:
   Type: node
 
 CoreRpc:
-  Target: k8s://simple-admin/core-rpc-svc:1101
+  Target: k8s://simple-admin/core-rpc-svc:9101
 
 Captcha:
   KeyLong: 5
