@@ -1,0 +1,30 @@
+variables:
+  DOCKER_USERNAME: ryan
+  VERSION: 0.0.9
+
+stages:          # List of stages for jobs, and their order of execution
+  - info
+  - build
+  - deploy
+
+info-job:
+  stage: info
+  script:
+    - echo "Start build version $VERSION"
+    - export VERSION=$VERSION
+
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  script:
+    - echo "Compiling the code..."
+    - make docker
+    - echo "Compile complete."
+
+
+deploy-job:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  environment: production
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."

@@ -1,14 +1,14 @@
-version := 0.0.8
 docker:
-	sudo docker build -f Dockerfile-api -t coreapi:$(version) .
-	sudo docker build -f Dockerfile-rpc -t corerpc:$(version) .
+	docker build -f Dockerfile-api -t coreapi:${VERSION} .
+	docker build -f Dockerfile-rpc -t corerpc:${VERSION} .
 
 run-docker:
-	sudo docker run -d --name corerpc-$(version) --network docker-compose_simple-admin --network-alias corerpc -p 9101:9101 corerpc:$(version)
-	sudo docker run -d --name coreapi-$(version) --network docker-compose_simple-admin --network-alias coreapi -p 9100:9100 coreapi:$(version)
+	docker run -d --name corerpc-${VERSION} --network docker-compose_simple-admin --network-alias corerpc -p 9101:9101 ${DOCKER_USERNAME}/corerpc:${VERSION}
+	docker run -d --name coreapi-${VERSION} --network docker-compose_simple-admin --network-alias coreapi -p 9100:9100 ${DOCKER_USERNAME}/coreapi:${VERSION}
 
 run-docker-rpc:
-	sudo docker run -d --name corerpc-$(version) --network docker-compose_simple-admin --network-alias corerpc -p 9101:9101 corerpc:$(version)
+	docker run -d --name corerpc-${VERSION} --network docker-compose_simple-admin --network-alias corerpc -p 9101:9101 ${DOCKER_USERNAME}/corerpc:${VERSION}
 
 run-docker-api:
-	sudo docker run -d --name coreapi-$(version) --network docker-compose_simple-admin --network-alias coreapi -p 9100:9100 coreapi:$(version)
+	docker run -d --name coreapi-${VERSION} --network docker-compose_simple-admin --network-alias coreapi -p 9100:9100 ${DOCKER_USERNAME}/coreapi:${VERSION}
+
