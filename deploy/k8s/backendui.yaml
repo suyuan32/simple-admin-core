@@ -1,40 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: corerpc
+  name: backendui
   namespace: simple-admin
   labels:
-    app: corerpc
+    app: backendui
 spec:
   replicas: 3
   revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: corerpc
+      app: backendui
   template:
     metadata:
       labels:
-        app: corerpc
+        app: backendui
     spec:
       serviceAccountName: endpoints-finder
       containers:
-      - name: corerpc
-        image: ryanpower/corerpc:0.0.15
+      - name: backendui
+        image: ryanpower/backendui:0.0.16
         ports:
-        - containerPort: 9101
+        - containerPort: 80
         readinessProbe:
           tcpSocket:
-            port: 9101
+            port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
         livenessProbe:
           tcpSocket:
-            port: 9101
+            port: 80
           initialDelaySeconds: 15
           periodSeconds: 20
         resources:
           requests:
-            cpu: 100m
+            cpu: 200m
             memory: 100Mi
           limits:
             cpu: 1000m
@@ -52,59 +52,63 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: corerpc-svc
+  name: backendui-svc
   namespace: simple-admin
 spec:
+  type: NodePort
   ports:
-  - port: 9101
-    targetPort: 9101
+  - port: 80
+    targetPort: 80
+    nodePort: 30200
+    name: http
+    protocol: TCP
   selector:
-    app: corerpc
+    app: backendui
 
 ---
 
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: corerpc-hpa-c
+  name: backendui-hpa-c
   namespace: simple-admin
   labels:
-    app: corerpc-hpa-c
+    app: backendui-hpa-c
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: corerpc
+    name: backendui
   minReplicas: 3
   maxReplicas: 10
   metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 20
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
 
 ---
 
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: corerpc-hpa-m
+  name: backendui-hpa-m
   namespace: simple-admin
   labels:
-    app: corerpc-hpa-m
+    app: backendui-hpa-m
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: corerpc
+    name: backendui
   minReplicas: 3
   maxReplicas: 10
   metrics:
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
-          averageUtilization: 20
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80

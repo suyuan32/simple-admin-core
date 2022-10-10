@@ -1,10 +1,12 @@
 variables:
-  VERSION: 0.0.15
+  VERSION: 0.0.19
+  REPO: docker.io
 
-stages:          # List of stages for jobs, and their order of execution
+stages:
   - info
   - build
-  - deploy
+  - publish
+  - clean
 
 info-job:
   stage: info
@@ -13,18 +15,26 @@ info-job:
     - export VERSION=$VERSION
     - export DOCKER_USERNAME=$DOCKER_USERNAME
     - export DOCKER_PASSWORD=$DOCKER_PASSWORD
+    - export REPO=$REPO
 
-build-job:       # This job runs in the build stage, which runs first.
+build-job:
   stage: build
   script:
-    - echo "Compiling the code..."
+    - echo "Compiling the code and build docker image..."
     - make docker
     - echo "Compile complete."
 
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+deploy-job:
+  stage: publish
   environment: production
   script:
-    - echo "Deploying application..."
+    - echo "Publish docker images..."
     - make publish-docker
-    - echo "Application successfully deployed."
+    - echo "Docker images successfully published."
+
+clean-job:
+  stage: clean
+  script:
+    # 删除所有 none 镜像 | delete all none images
+    - docker images |grep none|awk '{print $3}'|xargs docker rmi
+    - echo "Delete all none images successfully."

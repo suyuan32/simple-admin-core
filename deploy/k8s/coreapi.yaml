@@ -34,8 +34,8 @@ spec:
           periodSeconds: 20
         resources:
           requests:
-            cpu: 500m
-            memory: 512Mi
+            cpu: 100m
+            memory: 100Mi
           limits:
             cpu: 1000m
             memory: 1024Mi
@@ -55,9 +55,13 @@ metadata:
   name: coreapi-svc
   namespace: simple-admin
 spec:
+  type: NodePort
   ports:
   - port: 9100
     targetPort: 9100
+    nodePort: 30100
+    name: http
+    protocol: TCP
   selector:
     app: coreapi
 
@@ -78,12 +82,12 @@ spec:
   minReplicas: 3
   maxReplicas: 10
   metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 80
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 20
 
 ---
 
@@ -102,9 +106,9 @@ spec:
   minReplicas: 3
   maxReplicas: 10
   metrics:
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        type: Utilization
-        averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 20

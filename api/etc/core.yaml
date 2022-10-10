@@ -14,7 +14,7 @@ Log:
   Level: info
   Compress: false
   KeepDays: 7
-  StackCooldownMillis: 100
+  StackCoolDownMillis: 100
 
 RedisConf:
   Host: 192.168.50.216:6379  # change to your own ip or address
