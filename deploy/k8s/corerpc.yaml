@@ -16,6 +16,7 @@ spec:
       labels:
         app: corerpc
     spec:
+      serviceAccountName: endpoints-finder
       containers:
       - name: corerpc
         image: ryanpower/corerpc:0.0.13

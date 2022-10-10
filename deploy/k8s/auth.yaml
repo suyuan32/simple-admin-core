@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   namespace: simple-admin
-  name: find-endpoints
+  name: endpoints-finder
 
 ---
 #创建角色对应操作
@@ -21,12 +21,12 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: find-endpoints-discov-endpoints
+  name: endpoints-finder-discov-endpoints
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: discov-endpoints
 subjects:
   - kind: ServiceAccount
-    name: find-endpoints
+    name: endpoints-finder
     namespace: simple-admin

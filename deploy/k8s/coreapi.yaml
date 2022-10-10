@@ -16,6 +16,7 @@ spec:
       labels:
         app: coreapi
     spec:
+      serviceAccountName: endpoints-finder
       containers:
       - name: coreapi
         image: ryanpower/coreapi:0.0.13
