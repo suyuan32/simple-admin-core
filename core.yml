@@ -449,6 +449,11 @@ definitions:
                 format: uint64
                 type: integer
                 x-go-name: Id
+            infoURL:
+                description: Get User information URL | 获取用户信息地址
+                maxLength: 200
+                type: string
+                x-go-name: InfoURL
             name:
                 description: Provider name | 提供商名字
                 maxLength: 50
@@ -480,6 +485,7 @@ definitions:
             - authURL
             - tokenURL
             - authStyle
+            - infoURL
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateUserReq:
@@ -1170,6 +1176,10 @@ definitions:
                 format: uint64
                 type: integer
                 x-go-name: Id
+            infoURL:
+                description: Get User information URL | 获取用户信息地址
+                type: string
+                x-go-name: InfoURL
             name:
                 description: Provider name | 提供商名字
                 type: string
@@ -2583,6 +2593,9 @@ responses:
                 description: ID
                 format: uint64
                 type: integer
+            infoURL:
+                description: Get User information URL | 获取用户信息地址
+                type: string
             name:
                 description: Provider name | 提供商名字
                 type: string

@@ -4,7 +4,7 @@
 - golang 1.19
 - nodejs 18.8.0
 - consul
-- mysql
+- mysql 5.7+
 
 ## Backend deployment
 

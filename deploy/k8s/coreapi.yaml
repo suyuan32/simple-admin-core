@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coreapi
+  namespace: simple-admin
+  labels:
+    app: coreapi
+spec:
+  replicas: 3
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: coreapi
+  template:
+    metadata:
+      labels:
+        app: coreapi
+    spec:
+      serviceAccountName: endpoints-finder
+      containers:
+      - name: coreapi
+        image: ryanpower/coreapi:0.0.15
+        ports:
+        - containerPort: 9100
+        readinessProbe:
+          tcpSocket:
+            port: 9100
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 9100
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 1000m
+            memory: 1024Mi
+        volumeMounts:
+        - name: timezone
+          mountPath: /etc/localtime
+      volumes:
+        - name: timezone
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Shanghai
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: coreapi-svc
+  namespace: simple-admin
+spec:
+  type: NodePort
+  ports:
+  - port: 9100
+    targetPort: 9100
+    nodePort: 30100
+    name: http
+    protocol: TCP
+  selector:
+    app: coreapi
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: coreapi-hpa-c
+  namespace: simple-admin
+  labels:
+    app: coreapi-hpa-c
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: coreapi
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 20
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: coreapi-hpa-m
+  namespace: simple-admin
+  labels:
+    app: coreapi-hpa-m
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: coreapi
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 20
