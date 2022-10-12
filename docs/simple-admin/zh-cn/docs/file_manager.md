@@ -1,11 +1,11 @@
 ## 文件上传服务
 
-### 下载代码
+> 下载代码
 ```shell
 git clone https://github.com/suyuan32/simple-admin-file.git
 ```
 
-### 修改配置文件
+> 修改配置文件
 
 添加 kv 进 consul
 
@@ -53,8 +53,8 @@ UploadConf:
   PrivateStorePath: /home/ryan/www/private  # private
   PublicStorePath: /home/ryan/www/public  # public path for every one access e.g. nginx path
 ```
-你可以使用nginx 将 PublicStorePath 转发为静态地址方便前端调用
+> 你可以使用nginx 将 PublicStorePath 转发为静态地址方便前端调用
 
-确保 AccessSecret 和 simple-admin-core的api配置文件内一致
-配置方式参考core
+> 确保 AccessSecret 和 simple-admin-core的api配置文件内一致 \
+配置方式参考core \
 运行方式同理

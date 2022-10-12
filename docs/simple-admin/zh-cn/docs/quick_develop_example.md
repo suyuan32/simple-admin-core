@@ -1,11 +1,11 @@
 ## 快速开发demo
 [例子](https://github.com/suyuan32/simple-admin-core/tree/example)
-## 安装goctls
+> 安装goctls
 [Simple-admin-tool](simple-admin/zh-cn/docs/simple-admin-tools.md)
 
-## RPC服务例子
+> RPC服务例子
 
-### 首先修改 rpc/core.proto
+> 首先修改 rpc/core.proto
 
 ```protobuf
 syntax = "proto3";
@@ -320,16 +320,14 @@ service core {
 }
 ```
 
-添加 example rpc接口
-
+> 添加 example rpc接口 \
 在rpc目录下运行
 
 ```shell
 goctls rpc protoc core.proto --proto_path=/home/ryan/GolandProjects/simple-admin-core/rpc/ --go_out=./types --go-grpc_out=./types --zrpc_out=./
 ```
 
-proto_path需要绝对路径
-
+> proto_path需要绝对路径 \
 修改 internal/logic/hellologic.go
 
 ```go
@@ -365,7 +363,7 @@ func (l *HelloLogic) Hello(in *core.HelloReq) (*core.BaseResp, error) {
 
 ```
 
-然后在 api/api_desc/ 目录下添加 example.api
+> 然后在 api/api_desc/ 目录下添加 example.api
 
 ```api
 syntax = "v1"
@@ -419,7 +417,7 @@ service core {
 
 ```
 
-修改 core.api
+> 修改 core.api
 
 ```api
 syntax = "v1"
@@ -461,12 +459,12 @@ service core {
 }
 ```
 
-在 api_desc目录下执行
+> 在 api_desc目录下执行
 ```shell
 goctls api go -api core.api -dir ..
 ```
 
-修改 api/internal/logic/example/hellologic.go
+> 修改 api/internal/logic/example/hellologic.go
 
 ```go
 package example
@@ -505,7 +503,7 @@ func (l *HelloLogic) Hello(req *types.HelloReq) (resp *types.HelloResp, err erro
 
 ```
 
-### 启动 rpc 和 api
+> 启动 rpc 和 api
 
 分别在 api rpc 目录下执行
 
@@ -513,6 +511,6 @@ func (l *HelloLogic) Hello(req *types.HelloReq) (resp *types.HelloResp, err erro
 go run core.go -f etc/core.yaml 
 ```
 
-## 网页端开发
+> 网页端开发
 [Simple Admin UI](simple-admin/zh-cn/docs/web_develop_example.md)
 

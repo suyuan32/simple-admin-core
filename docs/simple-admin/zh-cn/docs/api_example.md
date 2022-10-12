@@ -10,10 +10,11 @@
 ```shell
 goctls api new example
 ```
-你可以看到以下结构
+> 你可以看到以下结构
+
 ![Example](../../assets/example-struct.png)
 
-go.mod文件是这样：
+> go.mod文件是这样：
 
 ```shell
 module example
@@ -22,15 +23,13 @@ go 1.19
 
 ```
 
-你需要运行以下命令来替换默认的go-zero.
+> 你需要运行以下命令来替换默认的go-zero.
 
 ```shell
 goctls migrate --zero-version v1.4.1 --tool-version v0.0.6
 ```
 
-版本号可以去Github查看最新版本. \
-
-运行完命令后 go.mod 会变成:
+> 版本号可以去Github查看最新版本. 运行完命令后 go.mod 会变成:
 
 ```text
 module example
@@ -133,44 +132,25 @@ replace github.com/zeromicro/go-zero v1.4.1 => github.com/suyuan32/simple-admin-
 
 ```
 
-然后编辑 etc/example.yaml
+> 然后编辑 etc/example.yaml
 
-```yaml
-Consul:
-  Host: 127.0.0.1:8500 # consul endpoint
-  #Token: 'f0512db6-76d6-f25e-f344-a98cc3484d42' # consul ACL token (optional)
-  ListenOn: 0.0.0.0:8888
-  Key: example.api
-  Meta:
-    Protocol: grpc
-  Tag:
-    - example
-    - api
-```
-
-可以使用token增加安全性。
-
-浏览 consul 后台添加 kv
-
-### key
-exampleApiConf
-### value
 ```yaml
 Name: example.api
 Host: 127.0.0.1
-Port: 9100
+Port: 9103
 Timeout: 30000
 ```
 
-然后代码就可以运行啦 !
+> 运行代码
 
 ```shell
 go run example.go -f etc/example.yaml
 ```
 
-如果看到
+> 如果看到
+
 ```shell
-Starting server at 127.0.0.1:9100...
+Starting server at 127.0.0.1:9103...
 ```
 
 说明运行成功.

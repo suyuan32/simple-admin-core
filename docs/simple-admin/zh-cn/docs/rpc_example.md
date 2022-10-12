@@ -1,19 +1,19 @@
 # 手把手教你开发 RPC 服务
 
-首先确认你安装了以下软件:
-- Consul
+> 首先确认你安装了以下软件:
 - simple-admin-tool (goctls)
 
 
 ## 创建 RPC 项目
-创建 example
+> 创建 example
 ```shell
-goctls api new example
+goctls rpc new example
 ```
-你可以看到如下项目结构 \
+> 你可以看到如下项目结构 
+
 ![Example](../../assets/example_rpc_struct.png)
 
-go.mod文件
+> go.mod文件
 
 ```shell
 module example
@@ -22,14 +22,13 @@ go 1.19
 
 ```
 
-你需要运行以下命令来替换默认的go-zero.
+> 你需要运行以下命令来替换默认的go-zero.
 
 ```shell
 goctls migrate --zero-version v1.4.1 --tool-version v0.0.6
 ```
 
-版本号可以去Github查看最新版本. \
-
+> 版本号可以去Github查看最新版本. \
 运行完命令后 go.mod 会变成:
 
 ```text
@@ -128,53 +127,30 @@ replace github.com/zeromicro/go-zero v1.4.1 => github.com/suyuan32/simple-admin-
 
 ```
 
-### 注意 migrate 不要多次运行，会导致多次添加 replace
-
+> 注意 migrate 不要多次运行，会导致多次添加 replace \
 然后编辑 etc/example.yaml
 
 ```yaml
-Consul:
-  Host: 127.0.0.1:8500 # consul endpoint
-  #Token: 'f0512db6-76d6-f25e-f344-a98cc3484d42' # consul ACL token (optional)
-  ListenOn: 0.0.0.0:8888
-  Key: example.rpc
-  Meta:
-    Protocol: grpc
-  Tag:
-    - example
-    - rpc
-```
-
-可以使用token增加安全性。
-
-浏览 consul 后台添加 kv
-
-### key
-exampleRpcConf
-### value
-```yaml
 Name: example.rpc
-Host: 127.0.0.1
-Port: 9101
-Timeout: 30000
+ListenOn: 0.0.0.0:9103
 ```
 
-然后代码就可以运行啦 !
+> 然后代码就可以运行啦 !
 
 ```shell
 go run example.go -f etc/example.yaml
 ```
 
-如果看到
+> 如果看到
 ```shell
-Starting server at 127.0.0.1:9101...
+Starting server at 127.0.0.1:9103...
 ```
 
 说明运行成功.
 
-# simple admin core 的 API 中如何远程调用该 RPC 
+> simple admin core 的 API 中如何远程调用该 RPC 
 
-### 添加 config
+> 添加 config
 ```go
 package config
 
@@ -187,41 +163,33 @@ import (
 )
 
 type Config struct {
-	rest.RestConf `yaml:",inline"`
-	Auth          Auth               `json:"auth" yaml:"Auth"`
-	RedisConf     redis.RedisConf    `json:"redisConf" yaml:"RedisConf"`
-	CoreRpc       zrpc.RpcClientConf `json:"coreRpc" yaml:"CoreRpc"`
-	ExampleRpc    zrpc.RpcClientConf  `json:"exampleRpc" yaml:"ExampleRpc"`
-	Captcha       Captcha            `json:"captcha" yaml:"Captcha"`
-	DB            gormsql.GORMConf   `json:"databaseConf" yaml:"DatabaseConf"`
+	rest.RestConf 
+	Auth          rest.AuthConf
+	RedisConf     redis.RedisConf    
+	CoreRpc       zrpc.RpcClientConf 
+	ExampleRpc    zrpc.RpcClientConf 
+	Captcha       Captcha          
+	DB            gormsql.GORMConf  
 }
 
 type Captcha struct {
-	KeyLong   int `json:"keyLong" yaml:"KeyLong"`     // captcha length
-	ImgWidth  int `json:"imgWidth" yaml:"ImgWidth"`   // captcha width
-	ImgHeight int `json:"imgHeight" yaml:"ImgHeight"` // captcha height
+	KeyLong   int   // captcha length
+	ImgWidth  int   // captcha width
+	ImgHeight int   // captcha height
 }
-
-type Auth struct {
-	AccessSecret string `json:"accessSecret" yaml:"AccessSecret"`
-	AccessExpire int64  `json:"accessExpire" yaml:"AccessExpire"`
-}
-
-type ConsulConfig struct {
-	Consul consul.Conf
-}
-
 ```
+> 修改 api/etc/core_dev.yaml
 
-#### consul
 ```yaml
 Name: core.api
 Host: 127.0.0.1
 Port: 9100
 Timeout: 30000
+
 Auth:
   AccessSecret:         # longer than 8
   AccessExpire: 259200  # Seconds
+
 Log:
   ServiceName: coreApiLogger
   Mode: file
@@ -230,16 +198,20 @@ Log:
   Compress: false
   KeepDays: 7
   StackCooldownMillis: 100
+
 RedisConf:
   Host: 192.168.50.216:6379
   Type: node
+
 CoreRpc:
-  Target: consul://127.0.0.1:8500/core.rpc?wait=14s
-  #Token: 'f0512db6-76d6-f25e-f344-a98cc3484d42' # consul ACL token (optional)
+  Endpoints:
+    - 127.0.0.1:9101
+
 Captcha:
   KeyLong: 5
   ImgWidth: 240
   ImgHeight: 80
+
 DatabaseConf:
   Type: mysql
   Path: 127.0.0.1
@@ -252,10 +224,13 @@ DatabaseConf:
   MaxOpenConn: 100
   LogMode: error
   LogZap: false
+
 ExampleRpc:
-  Target: consul://127.0.0.1:8500/example.rpc?wait=14s
+  Endpoints:
+   - 127.0.0.1:9103
 ```
-添加 example rpc 
+
+> 添加 example rpc 
 ### 修改 service context
 ```go
 package svc
@@ -311,5 +286,5 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 ```
 
-然后在 logic 直接调用 l.svcCtx.Example 即可
+> 然后在 logic 直接调用 l.svcCtx.Example 即可
 

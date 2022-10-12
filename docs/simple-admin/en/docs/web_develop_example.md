@@ -4,7 +4,7 @@
 
 simple-admin-backend-ui/src/api/sys
 
-#### Add model into simple-admin-backend-ui/src/api/sys/model 
+> Add model into simple-admin-backend-ui/src/api/sys/model 
 src/api/sys/model/exampleModel.ts
 ```typescript
 /**
@@ -16,7 +16,7 @@ export interface HelloReq {
 }
 
 ```
-#### Add example.ts into simple-admin-backend-ui/src/api/sys
+> Add example.ts into simple-admin-backend-ui/src/api/sys
 ```typescript
 import { defHttp } from '/@/utils/http/axios';
 import { ErrorMessageMode } from '/#/axios';
@@ -42,7 +42,7 @@ export const Hello = (params: HelloReq, mode: ErrorMessageMode = 'modal') => {
 
 ```
 
-Add view :  src/view/example/index.vue
+> Add view :  src/view/example/index.vue
 
 ```vue
 <template>
@@ -85,7 +85,7 @@ Add view :  src/view/example/index.vue
 </script>
 ```
 
-Notice **await Hello({ name: name.value }, 'message')** \
+> Notice **await Hello({ name: name.value }, 'message')** 
 ##### message mode 
 ![example](../../assets/example_validator_message_mode.png)
 ##### modal mode
@@ -93,33 +93,38 @@ Notice **await Hello({ name: name.value }, 'message')** \
 
 
 
-#### In order to support multiple language we need to add translations into src/locals/zh-CN/routes/system.ts  and  src/locals/en/routes/system.ts
-
+> In order to support multiple language we need to add translations into src/locals/zh-CN/routes/system.ts  and  src/locals/en/routes/system.ts
 
 ![example](../../assets/example_zh_title.png)
 ![example](../../assets/example_en_title.png)
 
-#### Recommend to use i18n extension which can help you copy path easily
+> Recommend to use i18n extension which can help you copy path easily
 
 ![I18n](../../assets/i18n_ext.png)
 ![I18n](../../assets/copy_translation_path.png)
 
-#### Add menu
+> Add menu
+
 ![Menu](../../assets/add_example_menu.png)
 
-#### Add menu authorization
+> Add menu authorization
+
 ![Menu](../../assets/add_example_authority.png)
 
-#### API description also recommend to set chinese and english translation
+> API description also recommend to set chinese and english translation
+
 ![Example](../../assets/example_api_desc_title_en.png)
 ![Example](../../assets/example_api_desc_title_zh.png)
 
-#### Add API
+> Add API
+
 ![Example](../../assets/add_example_api_zh.png)
 
-#### Add API authorization
+> Add API authorization
+
 ![Example](../../assets/add_example_authority_zh.png)
 
-#### Test page
+> Test page
+
 ![Example](../../assets/example_page.png)
 

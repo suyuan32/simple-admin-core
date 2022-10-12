@@ -1,6 +1,6 @@
 ## Validator 使用
 
-只需要在 api 中结构声明中使用 validate tag 即可实现校验
+> 只需要在 api 中结构声明中使用 validate tag 即可实现校验
 
 ```text
  // login request | 登录参数
@@ -29,7 +29,7 @@
     }
 ```
 
-支持多语言，默认支持中文和英文，如果需要其他语言请自行添加
+> 支持多语言，默认支持中文和英文，如果需要其他语言请自行添加
 
 [例子](https://github.com/suyuan32/simple-admin-core/blob/master/api/internal/svc/servicecontext_test.go)
 

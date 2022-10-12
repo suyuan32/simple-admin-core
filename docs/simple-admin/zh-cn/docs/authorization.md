@@ -1,7 +1,8 @@
 # 权限验证
+
 我们使用Casbin进行权限验证.
 
-## 初始化
+> 初始化
 
 ```go
 cbn := utils.NewCasbin(db)
@@ -9,7 +10,7 @@ cbn := utils.NewCasbin(db)
 
 [cbn](https://github.com/suyuan32/simple-admin-core/blob/master/api/internal/svc/servicecontext.go)
 
-## 创建中间件
+> 创建中间件
 
 ```go
 package middleware
@@ -86,7 +87,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 
 [Middleware](https://github.com/suyuan32/simple-admin-core/blob/master/api/internal/middleware/authoritymiddleware.go)
 
-### 在 api 文件中使用
+> 在 api 文件中使用
 
 ```text
 @server(

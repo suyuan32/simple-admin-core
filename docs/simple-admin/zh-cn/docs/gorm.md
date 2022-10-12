@@ -1,6 +1,6 @@
 # GORM 使用方法
 
-### 初始化
+> 初始化
 
 ```go
     db, err := c.DB.NewGORM()
@@ -12,7 +12,7 @@
 
 [Init](https://github.com/suyuan32/simple-admin-core/blob/master/rpc/internal/svc/servicecontext.go)
 
-### 定义 Model
+> 定义 Model
 
 ```go
 package model
@@ -31,7 +31,7 @@ type Api struct {
 
 [Model](https://github.com/suyuan32/simple-admin-core/tree/master/rpc/internal/model)
 
-### 获取数据
+> 获取数据
 
 ```go
 package logic
@@ -107,7 +107,7 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, er
 }
 ```
 
-使用 l.svc.DB.Model().Where().Find() 即可
+> 使用 l.svc.DB.Model().Where().Find() 即可
 
 [GetApiList](https://github.com/suyuan32/simple-admin-core/blob/master/rpc/internal/logic/getapilistlogic.go)
 

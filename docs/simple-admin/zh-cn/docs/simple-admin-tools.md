@@ -15,7 +15,7 @@ Simple admin tools 是一个基于go-zero的fork项目。
 \
 下面是构建goctls的过程.
 
-## 构建 goctls
+> 构建 goctls
 
 ```shell
 git clone https://github.com/suyuan32/simple-admin-tools.git
@@ -29,18 +29,17 @@ go build -o goctls goctl.go
 
 cp ./goctls $GOPATH/bin/goctls
 ```
-挺简单的。
 
-### 如何使用？
 
-#### 自动下载依赖
+> 如何使用？
+
+> 自动下载依赖
 ```shell
 goctls env check -i -f --verbose
 ```
 这个命令会自动安装 protoc 等依赖.
 
-#### API 命令
-命令和goctl一样，但是需要改成 goctls.
+> API 命令 , 命令和goctl一样，但是需要改成 goctls.
 ```shell
 $ goctl api -h
 NAME:
@@ -70,14 +69,14 @@ OPTIONS:
    --help, -h      show help
 ```
 
-例子:
+> 例子:
 
 ```shell
 goctls api go -api core.api -dir .
 ```
 根据 core.api 里的定义生成 go 文件， -dir 设置输出位置.
 
-### Rpc 命令
+> Rpc 命令
 
 ```shell
 $ goctl rpc protoc -h
@@ -100,12 +99,12 @@ OPTIONS:
    --verbose, -v     enable log output
 ```
 
-例子: \
+> 例子: \
 生成proto的模板
 ```shell
 goctl rpc template -o=user.proto
 ```
-生成的文件
+> 生成的文件
 ```shell
 syntax = "proto3";
 
@@ -124,13 +123,14 @@ service User {
   rpc Ping(Request) returns(Response);
 }
 ```
-生成go文件
+> 生成go文件
 ```shell
 goctl rpc protoc user.proto --go_out=. --go-grpc_out=. --zrpc_out=.
 ```
 [More](https://go-zero.dev/docs/goctl/zrpc)
 
-## go.mod 配置
+> go.mod 配置
+
 导入fork项目需要使用 replace 命令。
 
 ```mod
@@ -158,11 +158,12 @@ require (
 
 replace github.com/zeromicro/go-zero v1.4.1 => github.com/suyuan32/simple-admin-tools v0.0.6
 ```
-简单的方法是使用 goctls migrate命令.
+> 简单的方法是使用 goctls migrate命令.
 
 ```shell
 goctls migrate --zero-version v1.4.1 --tool-version v0.0.6
 ```
-这个命令可以快速添加 replace 语句， 但是不要运行多次， 会导致添加重复和 replace, 后续需要升级依赖的话直接修改 simple-admin-tools 的版本即可，然后 
+
+> 这个命令可以快速添加 replace 语句， 但是不要运行多次， 会导致添加重复和 replace, 后续需要升级依赖的话直接修改 simple-admin-tools 的版本即可，然后 
  **go mod tidy**.
 
