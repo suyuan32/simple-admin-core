@@ -13,20 +13,24 @@ Host: 0.0.0.0
 Port: 9102
 MaxBytes: 1073741824 # max content length : 1 gb
 Timeout: 30000 # bigger max bytes need longer timeout
+
 Auth:
-  AccessSecret:
+  AccessSecret: jS6VKDtsJf3z1n2VKDtsJf3z1n2
   AccessExpire: 259200  # Seconds
+
 Log:
-  ServiceName: fileManager
+  ServiceName: fileManagerLogger
   Mode: file
   Path: /home/ryan/logs/file/api
   Level: info
   Compress: false
   KeepDays: 7
-  StackCooldownMillis: 100
+  StackCoolDownMillis: 100
+
 RedisConf:
   Host: 127.0.0.1:6379
   Type: node
+
 DatabaseConf:
   Type: mysql
   Path: 127.0.0.1
@@ -39,12 +43,13 @@ DatabaseConf:
   MaxOpenConn: 100
   LogMode: error
   LogZap: false
+
 UploadConf:
-  MaxImageSize: 33554432  # 32 mb
-  MaxVideoSize: 1073741824 # 1gb
-  MaxAudioSize: 33554432  # 32mb
-  MaxOtherSize: 10485760  # 10 mb
-  PrivateStorePath: /home/ryan/www/private  # private
+  MaxImageSize: 33554432  # 32 mb the maximum size of image
+  MaxVideoSize: 1073741824 # 1gb the maximum size of video
+  MaxAudioSize: 33554432  # 32mb the maximum size of audio
+  MaxOtherSize: 10485760  # 10 mb the maximum size of other type
+  PrivateStorePath: /home/ryan/www/private  # private path 
   PublicStorePath: /home/ryan/www/public  # public path for every one access e.g. nginx path
 ```
 
