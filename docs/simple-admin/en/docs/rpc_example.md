@@ -233,6 +233,14 @@ ExampleRpc:
    - 127.0.0.1:9103
 ```
 
+> Small website use endpoint connect directly
+> 
+> ExampleRpc:
+>  Endpoints:
+>   - 127.0.0.1:9103
+>
+> it does not need service discovery， there can be several endpoints. 
+
 Add example rpc configuration.
 
 > Modify service context

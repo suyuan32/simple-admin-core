@@ -29,19 +29,19 @@ It can help you to develop a microservice back-end management core in a short ti
 
 ## Current Progress
 
-| Module                | Status      |
-|-----------------------|-------------|
-| Login and Register    | finished    |
-| Menu Management       | finished    |
-| Role Management       | finished    |
-| Role Authority        | finished    |
-| User Management       | finished    |
-| Operation log         | finished    |
-| Service discovery     | finished    |
-| Configuration center  | finished    |
-| Dictionary management | finished    |    
-| Oauth management      | finished    |
-| Fully support K8s     | In progress | 
+| Module                | Status   |
+|-----------------------|----------|
+| Login and Register    | Finished |
+| Menu Management       | Finished |
+| Role Management       | Finished |
+| Role Authority        | Finished |
+| User Management       | Finished |
+| Operation log         | Finished |
+| Service discovery     | Finished |
+| Configuration center  | Finished |
+| Dictionary management | Finished |    
+| Oauth management      | Finished |
+| Fully support K8s     | Finished | 
 
 ### The use of consul for service registration discovery in the early stage of the project is mainly to adapt to low-configuration servers. In the near future, the deployment process of K8s will be mainly optimized, and the project will mainly use K8s for deployment in the future.
 

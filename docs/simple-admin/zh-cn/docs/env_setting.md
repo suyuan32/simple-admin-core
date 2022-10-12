@@ -73,6 +73,14 @@ DatabaseConf:
 
 ```
 
+> 小型网站直接使用
+>
+> CoreRpc:
+>  Endpoints:
+>   - 127.0.0.1:9101
+>
+> 的方式直连，不需要服务发现，本地调试也是使用直连的方式， Endpoints 可以有多个
+
 > 添加 rpc/etc/core_dev.yaml
 ```yaml
 Name: core.rpc

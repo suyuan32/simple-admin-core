@@ -1,3 +1,37 @@
+# 0.0.9 (2022/10/12)
+
+### Features
+
+- docs: update english doc
+- docs: update chinese doc
+- docs: update k8s deployment english doc
+- docs: update k8s deployment chinese doc
+- docs: k8s deploy
+- docs: update index readme
+- feat: k8s deploy config
+- Update k8s config
+- Update k8s config
+- feat: k8s config
+- revert: api config
+- feat: gitlab ci/cd
+- revert: origin config
+
+### Bug Fixes
+
+- fix: update go mod
+
+# 0.0.8.1 (2022/10/09)
+
+### Features
+
+- docs: update readme about k8s support
+- docs: changelog and readme
+
+### Bug Fixes
+
+- fix: initialize url
+- fix: delete provider config when update
+
 # 0.0.8 (2022/10/08)
 
 ### Features

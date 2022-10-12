@@ -75,6 +75,14 @@ DatabaseConf:
 
 ```
 
+> Small website use endpoint connect directly
+>
+> CoreRpc:
+>  Endpoints:
+>   - 127.0.0.1:9101
+>
+> it does not need service discovery，when you develop locally, you should also use this mode. There can be several endpoints.
+
 > Add rpc/etc/core_dev.yaml
 ```yaml
 Name: core.rpc

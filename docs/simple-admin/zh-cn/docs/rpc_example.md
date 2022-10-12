@@ -178,57 +178,14 @@ type Captcha struct {
 	ImgHeight int   // captcha height
 }
 ```
-> 修改 api/etc/core_dev.yaml
 
-```yaml
-Name: core.api
-Host: 127.0.0.1
-Port: 9100
-Timeout: 30000
-
-Auth:
-  AccessSecret:         # longer than 8
-  AccessExpire: 259200  # Seconds
-
-Log:
-  ServiceName: coreApiLogger
-  Mode: file
-  Path: /home/ryan/logs/core/api  # set your own path
-  Level: info
-  Compress: false
-  KeepDays: 7
-  StackCooldownMillis: 100
-
-RedisConf:
-  Host: 192.168.50.216:6379
-  Type: node
-
-CoreRpc:
-  Endpoints:
-    - 127.0.0.1:9101
-
-Captcha:
-  KeyLong: 5
-  ImgWidth: 240
-  ImgHeight: 80
-
-DatabaseConf:
-  Type: mysql
-  Path: 127.0.0.1
-  Port: 3306
-  Config: charset=utf8mb4&parseTime=True&loc=Local
-  DBName: simple_admin
-  Username: 
-  Password: 
-  MaxIdleConn: 10
-  MaxOpenConn: 100
-  LogMode: error
-  LogZap: false
-
-ExampleRpc:
-  Endpoints:
-   - 127.0.0.1:9103
-```
+> 小型网站直接使用
+>
+> ExampleRpc:
+>  Endpoints:
+>   - 127.0.0.1:9103
+>
+> 的方式直连，不需要服务发现， Endpoints 可以有多个
 
 > 添加 example rpc 
 ### 修改 service context
