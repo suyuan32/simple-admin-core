@@ -1,4 +1,4 @@
-# 环境配置
+# 本地开发环境配置
 
 ## 环境需求
 - golang 1.19
@@ -23,8 +23,7 @@ git clone https://github.com/suyuan32/simple-admin-core.git
 ### 本地调试配置
 #### API 服务
 ##### 注意本地测试最好创建 core_dev.yaml 与部署文件core.yaml区分开
-##### 注意本地调试需要使用etcd进行服务注册发现
-> api/etc/core_dev.yaml
+> 添加 api/etc/core_dev.yaml
 ```yaml
 Name: core.api
 Host: 0.0.0.0 # ip可以是0.0.0.0也可以是127.0.0.1,如需其他外部主机访问则需要为 0.0.0.0
@@ -74,7 +73,7 @@ DatabaseConf:
 
 ```
 
-> rpc/etc/core_dev.yaml
+> 添加 rpc/etc/core_dev.yaml
 ```yaml
 Name: core.rpc
 ListenOn: 0.0.0.0:9101  # ip可以是0.0.0.0也可以是127.0.0.1,如需其他外部主机访问则需要为 0.0.0.0

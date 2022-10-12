@@ -7,6 +7,7 @@
 - docker
 
 ## Minikube 配置
+[Minikube](simple-admin/zh-cn/docs/minikube.md)
 
 ### K8s配置
 #### API 服务
@@ -186,7 +187,7 @@ spec:
       - name: coreapi
         image: ryanpower/coreapi:0.0.19 # 主要修改此处镜像
         ports:
-        - containerPort: 9100 # 端口， 与 ect 内配置端口相同
+        - containerPort: 9100 # 端口， 与 core.yaml 内配置端口相同
         readinessProbe:
           tcpSocket:
             port: 9100
@@ -278,3 +279,33 @@ spec:
           averageUtilization: 80
 
 ```
+
+> corerpc 和 backendui 相似
+
+## 前端 nginx 请求设置
+
+> simple-admin-backend-ui/deploy/default.conf
+
+```text
+server {
+    listen       80;
+    listen  [::]:80;
+    server_name  localhost;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /sys-api/ {
+        proxy_pass  http://coreapi-svc.simple-admin.svc.cluster.local:9100/;
+    }
+    
+    # location /file-manager/ {
+    #     proxy_pass  http://fileapi-svc:9102/;
+    # }
+}
+```
+
+> 注意 proxy_pass 格式  http://{service-name}.{namespace}.svc.cluster.local:{port}/

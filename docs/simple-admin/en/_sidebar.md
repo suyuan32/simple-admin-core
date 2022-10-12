@@ -1,5 +1,8 @@
 * Basic Configuration
-    * [Basic Setting](simple-admin/en/docs/env_setting.md)
+    * [Local Development Setting](simple-admin/en/docs/env_setting.md)
+    * K8s
+      * [K8s Deployment](simple-admin/en/docs/k8s-deploy.md)
+      * [Minikube Setting](simple-admin/en/docs/minikube.md)
     * [Simple Admin Tool](simple-admin/en/docs/simple-admin-tools.md)
     * [File Manager](/simple-admin/en/docs/file_manager.md)
     * [Web Setting](/simple-admin/en/docs/web-setting.md)
