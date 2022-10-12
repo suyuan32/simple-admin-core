@@ -5,7 +5,7 @@ Timeout: 30000
 
 Auth:
   AccessSecret: jS6VKDtsJf3z1n2VKDtsJf3z1n2
-  AccessExpire: 259200  # Seconds
+  AccessExpire: 259200
 
 Log:
   ServiceName: coreApiLogger
@@ -17,7 +17,7 @@ Log:
   StackCoolDownMillis: 100
 
 RedisConf:
-  Host: 192.168.50.216:6379  # change to your own ip or address
+  Host: 192.168.50.216:6379
   Type: node
 
 CoreRpc:

@@ -5,7 +5,6 @@
 - nodejs 18.8.0
 - mysql 5.7 +
 - redis 6.0 +
-- etcd
 
 ## 后端部署
 
@@ -23,11 +22,12 @@ git clone https://github.com/suyuan32/simple-admin-core.git
 
 ### 本地调试配置
 #### API 服务
-#### 注意本地测试最好创建 core_dev.yaml 与部署文件core.yaml区分开
+##### 注意本地测试最好创建 core_dev.yaml 与部署文件core.yaml区分开
+##### 注意本地调试需要使用etcd进行服务注册发现
 > api/etc/core_dev.yaml
 ```yaml
 Name: core.api
-Host: 0.0.0.0 # ip可以是0.0.0.0也可以是127.0.0.1
+Host: 0.0.0.0 # ip可以是0.0.0.0也可以是127.0.0.1,如需其他外部主机访问则需要为 0.0.0.0
 Port: 9100
 Timeout: 30000
 
@@ -51,15 +51,13 @@ RedisConf:
 
 # 与 k8s 主要是此处服务发现不同
 CoreRpc:
-  Etcd:
-    Hosts:
-      - 127.0.0.1:2379
-    Key: core.rpc
+  Endpoints:
+    - 127.0.0.1:9101 # 与 rpc 地址相同
 
 Captcha:
-  KeyLong: 5
-  ImgWidth: 240
-  ImgHeight: 80
+  KeyLong: 5 # 验证码长度
+  ImgWidth: 240 # 验证码图片宽度
+  ImgHeight: 80 # 验证码图片高度
 
 DatabaseConf:
   Type: mysql
@@ -76,15 +74,10 @@ DatabaseConf:
 
 ```
 
-> rpc/etc/core.yaml
+> rpc/etc/core_dev.yaml
 ```yaml
 Name: core.rpc
-ListenOn: 0.0.0.0:9101  # ip可以是0.0.0.0也可以是127.0.0.1
-# 需要添加 ETCD 配置
-Etcd:
-  Hosts:
-    - 127.0.0.1:2379
-  Key: user.rpc
+ListenOn: 0.0.0.0:9101  # ip可以是0.0.0.0也可以是127.0.0.1,如需其他外部主机访问则需要为 0.0.0.0
 
 DatabaseConf:
   Type: mysql
@@ -128,7 +121,7 @@ go mod tidy
 ```bash
 cd rpc
 
-go run core.go -f etc/core.yaml
+go run core.go -f etc/core_dev.yaml
 ```
 
 
@@ -137,7 +130,7 @@ go run core.go -f etc/core.yaml
 ```bash
 cd api
 
-go run core.go -f etc/core.yaml
+go run core.go -f etc/core_dev.yaml
 ```
 
 ## 前端配置
@@ -167,12 +160,45 @@ yarn build
 
 ### 预览
 ```shell
-# build and preview
+# 编译后再预览
 yarn preview
 
-# preview exist files
+# 直接预览dist文件夹，不重复编译
 yarn preview:dist
 ```
+
+### 注意 配置后端 API 地址
+
+> .env.development
+```text
+# Whether to open mock
+VITE_USE_MOCK = false
+
+# public path
+VITE_PUBLIC_PATH = /
+
+# Cross-domain proxy, you can configure multiple
+# Please note that no line breaks
+VITE_PROXY = [["/sys-api","http://localhost:9100"],["/file-manager","http://localhost:9102"]]
+
+VITE_BUILD_COMPRESS = 'none'
+
+# Delete console
+VITE_DROP_CONSOLE = false
+
+# Basic interface address SPA
+VITE_GLOB_API_URL=
+
+# File upload address， optional
+VITE_GLOB_UPLOAD_URL=/upload
+
+# File store address
+VITE_FILE_STORE_URL=http://localhost:8080
+
+# Interface prefix
+VITE_GLOB_API_URL_PREFIX=
+```
+> 主要修改 VITE_PROXY 中的 sys-api 配置， 使用 localhost 或 127.0.0.1 调试本地，也可设置成其他远程ip, filemanager访问的是文件服务
 
 ## 初始化数据库
 ***重要:*** 在初始化数据库前必须先创建数据库, 数据库名称和配置文件中的名称相同.
@@ -181,9 +207,12 @@ yarn preview:dist
 # 访问前端地址端口
 https://address:port/init
 
+# 默认
+https://localhost:3100/init
 ```
 进入界面
 
 ![pic](../../assets/init_zh_cn.png)
 
+> 文件服务初始化是可选的，没有运行文件api可以不初始化
 ## **初始化完成后需要重启 api 和 rpc。**

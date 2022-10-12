@@ -83,7 +83,7 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 20
+          averageUtilization: 80
 
 ---
 
@@ -107,4 +107,4 @@ spec:
         name: memory
         target:
           type: Utilization
-          averageUtilization: 20
+          averageUtilization: 80

@@ -6,14 +6,14 @@
 - redis 6.0 +
 - docker
 
-# minikube addons enable metrics-server
+## Minikube 配置
 
 ### K8s配置
 #### API 服务
 > api/etc/core.yaml
 ```yaml
 Name: core.api
-Host: 0.0.0.0
+Host: 0.0.0.0 # 需要 0.0.0.0 以便外部访问
 Port: 9100
 Timeout: 30000
 
@@ -23,12 +23,12 @@ Auth:
 
 Log:
   ServiceName: coreApiLogger
-  Mode: file
+  Mode: file # 日志模式
   Path: /home/ryan/logs/core/api  # log 保存路径，使用filebeat同步
-  Level: info
-  Compress: false
+  Level: info # 日志等级
+  Compress: false # 日志压缩
   KeepDays: 7  # 保存时长（天）
-  StackCoolDownMillis: 100
+  StackCoolDownMillis: 100 # 多少毫秒后再次写入堆栈跟踪。用来避免堆栈跟踪日志过多
 
 RedisConf:
   Host: 127.0.0.1:6379  # 改成自己的redis地址
@@ -36,25 +36,25 @@ RedisConf:
   # Pass: xxx  # 也可以设置密码
 
 CoreRpc:
-  Target: k8s://simple-admin/corerpc-svc:9101 # 格式 k8s://namespace/service name:port
+  Target: k8s://simple-admin/corerpc-svc:9101 # 格式 k8s://namespace/service-name:port
 
 Captcha:
-  KeyLong: 5
-  ImgWidth: 240
-  ImgHeight: 80
+  KeyLong: 5 # 验证码长度
+  ImgWidth: 240 # 验证码图片宽度
+  ImgHeight: 80 # 验证码图片高度
 
 DatabaseConf:
   Type: mysql
   Path: "127.0.0.1"  # 修改成自己的mysql地址
   Port: 3306
-  Config: charset=utf8mb4&parseTime=True&loc=Local
-  DBName: simple_admin
+  Config: charset=utf8mb4&parseTime=True&loc=Local # gorm时间转换需要如下配置
+  DBName: simple_admin # 数据库名，可以自定义
   Username: root   # 用户名
   Password: "123456" # 密码
   MaxIdleConn: 10  # 最大空闲连接
   MaxOpenConn: 100 # 最大连接数
-  LogMode: error
-  LogZap: false
+  LogMode: error # log 级别
+  LogZap: false # 目前log zap还未实现
 
 ```
 
@@ -109,7 +109,7 @@ make docker
 make publish-docker
 ```
 
-建议使用 gitlab-ci， 项目已默认提供
+建议使用 gitlab-ci， 项目已默认提供， 需要在 gitlab runner 设置 variable ： $DOCKER_USERNAME 和 $DOCKER_PASSWORD
 
 ```text
 variables:
@@ -154,3 +154,127 @@ clean-job:
     - echo "Delete all none images successfully."
 ```
 
+## 部署流程
+- 生成docker镜像
+- 上传docker仓库
+- 在k8s集群使用命令 kubectl apply -f deploy/k8s/coreapi.yaml 等直接部署
+> 生成镜像和上传仓库建议直接使用gitlab-ci自动发布
+### coreapi 部署文件详解
+> coreapi 是所有服务的label和metadata:name
+> 命名空间默认是 simple-admin, 可自行修改
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coreapi
+  namespace: simple-admin
+  labels:
+    app: coreapi
+spec:
+  replicas: 3
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: coreapi
+  template:
+    metadata:
+      labels:
+        app: coreapi
+    spec:
+      serviceAccountName: endpoints-finder
+      containers:
+      - name: coreapi
+        image: ryanpower/coreapi:0.0.19 # 主要修改此处镜像
+        ports:
+        - containerPort: 9100 # 端口， 与 ect 内配置端口相同
+        readinessProbe:
+          tcpSocket:
+            port: 9100
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 9100
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        resources:
+          requests:
+            cpu: 100m  # 最低 cpu 需求， 1000m 为一个cpu,测试环境建议小一些
+            memory: 100Mi # 本地调试我设置了 100 mb, 正式环境可以为 512Mi
+          limits:
+            cpu: 1000m # 最高占用 cpu
+            memory: 1024Mi # 最高占用的内存
+        volumeMounts:
+        - name: timezone
+          mountPath: /etc/localtime
+      volumes:
+        - name: timezone
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Shanghai # 设置时区
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: coreapi-svc
+  namespace: simple-admin
+spec:
+  type: NodePort
+  ports:
+  - port: 9100
+    targetPort: 9100
+    name: http
+    protocol: TCP
+  selector:
+    app: coreapi
+
+---
+# autoscaling 用于动态增加负载，通过 metric-server 获取使用率，目前获取 metric 还有些问题，近期会修复
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: coreapi-hpa-c
+  namespace: simple-admin
+  labels:
+    app: coreapi-hpa-c
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: coreapi
+  minReplicas: 3  # 最小副本
+  maxReplicas: 10 # 最大副本
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80 # 平均使用率 80%
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: coreapi-hpa-m
+  namespace: simple-admin
+  labels:
+    app: coreapi-hpa-m
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: coreapi
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+
+```

@@ -80,14 +80,14 @@ spec:
     kind: Deployment
     name: coreapi
   minReplicas: 3
-  maxReplicas: 10
+  maxReplicas: 4
   metrics:
     - type: Resource
       resource:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 20
+          averageUtilization: 80
 
 ---
 
@@ -104,11 +104,11 @@ spec:
     kind: Deployment
     name: coreapi
   minReplicas: 3
-  maxReplicas: 10
+  maxReplicas: 4
   metrics:
     - type: Resource
       resource:
         name: memory
         target:
           type: Utilization
-          averageUtilization: 20
+          averageUtilization: 80

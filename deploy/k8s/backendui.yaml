@@ -80,7 +80,7 @@ spec:
     kind: Deployment
     name: backendui
   minReplicas: 3
-  maxReplicas: 10
+  maxReplicas: 4
   metrics:
   - type: Resource
     resource:
@@ -104,7 +104,7 @@ spec:
     kind: Deployment
     name: backendui
   minReplicas: 3
-  maxReplicas: 10
+  maxReplicas: 4
   metrics:
   - type: Resource
     resource:
