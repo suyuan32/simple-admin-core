@@ -1,18 +1,26 @@
-## Initialization
+> Initialization
+
 ![pic](../../assets/init_en.png)
-## Login and Register
+> Login and Register
+
 ![pic](../../assets/register_en.png)
 ![pic](../../assets/login_en.png)
-## Dashboard
+> Dashboard
+
 ![pic](../../assets/dashboard_en.png)
-## User Management
+> User Management
+
 ![pic](../../assets/user_en.png)
-## Menu Management
+> Menu Management
+
 ![pic](../../assets/menu_en.png)
-## Role Management
+> Role Management
+
 ![pic](../../assets/role_en.png)
-## Authorization Management
+> Authorization Management
+
 ![pic](../../assets/authority_en.png)
-## File Management
+> File Management
+
 ![pic](../../assets/file_list_en.png)
 ![pic](../../assets/file_preview_en.png)

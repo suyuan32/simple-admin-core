@@ -1,19 +1,18 @@
 # Step by step develop API service 
 
-Make sure that you have been installed follow software:
-- Consul
+> Make sure that you have been installed follow software:
 - simple-admin-tool (goctls)
-- 
 
-## Create api project
+> Create api project \
 Create example project
 ```shell
 goctls api new example
 ```
-You can see the struct
+>You can see the struct
+
 ![Example](../../assets/example-struct.png)
 
-The go.mod is 
+> The go.mod is 
 
 ```shell
 module example
@@ -22,14 +21,13 @@ go 1.19
 
 ```
 
-You should run command
+> You should run command, to replace go-zero
 
 ```shell
 goctls migrate --zero-version v1.4.1 --tool-version v0.0.6
 ```
 
-The version you can go to the github to find the latest release. \
-
+> The version you can go to the github to find the latest release. \
 After running the command, the mod file becomes:
 
 ```text
@@ -133,28 +131,8 @@ replace github.com/zeromicro/go-zero v1.4.1 => github.com/suyuan32/simple-admin-
 
 ```
 
-And then edit etc/example.yaml
+> And then edit etc/example.yaml
 
-```yaml
-Consul:
-  Host: 127.0.0.1:8500 # consul endpoint
-  #Token: 'f0512db6-76d6-f25e-f344-a98cc3484d42' # consul ACL token (optional)
-  ListenOn: 0.0.0.0:8888
-  Key: example.api
-  Meta:
-    Protocol: grpc
-  Tag:
-    - example
-    - api
-```
-
-Modify the host and you should use token to ensure security.
-
-Visit consul and add kv
-
-### key
-exampleApiConf
-### value
 ```yaml
 Name: example.api
 Host: 127.0.0.1
@@ -162,13 +140,14 @@ Port: 9100
 Timeout: 30000
 ```
 
-And then you can run the code !
+> And then you can run the code !
 
 ```shell
 go run example.go -f etc/example.yaml
 ```
 
-You can see
+> You can see
+
 ```shell
 Starting server at 127.0.0.1:9100...
 ```

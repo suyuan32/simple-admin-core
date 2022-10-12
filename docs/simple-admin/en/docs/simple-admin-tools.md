@@ -8,15 +8,10 @@ It provides more addition features than origin project such as:
 - fully support validator and easy to use
 - so on
 
-But it is a little complex to install the goctls and import the dependencies due to forking.\
-\
-We cannot just use go get and go install the goctl but download binary file or build goctl by ourselves. \
-\
-The binary file can be used in ubuntu 22.04.\
-\
+> But it is a little complex to install the goctls and import the dependencies due to forking.\
 Let me show you how to build the code by yourself.
 
-## Build goctls
+> Build goctls
 
 ```shell
 git clone https://github.com/suyuan32/simple-admin-tools.git
@@ -32,15 +27,16 @@ cp ./goctls $GOPATH/bin/goctls
 ```
 It is easy right?
 
-### How to use it?
+> How to use it?
 
-#### Auto fix all dependencies command
+> Auto fix all dependencies command
+
 ```shell
 goctls env check -i -f --verbose
 ```
 Run this command can auto install protoc and so on.
 
-#### API command
+> API command
 
 The command is the same as goctl but you should use goctls instead.
 ```shell
@@ -72,14 +68,14 @@ OPTIONS:
    --help, -h      show help
 ```
 
-example:
+> Example:
 
 ```shell
 goctls api go -api core.api -dir .
 ```
 This means generating go files by core.api's declaration in current directory. -dir set the output path.
 
-### Rpc command
+> Rpc command
 
 ```shell
 $ goctl rpc protoc -h
@@ -102,11 +98,13 @@ OPTIONS:
    --verbose, -v     enable log output
 ```
 
-Example:
+> Example: \
 Generate proto template
+
 ```shell
 goctl rpc template -o=user.proto
 ```
+
 ```shell
 syntax = "proto3";
 
@@ -125,13 +123,15 @@ service User {
   rpc Ping(Request) returns(Response);
 }
 ```
-Generate go files
+> Generate go files
+
 ```shell
 goctl rpc protoc user.proto --go_out=. --go-grpc_out=. --zrpc_out=.
 ```
 [More](https://go-zero.dev/docs/goctl/zrpc)
 
-## Project go.mod setting
+> Project go.mod setting
+
 We know that if we want to import fork project we should use replace command.
 
 ```mod
@@ -159,12 +159,12 @@ require (
 
 replace github.com/zeromicro/go-zero v1.4.1 => github.com/suyuan32/simple-admin-tools v0.0.6
 ```
-In order to make it easier. You can use the command in goctls.
+> In order to make it easier. You can use the command in goctls.
 
 ```shell
 goctls migrate --zero-version v1.4.1 --tool-version v0.0.6
 ```
-It can help you to add replace code but it cannot run multiple times because it will add multiple replace lines
-in the go.mod file. You can just edit go.mod file can modify the simple-admin-tools version manually and run
- **go mod tidy**.
+> It can help you to add replace code but it cannot run multiple times because it will add multiple replace lines
+> in the go.mod file. You can just edit go.mod file can modify the simple-admin-tools version manually and run
+> **go mod tidy**.
 

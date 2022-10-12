@@ -1,19 +1,21 @@
 # Step by step develop RPC service
 
-Make sure that you have been installed follow software:
-- Consul
+> Make sure that you have been installed follow software:
 - simple-admin-tool (goctls)
 
 
-## Create RPC project
+> Create RPC project \
 Create example project
+
 ```shell
 goctls api new example
 ```
-You can see the struct \
+
+> You can see the struct 
+
 ![Example](../../assets/example_rpc_struct.png)
 
-The go.mod is
+> The go.mod is
 
 ```shell
 module example
@@ -22,14 +24,13 @@ go 1.19
 
 ```
 
-You should run command
+> You should run command
 
 ```shell
 goctls migrate --zero-version v1.4.1 --tool-version v0.0.6
 ```
 
-The version you can go to the github to find the latest release. \
-
+> The version you can go to the github to find the latest release. \
 After running the command, the mod file becomes:
 
 ```text
@@ -129,36 +130,14 @@ replace github.com/zeromicro/go-zero v1.4.1 => github.com/suyuan32/simple-admin-
 
 ```
 
-And then edit etc/example.yaml
+> And then edit etc/example.yaml
 
-```yaml
-Consul:
-  Host: 127.0.0.1:8500 # consul endpoint
-  #Token: 'f0512db6-76d6-f25e-f344-a98cc3484d42' # consul ACL token (optional)
-  ListenOn: 0.0.0.0:8888
-  Key: example.rpc
-  Meta:
-    Protocol: grpc
-  Tag:
-    - example
-    - rpc
-```
-
-Modify the host and you should use token to ensure security.
-
-Visit consul and add kv
-
-### key
-exampleRpcConf
-### value
 ```yaml
 Name: example.rpc
-Host: 127.0.0.1
-Port: 9101
-Timeout: 30000
+ListenOn: 0.0.0.0:9103
 ```
 
-And then you can run the code !
+> And then you can run the code !
 
 ```shell
 go run example.go -f etc/example.yaml
@@ -166,12 +145,12 @@ go run example.go -f etc/example.yaml
 
 You can see
 ```shell
-Starting server at 127.0.0.1:9101...
+Starting server at 127.0.0.1:9103...
 ```
 
 That means it runs successfully.
 
-# simple admin core's  API service calls RPC interfaces.
+> simple admin core's  API service calls RPC interfaces.
 
 ### Add config
 ```go
@@ -186,41 +165,34 @@ import (
 )
 
 type Config struct {
-	rest.RestConf `yaml:",inline"`
-	Auth          Auth               `json:"auth" yaml:"Auth"`
-	RedisConf     redis.RedisConf    `json:"redisConf" yaml:"RedisConf"`
-	CoreRpc       zrpc.RpcClientConf `json:"coreRpc" yaml:"CoreRpc"`
-	ExampleRpc    zrpc.RpcClientConf  `json:"exampleRpc" yaml:"ExampleRpc"`
-	Captcha       Captcha            `json:"captcha" yaml:"Captcha"`
-	DB            gormsql.GORMConf   `json:"databaseConf" yaml:"DatabaseConf"`
+	rest.RestConf
+	Auth          rest.AuthConf
+	RedisConf     redis.RedisConf
+	CoreRpc       zrpc.RpcClientConf
+	ExampleRpc    zrpc.RpcClientConf
+	Captcha       Captcha
+	DB            gormsql.GORMConf
 }
 
 type Captcha struct {
-	KeyLong   int `json:"keyLong" yaml:"KeyLong"`     // captcha length
-	ImgWidth  int `json:"imgWidth" yaml:"ImgWidth"`   // captcha width
-	ImgHeight int `json:"imgHeight" yaml:"ImgHeight"` // captcha height
-}
-
-type Auth struct {
-	AccessSecret string `json:"accessSecret" yaml:"AccessSecret"`
-	AccessExpire int64  `json:"accessExpire" yaml:"AccessExpire"`
-}
-
-type ConsulConfig struct {
-	Consul consul.Conf
+	KeyLong   int   // captcha length
+	ImgWidth  int   // captcha width
+	ImgHeight int   // captcha height
 }
 
 ```
+> 修改 api/etc/core_dev.yaml
 
-#### consul
 ```yaml
 Name: core.api
 Host: 127.0.0.1
 Port: 9100
 Timeout: 30000
+
 Auth:
   AccessSecret:         # longer than 8
   AccessExpire: 259200  # Seconds
+
 Log:
   ServiceName: coreApiLogger
   Mode: file
@@ -229,16 +201,20 @@ Log:
   Compress: false
   KeepDays: 7
   StackCooldownMillis: 100
+
 RedisConf:
   Host: 192.168.50.216:6379
   Type: node
+
 CoreRpc:
-  Target: consul://127.0.0.1:8500/core.rpc?wait=14s
-  #Token: 'f0512db6-76d6-f25e-f344-a98cc3484d42' # consul ACL token (optional)
+  Endpoints:
+    - 127.0.0.1:9101
+
 Captcha:
   KeyLong: 5
   ImgWidth: 240
   ImgHeight: 80
+
 DatabaseConf:
   Type: mysql
   Path: 127.0.0.1
@@ -251,12 +227,16 @@ DatabaseConf:
   MaxOpenConn: 100
   LogMode: error
   LogZap: false
+
 ExampleRpc:
-  Target: consul://127.0.0.1:8500/example.rpc?wait=14s
+  Endpoints:
+   - 127.0.0.1:9103
 ```
+
 Add example rpc configuration.
 
-### Modify service context
+> Modify service context
+
 ```go
 package svc
 
@@ -311,4 +291,4 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 ```
 
-And then you can use in logic via l.svcCtx.Example.
+> And then you can use in logic via l.svcCtx.Example.

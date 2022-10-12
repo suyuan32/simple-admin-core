@@ -5,12 +5,7 @@
 git clone https://github.com/suyuan32/simple-admin-file.git
 ```
 
-> 修改配置文件
-
-添加 kv 进 consul
-
-#### key
-fileApiConf
+> 修改配置文件 etc/file.yaml
 
 #### value
 ```yaml

@@ -1,7 +1,6 @@
 # 手把手教你开发 API 服务
 
 首先确认你安装了以下软件:
-- Consul
 - simple-admin-tool (goctls)
 
 

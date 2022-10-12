@@ -1,27 +1,28 @@
 # Local Development Setting
 
-## Environment Requirement
+> Environment Requirement
 - golang 1.19
 - nodejs 18.8.0
 - mysql 5.7 +
 - redis 6.0 +
 
-## Backend Setting
+> Backend Setting
 
-### simple admin core
+## simple admin core
 simple admin core is the core service for simple admin. It offers user management, authorization,
 menu management and API management and so on. It must be running.
 
-#### Default Account
+> Default Account
+
 username:     admin  \
 password:     simple-admin
 
-### Clone the core code 
+> Clone the core code 
 ```bash
 git clone https://github.com/suyuan32/simple-admin-core.git
 ```
 
-### Local development setting
+> Local development setting
 #### API Service
 ##### Notice: You should add core_dev.yaml for development to avoid conflicting with core.yaml in production.
 > Add api/etc/core_dev.yaml
@@ -108,13 +109,13 @@ RedisConf:
   # Pass: xxx  # You can also set the password 
 ```
 
-### Sync dependencies
+> Sync dependencies
 
 ```shell 
 go mod tidy
 ```
 
-### Run rpc service
+> Run rpc service
 
 ```bash
 cd rpc
@@ -122,8 +123,7 @@ cd rpc
 go run core.go -f etc/core_dev.yaml
 ```
 
-
-### Run api service
+> Run api service
 
 ```bash
 cd api
@@ -131,32 +131,34 @@ cd api
 go run core.go -f etc/core_dev.yaml
 ```
 
-## Front end setting
-
-### Clone the code
+> Front end setting
+>
+> Clone the code
 
 ```shell
 git clone https://github.com/suyuan32/simple-admin-backend-ui.git
 ```
 
-### Sync dependencies
+> Sync dependencies
 
 ```shell
 yarn install
 ```
 
-### Run in development mode
+> Run in development mode
 
 ```shell
 yarn serve
 ```
 
-### Build
+> Build
+
 ```shell
 yarn build
 ```
 
-### Preview
+> Preview
+
 ```shell
 # build and preview
 yarn preview
@@ -165,7 +167,7 @@ yarn preview
 yarn preview:dist
 ```
 
-### Notice: Set the API address
+> Notice: Set the API address
 
 > .env.development
 ```text

@@ -1,6 +1,6 @@
 ## Validator 使用
 
-You can just edit api file and add validate tag for the struct. 
+> You can just edit api file and add validate tag for the struct. 
 
 ```text
  // login request | 登录参数
@@ -29,7 +29,7 @@ You can just edit api file and add validate tag for the struct.
     }
 ```
 
-Default support Chinese and English, you can add other languages in servicecontext.go like below
+> Default translation support Chinese and English, you can add other languages in servicecontext.go like below
 
 [Example](https://github.com/suyuan32/simple-admin-core/blob/master/api/internal/svc/servicecontext_test.go)
 

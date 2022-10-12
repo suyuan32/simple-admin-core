@@ -1,6 +1,6 @@
 # Global Variable
 
-We define the global variables in internal/svc/servicecontext.go, and initialize them. \
+> We define the global variables in internal/svc/servicecontext.go, and initialize them. \
 For example:
 
 ```go
@@ -55,7 +55,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 ```
 
-How to use it?
+> How to use it?
 
 ```go
 package api
@@ -102,4 +102,4 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(req *types.CreateOrUpdateApiR
 
 ```
 
-We can get the global variables via l.svcCtx.
+> We can get the global variables via l.svcCtx.

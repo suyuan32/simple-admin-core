@@ -1,18 +1,11 @@
 ## File manager service
 
-### Get code
+> Get code
 ```shell
 git clone https://github.com/suyuan32/simple-admin-file.git
 ```
 
-### Modify configuration file
-
-Add kv in consul
-
-#### key
-fileApiConf
-
-#### value
+> Modify configuration file
 
 ```yaml
 Name: file_manager_0
@@ -55,10 +48,7 @@ UploadConf:
   PublicStorePath: /home/ryan/www/public  # public path for every one access e.g. nginx path
 ```
 
-You should use nginx to set PublicStorePath as static path for front end.
-
-Make sure AccessSecret is the same as simple-admin-core' api set
-
-The configure is similar as core
-
-Run code the same as core
+> You should use nginx to set PublicStorePath as static path for front end.
+> Make sure AccessSecret is the same as simple-admin-core' api set
+> The configuration is similar as core
+> Run code the same as core

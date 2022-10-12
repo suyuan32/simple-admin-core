@@ -1,7 +1,7 @@
 # Authorization
 We use Casbin to do authorization validating.
 
-## Initialize
+> Initialize
 
 ```go
 cbn := utils.NewCasbin(db)
@@ -9,7 +9,7 @@ cbn := utils.NewCasbin(db)
 
 [cbn](https://github.com/suyuan32/simple-admin-core/blob/master/api/internal/svc/servicecontext.go)
 
-## Use in middleware
+> Use in middleware
 
 ```go
 package middleware
@@ -86,7 +86,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 
 [Middleware](https://github.com/suyuan32/simple-admin-core/blob/master/api/internal/middleware/authoritymiddleware.go)
 
-### Use in api file
+> Use in api file
 
 ```text
 @server(
