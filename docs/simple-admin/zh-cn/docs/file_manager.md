@@ -58,3 +58,12 @@ UploadConf:
 > 确保 AccessSecret 和 simple-admin-core的api配置文件内一致 \
 配置方式参考core \
 运行方式同理
+
+### K8s 部署
+> 和 core api 相似
+
+你应该做如下工作:
+- 通过 fileapi.yaml 部署服务
+- 修改 simple-admin-backend-ui/deploy/default.conf ，解开 file-manager注释
+- 更新 ingress configmap
+- 更新 ingress controller

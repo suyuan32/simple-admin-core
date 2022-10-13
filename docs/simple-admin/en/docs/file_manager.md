@@ -57,3 +57,12 @@ UploadConf:
 > Make sure AccessSecret is the same as simple-admin-core' api set
 > The configuration is similar as core
 > Run code the same as core
+
+### K8s Deployment
+> It is similar with core api.
+
+You should do these step:
+- deploy the images via fileapi.yaml
+- modify simple-admin-backend-ui/deploy/default.conf, uncomment the file manager rule
+- update ingress configmap
+- update ingress controller

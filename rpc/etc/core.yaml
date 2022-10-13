@@ -27,3 +27,8 @@ Log:
 RedisConf:
   Host: 192.168.50.216:6379
   Type: node
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4001
+  Path: /metrics
