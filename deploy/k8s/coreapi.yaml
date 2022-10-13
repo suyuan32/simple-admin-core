@@ -19,7 +19,7 @@ spec:
       serviceAccountName: endpoints-finder
       containers:
       - name: coreapi
-        image: ryanpower/coreapi:0.0.15
+        image: ryanpower/coreapi:0.0.20
         ports:
         - containerPort: 9100
         readinessProbe:
