@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: corerpc
-  namespace: simple-admin
+  namespace: default
   labels:
     app: corerpc
 spec:
@@ -53,7 +53,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: corerpc-svc
-  namespace: simple-admin
+  namespace: default
 spec:
   ports:
   - port: 9101
@@ -71,7 +71,7 @@ kind: ServiceMonitor
 metadata:
   name: corerpc
   labels:
-    team: core
+    team: frontend
 spec:
   selector:
     matchLabels:
@@ -85,7 +85,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: corerpc-hpa-c
-  namespace: simple-admin
+  namespace: default
   labels:
     app: corerpc-hpa-c
 spec:
@@ -109,7 +109,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: corerpc-hpa-m
-  namespace: simple-admin
+  namespace: default
   labels:
     app: corerpc-hpa-m
 spec:
