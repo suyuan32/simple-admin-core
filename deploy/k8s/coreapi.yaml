@@ -59,11 +59,40 @@ spec:
   ports:
   - port: 9100
     targetPort: 9100
-    nodePort: 30100
     name: http
     protocol: TCP
   selector:
     app: coreapi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: coreapi-svc
+  namespace: simple-admin
+spec:
+  ports:
+    - port: 4000
+      name: prometheus
+      targetPort: 4000
+  selector:
+    app: coreapi
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: coreapi
+  labels:
+    team: core
+spec:
+  selector:
+    matchLabels:
+      app: coreapi
+  endpoints:
+    - port: prometheus
 
 ---
 

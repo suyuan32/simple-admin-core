@@ -58,8 +58,26 @@ spec:
   ports:
   - port: 9101
     targetPort: 9101
+  - port: 4001
+    name: prometheus
+    targetPort: 4001
   selector:
     app: corerpc
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: corerpc
+  labels:
+    team: core
+spec:
+  selector:
+    matchLabels:
+      app: corerpc
+  endpoints:
+    - port: prometheus
 
 ---
 
