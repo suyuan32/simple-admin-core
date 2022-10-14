@@ -14,6 +14,7 @@ minikube start --memory 3g
 
 ### minikube add plugins
 > Enable ingress adn metrics (metrics is used in go-zero for auto-scaling monitor)
+
 ```shell
 minikube addons enable metrics-server
 minikube addons enable ingress
@@ -26,10 +27,8 @@ alias kubectl="minikube kubectl --"
 
 ### Deploy the service
 > clone the code，cd deploy/k8s
-```shell
-# create namespace
-kubectl create namespace simple-admin
 
+```shell
 # add service discovery account
 kubectl apply -f auth.yaml
 
@@ -43,6 +42,8 @@ kubectl apply -f core-api.yaml
 kubectl apply -f backend-ui.yaml
 ```
 
+> You can just run simple-admin-core/deploy/k8s/setup.sh to finish the job.
+
 ### Ingress Setting
 Reference [Official Document](https://minikube.sigs.k8s.io/docs/tutorials/nginx_tcp_udp_ingress/)
 
@@ -52,6 +53,7 @@ Reference [Official Document](https://minikube.sigs.k8s.io/docs/tutorials/nginx_
 kubectl apply -f ingress.yaml
 ```
 > Ingress.yaml file
+
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -99,11 +101,15 @@ kubectl patch deployment ingress-nginx-controller --patch "$(cat ingress-patch.y
 
 ```
 
-> browse ingress ip address 
+> You can just run simple-admin-core/deploy/k8s/setup-ingress.sh to finish the job.
+
+> browse ingress IP address 
+
 ```shell
 kubectl get ingress
 ```
 > You can see
+
 ```shell
 NAME                   CLASS   HOSTS                               ADDRESS        PORTS   AGE
 simple-admin-ingress   nginx   simple-admin.com,simple-admin.com   192.168.49.2   80      2m8s
@@ -111,6 +117,7 @@ simple-admin-ingress   nginx   simple-admin.com,simple-admin.com   192.168.49.2 
 
 ### Modify local hosts
 > ip is the same as ingress 
+
 ```shell
 # add dns
 192.168.49.2    simple-admin.com
