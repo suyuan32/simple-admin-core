@@ -18,7 +18,7 @@ spec:
       serviceAccountName: endpoints-finder
       containers:
       - name: core-api
-        image: ryanpower/coreapi:0.0.20
+        image: ryanpower/core-api:0.0.22
         ports:
         - containerPort: 9100
         readinessProbe:
@@ -52,6 +52,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: core-api-svc
+  labels:
+    app: core-api-svc
 spec:
   type: NodePort
   ports:
@@ -68,6 +70,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: core-api-svc
+  labels:
+    app: core-api-svc
 spec:
   ports:
     - port: 4000

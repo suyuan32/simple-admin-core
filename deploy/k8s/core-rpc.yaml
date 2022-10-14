@@ -18,7 +18,7 @@ spec:
       serviceAccountName: endpoints-finder
       containers:
       - name: core-rpc
-        image: ryanpower/corerpc:0.0.20
+        image: ryanpower/core-rpc:0.0.22
         ports:
         - containerPort: 9101
         readinessProbe:
