@@ -1,35 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: coreapi
-  namespace: simple-admin
+  name: core-rpc
   labels:
-    app: coreapi
+    app: core-rpc
 spec:
   replicas: 3
   revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: coreapi
+      app: core-rpc
   template:
     metadata:
       labels:
-        app: coreapi
+        app: core-rpc
     spec:
       serviceAccountName: endpoints-finder
       containers:
-      - name: coreapi
-        image: ryanpower/coreapi:0.0.20
+      - name: core-rpc
+        image: ryanpower/corerpc:0.0.20
         ports:
-        - containerPort: 9100
+        - containerPort: 9101
         readinessProbe:
           tcpSocket:
-            port: 9100
+            port: 9101
           initialDelaySeconds: 5
           periodSeconds: 10
         livenessProbe:
           tcpSocket:
-            port: 9100
+            port: 9101
           initialDelaySeconds: 15
           periodSeconds: 20
         resources:
@@ -52,45 +51,32 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: coreapi-svc
-  namespace: simple-admin
-spec:
-  type: NodePort
-  ports:
-  - port: 9100
-    targetPort: 9100
-    name: http
-    protocol: TCP
-  selector:
-    app: coreapi
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: coreapi-svc
-  namespace: simple-admin
+  name: core-rpc-svc
+  labels:
+    app: core-rpc-svc
 spec:
   ports:
-    - port: 4000
-      name: prometheus
-      targetPort: 4000
+  - port: 9101
+    name: rpc
+    targetPort: 9101
+  - port: 4001
+    name: prometheus
+    targetPort: 4001
   selector:
-    app: coreapi
+    app: core-rpc
 
 ---
 
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: coreapi
+  name: core-rpc
   labels:
-    team: core
+    serviceMonitor: prometheus
 spec:
   selector:
     matchLabels:
-      app: coreapi
+      app: core-rpc-svc
   endpoints:
     - port: prometheus
 
@@ -99,17 +85,16 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: coreapi-hpa-c
-  namespace: simple-admin
+  name: core-rpc-hpa-c
   labels:
-    app: coreapi-hpa-c
+    app: core-rpc-hpa-c
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: coreapi
+    name: core-rpc
   minReplicas: 3
-  maxReplicas: 4
+  maxReplicas: 10
   metrics:
     - type: Resource
       resource:
@@ -123,17 +108,16 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: coreapi-hpa-m
-  namespace: simple-admin
+  name: core-rpc-hpa-m
   labels:
-    app: coreapi-hpa-m
+    app: core-rpc-hpa-m
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: coreapi
+    name: core-rpc
   minReplicas: 3
-  maxReplicas: 4
+  maxReplicas: 10
   metrics:
     - type: Resource
       resource:

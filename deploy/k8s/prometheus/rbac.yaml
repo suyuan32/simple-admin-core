@@ -1,12 +1,14 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: prometheus-simple-admin
+  name: prometheus
+
 ---
+
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: prometheus-simple-admin
+  name: prometheus
 rules:
   - apiGroups: [""]
     resources:
@@ -27,45 +29,18 @@ rules:
     verbs: ["get", "list", "watch"]
   - nonResourceURLs: ["/metrics"]
     verbs: ["get"]
----
-
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: prometheus-simple-admin
-  namespace: simple-admin
-rules:
-  - apiGroups:
-      - ""
-    resources:
-      - services
-      - endpoints
-      - pods
-    verbs:
-      - get
-      - list
-      - watch
-  - apiGroups:
-      - extensions
-    resources:
-      - ingresses
-    verbs:
-      - get
-      - list
-      - watch
 
 ---
 
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: prometheus-simple-admin
-  namespace: simple-admin
+  name: prometheus
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: prometheus-simple-admin
+  kind: ClusterRole
+  name: prometheus
 subjects:
   - kind: ServiceAccount
-    name: prometheus-simple-admin
-    namespace: monitoring
+    name: prometheus
+    namespace: default

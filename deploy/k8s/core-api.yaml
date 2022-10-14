@@ -1,35 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: corerpc
-  namespace: simple-admin
+  name: core-api
   labels:
-    app: corerpc
+    app: core-api
 spec:
   replicas: 3
   revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: corerpc
+      app: core-api
   template:
     metadata:
       labels:
-        app: corerpc
+        app: core-api
     spec:
       serviceAccountName: endpoints-finder
       containers:
-      - name: corerpc
-        image: ryanpower/corerpc:0.0.20
+      - name: core-api
+        image: ryanpower/coreapi:0.0.20
         ports:
-        - containerPort: 9101
+        - containerPort: 9100
         readinessProbe:
           tcpSocket:
-            port: 9101
+            port: 9100
           initialDelaySeconds: 5
           periodSeconds: 10
         livenessProbe:
           tcpSocket:
-            port: 9101
+            port: 9100
           initialDelaySeconds: 15
           periodSeconds: 20
         resources:
@@ -52,30 +51,43 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: corerpc-svc
-  namespace: simple-admin
+  name: core-api-svc
+spec:
+  type: NodePort
+  ports:
+  - port: 9100
+    targetPort: 9100
+    name: api
+    protocol: TCP
+  selector:
+    app: core-api
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: core-api-svc
 spec:
   ports:
-  - port: 9101
-    targetPort: 9101
-  - port: 4001
-    name: prometheus
-    targetPort: 4001
+    - port: 4000
+      name: prometheus
+      targetPort: 4000
   selector:
-    app: corerpc
+    app: core-api
 
 ---
 
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: corerpc
+  name: core-api
   labels:
-    team: simple-admin
+    serviceMonitor: prometheus
 spec:
   selector:
     matchLabels:
-      app: corerpc
+      app: core-api-svc
   endpoints:
     - port: prometheus
 
@@ -84,17 +96,16 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: corerpc-hpa-c
-  namespace: simple-admin
+  name: core-api-hpa-c
   labels:
-    app: corerpc-hpa-c
+    app: core-api-hpa-c
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: corerpc
+    name: core-api
   minReplicas: 3
-  maxReplicas: 10
+  maxReplicas: 4
   metrics:
     - type: Resource
       resource:
@@ -108,17 +119,16 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: corerpc-hpa-m
-  namespace: simple-admin
+  name: core-api-hpa-m
   labels:
-    app: corerpc-hpa-m
+    app: core-api-hpa-m
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: corerpc
+    name: core-api
   minReplicas: 3
-  maxReplicas: 10
+  maxReplicas: 4
   metrics:
     - type: Resource
       resource:

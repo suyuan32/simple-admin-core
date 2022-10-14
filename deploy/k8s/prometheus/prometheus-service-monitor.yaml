@@ -2,12 +2,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
   name: prometheus
-  namespace: simple-admin
 spec:
-  serviceAccountName: prometheus-simple-admin
-  podMonitorSelector:
+  serviceAccountName: prometheus
+  serviceMonitorSelector:
     matchLabels:
-      team: simple-admin
+      serviceMonitor: prometheus
   resources:
     requests:
       memory: 400Mi

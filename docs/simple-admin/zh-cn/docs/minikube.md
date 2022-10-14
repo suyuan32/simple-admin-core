@@ -35,14 +35,14 @@ kubectl create namespace simple-admin
 # 添加服务注册发现账号
 kubectl apply -f auth.yaml
 
-# 修改 corerpc.yaml 中的镜像为自己的，然后执行
-kubectl apply -f corerpc.yaml
+# 修改 core-rpc.yaml 中的镜像为自己的，然后执行
+kubectl apply -f core-rpc.yaml
 
-# 修改 coreapi.yaml 中的镜像为自己的，然后执行
-kubectl apply -f coreapi.yaml
+# 修改 core-api.yaml 中的镜像为自己的，然后执行
+kubectl apply -f core-api.yaml
 
-# 修改 backendui.yaml 中的镜像为自己的，然后执行
-kubectl apply -f backendui.yaml
+# 修改 backend-ui.yaml 中的镜像为自己的，然后执行
+kubectl apply -f backend-ui.yaml
 ```
 
 ### Ingress 配置

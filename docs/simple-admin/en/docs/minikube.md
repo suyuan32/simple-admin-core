@@ -33,14 +33,14 @@ kubectl create namespace simple-admin
 # add service discovery account
 kubectl apply -f auth.yaml
 
-# modify corerpc.yaml to set your own image
-kubectl apply -f corerpc.yaml
+# modify core-rpc.yaml to set your own image
+kubectl apply -f core-rpc.yaml
 
-# modify coreapi.yaml to set your own image
-kubectl apply -f coreapi.yaml
+# modify core-api.yaml to set your own image
+kubectl apply -f core-api.yaml
 
-# modify backendui.yaml to set your own image
-kubectl apply -f backendui.yaml
+# modify backend-ui.yaml to set your own image
+kubectl apply -f backend-ui.yaml
 ```
 
 ### Ingress Setting
