@@ -12,6 +12,7 @@
 ### K8s Setting
 #### API service
 > api/etc/core.yaml
+
 ```yaml
 Name: core.api
 Host: 0.0.0.0 # ip can be 0.0.0.0 or 127.0.0.1, it should be 0.0.0.0 if you want to access from another host
@@ -57,6 +58,11 @@ DatabaseConf:
   LogMode: error
   LogZap: false
 
+# Service monitor
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4000
+  Path: /metrics
 ```
 
 > rpc/etc/core.yaml
@@ -92,11 +98,17 @@ RedisConf:
   Type: node
   # Pass: xxx  # You can also set the password 
 
+# Service monitor
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4001
+  Path: /metrics
 ```
 
 ### Docker image publish
 
 #### Mammal
+
 ```shell
 # Set the env variables
 export VERSION=0.0.1  # version
@@ -111,7 +123,7 @@ make docker
 make publish-docker
 ```
 
-Recommend to use gitlab-ci. The project had been provided .gitlab-ci.yml， You need set variable ： $DOCKER_USERNAME 和 $DOCKER_PASSWORD in gitlab runner.
+> Recommend to use gitlab-ci. The project had been provided .gitlab-ci.yml， You need set variable ： $DOCKER_USERNAME 和 $DOCKER_PASSWORD in gitlab runner.
 
 ```text
 variables:
@@ -161,32 +173,34 @@ clean-job:
 - upload to docker repository 
 - run in k8s ->  kubectl apply -f deploy/k8s/coreapi.yaml
 > You can use gitlab-ci to automatically build and push docker image
+
 ### coreapi k8s deployment file tutorial
-> coreapi the name of service, you can find in label and metadata:name
+
+> core api the name of service, you can find in label and metadata:name \
 > Namespace is simple-admin by default, you can change your own namespace
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: coreapi
-  namespace: simple-admin
+  name: core-api
   labels:
-    app: coreapi
+    app: core-api
 spec:
   replicas: 3
   revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: coreapi
+      app: core-api
   template:
     metadata:
       labels:
-        app: coreapi
+        app: core-api
     spec:
       serviceAccountName: endpoints-finder
       containers:
-      - name: coreapi
-        image: ryanpower/coreapi:0.0.19 # mainly change this image
+      - name: core-api
+        image: ryanpower/core-api:0.0.19 # mainly change this image
         ports:
         - containerPort: 9100 # port， the same as core.yaml 
         readinessProbe:
@@ -219,32 +233,65 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: coreapi-svc
-  namespace: simple-admin
+  name: core-api-svc
+  labels:
+    app: core-api-svc
 spec:
   type: NodePort
   ports:
-  - port: 9100
-    targetPort: 9100
-    name: http
-    protocol: TCP
+    - port: 9100
+      targetPort: 9100
+      name: api
+      protocol: TCP
   selector:
-    app: coreapi
+    app: core-api
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: core-api-svc
+  labels:
+    app: core-api-svc
+spec:
+  ports:
+    - port: 4000
+      name: prometheus
+      targetPort: 4000
+  selector:
+    app: core-api
+
+
+---
+# 服务监控
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: core-rpc
+  labels:
+    serviceMonitor: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: core-rpc-svc
+  endpoints:
+    - port: prometheus
 
 ---
 # autoscaling is used to auto-scaling the replicas， use metric-server to get usage info，but it has some bugs now, it will fix in the future.
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: coreapi-hpa-c
+  name: core-api-hpa-c
   namespace: simple-admin
   labels:
-    app: coreapi-hpa-c
+    app: core-api-hpa-c
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: coreapi
+    name: core-api
   minReplicas: 3  # the min replicas number
   maxReplicas: 10 # the max replicas number
   metrics:
@@ -260,15 +307,15 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: coreapi-hpa-m
+  name: core-api-hpa-m
   namespace: simple-admin
   labels:
-    app: coreapi-hpa-m
+    app: core-api-hpa-m
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: coreapi
+    name: core-api
   minReplicas: 3
   maxReplicas: 10
   metrics:
@@ -300,13 +347,17 @@ server {
     }
 
     location /sys-api/ {
-        proxy_pass  http://coreapi-svc.simple-admin.svc.cluster.local:9100/;
+        proxy_pass  http://core-api-svc.default.svc.cluster.local:9100/;
     }
     
     # location /file-manager/ {
-    #     proxy_pass  http://fileapi-svc:9102/;
+    #     proxy_pass  http://file-api-svc.default.svc.cluster.local:9102/;
     # }
 }
 ```
 
 > Notice: proxy_pass format:   http://{service-name}.{namespace}.svc.cluster.local:{port}/
+
+#### Quick Deployment
+
+> Run deploy/k8s/setup.sh

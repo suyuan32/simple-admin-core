@@ -1,25 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backendui
-  namespace: simple-admin
+  name: backend-ui
   labels:
-    app: backendui
+    app: backend-ui
 spec:
   replicas: 3
   revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: backendui
+      app: backend-ui
   template:
     metadata:
       labels:
-        app: backendui
+        app: backend-ui
     spec:
       serviceAccountName: endpoints-finder
       containers:
-      - name: backendui
-        image: ryanpower/backendui:0.0.16
+      - name: backend-ui
+        image: ryanpower/backendui:0.0.22
         ports:
         - containerPort: 80
         readinessProbe:
@@ -52,8 +51,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backendui-svc
-  namespace: simple-admin
+  name: backend-ui-svc
 spec:
   type: NodePort
   ports:
@@ -63,22 +61,21 @@ spec:
     name: http
     protocol: TCP
   selector:
-    app: backendui
+    app: backend-ui
 
 ---
 
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: backendui-hpa-c
-  namespace: simple-admin
+  name: backend-ui-hpa-c
   labels:
-    app: backendui-hpa-c
+    app: backend-ui-hpa-c
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: backendui
+    name: backend-ui
   minReplicas: 3
   maxReplicas: 4
   metrics:
@@ -94,15 +91,14 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: backendui-hpa-m
-  namespace: simple-admin
+  name: backend-ui-hpa-m
   labels:
-    app: backendui-hpa-m
+    app: backend-ui-hpa-m
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: backendui
+    name: backend-ui
   minReplicas: 3
   maxReplicas: 4
   metrics:

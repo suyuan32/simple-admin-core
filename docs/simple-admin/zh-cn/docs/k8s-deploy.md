@@ -57,6 +57,11 @@ DatabaseConf:
   LogMode: error # log 级别
   LogZap: false # 目前log zap还未实现
 
+# 服务监控
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4000
+  Path: /metrics
 ```
 
 > rpc/etc/core.yaml
@@ -91,11 +96,18 @@ RedisConf:
   Host: 192.168.50.216:6379   # 改成自己的redis地址
   Type: node
   # Pass: xxx  # 也可以设置密码
+
+# 服务监控
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4001
+  Path: /metrics
 ```
 
 ### Docker镜像编译发布
 
-#### 手动编译
+> 手动编译
+
 ```shell
 # 设置环境变量
 export VERSION=0.0.1  # 版本号
@@ -110,7 +122,7 @@ make docker
 make publish-docker
 ```
 
-建议使用 gitlab-ci， 项目已默认提供， 需要在 gitlab runner 设置 variable ： $DOCKER_USERNAME 和 $DOCKER_PASSWORD
+> 建议使用 gitlab-ci， 项目已默认提供， 需要在 gitlab runner 设置 variable ： $DOCKER_USERNAME 和 $DOCKER_PASSWORD
 
 ```text
 variables:
@@ -160,32 +172,34 @@ clean-job:
 - 上传docker仓库
 - 在k8s集群使用命令 kubectl apply -f deploy/k8s/coreapi.yaml 等直接部署
 > 生成镜像和上传仓库建议直接使用gitlab-ci自动发布
+
 ### coreapi 部署文件详解
-> coreapi 是所有服务的label和metadata:name
+
+> coreapi 是所有服务的label和metadata:name \
 > 命名空间默认是 simple-admin, 可自行修改
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: coreapi
-  namespace: simple-admin
+  name: core-api
   labels:
-    app: coreapi
+    app: core-api
 spec:
   replicas: 3
   revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: coreapi
+      app: core-api
   template:
     metadata:
       labels:
-        app: coreapi
+        app: core-api
     spec:
       serviceAccountName: endpoints-finder
       containers:
-      - name: coreapi
-        image: ryanpower/coreapi:0.0.19 # 主要修改此处镜像
+      - name: core-api
+        image: ryanpower/core-api:0.0.19 # 主要修改此处镜像
         ports:
         - containerPort: 9100 # 端口， 与 core.yaml 内配置端口相同
         readinessProbe:
@@ -218,32 +232,64 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: coreapi-svc
-  namespace: simple-admin
+  name: core-api-svc
+  labels:
+    app: core-api-svc
 spec:
   type: NodePort
   ports:
-  - port: 9100
-    targetPort: 9100
-    name: http
-    protocol: TCP
+    - port: 9100
+      targetPort: 9100
+      name: api
+      protocol: TCP
   selector:
-    app: coreapi
+    app: core-api
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: core-api-svc
+  labels:
+    app: core-api-svc
+spec:
+  ports:
+    - port: 4000
+      name: prometheus
+      targetPort: 4000
+  selector:
+    app: core-api
+
+
+---
+# 服务监控
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: core-rpc
+  labels:
+    serviceMonitor: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: core-rpc-svc
+  endpoints:
+    - port: prometheus
 
 ---
 # autoscaling 用于动态增加负载，通过 metric-server 获取使用率，目前获取 metric 还有些问题，近期会修复
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: coreapi-hpa-c
-  namespace: simple-admin
+  name: core-api-hpa-c
   labels:
-    app: coreapi-hpa-c
+    app: core-api-hpa-c
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: coreapi
+    name: core-api
   minReplicas: 3  # 最小副本
   maxReplicas: 10 # 最大副本
   metrics:
@@ -259,15 +305,14 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: coreapi-hpa-m
-  namespace: simple-admin
+  name: core-api-hpa-m
   labels:
-    app: coreapi-hpa-m
+    app: core-api-hpa-m
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: coreapi
+    name: core-api
   minReplicas: 3
   maxReplicas: 10
   metrics:
@@ -280,7 +325,7 @@ spec:
 
 ```
 
-> corerpc 和 backendui 相似
+> core rpc 和 backend ui 相似
 
 ## 前端 nginx 请求设置
 
@@ -299,13 +344,17 @@ server {
     }
 
     location /sys-api/ {
-        proxy_pass  http://coreapi-svc.simple-admin.svc.cluster.local:9100/;
+        proxy_pass  http://core-api-svc.default.svc.cluster.local:9100/;
     }
     
     # location /file-manager/ {
-    #     proxy_pass  http://fileapi-svc:9102/;
+    #     proxy_pass  http://file-api-svc.default.svc.cluster.local:9102/;
     # }
 }
 ```
 
 > 注意 proxy_pass 格式  http://{service-name}.{namespace}.svc.cluster.local:{port}/
+
+#### 快速部署
+
+> 执行 deploy/k8s/setup.sh

@@ -1,25 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: corerpc
-  namespace: simple-admin
+  name: core-rpc
   labels:
-    app: corerpc
+    app: core-rpc
 spec:
   replicas: 3
   revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: corerpc
+      app: core-rpc
   template:
     metadata:
       labels:
-        app: corerpc
+        app: core-rpc
     spec:
       serviceAccountName: endpoints-finder
       containers:
-      - name: corerpc
-        image: ryanpower/corerpc:0.0.15
+      - name: core-rpc
+        image: ryanpower/core-rpc:0.0.22
         ports:
         - containerPort: 9101
         readinessProbe:
@@ -52,29 +51,48 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: corerpc-svc
-  namespace: simple-admin
+  name: core-rpc-svc
+  labels:
+    app: core-rpc-svc
 spec:
   ports:
   - port: 9101
+    name: rpc
     targetPort: 9101
+  - port: 4001
+    name: prometheus
+    targetPort: 4001
   selector:
-    app: corerpc
+    app: core-rpc
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: core-rpc
+  labels:
+    serviceMonitor: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: core-rpc-svc
+  endpoints:
+    - port: prometheus
 
 ---
 
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: corerpc-hpa-c
-  namespace: simple-admin
+  name: core-rpc-hpa-c
   labels:
-    app: corerpc-hpa-c
+    app: core-rpc-hpa-c
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: corerpc
+    name: core-rpc
   minReplicas: 3
   maxReplicas: 10
   metrics:
@@ -90,15 +108,14 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: corerpc-hpa-m
-  namespace: simple-admin
+  name: core-rpc-hpa-m
   labels:
-    app: corerpc-hpa-m
+    app: core-rpc-hpa-m
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: corerpc
+    name: core-rpc
   minReplicas: 3
   maxReplicas: 10
   metrics:
