@@ -15,3 +15,5 @@ sh setup.sh
 
 > Browse http://localhost:9090 \
 > View status - targets 
+
+![pic](../../assets/prometheus.png)
