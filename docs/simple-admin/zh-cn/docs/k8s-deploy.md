@@ -176,7 +176,7 @@ clean-job:
 ### coreapi 部署文件详解
 
 > coreapi 是所有服务的label和metadata:name \
-> 命名空间默认是 simple-admin, 可自行修改
+> 命名空间默认是 default, 可自行修改
 
 ```yaml
 apiVersion: apps/v1

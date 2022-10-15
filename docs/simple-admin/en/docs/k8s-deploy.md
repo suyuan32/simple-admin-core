@@ -177,7 +177,7 @@ clean-job:
 ### coreapi k8s deployment file tutorial
 
 > core api the name of service, you can find in label and metadata:name \
-> Namespace is simple-admin by default, you can change your own namespace
+> Namespace is  default, you can change your own namespace
 
 ```yaml
 apiVersion: apps/v1
@@ -264,7 +264,7 @@ spec:
 
 
 ---
-# 服务监控
+# Service Monitor
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
