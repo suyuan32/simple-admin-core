@@ -176,7 +176,7 @@ clean-job:
 ### coreapi 部署文件详解
 
 > coreapi 是所有服务的label和metadata:name \
-> 命名空间默认是 simple-admin, 可自行修改
+> 命名空间默认是 default, 可自行修改
 
 ```yaml
 apiVersion: apps/v1
@@ -219,13 +219,18 @@ spec:
           limits:
             cpu: 1000m # 最高占用 cpu
             memory: 1024Mi # 最高占用的内存
-        volumeMounts:
-        - name: timezone
-          mountPath: /etc/localtime
+        volumeMounts: 
+            - name: timezone
+              mountPath: /etc/localtime
+            - mountPath: /home/data
+              name: simple-admin-pv
       volumes:
         - name: timezone
           hostPath:
-            path: /usr/share/zoneinfo/Asia/Shanghai # 设置时区
+            path: /usr/share/zoneinfo/Asia/Shanghai
+        - name: simple-admin-pv  # log 持久化卷
+          persistentVolumeClaim:
+            claimName: simple-admin-pv-claim 
 
 ---
 

@@ -177,7 +177,7 @@ clean-job:
 ### coreapi k8s deployment file tutorial
 
 > core api the name of service, you can find in label and metadata:name \
-> Namespace is simple-admin by default, you can change your own namespace
+> Namespace is  default, you can change your own namespace
 
 ```yaml
 apiVersion: apps/v1
@@ -221,12 +221,17 @@ spec:
             cpu: 1000m # the maximum cpu requirement， 1000m is one cpu, set lower in development env
             memory: 1024Mi # the maximum memory usage
         volumeMounts:
-        - name: timezone
-          mountPath: /etc/localtime
+          - name: timezone
+            mountPath: /etc/localtime
+          - mountPath: /home/data
+            name: simple-admin-pv
       volumes:
         - name: timezone
           hostPath:
-            path: /usr/share/zoneinfo/Asia/Shanghai # set time zone
+            path: /usr/share/zoneinfo/Asia/Shanghai
+        - name: simple-admin-pv  # log persistence volume
+          persistentVolumeClaim:
+            claimName: simple-admin-pv-claim
 
 ---
 
@@ -264,7 +269,7 @@ spec:
 
 
 ---
-# 服务监控
+# Service Monitor
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:

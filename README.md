@@ -82,7 +82,6 @@ docsify serve .
 - [GORM](https://gorm.io/) - GORM 数据库ORM组件
 - [Casbin](https://casbin.org/) - 权限管理
 - [Go-swagger](https://goswagger.io/) - Go-swagger 文档生成调试
-- [Consul](https://www.consul.io/docs) - Consul
 
 ## 安装使用
 

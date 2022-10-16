@@ -3,7 +3,7 @@ ListenOn: 0.0.0.0:9101
 
 DatabaseConf:
   Type: mysql
-  Path: "127.0.0.1"
+  Path: "192.168.50.216"
   Port: 3306
   Config: charset=utf8mb4&parseTime=True&loc=Local
   DBName: simple_admin
@@ -17,7 +17,7 @@ DatabaseConf:
 Log:
   ServiceName: coreRpcLogger
   Mode: file
-  Path: /home/ryan/logs/core/rpc
+  Path: /home/data/logs/core/rpc
   Encoding: json
   Level: info
   Compress: false
