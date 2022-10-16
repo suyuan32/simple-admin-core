@@ -82,7 +82,6 @@ docsify serve .
 - [GORM](https://gorm.io/) - Familiar with GORM apis
 - [Casbin](https://casbin.org/) - Familiar with Casbin apis
 - [Go-swagger](https://goswagger.io/) - Go-swagger document generation
-- [Consul](https://www.consul.io/docs) - Consul
 
 ## Install and use
 

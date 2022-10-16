@@ -18,7 +18,7 @@ spec:
       serviceAccountName: endpoints-finder
       containers:
       - name: core-api
-        image: ryanpower/core-api:0.0.22
+        image: ryanpower/core-api:0.0.24
         ports:
         - containerPort: 9100
         readinessProbe:
@@ -39,12 +39,17 @@ spec:
             cpu: 1000m
             memory: 1024Mi
         volumeMounts:
-        - name: timezone
-          mountPath: /etc/localtime
+          - name: timezone
+            mountPath: /etc/localtime
+          - mountPath: /home/data
+            name: simple-admin-pv
       volumes:
         - name: timezone
           hostPath:
             path: /usr/share/zoneinfo/Asia/Shanghai
+        - name: simple-admin-pv
+          persistentVolumeClaim:
+            claimName: simple-admin-pv-claim
 
 ---
 
