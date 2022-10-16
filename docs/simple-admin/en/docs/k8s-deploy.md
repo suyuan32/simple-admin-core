@@ -221,12 +221,17 @@ spec:
             cpu: 1000m # the maximum cpu requirement， 1000m is one cpu, set lower in development env
             memory: 1024Mi # the maximum memory usage
         volumeMounts:
-        - name: timezone
-          mountPath: /etc/localtime
+          - name: timezone
+            mountPath: /etc/localtime
+          - mountPath: /home/data
+            name: simple-admin-pv
       volumes:
         - name: timezone
           hostPath:
-            path: /usr/share/zoneinfo/Asia/Shanghai # set time zone
+            path: /usr/share/zoneinfo/Asia/Shanghai
+        - name: simple-admin-pv  # log persistence volume
+          persistentVolumeClaim:
+            claimName: simple-admin-pv-claim
 
 ---
 

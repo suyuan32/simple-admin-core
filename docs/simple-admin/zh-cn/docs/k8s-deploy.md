@@ -219,13 +219,18 @@ spec:
           limits:
             cpu: 1000m # 最高占用 cpu
             memory: 1024Mi # 最高占用的内存
-        volumeMounts:
-        - name: timezone
-          mountPath: /etc/localtime
+        volumeMounts: 
+            - name: timezone
+              mountPath: /etc/localtime
+            - mountPath: /home/data
+              name: simple-admin-pv
       volumes:
         - name: timezone
           hostPath:
-            path: /usr/share/zoneinfo/Asia/Shanghai # 设置时区
+            path: /usr/share/zoneinfo/Asia/Shanghai
+        - name: simple-admin-pv  # log 持久化卷
+          persistentVolumeClaim:
+            claimName: simple-admin-pv-claim 
 
 ---
 
