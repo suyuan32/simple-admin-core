@@ -3,7 +3,8 @@
 <h1>Simple Admin</h1>
 </div>
 
-**English** | [中文](./README.md) \
+**English** | [中文](./README.md) 
+---
 [![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.4.1-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.8.0-yellow.svg)](https://vvbin.cn/doc-next/)
 [![GORM](https://img.shields.io/badge/GORM-v1.23.8-blue.svg)](https://gorm.io/)
@@ -29,21 +30,21 @@ It can help you to develop a microservice back-end management core in a short ti
 
 ## Current Progress
 
-| Module                | Status       |
-|-----------------------|--------------|
-| Login and Register    | Finished     |
-| Menu Management       | Finished     |
-| Role Management       | Finished     |
-| Role Authority        | Finished     |
-| User Management       | Finished     |
-| Operation log         | Finished     |
-| Service discovery     | Finished     |
-| Configuration center  | Finished     |
-| Dictionary management | Finished     |    
-| Oauth management      | Finished     |
-| Fully support K8s     | Finished     | 
-| Service Monitor | Finished     |
-| Log collection | In progress  | 
+| Module                | Status   |
+|-----------------------|----------|
+| Login and Register    | Finished |
+| Menu Management       | Finished |
+| Role Management       | Finished |
+| Role Authority        | Finished |
+| User Management       | Finished |
+| Operation log         | Finished |
+| Service discovery     | Finished |
+| Configuration center  | Finished |
+| Dictionary management | Finished |    
+| Oauth management      | Finished |
+| Fully support K8s     | Finished | 
+| Service Monitor       | Finished |
+| Log collecting        | Finished | 
 
 ### The use of consul for service registration discovery in the early stage of the project is mainly to adapt to low-configuration servers. In the near future, the deployment process of K8s will be mainly optimized, and the project will mainly use K8s for deployment in the future.
 
@@ -158,6 +159,9 @@ You are very welcome to join！[Raise an issue](https://github.com/suyuan32/Simp
     - `ci` Continuous integration
     - `types` Type definition file changes
     - `wip` In development
+
+# Community
+[Discard](https://discord.gg/NDED5p2hJk)
 
 ## Maintainer
 
