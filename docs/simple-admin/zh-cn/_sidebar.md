@@ -22,4 +22,5 @@
   * [错误处理](simple-admin/zh-cn/docs/error_handling.md)
   * [第三方登录](simple-admin/zh-cn/docs/oauth.md)
   * [服务监控](simple-admin/zh-cn/docs/prometheus.md)
+  * [日志收集](simple-admin/zh-cn/docs/log-collection.md)
 * [常见问题](simple-admin/zh-cn/docs/FAQ.md) 

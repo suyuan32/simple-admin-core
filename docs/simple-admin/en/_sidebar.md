@@ -23,4 +23,5 @@
     * [Error Handling](simple-admin/en/docs/error_handling.md)
     * [Oauth](simple-admin/en/docs/oauth.md)
     * [Service Monitor](simple-admin/en/docs/prometheus.md)
+    * [Log Collecting](simple-admin/en/docs/log-collection.md)
 * [FAQ](simple-admin/en/docs/FAQ.md) 
