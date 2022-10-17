@@ -24,8 +24,8 @@ It can help you to develop a microservice back-end management core in a short ti
 - **Fully support go-swagger**: Write comment in api file and generate swagger doc easily
 - **Error handling**: Handle error messages via one module
 - **International**：support different languages show in the front-end via put locale path in the message 
-- **Service Discover** cunsul, load balancing
-- **Authority** Manage authority via casbin
+- **Service Discover**: use k8s endpoints to do service discovery and load-balance
+- **Authority** Manage authority via casbin, based on RBAC
 - **Other** builtin concurrency control, adaptive circuit breaker, adaptive load shedding, auto-trigger, auto recover
 
 ## Current Progress
