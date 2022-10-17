@@ -1,3 +1,30 @@
+# 0.1.0 (2022/10/17)
+
+### Features
+
+- Update readme
+- docs: log collecting
+- feat: filebeat deploy
+- Update k8s doc
+- feat: storing log into persistence volume
+- docs: update k8s-deploy
+- docs: update prometheus doc
+- Update backend-ui.yaml
+- docs: prometheus deployment
+- Update image version
+- Update prometheus setting
+- Update corerpc.yaml
+- Update image version
+- feat: prometheus support
+- docs: update file manager deploy doc
+- docs: update env setting
+- docs: update file manager doc
+
+### Bug Fixes
+
+- feat: prometheus deployment and fix bugs in other deployment
+- fix: update change log
+
 # 0.0.9 (2022/10/12)
 
 ### Features

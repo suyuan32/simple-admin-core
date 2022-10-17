@@ -3,7 +3,8 @@
 <h1>Simple Admin</h1>
 </div>
 
-**中文** | [English](./README.En.md) \
+**中文** | [English](./README.En.md) 
+---
 [![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.4.1-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.8.0-yellow.svg)](https://vvbin.cn/doc-next/)
 [![GORM](https://img.shields.io/badge/GORM-v1.23.8-blue.svg)](https://gorm.io/)
