@@ -16,7 +16,6 @@ minikube start --memory 3g
 > Enable ingress adn metrics (metrics is used in go-zero for auto-scaling monitor)
 
 ```shell
-minikube addons enable metrics-server
 minikube addons enable ingress
 ```
 
@@ -31,6 +30,9 @@ alias kubectl="minikube kubectl --"
 ```shell
 # add service discovery account
 kubectl apply -f auth.yaml
+
+# create persistent volume for log
+kubectl apply -f pv.yaml
 
 # modify core-rpc.yaml to set your own image
 kubectl apply -f core-rpc.yaml

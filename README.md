@@ -14,7 +14,7 @@
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
 ![QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-801043319-blue)
 
-## Introduction
+## 简介
 
 Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基于go-zero开发，提供丰富的功能如服务发现，权限管理等。
 该框架可以帮助您快速开发具有RPC服务的后台管理系统。
@@ -46,6 +46,7 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 | 全面支持 K8s | 已完成 |
 | 服务监控 | 已完成 |
 | 日志收集 | 已完成 |
+| JWT黑名单 | 进行中 | 
 
 ## 预览
 

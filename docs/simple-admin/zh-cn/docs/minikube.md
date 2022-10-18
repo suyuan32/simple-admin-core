@@ -18,7 +18,6 @@ minikube start --memory 3g
 > 启用 ingress 和 metrics (metrics是gozero默认使用的,用于自动扩展)
 
 ```shell
-minikube addons enable metrics-server
 minikube addons enable ingress
 ```
 
@@ -34,6 +33,9 @@ alias kubectl="minikube kubectl --"
 ```shell
 # 添加服务注册发现账号
 kubectl apply -f auth.yaml
+
+# 创建持久卷保存日志
+kubectl apply -f pv.yaml
 
 # 修改 core-rpc.yaml 中的镜像为自己的，然后执行
 kubectl apply -f core-rpc.yaml
