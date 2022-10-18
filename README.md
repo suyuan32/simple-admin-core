@@ -162,7 +162,9 @@ go build -o core core.go
     - `wip` 开发中
 
 ## 交流群
-QQ 801043319
+> QQ 801043319 
+
+>[Discord](https://discord.gg/NDED5p2hJk)
 ## 维护者
 
 [@Ryan Su](https://github.com/suyuan32)
