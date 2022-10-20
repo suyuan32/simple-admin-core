@@ -25,6 +25,14 @@ services:
       simple-admin:
         aliases:
           - mysqlserver
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 300M
+        reservations:
+          cpus: '0.05'
+          memory: 200M
 
   redis:
     image: redis:7.0.5-alpine
@@ -38,3 +46,11 @@ services:
       simple-admin:
         aliases:
           - redisserver
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 300M
+        reservations:
+          cpus: '0.05'
+          memory: 200M

@@ -333,6 +333,30 @@ message CallbackReq {
   string code = 2;
 }
 
+// JWT message
+
+message TokenInfo {
+  uint64 id = 1;
+  int64 create_at = 2;
+  string UUID = 3;
+  string token = 4;
+  string source = 5;
+  bool status = 6;
+  int64 expire_at = 7;
+}
+
+message TokenList {
+  uint64 total = 1;
+  repeated TokenInfo data = 2;
+}
+
+message TokenListReq {
+  PageInfoReq page = 1;
+  string username = 2;
+  string nickname = 3;
+  string email = 4;
+}
+
 // service
 service core {
   // init
@@ -387,4 +411,10 @@ service core {
   rpc getProviderList (PageInfoReq) returns (ProviderListResp);
   rpc oauthLogin (OauthLoginReq) returns (OauthRedirectResp);
   rpc oauthCallback (CallbackReq) returns (LoginResp);
+
+  // Token management
+  rpc createOrUpdateToken (TokenInfo) returns (BaseResp);
+  rpc deleteToken (IDReq) returns (BaseResp);
+  rpc getTokenList (TokenListReq) returns (ProviderListResp);
+  rpc setTokenStatus (SetStatusReq) returns (BaseResp);
 }
