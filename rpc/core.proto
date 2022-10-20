@@ -345,7 +345,7 @@ message TokenInfo {
   int64 expire_at = 7;
 }
 
-message TokenList {
+message TokenListResp {
   uint64 total = 1;
   repeated TokenInfo data = 2;
 }
@@ -415,6 +415,6 @@ service core {
   // Token management
   rpc createOrUpdateToken (TokenInfo) returns (BaseResp);
   rpc deleteToken (IDReq) returns (BaseResp);
-  rpc getTokenList (TokenListReq) returns (ProviderListResp);
+  rpc getTokenList (TokenListReq) returns (TokenListResp);
   rpc setTokenStatus (SetStatusReq) returns (BaseResp);
 }

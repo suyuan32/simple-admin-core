@@ -1,0 +1,155 @@
+syntax = "v1"
+
+info(
+    title: "Token management"
+    desc: "Token management is used to manage tokens"
+    author: "Ryan Su"
+    email: "yuansu.china.work@gmail.com"
+    version: "v1.0"
+)
+
+import "base.api"
+
+type (
+    // The response data of API information | API信息
+    // swagger:response ApiInfo
+    ApiInfo {
+        // ID
+        Id            uint64 `json:"id"`
+
+        CreateAt      int64  `json:"createAt"`
+
+        // API path | API路径
+        Path          string `json:"path"`
+
+        // API Description | API 描述
+        Description   string `json:"description"`
+
+        // API group | API分组
+        Group         string `json:"group"`
+
+        // API request method e.g. POST | API请求类型 如POST
+        Method        string `json:"method"`
+    }
+
+    // Create or update API information request | 创建或更新API信息
+    // swagger:model CreateOrUpdateApiReq
+    CreateOrUpdateApiReq {
+        // ID
+        // Required: true
+        Id            uint64 `json:"id" validate:"number"`
+
+        // Create date | 创建日期
+        // Required: true
+        CreateAt      int64  `json:"createAt" validate:"number"`
+
+        // API path | API路径
+        // Required: true
+        // Min length: 1
+        // Max length: 50
+        Path          string `json:"path" validate:"min=1,max=50"`
+
+        // API Description | API 描述
+        // Required: true
+        // Max length: 50
+        Description   string `json:"description" validate:"max=50"`
+
+        // API group | API分组
+        // Require: true
+        // Min length: 1
+        // Max length: 10
+        Group         string `json:"group" validate:"alphanum,min=1,max=10"`
+
+        // API request method e.g. POST | API请求类型 如POST
+        // Required: true
+        // Min length: 3
+        // Max length: 4
+        Method        string `json:"method" validate:"uppercase,min=3,max=4"`
+    }
+
+    // The response data of API list | API列表数据
+    // swagger:response ApiListResp
+    ApiListResp {
+        // The total number of data | 数据总数
+        Total uint64 `json:"total"`
+
+        // The api list data | 角色列表数据
+        // in: body
+        Data  []ApiInfo  `json:"data"`
+    }
+
+    // Get API list request params | API列表请求参数
+    // swagger:model ApiListReq
+    ApiListReq {
+        PageInfo
+        // API path | API路径
+        // Required: true
+        // Max length: 100
+        Path          string `json:"path" validate:"omitempty,max=100"`
+
+        // API Description | API 描述
+        // Required: true
+        // Max length: 50
+        Description   string `json:"description" validate:"omitempty,max=50"`
+
+        // API group | API分组
+        // Require: true
+        // Max length: 10
+        Group         string `json:"group" validate:"omitempty,alphanum,max=10"`
+
+        // API request method e.g. POST | API请求类型 如POST
+        // Required: true
+        // Max length: 4
+        Method        string `json:"method" validate:"omitempty,uppercase,max=4"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: api
+    middleware: Authority
+)
+
+service core {
+    // swagger:route POST /api api createOrUpdateApi
+    // Create or update API information | 创建或更新API
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: CreateOrUpdateApiReq
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler createOrUpdateApi
+    post /api (CreateOrUpdateApiReq) returns (SimpleMsg)
+
+    // swagger:route DELETE /api api deleteApi
+    // Delete API information | 删除API信息
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: IDReq
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler deleteApi
+    delete /api (IDReq) returns (SimpleMsg)
+
+    // swagger:route POST /api/list api getApiList
+    // Get API list | 获取API列表
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: ApiListReq
+    // Responses:
+    //   200: ApiListResp
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler getApiList
+    post /api/list (ApiListReq) returns (ApiListResp)
+}

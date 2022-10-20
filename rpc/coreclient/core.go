@@ -52,6 +52,9 @@ type (
 	RoleMenuAuthorityReq       = core.RoleMenuAuthorityReq
 	RoleMenuAuthorityResp      = core.RoleMenuAuthorityResp
 	SetStatusReq               = core.SetStatusReq
+	TokenInfo                  = core.TokenInfo
+	TokenListReq               = core.TokenListReq
+	TokenListResp              = core.TokenListResp
 	UUIDReq                    = core.UUIDReq
 	UpdatePolicyReq            = core.UpdatePolicyReq
 	UpdateProfileReq           = core.UpdateProfileReq
@@ -103,6 +106,11 @@ type (
 		GetProviderList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*ProviderListResp, error)
 		OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
 		OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error)
+		// Token management
+		CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
+		SetTokenStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error)
 	}
 
 	defaultCore struct {
@@ -302,4 +310,25 @@ func (m *defaultCore) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ..
 func (m *defaultCore) OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.OauthCallback(ctx, in, opts...)
+}
+
+// Token management
+func (m *defaultCore) CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateOrUpdateToken(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteToken(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetTokenList(ctx, in, opts...)
+}
+
+func (m *defaultCore) SetTokenStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.SetTokenStatus(ctx, in, opts...)
 }

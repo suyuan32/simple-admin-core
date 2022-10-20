@@ -1,0 +1,1 @@
+goctls rpc protoc core.proto --proto_path="$PWD" --go_out=./types --go-grpc_out=./types --zrpc_out=./

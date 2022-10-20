@@ -209,3 +209,24 @@ func (s *CoreServer) OauthCallback(ctx context.Context, in *core.CallbackReq) (*
 	l := logic.NewOauthCallbackLogic(ctx, s.svcCtx)
 	return l.OauthCallback(in)
 }
+
+// Token management
+func (s *CoreServer) CreateOrUpdateToken(ctx context.Context, in *core.TokenInfo) (*core.BaseResp, error) {
+	l := logic.NewCreateOrUpdateTokenLogic(ctx, s.svcCtx)
+	return l.CreateOrUpdateToken(in)
+}
+
+func (s *CoreServer) DeleteToken(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+	l := logic.NewDeleteTokenLogic(ctx, s.svcCtx)
+	return l.DeleteToken(in)
+}
+
+func (s *CoreServer) GetTokenList(ctx context.Context, in *core.TokenListReq) (*core.TokenListResp, error) {
+	l := logic.NewGetTokenListLogic(ctx, s.svcCtx)
+	return l.GetTokenList(in)
+}
+
+func (s *CoreServer) SetTokenStatus(ctx context.Context, in *core.SetStatusReq) (*core.BaseResp, error) {
+	l := logic.NewSetTokenStatusLogic(ctx, s.svcCtx)
+	return l.SetTokenStatus(in)
+}
