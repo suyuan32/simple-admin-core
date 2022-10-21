@@ -76,7 +76,7 @@ type UUIDReq {
     // UUID
     // Required: true
     // Max length: 36
-    UUID string `json:"UUID" path:"UUID" validate:"len=36"`
+    UUID string `json:"UUID" validate:"len=36"`
 }
 
 // The base response data | 基础信息

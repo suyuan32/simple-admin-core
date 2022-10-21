@@ -2,11 +2,13 @@ package user
 
 import (
 	"context"
+
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+
+	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type GetUserListLogic struct {
@@ -49,6 +51,7 @@ func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.U
 			Status:   v.Status,
 			CreateAt: v.CreateAt,
 			UpdateAt: v.UpdateAt,
+			UUID:     v.UUID,
 		})
 	}
 	resp = &types.UserListResp{}

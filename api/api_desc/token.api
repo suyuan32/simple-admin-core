@@ -104,7 +104,6 @@ type (
         // Max length: 100
         Email     string `json:"email" validate:"omitempty,email,max=100"`
     }
-
 )
 
 @server(
@@ -169,4 +168,18 @@ service core {
     //   500: SimpleMsg
     @handler setTokenStatus
     post /token/status (SetBooleanStatusReq) returns (SimpleMsg)
+
+    // swagger:route POST /token/logout token logout
+    // Force logging out by user UUID | 根据UUID强制用户退出
+    // Parameters:
+    //  + name: body
+    //    require: true
+    //    in: body
+    //    type: UUIDReq
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler logout
+    post /token/logout (UUIDReq) returns (SimpleMsg)
 }

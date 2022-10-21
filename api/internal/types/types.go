@@ -125,7 +125,7 @@ type UUIDReq struct {
 	// UUID
 	// Required: true
 	// Max length: 36
-	UUID string `json:"UUID" path:"UUID" validate:"len=36"`
+	UUID string `json:"UUID" validate:"len=36"`
 }
 
 // The base response data | 基础信息
@@ -275,6 +275,8 @@ type ChangePasswordReq struct {
 type UserInfoResp struct {
 	// User's id | 用户Id
 	Id int64 `json:"id"`
+	// User's UUID | 用户的UUID
+	UUID string `json:"UUID"`
 	// User Name | 用户名
 	Username string `json:"username"`
 	// User's nickname | 用户的昵称

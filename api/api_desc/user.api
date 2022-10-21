@@ -154,6 +154,9 @@ type (
         // User's id | 用户Id
         Id           int64        `json:"id"`
 
+        // User's UUID | 用户的UUID
+        UUID         string       `json:"UUID"`
+
         // User Name | 用户名
         Username     string       `json:"username"`
 
@@ -458,4 +461,13 @@ service core {
     //   500: SimpleMsg
     @handler updateUserProfile
     post /user/profile (ProfileReq) returns (SimpleMsg)
+
+    // swagger:route GET /user/logout user logout
+    // Log out | 退出登陆
+    // Responses:
+    //   200: SimpleMsg
+    //   401: SimpleMsg
+    //   500: SimpleMsg
+    @handler logout
+    get /user/logout returns (SimpleMsg)
 }

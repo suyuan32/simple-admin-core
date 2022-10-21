@@ -418,4 +418,5 @@ service core {
   rpc deleteToken (IDReq) returns (BaseResp);
   rpc getTokenList (TokenListReq) returns (TokenListResp);
   rpc setTokenStatus (SetStatusReq) returns (BaseResp);
+  rpc blockUserAllToken (UUIDReq) returns (BaseResp);
 }

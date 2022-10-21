@@ -263,6 +263,12 @@ func (l *InitDatabaseLogic) insertApiData() error {
 			ApiGroup:    "user",
 			Method:      "POST",
 		},
+		{
+			Path:        "/user/logout",
+			Description: "api_desc.logout",
+			ApiGroup:    "user",
+			Method:      "GET",
+		},
 		// role
 		{
 			Path:        "/role",
@@ -466,6 +472,12 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		{
 			Path:        "/token/status",
 			Description: "api_desc.setTokenStatus",
+			ApiGroup:    "token",
+			Method:      "POST",
+		},
+		{
+			Path:        "/token/logout",
+			Description: "sys.user.forceLoggingOut",
 			ApiGroup:    "token",
 			Method:      "POST",
 		},

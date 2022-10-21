@@ -72,6 +72,7 @@ type CoreClient interface {
 	DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
 	SetTokenStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error)
+	BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 }
 
 type coreClient struct {
@@ -442,6 +443,15 @@ func (c *coreClient) SetTokenStatus(ctx context.Context, in *SetStatusReq, opts 
 	return out, nil
 }
 
+func (c *coreClient) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/blockUserAllToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoreServer is the server API for Core service.
 // All implementations must embed UnimplementedCoreServer
 // for forward compatibility
@@ -496,6 +506,7 @@ type CoreServer interface {
 	DeleteToken(context.Context, *IDReq) (*BaseResp, error)
 	GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error)
 	SetTokenStatus(context.Context, *SetStatusReq) (*BaseResp, error)
+	BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error)
 	mustEmbedUnimplementedCoreServer()
 }
 
@@ -622,6 +633,9 @@ func (UnimplementedCoreServer) GetTokenList(context.Context, *TokenListReq) (*To
 }
 func (UnimplementedCoreServer) SetTokenStatus(context.Context, *SetStatusReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetTokenStatus not implemented")
+}
+func (UnimplementedCoreServer) BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BlockUserAllToken not implemented")
 }
 func (UnimplementedCoreServer) mustEmbedUnimplementedCoreServer() {}
 
@@ -1356,6 +1370,24 @@ func _Core_SetTokenStatus_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_BlockUserAllToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).BlockUserAllToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/blockUserAllToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).BlockUserAllToken(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Core_ServiceDesc is the grpc.ServiceDesc for Core service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1522,6 +1554,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "setTokenStatus",
 			Handler:    _Core_SetTokenStatus_Handler,
+		},
+		{
+			MethodName: "blockUserAllToken",
+			Handler:    _Core_BlockUserAllToken_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -123,6 +123,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/user/profile",
 					Handler: user.UpdateUserProfileHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/user/logout",
+					Handler: user.LogoutHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
@@ -336,6 +341,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/token/status",
 					Handler: token.SetTokenStatusHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/token/logout",
+					Handler: token.LogoutHandler(serverCtx),
 				},
 			}...,
 		),

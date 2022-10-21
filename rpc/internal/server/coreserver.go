@@ -230,3 +230,8 @@ func (s *CoreServer) SetTokenStatus(ctx context.Context, in *core.SetStatusReq) 
 	l := logic.NewSetTokenStatusLogic(ctx, s.svcCtx)
 	return l.SetTokenStatus(in)
 }
+
+func (s *CoreServer) BlockUserAllToken(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
+	l := logic.NewBlockUserAllTokenLogic(ctx, s.svcCtx)
+	return l.BlockUserAllToken(in)
+}
