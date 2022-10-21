@@ -13,10 +13,8 @@
       * [Develop Frontend](simple-admin/en/docs/web_develop_example.md)
     * [API Service](simple-admin/en/docs/api_example.md)
     * [RPC Service](simple-admin/en/docs/rpc_example.md)
-    * [Docker](simple-admin/en/docs/deploy_docker.md)
 * Tools
     * [Validator](/simple-admin/en/docs/validator.md)
-    * [Consul](/simple-admin/en/docs/consul.md)
     * [Swagger](simple-admin/en/docs/swagger.md)
     * [GORM](simple-admin/en/docs/gorm.md)
     * [Authorization](simple-admin/en/docs/authorization.md)
@@ -24,4 +22,5 @@
     * [Oauth](simple-admin/en/docs/oauth.md)
     * [Service Monitor](simple-admin/en/docs/prometheus.md)
     * [Log Collecting](simple-admin/en/docs/log-collection.md)
+    * [JWT Black List](simple-admin/en/docs/jwt_blacklist.md)
 * [FAQ](simple-admin/en/docs/FAQ.md) 
