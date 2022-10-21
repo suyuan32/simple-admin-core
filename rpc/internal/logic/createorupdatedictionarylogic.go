@@ -2,13 +2,16 @@ package logic
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/common/message"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"errors"
+
 	"github.com/zeromicro/go-zero/core/errorx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
+
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -59,7 +62,7 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 
-		if check.RowsAffected == 0 {
+		if errors.Is(check.Error, gorm.ErrRecordNotFound) {
 			logx.Errorw(logmessage.TargetNotFound, logx.Field("Detail", in))
 			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
 		}

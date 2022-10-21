@@ -3,8 +3,10 @@ package logic
 import (
 	"context"
 
+	"github.com/pkg/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"gorm.io/gorm"
 
 	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/common/message"
@@ -30,7 +32,7 @@ func NewGetTokenListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetT
 }
 
 func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenListResp, error) {
-	if in.Username == "" && in.Email == "" && in.Nickname == "" {
+	if in.UUID == "" && in.Username == "" && in.Email == "" && in.Nickname == "" {
 		var tokens []model.Token
 		result := l.svcCtx.DB.Model(&model.Token{}).
 			Limit(int(in.Page.PageSize)).Offset(int((in.Page.Page - 1) * in.Page.PageSize)).Find(&tokens)
@@ -59,6 +61,10 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 		var user model.User
 		udb := l.svcCtx.DB.Model(&model.User{})
 
+		if in.UUID != "" {
+			udb = udb.Where("uuid = ?", in.UUID)
+		}
+
 		if in.Username != "" {
 			udb = udb.Where("username = ?", in.Username)
 		}
@@ -73,14 +79,14 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 
 		userData := udb.First(&user)
 
+		if errors.Is(userData.Error, gorm.ErrRecordNotFound) {
+			logx.Errorw(logmessage.TargetNotFound, logx.Field("Detail", in))
+			return nil, status.Error(codes.InvalidArgument, message.UserNotExists)
+		}
+
 		if userData.Error != nil {
 			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", userData.Error.Error()))
 			return nil, status.Error(codes.Internal, userData.Error.Error())
-		}
-
-		if userData.RowsAffected == 0 {
-			logx.Errorw(logmessage.TargetNotFound, logx.Field("Detail", in))
-			return nil, status.Error(codes.InvalidArgument, message.UserNotExists)
 		}
 
 		var tokens []model.Token

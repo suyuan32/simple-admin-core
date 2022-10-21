@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"errors"
 
 	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/common/message"
@@ -73,7 +74,7 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
-		if result.RowsAffected == 0 {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			logx.Errorw("User does not find", logx.Field("UserId", in.Id))
 			return nil, status.Error(codes.InvalidArgument, message.UserNotExists)
 		}

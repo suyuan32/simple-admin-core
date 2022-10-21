@@ -2,6 +2,9 @@ package logic
 
 import (
 	"context"
+	"errors"
+
+	"gorm.io/gorm"
 
 	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/common/message"
@@ -33,13 +36,14 @@ func NewChangePasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ch
 func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.BaseResp, error) {
 	var target model.User
 	result := l.svcCtx.DB.Where("uuid = ?", in.Uuid).First(&target)
+	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+		logx.Errorw("User does not exist", logx.Field("UUID", in.Uuid))
+		return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
+	}
+
 	if result.Error != nil {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
-	}
-	if result.RowsAffected == 0 {
-		logx.Errorw("User does not exist", logx.Field("UUID", in.Uuid))
-		return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
 	}
 
 	if ok := util.BcryptCheck(in.OldPassword, target.Password); ok {

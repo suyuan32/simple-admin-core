@@ -47,6 +47,19 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 
+		// check jwt blacklist
+		res, err := m.Rds.Get("token_" + r.Header.Get("Authorization"))
+		if err != nil {
+			logx.Errorw("Redis error in jwt", logx.Field("Detail", err.Error()))
+			httpx.Error(w, errorx.NewApiError(http.StatusInternalServerError, err.Error()))
+			return
+		}
+		if res == "1" {
+			logx.Errorw("Token in blacklist", logx.Field("Detail", r.Header.Get("Authorization")))
+			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
+			return
+		}
+
 		sub := roleId
 		result, err := m.Cbn.Enforce(sub, obj, act)
 		if err != nil {

@@ -30,6 +30,7 @@ func (l *GetTokenListLogic) GetTokenList(req *types.TokenListReq) (resp *types.T
 			Page:     req.Page,
 			PageSize: req.PageSize,
 		},
+		UUID:     req.UUID,
 		Username: req.Username,
 		Nickname: req.Nickname,
 		Email:    req.Email,

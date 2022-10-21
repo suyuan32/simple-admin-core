@@ -37,3 +37,7 @@ func TestAddTrans(t *testing.T) {
 		t.Error(result)
 	}
 }
+
+func TestRedis(t *testing.T) {
+
+}

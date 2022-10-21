@@ -2,12 +2,15 @@ package logic
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"errors"
+
 	"github.com/zeromicro/go-zero/core/errorx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
+
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -51,13 +54,13 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 	} else {
 		var origin model.MenuParam
 		check := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
+		if errors.Is(check.Error, gorm.ErrRecordNotFound) {
+			logx.Errorw("Update menu parameter error, menu parameter does not find", logx.Field("Detail", in))
+			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
+		}
 		if check.Error != nil {
 			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
-		}
-		if check.RowsAffected == 0 {
-			logx.Errorw("Update menu parameter error, menu parameter does not find", logx.Field("Detail", in))
-			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
 		}
 		origin.MenuId = uint(in.MenuId)
 		origin.Type = in.Type

@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -65,13 +66,13 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(in *core.ProviderIn
 	} else {
 		var origin *model.OauthProvider
 		check := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
+		if errors.Is(check.Error, gorm.ErrRecordNotFound) {
+			logx.Errorw(errorx.TargetNotExist, logx.Field("id", in.Id))
+			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
+		}
 		if check.Error != nil {
 			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
-		}
-		if check.RowsAffected == 0 {
-			logx.Errorw(errorx.TargetNotExist, logx.Field("id", in.Id))
-			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 
 		data := &model.OauthProvider{

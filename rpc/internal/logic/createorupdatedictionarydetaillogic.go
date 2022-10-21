@@ -2,16 +2,19 @@ package logic
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/common/message"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+	"errors"
+
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
+
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
+	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 )
 
 type CreateOrUpdateDictionaryDetailLogic struct {
@@ -31,16 +34,16 @@ func NewCreateOrUpdateDictionaryDetailLogic(ctx context.Context, svcCtx *svc.Ser
 func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in *core.DictionaryDetail) (*core.BaseResp, error) {
 	var parent model.Dictionary
 	check := l.svcCtx.DB.Where("id = ?", in.ParentId).First(&parent)
-	if check.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
-		return nil, status.Error(codes.Internal, check.Error.Error())
-	}
 
-	if check.RowsAffected == 0 {
+	if errors.Is(check.Error, gorm.ErrRecordNotFound) {
 		logx.Errorw(message.ParentNotExist, logx.Field("Detail", in))
 		return nil, status.Error(codes.InvalidArgument, message.ParentNotExist)
 	}
 
+	if check.Error != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
+		return nil, status.Error(codes.Internal, check.Error.Error())
+	}
 	if in.Id == 0 {
 		result := l.svcCtx.DB.Create(&model.DictionaryDetail{
 			Model:        gorm.Model{},
@@ -63,14 +66,14 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 		var origin model.DictionaryDetail
 		checkOrigin := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
 
+		if errors.Is(checkOrigin.Error, gorm.ErrRecordNotFound) {
+			logx.Errorw(logmessage.TargetNotFound, logx.Field("Detail", in))
+			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
+		}
+
 		if checkOrigin.Error != nil {
 			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", checkOrigin.Error.Error()))
 			return nil, status.Error(codes.Internal, checkOrigin.Error.Error())
-		}
-
-		if checkOrigin.RowsAffected == 0 {
-			logx.Errorw(logmessage.TargetNotFound, logx.Field("Detail", in))
-			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
 		}
 
 		origin.Title = in.Title

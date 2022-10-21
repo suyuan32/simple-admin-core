@@ -355,6 +355,7 @@ message TokenListReq {
   string username = 2;
   string nickname = 3;
   string email = 4;
+  string UUID = 5;
 }
 
 // service

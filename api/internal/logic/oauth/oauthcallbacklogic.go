@@ -3,6 +3,7 @@ package oauth
 import (
 	"context"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/user"
@@ -41,6 +42,22 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 
 	token, err := user.GetJwtToken(l.svcCtx.Config.Auth.AccessSecret, result.Id, time.Now().Unix(),
 		l.svcCtx.Config.Auth.AccessExpire, int64(result.RoleId))
+
+	// add token into database
+	expireAt := time.Now().Add(time.Second * 259200).Unix()
+	_, err = l.svcCtx.CoreRpc.CreateOrUpdateToken(context.Background(), &core.TokenInfo{
+		Id:       0,
+		CreateAt: 0,
+		UUID:     result.Id,
+		Token:    token,
+		Source:   strings.Split(l.r.FormValue("state"), "-")[1],
+		Status:   1,
+		ExpireAt: expireAt,
+	})
+
+	if err != nil {
+		return nil, err
+	}
 
 	return &types.CallbackResp{
 		UserId: result.Id,

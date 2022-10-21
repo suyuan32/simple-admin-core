@@ -999,7 +999,7 @@ type TokenInfo struct {
 	// Log in source such as github | Token 来源 （本地为core, 第三方如github等）
 	Source string `json:"source"`
 	// JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-	Status bool `json:"status"`
+	Status uint32 `json:"status"`
 	// Expire time | 过期时间
 	ExpireAt int64 `json:"expireAt"`
 }
@@ -1026,7 +1026,7 @@ type CreateOrUpdateTokenReq struct {
 	Source string `json:"source" validate:"max=50"`
 	// JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
 	// Required: true
-	Status bool `json:"status" validate:"boolean"`
+	Status uint32 `json:"status" validate:"number"`
 	// Expire time | 过期时间
 	// Required: true
 	ExpireAt int64 `json:"expireAt" validate:"number"`

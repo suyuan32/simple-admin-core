@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"github.com/suyuan32/simple-admin-core/common/logmessage"
@@ -37,13 +38,13 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 	if in.ParentId != 0 {
 		var parent model.Menu
 		result := l.svcCtx.DB.Where("id = ?", in.ParentId).First(&parent)
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			logx.Errorw("Wrong parent ID", logx.Field("parentId", in.ParentId))
+			return nil, status.Error(codes.InvalidArgument, message.ParentNotExist)
+		}
 		if result.Error != nil {
 			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
-		}
-		if result.RowsAffected == 0 {
-			logx.Errorw("Wrong parent ID", logx.Field("parentId", in.ParentId))
-			return nil, status.Error(codes.InvalidArgument, message.ParentNotExist)
 		}
 		menuLevel = parent.MenuLevel + 1
 	} else {
@@ -94,13 +95,15 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 	} else {
 		var origin *model.Menu
 		result := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			return nil, status.Error(codes.InvalidArgument, message.MenuNotExists)
+		}
+
 		if result.Error != nil {
 			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, errorx.DatabaseError)
 		}
-		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, message.MenuNotExists)
-		}
+
 		data = &model.Menu{
 			Model:     gorm.Model{ID: uint(in.Id), CreatedAt: origin.CreatedAt, UpdatedAt: time.Now()},
 			MenuLevel: menuLevel,

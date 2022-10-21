@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strconv"
 	"time"
@@ -66,12 +67,12 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 	} else {
 		var origin *model.Role
 		check := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
+		if errors.Is(check.Error, gorm.ErrRecordNotFound) {
+			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
+		}
 		if check.Error != nil {
 			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
-		}
-		if check.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 		data := &model.Role{
 			Model:         gorm.Model{ID: origin.ID, CreatedAt: origin.CreatedAt, UpdatedAt: time.Now()},
