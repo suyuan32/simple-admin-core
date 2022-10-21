@@ -1,3 +1,21 @@
+# 0.1.1 (2022/10/21)
+
+### Features
+
+- docs: jwt black list
+- feat: force log out
+- feat: api service for token management
+- feat: rpc service for token management
+- feat: jwt management
+- Update readme
+- Update readme
+- Update change log and readme
+- Update change log
+
+### Bug Fixes
+
+- fix: error judgement in database
+
 # 0.1.0 (2022/10/17)
 
 ### Features
