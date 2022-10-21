@@ -75,8 +75,18 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	l.svcCtx.Redis.Set("database_init_state", "0")
 
 	// initialize table structure
-	err := l.svcCtx.DB.AutoMigrate(&model.User{}, &model.Role{}, &model.Api{}, &model.Menu{}, &model.MenuParam{},
-		&model.Dictionary{}, &model.DictionaryDetail{}, &model.OauthProvider{})
+	err := l.svcCtx.DB.AutoMigrate(
+		&model.User{},
+		&model.Role{},
+		&model.Api{},
+		&model.Menu{},
+		&model.MenuParam{},
+		&model.Dictionary{},
+		&model.DictionaryDetail{},
+		&model.OauthProvider{},
+		&model.Token{},
+	)
+
 	if err != nil {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
@@ -434,6 +444,31 @@ func (l *InitDatabaseLogic) insertApiData() error {
 			ApiGroup:    "oauth",
 			Method:      "POST",
 		},
+		// token api
+		{
+			Path:        "/token",
+			Description: "api_desc.createOrUpdateToken",
+			ApiGroup:    "token",
+			Method:      "POST",
+		},
+		{
+			Path:        "/token",
+			Description: "api_desc.deleteToken",
+			ApiGroup:    "token",
+			Method:      "DELETE",
+		},
+		{
+			Path:        "/token/list",
+			Description: "api_desc.getTokenList",
+			ApiGroup:    "token",
+			Method:      "POST",
+		},
+		{
+			Path:        "/token/status",
+			Description: "api_desc.setTokenStatus",
+			ApiGroup:    "token",
+			Method:      "POST",
+		},
 	}
 	result := l.svcCtx.DB.CreateInBatches(apis, 100)
 	if result.Error != nil {
@@ -726,6 +761,28 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Meta: model.Meta{
 				Title:              "routes.system.oauthManagement",
 				Icon:               "ant-design:unlock-filled",
+				HideMenu:           false,
+				HideBreadcrumb:     true,
+				IgnoreKeepAlive:    false,
+				HideTab:            false,
+				CarryParam:         false,
+				HideChildrenInMenu: false,
+				Affix:              false,
+				DynamicLevel:       20,
+			},
+		},
+		{
+			MenuLevel: 2,
+			MenuType:  1,
+			ParentId:  3,
+			Path:      "/token",
+			Name:      "Token Management",
+			Component: "/sys/token/index",
+			OrderNo:   7,
+			Disabled:  false,
+			Meta: model.Meta{
+				Title:              "routes.system.tokenManagement",
+				Icon:               "ant-design:lock-outlined",
 				HideMenu:           false,
 				HideBreadcrumb:     true,
 				IgnoreKeepAlive:    false,

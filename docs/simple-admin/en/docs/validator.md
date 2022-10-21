@@ -63,3 +63,32 @@ func TestAddTrans(t *testing.T) {
 		t.Error(result)
 
 ```
+
+> Notice： validate tag dose not allow empty by default，if you allow empty, you should add omitempty
+
+```go
+// Get token list request params | token列表请求参数
+    // swagger:model TokenListReq
+    TokenListReq {
+        PageInfo
+        // User's UUID | 用户的UUID
+        // Required: true
+        // Max Length: 36
+        UUID      string `json:"UUID" validate:"omitempty,len=36"`
+
+        // user's nickname | 用户的昵称
+        // Required: true
+        // Max length: 10
+        Nickname  string  `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
+
+        // User Name | 用户名
+        // Required: true
+        // Max length: 20
+        Username   string `json:"username" validate:"omitempty,alphanum,max=20"`
+
+        // The user's email address | 用户的邮箱
+        // Required: true
+        // Max length: 100
+        Email     string `json:"email" validate:"omitempty,email,max=100"`
+    }
+```

@@ -12,6 +12,7 @@ import (
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
 	oauth "github.com/suyuan32/simple-admin-core/api/internal/handler/oauth"
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
+	token "github.com/suyuan32/simple-admin-core/api/internal/handler/token"
 	user "github.com/suyuan32/simple-admin-core/api/internal/handler/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 
@@ -306,6 +307,35 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/oauth/provider/list",
 					Handler: oauth.GetProviderListHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/token",
+					Handler: token.CreateOrUpdateTokenHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/token",
+					Handler: token.DeleteTokenHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/token/list",
+					Handler: token.GetTokenListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/token/status",
+					Handler: token.SetTokenStatusHandler(serverCtx),
 				},
 			}...,
 		),

@@ -341,7 +341,7 @@ message TokenInfo {
   string UUID = 3;
   string token = 4;
   string source = 5;
-  bool status = 6;
+  uint32 status = 6;
   int64 expire_at = 7;
 }
 

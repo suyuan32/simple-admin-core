@@ -141,6 +141,17 @@ type BaseInfo struct {
 	DeletedAt int64 `json:"deletedAt"`
 }
 
+// The request params of setting boolean status | 设置状态参数
+// swagger:model SetBooleanStatusReq
+type SetBooleanStatusReq struct {
+	// ID
+	// Required: true
+	Id uint64 `json:"id" validate:"number"`
+	// Status code | 状态码
+	// Required: true
+	Status uint32 `json:"status" validate:"number"`
+}
+
 // login request | 登录参数
 // swagger:model LoginReq
 type LoginReq struct {
@@ -651,7 +662,7 @@ type CreateOrUpdateApiReq struct {
 type ApiListResp struct {
 	// The total number of data | 数据总数
 	Total uint64 `json:"total"`
-	// The api list data | 角色列表数据
+	// The API list data | API列表数据
 	// in: body
 	Data []ApiInfo `json:"data"`
 }
@@ -973,4 +984,82 @@ type CallbackResp struct {
 	Token string `json:"token"`
 	// Expire timestamp | 过期时间戳
 	Expire uint64 `json:"expire"`
+}
+
+// The response data of Token information | Token信息
+// swagger:response TokenInfo
+type TokenInfo struct {
+	// ID
+	Id       uint64 `json:"id"`
+	CreateAt int64  `json:"createAt"`
+	// User's UUID | 用户的UUID
+	UUID string `json:"UUID"`
+	// Token string | Token 字符串
+	Token string `json:"token"`
+	// Log in source such as github | Token 来源 （本地为core, 第三方如github等）
+	Source string `json:"source"`
+	// JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
+	Status bool `json:"status"`
+	// Expire time | 过期时间
+	ExpireAt int64 `json:"expireAt"`
+}
+
+// Create or update token information request | 创建或更新token信息
+// swagger:model CreateOrUpdateTokenReq
+type CreateOrUpdateTokenReq struct {
+	// ID
+	// Required: true
+	Id uint64 `json:"id" validate="number"`
+	// Create date | 创建日期
+	// Required: true
+	CreateAt int64 `json:"createAt" validate:"number"`
+	// User's UUID | 用户的UUID
+	// Required: true
+	// Max Length: 36
+	UUID string `json:"UUID" validate:"len=36"`
+	// Token string | Token 字符串
+	// Required: true
+	Token string `json:"token"`
+	// Log in source such as github | Token 来源 （本地为core, 第三方如github等）
+	// Required: true
+	// Max Length: 50
+	Source string `json:"source" validate:"max=50"`
+	// JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
+	// Required: true
+	Status bool `json:"status" validate:"boolean"`
+	// Expire time | 过期时间
+	// Required: true
+	ExpireAt int64 `json:"expireAt" validate:"number"`
+}
+
+// The response data of Token list | Token列表数据
+// swagger:response TokenListResp
+type TokenListResp struct {
+	// The total number of data | 数据总数
+	Total uint64 `json:"total"`
+	// The token list data | Token列表数据
+	// in: body
+	Data []TokenInfo `json:"data"`
+}
+
+// Get token list request params | token列表请求参数
+// swagger:model TokenListReq
+type TokenListReq struct {
+	PageInfo
+	// User's UUID | 用户的UUID
+	// Required: true
+	// Max Length: 36
+	UUID string `json:"UUID" validate:"omitempty,len=36"`
+	// user's nickname | 用户的昵称
+	// Required: true
+	// Max length: 10
+	Nickname string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
+	// User Name | 用户名
+	// Required: true
+	// Max length: 20
+	Username string `json:"username" validate:"omitempty,alphanum,max=20"`
+	// The user's email address | 用户的邮箱
+	// Required: true
+	// Max length: 100
+	Email string `json:"email" validate:"omitempty,email,max=100"`
 }

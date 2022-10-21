@@ -94,3 +94,15 @@ type BaseInfo {
     // Delete date | 删除日期
     DeletedAt int64     `json:"deletedAt"`
 }
+
+// The request params of setting boolean status | 设置状态参数
+// swagger:model SetBooleanStatusReq
+type SetBooleanStatusReq {
+    // ID
+    // Required: true
+    Id     uint64  `json:"id" validate:"number"`
+
+    // Status code | 状态码
+    // Required: true
+    Status uint32  `json:"status" validate:"number"`
+}

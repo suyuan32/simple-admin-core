@@ -16,6 +16,7 @@ import "apis.api"
 import "authority.api"
 import "dictionary.api"
 import "oauth.api"
+import "token.api"
 import "base.api"
 
 @server(

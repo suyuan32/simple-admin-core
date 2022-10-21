@@ -488,6 +488,51 @@ definitions:
             - infoURL
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    CreateOrUpdateTokenReq:
+        description: Create or update token information request | 创建或更新token信息
+        properties:
+            UUID:
+                description: User's UUID | 用户的UUID
+                maxLength: 36
+                type: string
+            createAt:
+                description: Create date | 创建日期
+                format: int64
+                type: integer
+                x-go-name: CreateAt
+            expireAt:
+                description: Expire time | 过期时间
+                format: int64
+                type: integer
+                x-go-name: ExpireAt
+            id:
+                description: ID
+                format: uint64
+                type: integer
+                x-go-name: Id
+            source:
+                description: Log in source such as github | Token 来源 （本地为core, 第三方如github等）
+                maxLength: 50
+                type: string
+                x-go-name: Source
+            status:
+                description: JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
+                type: boolean
+                x-go-name: Status
+            token:
+                description: Token string | Token 字符串
+                type: string
+                x-go-name: Token
+        required:
+            - id
+            - createAt
+            - UUID
+            - token
+            - source
+            - status
+            - expireAt
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateUserReq:
         description: Create or update user information request | 创建或更新用户信息
         properties:
@@ -1305,6 +1350,24 @@ definitions:
                 x-go-name: Value
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    SetBooleanStatusReq:
+        description: The request params of setting boolean status | 设置状态参数
+        properties:
+            id:
+                description: ID
+                format: uint64
+                type: integer
+                x-go-name: Id
+            status:
+                description: Status code | 状态码
+                format: uint32
+                type: integer
+                x-go-name: Status
+        required:
+            - id
+            - status
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     SetStatusReq:
         description: The request params of setting role status | 设置角色状态参数
         properties:
@@ -1323,6 +1386,82 @@ definitions:
         required:
             - id
             - status
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TokenInfo:
+        description: The response data of Token information | Token信息
+        properties:
+            UUID:
+                description: User's UUID | 用户的UUID
+                type: string
+            createAt:
+                format: int64
+                type: integer
+                x-go-name: CreateAt
+            expireAt:
+                description: Expire time | 过期时间
+                format: int64
+                type: integer
+                x-go-name: ExpireAt
+            id:
+                description: ID
+                format: uint64
+                type: integer
+                x-go-name: Id
+            source:
+                description: Log in source such as github | Token 来源 （本地为core, 第三方如github等）
+                type: string
+                x-go-name: Source
+            status:
+                description: JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
+                type: boolean
+                x-go-name: Status
+            token:
+                description: Token string | Token 字符串
+                type: string
+                x-go-name: Token
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TokenListReq:
+        description: Get token list request params | token列表请求参数
+        properties:
+            UUID:
+                description: User's UUID | 用户的UUID
+                maxLength: 36
+                type: string
+            email:
+                description: The user's email address | 用户的邮箱
+                maxLength: 100
+                type: string
+                x-go-name: Email
+            nickname:
+                description: user's nickname | 用户的昵称
+                maxLength: 10
+                type: string
+                x-go-name: Nickname
+            page:
+                description: Page number | 第几页
+                format: uint64
+                type: integer
+                x-go-name: Page
+            pageSize:
+                description: Page size | 单页数据行数
+                format: uint64
+                maximum: 100000
+                type: integer
+                x-go-name: PageSize
+            username:
+                description: User Name | 用户名
+                maxLength: 20
+                type: string
+                x-go-name: Username
+        required:
+            - page
+            - pageSize
+            - UUID
+            - nickname
+            - username
+            - email
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UUIDReq:
@@ -1956,6 +2095,81 @@ paths:
                     $ref: '#/responses/SimpleMsg'
             tags:
                 - role
+    /token:
+        delete:
+            description: Delete token information | 删除token信息
+            operationId: deleteToken
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - token
+        post:
+            description: Create or update Token information | 创建或更新Token
+            operationId: createOrUpdateToken
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/CreateOrUpdateTokenReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - token
+    /token/list:
+        post:
+            description: Get Token list | 获取token列表
+            operationId: getTokenList
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/TokenListReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/TokenListResp'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - token
+    /token/status:
+        post:
+            description: Set token status | 设置token状态
+            operationId: setTokenStatus
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/SetBooleanStatusReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - token
     /user:
         post:
             description: Create or update user's information | 新增或更新用户
@@ -2650,6 +2864,43 @@ responses:
             msg:
                 description: Message | 信息
                 type: string
+    TokenInfo:
+        description: The response data of Token information | Token信息
+        headers:
+            UUID:
+                description: User's UUID | 用户的UUID
+                type: string
+            createAt:
+                format: int64
+                type: integer
+            expireAt:
+                description: Expire time | 过期时间
+                format: int64
+                type: integer
+            id:
+                description: ID
+                format: uint64
+                type: integer
+            source:
+                description: Log in source such as github | Token 来源 （本地为core, 第三方如github等）
+                type: string
+            status:
+                description: JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
+                type: boolean
+            token:
+                description: Token string | Token 字符串
+                type: string
+    TokenListResp:
+        description: The response data of Token list | Token列表数据
+        headers:
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+        schema:
+            items:
+                $ref: '#/definitions/TokenInfo'
+            type: array
     UserInfoResp:
         description: The response data of user's information | 用户信息返回数据
         headers:

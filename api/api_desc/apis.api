@@ -73,7 +73,7 @@ type (
         // The total number of data | 数据总数
         Total uint64 `json:"total"`
 
-        // The api list data | 角色列表数据
+        // The API list data | API列表数据
         // in: body
         Data  []ApiInfo  `json:"data"`
     }
