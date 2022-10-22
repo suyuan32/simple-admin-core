@@ -48,21 +48,21 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 		}
 		result := l.svcCtx.DB.Create(&data)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
-			logx.Errorw("Role value had been used", logx.Field("Detail", data))
+			logx.Errorw("role value had been used", logx.Field("detail", data))
 			return nil, status.Error(codes.InvalidArgument, message.DuplicateRoleValue)
 		}
 
 		err := l.UpdateRoleInfoInRedis()
 		if err != nil {
-			logx.Errorw("Fail to update the role info in Redis", logx.Field("Detail", err.Error()))
+			logx.Errorw("fail to update the role info in Redis", logx.Field("detail", err.Error()))
 			return nil, err
 		}
 
-		logx.Infow("Create role successfully", logx.Field("Detail", data))
+		logx.Infow("create role successfully", logx.Field("detail", data))
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {
 		var origin *model.Role
@@ -71,7 +71,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
 		}
 		if check.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 		data := &model.Role{
@@ -85,7 +85,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 		}
 		result := l.svcCtx.DB.Save(&data)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
@@ -93,11 +93,11 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 		}
 		err := l.UpdateRoleInfoInRedis()
 		if err != nil {
-			logx.Errorw("Fail to update the role info in Redis", logx.Field("Detail", err.Error()))
+			logx.Errorw("fail to update the role info in Redis", logx.Field("detail", err.Error()))
 			return nil, err
 		}
 
-		logx.Infow("Update role successfully", logx.Field("Detail", data))
+		logx.Infow("update role successfully", logx.Field("detail", data))
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 	}
 }

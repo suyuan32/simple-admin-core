@@ -45,12 +45,12 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 		result := l.svcCtx.DB.Create(&data)
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
 		if result.RowsAffected == 0 {
-			logx.Errorw(message.ApiAlreadyExists, logx.Field("Detail", data))
+			logx.Errorw(message.ApiAlreadyExists, logx.Field("detail", data))
 			return nil, status.Error(codes.InvalidArgument, message.ApiAlreadyExists)
 		}
 
@@ -68,7 +68,7 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 		}
 
 		if check.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 
@@ -81,7 +81,7 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 		}
 		result := l.svcCtx.DB.Save(&data)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
@@ -89,7 +89,7 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 
-		logx.Infow(errorx.UpdateSuccess, logx.Field("Detail", data))
+		logx.Infow(errorx.UpdateSuccess, logx.Field("detail", data))
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 	}
 }

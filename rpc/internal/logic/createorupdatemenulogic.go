@@ -39,11 +39,11 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		var parent model.Menu
 		result := l.svcCtx.DB.Where("id = ?", in.ParentId).First(&parent)
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw("Wrong parent ID", logx.Field("parentId", in.ParentId))
+			logx.Errorw("wrong parent ID", logx.Field("parentId", in.ParentId))
 			return nil, status.Error(codes.InvalidArgument, message.ParentNotExist)
 		}
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		menuLevel = parent.MenuLevel + 1
@@ -83,7 +83,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		}
 		result := l.svcCtx.DB.Create(data)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, errorx.DatabaseError)
 		}
 		if result.RowsAffected == 0 {
@@ -100,7 +100,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		}
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, errorx.DatabaseError)
 		}
 
@@ -133,14 +133,14 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		}
 		result = l.svcCtx.DB.Save(data)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 
-		logx.Infow("Update menu successfully", logx.Field("Detail", data))
+		logx.Infow("Update menu successfully", logx.Field("detail", data))
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 	}
 }

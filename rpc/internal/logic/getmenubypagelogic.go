@@ -35,7 +35,7 @@ func (l *GetMenuByPageLogic) GetMenuByPage(in *core.PageInfoReq) (*core.MenuInfo
 	}).Limit(int(in.PageSize)).Offset(int(in.Page * in.PageSize)).
 		Order("order_no ASC").Find(&data)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, "database error")
 	}
 	var res *core.MenuInfoList

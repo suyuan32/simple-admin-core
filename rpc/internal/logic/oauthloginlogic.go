@@ -40,12 +40,12 @@ func (l *OauthLoginLogic) OauthLogin(in *core.OauthLoginReq) (*core.OauthRedirec
 	var provider model.OauthProvider
 	check := l.svcCtx.DB.Where("name = ?", in.Provider).First(&provider)
 	if check.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
 		return nil, status.Error(codes.Internal, check.Error.Error())
 	}
 
 	if check.RowsAffected == 0 {
-		logx.Errorw("Provider not found", logx.Field("Detail", in))
+		logx.Errorw("Provider not found", logx.Field("detail", in))
 		return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
 	}
 

@@ -2,12 +2,14 @@ package logic
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+
 	"github.com/zeromicro/go-zero/core/errorx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
+
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -34,14 +36,14 @@ func (l *DeleteMenuParamLogic) DeleteMenuParam(in *core.IDReq) (*core.BaseResp, 
 		Model: gorm.Model{ID: uint(in.ID)},
 	})
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {
-		logx.Errorw("Delete Menu parameter failed, check the id", logx.Field("MenuParamId", in.ID))
+		logx.Errorw("Delete Menu parameter failed, check the id", logx.Field("menuParamId", in.ID))
 		return nil, status.Error(codes.InvalidArgument, errorx.DeleteFailed)
 	}
 
-	logx.Infow("Delete Menu parameter successfully", logx.Field("MenuParamId", in.ID))
+	logx.Infow("Delete Menu parameter successfully", logx.Field("menuParamId", in.ID))
 	return &core.BaseResp{Msg: errorx.DeleteSuccess}, nil
 }

@@ -38,7 +38,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 			Limit(int(in.Page.PageSize)).Offset(int((in.Page.Page - 1) * in.Page.PageSize)).Find(&tokens)
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
@@ -80,12 +80,12 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 		userData := udb.First(&user)
 
 		if errors.Is(userData.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw(logmessage.TargetNotFound, logx.Field("Detail", in))
+			logx.Errorw(logmessage.TargetNotFound, logx.Field("detail", in))
 			return nil, status.Error(codes.InvalidArgument, message.UserNotExists)
 		}
 
 		if userData.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", userData.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", userData.Error.Error()))
 			return nil, status.Error(codes.Internal, userData.Error.Error())
 		}
 
@@ -94,7 +94,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 			Offset(int((in.Page.Page - 1) * in.Page.PageSize)).Find(&tokens)
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 

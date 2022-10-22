@@ -45,11 +45,11 @@ func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(in *core.TokenInfo) (*cor
 			ExpireAt: time.Unix(in.ExpireAt, 0),
 		})
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
-			logx.Errorw("Token already exists", logx.Field("Detail", in))
+			logx.Errorw("Token already exists", logx.Field("detail", in))
 			return nil, status.Error(codes.InvalidArgument, message.DictionaryAlreadyExists)
 		}
 
@@ -58,12 +58,12 @@ func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(in *core.TokenInfo) (*cor
 		var origin model.Token
 		check := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
 		if errors.Is(check.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw(logmessage.TargetNotFound, logx.Field("Detail", in))
+			logx.Errorw(logmessage.TargetNotFound, logx.Field("detail", in))
 			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
 		}
 
 		if check.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 
@@ -76,12 +76,12 @@ func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(in *core.TokenInfo) (*cor
 		result := l.svcCtx.DB.Save(&origin)
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
 		if result.RowsAffected == 0 {
-			logx.Errorw(logmessage.UpdateFailed, logx.Field("Detail", in))
+			logx.Errorw(logmessage.UpdateFailed, logx.Field("detail", in))
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 

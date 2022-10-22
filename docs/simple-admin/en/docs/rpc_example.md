@@ -279,7 +279,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	// initialize database connection
 	db, err := c.DB.NewGORM()
 	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
 		return nil
 	}
 	logx.Info("Initialize database connection successful")

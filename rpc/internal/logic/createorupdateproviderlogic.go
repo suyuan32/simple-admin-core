@@ -51,16 +51,16 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(in *core.ProviderIn
 		result := l.svcCtx.DB.Create(&data)
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
 		if result.RowsAffected == 0 {
-			logx.Errorw(message.ApiAlreadyExists, logx.Field("Detail", data))
+			logx.Errorw(message.ApiAlreadyExists, logx.Field("detail", data))
 			return nil, status.Error(codes.InvalidArgument, message.ApiAlreadyExists)
 		}
 
-		logx.Infow(logmessage.CreateSuccess, logx.Field("Detail", in))
+		logx.Infow(logmessage.CreateSuccess, logx.Field("detail", in))
 
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {
@@ -71,7 +71,7 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(in *core.ProviderIn
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 		if check.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 
@@ -89,7 +89,7 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(in *core.ProviderIn
 		}
 		result := l.svcCtx.DB.Save(&data)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
@@ -99,7 +99,7 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(in *core.ProviderIn
 
 		delete(providerConfig, in.Name)
 
-		logx.Infow(logmessage.UpdateSuccess, logx.Field("Detail", data))
+		logx.Infow(logmessage.UpdateSuccess, logx.Field("detail", data))
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 	}
 }

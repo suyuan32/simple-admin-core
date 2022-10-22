@@ -37,12 +37,12 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 	var target model.User
 	result := l.svcCtx.DB.Where("uuid = ?", in.Uuid).First(&target)
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-		logx.Errorw("User does not exist", logx.Field("UUID", in.Uuid))
+		logx.Errorw("user does not exist", logx.Field("UUID", in.Uuid))
 		return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
 	}
 
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 
@@ -50,16 +50,16 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 		target.Password = util.BcryptEncrypt(in.NewPassword)
 		result = l.svcCtx.DB.Updates(&target)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, errorx.DatabaseError)
 		}
 		if result.RowsAffected == 0 {
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 	} else {
-		logx.Errorw("Old password is wrong", logx.Field("UUID", in.Uuid))
+		logx.Errorw("old password is wrong", logx.Field("UUID", in.Uuid))
 		return nil, status.Error(codes.InvalidArgument, message.WrongPassword)
 	}
-	logx.Infow("Change password successful", logx.Field("UUID", in.Uuid))
+	logx.Infow("change password successful", logx.Field("UUID", in.Uuid))
 	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 }

@@ -43,11 +43,11 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 		})
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
-			logx.Errorw("Create menu parameter error", logx.Field("Detail", in))
+			logx.Errorw("create menu parameter error", logx.Field("detail", in))
 			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
 		}
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
@@ -55,11 +55,11 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 		var origin model.MenuParam
 		check := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
 		if errors.Is(check.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw("Update menu parameter error, menu parameter does not find", logx.Field("Detail", in))
+			logx.Errorw("update menu parameter error, menu parameter does not find", logx.Field("detail", in))
 			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
 		}
 		if check.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 		origin.MenuId = uint(in.MenuId)
@@ -68,11 +68,11 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 		origin.Key = in.Key
 		result := l.svcCtx.DB.Save(&origin)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, errorx.DatabaseError)
 		}
 		if result.RowsAffected == 0 {
-			logx.Errorw("Create menu parameter error", logx.Field("Detail", in))
+			logx.Errorw("create menu parameter error", logx.Field("detail", in))
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil

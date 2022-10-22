@@ -32,7 +32,7 @@ func (l *UpdateProfileLogic) UpdateProfile(in *core.UpdateProfileReq) (*core.Bas
 	var origin model.User
 	result := l.svcCtx.DB.Where("uuid = ?", in.Uuid).First(&origin)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 	if result.RowsAffected == 0 {
@@ -47,11 +47,11 @@ func (l *UpdateProfileLogic) UpdateProfile(in *core.UpdateProfileReq) (*core.Bas
 
 	result = l.svcCtx.DB.Save(&origin)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 	if result.RowsAffected == 0 {
-		logx.Errorw("Fail to update the user profile", logx.Field("Detail", origin))
+		logx.Errorw("Fail to update the user profile", logx.Field("detail", origin))
 		return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 	}
 

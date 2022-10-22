@@ -2,10 +2,12 @@ package logic
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -29,10 +31,10 @@ func NewGetDetailByDictionaryNameLogic(ctx context.Context, svcCtx *svc.ServiceC
 
 func (l *GetDetailByDictionaryNameLogic) GetDetailByDictionaryName(in *core.DictionaryDetailReq) (*core.DictionaryDetailList, error) {
 	var dict model.Dictionary
-	result := l.svcCtx.DB.Preload("Detail").Where("name = ?", in.Name).First(&dict)
+	result := l.svcCtx.DB.Preload("detail").Where("name = ?", in.Name).First(&dict)
 
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 

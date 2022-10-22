@@ -34,22 +34,22 @@ func (l *DeleteRoleLogic) DeleteRole(in *core.IDReq) (*core.BaseResp, error) {
 	var users []model.User
 	check := l.svcCtx.DB.Model(&model.User{}).Where("role_id = ?", in.ID).Find(&users).RowsAffected
 	if check != 0 {
-		logx.Errorw("Delete role failed, please check the users who belongs to the role had been deleted",
-			logx.Field("RoleId", in.ID))
+		logx.Errorw("delete role failed, please check the users who belongs to the role had been deleted",
+			logx.Field("roleId", in.ID))
 		return nil, status.Error(codes.InvalidArgument, message.UserExists)
 	}
 	result := l.svcCtx.DB.Delete(&model.Role{
 		Model: gorm.Model{ID: uint(in.ID)},
 	})
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {
-		logx.Errorw("Delete role failed, please check the role id", logx.Field("RoleId", in.ID))
+		logx.Errorw("delete role failed, please check the role id", logx.Field("roleId", in.ID))
 		return nil, status.Error(codes.InvalidArgument, errorx.DeleteFailed)
 	}
 
-	logx.Infow("Delete role successfully", logx.Field("RoleId", in.ID))
+	logx.Infow("delete role successfully", logx.Field("roleId", in.ID))
 	return &core.BaseResp{Msg: errorx.DeleteSuccess}, nil
 }

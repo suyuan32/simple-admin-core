@@ -517,7 +517,8 @@ definitions:
                 x-go-name: Source
             status:
                 description: JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-                type: boolean
+                format: uint32
+                type: integer
                 x-go-name: Status
             token:
                 description: Token string | Token 字符串
@@ -1414,7 +1415,8 @@ definitions:
                 x-go-name: Source
             status:
                 description: JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-                type: boolean
+                format: uint32
+                type: integer
                 x-go-name: Status
             token:
                 description: Token string | Token 字符串
@@ -1478,6 +1480,9 @@ definitions:
     UserInfoResp:
         description: The response data of user's information | 用户信息返回数据
         properties:
+            UUID:
+                description: User's UUID | 用户的UUID
+                type: string
             avatar:
                 description: The user's avatar path | 用户的头像路径
                 type: string
@@ -2151,6 +2156,25 @@ paths:
                     $ref: '#/responses/SimpleMsg'
             tags:
                 - token
+    /token/logout:
+        post:
+            description: Force logging out by user UUID | 根据UUID强制用户退出
+            operationId: logout
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/UUIDReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - token
     /token/status:
         post:
             description: Set token status | 设置token状态
@@ -2253,6 +2277,19 @@ paths:
             responses:
                 "200":
                     $ref: '#/responses/LoginResp'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            tags:
+                - user
+    /user/logout:
+        get:
+            description: Log out | 退出登陆
+            operationId: logout
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
                 "401":
                     $ref: '#/responses/SimpleMsg'
                 "500":
@@ -2886,7 +2923,8 @@ responses:
                 type: string
             status:
                 description: JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-                type: boolean
+                format: uint32
+                type: integer
             token:
                 description: Token string | Token 字符串
                 type: string
@@ -2904,6 +2942,9 @@ responses:
     UserInfoResp:
         description: The response data of user's information | 用户信息返回数据
         headers:
+            UUID:
+                description: User's UUID | 用户的UUID
+                type: string
             avatar:
                 description: The user's avatar path | 用户的头像路径
                 type: string

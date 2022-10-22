@@ -32,7 +32,7 @@ func (l *GetProviderListLogic) GetProviderList(in *core.PageInfoReq) (*core.Prov
 	var providers []model.OauthProvider
 	result := l.svcCtx.DB.Limit(int(in.PageSize)).Offset(int((in.Page - 1) * in.PageSize)).Find(&providers)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	resp := &core.ProviderListResp{}

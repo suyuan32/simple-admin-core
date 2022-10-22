@@ -45,11 +45,11 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 			Detail: nil,
 		})
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
-			logx.Errorw("Dictionary already exists", logx.Field("Detail", in))
+			logx.Errorw("dictionary already exists", logx.Field("detail", in))
 			return nil, status.Error(codes.InvalidArgument, message.DictionaryAlreadyExists)
 		}
 
@@ -58,12 +58,12 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 		var origin model.Dictionary
 		check := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
 		if check.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 
 		if errors.Is(check.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw(logmessage.TargetNotFound, logx.Field("Detail", in))
+			logx.Errorw(logmessage.TargetNotFound, logx.Field("detail", in))
 			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
 		}
 
@@ -75,12 +75,12 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 		result := l.svcCtx.DB.Save(&origin)
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
 		if result.RowsAffected == 0 {
-			logx.Errorw(logmessage.UpdateFailed, logx.Field("Detail", in))
+			logx.Errorw(logmessage.UpdateFailed, logx.Field("detail", in))
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 

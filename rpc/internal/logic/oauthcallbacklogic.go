@@ -47,12 +47,12 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 		var target model.OauthProvider
 		check := l.svcCtx.DB.Where("name = ?", provider).First(&target)
 		if check.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 
 		if check.RowsAffected == 0 {
-			logx.Errorw("Provider not found", logx.Field("Detail", target))
+			logx.Errorw("provider not found", logx.Field("detail", target))
 			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
 		}
 

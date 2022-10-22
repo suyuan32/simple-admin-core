@@ -34,15 +34,15 @@ func (l *DeleteApiLogic) DeleteApi(in *core.IDReq) (*core.BaseResp, error) {
 		Model: gorm.Model{ID: uint(in.ID)},
 	})
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {
-		logx.Errorw("Delete API failed, check the id", logx.Field("ApiId", in.ID))
+		logx.Errorw("delete API failed, check the id", logx.Field("apiId", in.ID))
 		return nil, status.Error(codes.InvalidArgument, errorx.DeleteFailed)
 	}
 
-	logx.Infow("Delete API successfully", logx.Field("ApiId", in.ID))
+	logx.Infow("delete API successfully", logx.Field("apiId", in.ID))
 
 	return &core.BaseResp{Msg: errorx.DeleteSuccess}, nil
 }

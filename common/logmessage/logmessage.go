@@ -1,13 +1,13 @@
 package logmessage
 
 const (
-	CreateSuccess  string = "Create successfully"
-	CreateFailed   string = "Create failed"
-	DeleteSuccess  string = "Delete successful"
-	DeleteFailed   string = "Delete failed"
-	UpdateSuccess  string = "Update successful"
-	UpdateFailed   string = "Update failed"
-	TargetNotFound string = "Target cannot be found"
-	DatabaseError  string = "Database error"
-	RedisError     string = "Redis error"
+	CreateSuccess  string = "create successfully"
+	CreateFailed   string = "create failed"
+	DeleteSuccess  string = "delete successful"
+	DeleteFailed   string = "delete failed"
+	UpdateSuccess  string = "update successful"
+	UpdateFailed   string = "update failed"
+	TargetNotFound string = "target cannot be found"
+	DatabaseError  string = "database error"
+	RedisError     string = "redis error"
 )

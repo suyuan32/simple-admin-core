@@ -38,7 +38,7 @@ func (l *GetCaptchaLogic) GetCaptcha() (resp *types.CaptchaInfo, err error) {
 	}
 	gen := base64Captcha.NewCaptcha(driver, Store)
 	if id, b64s, err := gen.Generate(); err != nil {
-		logx.Errorw("Fail to generate captcha", logx.Field("Detail", err.Error()))
+		logx.Errorw("fail to generate captcha", logx.Field("detail", err.Error()))
 		return nil, errorx.NewApiError(http.StatusInternalServerError, "内部错误")
 	} else {
 		resp = &types.CaptchaInfo{

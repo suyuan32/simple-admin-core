@@ -34,12 +34,12 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 	var children []*model.Menu
 	check := l.svcCtx.DB.Where("parent_id = ?", in.ID).Find(&children)
 	if check.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", check.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
 		return nil, status.Error(codes.Internal, check.Error.Error())
 	}
 	if check.RowsAffected != 0 {
-		logx.Errorw("Delete menu failed, please check its children had been deleted",
-			logx.Field("MenuId", in.ID))
+		logx.Errorw("delete menu failed, please check its children had been deleted",
+			logx.Field("menuId", in.ID))
 		return nil, status.Error(codes.InvalidArgument, message.ChildrenExistError)
 	}
 
@@ -47,14 +47,14 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 		Model: gorm.Model{ID: uint(in.ID)},
 	})
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {
-		logx.Errorw("Delete menu failed, please check the menu id", logx.Field("MenuId", in.ID))
+		logx.Errorw("delete menu failed, please check the menu id", logx.Field("menuId", in.ID))
 		return nil, status.Error(codes.InvalidArgument, message.MenuNotExists)
 	}
 
-	logx.Infow("Delete menu successfully", logx.Field("menuId", in.ID))
+	logx.Infow("delete menu successfully", logx.Field("menuId", in.ID))
 	return &core.BaseResp{Msg: errorx.DeleteSuccess}, nil
 }

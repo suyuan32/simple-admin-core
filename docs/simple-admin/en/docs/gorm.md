@@ -5,7 +5,7 @@
 ```go
     db, err := c.DB.NewGORM()
 	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", err.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
 		return nil
 	}
 ```
@@ -87,7 +87,7 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, er
 		Order("api_group desc").Find(&apis)
 
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 

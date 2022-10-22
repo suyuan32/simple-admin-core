@@ -38,11 +38,11 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		// check the role status
 		roleStatus, err := m.Rds.Hget("roleData", fmt.Sprintf("%s_status", roleId))
 		if err != nil {
-			logx.Errorw(logmessage.RedisError, logx.Field("Detail", err.Error()))
+			logx.Errorw(logmessage.RedisError, logx.Field("detail", err.Error()))
 			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
 			return
 		} else if roleStatus == "0" {
-			logx.Errorw("Role is on forbidden status", logx.Field("RoleId", roleId))
+			logx.Errorw("role is on forbidden status", logx.Field("roleId", roleId))
 			httpx.Error(w, errorx.NewApiError(http.StatusBadRequest, message.RoleForbidden))
 			return
 		}
@@ -50,12 +50,12 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		// check jwt blacklist
 		res, err := m.Rds.Get("token_" + r.Header.Get("Authorization"))
 		if err != nil {
-			logx.Errorw("Redis error in jwt", logx.Field("Detail", err.Error()))
+			logx.Errorw("redis error in jwt", logx.Field("detail", err.Error()))
 			httpx.Error(w, errorx.NewApiError(http.StatusInternalServerError, err.Error()))
 			return
 		}
 		if res == "1" {
-			logx.Errorw("Token in blacklist", logx.Field("Detail", r.Header.Get("Authorization")))
+			logx.Errorw("token in blacklist", logx.Field("detail", r.Header.Get("Authorization")))
 			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
 			return
 		}
@@ -63,18 +63,18 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		sub := roleId
 		result, err := m.Cbn.Enforce(sub, obj, act)
 		if err != nil {
-			logx.Errorw("Casbin enforce error", logx.Field("Detail", err.Error()))
+			logx.Errorw("casbin enforce error", logx.Field("detail", err.Error()))
 			httpx.Error(w, errorx.NewApiError(http.StatusInternalServerError, errorx.ApiRequestFailed))
 			return
 		}
 		if result {
 			logx.Infow("HTTP/HTTPS Request", logx.Field("UUID", r.Context().Value("userId").(string)),
-				logx.Field("Path", obj), logx.Field("Method", act))
+				logx.Field("path", obj), logx.Field("method", act))
 			next(w, r)
 			return
 		} else {
-			logx.Errorw("The role is not permitted to access the API", logx.Field("RoleId", roleId),
-				logx.Field("Path", obj), logx.Field("Method", act))
+			logx.Errorw("the role is not permitted to access the API", logx.Field("roleId", roleId),
+				logx.Field("path", obj), logx.Field("method", act))
 			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
 			return
 		}

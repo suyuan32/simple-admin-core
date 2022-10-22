@@ -39,8 +39,8 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 		check := l.svcCtx.DB.Where("username = ? OR email = ?", in.Username, in.Email).First(&u)
 
 		if check.RowsAffected != 0 {
-			logx.Errorw("Username or email address had been used", logx.Field("Username", in.Username),
-				logx.Field("Email", in.Email))
+			logx.Errorw("username or email address had been used", logx.Field("username", in.Username),
+				logx.Field("email", in.Email))
 			return nil, status.Error(codes.InvalidArgument, message.UserAlreadyExists)
 		}
 
@@ -59,11 +59,11 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 		result := l.svcCtx.DB.Create(&data)
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
-		logx.Infow("Create user successfully", logx.Field("Detail", data))
+		logx.Infow("create user successfully", logx.Field("detail", data))
 		return &core.BaseResp{
 			Msg: errorx.Success,
 		}, nil
@@ -71,11 +71,11 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 		var origin model.User
 		result := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw("User does not find", logx.Field("UserId", in.Id))
+			logx.Errorw("user does not find", logx.Field("userId", in.Id))
 			return nil, status.Error(codes.InvalidArgument, message.UserNotExists)
 		}
 
@@ -95,11 +95,11 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 		result = l.svcCtx.DB.Save(&data)
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
-		logx.Infow("Update user successfully", logx.Field("Detail", data))
+		logx.Infow("update user successfully", logx.Field("detail", data))
 		return &core.BaseResp{
 			Msg: errorx.Success,
 		}, nil

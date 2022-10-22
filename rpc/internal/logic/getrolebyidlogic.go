@@ -32,11 +32,11 @@ func (l *GetRoleByIdLogic) GetRoleById(in *core.IDReq) (*core.RoleInfo, error) {
 	var role model.Role
 	result := l.svcCtx.DB.Where("id = ?", in.ID).First(&role)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("Detail", result.Error.Error()))
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {
-		logx.Errorw("Fail to find the role, please check the role id", logx.Field("RoleId", in.ID))
+		logx.Errorw("Fail to find the role, please check the role id", logx.Field("roleId", in.ID))
 		return nil, status.Error(codes.InvalidArgument, errorx.GetInfoFailed)
 	}
 	return &core.RoleInfo{

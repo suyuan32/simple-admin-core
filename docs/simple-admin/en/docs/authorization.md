@@ -52,7 +52,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		// check the role status
 		roleStatus, err := m.Rds.Hget("roleData", fmt.Sprintf("%s_status", roleId))
 		if err != nil {
-			logx.Errorw(logmessage.RedisError, logx.Field("Detail", err.Error()))
+			logx.Errorw(logmessage.RedisError, logx.Field("detail", err.Error()))
 			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
 			return
 		} else if roleStatus == "0" {
@@ -64,7 +64,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		sub := roleId
 		result, err := m.Cbn.Enforce(sub, obj, act)
 		if err != nil {
-			logx.Errorw("Casbin enforce error", logx.Field("Detail", err.Error()))
+			logx.Errorw("Casbin enforce error", logx.Field("detail", err.Error()))
 			httpx.Error(w, errorx.NewApiError(http.StatusInternalServerError, errorx.ApiRequestFailed))
 			return
 		}
