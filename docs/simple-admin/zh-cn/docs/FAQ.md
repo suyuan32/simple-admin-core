@@ -13,4 +13,12 @@ A: 默认注册成功后的角色是会员，没有登录的权限。 \
 
 A： 3 种 [go-zero](https://mp.weixin.qq.com/s/-WaWJaM_ePEQOf7ExNJe7w)
 
+> Q: 如何处理跨域问题？
 
+A: 修改 api/core.go 
+
+```go
+server := rest.MustNewServer(c.RestConf, rest.WithCors("*"))
+```
+
+修改 * 为自己的域名或IP,默认为*，允许所有。

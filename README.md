@@ -166,6 +166,11 @@ go build -o core core.go
 > QQ 801043319 
 
 >[Discord](https://discord.gg/NDED5p2hJk)
+
+## Stars
+
+[![Star History Chart](https://api.star-history.com/svg?repos=suyuan32/simple-admin-core&type=Date)](https://github.com/suyuan32/simple-admin-core)
+
 ## 维护者
 
 [@Ryan Su](https://github.com/suyuan32)

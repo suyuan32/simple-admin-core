@@ -165,6 +165,12 @@ You are very welcome to join！[Raise an issue](https://github.com/suyuan32/Simp
 # Community
 [Discard](https://discord.gg/NDED5p2hJk)
 
+
+## Stars
+
+[![Star History Chart](https://api.star-history.com/svg?repos=suyuan32/simple-admin-core&type=Date)](https://github.com/suyuan32/simple-admin-core)
+
+
 ## Maintainer
 
 [@Ryan Su](https://github.com/suyuan32)
