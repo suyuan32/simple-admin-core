@@ -17,7 +17,7 @@ services:
     ports:
       - '3306:3306'
     environment:
-      MYSQL_DATABASE: 'simple-admin'
+      MYSQL_DATABASE: 'simple_admin'
       MYSQL_ROOT_PASSWORD: '123456'
     volumes:
       - mysql:/var/lib/mysql
@@ -29,7 +29,7 @@ services:
       resources:
         limits:
           cpus: '0.1'
-          memory: 300M
+          memory: 500M
         reservations:
           cpus: '0.05'
           memory: 200M

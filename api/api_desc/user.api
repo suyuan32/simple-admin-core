@@ -188,15 +188,15 @@ type (
     }
 
     // The response data of user's basic information | 用户基本信息返回数据
-    // swagger:response GetUserInfoResp
+    // swagger:model GetUserInfoResp
     GetUserInfoResp {
         // User's UUID | 用户的UUID
         UUID         string       `json:"UUID"`
 
-        // User name | 用户名
+        // User's name | 用户名
         Username     string       `json:"username"`
 
-        // user's nickname | 用户的昵称
+        // User's nickname | 用户的昵称
         Nickname     string       `json:"nickname"`
 
         // The user's avatar path | 用户的头像路径
@@ -204,11 +204,11 @@ type (
 
         // User's role information| 用户的角色信息
         // in: body
-        Roles        GetUserRoleInfo `json:"roles"`
+        Roles   GetUserRoleInfo `json:"roles"`
     }
 
     // The response data of user's basic role information | 用户角色信息数据
-    // swagger:response GetUserRoleInfo
+    // swagger:model GetUserRoleInfo
     GetUserRoleInfo {
         // Role name | 角色名
         RoleName   string `json:"roleName"`

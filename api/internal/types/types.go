@@ -299,13 +299,13 @@ type UserInfoResp struct {
 }
 
 // The response data of user's basic information | 用户基本信息返回数据
-// swagger:response GetUserInfoResp
+// swagger:model GetUserInfoResp
 type GetUserInfoResp struct {
 	// User's UUID | 用户的UUID
 	UUID string `json:"UUID"`
-	// User name | 用户名
+	// User's name | 用户名
 	Username string `json:"username"`
-	// user's nickname | 用户的昵称
+	// User's nickname | 用户的昵称
 	Nickname string `json:"nickname"`
 	// The user's avatar path | 用户的头像路径
 	Avatar string `json:"avatar"`
@@ -315,7 +315,7 @@ type GetUserInfoResp struct {
 }
 
 // The response data of user's basic role information | 用户角色信息数据
-// swagger:response GetUserRoleInfo
+// swagger:model GetUserRoleInfo
 type GetUserRoleInfo struct {
 	// Role name | 角色名
 	RoleName string `json:"roleName"`

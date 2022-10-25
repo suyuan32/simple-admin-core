@@ -754,6 +754,28 @@ definitions:
                 x-go-name: MenuType
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    GetUserInfoResp:
+        description: The response data of user's basic information | 用户基本信息返回数据
+        properties:
+            UUID:
+                description: User's UUID | 用户的UUID
+                type: string
+            avatar:
+                description: The user's avatar path | 用户的头像路径
+                type: string
+                x-go-name: Avatar
+            nickname:
+                description: User's nickname | 用户的昵称
+                type: string
+                x-go-name: Nickname
+            roles:
+                $ref: '#/definitions/GetUserRoleInfo'
+            username:
+                description: User's name | 用户名
+                type: string
+                x-go-name: Username
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetUserListReq:
         description: Get user list request | 获取用户列表请求参数
         properties:
@@ -1540,7 +1562,7 @@ info:
         email: yuansu.china.work@gmail.com
     description: This is simple admin api doc
     title: Simple Admin
-    version: 0.0.6
+    version: 0.1.1
 paths:
     /api:
         delete:
@@ -2234,11 +2256,13 @@ paths:
                 - user
     /user/info:
         get:
-            description: Get user basic infomation | 获取用户基本信息
+            description: Get user basic information | 获取用户基本信息
             operationId: getUserInfo
             responses:
                 "200":
-                    $ref: '#/responses/GetUserInfoResp'
+                    description: GetUserInfoResp
+                    schema:
+                        $ref: '#/definitions/GetUserInfoResp'
                 "401":
                     $ref: '#/responses/SimpleMsg'
                 "500":
@@ -2505,32 +2529,6 @@ responses:
             items:
                 $ref: '#/definitions/DictionaryInfo'
             type: array
-    GetUserInfoResp:
-        description: The response data of user's basic information | 用户基本信息返回数据
-        headers:
-            UUID:
-                description: User's UUID | 用户的UUID
-                type: string
-            avatar:
-                description: The user's avatar path | 用户的头像路径
-                type: string
-            nickname:
-                description: user's nickname | 用户的昵称
-                type: string
-            username:
-                description: User name | 用户名
-                type: string
-        schema:
-            $ref: '#/definitions/GetUserRoleInfo'
-    GetUserRoleInfo:
-        description: The response data of user's basic role information | 用户角色信息数据
-        headers:
-            roleName:
-                description: Role name | 角色名
-                type: string
-            value:
-                description: Role value for permission control | 角色值用于前端页面组件显示权限
-                type: string
     LoginResp:
         description: The login response data | 登录返回数据
         headers:
