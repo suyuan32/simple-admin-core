@@ -46,13 +46,13 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 	// add token into database
 	expireAt := time.Now().Add(time.Second * 259200).Unix()
 	_, err = l.svcCtx.CoreRpc.CreateOrUpdateToken(context.Background(), &core.TokenInfo{
-		Id:       0,
-		CreateAt: 0,
-		UUID:     result.Id,
-		Token:    token,
-		Source:   strings.Split(l.r.FormValue("state"), "-")[1],
-		Status:   1,
-		ExpireAt: expireAt,
+		Id:        0,
+		CreatedAt: 0,
+		UUID:      result.Id,
+		Token:     token,
+		Source:    strings.Split(l.r.FormValue("state"), "-")[1],
+		Status:    1,
+		ExpireAt:  expireAt,
 	})
 
 	if err != nil {

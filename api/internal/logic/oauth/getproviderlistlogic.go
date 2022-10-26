@@ -39,7 +39,7 @@ func (l *GetProviderListLogic) GetProviderList(req *types.PageInfo) (resp *types
 		resp.Data = append(resp.Data,
 			types.ProviderInfo{
 				Id:           v.Id,
-				CreateAt:     v.CreateAt,
+				CreatedAt:    v.CreatedAt,
 				Name:         v.Name,
 				ClientID:     v.ClientId,
 				ClientSecret: v.ClientSecret,

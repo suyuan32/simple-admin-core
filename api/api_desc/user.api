@@ -182,9 +182,9 @@ type (
         // 1 normal, 2 ban | 1 正常 2 拉黑
         Status       int32        `json:"status"`
 
-        CreateAt     int64        `json:"createAt"`
+        CreatedAt     int64        `json:"createdAt"`
 
-        UpdateAt     int64        `json:"updateAt"`
+        UpdatedAt     int64        `json:"updatedAt"`
     }
 
     // The response data of user's basic information | 用户基本信息返回数据

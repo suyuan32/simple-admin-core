@@ -204,7 +204,7 @@ message RoleInfo {
   uint32 status = 5;
   string remark = 6;
   uint32 order_no = 7;
-  int64 createAt = 8;
+  int64 createdAt = 8;
 }
 
 message RoleListResp {

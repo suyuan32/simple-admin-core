@@ -45,7 +45,7 @@ func (l *GetRoleListLogic) GetRoleList(in *core.PageInfoReq) (*core.RoleListResp
 			Status:        v.Status,
 			Remark:        v.Remark,
 			OrderNo:       v.OrderNo,
-			CreateAt:      v.CreatedAt.UnixMilli(),
+			CreatedAt:     v.CreatedAt.UnixMilli(),
 		})
 	}
 	return resp, nil

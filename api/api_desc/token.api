@@ -17,7 +17,7 @@ type (
         // ID
         Id            uint64 `json:"id"`
 
-        CreateAt      int64  `json:"createAt"`
+        CreatedAt      int64  `json:"createdAt"`
 
         // User's UUID | 用户的UUID
         UUID          string `json:"UUID"`
@@ -44,7 +44,7 @@ type (
 
        // Create date | 创建日期
        // Required: true
-       CreateAt      int64  `json:"createAt" validate:"number"`
+       CreatedAt      int64  `json:"createdAt" validate:"number"`
 
        // User's UUID | 用户的UUID
        // Required: true

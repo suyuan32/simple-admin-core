@@ -45,7 +45,7 @@ func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiList
 		resp.Data = append(resp.Data,
 			types.ApiInfo{
 				Id:          v.Id,
-				CreateAt:    v.CreateAt,
+				CreatedAt:   v.CreatedAt,
 				Path:        v.Path,
 				Description: v.Description,
 				Group:       v.Group,

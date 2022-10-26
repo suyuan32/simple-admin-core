@@ -47,8 +47,8 @@ func convertMenuList(data []*core.MenuInfo) []*types.Menu {
 		tmp := &types.Menu{
 			BaseInfo: types.BaseInfo{
 				ID:        uint(v.Id),
-				CreatedAt: v.CreateAt,
-				UpdatedAt: v.UpdateAt,
+				CreatedAt: v.CreatedAt,
+				UpdatedAt: v.UpdatedAt,
 			},
 			MenuType:  v.MenuType,
 			ParentId:  uint(v.ParentId),

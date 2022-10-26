@@ -67,8 +67,8 @@ message UserInfoResp {
   string UUID = 8;
   string nickname = 9;
   string roleName = 10;
-  int64 create_at = 11;
-  int64 update_at = 12;
+  int64 created_at = 11;
+  int64 updated_at = 12;
   string roleValue = 13;
 }
 
@@ -113,8 +113,8 @@ message CreateOrUpdateMenuReq {
 
 message MenuInfo {
   uint64 id = 1;
-  int64 create_at = 2;
-  int64 update_at = 3;
+  int64 created_at = 2;
+  int64 updated_at = 3;
   uint32 level = 4;
   uint32 parent_id = 5;
   string path = 6;
@@ -174,8 +174,8 @@ message MenuParamResp {
   string type = 3;
   string key = 4;
   string value = 5;
-  int64 create_at = 6;
-  int64 update_at = 7;
+  int64 created_at = 6;
+  int64 updated_at = 7;
 }
 
 message MenuParamListResp {
@@ -193,7 +193,7 @@ message RoleInfo {
   uint32 status = 5;
   string remark = 6;
   uint32 order_no = 7;
-  int64 createAt = 8;
+  int64 createdAt = 8;
 }
 
 message RoleListResp {
@@ -225,7 +225,7 @@ message CreatePolicyReq {
 // api message
 message ApiInfo {
   uint64 id = 1;
-  int64 create_at = 2;
+  int64 created_at = 2;
   string path = 3;
   string description = 5;
   string group = 6;
@@ -262,8 +262,8 @@ message DictionaryInfo {
   string name = 3;
   bool status = 4;
   string desc = 5;
-  int64 create_at = 6;
-  int64 update_at = 7;
+  int64 created_at = 6;
+  int64 updated_at = 7;
 }
 
 message DictionaryDetail {
@@ -272,8 +272,8 @@ message DictionaryDetail {
   string key = 3;
   string value = 4;
   bool  status = 5;
-  int64 create_at = 6;
-  int64 update_at = 7;
+  int64 created_at = 6;
+  int64 updated_at = 7;
   int64 parent_id = 8;
 }
 
@@ -319,8 +319,8 @@ message ProviderInfo {
   string token_url = 8;
   uint64 auth_style = 9;
   string info_url = 10;
-  int64  create_at = 11;
-  int64  update_at = 12;
+  int64  created_at = 11;
+  int64  updated_at = 12;
 }
 
 message ProviderListResp {
@@ -337,7 +337,7 @@ message CallbackReq {
 
 message TokenInfo {
   uint64 id = 1;
-  int64 create_at = 2;
+  int64 created_at = 2;
   string UUID = 3;
   string token = 4;
   string source = 5;

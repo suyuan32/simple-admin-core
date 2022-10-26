@@ -56,7 +56,7 @@ func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfoResp, er
 		Id:        uint64(u.ID),
 		Username:  u.Username,
 		UUID:      u.UUID,
-		CreateAt:  u.CreatedAt.Unix(),
-		UpdateAt:  u.UpdatedAt.Unix(),
+		CreatedAt: u.CreatedAt.Unix(),
+		UpdatedAt: u.UpdatedAt.Unix(),
 	}, nil
 }

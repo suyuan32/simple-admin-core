@@ -2,6 +2,7 @@ package dictionary
 
 import (
 	"context"
+
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -41,7 +42,7 @@ func (l *GetDictionaryListLogic) GetDictionaryList(req *types.DictionaryListReq)
 	for _, v := range result.Data {
 		resp.Data = append(resp.Data, types.DictionaryInfo{
 			Id:          v.Id,
-			CreateAt:    v.CreateAt,
+			CreatedAt:   v.CreatedAt,
 			Title:       v.Title,
 			Name:        v.Name,
 			Status:      v.Status,

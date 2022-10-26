@@ -52,13 +52,13 @@ func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryPageReq) (
 	resp.Total = uint64(result.RowsAffected)
 	for _, v := range dict {
 		resp.Data = append(resp.Data, &core.DictionaryInfo{
-			Id:       uint64(v.ID),
-			Title:    v.Title,
-			Name:     v.Name,
-			Status:   v.Status,
-			Desc:     v.Desc,
-			CreateAt: v.CreatedAt.UnixMilli(),
-			UpdateAt: v.UpdatedAt.UnixMilli(),
+			Id:        uint64(v.ID),
+			Title:     v.Title,
+			Name:      v.Name,
+			Status:    v.Status,
+			Desc:      v.Desc,
+			CreatedAt: v.CreatedAt.UnixMilli(),
+			UpdatedAt: v.UpdatedAt.UnixMilli(),
 		})
 	}
 

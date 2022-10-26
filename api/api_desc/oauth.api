@@ -17,7 +17,7 @@ type (
         // ID
         Id            uint64 `json:"id"`
 
-        CreateAt      int64  `json:"createAt"`
+        CreatedAt      int64  `json:"createdAt"`
 
         // Provider name | 提供商名字
         Name          string `json:"name"`
@@ -57,7 +57,7 @@ type (
 
         // Create date | 创建日期
         // Required: true
-        CreateAt      int64  `json:"createAt" validate:"number"`
+        CreatedAt      int64  `json:"createdAt" validate:"number"`
 
         // Provider name | 提供商名字
         // Required: true

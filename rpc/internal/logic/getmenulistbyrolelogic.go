@@ -70,8 +70,8 @@ func findRoleMenuChildren(data []model.Menu, validId map[uint]struct{}, parentId
 			if _, ok := validId[v.ID]; ok {
 				tmp := &core.MenuInfo{
 					Id:        uint64(v.ID),
-					CreateAt:  v.CreatedAt.UnixMilli(),
-					UpdateAt:  v.UpdatedAt.UnixMilli(),
+					CreatedAt: v.CreatedAt.UnixMilli(),
+					UpdatedAt: v.UpdatedAt.UnixMilli(),
 					MenuType:  v.MenuType,
 					Level:     v.MenuLevel,
 					ParentId:  uint32(v.ParentId),

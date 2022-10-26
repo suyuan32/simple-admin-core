@@ -42,14 +42,14 @@ func (l *GetDetailByDictionaryNameLogic) GetDetailByDictionaryName(in *core.Dict
 	resp.Total = uint64(len(dict.Detail))
 	for _, v := range dict.Detail {
 		resp.Data = append(resp.Data, &core.DictionaryDetail{
-			Id:       uint64(v.ID),
-			Title:    v.Title,
-			Key:      v.Key,
-			Value:    v.Value,
-			Status:   v.Status,
-			CreateAt: v.CreatedAt.UnixMilli(),
-			UpdateAt: v.UpdatedAt.UnixMilli(),
-			ParentId: int64(v.DictionaryID),
+			Id:        uint64(v.ID),
+			Title:     v.Title,
+			Key:       v.Key,
+			Value:     v.Value,
+			Status:    v.Status,
+			CreatedAt: v.CreatedAt.UnixMilli(),
+			UpdatedAt: v.UpdatedAt.UnixMilli(),
+			ParentId:  int64(v.DictionaryID),
 		})
 	}
 

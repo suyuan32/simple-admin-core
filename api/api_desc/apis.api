@@ -17,7 +17,7 @@ type (
         // ID
         Id            uint64 `json:"id"`
 
-        CreateAt      int64  `json:"createAt"`
+        CreatedAt      int64  `json:"createdAt"`
 
         // API path | API路径
         Path          string `json:"path"`
@@ -41,7 +41,7 @@ type (
 
         // Create date | 创建日期
         // Required: true
-        CreateAt      int64  `json:"createAt" validate:"number"`
+        CreatedAt      int64  `json:"createdAt" validate:"number"`
 
         // API path | API路径
         // Required: true

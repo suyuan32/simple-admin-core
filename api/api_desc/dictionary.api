@@ -17,7 +17,7 @@ type (
         // ID
         Id            uint64 `json:"id"`
 
-        CreateAt      int64  `json:"createAt"`
+        CreatedAt      int64  `json:"createdAt"`
 
         // Dictionary title | 字典显示名称
         Title         string `json:"title"`
@@ -94,7 +94,7 @@ type (
         // ID
         Id            uint64 `json:"id"`
 
-        CreateAt      int64  `json:"createAt"`
+        CreatedAt      int64  `json:"createdAt"`
 
         // Dictionary title | 字典显示名称
         Title         string `json:"title"`

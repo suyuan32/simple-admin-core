@@ -47,6 +47,6 @@ func (l *GetRoleByIdLogic) GetRoleById(in *core.IDReq) (*core.RoleInfo, error) {
 		Status:        role.Status,
 		Remark:        role.Remark,
 		OrderNo:       role.OrderNo,
-		CreateAt:      role.CreatedAt.UnixMilli(),
+		CreatedAt:     role.CreatedAt.UnixMilli(),
 	}, nil
 }

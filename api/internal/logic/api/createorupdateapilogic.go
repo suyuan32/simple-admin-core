@@ -28,7 +28,7 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(req *types.CreateOrUpdateApiR
 	data, err := l.svcCtx.CoreRpc.CreateOrUpdateApi(context.Background(),
 		&core.ApiInfo{
 			Id:          req.Id,
-			CreateAt:    req.CreateAt,
+			CreatedAt:   req.CreatedAt,
 			Path:        req.Path,
 			Description: req.Description,
 			Group:       req.Group,

@@ -51,7 +51,7 @@ type (
 
         // Create time | 创建日期
         // Required: true
-        CreateAt      int64  `json:"createAt" validate:"number"`
+        CreatedAt      int64  `json:"createdAt" validate:"number"`
     }
 
     // The response data of role list | 角色列表数据

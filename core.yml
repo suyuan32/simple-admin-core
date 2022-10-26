@@ -18,10 +18,10 @@ definitions:
     ApiInfo:
         description: The response data of API information | API信息
         properties:
-            createAt:
+            createdAt:
                 format: int64
                 type: integer
-                x-go-name: CreateAt
+                x-go-name: CreatedAt
             description:
                 description: API Description | API 描述
                 type: string
@@ -130,11 +130,11 @@ definitions:
     CreateOrUpdateApiReq:
         description: Create or update API information request | 创建或更新API信息
         properties:
-            createAt:
+            createdAt:
                 description: Create date | 创建日期
                 format: int64
                 type: integer
-                x-go-name: CreateAt
+                x-go-name: CreatedAt
             description:
                 description: API Description | API 描述
                 maxLength: 50
@@ -167,7 +167,7 @@ definitions:
                 x-go-name: Path
         required:
             - id
-            - createAt
+            - createdAt
             - path
             - description
             - method
@@ -439,11 +439,11 @@ definitions:
                 minLength: 1
                 type: string
                 x-go-name: ClientSecret
-            createAt:
+            createdAt:
                 description: Create date | 创建日期
                 format: int64
                 type: integer
-                x-go-name: CreateAt
+                x-go-name: CreatedAt
             id:
                 description: ID
                 format: uint64
@@ -477,7 +477,7 @@ definitions:
                 x-go-name: TokenURL
         required:
             - id
-            - createAt
+            - createdAt
             - name
             - clientID
             - redirectURL
@@ -495,11 +495,11 @@ definitions:
                 description: User's UUID | 用户的UUID
                 maxLength: 36
                 type: string
-            createAt:
+            createdAt:
                 description: Create date | 创建日期
                 format: int64
                 type: integer
-                x-go-name: CreateAt
+                x-go-name: CreatedAt
             expireAt:
                 description: Expire time | 过期时间
                 format: int64
@@ -526,7 +526,7 @@ definitions:
                 x-go-name: Token
         required:
             - id
-            - createAt
+            - createdAt
             - UUID
             - token
             - source
@@ -602,10 +602,10 @@ definitions:
     DictionaryDetailInfo:
         description: The response data of dictionary information | 字典信息
         properties:
-            createAt:
+            createdAt:
                 format: int64
                 type: integer
-                x-go-name: CreateAt
+                x-go-name: CreatedAt
             id:
                 description: ID
                 format: uint64
@@ -641,10 +641,10 @@ definitions:
     DictionaryInfo:
         description: The response data of dictionary information | 字典信息
         properties:
-            createAt:
+            createdAt:
                 format: int64
                 type: integer
-                x-go-name: CreateAt
+                x-go-name: CreatedAt
             description:
                 description: Dictionary description | 字典描述
                 type: string
@@ -1235,10 +1235,10 @@ definitions:
                 description: Client secret | 客户端密码
                 type: string
                 x-go-name: ClientSecret
-            createAt:
+            createdAt:
                 format: int64
                 type: integer
-                x-go-name: CreateAt
+                x-go-name: CreatedAt
             id:
                 description: ID
                 format: uint64
@@ -1306,11 +1306,11 @@ definitions:
     RoleInfo:
         description: Create or update role information params | 创建或更新角色信息参数
         properties:
-            createAt:
+            createdAt:
                 description: Create time | 创建日期
                 format: int64
                 type: integer
-                x-go-name: CreateAt
+                x-go-name: CreatedAt
             defaultRouter:
                 description: Role's default page | 角色默认管理页面
                 maxLength: 20
@@ -1357,7 +1357,7 @@ definitions:
             - status
             - remark
             - orderNo
-            - createAt
+            - createdAt
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleInfoSimple:
@@ -1417,10 +1417,10 @@ definitions:
             UUID:
                 description: User's UUID | 用户的UUID
                 type: string
-            createAt:
+            createdAt:
                 format: int64
                 type: integer
-                x-go-name: CreateAt
+                x-go-name: CreatedAt
             expireAt:
                 description: Expire time | 过期时间
                 format: int64
@@ -1509,10 +1509,10 @@ definitions:
                 description: The user's avatar path | 用户的头像路径
                 type: string
                 x-go-name: Avatar
-            createAt:
+            createdAt:
                 format: int64
                 type: integer
-                x-go-name: CreateAt
+                x-go-name: CreatedAt
             email:
                 description: The user's email address | 用户的邮箱
                 type: string
@@ -1546,10 +1546,10 @@ definitions:
                 format: int32
                 type: integer
                 x-go-name: Status
-            updateAt:
+            updatedAt:
                 format: int64
                 type: integer
-                x-go-name: UpdateAt
+                x-go-name: UpdatedAt
             username:
                 description: User Name | 用户名
                 type: string
@@ -2428,7 +2428,7 @@ responses:
     ApiInfo:
         description: The response data of API information | API信息
         headers:
-            createAt:
+            createdAt:
                 format: int64
                 type: integer
             description:
@@ -2835,7 +2835,7 @@ responses:
             clientSecret:
                 description: Client secret | 客户端密码
                 type: string
-            createAt:
+            createdAt:
                 format: int64
                 type: integer
             id:
@@ -2905,7 +2905,7 @@ responses:
             UUID:
                 description: User's UUID | 用户的UUID
                 type: string
-            createAt:
+            createdAt:
                 format: int64
                 type: integer
             expireAt:
@@ -2946,7 +2946,7 @@ responses:
             avatar:
                 description: The user's avatar path | 用户的头像路径
                 type: string
-            createAt:
+            createdAt:
                 format: int64
                 type: integer
             email:
@@ -2975,7 +2975,7 @@ responses:
                     1 normal, 2 ban | 1 正常 2 拉黑
                 format: int32
                 type: integer
-            updateAt:
+            updatedAt:
                 format: int64
                 type: integer
             username:

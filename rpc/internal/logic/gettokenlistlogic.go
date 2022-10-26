@@ -46,13 +46,13 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 		resp.Total = uint64(result.RowsAffected)
 		for _, v := range tokens {
 			resp.Data = append(resp.Data, &core.TokenInfo{
-				Id:       uint64(v.ID),
-				UUID:     v.UUID,
-				Token:    v.Token,
-				Status:   v.Status,
-				Source:   v.Source,
-				ExpireAt: v.ExpireAt.UnixMilli(),
-				CreateAt: v.CreatedAt.UnixMilli(),
+				Id:        uint64(v.ID),
+				UUID:      v.UUID,
+				Token:     v.Token,
+				Status:    v.Status,
+				Source:    v.Source,
+				ExpireAt:  v.ExpireAt.UnixMilli(),
+				CreatedAt: v.CreatedAt.UnixMilli(),
 			})
 		}
 
@@ -102,13 +102,13 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 		resp.Total = uint64(result.RowsAffected)
 		for _, v := range tokens {
 			resp.Data = append(resp.Data, &core.TokenInfo{
-				Id:       uint64(v.ID),
-				UUID:     v.UUID,
-				Token:    v.Token,
-				Status:   v.Status,
-				Source:   v.Source,
-				ExpireAt: v.ExpireAt.UnixMilli(),
-				CreateAt: v.CreatedAt.UnixMilli(),
+				Id:        uint64(v.ID),
+				UUID:      v.UUID,
+				Token:     v.Token,
+				Status:    v.Status,
+				Source:    v.Source,
+				ExpireAt:  v.ExpireAt.UnixMilli(),
+				CreatedAt: v.CreatedAt.UnixMilli(),
 			})
 		}
 

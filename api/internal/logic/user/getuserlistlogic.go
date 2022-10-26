@@ -41,17 +41,17 @@ func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.U
 	var res []types.UserInfoResp
 	for _, v := range data.Data {
 		res = append(res, types.UserInfoResp{
-			Id:       int64(v.Id),
-			Username: v.Username,
-			Nickname: v.Nickname,
-			Mobile:   v.Mobile,
-			RoleId:   v.RoleId,
-			Email:    v.Email,
-			Avatar:   v.Avatar,
-			Status:   v.Status,
-			CreateAt: v.CreateAt,
-			UpdateAt: v.UpdateAt,
-			UUID:     v.UUID,
+			Id:        int64(v.Id),
+			Username:  v.Username,
+			Nickname:  v.Nickname,
+			Mobile:    v.Mobile,
+			RoleId:    v.RoleId,
+			Email:     v.Email,
+			Avatar:    v.Avatar,
+			Status:    v.Status,
+			CreatedAt: v.CreatedAt,
+			UpdatedAt: v.UpdatedAt,
+			UUID:      v.UUID,
 		})
 	}
 	resp = &types.UserListResp{}

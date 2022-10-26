@@ -54,8 +54,8 @@ func findMenuChildren(data []model.Menu, parentId uint) []*core.MenuInfo {
 		if v.ParentId == parentId && v.ID != v.ParentId {
 			tmp := &core.MenuInfo{
 				Id:        uint64(v.ID),
-				CreateAt:  v.CreatedAt.UnixMilli(),
-				UpdateAt:  v.UpdatedAt.UnixMilli(),
+				CreatedAt: v.CreatedAt.UnixMilli(),
+				UpdatedAt: v.UpdatedAt.UnixMilli(),
 				MenuType:  v.MenuType,
 				Level:     v.MenuLevel,
 				ParentId:  uint32(v.ParentId),

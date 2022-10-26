@@ -37,7 +37,7 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(req *types.CreateOr
 			TokenUrl:     req.TokenURL,
 			AuthStyle:    uint64(req.AuthStyle),
 			InfoUrl:      req.InfoURL,
-			CreateAt:     req.CreateAt,
+			CreatedAt:    req.CreatedAt,
 		})
 	if err != nil {
 		return nil, err

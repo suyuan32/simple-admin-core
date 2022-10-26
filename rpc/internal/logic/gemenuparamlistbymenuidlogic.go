@@ -42,13 +42,13 @@ func (l *GeMenuParamListByMenuIdLogic) GeMenuParamListByMenuId(in *core.IDReq) (
 	resp.Total = uint64(result.RowsAffected)
 	for _, v := range paramsList {
 		resp.Data = append(resp.Data, &core.MenuParamResp{
-			Id:       uint64(v.ID),
-			MenuId:   uint64(v.MenuId),
-			Type:     v.Type,
-			Key:      v.Key,
-			Value:    v.Value,
-			CreateAt: v.CreatedAt.UnixMilli(),
-			UpdateAt: v.UpdatedAt.UnixMilli(),
+			Id:        uint64(v.ID),
+			MenuId:    uint64(v.MenuId),
+			Type:      v.Type,
+			Key:       v.Key,
+			Value:     v.Value,
+			CreatedAt: v.CreatedAt.UnixMilli(),
+			UpdatedAt: v.UpdatedAt.UnixMilli(),
 		})
 	}
 

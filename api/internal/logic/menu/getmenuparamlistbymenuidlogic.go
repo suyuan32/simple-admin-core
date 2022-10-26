@@ -2,6 +2,7 @@ package menu
 
 import (
 	"context"
+
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -34,7 +35,7 @@ func (l *GetMenuParamListByMenuIdLogic) GetMenuParamListByMenuId(req *types.IDRe
 	resp.Total = result.Total
 	for _, v := range result.Data {
 		resp.Data = append(resp.Data, types.MenuParamResp{
-			BaseInfo: types.BaseInfo{ID: uint(v.Id), CreatedAt: v.CreateAt, UpdatedAt: v.UpdateAt},
+			BaseInfo: types.BaseInfo{ID: uint(v.Id), CreatedAt: v.CreatedAt, UpdatedAt: v.UpdatedAt},
 			MenuId:   uint32(v.MenuId),
 			DataType: v.Type,
 			Key:      v.Key,

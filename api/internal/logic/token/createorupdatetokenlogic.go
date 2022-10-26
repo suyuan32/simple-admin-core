@@ -26,13 +26,13 @@ func NewCreateOrUpdateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext
 
 func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(req *types.CreateOrUpdateTokenReq) (resp *types.SimpleMsg, err error) {
 	result, err := l.svcCtx.CoreRpc.CreateOrUpdateToken(context.Background(), &core.TokenInfo{
-		Id:       req.Id,
-		CreateAt: req.CreateAt,
-		UUID:     req.UUID,
-		Token:    req.Token,
-		Source:   req.Source,
-		Status:   req.Status,
-		ExpireAt: req.ExpireAt,
+		Id:        req.Id,
+		CreatedAt: req.CreatedAt,
+		UUID:      req.UUID,
+		Token:     req.Token,
+		Source:    req.Source,
+		Status:    req.Status,
+		ExpireAt:  req.ExpireAt,
 	})
 
 	if err != nil {

@@ -2,6 +2,7 @@ package dictionary
 
 import (
 	"context"
+
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -35,12 +36,12 @@ func (l *GetDetailByDictionaryNameLogic) GetDetailByDictionaryName(req *types.Di
 	resp.Total = result.Total
 	for _, v := range result.Data {
 		resp.Data = append(resp.Data, types.DictionaryDetailInfo{
-			Id:       v.Id,
-			CreateAt: v.CreateAt,
-			Title:    v.Title,
-			Key:      v.Key,
-			Value:    v.Value,
-			Status:   v.Status,
+			Id:        v.Id,
+			CreatedAt: v.CreatedAt,
+			Title:     v.Title,
+			Key:       v.Key,
+			Value:     v.Value,
+			Status:    v.Status,
 		})
 	}
 

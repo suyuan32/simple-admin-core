@@ -60,7 +60,7 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, er
 	for _, v := range apis {
 		resp.Data = append(resp.Data, &core.ApiInfo{
 			Id:          uint64(v.ID),
-			CreateAt:    v.CreatedAt.UnixMilli(),
+			CreatedAt:   v.CreatedAt.UnixMilli(),
 			Path:        v.Path,
 			Description: v.Description,
 			Group:       v.ApiGroup,

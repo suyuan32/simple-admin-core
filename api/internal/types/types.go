@@ -34,7 +34,7 @@ type RoleInfo struct {
 	OrderNo uint32 `json:"orderNo" validate:"number,max=1000"`
 	// Create time | 创建日期
 	// Required: true
-	CreateAt int64 `json:"createAt" validate:"number"`
+	CreatedAt int64 `json:"createdAt" validate:"number"`
 }
 
 // The response data of role list | 角色列表数据
@@ -293,9 +293,9 @@ type UserInfoResp struct {
 	SideMode string `json:"sideMode"`
 	// The user's status | 用户状态
 	// 1 normal, 2 ban | 1 正常 2 拉黑
-	Status   int32 `json:"status"`
-	CreateAt int64 `json:"createAt"`
-	UpdateAt int64 `json:"updateAt"`
+	Status    int32 `json:"status"`
+	CreatedAt int64 `json:"createdAt"`
+	UpdatedAt int64 `json:"updatedAt"`
 }
 
 // The response data of user's basic information | 用户基本信息返回数据
@@ -617,8 +617,8 @@ type CaptchaInfo struct {
 // swagger:response ApiInfo
 type ApiInfo struct {
 	// ID
-	Id       uint64 `json:"id"`
-	CreateAt int64  `json:"createAt"`
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
 	// API path | API路径
 	Path string `json:"path"`
 	// API Description | API 描述
@@ -637,7 +637,7 @@ type CreateOrUpdateApiReq struct {
 	Id uint64 `json:"id" validate:"number"`
 	// Create date | 创建日期
 	// Required: true
-	CreateAt int64 `json:"createAt" validate:"number"`
+	CreatedAt int64 `json:"createdAt" validate:"number"`
 	// API path | API路径
 	// Required: true
 	// Min length: 1
@@ -747,8 +747,8 @@ type MenuAuthorityInfoResp struct {
 // swagger:model DictionaryInfo
 type DictionaryInfo struct {
 	// ID
-	Id       uint64 `json:"id"`
-	CreateAt int64  `json:"createAt"`
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
 	// Dictionary title | 字典显示名称
 	Title string `json:"title"`
 	// Dictionary name | 字典名称
@@ -812,8 +812,8 @@ type DictionaryListReq struct {
 // swagger:model DictionaryDetailInfo
 type DictionaryDetailInfo struct {
 	// ID
-	Id       uint64 `json:"id"`
-	CreateAt int64  `json:"createAt"`
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
 	// Dictionary title | 字典显示名称
 	Title string `json:"title"`
 	// Key name | 键
@@ -872,8 +872,8 @@ type DictionaryDetailReq struct {
 // swagger:response ProviderInfo
 type ProviderInfo struct {
 	// ID
-	Id       uint64 `json:"id"`
-	CreateAt int64  `json:"createAt"`
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
 	// Provider name | 提供商名字
 	Name string `json:"name"`
 	// Client ID | 客户端ID
@@ -902,7 +902,7 @@ type CreateOrUpdateProviderReq struct {
 	Id uint64 `json:"id" validate:"number"`
 	// Create date | 创建日期
 	// Required: true
-	CreateAt int64 `json:"createAt" validate:"number"`
+	CreatedAt int64 `json:"createdAt" validate:"number"`
 	// Provider name | 提供商名字
 	// Required: true
 	// Min length: 1
@@ -992,8 +992,8 @@ type CallbackResp struct {
 // swagger:response TokenInfo
 type TokenInfo struct {
 	// ID
-	Id       uint64 `json:"id"`
-	CreateAt int64  `json:"createAt"`
+	Id        uint64 `json:"id"`
+	CreatedAt int64  `json:"createdAt"`
 	// User's UUID | 用户的UUID
 	UUID string `json:"UUID"`
 	// Token string | Token 字符串
@@ -1014,7 +1014,7 @@ type CreateOrUpdateTokenReq struct {
 	Id uint64 `json:"id" validate="number"`
 	// Create date | 创建日期
 	// Required: true
-	CreateAt int64 `json:"createAt" validate:"number"`
+	CreatedAt int64 `json:"createdAt" validate:"number"`
 	// User's UUID | 用户的UUID
 	// Required: true
 	// Max Length: 36
