@@ -17,11 +17,14 @@ Log:
   StackCoolDownMillis: 100
 
 RedisConf:
-  Host: 192.168.50.216:6379
+  Host: 127.0.0.1:6379
   Type: node
 
 CoreRpc:
-  Target: k8s://default/core-rpc-svc:9101
+  Endpoints:
+    - 127.0.0.1:9101
+  NonBlock: true
+#  Target: k8s://default/core-rpc-svc:9101
 
 Captcha:
   KeyLong: 5
@@ -30,7 +33,7 @@ Captcha:
 
 DatabaseConf:
   Type: mysql
-  Path: "192.168.50.216"
+  Path: "127.0.0.1"
   Port: 3306
   Config: charset=utf8mb4&parseTime=True&loc=Local
   DBName: simple_admin

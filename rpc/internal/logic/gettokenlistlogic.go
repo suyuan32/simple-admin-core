@@ -34,6 +34,10 @@ func NewGetTokenListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetT
 func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenListResp, error) {
 	if in.UUID == "" && in.Username == "" && in.Email == "" && in.Nickname == "" {
 		var tokens []model.Token
+		var total int64
+		resp := &core.TokenListResp{}
+		l.svcCtx.DB.Count(&total)
+		resp.Total = uint64(total)
 		result := l.svcCtx.DB.Model(&model.Token{}).
 			Limit(int(in.Page.PageSize)).Offset(int((in.Page.Page - 1) * in.Page.PageSize)).Find(&tokens)
 
@@ -42,8 +46,6 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
-		resp := &core.TokenListResp{}
-		resp.Total = uint64(result.RowsAffected)
 		for _, v := range tokens {
 			resp.Data = append(resp.Data, &core.TokenInfo{
 				Id:        uint64(v.ID),

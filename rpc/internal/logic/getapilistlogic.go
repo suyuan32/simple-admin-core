@@ -46,6 +46,10 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, er
 	if in.Group != "" {
 		db = db.Where("api_group = ?", in.Group)
 	}
+	resp := &core.ApiListResp{}
+	var total int64
+	db.Count(&total)
+	resp.Total = uint64(total)
 
 	result := db.Limit(int(in.Page.PageSize)).Offset(int((in.Page.Page - 1) * in.Page.PageSize)).
 		Order("api_group desc").Find(&apis)
@@ -55,8 +59,6 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, er
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 
-	resp := &core.ApiListResp{}
-	resp.Total = uint64(result.RowsAffected)
 	for _, v := range apis {
 		resp.Data = append(resp.Data, &core.ApiInfo{
 			Id:          uint64(v.ID),

@@ -29,13 +29,15 @@ func NewGetRoleListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRo
 
 func (l *GetRoleListLogic) GetRoleList(in *core.PageInfoReq) (*core.RoleListResp, error) {
 	var roles []*model.Role
+	resp := &core.RoleListResp{}
+	var total int64
+	l.svcCtx.DB.Model(&model.Role{}).Count(&total)
+	resp.Total = uint64(total)
 	result := l.svcCtx.DB.Limit(int(in.PageSize)).Offset(int((in.Page - 1) * in.PageSize)).Find(&roles)
 	if result.Error != nil {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
-	resp := &core.RoleListResp{}
-	resp.Total = uint64(result.RowsAffected)
 	for _, v := range roles {
 		resp.Data = append(resp.Data, &core.RoleInfo{
 			Id:            uint64(v.ID),
