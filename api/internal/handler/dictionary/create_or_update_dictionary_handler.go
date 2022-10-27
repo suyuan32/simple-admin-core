@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /dict dictionary createOrUpdateDictionary
+// swagger:route post /dict dictionary CreateOrUpdateDictionary
+//
 // Create or update dictionary information | 创建或更新字典信息
+//
+// Create or update dictionary information | 创建或更新字典信息
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: CreateOrUpdateDictionaryReq
+//
 // Responses:
-//   200: SimpleMsg
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: SimpleMsg
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func CreateOrUpdateDictionaryHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

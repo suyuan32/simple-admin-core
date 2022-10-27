@@ -111,45 +111,15 @@ type (
 )
 
 service core {
-    // swagger:route POST /api api createOrUpdateApi
     // Create or update API information | 创建或更新API
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: CreateOrUpdateApiReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler createOrUpdateApi
     post /api (CreateOrUpdateApiReq) returns (SimpleMsg)
 
-    // swagger:route DELETE /api api deleteApi
     // Delete API information | 删除API信息
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: IDReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler deleteApi
     delete /api (IDReq) returns (SimpleMsg)
 
-    // swagger:route POST /api/list api getApiList
     // Get API list | 获取API列表
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: ApiListReq
-    // Responses:
-    //   200: ApiListResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getApiList
     post /api/list (ApiListReq) returns (ApiListResp)
 }

@@ -8,12 +8,16 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route GET /user/profile user getUserProfile
+// swagger:route get /user/profile user GetUserProfile
+//
 // Get user's profile | 获取用户个人信息
+//
+// Get user's profile | 获取用户个人信息
+//
 // Responses:
-//   200: ProfileResp
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: ProfileResp
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func GetUserProfileHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

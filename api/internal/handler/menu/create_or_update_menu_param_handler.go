@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /menu/param menu createOrUpdateMenuParam
+// swagger:route post /menu/param menu CreateOrUpdateMenuParam
+//
 // Create or update menu parameters | 创建或更新菜单参数
+//
+// Create or update menu parameters | 创建或更新菜单参数
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: CreateOrUpdateMenuParamReq
+//
 // Responses:
-//   200: SimpleMsg
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: SimpleMsg
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func CreateOrUpdateMenuParamHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

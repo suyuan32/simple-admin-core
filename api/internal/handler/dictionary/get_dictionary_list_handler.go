@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /dict/list dictionary getDictionaryList
+// swagger:route post /dict/list dictionary GetDictionaryList
+//
 // Get dictionary list | 获取字典列表
+//
+// Get dictionary list | 获取字典列表
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: DictionaryListReq
+//
 // Responses:
-//   200: DictionaryListResp
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: DictionaryListResp
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func GetDictionaryListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

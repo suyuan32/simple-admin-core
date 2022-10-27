@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /oauth/login oauth oauthLogin
+// swagger:route post /oauth/login oauth OauthLogin
+//
 // Oauth log in | Oauth 登录
+//
+// Oauth log in | Oauth 登录
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: OauthLoginReq
+//
 // Responses:
-//   200: RedirectResp
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: RedirectResp
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func OauthLoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

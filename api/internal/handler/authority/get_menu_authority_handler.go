@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route GET /authority/menu/role authority getMenuAuthority
+// swagger:route post /authority/menu/role authority GetMenuAuthority
+//
 // Get role's menu authorization list | 获取角色菜单权限列表
+//
+// Get role's menu authorization list | 获取角色菜单权限列表
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: IDReq
+//
 // Responses:
-//   200: MenuAuthorityInfo
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: MenuAuthorityInfoResp
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func GetMenuAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

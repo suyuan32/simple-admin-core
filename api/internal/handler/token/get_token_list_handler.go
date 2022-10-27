@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /token/list token getTokenList
+// swagger:route post /token/list token GetTokenList
+//
 // Get Token list | 获取token列表
+//
+// Get Token list | 获取token列表
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: TokenListReq
+//
 // Responses:
-//   200: TokenListResp
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: TokenListResp
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func GetTokenListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

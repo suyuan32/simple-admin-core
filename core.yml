@@ -1567,7 +1567,7 @@ paths:
     /api:
         delete:
             description: Delete API information | 删除API信息
-            operationId: deleteApi
+            operationId: DeleteApi
             parameters:
                 - in: body
                   name: body
@@ -1581,11 +1581,12 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Delete API information | 删除API信息
             tags:
                 - api
         post:
             description: Create or update API information | 创建或更新API
-            operationId: createOrUpdateApi
+            operationId: CreateOrUpdateApi
             parameters:
                 - in: body
                   name: body
@@ -1599,12 +1600,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Create or update API information | 创建或更新API
             tags:
                 - api
     /api/list:
         post:
             description: Get API list | 获取API列表
-            operationId: getApiList
+            operationId: GetApiList
             parameters:
                 - in: body
                   name: body
@@ -1618,12 +1620,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get API list | 获取API列表
             tags:
                 - api
     /authority/api:
         post:
             description: Create or update API authorization information | 创建或更新API权限
-            operationId: createOrUpdateApiAuthority
+            operationId: CreateOrUpdateApiAuthority
             parameters:
                 - in: body
                   name: body
@@ -1637,12 +1640,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Create or update API authorization information | 创建或更新API权限
             tags:
                 - authority
     /authority/api/role:
-        get:
+        post:
             description: Get role's API authorization list | 获取角色api权限列表
-            operationId: getApiAuthority
+            operationId: GetApiAuthority
             parameters:
                 - in: body
                   name: body
@@ -1656,12 +1660,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get role's API authorization list | 获取角色api权限列表
             tags:
                 - authority
     /authority/menu:
         post:
             description: Create or update menu authorization information | 创建或更新菜单权限
-            operationId: createOrUpdateMenuAuthority
+            operationId: CreateOrUpdateMenuAuthority
             parameters:
                 - in: body
                   name: body
@@ -1675,12 +1680,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Create or update menu authorization information | 创建或更新菜单权限
             tags:
                 - authority
     /authority/menu/role:
-        get:
+        post:
             description: Get role's menu authorization list | 获取角色菜单权限列表
-            operationId: getMenuAuthority
+            operationId: GetMenuAuthority
             parameters:
                 - in: body
                   name: body
@@ -1689,17 +1695,18 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/MenuAuthorityInfo'
+                    $ref: '#/responses/MenuAuthorityInfoResp'
                 "401":
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get role's menu authorization list | 获取角色菜单权限列表
             tags:
                 - authority
     /captcha:
         get:
             description: Get captcha | 获取验证码
-            operationId: getCaptcha
+            operationId: GetCaptcha
             responses:
                 "200":
                     $ref: '#/responses/CaptchaInfo'
@@ -1707,29 +1714,34 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get captcha | 获取验证码
             tags:
                 - captcha
     /core/health:
         get:
             description: Check the system status | 检查系统状态
-            operationId: healthCheck
+            operationId: HealthCheck
+            summary: Check the system status | 检查系统状态
             tags:
                 - core
     /core/init/database:
         get:
             description: Initialize database | 初始化数据库
-            operationId: initDatabase
+            operationId: InitDatabase
             responses:
                 "200":
                     $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Initialize database | 初始化数据库
             tags:
                 - core
     /dict:
         delete:
             description: Delete dictionary information | 删除字典信息
-            operationId: deleteDictionary
+            operationId: DeleteDictionary
             parameters:
                 - in: body
                   name: body
@@ -1743,11 +1755,12 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Delete dictionary information | 删除字典信息
             tags:
                 - dictionary
         post:
             description: Create or update dictionary information | 创建或更新字典信息
-            operationId: createOrUpdateDictionary
+            operationId: CreateOrUpdateDictionary
             parameters:
                 - in: body
                   name: body
@@ -1761,12 +1774,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Create or update dictionary information | 创建或更新字典信息
             tags:
                 - dictionary
     /dict/detail:
         delete:
             description: Delete dictionary KV information | 删除字典键值信息
-            operationId: deleteDictionaryDetail
+            operationId: DeleteDictionaryDetail
             parameters:
                 - in: body
                   name: body
@@ -1780,11 +1794,12 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Delete dictionary KV information | 删除字典键值信息
             tags:
                 - dictionary
         post:
             description: Create or update dictionary KV information | 创建或更新字典键值信息
-            operationId: createOrUpdateDictionaryDetail
+            operationId: CreateOrUpdateDictionaryDetail
             parameters:
                 - in: body
                   name: body
@@ -1798,12 +1813,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Create or update dictionary KV information | 创建或更新字典键值信息
             tags:
                 - dictionary
     /dict/detail/list:
         post:
             description: Get dictionary detail list by dictionary name | 根据字典名获取字典键值列表
-            operationId: getDetailByDictionaryName
+            operationId: GetDetailByDictionaryName
             parameters:
                 - in: body
                   name: body
@@ -1817,12 +1833,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get dictionary detail list by dictionary name | 根据字典名获取字典键值列表
             tags:
                 - dictionary
     /dict/list:
         post:
             description: Get dictionary list | 获取字典列表
-            operationId: getDictionaryList
+            operationId: GetDictionaryList
             parameters:
                 - in: body
                   name: body
@@ -1836,12 +1853,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get dictionary list | 获取字典列表
             tags:
                 - dictionary
     /menu:
         delete:
             description: Delete menu information | 删除菜单信息
-            operationId: deleteMenu
+            operationId: DeleteMenu
             parameters:
                 - in: body
                   name: body
@@ -1855,11 +1873,12 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Delete menu information | 删除菜单信息
             tags:
                 - menu
         post:
             description: Create or update menu information | 创建或更新菜单
-            operationId: createOrUpdateMenu
+            operationId: CreateOrUpdateMenu
             parameters:
                 - in: body
                   name: body
@@ -1873,12 +1892,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Create or update menu information | 创建或更新菜单
             tags:
                 - menu
     /menu/list:
         get:
             description: Get menu list | 获取菜单列表
-            operationId: getMenuList
+            operationId: GetMenuList
             responses:
                 "200":
                     $ref: '#/responses/MenuListResp'
@@ -1886,12 +1906,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get menu list | 获取菜单列表
             tags:
                 - menu
     /menu/param:
         delete:
             description: Delete menu extra parameters | 删除菜单额外参数
-            operationId: deleteMenuParam
+            operationId: DeleteMenuParam
             parameters:
                 - in: body
                   name: body
@@ -1905,11 +1926,12 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Delete menu extra parameters | 删除菜单额外参数
             tags:
                 - menu
         post:
             description: Create or update menu parameters | 创建或更新菜单参数
-            operationId: createOrUpdateMenuParam
+            operationId: CreateOrUpdateMenuParam
             parameters:
                 - in: body
                   name: body
@@ -1923,12 +1945,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Create or update menu parameters | 创建或更新菜单参数
             tags:
                 - menu
     /menu/param/list:
         post:
             description: Get menu extra parameters by menu ID | 获取某个菜单的额外参数列表
-            operationId: getMenuParamListByMenuId
+            operationId: GetMenuParamListByMenuId
             parameters:
                 - in: body
                   name: body
@@ -1942,12 +1965,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get menu extra parameters by menu ID | 获取某个菜单的额外参数列表
             tags:
                 - menu
     /menu/role:
         get:
             description: Get role's menu list API | 获取角色菜单列表
-            operationId: getMenuByRole
+            operationId: GetMenuByRole
             responses:
                 "200":
                     description: GetMenuListBase
@@ -1957,12 +1981,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get role's menu list API | 获取角色菜单列表
             tags:
                 - menu
     /oauth/login:
         post:
             description: Oauth log in | Oauth 登录
-            operationId: oauthLogin
+            operationId: OauthLogin
             parameters:
                 - in: body
                   name: body
@@ -1976,12 +2001,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Oauth log in | Oauth 登录
             tags:
                 - oauth
     /oauth/login/callback:
-        post:
+        get:
             description: Oauth log in callback route | Oauth 登录返回调接口
-            operationId: oauthCallback
+            operationId: OauthCallback
             responses:
                 "200":
                     $ref: '#/responses/CallbackResp'
@@ -1989,12 +2015,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Oauth log in callback route | Oauth 登录返回调接口
             tags:
                 - oauth
     /oauth/provider:
         delete:
             description: Delete provider information | 删除提供商信息
-            operationId: deleteProvider
+            operationId: DeleteProvider
             parameters:
                 - in: body
                   name: body
@@ -2008,11 +2035,12 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Delete provider information | 删除提供商信息
             tags:
                 - oauth
         post:
             description: Create or update Provider information | 创建或更新提供商
-            operationId: createOrUpdateProvider
+            operationId: CreateOrUpdateProvider
             parameters:
                 - in: body
                   name: body
@@ -2026,12 +2054,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Create or update Provider information | 创建或更新提供商
             tags:
                 - oauth
     /oauth/provider/list:
         post:
             description: Get provider list | 获取提供商列表
-            operationId: getProviderList
+            operationId: GetProviderList
             parameters:
                 - in: body
                   name: body
@@ -2045,12 +2074,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get provider list | 获取提供商列表
             tags:
                 - oauth
     /role:
         delete:
             description: Delete role information | 删除角色信息
-            operationId: deleteRole
+            operationId: DeleteRole
             parameters:
                 - in: body
                   name: body
@@ -2064,11 +2094,12 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Delete role information | 删除角色信息
             tags:
                 - role
         post:
             description: Create or update role information | 创建或更新角色
-            operationId: createOrUpdateRole
+            operationId: CreateOrUpdateRole
             parameters:
                 - in: body
                   name: body
@@ -2082,12 +2113,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Create or update role information | 创建或更新角色
             tags:
                 - role
     /role/list:
         post:
             description: Get role list | 获取角色列表
-            operationId: getRoleList
+            operationId: GetRoleList
             parameters:
                 - in: body
                   name: body
@@ -2101,12 +2133,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get role list | 获取角色列表
             tags:
                 - role
     /role/status:
         post:
             description: Set role status | 设置角色状态
-            operationId: setRoleStatus
+            operationId: SetRoleStatus
             parameters:
                 - in: body
                   name: body
@@ -2120,12 +2153,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Set role status | 设置角色状态
             tags:
                 - role
     /token:
         delete:
             description: Delete token information | 删除token信息
-            operationId: deleteToken
+            operationId: DeleteToken
             parameters:
                 - in: body
                   name: body
@@ -2139,11 +2173,12 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Delete token information | 删除token信息
             tags:
                 - token
         post:
             description: Create or update Token information | 创建或更新Token
-            operationId: createOrUpdateToken
+            operationId: CreateOrUpdateToken
             parameters:
                 - in: body
                   name: body
@@ -2157,12 +2192,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Create or update Token information | 创建或更新Token
             tags:
                 - token
     /token/list:
         post:
             description: Get Token list | 获取token列表
-            operationId: getTokenList
+            operationId: GetTokenList
             parameters:
                 - in: body
                   name: body
@@ -2176,12 +2212,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get Token list | 获取token列表
             tags:
                 - token
     /token/logout:
         post:
             description: Force logging out by user UUID | 根据UUID强制用户退出
-            operationId: logout
+            operationId: Logout
             parameters:
                 - in: body
                   name: body
@@ -2195,12 +2232,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Force logging out by user UUID | 根据UUID强制用户退出
             tags:
                 - token
     /token/status:
         post:
             description: Set token status | 设置token状态
-            operationId: setTokenStatus
+            operationId: SetTokenStatus
             parameters:
                 - in: body
                   name: body
@@ -2214,116 +2252,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Set token status | 设置token状态
             tags:
                 - token
     /user:
-        post:
-            description: Create or update user's information | 新增或更新用户
-            operationId: createOrUpdateUser
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/CreateOrUpdateUserReq'
-                    type: object
-            responses:
-                "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
-            tags:
-                - user
-    /user/change-password:
-        post:
-            description: Change Password | 修改密码
-            operationId: changePassword
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/ChangePasswordReq'
-                    type: object
-            responses:
-                "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
-            tags:
-                - user
-    /user/info:
-        get:
-            description: Get user basic information | 获取用户基本信息
-            operationId: getUserInfo
-            responses:
-                "200":
-                    description: GetUserInfoResp
-                    schema:
-                        $ref: '#/definitions/GetUserInfoResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
-            tags:
-                - user
-    /user/list:
-        post:
-            description: Get user list | 获取用户列表
-            operationId: getUserList
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/GetUserListReq'
-                    type: object
-            responses:
-                "200":
-                    $ref: '#/responses/UserListResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
-            tags:
-                - user
-    /user/login:
-        post:
-            description: Log in | 登录
-            operationId: login
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/LoginReq'
-                    type: object
-            responses:
-                "200":
-                    $ref: '#/responses/LoginResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
-            tags:
-                - user
-    /user/logout:
-        get:
-            description: Log out | 退出登陆
-            operationId: logout
-            responses:
-                "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
-            tags:
-                - user
-    /user/modify:
         delete:
             description: Delete user information | 删除用户信息
-            operationId: deleteUser
+            operationId: DeleteUser
             parameters:
                 - in: body
                   name: body
@@ -2337,12 +2272,122 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Delete user information | 删除用户信息
+            tags:
+                - user
+        post:
+            description: Create or update user's information | 新增或更新用户
+            operationId: CreateOrUpdateUser
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/CreateOrUpdateUserReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            summary: Create or update user's information | 新增或更新用户
+            tags:
+                - user
+    /user/change-password:
+        post:
+            description: Change Password | 修改密码
+            operationId: ChangePassword
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/ChangePasswordReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            summary: Change Password | 修改密码
+            tags:
+                - user
+    /user/info:
+        get:
+            description: Get user basic infomation | 获取用户基本信息
+            operationId: GetUserInfo
+            responses:
+                "200":
+                    description: GetUserInfoResp
+                    schema:
+                        $ref: '#/definitions/GetUserInfoResp'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            summary: Get user basic infomation | 获取用户基本信息
+            tags:
+                - user
+    /user/list:
+        post:
+            description: Get user list | 获取用户列表
+            operationId: GetUserList
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/GetUserListReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/UserListResp'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            summary: Get user list | 获取用户列表
+            tags:
+                - user
+    /user/login:
+        post:
+            description: Log in | 登录
+            operationId: Login
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/LoginReq'
+                    type: object
+            responses:
+                "200":
+                    $ref: '#/responses/LoginResp'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            summary: Log in | 登录
+            tags:
+                - user
+    /user/logout:
+        get:
+            description: Log out | 退出登陆
+            operationId: Logout
+            responses:
+                "200":
+                    $ref: '#/responses/SimpleMsg'
+                "401":
+                    $ref: '#/responses/SimpleMsg'
+                "500":
+                    $ref: '#/responses/SimpleMsg'
+            summary: Log out | 退出登陆
             tags:
                 - user
     /user/perm:
         get:
             description: Get user's permission code | 获取用户权限码
-            operationId: getUserPermCode
+            operationId: GetUserPermCode
             responses:
                 "200":
                     $ref: '#/responses/PermCodeResp'
@@ -2350,12 +2395,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get user's permission code | 获取用户权限码
             tags:
                 - user
     /user/profile:
         get:
             description: Get user's profile | 获取用户个人信息
-            operationId: getUserProfile
+            operationId: GetUserProfile
             responses:
                 "200":
                     $ref: '#/responses/ProfileResp'
@@ -2363,11 +2409,12 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Get user's profile | 获取用户个人信息
             tags:
                 - user
         post:
             description: Update user's profile | 更新用户个人信息
-            operationId: updateUserProfile
+            operationId: UpdateUserProfile
             parameters:
                 - in: body
                   name: body
@@ -2381,12 +2428,13 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Update user's profile | 更新用户个人信息
             tags:
                 - user
     /user/register:
         post:
             description: Register | 注册
-            operationId: register
+            operationId: Register
             parameters:
                 - in: body
                   name: body
@@ -2400,6 +2448,7 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
+            summary: Register | 注册
             tags:
                 - user
 produces:

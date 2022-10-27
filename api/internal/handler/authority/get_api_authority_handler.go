@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route GET /authority/api/role authority getApiAuthority
+// swagger:route post /authority/api/role authority GetApiAuthority
+//
 // Get role's API authorization list | 获取角色api权限列表
+//
+// Get role's API authorization list | 获取角色api权限列表
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: IDReq
+//
 // Responses:
-//   200: ApiAuthorityListResp
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: ApiAuthorityListResp
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func GetApiAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

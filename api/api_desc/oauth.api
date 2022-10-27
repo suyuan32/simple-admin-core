@@ -163,26 +163,11 @@ type (
 )
 
 service core {
-    // swagger:route POST /oauth/login oauth oauthLogin
     // Oauth log in | Oauth 登录
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: OauthLoginReq
-    // Responses:
-    //   200: RedirectResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler oauthLogin
     post /oauth/login (OauthLoginReq) returns (RedirectResp)
 
-    // swagger:route GET /oauth/login/callback oauth oauthCallback
     // Oauth log in callback route | Oauth 登录返回调接口
-    // Responses:
-    //   200: CallbackResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler oauthCallback
     get /oauth/login/callback returns (CallbackResp)
 }
@@ -194,45 +179,15 @@ service core {
 )
 
 service core {
-    // swagger:route POST /oauth/provider oauth createOrUpdateProvider
     // Create or update Provider information | 创建或更新提供商
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: CreateOrUpdateProviderReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler createOrUpdateProvider
     post /oauth/provider (CreateOrUpdateProviderReq) returns (SimpleMsg)
 
-    // swagger:route DELETE /oauth/provider oauth deleteProvider
     // Delete provider information | 删除提供商信息
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: IDReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler deleteProvider
     delete /oauth/provider (IDReq) returns (SimpleMsg)
 
-    // swagger:route POST /oauth/provider/list oauth getProviderList
     // Get provider list | 获取提供商列表
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: PageInfo
-    // Responses:
-    //   200: ProviderListResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getProviderList
     post /oauth/provider/list (PageInfo) returns (ProviderListResp)
 }

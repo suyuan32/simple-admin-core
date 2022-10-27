@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /api/list api getApiList
+// swagger:route post /api/list api GetApiList
+//
 // Get API list | 获取API列表
+//
+// Get API list | 获取API列表
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: ApiListReq
+//
 // Responses:
-//   200: ApiListResp
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: ApiListResp
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func GetApiListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

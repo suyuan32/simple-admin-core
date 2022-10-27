@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /user/register user register
+// swagger:route post /user/register user Register
+//
 // Register | 注册
+//
+// Register | 注册
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: RegisterReq
+//
 // Responses:
-//   200: SimpleMsg
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: SimpleMsg
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func RegisterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

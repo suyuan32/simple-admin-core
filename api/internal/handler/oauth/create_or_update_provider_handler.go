@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /oauth/provider oauth createOrUpdateProvider
+// swagger:route post /oauth/provider oauth CreateOrUpdateProvider
+//
 // Create or update Provider information | 创建或更新提供商
+//
+// Create or update Provider information | 创建或更新提供商
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: CreateOrUpdateProviderReq
+//
 // Responses:
-//   200: SimpleMsg
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: SimpleMsg
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func CreateOrUpdateProviderHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route DELETE /user user deleteUser
+// swagger:route delete /user user DeleteUser
+//
 // Delete user information | 删除用户信息
+//
+// Delete user information | 删除用户信息
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: IDReq
+//
 // Responses:
-//   200: SimpleMsg
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: SimpleMsg
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func DeleteUserHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

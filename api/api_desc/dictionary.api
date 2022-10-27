@@ -167,87 +167,27 @@ type (
 )
 
 service core {
-    // swagger:route POST /dict dictionary createOrUpdateDictionary
     // Create or update dictionary information | 创建或更新字典信息
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: CreateOrUpdateDictionaryReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler createOrUpdateDictionary
     post /dict (CreateOrUpdateDictionaryReq) returns (SimpleMsg)
 
-    // swagger:route DELETE /dict dictionary deleteDictionary
     // Delete dictionary information | 删除字典信息
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: IDReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler deleteDictionary
     delete /dict (IDReq) returns (SimpleMsg)
 
-    // swagger:route POST /dict/list dictionary getDictionaryList
     // Get dictionary list | 获取字典列表
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: DictionaryListReq
-    // Responses:
-    //   200: DictionaryListResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getDictionaryList
     post /dict/list (DictionaryListReq) returns (DictionaryListResp)
 
-    // swagger:route POST /dict/detail dictionary createOrUpdateDictionaryDetail
     // Create or update dictionary KV information | 创建或更新字典键值信息
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: CreateOrUpdateDictionaryDetailReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler createOrUpdateDictionaryDetail
     post /dict/detail (CreateOrUpdateDictionaryDetailReq) returns (SimpleMsg)
 
-    // swagger:route DELETE /dict/detail dictionary deleteDictionaryDetail
     // Delete dictionary KV information | 删除字典键值信息
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: IDReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler deleteDictionaryDetail
     delete /dict/detail (IDReq) returns (SimpleMsg)
 
-    // swagger:route POST /dict/detail/list dictionary getDetailByDictionaryName
     // Get dictionary detail list by dictionary name | 根据字典名获取字典键值列表
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: DictionaryDetailReq
-    // Responses:
-    //   200: DictionaryDetailListResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getDetailByDictionaryName
     post /dict/detail/list (DictionaryDetailReq) returns (DictionaryDetailListResp)
 }

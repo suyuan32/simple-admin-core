@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /oauth/provider/list oauth getProviderList
+// swagger:route post /oauth/provider/list oauth GetProviderList
+//
 // Get provider list | 获取提供商列表
+//
+// Get provider list | 获取提供商列表
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: PageInfo
+//
 // Responses:
-//   200: ProviderListResp
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: ProviderListResp
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func GetProviderListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

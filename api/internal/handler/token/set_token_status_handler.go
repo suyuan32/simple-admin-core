@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /token/status token setTokenStatus
+// swagger:route post /token/status token SetTokenStatus
+//
 // Set token status | 设置token状态
+//
+// Set token status | 设置token状态
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: SetBooleanStatusReq
+//
 // Responses:
-//   200: SimpleMsg
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: SimpleMsg
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func SetTokenStatusHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

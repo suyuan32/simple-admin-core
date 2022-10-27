@@ -329,31 +329,11 @@ type (
 )
 
 service core {
-    // swagger:route POST /user/login user login
     // Log in | 登录
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: LoginReq
-    // Responses:
-    //   200: LoginResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler login
     post /user/login (LoginReq) returns (LoginResp)
 
-    // swagger:route POST /user/register user register
     // Register | 注册
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: RegisterReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler register
     post /user/register (RegisterReq) returns (SimpleMsg)
 }
@@ -365,109 +345,39 @@ service core {
 )
 
 service core {
-    // swagger:route POST /user/change-password user changePassword
     // Change Password | 修改密码
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: ChangePasswordReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler changePassword
     post /user/change-password (ChangePasswordReq) returns (SimpleMsg)
 
-    // swagger:route GET /user/info user getUserInfo
     // Get user basic infomation | 获取用户基本信息
-    // Responses:
-    //   200: GetUserInfoResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getUserInfo
     get /user/info returns (GetUserInfoResp)
 
-    // swagger:route POST /user user createOrUpdateUser
     // Create or update user's information | 新增或更新用户
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: CreateOrUpdateUserReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler createOrUpdateUser
     post /user (CreateOrUpdateUserReq) returns (SimpleMsg)
 
-    // swagger:route POST /user/list user getUserList
     // Get user list | 获取用户列表
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: GetUserListReq
-    // Responses:
-    //   200: UserListResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getUserList
     post /user/list (GetUserListReq) returns (UserListResp)
 
-    // swagger:route DELETE /user user deleteUser
     // Delete user information | 删除用户信息
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: IDReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler deleteUser
     delete /user (IDReq) returns (SimpleMsg)
 
-    // swagger:route GET /user/perm user getUserPermCode
     // Get user's permission code | 获取用户权限码
-    // Responses:
-    //   200: PermCodeResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getUserPermCode
     get /user/perm returns (PermCodeResp)
 
-    // swagger:route GET /user/profile user getUserProfile
     // Get user's profile | 获取用户个人信息
-    // Responses:
-    //   200: ProfileResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getUserProfile
     get /user/profile returns (ProfileResp)
 
-    // swagger:route POST /user/profile user updateUserProfile
     // Update user's profile | 更新用户个人信息
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: ProfileReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler updateUserProfile
     post /user/profile (ProfileReq) returns (SimpleMsg)
 
-    // swagger:route GET /user/logout user logout
     // Log out | 退出登陆
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler logout
     get /user/logout returns (SimpleMsg)
 }

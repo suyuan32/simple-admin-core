@@ -267,91 +267,31 @@ type (
 )
 
 service core {
-    // swagger:route POST /menu menu createOrUpdateMenu
     // Create or update menu information | 创建或更新菜单
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: CreateOrUpdateMenuReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler createOrUpdateMenu
     post /menu (CreateOrUpdateMenuReq) returns (SimpleMsg)
 
-    // swagger:route DELETE /menu menu deleteMenu
     // Delete menu information | 删除菜单信息
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: IDReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler deleteMenu
     delete /menu (IDReq) returns (SimpleMsg)
 
-    // swagger:route GET /menu/list menu getMenuList
     // Get menu list | 获取菜单列表
-    // Responses:
-    //   200: MenuListResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getMenuList
     get /menu/list returns (MenuListResp)
 
-    // swagger:route GET /menu/role menu getMenuByRole
     // Get role's menu list API | 获取角色菜单列表
-    // Responses:
-    //   200: GetMenuListBase
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler  getMenuByRole
     get /menu/role returns (GetMenuListBase)
 
-    // swagger:route POST /menu/param menu createOrUpdateMenuParam
     // Create or update menu parameters | 创建或更新菜单参数
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: CreateOrUpdateMenuParamReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler createOrUpdateMenuParam
     post /menu/param (CreateOrUpdateMenuParamReq) returns (SimpleMsg)
 
-    // swagger:route POST /menu/param/list menu getMenuParamListByMenuId
     // Get menu extra parameters by menu ID | 获取某个菜单的额外参数列表
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: IDReq
-    // Responses:
-    //   200: MenuParamListByMenuIdResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getMenuParamListByMenuId
     post /menu/param/list (IDReq) returns (MenuParamListByMenuIdResp)
 
-    // swagger:route DELETE /menu/param menu deleteMenuParam
     // Delete menu extra parameters | 删除菜单额外参数
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: IDReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler deleteMenuParam
     delete /menu/param (IDReq) returns (SimpleMsg)
 }

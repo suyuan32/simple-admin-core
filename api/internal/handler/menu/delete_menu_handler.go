@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route DELETE /menu menu deleteMenu
+// swagger:route delete /menu menu DeleteMenu
+//
 // Delete menu information | 删除菜单信息
+//
+// Delete menu information | 删除菜单信息
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: IDReq
+//
 // Responses:
-//   200: SimpleMsg
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: SimpleMsg
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func DeleteMenuHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

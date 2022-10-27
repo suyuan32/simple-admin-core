@@ -77,59 +77,19 @@ type (
 )
 
 service core {
-    // swagger:route POST /authority/api authority createOrUpdateApiAuthority
     // Create or update API authorization information | 创建或更新API权限
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: CreateOrUpdateApiAuthorityReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler createOrUpdateApiAuthority
     post /authority/api (CreateOrUpdateApiAuthorityReq) returns (SimpleMsg)
 
-    // swagger:route GET /authority/api/role authority getApiAuthority
     // Get role's API authorization list | 获取角色api权限列表
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: IDReq
-    // Responses:
-    //   200: ApiAuthorityListResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getApiAuthority
     post /authority/api/role (IDReq) returns (ApiAuthorityListResp)
 
-    // swagger:route POST /authority/menu authority createOrUpdateMenuAuthority
     // Create or update menu authorization information | 创建或更新菜单权限
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: MenuAuthorityInfoReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler createOrUpdateMenuAuthority
     post /authority/menu (MenuAuthorityInfoReq) returns (SimpleMsg)
 
-    // swagger:route GET /authority/menu/role authority getMenuAuthority
     // Get role's menu authorization list | 获取角色菜单权限列表
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: IDReq
-    // Responses:
-    //   200: MenuAuthorityInfo
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getMenuAuthority
     post /authority/menu/role (IDReq) returns (MenuAuthorityInfoResp)
 }

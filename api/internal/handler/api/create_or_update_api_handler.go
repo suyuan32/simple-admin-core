@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /api api createOrUpdateApi
+// swagger:route post /api api CreateOrUpdateApi
+//
 // Create or update API information | 创建或更新API
+//
+// Create or update API information | 创建或更新API
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: CreateOrUpdateApiReq
+//
 // Responses:
-//   200: SimpleMsg
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: SimpleMsg
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func CreateOrUpdateApiHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

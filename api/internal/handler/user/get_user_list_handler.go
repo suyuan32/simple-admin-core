@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /user/list user getUserList
+// swagger:route post /user/list user GetUserList
+//
 // Get user list | 获取用户列表
+//
+// Get user list | 获取用户列表
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: GetUserListReq
+//
 // Responses:
-//   200: UserListResp
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: UserListResp
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func GetUserListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

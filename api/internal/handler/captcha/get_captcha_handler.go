@@ -8,12 +8,16 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route GET /captcha captcha getCaptcha
+// swagger:route get /captcha captcha GetCaptcha
+//
 // Get captcha | 获取验证码
+//
+// Get captcha | 获取验证码
+//
 // Responses:
-//   200: CaptchaInfo
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: CaptchaInfo
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func GetCaptchaHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

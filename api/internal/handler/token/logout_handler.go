@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /token/logout token logout
+// swagger:route post /token/logout token Logout
+//
 // Force logging out by user UUID | 根据UUID强制用户退出
+//
+// Force logging out by user UUID | 根据UUID强制用户退出
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: UUIDReq
+//
 // Responses:
-//   200: SimpleMsg
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: SimpleMsg
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func LogoutHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

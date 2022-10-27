@@ -9,17 +9,22 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /role/list role getRoleList
+// swagger:route post /role/list role GetRoleList
+//
 // Get role list | 获取角色列表
+//
+// Get role list | 获取角色列表
+//
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
 //    type: PageInfo
+//
 // Responses:
-//   200: RoleListResp
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: RoleListResp
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func GetRoleListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

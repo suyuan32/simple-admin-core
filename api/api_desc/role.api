@@ -87,59 +87,19 @@ type (
 )
 
 service core {
-    // swagger:route POST /role role createOrUpdateRole
     // Create or update role information | 创建或更新角色
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: RoleInfo
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler createOrUpdateRole
     post /role (RoleInfo) returns (SimpleMsg)
 
-    // swagger:route DELETE /role role deleteRole
     // Delete role information | 删除角色信息
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: IDReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler deleteRole
     delete /role (IDReq) returns (SimpleMsg)
 
-    // swagger:route POST /role/list role getRoleList
     // Get role list | 获取角色列表
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: PageInfo
-    // Responses:
-    //   200: RoleListResp
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler getRoleList
     post /role/list (PageInfo) returns (RoleListResp)
 
-    // swagger:route POST /role/status role setRoleStatus
     // Set role status | 设置角色状态
-    // Parameters:
-    //  + name: body
-    //    require: true
-    //    in: body
-    //    type: SetStatusReq
-    // Responses:
-    //   200: SimpleMsg
-    //   401: SimpleMsg
-    //   500: SimpleMsg
     @handler setRoleStatus
     post /role/status (SetStatusReq) returns (SimpleMsg)
 }

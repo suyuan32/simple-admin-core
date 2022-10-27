@@ -8,12 +8,16 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route GET /menu/list menu getMenuList
+// swagger:route get /menu/list menu GetMenuList
+//
 // Get menu list | 获取菜单列表
+//
+// Get menu list | 获取菜单列表
+//
 // Responses:
-//   200: MenuListResp
-//   401: SimpleMsg
-//   500: SimpleMsg
+//  200: MenuListResp
+//  401: SimpleMsg
+//  500: SimpleMsg
 
 func GetMenuListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
