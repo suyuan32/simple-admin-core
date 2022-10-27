@@ -16,21 +16,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type GeMenuParamListByMenuIdLogic struct {
+type GetMenuParamListByMenuIdLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewGeMenuParamListByMenuIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GeMenuParamListByMenuIdLogic {
-	return &GeMenuParamListByMenuIdLogic{
+func NewGetMenuParamListByMenuIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMenuParamListByMenuIdLogic {
+	return &GetMenuParamListByMenuIdLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *GeMenuParamListByMenuIdLogic) GeMenuParamListByMenuId(in *core.IDReq) (*core.MenuParamListResp, error) {
+func (l *GetMenuParamListByMenuIdLogic) GetMenuParamListByMenuId(in *core.IDReq) (*core.MenuParamListResp, error) {
 	var paramsList []model.MenuParam
 	result := l.svcCtx.DB.Where("menu_id = ?", in.ID).Find(&paramsList)
 	if result.Error != nil {

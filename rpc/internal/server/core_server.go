@@ -95,9 +95,9 @@ func (s *CoreServer) DeleteMenuParam(ctx context.Context, in *core.IDReq) (*core
 	return l.DeleteMenuParam(in)
 }
 
-func (s *CoreServer) GeMenuParamListByMenuId(ctx context.Context, in *core.IDReq) (*core.MenuParamListResp, error) {
-	l := logic.NewGeMenuParamListByMenuIdLogic(ctx, s.svcCtx)
-	return l.GeMenuParamListByMenuId(in)
+func (s *CoreServer) GetMenuParamListByMenuId(ctx context.Context, in *core.IDReq) (*core.MenuParamListResp, error) {
+	l := logic.NewGetMenuParamListByMenuIdLogic(ctx, s.svcCtx)
+	return l.GetMenuParamListByMenuId(in)
 }
 
 // role service
@@ -234,9 +234,4 @@ func (s *CoreServer) SetTokenStatus(ctx context.Context, in *core.SetStatusReq) 
 func (s *CoreServer) BlockUserAllToken(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
 	l := logic.NewBlockUserAllTokenLogic(ctx, s.svcCtx)
 	return l.BlockUserAllToken(in)
-}
-
-func (s *CoreServer) BlockUserAllToken1(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
-	l := logic.NewBlockUserAllToken1Logic(ctx, s.svcCtx)
-	return l.BlockUserAllToken1(in)
 }

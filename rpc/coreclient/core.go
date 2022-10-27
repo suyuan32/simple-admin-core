@@ -79,7 +79,7 @@ type (
 		GetMenuByPage(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 		CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		GeMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
+		GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
 		// role service
 		CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -112,7 +112,6 @@ type (
 		GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
 		SetTokenStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error)
 		BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		BlockUserAllToken1(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	}
 
 	defaultCore struct {
@@ -199,9 +198,9 @@ func (m *defaultCore) DeleteMenuParam(ctx context.Context, in *IDReq, opts ...gr
 	return client.DeleteMenuParam(ctx, in, opts...)
 }
 
-func (m *defaultCore) GeMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
+func (m *defaultCore) GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.GeMenuParamListByMenuId(ctx, in, opts...)
+	return client.GetMenuParamListByMenuId(ctx, in, opts...)
 }
 
 // role service
@@ -338,9 +337,4 @@ func (m *defaultCore) SetTokenStatus(ctx context.Context, in *SetStatusReq, opts
 func (m *defaultCore) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.BlockUserAllToken(ctx, in, opts...)
-}
-
-func (m *defaultCore) BlockUserAllToken1(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.BlockUserAllToken1(ctx, in, opts...)
 }

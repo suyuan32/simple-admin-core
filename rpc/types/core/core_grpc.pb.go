@@ -40,7 +40,7 @@ type CoreClient interface {
 	GetMenuByPage(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 	CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
 	DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-	GeMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
+	GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
 	// role service
 	CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -73,7 +73,6 @@ type CoreClient interface {
 	GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
 	SetTokenStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error)
 	BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
-	BlockUserAllToken1(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 }
 
 type coreClient struct {
@@ -210,9 +209,9 @@ func (c *coreClient) DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grp
 	return out, nil
 }
 
-func (c *coreClient) GeMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
+func (c *coreClient) GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
 	out := new(MenuParamListResp)
-	err := c.cc.Invoke(ctx, "/core.core/geMenuParamListByMenuId", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.core/getMenuParamListByMenuId", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -453,15 +452,6 @@ func (c *coreClient) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ..
 	return out, nil
 }
 
-func (c *coreClient) BlockUserAllToken1(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/blockUserAllToken1", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // CoreServer is the server API for Core service.
 // All implementations must embed UnimplementedCoreServer
 // for forward compatibility
@@ -484,7 +474,7 @@ type CoreServer interface {
 	GetMenuByPage(context.Context, *PageInfoReq) (*MenuInfoList, error)
 	CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error)
 	DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error)
-	GeMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error)
+	GetMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error)
 	// role service
 	CreateOrUpdateRole(context.Context, *RoleInfo) (*BaseResp, error)
 	DeleteRole(context.Context, *IDReq) (*BaseResp, error)
@@ -517,7 +507,6 @@ type CoreServer interface {
 	GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error)
 	SetTokenStatus(context.Context, *SetStatusReq) (*BaseResp, error)
 	BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error)
-	BlockUserAllToken1(context.Context, *UUIDReq) (*BaseResp, error)
 	mustEmbedUnimplementedCoreServer()
 }
 
@@ -567,8 +556,8 @@ func (UnimplementedCoreServer) CreateOrUpdateMenuParam(context.Context, *CreateO
 func (UnimplementedCoreServer) DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenuParam not implemented")
 }
-func (UnimplementedCoreServer) GeMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GeMenuParamListByMenuId not implemented")
+func (UnimplementedCoreServer) GetMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMenuParamListByMenuId not implemented")
 }
 func (UnimplementedCoreServer) CreateOrUpdateRole(context.Context, *RoleInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateRole not implemented")
@@ -647,9 +636,6 @@ func (UnimplementedCoreServer) SetTokenStatus(context.Context, *SetStatusReq) (*
 }
 func (UnimplementedCoreServer) BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlockUserAllToken not implemented")
-}
-func (UnimplementedCoreServer) BlockUserAllToken1(context.Context, *UUIDReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BlockUserAllToken1 not implemented")
 }
 func (UnimplementedCoreServer) mustEmbedUnimplementedCoreServer() {}
 
@@ -916,20 +902,20 @@ func _Core_DeleteMenuParam_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_GeMenuParamListByMenuId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Core_GetMenuParamListByMenuId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(IDReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).GeMenuParamListByMenuId(ctx, in)
+		return srv.(CoreServer).GetMenuParamListByMenuId(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/geMenuParamListByMenuId",
+		FullMethod: "/core.core/getMenuParamListByMenuId",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GeMenuParamListByMenuId(ctx, req.(*IDReq))
+		return srv.(CoreServer).GetMenuParamListByMenuId(ctx, req.(*IDReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1402,24 +1388,6 @@ func _Core_BlockUserAllToken_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_BlockUserAllToken1_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UUIDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).BlockUserAllToken1(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/blockUserAllToken1",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).BlockUserAllToken1(ctx, req.(*UUIDReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Core_ServiceDesc is the grpc.ServiceDesc for Core service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1484,8 +1452,8 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_DeleteMenuParam_Handler,
 		},
 		{
-			MethodName: "geMenuParamListByMenuId",
-			Handler:    _Core_GeMenuParamListByMenuId_Handler,
+			MethodName: "getMenuParamListByMenuId",
+			Handler:    _Core_GetMenuParamListByMenuId_Handler,
 		},
 		{
 			MethodName: "createOrUpdateRole",
@@ -1590,10 +1558,6 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "blockUserAllToken",
 			Handler:    _Core_BlockUserAllToken_Handler,
-		},
-		{
-			MethodName: "blockUserAllToken1",
-			Handler:    _Core_BlockUserAllToken1_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
