@@ -30,13 +30,16 @@ func NewGetProviderListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 
 func (l *GetProviderListLogic) GetProviderList(in *core.PageInfoReq) (*core.ProviderListResp, error) {
 	var providers []model.OauthProvider
+	resp := &core.ProviderListResp{}
+	var total int64
+	l.svcCtx.DB.Model(&model.OauthProvider{}).Count(&total)
+	resp.Total = uint64(total)
 	result := l.svcCtx.DB.Limit(int(in.PageSize)).Offset(int((in.Page - 1) * in.PageSize)).Find(&providers)
 	if result.Error != nil {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
-	resp := &core.ProviderListResp{}
-	resp.Total = uint64(result.RowsAffected)
+
 	for _, v := range providers {
 		resp.Data = append(resp.Data, &core.ProviderInfo{
 			Id:           uint64(v.ID),

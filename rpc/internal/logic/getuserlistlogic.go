@@ -30,6 +30,7 @@ func NewGetUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListResp, error) {
 	db := l.svcCtx.DB.Model(&model.User{})
 	var users []model.User
+	var total int64
 
 	if in.Username != "" {
 		db = db.Where("username LIKE ?", "%"+in.Username+"%")
@@ -50,7 +51,9 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 	if in.RoleId != 0 {
 		db = db.Where("role_id = ?", in.RoleId)
 	}
-
+	resp := &core.UserListResp{}
+	db.Count(&total)
+	resp.Total = uint32(total)
 	result := db.Limit(int(in.PageSize)).Offset(int((in.Page - 1) * in.PageSize)).
 		Order("role_id, id desc").Find(&users)
 
@@ -59,8 +62,6 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 
-	resp := &core.UserListResp{}
-	resp.Total = uint32(result.RowsAffected)
 	for _, v := range users {
 		resp.Data = append(resp.Data, &core.UserInfoResp{
 			Id:        uint64(v.ID),
