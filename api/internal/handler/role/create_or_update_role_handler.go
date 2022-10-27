@@ -1,42 +1,41 @@
-package oauth
+package role
 
 import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/logic/oauth"
+	"github.com/suyuan32/simple-admin-core/api/internal/logic/role"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route POST /oauth/login oauth oauthLogin
-// Oauth log in | Oauth 登录
+// swagger:route POST /role role createOrUpdateRole
+// Create or update role information | 创建或更新角色
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
-//    type: OauthLoginReq
+//    type: RoleInfo
 // Responses:
-//   200: RedirectResp
+//   200: SimpleMsg
 //   401: SimpleMsg
 //   500: SimpleMsg
 
-func OauthLoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func CreateOrUpdateRoleHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.OauthLoginReq
+		var req types.RoleInfo
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, err)
 			return
 		}
 
-		l := oauth.NewOauthLoginLogic(r.Context(), svcCtx)
-		resp, err := l.OauthLogin(&req)
+		l := role.NewCreateOrUpdateRoleLogic(r.Context(), svcCtx)
+		resp, err := l.CreateOrUpdateRole(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
-			//http.Redirect(w, r, resp.URL, http.StatusTemporaryRedirect)
-			httpx.OkJson(w, &resp)
+			httpx.OkJson(w, resp)
 		}
 	}
 }

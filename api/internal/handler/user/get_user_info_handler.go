@@ -3,14 +3,13 @@ package user
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
-
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 // swagger:route GET /user/info user getUserInfo
-// Get user basic information | 获取用户基本信息
+// Get user basic infomation | 获取用户基本信息
 // Responses:
 //   200: GetUserInfoResp
 //   401: SimpleMsg

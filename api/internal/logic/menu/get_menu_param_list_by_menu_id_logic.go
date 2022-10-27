@@ -26,7 +26,7 @@ func NewGetMenuParamListByMenuIdLogic(ctx context.Context, svcCtx *svc.ServiceCo
 }
 
 func (l *GetMenuParamListByMenuIdLogic) GetMenuParamListByMenuId(req *types.IDReq) (resp *types.MenuParamListByMenuIdResp, err error) {
-	result, err := l.svcCtx.CoreRpc.GeMenuParamListByMenuId(l.ctx, &core.IDReq{ID: uint64(req.ID)})
+	result, err := l.svcCtx.CoreRpc.GetMenuParamListByMenuId(l.ctx, &core.IDReq{ID: uint64(req.ID)})
 	if err != nil {
 		return nil, err
 	}

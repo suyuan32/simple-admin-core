@@ -1,37 +1,36 @@
-package token
+package oauth
 
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
-
-	"github.com/suyuan32/simple-admin-core/api/internal/logic/token"
+	"github.com/suyuan32/simple-admin-core/api/internal/logic/oauth"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route POST /token/list token getTokenList
-// Get Token list | 获取token列表
+// swagger:route POST /oauth/login oauth oauthLogin
+// Oauth log in | Oauth 登录
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
-//    type: TokenListReq
+//    type: OauthLoginReq
 // Responses:
-//   200: TokenListResp
+//   200: RedirectResp
 //   401: SimpleMsg
 //   500: SimpleMsg
 
-func GetTokenListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func OauthLoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.TokenListReq
+		var req types.OauthLoginReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, err)
 			return
 		}
 
-		l := token.NewGetTokenListLogic(r.Context(), svcCtx)
-		resp, err := l.GetTokenList(&req)
+		l := oauth.NewOauthLoginLogic(r.Context(), svcCtx)
+		resp, err := l.OauthLogin(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {

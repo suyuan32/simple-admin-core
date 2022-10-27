@@ -2,6 +2,7 @@ package dictionary
 
 import (
 	"context"
+
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"

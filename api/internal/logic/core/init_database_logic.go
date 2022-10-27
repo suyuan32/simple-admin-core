@@ -2,16 +2,18 @@ package core
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 	"time"
 
+	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+
 	"github.com/pkg/errors"
-	"github.com/suyuan32/simple-admin-core/api/internal/svc"
-	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	"github.com/suyuan32/simple-admin-core/api/internal/svc"
+	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
 type InitDatabaseLogic struct {

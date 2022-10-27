@@ -9,7 +9,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 )
 
-// swagger:route POST /oauth/login/callback oauth oauthCallback
+// swagger:route GET /oauth/login/callback oauth oauthCallback
 // Oauth log in callback route | Oauth 登录返回调接口
 // Responses:
 //   200: CallbackResp
