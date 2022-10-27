@@ -40,7 +40,10 @@ func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryPageReq) (
 	if in.Title != "" {
 		db = db.Where("title LIKE ?", "%"+in.Title+"%")
 	}
-
+	resp := &core.DictionaryList{}
+	var total int64
+	db.Count(&total)
+	resp.Total = uint64(total)
 	result := db.Limit(int(in.PageSize)).Offset(int((in.Page - 1) * in.PageSize)).Find(&dict)
 
 	if result.Error != nil {
@@ -48,8 +51,6 @@ func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryPageReq) (
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 
-	resp := &core.DictionaryList{}
-	resp.Total = uint64(result.RowsAffected)
 	for _, v := range dict {
 		resp.Data = append(resp.Data, &core.DictionaryInfo{
 			Id:        uint64(v.ID),

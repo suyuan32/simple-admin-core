@@ -11,7 +11,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/common/message"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	model2 "github.com/suyuan32/simple-admin-core/rpc/model"
+	"github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -33,8 +33,12 @@ func NewGetTokenListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetT
 
 func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenListResp, error) {
 	if in.UUID == "" && in.Username == "" && in.Email == "" && in.Nickname == "" {
-		var tokens []model2.Token
-		result := l.svcCtx.DB.Model(&model2.Token{}).
+		var tokens []model.Token
+		var total int64
+		resp := &core.TokenListResp{}
+		l.svcCtx.DB.Count(&total)
+		resp.Total = uint64(total)
+		result := l.svcCtx.DB.Model(&model.Token{}).
 			Limit(int(in.Page.PageSize)).Offset(int((in.Page.Page - 1) * in.Page.PageSize)).Find(&tokens)
 
 		if result.Error != nil {
@@ -42,8 +46,6 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
-		resp := &core.TokenListResp{}
-		resp.Total = uint64(result.RowsAffected)
 		for _, v := range tokens {
 			resp.Data = append(resp.Data, &core.TokenInfo{
 				Id:        uint64(v.ID),
@@ -58,8 +60,8 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 
 		return resp, nil
 	} else {
-		var user model2.User
-		udb := l.svcCtx.DB.Model(&model2.User{})
+		var user model.User
+		udb := l.svcCtx.DB.Model(&model.User{})
 
 		if in.UUID != "" {
 			udb = udb.Where("uuid = ?", in.UUID)
@@ -89,7 +91,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 			return nil, status.Error(codes.Internal, userData.Error.Error())
 		}
 
-		var tokens []model2.Token
+		var tokens []model.Token
 		result := l.svcCtx.DB.Where("UUID = ?", user.UUID).Limit(int(in.Page.PageSize)).
 			Offset(int((in.Page.Page - 1) * in.Page.PageSize)).Find(&tokens)
 
