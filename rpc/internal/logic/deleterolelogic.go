@@ -5,8 +5,8 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/common/message"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
+	model2 "github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -31,14 +31,14 @@ func NewDeleteRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 }
 
 func (l *DeleteRoleLogic) DeleteRole(in *core.IDReq) (*core.BaseResp, error) {
-	var users []model.User
-	check := l.svcCtx.DB.Model(&model.User{}).Where("role_id = ?", in.ID).Find(&users).RowsAffected
+	var users []model2.User
+	check := l.svcCtx.DB.Model(&model2.User{}).Where("role_id = ?", in.ID).Find(&users).RowsAffected
 	if check != 0 {
 		logx.Errorw("delete role failed, please check the users who belongs to the role had been deleted",
 			logx.Field("roleId", in.ID))
 		return nil, status.Error(codes.InvalidArgument, message.UserExists)
 	}
-	result := l.svcCtx.DB.Delete(&model.Role{
+	result := l.svcCtx.DB.Delete(&model2.Role{
 		Model: gorm.Model{ID: uint(in.ID)},
 	})
 	if result.Error != nil {

@@ -1,0 +1,64 @@
+Name: core-job
+Host: 0.0.0.0
+Port: 9104
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4004
+  Path: /metrics
+
+Redis:
+  Host: 127.0.0.1:6379
+  Type: node
+
+DatabaseConf:
+  Type: mysql
+  Path: localhost
+  Port: 3306
+  Config: charset=utf8mb4&parseTime=True&loc=Local
+  DBName: simple_admin
+  Username: root
+  Password: "123456"
+  MaxIdleConn: 10
+  MaxOpenConn: 100
+  LogMode: error
+  LogZap: false
+
+Log:
+  ServiceName: coreMqLogger
+  Mode: file
+  Path: /home/ryan/logs/core/job
+  Level: info
+  Compress: false
+  KeepDays: 7
+  StackCoolDownMillis: 100
+
+ConsumerConf:
+  NsResolver:
+    - 127.0.0.1:9876
+  GroupName: core
+  Namespace: core
+  InstanceName: core-consumer
+  Strategy: AllocateByAveragely
+  RebalanceLockInterval: 20
+  MaxReconsumeTimes: -1
+  ConsumerModel: Clustering
+  AutoCommit: true
+  Resolver: DEFAULT
+  AccessKey: root
+  SecretKey: s123
+
+ProducerConf:
+  NsResolver:
+    - 127.0.0.1:9876
+  GroupName: core
+  Namespace: core
+  InstanceName: core-producer
+  MsgTimeOut: 20
+  DefaultTopicQueueNums: 4
+  CreateTopicKey: TBW102
+  CompressMsgBodyOverHowMuch: 4096
+  CompressLevel: 5
+  Retry: 2
+  AccessKey: root
+  SecretKey: s123

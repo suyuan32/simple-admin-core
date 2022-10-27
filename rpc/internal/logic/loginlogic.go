@@ -10,9 +10,9 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/common/logmessage"
 	"github.com/suyuan32/simple-admin-core/common/message"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/util"
+	model2 "github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -37,8 +37,8 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 // user service
 func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
-	var u model.User
-	result := l.svcCtx.DB.Where(&model.User{Username: in.Username}).First(&u)
+	var u model2.User
+	result := l.svcCtx.DB.Where(&model2.User{Username: in.Username}).First(&u)
 	if result.Error != nil {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
@@ -71,7 +71,7 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 
 func getRoleInfo(roleId uint32, rds *redis.Redis, db *gorm.DB) (roleName, roleValue string, err error) {
 	if s, err := rds.Hget("roleData", strconv.Itoa(int(roleId))); err != nil {
-		var roleData []model.Role
+		var roleData []model2.Role
 		res := db.Find(&roleData)
 		if res.RowsAffected == 0 {
 			logx.Error("fail to find any role")

@@ -3842,7 +3842,7 @@ var file_core_proto_rawDesc = []byte{
 	0x69, 0x63, 0x6b, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c,
 	0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x12, 0x0a,
 	0x04, 0x55, 0x55, 0x49, 0x44, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x55, 0x55, 0x49,
-	0x44, 0x32, 0x85, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x72, 0x65, 0x12, 0x2b, 0x0a, 0x0c, 0x69, 0x6e,
+	0x44, 0x32, 0xba, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x72, 0x65, 0x12, 0x2b, 0x0a, 0x0c, 0x69, 0x6e,
 	0x69, 0x74, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x12, 0x0b, 0x2e, 0x63, 0x6f, 0x72,
 	0x65, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x0e, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x42,
 	0x61, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x12, 0x28, 0x0a, 0x05, 0x6c, 0x6f, 0x67, 0x69, 0x6e,
@@ -3986,8 +3986,11 @@ var file_core_proto_rawDesc = []byte{
 	0x65, 0x52, 0x65, 0x73, 0x70, 0x12, 0x32, 0x0a, 0x11, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x55, 0x73,
 	0x65, 0x72, 0x41, 0x6c, 0x6c, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x0d, 0x2e, 0x63, 0x6f, 0x72,
 	0x65, 0x2e, 0x55, 0x55, 0x49, 0x44, 0x52, 0x65, 0x71, 0x1a, 0x0e, 0x2e, 0x63, 0x6f, 0x72, 0x65,
-	0x2e, 0x42, 0x61, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x42, 0x08, 0x5a, 0x06, 0x2e, 0x2f, 0x63,
-	0x6f, 0x72, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x2e, 0x42, 0x61, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x12, 0x33, 0x0a, 0x12, 0x62, 0x6c, 0x6f,
+	0x63, 0x6b, 0x55, 0x73, 0x65, 0x72, 0x41, 0x6c, 0x6c, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x31, 0x12,
+	0x0d, 0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x55, 0x55, 0x49, 0x44, 0x52, 0x65, 0x71, 0x1a, 0x0e,
+	0x2e, 0x63, 0x6f, 0x72, 0x65, 0x2e, 0x42, 0x61, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x42, 0x08,
+	0x5a, 0x06, 0x2e, 0x2f, 0x63, 0x6f, 0x72, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -4111,49 +4114,51 @@ var file_core_proto_depIdxs = []int32{
 	46, // 55: core.core.getTokenList:input_type -> core.TokenListReq
 	24, // 56: core.core.setTokenStatus:input_type -> core.SetStatusReq
 	2,  // 57: core.core.blockUserAllToken:input_type -> core.UUIDReq
-	3,  // 58: core.core.initDatabase:output_type -> core.BaseResp
-	6,  // 59: core.core.login:output_type -> core.LoginResp
-	3,  // 60: core.core.changePassword:output_type -> core.BaseResp
-	3,  // 61: core.core.createOrUpdateUser:output_type -> core.BaseResp
-	9,  // 62: core.core.getUserById:output_type -> core.UserInfoResp
-	10, // 63: core.core.getUserList:output_type -> core.UserListResp
-	3,  // 64: core.core.deleteUser:output_type -> core.BaseResp
-	3,  // 65: core.core.updateProfile:output_type -> core.BaseResp
-	3,  // 66: core.core.createOrUpdateMenu:output_type -> core.BaseResp
-	3,  // 67: core.core.deleteMenu:output_type -> core.BaseResp
-	16, // 68: core.core.getMenuListByRole:output_type -> core.MenuInfoList
-	16, // 69: core.core.getMenuByPage:output_type -> core.MenuInfoList
-	3,  // 70: core.core.createOrUpdateMenuParam:output_type -> core.BaseResp
-	3,  // 71: core.core.deleteMenuParam:output_type -> core.BaseResp
-	21, // 72: core.core.geMenuParamListByMenuId:output_type -> core.MenuParamListResp
-	3,  // 73: core.core.createOrUpdateRole:output_type -> core.BaseResp
-	3,  // 74: core.core.deleteRole:output_type -> core.BaseResp
-	22, // 75: core.core.getRoleById:output_type -> core.RoleInfo
-	23, // 76: core.core.getRoleList:output_type -> core.RoleListResp
-	3,  // 77: core.core.setRoleStatus:output_type -> core.BaseResp
-	3,  // 78: core.core.createOrUpdateApi:output_type -> core.BaseResp
-	3,  // 79: core.core.deleteApi:output_type -> core.BaseResp
-	29, // 80: core.core.getApiList:output_type -> core.ApiListResp
-	32, // 81: core.core.getMenuAuthority:output_type -> core.RoleMenuAuthorityResp
-	3,  // 82: core.core.createOrUpdateMenuAuthority:output_type -> core.BaseResp
-	3,  // 83: core.core.createOrUpdateDictionary:output_type -> core.BaseResp
-	3,  // 84: core.core.deleteDictionary:output_type -> core.BaseResp
-	35, // 85: core.core.getDictionaryList:output_type -> core.DictionaryList
-	36, // 86: core.core.getDetailByDictionaryName:output_type -> core.DictionaryDetailList
-	3,  // 87: core.core.createOrUpdateDictionaryDetail:output_type -> core.BaseResp
-	3,  // 88: core.core.deleteDictionaryDetail:output_type -> core.BaseResp
-	3,  // 89: core.core.createOrUpdateProvider:output_type -> core.BaseResp
-	3,  // 90: core.core.deleteProvider:output_type -> core.BaseResp
-	42, // 91: core.core.getProviderList:output_type -> core.ProviderListResp
-	40, // 92: core.core.oauthLogin:output_type -> core.OauthRedirectResp
-	6,  // 93: core.core.oauthCallback:output_type -> core.LoginResp
-	3,  // 94: core.core.createOrUpdateToken:output_type -> core.BaseResp
-	3,  // 95: core.core.deleteToken:output_type -> core.BaseResp
-	45, // 96: core.core.getTokenList:output_type -> core.TokenListResp
-	3,  // 97: core.core.setTokenStatus:output_type -> core.BaseResp
-	3,  // 98: core.core.blockUserAllToken:output_type -> core.BaseResp
-	58, // [58:99] is the sub-list for method output_type
-	17, // [17:58] is the sub-list for method input_type
+	2,  // 58: core.core.blockUserAllToken1:input_type -> core.UUIDReq
+	3,  // 59: core.core.initDatabase:output_type -> core.BaseResp
+	6,  // 60: core.core.login:output_type -> core.LoginResp
+	3,  // 61: core.core.changePassword:output_type -> core.BaseResp
+	3,  // 62: core.core.createOrUpdateUser:output_type -> core.BaseResp
+	9,  // 63: core.core.getUserById:output_type -> core.UserInfoResp
+	10, // 64: core.core.getUserList:output_type -> core.UserListResp
+	3,  // 65: core.core.deleteUser:output_type -> core.BaseResp
+	3,  // 66: core.core.updateProfile:output_type -> core.BaseResp
+	3,  // 67: core.core.createOrUpdateMenu:output_type -> core.BaseResp
+	3,  // 68: core.core.deleteMenu:output_type -> core.BaseResp
+	16, // 69: core.core.getMenuListByRole:output_type -> core.MenuInfoList
+	16, // 70: core.core.getMenuByPage:output_type -> core.MenuInfoList
+	3,  // 71: core.core.createOrUpdateMenuParam:output_type -> core.BaseResp
+	3,  // 72: core.core.deleteMenuParam:output_type -> core.BaseResp
+	21, // 73: core.core.geMenuParamListByMenuId:output_type -> core.MenuParamListResp
+	3,  // 74: core.core.createOrUpdateRole:output_type -> core.BaseResp
+	3,  // 75: core.core.deleteRole:output_type -> core.BaseResp
+	22, // 76: core.core.getRoleById:output_type -> core.RoleInfo
+	23, // 77: core.core.getRoleList:output_type -> core.RoleListResp
+	3,  // 78: core.core.setRoleStatus:output_type -> core.BaseResp
+	3,  // 79: core.core.createOrUpdateApi:output_type -> core.BaseResp
+	3,  // 80: core.core.deleteApi:output_type -> core.BaseResp
+	29, // 81: core.core.getApiList:output_type -> core.ApiListResp
+	32, // 82: core.core.getMenuAuthority:output_type -> core.RoleMenuAuthorityResp
+	3,  // 83: core.core.createOrUpdateMenuAuthority:output_type -> core.BaseResp
+	3,  // 84: core.core.createOrUpdateDictionary:output_type -> core.BaseResp
+	3,  // 85: core.core.deleteDictionary:output_type -> core.BaseResp
+	35, // 86: core.core.getDictionaryList:output_type -> core.DictionaryList
+	36, // 87: core.core.getDetailByDictionaryName:output_type -> core.DictionaryDetailList
+	3,  // 88: core.core.createOrUpdateDictionaryDetail:output_type -> core.BaseResp
+	3,  // 89: core.core.deleteDictionaryDetail:output_type -> core.BaseResp
+	3,  // 90: core.core.createOrUpdateProvider:output_type -> core.BaseResp
+	3,  // 91: core.core.deleteProvider:output_type -> core.BaseResp
+	42, // 92: core.core.getProviderList:output_type -> core.ProviderListResp
+	40, // 93: core.core.oauthLogin:output_type -> core.OauthRedirectResp
+	6,  // 94: core.core.oauthCallback:output_type -> core.LoginResp
+	3,  // 95: core.core.createOrUpdateToken:output_type -> core.BaseResp
+	3,  // 96: core.core.deleteToken:output_type -> core.BaseResp
+	45, // 97: core.core.getTokenList:output_type -> core.TokenListResp
+	3,  // 98: core.core.setTokenStatus:output_type -> core.BaseResp
+	3,  // 99: core.core.blockUserAllToken:output_type -> core.BaseResp
+	3,  // 100: core.core.blockUserAllToken1:output_type -> core.BaseResp
+	59, // [59:101] is the sub-list for method output_type
+	17, // [17:59] is the sub-list for method input_type
 	17, // [17:17] is the sub-list for extension type_name
 	17, // [17:17] is the sub-list for extension extendee
 	0,  // [0:17] is the sub-list for field type_name

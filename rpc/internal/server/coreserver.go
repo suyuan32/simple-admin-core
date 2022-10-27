@@ -235,3 +235,8 @@ func (s *CoreServer) BlockUserAllToken(ctx context.Context, in *core.UUIDReq) (*
 	l := logic.NewBlockUserAllTokenLogic(ctx, s.svcCtx)
 	return l.BlockUserAllToken(in)
 }
+
+func (s *CoreServer) BlockUserAllToken1(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
+	l := logic.NewBlockUserAllToken1Logic(ctx, s.svcCtx)
+	return l.BlockUserAllToken1(in)
+}

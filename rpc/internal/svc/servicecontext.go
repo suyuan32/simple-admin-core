@@ -17,7 +17,7 @@ type ServiceContext struct {
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	// initialize database connection
-	db, err := c.DB.NewGORM()
+	db, err := c.DatabaseConf.NewGORM()
 	if err != nil {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
 		return nil
