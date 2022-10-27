@@ -22,10 +22,15 @@ type DeleteInvalidTokenTask struct {
 }
 
 func NewDeleteInvalidTokenTask(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteInvalidTokenTask {
+	c, err := rocketmq.NewPushConsumer(
+		consumer.WithGroupName(svcCtx.Config.ConsumerConf.GroupName),
+		consumer.WithNsResolver(primitive.NewPassthroughResolver(svcCtx.Config.ConsumerConf.NsResolver)))
+	logx.Must(err)
+
 	return &DeleteInvalidTokenTask{
 		ctx:      ctx,
 		svcCtx:   svcCtx,
-		consumer: svcCtx.Config.ConsumerConf.NewPushConsumer(),
+		consumer: c,
 		cron:     gocron.NewScheduler(time.UTC),
 	}
 }

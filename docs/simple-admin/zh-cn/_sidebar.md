@@ -24,4 +24,6 @@
   * [服务监控](simple-admin/zh-cn/docs/prometheus.md)
   * [日志收集](simple-admin/zh-cn/docs/log-collection.md)
   * [JWT黑名单](simple-admin/zh-cn/docs/jwt_blacklist.md)
+  * [定时任务](simple-admin/zh-cn/docs/cron.md)
+  * [消息队列](simple-admin/zh-cn/docs/rocketmq.md)
 * [常见问题](simple-admin/zh-cn/docs/FAQ.md) 
