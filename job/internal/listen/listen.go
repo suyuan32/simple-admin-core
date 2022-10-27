@@ -16,7 +16,11 @@ func Mqs(c config.Config) []service.Service {
 
 	var services []service.Service
 
+	// add cron services
 	services = append(services, Cron(c, ctx, svcContext)...)
+
+	// add rocketmq services
+	services = append(services, Rmq(c, ctx, svcContext)...)
 
 	return services
 }

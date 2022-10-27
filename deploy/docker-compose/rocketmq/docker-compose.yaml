@@ -3,10 +3,6 @@ version: '3'
 volumes:
   rocketmq_data:
 
-networks:
-  simple-admin:
-    driver: bridge
-
 services:
   mysql:
     image: xuchengen/rocketmq:latest
@@ -24,10 +20,7 @@ services:
       - rocketmq_data:/home/app/data
       - /etc/localtime:/etc/localtime
       - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      simple-admin:
-        aliases:
-          - rocketmqserver
+    network_mode: host
     deploy:
       resources:
         limits:

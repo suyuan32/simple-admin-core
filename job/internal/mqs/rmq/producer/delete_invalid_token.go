@@ -1,4 +1,4 @@
-package dmq
+package producer
 
 import (
 	"context"
