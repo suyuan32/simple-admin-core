@@ -23,4 +23,6 @@
     * [Service Monitor](simple-admin/en/docs/prometheus.md)
     * [Log Collecting](simple-admin/en/docs/log-collection.md)
     * [JWT Black List](simple-admin/en/docs/jwt_blacklist.md)
+    * [Scheduled tasks](simple-admin/en/docs/cron.md)
+    * [Message Queue](simple-admin/en/docs/rocketmq.md)
 * [FAQ](simple-admin/en/docs/FAQ.md) 

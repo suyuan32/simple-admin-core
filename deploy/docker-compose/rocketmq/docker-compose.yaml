@@ -1,0 +1,31 @@
+version: '3'
+
+volumes:
+  rocketmq_data:
+
+services:
+  mysql:
+    image: xuchengen/rocketmq:latest
+    container_name: rocketmq
+    ports:
+      - '8080:8080'
+      - '9876:9876'
+      - '10909:10909'
+      - '10911:10911'
+      - '10912:10912'
+    environment:
+      NAMESRV_XMX: 1024m
+      BROKER_XMX: 1024m
+    volumes:
+      - rocketmq_data:/home/app/data
+      - /etc/localtime:/etc/localtime
+      - /var/run/docker.sock:/var/run/docker.sock
+    network_mode: host
+    deploy:
+      resources:
+        limits:
+          cpus: '0.8'
+          memory: 4000M
+        reservations:
+          cpus: '0.05'
+          memory: 200M

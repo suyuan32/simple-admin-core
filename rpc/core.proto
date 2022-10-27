@@ -380,7 +380,7 @@ service core {
   rpc getMenuByPage (PageInfoReq) returns (MenuInfoList);
   rpc createOrUpdateMenuParam (CreateOrUpdateMenuParamReq) returns (BaseResp);
   rpc deleteMenuParam (IDReq) returns (BaseResp);
-  rpc geMenuParamListByMenuId (IDReq) returns (MenuParamListResp);
+  rpc getMenuParamListByMenuId (IDReq) returns (MenuParamListResp);
 
   // role service
   rpc createOrUpdateRole (RoleInfo) returns (BaseResp);

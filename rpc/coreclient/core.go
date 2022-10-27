@@ -62,7 +62,7 @@ type (
 	UserListResp               = core.UserListResp
 
 	Core interface {
-		//  init
+		// init
 		InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
 		// user service
 		Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
@@ -79,7 +79,7 @@ type (
 		GetMenuByPage(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 		CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		GeMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
+		GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
 		// role service
 		CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -198,9 +198,9 @@ func (m *defaultCore) DeleteMenuParam(ctx context.Context, in *IDReq, opts ...gr
 	return client.DeleteMenuParam(ctx, in, opts...)
 }
 
-func (m *defaultCore) GeMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
+func (m *defaultCore) GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.GeMenuParamListByMenuId(ctx, in, opts...)
+	return client.GetMenuParamListByMenuId(ctx, in, opts...)
 }
 
 // role service

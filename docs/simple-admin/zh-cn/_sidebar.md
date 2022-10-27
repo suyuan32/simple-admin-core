@@ -4,7 +4,7 @@
   * K8s
     * [K8s 部署](simple-admin/zh-cn/docs/k8s-deploy.md)
     * [Minikube配置](simple-admin/zh-cn/docs/minikube.md)
-  * [Simple-admin-tool](simple-admin/zh-cn/docs/simple-admin-tools.md)
+  * [Simple Admin Tool](simple-admin/zh-cn/docs/simple-admin-tools.md)
   * [文件上传管理](/simple-admin/zh-cn/docs/file_manager.md)
   * [前端设置](/simple-admin/zh-cn/docs/web-setting.md)
   * [全局变量](/simple-admin/zh-cn/docs/global_vars.md)
@@ -24,4 +24,6 @@
   * [服务监控](simple-admin/zh-cn/docs/prometheus.md)
   * [日志收集](simple-admin/zh-cn/docs/log-collection.md)
   * [JWT黑名单](simple-admin/zh-cn/docs/jwt_blacklist.md)
+  * [定时任务](simple-admin/zh-cn/docs/cron.md)
+  * [消息队列](simple-admin/zh-cn/docs/rocketmq.md)
 * [常见问题](simple-admin/zh-cn/docs/FAQ.md) 

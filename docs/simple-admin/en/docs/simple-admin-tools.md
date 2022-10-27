@@ -26,6 +26,7 @@ go build -o goctls goctl.go
 cp ./goctls $GOPATH/bin/goctls
 ```
 It is easy right?
+> Now you can just run **sh build.sh** in goctl directory
 
 > How to use it?
 

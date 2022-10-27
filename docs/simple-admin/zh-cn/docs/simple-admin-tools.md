@@ -30,6 +30,7 @@ go build -o goctls goctl.go
 cp ./goctls $GOPATH/bin/goctls
 ```
 
+> 直接运行在 goctl 文件夹运行 **sh build.sh** 
 
 > 如何使用？
 

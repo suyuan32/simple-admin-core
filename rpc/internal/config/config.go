@@ -8,6 +8,6 @@ import (
 
 type Config struct {
 	zrpc.RpcServerConf
-	DB        gormsql.GORMConf `json:"DatabaseConf" yaml:"DatabaseConf"`
-	RedisConf redis.RedisConf  `json:"RedisConf" yaml:"RedisConf"`
+	DatabaseConf gormsql.GORMConf
+	RedisConf    redis.RedisConf
 }
