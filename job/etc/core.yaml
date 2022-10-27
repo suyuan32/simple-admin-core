@@ -45,8 +45,8 @@ ConsumerConf:
   ConsumerModel: Clustering
   AutoCommit: true
   Resolver: DEFAULT
-  AccessKey: root
-  SecretKey: s123
+  AccessKey: admin
+  SecretKey: admin
 
 ProducerConf:
   NsResolver:
@@ -60,5 +60,5 @@ ProducerConf:
   CompressMsgBodyOverHowMuch: 4096
   CompressLevel: 5
   Retry: 2
-  AccessKey: root
-  SecretKey: s123
+  AccessKey: admin
+  SecretKey: admin

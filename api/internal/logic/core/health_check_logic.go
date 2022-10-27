@@ -3,8 +3,9 @@ package core
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/zeromicro/go-zero/core/logx"
+
+	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 )
 
 type HealthCheckLogic struct {
@@ -22,7 +23,5 @@ func NewHealthCheckLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Healt
 }
 
 func (l *HealthCheckLogic) HealthCheck() error {
-	// todo: add your logic here and delete this line
-
 	return nil
 }

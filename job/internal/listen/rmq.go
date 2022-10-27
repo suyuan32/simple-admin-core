@@ -11,5 +11,7 @@ import (
 
 // Rmq RocketMQ service
 func Rmq(c config.Config, ctx context.Context, svcContext *svc.ServiceContext) []service.Service {
-	return []service.Service{}
+	return []service.Service{
+		//
+	}
 }

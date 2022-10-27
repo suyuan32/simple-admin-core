@@ -2,9 +2,11 @@ package dmq
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/apache/rocketmq-client-go/v2"
+	"github.com/apache/rocketmq-client-go/v2/consumer"
 	"github.com/apache/rocketmq-client-go/v2/primitive"
 	"github.com/go-co-op/gocron"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -15,7 +17,7 @@ import (
 type DeleteInvalidTokenTask struct {
 	ctx      context.Context
 	svcCtx   *svc.ServiceContext
-	producer rocketmq.Producer
+	consumer rocketmq.PushConsumer
 	cron     *gocron.Scheduler
 }
 
@@ -23,37 +25,31 @@ func NewDeleteInvalidTokenTask(ctx context.Context, svcCtx *svc.ServiceContext) 
 	return &DeleteInvalidTokenTask{
 		ctx:      ctx,
 		svcCtx:   svcCtx,
-		producer: svcCtx.Config.ProducerConf.NewProducer(),
+		consumer: svcCtx.Config.ConsumerConf.NewPushConsumer(),
 		cron:     gocron.NewScheduler(time.UTC),
 	}
 }
 
 func (l *DeleteInvalidTokenTask) Start() {
-	logx.Info("DeleteInvalidTokenTask producer start")
-	err := l.producer.Start()
+	logx.Info("DeleteInvalidTokenTask consumer start")
+	err := l.consumer.Start()
 	logx.Must(err)
 
 	// delete invalid token every 1 minute
-	l.cron.Every(1).Minute().Do(func() {
-		msg := &primitive.Message{
-			Topic: "delete-invalid-token",
-			Body:  []byte("all"),
+	l.consumer.Subscribe("delete-invalid-token", consumer.MessageSelector{}, func(ctx context.Context,
+		msgs ...*primitive.MessageExt) (consumer.ConsumeResult, error) {
+		for i := range msgs {
+			fmt.Printf("subscribe callback: %v \n", msgs[i])
 		}
-		res, err := l.producer.SendSync(context.Background(), msg)
 
-		if err != nil {
-			logx.Errorf("DeleteInvalidTokenTask send message error: %s\n", err.Error())
-			return
-		} else {
-			logx.Infof("DeleteInvalidTokenTask send message success: %s\n", res.String())
-		}
+		return consumer.ConsumeSuccess, nil
 	})
 }
 
 func (l *DeleteInvalidTokenTask) Stop() {
-	err := l.producer.Shutdown()
+	err := l.consumer.Shutdown()
 	if err != nil {
-		logx.Errorw("DeleteInvalidTokenTask producer cannot shut down")
+		logx.Errorw("DeleteInvalidTokenTask consumer cannot shut down")
 		return
 	}
 	l.cron.Stop()
