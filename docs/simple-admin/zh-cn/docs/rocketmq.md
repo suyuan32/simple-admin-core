@@ -190,3 +190,53 @@ func Rmq(c config.Config, ctx context.Context, svcCtx *svc.ServiceContext) []ser
 ```shell
 go run core.go -f etc/core.yaml
 ```
+
+> 集成 producer 进 rpc 或 api
+
+需要在 service_context.go 初始化全局变量， 还需要在 config 添加配置
+
+```go
+package svc
+
+import (
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/config"
+
+	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/stores/redis"
+	"gorm.io/gorm"
+)
+
+type ServiceContext struct {
+	Config config.Config
+	DB     *gorm.DB
+	Redis  *redis.Redis
+	Producer rocketmq.Producer
+}
+
+func NewServiceContext(c config.Config) *ServiceContext {
+	// initialize database connection
+	db, err := c.DatabaseConf.NewGORM()
+	if err != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
+		return nil
+	}
+	logx.Info("Initialize database connection successfully")
+	// initialize redis
+	rds := c.RedisConf.NewRedis()
+	logx.Info("Initialize redis connection successfully")
+
+	p, err := rocketmq.NewProducer(
+		producer.WithNsResolver(primitive.NewPassthroughResolver(svcCtx.Config.ProducerConf.NsResolver)),
+		producer.WithRetry(svcCtx.Config.ProducerConf.Retry))
+	logx.Must(err)
+	
+	return &ServiceContext{
+		Config: c,
+		DB:     db,
+		Redis:  rds,
+		Producer: p,
+	}
+}
+
+```

@@ -1,0 +1,24 @@
+FROM golang:1.19.1-alpine3.16 as builder
+
+WORKDIR /home
+COPY . .
+
+RUN go env -w GO111MODULE=on \
+    && go env -w GOPROXY=https://goproxy.cn,direct \
+    && go env -w CGO_ENABLED=0 \
+    && go env \
+    && go mod tidy \
+    && cd job \
+    && go build -o /home/job/core_job core.go
+
+FROM alpine:latest
+
+LABEL MAINTAINER="RyanSU@yuansu.china.work@gmail.com"
+
+WORKDIR /home
+
+COPY --from=builder /home/job/core_job ./
+COPY --from=builder /home/job/etc/core.yaml ./
+
+EXPOSE 9100
+ENTRYPOINT ./core_job -f core.yaml

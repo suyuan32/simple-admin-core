@@ -190,3 +190,53 @@ Run in job directory
 ```shell
 go run core.go -f etc/core.yaml
 ```
+
+> Add producer into rpc or api
+
+You need to set up global variables in service_context.go. Remember to add config.
+
+```go
+package svc
+
+import (
+	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/config"
+
+	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/stores/redis"
+	"gorm.io/gorm"
+)
+
+type ServiceContext struct {
+	Config config.Config
+	DB     *gorm.DB
+	Redis  *redis.Redis
+	Producer rocketmq.Producer
+}
+
+func NewServiceContext(c config.Config) *ServiceContext {
+	// initialize database connection
+	db, err := c.DatabaseConf.NewGORM()
+	if err != nil {
+		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
+		return nil
+	}
+	logx.Info("Initialize database connection successfully")
+	// initialize redis
+	rds := c.RedisConf.NewRedis()
+	logx.Info("Initialize redis connection successfully")
+
+	p, err := rocketmq.NewProducer(
+		producer.WithNsResolver(primitive.NewPassthroughResolver(svcCtx.Config.ProducerConf.NsResolver)),
+		producer.WithRetry(svcCtx.Config.ProducerConf.Retry))
+	logx.Must(err)
+	
+	return &ServiceContext{
+		Config: c,
+		DB:     db,
+		Redis:  rds,
+		Producer: p,
+	}
+}
+
+```
