@@ -75,7 +75,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		} else {
 			logx.Errorw("the role is not permitted to access the API", logx.Field("roleId", roleId),
 				logx.Field("path", obj), logx.Field("method", act))
-			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
+			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusForbidden))
 			return
 		}
 	}
