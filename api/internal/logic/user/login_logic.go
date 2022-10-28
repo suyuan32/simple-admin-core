@@ -48,7 +48,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		}
 
 		// add token into database
-		expireAt := time.Now().Add(time.Second * 259200).Unix()
+		expiredAt := time.Now().Add(time.Second * 259200).Unix()
 		_, err = l.svcCtx.CoreRpc.CreateOrUpdateToken(context.Background(), &core.TokenInfo{
 			Id:        0,
 			CreatedAt: 0,
@@ -56,7 +56,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			Token:     token,
 			Source:    "core",
 			Status:    1,
-			ExpireAt:  expireAt,
+			ExpiredAt: expiredAt,
 		})
 
 		if err != nil {
@@ -66,7 +66,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		resp = &types.LoginResp{
 			UserId: user.Id,
 			Token:  token,
-			Expire: uint64(expireAt),
+			Expire: uint64(expiredAt),
 			Role: types.RoleInfoSimple{
 				Value:    user.RoleValue,
 				RoleName: user.RoleName,

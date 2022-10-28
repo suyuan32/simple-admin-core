@@ -298,29 +298,24 @@ type (
         PageSize uint64 `json:"pageSize" validate:"number,max=100000"`
 
         // User Name | 用户名
-        // Required: true
         // Max length: 20
-        Username string `json:"username" validate:"omitempty,alphanum,max=20"`
+        Username string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
 
         // User's nickname | 用户的昵称
-        // Required: true
         // Max length: 10
-        Nickname string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
+        Nickname string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
 
         // User's mobile phone number | 用户的手机号码
-        // Required: true
         // Max length: 18
-        Mobile string `json:"mobile" validate:"omitempty,numeric,max=18"`
+        Mobile string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
 
         // The user's email address | 用户的邮箱
-        // Required: true
         // Max length: 100
-        Email string  `json:"email" validate:"omitempty,email,max=100"`
+        Email string  `json:"email,optional" validate:"omitempty,email,max=100"`
 
         // User's role ID | 用户的角色Id
-        // Required: true
         // Maximum: 1000
-        RoleId uint64 `json:"roleId" validate:"omitempty,number,max=1000"`
+        RoleId uint64 `json:"roleId,optional" validate:"omitempty,number,max=1000"`
     }
 )
 

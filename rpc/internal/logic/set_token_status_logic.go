@@ -46,7 +46,7 @@ func (l *SetTokenStatusLogic) SetTokenStatus(in *core.SetStatusReq) (*core.BaseR
 	if in.Status == 0 {
 		var tokenData model.Token
 		l.svcCtx.DB.Where("id = ?", in.Id).First(&tokenData)
-		err := l.svcCtx.Redis.Setex("token_"+tokenData.Token, "1", int(tokenData.ExpireAt.Unix()-
+		err := l.svcCtx.Redis.Setex("token_"+tokenData.Token, "1", int(tokenData.ExpiredAt.Unix()-
 			time.Now().Unix()))
 		if err != nil {
 			return nil, errorx.NewApiError(http.StatusInternalServerError, errorx.RedisError)

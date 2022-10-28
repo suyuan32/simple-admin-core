@@ -32,7 +32,7 @@ func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(req *types.CreateOrUpdate
 		Token:     req.Token,
 		Source:    req.Source,
 		Status:    req.Status,
-		ExpireAt:  req.ExpireAt,
+		ExpiredAt: req.ExpiredAt,
 	})
 
 	if err != nil {

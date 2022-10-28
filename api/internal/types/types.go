@@ -393,25 +393,20 @@ type GetUserListReq struct {
 	// Maximum: 100000
 	PageSize uint64 `json:"pageSize" validate:"number,max=100000"`
 	// User Name | 用户名
-	// Required: true
 	// Max length: 20
-	Username string `json:"username" validate:"omitempty,alphanum,max=20"`
+	Username string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
 	// User's nickname | 用户的昵称
-	// Required: true
 	// Max length: 10
-	Nickname string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
+	Nickname string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
 	// User's mobile phone number | 用户的手机号码
-	// Required: true
 	// Max length: 18
-	Mobile string `json:"mobile" validate:"omitempty,numeric,max=18"`
+	Mobile string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
 	// The user's email address | 用户的邮箱
-	// Required: true
 	// Max length: 100
-	Email string `json:"email" validate:"omitempty,email,max=100"`
+	Email string `json:"email,optional" validate:"omitempty,email,max=100"`
 	// User's role ID | 用户的角色Id
-	// Required: true
 	// Maximum: 1000
-	RoleId uint64 `json:"roleId" validate:"omitempty,number,max=1000"`
+	RoleId uint64 `json:"roleId,optional" validate:"omitempty,number,max=1000"`
 }
 
 // The response data of menu information | 菜单返回数据
@@ -674,21 +669,17 @@ type ApiListResp struct {
 type ApiListReq struct {
 	PageInfo
 	// API path | API路径
-	// Required: true
 	// Max length: 100
-	Path string `json:"path" validate:"omitempty,max=100"`
+	Path string `json:"path,optional" validate:"omitempty,max=100"`
 	// API Description | API 描述
-	// Required: true
 	// Max length: 50
-	Description string `json:"description" validate:"omitempty,max=50"`
+	Description string `json:"description,optional" validate:"omitempty,max=50"`
 	// API group | API分组
-	// Require: true
 	// Max length: 10
-	Group string `json:"group" validate:"omitempty,alphanum,max=10"`
+	Group string `json:"group,optional" validate:"omitempty,alphanum,max=10"`
 	// API request method e.g. POST | API请求类型 如POST
-	// Required: true
 	// Max length: 4
-	Method string `json:"method" validate:"omitempty,uppercase,max=4"`
+	Method string `json:"method,optional" validate:"omitempty,uppercase,max=4"`
 }
 
 // The response data of api authorization | API授权数据
@@ -799,13 +790,11 @@ type DictionaryListResp struct {
 type DictionaryListReq struct {
 	PageInfo
 	// Dictionary title | 字典显示名称
-	// Required: true
 	// Max length: 50
-	Title string `json:"title" validate:"max=50"`
+	Title string `json:"title,optional" validate:"max=50"`
 	// Dictionary name | 字典名称
-	// Required: true
 	// Max length: 50
-	Name string `json:"name" validate:"max=50"`
+	Name string `json:"name,optional" validate:"max=50"`
 }
 
 // The response data of dictionary information | 字典信息
@@ -1003,7 +992,7 @@ type TokenInfo struct {
 	// JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
 	Status uint32 `json:"status"`
 	// Expire time | 过期时间
-	ExpireAt int64 `json:"expireAt"`
+	ExpiredAt int64 `json:"expiredAt"`
 }
 
 // Create or update token information request | 创建或更新token信息
@@ -1031,7 +1020,7 @@ type CreateOrUpdateTokenReq struct {
 	Status uint32 `json:"status" validate:"number"`
 	// Expire time | 过期时间
 	// Required: true
-	ExpireAt int64 `json:"expireAt" validate:"number"`
+	ExpiredAt int64 `json:"expiredAt" validate:"number"`
 }
 
 // The response data of Token list | Token列表数据
@@ -1049,19 +1038,15 @@ type TokenListResp struct {
 type TokenListReq struct {
 	PageInfo
 	// User's UUID | 用户的UUID
-	// Required: true
 	// Max Length: 36
-	UUID string `json:"UUID" validate:"omitempty,len=36"`
+	UUID string `json:"UUID,optional" validate:"omitempty,len=36"`
 	// user's nickname | 用户的昵称
-	// Required: true
 	// Max length: 10
-	Nickname string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
+	Nickname string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
 	// User Name | 用户名
-	// Required: true
 	// Max length: 20
-	Username string `json:"username" validate:"omitempty,alphanum,max=20"`
+	Username string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
 	// The user's email address | 用户的邮箱
-	// Required: true
 	// Max length: 100
-	Email string `json:"email" validate:"omitempty,email,max=100"`
+	Email string `json:"email,optional" validate:"omitempty,email,max=100"`
 }

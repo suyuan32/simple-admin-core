@@ -31,7 +31,7 @@ func (l *DeleteInvalidTokenTask) Start() {
 
 	// delete invalid token every 1 minute
 	_, err := l.cron.Every(1).Minute().Do(func() {
-		err := l.svcCtx.DB.Where("status = ? and created_at < ?", 0, time.Now()).Delete(&model.Token{}).Error
+		err := l.svcCtx.DB.Where("status = ? and expired_at < ?", 0, time.Now()).Delete(&model.Token{}).Error
 		if err != nil {
 			logx.Errorf("DeleteInvalidTokenTask error: %s\n", err.Error())
 		}

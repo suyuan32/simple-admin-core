@@ -500,11 +500,11 @@ definitions:
                 format: int64
                 type: integer
                 x-go-name: CreatedAt
-            expireAt:
+            expiredAt:
                 description: Expire time | 过期时间
                 format: int64
                 type: integer
-                x-go-name: ExpireAt
+                x-go-name: ExpiredAt
             id:
                 description: ID
                 format: uint64
@@ -531,7 +531,7 @@ definitions:
             - token
             - source
             - status
-            - expireAt
+            - expiredAt
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateUserReq:
@@ -1421,11 +1421,11 @@ definitions:
                 format: int64
                 type: integer
                 x-go-name: CreatedAt
-            expireAt:
+            expiredAt:
                 description: Expire time | 过期时间
                 format: int64
                 type: integer
-                x-go-name: ExpireAt
+                x-go-name: ExpiredAt
             id:
                 description: ID
                 format: uint64
@@ -2957,7 +2957,7 @@ responses:
             createdAt:
                 format: int64
                 type: integer
-            expireAt:
+            expiredAt:
                 description: Expire time | 过期时间
                 format: int64
                 type: integer

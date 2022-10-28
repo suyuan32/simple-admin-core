@@ -37,12 +37,12 @@ func NewCreateOrUpdateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext
 func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(in *core.TokenInfo) (*core.BaseResp, error) {
 	if in.Id == 0 {
 		result := l.svcCtx.DB.Create(&model.Token{
-			Model:    gorm.Model{},
-			UUID:     in.UUID,
-			Token:    in.Token,
-			Status:   in.Status,
-			Source:   in.Source,
-			ExpireAt: time.Unix(in.ExpireAt, 0),
+			Model:     gorm.Model{},
+			UUID:      in.UUID,
+			Token:     in.Token,
+			Status:    in.Status,
+			Source:    in.Source,
+			ExpiredAt: time.Unix(in.ExpiredAt, 0),
 		})
 		if result.Error != nil {
 			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
@@ -71,7 +71,7 @@ func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(in *core.TokenInfo) (*cor
 		origin.Token = in.Token
 		origin.Status = in.Status
 		origin.Source = in.Source
-		origin.ExpireAt = time.Unix(in.ExpireAt, 0)
+		origin.ExpiredAt = time.Unix(in.ExpiredAt, 0)
 
 		result := l.svcCtx.DB.Save(&origin)
 

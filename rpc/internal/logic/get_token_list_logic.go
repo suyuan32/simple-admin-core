@@ -53,7 +53,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 				Token:     v.Token,
 				Status:    v.Status,
 				Source:    v.Source,
-				ExpireAt:  v.ExpireAt.UnixMilli(),
+				ExpiredAt: v.ExpiredAt.UnixMilli(),
 				CreatedAt: v.CreatedAt.UnixMilli(),
 			})
 		}
@@ -109,7 +109,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 				Token:     v.Token,
 				Status:    v.Status,
 				Source:    v.Source,
-				ExpireAt:  v.ExpireAt.UnixMilli(),
+				ExpiredAt: v.ExpiredAt.UnixMilli(),
 				CreatedAt: v.CreatedAt.UnixMilli(),
 			})
 		}

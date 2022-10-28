@@ -78,14 +78,12 @@ type (
        PageInfo
 
        // Dictionary title | 字典显示名称
-       // Required: true
        // Max length: 50
-       Title         string `json:"title" validate:"max=50"`
+       Title         string `json:"title,optional" validate:"max=50"`
 
        // Dictionary name | 字典名称
-       // Required: true
        // Max length: 50
-       Name          string `json:"name" validate:"max=50"`
+       Name          string `json:"name,optional" validate:"max=50"`
     }
 
     // The response data of dictionary information | 字典信息

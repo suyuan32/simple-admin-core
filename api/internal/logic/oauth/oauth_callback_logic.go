@@ -44,7 +44,7 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 		l.svcCtx.Config.Auth.AccessExpire, int64(result.RoleId))
 
 	// add token into database
-	expireAt := time.Now().Add(time.Second * 259200).Unix()
+	expiredAt := time.Now().Add(time.Second * 259200).Unix()
 	_, err = l.svcCtx.CoreRpc.CreateOrUpdateToken(context.Background(), &core.TokenInfo{
 		Id:        0,
 		CreatedAt: 0,
@@ -52,7 +52,7 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 		Token:     token,
 		Source:    strings.Split(l.r.FormValue("state"), "-")[1],
 		Status:    1,
-		ExpireAt:  expireAt,
+		ExpiredAt: expiredAt,
 	})
 
 	if err != nil {

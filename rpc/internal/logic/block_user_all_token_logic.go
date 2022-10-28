@@ -41,7 +41,7 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 
 	var tokens []model.Token
 	tokenData := l.svcCtx.DB.Where("uuid = ?", in.UUID).Where("status = ?", 0).
-		Where("expire_at > ?", time.Now()).Find(&tokens)
+		Where("expired_at > ?", time.Now()).Find(&tokens)
 
 	if tokenData.Error != nil && !errors.Is(tokenData.Error, gorm.ErrRecordNotFound) {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))

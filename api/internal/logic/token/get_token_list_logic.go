@@ -51,7 +51,7 @@ func (l *GetTokenListLogic) GetTokenList(req *types.TokenListReq) (resp *types.T
 			Token:     v.Token,
 			Source:    v.Source,
 			Status:    v.Status,
-			ExpireAt:  v.ExpireAt,
+			ExpiredAt: v.ExpiredAt,
 		})
 	}
 

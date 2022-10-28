@@ -83,24 +83,20 @@ type (
     ApiListReq {
         PageInfo
         // API path | API路径
-        // Required: true
         // Max length: 100
-        Path          string `json:"path" validate:"omitempty,max=100"`
+        Path          string `json:"path,optional" validate:"omitempty,max=100"`
 
         // API Description | API 描述
-        // Required: true
         // Max length: 50
-        Description   string `json:"description" validate:"omitempty,max=50"`
+        Description   string `json:"description,optional" validate:"omitempty,max=50"`
 
         // API group | API分组
-        // Require: true
         // Max length: 10
-        Group         string `json:"group" validate:"omitempty,alphanum,max=10"`
+        Group         string `json:"group,optional" validate:"omitempty,alphanum,max=10"`
 
         // API request method e.g. POST | API请求类型 如POST
-        // Required: true
         // Max length: 4
-        Method        string `json:"method" validate:"omitempty,uppercase,max=4"`
+        Method        string `json:"method,optional" validate:"omitempty,uppercase,max=4"`
     }
 )
 

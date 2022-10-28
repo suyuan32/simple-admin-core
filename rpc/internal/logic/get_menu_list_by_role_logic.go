@@ -49,14 +49,7 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.IDReq) (*core.MenuIn
 		validId[v.ID] = struct{}{}
 	}
 	res.Data = findRoleMenuChildren(r.Menus, validId, 1)
-	// delete menus whose menu levels are not 1
-	//var tmp []*core.MenuInfo
-	//for _, v := range res.Data {
-	//	if v.Level == 1 {
-	//		tmp = append(tmp, v)
-	//	}
-	//}
-	//res.Data = tmp
+
 	return res, nil
 }
 

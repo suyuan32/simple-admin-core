@@ -342,7 +342,7 @@ message TokenInfo {
   string token = 4;
   string source = 5;
   uint32 status = 6;
-  int64 expire_at = 7;
+  int64 expired_at = 7;
 }
 
 message TokenListResp {
