@@ -3,7 +3,8 @@
 <h1>Simple Admin</h1>
 </div>
 
-**English** | [中文](./README.md) \
+**English** | [中文](./README.md)
+---
 [![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.4.1-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.8.0-yellow.svg)](https://vvbin.cn/doc-next/)
 [![GORM](https://img.shields.io/badge/GORM-v1.23.8-blue.svg)](https://gorm.io/)
@@ -23,25 +24,30 @@ It can help you to develop a microservice back-end management core in a short ti
 - **Fully support go-swagger**: Write comment in api file and generate swagger doc easily
 - **Error handling**: Handle error messages via one module
 - **International**：support different languages show in the front-end via put locale path in the message
-- **Service Discover** cunsul, load balancing
-- **Authority** Manage authority via casbin
+- **Service Discover**: use k8s endpoints to do service discovery and load-balance
+- **Authority** Manage authority via casbin, based on RBAC
 - **Other** builtin concurrency control, adaptive circuit breaker, adaptive load shedding, auto-trigger, auto recover
 
 ## Current Progress
 
-| Module                | Status      |
-|-----------------------|-------------|
-| Login and Register    | finished    |
-| Menu Management       | finished    |
-| Role Management       | finished    |
-| Role Authority        | finished    |
-| User Management       | finished    |
-| Operation log         | finished    |
-| Service discovery     | finished    |
-| Configuration center  | finished    |
-| Dictionary management | finished    |    
-| Oauth management      | finished    |
-| Fully support K8s     | In progress | 
+| Module                | Status   |
+|-----------------------|----------|
+| Login and Register    | Finished |
+| Menu Management       | Finished |
+| Role Management       | Finished |
+| Role Authority        | Finished |
+| User Management       | Finished |
+| Operation log         | Finished |
+| Service discovery     | Finished |
+| Configuration center  | Finished |
+| Dictionary management | Finished |    
+| Oauth management      | Finished |
+| Fully support K8s     | Finished | 
+| Service Monitor       | Finished |
+| Log collecting        | Finished | 
+| JWT blacklist | Finished |
+| Job Schedule | Finished | 
+| Message queue | Finished |
 
 ### The use of consul for service registration discovery in the early stage of the project is mainly to adapt to low-configuration servers. In the near future, the deployment process of K8s will be mainly optimized, and the project will mainly use K8s for deployment in the future.
 
@@ -80,7 +86,6 @@ docsify serve .
 - [GORM](https://gorm.io/) - Familiar with GORM apis
 - [Casbin](https://casbin.org/) - Familiar with Casbin apis
 - [Go-swagger](https://goswagger.io/) - Go-swagger document generation
-- [Consul](https://www.consul.io/docs) - Consul
 
 ## Install and use
 
@@ -157,6 +162,15 @@ You are very welcome to join！[Raise an issue](https://github.com/suyuan32/Simp
   - `ci` Continuous integration
   - `types` Type definition file changes
   - `wip` In development
+
+# Community
+[Discard](https://discord.gg/NDED5p2hJk)
+
+
+## Stars
+
+[![Star History Chart](https://api.star-history.com/svg?repos=suyuan32/simple-admin-core&type=Date)](https://github.com/suyuan32/simple-admin-core)
+
 
 ## Maintainer
 

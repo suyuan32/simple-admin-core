@@ -46,7 +46,8 @@ It can help you to develop a microservice back-end management core in a short ti
 | Service Monitor       | Finished |
 | Log collecting        | Finished | 
 | JWT blacklist | Finished |
-| Job Schedule | In progress | 
+| Job Schedule | Finished | 
+| Message queue | Finished |
 
 ### The use of consul for service registration discovery in the early stage of the project is mainly to adapt to low-configuration servers. In the near future, the deployment process of K8s will be mainly optimized, and the project will mainly use K8s for deployment in the future.
 
