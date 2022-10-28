@@ -40,10 +40,21 @@ func (l *UpdateProfileLogic) UpdateProfile(in *core.UpdateProfileReq) (*core.Bas
 		return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
 	}
 
-	origin.Email = in.Email
-	origin.Mobile = in.Mobile
-	origin.Nickname = in.Nickname
-	origin.Avatar = in.Avatar
+	if in.Email != "" {
+		origin.Email = in.Email
+	}
+
+	if in.Mobile != "" {
+		origin.Mobile = in.Mobile
+	}
+
+	if in.Nickname != "" {
+		origin.Nickname = in.Nickname
+	}
+
+	if in.Avatar != "" {
+		origin.Avatar = in.Avatar
+	}
 
 	result = l.svcCtx.DB.Save(&origin)
 	if result.Error != nil {

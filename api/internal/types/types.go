@@ -205,21 +205,16 @@ type ProfileResp struct {
 // swagger:model ProfileReq
 type ProfileReq struct {
 	// user's nickname | 用户的昵称
-	// Required: true
 	// Max length: 10
-	Nickname string `json:"nickname" validate:"alphanumunicode,max=10"`
+	Nickname string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
 	// The user's avatar path | 用户的头像路径
-	// Required: true
-	// Max length: 30
 	Avatar string `json:"avatar"`
 	// User's mobile phone number | 用户的手机号码
-	// Required: true
 	// Max length: 18
-	Mobile string `json:"mobile" validate:"numeric,max=18"`
+	Mobile string `json:"mobile" validate:"omitempty,numeric,max=18"`
 	// The user's email address | 用户的邮箱
-	// Required: true
 	// Max length: 100
-	Email string `json:"email" validate:"email,max=100"`
+	Email string `json:"email" validate:"omitempty,email,max=100"`
 }
 
 // The simple role data | 简单的角色数据

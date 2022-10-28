@@ -54,9 +54,7 @@ definitions:
                 type: string
                 x-go-name: Description
             group:
-                description: |-
-                    API group | API分组
-                    Require: true
+                description: API group | API分组
                 maxLength: 10
                 type: string
                 x-go-name: Group
@@ -84,9 +82,6 @@ definitions:
         required:
             - page
             - pageSize
-            - path
-            - description
-            - method
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ChangePasswordReq:
@@ -695,8 +690,6 @@ definitions:
         required:
             - page
             - pageSize
-            - title
-            - name
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetMenuListBase:
@@ -819,11 +812,6 @@ definitions:
         required:
             - page
             - pageSize
-            - username
-            - nickname
-            - mobile
-            - email
-            - roleId
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetUserRoleInfo:
@@ -1482,10 +1470,6 @@ definitions:
         required:
             - page
             - pageSize
-            - UUID
-            - nickname
-            - username
-            - email
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UUIDReq:
