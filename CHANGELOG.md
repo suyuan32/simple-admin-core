@@ -1,3 +1,31 @@
+# 0.1.2 (2022/10/28)
+
+### Features
+
+- docs: update readme
+- feat: job dockerfile
+- chore: update simple admin tool
+- perf: optimizer api generation
+- docs: job schedule doc
+- feat: rocket mq deploy file
+- feat: rocket mq deploy file
+- refactor: change api file name into snake format
+- refactor: change rpc file name into snake format
+- wip: cron and mq
+- Update doc and readme
+- update changelog
+
+### Bug Fixes
+
+- fix: add optional tag for userprofile request
+- fix: add optional tag for userprofile request
+- fix: add optional tag for page request
+- fix Total value of repair list
+- fix Total value of repair list
+- fix: CreateAt,UpdateAt,DeleteAt 命名不统一 #29
+- fix: swagger response type definition wrong #27
+- fix: change log message into lowercase
+
 # 0.1.1 (2022/10/21)
 
 ### Features
