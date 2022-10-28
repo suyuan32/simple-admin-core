@@ -1178,7 +1178,6 @@ definitions:
         properties:
             avatar:
                 description: The user's avatar path | 用户的头像路径
-                maxLength: 30
                 type: string
                 x-go-name: Avatar
             email:
@@ -1196,11 +1195,6 @@ definitions:
                 maxLength: 10
                 type: string
                 x-go-name: Nickname
-        required:
-            - nickname
-            - avatar
-            - mobile
-            - email
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ProviderInfo:
