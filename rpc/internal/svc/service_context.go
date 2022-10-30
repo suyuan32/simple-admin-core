@@ -1,7 +1,7 @@
 package svc
 
 import (
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/config"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -19,7 +19,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	// initialize database connection
 	db, err := c.DatabaseConf.NewGORM()
 	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		return nil
 	}
 	logx.Info("Initialize database connection successfully")

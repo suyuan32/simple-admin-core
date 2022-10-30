@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -43,7 +43,7 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 		})
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
@@ -59,7 +59,7 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
 		}
 		if check.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 		origin.MenuId = uint(in.MenuId)
@@ -68,7 +68,7 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 		origin.Key = in.Key
 		result := l.svcCtx.DB.Save(&origin)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, errorx.DatabaseError)
 		}
 		if result.RowsAffected == 0 {

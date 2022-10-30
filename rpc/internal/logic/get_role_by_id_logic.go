@@ -3,7 +3,7 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -32,7 +32,7 @@ func (l *GetRoleByIdLogic) GetRoleById(in *core.IDReq) (*core.RoleInfo, error) {
 	var role model.Role
 	result := l.svcCtx.DB.Where("id = ?", in.ID).First(&role)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {

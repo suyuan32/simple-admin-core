@@ -3,7 +3,7 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -32,7 +32,7 @@ func (l *UpdateProfileLogic) UpdateProfile(in *core.UpdateProfileReq) (*core.Bas
 	var origin model.User
 	result := l.svcCtx.DB.Where("uuid = ?", in.Uuid).First(&origin)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 	if result.RowsAffected == 0 {
@@ -58,7 +58,7 @@ func (l *UpdateProfileLogic) UpdateProfile(in *core.UpdateProfileReq) (*core.Bas
 
 	result = l.svcCtx.DB.Save(&origin)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 	if result.RowsAffected == 0 {

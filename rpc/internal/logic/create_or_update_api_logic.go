@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/common/msg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -45,13 +45,13 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 		result := l.svcCtx.DB.Create(&data)
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
 		if result.RowsAffected == 0 {
-			logx.Errorw(message.ApiAlreadyExists, logx.Field("detail", data))
-			return nil, status.Error(codes.InvalidArgument, message.ApiAlreadyExists)
+			logx.Errorw(msg.ApiAlreadyExists, logx.Field("detail", data))
+			return nil, status.Error(codes.InvalidArgument, msg.ApiAlreadyExists)
 		}
 
 		logx.Infow(errorx.CreateSuccess, logx.Field("path", in.Path), logx.Field("desc", in.Description),
@@ -68,7 +68,7 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 		}
 
 		if check.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 
@@ -81,7 +81,7 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 		}
 		result := l.svcCtx.DB.Save(&data)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {

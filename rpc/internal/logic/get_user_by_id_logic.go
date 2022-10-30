@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -33,7 +33,7 @@ func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfoResp, er
 	var u model.User
 	result := l.svcCtx.DB.Where("uuid = ?", in.UUID).First(&u)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, result.Error
 	} else if result.RowsAffected == 0 {
 		logx.Errorw("user dose not find, please check the UUID", logx.Field("UUID", in.UUID))

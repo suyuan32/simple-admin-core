@@ -10,8 +10,8 @@ import (
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/common/msg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -36,12 +36,12 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 	check := l.svcCtx.DB.Where("id = ?", in.ParentId).First(&parent)
 
 	if errors.Is(check.Error, gorm.ErrRecordNotFound) {
-		logx.Errorw(message.ParentNotExist, logx.Field("detail", in))
-		return nil, status.Error(codes.InvalidArgument, message.ParentNotExist)
+		logx.Errorw(msg.ParentNotExist, logx.Field("detail", in))
+		return nil, status.Error(codes.InvalidArgument, msg.ParentNotExist)
 	}
 
 	if check.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", check.Error.Error()))
 		return nil, status.Error(codes.Internal, check.Error.Error())
 	}
 	if in.Id == 0 {
@@ -55,11 +55,11 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 		})
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
-		logx.Infow(logmessage.CreateSuccess, logx.Field("detail", in))
+		logx.Infow(logmsg.CreateSuccess, logx.Field("detail", in))
 
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {
@@ -67,12 +67,12 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 		checkOrigin := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
 
 		if errors.Is(checkOrigin.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw(logmessage.TargetNotFound, logx.Field("detail", in))
+			logx.Errorw(logmsg.TargetNotFound, logx.Field("detail", in))
 			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
 		}
 
 		if checkOrigin.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", checkOrigin.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", checkOrigin.Error.Error()))
 			return nil, status.Error(codes.Internal, checkOrigin.Error.Error())
 		}
 
@@ -84,16 +84,16 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 		result := l.svcCtx.DB.Save(&origin)
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
 		if result.RowsAffected == 0 {
-			logx.Errorw(logmessage.UpdateFailed, logx.Field("detail", in))
+			logx.Errorw(logmsg.UpdateFailed, logx.Field("detail", in))
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 
-		logx.Infow(logmessage.UpdateSuccess, logx.Field("detail", in))
+		logx.Infow(logmsg.UpdateSuccess, logx.Field("detail", in))
 
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 	}

@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -35,7 +35,7 @@ func NewBlockUserAllTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.BaseResp, error) {
 	result := l.svcCtx.DB.Model(&model.Token{}).Where("uuid = ?", in.UUID).Update("status", 0)
 	if result.Error != nil && !errors.Is(result.Error, gorm.ErrRecordNotFound) {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 
@@ -44,14 +44,14 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 		Where("expired_at > ?", time.Now()).Find(&tokens)
 
 	if tokenData.Error != nil && !errors.Is(tokenData.Error, gorm.ErrRecordNotFound) {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 
 	for _, v := range tokens {
 		err := l.svcCtx.Redis.Set("token_"+v.Token, "1")
 		if err != nil {
-			logx.Errorw(logmessage.RedisError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
 			return nil, status.Error(codes.Internal, errorx.RedisError)
 		}
 	}

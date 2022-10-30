@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -34,7 +34,7 @@ func (l *CreateOrUpdateMenuAuthorityLogic) CreateOrUpdateMenuAuthority(in *core.
 	deleteString := fmt.Sprintf("DELETE from role_menus where role_id = %d", in.RoleId)
 	result := l.svcCtx.DB.Exec(deleteString)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 
@@ -49,10 +49,10 @@ func (l *CreateOrUpdateMenuAuthorityLogic) CreateOrUpdateMenuAuthority(in *core.
 	}
 	result = l.svcCtx.DB.Exec(insertString.String())
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 
-	logx.Infow(logmessage.UpdateSuccess, logx.Field("authorityRelation", insertString.String()))
+	logx.Infow(logmsg.UpdateSuccess, logx.Field("authorityRelation", insertString.String()))
 	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 }

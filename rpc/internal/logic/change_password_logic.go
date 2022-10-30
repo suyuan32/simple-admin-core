@@ -6,8 +6,8 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/common/msg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/util"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
@@ -42,7 +42,7 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 	}
 
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 
@@ -50,7 +50,7 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 		target.Password = util.BcryptEncrypt(in.NewPassword)
 		result = l.svcCtx.DB.Updates(&target)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, errorx.DatabaseError)
 		}
 		if result.RowsAffected == 0 {
@@ -58,7 +58,7 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 		}
 	} else {
 		logx.Errorw("old password is wrong", logx.Field("UUID", in.Uuid))
-		return nil, status.Error(codes.InvalidArgument, message.WrongPassword)
+		return nil, status.Error(codes.InvalidArgument, msg.WrongPassword)
 	}
 	logx.Infow("change password successful", logx.Field("UUID", in.Uuid))
 	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil

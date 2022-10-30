@@ -6,7 +6,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/util"
 	model3 "github.com/suyuan32/simple-admin-core/rpc/model"
@@ -49,7 +49,7 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 			logx.Error("last initialization is running")
 			return nil, status.Error(codes.InvalidArgument, errorx.InitRunning)
 		} else {
-			logx.Errorw(logmessage.RedisError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
 			return nil, status.Error(codes.Internal, errorx.RedisError)
 		}
 	}
@@ -64,7 +64,7 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	if check.RowsAffected != 0 {
 		err := l.svcCtx.Redis.Set("database_init_state", "1")
 		if err != nil {
-			logx.Errorw(logmessage.RedisError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
 			return nil, status.Error(codes.Internal, errorx.RedisError)
 		}
 		return &core.BaseResp{Msg: errorx.AlreadyInit}, nil
@@ -88,51 +88,51 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	)
 
 	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
 	err = l.insertUserData()
 	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	err = l.insertRoleData()
 	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	err = l.insertMenuData()
 	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	err = l.insertApiData()
 	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	err = l.insertRoleMenuAuthorityData()
 	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	err = l.insertCasbinPoliciesData()
 	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
 	err = l.insertProviderData()
 	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
 	}
@@ -155,7 +155,7 @@ func (l *InitDatabaseLogic) insertUserData() error {
 	}
 	result := l.svcCtx.DB.CreateInBatches(users, 100)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return status.Error(codes.Internal, result.Error.Error())
 	} else {
 		return nil
@@ -192,7 +192,7 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 	}
 	result := l.svcCtx.DB.CreateInBatches(roles, 100)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return status.Error(codes.Internal, result.Error.Error())
 	} else {
 		return nil
@@ -484,7 +484,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	}
 	result := l.svcCtx.DB.CreateInBatches(apis, 100)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return status.Error(codes.Internal, result.Error.Error())
 	} else {
 		return nil
@@ -808,7 +808,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	}
 	result := l.svcCtx.DB.CreateInBatches(menus, 100)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return status.Error(codes.Internal, result.Error.Error())
 	} else {
 		return nil
@@ -821,7 +821,7 @@ func (l *InitDatabaseLogic) insertRoleMenuAuthorityData() error {
 	var menus []model3.Menu
 	result := l.svcCtx.DB.Find(&menus)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return status.Error(codes.Internal, result.Error.Error())
 	}
 
@@ -837,7 +837,7 @@ func (l *InitDatabaseLogic) insertRoleMenuAuthorityData() error {
 
 	result = l.svcCtx.DB.Exec(insertString.String())
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return status.Error(codes.Internal, result.Error.Error())
 	} else {
 		return nil
@@ -850,7 +850,7 @@ func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 	var apis []model3.Api
 	result := l.svcCtx.DB.Find(&apis)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return status.Error(codes.Internal, result.Error.Error())
 	}
 
@@ -936,7 +936,7 @@ func (l *InitDatabaseLogic) insertProviderData() error {
 	}
 	result := l.svcCtx.DB.CreateInBatches(providers, 10)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return status.Error(codes.Internal, result.Error.Error())
 	} else {
 		return nil

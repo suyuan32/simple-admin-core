@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/common/msg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -40,10 +40,10 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		result := l.svcCtx.DB.Where("id = ?", in.ParentId).First(&parent)
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			logx.Errorw("wrong parent ID", logx.Field("parentId", in.ParentId))
-			return nil, status.Error(codes.InvalidArgument, message.ParentNotExist)
+			return nil, status.Error(codes.InvalidArgument, msg.ParentNotExist)
 		}
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		menuLevel = parent.MenuLevel + 1
@@ -83,11 +83,11 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		}
 		result := l.svcCtx.DB.Create(data)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, errorx.DatabaseError)
 		}
 		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, message.MenuAlreadyExists)
+			return nil, status.Error(codes.InvalidArgument, msg.MenuAlreadyExists)
 		}
 
 		logx.Infow("Create menu successfully", logx.Field("menuDetail", data))
@@ -96,11 +96,11 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		var origin *model.Menu
 		result := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			return nil, status.Error(codes.InvalidArgument, message.MenuNotExists)
+			return nil, status.Error(codes.InvalidArgument, msg.MenuNotExists)
 		}
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, errorx.DatabaseError)
 		}
 
@@ -133,7 +133,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		}
 		result = l.svcCtx.DB.Save(data)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {

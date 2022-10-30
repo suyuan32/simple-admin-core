@@ -1,4 +1,4 @@
-package message
+package msg
 
 const (
 	// user service messages

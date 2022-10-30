@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/common/msg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -48,12 +48,12 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 		}
 		result := l.svcCtx.DB.Create(&data)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {
 			logx.Errorw("role value had been used", logx.Field("detail", data))
-			return nil, status.Error(codes.InvalidArgument, message.DuplicateRoleValue)
+			return nil, status.Error(codes.InvalidArgument, msg.DuplicateRoleValue)
 		}
 
 		err := l.UpdateRoleInfoInRedis()
@@ -71,7 +71,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
 		}
 		if check.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", check.Error.Error()))
 			return nil, status.Error(codes.Internal, check.Error.Error())
 		}
 		data := &model.Role{
@@ -85,7 +85,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 		}
 		result := l.svcCtx.DB.Save(&data)
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 		if result.RowsAffected == 0 {

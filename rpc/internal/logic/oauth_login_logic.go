@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -40,7 +40,7 @@ func (l *OauthLoginLogic) OauthLogin(in *core.OauthLoginReq) (*core.OauthRedirec
 	var provider model.OauthProvider
 	check := l.svcCtx.DB.Where("name = ?", in.Provider).First(&provider)
 	if check.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", check.Error.Error()))
 		return nil, status.Error(codes.Internal, check.Error.Error())
 	}
 

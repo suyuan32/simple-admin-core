@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/common/msg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -42,7 +42,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 			Limit(int(in.Page.PageSize)).Offset(int((in.Page.Page - 1) * in.Page.PageSize)).Find(&tokens)
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 
@@ -82,12 +82,12 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 		userData := udb.First(&user)
 
 		if errors.Is(userData.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw(logmessage.TargetNotFound, logx.Field("detail", in))
-			return nil, status.Error(codes.InvalidArgument, message.UserNotExists)
+			logx.Errorw(logmsg.TargetNotFound, logx.Field("detail", in))
+			return nil, status.Error(codes.InvalidArgument, msg.UserNotExists)
 		}
 
 		if userData.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", userData.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", userData.Error.Error()))
 			return nil, status.Error(codes.Internal, userData.Error.Error())
 		}
 
@@ -96,7 +96,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 			Offset(int((in.Page.Page - 1) * in.Page.PageSize)).Find(&tokens)
 
 		if result.Error != nil {
-			logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 			return nil, status.Error(codes.Internal, result.Error.Error())
 		}
 

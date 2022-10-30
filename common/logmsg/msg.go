@@ -1,4 +1,4 @@
-package logmessage
+package logmsg
 
 const (
 	CreateSuccess  string = "create successfully"

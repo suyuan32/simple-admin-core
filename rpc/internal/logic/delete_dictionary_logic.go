@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -35,7 +35,7 @@ func NewDeleteDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 func (l *DeleteDictionaryLogic) DeleteDictionary(in *core.IDReq) (*core.BaseResp, error) {
 	childResult := l.svcCtx.DB.Exec(fmt.Sprintf("delete from dictionary_details where dictionary_id = %d", in.ID))
 	if childResult.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", childResult.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", childResult.Error.Error()))
 		return nil, status.Error(codes.Internal, childResult.Error.Error())
 	}
 
@@ -43,7 +43,7 @@ func (l *DeleteDictionaryLogic) DeleteDictionary(in *core.IDReq) (*core.BaseResp
 		Model: gorm.Model{ID: uint(in.ID)},
 	})
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {

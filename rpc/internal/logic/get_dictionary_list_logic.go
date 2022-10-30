@@ -6,7 +6,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -47,7 +47,7 @@ func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryPageReq) (
 	result := db.Limit(int(in.PageSize)).Offset(int((in.Page - 1) * in.PageSize)).Find(&dict)
 
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 

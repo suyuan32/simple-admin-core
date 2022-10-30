@@ -3,8 +3,8 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/common/msg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	model2 "github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -36,13 +36,13 @@ func (l *DeleteRoleLogic) DeleteRole(in *core.IDReq) (*core.BaseResp, error) {
 	if check != 0 {
 		logx.Errorw("delete role failed, please check the users who belongs to the role had been deleted",
 			logx.Field("roleId", in.ID))
-		return nil, status.Error(codes.InvalidArgument, message.UserExists)
+		return nil, status.Error(codes.InvalidArgument, msg.UserExists)
 	}
 	result := l.svcCtx.DB.Delete(&model2.Role{
 		Model: gorm.Model{ID: uint(in.ID)},
 	})
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {

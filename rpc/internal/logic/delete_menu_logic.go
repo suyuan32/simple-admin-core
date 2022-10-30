@@ -3,8 +3,8 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/common/msg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -34,25 +34,25 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 	var children []*model.Menu
 	check := l.svcCtx.DB.Where("parent_id = ?", in.ID).Find(&children)
 	if check.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", check.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", check.Error.Error()))
 		return nil, status.Error(codes.Internal, check.Error.Error())
 	}
 	if check.RowsAffected != 0 {
 		logx.Errorw("delete menu failed, please check its children had been deleted",
 			logx.Field("menuId", in.ID))
-		return nil, status.Error(codes.InvalidArgument, message.ChildrenExistError)
+		return nil, status.Error(codes.InvalidArgument, msg.ChildrenExistError)
 	}
 
 	result := l.svcCtx.DB.Delete(&model.Menu{
 		Model: gorm.Model{ID: uint(in.ID)},
 	})
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {
 		logx.Errorw("delete menu failed, please check the menu id", logx.Field("menuId", in.ID))
-		return nil, status.Error(codes.InvalidArgument, message.MenuNotExists)
+		return nil, status.Error(codes.InvalidArgument, msg.MenuNotExists)
 	}
 
 	logx.Infow("delete menu successfully", logx.Field("menuId", in.ID))

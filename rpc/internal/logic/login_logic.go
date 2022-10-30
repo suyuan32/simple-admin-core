@@ -8,8 +8,8 @@ import (
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/common/message"
+	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/common/msg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/util"
 	model2 "github.com/suyuan32/simple-admin-core/rpc/model"
@@ -40,18 +40,18 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 	var u model2.User
 	result := l.svcCtx.DB.Where(&model2.User{Username: in.Username}).First(&u)
 	if result.Error != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", result.Error.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 
 	if result.RowsAffected == 0 {
 		logx.Errorw("user does not find", logx.Field("username", in.Username))
-		return nil, status.Error(codes.InvalidArgument, message.UserNotExists)
+		return nil, status.Error(codes.InvalidArgument, msg.UserNotExists)
 	}
 
 	if ok := util.BcryptCheck(in.Password, u.Password); !ok {
 		logx.Errorw("wrong password", logx.Field("detail", in))
-		return nil, status.Error(codes.InvalidArgument, message.WrongUsernameOrPassword)
+		return nil, status.Error(codes.InvalidArgument, msg.WrongUsernameOrPassword)
 	}
 
 	roleName, value, err := getRoleInfo(u.RoleId, l.svcCtx.Redis, l.svcCtx.DB)
@@ -82,7 +82,7 @@ func getRoleInfo(roleId uint32, rds *redis.Redis, db *gorm.DB) (roleName, roleVa
 			err = rds.Hset("roleData", fmt.Sprintf("%d_value", v.ID), v.Value)
 			err = rds.Hset("roleData", fmt.Sprintf("%d_status", v.ID), strconv.Itoa(int(v.Status)))
 			if err != nil {
-				logx.Errorw(logmessage.RedisError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
 				return "", "", status.Error(codes.Internal, errorx.RedisError)
 			}
 			if v.ID == uint(roleId) {
