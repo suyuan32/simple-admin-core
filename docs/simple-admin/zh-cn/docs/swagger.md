@@ -101,7 +101,7 @@ type BarSliceParam struct {
     }
 
 
-// 对于 route 来说， 只需要一行注解, 如 api/api_desc/apis.api
+// 对于 route 来说， 只需要一行注解, 如 api/desc/apis.api
 
 // Create or update API information | 创建或更新API
 @handler createOrUpdateApi

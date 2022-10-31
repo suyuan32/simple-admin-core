@@ -99,7 +99,7 @@ type BarSliceParam struct {
     }
 
 
-// For route， you need only one comment, such as api/api_desc/apis.api
+// For route， you need only one comment, such as api/desc/apis.api
 
 // Create or update API information | 创建或更新API
 @handler createOrUpdateApi

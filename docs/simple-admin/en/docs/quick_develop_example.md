@@ -365,7 +365,7 @@ func (l *HelloLogic) Hello(in *core.HelloReq) (*core.BaseResp, error) {
 
 ```
 
-> And the add example.api into api/api_desc/ 
+> And the add example.api into api/desc/ 
 
 ```api
 syntax = "v1"
@@ -461,7 +461,7 @@ service core {
 }
 ```
 
-> Run in api_desc directory
+> Run in desc directory
 
 ```shell
 goctls api go -api core.api -dir ..
