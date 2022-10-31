@@ -44,7 +44,7 @@ func (l *DeleteInvalidTokenTask) Start() {
 		return
 	}
 
-	l.cron.StartAsync()
+	l.cron.StartBlocking()
 }
 
 func (l *DeleteInvalidTokenTask) Stop() {

@@ -30,8 +30,4 @@ func main() {
 	}
 
 	serviceGroup.Start()
-
-	// keep running
-	select {}
-
 }
