@@ -14,6 +14,7 @@ require (
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.8.0
+	github.com/suyuan32/simple-models v0.0.2
 	github.com/zeromicro/go-zero v1.4.2
 	golang.org/x/crypto v0.0.0-20221005025214-4161e89ecf1b
 	golang.org/x/oauth2 v0.0.0-20220223155221-ee480838109b
@@ -85,7 +86,6 @@ require (
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/stathat/consistent v1.0.0 // indirect
-	github.com/suyuan32/simple-models v0.0.2 // indirect
 	github.com/tidwall/gjson v1.13.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect

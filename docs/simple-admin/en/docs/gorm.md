@@ -10,7 +10,7 @@
 	}
 ```
 
-[Init](https://github.com/suyuan32/simple-admin-core/blob/master/rpc/internal/svc/servicecontext.go)
+[Init](https://github.com/suyuan32/simple-admin-core/blob/master/rpc/internal/svc/service_context.go)
 
 > Define Model
 
