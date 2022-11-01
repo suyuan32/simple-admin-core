@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	model2 "github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -29,10 +29,10 @@ func NewGetMenuListByRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.IDReq) (*core.MenuInfoList, error) {
-	var r model2.Role
+	var r model.Role
 	result := l.svcCtx.DB.Preload("Menus").Preload("Menus.Children", func(db *gorm.DB) *gorm.DB {
 		return db.Order("menus.order_no DESC")
-	}).Where(&model2.Role{Model: gorm.Model{ID: uint(in.ID)}}).First(&r)
+	}).Where(&model.Role{Model: gorm.Model{ID: uint(in.ID)}}).First(&r)
 	if result.Error != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
 		return nil, status.Error(codes.Internal, "database error")
@@ -53,7 +53,7 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.IDReq) (*core.MenuIn
 	return res, nil
 }
 
-func findRoleMenuChildren(data []model2.Menu, validId map[uint]struct{}, parentId uint) []*core.MenuInfo {
+func findRoleMenuChildren(data []model.Menu, validId map[uint]struct{}, parentId uint) []*core.MenuInfo {
 	if data == nil {
 		return nil
 	}

@@ -14,8 +14,8 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	model2 "github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -44,7 +44,7 @@ func NewOauthCallbackLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Oau
 func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginResp, error) {
 	provider := strings.Split(in.State, "-")[1]
 	if _, ok := providerConfig[provider]; !ok {
-		var target model2.OauthProvider
+		var target model.OauthProvider
 		check := l.svcCtx.DB.Where("name = ?", provider).First(&target)
 		if check.Error != nil {
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", check.Error.Error()))
@@ -86,7 +86,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 	}
 
 	if u.Email != "" {
-		var targetUser model2.User
+		var targetUser model.User
 		check := l.svcCtx.DB.Where("email = ?", u.Email).First(&targetUser)
 		if check.RowsAffected == 0 {
 			return nil, status.Error(codes.InvalidArgument, u.Email)

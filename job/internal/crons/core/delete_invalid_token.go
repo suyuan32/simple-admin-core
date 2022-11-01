@@ -6,10 +6,10 @@ import (
 	"time"
 
 	"github.com/go-co-op/gocron"
+	"github.com/suyuan32/simple-models/model/core"
 	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/suyuan32/simple-admin-core/job/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/model"
 )
 
 type DeleteInvalidTokenTask struct {
@@ -31,7 +31,7 @@ func (l *DeleteInvalidTokenTask) Start() {
 
 	// delete invalid token every 1 minute
 	_, err := l.cron.Every(1).Minute().Do(func() {
-		err := l.svcCtx.DB.Where("status = ? and expired_at < ?", 0, time.Now()).Delete(&model.Token{}).Error
+		err := l.svcCtx.DB.Where("status = ? and expired_at < ?", 0, time.Now()).Delete(&core.Token{}).Error
 		if err != nil {
 			logx.Errorf("DeleteInvalidTokenTask error: %s\n", err.Error())
 		}

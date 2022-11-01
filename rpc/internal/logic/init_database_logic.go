@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/util"
-	model3 "github.com/suyuan32/simple-admin-core/rpc/model"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/casbin/casbin/v2"
@@ -59,7 +59,7 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	}()
 
 	// judge if the initialization had been done
-	var apis []model3.Api
+	var apis []model.Api
 	check := l.svcCtx.DB.Find(&apis)
 	if check.RowsAffected != 0 {
 		err := l.svcCtx.Redis.Set("database_init_state", "1")
@@ -76,15 +76,15 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 
 	// initialize table structure
 	err := l.svcCtx.DB.AutoMigrate(
-		&model3.User{},
-		&model3.Role{},
-		&model3.Api{},
-		&model3.Menu{},
-		&model3.MenuParam{},
-		&model3.Dictionary{},
-		&model3.DictionaryDetail{},
-		&model3.OauthProvider{},
-		&model3.Token{},
+		&model.User{},
+		&model.Role{},
+		&model.Api{},
+		&model.Menu{},
+		&model.MenuParam{},
+		&model.Dictionary{},
+		&model.DictionaryDetail{},
+		&model.OauthProvider{},
+		&model.Token{},
 	)
 
 	if err != nil {
@@ -143,7 +143,7 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 
 // insert init user data
 func (l *InitDatabaseLogic) insertUserData() error {
-	users := []model3.User{
+	users := []model.User{
 		{
 			UUID:     uuid.NewString(),
 			Username: "admin",
@@ -164,7 +164,7 @@ func (l *InitDatabaseLogic) insertUserData() error {
 
 // insert init apis data
 func (l *InitDatabaseLogic) insertRoleData() error {
-	roles := []model3.Role{
+	roles := []model.Role{
 		{
 			Name:          "sys.role.admin",
 			Value:         "admin",
@@ -201,7 +201,7 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 
 // insert init user data
 func (l *InitDatabaseLogic) insertApiData() error {
-	apis := []model3.Api{
+	apis := []model.Api{
 		// user
 		{
 			Path:        "/user/login",
@@ -493,7 +493,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 // init menu data
 func (l *InitDatabaseLogic) insertMenuData() error {
-	menus := []model3.Menu{
+	menus := []model.Menu{
 		{
 			Model:     gorm.Model{ID: 1},
 			MenuLevel: 0,
@@ -504,7 +504,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "",
 			OrderNo:   0,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "",
 				Icon:               "",
 				HideMenu:           false,
@@ -526,7 +526,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "/dashboard/workbench/index",
 			OrderNo:   0,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.dashboard.dashboard",
 				Icon:               "ant-design:home-outlined",
 				HideMenu:           false,
@@ -550,7 +550,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "LAYOUT",
 			OrderNo:   1,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.system.systemManagementTitle",
 				Icon:               "ant-design:tool-outlined",
 				HideMenu:           false,
@@ -572,7 +572,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "/sys/menu/index",
 			OrderNo:   1,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.system.menuManagementTitle",
 				Icon:               "ant-design:bars-outlined",
 				HideMenu:           false,
@@ -594,7 +594,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "/sys/role/index",
 			OrderNo:   2,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.system.roleManagementTitle",
 				Icon:               "ant-design:user-outlined",
 				HideMenu:           false,
@@ -616,7 +616,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "/sys/api/index",
 			OrderNo:   4,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.system.apiManagementTitle",
 				Icon:               "ant-design:api-outlined",
 				HideMenu:           false,
@@ -638,7 +638,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "/sys/user/index",
 			OrderNo:   3,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.system.userManagementTitle",
 				Icon:               "ant-design:user-outlined",
 				HideMenu:           false,
@@ -660,7 +660,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "/file/index",
 			OrderNo:   2,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.system.fileManagementTitle",
 				Icon:               "ant-design:folder-open-outlined",
 				HideMenu:           true,
@@ -682,7 +682,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "/sys/dictionary/index",
 			OrderNo:   5,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.system.dictionaryManagementTitle",
 				Icon:               "ant-design:book-outlined",
 				HideMenu:           false,
@@ -704,7 +704,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "LAYOUT",
 			OrderNo:   4,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.system.otherPages",
 				Icon:               "ant-design:question-circle-outlined",
 				HideMenu:           true,
@@ -726,7 +726,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "/sys/dictionary/detail",
 			OrderNo:   1,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.system.dictionaryDetailManagementTitle",
 				Icon:               "ant-design:align-left-outlined",
 				HideMenu:           true,
@@ -748,7 +748,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "/sys/profile/index",
 			OrderNo:   3,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.system.userProfileTitle",
 				Icon:               "ant-design:profile-outlined",
 				HideMenu:           true,
@@ -770,7 +770,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "/sys/oauth/index",
 			OrderNo:   6,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.system.oauthManagement",
 				Icon:               "ant-design:unlock-filled",
 				HideMenu:           false,
@@ -792,7 +792,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 			Component: "/sys/token/index",
 			OrderNo:   7,
 			Disabled:  false,
-			Meta: model3.Meta{
+			Meta: model.Meta{
 				Title:              "routes.system.tokenManagement",
 				Icon:               "ant-design:lock-outlined",
 				HideMenu:           false,
@@ -818,7 +818,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 // insert admin menu authority
 
 func (l *InitDatabaseLogic) insertRoleMenuAuthorityData() error {
-	var menus []model3.Menu
+	var menus []model.Menu
 	result := l.svcCtx.DB.Find(&menus)
 	if result.Error != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
@@ -847,7 +847,7 @@ func (l *InitDatabaseLogic) insertRoleMenuAuthorityData() error {
 // init casbin policies
 
 func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
-	var apis []model3.Api
+	var apis []model.Api
 	result := l.svcCtx.DB.Find(&apis)
 	if result.Error != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
@@ -910,7 +910,7 @@ func getCasbin(db *gorm.DB) *casbin.SyncedEnforcer {
 }
 
 func (l *InitDatabaseLogic) insertProviderData() error {
-	providers := []model3.OauthProvider{
+	providers := []model.OauthProvider{
 		{
 			Name:         "google",
 			ClientID:     "your client id",
