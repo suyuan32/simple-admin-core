@@ -33,23 +33,28 @@ func NewDeleteDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *DeleteDictionaryLogic) DeleteDictionary(in *core.IDReq) (*core.BaseResp, error) {
-	childResult := l.svcCtx.DB.Exec(fmt.Sprintf("delete from dictionary_details where dictionary_id = %d", in.ID))
+	tx := l.svcCtx.DB.Begin()
+	childResult := tx.Exec(fmt.Sprintf("delete from dictionary_details where dictionary_id = %d", in.ID))
 	if childResult.Error != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", childResult.Error.Error()))
+		tx.Rollback()
 		return nil, status.Error(codes.Internal, childResult.Error.Error())
 	}
 
-	result := l.svcCtx.DB.Delete(&model.Dictionary{
+	result := tx.Delete(&model.Dictionary{
 		Model: gorm.Model{ID: uint(in.ID)},
 	})
 	if result.Error != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
+		tx.Rollback()
 		return nil, status.Error(codes.Internal, result.Error.Error())
 	}
 	if result.RowsAffected == 0 {
 		logx.Errorw("delete dictionary failed, check the id", logx.Field("DictionaryId", in.ID))
 		return nil, status.Error(codes.InvalidArgument, errorx.DeleteFailed)
 	}
+
+	tx.Commit()
 
 	logx.Infow("delete dictionary successfully", logx.Field("DictionaryId", in.ID))
 

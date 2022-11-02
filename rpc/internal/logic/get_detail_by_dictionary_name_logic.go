@@ -31,7 +31,7 @@ func NewGetDetailByDictionaryNameLogic(ctx context.Context, svcCtx *svc.ServiceC
 
 func (l *GetDetailByDictionaryNameLogic) GetDetailByDictionaryName(in *core.DictionaryDetailReq) (*core.DictionaryDetailList, error) {
 	var dict model.Dictionary
-	result := l.svcCtx.DB.Preload("detail").Where("name = ?", in.Name).First(&dict)
+	result := l.svcCtx.DB.Preload("Detail").Where("name = ?", in.Name).First(&dict)
 
 	if result.Error != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
