@@ -1,3 +1,28 @@
+# 0.1.3 (2022/11/02)
+
+### Features
+
+- feat: docker ignore
+- refactor: optimize project structure
+- chore: update goctls
+- Update doc and go.mod
+- refactor: model path and use simple-models in cron
+- refactor: rename api_desc directory
+- refactor: logmessage and message
+- chore: update gorm version
+- Update issue templates
+- Create CONTRIBUTING.md
+- Create CODE_OF_CONDUCT.md
+- docs: update swagger doc
+- docs: update changelog
+
+### Bug Fixes
+
+- fix: DictionaryDetail 表结构 #38
+- fix: blocking in cron
+- fix: api model index
+- fix: http status
+
 # 0.1.2 (2022/10/28)
 
 ### Features
