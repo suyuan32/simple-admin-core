@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -50,8 +50,8 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 		}
 
 		if result.RowsAffected == 0 {
-			logx.Errorw(msg.ApiAlreadyExists, logx.Field("detail", data))
-			return nil, status.Error(codes.InvalidArgument, msg.ApiAlreadyExists)
+			logx.Errorw(i18n.ApiAlreadyExists, logx.Field("detail", data))
+			return nil, status.Error(codes.InvalidArgument, i18n.ApiAlreadyExists)
 		}
 
 		logx.Infow(errorx.CreateSuccess, logx.Field("path", in.Path), logx.Field("desc", in.Description),

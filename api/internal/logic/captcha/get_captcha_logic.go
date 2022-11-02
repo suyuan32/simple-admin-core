@@ -7,7 +7,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/api/internal/util"
+	"github.com/suyuan32/simple-admin-core/pkg/utils"
 
 	"github.com/mojocn/base64Captcha"
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -15,7 +15,7 @@ import (
 	"github.com/zeromicro/go-zero/core/stores/redis"
 )
 
-var Store *util.RedisStore
+var Store *utils.RedisStore
 var driver *base64Captcha.DriverDigit
 
 type GetCaptchaLogic struct {
@@ -52,5 +52,5 @@ func (l *GetCaptchaLogic) GetCaptcha() (resp *types.CaptchaInfo, err error) {
 func initStoreAndDriver(c config.Config, r *redis.Redis) {
 	driver = base64Captcha.NewDriverDigit(c.Captcha.ImgHeight, c.Captcha.ImgWidth,
 		c.Captcha.KeyLong, 0.7, 80)
-	Store = util.NewRedisStore(r)
+	Store = utils.NewRedisStore(r)
 }

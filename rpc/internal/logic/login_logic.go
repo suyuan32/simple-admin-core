@@ -8,11 +8,11 @@ import (
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
+	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/util"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -46,12 +46,12 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 
 	if result.RowsAffected == 0 {
 		logx.Errorw("user does not find", logx.Field("username", in.Username))
-		return nil, status.Error(codes.InvalidArgument, msg.UserNotExists)
+		return nil, status.Error(codes.InvalidArgument, i18n.UserNotExists)
 	}
 
-	if ok := util.BcryptCheck(in.Password, u.Password); !ok {
+	if ok := utils.BcryptCheck(in.Password, u.Password); !ok {
 		logx.Errorw("wrong password", logx.Field("detail", in))
-		return nil, status.Error(codes.InvalidArgument, msg.WrongUsernameOrPassword)
+		return nil, status.Error(codes.InvalidArgument, i18n.WrongUsernameOrPassword)
 	}
 
 	roleName, value, err := getRoleInfo(u.RoleId, l.svcCtx.Redis, l.svcCtx.DB)

@@ -1,4 +1,4 @@
-package msg
+package i18n
 
 const (
 	// user service messages

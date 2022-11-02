@@ -10,8 +10,8 @@ import (
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -56,8 +56,8 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(in *core.ProviderIn
 		}
 
 		if result.RowsAffected == 0 {
-			logx.Errorw(msg.ApiAlreadyExists, logx.Field("detail", data))
-			return nil, status.Error(codes.InvalidArgument, msg.ApiAlreadyExists)
+			logx.Errorw(i18n.ApiAlreadyExists, logx.Field("detail", data))
+			return nil, status.Error(codes.InvalidArgument, i18n.ApiAlreadyExists)
 		}
 
 		logx.Infow(logmsg.CreateSuccess, logx.Field("detail", in))

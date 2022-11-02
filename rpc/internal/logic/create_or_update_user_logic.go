@@ -4,11 +4,11 @@ import (
 	"context"
 	"errors"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
+	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/util"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/google/uuid"
@@ -41,14 +41,14 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 		if check.RowsAffected != 0 {
 			logx.Errorw("username or email address had been used", logx.Field("username", in.Username),
 				logx.Field("email", in.Email))
-			return nil, status.Error(codes.InvalidArgument, msg.UserAlreadyExists)
+			return nil, status.Error(codes.InvalidArgument, i18n.UserAlreadyExists)
 		}
 
 		data := &model.User{
 			UUID:     uuid.NewString(),
 			Username: in.Username,
 			Nickname: in.Username,
-			Password: util.BcryptEncrypt(in.Password),
+			Password: utils.BcryptEncrypt(in.Password),
 			Email:    in.Email,
 			RoleId:   in.RoleId,
 			Avatar:   in.Avatar,
@@ -76,7 +76,7 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 		}
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			logx.Errorw("user does not find", logx.Field("userId", in.Id))
-			return nil, status.Error(codes.InvalidArgument, msg.UserNotExists)
+			return nil, status.Error(codes.InvalidArgument, i18n.UserNotExists)
 		}
 
 		data := &model.User{
@@ -84,7 +84,7 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 			UUID:     origin.UUID,
 			Username: in.Username,
 			Nickname: in.Username,
-			Password: util.BcryptEncrypt(in.Password),
+			Password: utils.BcryptEncrypt(in.Password),
 			Email:    in.Email,
 			RoleId:   in.RoleId,
 			Avatar:   in.Avatar,

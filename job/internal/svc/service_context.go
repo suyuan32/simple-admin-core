@@ -4,8 +4,8 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
 	"github.com/suyuan32/simple-admin-core/job/internal/config"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 )
 
 type ServiceContext struct {

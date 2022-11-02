@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -43,7 +43,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 			return
 		} else if roleStatus == "0" {
 			logx.Errorw("role is on forbidden status", logx.Field("roleId", roleId))
-			httpx.Error(w, errorx.NewApiError(http.StatusBadRequest, msg.RoleForbidden))
+			httpx.Error(w, errorx.NewApiError(http.StatusBadRequest, i18n.RoleForbidden))
 			return
 		}
 

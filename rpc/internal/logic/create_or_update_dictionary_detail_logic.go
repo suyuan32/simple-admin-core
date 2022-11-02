@@ -10,8 +10,8 @@ import (
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -36,8 +36,8 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 	check := l.svcCtx.DB.Where("id = ?", in.ParentId).First(&parent)
 
 	if errors.Is(check.Error, gorm.ErrRecordNotFound) {
-		logx.Errorw(msg.ParentNotExist, logx.Field("detail", in))
-		return nil, status.Error(codes.InvalidArgument, msg.ParentNotExist)
+		logx.Errorw(i18n.ParentNotExist, logx.Field("detail", in))
+		return nil, status.Error(codes.InvalidArgument, i18n.ParentNotExist)
 	}
 
 	if check.Error != nil {

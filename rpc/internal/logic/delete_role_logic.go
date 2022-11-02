@@ -3,8 +3,8 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -36,7 +36,7 @@ func (l *DeleteRoleLogic) DeleteRole(in *core.IDReq) (*core.BaseResp, error) {
 	if check != 0 {
 		logx.Errorw("delete role failed, please check the users who belongs to the role had been deleted",
 			logx.Field("roleId", in.ID))
-		return nil, status.Error(codes.InvalidArgument, msg.UserExists)
+		return nil, status.Error(codes.InvalidArgument, i18n.UserExists)
 	}
 	result := l.svcCtx.DB.Delete(&model.Role{
 		Model: gorm.Model{ID: uint(in.ID)},

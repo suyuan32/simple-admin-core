@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -40,7 +40,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		result := l.svcCtx.DB.Where("id = ?", in.ParentId).First(&parent)
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			logx.Errorw("wrong parent ID", logx.Field("parentId", in.ParentId))
-			return nil, status.Error(codes.InvalidArgument, msg.ParentNotExist)
+			return nil, status.Error(codes.InvalidArgument, i18n.ParentNotExist)
 		}
 		if result.Error != nil {
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
@@ -87,7 +87,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 			return nil, status.Error(codes.Internal, errorx.DatabaseError)
 		}
 		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, msg.MenuAlreadyExists)
+			return nil, status.Error(codes.InvalidArgument, i18n.MenuAlreadyExists)
 		}
 
 		logx.Infow("Create menu successfully", logx.Field("menuDetail", data))
@@ -96,7 +96,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 		var origin *model.Menu
 		result := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			return nil, status.Error(codes.InvalidArgument, msg.MenuNotExists)
+			return nil, status.Error(codes.InvalidArgument, i18n.MenuNotExists)
 		}
 
 		if result.Error != nil {

@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -53,7 +53,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 		}
 		if result.RowsAffected == 0 {
 			logx.Errorw("role value had been used", logx.Field("detail", data))
-			return nil, status.Error(codes.InvalidArgument, msg.DuplicateRoleValue)
+			return nil, status.Error(codes.InvalidArgument, i18n.DuplicateRoleValue)
 		}
 
 		err := l.UpdateRoleInfoInRedis()

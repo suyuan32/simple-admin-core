@@ -10,8 +10,8 @@ import (
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -50,7 +50,7 @@ func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(in *core.TokenInfo) (*cor
 		}
 		if result.RowsAffected == 0 {
 			logx.Errorw("Token already exists", logx.Field("detail", in))
-			return nil, status.Error(codes.InvalidArgument, msg.DictionaryAlreadyExists)
+			return nil, status.Error(codes.InvalidArgument, i18n.DictionaryAlreadyExists)
 		}
 
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil

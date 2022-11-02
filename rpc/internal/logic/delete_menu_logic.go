@@ -3,8 +3,8 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -40,7 +40,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 	if check.RowsAffected != 0 {
 		logx.Errorw("delete menu failed, please check its children had been deleted",
 			logx.Field("menuId", in.ID))
-		return nil, status.Error(codes.InvalidArgument, msg.ChildrenExistError)
+		return nil, status.Error(codes.InvalidArgument, i18n.ChildrenExistError)
 	}
 
 	result := l.svcCtx.DB.Delete(&model.Menu{
@@ -52,7 +52,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 	}
 	if result.RowsAffected == 0 {
 		logx.Errorw("delete menu failed, please check the menu id", logx.Field("menuId", in.ID))
-		return nil, status.Error(codes.InvalidArgument, msg.MenuNotExists)
+		return nil, status.Error(codes.InvalidArgument, i18n.MenuNotExists)
 	}
 
 	logx.Infow("delete menu successfully", logx.Field("menuId", in.ID))

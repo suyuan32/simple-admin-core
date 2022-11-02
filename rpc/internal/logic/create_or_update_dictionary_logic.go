@@ -9,8 +9,8 @@ import (
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -50,7 +50,7 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 		}
 		if result.RowsAffected == 0 {
 			logx.Errorw("dictionary already exists", logx.Field("detail", in))
-			return nil, status.Error(codes.InvalidArgument, msg.DictionaryAlreadyExists)
+			return nil, status.Error(codes.InvalidArgument, i18n.DictionaryAlreadyExists)
 		}
 
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil

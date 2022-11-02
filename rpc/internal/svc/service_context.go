@@ -1,7 +1,7 @@
 package svc
 
 import (
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/config"
 
 	"github.com/zeromicro/go-zero/core/logx"

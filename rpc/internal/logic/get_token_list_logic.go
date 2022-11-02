@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/common/logmsg"
-	"github.com/suyuan32/simple-admin-core/common/msg"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	model2 "github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -83,7 +83,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 
 		if errors.Is(userData.Error, gorm.ErrRecordNotFound) {
 			logx.Errorw(logmsg.TargetNotFound, logx.Field("detail", in))
-			return nil, status.Error(codes.InvalidArgument, msg.UserNotExists)
+			return nil, status.Error(codes.InvalidArgument, i18n.UserNotExists)
 		}
 
 		if userData.Error != nil {
