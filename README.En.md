@@ -28,6 +28,10 @@ It can help you to develop a microservice back-end management core in a short ti
 - **Authority** Manage authority via casbin, based on RBAC
 - **Other** builtin concurrency control, adaptive circuit breaker, adaptive load shedding, auto-trigger, auto recover
 
+## Notice 
+
+I will pay my all attention to develop ent version this week, in the future we can choose different orm via selecting different branch. I recommend to use ent.
+
 ## Current Progress
 
 | Module                | Status   |
