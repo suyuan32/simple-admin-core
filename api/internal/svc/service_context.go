@@ -25,6 +25,10 @@ type ServiceContext struct {
 func NewServiceContext(c config.Config) *ServiceContext {
 	// initialize redis
 	rds := c.RedisConf.NewRedis()
+	if !rds.Ping() {
+		logx.Error("Initialize redis failed")
+		return nil
+	}
 	logx.Info("Initialize redis connection successfully")
 
 	// initialize database connection
@@ -33,6 +37,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		return nil
 	}
+
 	logx.Info("Initialize database connection successful")
 
 	// initialize casbin

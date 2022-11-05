@@ -2,21 +2,17 @@ package logic
 
 import (
 	"context"
-	"errors"
 
-	"gorm.io/gorm"
-
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type ChangePasswordLogic struct {
@@ -34,32 +30,40 @@ func NewChangePasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ch
 }
 
 func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.BaseResp, error) {
-	var target model.User
-	result := l.svcCtx.DB.Where("uuid = ?", in.Uuid).First(&target)
-	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-		logx.Errorw("user does not exist", logx.Field("UUID", in.Uuid))
-		return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
-	}
+	target, err := l.svcCtx.DB.User.Query().Where(user.UUIDEQ(in.Uuid)).First(l.ctx)
 
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, errorx.DatabaseError)
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("uuid", in.Uuid))
+			return nil, statuserr.NewInvalidArgumentError(i18n.UserNotExists)
+		default:
+			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		}
 	}
 
 	if ok := utils.BcryptCheck(in.OldPassword, target.Password); ok {
-		target.Password = utils.BcryptEncrypt(in.NewPassword)
-		result = l.svcCtx.DB.Updates(&target)
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, errorx.DatabaseError)
-		}
-		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
+		newPassword := utils.BcryptEncrypt(in.NewPassword)
+
+		err = l.svcCtx.DB.User.Update().Where(user.UUIDEQ(in.Uuid)).SetPassword(newPassword).Exec(l.ctx)
+		if err != nil {
+			switch {
+			case ent.IsNotFound(err):
+				logx.Errorw(err.Error(), logx.Field("uuid", in.Uuid))
+				return nil, statuserr.NewInvalidArgumentError(i18n.UserNotExists)
+			case ent.IsConstraintError(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
 	} else {
 		logx.Errorw("old password is wrong", logx.Field("UUID", in.Uuid))
-		return nil, status.Error(codes.InvalidArgument, i18n.WrongPassword)
+		return nil, statuserr.NewInvalidArgumentError(i18n.WrongPassword)
 	}
-	logx.Infow("change password successful", logx.Field("UUID", in.Uuid))
+
 	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 }

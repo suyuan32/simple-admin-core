@@ -3,8 +3,9 @@ package logic
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-core/pkg/ent/api"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -28,31 +29,25 @@ func NewGetApiListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetApi
 }
 
 func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, error) {
-	db := l.svcCtx.DB.Model(&model.Api{})
-	var apis []model.Api
+	var predicates []predicate.Api
 
 	if in.Path != "" {
-		db = db.Where("path LIKE ?", "%"+in.Path+"%")
+		predicates = append(predicates, api.PathContains(in.Path))
 	}
 
 	if in.Description != "" {
-		db = db.Where("description LIKE ?", "%"+in.Description+"%")
+		predicates = append(predicates, api.DescriptionContains(in.Description))
 	}
 
 	if in.Method != "" {
-		db = db.Where("method = ?", in.Method)
+		predicates = append(predicates, api.MethodContains(in.Method))
 	}
 
 	if in.Group != "" {
-		db = db.Where("api_group = ?", in.Group)
+		predicates = append(predicates, api.APIGroupContains(in.Group))
 	}
-	resp := &core.ApiListResp{}
-	var total int64
-	db.Count(&total)
-	resp.Total = uint64(total)
 
-	result := db.Limit(int(in.Page.PageSize)).Offset(int((in.Page.Page - 1) * in.Page.PageSize)).
-		Order("api_group desc").Find(&apis)
+	pageResult, err := l.svcCtx.DB.Api.Query().Where(predicates...).Page(l.ctx, req.PageNo, req.PageSize)
 
 	if result.Error != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))

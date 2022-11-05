@@ -3,17 +3,15 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
 )
 
 type DeleteRoleLogic struct {
@@ -31,25 +29,30 @@ func NewDeleteRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 }
 
 func (l *DeleteRoleLogic) DeleteRole(in *core.IDReq) (*core.BaseResp, error) {
-	var users []model.User
-	check := l.svcCtx.DB.Model(&model.User{}).Where("role_id = ?", in.ID).Find(&users).RowsAffected
-	if check != 0 {
-		logx.Errorw("delete role failed, please check the users who belongs to the role had been deleted",
-			logx.Field("roleId", in.ID))
-		return nil, status.Error(codes.InvalidArgument, i18n.UserExists)
-	}
-	result := l.svcCtx.DB.Delete(&model.Role{
-		Model: gorm.Model{ID: uint(in.ID)},
-	})
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, result.Error.Error())
-	}
-	if result.RowsAffected == 0 {
-		logx.Errorw("delete role failed, please check the role id", logx.Field("roleId", in.ID))
-		return nil, status.Error(codes.InvalidArgument, errorx.DeleteFailed)
+	exist, err := l.svcCtx.DB.User.Query().Where(user.RoleIDEQ(in.ID)).Exist(l.ctx)
+	if err != nil {
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		return nil, statuserr.NewInternalError(errorx.DatabaseError)
 	}
 
-	logx.Infow("delete role successfully", logx.Field("roleId", in.ID))
+	if exist {
+		logx.Errorw("delete role failed, please check the role id",
+			logx.Field("roleId", in.ID))
+		return nil, statuserr.NewInvalidArgumentError(errorx.DeleteFailed)
+	}
+
+	err = l.svcCtx.DB.Role.DeleteOneID(in.ID).Exec(l.ctx)
+
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+		default:
+			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		}
+	}
+
 	return &core.BaseResp{Msg: errorx.DeleteSuccess}, nil
 }

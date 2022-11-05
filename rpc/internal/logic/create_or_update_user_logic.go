@@ -2,21 +2,17 @@ package logic
 
 import (
 	"context"
-	"errors"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
+	"github.com/google/uuid"
+
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/google/uuid"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
 )
 
 type CreateOrUpdateUserLogic struct {
@@ -35,71 +31,49 @@ func NewCreateOrUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 
 func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUserReq) (*core.BaseResp, error) {
 	if in.Id == 0 {
-		var u model.User
-		check := l.svcCtx.DB.Where("username = ? OR email = ?", in.Username, in.Email).First(&u)
+		err := l.svcCtx.DB.User.Create().
+			SetUUID(uuid.NewString()).
+			SetUsername(in.Username).
+			SetPassword(utils.BcryptEncrypt(in.Password)).
+			SetNickname(in.Email).
+			SetRoleID(2).
+			Exec(l.ctx)
 
-		if check.RowsAffected != 0 {
-			logx.Errorw("username or email address had been used", logx.Field("username", in.Username),
-				logx.Field("email", in.Email))
-			return nil, status.Error(codes.InvalidArgument, i18n.UserAlreadyExists)
+		if err != nil {
+			switch {
+			case ent.IsConstraintError(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
 
-		data := &model.User{
-			UUID:     uuid.NewString(),
-			Username: in.Username,
-			Nickname: in.Username,
-			Password: utils.BcryptEncrypt(in.Password),
-			Email:    in.Email,
-			RoleId:   in.RoleId,
-			Avatar:   in.Avatar,
-			Mobile:   in.Mobile,
-			Status:   in.Status,
-		}
-
-		result := l.svcCtx.DB.Create(&data)
-
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
-		}
-
-		logx.Infow("create user successfully", logx.Field("detail", data))
-		return &core.BaseResp{
-			Msg: errorx.Success,
-		}, nil
+		return &core.BaseResp{Msg: errorx.Success}, nil
 	} else {
-		var origin model.User
-		result := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
-		}
-		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw("user does not find", logx.Field("userId", in.Id))
-			return nil, status.Error(codes.InvalidArgument, i18n.UserNotExists)
-		}
+		err := l.svcCtx.DB.User.UpdateOneID(in.Id).
+			SetUUID(uuid.NewString()).
+			SetUsername(in.Username).
+			SetPassword(utils.BcryptEncrypt(in.Password)).
+			SetNickname(in.Email).
+			SetRoleID(2).
+			Exec(l.ctx)
 
-		data := &model.User{
-			Model:    gorm.Model{ID: origin.ID, CreatedAt: origin.CreatedAt},
-			UUID:     origin.UUID,
-			Username: in.Username,
-			Nickname: in.Username,
-			Password: utils.BcryptEncrypt(in.Password),
-			Email:    in.Email,
-			RoleId:   in.RoleId,
-			Avatar:   in.Avatar,
-			Mobile:   in.Mobile,
-			Status:   in.Status,
+		if err != nil {
+			switch {
+			case ent.IsNotFound(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+			case ent.IsConstraintError(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
 
-		result = l.svcCtx.DB.Save(&data)
-
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
-		}
-
-		logx.Infow("update user successfully", logx.Field("detail", data))
 		return &core.BaseResp{
 			Msg: errorx.Success,
 		}, nil

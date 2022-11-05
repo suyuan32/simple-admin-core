@@ -35,7 +35,7 @@ message LoginResp {
   string id = 1;
   string role_name = 2;
   string role_value = 3;
-  uint32 role_id = 4;
+  uint64 role_id = 4;
 }
 
 message ChangePasswordReq {
@@ -47,10 +47,10 @@ message ChangePasswordReq {
 message CreateOrUpdateUserReq {
   uint64 id = 1;
   string avatar = 2;
-  uint32 role_id = 3;
+  uint64 role_id = 3;
   string mobile = 4;
   string email = 5;
-  int32  status = 6;
+  uint64 status = 6;
   string username = 7;
   string nickname = 8;
   string password = 9;
@@ -59,10 +59,10 @@ message CreateOrUpdateUserReq {
 message UserInfoResp {
   uint64 id = 1;
   string avatar = 2;
-  uint32 role_id = 3;
+  uint64 role_id = 3;
   string mobile = 4;
   string email = 5;
-  int32  status = 6;
+  uint64 status = 6;
   string username = 7;
   string UUID = 8;
   string nickname = 9;
@@ -99,7 +99,7 @@ message UpdateProfileReq {
 
 message CreateOrUpdateMenuReq {
   uint32 level = 1;
-  uint32 parent_id = 2;
+  uint64 parent_id = 2;
   string path = 3;
   string name = 4;
   string redirect = 5;
@@ -116,7 +116,7 @@ message MenuInfo {
   int64 created_at = 2;
   int64 updated_at = 3;
   uint32 level = 4;
-  uint32 parent_id = 5;
+  uint64 parent_id = 5;
   string path = 6;
   string name = 7;
   string redirect = 8;
@@ -190,7 +190,7 @@ message RoleInfo {
   string name = 2;
   string value = 3;
   string default_router = 4;
-  uint32 status = 5;
+  uint64 status = 5;
   string remark = 6;
   uint32 order_no = 7;
   int64 createdAt = 8;
@@ -203,7 +203,7 @@ message RoleListResp {
 
 message SetStatusReq {
   uint64 id = 1;
-  uint32 status = 2;
+  uint64 status = 2;
 }
 
 // casbin
@@ -260,7 +260,7 @@ message DictionaryInfo {
   uint64 id = 1;
   string title = 2;
   string name = 3;
-  bool status = 4;
+  uint64 status = 4;
   string desc = 5;
   int64 created_at = 6;
   int64 updated_at = 7;
@@ -271,10 +271,10 @@ message DictionaryDetail {
   string title = 2;
   string key = 3;
   string value = 4;
-  bool  status = 5;
+  uint64 status = 5;
   int64 created_at = 6;
   int64 updated_at = 7;
-  int64 parent_id = 8;
+  uint64 dictionary_id = 8;
 }
 
 message DictionaryList {
@@ -341,7 +341,7 @@ message TokenInfo {
   string UUID = 3;
   string token = 4;
   string source = 5;
-  uint32 status = 6;
+  uint64 status = 6;
   int64 expired_at = 7;
 }
 

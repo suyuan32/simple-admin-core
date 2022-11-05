@@ -2,17 +2,12 @@ package logic
 
 import (
 	"context"
-	"errors"
-	"time"
 
 	"github.com/zeromicro/go-zero/core/errorx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/gotype"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -36,53 +31,45 @@ func NewCreateOrUpdateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext
 // Token management
 func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(in *core.TokenInfo) (*core.BaseResp, error) {
 	if in.Id == 0 {
-		result := l.svcCtx.DB.Create(&model.Token{
-			Model:     gorm.Model{},
-			UUID:      in.UUID,
-			Token:     in.Token,
-			Status:    in.Status,
-			Source:    in.Source,
-			ExpiredAt: time.Unix(in.ExpiredAt, 0),
-		})
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
-		}
-		if result.RowsAffected == 0 {
-			logx.Errorw("Token already exists", logx.Field("detail", in))
-			return nil, status.Error(codes.InvalidArgument, i18n.DictionaryAlreadyExists)
+		err := l.svcCtx.DB.Token.Create().
+			SetUUID(in.UUID).
+			SetToken(in.Token).
+			SetStatus(gotype.Status(in.Status)).
+			SetSource(in.Source).
+			Exec(l.ctx)
+
+		if err != nil {
+			switch {
+			case ent.IsConstraintError(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
 
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {
-		var origin model.Token
-		check := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
-		if errors.Is(check.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw(logmsg.TargetNotFound, logx.Field("detail", in))
-			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
-		}
+		err := l.svcCtx.DB.Token.UpdateOneID(in.Id).
+			SetUUID(in.UUID).
+			SetToken(in.Token).
+			SetStatus(gotype.Status(in.Status)).
+			SetSource(in.Source).
+			Exec(l.ctx)
 
-		if check.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", check.Error.Error()))
-			return nil, status.Error(codes.Internal, check.Error.Error())
-		}
-
-		origin.UUID = in.UUID
-		origin.Token = in.Token
-		origin.Status = in.Status
-		origin.Source = in.Source
-		origin.ExpiredAt = time.Unix(in.ExpiredAt, 0)
-
-		result := l.svcCtx.DB.Save(&origin)
-
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
-		}
-
-		if result.RowsAffected == 0 {
-			logx.Errorw(logmsg.UpdateFailed, logx.Field("detail", in))
-			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
+		if err != nil {
+			switch {
+			case ent.IsNotFound(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+			case ent.IsConstraintError(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
 
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil

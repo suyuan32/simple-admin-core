@@ -2,17 +2,18 @@ package logic
 
 import (
 	"context"
-	"errors"
 
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
 
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
+	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 )
@@ -32,68 +33,64 @@ func NewCreateOrUpdateDictionaryDetailLogic(ctx context.Context, svcCtx *svc.Ser
 }
 
 func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in *core.DictionaryDetail) (*core.BaseResp, error) {
-	var parent model.Dictionary
-	check := l.svcCtx.DB.Where("id = ?", in.ParentId).First(&parent)
+	exist, err := l.svcCtx.DB.Dictionary.Query().Where(dictionary.IDEQ(in.DictionaryId)).Exist(l.ctx)
 
-	if errors.Is(check.Error, gorm.ErrRecordNotFound) {
-		logx.Errorw(i18n.ParentNotExist, logx.Field("detail", in))
-		return nil, status.Error(codes.InvalidArgument, i18n.ParentNotExist)
+	if err != nil {
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		return nil, statuserr.NewInternalError(errorx.DatabaseError)
 	}
 
-	if check.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", check.Error.Error()))
-		return nil, status.Error(codes.Internal, check.Error.Error())
+	if !exist {
+		logx.Errorw("the parent menu does not exist", logx.Field("detail", in))
+		return nil, statuserr.NewInvalidArgumentError(i18n.ParentNotExist)
 	}
+
 	if in.Id == 0 {
-		result := l.svcCtx.DB.Create(&model.DictionaryDetail{
-			Model:        gorm.Model{},
-			Title:        in.Title,
-			Key:          in.Key,
-			Value:        in.Value,
-			Status:       in.Status,
-			DictionaryID: uint(in.ParentId),
-		})
+		err := l.svcCtx.DB.DictionaryDetail.Create().
+			SetTitle(in.Title).
+			SetKey(in.Key).
+			SetValue(in.Value).
+			SetStatus(gotype.Status(in.Status)).
+			SetDictionaryID(in.DictionaryId).
+			Exec(l.ctx)
 
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
+		if err != nil {
+			switch {
+			case ent.IsConstraintError(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
-
-		logx.Infow(logmsg.CreateSuccess, logx.Field("detail", in))
+		if err != nil {
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, status.Error(codes.Internal, err.Error())
+		}
 
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {
-		var origin model.DictionaryDetail
-		checkOrigin := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
+		err = l.svcCtx.DB.DictionaryDetail.UpdateOneID(in.Id).
+			SetTitle(in.Title).
+			SetKey(in.Key).
+			SetValue(in.Value).
+			SetStatus(gotype.Status(in.Status)).
+			Exec(l.ctx)
 
-		if errors.Is(checkOrigin.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw(logmsg.TargetNotFound, logx.Field("detail", in))
-			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
+		if err != nil {
+			switch {
+			case ent.IsNotFound(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+			case ent.IsConstraintError(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
-
-		if checkOrigin.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", checkOrigin.Error.Error()))
-			return nil, status.Error(codes.Internal, checkOrigin.Error.Error())
-		}
-
-		origin.Title = in.Title
-		origin.Key = in.Key
-		origin.Value = in.Value
-		origin.Status = in.Status
-
-		result := l.svcCtx.DB.Save(&origin)
-
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
-		}
-
-		if result.RowsAffected == 0 {
-			logx.Errorw(logmsg.UpdateFailed, logx.Field("detail", in))
-			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
-		}
-
-		logx.Infow(logmsg.UpdateSuccess, logx.Field("detail", in))
 
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 	}
