@@ -26,14 +26,14 @@ func NewGetUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.UserListResp, err error) {
-	data, err := l.svcCtx.CoreRpc.GetUserList(context.Background(), &core.GetUserListReq{
+	data, err := l.svcCtx.CoreRpc.GetUserList(l.ctx, &core.GetUserListReq{
 		Page:     req.Page,
 		PageSize: req.PageSize,
 		Username: req.Username,
 		Nickname: req.Nickname,
 		Email:    req.Email,
 		Mobile:   req.Mobile,
-		RoleId:   req.RoleId,
+		RoleId:   req.RoleID,
 	})
 	if err != nil {
 		return nil, err
@@ -41,17 +41,19 @@ func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.U
 	var res []types.UserInfoResp
 	for _, v := range data.Data {
 		res = append(res, types.UserInfoResp{
-			Id:        int64(v.Id),
-			Username:  v.Username,
-			Nickname:  v.Nickname,
-			Mobile:    v.Mobile,
-			RoleId:    v.RoleId,
-			Email:     v.Email,
-			Avatar:    v.Avatar,
-			Status:    v.Status,
-			CreatedAt: v.CreatedAt,
-			UpdatedAt: v.UpdatedAt,
-			UUID:      v.UUID,
+			BaseInfo: types.BaseInfo{
+				Id:        v.Id,
+				CreatedAt: v.CreatedAt,
+				UpdatedAt: v.UpdatedAt,
+			},
+			Username: v.Username,
+			Nickname: v.Nickname,
+			Mobile:   v.Mobile,
+			RoleID:   v.RoleId,
+			Email:    v.Email,
+			Avatar:   v.Avatar,
+			Status:   v.Status,
+			UUID:     v.Uuid,
 		})
 	}
 	resp = &types.UserListResp{}

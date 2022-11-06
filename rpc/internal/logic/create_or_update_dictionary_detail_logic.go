@@ -10,7 +10,6 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
@@ -50,7 +49,7 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 			SetTitle(in.Title).
 			SetKey(in.Key).
 			SetValue(in.Value).
-			SetStatus(gotype.Status(in.Status)).
+			SetStatus(uint8(in.Status)).
 			SetDictionaryID(in.DictionaryId).
 			Exec(l.ctx)
 
@@ -75,7 +74,7 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 			SetTitle(in.Title).
 			SetKey(in.Key).
 			SetValue(in.Value).
-			SetStatus(gotype.Status(in.Status)).
+			SetStatus(uint8(in.Status)).
 			Exec(l.ctx)
 
 		if err != nil {

@@ -3,15 +3,15 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/zeromicro/go-zero/core/errorx"
+
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
 )
 
 type GetMenuByPageLogic struct {
@@ -29,55 +29,53 @@ func NewGetMenuByPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Get
 }
 
 func (l *GetMenuByPageLogic) GetMenuByPage(in *core.PageInfoReq) (*core.MenuInfoList, error) {
-	var data []model.Menu
-	result := l.svcCtx.DB.Preload("Children", func(db *gorm.DB) *gorm.DB {
-		return db.Order("order_no ASC")
-	}).Limit(int(in.PageSize)).Offset(int(in.Page * in.PageSize)).
-		Order("order_no ASC").Find(&data)
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, "database error")
+	menus, err := l.svcCtx.DB.Menu.Query().Order(ent.Asc(menu.FieldOrderNo)).Page(l.ctx, in.Page, in.PageSize)
+
+	if err != nil {
+		logx.Error(err.Error())
+		return nil, statuserr.NewInternalError(errorx.DatabaseError)
 	}
-	var res *core.MenuInfoList
-	res = &core.MenuInfoList{}
-	res.Data = findMenuChildren(data, 1)
-	res.Total = uint64(len(res.Data))
-	return res, nil
+
+	var resp *core.MenuInfoList
+	resp = &core.MenuInfoList{}
+	resp.Data = findMenuChildren(menus.List, uint64(1))
+	resp.Total = uint64(len(resp.Data))
+	return resp, nil
 }
 
-func findMenuChildren(data []model.Menu, parentId uint) []*core.MenuInfo {
+func findMenuChildren(data []*ent.Menu, parentId uint64) []*core.MenuInfo {
 	if data == nil {
 		return nil
 	}
 	var result []*core.MenuInfo
 	for _, v := range data {
-		if v.ParentId == parentId && v.ID != v.ParentId {
+		if v.ParentID == parentId && v.ID != v.ParentID {
 			tmp := &core.MenuInfo{
-				Id:        uint64(v.ID),
+				Id:        v.ID,
 				CreatedAt: v.CreatedAt.UnixMilli(),
 				UpdatedAt: v.UpdatedAt.UnixMilli(),
 				MenuType:  v.MenuType,
 				Level:     v.MenuLevel,
-				ParentId:  uint32(v.ParentId),
+				ParentId:  v.ParentID,
 				Path:      v.Path,
 				Name:      v.Name,
 				Redirect:  v.Redirect,
 				Component: v.Component,
 				OrderNo:   v.OrderNo,
 				Meta: &core.Meta{
-					Title:              v.Meta.Title,
-					Icon:               v.Meta.Icon,
-					HideMenu:           v.Meta.HideMenu,
-					HideBreadcrumb:     v.Meta.HideBreadcrumb,
-					CurrentActiveMenu:  v.Meta.CurrentActiveMenu,
-					IgnoreKeepAlive:    v.Meta.IgnoreKeepAlive,
-					HideTab:            v.Meta.HideTab,
-					FrameSrc:           v.Meta.FrameSrc,
-					CarryParam:         v.Meta.CarryParam,
-					HideChildrenInMenu: v.Meta.HideChildrenInMenu,
-					Affix:              v.Meta.Affix,
-					DynamicLevel:       v.Meta.DynamicLevel,
-					RealPath:           v.Meta.RealPath,
+					Title:              v.Title,
+					Icon:               v.Icon,
+					HideMenu:           v.HideMenu,
+					HideBreadcrumb:     v.HideBreadcrumb,
+					CurrentActiveMenu:  v.CurrentActiveMenu,
+					IgnoreKeepAlive:    v.IgnoreKeepAlive,
+					HideTab:            v.HideTab,
+					FrameSrc:           v.FrameSrc,
+					CarryParam:         v.CarryParam,
+					HideChildrenInMenu: v.HideChildrenInMenu,
+					Affix:              v.Affix,
+					DynamicLevel:       v.DynamicLevel,
+					RealPath:           v.RealPath,
 				},
 				Children: findMenuChildren(data, v.ID),
 			}

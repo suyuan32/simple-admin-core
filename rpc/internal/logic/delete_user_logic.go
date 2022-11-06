@@ -27,7 +27,7 @@ func NewDeleteUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 }
 
 func (l *DeleteUserLogic) DeleteUser(in *core.IDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.User.DeleteOneID(in.ID).Exec(l.ctx)
+	err := l.svcCtx.DB.User.DeleteOneID(in.Id).Exec(l.ctx)
 
 	if err != nil {
 		switch {

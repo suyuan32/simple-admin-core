@@ -14,10 +14,7 @@ type (
     // The response data of API information | API信息
     // swagger:response ApiInfo
     ApiInfo {
-        // ID
-        Id            uint64 `json:"id"`
-
-        CreatedAt      int64  `json:"createdAt"`
+        BaseInfo
 
         // API path | API路径
         Path          string `json:"path"`
@@ -37,11 +34,7 @@ type (
     CreateOrUpdateApiReq {
         // ID
         // Required: true
-        Id            uint64 `json:"id" validate:"number"`
-
-        // Create date | 创建日期
-        // Required: true
-        CreatedAt      int64  `json:"createdAt" validate:"number"`
+        ID            uint64 `json:"ID" validate:"number"`
 
         // API path | API路径
         // Required: true

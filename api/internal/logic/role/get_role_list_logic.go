@@ -26,7 +26,7 @@ func NewGetRoleListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRo
 }
 
 func (l *GetRoleListLogic) GetRoleList(req *types.PageInfo) (resp *types.RoleListResp, err error) {
-	data, err := l.svcCtx.CoreRpc.GetRoleList(context.Background(), &core.PageInfoReq{
+	data, err := l.svcCtx.CoreRpc.GetRoleList(l.ctx, &core.PageInfoReq{
 		Page:     req.Page,
 		PageSize: req.PageSize,
 	})
@@ -37,14 +37,16 @@ func (l *GetRoleListLogic) GetRoleList(req *types.PageInfo) (resp *types.RoleLis
 	resp.Total = data.Total
 	for _, v := range data.Data {
 		resp.Data = append(resp.Data, types.RoleInfo{
-			Id:            v.Id,
+			BaseInfo: types.BaseInfo{
+				Id:        v.Id,
+				CreatedAt: v.CreatedAt,
+			},
 			Name:          v.Name,
 			Value:         v.Value,
 			DefaultRouter: v.DefaultRouter,
-			Status:        v.Status,
+			Status:        uint32(v.Status),
 			Remark:        v.Remark,
 			OrderNo:       v.OrderNo,
-			CreatedAt:     v.CreatedAt,
 		})
 	}
 	return resp, nil

@@ -27,7 +27,7 @@ func NewDeleteApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteA
 }
 
 func (l *DeleteApiLogic) DeleteApi(in *core.IDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Api.DeleteOneID(in.ID).Exec(l.ctx)
+	err := l.svcCtx.DB.API.DeleteOneID(in.Id).Exec(l.ctx)
 
 	if err != nil {
 		switch {

@@ -14,7 +14,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // DictionaryDetailUpdate is the builder for updating DictionaryDetail entities.
@@ -37,23 +36,23 @@ func (ddu *DictionaryDetailUpdate) SetUpdatedAt(t time.Time) *DictionaryDetailUp
 }
 
 // SetStatus sets the "status" field.
-func (ddu *DictionaryDetailUpdate) SetStatus(_go gotype.Status) *DictionaryDetailUpdate {
+func (ddu *DictionaryDetailUpdate) SetStatus(u uint8) *DictionaryDetailUpdate {
 	ddu.mutation.ResetStatus()
-	ddu.mutation.SetStatus(_go)
+	ddu.mutation.SetStatus(u)
 	return ddu
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (ddu *DictionaryDetailUpdate) SetNillableStatus(_go *gotype.Status) *DictionaryDetailUpdate {
-	if _go != nil {
-		ddu.SetStatus(*_go)
+func (ddu *DictionaryDetailUpdate) SetNillableStatus(u *uint8) *DictionaryDetailUpdate {
+	if u != nil {
+		ddu.SetStatus(*u)
 	}
 	return ddu
 }
 
-// AddStatus adds _go to the "status" field.
-func (ddu *DictionaryDetailUpdate) AddStatus(_go gotype.Status) *DictionaryDetailUpdate {
-	ddu.mutation.AddStatus(_go)
+// AddStatus adds u to the "status" field.
+func (ddu *DictionaryDetailUpdate) AddStatus(u int8) *DictionaryDetailUpdate {
+	ddu.mutation.AddStatus(u)
 	return ddu
 }
 
@@ -274,23 +273,23 @@ func (dduo *DictionaryDetailUpdateOne) SetUpdatedAt(t time.Time) *DictionaryDeta
 }
 
 // SetStatus sets the "status" field.
-func (dduo *DictionaryDetailUpdateOne) SetStatus(_go gotype.Status) *DictionaryDetailUpdateOne {
+func (dduo *DictionaryDetailUpdateOne) SetStatus(u uint8) *DictionaryDetailUpdateOne {
 	dduo.mutation.ResetStatus()
-	dduo.mutation.SetStatus(_go)
+	dduo.mutation.SetStatus(u)
 	return dduo
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (dduo *DictionaryDetailUpdateOne) SetNillableStatus(_go *gotype.Status) *DictionaryDetailUpdateOne {
-	if _go != nil {
-		dduo.SetStatus(*_go)
+func (dduo *DictionaryDetailUpdateOne) SetNillableStatus(u *uint8) *DictionaryDetailUpdateOne {
+	if u != nil {
+		dduo.SetStatus(*u)
 	}
 	return dduo
 }
 
-// AddStatus adds _go to the "status" field.
-func (dduo *DictionaryDetailUpdateOne) AddStatus(_go gotype.Status) *DictionaryDetailUpdateOne {
-	dduo.mutation.AddStatus(_go)
+// AddStatus adds u to the "status" field.
+func (dduo *DictionaryDetailUpdateOne) AddStatus(u int8) *DictionaryDetailUpdateOne {
+	dduo.mutation.AddStatus(u)
 	return dduo
 }
 

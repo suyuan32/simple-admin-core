@@ -32,12 +32,12 @@ func NewDeleteDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 func (l *DeleteDictionaryLogic) DeleteDictionary(in *core.IDReq) (*core.BaseResp, error) {
 
 	err := utils.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
-		err := tx.Dictionary.UpdateOneID(in.ID).ClearDetails().Exec(l.ctx)
+		err := tx.Dictionary.UpdateOneID(in.Id).ClearDictionaryDetails().Exec(l.ctx)
 		if err != nil {
 			return err
 		}
 
-		err = tx.Dictionary.DeleteOneID(in.ID).Exec(l.ctx)
+		err = tx.Dictionary.DeleteOneID(in.Id).Exec(l.ctx)
 		if err != nil {
 			return err
 		}

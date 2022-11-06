@@ -12,7 +12,6 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // RoleCreate is the builder for creating a Role entity.
@@ -51,15 +50,15 @@ func (rc *RoleCreate) SetNillableUpdatedAt(t *time.Time) *RoleCreate {
 }
 
 // SetStatus sets the "status" field.
-func (rc *RoleCreate) SetStatus(_go gotype.Status) *RoleCreate {
-	rc.mutation.SetStatus(_go)
+func (rc *RoleCreate) SetStatus(u uint8) *RoleCreate {
+	rc.mutation.SetStatus(u)
 	return rc
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (rc *RoleCreate) SetNillableStatus(_go *gotype.Status) *RoleCreate {
-	if _go != nil {
-		rc.SetStatus(*_go)
+func (rc *RoleCreate) SetNillableStatus(u *uint8) *RoleCreate {
+	if u != nil {
+		rc.SetStatus(*u)
 	}
 	return rc
 }
@@ -333,7 +332,7 @@ func (rc *RoleCreate) createSpec() (*Role, *sqlgraph.CreateSpec) {
 	if nodes := rc.mutation.MenusIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   role.MenusTable,
 			Columns: role.MenusPrimaryKey,
 			Bidi:    false,

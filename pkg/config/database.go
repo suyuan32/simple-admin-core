@@ -26,7 +26,7 @@ type DatabaseConf struct {
 	Port         int
 	Username     string `json:",optional"`
 	Password     string `json:",optional"`
-	DbName       string `json:",optional"`
+	DBName       string `json:",optional"`
 	SSLMode      bool   `json:",optional"`
 	Type         string `json:",optional"` // "postgres" or "mysql"
 	MaxOpenConns *int   `json:",optional,default=100"`
@@ -89,10 +89,10 @@ func (c DatabaseConf) getEntDriver(dbtype string, dialect string, dsn string, re
 }
 
 func (c DatabaseConf) MysqlDSN() string {
-	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=True", c.Username, c.Password, c.Host, c.Port, c.DbName)
+	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=True", c.Username, c.Password, c.Host, c.Port, c.DBName)
 }
 
 func (c DatabaseConf) PostgresDSN() string {
 	return fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=%s", c.Host, c.Username, c.Password,
-		c.DbName, c.Port, c.SSLMode)
+		c.DBName, c.Port, c.SSLMode)
 }

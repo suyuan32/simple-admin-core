@@ -10,5 +10,6 @@ import (
 type Config struct {
 	zrpc.RpcServerConf
 	DatabaseConf config.DatabaseConf
+	CasbinConf   config.CasbinConf
 	RedisConf    redis.RedisConf
 }

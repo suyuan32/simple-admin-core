@@ -640,6 +640,20 @@ func PathHasSuffix(v string) predicate.Menu {
 	})
 }
 
+// PathIsNil applies the IsNil predicate on the "path" field.
+func PathIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldPath)))
+	})
+}
+
+// PathNotNil applies the NotNil predicate on the "path" field.
+func PathNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldPath)))
+	})
+}
+
 // PathEqualFold applies the EqualFold predicate on the "path" field.
 func PathEqualFold(v string) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
@@ -951,6 +965,20 @@ func ComponentHasSuffix(v string) predicate.Menu {
 	})
 }
 
+// ComponentIsNil applies the IsNil predicate on the "component" field.
+func ComponentIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldComponent)))
+	})
+}
+
+// ComponentNotNil applies the NotNil predicate on the "component" field.
+func ComponentNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldComponent)))
+	})
+}
+
 // ComponentEqualFold applies the EqualFold predicate on the "component" field.
 func ComponentEqualFold(v string) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
@@ -1040,6 +1068,20 @@ func DisabledEQ(v bool) predicate.Menu {
 func DisabledNEQ(v bool) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldDisabled), v))
+	})
+}
+
+// DisabledIsNil applies the IsNil predicate on the "disabled" field.
+func DisabledIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDisabled)))
+	})
+}
+
+// DisabledNotNil applies the NotNil predicate on the "disabled" field.
+func DisabledNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDisabled)))
 	})
 }
 
@@ -1255,6 +1297,20 @@ func HideMenuNEQ(v bool) predicate.Menu {
 	})
 }
 
+// HideMenuIsNil applies the IsNil predicate on the "hide_menu" field.
+func HideMenuIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldHideMenu)))
+	})
+}
+
+// HideMenuNotNil applies the NotNil predicate on the "hide_menu" field.
+func HideMenuNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldHideMenu)))
+	})
+}
+
 // HideBreadcrumbEQ applies the EQ predicate on the "hide_breadcrumb" field.
 func HideBreadcrumbEQ(v bool) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
@@ -1266,6 +1322,20 @@ func HideBreadcrumbEQ(v bool) predicate.Menu {
 func HideBreadcrumbNEQ(v bool) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldHideBreadcrumb), v))
+	})
+}
+
+// HideBreadcrumbIsNil applies the IsNil predicate on the "hide_breadcrumb" field.
+func HideBreadcrumbIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldHideBreadcrumb)))
+	})
+}
+
+// HideBreadcrumbNotNil applies the NotNil predicate on the "hide_breadcrumb" field.
+func HideBreadcrumbNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldHideBreadcrumb)))
 	})
 }
 
@@ -1354,6 +1424,20 @@ func CurrentActiveMenuHasSuffix(v string) predicate.Menu {
 	})
 }
 
+// CurrentActiveMenuIsNil applies the IsNil predicate on the "current_active_menu" field.
+func CurrentActiveMenuIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldCurrentActiveMenu)))
+	})
+}
+
+// CurrentActiveMenuNotNil applies the NotNil predicate on the "current_active_menu" field.
+func CurrentActiveMenuNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldCurrentActiveMenu)))
+	})
+}
+
 // CurrentActiveMenuEqualFold applies the EqualFold predicate on the "current_active_menu" field.
 func CurrentActiveMenuEqualFold(v string) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
@@ -1382,6 +1466,20 @@ func IgnoreKeepAliveNEQ(v bool) predicate.Menu {
 	})
 }
 
+// IgnoreKeepAliveIsNil applies the IsNil predicate on the "ignore_keep_alive" field.
+func IgnoreKeepAliveIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldIgnoreKeepAlive)))
+	})
+}
+
+// IgnoreKeepAliveNotNil applies the NotNil predicate on the "ignore_keep_alive" field.
+func IgnoreKeepAliveNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldIgnoreKeepAlive)))
+	})
+}
+
 // HideTabEQ applies the EQ predicate on the "hide_tab" field.
 func HideTabEQ(v bool) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
@@ -1393,6 +1491,20 @@ func HideTabEQ(v bool) predicate.Menu {
 func HideTabNEQ(v bool) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldHideTab), v))
+	})
+}
+
+// HideTabIsNil applies the IsNil predicate on the "hide_tab" field.
+func HideTabIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldHideTab)))
+	})
+}
+
+// HideTabNotNil applies the NotNil predicate on the "hide_tab" field.
+func HideTabNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldHideTab)))
 	})
 }
 
@@ -1481,6 +1593,20 @@ func FrameSrcHasSuffix(v string) predicate.Menu {
 	})
 }
 
+// FrameSrcIsNil applies the IsNil predicate on the "frame_src" field.
+func FrameSrcIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldFrameSrc)))
+	})
+}
+
+// FrameSrcNotNil applies the NotNil predicate on the "frame_src" field.
+func FrameSrcNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldFrameSrc)))
+	})
+}
+
 // FrameSrcEqualFold applies the EqualFold predicate on the "frame_src" field.
 func FrameSrcEqualFold(v string) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
@@ -1509,6 +1635,20 @@ func CarryParamNEQ(v bool) predicate.Menu {
 	})
 }
 
+// CarryParamIsNil applies the IsNil predicate on the "carry_param" field.
+func CarryParamIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldCarryParam)))
+	})
+}
+
+// CarryParamNotNil applies the NotNil predicate on the "carry_param" field.
+func CarryParamNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldCarryParam)))
+	})
+}
+
 // HideChildrenInMenuEQ applies the EQ predicate on the "hide_children_in_menu" field.
 func HideChildrenInMenuEQ(v bool) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
@@ -1523,6 +1663,20 @@ func HideChildrenInMenuNEQ(v bool) predicate.Menu {
 	})
 }
 
+// HideChildrenInMenuIsNil applies the IsNil predicate on the "hide_children_in_menu" field.
+func HideChildrenInMenuIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldHideChildrenInMenu)))
+	})
+}
+
+// HideChildrenInMenuNotNil applies the NotNil predicate on the "hide_children_in_menu" field.
+func HideChildrenInMenuNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldHideChildrenInMenu)))
+	})
+}
+
 // AffixEQ applies the EQ predicate on the "affix" field.
 func AffixEQ(v bool) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
@@ -1534,6 +1688,20 @@ func AffixEQ(v bool) predicate.Menu {
 func AffixNEQ(v bool) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldAffix), v))
+	})
+}
+
+// AffixIsNil applies the IsNil predicate on the "affix" field.
+func AffixIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldAffix)))
+	})
+}
+
+// AffixNotNil applies the NotNil predicate on the "affix" field.
+func AffixNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldAffix)))
 	})
 }
 
@@ -1598,6 +1766,20 @@ func DynamicLevelLT(v uint32) predicate.Menu {
 func DynamicLevelLTE(v uint32) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldDynamicLevel), v))
+	})
+}
+
+// DynamicLevelIsNil applies the IsNil predicate on the "dynamic_level" field.
+func DynamicLevelIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDynamicLevel)))
+	})
+}
+
+// DynamicLevelNotNil applies the NotNil predicate on the "dynamic_level" field.
+func DynamicLevelNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDynamicLevel)))
 	})
 }
 
@@ -1686,6 +1868,20 @@ func RealPathHasSuffix(v string) predicate.Menu {
 	})
 }
 
+// RealPathIsNil applies the IsNil predicate on the "real_path" field.
+func RealPathIsNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldRealPath)))
+	})
+}
+
+// RealPathNotNil applies the NotNil predicate on the "real_path" field.
+func RealPathNotNil() predicate.Menu {
+	return predicate.Menu(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldRealPath)))
+	})
+}
+
 // RealPathEqualFold applies the EqualFold predicate on the "real_path" field.
 func RealPathEqualFold(v string) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
@@ -1706,7 +1902,7 @@ func HasRoles() predicate.Menu {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(RolesTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, false, RolesTable, RolesPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2M, true, RolesTable, RolesPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
@@ -1718,7 +1914,7 @@ func HasRolesWith(preds ...predicate.Role) predicate.Menu {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(RolesInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, false, RolesTable, RolesPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2M, true, RolesTable, RolesPrimaryKey...),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

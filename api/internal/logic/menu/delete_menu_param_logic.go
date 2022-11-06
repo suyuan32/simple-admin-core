@@ -26,7 +26,7 @@ func NewDeleteMenuParamLogic(ctx context.Context, svcCtx *svc.ServiceContext) *D
 }
 
 func (l *DeleteMenuParamLogic) DeleteMenuParam(req *types.IDReq) (resp *types.SimpleMsg, err error) {
-	result, err := l.svcCtx.CoreRpc.DeleteMenuParam(l.ctx, &core.IDReq{ID: uint64(req.ID)})
+	result, err := l.svcCtx.CoreRpc.DeleteMenuParam(l.ctx, &core.IDReq{Id: req.Id})
 
 	if err != nil {
 		return nil, err

@@ -25,12 +25,12 @@ func NewGetTokenListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetT
 }
 
 func (l *GetTokenListLogic) GetTokenList(req *types.TokenListReq) (resp *types.TokenListResp, err error) {
-	result, err := l.svcCtx.CoreRpc.GetTokenList(context.Background(), &core.TokenListReq{
+	result, err := l.svcCtx.CoreRpc.GetTokenList(l.ctx, &core.TokenListReq{
 		Page: &core.PageInfoReq{
 			Page:     req.Page,
 			PageSize: req.PageSize,
 		},
-		UUID:     req.UUID,
+		Uuid:     req.UUID,
 		Username: req.Username,
 		Nickname: req.Nickname,
 		Email:    req.Email,
@@ -45,9 +45,12 @@ func (l *GetTokenListLogic) GetTokenList(req *types.TokenListReq) (resp *types.T
 
 	for _, v := range result.Data {
 		resp.Data = append(resp.Data, types.TokenInfo{
-			Id:        v.Id,
-			CreatedAt: v.CreatedAt,
-			UUID:      v.UUID,
+			BaseInfo: types.BaseInfo{
+				Id:        v.Id,
+				CreatedAt: v.CreatedAt,
+				UpdatedAt: v.UpdatedAt,
+			},
+			UUID:      v.Uuid,
 			Token:     v.Token,
 			Source:    v.Source,
 			Status:    v.Status,

@@ -31,7 +31,7 @@ func NewDeleteMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 }
 
 func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
-	exist, err := l.svcCtx.DB.Menu.Query().Where(menu.ParentID(in.ID)).Exist(l.ctx)
+	exist, err := l.svcCtx.DB.Menu.Query().Where(menu.ParentID(in.Id)).Exist(l.ctx)
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		return nil, statuserr.NewInternalError(errorx.DatabaseError)
@@ -39,7 +39,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 
 	if exist {
 		logx.Errorw("delete menu failed, please check its children had been deleted",
-			logx.Field("menuId", in.ID))
+			logx.Field("menuId", in.Id))
 		return nil, statuserr.NewInvalidArgumentError(i18n.ChildrenExistError)
 	}
 
@@ -50,8 +50,8 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
 			return statuserr.NewInternalError(errorx.DatabaseError)
 		}
-		
-		err = l.svcCtx.DB.Menu.DeleteOneID(in.ID).Exec(l.ctx)
+
+		err = l.svcCtx.DB.Menu.DeleteOneID(in.Id).Exec(l.ctx)
 
 		if err != nil {
 			switch {

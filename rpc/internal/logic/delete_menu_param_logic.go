@@ -29,7 +29,7 @@ func NewDeleteMenuParamLogic(ctx context.Context, svcCtx *svc.ServiceContext) *D
 }
 
 func (l *DeleteMenuParamLogic) DeleteMenuParam(in *core.IDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.DictionaryDetail.DeleteOneID(in.ID).Exec(l.ctx)
+	err := l.svcCtx.DB.DictionaryDetail.DeleteOneID(in.Id).Exec(l.ctx)
 
 	if err != nil {
 		switch {

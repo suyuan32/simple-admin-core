@@ -28,7 +28,7 @@ func NewDeleteProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext) *De
 }
 
 func (l *DeleteProviderLogic) DeleteProvider(in *core.IDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.OauthProvider.DeleteOneID(in.ID).Exec(l.ctx)
+	err := l.svcCtx.DB.OauthProvider.DeleteOneID(in.Id).Exec(l.ctx)
 
 	if err != nil {
 		switch {

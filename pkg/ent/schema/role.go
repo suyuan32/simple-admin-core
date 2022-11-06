@@ -31,6 +31,6 @@ func (Role) Mixin() []ent.Mixin {
 
 func (Role) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("menus", Menu.Type).Ref("roles"),
+		edge.To("menus", Menu.Type),
 	}
 }

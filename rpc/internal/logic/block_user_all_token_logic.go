@@ -31,7 +31,7 @@ func NewBlockUserAllTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Token.Update().Where(token.UUIDEQ(in.UUID)).SetStatus(0).Exec(l.ctx)
+	err := l.svcCtx.DB.Token.Update().Where(token.UUIDEQ(in.Uuid)).SetStatus(0).Exec(l.ctx)
 
 	if err != nil {
 		switch {
@@ -45,7 +45,7 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 	}
 
 	tokenData, err := l.svcCtx.DB.Token.Query().
-		Where(token.UUIDEQ(in.UUID)).
+		Where(token.UUIDEQ(in.Uuid)).
 		Where(token.StatusEQ(0)).
 		Where(token.ExpiredAtGT(time.Now())).
 		All(l.ctx)

@@ -70,7 +70,7 @@ const (
 	// Table holds the table name of the menu in the database.
 	Table = "menus"
 	// RolesTable is the table that holds the roles relation/edge. The primary key declared below.
-	RolesTable = "menu_roles"
+	RolesTable = "role_menus"
 	// RolesInverseTable is the table name for the Role entity.
 	// It exists in this package in order to avoid circular dependency with the "role" package.
 	RolesInverseTable = "roles"
@@ -123,7 +123,7 @@ var Columns = []string{
 var (
 	// RolesPrimaryKey and RolesColumn2 are the table columns denoting the
 	// primary key for the roles relation (M2M).
-	RolesPrimaryKey = []string{"menu_id", "role_id"}
+	RolesPrimaryKey = []string{"role_id", "menu_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -143,10 +143,36 @@ var (
 	DefaultUpdatedAt func() time.Time
 	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
 	UpdateDefaultUpdatedAt func() time.Time
+	// DefaultPath holds the default value on creation for the "path" field.
+	DefaultPath string
 	// DefaultRedirect holds the default value on creation for the "redirect" field.
 	DefaultRedirect string
+	// DefaultComponent holds the default value on creation for the "component" field.
+	DefaultComponent string
 	// DefaultOrderNo holds the default value on creation for the "order_no" field.
 	DefaultOrderNo uint32
 	// DefaultDisabled holds the default value on creation for the "disabled" field.
 	DefaultDisabled bool
+	// DefaultHideMenu holds the default value on creation for the "hide_menu" field.
+	DefaultHideMenu bool
+	// DefaultHideBreadcrumb holds the default value on creation for the "hide_breadcrumb" field.
+	DefaultHideBreadcrumb bool
+	// DefaultCurrentActiveMenu holds the default value on creation for the "current_active_menu" field.
+	DefaultCurrentActiveMenu string
+	// DefaultIgnoreKeepAlive holds the default value on creation for the "ignore_keep_alive" field.
+	DefaultIgnoreKeepAlive bool
+	// DefaultHideTab holds the default value on creation for the "hide_tab" field.
+	DefaultHideTab bool
+	// DefaultFrameSrc holds the default value on creation for the "frame_src" field.
+	DefaultFrameSrc string
+	// DefaultCarryParam holds the default value on creation for the "carry_param" field.
+	DefaultCarryParam bool
+	// DefaultHideChildrenInMenu holds the default value on creation for the "hide_children_in_menu" field.
+	DefaultHideChildrenInMenu bool
+	// DefaultAffix holds the default value on creation for the "affix" field.
+	DefaultAffix bool
+	// DefaultDynamicLevel holds the default value on creation for the "dynamic_level" field.
+	DefaultDynamicLevel uint32
+	// DefaultRealPath holds the default value on creation for the "real_path" field.
+	DefaultRealPath string
 )

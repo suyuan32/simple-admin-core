@@ -25,7 +25,7 @@ func NewLogoutLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LogoutLogi
 }
 
 func (l *LogoutLogic) Logout(req *types.UUIDReq) (resp *types.SimpleMsg, err error) {
-	result, err := l.svcCtx.CoreRpc.BlockUserAllToken(context.Background(), &core.UUIDReq{UUID: req.UUID})
+	result, err := l.svcCtx.CoreRpc.BlockUserAllToken(l.ctx, &core.UUIDReq{Uuid: req.UUID})
 
 	if err != nil {
 		return nil, err

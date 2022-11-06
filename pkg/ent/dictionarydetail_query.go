@@ -399,10 +399,10 @@ func (ddq *DictionaryDetailQuery) loadDictionary(ctx context.Context, query *Dic
 	ids := make([]uint64, 0, len(nodes))
 	nodeids := make(map[uint64][]*DictionaryDetail)
 	for i := range nodes {
-		if nodes[i].dictionary_details == nil {
+		if nodes[i].dictionary_dictionary_details == nil {
 			continue
 		}
-		fk := *nodes[i].dictionary_details
+		fk := *nodes[i].dictionary_dictionary_details
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -416,7 +416,7 @@ func (ddq *DictionaryDetailQuery) loadDictionary(ctx context.Context, query *Dic
 	for _, n := range neighbors {
 		nodes, ok := nodeids[n.ID]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "dictionary_details" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "dictionary_dictionary_details" returned %v`, n.ID)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)

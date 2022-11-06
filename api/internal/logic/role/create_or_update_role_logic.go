@@ -26,12 +26,12 @@ func NewCreateOrUpdateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(req *types.RoleInfo) (resp *types.SimpleMsg, err error) {
-	data, err := l.svcCtx.CoreRpc.CreateOrUpdateRole(context.Background(), &core.RoleInfo{
+	data, err := l.svcCtx.CoreRpc.CreateOrUpdateRole(l.ctx, &core.RoleInfo{
 		Id:            req.Id,
 		Name:          req.Name,
 		Value:         req.Value,
 		DefaultRouter: req.DefaultRouter,
-		Status:        req.Status,
+		Status:        uint64(req.Status),
 		Remark:        req.Remark,
 		OrderNo:       req.OrderNo,
 	})

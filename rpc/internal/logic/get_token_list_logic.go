@@ -3,14 +3,13 @@ package logic
 import (
 	"context"
 
-	"github.com/pkg/errors"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
+	"github.com/zeromicro/go-zero/core/errorx"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	model2 "github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -32,88 +31,69 @@ func NewGetTokenListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetT
 }
 
 func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenListResp, error) {
-	if in.UUID == "" && in.Username == "" && in.Email == "" && in.Nickname == "" {
-		var tokens []model2.Token
-		var total int64
-		resp := &core.TokenListResp{}
-		l.svcCtx.DB.Count(&total)
-		resp.Total = uint64(total)
-		result := l.svcCtx.DB.Model(&model2.Token{}).
-			Limit(int(in.Page.PageSize)).Offset(int((in.Page.Page - 1) * in.Page.PageSize)).Find(&tokens)
+	var tokens *ent.TokenPageList
+	var err error
+	if in.Username == "" && in.Uuid == "" && in.Nickname == "" && in.Email == "" {
+		tokens, err = l.svcCtx.DB.Token.Query().Page(l.ctx, in.Page, in.PageSize)
 
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
+		if err != nil {
+			logx.Error(err.Error())
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
-
-		for _, v := range tokens {
-			resp.Data = append(resp.Data, &core.TokenInfo{
-				Id:        uint64(v.ID),
-				UUID:      v.UUID,
-				Token:     v.Token,
-				Status:    v.Status,
-				Source:    v.Source,
-				ExpiredAt: v.ExpiredAt.UnixMilli(),
-				CreatedAt: v.CreatedAt.UnixMilli(),
-			})
-		}
-
-		return resp, nil
 	} else {
-		var user model2.User
-		udb := l.svcCtx.DB.Model(&model2.User{})
+		var predicates []predicate.User
 
-		if in.UUID != "" {
-			udb = udb.Where("uuid = ?", in.UUID)
+		if in.Uuid != "" {
+			predicates = append(predicates, user.UUIDEQ(in.Uuid))
 		}
 
 		if in.Username != "" {
-			udb = udb.Where("username = ?", in.Username)
+			predicates = append(predicates, user.Username(in.Username))
 		}
 
 		if in.Email != "" {
-			udb = udb.Where("email = ?", in.Email)
+			predicates = append(predicates, user.EmailEQ(in.Email))
 		}
 
 		if in.Nickname != "" {
-			udb = udb.Where("nickname = ?", in.Nickname)
+			predicates = append(predicates, user.NicknameEQ(in.Nickname))
 		}
 
-		userData := udb.First(&user)
+		u, err := l.svcCtx.DB.User.Query().Where(predicates...).First(l.ctx)
 
-		if errors.Is(userData.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw(logmsg.TargetNotFound, logx.Field("detail", in))
-			return nil, status.Error(codes.InvalidArgument, i18n.UserNotExists)
+		if err != nil {
+			switch {
+			case ent.IsNotFound(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
 
-		if userData.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", userData.Error.Error()))
-			return nil, status.Error(codes.Internal, userData.Error.Error())
+		tokens, err = l.svcCtx.DB.Token.Query().Where(token.UUIDEQ(u.UUID)).Page(l.ctx, in.Page, in.PageSize)
+
+		if err != nil {
+			logx.Error(err.Error())
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
-
-		var tokens []model2.Token
-		result := l.svcCtx.DB.Where("UUID = ?", user.UUID).Limit(int(in.Page.PageSize)).
-			Offset(int((in.Page.Page - 1) * in.Page.PageSize)).Find(&tokens)
-
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
-		}
-
-		resp := &core.TokenListResp{}
-		resp.Total = uint64(result.RowsAffected)
-		for _, v := range tokens {
-			resp.Data = append(resp.Data, &core.TokenInfo{
-				Id:        uint64(v.ID),
-				UUID:      v.UUID,
-				Token:     v.Token,
-				Status:    v.Status,
-				Source:    v.Source,
-				ExpiredAt: v.ExpiredAt.UnixMilli(),
-				CreatedAt: v.CreatedAt.UnixMilli(),
-			})
-		}
-
-		return resp, nil
 	}
+
+	resp := &core.TokenListResp{}
+	resp.Total = tokens.PageDetails.Total
+
+	for _, v := range tokens.List {
+		resp.Data = append(resp.Data, &core.TokenInfo{
+			Id:        v.ID,
+			Uuid:      v.UUID,
+			Token:     v.Token,
+			Status:    uint64(v.Status),
+			Source:    v.Source,
+			ExpiredAt: v.ExpiredAt.UnixMilli(),
+			CreatedAt: v.CreatedAt.UnixMilli(),
+		})
+	}
+
+	return nil, nil
 }

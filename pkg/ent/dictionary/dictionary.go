@@ -4,8 +4,6 @@ package dictionary
 
 import (
 	"time"
-
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 const (
@@ -25,17 +23,17 @@ const (
 	FieldName = "name"
 	// FieldDesc holds the string denoting the desc field in the database.
 	FieldDesc = "desc"
-	// EdgeDetails holds the string denoting the details edge name in mutations.
-	EdgeDetails = "details"
+	// EdgeDictionaryDetails holds the string denoting the dictionary_details edge name in mutations.
+	EdgeDictionaryDetails = "dictionary_details"
 	// Table holds the table name of the dictionary in the database.
 	Table = "dictionaries"
-	// DetailsTable is the table that holds the details relation/edge.
-	DetailsTable = "dictionary_details"
-	// DetailsInverseTable is the table name for the DictionaryDetail entity.
+	// DictionaryDetailsTable is the table that holds the dictionary_details relation/edge.
+	DictionaryDetailsTable = "dictionary_details"
+	// DictionaryDetailsInverseTable is the table name for the DictionaryDetail entity.
 	// It exists in this package in order to avoid circular dependency with the "dictionarydetail" package.
-	DetailsInverseTable = "dictionary_details"
-	// DetailsColumn is the table column denoting the details relation/edge.
-	DetailsColumn = "dictionary_details"
+	DictionaryDetailsInverseTable = "dictionary_details"
+	// DictionaryDetailsColumn is the table column denoting the dictionary_details relation/edge.
+	DictionaryDetailsColumn = "dictionary_dictionary_details"
 )
 
 // Columns holds all SQL columns for dictionary fields.
@@ -67,5 +65,5 @@ var (
 	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultStatus holds the default value on creation for the "status" field.
-	DefaultStatus gotype.Status
+	DefaultStatus uint8
 )

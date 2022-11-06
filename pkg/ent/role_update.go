@@ -14,7 +14,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // RoleUpdate is the builder for updating Role entities.
@@ -37,23 +36,23 @@ func (ru *RoleUpdate) SetUpdatedAt(t time.Time) *RoleUpdate {
 }
 
 // SetStatus sets the "status" field.
-func (ru *RoleUpdate) SetStatus(_go gotype.Status) *RoleUpdate {
+func (ru *RoleUpdate) SetStatus(u uint8) *RoleUpdate {
 	ru.mutation.ResetStatus()
-	ru.mutation.SetStatus(_go)
+	ru.mutation.SetStatus(u)
 	return ru
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (ru *RoleUpdate) SetNillableStatus(_go *gotype.Status) *RoleUpdate {
-	if _go != nil {
-		ru.SetStatus(*_go)
+func (ru *RoleUpdate) SetNillableStatus(u *uint8) *RoleUpdate {
+	if u != nil {
+		ru.SetStatus(*u)
 	}
 	return ru
 }
 
-// AddStatus adds _go to the "status" field.
-func (ru *RoleUpdate) AddStatus(_go gotype.Status) *RoleUpdate {
-	ru.mutation.AddStatus(_go)
+// AddStatus adds u to the "status" field.
+func (ru *RoleUpdate) AddStatus(u int8) *RoleUpdate {
+	ru.mutation.AddStatus(u)
 	return ru
 }
 
@@ -279,7 +278,7 @@ func (ru *RoleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if ru.mutation.MenusCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   role.MenusTable,
 			Columns: role.MenusPrimaryKey,
 			Bidi:    false,
@@ -295,7 +294,7 @@ func (ru *RoleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if nodes := ru.mutation.RemovedMenusIDs(); len(nodes) > 0 && !ru.mutation.MenusCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   role.MenusTable,
 			Columns: role.MenusPrimaryKey,
 			Bidi:    false,
@@ -314,7 +313,7 @@ func (ru *RoleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if nodes := ru.mutation.MenusIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   role.MenusTable,
 			Columns: role.MenusPrimaryKey,
 			Bidi:    false,
@@ -356,23 +355,23 @@ func (ruo *RoleUpdateOne) SetUpdatedAt(t time.Time) *RoleUpdateOne {
 }
 
 // SetStatus sets the "status" field.
-func (ruo *RoleUpdateOne) SetStatus(_go gotype.Status) *RoleUpdateOne {
+func (ruo *RoleUpdateOne) SetStatus(u uint8) *RoleUpdateOne {
 	ruo.mutation.ResetStatus()
-	ruo.mutation.SetStatus(_go)
+	ruo.mutation.SetStatus(u)
 	return ruo
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (ruo *RoleUpdateOne) SetNillableStatus(_go *gotype.Status) *RoleUpdateOne {
-	if _go != nil {
-		ruo.SetStatus(*_go)
+func (ruo *RoleUpdateOne) SetNillableStatus(u *uint8) *RoleUpdateOne {
+	if u != nil {
+		ruo.SetStatus(*u)
 	}
 	return ruo
 }
 
-// AddStatus adds _go to the "status" field.
-func (ruo *RoleUpdateOne) AddStatus(_go gotype.Status) *RoleUpdateOne {
-	ruo.mutation.AddStatus(_go)
+// AddStatus adds u to the "status" field.
+func (ruo *RoleUpdateOne) AddStatus(u int8) *RoleUpdateOne {
+	ruo.mutation.AddStatus(u)
 	return ruo
 }
 
@@ -628,7 +627,7 @@ func (ruo *RoleUpdateOne) sqlSave(ctx context.Context) (_node *Role, err error) 
 	if ruo.mutation.MenusCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   role.MenusTable,
 			Columns: role.MenusPrimaryKey,
 			Bidi:    false,
@@ -644,7 +643,7 @@ func (ruo *RoleUpdateOne) sqlSave(ctx context.Context) (_node *Role, err error) 
 	if nodes := ruo.mutation.RemovedMenusIDs(); len(nodes) > 0 && !ruo.mutation.MenusCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   role.MenusTable,
 			Columns: role.MenusPrimaryKey,
 			Bidi:    false,
@@ -663,7 +662,7 @@ func (ruo *RoleUpdateOne) sqlSave(ctx context.Context) (_node *Role, err error) 
 	if nodes := ruo.mutation.MenusIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: true,
+			Inverse: false,
 			Table:   role.MenusTable,
 			Columns: role.MenusPrimaryKey,
 			Bidi:    false,

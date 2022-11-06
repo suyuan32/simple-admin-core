@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
@@ -15,10 +18,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type LoginLogic struct {
@@ -64,6 +64,8 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 		RoleName:  roleName,
 		RoleId:    result.RoleID,
 	}, nil
+
+	return nil, nil
 }
 
 func getRoleInfo(roleId uint64, rds *redis.Redis, db *ent.Client, ctx context.Context) (roleName, roleValue string, err error) {

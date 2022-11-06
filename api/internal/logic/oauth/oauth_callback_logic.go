@@ -31,7 +31,7 @@ func NewOauthCallbackLogic(r *http.Request, svcCtx *svc.ServiceContext) *OauthCa
 }
 
 func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err error) {
-	result, err := l.svcCtx.CoreRpc.OauthCallback(context.Background(), &core.CallbackReq{
+	result, err := l.svcCtx.CoreRpc.OauthCallback(l.ctx, &core.CallbackReq{
 		State: l.r.FormValue("state"),
 		Code:  l.r.FormValue("code"),
 	})
@@ -45,10 +45,8 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 
 	// add token into database
 	expiredAt := time.Now().Add(time.Second * 259200).Unix()
-	_, err = l.svcCtx.CoreRpc.CreateOrUpdateToken(context.Background(), &core.TokenInfo{
-		Id:        0,
-		CreatedAt: 0,
-		UUID:      result.Id,
+	_, err = l.svcCtx.CoreRpc.CreateOrUpdateToken(l.ctx, &core.TokenInfo{
+		Uuid:      result.Id,
 		Token:     token,
 		Source:    strings.Split(l.r.FormValue("state"), "-")[1],
 		Status:    1,

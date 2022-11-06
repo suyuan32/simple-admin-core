@@ -13,7 +13,6 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // UserUpdate is the builder for updating User entities.
@@ -36,23 +35,23 @@ func (uu *UserUpdate) SetUpdatedAt(t time.Time) *UserUpdate {
 }
 
 // SetStatus sets the "status" field.
-func (uu *UserUpdate) SetStatus(_go gotype.Status) *UserUpdate {
+func (uu *UserUpdate) SetStatus(u uint8) *UserUpdate {
 	uu.mutation.ResetStatus()
-	uu.mutation.SetStatus(_go)
+	uu.mutation.SetStatus(u)
 	return uu
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (uu *UserUpdate) SetNillableStatus(_go *gotype.Status) *UserUpdate {
-	if _go != nil {
-		uu.SetStatus(*_go)
+func (uu *UserUpdate) SetNillableStatus(u *uint8) *UserUpdate {
+	if u != nil {
+		uu.SetStatus(*u)
 	}
 	return uu
 }
 
-// AddStatus adds _go to the "status" field.
-func (uu *UserUpdate) AddStatus(_go gotype.Status) *UserUpdate {
-	uu.mutation.AddStatus(_go)
+// AddStatus adds u to the "status" field.
+func (uu *UserUpdate) AddStatus(u int8) *UserUpdate {
+	uu.mutation.AddStatus(u)
 	return uu
 }
 
@@ -414,23 +413,23 @@ func (uuo *UserUpdateOne) SetUpdatedAt(t time.Time) *UserUpdateOne {
 }
 
 // SetStatus sets the "status" field.
-func (uuo *UserUpdateOne) SetStatus(_go gotype.Status) *UserUpdateOne {
+func (uuo *UserUpdateOne) SetStatus(u uint8) *UserUpdateOne {
 	uuo.mutation.ResetStatus()
-	uuo.mutation.SetStatus(_go)
+	uuo.mutation.SetStatus(u)
 	return uuo
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableStatus(_go *gotype.Status) *UserUpdateOne {
-	if _go != nil {
-		uuo.SetStatus(*_go)
+func (uuo *UserUpdateOne) SetNillableStatus(u *uint8) *UserUpdateOne {
+	if u != nil {
+		uuo.SetStatus(*u)
 	}
 	return uuo
 }
 
-// AddStatus adds _go to the "status" field.
-func (uuo *UserUpdateOne) AddStatus(_go gotype.Status) *UserUpdateOne {
-	uuo.mutation.AddStatus(_go)
+// AddStatus adds u to the "status" field.
+func (uuo *UserUpdateOne) AddStatus(u int8) *UserUpdateOne {
+	uuo.mutation.AddStatus(u)
 	return uuo
 }
 

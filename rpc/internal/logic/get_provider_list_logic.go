@@ -3,11 +3,9 @@ package logic
 import (
 	"context"
 
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
+	"github.com/zeromicro/go-zero/core/errorx"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -29,20 +27,20 @@ func NewGetProviderListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 }
 
 func (l *GetProviderListLogic) GetProviderList(in *core.PageInfoReq) (*core.ProviderListResp, error) {
-	var providers []model.OauthProvider
-	resp := &core.ProviderListResp{}
-	var total int64
-	l.svcCtx.DB.Model(&model.OauthProvider{}).Count(&total)
-	resp.Total = uint64(total)
-	result := l.svcCtx.DB.Limit(int(in.PageSize)).Offset(int((in.Page - 1) * in.PageSize)).Find(&providers)
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, result.Error.Error())
+	providers, err := l.svcCtx.DB.OauthProvider.Query().Page(l.ctx, in.Page, in.PageSize)
+
+	if err != nil {
+		logx.Error(err.Error())
+		return nil, statuserr.NewInternalError(errorx.DatabaseError)
 	}
 
-	for _, v := range providers {
+	//var providers []model.OauthProvider
+	resp := &core.ProviderListResp{}
+	resp.Total = providers.PageDetails.Total
+
+	for _, v := range providers.List {
 		resp.Data = append(resp.Data, &core.ProviderInfo{
-			Id:           uint64(v.ID),
+			Id:           v.ID,
 			Name:         v.Name,
 			ClientId:     v.ClientID,
 			ClientSecret: v.ClientSecret,
@@ -50,10 +48,11 @@ func (l *GetProviderListLogic) GetProviderList(in *core.PageInfoReq) (*core.Prov
 			Scopes:       v.Scopes,
 			AuthUrl:      v.AuthURL,
 			TokenUrl:     v.TokenURL,
-			AuthStyle:    uint64(v.AuthStyle),
+			AuthStyle:    v.AuthStyle,
 			InfoUrl:      v.InfoURL,
 			CreatedAt:    v.CreatedAt.UnixMilli(),
 		})
 	}
+
 	return resp, nil
 }

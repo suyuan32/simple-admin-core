@@ -4,8 +4,6 @@ package role
 
 import (
 	"time"
-
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 const (
@@ -34,7 +32,7 @@ const (
 	// Table holds the table name of the role in the database.
 	Table = "roles"
 	// MenusTable is the table that holds the menus relation/edge. The primary key declared below.
-	MenusTable = "menu_roles"
+	MenusTable = "role_menus"
 	// MenusInverseTable is the table name for the Menu entity.
 	// It exists in this package in order to avoid circular dependency with the "menu" package.
 	MenusInverseTable = "menus"
@@ -56,7 +54,7 @@ var Columns = []string{
 var (
 	// MenusPrimaryKey and MenusColumn2 are the table columns denoting the
 	// primary key for the menus relation (M2M).
-	MenusPrimaryKey = []string{"menu_id", "role_id"}
+	MenusPrimaryKey = []string{"role_id", "menu_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -77,7 +75,7 @@ var (
 	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultStatus holds the default value on creation for the "status" field.
-	DefaultStatus gotype.Status
+	DefaultStatus uint8
 	// DefaultDefaultRouter holds the default value on creation for the "default_router" field.
 	DefaultDefaultRouter string
 	// DefaultRemark holds the default value on creation for the "remark" field.

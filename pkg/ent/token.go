@@ -9,7 +9,6 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // Token is the model entity for the Token schema.
@@ -22,7 +21,7 @@ type Token struct {
 	// UpdatedAt holds the value of the "updated_at" field.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// status 0 normal 1 ban | 状态 0 正常 1 禁用
-	Status gotype.Status `json:"status,omitempty"`
+	Status uint8 `json:"status,omitempty"`
 	//  User's UUID | 用户的UUID
 	UUID string `json:"uuid,omitempty"`
 	// Token string | Token 字符串
@@ -38,9 +37,7 @@ func (*Token) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case token.FieldStatus:
-			values[i] = new(gotype.Status)
-		case token.FieldID:
+		case token.FieldID, token.FieldStatus:
 			values[i] = new(sql.NullInt64)
 		case token.FieldUUID, token.FieldToken, token.FieldSource:
 			values[i] = new(sql.NullString)
@@ -80,10 +77,10 @@ func (t *Token) assignValues(columns []string, values []any) error {
 				t.UpdatedAt = value.Time
 			}
 		case token.FieldStatus:
-			if value, ok := values[i].(*gotype.Status); !ok {
+			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field status", values[i])
-			} else if value != nil {
-				t.Status = *value
+			} else if value.Valid {
+				t.Status = uint8(value.Int64)
 			}
 		case token.FieldUUID:
 			if value, ok := values[i].(*sql.NullString); !ok {

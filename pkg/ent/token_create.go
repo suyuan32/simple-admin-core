@@ -11,7 +11,6 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // TokenCreate is the builder for creating a Token entity.
@@ -50,15 +49,15 @@ func (tc *TokenCreate) SetNillableUpdatedAt(t *time.Time) *TokenCreate {
 }
 
 // SetStatus sets the "status" field.
-func (tc *TokenCreate) SetStatus(_go gotype.Status) *TokenCreate {
-	tc.mutation.SetStatus(_go)
+func (tc *TokenCreate) SetStatus(u uint8) *TokenCreate {
+	tc.mutation.SetStatus(u)
 	return tc
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (tc *TokenCreate) SetNillableStatus(_go *gotype.Status) *TokenCreate {
-	if _go != nil {
-		tc.SetStatus(*_go)
+func (tc *TokenCreate) SetNillableStatus(u *uint8) *TokenCreate {
+	if u != nil {
+		tc.SetStatus(*u)
 	}
 	return tc
 }

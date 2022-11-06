@@ -25,7 +25,7 @@ func NewGetMenuListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMe
 }
 
 func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuListResp, err error) {
-	data, err := l.svcCtx.CoreRpc.GetMenuByPage(context.Background(), &core.PageInfoReq{
+	data, err := l.svcCtx.CoreRpc.GetMenuByPage(l.ctx, &core.PageInfoReq{
 		Page:     0,
 		PageSize: 1000,
 	})
@@ -38,20 +38,20 @@ func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuListResp, err error) {
 	return resp, nil
 }
 
-func convertMenuList(data []*core.MenuInfo) []*types.Menu {
+func convertMenuList(data []*core.MenuInfo) []*types.MenuInfo {
 	if data == nil {
 		return nil
 	}
-	var result []*types.Menu
+	var result []*types.MenuInfo
 	for _, v := range data {
-		tmp := &types.Menu{
+		tmp := &types.MenuInfo{
 			BaseInfo: types.BaseInfo{
-				ID:        uint(v.Id),
+				Id:        v.Id,
 				CreatedAt: v.CreatedAt,
 				UpdatedAt: v.UpdatedAt,
 			},
 			MenuType:  v.MenuType,
-			ParentId:  uint(v.ParentId),
+			ParentId:  v.ParentId,
 			MenuLevel: v.Level,
 			Path:      v.Path,
 			Name:      v.Name,

@@ -29,7 +29,7 @@ func NewDeleteDictionaryDetailLogic(ctx context.Context, svcCtx *svc.ServiceCont
 }
 
 func (l *DeleteDictionaryDetailLogic) DeleteDictionaryDetail(in *core.IDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.DictionaryDetail.DeleteOneID(in.ID).Exec(l.ctx)
+	err := l.svcCtx.DB.DictionaryDetail.DeleteOneID(in.Id).Exec(l.ctx)
 
 	if err != nil {
 		switch {

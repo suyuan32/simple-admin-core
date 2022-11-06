@@ -11,7 +11,6 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // UserCreate is the builder for creating a User entity.
@@ -50,15 +49,15 @@ func (uc *UserCreate) SetNillableUpdatedAt(t *time.Time) *UserCreate {
 }
 
 // SetStatus sets the "status" field.
-func (uc *UserCreate) SetStatus(_go gotype.Status) *UserCreate {
-	uc.mutation.SetStatus(_go)
+func (uc *UserCreate) SetStatus(u uint8) *UserCreate {
+	uc.mutation.SetStatus(u)
 	return uc
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (uc *UserCreate) SetNillableStatus(_go *gotype.Status) *UserCreate {
-	if _go != nil {
-		uc.SetStatus(*_go)
+func (uc *UserCreate) SetNillableStatus(u *uint8) *UserCreate {
+	if u != nil {
+		uc.SetStatus(*u)
 	}
 	return uc
 }

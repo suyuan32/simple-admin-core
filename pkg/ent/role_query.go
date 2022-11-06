@@ -76,7 +76,7 @@ func (rq *RoleQuery) QueryMenus() *MenuQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(role.Table, role.FieldID, selector),
 			sqlgraph.To(menu.Table, menu.FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, true, role.MenusTable, role.MenusPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2M, false, role.MenusTable, role.MenusPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(rq.driver.Dialect(), step)
 		return fromU, nil
@@ -402,10 +402,10 @@ func (rq *RoleQuery) loadMenus(ctx context.Context, query *MenuQuery, nodes []*R
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(role.MenusTable)
-		s.Join(joinT).On(s.C(menu.FieldID), joinT.C(role.MenusPrimaryKey[0]))
-		s.Where(sql.InValues(joinT.C(role.MenusPrimaryKey[1]), edgeIDs...))
+		s.Join(joinT).On(s.C(menu.FieldID), joinT.C(role.MenusPrimaryKey[1]))
+		s.Where(sql.InValues(joinT.C(role.MenusPrimaryKey[0]), edgeIDs...))
 		columns := s.SelectedColumns()
-		s.Select(joinT.C(role.MenusPrimaryKey[1]))
+		s.Select(joinT.C(role.MenusPrimaryKey[0]))
 		s.AppendSelect(columns...)
 		s.SetDistinct(false)
 	})

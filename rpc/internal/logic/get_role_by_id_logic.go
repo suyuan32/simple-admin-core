@@ -3,15 +3,14 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/zeromicro/go-zero/core/errorx"
+
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type GetRoleByIdLogic struct {
@@ -29,24 +28,27 @@ func NewGetRoleByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRo
 }
 
 func (l *GetRoleByIdLogic) GetRoleById(in *core.IDReq) (*core.RoleInfo, error) {
-	var role model.Role
-	result := l.svcCtx.DB.Where("id = ?", in.ID).First(&role)
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, result.Error.Error())
+	r, err := l.svcCtx.DB.Role.Get(l.ctx, in.Id)
+
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+		default:
+			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		}
 	}
-	if result.RowsAffected == 0 {
-		logx.Errorw("Fail to find the role, please check the role id", logx.Field("roleId", in.ID))
-		return nil, status.Error(codes.InvalidArgument, errorx.GetInfoFailed)
-	}
+
 	return &core.RoleInfo{
-		Id:            uint64(role.ID),
-		Name:          role.Name,
-		Value:         role.Value,
-		DefaultRouter: role.DefaultRouter,
-		Status:        role.Status,
-		Remark:        role.Remark,
-		OrderNo:       role.OrderNo,
-		CreatedAt:     role.CreatedAt.UnixMilli(),
+		Id:            r.ID,
+		Name:          r.Name,
+		Value:         r.Value,
+		DefaultRouter: r.DefaultRouter,
+		Status:        uint64(r.Status),
+		Remark:        r.Remark,
+		OrderNo:       r.OrderNo,
+		CreatedAt:     r.CreatedAt.UnixMilli(),
 	}, nil
 }

@@ -12,7 +12,6 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // DictionaryDetailCreate is the builder for creating a DictionaryDetail entity.
@@ -51,15 +50,15 @@ func (ddc *DictionaryDetailCreate) SetNillableUpdatedAt(t *time.Time) *Dictionar
 }
 
 // SetStatus sets the "status" field.
-func (ddc *DictionaryDetailCreate) SetStatus(_go gotype.Status) *DictionaryDetailCreate {
-	ddc.mutation.SetStatus(_go)
+func (ddc *DictionaryDetailCreate) SetStatus(u uint8) *DictionaryDetailCreate {
+	ddc.mutation.SetStatus(u)
 	return ddc
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (ddc *DictionaryDetailCreate) SetNillableStatus(_go *gotype.Status) *DictionaryDetailCreate {
-	if _go != nil {
-		ddc.SetStatus(*_go)
+func (ddc *DictionaryDetailCreate) SetNillableStatus(u *uint8) *DictionaryDetailCreate {
+	if u != nil {
+		ddc.SetStatus(*u)
 	}
 	return ddc
 }
@@ -289,7 +288,7 @@ func (ddc *DictionaryDetailCreate) createSpec() (*DictionaryDetail, *sqlgraph.Cr
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.dictionary_details = &nodes[0]
+		_node.dictionary_dictionary_details = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

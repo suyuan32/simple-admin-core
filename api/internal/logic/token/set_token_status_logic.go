@@ -25,7 +25,7 @@ func NewSetTokenStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Se
 }
 
 func (l *SetTokenStatusLogic) SetTokenStatus(req *types.SetBooleanStatusReq) (resp *types.SimpleMsg, err error) {
-	result, err := l.svcCtx.CoreRpc.SetTokenStatus(context.Background(), &core.SetStatusReq{
+	result, err := l.svcCtx.CoreRpc.SetTokenStatus(l.ctx, &core.SetStatusReq{
 		Id:     req.Id,
 		Status: req.Status,
 	})

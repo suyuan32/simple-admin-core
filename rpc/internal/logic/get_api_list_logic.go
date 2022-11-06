@@ -3,15 +3,15 @@ package logic
 import (
 	"context"
 
+	"github.com/zeromicro/go-zero/core/errorx"
+
 	"github.com/suyuan32/simple-admin-core/pkg/ent/api"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type GetApiListLogic struct {
@@ -29,7 +29,7 @@ func NewGetApiListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetApi
 }
 
 func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, error) {
-	var predicates []predicate.Api
+	var predicates []predicate.API
 
 	if in.Path != "" {
 		predicates = append(predicates, api.PathContains(in.Path))
@@ -47,22 +47,26 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, er
 		predicates = append(predicates, api.APIGroupContains(in.Group))
 	}
 
-	pageResult, err := l.svcCtx.DB.Api.Query().Where(predicates...).Page(l.ctx, req.PageNo, req.PageSize)
+	apis, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, result.Error.Error())
+	if err != nil {
+		logx.Error(err.Error())
+		return nil, statuserr.NewInternalError(errorx.DatabaseError)
 	}
 
-	for _, v := range apis {
+	resp := &core.ApiListResp{}
+	resp.Total = apis.PageDetails.Total
+
+	for _, v := range apis.List {
 		resp.Data = append(resp.Data, &core.ApiInfo{
-			Id:          uint64(v.ID),
+			Id:          v.ID,
 			CreatedAt:   v.CreatedAt.UnixMilli(),
 			Path:        v.Path,
 			Description: v.Description,
-			Group:       v.ApiGroup,
+			Group:       v.APIGroup,
 			Method:      v.Method,
 		})
 	}
+
 	return resp, nil
 }

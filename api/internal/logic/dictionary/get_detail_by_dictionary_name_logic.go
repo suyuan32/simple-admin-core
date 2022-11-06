@@ -26,7 +26,7 @@ func NewGetDetailByDictionaryNameLogic(ctx context.Context, svcCtx *svc.ServiceC
 }
 
 func (l *GetDetailByDictionaryNameLogic) GetDetailByDictionaryName(req *types.DictionaryDetailReq) (resp *types.DictionaryDetailListResp, err error) {
-	result, err := l.svcCtx.CoreRpc.GetDetailByDictionaryName(context.Background(), &core.DictionaryDetailReq{Name: req.Name})
+	result, err := l.svcCtx.CoreRpc.GetDetailByDictionaryName(l.ctx, &core.DictionaryDetailReq{Name: req.Name})
 
 	if err != nil {
 		return nil, err
@@ -36,12 +36,15 @@ func (l *GetDetailByDictionaryNameLogic) GetDetailByDictionaryName(req *types.Di
 	resp.Total = result.Total
 	for _, v := range result.Data {
 		resp.Data = append(resp.Data, types.DictionaryDetailInfo{
-			Id:        v.Id,
-			CreatedAt: v.CreatedAt,
-			Title:     v.Title,
-			Key:       v.Key,
-			Value:     v.Value,
-			Status:    v.Status,
+			BaseInfo: types.BaseInfo{
+				Id:        v.Id,
+				CreatedAt: v.CreatedAt,
+				UpdatedAt: v.UpdatedAt,
+			},
+			Title:  v.Title,
+			Key:    v.Key,
+			Value:  v.Value,
+			Status: v.Status,
 		})
 	}
 

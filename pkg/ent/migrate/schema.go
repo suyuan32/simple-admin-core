@@ -8,8 +8,8 @@ import (
 )
 
 var (
-	// ApisColumns holds the columns for the "apis" table.
-	ApisColumns = []*schema.Column{
+	// ApIsColumns holds the columns for the "ap_is" table.
+	ApIsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
@@ -18,18 +18,18 @@ var (
 		{Name: "api_group", Type: field.TypeString},
 		{Name: "method", Type: field.TypeString, Default: "POST"},
 	}
-	// ApisTable holds the schema information for the "apis" table.
-	ApisTable = &schema.Table{
-		Name:       "apis",
-		Columns:    ApisColumns,
-		PrimaryKey: []*schema.Column{ApisColumns[0]},
+	// ApIsTable holds the schema information for the "ap_is" table.
+	ApIsTable = &schema.Table{
+		Name:       "ap_is",
+		Columns:    ApIsColumns,
+		PrimaryKey: []*schema.Column{ApIsColumns[0]},
 	}
 	// DictionariesColumns holds the columns for the "dictionaries" table.
 	DictionariesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0, SchemaType: map[string]string{"mysql": "tinyint unsigned"}},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0},
 		{Name: "title", Type: field.TypeString},
 		{Name: "name", Type: field.TypeString},
 		{Name: "desc", Type: field.TypeString},
@@ -45,11 +45,11 @@ var (
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0, SchemaType: map[string]string{"mysql": "tinyint unsigned"}},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0},
 		{Name: "title", Type: field.TypeString},
 		{Name: "key", Type: field.TypeString},
 		{Name: "value", Type: field.TypeString},
-		{Name: "dictionary_details", Type: field.TypeUint64, Nullable: true},
+		{Name: "dictionary_dictionary_details", Type: field.TypeUint64, Nullable: true},
 	}
 	// DictionaryDetailsTable holds the schema information for the "dictionary_details" table.
 	DictionaryDetailsTable = &schema.Table{
@@ -58,7 +58,7 @@ var (
 		PrimaryKey: []*schema.Column{DictionaryDetailsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "dictionary_details_dictionaries_details",
+				Symbol:     "dictionary_details_dictionaries_dictionary_details",
 				Columns:    []*schema.Column{DictionaryDetailsColumns[7]},
 				RefColumns: []*schema.Column{DictionariesColumns[0]},
 				OnDelete:   schema.SetNull,
@@ -72,25 +72,25 @@ var (
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "menu_level", Type: field.TypeUint32},
 		{Name: "menu_type", Type: field.TypeUint32},
-		{Name: "path", Type: field.TypeString},
+		{Name: "path", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "name", Type: field.TypeString},
 		{Name: "redirect", Type: field.TypeString, Nullable: true, Default: ""},
-		{Name: "component", Type: field.TypeString},
+		{Name: "component", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "order_no", Type: field.TypeUint32, Default: 0},
-		{Name: "disabled", Type: field.TypeBool, Default: false},
+		{Name: "disabled", Type: field.TypeBool, Nullable: true, Default: false},
 		{Name: "title", Type: field.TypeString},
 		{Name: "icon", Type: field.TypeString},
-		{Name: "hide_menu", Type: field.TypeBool},
-		{Name: "hide_breadcrumb", Type: field.TypeBool},
-		{Name: "current_active_menu", Type: field.TypeString},
-		{Name: "ignore_keep_alive", Type: field.TypeBool},
-		{Name: "hide_tab", Type: field.TypeBool},
-		{Name: "frame_src", Type: field.TypeString},
-		{Name: "carry_param", Type: field.TypeBool},
-		{Name: "hide_children_in_menu", Type: field.TypeBool},
-		{Name: "affix", Type: field.TypeBool},
-		{Name: "dynamic_level", Type: field.TypeUint32},
-		{Name: "real_path", Type: field.TypeString},
+		{Name: "hide_menu", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "hide_breadcrumb", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "current_active_menu", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "ignore_keep_alive", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "hide_tab", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "frame_src", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "carry_param", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "hide_children_in_menu", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "affix", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "dynamic_level", Type: field.TypeUint32, Nullable: true, Default: 20},
+		{Name: "real_path", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "parent_id", Type: field.TypeUint64, Nullable: true},
 	}
 	// MenusTable holds the schema information for the "menus" table.
@@ -157,7 +157,7 @@ var (
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0, SchemaType: map[string]string{"mysql": "tinyint unsigned"}},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0},
 		{Name: "name", Type: field.TypeString},
 		{Name: "value", Type: field.TypeString, Unique: true},
 		{Name: "default_router", Type: field.TypeString, Default: "dashboard"},
@@ -175,7 +175,7 @@ var (
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0, SchemaType: map[string]string{"mysql": "tinyint unsigned"}},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0},
 		{Name: "uuid", Type: field.TypeString},
 		{Name: "token", Type: field.TypeString},
 		{Name: "source", Type: field.TypeString},
@@ -204,7 +204,7 @@ var (
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0, SchemaType: map[string]string{"mysql": "tinyint unsigned"}},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0},
 		{Name: "uuid", Type: field.TypeString},
 		{Name: "username", Type: field.TypeString, Unique: true},
 		{Name: "password", Type: field.TypeString},
@@ -230,34 +230,34 @@ var (
 			},
 		},
 	}
-	// MenuRolesColumns holds the columns for the "menu_roles" table.
-	MenuRolesColumns = []*schema.Column{
-		{Name: "menu_id", Type: field.TypeUint64},
+	// RoleMenusColumns holds the columns for the "role_menus" table.
+	RoleMenusColumns = []*schema.Column{
 		{Name: "role_id", Type: field.TypeUint64},
+		{Name: "menu_id", Type: field.TypeUint64},
 	}
-	// MenuRolesTable holds the schema information for the "menu_roles" table.
-	MenuRolesTable = &schema.Table{
-		Name:       "menu_roles",
-		Columns:    MenuRolesColumns,
-		PrimaryKey: []*schema.Column{MenuRolesColumns[0], MenuRolesColumns[1]},
+	// RoleMenusTable holds the schema information for the "role_menus" table.
+	RoleMenusTable = &schema.Table{
+		Name:       "role_menus",
+		Columns:    RoleMenusColumns,
+		PrimaryKey: []*schema.Column{RoleMenusColumns[0], RoleMenusColumns[1]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "menu_roles_menu_id",
-				Columns:    []*schema.Column{MenuRolesColumns[0]},
-				RefColumns: []*schema.Column{MenusColumns[0]},
+				Symbol:     "role_menus_role_id",
+				Columns:    []*schema.Column{RoleMenusColumns[0]},
+				RefColumns: []*schema.Column{RolesColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
-				Symbol:     "menu_roles_role_id",
-				Columns:    []*schema.Column{MenuRolesColumns[1]},
-				RefColumns: []*schema.Column{RolesColumns[0]},
+				Symbol:     "role_menus_menu_id",
+				Columns:    []*schema.Column{RoleMenusColumns[1]},
+				RefColumns: []*schema.Column{MenusColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		ApisTable,
+		ApIsTable,
 		DictionariesTable,
 		DictionaryDetailsTable,
 		MenusTable,
@@ -266,7 +266,7 @@ var (
 		RolesTable,
 		TokensTable,
 		UsersTable,
-		MenuRolesTable,
+		RoleMenusTable,
 	}
 )
 
@@ -274,6 +274,6 @@ func init() {
 	DictionaryDetailsTable.ForeignKeys[0].RefTable = DictionariesTable
 	MenusTable.ForeignKeys[0].RefTable = MenusTable
 	MenuParamsTable.ForeignKeys[0].RefTable = MenusTable
-	MenuRolesTable.ForeignKeys[0].RefTable = MenusTable
-	MenuRolesTable.ForeignKeys[1].RefTable = RolesTable
+	RoleMenusTable.ForeignKeys[0].RefTable = RolesTable
+	RoleMenusTable.ForeignKeys[1].RefTable = MenusTable
 }

@@ -4,8 +4,6 @@ package token
 
 import (
 	"time"
-
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 const (
@@ -61,5 +59,5 @@ var (
 	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultStatus holds the default value on creation for the "status" field.
-	DefaultStatus gotype.Status
+	DefaultStatus uint8
 )

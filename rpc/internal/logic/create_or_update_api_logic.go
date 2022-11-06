@@ -30,7 +30,7 @@ func NewCreateOrUpdateApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 // api management service
 func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.BaseResp, error) {
 	if in.Id == 0 {
-		err := l.svcCtx.DB.Api.Create().
+		err := l.svcCtx.DB.API.Create().
 			SetPath(in.Path).
 			SetDescription(in.Description).
 			SetAPIGroup(in.Group).
@@ -50,7 +50,7 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {
-		err := l.svcCtx.DB.Api.UpdateOneID(in.Id).
+		err := l.svcCtx.DB.API.UpdateOneID(in.Id).
 			SetPath(in.Path).
 			SetDescription(in.Description).
 			SetAPIGroup(in.Group).

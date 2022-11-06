@@ -82,6 +82,14 @@ func (mc *MenuCreate) SetPath(s string) *MenuCreate {
 	return mc
 }
 
+// SetNillablePath sets the "path" field if the given value is not nil.
+func (mc *MenuCreate) SetNillablePath(s *string) *MenuCreate {
+	if s != nil {
+		mc.SetPath(*s)
+	}
+	return mc
+}
+
 // SetName sets the "name" field.
 func (mc *MenuCreate) SetName(s string) *MenuCreate {
 	mc.mutation.SetName(s)
@@ -105,6 +113,14 @@ func (mc *MenuCreate) SetNillableRedirect(s *string) *MenuCreate {
 // SetComponent sets the "component" field.
 func (mc *MenuCreate) SetComponent(s string) *MenuCreate {
 	mc.mutation.SetComponent(s)
+	return mc
+}
+
+// SetNillableComponent sets the "component" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableComponent(s *string) *MenuCreate {
+	if s != nil {
+		mc.SetComponent(*s)
+	}
 	return mc
 }
 
@@ -154,9 +170,25 @@ func (mc *MenuCreate) SetHideMenu(b bool) *MenuCreate {
 	return mc
 }
 
+// SetNillableHideMenu sets the "hide_menu" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableHideMenu(b *bool) *MenuCreate {
+	if b != nil {
+		mc.SetHideMenu(*b)
+	}
+	return mc
+}
+
 // SetHideBreadcrumb sets the "hide_breadcrumb" field.
 func (mc *MenuCreate) SetHideBreadcrumb(b bool) *MenuCreate {
 	mc.mutation.SetHideBreadcrumb(b)
+	return mc
+}
+
+// SetNillableHideBreadcrumb sets the "hide_breadcrumb" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableHideBreadcrumb(b *bool) *MenuCreate {
+	if b != nil {
+		mc.SetHideBreadcrumb(*b)
+	}
 	return mc
 }
 
@@ -166,9 +198,25 @@ func (mc *MenuCreate) SetCurrentActiveMenu(s string) *MenuCreate {
 	return mc
 }
 
+// SetNillableCurrentActiveMenu sets the "current_active_menu" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableCurrentActiveMenu(s *string) *MenuCreate {
+	if s != nil {
+		mc.SetCurrentActiveMenu(*s)
+	}
+	return mc
+}
+
 // SetIgnoreKeepAlive sets the "ignore_keep_alive" field.
 func (mc *MenuCreate) SetIgnoreKeepAlive(b bool) *MenuCreate {
 	mc.mutation.SetIgnoreKeepAlive(b)
+	return mc
+}
+
+// SetNillableIgnoreKeepAlive sets the "ignore_keep_alive" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableIgnoreKeepAlive(b *bool) *MenuCreate {
+	if b != nil {
+		mc.SetIgnoreKeepAlive(*b)
+	}
 	return mc
 }
 
@@ -178,9 +226,25 @@ func (mc *MenuCreate) SetHideTab(b bool) *MenuCreate {
 	return mc
 }
 
+// SetNillableHideTab sets the "hide_tab" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableHideTab(b *bool) *MenuCreate {
+	if b != nil {
+		mc.SetHideTab(*b)
+	}
+	return mc
+}
+
 // SetFrameSrc sets the "frame_src" field.
 func (mc *MenuCreate) SetFrameSrc(s string) *MenuCreate {
 	mc.mutation.SetFrameSrc(s)
+	return mc
+}
+
+// SetNillableFrameSrc sets the "frame_src" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableFrameSrc(s *string) *MenuCreate {
+	if s != nil {
+		mc.SetFrameSrc(*s)
+	}
 	return mc
 }
 
@@ -190,9 +254,25 @@ func (mc *MenuCreate) SetCarryParam(b bool) *MenuCreate {
 	return mc
 }
 
+// SetNillableCarryParam sets the "carry_param" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableCarryParam(b *bool) *MenuCreate {
+	if b != nil {
+		mc.SetCarryParam(*b)
+	}
+	return mc
+}
+
 // SetHideChildrenInMenu sets the "hide_children_in_menu" field.
 func (mc *MenuCreate) SetHideChildrenInMenu(b bool) *MenuCreate {
 	mc.mutation.SetHideChildrenInMenu(b)
+	return mc
+}
+
+// SetNillableHideChildrenInMenu sets the "hide_children_in_menu" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableHideChildrenInMenu(b *bool) *MenuCreate {
+	if b != nil {
+		mc.SetHideChildrenInMenu(*b)
+	}
 	return mc
 }
 
@@ -202,15 +282,39 @@ func (mc *MenuCreate) SetAffix(b bool) *MenuCreate {
 	return mc
 }
 
+// SetNillableAffix sets the "affix" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableAffix(b *bool) *MenuCreate {
+	if b != nil {
+		mc.SetAffix(*b)
+	}
+	return mc
+}
+
 // SetDynamicLevel sets the "dynamic_level" field.
 func (mc *MenuCreate) SetDynamicLevel(u uint32) *MenuCreate {
 	mc.mutation.SetDynamicLevel(u)
 	return mc
 }
 
+// SetNillableDynamicLevel sets the "dynamic_level" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableDynamicLevel(u *uint32) *MenuCreate {
+	if u != nil {
+		mc.SetDynamicLevel(*u)
+	}
+	return mc
+}
+
 // SetRealPath sets the "real_path" field.
 func (mc *MenuCreate) SetRealPath(s string) *MenuCreate {
 	mc.mutation.SetRealPath(s)
+	return mc
+}
+
+// SetNillableRealPath sets the "real_path" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableRealPath(s *string) *MenuCreate {
+	if s != nil {
+		mc.SetRealPath(*s)
+	}
 	return mc
 }
 
@@ -355,9 +459,17 @@ func (mc *MenuCreate) defaults() {
 		v := menu.DefaultUpdatedAt()
 		mc.mutation.SetUpdatedAt(v)
 	}
+	if _, ok := mc.mutation.Path(); !ok {
+		v := menu.DefaultPath
+		mc.mutation.SetPath(v)
+	}
 	if _, ok := mc.mutation.Redirect(); !ok {
 		v := menu.DefaultRedirect
 		mc.mutation.SetRedirect(v)
+	}
+	if _, ok := mc.mutation.Component(); !ok {
+		v := menu.DefaultComponent
+		mc.mutation.SetComponent(v)
 	}
 	if _, ok := mc.mutation.OrderNo(); !ok {
 		v := menu.DefaultOrderNo
@@ -366,6 +478,50 @@ func (mc *MenuCreate) defaults() {
 	if _, ok := mc.mutation.Disabled(); !ok {
 		v := menu.DefaultDisabled
 		mc.mutation.SetDisabled(v)
+	}
+	if _, ok := mc.mutation.HideMenu(); !ok {
+		v := menu.DefaultHideMenu
+		mc.mutation.SetHideMenu(v)
+	}
+	if _, ok := mc.mutation.HideBreadcrumb(); !ok {
+		v := menu.DefaultHideBreadcrumb
+		mc.mutation.SetHideBreadcrumb(v)
+	}
+	if _, ok := mc.mutation.CurrentActiveMenu(); !ok {
+		v := menu.DefaultCurrentActiveMenu
+		mc.mutation.SetCurrentActiveMenu(v)
+	}
+	if _, ok := mc.mutation.IgnoreKeepAlive(); !ok {
+		v := menu.DefaultIgnoreKeepAlive
+		mc.mutation.SetIgnoreKeepAlive(v)
+	}
+	if _, ok := mc.mutation.HideTab(); !ok {
+		v := menu.DefaultHideTab
+		mc.mutation.SetHideTab(v)
+	}
+	if _, ok := mc.mutation.FrameSrc(); !ok {
+		v := menu.DefaultFrameSrc
+		mc.mutation.SetFrameSrc(v)
+	}
+	if _, ok := mc.mutation.CarryParam(); !ok {
+		v := menu.DefaultCarryParam
+		mc.mutation.SetCarryParam(v)
+	}
+	if _, ok := mc.mutation.HideChildrenInMenu(); !ok {
+		v := menu.DefaultHideChildrenInMenu
+		mc.mutation.SetHideChildrenInMenu(v)
+	}
+	if _, ok := mc.mutation.Affix(); !ok {
+		v := menu.DefaultAffix
+		mc.mutation.SetAffix(v)
+	}
+	if _, ok := mc.mutation.DynamicLevel(); !ok {
+		v := menu.DefaultDynamicLevel
+		mc.mutation.SetDynamicLevel(v)
+	}
+	if _, ok := mc.mutation.RealPath(); !ok {
+		v := menu.DefaultRealPath
+		mc.mutation.SetRealPath(v)
 	}
 }
 
@@ -383,59 +539,17 @@ func (mc *MenuCreate) check() error {
 	if _, ok := mc.mutation.MenuType(); !ok {
 		return &ValidationError{Name: "menu_type", err: errors.New(`ent: missing required field "Menu.menu_type"`)}
 	}
-	if _, ok := mc.mutation.Path(); !ok {
-		return &ValidationError{Name: "path", err: errors.New(`ent: missing required field "Menu.path"`)}
-	}
 	if _, ok := mc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Menu.name"`)}
 	}
-	if _, ok := mc.mutation.Component(); !ok {
-		return &ValidationError{Name: "component", err: errors.New(`ent: missing required field "Menu.component"`)}
-	}
 	if _, ok := mc.mutation.OrderNo(); !ok {
 		return &ValidationError{Name: "order_no", err: errors.New(`ent: missing required field "Menu.order_no"`)}
-	}
-	if _, ok := mc.mutation.Disabled(); !ok {
-		return &ValidationError{Name: "disabled", err: errors.New(`ent: missing required field "Menu.disabled"`)}
 	}
 	if _, ok := mc.mutation.Title(); !ok {
 		return &ValidationError{Name: "title", err: errors.New(`ent: missing required field "Menu.title"`)}
 	}
 	if _, ok := mc.mutation.Icon(); !ok {
 		return &ValidationError{Name: "icon", err: errors.New(`ent: missing required field "Menu.icon"`)}
-	}
-	if _, ok := mc.mutation.HideMenu(); !ok {
-		return &ValidationError{Name: "hide_menu", err: errors.New(`ent: missing required field "Menu.hide_menu"`)}
-	}
-	if _, ok := mc.mutation.HideBreadcrumb(); !ok {
-		return &ValidationError{Name: "hide_breadcrumb", err: errors.New(`ent: missing required field "Menu.hide_breadcrumb"`)}
-	}
-	if _, ok := mc.mutation.CurrentActiveMenu(); !ok {
-		return &ValidationError{Name: "current_active_menu", err: errors.New(`ent: missing required field "Menu.current_active_menu"`)}
-	}
-	if _, ok := mc.mutation.IgnoreKeepAlive(); !ok {
-		return &ValidationError{Name: "ignore_keep_alive", err: errors.New(`ent: missing required field "Menu.ignore_keep_alive"`)}
-	}
-	if _, ok := mc.mutation.HideTab(); !ok {
-		return &ValidationError{Name: "hide_tab", err: errors.New(`ent: missing required field "Menu.hide_tab"`)}
-	}
-	if _, ok := mc.mutation.FrameSrc(); !ok {
-		return &ValidationError{Name: "frame_src", err: errors.New(`ent: missing required field "Menu.frame_src"`)}
-	}
-	if _, ok := mc.mutation.CarryParam(); !ok {
-		return &ValidationError{Name: "carry_param", err: errors.New(`ent: missing required field "Menu.carry_param"`)}
-	}
-	if _, ok := mc.mutation.HideChildrenInMenu(); !ok {
-		return &ValidationError{Name: "hide_children_in_menu", err: errors.New(`ent: missing required field "Menu.hide_children_in_menu"`)}
-	}
-	if _, ok := mc.mutation.Affix(); !ok {
-		return &ValidationError{Name: "affix", err: errors.New(`ent: missing required field "Menu.affix"`)}
-	}
-	if _, ok := mc.mutation.DynamicLevel(); !ok {
-		return &ValidationError{Name: "dynamic_level", err: errors.New(`ent: missing required field "Menu.dynamic_level"`)}
-	}
-	if _, ok := mc.mutation.RealPath(); !ok {
-		return &ValidationError{Name: "real_path", err: errors.New(`ent: missing required field "Menu.real_path"`)}
 	}
 	return nil
 }
@@ -565,7 +679,7 @@ func (mc *MenuCreate) createSpec() (*Menu, *sqlgraph.CreateSpec) {
 	if nodes := mc.mutation.RolesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   menu.RolesTable,
 			Columns: menu.RolesPrimaryKey,
 			Bidi:    false,

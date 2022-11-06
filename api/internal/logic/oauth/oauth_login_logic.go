@@ -25,7 +25,7 @@ func NewOauthLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *OauthL
 }
 
 func (l *OauthLoginLogic) OauthLogin(req *types.OauthLoginReq) (resp *types.RedirectResp, err error) {
-	result, err := l.svcCtx.CoreRpc.OauthLogin(context.Background(), &core.OauthLoginReq{
+	result, err := l.svcCtx.CoreRpc.OauthLogin(l.ctx, &core.OauthLoginReq{
 		State:    req.State,
 		Provider: req.Provider,
 	})

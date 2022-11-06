@@ -30,8 +30,8 @@ type Client struct {
 	config
 	// Schema is the client for creating, migrating and dropping schema.
 	Schema *migrate.Schema
-	// Api is the client for interacting with the Api builders.
-	Api *ApiClient
+	// API is the client for interacting with the API builders.
+	API *APIClient
 	// Dictionary is the client for interacting with the Dictionary builders.
 	Dictionary *DictionaryClient
 	// DictionaryDetail is the client for interacting with the DictionaryDetail builders.
@@ -61,7 +61,7 @@ func NewClient(opts ...Option) *Client {
 
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
-	c.Api = NewApiClient(c.config)
+	c.API = NewAPIClient(c.config)
 	c.Dictionary = NewDictionaryClient(c.config)
 	c.DictionaryDetail = NewDictionaryDetailClient(c.config)
 	c.Menu = NewMenuClient(c.config)
@@ -103,7 +103,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	return &Tx{
 		ctx:              ctx,
 		config:           cfg,
-		Api:              NewApiClient(cfg),
+		API:              NewAPIClient(cfg),
 		Dictionary:       NewDictionaryClient(cfg),
 		DictionaryDetail: NewDictionaryDetailClient(cfg),
 		Menu:             NewMenuClient(cfg),
@@ -131,7 +131,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	return &Tx{
 		ctx:              ctx,
 		config:           cfg,
-		Api:              NewApiClient(cfg),
+		API:              NewAPIClient(cfg),
 		Dictionary:       NewDictionaryClient(cfg),
 		DictionaryDetail: NewDictionaryDetailClient(cfg),
 		Menu:             NewMenuClient(cfg),
@@ -146,7 +146,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 // Debug returns a new debug-client. It's used to get verbose logging on specific operations.
 //
 //	client.Debug().
-//		Api.
+//		API.
 //		Query().
 //		Count(ctx)
 func (c *Client) Debug() *Client {
@@ -168,7 +168,7 @@ func (c *Client) Close() error {
 // Use adds the mutation hooks to all the entity clients.
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
-	c.Api.Use(hooks...)
+	c.API.Use(hooks...)
 	c.Dictionary.Use(hooks...)
 	c.DictionaryDetail.Use(hooks...)
 	c.Menu.Use(hooks...)
@@ -179,84 +179,84 @@ func (c *Client) Use(hooks ...Hook) {
 	c.User.Use(hooks...)
 }
 
-// ApiClient is a client for the Api schema.
-type ApiClient struct {
+// APIClient is a client for the API schema.
+type APIClient struct {
 	config
 }
 
-// NewApiClient returns a client for the Api from the given config.
-func NewApiClient(c config) *ApiClient {
-	return &ApiClient{config: c}
+// NewAPIClient returns a client for the API from the given config.
+func NewAPIClient(c config) *APIClient {
+	return &APIClient{config: c}
 }
 
 // Use adds a list of mutation hooks to the hooks stack.
 // A call to `Use(f, g, h)` equals to `api.Hooks(f(g(h())))`.
-func (c *ApiClient) Use(hooks ...Hook) {
-	c.hooks.Api = append(c.hooks.Api, hooks...)
+func (c *APIClient) Use(hooks ...Hook) {
+	c.hooks.API = append(c.hooks.API, hooks...)
 }
 
-// Create returns a builder for creating a Api entity.
-func (c *ApiClient) Create() *APICreate {
+// Create returns a builder for creating a API entity.
+func (c *APIClient) Create() *APICreate {
 	mutation := newAPIMutation(c.config, OpCreate)
 	return &APICreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// CreateBulk returns a builder for creating a bulk of Api entities.
-func (c *ApiClient) CreateBulk(builders ...*APICreate) *APICreateBulk {
+// CreateBulk returns a builder for creating a bulk of API entities.
+func (c *APIClient) CreateBulk(builders ...*APICreate) *APICreateBulk {
 	return &APICreateBulk{config: c.config, builders: builders}
 }
 
-// Update returns an update builder for Api.
-func (c *ApiClient) Update() *APIUpdate {
+// Update returns an update builder for API.
+func (c *APIClient) Update() *APIUpdate {
 	mutation := newAPIMutation(c.config, OpUpdate)
 	return &APIUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *ApiClient) UpdateOne(a *Api) *APIUpdateOne {
-	mutation := newAPIMutation(c.config, OpUpdateOne, withApi(a))
+func (c *APIClient) UpdateOne(a *API) *APIUpdateOne {
+	mutation := newAPIMutation(c.config, OpUpdateOne, withAPI(a))
 	return &APIUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOneID returns an update builder for the given id.
-func (c *ApiClient) UpdateOneID(id uint64) *APIUpdateOne {
-	mutation := newAPIMutation(c.config, OpUpdateOne, withApiID(id))
+func (c *APIClient) UpdateOneID(id uint64) *APIUpdateOne {
+	mutation := newAPIMutation(c.config, OpUpdateOne, withAPIID(id))
 	return &APIUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// Delete returns a delete builder for Api.
-func (c *ApiClient) Delete() *APIDelete {
+// Delete returns a delete builder for API.
+func (c *APIClient) Delete() *APIDelete {
 	mutation := newAPIMutation(c.config, OpDelete)
 	return &APIDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *ApiClient) DeleteOne(a *Api) *APIDeleteOne {
+func (c *APIClient) DeleteOne(a *API) *APIDeleteOne {
 	return c.DeleteOneID(a.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *ApiClient) DeleteOneID(id uint64) *APIDeleteOne {
+func (c *APIClient) DeleteOneID(id uint64) *APIDeleteOne {
 	builder := c.Delete().Where(api.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
 	return &APIDeleteOne{builder}
 }
 
-// Query returns a query builder for Api.
-func (c *ApiClient) Query() *APIQuery {
+// Query returns a query builder for API.
+func (c *APIClient) Query() *APIQuery {
 	return &APIQuery{
 		config: c.config,
 	}
 }
 
-// Get returns a Api entity by its id.
-func (c *ApiClient) Get(ctx context.Context, id uint64) (*Api, error) {
+// Get returns a API entity by its id.
+func (c *APIClient) Get(ctx context.Context, id uint64) (*API, error) {
 	return c.Query().Where(api.ID(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
-func (c *ApiClient) GetX(ctx context.Context, id uint64) *Api {
+func (c *APIClient) GetX(ctx context.Context, id uint64) *API {
 	obj, err := c.Get(ctx, id)
 	if err != nil {
 		panic(err)
@@ -265,8 +265,8 @@ func (c *ApiClient) GetX(ctx context.Context, id uint64) *Api {
 }
 
 // Hooks returns the client hooks.
-func (c *ApiClient) Hooks() []Hook {
-	return c.hooks.Api
+func (c *APIClient) Hooks() []Hook {
+	return c.hooks.API
 }
 
 // DictionaryClient is a client for the Dictionary schema.
@@ -354,15 +354,15 @@ func (c *DictionaryClient) GetX(ctx context.Context, id uint64) *Dictionary {
 	return obj
 }
 
-// QueryDetails queries the details edge of a Dictionary.
-func (c *DictionaryClient) QueryDetails(d *Dictionary) *DictionaryDetailQuery {
+// QueryDictionaryDetails queries the dictionary_details edge of a Dictionary.
+func (c *DictionaryClient) QueryDictionaryDetails(d *Dictionary) *DictionaryDetailQuery {
 	query := &DictionaryDetailQuery{config: c.config}
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := d.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(dictionary.Table, dictionary.FieldID, id),
 			sqlgraph.To(dictionarydetail.Table, dictionarydetail.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, dictionary.DetailsTable, dictionary.DetailsColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, dictionary.DictionaryDetailsTable, dictionary.DictionaryDetailsColumn),
 		)
 		fromV = sqlgraph.Neighbors(d.driver.Dialect(), step)
 		return fromV, nil
@@ -574,7 +574,7 @@ func (c *MenuClient) QueryRoles(m *Menu) *RoleQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(menu.Table, menu.FieldID, id),
 			sqlgraph.To(role.Table, role.FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, false, menu.RolesTable, menu.RolesPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2M, true, menu.RolesTable, menu.RolesPrimaryKey...),
 		)
 		fromV = sqlgraph.Neighbors(m.driver.Dialect(), step)
 		return fromV, nil
@@ -924,7 +924,7 @@ func (c *RoleClient) QueryMenus(r *Role) *MenuQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(role.Table, role.FieldID, id),
 			sqlgraph.To(menu.Table, menu.FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, true, role.MenusTable, role.MenusPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2M, false, role.MenusTable, role.MenusPrimaryKey...),
 		)
 		fromV = sqlgraph.Neighbors(r.driver.Dialect(), step)
 		return fromV, nil

@@ -13,7 +13,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 )
 
-// APIDelete is the builder for deleting a Api entity.
+// APIDelete is the builder for deleting a API entity.
 type APIDelete struct {
 	config
 	hooks    []Hook
@@ -21,7 +21,7 @@ type APIDelete struct {
 }
 
 // Where appends a list predicates to the APIDelete builder.
-func (ad *APIDelete) Where(ps ...predicate.Api) *APIDelete {
+func (ad *APIDelete) Where(ps ...predicate.API) *APIDelete {
 	ad.mutation.Where(ps...)
 	return ad
 }
@@ -91,7 +91,7 @@ func (ad *APIDelete) sqlExec(ctx context.Context) (int, error) {
 	return affected, err
 }
 
-// APIDeleteOne is the builder for deleting a single Api entity.
+// APIDeleteOne is the builder for deleting a single API entity.
 type APIDeleteOne struct {
 	ad *APIDelete
 }

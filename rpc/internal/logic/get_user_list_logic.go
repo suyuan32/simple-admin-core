@@ -3,14 +3,15 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/zeromicro/go-zero/core/errorx"
+
+	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type GetUserListLogic struct {
@@ -28,50 +29,48 @@ func NewGetUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListResp, error) {
-	db := l.svcCtx.DB.Model(&model.User{})
-	var users []model.User
-	var total int64
+	var predicates []predicate.User
 
-	if in.Username != "" {
-		db = db.Where("username LIKE ?", "%"+in.Username+"%")
+	if in.Mobile != "" {
+		predicates = append(predicates, user.MobileEQ(in.Mobile))
 	}
 
-	if in.Nickname != "" {
-		db = db.Where("nickname LIKE ?", "%"+in.Nickname+"%")
+	if in.Username != "" {
+		predicates = append(predicates, user.UsernameContains(in.Username))
 	}
 
 	if in.Email != "" {
-		db = db.Where("email = ?", in.Email)
+		predicates = append(predicates, user.EmailEQ(in.Email))
 	}
 
-	if in.Mobile != "" {
-		db = db.Where("mobile = ?", in.Mobile)
+	if in.Nickname != "" {
+		predicates = append(predicates, user.NicknameContains(in.Nickname))
 	}
 
 	if in.RoleId != 0 {
-		db = db.Where("role_id = ?", in.RoleId)
+		predicates = append(predicates, user.RoleIDEQ(in.RoleId))
 	}
+
+	users, err := l.svcCtx.DB.User.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+
+	if err != nil {
+		logx.Error(err.Error())
+		return nil, statuserr.NewInternalError(errorx.DatabaseError)
+	}
+
 	resp := &core.UserListResp{}
-	db.Count(&total)
-	resp.Total = uint32(total)
-	result := db.Limit(int(in.PageSize)).Offset(int((in.Page - 1) * in.PageSize)).
-		Order("role_id, id desc").Find(&users)
+	resp.Total = users.PageDetails.Total
 
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, result.Error.Error())
-	}
-
-	for _, v := range users {
+	for _, v := range users.List {
 		resp.Data = append(resp.Data, &core.UserInfoResp{
-			Id:        uint64(v.ID),
+			Id:        v.ID,
 			Avatar:    v.Avatar,
-			RoleId:    v.RoleId,
+			RoleId:    v.RoleID,
 			Mobile:    v.Mobile,
 			Email:     v.Email,
-			Status:    v.Status,
+			Status:    uint64(v.Status),
 			Username:  v.Username,
-			UUID:      v.UUID,
+			Uuid:      v.UUID,
 			Nickname:  v.Nickname,
 			CreatedAt: v.CreatedAt.UnixMilli(),
 			UpdatedAt: v.UpdatedAt.UnixMilli(),

@@ -9,7 +9,6 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 
@@ -39,7 +38,7 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 		err := l.svcCtx.DB.Dictionary.Create().
 			SetTitle(in.Title).
 			SetName(in.Name).
-			SetStatus(gotype.Status(in.Status)).
+			SetStatus(uint8(in.Status)).
 			SetDesc(in.Desc).
 			Exec(l.ctx)
 
@@ -72,7 +71,7 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 		err = l.svcCtx.DB.Dictionary.UpdateOneID(in.Id).
 			SetTitle(in.Title).
 			SetName(in.Name).
-			SetStatus(gotype.Status(in.Status)).
+			SetStatus(uint8(in.Status)).
 			SetDesc(in.Desc).
 			Exec(l.ctx)
 

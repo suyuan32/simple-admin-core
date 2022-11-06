@@ -25,8 +25,8 @@ func NewCreateOrUpdateDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceCo
 }
 
 func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(req *types.CreateOrUpdateDictionaryReq) (resp *types.SimpleMsg, err error) {
-	result, err := l.svcCtx.CoreRpc.CreateOrUpdateDictionary(context.Background(), &core.DictionaryInfo{
-		Id:     req.Id,
+	result, err := l.svcCtx.CoreRpc.CreateOrUpdateDictionary(l.ctx, &core.DictionaryInfo{
+		Id:     req.ID,
 		Title:  req.Title,
 		Name:   req.Name,
 		Status: req.Status,

@@ -14,7 +14,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // DictionaryUpdate is the builder for updating Dictionary entities.
@@ -37,23 +36,23 @@ func (du *DictionaryUpdate) SetUpdatedAt(t time.Time) *DictionaryUpdate {
 }
 
 // SetStatus sets the "status" field.
-func (du *DictionaryUpdate) SetStatus(_go gotype.Status) *DictionaryUpdate {
+func (du *DictionaryUpdate) SetStatus(u uint8) *DictionaryUpdate {
 	du.mutation.ResetStatus()
-	du.mutation.SetStatus(_go)
+	du.mutation.SetStatus(u)
 	return du
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (du *DictionaryUpdate) SetNillableStatus(_go *gotype.Status) *DictionaryUpdate {
-	if _go != nil {
-		du.SetStatus(*_go)
+func (du *DictionaryUpdate) SetNillableStatus(u *uint8) *DictionaryUpdate {
+	if u != nil {
+		du.SetStatus(*u)
 	}
 	return du
 }
 
-// AddStatus adds _go to the "status" field.
-func (du *DictionaryUpdate) AddStatus(_go gotype.Status) *DictionaryUpdate {
-	du.mutation.AddStatus(_go)
+// AddStatus adds u to the "status" field.
+func (du *DictionaryUpdate) AddStatus(u int8) *DictionaryUpdate {
+	du.mutation.AddStatus(u)
 	return du
 }
 
@@ -81,19 +80,19 @@ func (du *DictionaryUpdate) SetDesc(s string) *DictionaryUpdate {
 	return du
 }
 
-// AddDetailIDs adds the "details" edge to the DictionaryDetail entity by IDs.
-func (du *DictionaryUpdate) AddDetailIDs(ids ...uint64) *DictionaryUpdate {
-	du.mutation.AddDetailIDs(ids...)
+// AddDictionaryDetailIDs adds the "dictionary_details" edge to the DictionaryDetail entity by IDs.
+func (du *DictionaryUpdate) AddDictionaryDetailIDs(ids ...uint64) *DictionaryUpdate {
+	du.mutation.AddDictionaryDetailIDs(ids...)
 	return du
 }
 
-// AddDetails adds the "details" edges to the DictionaryDetail entity.
-func (du *DictionaryUpdate) AddDetails(d ...*DictionaryDetail) *DictionaryUpdate {
+// AddDictionaryDetails adds the "dictionary_details" edges to the DictionaryDetail entity.
+func (du *DictionaryUpdate) AddDictionaryDetails(d ...*DictionaryDetail) *DictionaryUpdate {
 	ids := make([]uint64, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return du.AddDetailIDs(ids...)
+	return du.AddDictionaryDetailIDs(ids...)
 }
 
 // Mutation returns the DictionaryMutation object of the builder.
@@ -101,25 +100,25 @@ func (du *DictionaryUpdate) Mutation() *DictionaryMutation {
 	return du.mutation
 }
 
-// ClearDetails clears all "details" edges to the DictionaryDetail entity.
-func (du *DictionaryUpdate) ClearDetails() *DictionaryUpdate {
-	du.mutation.ClearDetails()
+// ClearDictionaryDetails clears all "dictionary_details" edges to the DictionaryDetail entity.
+func (du *DictionaryUpdate) ClearDictionaryDetails() *DictionaryUpdate {
+	du.mutation.ClearDictionaryDetails()
 	return du
 }
 
-// RemoveDetailIDs removes the "details" edge to DictionaryDetail entities by IDs.
-func (du *DictionaryUpdate) RemoveDetailIDs(ids ...uint64) *DictionaryUpdate {
-	du.mutation.RemoveDetailIDs(ids...)
+// RemoveDictionaryDetailIDs removes the "dictionary_details" edge to DictionaryDetail entities by IDs.
+func (du *DictionaryUpdate) RemoveDictionaryDetailIDs(ids ...uint64) *DictionaryUpdate {
+	du.mutation.RemoveDictionaryDetailIDs(ids...)
 	return du
 }
 
-// RemoveDetails removes "details" edges to DictionaryDetail entities.
-func (du *DictionaryUpdate) RemoveDetails(d ...*DictionaryDetail) *DictionaryUpdate {
+// RemoveDictionaryDetails removes "dictionary_details" edges to DictionaryDetail entities.
+func (du *DictionaryUpdate) RemoveDictionaryDetails(d ...*DictionaryDetail) *DictionaryUpdate {
 	ids := make([]uint64, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return du.RemoveDetailIDs(ids...)
+	return du.RemoveDictionaryDetailIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -224,12 +223,12 @@ func (du *DictionaryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := du.mutation.Desc(); ok {
 		_spec.SetField(dictionary.FieldDesc, field.TypeString, value)
 	}
-	if du.mutation.DetailsCleared() {
+	if du.mutation.DictionaryDetailsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   dictionary.DetailsTable,
-			Columns: []string{dictionary.DetailsColumn},
+			Table:   dictionary.DictionaryDetailsTable,
+			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -240,12 +239,12 @@ func (du *DictionaryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := du.mutation.RemovedDetailsIDs(); len(nodes) > 0 && !du.mutation.DetailsCleared() {
+	if nodes := du.mutation.RemovedDictionaryDetailsIDs(); len(nodes) > 0 && !du.mutation.DictionaryDetailsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   dictionary.DetailsTable,
-			Columns: []string{dictionary.DetailsColumn},
+			Table:   dictionary.DictionaryDetailsTable,
+			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -259,12 +258,12 @@ func (du *DictionaryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := du.mutation.DetailsIDs(); len(nodes) > 0 {
+	if nodes := du.mutation.DictionaryDetailsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   dictionary.DetailsTable,
-			Columns: []string{dictionary.DetailsColumn},
+			Table:   dictionary.DictionaryDetailsTable,
+			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -304,23 +303,23 @@ func (duo *DictionaryUpdateOne) SetUpdatedAt(t time.Time) *DictionaryUpdateOne {
 }
 
 // SetStatus sets the "status" field.
-func (duo *DictionaryUpdateOne) SetStatus(_go gotype.Status) *DictionaryUpdateOne {
+func (duo *DictionaryUpdateOne) SetStatus(u uint8) *DictionaryUpdateOne {
 	duo.mutation.ResetStatus()
-	duo.mutation.SetStatus(_go)
+	duo.mutation.SetStatus(u)
 	return duo
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (duo *DictionaryUpdateOne) SetNillableStatus(_go *gotype.Status) *DictionaryUpdateOne {
-	if _go != nil {
-		duo.SetStatus(*_go)
+func (duo *DictionaryUpdateOne) SetNillableStatus(u *uint8) *DictionaryUpdateOne {
+	if u != nil {
+		duo.SetStatus(*u)
 	}
 	return duo
 }
 
-// AddStatus adds _go to the "status" field.
-func (duo *DictionaryUpdateOne) AddStatus(_go gotype.Status) *DictionaryUpdateOne {
-	duo.mutation.AddStatus(_go)
+// AddStatus adds u to the "status" field.
+func (duo *DictionaryUpdateOne) AddStatus(u int8) *DictionaryUpdateOne {
+	duo.mutation.AddStatus(u)
 	return duo
 }
 
@@ -348,19 +347,19 @@ func (duo *DictionaryUpdateOne) SetDesc(s string) *DictionaryUpdateOne {
 	return duo
 }
 
-// AddDetailIDs adds the "details" edge to the DictionaryDetail entity by IDs.
-func (duo *DictionaryUpdateOne) AddDetailIDs(ids ...uint64) *DictionaryUpdateOne {
-	duo.mutation.AddDetailIDs(ids...)
+// AddDictionaryDetailIDs adds the "dictionary_details" edge to the DictionaryDetail entity by IDs.
+func (duo *DictionaryUpdateOne) AddDictionaryDetailIDs(ids ...uint64) *DictionaryUpdateOne {
+	duo.mutation.AddDictionaryDetailIDs(ids...)
 	return duo
 }
 
-// AddDetails adds the "details" edges to the DictionaryDetail entity.
-func (duo *DictionaryUpdateOne) AddDetails(d ...*DictionaryDetail) *DictionaryUpdateOne {
+// AddDictionaryDetails adds the "dictionary_details" edges to the DictionaryDetail entity.
+func (duo *DictionaryUpdateOne) AddDictionaryDetails(d ...*DictionaryDetail) *DictionaryUpdateOne {
 	ids := make([]uint64, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return duo.AddDetailIDs(ids...)
+	return duo.AddDictionaryDetailIDs(ids...)
 }
 
 // Mutation returns the DictionaryMutation object of the builder.
@@ -368,25 +367,25 @@ func (duo *DictionaryUpdateOne) Mutation() *DictionaryMutation {
 	return duo.mutation
 }
 
-// ClearDetails clears all "details" edges to the DictionaryDetail entity.
-func (duo *DictionaryUpdateOne) ClearDetails() *DictionaryUpdateOne {
-	duo.mutation.ClearDetails()
+// ClearDictionaryDetails clears all "dictionary_details" edges to the DictionaryDetail entity.
+func (duo *DictionaryUpdateOne) ClearDictionaryDetails() *DictionaryUpdateOne {
+	duo.mutation.ClearDictionaryDetails()
 	return duo
 }
 
-// RemoveDetailIDs removes the "details" edge to DictionaryDetail entities by IDs.
-func (duo *DictionaryUpdateOne) RemoveDetailIDs(ids ...uint64) *DictionaryUpdateOne {
-	duo.mutation.RemoveDetailIDs(ids...)
+// RemoveDictionaryDetailIDs removes the "dictionary_details" edge to DictionaryDetail entities by IDs.
+func (duo *DictionaryUpdateOne) RemoveDictionaryDetailIDs(ids ...uint64) *DictionaryUpdateOne {
+	duo.mutation.RemoveDictionaryDetailIDs(ids...)
 	return duo
 }
 
-// RemoveDetails removes "details" edges to DictionaryDetail entities.
-func (duo *DictionaryUpdateOne) RemoveDetails(d ...*DictionaryDetail) *DictionaryUpdateOne {
+// RemoveDictionaryDetails removes "dictionary_details" edges to DictionaryDetail entities.
+func (duo *DictionaryUpdateOne) RemoveDictionaryDetails(d ...*DictionaryDetail) *DictionaryUpdateOne {
 	ids := make([]uint64, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return duo.RemoveDetailIDs(ids...)
+	return duo.RemoveDictionaryDetailIDs(ids...)
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
@@ -521,12 +520,12 @@ func (duo *DictionaryUpdateOne) sqlSave(ctx context.Context) (_node *Dictionary,
 	if value, ok := duo.mutation.Desc(); ok {
 		_spec.SetField(dictionary.FieldDesc, field.TypeString, value)
 	}
-	if duo.mutation.DetailsCleared() {
+	if duo.mutation.DictionaryDetailsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   dictionary.DetailsTable,
-			Columns: []string{dictionary.DetailsColumn},
+			Table:   dictionary.DictionaryDetailsTable,
+			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -537,12 +536,12 @@ func (duo *DictionaryUpdateOne) sqlSave(ctx context.Context) (_node *Dictionary,
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := duo.mutation.RemovedDetailsIDs(); len(nodes) > 0 && !duo.mutation.DetailsCleared() {
+	if nodes := duo.mutation.RemovedDictionaryDetailsIDs(); len(nodes) > 0 && !duo.mutation.DictionaryDetailsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   dictionary.DetailsTable,
-			Columns: []string{dictionary.DetailsColumn},
+			Table:   dictionary.DictionaryDetailsTable,
+			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -556,12 +555,12 @@ func (duo *DictionaryUpdateOne) sqlSave(ctx context.Context) (_node *Dictionary,
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := duo.mutation.DetailsIDs(); len(nodes) > 0 {
+	if nodes := duo.mutation.DictionaryDetailsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   dictionary.DetailsTable,
-			Columns: []string{dictionary.DetailsColumn},
+			Table:   dictionary.DictionaryDetailsTable,
+			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

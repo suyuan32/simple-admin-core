@@ -7,11 +7,11 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/schema/mixins"
 )
 
-type Api struct {
+type API struct {
 	ent.Schema
 }
 
-func (Api) Fields() []ent.Field {
+func (API) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("path").Comment("API path | API 路径"),
 		field.String("description").Comment("API description | API 描述"),
@@ -20,12 +20,12 @@ func (Api) Fields() []ent.Field {
 	}
 }
 
-func (Api) Mixin() []ent.Mixin {
+func (API) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		mixins.BaseMixin{},
 	}
 }
 
-func (Api) Edges() []ent.Edge {
+func (API) Edges() []ent.Edge {
 	return nil
 }

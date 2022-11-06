@@ -13,7 +13,6 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // TokenUpdate is the builder for updating Token entities.
@@ -36,23 +35,23 @@ func (tu *TokenUpdate) SetUpdatedAt(t time.Time) *TokenUpdate {
 }
 
 // SetStatus sets the "status" field.
-func (tu *TokenUpdate) SetStatus(_go gotype.Status) *TokenUpdate {
+func (tu *TokenUpdate) SetStatus(u uint8) *TokenUpdate {
 	tu.mutation.ResetStatus()
-	tu.mutation.SetStatus(_go)
+	tu.mutation.SetStatus(u)
 	return tu
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (tu *TokenUpdate) SetNillableStatus(_go *gotype.Status) *TokenUpdate {
-	if _go != nil {
-		tu.SetStatus(*_go)
+func (tu *TokenUpdate) SetNillableStatus(u *uint8) *TokenUpdate {
+	if u != nil {
+		tu.SetStatus(*u)
 	}
 	return tu
 }
 
-// AddStatus adds _go to the "status" field.
-func (tu *TokenUpdate) AddStatus(_go gotype.Status) *TokenUpdate {
-	tu.mutation.AddStatus(_go)
+// AddStatus adds u to the "status" field.
+func (tu *TokenUpdate) AddStatus(u int8) *TokenUpdate {
+	tu.mutation.AddStatus(u)
 	return tu
 }
 
@@ -222,23 +221,23 @@ func (tuo *TokenUpdateOne) SetUpdatedAt(t time.Time) *TokenUpdateOne {
 }
 
 // SetStatus sets the "status" field.
-func (tuo *TokenUpdateOne) SetStatus(_go gotype.Status) *TokenUpdateOne {
+func (tuo *TokenUpdateOne) SetStatus(u uint8) *TokenUpdateOne {
 	tuo.mutation.ResetStatus()
-	tuo.mutation.SetStatus(_go)
+	tuo.mutation.SetStatus(u)
 	return tuo
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (tuo *TokenUpdateOne) SetNillableStatus(_go *gotype.Status) *TokenUpdateOne {
-	if _go != nil {
-		tuo.SetStatus(*_go)
+func (tuo *TokenUpdateOne) SetNillableStatus(u *uint8) *TokenUpdateOne {
+	if u != nil {
+		tuo.SetStatus(*u)
 	}
 	return tuo
 }
 
-// AddStatus adds _go to the "status" field.
-func (tuo *TokenUpdateOne) AddStatus(_go gotype.Status) *TokenUpdateOne {
-	tuo.mutation.AddStatus(_go)
+// AddStatus adds u to the "status" field.
+func (tuo *TokenUpdateOne) AddStatus(u int8) *TokenUpdateOne {
+	tuo.mutation.AddStatus(u)
 	return tuo
 }
 

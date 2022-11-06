@@ -29,7 +29,7 @@ func NewDeleteRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 }
 
 func (l *DeleteRoleLogic) DeleteRole(in *core.IDReq) (*core.BaseResp, error) {
-	exist, err := l.svcCtx.DB.User.Query().Where(user.RoleIDEQ(in.ID)).Exist(l.ctx)
+	exist, err := l.svcCtx.DB.User.Query().Where(user.RoleIDEQ(in.Id)).Exist(l.ctx)
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		return nil, statuserr.NewInternalError(errorx.DatabaseError)
@@ -37,11 +37,11 @@ func (l *DeleteRoleLogic) DeleteRole(in *core.IDReq) (*core.BaseResp, error) {
 
 	if exist {
 		logx.Errorw("delete role failed, please check the role id",
-			logx.Field("roleId", in.ID))
+			logx.Field("roleId", in.Id))
 		return nil, statuserr.NewInvalidArgumentError(errorx.DeleteFailed)
 	}
 
-	err = l.svcCtx.DB.Role.DeleteOneID(in.ID).Exec(l.ctx)
+	err = l.svcCtx.DB.Role.DeleteOneID(in.Id).Exec(l.ctx)
 
 	if err != nil {
 		switch {

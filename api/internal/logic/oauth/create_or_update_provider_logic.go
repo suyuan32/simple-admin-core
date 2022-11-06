@@ -25,7 +25,7 @@ func NewCreateOrUpdateProviderLogic(ctx context.Context, svcCtx *svc.ServiceCont
 }
 
 func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(req *types.CreateOrUpdateProviderReq) (resp *types.SimpleMsg, err error) {
-	data, err := l.svcCtx.CoreRpc.CreateOrUpdateProvider(context.Background(),
+	data, err := l.svcCtx.CoreRpc.CreateOrUpdateProvider(l.ctx,
 		&core.ProviderInfo{
 			Id:           req.Id,
 			Name:         req.Name,
@@ -37,7 +37,6 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(req *types.CreateOr
 			TokenUrl:     req.TokenURL,
 			AuthStyle:    uint64(req.AuthStyle),
 			InfoUrl:      req.InfoURL,
-			CreatedAt:    req.CreatedAt,
 		})
 	if err != nil {
 		return nil, err

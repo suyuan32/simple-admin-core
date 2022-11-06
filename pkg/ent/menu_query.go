@@ -80,7 +80,7 @@ func (mq *MenuQuery) QueryRoles() *RoleQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(menu.Table, menu.FieldID, selector),
 			sqlgraph.To(role.Table, role.FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, false, menu.RolesTable, menu.RolesPrimaryKey...),
+			sqlgraph.Edge(sqlgraph.M2M, true, menu.RolesTable, menu.RolesPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(mq.driver.Dialect(), step)
 		return fromU, nil
@@ -531,10 +531,10 @@ func (mq *MenuQuery) loadRoles(ctx context.Context, query *RoleQuery, nodes []*M
 	}
 	query.Where(func(s *sql.Selector) {
 		joinT := sql.Table(menu.RolesTable)
-		s.Join(joinT).On(s.C(role.FieldID), joinT.C(menu.RolesPrimaryKey[1]))
-		s.Where(sql.InValues(joinT.C(menu.RolesPrimaryKey[0]), edgeIDs...))
+		s.Join(joinT).On(s.C(role.FieldID), joinT.C(menu.RolesPrimaryKey[0]))
+		s.Where(sql.InValues(joinT.C(menu.RolesPrimaryKey[1]), edgeIDs...))
 		columns := s.SelectedColumns()
-		s.Select(joinT.C(menu.RolesPrimaryKey[0]))
+		s.Select(joinT.C(menu.RolesPrimaryKey[1]))
 		s.AppendSelect(columns...)
 		s.SetDistinct(false)
 	})

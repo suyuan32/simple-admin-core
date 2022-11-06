@@ -24,7 +24,7 @@ type config struct {
 
 // hooks per client, for fast access.
 type hooks struct {
-	Api              []ent.Hook
+	API              []ent.Hook
 	Dictionary       []ent.Hook
 	DictionaryDetail []ent.Hook
 	Menu             []ent.Hook

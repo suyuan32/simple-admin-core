@@ -3,14 +3,13 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/zeromicro/go-zero/core/errorx"
+
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type GetRoleListLogic struct {
@@ -28,27 +27,28 @@ func NewGetRoleListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRo
 }
 
 func (l *GetRoleListLogic) GetRoleList(in *core.PageInfoReq) (*core.RoleListResp, error) {
-	var roles []*model.Role
-	resp := &core.RoleListResp{}
-	var total int64
-	l.svcCtx.DB.Model(&model.Role{}).Count(&total)
-	resp.Total = uint64(total)
-	result := l.svcCtx.DB.Limit(int(in.PageSize)).Offset(int((in.Page - 1) * in.PageSize)).Find(&roles)
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, result.Error.Error())
+	roles, err := l.svcCtx.DB.Role.Query().Page(l.ctx, in.Page, in.PageSize)
+
+	if err != nil {
+		logx.Error(err.Error())
+		return nil, statuserr.NewInternalError(errorx.DatabaseError)
 	}
-	for _, v := range roles {
+
+	resp := &core.RoleListResp{}
+	resp.Total = roles.PageDetails.Total
+
+	for _, v := range roles.List {
 		resp.Data = append(resp.Data, &core.RoleInfo{
-			Id:            uint64(v.ID),
+			Id:            v.ID,
 			Name:          v.Name,
 			Value:         v.Value,
 			DefaultRouter: v.DefaultRouter,
-			Status:        v.Status,
+			Status:        uint64(v.Status),
 			Remark:        v.Remark,
 			OrderNo:       v.OrderNo,
 			CreatedAt:     v.CreatedAt.UnixMilli(),
 		})
 	}
+
 	return resp, nil
 }

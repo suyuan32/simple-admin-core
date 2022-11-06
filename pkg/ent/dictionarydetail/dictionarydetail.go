@@ -4,8 +4,6 @@ package dictionarydetail
 
 import (
 	"time"
-
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 const (
@@ -35,7 +33,7 @@ const (
 	// It exists in this package in order to avoid circular dependency with the "dictionary" package.
 	DictionaryInverseTable = "dictionaries"
 	// DictionaryColumn is the table column denoting the dictionary relation/edge.
-	DictionaryColumn = "dictionary_details"
+	DictionaryColumn = "dictionary_dictionary_details"
 )
 
 // Columns holds all SQL columns for dictionarydetail fields.
@@ -52,7 +50,7 @@ var Columns = []string{
 // ForeignKeys holds the SQL foreign-keys that are owned by the "dictionary_details"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
-	"dictionary_details",
+	"dictionary_dictionary_details",
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -78,5 +76,5 @@ var (
 	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultStatus holds the default value on creation for the "status" field.
-	DefaultStatus gotype.Status
+	DefaultStatus uint8
 )

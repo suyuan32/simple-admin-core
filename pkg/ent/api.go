@@ -11,8 +11,8 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/api"
 )
 
-// Api is the model entity for the Api schema.
-type Api struct {
+// API is the model entity for the API schema.
+type API struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID uint64 `json:"id,omitempty"`
@@ -31,7 +31,7 @@ type Api struct {
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
-func (*Api) scanValues(columns []string) ([]any, error) {
+func (*API) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
@@ -42,15 +42,15 @@ func (*Api) scanValues(columns []string) ([]any, error) {
 		case api.FieldCreatedAt, api.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
 		default:
-			return nil, fmt.Errorf("unexpected column %q for type Api", columns[i])
+			return nil, fmt.Errorf("unexpected column %q for type API", columns[i])
 		}
 	}
 	return values, nil
 }
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
-// to the Api fields.
-func (a *Api) assignValues(columns []string, values []any) error {
+// to the API fields.
+func (a *API) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -103,28 +103,28 @@ func (a *Api) assignValues(columns []string, values []any) error {
 	return nil
 }
 
-// Update returns a builder for updating this Api.
-// Note that you need to call Api.Unwrap() before calling this method if this Api
+// Update returns a builder for updating this API.
+// Note that you need to call API.Unwrap() before calling this method if this API
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (a *Api) Update() *APIUpdateOne {
-	return (&ApiClient{config: a.config}).UpdateOne(a)
+func (a *API) Update() *APIUpdateOne {
+	return (&APIClient{config: a.config}).UpdateOne(a)
 }
 
-// Unwrap unwraps the Api entity that was returned from a transaction after it was closed,
+// Unwrap unwraps the API entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (a *Api) Unwrap() *Api {
+func (a *API) Unwrap() *API {
 	_tx, ok := a.config.driver.(*txDriver)
 	if !ok {
-		panic("ent: Api is not a transactional entity")
+		panic("ent: API is not a transactional entity")
 	}
 	a.config.driver = _tx.drv
 	return a
 }
 
 // String implements the fmt.Stringer.
-func (a *Api) String() string {
+func (a *API) String() string {
 	var builder strings.Builder
-	builder.WriteString("Api(")
+	builder.WriteString("API(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", a.ID))
 	builder.WriteString("created_at=")
 	builder.WriteString(a.CreatedAt.Format(time.ANSIC))
@@ -147,10 +147,10 @@ func (a *Api) String() string {
 	return builder.String()
 }
 
-// Apis is a parsable slice of Api.
-type Apis []*Api
+// APIs is a parsable slice of API.
+type APIs []*API
 
-func (a Apis) config(cfg config) {
+func (a APIs) config(cfg config) {
 	for _i := range a {
 		a[_i].config = cfg
 	}

@@ -29,6 +29,6 @@ func (Dictionary) Mixin() []ent.Mixin {
 
 func (Dictionary) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("details", DictionaryDetail.Type),
+		edge.To("dictionary_details", DictionaryDetail.Type),
 	}
 }

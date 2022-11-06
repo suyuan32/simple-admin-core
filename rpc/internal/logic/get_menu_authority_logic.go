@@ -3,15 +3,15 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/zeromicro/go-zero/core/errorx"
+
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
 )
 
 type GetMenuAuthorityLogic struct {
@@ -30,19 +30,25 @@ func NewGetMenuAuthorityLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 
 // authorization management service
 func (l *GetMenuAuthorityLogic) GetMenuAuthority(in *core.IDReq) (*core.RoleMenuAuthorityResp, error) {
-	var r model.Role
-	result := l.svcCtx.DB.Preload("Menus").Where(&model.Role{
-		Model: gorm.Model{ID: uint(in.ID)},
-	}).First(&r)
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, result.Error.Error())
-	}
-	var menuIds []uint64
-	for _, v := range r.Menus {
-		if v.ID != 1 {
-			menuIds = append(menuIds, uint64(v.ID))
+	menus, err := l.svcCtx.DB.Role.Query().Where(role.ID(in.Id)).QueryMenus().All(l.ctx)
+
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+		default:
+			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
 	}
+
+	var menuIds []uint64
+	for _, v := range menus {
+		if v.ID != 1 {
+			menuIds = append(menuIds, v.ID)
+		}
+	}
+
 	return &core.RoleMenuAuthorityResp{MenuId: menuIds}, nil
 }

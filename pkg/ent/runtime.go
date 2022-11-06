@@ -15,17 +15,16 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/schema"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // The init function reads all schema descriptors with runtime code
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
-	apiMixin := schema.Api{}.Mixin()
+	apiMixin := schema.API{}.Mixin()
 	apiMixinFields0 := apiMixin[0].Fields()
 	_ = apiMixinFields0
-	apiFields := schema.Api{}.Fields()
+	apiFields := schema.API{}.Fields()
 	_ = apiFields
 	// apiDescCreatedAt is the schema descriptor for created_at field.
 	apiDescCreatedAt := apiMixinFields0[1].Descriptor()
@@ -61,7 +60,7 @@ func init() {
 	// dictionaryDescStatus is the schema descriptor for status field.
 	dictionaryDescStatus := dictionaryMixinFields1[0].Descriptor()
 	// dictionary.DefaultStatus holds the default value on creation for the status field.
-	dictionary.DefaultStatus = gotype.Status(dictionaryDescStatus.Default.(uint8))
+	dictionary.DefaultStatus = dictionaryDescStatus.Default.(uint8)
 	dictionarydetailMixin := schema.DictionaryDetail{}.Mixin()
 	dictionarydetailMixinFields0 := dictionarydetailMixin[0].Fields()
 	_ = dictionarydetailMixinFields0
@@ -82,7 +81,7 @@ func init() {
 	// dictionarydetailDescStatus is the schema descriptor for status field.
 	dictionarydetailDescStatus := dictionarydetailMixinFields1[0].Descriptor()
 	// dictionarydetail.DefaultStatus holds the default value on creation for the status field.
-	dictionarydetail.DefaultStatus = gotype.Status(dictionarydetailDescStatus.Default.(uint8))
+	dictionarydetail.DefaultStatus = dictionarydetailDescStatus.Default.(uint8)
 	menuMixin := schema.Menu{}.Mixin()
 	menuMixinFields0 := menuMixin[0].Fields()
 	_ = menuMixinFields0
@@ -98,10 +97,18 @@ func init() {
 	menu.DefaultUpdatedAt = menuDescUpdatedAt.Default.(func() time.Time)
 	// menu.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
 	menu.UpdateDefaultUpdatedAt = menuDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// menuDescPath is the schema descriptor for path field.
+	menuDescPath := menuFields[3].Descriptor()
+	// menu.DefaultPath holds the default value on creation for the path field.
+	menu.DefaultPath = menuDescPath.Default.(string)
 	// menuDescRedirect is the schema descriptor for redirect field.
 	menuDescRedirect := menuFields[5].Descriptor()
 	// menu.DefaultRedirect holds the default value on creation for the redirect field.
 	menu.DefaultRedirect = menuDescRedirect.Default.(string)
+	// menuDescComponent is the schema descriptor for component field.
+	menuDescComponent := menuFields[6].Descriptor()
+	// menu.DefaultComponent holds the default value on creation for the component field.
+	menu.DefaultComponent = menuDescComponent.Default.(string)
 	// menuDescOrderNo is the schema descriptor for order_no field.
 	menuDescOrderNo := menuFields[7].Descriptor()
 	// menu.DefaultOrderNo holds the default value on creation for the order_no field.
@@ -110,6 +117,50 @@ func init() {
 	menuDescDisabled := menuFields[8].Descriptor()
 	// menu.DefaultDisabled holds the default value on creation for the disabled field.
 	menu.DefaultDisabled = menuDescDisabled.Default.(bool)
+	// menuDescHideMenu is the schema descriptor for hide_menu field.
+	menuDescHideMenu := menuFields[11].Descriptor()
+	// menu.DefaultHideMenu holds the default value on creation for the hide_menu field.
+	menu.DefaultHideMenu = menuDescHideMenu.Default.(bool)
+	// menuDescHideBreadcrumb is the schema descriptor for hide_breadcrumb field.
+	menuDescHideBreadcrumb := menuFields[12].Descriptor()
+	// menu.DefaultHideBreadcrumb holds the default value on creation for the hide_breadcrumb field.
+	menu.DefaultHideBreadcrumb = menuDescHideBreadcrumb.Default.(bool)
+	// menuDescCurrentActiveMenu is the schema descriptor for current_active_menu field.
+	menuDescCurrentActiveMenu := menuFields[13].Descriptor()
+	// menu.DefaultCurrentActiveMenu holds the default value on creation for the current_active_menu field.
+	menu.DefaultCurrentActiveMenu = menuDescCurrentActiveMenu.Default.(string)
+	// menuDescIgnoreKeepAlive is the schema descriptor for ignore_keep_alive field.
+	menuDescIgnoreKeepAlive := menuFields[14].Descriptor()
+	// menu.DefaultIgnoreKeepAlive holds the default value on creation for the ignore_keep_alive field.
+	menu.DefaultIgnoreKeepAlive = menuDescIgnoreKeepAlive.Default.(bool)
+	// menuDescHideTab is the schema descriptor for hide_tab field.
+	menuDescHideTab := menuFields[15].Descriptor()
+	// menu.DefaultHideTab holds the default value on creation for the hide_tab field.
+	menu.DefaultHideTab = menuDescHideTab.Default.(bool)
+	// menuDescFrameSrc is the schema descriptor for frame_src field.
+	menuDescFrameSrc := menuFields[16].Descriptor()
+	// menu.DefaultFrameSrc holds the default value on creation for the frame_src field.
+	menu.DefaultFrameSrc = menuDescFrameSrc.Default.(string)
+	// menuDescCarryParam is the schema descriptor for carry_param field.
+	menuDescCarryParam := menuFields[17].Descriptor()
+	// menu.DefaultCarryParam holds the default value on creation for the carry_param field.
+	menu.DefaultCarryParam = menuDescCarryParam.Default.(bool)
+	// menuDescHideChildrenInMenu is the schema descriptor for hide_children_in_menu field.
+	menuDescHideChildrenInMenu := menuFields[18].Descriptor()
+	// menu.DefaultHideChildrenInMenu holds the default value on creation for the hide_children_in_menu field.
+	menu.DefaultHideChildrenInMenu = menuDescHideChildrenInMenu.Default.(bool)
+	// menuDescAffix is the schema descriptor for affix field.
+	menuDescAffix := menuFields[19].Descriptor()
+	// menu.DefaultAffix holds the default value on creation for the affix field.
+	menu.DefaultAffix = menuDescAffix.Default.(bool)
+	// menuDescDynamicLevel is the schema descriptor for dynamic_level field.
+	menuDescDynamicLevel := menuFields[20].Descriptor()
+	// menu.DefaultDynamicLevel holds the default value on creation for the dynamic_level field.
+	menu.DefaultDynamicLevel = menuDescDynamicLevel.Default.(uint32)
+	// menuDescRealPath is the schema descriptor for real_path field.
+	menuDescRealPath := menuFields[21].Descriptor()
+	// menu.DefaultRealPath holds the default value on creation for the real_path field.
+	menu.DefaultRealPath = menuDescRealPath.Default.(string)
 	menuparamMixin := schema.MenuParam{}.Mixin()
 	menuparamMixinFields0 := menuparamMixin[0].Fields()
 	_ = menuparamMixinFields0
@@ -160,7 +211,7 @@ func init() {
 	// roleDescStatus is the schema descriptor for status field.
 	roleDescStatus := roleMixinFields1[0].Descriptor()
 	// role.DefaultStatus holds the default value on creation for the status field.
-	role.DefaultStatus = gotype.Status(roleDescStatus.Default.(uint8))
+	role.DefaultStatus = roleDescStatus.Default.(uint8)
 	// roleDescDefaultRouter is the schema descriptor for default_router field.
 	roleDescDefaultRouter := roleFields[2].Descriptor()
 	// role.DefaultDefaultRouter holds the default value on creation for the default_router field.
@@ -193,7 +244,7 @@ func init() {
 	// tokenDescStatus is the schema descriptor for status field.
 	tokenDescStatus := tokenMixinFields1[0].Descriptor()
 	// token.DefaultStatus holds the default value on creation for the status field.
-	token.DefaultStatus = gotype.Status(tokenDescStatus.Default.(uint8))
+	token.DefaultStatus = tokenDescStatus.Default.(uint8)
 	userMixin := schema.User{}.Mixin()
 	userMixinFields0 := userMixin[0].Fields()
 	_ = userMixinFields0
@@ -214,7 +265,7 @@ func init() {
 	// userDescStatus is the schema descriptor for status field.
 	userDescStatus := userMixinFields1[0].Descriptor()
 	// user.DefaultStatus holds the default value on creation for the status field.
-	user.DefaultStatus = gotype.Status(userDescStatus.Default.(uint8))
+	user.DefaultStatus = userDescStatus.Default.(uint8)
 	// userDescSideMode is the schema descriptor for side_mode field.
 	userDescSideMode := userFields[4].Descriptor()
 	// user.DefaultSideMode holds the default value on creation for the side_mode field.

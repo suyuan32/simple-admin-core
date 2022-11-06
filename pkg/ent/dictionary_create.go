@@ -12,7 +12,6 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // DictionaryCreate is the builder for creating a Dictionary entity.
@@ -51,15 +50,15 @@ func (dc *DictionaryCreate) SetNillableUpdatedAt(t *time.Time) *DictionaryCreate
 }
 
 // SetStatus sets the "status" field.
-func (dc *DictionaryCreate) SetStatus(_go gotype.Status) *DictionaryCreate {
-	dc.mutation.SetStatus(_go)
+func (dc *DictionaryCreate) SetStatus(u uint8) *DictionaryCreate {
+	dc.mutation.SetStatus(u)
 	return dc
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (dc *DictionaryCreate) SetNillableStatus(_go *gotype.Status) *DictionaryCreate {
-	if _go != nil {
-		dc.SetStatus(*_go)
+func (dc *DictionaryCreate) SetNillableStatus(u *uint8) *DictionaryCreate {
+	if u != nil {
+		dc.SetStatus(*u)
 	}
 	return dc
 }
@@ -88,19 +87,19 @@ func (dc *DictionaryCreate) SetID(u uint64) *DictionaryCreate {
 	return dc
 }
 
-// AddDetailIDs adds the "details" edge to the DictionaryDetail entity by IDs.
-func (dc *DictionaryCreate) AddDetailIDs(ids ...uint64) *DictionaryCreate {
-	dc.mutation.AddDetailIDs(ids...)
+// AddDictionaryDetailIDs adds the "dictionary_details" edge to the DictionaryDetail entity by IDs.
+func (dc *DictionaryCreate) AddDictionaryDetailIDs(ids ...uint64) *DictionaryCreate {
+	dc.mutation.AddDictionaryDetailIDs(ids...)
 	return dc
 }
 
-// AddDetails adds the "details" edges to the DictionaryDetail entity.
-func (dc *DictionaryCreate) AddDetails(d ...*DictionaryDetail) *DictionaryCreate {
+// AddDictionaryDetails adds the "dictionary_details" edges to the DictionaryDetail entity.
+func (dc *DictionaryCreate) AddDictionaryDetails(d ...*DictionaryDetail) *DictionaryCreate {
 	ids := make([]uint64, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return dc.AddDetailIDs(ids...)
+	return dc.AddDictionaryDetailIDs(ids...)
 }
 
 // Mutation returns the DictionaryMutation object of the builder.
@@ -268,12 +267,12 @@ func (dc *DictionaryCreate) createSpec() (*Dictionary, *sqlgraph.CreateSpec) {
 		_spec.SetField(dictionary.FieldDesc, field.TypeString, value)
 		_node.Desc = value
 	}
-	if nodes := dc.mutation.DetailsIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.DictionaryDetailsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   dictionary.DetailsTable,
-			Columns: []string{dictionary.DetailsColumn},
+			Table:   dictionary.DictionaryDetailsTable,
+			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

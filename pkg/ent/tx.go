@@ -12,8 +12,8 @@ import (
 // Tx is a transactional client that is created by calling Client.Tx().
 type Tx struct {
 	config
-	// Api is the client for interacting with the Api builders.
-	Api *ApiClient
+	// API is the client for interacting with the API builders.
+	API *APIClient
 	// Dictionary is the client for interacting with the Dictionary builders.
 	Dictionary *DictionaryClient
 	// DictionaryDetail is the client for interacting with the DictionaryDetail builders.
@@ -161,7 +161,7 @@ func (tx *Tx) Client() *Client {
 }
 
 func (tx *Tx) init() {
-	tx.Api = NewApiClient(tx.config)
+	tx.API = NewAPIClient(tx.config)
 	tx.Dictionary = NewDictionaryClient(tx.config)
 	tx.DictionaryDetail = NewDictionaryDetailClient(tx.config)
 	tx.Menu = NewMenuClient(tx.config)
@@ -179,7 +179,7 @@ func (tx *Tx) init() {
 // of them in order to commit or rollback the transaction.
 //
 // If a closed transaction is embedded in one of the generated entities, and the entity
-// applies a query, for example: Api.QueryXXX(), the query will be executed
+// applies a query, for example: API.QueryXXX(), the query will be executed
 // through the driver which created this transaction.
 //
 // Note that txDriver is not goroutine safe.

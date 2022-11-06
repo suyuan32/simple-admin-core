@@ -25,8 +25,8 @@ func NewDeleteProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext) *De
 }
 
 func (l *DeleteProviderLogic) DeleteProvider(req *types.IDReq) (resp *types.SimpleMsg, err error) {
-	data, err := l.svcCtx.CoreRpc.DeleteProvider(context.Background(), &core.IDReq{
-		ID: uint64(req.ID),
+	data, err := l.svcCtx.CoreRpc.DeleteProvider(l.ctx, &core.IDReq{
+		Id: uint64(req.Id),
 	})
 	if err != nil {
 		return nil, err

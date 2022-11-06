@@ -9,12 +9,12 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 )
 
-// The ApiFunc type is an adapter to allow the use of ordinary
-// function as Api mutator.
-type ApiFunc func(context.Context, *ent.APIMutation) (ent.Value, error)
+// The APIFunc type is an adapter to allow the use of ordinary
+// function as API mutator.
+type APIFunc func(context.Context, *ent.APIMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f ApiFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+func (f APIFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
 	mv, ok := m.(*ent.APIMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.APIMutation", m)

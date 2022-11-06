@@ -14,10 +14,7 @@ type (
     // The response data of oauth provider information | 提供者信息
     // swagger:response ProviderInfo
     ProviderInfo {
-        // ID
-        Id            uint64 `json:"id"`
-
-        CreatedAt      int64  `json:"createdAt"`
+        BaseInfo
 
         // Provider name | 提供商名字
         Name          string `json:"name"`
@@ -53,11 +50,7 @@ type (
     CreateOrUpdateProviderReq {
         // ID
         // Required: true
-        Id            uint64 `json:"id" validate:"number"`
-
-        // Create date | 创建日期
-        // Required: true
-        CreatedAt      int64  `json:"createdAt" validate:"number"`
+        Id            uint64 `json:"ID" validate:"number"`
 
         // Provider name | 提供商名字
         // Required: true

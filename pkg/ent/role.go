@@ -9,7 +9,6 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // Role is the model entity for the Role schema.
@@ -22,7 +21,7 @@ type Role struct {
 	// UpdatedAt holds the value of the "updated_at" field.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// status 0 normal 1 ban | 状态 0 正常 1 禁用
-	Status gotype.Status `json:"status,omitempty"`
+	Status uint8 `json:"status,omitempty"`
 	// role name | 角色名
 	Name string `json:"name,omitempty"`
 	// role value for permission control in front end | 角色值，用于前端权限控制
@@ -61,9 +60,7 @@ func (*Role) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case role.FieldStatus:
-			values[i] = new(gotype.Status)
-		case role.FieldID, role.FieldOrderNo:
+		case role.FieldID, role.FieldStatus, role.FieldOrderNo:
 			values[i] = new(sql.NullInt64)
 		case role.FieldName, role.FieldValue, role.FieldDefaultRouter, role.FieldRemark:
 			values[i] = new(sql.NullString)
@@ -103,10 +100,10 @@ func (r *Role) assignValues(columns []string, values []any) error {
 				r.UpdatedAt = value.Time
 			}
 		case role.FieldStatus:
-			if value, ok := values[i].(*gotype.Status); !ok {
+			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field status", values[i])
-			} else if value != nil {
-				r.Status = *value
+			} else if value.Valid {
+				r.Status = uint8(value.Int64)
 			}
 		case role.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {

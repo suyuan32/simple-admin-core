@@ -88,6 +88,20 @@ func (mu *MenuUpdate) SetPath(s string) *MenuUpdate {
 	return mu
 }
 
+// SetNillablePath sets the "path" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillablePath(s *string) *MenuUpdate {
+	if s != nil {
+		mu.SetPath(*s)
+	}
+	return mu
+}
+
+// ClearPath clears the value of the "path" field.
+func (mu *MenuUpdate) ClearPath() *MenuUpdate {
+	mu.mutation.ClearPath()
+	return mu
+}
+
 // SetName sets the "name" field.
 func (mu *MenuUpdate) SetName(s string) *MenuUpdate {
 	mu.mutation.SetName(s)
@@ -117,6 +131,20 @@ func (mu *MenuUpdate) ClearRedirect() *MenuUpdate {
 // SetComponent sets the "component" field.
 func (mu *MenuUpdate) SetComponent(s string) *MenuUpdate {
 	mu.mutation.SetComponent(s)
+	return mu
+}
+
+// SetNillableComponent sets the "component" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableComponent(s *string) *MenuUpdate {
+	if s != nil {
+		mu.SetComponent(*s)
+	}
+	return mu
+}
+
+// ClearComponent clears the value of the "component" field.
+func (mu *MenuUpdate) ClearComponent() *MenuUpdate {
+	mu.mutation.ClearComponent()
 	return mu
 }
 
@@ -155,6 +183,12 @@ func (mu *MenuUpdate) SetNillableDisabled(b *bool) *MenuUpdate {
 	return mu
 }
 
+// ClearDisabled clears the value of the "disabled" field.
+func (mu *MenuUpdate) ClearDisabled() *MenuUpdate {
+	mu.mutation.ClearDisabled()
+	return mu
+}
+
 // SetTitle sets the "title" field.
 func (mu *MenuUpdate) SetTitle(s string) *MenuUpdate {
 	mu.mutation.SetTitle(s)
@@ -173,9 +207,37 @@ func (mu *MenuUpdate) SetHideMenu(b bool) *MenuUpdate {
 	return mu
 }
 
+// SetNillableHideMenu sets the "hide_menu" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableHideMenu(b *bool) *MenuUpdate {
+	if b != nil {
+		mu.SetHideMenu(*b)
+	}
+	return mu
+}
+
+// ClearHideMenu clears the value of the "hide_menu" field.
+func (mu *MenuUpdate) ClearHideMenu() *MenuUpdate {
+	mu.mutation.ClearHideMenu()
+	return mu
+}
+
 // SetHideBreadcrumb sets the "hide_breadcrumb" field.
 func (mu *MenuUpdate) SetHideBreadcrumb(b bool) *MenuUpdate {
 	mu.mutation.SetHideBreadcrumb(b)
+	return mu
+}
+
+// SetNillableHideBreadcrumb sets the "hide_breadcrumb" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableHideBreadcrumb(b *bool) *MenuUpdate {
+	if b != nil {
+		mu.SetHideBreadcrumb(*b)
+	}
+	return mu
+}
+
+// ClearHideBreadcrumb clears the value of the "hide_breadcrumb" field.
+func (mu *MenuUpdate) ClearHideBreadcrumb() *MenuUpdate {
+	mu.mutation.ClearHideBreadcrumb()
 	return mu
 }
 
@@ -185,9 +247,37 @@ func (mu *MenuUpdate) SetCurrentActiveMenu(s string) *MenuUpdate {
 	return mu
 }
 
+// SetNillableCurrentActiveMenu sets the "current_active_menu" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableCurrentActiveMenu(s *string) *MenuUpdate {
+	if s != nil {
+		mu.SetCurrentActiveMenu(*s)
+	}
+	return mu
+}
+
+// ClearCurrentActiveMenu clears the value of the "current_active_menu" field.
+func (mu *MenuUpdate) ClearCurrentActiveMenu() *MenuUpdate {
+	mu.mutation.ClearCurrentActiveMenu()
+	return mu
+}
+
 // SetIgnoreKeepAlive sets the "ignore_keep_alive" field.
 func (mu *MenuUpdate) SetIgnoreKeepAlive(b bool) *MenuUpdate {
 	mu.mutation.SetIgnoreKeepAlive(b)
+	return mu
+}
+
+// SetNillableIgnoreKeepAlive sets the "ignore_keep_alive" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableIgnoreKeepAlive(b *bool) *MenuUpdate {
+	if b != nil {
+		mu.SetIgnoreKeepAlive(*b)
+	}
+	return mu
+}
+
+// ClearIgnoreKeepAlive clears the value of the "ignore_keep_alive" field.
+func (mu *MenuUpdate) ClearIgnoreKeepAlive() *MenuUpdate {
+	mu.mutation.ClearIgnoreKeepAlive()
 	return mu
 }
 
@@ -197,9 +287,37 @@ func (mu *MenuUpdate) SetHideTab(b bool) *MenuUpdate {
 	return mu
 }
 
+// SetNillableHideTab sets the "hide_tab" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableHideTab(b *bool) *MenuUpdate {
+	if b != nil {
+		mu.SetHideTab(*b)
+	}
+	return mu
+}
+
+// ClearHideTab clears the value of the "hide_tab" field.
+func (mu *MenuUpdate) ClearHideTab() *MenuUpdate {
+	mu.mutation.ClearHideTab()
+	return mu
+}
+
 // SetFrameSrc sets the "frame_src" field.
 func (mu *MenuUpdate) SetFrameSrc(s string) *MenuUpdate {
 	mu.mutation.SetFrameSrc(s)
+	return mu
+}
+
+// SetNillableFrameSrc sets the "frame_src" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableFrameSrc(s *string) *MenuUpdate {
+	if s != nil {
+		mu.SetFrameSrc(*s)
+	}
+	return mu
+}
+
+// ClearFrameSrc clears the value of the "frame_src" field.
+func (mu *MenuUpdate) ClearFrameSrc() *MenuUpdate {
+	mu.mutation.ClearFrameSrc()
 	return mu
 }
 
@@ -209,15 +327,57 @@ func (mu *MenuUpdate) SetCarryParam(b bool) *MenuUpdate {
 	return mu
 }
 
+// SetNillableCarryParam sets the "carry_param" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableCarryParam(b *bool) *MenuUpdate {
+	if b != nil {
+		mu.SetCarryParam(*b)
+	}
+	return mu
+}
+
+// ClearCarryParam clears the value of the "carry_param" field.
+func (mu *MenuUpdate) ClearCarryParam() *MenuUpdate {
+	mu.mutation.ClearCarryParam()
+	return mu
+}
+
 // SetHideChildrenInMenu sets the "hide_children_in_menu" field.
 func (mu *MenuUpdate) SetHideChildrenInMenu(b bool) *MenuUpdate {
 	mu.mutation.SetHideChildrenInMenu(b)
 	return mu
 }
 
+// SetNillableHideChildrenInMenu sets the "hide_children_in_menu" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableHideChildrenInMenu(b *bool) *MenuUpdate {
+	if b != nil {
+		mu.SetHideChildrenInMenu(*b)
+	}
+	return mu
+}
+
+// ClearHideChildrenInMenu clears the value of the "hide_children_in_menu" field.
+func (mu *MenuUpdate) ClearHideChildrenInMenu() *MenuUpdate {
+	mu.mutation.ClearHideChildrenInMenu()
+	return mu
+}
+
 // SetAffix sets the "affix" field.
 func (mu *MenuUpdate) SetAffix(b bool) *MenuUpdate {
 	mu.mutation.SetAffix(b)
+	return mu
+}
+
+// SetNillableAffix sets the "affix" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableAffix(b *bool) *MenuUpdate {
+	if b != nil {
+		mu.SetAffix(*b)
+	}
+	return mu
+}
+
+// ClearAffix clears the value of the "affix" field.
+func (mu *MenuUpdate) ClearAffix() *MenuUpdate {
+	mu.mutation.ClearAffix()
 	return mu
 }
 
@@ -228,15 +388,43 @@ func (mu *MenuUpdate) SetDynamicLevel(u uint32) *MenuUpdate {
 	return mu
 }
 
+// SetNillableDynamicLevel sets the "dynamic_level" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableDynamicLevel(u *uint32) *MenuUpdate {
+	if u != nil {
+		mu.SetDynamicLevel(*u)
+	}
+	return mu
+}
+
 // AddDynamicLevel adds u to the "dynamic_level" field.
 func (mu *MenuUpdate) AddDynamicLevel(u int32) *MenuUpdate {
 	mu.mutation.AddDynamicLevel(u)
 	return mu
 }
 
+// ClearDynamicLevel clears the value of the "dynamic_level" field.
+func (mu *MenuUpdate) ClearDynamicLevel() *MenuUpdate {
+	mu.mutation.ClearDynamicLevel()
+	return mu
+}
+
 // SetRealPath sets the "real_path" field.
 func (mu *MenuUpdate) SetRealPath(s string) *MenuUpdate {
 	mu.mutation.SetRealPath(s)
+	return mu
+}
+
+// SetNillableRealPath sets the "real_path" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableRealPath(s *string) *MenuUpdate {
+	if s != nil {
+		mu.SetRealPath(*s)
+	}
+	return mu
+}
+
+// ClearRealPath clears the value of the "real_path" field.
+func (mu *MenuUpdate) ClearRealPath() *MenuUpdate {
+	mu.mutation.ClearRealPath()
 	return mu
 }
 
@@ -463,6 +651,9 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := mu.mutation.Path(); ok {
 		_spec.SetField(menu.FieldPath, field.TypeString, value)
 	}
+	if mu.mutation.PathCleared() {
+		_spec.ClearField(menu.FieldPath, field.TypeString)
+	}
 	if value, ok := mu.mutation.Name(); ok {
 		_spec.SetField(menu.FieldName, field.TypeString, value)
 	}
@@ -475,6 +666,9 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := mu.mutation.Component(); ok {
 		_spec.SetField(menu.FieldComponent, field.TypeString, value)
 	}
+	if mu.mutation.ComponentCleared() {
+		_spec.ClearField(menu.FieldComponent, field.TypeString)
+	}
 	if value, ok := mu.mutation.OrderNo(); ok {
 		_spec.SetField(menu.FieldOrderNo, field.TypeUint32, value)
 	}
@@ -483,6 +677,9 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := mu.mutation.Disabled(); ok {
 		_spec.SetField(menu.FieldDisabled, field.TypeBool, value)
+	}
+	if mu.mutation.DisabledCleared() {
+		_spec.ClearField(menu.FieldDisabled, field.TypeBool)
 	}
 	if value, ok := mu.mutation.Title(); ok {
 		_spec.SetField(menu.FieldTitle, field.TypeString, value)
@@ -493,29 +690,56 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := mu.mutation.HideMenu(); ok {
 		_spec.SetField(menu.FieldHideMenu, field.TypeBool, value)
 	}
+	if mu.mutation.HideMenuCleared() {
+		_spec.ClearField(menu.FieldHideMenu, field.TypeBool)
+	}
 	if value, ok := mu.mutation.HideBreadcrumb(); ok {
 		_spec.SetField(menu.FieldHideBreadcrumb, field.TypeBool, value)
+	}
+	if mu.mutation.HideBreadcrumbCleared() {
+		_spec.ClearField(menu.FieldHideBreadcrumb, field.TypeBool)
 	}
 	if value, ok := mu.mutation.CurrentActiveMenu(); ok {
 		_spec.SetField(menu.FieldCurrentActiveMenu, field.TypeString, value)
 	}
+	if mu.mutation.CurrentActiveMenuCleared() {
+		_spec.ClearField(menu.FieldCurrentActiveMenu, field.TypeString)
+	}
 	if value, ok := mu.mutation.IgnoreKeepAlive(); ok {
 		_spec.SetField(menu.FieldIgnoreKeepAlive, field.TypeBool, value)
+	}
+	if mu.mutation.IgnoreKeepAliveCleared() {
+		_spec.ClearField(menu.FieldIgnoreKeepAlive, field.TypeBool)
 	}
 	if value, ok := mu.mutation.HideTab(); ok {
 		_spec.SetField(menu.FieldHideTab, field.TypeBool, value)
 	}
+	if mu.mutation.HideTabCleared() {
+		_spec.ClearField(menu.FieldHideTab, field.TypeBool)
+	}
 	if value, ok := mu.mutation.FrameSrc(); ok {
 		_spec.SetField(menu.FieldFrameSrc, field.TypeString, value)
+	}
+	if mu.mutation.FrameSrcCleared() {
+		_spec.ClearField(menu.FieldFrameSrc, field.TypeString)
 	}
 	if value, ok := mu.mutation.CarryParam(); ok {
 		_spec.SetField(menu.FieldCarryParam, field.TypeBool, value)
 	}
+	if mu.mutation.CarryParamCleared() {
+		_spec.ClearField(menu.FieldCarryParam, field.TypeBool)
+	}
 	if value, ok := mu.mutation.HideChildrenInMenu(); ok {
 		_spec.SetField(menu.FieldHideChildrenInMenu, field.TypeBool, value)
 	}
+	if mu.mutation.HideChildrenInMenuCleared() {
+		_spec.ClearField(menu.FieldHideChildrenInMenu, field.TypeBool)
+	}
 	if value, ok := mu.mutation.Affix(); ok {
 		_spec.SetField(menu.FieldAffix, field.TypeBool, value)
+	}
+	if mu.mutation.AffixCleared() {
+		_spec.ClearField(menu.FieldAffix, field.TypeBool)
 	}
 	if value, ok := mu.mutation.DynamicLevel(); ok {
 		_spec.SetField(menu.FieldDynamicLevel, field.TypeUint32, value)
@@ -523,13 +747,19 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := mu.mutation.AddedDynamicLevel(); ok {
 		_spec.AddField(menu.FieldDynamicLevel, field.TypeUint32, value)
 	}
+	if mu.mutation.DynamicLevelCleared() {
+		_spec.ClearField(menu.FieldDynamicLevel, field.TypeUint32)
+	}
 	if value, ok := mu.mutation.RealPath(); ok {
 		_spec.SetField(menu.FieldRealPath, field.TypeString, value)
+	}
+	if mu.mutation.RealPathCleared() {
+		_spec.ClearField(menu.FieldRealPath, field.TypeString)
 	}
 	if mu.mutation.RolesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   menu.RolesTable,
 			Columns: menu.RolesPrimaryKey,
 			Bidi:    false,
@@ -545,7 +775,7 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if nodes := mu.mutation.RemovedRolesIDs(); len(nodes) > 0 && !mu.mutation.RolesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   menu.RolesTable,
 			Columns: menu.RolesPrimaryKey,
 			Bidi:    false,
@@ -564,7 +794,7 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if nodes := mu.mutation.RolesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   menu.RolesTable,
 			Columns: menu.RolesPrimaryKey,
 			Bidi:    false,
@@ -800,6 +1030,20 @@ func (muo *MenuUpdateOne) SetPath(s string) *MenuUpdateOne {
 	return muo
 }
 
+// SetNillablePath sets the "path" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillablePath(s *string) *MenuUpdateOne {
+	if s != nil {
+		muo.SetPath(*s)
+	}
+	return muo
+}
+
+// ClearPath clears the value of the "path" field.
+func (muo *MenuUpdateOne) ClearPath() *MenuUpdateOne {
+	muo.mutation.ClearPath()
+	return muo
+}
+
 // SetName sets the "name" field.
 func (muo *MenuUpdateOne) SetName(s string) *MenuUpdateOne {
 	muo.mutation.SetName(s)
@@ -829,6 +1073,20 @@ func (muo *MenuUpdateOne) ClearRedirect() *MenuUpdateOne {
 // SetComponent sets the "component" field.
 func (muo *MenuUpdateOne) SetComponent(s string) *MenuUpdateOne {
 	muo.mutation.SetComponent(s)
+	return muo
+}
+
+// SetNillableComponent sets the "component" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableComponent(s *string) *MenuUpdateOne {
+	if s != nil {
+		muo.SetComponent(*s)
+	}
+	return muo
+}
+
+// ClearComponent clears the value of the "component" field.
+func (muo *MenuUpdateOne) ClearComponent() *MenuUpdateOne {
+	muo.mutation.ClearComponent()
 	return muo
 }
 
@@ -867,6 +1125,12 @@ func (muo *MenuUpdateOne) SetNillableDisabled(b *bool) *MenuUpdateOne {
 	return muo
 }
 
+// ClearDisabled clears the value of the "disabled" field.
+func (muo *MenuUpdateOne) ClearDisabled() *MenuUpdateOne {
+	muo.mutation.ClearDisabled()
+	return muo
+}
+
 // SetTitle sets the "title" field.
 func (muo *MenuUpdateOne) SetTitle(s string) *MenuUpdateOne {
 	muo.mutation.SetTitle(s)
@@ -885,9 +1149,37 @@ func (muo *MenuUpdateOne) SetHideMenu(b bool) *MenuUpdateOne {
 	return muo
 }
 
+// SetNillableHideMenu sets the "hide_menu" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableHideMenu(b *bool) *MenuUpdateOne {
+	if b != nil {
+		muo.SetHideMenu(*b)
+	}
+	return muo
+}
+
+// ClearHideMenu clears the value of the "hide_menu" field.
+func (muo *MenuUpdateOne) ClearHideMenu() *MenuUpdateOne {
+	muo.mutation.ClearHideMenu()
+	return muo
+}
+
 // SetHideBreadcrumb sets the "hide_breadcrumb" field.
 func (muo *MenuUpdateOne) SetHideBreadcrumb(b bool) *MenuUpdateOne {
 	muo.mutation.SetHideBreadcrumb(b)
+	return muo
+}
+
+// SetNillableHideBreadcrumb sets the "hide_breadcrumb" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableHideBreadcrumb(b *bool) *MenuUpdateOne {
+	if b != nil {
+		muo.SetHideBreadcrumb(*b)
+	}
+	return muo
+}
+
+// ClearHideBreadcrumb clears the value of the "hide_breadcrumb" field.
+func (muo *MenuUpdateOne) ClearHideBreadcrumb() *MenuUpdateOne {
+	muo.mutation.ClearHideBreadcrumb()
 	return muo
 }
 
@@ -897,9 +1189,37 @@ func (muo *MenuUpdateOne) SetCurrentActiveMenu(s string) *MenuUpdateOne {
 	return muo
 }
 
+// SetNillableCurrentActiveMenu sets the "current_active_menu" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableCurrentActiveMenu(s *string) *MenuUpdateOne {
+	if s != nil {
+		muo.SetCurrentActiveMenu(*s)
+	}
+	return muo
+}
+
+// ClearCurrentActiveMenu clears the value of the "current_active_menu" field.
+func (muo *MenuUpdateOne) ClearCurrentActiveMenu() *MenuUpdateOne {
+	muo.mutation.ClearCurrentActiveMenu()
+	return muo
+}
+
 // SetIgnoreKeepAlive sets the "ignore_keep_alive" field.
 func (muo *MenuUpdateOne) SetIgnoreKeepAlive(b bool) *MenuUpdateOne {
 	muo.mutation.SetIgnoreKeepAlive(b)
+	return muo
+}
+
+// SetNillableIgnoreKeepAlive sets the "ignore_keep_alive" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableIgnoreKeepAlive(b *bool) *MenuUpdateOne {
+	if b != nil {
+		muo.SetIgnoreKeepAlive(*b)
+	}
+	return muo
+}
+
+// ClearIgnoreKeepAlive clears the value of the "ignore_keep_alive" field.
+func (muo *MenuUpdateOne) ClearIgnoreKeepAlive() *MenuUpdateOne {
+	muo.mutation.ClearIgnoreKeepAlive()
 	return muo
 }
 
@@ -909,9 +1229,37 @@ func (muo *MenuUpdateOne) SetHideTab(b bool) *MenuUpdateOne {
 	return muo
 }
 
+// SetNillableHideTab sets the "hide_tab" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableHideTab(b *bool) *MenuUpdateOne {
+	if b != nil {
+		muo.SetHideTab(*b)
+	}
+	return muo
+}
+
+// ClearHideTab clears the value of the "hide_tab" field.
+func (muo *MenuUpdateOne) ClearHideTab() *MenuUpdateOne {
+	muo.mutation.ClearHideTab()
+	return muo
+}
+
 // SetFrameSrc sets the "frame_src" field.
 func (muo *MenuUpdateOne) SetFrameSrc(s string) *MenuUpdateOne {
 	muo.mutation.SetFrameSrc(s)
+	return muo
+}
+
+// SetNillableFrameSrc sets the "frame_src" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableFrameSrc(s *string) *MenuUpdateOne {
+	if s != nil {
+		muo.SetFrameSrc(*s)
+	}
+	return muo
+}
+
+// ClearFrameSrc clears the value of the "frame_src" field.
+func (muo *MenuUpdateOne) ClearFrameSrc() *MenuUpdateOne {
+	muo.mutation.ClearFrameSrc()
 	return muo
 }
 
@@ -921,15 +1269,57 @@ func (muo *MenuUpdateOne) SetCarryParam(b bool) *MenuUpdateOne {
 	return muo
 }
 
+// SetNillableCarryParam sets the "carry_param" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableCarryParam(b *bool) *MenuUpdateOne {
+	if b != nil {
+		muo.SetCarryParam(*b)
+	}
+	return muo
+}
+
+// ClearCarryParam clears the value of the "carry_param" field.
+func (muo *MenuUpdateOne) ClearCarryParam() *MenuUpdateOne {
+	muo.mutation.ClearCarryParam()
+	return muo
+}
+
 // SetHideChildrenInMenu sets the "hide_children_in_menu" field.
 func (muo *MenuUpdateOne) SetHideChildrenInMenu(b bool) *MenuUpdateOne {
 	muo.mutation.SetHideChildrenInMenu(b)
 	return muo
 }
 
+// SetNillableHideChildrenInMenu sets the "hide_children_in_menu" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableHideChildrenInMenu(b *bool) *MenuUpdateOne {
+	if b != nil {
+		muo.SetHideChildrenInMenu(*b)
+	}
+	return muo
+}
+
+// ClearHideChildrenInMenu clears the value of the "hide_children_in_menu" field.
+func (muo *MenuUpdateOne) ClearHideChildrenInMenu() *MenuUpdateOne {
+	muo.mutation.ClearHideChildrenInMenu()
+	return muo
+}
+
 // SetAffix sets the "affix" field.
 func (muo *MenuUpdateOne) SetAffix(b bool) *MenuUpdateOne {
 	muo.mutation.SetAffix(b)
+	return muo
+}
+
+// SetNillableAffix sets the "affix" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableAffix(b *bool) *MenuUpdateOne {
+	if b != nil {
+		muo.SetAffix(*b)
+	}
+	return muo
+}
+
+// ClearAffix clears the value of the "affix" field.
+func (muo *MenuUpdateOne) ClearAffix() *MenuUpdateOne {
+	muo.mutation.ClearAffix()
 	return muo
 }
 
@@ -940,15 +1330,43 @@ func (muo *MenuUpdateOne) SetDynamicLevel(u uint32) *MenuUpdateOne {
 	return muo
 }
 
+// SetNillableDynamicLevel sets the "dynamic_level" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableDynamicLevel(u *uint32) *MenuUpdateOne {
+	if u != nil {
+		muo.SetDynamicLevel(*u)
+	}
+	return muo
+}
+
 // AddDynamicLevel adds u to the "dynamic_level" field.
 func (muo *MenuUpdateOne) AddDynamicLevel(u int32) *MenuUpdateOne {
 	muo.mutation.AddDynamicLevel(u)
 	return muo
 }
 
+// ClearDynamicLevel clears the value of the "dynamic_level" field.
+func (muo *MenuUpdateOne) ClearDynamicLevel() *MenuUpdateOne {
+	muo.mutation.ClearDynamicLevel()
+	return muo
+}
+
 // SetRealPath sets the "real_path" field.
 func (muo *MenuUpdateOne) SetRealPath(s string) *MenuUpdateOne {
 	muo.mutation.SetRealPath(s)
+	return muo
+}
+
+// SetNillableRealPath sets the "real_path" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableRealPath(s *string) *MenuUpdateOne {
+	if s != nil {
+		muo.SetRealPath(*s)
+	}
+	return muo
+}
+
+// ClearRealPath clears the value of the "real_path" field.
+func (muo *MenuUpdateOne) ClearRealPath() *MenuUpdateOne {
+	muo.mutation.ClearRealPath()
 	return muo
 }
 
@@ -1205,6 +1623,9 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	if value, ok := muo.mutation.Path(); ok {
 		_spec.SetField(menu.FieldPath, field.TypeString, value)
 	}
+	if muo.mutation.PathCleared() {
+		_spec.ClearField(menu.FieldPath, field.TypeString)
+	}
 	if value, ok := muo.mutation.Name(); ok {
 		_spec.SetField(menu.FieldName, field.TypeString, value)
 	}
@@ -1217,6 +1638,9 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	if value, ok := muo.mutation.Component(); ok {
 		_spec.SetField(menu.FieldComponent, field.TypeString, value)
 	}
+	if muo.mutation.ComponentCleared() {
+		_spec.ClearField(menu.FieldComponent, field.TypeString)
+	}
 	if value, ok := muo.mutation.OrderNo(); ok {
 		_spec.SetField(menu.FieldOrderNo, field.TypeUint32, value)
 	}
@@ -1225,6 +1649,9 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	}
 	if value, ok := muo.mutation.Disabled(); ok {
 		_spec.SetField(menu.FieldDisabled, field.TypeBool, value)
+	}
+	if muo.mutation.DisabledCleared() {
+		_spec.ClearField(menu.FieldDisabled, field.TypeBool)
 	}
 	if value, ok := muo.mutation.Title(); ok {
 		_spec.SetField(menu.FieldTitle, field.TypeString, value)
@@ -1235,29 +1662,56 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	if value, ok := muo.mutation.HideMenu(); ok {
 		_spec.SetField(menu.FieldHideMenu, field.TypeBool, value)
 	}
+	if muo.mutation.HideMenuCleared() {
+		_spec.ClearField(menu.FieldHideMenu, field.TypeBool)
+	}
 	if value, ok := muo.mutation.HideBreadcrumb(); ok {
 		_spec.SetField(menu.FieldHideBreadcrumb, field.TypeBool, value)
+	}
+	if muo.mutation.HideBreadcrumbCleared() {
+		_spec.ClearField(menu.FieldHideBreadcrumb, field.TypeBool)
 	}
 	if value, ok := muo.mutation.CurrentActiveMenu(); ok {
 		_spec.SetField(menu.FieldCurrentActiveMenu, field.TypeString, value)
 	}
+	if muo.mutation.CurrentActiveMenuCleared() {
+		_spec.ClearField(menu.FieldCurrentActiveMenu, field.TypeString)
+	}
 	if value, ok := muo.mutation.IgnoreKeepAlive(); ok {
 		_spec.SetField(menu.FieldIgnoreKeepAlive, field.TypeBool, value)
+	}
+	if muo.mutation.IgnoreKeepAliveCleared() {
+		_spec.ClearField(menu.FieldIgnoreKeepAlive, field.TypeBool)
 	}
 	if value, ok := muo.mutation.HideTab(); ok {
 		_spec.SetField(menu.FieldHideTab, field.TypeBool, value)
 	}
+	if muo.mutation.HideTabCleared() {
+		_spec.ClearField(menu.FieldHideTab, field.TypeBool)
+	}
 	if value, ok := muo.mutation.FrameSrc(); ok {
 		_spec.SetField(menu.FieldFrameSrc, field.TypeString, value)
+	}
+	if muo.mutation.FrameSrcCleared() {
+		_spec.ClearField(menu.FieldFrameSrc, field.TypeString)
 	}
 	if value, ok := muo.mutation.CarryParam(); ok {
 		_spec.SetField(menu.FieldCarryParam, field.TypeBool, value)
 	}
+	if muo.mutation.CarryParamCleared() {
+		_spec.ClearField(menu.FieldCarryParam, field.TypeBool)
+	}
 	if value, ok := muo.mutation.HideChildrenInMenu(); ok {
 		_spec.SetField(menu.FieldHideChildrenInMenu, field.TypeBool, value)
 	}
+	if muo.mutation.HideChildrenInMenuCleared() {
+		_spec.ClearField(menu.FieldHideChildrenInMenu, field.TypeBool)
+	}
 	if value, ok := muo.mutation.Affix(); ok {
 		_spec.SetField(menu.FieldAffix, field.TypeBool, value)
+	}
+	if muo.mutation.AffixCleared() {
+		_spec.ClearField(menu.FieldAffix, field.TypeBool)
 	}
 	if value, ok := muo.mutation.DynamicLevel(); ok {
 		_spec.SetField(menu.FieldDynamicLevel, field.TypeUint32, value)
@@ -1265,13 +1719,19 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	if value, ok := muo.mutation.AddedDynamicLevel(); ok {
 		_spec.AddField(menu.FieldDynamicLevel, field.TypeUint32, value)
 	}
+	if muo.mutation.DynamicLevelCleared() {
+		_spec.ClearField(menu.FieldDynamicLevel, field.TypeUint32)
+	}
 	if value, ok := muo.mutation.RealPath(); ok {
 		_spec.SetField(menu.FieldRealPath, field.TypeString, value)
+	}
+	if muo.mutation.RealPathCleared() {
+		_spec.ClearField(menu.FieldRealPath, field.TypeString)
 	}
 	if muo.mutation.RolesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   menu.RolesTable,
 			Columns: menu.RolesPrimaryKey,
 			Bidi:    false,
@@ -1287,7 +1747,7 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	if nodes := muo.mutation.RemovedRolesIDs(); len(nodes) > 0 && !muo.mutation.RolesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   menu.RolesTable,
 			Columns: menu.RolesPrimaryKey,
 			Bidi:    false,
@@ -1306,7 +1766,7 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	if nodes := muo.mutation.RolesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2M,
-			Inverse: false,
+			Inverse: true,
 			Table:   menu.RolesTable,
 			Columns: menu.RolesPrimaryKey,
 			Bidi:    false,

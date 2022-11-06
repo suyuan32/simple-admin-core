@@ -9,7 +9,6 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // Dictionary is the model entity for the Dictionary schema.
@@ -22,7 +21,7 @@ type Dictionary struct {
 	// UpdatedAt holds the value of the "updated_at" field.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// status 0 normal 1 ban | 状态 0 正常 1 禁用
-	Status gotype.Status `json:"status,omitempty"`
+	Status uint8 `json:"status,omitempty"`
 	// the title shown in the ui | 展示名称 （建议配合i18n）
 	Title string `json:"title,omitempty"`
 	// the name of dictionary for search | 字典搜索名称
@@ -36,20 +35,20 @@ type Dictionary struct {
 
 // DictionaryEdges holds the relations/edges for other nodes in the graph.
 type DictionaryEdges struct {
-	// Details holds the value of the details edge.
-	Details []*DictionaryDetail `json:"details,omitempty"`
+	// DictionaryDetails holds the value of the dictionary_details edge.
+	DictionaryDetails []*DictionaryDetail `json:"dictionary_details,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// DetailsOrErr returns the Details value or an error if the edge
+// DictionaryDetailsOrErr returns the DictionaryDetails value or an error if the edge
 // was not loaded in eager-loading.
-func (e DictionaryEdges) DetailsOrErr() ([]*DictionaryDetail, error) {
+func (e DictionaryEdges) DictionaryDetailsOrErr() ([]*DictionaryDetail, error) {
 	if e.loadedTypes[0] {
-		return e.Details, nil
+		return e.DictionaryDetails, nil
 	}
-	return nil, &NotLoadedError{edge: "details"}
+	return nil, &NotLoadedError{edge: "dictionary_details"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -57,9 +56,7 @@ func (*Dictionary) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case dictionary.FieldStatus:
-			values[i] = new(gotype.Status)
-		case dictionary.FieldID:
+		case dictionary.FieldID, dictionary.FieldStatus:
 			values[i] = new(sql.NullInt64)
 		case dictionary.FieldTitle, dictionary.FieldName, dictionary.FieldDesc:
 			values[i] = new(sql.NullString)
@@ -99,10 +96,10 @@ func (d *Dictionary) assignValues(columns []string, values []any) error {
 				d.UpdatedAt = value.Time
 			}
 		case dictionary.FieldStatus:
-			if value, ok := values[i].(*gotype.Status); !ok {
+			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field status", values[i])
-			} else if value != nil {
-				d.Status = *value
+			} else if value.Valid {
+				d.Status = uint8(value.Int64)
 			}
 		case dictionary.FieldTitle:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -127,9 +124,9 @@ func (d *Dictionary) assignValues(columns []string, values []any) error {
 	return nil
 }
 
-// QueryDetails queries the "details" edge of the Dictionary entity.
-func (d *Dictionary) QueryDetails() *DictionaryDetailQuery {
-	return (&DictionaryClient{config: d.config}).QueryDetails(d)
+// QueryDictionaryDetails queries the "dictionary_details" edge of the Dictionary entity.
+func (d *Dictionary) QueryDictionaryDetails() *DictionaryDetailQuery {
+	return (&DictionaryClient{config: d.config}).QueryDictionaryDetails(d)
 }
 
 // Update returns a builder for updating this Dictionary.

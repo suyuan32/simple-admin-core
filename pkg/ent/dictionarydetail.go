@@ -10,7 +10,6 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // DictionaryDetail is the model entity for the DictionaryDetail schema.
@@ -23,7 +22,7 @@ type DictionaryDetail struct {
 	// UpdatedAt holds the value of the "updated_at" field.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// status 0 normal 1 ban | 状态 0 正常 1 禁用
-	Status gotype.Status `json:"status,omitempty"`
+	Status uint8 `json:"status,omitempty"`
 	// the title shown in the ui | 展示名称 （建议配合i18n）
 	Title string `json:"title,omitempty"`
 	// key | 键
@@ -32,8 +31,8 @@ type DictionaryDetail struct {
 	Value string `json:"value,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the DictionaryDetailQuery when eager-loading is set.
-	Edges              DictionaryDetailEdges `json:"edges"`
-	dictionary_details *uint64
+	Edges                         DictionaryDetailEdges `json:"edges"`
+	dictionary_dictionary_details *uint64
 }
 
 // DictionaryDetailEdges holds the relations/edges for other nodes in the graph.
@@ -63,15 +62,13 @@ func (*DictionaryDetail) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case dictionarydetail.FieldStatus:
-			values[i] = new(gotype.Status)
-		case dictionarydetail.FieldID:
+		case dictionarydetail.FieldID, dictionarydetail.FieldStatus:
 			values[i] = new(sql.NullInt64)
 		case dictionarydetail.FieldTitle, dictionarydetail.FieldKey, dictionarydetail.FieldValue:
 			values[i] = new(sql.NullString)
 		case dictionarydetail.FieldCreatedAt, dictionarydetail.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
-		case dictionarydetail.ForeignKeys[0]: // dictionary_details
+		case dictionarydetail.ForeignKeys[0]: // dictionary_dictionary_details
 			values[i] = new(sql.NullInt64)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type DictionaryDetail", columns[i])
@@ -107,10 +104,10 @@ func (dd *DictionaryDetail) assignValues(columns []string, values []any) error {
 				dd.UpdatedAt = value.Time
 			}
 		case dictionarydetail.FieldStatus:
-			if value, ok := values[i].(*gotype.Status); !ok {
+			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field status", values[i])
-			} else if value != nil {
-				dd.Status = *value
+			} else if value.Valid {
+				dd.Status = uint8(value.Int64)
 			}
 		case dictionarydetail.FieldTitle:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -132,10 +129,10 @@ func (dd *DictionaryDetail) assignValues(columns []string, values []any) error {
 			}
 		case dictionarydetail.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field dictionary_details", value)
+				return fmt.Errorf("unexpected type %T for edge-field dictionary_dictionary_details", value)
 			} else if value.Valid {
-				dd.dictionary_details = new(uint64)
-				*dd.dictionary_details = uint64(value.Int64)
+				dd.dictionary_dictionary_details = new(uint64)
+				*dd.dictionary_dictionary_details = uint64(value.Int64)
 			}
 		}
 	}

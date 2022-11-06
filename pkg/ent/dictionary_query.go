@@ -19,13 +19,13 @@ import (
 // DictionaryQuery is the builder for querying Dictionary entities.
 type DictionaryQuery struct {
 	config
-	limit       *int
-	offset      *int
-	unique      *bool
-	order       []OrderFunc
-	fields      []string
-	predicates  []predicate.Dictionary
-	withDetails *DictionaryDetailQuery
+	limit                 *int
+	offset                *int
+	unique                *bool
+	order                 []OrderFunc
+	fields                []string
+	predicates            []predicate.Dictionary
+	withDictionaryDetails *DictionaryDetailQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -62,8 +62,8 @@ func (dq *DictionaryQuery) Order(o ...OrderFunc) *DictionaryQuery {
 	return dq
 }
 
-// QueryDetails chains the current query on the "details" edge.
-func (dq *DictionaryQuery) QueryDetails() *DictionaryDetailQuery {
+// QueryDictionaryDetails chains the current query on the "dictionary_details" edge.
+func (dq *DictionaryQuery) QueryDictionaryDetails() *DictionaryDetailQuery {
 	query := &DictionaryDetailQuery{config: dq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
@@ -76,7 +76,7 @@ func (dq *DictionaryQuery) QueryDetails() *DictionaryDetailQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(dictionary.Table, dictionary.FieldID, selector),
 			sqlgraph.To(dictionarydetail.Table, dictionarydetail.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, dictionary.DetailsTable, dictionary.DetailsColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, dictionary.DictionaryDetailsTable, dictionary.DictionaryDetailsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -260,12 +260,12 @@ func (dq *DictionaryQuery) Clone() *DictionaryQuery {
 		return nil
 	}
 	return &DictionaryQuery{
-		config:      dq.config,
-		limit:       dq.limit,
-		offset:      dq.offset,
-		order:       append([]OrderFunc{}, dq.order...),
-		predicates:  append([]predicate.Dictionary{}, dq.predicates...),
-		withDetails: dq.withDetails.Clone(),
+		config:                dq.config,
+		limit:                 dq.limit,
+		offset:                dq.offset,
+		order:                 append([]OrderFunc{}, dq.order...),
+		predicates:            append([]predicate.Dictionary{}, dq.predicates...),
+		withDictionaryDetails: dq.withDictionaryDetails.Clone(),
 		// clone intermediate query.
 		sql:    dq.sql.Clone(),
 		path:   dq.path,
@@ -273,14 +273,14 @@ func (dq *DictionaryQuery) Clone() *DictionaryQuery {
 	}
 }
 
-// WithDetails tells the query-builder to eager-load the nodes that are connected to
-// the "details" edge. The optional arguments are used to configure the query builder of the edge.
-func (dq *DictionaryQuery) WithDetails(opts ...func(*DictionaryDetailQuery)) *DictionaryQuery {
+// WithDictionaryDetails tells the query-builder to eager-load the nodes that are connected to
+// the "dictionary_details" edge. The optional arguments are used to configure the query builder of the edge.
+func (dq *DictionaryQuery) WithDictionaryDetails(opts ...func(*DictionaryDetailQuery)) *DictionaryQuery {
 	query := &DictionaryDetailQuery{config: dq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withDetails = query
+	dq.withDictionaryDetails = query
 	return dq
 }
 
@@ -358,7 +358,7 @@ func (dq *DictionaryQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*D
 		nodes       = []*Dictionary{}
 		_spec       = dq.querySpec()
 		loadedTypes = [1]bool{
-			dq.withDetails != nil,
+			dq.withDictionaryDetails != nil,
 		}
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
@@ -379,17 +379,19 @@ func (dq *DictionaryQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*D
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := dq.withDetails; query != nil {
-		if err := dq.loadDetails(ctx, query, nodes,
-			func(n *Dictionary) { n.Edges.Details = []*DictionaryDetail{} },
-			func(n *Dictionary, e *DictionaryDetail) { n.Edges.Details = append(n.Edges.Details, e) }); err != nil {
+	if query := dq.withDictionaryDetails; query != nil {
+		if err := dq.loadDictionaryDetails(ctx, query, nodes,
+			func(n *Dictionary) { n.Edges.DictionaryDetails = []*DictionaryDetail{} },
+			func(n *Dictionary, e *DictionaryDetail) {
+				n.Edges.DictionaryDetails = append(n.Edges.DictionaryDetails, e)
+			}); err != nil {
 			return nil, err
 		}
 	}
 	return nodes, nil
 }
 
-func (dq *DictionaryQuery) loadDetails(ctx context.Context, query *DictionaryDetailQuery, nodes []*Dictionary, init func(*Dictionary), assign func(*Dictionary, *DictionaryDetail)) error {
+func (dq *DictionaryQuery) loadDictionaryDetails(ctx context.Context, query *DictionaryDetailQuery, nodes []*Dictionary, init func(*Dictionary), assign func(*Dictionary, *DictionaryDetail)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[uint64]*Dictionary)
 	for i := range nodes {
@@ -401,20 +403,20 @@ func (dq *DictionaryQuery) loadDetails(ctx context.Context, query *DictionaryDet
 	}
 	query.withFKs = true
 	query.Where(predicate.DictionaryDetail(func(s *sql.Selector) {
-		s.Where(sql.InValues(dictionary.DetailsColumn, fks...))
+		s.Where(sql.InValues(dictionary.DictionaryDetailsColumn, fks...))
 	}))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.dictionary_details
+		fk := n.dictionary_dictionary_details
 		if fk == nil {
-			return fmt.Errorf(`foreign-key "dictionary_details" is nil for node %v`, n.ID)
+			return fmt.Errorf(`foreign-key "dictionary_dictionary_details" is nil for node %v`, n.ID)
 		}
 		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "dictionary_details" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "dictionary_dictionary_details" returned %v for node %v`, *fk, n.ID)
 		}
 		assign(node, n)
 	}

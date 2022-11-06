@@ -19,7 +19,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 
 	"entgo.io/ent"
 )
@@ -33,7 +32,7 @@ const (
 	OpUpdateOne = ent.OpUpdateOne
 
 	// Node types.
-	TypeApi              = "Api"
+	TypeAPI              = "API"
 	TypeDictionary       = "Dictionary"
 	TypeDictionaryDetail = "DictionaryDetail"
 	TypeMenu             = "Menu"
@@ -44,7 +43,7 @@ const (
 	TypeUser             = "User"
 )
 
-// APIMutation represents an operation that mutates the Api nodes in the graph.
+// APIMutation represents an operation that mutates the API nodes in the graph.
 type APIMutation struct {
 	config
 	op            Op
@@ -58,8 +57,8 @@ type APIMutation struct {
 	method        *string
 	clearedFields map[string]struct{}
 	done          bool
-	oldValue      func(context.Context) (*Api, error)
-	predicates    []predicate.Api
+	oldValue      func(context.Context) (*API, error)
+	predicates    []predicate.API
 }
 
 var _ ent.Mutation = (*APIMutation)(nil)
@@ -67,12 +66,12 @@ var _ ent.Mutation = (*APIMutation)(nil)
 // apiOption allows management of the mutation configuration using functional options.
 type apiOption func(*APIMutation)
 
-// newAPIMutation creates new mutation for the Api entity.
+// newAPIMutation creates new mutation for the API entity.
 func newAPIMutation(c config, op Op, opts ...apiOption) *APIMutation {
 	m := &APIMutation{
 		config:        c,
 		op:            op,
-		typ:           TypeApi,
+		typ:           TypeAPI,
 		clearedFields: make(map[string]struct{}),
 	}
 	for _, opt := range opts {
@@ -81,20 +80,20 @@ func newAPIMutation(c config, op Op, opts ...apiOption) *APIMutation {
 	return m
 }
 
-// withApiID sets the ID field of the mutation.
-func withApiID(id uint64) apiOption {
+// withAPIID sets the ID field of the mutation.
+func withAPIID(id uint64) apiOption {
 	return func(m *APIMutation) {
 		var (
 			err   error
 			once  sync.Once
-			value *Api
+			value *API
 		)
-		m.oldValue = func(ctx context.Context) (*Api, error) {
+		m.oldValue = func(ctx context.Context) (*API, error) {
 			once.Do(func() {
 				if m.done {
 					err = errors.New("querying old values post mutation is not allowed")
 				} else {
-					value, err = m.Client().Api.Get(ctx, id)
+					value, err = m.Client().API.Get(ctx, id)
 				}
 			})
 			return value, err
@@ -103,10 +102,10 @@ func withApiID(id uint64) apiOption {
 	}
 }
 
-// withApi sets the old Api of the mutation.
-func withApi(node *Api) apiOption {
+// withAPI sets the old API of the mutation.
+func withAPI(node *API) apiOption {
 	return func(m *APIMutation) {
-		m.oldValue = func(context.Context) (*Api, error) {
+		m.oldValue = func(context.Context) (*API, error) {
 			return node, nil
 		}
 		m.id = &node.ID
@@ -133,7 +132,7 @@ func (m APIMutation) Tx() (*Tx, error) {
 }
 
 // SetID sets the value of the id field. Note that this
-// operation is only accepted on creation of Api entities.
+// operation is only accepted on creation of API entities.
 func (m *APIMutation) SetID(id uint64) {
 	m.id = &id
 }
@@ -160,7 +159,7 @@ func (m *APIMutation) IDs(ctx context.Context) ([]uint64, error) {
 		}
 		fallthrough
 	case m.op.Is(OpUpdate | OpDelete):
-		return m.Client().Api.Query().Where(m.predicates...).IDs(ctx)
+		return m.Client().API.Query().Where(m.predicates...).IDs(ctx)
 	default:
 		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
 	}
@@ -180,8 +179,8 @@ func (m *APIMutation) CreatedAt() (r time.Time, exists bool) {
 	return *v, true
 }
 
-// OldCreatedAt returns the old "created_at" field's value of the Api entity.
-// If the Api object wasn't provided to the builder, the object is fetched from the database.
+// OldCreatedAt returns the old "created_at" field's value of the API entity.
+// If the API object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
 func (m *APIMutation) OldCreatedAt(ctx context.Context) (v time.Time, err error) {
 	if !m.op.Is(OpUpdateOne) {
@@ -216,8 +215,8 @@ func (m *APIMutation) UpdatedAt() (r time.Time, exists bool) {
 	return *v, true
 }
 
-// OldUpdatedAt returns the old "updated_at" field's value of the Api entity.
-// If the Api object wasn't provided to the builder, the object is fetched from the database.
+// OldUpdatedAt returns the old "updated_at" field's value of the API entity.
+// If the API object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
 func (m *APIMutation) OldUpdatedAt(ctx context.Context) (v time.Time, err error) {
 	if !m.op.Is(OpUpdateOne) {
@@ -252,8 +251,8 @@ func (m *APIMutation) Path() (r string, exists bool) {
 	return *v, true
 }
 
-// OldPath returns the old "path" field's value of the Api entity.
-// If the Api object wasn't provided to the builder, the object is fetched from the database.
+// OldPath returns the old "path" field's value of the API entity.
+// If the API object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
 func (m *APIMutation) OldPath(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
@@ -288,8 +287,8 @@ func (m *APIMutation) Description() (r string, exists bool) {
 	return *v, true
 }
 
-// OldDescription returns the old "description" field's value of the Api entity.
-// If the Api object wasn't provided to the builder, the object is fetched from the database.
+// OldDescription returns the old "description" field's value of the API entity.
+// If the API object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
 func (m *APIMutation) OldDescription(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
@@ -324,8 +323,8 @@ func (m *APIMutation) APIGroup() (r string, exists bool) {
 	return *v, true
 }
 
-// OldAPIGroup returns the old "api_group" field's value of the Api entity.
-// If the Api object wasn't provided to the builder, the object is fetched from the database.
+// OldAPIGroup returns the old "api_group" field's value of the API entity.
+// If the API object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
 func (m *APIMutation) OldAPIGroup(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
@@ -360,8 +359,8 @@ func (m *APIMutation) Method() (r string, exists bool) {
 	return *v, true
 }
 
-// OldMethod returns the old "method" field's value of the Api entity.
-// If the Api object wasn't provided to the builder, the object is fetched from the database.
+// OldMethod returns the old "method" field's value of the API entity.
+// If the API object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
 func (m *APIMutation) OldMethod(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
@@ -383,7 +382,7 @@ func (m *APIMutation) ResetMethod() {
 }
 
 // Where appends a list predicates to the APIMutation builder.
-func (m *APIMutation) Where(ps ...predicate.Api) {
+func (m *APIMutation) Where(ps ...predicate.API) {
 	m.predicates = append(m.predicates, ps...)
 }
 
@@ -392,7 +391,7 @@ func (m *APIMutation) Op() Op {
 	return m.op
 }
 
-// Type returns the node type of this mutation (Api).
+// Type returns the node type of this mutation (API).
 func (m *APIMutation) Type() string {
 	return m.typ
 }
@@ -462,7 +461,7 @@ func (m *APIMutation) OldField(ctx context.Context, name string) (ent.Value, err
 	case api.FieldMethod:
 		return m.OldMethod(ctx)
 	}
-	return nil, fmt.Errorf("unknown Api field %s", name)
+	return nil, fmt.Errorf("unknown API field %s", name)
 }
 
 // SetField sets the value of a field with the given name. It returns an error if
@@ -513,7 +512,7 @@ func (m *APIMutation) SetField(name string, value ent.Value) error {
 		m.SetMethod(v)
 		return nil
 	}
-	return fmt.Errorf("unknown Api field %s", name)
+	return fmt.Errorf("unknown API field %s", name)
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during
@@ -535,7 +534,7 @@ func (m *APIMutation) AddedField(name string) (ent.Value, bool) {
 func (m *APIMutation) AddField(name string, value ent.Value) error {
 	switch name {
 	}
-	return fmt.Errorf("unknown Api numeric field %s", name)
+	return fmt.Errorf("unknown API numeric field %s", name)
 }
 
 // ClearedFields returns all nullable fields that were cleared during this
@@ -554,7 +553,7 @@ func (m *APIMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *APIMutation) ClearField(name string) error {
-	return fmt.Errorf("unknown Api nullable field %s", name)
+	return fmt.Errorf("unknown API nullable field %s", name)
 }
 
 // ResetField resets all changes in the mutation for the field with the given name.
@@ -580,7 +579,7 @@ func (m *APIMutation) ResetField(name string) error {
 		m.ResetMethod()
 		return nil
 	}
-	return fmt.Errorf("unknown Api field %s", name)
+	return fmt.Errorf("unknown API field %s", name)
 }
 
 // AddedEdges returns all edge names that were set/added in this mutation.
@@ -622,35 +621,35 @@ func (m *APIMutation) EdgeCleared(name string) bool {
 // ClearEdge clears the value of the edge with the given name. It returns an error
 // if that edge is not defined in the schema.
 func (m *APIMutation) ClearEdge(name string) error {
-	return fmt.Errorf("unknown Api unique edge %s", name)
+	return fmt.Errorf("unknown API unique edge %s", name)
 }
 
 // ResetEdge resets all changes to the edge with the given name in this mutation.
 // It returns an error if the edge is not defined in the schema.
 func (m *APIMutation) ResetEdge(name string) error {
-	return fmt.Errorf("unknown Api edge %s", name)
+	return fmt.Errorf("unknown API edge %s", name)
 }
 
 // DictionaryMutation represents an operation that mutates the Dictionary nodes in the graph.
 type DictionaryMutation struct {
 	config
-	op             Op
-	typ            string
-	id             *uint64
-	created_at     *time.Time
-	updated_at     *time.Time
-	status         *gotype.Status
-	addstatus      *gotype.Status
-	title          *string
-	name           *string
-	desc           *string
-	clearedFields  map[string]struct{}
-	details        map[uint64]struct{}
-	removeddetails map[uint64]struct{}
-	cleareddetails bool
-	done           bool
-	oldValue       func(context.Context) (*Dictionary, error)
-	predicates     []predicate.Dictionary
+	op                        Op
+	typ                       string
+	id                        *uint64
+	created_at                *time.Time
+	updated_at                *time.Time
+	status                    *uint8
+	addstatus                 *int8
+	title                     *string
+	name                      *string
+	desc                      *string
+	clearedFields             map[string]struct{}
+	dictionary_details        map[uint64]struct{}
+	removeddictionary_details map[uint64]struct{}
+	cleareddictionary_details bool
+	done                      bool
+	oldValue                  func(context.Context) (*Dictionary, error)
+	predicates                []predicate.Dictionary
 }
 
 var _ ent.Mutation = (*DictionaryMutation)(nil)
@@ -830,13 +829,13 @@ func (m *DictionaryMutation) ResetUpdatedAt() {
 }
 
 // SetStatus sets the "status" field.
-func (m *DictionaryMutation) SetStatus(_go gotype.Status) {
-	m.status = &_go
+func (m *DictionaryMutation) SetStatus(u uint8) {
+	m.status = &u
 	m.addstatus = nil
 }
 
 // Status returns the value of the "status" field in the mutation.
-func (m *DictionaryMutation) Status() (r gotype.Status, exists bool) {
+func (m *DictionaryMutation) Status() (r uint8, exists bool) {
 	v := m.status
 	if v == nil {
 		return
@@ -847,7 +846,7 @@ func (m *DictionaryMutation) Status() (r gotype.Status, exists bool) {
 // OldStatus returns the old "status" field's value of the Dictionary entity.
 // If the Dictionary object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *DictionaryMutation) OldStatus(ctx context.Context) (v gotype.Status, err error) {
+func (m *DictionaryMutation) OldStatus(ctx context.Context) (v uint8, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldStatus is only allowed on UpdateOne operations")
 	}
@@ -861,17 +860,17 @@ func (m *DictionaryMutation) OldStatus(ctx context.Context) (v gotype.Status, er
 	return oldValue.Status, nil
 }
 
-// AddStatus adds _go to the "status" field.
-func (m *DictionaryMutation) AddStatus(_go gotype.Status) {
+// AddStatus adds u to the "status" field.
+func (m *DictionaryMutation) AddStatus(u int8) {
 	if m.addstatus != nil {
-		*m.addstatus += _go
+		*m.addstatus += u
 	} else {
-		m.addstatus = &_go
+		m.addstatus = &u
 	}
 }
 
 // AddedStatus returns the value that was added to the "status" field in this mutation.
-func (m *DictionaryMutation) AddedStatus() (r gotype.Status, exists bool) {
+func (m *DictionaryMutation) AddedStatus() (r int8, exists bool) {
 	v := m.addstatus
 	if v == nil {
 		return
@@ -1007,58 +1006,58 @@ func (m *DictionaryMutation) ResetDesc() {
 	m.desc = nil
 }
 
-// AddDetailIDs adds the "details" edge to the DictionaryDetail entity by ids.
-func (m *DictionaryMutation) AddDetailIDs(ids ...uint64) {
-	if m.details == nil {
-		m.details = make(map[uint64]struct{})
+// AddDictionaryDetailIDs adds the "dictionary_details" edge to the DictionaryDetail entity by ids.
+func (m *DictionaryMutation) AddDictionaryDetailIDs(ids ...uint64) {
+	if m.dictionary_details == nil {
+		m.dictionary_details = make(map[uint64]struct{})
 	}
 	for i := range ids {
-		m.details[ids[i]] = struct{}{}
+		m.dictionary_details[ids[i]] = struct{}{}
 	}
 }
 
-// ClearDetails clears the "details" edge to the DictionaryDetail entity.
-func (m *DictionaryMutation) ClearDetails() {
-	m.cleareddetails = true
+// ClearDictionaryDetails clears the "dictionary_details" edge to the DictionaryDetail entity.
+func (m *DictionaryMutation) ClearDictionaryDetails() {
+	m.cleareddictionary_details = true
 }
 
-// DetailsCleared reports if the "details" edge to the DictionaryDetail entity was cleared.
-func (m *DictionaryMutation) DetailsCleared() bool {
-	return m.cleareddetails
+// DictionaryDetailsCleared reports if the "dictionary_details" edge to the DictionaryDetail entity was cleared.
+func (m *DictionaryMutation) DictionaryDetailsCleared() bool {
+	return m.cleareddictionary_details
 }
 
-// RemoveDetailIDs removes the "details" edge to the DictionaryDetail entity by IDs.
-func (m *DictionaryMutation) RemoveDetailIDs(ids ...uint64) {
-	if m.removeddetails == nil {
-		m.removeddetails = make(map[uint64]struct{})
+// RemoveDictionaryDetailIDs removes the "dictionary_details" edge to the DictionaryDetail entity by IDs.
+func (m *DictionaryMutation) RemoveDictionaryDetailIDs(ids ...uint64) {
+	if m.removeddictionary_details == nil {
+		m.removeddictionary_details = make(map[uint64]struct{})
 	}
 	for i := range ids {
-		delete(m.details, ids[i])
-		m.removeddetails[ids[i]] = struct{}{}
+		delete(m.dictionary_details, ids[i])
+		m.removeddictionary_details[ids[i]] = struct{}{}
 	}
 }
 
-// RemovedDetails returns the removed IDs of the "details" edge to the DictionaryDetail entity.
-func (m *DictionaryMutation) RemovedDetailsIDs() (ids []uint64) {
-	for id := range m.removeddetails {
+// RemovedDictionaryDetails returns the removed IDs of the "dictionary_details" edge to the DictionaryDetail entity.
+func (m *DictionaryMutation) RemovedDictionaryDetailsIDs() (ids []uint64) {
+	for id := range m.removeddictionary_details {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// DetailsIDs returns the "details" edge IDs in the mutation.
-func (m *DictionaryMutation) DetailsIDs() (ids []uint64) {
-	for id := range m.details {
+// DictionaryDetailsIDs returns the "dictionary_details" edge IDs in the mutation.
+func (m *DictionaryMutation) DictionaryDetailsIDs() (ids []uint64) {
+	for id := range m.dictionary_details {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// ResetDetails resets all changes to the "details" edge.
-func (m *DictionaryMutation) ResetDetails() {
-	m.details = nil
-	m.cleareddetails = false
-	m.removeddetails = nil
+// ResetDictionaryDetails resets all changes to the "dictionary_details" edge.
+func (m *DictionaryMutation) ResetDictionaryDetails() {
+	m.dictionary_details = nil
+	m.cleareddictionary_details = false
+	m.removeddictionary_details = nil
 }
 
 // Where appends a list predicates to the DictionaryMutation builder.
@@ -1164,7 +1163,7 @@ func (m *DictionaryMutation) SetField(name string, value ent.Value) error {
 		m.SetUpdatedAt(v)
 		return nil
 	case dictionary.FieldStatus:
-		v, ok := value.(gotype.Status)
+		v, ok := value.(uint8)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -1222,7 +1221,7 @@ func (m *DictionaryMutation) AddedField(name string) (ent.Value, bool) {
 func (m *DictionaryMutation) AddField(name string, value ent.Value) error {
 	switch name {
 	case dictionary.FieldStatus:
-		v, ok := value.(gotype.Status)
+		v, ok := value.(int8)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -1289,8 +1288,8 @@ func (m *DictionaryMutation) ResetField(name string) error {
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *DictionaryMutation) AddedEdges() []string {
 	edges := make([]string, 0, 1)
-	if m.details != nil {
-		edges = append(edges, dictionary.EdgeDetails)
+	if m.dictionary_details != nil {
+		edges = append(edges, dictionary.EdgeDictionaryDetails)
 	}
 	return edges
 }
@@ -1299,9 +1298,9 @@ func (m *DictionaryMutation) AddedEdges() []string {
 // name in this mutation.
 func (m *DictionaryMutation) AddedIDs(name string) []ent.Value {
 	switch name {
-	case dictionary.EdgeDetails:
-		ids := make([]ent.Value, 0, len(m.details))
-		for id := range m.details {
+	case dictionary.EdgeDictionaryDetails:
+		ids := make([]ent.Value, 0, len(m.dictionary_details))
+		for id := range m.dictionary_details {
 			ids = append(ids, id)
 		}
 		return ids
@@ -1312,8 +1311,8 @@ func (m *DictionaryMutation) AddedIDs(name string) []ent.Value {
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *DictionaryMutation) RemovedEdges() []string {
 	edges := make([]string, 0, 1)
-	if m.removeddetails != nil {
-		edges = append(edges, dictionary.EdgeDetails)
+	if m.removeddictionary_details != nil {
+		edges = append(edges, dictionary.EdgeDictionaryDetails)
 	}
 	return edges
 }
@@ -1322,9 +1321,9 @@ func (m *DictionaryMutation) RemovedEdges() []string {
 // the given name in this mutation.
 func (m *DictionaryMutation) RemovedIDs(name string) []ent.Value {
 	switch name {
-	case dictionary.EdgeDetails:
-		ids := make([]ent.Value, 0, len(m.removeddetails))
-		for id := range m.removeddetails {
+	case dictionary.EdgeDictionaryDetails:
+		ids := make([]ent.Value, 0, len(m.removeddictionary_details))
+		for id := range m.removeddictionary_details {
 			ids = append(ids, id)
 		}
 		return ids
@@ -1335,8 +1334,8 @@ func (m *DictionaryMutation) RemovedIDs(name string) []ent.Value {
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *DictionaryMutation) ClearedEdges() []string {
 	edges := make([]string, 0, 1)
-	if m.cleareddetails {
-		edges = append(edges, dictionary.EdgeDetails)
+	if m.cleareddictionary_details {
+		edges = append(edges, dictionary.EdgeDictionaryDetails)
 	}
 	return edges
 }
@@ -1345,8 +1344,8 @@ func (m *DictionaryMutation) ClearedEdges() []string {
 // was cleared in this mutation.
 func (m *DictionaryMutation) EdgeCleared(name string) bool {
 	switch name {
-	case dictionary.EdgeDetails:
-		return m.cleareddetails
+	case dictionary.EdgeDictionaryDetails:
+		return m.cleareddictionary_details
 	}
 	return false
 }
@@ -1363,8 +1362,8 @@ func (m *DictionaryMutation) ClearEdge(name string) error {
 // It returns an error if the edge is not defined in the schema.
 func (m *DictionaryMutation) ResetEdge(name string) error {
 	switch name {
-	case dictionary.EdgeDetails:
-		m.ResetDetails()
+	case dictionary.EdgeDictionaryDetails:
+		m.ResetDictionaryDetails()
 		return nil
 	}
 	return fmt.Errorf("unknown Dictionary edge %s", name)
@@ -1378,8 +1377,8 @@ type DictionaryDetailMutation struct {
 	id                *uint64
 	created_at        *time.Time
 	updated_at        *time.Time
-	status            *gotype.Status
-	addstatus         *gotype.Status
+	status            *uint8
+	addstatus         *int8
 	title             *string
 	key               *string
 	value             *string
@@ -1568,13 +1567,13 @@ func (m *DictionaryDetailMutation) ResetUpdatedAt() {
 }
 
 // SetStatus sets the "status" field.
-func (m *DictionaryDetailMutation) SetStatus(_go gotype.Status) {
-	m.status = &_go
+func (m *DictionaryDetailMutation) SetStatus(u uint8) {
+	m.status = &u
 	m.addstatus = nil
 }
 
 // Status returns the value of the "status" field in the mutation.
-func (m *DictionaryDetailMutation) Status() (r gotype.Status, exists bool) {
+func (m *DictionaryDetailMutation) Status() (r uint8, exists bool) {
 	v := m.status
 	if v == nil {
 		return
@@ -1585,7 +1584,7 @@ func (m *DictionaryDetailMutation) Status() (r gotype.Status, exists bool) {
 // OldStatus returns the old "status" field's value of the DictionaryDetail entity.
 // If the DictionaryDetail object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *DictionaryDetailMutation) OldStatus(ctx context.Context) (v gotype.Status, err error) {
+func (m *DictionaryDetailMutation) OldStatus(ctx context.Context) (v uint8, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldStatus is only allowed on UpdateOne operations")
 	}
@@ -1599,17 +1598,17 @@ func (m *DictionaryDetailMutation) OldStatus(ctx context.Context) (v gotype.Stat
 	return oldValue.Status, nil
 }
 
-// AddStatus adds _go to the "status" field.
-func (m *DictionaryDetailMutation) AddStatus(_go gotype.Status) {
+// AddStatus adds u to the "status" field.
+func (m *DictionaryDetailMutation) AddStatus(u int8) {
 	if m.addstatus != nil {
-		*m.addstatus += _go
+		*m.addstatus += u
 	} else {
-		m.addstatus = &_go
+		m.addstatus = &u
 	}
 }
 
 // AddedStatus returns the value that was added to the "status" field in this mutation.
-func (m *DictionaryDetailMutation) AddedStatus() (r gotype.Status, exists bool) {
+func (m *DictionaryDetailMutation) AddedStatus() (r int8, exists bool) {
 	v := m.addstatus
 	if v == nil {
 		return
@@ -1887,7 +1886,7 @@ func (m *DictionaryDetailMutation) SetField(name string, value ent.Value) error 
 		m.SetUpdatedAt(v)
 		return nil
 	case dictionarydetail.FieldStatus:
-		v, ok := value.(gotype.Status)
+		v, ok := value.(uint8)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -1945,7 +1944,7 @@ func (m *DictionaryDetailMutation) AddedField(name string) (ent.Value, bool) {
 func (m *DictionaryDetailMutation) AddField(name string, value ent.Value) error {
 	switch name {
 	case dictionarydetail.FieldStatus:
-		v, ok := value.(gotype.Status)
+		v, ok := value.(int8)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -2501,9 +2500,22 @@ func (m *MenuMutation) OldPath(ctx context.Context) (v string, err error) {
 	return oldValue.Path, nil
 }
 
+// ClearPath clears the value of the "path" field.
+func (m *MenuMutation) ClearPath() {
+	m._path = nil
+	m.clearedFields[menu.FieldPath] = struct{}{}
+}
+
+// PathCleared returns if the "path" field was cleared in this mutation.
+func (m *MenuMutation) PathCleared() bool {
+	_, ok := m.clearedFields[menu.FieldPath]
+	return ok
+}
+
 // ResetPath resets all changes to the "path" field.
 func (m *MenuMutation) ResetPath() {
 	m._path = nil
+	delete(m.clearedFields, menu.FieldPath)
 }
 
 // SetName sets the "name" field.
@@ -2622,9 +2634,22 @@ func (m *MenuMutation) OldComponent(ctx context.Context) (v string, err error) {
 	return oldValue.Component, nil
 }
 
+// ClearComponent clears the value of the "component" field.
+func (m *MenuMutation) ClearComponent() {
+	m.component = nil
+	m.clearedFields[menu.FieldComponent] = struct{}{}
+}
+
+// ComponentCleared returns if the "component" field was cleared in this mutation.
+func (m *MenuMutation) ComponentCleared() bool {
+	_, ok := m.clearedFields[menu.FieldComponent]
+	return ok
+}
+
 // ResetComponent resets all changes to the "component" field.
 func (m *MenuMutation) ResetComponent() {
 	m.component = nil
+	delete(m.clearedFields, menu.FieldComponent)
 }
 
 // SetOrderNo sets the "order_no" field.
@@ -2714,9 +2739,22 @@ func (m *MenuMutation) OldDisabled(ctx context.Context) (v bool, err error) {
 	return oldValue.Disabled, nil
 }
 
+// ClearDisabled clears the value of the "disabled" field.
+func (m *MenuMutation) ClearDisabled() {
+	m.disabled = nil
+	m.clearedFields[menu.FieldDisabled] = struct{}{}
+}
+
+// DisabledCleared returns if the "disabled" field was cleared in this mutation.
+func (m *MenuMutation) DisabledCleared() bool {
+	_, ok := m.clearedFields[menu.FieldDisabled]
+	return ok
+}
+
 // ResetDisabled resets all changes to the "disabled" field.
 func (m *MenuMutation) ResetDisabled() {
 	m.disabled = nil
+	delete(m.clearedFields, menu.FieldDisabled)
 }
 
 // SetTitle sets the "title" field.
@@ -2822,9 +2860,22 @@ func (m *MenuMutation) OldHideMenu(ctx context.Context) (v bool, err error) {
 	return oldValue.HideMenu, nil
 }
 
+// ClearHideMenu clears the value of the "hide_menu" field.
+func (m *MenuMutation) ClearHideMenu() {
+	m.hide_menu = nil
+	m.clearedFields[menu.FieldHideMenu] = struct{}{}
+}
+
+// HideMenuCleared returns if the "hide_menu" field was cleared in this mutation.
+func (m *MenuMutation) HideMenuCleared() bool {
+	_, ok := m.clearedFields[menu.FieldHideMenu]
+	return ok
+}
+
 // ResetHideMenu resets all changes to the "hide_menu" field.
 func (m *MenuMutation) ResetHideMenu() {
 	m.hide_menu = nil
+	delete(m.clearedFields, menu.FieldHideMenu)
 }
 
 // SetHideBreadcrumb sets the "hide_breadcrumb" field.
@@ -2858,9 +2909,22 @@ func (m *MenuMutation) OldHideBreadcrumb(ctx context.Context) (v bool, err error
 	return oldValue.HideBreadcrumb, nil
 }
 
+// ClearHideBreadcrumb clears the value of the "hide_breadcrumb" field.
+func (m *MenuMutation) ClearHideBreadcrumb() {
+	m.hide_breadcrumb = nil
+	m.clearedFields[menu.FieldHideBreadcrumb] = struct{}{}
+}
+
+// HideBreadcrumbCleared returns if the "hide_breadcrumb" field was cleared in this mutation.
+func (m *MenuMutation) HideBreadcrumbCleared() bool {
+	_, ok := m.clearedFields[menu.FieldHideBreadcrumb]
+	return ok
+}
+
 // ResetHideBreadcrumb resets all changes to the "hide_breadcrumb" field.
 func (m *MenuMutation) ResetHideBreadcrumb() {
 	m.hide_breadcrumb = nil
+	delete(m.clearedFields, menu.FieldHideBreadcrumb)
 }
 
 // SetCurrentActiveMenu sets the "current_active_menu" field.
@@ -2894,9 +2958,22 @@ func (m *MenuMutation) OldCurrentActiveMenu(ctx context.Context) (v string, err 
 	return oldValue.CurrentActiveMenu, nil
 }
 
+// ClearCurrentActiveMenu clears the value of the "current_active_menu" field.
+func (m *MenuMutation) ClearCurrentActiveMenu() {
+	m.current_active_menu = nil
+	m.clearedFields[menu.FieldCurrentActiveMenu] = struct{}{}
+}
+
+// CurrentActiveMenuCleared returns if the "current_active_menu" field was cleared in this mutation.
+func (m *MenuMutation) CurrentActiveMenuCleared() bool {
+	_, ok := m.clearedFields[menu.FieldCurrentActiveMenu]
+	return ok
+}
+
 // ResetCurrentActiveMenu resets all changes to the "current_active_menu" field.
 func (m *MenuMutation) ResetCurrentActiveMenu() {
 	m.current_active_menu = nil
+	delete(m.clearedFields, menu.FieldCurrentActiveMenu)
 }
 
 // SetIgnoreKeepAlive sets the "ignore_keep_alive" field.
@@ -2930,9 +3007,22 @@ func (m *MenuMutation) OldIgnoreKeepAlive(ctx context.Context) (v bool, err erro
 	return oldValue.IgnoreKeepAlive, nil
 }
 
+// ClearIgnoreKeepAlive clears the value of the "ignore_keep_alive" field.
+func (m *MenuMutation) ClearIgnoreKeepAlive() {
+	m.ignore_keep_alive = nil
+	m.clearedFields[menu.FieldIgnoreKeepAlive] = struct{}{}
+}
+
+// IgnoreKeepAliveCleared returns if the "ignore_keep_alive" field was cleared in this mutation.
+func (m *MenuMutation) IgnoreKeepAliveCleared() bool {
+	_, ok := m.clearedFields[menu.FieldIgnoreKeepAlive]
+	return ok
+}
+
 // ResetIgnoreKeepAlive resets all changes to the "ignore_keep_alive" field.
 func (m *MenuMutation) ResetIgnoreKeepAlive() {
 	m.ignore_keep_alive = nil
+	delete(m.clearedFields, menu.FieldIgnoreKeepAlive)
 }
 
 // SetHideTab sets the "hide_tab" field.
@@ -2966,9 +3056,22 @@ func (m *MenuMutation) OldHideTab(ctx context.Context) (v bool, err error) {
 	return oldValue.HideTab, nil
 }
 
+// ClearHideTab clears the value of the "hide_tab" field.
+func (m *MenuMutation) ClearHideTab() {
+	m.hide_tab = nil
+	m.clearedFields[menu.FieldHideTab] = struct{}{}
+}
+
+// HideTabCleared returns if the "hide_tab" field was cleared in this mutation.
+func (m *MenuMutation) HideTabCleared() bool {
+	_, ok := m.clearedFields[menu.FieldHideTab]
+	return ok
+}
+
 // ResetHideTab resets all changes to the "hide_tab" field.
 func (m *MenuMutation) ResetHideTab() {
 	m.hide_tab = nil
+	delete(m.clearedFields, menu.FieldHideTab)
 }
 
 // SetFrameSrc sets the "frame_src" field.
@@ -3002,9 +3105,22 @@ func (m *MenuMutation) OldFrameSrc(ctx context.Context) (v string, err error) {
 	return oldValue.FrameSrc, nil
 }
 
+// ClearFrameSrc clears the value of the "frame_src" field.
+func (m *MenuMutation) ClearFrameSrc() {
+	m.frame_src = nil
+	m.clearedFields[menu.FieldFrameSrc] = struct{}{}
+}
+
+// FrameSrcCleared returns if the "frame_src" field was cleared in this mutation.
+func (m *MenuMutation) FrameSrcCleared() bool {
+	_, ok := m.clearedFields[menu.FieldFrameSrc]
+	return ok
+}
+
 // ResetFrameSrc resets all changes to the "frame_src" field.
 func (m *MenuMutation) ResetFrameSrc() {
 	m.frame_src = nil
+	delete(m.clearedFields, menu.FieldFrameSrc)
 }
 
 // SetCarryParam sets the "carry_param" field.
@@ -3038,9 +3154,22 @@ func (m *MenuMutation) OldCarryParam(ctx context.Context) (v bool, err error) {
 	return oldValue.CarryParam, nil
 }
 
+// ClearCarryParam clears the value of the "carry_param" field.
+func (m *MenuMutation) ClearCarryParam() {
+	m.carry_param = nil
+	m.clearedFields[menu.FieldCarryParam] = struct{}{}
+}
+
+// CarryParamCleared returns if the "carry_param" field was cleared in this mutation.
+func (m *MenuMutation) CarryParamCleared() bool {
+	_, ok := m.clearedFields[menu.FieldCarryParam]
+	return ok
+}
+
 // ResetCarryParam resets all changes to the "carry_param" field.
 func (m *MenuMutation) ResetCarryParam() {
 	m.carry_param = nil
+	delete(m.clearedFields, menu.FieldCarryParam)
 }
 
 // SetHideChildrenInMenu sets the "hide_children_in_menu" field.
@@ -3074,9 +3203,22 @@ func (m *MenuMutation) OldHideChildrenInMenu(ctx context.Context) (v bool, err e
 	return oldValue.HideChildrenInMenu, nil
 }
 
+// ClearHideChildrenInMenu clears the value of the "hide_children_in_menu" field.
+func (m *MenuMutation) ClearHideChildrenInMenu() {
+	m.hide_children_in_menu = nil
+	m.clearedFields[menu.FieldHideChildrenInMenu] = struct{}{}
+}
+
+// HideChildrenInMenuCleared returns if the "hide_children_in_menu" field was cleared in this mutation.
+func (m *MenuMutation) HideChildrenInMenuCleared() bool {
+	_, ok := m.clearedFields[menu.FieldHideChildrenInMenu]
+	return ok
+}
+
 // ResetHideChildrenInMenu resets all changes to the "hide_children_in_menu" field.
 func (m *MenuMutation) ResetHideChildrenInMenu() {
 	m.hide_children_in_menu = nil
+	delete(m.clearedFields, menu.FieldHideChildrenInMenu)
 }
 
 // SetAffix sets the "affix" field.
@@ -3110,9 +3252,22 @@ func (m *MenuMutation) OldAffix(ctx context.Context) (v bool, err error) {
 	return oldValue.Affix, nil
 }
 
+// ClearAffix clears the value of the "affix" field.
+func (m *MenuMutation) ClearAffix() {
+	m.affix = nil
+	m.clearedFields[menu.FieldAffix] = struct{}{}
+}
+
+// AffixCleared returns if the "affix" field was cleared in this mutation.
+func (m *MenuMutation) AffixCleared() bool {
+	_, ok := m.clearedFields[menu.FieldAffix]
+	return ok
+}
+
 // ResetAffix resets all changes to the "affix" field.
 func (m *MenuMutation) ResetAffix() {
 	m.affix = nil
+	delete(m.clearedFields, menu.FieldAffix)
 }
 
 // SetDynamicLevel sets the "dynamic_level" field.
@@ -3165,10 +3320,24 @@ func (m *MenuMutation) AddedDynamicLevel() (r int32, exists bool) {
 	return *v, true
 }
 
+// ClearDynamicLevel clears the value of the "dynamic_level" field.
+func (m *MenuMutation) ClearDynamicLevel() {
+	m.dynamic_level = nil
+	m.adddynamic_level = nil
+	m.clearedFields[menu.FieldDynamicLevel] = struct{}{}
+}
+
+// DynamicLevelCleared returns if the "dynamic_level" field was cleared in this mutation.
+func (m *MenuMutation) DynamicLevelCleared() bool {
+	_, ok := m.clearedFields[menu.FieldDynamicLevel]
+	return ok
+}
+
 // ResetDynamicLevel resets all changes to the "dynamic_level" field.
 func (m *MenuMutation) ResetDynamicLevel() {
 	m.dynamic_level = nil
 	m.adddynamic_level = nil
+	delete(m.clearedFields, menu.FieldDynamicLevel)
 }
 
 // SetRealPath sets the "real_path" field.
@@ -3202,9 +3371,22 @@ func (m *MenuMutation) OldRealPath(ctx context.Context) (v string, err error) {
 	return oldValue.RealPath, nil
 }
 
+// ClearRealPath clears the value of the "real_path" field.
+func (m *MenuMutation) ClearRealPath() {
+	m.real_path = nil
+	m.clearedFields[menu.FieldRealPath] = struct{}{}
+}
+
+// RealPathCleared returns if the "real_path" field was cleared in this mutation.
+func (m *MenuMutation) RealPathCleared() bool {
+	_, ok := m.clearedFields[menu.FieldRealPath]
+	return ok
+}
+
 // ResetRealPath resets all changes to the "real_path" field.
 func (m *MenuMutation) ResetRealPath() {
 	m.real_path = nil
+	delete(m.clearedFields, menu.FieldRealPath)
 }
 
 // AddRoleIDs adds the "roles" edge to the Role entity by ids.
@@ -3861,8 +4043,50 @@ func (m *MenuMutation) ClearedFields() []string {
 	if m.FieldCleared(menu.FieldParentID) {
 		fields = append(fields, menu.FieldParentID)
 	}
+	if m.FieldCleared(menu.FieldPath) {
+		fields = append(fields, menu.FieldPath)
+	}
 	if m.FieldCleared(menu.FieldRedirect) {
 		fields = append(fields, menu.FieldRedirect)
+	}
+	if m.FieldCleared(menu.FieldComponent) {
+		fields = append(fields, menu.FieldComponent)
+	}
+	if m.FieldCleared(menu.FieldDisabled) {
+		fields = append(fields, menu.FieldDisabled)
+	}
+	if m.FieldCleared(menu.FieldHideMenu) {
+		fields = append(fields, menu.FieldHideMenu)
+	}
+	if m.FieldCleared(menu.FieldHideBreadcrumb) {
+		fields = append(fields, menu.FieldHideBreadcrumb)
+	}
+	if m.FieldCleared(menu.FieldCurrentActiveMenu) {
+		fields = append(fields, menu.FieldCurrentActiveMenu)
+	}
+	if m.FieldCleared(menu.FieldIgnoreKeepAlive) {
+		fields = append(fields, menu.FieldIgnoreKeepAlive)
+	}
+	if m.FieldCleared(menu.FieldHideTab) {
+		fields = append(fields, menu.FieldHideTab)
+	}
+	if m.FieldCleared(menu.FieldFrameSrc) {
+		fields = append(fields, menu.FieldFrameSrc)
+	}
+	if m.FieldCleared(menu.FieldCarryParam) {
+		fields = append(fields, menu.FieldCarryParam)
+	}
+	if m.FieldCleared(menu.FieldHideChildrenInMenu) {
+		fields = append(fields, menu.FieldHideChildrenInMenu)
+	}
+	if m.FieldCleared(menu.FieldAffix) {
+		fields = append(fields, menu.FieldAffix)
+	}
+	if m.FieldCleared(menu.FieldDynamicLevel) {
+		fields = append(fields, menu.FieldDynamicLevel)
+	}
+	if m.FieldCleared(menu.FieldRealPath) {
+		fields = append(fields, menu.FieldRealPath)
 	}
 	return fields
 }
@@ -3881,8 +4105,50 @@ func (m *MenuMutation) ClearField(name string) error {
 	case menu.FieldParentID:
 		m.ClearParentID()
 		return nil
+	case menu.FieldPath:
+		m.ClearPath()
+		return nil
 	case menu.FieldRedirect:
 		m.ClearRedirect()
+		return nil
+	case menu.FieldComponent:
+		m.ClearComponent()
+		return nil
+	case menu.FieldDisabled:
+		m.ClearDisabled()
+		return nil
+	case menu.FieldHideMenu:
+		m.ClearHideMenu()
+		return nil
+	case menu.FieldHideBreadcrumb:
+		m.ClearHideBreadcrumb()
+		return nil
+	case menu.FieldCurrentActiveMenu:
+		m.ClearCurrentActiveMenu()
+		return nil
+	case menu.FieldIgnoreKeepAlive:
+		m.ClearIgnoreKeepAlive()
+		return nil
+	case menu.FieldHideTab:
+		m.ClearHideTab()
+		return nil
+	case menu.FieldFrameSrc:
+		m.ClearFrameSrc()
+		return nil
+	case menu.FieldCarryParam:
+		m.ClearCarryParam()
+		return nil
+	case menu.FieldHideChildrenInMenu:
+		m.ClearHideChildrenInMenu()
+		return nil
+	case menu.FieldAffix:
+		m.ClearAffix()
+		return nil
+	case menu.FieldDynamicLevel:
+		m.ClearDynamicLevel()
+		return nil
+	case menu.FieldRealPath:
+		m.ClearRealPath()
 		return nil
 	}
 	return fmt.Errorf("unknown Menu nullable field %s", name)
@@ -5623,8 +5889,8 @@ type RoleMutation struct {
 	id             *uint64
 	created_at     *time.Time
 	updated_at     *time.Time
-	status         *gotype.Status
-	addstatus      *gotype.Status
+	status         *uint8
+	addstatus      *int8
 	name           *string
 	value          *string
 	default_router *string
@@ -5817,13 +6083,13 @@ func (m *RoleMutation) ResetUpdatedAt() {
 }
 
 // SetStatus sets the "status" field.
-func (m *RoleMutation) SetStatus(_go gotype.Status) {
-	m.status = &_go
+func (m *RoleMutation) SetStatus(u uint8) {
+	m.status = &u
 	m.addstatus = nil
 }
 
 // Status returns the value of the "status" field in the mutation.
-func (m *RoleMutation) Status() (r gotype.Status, exists bool) {
+func (m *RoleMutation) Status() (r uint8, exists bool) {
 	v := m.status
 	if v == nil {
 		return
@@ -5834,7 +6100,7 @@ func (m *RoleMutation) Status() (r gotype.Status, exists bool) {
 // OldStatus returns the old "status" field's value of the Role entity.
 // If the Role object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *RoleMutation) OldStatus(ctx context.Context) (v gotype.Status, err error) {
+func (m *RoleMutation) OldStatus(ctx context.Context) (v uint8, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldStatus is only allowed on UpdateOne operations")
 	}
@@ -5848,17 +6114,17 @@ func (m *RoleMutation) OldStatus(ctx context.Context) (v gotype.Status, err erro
 	return oldValue.Status, nil
 }
 
-// AddStatus adds _go to the "status" field.
-func (m *RoleMutation) AddStatus(_go gotype.Status) {
+// AddStatus adds u to the "status" field.
+func (m *RoleMutation) AddStatus(u int8) {
 	if m.addstatus != nil {
-		*m.addstatus += _go
+		*m.addstatus += u
 	} else {
-		m.addstatus = &_go
+		m.addstatus = &u
 	}
 }
 
 // AddedStatus returns the value that was added to the "status" field in this mutation.
-func (m *RoleMutation) AddedStatus() (r gotype.Status, exists bool) {
+func (m *RoleMutation) AddedStatus() (r int8, exists bool) {
 	v := m.addstatus
 	if v == nil {
 		return
@@ -6257,7 +6523,7 @@ func (m *RoleMutation) SetField(name string, value ent.Value) error {
 		m.SetUpdatedAt(v)
 		return nil
 	case role.FieldStatus:
-		v, ok := value.(gotype.Status)
+		v, ok := value.(uint8)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -6334,7 +6600,7 @@ func (m *RoleMutation) AddedField(name string) (ent.Value, bool) {
 func (m *RoleMutation) AddField(name string, value ent.Value) error {
 	switch name {
 	case role.FieldStatus:
-		v, ok := value.(gotype.Status)
+		v, ok := value.(int8)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -6503,8 +6769,8 @@ type TokenMutation struct {
 	id            *uint64
 	created_at    *time.Time
 	updated_at    *time.Time
-	status        *gotype.Status
-	addstatus     *gotype.Status
+	status        *uint8
+	addstatus     *int8
 	uuid          *string
 	token         *string
 	source        *string
@@ -6692,13 +6958,13 @@ func (m *TokenMutation) ResetUpdatedAt() {
 }
 
 // SetStatus sets the "status" field.
-func (m *TokenMutation) SetStatus(_go gotype.Status) {
-	m.status = &_go
+func (m *TokenMutation) SetStatus(u uint8) {
+	m.status = &u
 	m.addstatus = nil
 }
 
 // Status returns the value of the "status" field in the mutation.
-func (m *TokenMutation) Status() (r gotype.Status, exists bool) {
+func (m *TokenMutation) Status() (r uint8, exists bool) {
 	v := m.status
 	if v == nil {
 		return
@@ -6709,7 +6975,7 @@ func (m *TokenMutation) Status() (r gotype.Status, exists bool) {
 // OldStatus returns the old "status" field's value of the Token entity.
 // If the Token object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *TokenMutation) OldStatus(ctx context.Context) (v gotype.Status, err error) {
+func (m *TokenMutation) OldStatus(ctx context.Context) (v uint8, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldStatus is only allowed on UpdateOne operations")
 	}
@@ -6723,17 +6989,17 @@ func (m *TokenMutation) OldStatus(ctx context.Context) (v gotype.Status, err err
 	return oldValue.Status, nil
 }
 
-// AddStatus adds _go to the "status" field.
-func (m *TokenMutation) AddStatus(_go gotype.Status) {
+// AddStatus adds u to the "status" field.
+func (m *TokenMutation) AddStatus(u int8) {
 	if m.addstatus != nil {
-		*m.addstatus += _go
+		*m.addstatus += u
 	} else {
-		m.addstatus = &_go
+		m.addstatus = &u
 	}
 }
 
 // AddedStatus returns the value that was added to the "status" field in this mutation.
-func (m *TokenMutation) AddedStatus() (r gotype.Status, exists bool) {
+func (m *TokenMutation) AddedStatus() (r int8, exists bool) {
 	v := m.addstatus
 	if v == nil {
 		return
@@ -7015,7 +7281,7 @@ func (m *TokenMutation) SetField(name string, value ent.Value) error {
 		m.SetUpdatedAt(v)
 		return nil
 	case token.FieldStatus:
-		v, ok := value.(gotype.Status)
+		v, ok := value.(uint8)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -7080,7 +7346,7 @@ func (m *TokenMutation) AddedField(name string) (ent.Value, bool) {
 func (m *TokenMutation) AddField(name string, value ent.Value) error {
 	switch name {
 	case token.FieldStatus:
-		v, ok := value.(gotype.Status)
+		v, ok := value.(int8)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -7203,8 +7469,8 @@ type UserMutation struct {
 	id            *uint64
 	created_at    *time.Time
 	updated_at    *time.Time
-	status        *gotype.Status
-	addstatus     *gotype.Status
+	status        *uint8
+	addstatus     *int8
 	uuid          *string
 	username      *string
 	password      *string
@@ -7400,13 +7666,13 @@ func (m *UserMutation) ResetUpdatedAt() {
 }
 
 // SetStatus sets the "status" field.
-func (m *UserMutation) SetStatus(_go gotype.Status) {
-	m.status = &_go
+func (m *UserMutation) SetStatus(u uint8) {
+	m.status = &u
 	m.addstatus = nil
 }
 
 // Status returns the value of the "status" field in the mutation.
-func (m *UserMutation) Status() (r gotype.Status, exists bool) {
+func (m *UserMutation) Status() (r uint8, exists bool) {
 	v := m.status
 	if v == nil {
 		return
@@ -7417,7 +7683,7 @@ func (m *UserMutation) Status() (r gotype.Status, exists bool) {
 // OldStatus returns the old "status" field's value of the User entity.
 // If the User object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *UserMutation) OldStatus(ctx context.Context) (v gotype.Status, err error) {
+func (m *UserMutation) OldStatus(ctx context.Context) (v uint8, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldStatus is only allowed on UpdateOne operations")
 	}
@@ -7431,17 +7697,17 @@ func (m *UserMutation) OldStatus(ctx context.Context) (v gotype.Status, err erro
 	return oldValue.Status, nil
 }
 
-// AddStatus adds _go to the "status" field.
-func (m *UserMutation) AddStatus(_go gotype.Status) {
+// AddStatus adds u to the "status" field.
+func (m *UserMutation) AddStatus(u int8) {
 	if m.addstatus != nil {
-		*m.addstatus += _go
+		*m.addstatus += u
 	} else {
-		m.addstatus = &_go
+		m.addstatus = &u
 	}
 }
 
 // AddedStatus returns the value that was added to the "status" field in this mutation.
-func (m *UserMutation) AddedStatus() (r gotype.Status, exists bool) {
+func (m *UserMutation) AddedStatus() (r int8, exists bool) {
 	v := m.addstatus
 	if v == nil {
 		return
@@ -8136,7 +8402,7 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 		m.SetUpdatedAt(v)
 		return nil
 	case user.FieldStatus:
-		v, ok := value.(gotype.Status)
+		v, ok := value.(uint8)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -8255,7 +8521,7 @@ func (m *UserMutation) AddedField(name string) (ent.Value, bool) {
 func (m *UserMutation) AddField(name string, value ent.Value) error {
 	switch name {
 	case user.FieldStatus:
-		v, ok := value.(gotype.Status)
+		v, ok := value.(int8)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}

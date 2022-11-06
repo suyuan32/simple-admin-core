@@ -26,8 +26,8 @@ func NewDeleteRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 }
 
 func (l *DeleteRoleLogic) DeleteRole(req *types.IDReq) (resp *types.SimpleMsg, err error) {
-	data, err := l.svcCtx.CoreRpc.DeleteRole(context.Background(), &core.IDReq{
-		ID: uint64(req.ID),
+	data, err := l.svcCtx.CoreRpc.DeleteRole(l.ctx, &core.IDReq{
+		Id: req.Id,
 	})
 	if err != nil {
 		return nil, err

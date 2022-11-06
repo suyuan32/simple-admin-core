@@ -6,7 +6,6 @@ import (
 	"strconv"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -39,7 +38,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 			SetName(in.Name).
 			SetValue(in.Value).
 			SetDefaultRouter(in.DefaultRouter).
-			SetStatus(gotype.Status(in.Status)).
+			SetStatus(uint8(in.Status)).
 			SetOrderNo(in.OrderNo).
 			SetRemark(in.Remark).
 			Exec(l.ctx)
@@ -67,7 +66,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 			SetName(in.Name).
 			SetValue(in.Value).
 			SetDefaultRouter(in.DefaultRouter).
-			SetStatus(gotype.Status(in.Status)).
+			SetStatus(uint8(in.Status)).
 			SetOrderNo(in.OrderNo).
 			SetRemark(in.Remark).
 			Exec(l.ctx)

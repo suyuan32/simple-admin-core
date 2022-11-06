@@ -15,7 +15,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 )
 
-// APIUpdate is the builder for updating Api entities.
+// APIUpdate is the builder for updating API entities.
 type APIUpdate struct {
 	config
 	hooks    []Hook
@@ -23,7 +23,7 @@ type APIUpdate struct {
 }
 
 // Where appends a list predicates to the APIUpdate builder.
-func (au *APIUpdate) Where(ps ...predicate.Api) *APIUpdate {
+func (au *APIUpdate) Where(ps ...predicate.API) *APIUpdate {
 	au.mutation.Where(ps...)
 	return au
 }
@@ -178,7 +178,7 @@ func (au *APIUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	return n, nil
 }
 
-// APIUpdateOne is the builder for updating a single Api entity.
+// APIUpdateOne is the builder for updating a single API entity.
 type APIUpdateOne struct {
 	config
 	fields   []string
@@ -236,11 +236,11 @@ func (auo *APIUpdateOne) Select(field string, fields ...string) *APIUpdateOne {
 	return auo
 }
 
-// Save executes the query and returns the updated Api entity.
-func (auo *APIUpdateOne) Save(ctx context.Context) (*Api, error) {
+// Save executes the query and returns the updated API entity.
+func (auo *APIUpdateOne) Save(ctx context.Context) (*API, error) {
 	var (
 		err  error
-		node *Api
+		node *API
 	)
 	auo.defaults()
 	if len(auo.hooks) == 0 {
@@ -266,7 +266,7 @@ func (auo *APIUpdateOne) Save(ctx context.Context) (*Api, error) {
 		if err != nil {
 			return nil, err
 		}
-		nv, ok := v.(*Api)
+		nv, ok := v.(*API)
 		if !ok {
 			return nil, fmt.Errorf("unexpected node type %T returned from APIMutation", v)
 		}
@@ -276,7 +276,7 @@ func (auo *APIUpdateOne) Save(ctx context.Context) (*Api, error) {
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (auo *APIUpdateOne) SaveX(ctx context.Context) *Api {
+func (auo *APIUpdateOne) SaveX(ctx context.Context) *API {
 	node, err := auo.Save(ctx)
 	if err != nil {
 		panic(err)
@@ -305,7 +305,7 @@ func (auo *APIUpdateOne) defaults() {
 	}
 }
 
-func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *Api, err error) {
+func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *API, err error) {
 	_spec := &sqlgraph.UpdateSpec{
 		Node: &sqlgraph.NodeSpec{
 			Table:   api.Table,
@@ -318,7 +318,7 @@ func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *Api, err error) {
 	}
 	id, ok := auo.mutation.ID()
 	if !ok {
-		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Api.id" for update`)}
+		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "API.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
 	if fields := auo.fields; len(fields) > 0 {
@@ -355,7 +355,7 @@ func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *Api, err error) {
 	if value, ok := auo.mutation.Method(); ok {
 		_spec.SetField(api.FieldMethod, field.TypeString, value)
 	}
-	_node = &Api{config: auo.config}
+	_node = &API{config: auo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
 	if err = sqlgraph.UpdateNode(ctx, auo.driver, _spec); err != nil {

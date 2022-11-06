@@ -8,7 +8,6 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // ID filters vertices based on their ID field.
@@ -97,7 +96,7 @@ func UpdatedAt(v time.Time) predicate.DictionaryDetail {
 }
 
 // Status applies equality check predicate on the "status" field. It's identical to StatusEQ.
-func Status(v gotype.Status) predicate.DictionaryDetail {
+func Status(v uint8) predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldStatus), v))
 	})
@@ -253,21 +252,21 @@ func UpdatedAtLTE(v time.Time) predicate.DictionaryDetail {
 }
 
 // StatusEQ applies the EQ predicate on the "status" field.
-func StatusEQ(v gotype.Status) predicate.DictionaryDetail {
+func StatusEQ(v uint8) predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldStatus), v))
 	})
 }
 
 // StatusNEQ applies the NEQ predicate on the "status" field.
-func StatusNEQ(v gotype.Status) predicate.DictionaryDetail {
+func StatusNEQ(v uint8) predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldStatus), v))
 	})
 }
 
 // StatusIn applies the In predicate on the "status" field.
-func StatusIn(vs ...gotype.Status) predicate.DictionaryDetail {
+func StatusIn(vs ...uint8) predicate.DictionaryDetail {
 	v := make([]any, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -278,7 +277,7 @@ func StatusIn(vs ...gotype.Status) predicate.DictionaryDetail {
 }
 
 // StatusNotIn applies the NotIn predicate on the "status" field.
-func StatusNotIn(vs ...gotype.Status) predicate.DictionaryDetail {
+func StatusNotIn(vs ...uint8) predicate.DictionaryDetail {
 	v := make([]any, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -289,28 +288,28 @@ func StatusNotIn(vs ...gotype.Status) predicate.DictionaryDetail {
 }
 
 // StatusGT applies the GT predicate on the "status" field.
-func StatusGT(v gotype.Status) predicate.DictionaryDetail {
+func StatusGT(v uint8) predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldStatus), v))
 	})
 }
 
 // StatusGTE applies the GTE predicate on the "status" field.
-func StatusGTE(v gotype.Status) predicate.DictionaryDetail {
+func StatusGTE(v uint8) predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldStatus), v))
 	})
 }
 
 // StatusLT applies the LT predicate on the "status" field.
-func StatusLT(v gotype.Status) predicate.DictionaryDetail {
+func StatusLT(v uint8) predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldStatus), v))
 	})
 }
 
 // StatusLTE applies the LTE predicate on the "status" field.
-func StatusLTE(v gotype.Status) predicate.DictionaryDetail {
+func StatusLTE(v uint8) predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldStatus), v))
 	})

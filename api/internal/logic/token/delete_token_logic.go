@@ -25,7 +25,7 @@ func NewDeleteTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delet
 }
 
 func (l *DeleteTokenLogic) DeleteToken(req *types.IDReq) (resp *types.SimpleMsg, err error) {
-	result, err := l.svcCtx.CoreRpc.DeleteToken(context.Background(), &core.IDReq{ID: uint64(req.ID)})
+	result, err := l.svcCtx.CoreRpc.DeleteToken(l.ctx, &core.IDReq{Id: req.Id})
 
 	if err != nil {
 		return nil, err

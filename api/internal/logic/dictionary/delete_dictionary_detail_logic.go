@@ -26,7 +26,7 @@ func NewDeleteDictionaryDetailLogic(ctx context.Context, svcCtx *svc.ServiceCont
 }
 
 func (l *DeleteDictionaryDetailLogic) DeleteDictionaryDetail(req *types.IDReq) (resp *types.SimpleMsg, err error) {
-	result, err := l.svcCtx.CoreRpc.DeleteDictionaryDetail(context.Background(), &core.IDReq{ID: uint64(req.ID)})
+	result, err := l.svcCtx.CoreRpc.DeleteDictionaryDetail(l.ctx, &core.IDReq{Id: req.Id})
 
 	if err != nil {
 		return nil, err

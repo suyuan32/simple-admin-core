@@ -26,9 +26,9 @@ func NewSetRoleStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Set
 }
 
 func (l *SetRoleStatusLogic) SetRoleStatus(req *types.SetStatusReq) (resp *types.SimpleMsg, err error) {
-	data, err := l.svcCtx.CoreRpc.SetRoleStatus(context.Background(), &core.SetStatusReq{
-		Id:     req.Id,
-		Status: req.Status,
+	data, err := l.svcCtx.CoreRpc.SetRoleStatus(l.ctx, &core.SetStatusReq{
+		Id:     req.ID,
+		Status: uint64(req.Status),
 	})
 	if err != nil {
 		return nil, err

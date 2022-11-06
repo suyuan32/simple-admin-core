@@ -9,7 +9,6 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
-	"github.com/suyuan32/simple-admin-core/pkg/gotype"
 )
 
 // User is the model entity for the User schema.
@@ -22,7 +21,7 @@ type User struct {
 	// UpdatedAt holds the value of the "updated_at" field.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// status 0 normal 1 ban | 状态 0 正常 1 禁用
-	Status gotype.Status `json:"status,omitempty"`
+	Status uint8 `json:"status,omitempty"`
 	// user's UUID | 用户 UUID
 	UUID string `json:"uuid,omitempty"`
 	// user's login name | 登录名
@@ -52,9 +51,7 @@ func (*User) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldStatus:
-			values[i] = new(gotype.Status)
-		case user.FieldID, user.FieldRoleID:
+		case user.FieldID, user.FieldStatus, user.FieldRoleID:
 			values[i] = new(sql.NullInt64)
 		case user.FieldUUID, user.FieldUsername, user.FieldPassword, user.FieldNickname, user.FieldSideMode, user.FieldBaseColor, user.FieldActiveColor, user.FieldMobile, user.FieldEmail, user.FieldAvatar:
 			values[i] = new(sql.NullString)
@@ -94,10 +91,10 @@ func (u *User) assignValues(columns []string, values []any) error {
 				u.UpdatedAt = value.Time
 			}
 		case user.FieldStatus:
-			if value, ok := values[i].(*gotype.Status); !ok {
+			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field status", values[i])
-			} else if value != nil {
-				u.Status = *value
+			} else if value.Valid {
+				u.Status = uint8(value.Int64)
 			}
 		case user.FieldUUID:
 			if value, ok := values[i].(*sql.NullString); !ok {
