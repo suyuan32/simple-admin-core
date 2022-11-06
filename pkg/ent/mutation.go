@@ -2124,9 +2124,9 @@ type MenuMutation struct {
 	children              map[uint64]struct{}
 	removedchildren       map[uint64]struct{}
 	clearedchildren       bool
-	param                 map[uint64]struct{}
-	removedparam          map[uint64]struct{}
-	clearedparam          bool
+	params                map[uint64]struct{}
+	removedparams         map[uint64]struct{}
+	clearedparams         bool
 	done                  bool
 	oldValue              func(context.Context) (*Menu, error)
 	predicates            []predicate.Menu
@@ -3523,58 +3523,58 @@ func (m *MenuMutation) ResetChildren() {
 	m.removedchildren = nil
 }
 
-// AddParamIDs adds the "param" edge to the MenuParam entity by ids.
+// AddParamIDs adds the "params" edge to the MenuParam entity by ids.
 func (m *MenuMutation) AddParamIDs(ids ...uint64) {
-	if m.param == nil {
-		m.param = make(map[uint64]struct{})
+	if m.params == nil {
+		m.params = make(map[uint64]struct{})
 	}
 	for i := range ids {
-		m.param[ids[i]] = struct{}{}
+		m.params[ids[i]] = struct{}{}
 	}
 }
 
-// ClearParam clears the "param" edge to the MenuParam entity.
-func (m *MenuMutation) ClearParam() {
-	m.clearedparam = true
+// ClearParams clears the "params" edge to the MenuParam entity.
+func (m *MenuMutation) ClearParams() {
+	m.clearedparams = true
 }
 
-// ParamCleared reports if the "param" edge to the MenuParam entity was cleared.
-func (m *MenuMutation) ParamCleared() bool {
-	return m.clearedparam
+// ParamsCleared reports if the "params" edge to the MenuParam entity was cleared.
+func (m *MenuMutation) ParamsCleared() bool {
+	return m.clearedparams
 }
 
-// RemoveParamIDs removes the "param" edge to the MenuParam entity by IDs.
+// RemoveParamIDs removes the "params" edge to the MenuParam entity by IDs.
 func (m *MenuMutation) RemoveParamIDs(ids ...uint64) {
-	if m.removedparam == nil {
-		m.removedparam = make(map[uint64]struct{})
+	if m.removedparams == nil {
+		m.removedparams = make(map[uint64]struct{})
 	}
 	for i := range ids {
-		delete(m.param, ids[i])
-		m.removedparam[ids[i]] = struct{}{}
+		delete(m.params, ids[i])
+		m.removedparams[ids[i]] = struct{}{}
 	}
 }
 
-// RemovedParam returns the removed IDs of the "param" edge to the MenuParam entity.
-func (m *MenuMutation) RemovedParamIDs() (ids []uint64) {
-	for id := range m.removedparam {
+// RemovedParams returns the removed IDs of the "params" edge to the MenuParam entity.
+func (m *MenuMutation) RemovedParamsIDs() (ids []uint64) {
+	for id := range m.removedparams {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// ParamIDs returns the "param" edge IDs in the mutation.
-func (m *MenuMutation) ParamIDs() (ids []uint64) {
-	for id := range m.param {
+// ParamsIDs returns the "params" edge IDs in the mutation.
+func (m *MenuMutation) ParamsIDs() (ids []uint64) {
+	for id := range m.params {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// ResetParam resets all changes to the "param" edge.
-func (m *MenuMutation) ResetParam() {
-	m.param = nil
-	m.clearedparam = false
-	m.removedparam = nil
+// ResetParams resets all changes to the "params" edge.
+func (m *MenuMutation) ResetParams() {
+	m.params = nil
+	m.clearedparams = false
+	m.removedparams = nil
 }
 
 // Where appends a list predicates to the MenuMutation builder.
@@ -4246,8 +4246,8 @@ func (m *MenuMutation) AddedEdges() []string {
 	if m.children != nil {
 		edges = append(edges, menu.EdgeChildren)
 	}
-	if m.param != nil {
-		edges = append(edges, menu.EdgeParam)
+	if m.params != nil {
+		edges = append(edges, menu.EdgeParams)
 	}
 	return edges
 }
@@ -4272,9 +4272,9 @@ func (m *MenuMutation) AddedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
-	case menu.EdgeParam:
-		ids := make([]ent.Value, 0, len(m.param))
-		for id := range m.param {
+	case menu.EdgeParams:
+		ids := make([]ent.Value, 0, len(m.params))
+		for id := range m.params {
 			ids = append(ids, id)
 		}
 		return ids
@@ -4291,8 +4291,8 @@ func (m *MenuMutation) RemovedEdges() []string {
 	if m.removedchildren != nil {
 		edges = append(edges, menu.EdgeChildren)
 	}
-	if m.removedparam != nil {
-		edges = append(edges, menu.EdgeParam)
+	if m.removedparams != nil {
+		edges = append(edges, menu.EdgeParams)
 	}
 	return edges
 }
@@ -4313,9 +4313,9 @@ func (m *MenuMutation) RemovedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
-	case menu.EdgeParam:
-		ids := make([]ent.Value, 0, len(m.removedparam))
-		for id := range m.removedparam {
+	case menu.EdgeParams:
+		ids := make([]ent.Value, 0, len(m.removedparams))
+		for id := range m.removedparams {
 			ids = append(ids, id)
 		}
 		return ids
@@ -4335,8 +4335,8 @@ func (m *MenuMutation) ClearedEdges() []string {
 	if m.clearedchildren {
 		edges = append(edges, menu.EdgeChildren)
 	}
-	if m.clearedparam {
-		edges = append(edges, menu.EdgeParam)
+	if m.clearedparams {
+		edges = append(edges, menu.EdgeParams)
 	}
 	return edges
 }
@@ -4351,8 +4351,8 @@ func (m *MenuMutation) EdgeCleared(name string) bool {
 		return m.clearedparent
 	case menu.EdgeChildren:
 		return m.clearedchildren
-	case menu.EdgeParam:
-		return m.clearedparam
+	case menu.EdgeParams:
+		return m.clearedparams
 	}
 	return false
 }
@@ -4381,8 +4381,8 @@ func (m *MenuMutation) ResetEdge(name string) error {
 	case menu.EdgeChildren:
 		m.ResetChildren()
 		return nil
-	case menu.EdgeParam:
-		m.ResetParam()
+	case menu.EdgeParams:
+		m.ResetParams()
 		return nil
 	}
 	return fmt.Errorf("unknown Menu edge %s", name)
@@ -4400,8 +4400,8 @@ type MenuParamMutation struct {
 	key           *string
 	value         *string
 	clearedFields map[string]struct{}
-	menu          *uint64
-	clearedmenu   bool
+	menus         *uint64
+	clearedmenus  bool
 	done          bool
 	oldValue      func(context.Context) (*MenuParam, error)
 	predicates    []predicate.MenuParam
@@ -4691,43 +4691,43 @@ func (m *MenuParamMutation) ResetValue() {
 	m.value = nil
 }
 
-// SetMenuID sets the "menu" edge to the Menu entity by id.
-func (m *MenuParamMutation) SetMenuID(id uint64) {
-	m.menu = &id
+// SetMenusID sets the "menus" edge to the Menu entity by id.
+func (m *MenuParamMutation) SetMenusID(id uint64) {
+	m.menus = &id
 }
 
-// ClearMenu clears the "menu" edge to the Menu entity.
-func (m *MenuParamMutation) ClearMenu() {
-	m.clearedmenu = true
+// ClearMenus clears the "menus" edge to the Menu entity.
+func (m *MenuParamMutation) ClearMenus() {
+	m.clearedmenus = true
 }
 
-// MenuCleared reports if the "menu" edge to the Menu entity was cleared.
-func (m *MenuParamMutation) MenuCleared() bool {
-	return m.clearedmenu
+// MenusCleared reports if the "menus" edge to the Menu entity was cleared.
+func (m *MenuParamMutation) MenusCleared() bool {
+	return m.clearedmenus
 }
 
-// MenuID returns the "menu" edge ID in the mutation.
-func (m *MenuParamMutation) MenuID() (id uint64, exists bool) {
-	if m.menu != nil {
-		return *m.menu, true
+// MenusID returns the "menus" edge ID in the mutation.
+func (m *MenuParamMutation) MenusID() (id uint64, exists bool) {
+	if m.menus != nil {
+		return *m.menus, true
 	}
 	return
 }
 
-// MenuIDs returns the "menu" edge IDs in the mutation.
+// MenusIDs returns the "menus" edge IDs in the mutation.
 // Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// MenuID instead. It exists only for internal usage by the builders.
-func (m *MenuParamMutation) MenuIDs() (ids []uint64) {
-	if id := m.menu; id != nil {
+// MenusID instead. It exists only for internal usage by the builders.
+func (m *MenuParamMutation) MenusIDs() (ids []uint64) {
+	if id := m.menus; id != nil {
 		ids = append(ids, *id)
 	}
 	return
 }
 
-// ResetMenu resets all changes to the "menu" edge.
-func (m *MenuParamMutation) ResetMenu() {
-	m.menu = nil
-	m.clearedmenu = false
+// ResetMenus resets all changes to the "menus" edge.
+func (m *MenuParamMutation) ResetMenus() {
+	m.menus = nil
+	m.clearedmenus = false
 }
 
 // Where appends a list predicates to the MenuParamMutation builder.
@@ -4917,8 +4917,8 @@ func (m *MenuParamMutation) ResetField(name string) error {
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *MenuParamMutation) AddedEdges() []string {
 	edges := make([]string, 0, 1)
-	if m.menu != nil {
-		edges = append(edges, menuparam.EdgeMenu)
+	if m.menus != nil {
+		edges = append(edges, menuparam.EdgeMenus)
 	}
 	return edges
 }
@@ -4927,8 +4927,8 @@ func (m *MenuParamMutation) AddedEdges() []string {
 // name in this mutation.
 func (m *MenuParamMutation) AddedIDs(name string) []ent.Value {
 	switch name {
-	case menuparam.EdgeMenu:
-		if id := m.menu; id != nil {
+	case menuparam.EdgeMenus:
+		if id := m.menus; id != nil {
 			return []ent.Value{*id}
 		}
 	}
@@ -4950,8 +4950,8 @@ func (m *MenuParamMutation) RemovedIDs(name string) []ent.Value {
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *MenuParamMutation) ClearedEdges() []string {
 	edges := make([]string, 0, 1)
-	if m.clearedmenu {
-		edges = append(edges, menuparam.EdgeMenu)
+	if m.clearedmenus {
+		edges = append(edges, menuparam.EdgeMenus)
 	}
 	return edges
 }
@@ -4960,8 +4960,8 @@ func (m *MenuParamMutation) ClearedEdges() []string {
 // was cleared in this mutation.
 func (m *MenuParamMutation) EdgeCleared(name string) bool {
 	switch name {
-	case menuparam.EdgeMenu:
-		return m.clearedmenu
+	case menuparam.EdgeMenus:
+		return m.clearedmenus
 	}
 	return false
 }
@@ -4970,8 +4970,8 @@ func (m *MenuParamMutation) EdgeCleared(name string) bool {
 // if that edge is not defined in the schema.
 func (m *MenuParamMutation) ClearEdge(name string) error {
 	switch name {
-	case menuparam.EdgeMenu:
-		m.ClearMenu()
+	case menuparam.EdgeMenus:
+		m.ClearMenus()
 		return nil
 	}
 	return fmt.Errorf("unknown MenuParam unique edge %s", name)
@@ -4981,8 +4981,8 @@ func (m *MenuParamMutation) ClearEdge(name string) error {
 // It returns an error if the edge is not defined in the schema.
 func (m *MenuParamMutation) ResetEdge(name string) error {
 	switch name {
-	case menuparam.EdgeMenu:
-		m.ResetMenu()
+	case menuparam.EdgeMenus:
+		m.ResetMenus()
 		return nil
 	}
 	return fmt.Errorf("unknown MenuParam edge %s", name)

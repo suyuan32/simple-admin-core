@@ -2,6 +2,8 @@ package schema
 
 import (
 	"entgo.io/ent"
+	"entgo.io/ent/dialect/entsql"
+	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
 
@@ -37,5 +39,11 @@ func (Token) Indexes() []ent.Index {
 	return []ent.Index{
 		index.Fields("uuid"),
 		index.Fields("expired_at"),
+	}
+}
+
+func (Token) Annotations() []schema.Annotation {
+	return []schema.Annotation{
+		entsql.Annotation{Table: "sys_tokens"},
 	}
 }

@@ -30,12 +30,12 @@ const (
 	// EdgeMenus holds the string denoting the menus edge name in mutations.
 	EdgeMenus = "menus"
 	// Table holds the table name of the role in the database.
-	Table = "roles"
+	Table = "sys_roles"
 	// MenusTable is the table that holds the menus relation/edge. The primary key declared below.
 	MenusTable = "role_menus"
 	// MenusInverseTable is the table name for the Menu entity.
 	// It exists in this package in order to avoid circular dependency with the "menu" package.
-	MenusInverseTable = "menus"
+	MenusInverseTable = "sys_menus"
 )
 
 // Columns holds all SQL columns for role fields.

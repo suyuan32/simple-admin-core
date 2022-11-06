@@ -13,8 +13,6 @@ import (
 
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type CreateOrUpdateRoleLogic struct {
@@ -117,7 +115,7 @@ func (l *CreateOrUpdateRoleLogic) UpdateRoleInfoInRedis() error {
 		err = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d_value", v.ID), v.Value)
 		err = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%d_status", v.ID), strconv.Itoa(int(v.Status)))
 		if err != nil {
-			return status.Error(codes.Internal, errorx.RedisError)
+			return statuserr.NewInternalError(errorx.RedisError)
 		}
 	}
 	return nil

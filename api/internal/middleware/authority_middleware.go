@@ -16,11 +16,11 @@ import (
 )
 
 type AuthorityMiddleware struct {
-	Cbn *casbin.SyncedEnforcer
+	Cbn *casbin.Enforcer
 	Rds *redis.Redis
 }
 
-func NewAuthorityMiddleware(cbn *casbin.SyncedEnforcer, rds *redis.Redis) *AuthorityMiddleware {
+func NewAuthorityMiddleware(cbn *casbin.Enforcer, rds *redis.Redis) *AuthorityMiddleware {
 	return &AuthorityMiddleware{
 		Cbn: cbn,
 		Rds: rds,

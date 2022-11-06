@@ -151,7 +151,7 @@ type (
     CreateOrUpdateMenuReq {
         // ID
         // Required: true
-        ID            uint64     `json:"ID" validate:"number"`
+        Id            uint64     `json:"id" validate:"number"`
 
         // Menu type: directory or menu | 菜单类型: 目录或菜单
         // Required: true
@@ -203,7 +203,7 @@ type (
     CreateOrUpdateMenuParamReq {
         // ID
         // Required: true
-        ID        uint32      `json:"ID" validate:"number"`
+        Id        uint64      `json:"id" validate:"number"`
 
         // Menu ID | 菜单ID
         // Required: true
@@ -232,9 +232,6 @@ type (
     // swagger:response MenuParamResp
     MenuParamResp {
         BaseInfo
-
-        // Menu ID | 菜单ID
-        MenuId    uint64      `json:"menuId"`
 
         // Data Type | 数据类型
         DataType  string      `json:"dataType"`

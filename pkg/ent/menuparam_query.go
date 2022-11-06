@@ -24,7 +24,7 @@ type MenuParamQuery struct {
 	order      []OrderFunc
 	fields     []string
 	predicates []predicate.MenuParam
-	withMenu   *MenuQuery
+	withMenus  *MenuQuery
 	withFKs    bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
@@ -62,8 +62,8 @@ func (mpq *MenuParamQuery) Order(o ...OrderFunc) *MenuParamQuery {
 	return mpq
 }
 
-// QueryMenu chains the current query on the "menu" edge.
-func (mpq *MenuParamQuery) QueryMenu() *MenuQuery {
+// QueryMenus chains the current query on the "menus" edge.
+func (mpq *MenuParamQuery) QueryMenus() *MenuQuery {
 	query := &MenuQuery{config: mpq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := mpq.prepareQuery(ctx); err != nil {
@@ -76,7 +76,7 @@ func (mpq *MenuParamQuery) QueryMenu() *MenuQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(menuparam.Table, menuparam.FieldID, selector),
 			sqlgraph.To(menu.Table, menu.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, menuparam.MenuTable, menuparam.MenuColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, menuparam.MenusTable, menuparam.MenusColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(mpq.driver.Dialect(), step)
 		return fromU, nil
@@ -265,7 +265,7 @@ func (mpq *MenuParamQuery) Clone() *MenuParamQuery {
 		offset:     mpq.offset,
 		order:      append([]OrderFunc{}, mpq.order...),
 		predicates: append([]predicate.MenuParam{}, mpq.predicates...),
-		withMenu:   mpq.withMenu.Clone(),
+		withMenus:  mpq.withMenus.Clone(),
 		// clone intermediate query.
 		sql:    mpq.sql.Clone(),
 		path:   mpq.path,
@@ -273,14 +273,14 @@ func (mpq *MenuParamQuery) Clone() *MenuParamQuery {
 	}
 }
 
-// WithMenu tells the query-builder to eager-load the nodes that are connected to
-// the "menu" edge. The optional arguments are used to configure the query builder of the edge.
-func (mpq *MenuParamQuery) WithMenu(opts ...func(*MenuQuery)) *MenuParamQuery {
+// WithMenus tells the query-builder to eager-load the nodes that are connected to
+// the "menus" edge. The optional arguments are used to configure the query builder of the edge.
+func (mpq *MenuParamQuery) WithMenus(opts ...func(*MenuQuery)) *MenuParamQuery {
 	query := &MenuQuery{config: mpq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	mpq.withMenu = query
+	mpq.withMenus = query
 	return mpq
 }
 
@@ -359,10 +359,10 @@ func (mpq *MenuParamQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*M
 		withFKs     = mpq.withFKs
 		_spec       = mpq.querySpec()
 		loadedTypes = [1]bool{
-			mpq.withMenu != nil,
+			mpq.withMenus != nil,
 		}
 	)
-	if mpq.withMenu != nil {
+	if mpq.withMenus != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -386,23 +386,23 @@ func (mpq *MenuParamQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*M
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := mpq.withMenu; query != nil {
-		if err := mpq.loadMenu(ctx, query, nodes, nil,
-			func(n *MenuParam, e *Menu) { n.Edges.Menu = e }); err != nil {
+	if query := mpq.withMenus; query != nil {
+		if err := mpq.loadMenus(ctx, query, nodes, nil,
+			func(n *MenuParam, e *Menu) { n.Edges.Menus = e }); err != nil {
 			return nil, err
 		}
 	}
 	return nodes, nil
 }
 
-func (mpq *MenuParamQuery) loadMenu(ctx context.Context, query *MenuQuery, nodes []*MenuParam, init func(*MenuParam), assign func(*MenuParam, *Menu)) error {
+func (mpq *MenuParamQuery) loadMenus(ctx context.Context, query *MenuQuery, nodes []*MenuParam, init func(*MenuParam), assign func(*MenuParam, *Menu)) error {
 	ids := make([]uint64, 0, len(nodes))
 	nodeids := make(map[uint64][]*MenuParam)
 	for i := range nodes {
-		if nodes[i].menu_param == nil {
+		if nodes[i].menu_params == nil {
 			continue
 		}
-		fk := *nodes[i].menu_param
+		fk := *nodes[i].menu_params
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -416,7 +416,7 @@ func (mpq *MenuParamQuery) loadMenu(ctx context.Context, query *MenuQuery, nodes
 	for _, n := range neighbors {
 		nodes, ok := nodeids[n.ID]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "menu_param" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "menu_params" returned %v`, n.ID)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)

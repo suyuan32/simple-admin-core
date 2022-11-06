@@ -21,17 +21,17 @@ const (
 	FieldKey = "key"
 	// FieldValue holds the string denoting the value field in the database.
 	FieldValue = "value"
-	// EdgeMenu holds the string denoting the menu edge name in mutations.
-	EdgeMenu = "menu"
+	// EdgeMenus holds the string denoting the menus edge name in mutations.
+	EdgeMenus = "menus"
 	// Table holds the table name of the menuparam in the database.
-	Table = "menu_params"
-	// MenuTable is the table that holds the menu relation/edge.
-	MenuTable = "menu_params"
-	// MenuInverseTable is the table name for the Menu entity.
+	Table = "sys_menu_params"
+	// MenusTable is the table that holds the menus relation/edge.
+	MenusTable = "sys_menu_params"
+	// MenusInverseTable is the table name for the Menu entity.
 	// It exists in this package in order to avoid circular dependency with the "menu" package.
-	MenuInverseTable = "menus"
-	// MenuColumn is the table column denoting the menu relation/edge.
-	MenuColumn = "menu_param"
+	MenusInverseTable = "sys_menus"
+	// MenusColumn is the table column denoting the menus relation/edge.
+	MenusColumn = "menu_params"
 )
 
 // Columns holds all SQL columns for menuparam fields.
@@ -44,10 +44,10 @@ var Columns = []string{
 	FieldValue,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "menu_params"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "sys_menu_params"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
-	"menu_param",
+	"menu_params",
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).

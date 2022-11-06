@@ -24,7 +24,7 @@ const (
 	// FieldMethod holds the string denoting the method field in the database.
 	FieldMethod = "method"
 	// Table holds the table name of the api in the database.
-	Table = "ap_is"
+	Table = "sys_apis"
 )
 
 // Columns holds all SQL columns for api fields.

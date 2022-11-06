@@ -614,15 +614,15 @@ func (c *MenuClient) QueryChildren(m *Menu) *MenuQuery {
 	return query
 }
 
-// QueryParam queries the param edge of a Menu.
-func (c *MenuClient) QueryParam(m *Menu) *MenuParamQuery {
+// QueryParams queries the params edge of a Menu.
+func (c *MenuClient) QueryParams(m *Menu) *MenuParamQuery {
 	query := &MenuParamQuery{config: c.config}
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(menu.Table, menu.FieldID, id),
 			sqlgraph.To(menuparam.Table, menuparam.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, menu.ParamTable, menu.ParamColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, menu.ParamsTable, menu.ParamsColumn),
 		)
 		fromV = sqlgraph.Neighbors(m.driver.Dialect(), step)
 		return fromV, nil
@@ -720,15 +720,15 @@ func (c *MenuParamClient) GetX(ctx context.Context, id uint64) *MenuParam {
 	return obj
 }
 
-// QueryMenu queries the menu edge of a MenuParam.
-func (c *MenuParamClient) QueryMenu(mp *MenuParam) *MenuQuery {
+// QueryMenus queries the menus edge of a MenuParam.
+func (c *MenuParamClient) QueryMenus(mp *MenuParam) *MenuQuery {
 	query := &MenuQuery{config: c.config}
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := mp.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(menuparam.Table, menuparam.FieldID, id),
 			sqlgraph.To(menu.Table, menu.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, menuparam.MenuTable, menuparam.MenuColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, menuparam.MenusTable, menuparam.MenusColumn),
 		)
 		fromV = sqlgraph.Neighbors(mp.driver.Dialect(), step)
 		return fromV, nil

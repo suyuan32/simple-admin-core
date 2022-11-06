@@ -26,12 +26,12 @@ const (
 	// EdgeDictionary holds the string denoting the dictionary edge name in mutations.
 	EdgeDictionary = "dictionary"
 	// Table holds the table name of the dictionarydetail in the database.
-	Table = "dictionary_details"
+	Table = "sys_dictionary_details"
 	// DictionaryTable is the table that holds the dictionary relation/edge.
-	DictionaryTable = "dictionary_details"
+	DictionaryTable = "sys_dictionary_details"
 	// DictionaryInverseTable is the table name for the Dictionary entity.
 	// It exists in this package in order to avoid circular dependency with the "dictionary" package.
-	DictionaryInverseTable = "dictionaries"
+	DictionaryInverseTable = "sys_dictionaries"
 	// DictionaryColumn is the table column denoting the dictionary relation/edge.
 	DictionaryColumn = "dictionary_dictionary_details"
 )
@@ -47,7 +47,7 @@ var Columns = []string{
 	FieldValue,
 }
 
-// ForeignKeys holds the SQL foreign-keys that are owned by the "dictionary_details"
+// ForeignKeys holds the SQL foreign-keys that are owned by the "sys_dictionary_details"
 // table and are not defined as standalone fields in the schema.
 var ForeignKeys = []string{
 	"dictionary_dictionary_details",

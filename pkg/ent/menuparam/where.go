@@ -541,25 +541,25 @@ func ValueContainsFold(v string) predicate.MenuParam {
 	})
 }
 
-// HasMenu applies the HasEdge predicate on the "menu" edge.
-func HasMenu() predicate.MenuParam {
+// HasMenus applies the HasEdge predicate on the "menus" edge.
+func HasMenus() predicate.MenuParam {
 	return predicate.MenuParam(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(MenuTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, MenuTable, MenuColumn),
+			sqlgraph.To(MenusTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, MenusTable, MenusColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasMenuWith applies the HasEdge predicate on the "menu" edge with a given conditions (other predicates).
-func HasMenuWith(preds ...predicate.Menu) predicate.MenuParam {
+// HasMenusWith applies the HasEdge predicate on the "menus" edge with a given conditions (other predicates).
+func HasMenusWith(preds ...predicate.Menu) predicate.MenuParam {
 	return predicate.MenuParam(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(MenuInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, MenuTable, MenuColumn),
+			sqlgraph.To(MenusInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, MenusTable, MenusColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

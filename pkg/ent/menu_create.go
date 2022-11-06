@@ -359,14 +359,14 @@ func (mc *MenuCreate) AddChildren(m ...*Menu) *MenuCreate {
 	return mc.AddChildIDs(ids...)
 }
 
-// AddParamIDs adds the "param" edge to the MenuParam entity by IDs.
+// AddParamIDs adds the "params" edge to the MenuParam entity by IDs.
 func (mc *MenuCreate) AddParamIDs(ids ...uint64) *MenuCreate {
 	mc.mutation.AddParamIDs(ids...)
 	return mc
 }
 
-// AddParam adds the "param" edges to the MenuParam entity.
-func (mc *MenuCreate) AddParam(m ...*MenuParam) *MenuCreate {
+// AddParams adds the "params" edges to the MenuParam entity.
+func (mc *MenuCreate) AddParams(m ...*MenuParam) *MenuCreate {
 	ids := make([]uint64, len(m))
 	for i := range m {
 		ids[i] = m[i].ID
@@ -734,12 +734,12 @@ func (mc *MenuCreate) createSpec() (*Menu, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := mc.mutation.ParamIDs(); len(nodes) > 0 {
+	if nodes := mc.mutation.ParamsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   menu.ParamTable,
-			Columns: []string{menu.ParamColumn},
+			Table:   menu.ParamsTable,
+			Columns: []string{menu.ParamsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

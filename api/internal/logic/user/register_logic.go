@@ -29,7 +29,7 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 }
 
 func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.SimpleMsg, err error) {
-	if ok := captcha.Store.Verify(req.CaptchaID, req.Captcha, true); ok {
+	if ok := captcha.Store.Verify(req.CaptchaId, req.Captcha, true); ok {
 		user, err := l.svcCtx.CoreRpc.CreateOrUpdateUser(l.ctx,
 			&core.CreateOrUpdateUserReq{
 				Id:       0,

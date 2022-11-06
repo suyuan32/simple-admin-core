@@ -34,7 +34,7 @@ const (
 	// FieldInfoURL holds the string denoting the info_url field in the database.
 	FieldInfoURL = "info_url"
 	// Table holds the table name of the oauthprovider in the database.
-	Table = "oauth_providers"
+	Table = "sys_oauth_providers"
 )
 
 // Columns holds all SQL columns for oauthprovider fields.

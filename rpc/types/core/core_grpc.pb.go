@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.19.4
-// source: core.proto
+// source: rpc/core.proto
 
 package core
 
@@ -32,12 +32,13 @@ type CoreClient interface {
 	GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error)
 	DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error)
+	UpdateUserStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// menu service
 	// menu management
 	CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
 	DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
-	GetMenuByPage(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
+	GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 	CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
 	DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
@@ -46,7 +47,7 @@ type CoreClient interface {
 	DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
 	GetRoleList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*RoleListResp, error)
-	SetRoleStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error)
+	UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// api management service
 	CreateOrUpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	DeleteApi(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -71,7 +72,7 @@ type CoreClient interface {
 	CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
-	SetTokenStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error)
+	UpdateTokenStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 	BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 }
 
@@ -155,6 +156,15 @@ func (c *coreClient) UpdateProfile(ctx context.Context, in *UpdateProfileReq, op
 	return out, nil
 }
 
+func (c *coreClient) UpdateUserStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/updateUserStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *coreClient) CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateMenu", in, out, opts...)
@@ -182,9 +192,9 @@ func (c *coreClient) GetMenuListByRole(ctx context.Context, in *IDReq, opts ...g
 	return out, nil
 }
 
-func (c *coreClient) GetMenuByPage(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
+func (c *coreClient) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
 	out := new(MenuInfoList)
-	err := c.cc.Invoke(ctx, "/core.core/getMenuByPage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.core/getMenuList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -254,9 +264,9 @@ func (c *coreClient) GetRoleList(ctx context.Context, in *PageInfoReq, opts ...g
 	return out, nil
 }
 
-func (c *coreClient) SetRoleStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/setRoleStatus", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.core/updateRoleStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -434,9 +444,9 @@ func (c *coreClient) GetTokenList(ctx context.Context, in *TokenListReq, opts ..
 	return out, nil
 }
 
-func (c *coreClient) SetTokenStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) UpdateTokenStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/setTokenStatus", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.core/updateTokenStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -466,12 +476,13 @@ type CoreServer interface {
 	GetUserList(context.Context, *GetUserListReq) (*UserListResp, error)
 	DeleteUser(context.Context, *IDReq) (*BaseResp, error)
 	UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error)
+	UpdateUserStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
 	// menu service
 	// menu management
 	CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error)
 	DeleteMenu(context.Context, *IDReq) (*BaseResp, error)
 	GetMenuListByRole(context.Context, *IDReq) (*MenuInfoList, error)
-	GetMenuByPage(context.Context, *PageInfoReq) (*MenuInfoList, error)
+	GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error)
 	CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error)
 	DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error)
 	GetMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error)
@@ -480,7 +491,7 @@ type CoreServer interface {
 	DeleteRole(context.Context, *IDReq) (*BaseResp, error)
 	GetRoleById(context.Context, *IDReq) (*RoleInfo, error)
 	GetRoleList(context.Context, *PageInfoReq) (*RoleListResp, error)
-	SetRoleStatus(context.Context, *SetStatusReq) (*BaseResp, error)
+	UpdateRoleStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
 	// api management service
 	CreateOrUpdateApi(context.Context, *ApiInfo) (*BaseResp, error)
 	DeleteApi(context.Context, *IDReq) (*BaseResp, error)
@@ -505,7 +516,7 @@ type CoreServer interface {
 	CreateOrUpdateToken(context.Context, *TokenInfo) (*BaseResp, error)
 	DeleteToken(context.Context, *IDReq) (*BaseResp, error)
 	GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error)
-	SetTokenStatus(context.Context, *SetStatusReq) (*BaseResp, error)
+	UpdateTokenStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
 	BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error)
 	mustEmbedUnimplementedCoreServer()
 }
@@ -538,6 +549,9 @@ func (UnimplementedCoreServer) DeleteUser(context.Context, *IDReq) (*BaseResp, e
 func (UnimplementedCoreServer) UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
 }
+func (UnimplementedCoreServer) UpdateUserStatus(context.Context, *StatusCodeReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserStatus not implemented")
+}
 func (UnimplementedCoreServer) CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenu not implemented")
 }
@@ -547,8 +561,8 @@ func (UnimplementedCoreServer) DeleteMenu(context.Context, *IDReq) (*BaseResp, e
 func (UnimplementedCoreServer) GetMenuListByRole(context.Context, *IDReq) (*MenuInfoList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMenuListByRole not implemented")
 }
-func (UnimplementedCoreServer) GetMenuByPage(context.Context, *PageInfoReq) (*MenuInfoList, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMenuByPage not implemented")
+func (UnimplementedCoreServer) GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMenuList not implemented")
 }
 func (UnimplementedCoreServer) CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenuParam not implemented")
@@ -571,8 +585,8 @@ func (UnimplementedCoreServer) GetRoleById(context.Context, *IDReq) (*RoleInfo, 
 func (UnimplementedCoreServer) GetRoleList(context.Context, *PageInfoReq) (*RoleListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoleList not implemented")
 }
-func (UnimplementedCoreServer) SetRoleStatus(context.Context, *SetStatusReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetRoleStatus not implemented")
+func (UnimplementedCoreServer) UpdateRoleStatus(context.Context, *StatusCodeReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRoleStatus not implemented")
 }
 func (UnimplementedCoreServer) CreateOrUpdateApi(context.Context, *ApiInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateApi not implemented")
@@ -631,8 +645,8 @@ func (UnimplementedCoreServer) DeleteToken(context.Context, *IDReq) (*BaseResp, 
 func (UnimplementedCoreServer) GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTokenList not implemented")
 }
-func (UnimplementedCoreServer) SetTokenStatus(context.Context, *SetStatusReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetTokenStatus not implemented")
+func (UnimplementedCoreServer) UpdateTokenStatus(context.Context, *StatusCodeReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateTokenStatus not implemented")
 }
 func (UnimplementedCoreServer) BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlockUserAllToken not implemented")
@@ -794,6 +808,24 @@ func _Core_UpdateProfile_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_UpdateUserStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StatusCodeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateUserStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/updateUserStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateUserStatus(ctx, req.(*StatusCodeReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Core_CreateOrUpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateOrUpdateMenuReq)
 	if err := dec(in); err != nil {
@@ -848,20 +880,20 @@ func _Core_GetMenuListByRole_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_GetMenuByPage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Core_GetMenuList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PageInfoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).GetMenuByPage(ctx, in)
+		return srv.(CoreServer).GetMenuList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getMenuByPage",
+		FullMethod: "/core.core/getMenuList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetMenuByPage(ctx, req.(*PageInfoReq))
+		return srv.(CoreServer).GetMenuList(ctx, req.(*PageInfoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -992,20 +1024,20 @@ func _Core_GetRoleList_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_SetRoleStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetStatusReq)
+func _Core_UpdateRoleStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StatusCodeReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).SetRoleStatus(ctx, in)
+		return srv.(CoreServer).UpdateRoleStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/setRoleStatus",
+		FullMethod: "/core.core/updateRoleStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).SetRoleStatus(ctx, req.(*SetStatusReq))
+		return srv.(CoreServer).UpdateRoleStatus(ctx, req.(*StatusCodeReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1352,20 +1384,20 @@ func _Core_GetTokenList_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_SetTokenStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetStatusReq)
+func _Core_UpdateTokenStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StatusCodeReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).SetTokenStatus(ctx, in)
+		return srv.(CoreServer).UpdateTokenStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/setTokenStatus",
+		FullMethod: "/core.core/updateTokenStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).SetTokenStatus(ctx, req.(*SetStatusReq))
+		return srv.(CoreServer).UpdateTokenStatus(ctx, req.(*StatusCodeReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1428,6 +1460,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_UpdateProfile_Handler,
 		},
 		{
+			MethodName: "updateUserStatus",
+			Handler:    _Core_UpdateUserStatus_Handler,
+		},
+		{
 			MethodName: "createOrUpdateMenu",
 			Handler:    _Core_CreateOrUpdateMenu_Handler,
 		},
@@ -1440,8 +1476,8 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_GetMenuListByRole_Handler,
 		},
 		{
-			MethodName: "getMenuByPage",
-			Handler:    _Core_GetMenuByPage_Handler,
+			MethodName: "getMenuList",
+			Handler:    _Core_GetMenuList_Handler,
 		},
 		{
 			MethodName: "createOrUpdateMenuParam",
@@ -1472,8 +1508,8 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_GetRoleList_Handler,
 		},
 		{
-			MethodName: "setRoleStatus",
-			Handler:    _Core_SetRoleStatus_Handler,
+			MethodName: "updateRoleStatus",
+			Handler:    _Core_UpdateRoleStatus_Handler,
 		},
 		{
 			MethodName: "createOrUpdateApi",
@@ -1552,8 +1588,8 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_GetTokenList_Handler,
 		},
 		{
-			MethodName: "setTokenStatus",
-			Handler:    _Core_SetTokenStatus_Handler,
+			MethodName: "updateTokenStatus",
+			Handler:    _Core_UpdateTokenStatus_Handler,
 		},
 		{
 			MethodName: "blockUserAllToken",
@@ -1561,5 +1597,5 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "core.proto",
+	Metadata: "rpc/core.proto",
 }

@@ -40,7 +40,7 @@ const (
 	// FieldAvatar holds the string denoting the avatar field in the database.
 	FieldAvatar = "avatar"
 	// Table holds the table name of the user in the database.
-	Table = "users"
+	Table = "sys_users"
 )
 
 // Columns holds all SQL columns for user fields.

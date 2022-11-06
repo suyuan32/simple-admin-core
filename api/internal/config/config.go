@@ -1,10 +1,11 @@
 package config
 
 import (
-	"github.com/zeromicro/go-zero/core/stores/gormsql"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/rest"
 	"github.com/zeromicro/go-zero/zrpc"
+
+	"github.com/suyuan32/simple-admin-core/pkg/config"
 )
 
 type Config struct {
@@ -13,7 +14,8 @@ type Config struct {
 	RedisConf    redis.RedisConf
 	CoreRpc      zrpc.RpcClientConf
 	Captcha      Captcha
-	DatabaseConf gormsql.GORMConf
+	DatabaseConf config.DatabaseConf
+	CasbinConf   config.CasbinConf
 }
 
 type Captcha struct {

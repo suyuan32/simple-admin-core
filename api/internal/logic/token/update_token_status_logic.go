@@ -10,22 +10,22 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type SetTokenStatusLogic struct {
+type UpdateTokenStatusLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewSetTokenStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SetTokenStatusLogic {
-	return &SetTokenStatusLogic{
+func NewUpdateTokenStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateTokenStatusLogic {
+	return &UpdateTokenStatusLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *SetTokenStatusLogic) SetTokenStatus(req *types.SetBooleanStatusReq) (resp *types.SimpleMsg, err error) {
-	result, err := l.svcCtx.CoreRpc.SetTokenStatus(l.ctx, &core.SetStatusReq{
+func (l *UpdateTokenStatusLogic) UpdateTokenStatus(req *types.StatusCodeReq) (resp *types.SimpleMsg, err error) {
+	result, err := l.svcCtx.CoreRpc.UpdateTokenStatus(l.ctx, &core.StatusCodeReq{
 		Id:     req.Id,
 		Status: req.Status,
 	})

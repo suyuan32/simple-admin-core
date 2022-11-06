@@ -200,7 +200,7 @@ message RoleListResp {
   repeated RoleInfo data = 2;
 }
 
-message SetStatusReq {
+message StatusCodeReq {
   uint64 id = 1;
   uint64 status = 2;
 }
@@ -374,13 +374,14 @@ service core {
   rpc getUserList (GetUserListReq) returns (UserListResp);
   rpc deleteUser (IDReq) returns (BaseResp);
   rpc updateProfile (UpdateProfileReq) returns (BaseResp);
+  rpc updateUserStatus (StatusCodeReq) returns (BaseResp);
 
   // menu service
   //menu management
   rpc createOrUpdateMenu (CreateOrUpdateMenuReq) returns (BaseResp);
   rpc deleteMenu (IDReq) returns (BaseResp);
   rpc getMenuListByRole (IDReq) returns (MenuInfoList);
-  rpc getMenuByPage (PageInfoReq) returns (MenuInfoList);
+  rpc getMenuList (PageInfoReq) returns (MenuInfoList);
   rpc createOrUpdateMenuParam (CreateOrUpdateMenuParamReq) returns (BaseResp);
   rpc deleteMenuParam (IDReq) returns (BaseResp);
   rpc getMenuParamListByMenuId (IDReq) returns (MenuParamListResp);
@@ -390,7 +391,7 @@ service core {
   rpc deleteRole (IDReq) returns (BaseResp);
   rpc getRoleById (IDReq) returns (RoleInfo);
   rpc getRoleList (PageInfoReq) returns (RoleListResp);
-  rpc setRoleStatus (SetStatusReq) returns (BaseResp);
+  rpc updateRoleStatus (StatusCodeReq) returns (BaseResp);
 
   // api management service
   rpc createOrUpdateApi (ApiInfo) returns (BaseResp);
@@ -420,6 +421,6 @@ service core {
   rpc createOrUpdateToken (TokenInfo) returns (BaseResp);
   rpc deleteToken (IDReq) returns (BaseResp);
   rpc getTokenList (TokenListReq) returns (TokenListResp);
-  rpc setTokenStatus (SetStatusReq) returns (BaseResp);
+  rpc updateTokenStatus (StatusCodeReq) returns (BaseResp);
   rpc blockUserAllToken (UUIDReq) returns (BaseResp);
 }

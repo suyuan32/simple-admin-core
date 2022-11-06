@@ -53,23 +53,23 @@ func (mpu *MenuParamUpdate) SetValue(s string) *MenuParamUpdate {
 	return mpu
 }
 
-// SetMenuID sets the "menu" edge to the Menu entity by ID.
-func (mpu *MenuParamUpdate) SetMenuID(id uint64) *MenuParamUpdate {
-	mpu.mutation.SetMenuID(id)
+// SetMenusID sets the "menus" edge to the Menu entity by ID.
+func (mpu *MenuParamUpdate) SetMenusID(id uint64) *MenuParamUpdate {
+	mpu.mutation.SetMenusID(id)
 	return mpu
 }
 
-// SetNillableMenuID sets the "menu" edge to the Menu entity by ID if the given value is not nil.
-func (mpu *MenuParamUpdate) SetNillableMenuID(id *uint64) *MenuParamUpdate {
+// SetNillableMenusID sets the "menus" edge to the Menu entity by ID if the given value is not nil.
+func (mpu *MenuParamUpdate) SetNillableMenusID(id *uint64) *MenuParamUpdate {
 	if id != nil {
-		mpu = mpu.SetMenuID(*id)
+		mpu = mpu.SetMenusID(*id)
 	}
 	return mpu
 }
 
-// SetMenu sets the "menu" edge to the Menu entity.
-func (mpu *MenuParamUpdate) SetMenu(m *Menu) *MenuParamUpdate {
-	return mpu.SetMenuID(m.ID)
+// SetMenus sets the "menus" edge to the Menu entity.
+func (mpu *MenuParamUpdate) SetMenus(m *Menu) *MenuParamUpdate {
+	return mpu.SetMenusID(m.ID)
 }
 
 // Mutation returns the MenuParamMutation object of the builder.
@@ -77,9 +77,9 @@ func (mpu *MenuParamUpdate) Mutation() *MenuParamMutation {
 	return mpu.mutation
 }
 
-// ClearMenu clears the "menu" edge to the Menu entity.
-func (mpu *MenuParamUpdate) ClearMenu() *MenuParamUpdate {
-	mpu.mutation.ClearMenu()
+// ClearMenus clears the "menus" edge to the Menu entity.
+func (mpu *MenuParamUpdate) ClearMenus() *MenuParamUpdate {
+	mpu.mutation.ClearMenus()
 	return mpu
 }
 
@@ -176,12 +176,12 @@ func (mpu *MenuParamUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := mpu.mutation.Value(); ok {
 		_spec.SetField(menuparam.FieldValue, field.TypeString, value)
 	}
-	if mpu.mutation.MenuCleared() {
+	if mpu.mutation.MenusCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   menuparam.MenuTable,
-			Columns: []string{menuparam.MenuColumn},
+			Table:   menuparam.MenusTable,
+			Columns: []string{menuparam.MenusColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -192,12 +192,12 @@ func (mpu *MenuParamUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := mpu.mutation.MenuIDs(); len(nodes) > 0 {
+	if nodes := mpu.mutation.MenusIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   menuparam.MenuTable,
-			Columns: []string{menuparam.MenuColumn},
+			Table:   menuparam.MenusTable,
+			Columns: []string{menuparam.MenusColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -254,23 +254,23 @@ func (mpuo *MenuParamUpdateOne) SetValue(s string) *MenuParamUpdateOne {
 	return mpuo
 }
 
-// SetMenuID sets the "menu" edge to the Menu entity by ID.
-func (mpuo *MenuParamUpdateOne) SetMenuID(id uint64) *MenuParamUpdateOne {
-	mpuo.mutation.SetMenuID(id)
+// SetMenusID sets the "menus" edge to the Menu entity by ID.
+func (mpuo *MenuParamUpdateOne) SetMenusID(id uint64) *MenuParamUpdateOne {
+	mpuo.mutation.SetMenusID(id)
 	return mpuo
 }
 
-// SetNillableMenuID sets the "menu" edge to the Menu entity by ID if the given value is not nil.
-func (mpuo *MenuParamUpdateOne) SetNillableMenuID(id *uint64) *MenuParamUpdateOne {
+// SetNillableMenusID sets the "menus" edge to the Menu entity by ID if the given value is not nil.
+func (mpuo *MenuParamUpdateOne) SetNillableMenusID(id *uint64) *MenuParamUpdateOne {
 	if id != nil {
-		mpuo = mpuo.SetMenuID(*id)
+		mpuo = mpuo.SetMenusID(*id)
 	}
 	return mpuo
 }
 
-// SetMenu sets the "menu" edge to the Menu entity.
-func (mpuo *MenuParamUpdateOne) SetMenu(m *Menu) *MenuParamUpdateOne {
-	return mpuo.SetMenuID(m.ID)
+// SetMenus sets the "menus" edge to the Menu entity.
+func (mpuo *MenuParamUpdateOne) SetMenus(m *Menu) *MenuParamUpdateOne {
+	return mpuo.SetMenusID(m.ID)
 }
 
 // Mutation returns the MenuParamMutation object of the builder.
@@ -278,9 +278,9 @@ func (mpuo *MenuParamUpdateOne) Mutation() *MenuParamMutation {
 	return mpuo.mutation
 }
 
-// ClearMenu clears the "menu" edge to the Menu entity.
-func (mpuo *MenuParamUpdateOne) ClearMenu() *MenuParamUpdateOne {
-	mpuo.mutation.ClearMenu()
+// ClearMenus clears the "menus" edge to the Menu entity.
+func (mpuo *MenuParamUpdateOne) ClearMenus() *MenuParamUpdateOne {
+	mpuo.mutation.ClearMenus()
 	return mpuo
 }
 
@@ -407,12 +407,12 @@ func (mpuo *MenuParamUpdateOne) sqlSave(ctx context.Context) (_node *MenuParam, 
 	if value, ok := mpuo.mutation.Value(); ok {
 		_spec.SetField(menuparam.FieldValue, field.TypeString, value)
 	}
-	if mpuo.mutation.MenuCleared() {
+	if mpuo.mutation.MenusCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   menuparam.MenuTable,
-			Columns: []string{menuparam.MenuColumn},
+			Table:   menuparam.MenusTable,
+			Columns: []string{menuparam.MenusColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -423,12 +423,12 @@ func (mpuo *MenuParamUpdateOne) sqlSave(ctx context.Context) (_node *MenuParam, 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := mpuo.mutation.MenuIDs(); len(nodes) > 0 {
+	if nodes := mpuo.mutation.MenusIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   menuparam.MenuTable,
-			Columns: []string{menuparam.MenuColumn},
+			Table:   menuparam.MenusTable,
+			Columns: []string{menuparam.MenusColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

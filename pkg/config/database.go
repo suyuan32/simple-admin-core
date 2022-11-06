@@ -78,7 +78,7 @@ func (c DatabaseConf) getEntDriver(dbtype string, dialect string, dsn string, re
 
 	cacheDrv := entcache.NewDriver(
 		driver,
-		entcache.TTL(time.Minute),
+		entcache.TTL(5*time.Second),
 		entcache.Levels(
 			entcache.NewLRU(256),
 			entcache.NewRedis(rdb),

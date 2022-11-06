@@ -73,23 +73,23 @@ func (mpc *MenuParamCreate) SetID(u uint64) *MenuParamCreate {
 	return mpc
 }
 
-// SetMenuID sets the "menu" edge to the Menu entity by ID.
-func (mpc *MenuParamCreate) SetMenuID(id uint64) *MenuParamCreate {
-	mpc.mutation.SetMenuID(id)
+// SetMenusID sets the "menus" edge to the Menu entity by ID.
+func (mpc *MenuParamCreate) SetMenusID(id uint64) *MenuParamCreate {
+	mpc.mutation.SetMenusID(id)
 	return mpc
 }
 
-// SetNillableMenuID sets the "menu" edge to the Menu entity by ID if the given value is not nil.
-func (mpc *MenuParamCreate) SetNillableMenuID(id *uint64) *MenuParamCreate {
+// SetNillableMenusID sets the "menus" edge to the Menu entity by ID if the given value is not nil.
+func (mpc *MenuParamCreate) SetNillableMenusID(id *uint64) *MenuParamCreate {
 	if id != nil {
-		mpc = mpc.SetMenuID(*id)
+		mpc = mpc.SetMenusID(*id)
 	}
 	return mpc
 }
 
-// SetMenu sets the "menu" edge to the Menu entity.
-func (mpc *MenuParamCreate) SetMenu(m *Menu) *MenuParamCreate {
-	return mpc.SetMenuID(m.ID)
+// SetMenus sets the "menus" edge to the Menu entity.
+func (mpc *MenuParamCreate) SetMenus(m *Menu) *MenuParamCreate {
+	return mpc.SetMenusID(m.ID)
 }
 
 // Mutation returns the MenuParamMutation object of the builder.
@@ -249,12 +249,12 @@ func (mpc *MenuParamCreate) createSpec() (*MenuParam, *sqlgraph.CreateSpec) {
 		_spec.SetField(menuparam.FieldValue, field.TypeString, value)
 		_node.Value = value
 	}
-	if nodes := mpc.mutation.MenuIDs(); len(nodes) > 0 {
+	if nodes := mpc.mutation.MenusIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   menuparam.MenuTable,
-			Columns: []string{menuparam.MenuColumn},
+			Table:   menuparam.MenusTable,
+			Columns: []string{menuparam.MenusColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -266,7 +266,7 @@ func (mpc *MenuParamCreate) createSpec() (*MenuParam, *sqlgraph.CreateSpec) {
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.menu_param = &nodes[0]
+		_node.menu_params = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

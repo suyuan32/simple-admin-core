@@ -36,7 +36,6 @@ func (l *GetMenuParamListByMenuIdLogic) GetMenuParamListByMenuId(req *types.IDRe
 	for _, v := range result.Data {
 		resp.Data = append(resp.Data, types.MenuParamResp{
 			BaseInfo: types.BaseInfo{Id: v.Id, CreatedAt: v.CreatedAt, UpdatedAt: v.UpdatedAt},
-			MenuId:   v.MenuId,
 			DataType: v.Type,
 			Key:      v.Key,
 			Value:    v.Value,

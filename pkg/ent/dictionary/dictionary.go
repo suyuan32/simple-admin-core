@@ -26,12 +26,12 @@ const (
 	// EdgeDictionaryDetails holds the string denoting the dictionary_details edge name in mutations.
 	EdgeDictionaryDetails = "dictionary_details"
 	// Table holds the table name of the dictionary in the database.
-	Table = "dictionaries"
+	Table = "sys_dictionaries"
 	// DictionaryDetailsTable is the table that holds the dictionary_details relation/edge.
-	DictionaryDetailsTable = "dictionary_details"
+	DictionaryDetailsTable = "sys_dictionary_details"
 	// DictionaryDetailsInverseTable is the table name for the DictionaryDetail entity.
 	// It exists in this package in order to avoid circular dependency with the "dictionarydetail" package.
-	DictionaryDetailsInverseTable = "dictionary_details"
+	DictionaryDetailsInverseTable = "sys_dictionary_details"
 	// DictionaryDetailsColumn is the table column denoting the dictionary_details relation/edge.
 	DictionaryDetailsColumn = "dictionary_dictionary_details"
 )

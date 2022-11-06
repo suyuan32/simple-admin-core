@@ -27,12 +27,12 @@ func NewCreateOrUpdateDictionaryDetailLogic(ctx context.Context, svcCtx *svc.Ser
 
 func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(req *types.CreateOrUpdateDictionaryDetailReq) (resp *types.SimpleMsg, err error) {
 	result, err := l.svcCtx.CoreRpc.CreateOrUpdateDictionaryDetail(l.ctx, &core.DictionaryDetail{
-		Id:           req.ID,
+		Id:           req.Id,
 		Title:        req.Title,
 		Key:          req.Key,
 		Value:        req.Value,
 		Status:       req.Status,
-		DictionaryId: req.ParentID,
+		DictionaryId: req.ParentId,
 	})
 
 	if err != nil {

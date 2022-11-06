@@ -57,20 +57,6 @@ type (
         // in: body
         Data  []RoleInfo  `json:"data"`
     }
-
-    // The request params of setting role status | 设置角色状态参数
-    // swagger:model SetStatusReq
-    SetStatusReq {
-        // ID
-        // Required: true
-        // Maximum: 1000
-        ID     uint64  `json:"ID" validate:"number,max=1000"`
-
-        // Status code | 状态码
-        // Required: true
-        // Maximum: 20
-        Status uint32  `json:"status" validate:"number,max=20"`
-    }
 )
 
 @server(
@@ -93,6 +79,6 @@ service core {
     post /role/list (PageInfo) returns (RoleListResp)
 
     // Set role status | 设置角色状态
-    @handler setRoleStatus
-    post /role/status (SetStatusReq) returns (SimpleMsg)
+    @handler updateRoleStatus
+    post /role/status (StatusCodeReq) returns (SimpleMsg)
 }

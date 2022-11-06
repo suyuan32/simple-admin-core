@@ -14,21 +14,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type GetMenuByPageLogic struct {
+type GetMenuListLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewGetMenuByPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMenuByPageLogic {
-	return &GetMenuByPageLogic{
+func NewGetMenuListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMenuListLogic {
+	return &GetMenuListLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *GetMenuByPageLogic) GetMenuByPage(in *core.PageInfoReq) (*core.MenuInfoList, error) {
+func (l *GetMenuListLogic) GetMenuList(in *core.PageInfoReq) (*core.MenuInfoList, error) {
 	menus, err := l.svcCtx.DB.Menu.Query().Order(ent.Asc(menu.FieldOrderNo)).Page(l.ctx, in.Page, in.PageSize)
 
 	if err != nil {

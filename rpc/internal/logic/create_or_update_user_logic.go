@@ -36,7 +36,10 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 			SetUsername(in.Username).
 			SetPassword(utils.BcryptEncrypt(in.Password)).
 			SetNickname(in.Email).
-			SetRoleID(2).
+			SetEmail(in.Email).
+			SetMobile(in.Mobile).
+			SetAvatar(in.Avatar).
+			SetRoleID(in.RoleId).
 			Exec(l.ctx)
 
 		if err != nil {
@@ -57,7 +60,10 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 			SetUsername(in.Username).
 			SetPassword(utils.BcryptEncrypt(in.Password)).
 			SetNickname(in.Email).
-			SetRoleID(2).
+			SetEmail(in.Email).
+			SetMobile(in.Mobile).
+			SetAvatar(in.Avatar).
+			SetRoleID(in.RoleId).
 			Exec(l.ctx)
 
 		if err != nil {

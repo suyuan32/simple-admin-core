@@ -115,7 +115,7 @@ type (
         // Captcha ID which store in redis | 验证码编号, 存在redis中
         // Required: true
         // Max length: 20
-        CaptchaID string `json:"captchaId" validate:"len=20"`
+        CaptchaId string `json:"captchaId" validate:"len=20"`
 
         // The Captcha which users input | 用户输入的验证码
         // Required: true
@@ -161,7 +161,7 @@ type (
         Mobile       string       `json:"mobile"`
 
         // User's role id | 用户的角色ID
-        RoleID       uint64       `json:"roleID"`
+        RoleId       uint64       `json:"roleId"`
 
         // The user's email address | 用户的邮箱
         Email        string       `json:"email"`
@@ -230,7 +230,7 @@ type (
     CreateOrUpdateUserReq {
         // User's id | 用户ID
         // Required: true
-        ID           uint64        `json:"ID" validate:"number"`
+        Id           uint64        `json:"id" validate:"number"`
 
         // User Name | 用户名
         // Required: true
@@ -256,7 +256,7 @@ type (
         // User's role id | 用户的角色ID
         // Required: true
         // Maximum: 1000
-        RoleID       uint64       `json:"roleID" validate:"number,max=1000"`
+        RoleId       uint64       `json:"roleId" validate:"number,max=1000"`
 
         // The user's email address | 用户的邮箱
         // Required: true
@@ -305,7 +305,7 @@ type (
 
         // User's role ID | 用户的角色ID
         // Maximum: 1000
-        RoleID uint64 `json:"roleID,optional" validate:"omitempty,number,max=1000"`
+        RoleId uint64 `json:"roleId,optional" validate:"omitempty,number,max=1000"`
     }
 )
 
@@ -361,6 +361,10 @@ service core {
     // Update user's profile | 更新用户个人信息
     @handler updateUserProfile
     post /user/profile (ProfileReq) returns (SimpleMsg)
+
+    // Set user's status | 更新用户状态
+    @handler updateUserStatus
+    post /user/status (StatusCodeReq) returns (SimpleMsg)
 
     // Log out | 退出登陆
     @handler logout

@@ -29,7 +29,7 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(req *types.CreateOr
 		&core.ProviderInfo{
 			Id:           req.Id,
 			Name:         req.Name,
-			ClientId:     req.ClientID,
+			ClientId:     req.ClientId,
 			ClientSecret: req.ClientSecret,
 			RedirectUrl:  req.RedirectURL,
 			Scopes:       req.Scopes,

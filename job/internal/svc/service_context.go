@@ -2,24 +2,22 @@ package svc
 
 import (
 	"github.com/zeromicro/go-zero/core/logx"
-	"gorm.io/gorm"
 
 	"github.com/suyuan32/simple-admin-core/job/internal/config"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
 )
 
 type ServiceContext struct {
 	Config config.Config
-	DB     *gorm.DB
+	DB     *ent.Client
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	// initialize database connection
-	db, err := c.DatabaseConf.NewGORM()
-	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		return nil
-	}
+	opts, err := c.DatabaseConf.NewEntOption(c.Redis)
+	logx.Must(err)
+
+	db := ent.NewClient(opts...)
 	logx.Info("Initialize database connection successfully")
 
 	return &ServiceContext{

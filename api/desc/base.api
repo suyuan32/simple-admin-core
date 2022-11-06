@@ -93,8 +93,8 @@ type BaseInfo {
 }
 
 // The request params of setting boolean status | 设置状态参数
-// swagger:model SetBooleanStatusReq
-type SetBooleanStatusReq {
+// swagger:model SetStatusCodeReq
+type StatusCodeReq {
     // ID
     // Required: true
     Id     uint64  `json:"id" validate:"number"`

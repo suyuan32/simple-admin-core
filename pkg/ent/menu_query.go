@@ -29,7 +29,7 @@ type MenuQuery struct {
 	withRoles    *RoleQuery
 	withParent   *MenuQuery
 	withChildren *MenuQuery
-	withParam    *MenuParamQuery
+	withParams   *MenuParamQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -132,8 +132,8 @@ func (mq *MenuQuery) QueryChildren() *MenuQuery {
 	return query
 }
 
-// QueryParam chains the current query on the "param" edge.
-func (mq *MenuQuery) QueryParam() *MenuParamQuery {
+// QueryParams chains the current query on the "params" edge.
+func (mq *MenuQuery) QueryParams() *MenuParamQuery {
 	query := &MenuParamQuery{config: mq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := mq.prepareQuery(ctx); err != nil {
@@ -146,7 +146,7 @@ func (mq *MenuQuery) QueryParam() *MenuParamQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(menu.Table, menu.FieldID, selector),
 			sqlgraph.To(menuparam.Table, menuparam.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, menu.ParamTable, menu.ParamColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, menu.ParamsTable, menu.ParamsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(mq.driver.Dialect(), step)
 		return fromU, nil
@@ -338,7 +338,7 @@ func (mq *MenuQuery) Clone() *MenuQuery {
 		withRoles:    mq.withRoles.Clone(),
 		withParent:   mq.withParent.Clone(),
 		withChildren: mq.withChildren.Clone(),
-		withParam:    mq.withParam.Clone(),
+		withParams:   mq.withParams.Clone(),
 		// clone intermediate query.
 		sql:    mq.sql.Clone(),
 		path:   mq.path,
@@ -379,14 +379,14 @@ func (mq *MenuQuery) WithChildren(opts ...func(*MenuQuery)) *MenuQuery {
 	return mq
 }
 
-// WithParam tells the query-builder to eager-load the nodes that are connected to
-// the "param" edge. The optional arguments are used to configure the query builder of the edge.
-func (mq *MenuQuery) WithParam(opts ...func(*MenuParamQuery)) *MenuQuery {
+// WithParams tells the query-builder to eager-load the nodes that are connected to
+// the "params" edge. The optional arguments are used to configure the query builder of the edge.
+func (mq *MenuQuery) WithParams(opts ...func(*MenuParamQuery)) *MenuQuery {
 	query := &MenuParamQuery{config: mq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	mq.withParam = query
+	mq.withParams = query
 	return mq
 }
 
@@ -467,7 +467,7 @@ func (mq *MenuQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Menu, e
 			mq.withRoles != nil,
 			mq.withParent != nil,
 			mq.withChildren != nil,
-			mq.withParam != nil,
+			mq.withParams != nil,
 		}
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
@@ -508,10 +508,10 @@ func (mq *MenuQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Menu, e
 			return nil, err
 		}
 	}
-	if query := mq.withParam; query != nil {
-		if err := mq.loadParam(ctx, query, nodes,
-			func(n *Menu) { n.Edges.Param = []*MenuParam{} },
-			func(n *Menu, e *MenuParam) { n.Edges.Param = append(n.Edges.Param, e) }); err != nil {
+	if query := mq.withParams; query != nil {
+		if err := mq.loadParams(ctx, query, nodes,
+			func(n *Menu) { n.Edges.Params = []*MenuParam{} },
+			func(n *Menu, e *MenuParam) { n.Edges.Params = append(n.Edges.Params, e) }); err != nil {
 			return nil, err
 		}
 	}
@@ -629,7 +629,7 @@ func (mq *MenuQuery) loadChildren(ctx context.Context, query *MenuQuery, nodes [
 	}
 	return nil
 }
-func (mq *MenuQuery) loadParam(ctx context.Context, query *MenuParamQuery, nodes []*Menu, init func(*Menu), assign func(*Menu, *MenuParam)) error {
+func (mq *MenuQuery) loadParams(ctx context.Context, query *MenuParamQuery, nodes []*Menu, init func(*Menu), assign func(*Menu, *MenuParam)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[uint64]*Menu)
 	for i := range nodes {
@@ -641,20 +641,20 @@ func (mq *MenuQuery) loadParam(ctx context.Context, query *MenuParamQuery, nodes
 	}
 	query.withFKs = true
 	query.Where(predicate.MenuParam(func(s *sql.Selector) {
-		s.Where(sql.InValues(menu.ParamColumn, fks...))
+		s.Where(sql.InValues(menu.ParamsColumn, fks...))
 	}))
 	neighbors, err := query.All(ctx)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.menu_param
+		fk := n.menu_params
 		if fk == nil {
-			return fmt.Errorf(`foreign-key "menu_param" is nil for node %v`, n.ID)
+			return fmt.Errorf(`foreign-key "menu_params" is nil for node %v`, n.ID)
 		}
 		node, ok := nodeids[*fk]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "menu_param" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "menu_params" returned %v for node %v`, *fk, n.ID)
 		}
 		assign(node, n)
 	}

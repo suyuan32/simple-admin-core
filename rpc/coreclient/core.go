@@ -51,7 +51,7 @@ type (
 	RoleListResp               = core.RoleListResp
 	RoleMenuAuthorityReq       = core.RoleMenuAuthorityReq
 	RoleMenuAuthorityResp      = core.RoleMenuAuthorityResp
-	SetStatusReq               = core.SetStatusReq
+	StatusCodeReq              = core.StatusCodeReq
 	TokenInfo                  = core.TokenInfo
 	TokenListReq               = core.TokenListReq
 	TokenListResp              = core.TokenListResp
@@ -72,11 +72,12 @@ type (
 		GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error)
 		DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateUserStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// menu service
 		CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
-		GetMenuByPage(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
+		GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 		CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
@@ -85,7 +86,7 @@ type (
 		DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
 		GetRoleList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*RoleListResp, error)
-		SetRoleStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// api management service
 		CreateOrUpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteApi(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -110,7 +111,7 @@ type (
 		CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
-		SetTokenStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateTokenStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 		BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	}
 
@@ -167,6 +168,11 @@ func (m *defaultCore) UpdateProfile(ctx context.Context, in *UpdateProfileReq, o
 	return client.UpdateProfile(ctx, in, opts...)
 }
 
+func (m *defaultCore) UpdateUserStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateUserStatus(ctx, in, opts...)
+}
+
 // menu service
 func (m *defaultCore) CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
@@ -183,9 +189,9 @@ func (m *defaultCore) GetMenuListByRole(ctx context.Context, in *IDReq, opts ...
 	return client.GetMenuListByRole(ctx, in, opts...)
 }
 
-func (m *defaultCore) GetMenuByPage(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
+func (m *defaultCore) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.GetMenuByPage(ctx, in, opts...)
+	return client.GetMenuList(ctx, in, opts...)
 }
 
 func (m *defaultCore) CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error) {
@@ -224,9 +230,9 @@ func (m *defaultCore) GetRoleList(ctx context.Context, in *PageInfoReq, opts ...
 	return client.GetRoleList(ctx, in, opts...)
 }
 
-func (m *defaultCore) SetRoleStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.SetRoleStatus(ctx, in, opts...)
+	return client.UpdateRoleStatus(ctx, in, opts...)
 }
 
 // api management service
@@ -329,9 +335,9 @@ func (m *defaultCore) GetTokenList(ctx context.Context, in *TokenListReq, opts .
 	return client.GetTokenList(ctx, in, opts...)
 }
 
-func (m *defaultCore) SetTokenStatus(ctx context.Context, in *SetStatusReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateTokenStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.SetTokenStatus(ctx, in, opts...)
+	return client.UpdateTokenStatus(ctx, in, opts...)
 }
 
 func (m *defaultCore) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {

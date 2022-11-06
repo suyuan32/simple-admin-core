@@ -34,7 +34,7 @@ type (
     CreateOrUpdateApiReq {
         // ID
         // Required: true
-        ID            uint64 `json:"ID" validate:"number"`
+        Id            uint64 `json:"id" validate:"number"`
 
         // API path | API路径
         // Required: true

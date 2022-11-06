@@ -95,5 +95,5 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 		})
 	}
 
-	return nil, nil
+	return resp, nil
 }

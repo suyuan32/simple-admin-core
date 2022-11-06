@@ -25,9 +25,9 @@ func NewGetMenuListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMe
 }
 
 func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuListResp, err error) {
-	data, err := l.svcCtx.CoreRpc.GetMenuByPage(l.ctx, &core.PageInfoReq{
-		Page:     0,
-		PageSize: 1000,
+	data, err := l.svcCtx.CoreRpc.GetMenuList(l.ctx, &core.PageInfoReq{
+		Page:     1,
+		PageSize: 100,
 	})
 	if err != nil {
 		return nil, err

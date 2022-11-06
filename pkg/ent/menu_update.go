@@ -463,14 +463,14 @@ func (mu *MenuUpdate) AddChildren(m ...*Menu) *MenuUpdate {
 	return mu.AddChildIDs(ids...)
 }
 
-// AddParamIDs adds the "param" edge to the MenuParam entity by IDs.
+// AddParamIDs adds the "params" edge to the MenuParam entity by IDs.
 func (mu *MenuUpdate) AddParamIDs(ids ...uint64) *MenuUpdate {
 	mu.mutation.AddParamIDs(ids...)
 	return mu
 }
 
-// AddParam adds the "param" edges to the MenuParam entity.
-func (mu *MenuUpdate) AddParam(m ...*MenuParam) *MenuUpdate {
+// AddParams adds the "params" edges to the MenuParam entity.
+func (mu *MenuUpdate) AddParams(m ...*MenuParam) *MenuUpdate {
 	ids := make([]uint64, len(m))
 	for i := range m {
 		ids[i] = m[i].ID
@@ -531,20 +531,20 @@ func (mu *MenuUpdate) RemoveChildren(m ...*Menu) *MenuUpdate {
 	return mu.RemoveChildIDs(ids...)
 }
 
-// ClearParam clears all "param" edges to the MenuParam entity.
-func (mu *MenuUpdate) ClearParam() *MenuUpdate {
-	mu.mutation.ClearParam()
+// ClearParams clears all "params" edges to the MenuParam entity.
+func (mu *MenuUpdate) ClearParams() *MenuUpdate {
+	mu.mutation.ClearParams()
 	return mu
 }
 
-// RemoveParamIDs removes the "param" edge to MenuParam entities by IDs.
+// RemoveParamIDs removes the "params" edge to MenuParam entities by IDs.
 func (mu *MenuUpdate) RemoveParamIDs(ids ...uint64) *MenuUpdate {
 	mu.mutation.RemoveParamIDs(ids...)
 	return mu
 }
 
-// RemoveParam removes "param" edges to MenuParam entities.
-func (mu *MenuUpdate) RemoveParam(m ...*MenuParam) *MenuUpdate {
+// RemoveParams removes "params" edges to MenuParam entities.
+func (mu *MenuUpdate) RemoveParams(m ...*MenuParam) *MenuUpdate {
 	ids := make([]uint64, len(m))
 	for i := range m {
 		ids[i] = m[i].ID
@@ -899,12 +899,12 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if mu.mutation.ParamCleared() {
+	if mu.mutation.ParamsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   menu.ParamTable,
-			Columns: []string{menu.ParamColumn},
+			Table:   menu.ParamsTable,
+			Columns: []string{menu.ParamsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -915,12 +915,12 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := mu.mutation.RemovedParamIDs(); len(nodes) > 0 && !mu.mutation.ParamCleared() {
+	if nodes := mu.mutation.RemovedParamsIDs(); len(nodes) > 0 && !mu.mutation.ParamsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   menu.ParamTable,
-			Columns: []string{menu.ParamColumn},
+			Table:   menu.ParamsTable,
+			Columns: []string{menu.ParamsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -934,12 +934,12 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := mu.mutation.ParamIDs(); len(nodes) > 0 {
+	if nodes := mu.mutation.ParamsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   menu.ParamTable,
-			Columns: []string{menu.ParamColumn},
+			Table:   menu.ParamsTable,
+			Columns: []string{menu.ParamsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1405,14 +1405,14 @@ func (muo *MenuUpdateOne) AddChildren(m ...*Menu) *MenuUpdateOne {
 	return muo.AddChildIDs(ids...)
 }
 
-// AddParamIDs adds the "param" edge to the MenuParam entity by IDs.
+// AddParamIDs adds the "params" edge to the MenuParam entity by IDs.
 func (muo *MenuUpdateOne) AddParamIDs(ids ...uint64) *MenuUpdateOne {
 	muo.mutation.AddParamIDs(ids...)
 	return muo
 }
 
-// AddParam adds the "param" edges to the MenuParam entity.
-func (muo *MenuUpdateOne) AddParam(m ...*MenuParam) *MenuUpdateOne {
+// AddParams adds the "params" edges to the MenuParam entity.
+func (muo *MenuUpdateOne) AddParams(m ...*MenuParam) *MenuUpdateOne {
 	ids := make([]uint64, len(m))
 	for i := range m {
 		ids[i] = m[i].ID
@@ -1473,20 +1473,20 @@ func (muo *MenuUpdateOne) RemoveChildren(m ...*Menu) *MenuUpdateOne {
 	return muo.RemoveChildIDs(ids...)
 }
 
-// ClearParam clears all "param" edges to the MenuParam entity.
-func (muo *MenuUpdateOne) ClearParam() *MenuUpdateOne {
-	muo.mutation.ClearParam()
+// ClearParams clears all "params" edges to the MenuParam entity.
+func (muo *MenuUpdateOne) ClearParams() *MenuUpdateOne {
+	muo.mutation.ClearParams()
 	return muo
 }
 
-// RemoveParamIDs removes the "param" edge to MenuParam entities by IDs.
+// RemoveParamIDs removes the "params" edge to MenuParam entities by IDs.
 func (muo *MenuUpdateOne) RemoveParamIDs(ids ...uint64) *MenuUpdateOne {
 	muo.mutation.RemoveParamIDs(ids...)
 	return muo
 }
 
-// RemoveParam removes "param" edges to MenuParam entities.
-func (muo *MenuUpdateOne) RemoveParam(m ...*MenuParam) *MenuUpdateOne {
+// RemoveParams removes "params" edges to MenuParam entities.
+func (muo *MenuUpdateOne) RemoveParams(m ...*MenuParam) *MenuUpdateOne {
 	ids := make([]uint64, len(m))
 	for i := range m {
 		ids[i] = m[i].ID
@@ -1871,12 +1871,12 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if muo.mutation.ParamCleared() {
+	if muo.mutation.ParamsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   menu.ParamTable,
-			Columns: []string{menu.ParamColumn},
+			Table:   menu.ParamsTable,
+			Columns: []string{menu.ParamsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1887,12 +1887,12 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := muo.mutation.RemovedParamIDs(); len(nodes) > 0 && !muo.mutation.ParamCleared() {
+	if nodes := muo.mutation.RemovedParamsIDs(); len(nodes) > 0 && !muo.mutation.ParamsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   menu.ParamTable,
-			Columns: []string{menu.ParamColumn},
+			Table:   menu.ParamsTable,
+			Columns: []string{menu.ParamsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1906,12 +1906,12 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := muo.mutation.ParamIDs(); len(nodes) > 0 {
+	if nodes := muo.mutation.ParamsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   menu.ParamTable,
-			Columns: []string{menu.ParamColumn},
+			Table:   menu.ParamsTable,
+			Columns: []string{menu.ParamsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

@@ -56,11 +56,11 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	// judge if the initialization had been done
 	check, err := l.svcCtx.DB.API.Query().Count(l.ctx)
 
-	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, status.Error(codes.Internal, err.Error())
-	}
+	//if err != nil {
+	//	logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+	//	l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
+	//	return nil, status.Error(codes.Internal, err.Error())
+	//}
 
 	if check != 0 {
 		err := l.svcCtx.Redis.Set("database_init_state", "1")
@@ -185,7 +185,7 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 // insert init user data
 func (l *InitDatabaseLogic) insertApiData() error {
 	var apis []*ent.APICreate
-	apis = make([]*ent.APICreate, 45)
+	apis = make([]*ent.APICreate, 46)
 	// USER
 	apis[0] = l.svcCtx.DB.API.Create().
 		SetPath("/user/login").
@@ -253,26 +253,32 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetAPIGroup("user").
 		SetMethod("GET")
 
-	// ROLE
 	apis[11] = l.svcCtx.DB.API.Create().
+		SetPath("/user/status").
+		SetDescription("apiDesc.updateUserStatus").
+		SetAPIGroup("user").
+		SetMethod("POST")
+
+	// ROLE
+	apis[12] = l.svcCtx.DB.API.Create().
 		SetPath("/role").
 		SetDescription("apiDesc.createOrUpdateRole").
 		SetAPIGroup("role").
 		SetMethod("POST")
 
-	apis[12] = l.svcCtx.DB.API.Create().
+	apis[13] = l.svcCtx.DB.API.Create().
 		SetPath("/role").
 		SetDescription("apiDesc.deleteRole").
 		SetAPIGroup("role").
 		SetMethod("DELETE")
 
-	apis[13] = l.svcCtx.DB.API.Create().
+	apis[14] = l.svcCtx.DB.API.Create().
 		SetPath("/role/list").
 		SetDescription("apiDesc.roleList").
 		SetAPIGroup("role").
 		SetMethod("POST")
 
-	apis[14] = l.svcCtx.DB.API.Create().
+	apis[15] = l.svcCtx.DB.API.Create().
 		SetPath("/role/status").
 		SetDescription("apiDesc.setRoleStatus").
 		SetAPIGroup("role").
@@ -280,43 +286,43 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	// MENU
 
-	apis[15] = l.svcCtx.DB.API.Create().
+	apis[16] = l.svcCtx.DB.API.Create().
 		SetPath("/menu").
 		SetDescription("apiDesc.createOrUpdateMenu").
 		SetAPIGroup("menu").
 		SetMethod("POST")
 
-	apis[16] = l.svcCtx.DB.API.Create().
+	apis[17] = l.svcCtx.DB.API.Create().
 		SetPath("/menu").
 		SetDescription("apiDesc.deleteMenu").
 		SetAPIGroup("menu").
 		SetMethod("DELETE")
 
-	apis[17] = l.svcCtx.DB.API.Create().
+	apis[18] = l.svcCtx.DB.API.Create().
 		SetPath("/menu/list").
 		SetDescription("apiDesc.menuList").
 		SetAPIGroup("menu").
 		SetMethod("GET")
 
-	apis[18] = l.svcCtx.DB.API.Create().
+	apis[19] = l.svcCtx.DB.API.Create().
 		SetPath("/menu/role").
 		SetDescription("apiDesc.roleMenu").
 		SetAPIGroup("menu").
 		SetMethod("GET")
 
-	apis[19] = l.svcCtx.DB.API.Create().
+	apis[20] = l.svcCtx.DB.API.Create().
 		SetPath("/menu/param").
 		SetDescription("apiDesc.createOrUpdateMenuParam").
 		SetAPIGroup("menu").
 		SetMethod("POST")
 
-	apis[20] = l.svcCtx.DB.API.Create().
+	apis[21] = l.svcCtx.DB.API.Create().
 		SetPath("/menu/param/list").
 		SetDescription("apiDesc.menuParamListByMenuId").
 		SetAPIGroup("menu").
 		SetMethod("POST")
 
-	apis[21] = l.svcCtx.DB.API.Create().
+	apis[22] = l.svcCtx.DB.API.Create().
 		SetPath("/menu/param").
 		SetDescription("apiDesc.deleteMenuParam").
 		SetAPIGroup("menu").
@@ -324,7 +330,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	// CAPTCHA
 
-	apis[22] = l.svcCtx.DB.API.Create().
+	apis[23] = l.svcCtx.DB.API.Create().
 		SetPath("/captcha").
 		SetDescription("apiDesc.captcha").
 		SetAPIGroup("captcha").
@@ -332,25 +338,25 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	// AUTHORIZATION
 
-	apis[23] = l.svcCtx.DB.API.Create().
+	apis[24] = l.svcCtx.DB.API.Create().
 		SetPath("/authority/api").
 		SetDescription("apiDesc.createOrUpdateApiAuthority").
 		SetAPIGroup("authority").
 		SetMethod("POST")
 
-	apis[24] = l.svcCtx.DB.API.Create().
+	apis[25] = l.svcCtx.DB.API.Create().
 		SetPath("/authority/api/role").
 		SetDescription("apiDesc.APIAuthorityOfRole").
 		SetAPIGroup("authority").
 		SetMethod("POST")
 
-	apis[25] = l.svcCtx.DB.API.Create().
+	apis[26] = l.svcCtx.DB.API.Create().
 		SetPath("/authority/menu").
 		SetDescription("apiDesc.createOrUpdateMenuAuthority").
 		SetAPIGroup("authority").
 		SetMethod("POST")
 
-	apis[26] = l.svcCtx.DB.API.Create().
+	apis[27] = l.svcCtx.DB.API.Create().
 		SetPath("/authority/menu/role").
 		SetDescription("apiDesc.menuAuthorityOfRole").
 		SetAPIGroup("authority").
@@ -358,19 +364,19 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	// API
 
-	apis[27] = l.svcCtx.DB.API.Create().
+	apis[28] = l.svcCtx.DB.API.Create().
 		SetPath("/api").
 		SetDescription("apiDesc.createOrUpdateApi").
 		SetAPIGroup("api").
 		SetMethod("POST")
 
-	apis[28] = l.svcCtx.DB.API.Create().
+	apis[29] = l.svcCtx.DB.API.Create().
 		SetPath("/api").
 		SetDescription("apiDesc.deleteAPI").
 		SetAPIGroup("api").
 		SetMethod("DELETE")
 
-	apis[29] = l.svcCtx.DB.API.Create().
+	apis[30] = l.svcCtx.DB.API.Create().
 		SetPath("/api/list").
 		SetDescription("apiDesc.APIList").
 		SetAPIGroup("api").
@@ -378,37 +384,37 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	// DICTIONARY
 
-	apis[30] = l.svcCtx.DB.API.Create().
+	apis[31] = l.svcCtx.DB.API.Create().
 		SetPath("/dict").
 		SetDescription("apiDesc.createOrUpdateDictionary").
 		SetAPIGroup("dictionary").
 		SetMethod("POST")
 
-	apis[31] = l.svcCtx.DB.API.Create().
+	apis[32] = l.svcCtx.DB.API.Create().
 		SetPath("/dict").
 		SetDescription("apiDesc.deleteDictionary").
 		SetAPIGroup("dictionary").
 		SetMethod("DELETE")
 
-	apis[32] = l.svcCtx.DB.API.Create().
+	apis[33] = l.svcCtx.DB.API.Create().
 		SetPath("/dict/detail").
 		SetDescription("apiDesc.deleteDictionaryDetail").
 		SetAPIGroup("dictionary").
 		SetMethod("DELETE")
 
-	apis[33] = l.svcCtx.DB.API.Create().
+	apis[34] = l.svcCtx.DB.API.Create().
 		SetPath("/dict/detail").
 		SetDescription("apiDesc.createOrUpdateDictionaryDetail").
 		SetAPIGroup("dictionary").
 		SetMethod("POST")
 
-	apis[34] = l.svcCtx.DB.API.Create().
+	apis[35] = l.svcCtx.DB.API.Create().
 		SetPath("/dict/detail/list").
 		SetDescription("apiDesc.getDictionaryListDetail").
 		SetAPIGroup("dictionary").
 		SetMethod("POST")
 
-	apis[35] = l.svcCtx.DB.API.Create().
+	apis[36] = l.svcCtx.DB.API.Create().
 		SetPath("/dict/list").
 		SetDescription("apiDesc.getDictionaryList").
 		SetAPIGroup("dictionary").
@@ -416,25 +422,25 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	// OAUTH
 
-	apis[36] = l.svcCtx.DB.API.Create().
+	apis[37] = l.svcCtx.DB.API.Create().
 		SetPath("/oauth/provider").
 		SetDescription("apiDesc.createOrUpdateProvider").
 		SetAPIGroup("oauth").
 		SetMethod("POST")
 
-	apis[37] = l.svcCtx.DB.API.Create().
+	apis[38] = l.svcCtx.DB.API.Create().
 		SetPath("/oauth/provider").
 		SetDescription("apiDesc.deleteProvider").
 		SetAPIGroup("oauth").
 		SetMethod("DELETE")
 
-	apis[38] = l.svcCtx.DB.API.Create().
+	apis[39] = l.svcCtx.DB.API.Create().
 		SetPath("/oauth/provider/list").
 		SetDescription("apiDesc.geProviderList").
 		SetAPIGroup("oauth").
 		SetMethod("POST")
 
-	apis[39] = l.svcCtx.DB.API.Create().
+	apis[40] = l.svcCtx.DB.API.Create().
 		SetPath("/oauth/login").
 		SetDescription("apiDesc.oauthLogin").
 		SetAPIGroup("oauth").
@@ -442,31 +448,31 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	// TOKEN
 
-	apis[40] = l.svcCtx.DB.API.Create().
+	apis[41] = l.svcCtx.DB.API.Create().
 		SetPath("/token").
 		SetDescription("apiDesc.createOrUpdateToken").
 		SetAPIGroup("token").
 		SetMethod("POST")
 
-	apis[41] = l.svcCtx.DB.API.Create().
+	apis[42] = l.svcCtx.DB.API.Create().
 		SetPath("/token").
 		SetDescription("apiDesc.deleteToken").
 		SetAPIGroup("token").
 		SetMethod("DELETE")
 
-	apis[42] = l.svcCtx.DB.API.Create().
+	apis[43] = l.svcCtx.DB.API.Create().
 		SetPath("/token/list").
 		SetDescription("apiDesc.getTokenList").
 		SetAPIGroup("token").
 		SetMethod("POST")
 
-	apis[43] = l.svcCtx.DB.API.Create().
+	apis[44] = l.svcCtx.DB.API.Create().
 		SetPath("/token/status").
 		SetDescription("apiDesc.setTokenStatus").
 		SetAPIGroup("token").
 		SetMethod("POST")
 
-	apis[44] = l.svcCtx.DB.API.Create().
+	apis[45] = l.svcCtx.DB.API.Create().
 		SetPath("/token/logout").
 		SetDescription("sys.user.forceLoggingOut").
 		SetAPIGroup("token").
@@ -497,7 +503,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("").
 		SetHideMenu(false)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[1] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(0).
 		SetParentID(1).
@@ -509,7 +515,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ant-design:home-outlined").
 		SetHideMenu(false)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[2] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(0).
 		SetParentID(1).
@@ -521,7 +527,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ant-design:tool-outlined").
 		SetHideMenu(false)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[3] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
 		SetParentID(3).
@@ -533,7 +539,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ant-design:bars-outlined").
 		SetHideMenu(false)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[4] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
 		SetParentID(3).
@@ -545,7 +551,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ant-design:user-outlined").
 		SetHideMenu(false)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[5] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
 		SetParentID(3).
@@ -557,7 +563,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ant-design:api-outlined").
 		SetHideMenu(false)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[6] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
 		SetParentID(3).
@@ -569,7 +575,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ant-design:user-outlined").
 		SetHideMenu(false)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[7] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(1).
 		SetParentID(1).
@@ -581,7 +587,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ant-design:folder-open-outlined").
 		SetHideMenu(true)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[8] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
 		SetParentID(3).
@@ -593,7 +599,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ant-design:book-outlined").
 		SetHideMenu(false)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[9] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(0).
 		SetParentID(1).
@@ -605,7 +611,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ant-design:question-circle-outlined").
 		SetHideMenu(true)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[10] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(2).
 		SetParentID(10).
@@ -617,7 +623,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ant-design:align-left-outlined").
 		SetHideMenu(true)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[11] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(1).
 		SetParentID(10).
@@ -629,7 +635,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ant-design:profile-outlined").
 		SetHideMenu(true)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[12] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
 		SetParentID(3).
@@ -641,7 +647,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ant-design:unlock-filled").
 		SetHideMenu(false)
 
-	menus[0] = l.svcCtx.DB.Menu.Create().
+	menus[13] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
 		SetParentID(3).

@@ -2,9 +2,14 @@ package logic
 
 import (
 	"context"
+	"strings"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"golang.org/x/oauth2"
 
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -31,43 +36,42 @@ func NewOauthLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *OauthL
 }
 
 func (l *OauthLoginLogic) OauthLogin(in *core.OauthLoginReq) (*core.OauthRedirectResp, error) {
-	//var provider model.OauthProvider
-	//check := l.svcCtx.DB.Where("name = ?", in.Provider).First(&provider)
-	//if check.Error != nil {
-	//	logx.Errorw(logmsg.DatabaseError, logx.Field("detail", check.Error.Error()))
-	//	return nil, status.Error(codes.Internal, check.Error.Error())
-	//}
-	//
-	//if check.RowsAffected == 0 {
-	//	logx.Errorw("Provider not found", logx.Field("detail", in))
-	//	return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
-	//}
-	//
-	//var config oauth2.Config
-	//if v, ok := providerConfig[provider.Name]; ok {
-	//	config = v
-	//} else {
-	//	providerConfig[provider.Name] = oauth2.Config{
-	//		ClientID:     provider.ClientID,
-	//		ClientSecret: provider.ClientSecret,
-	//		Endpoint: oauth2.Endpoint{
-	//			AuthURL:   provider.AuthURL,
-	//			TokenURL:  provider.TokenURL,
-	//			AuthStyle: oauth2.AuthStyle(provider.AuthStyle),
-	//		},
-	//		RedirectURL: provider.RedirectURL,
-	//		Scopes:      strings.Split(provider.Scopes, " "),
-	//	}
-	//	config = providerConfig[provider.Name]
-	//}
-	//
-	//if _, ok := userInfoURL[provider.Name]; !ok {
-	//	userInfoURL[provider.Name] = provider.InfoURL
-	//}
-	//
-	//url := config.AuthCodeURL(in.State)
-	//
-	//return &core.OauthRedirectResp{Url: url}, nil
+	p, err := l.svcCtx.DB.OauthProvider.Query().Where(oauthprovider.NameEQ(in.Provider)).First(l.ctx)
 
-	return nil, nil
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+		default:
+			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		}
+	}
+
+	var config oauth2.Config
+	if v, ok := providerConfig[p.Name]; ok {
+		config = v
+	} else {
+		providerConfig[p.Name] = oauth2.Config{
+			ClientID:     p.ClientID,
+			ClientSecret: p.ClientSecret,
+			Endpoint: oauth2.Endpoint{
+				AuthURL:   p.AuthURL,
+				TokenURL:  p.TokenURL,
+				AuthStyle: oauth2.AuthStyle(p.AuthStyle),
+			},
+			RedirectURL: p.RedirectURL,
+			Scopes:      strings.Split(p.Scopes, " "),
+		}
+		config = providerConfig[p.Name]
+	}
+
+	if _, ok := userInfoURL[p.Name]; !ok {
+		userInfoURL[p.Name] = p.InfoURL
+	}
+
+	url := config.AuthCodeURL(in.State)
+
+	return &core.OauthRedirectResp{Url: url}, nil
 }

@@ -77,8 +77,8 @@ type MenuEdges struct {
 	Parent *Menu `json:"parent,omitempty"`
 	// Children holds the value of the children edge.
 	Children []*Menu `json:"children,omitempty"`
-	// Param holds the value of the param edge.
-	Param []*MenuParam `json:"param,omitempty"`
+	// Params holds the value of the params edge.
+	Params []*MenuParam `json:"params,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [4]bool
@@ -115,13 +115,13 @@ func (e MenuEdges) ChildrenOrErr() ([]*Menu, error) {
 	return nil, &NotLoadedError{edge: "children"}
 }
 
-// ParamOrErr returns the Param value or an error if the edge
+// ParamsOrErr returns the Params value or an error if the edge
 // was not loaded in eager-loading.
-func (e MenuEdges) ParamOrErr() ([]*MenuParam, error) {
+func (e MenuEdges) ParamsOrErr() ([]*MenuParam, error) {
 	if e.loadedTypes[3] {
-		return e.Param, nil
+		return e.Params, nil
 	}
-	return nil, &NotLoadedError{edge: "param"}
+	return nil, &NotLoadedError{edge: "params"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -322,9 +322,9 @@ func (m *Menu) QueryChildren() *MenuQuery {
 	return (&MenuClient{config: m.config}).QueryChildren(m)
 }
 
-// QueryParam queries the "param" edge of the Menu entity.
-func (m *Menu) QueryParam() *MenuParamQuery {
-	return (&MenuClient{config: m.config}).QueryParam(m)
+// QueryParams queries the "params" edge of the Menu entity.
+func (m *Menu) QueryParams() *MenuParamQuery {
+	return (&MenuClient{config: m.config}).QueryParams(m)
 }
 
 // Update returns a builder for updating this Menu.

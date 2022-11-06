@@ -44,7 +44,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 	}
 
 	err = utils.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
-		err = l.svcCtx.DB.Menu.Update().ClearParam().Exec(l.ctx)
+		err = l.svcCtx.DB.Menu.Update().ClearParams().Exec(l.ctx)
 
 		if err != nil {
 			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))

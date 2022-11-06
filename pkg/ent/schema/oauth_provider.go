@@ -2,6 +2,8 @@ package schema
 
 import (
 	"entgo.io/ent"
+	"entgo.io/ent/dialect/entsql"
+	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent/schema/mixins"
@@ -33,4 +35,10 @@ func (OauthProvider) Mixin() []ent.Mixin {
 
 func (OauthProvider) Edges() []ent.Edge {
 	return nil
+}
+
+func (OauthProvider) Annotations() []schema.Annotation {
+	return []schema.Annotation{
+		entsql.Annotation{Table: "sys_oauth_providers"},
+	}
 }

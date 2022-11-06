@@ -29,7 +29,7 @@ func NewGetMenuParamListByMenuIdLogic(ctx context.Context, svcCtx *svc.ServiceCo
 }
 
 func (l *GetMenuParamListByMenuIdLogic) GetMenuParamListByMenuId(in *core.IDReq) (*core.MenuParamListResp, error) {
-	params, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.Id)).QueryParam().All(l.ctx)
+	params, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.Id)).QueryParams().All(l.ctx)
 
 	if err != nil {
 		switch {

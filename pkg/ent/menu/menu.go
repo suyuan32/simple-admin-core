@@ -65,30 +65,30 @@ const (
 	EdgeParent = "parent"
 	// EdgeChildren holds the string denoting the children edge name in mutations.
 	EdgeChildren = "children"
-	// EdgeParam holds the string denoting the param edge name in mutations.
-	EdgeParam = "param"
+	// EdgeParams holds the string denoting the params edge name in mutations.
+	EdgeParams = "params"
 	// Table holds the table name of the menu in the database.
-	Table = "menus"
+	Table = "sys_menus"
 	// RolesTable is the table that holds the roles relation/edge. The primary key declared below.
 	RolesTable = "role_menus"
 	// RolesInverseTable is the table name for the Role entity.
 	// It exists in this package in order to avoid circular dependency with the "role" package.
-	RolesInverseTable = "roles"
+	RolesInverseTable = "sys_roles"
 	// ParentTable is the table that holds the parent relation/edge.
-	ParentTable = "menus"
+	ParentTable = "sys_menus"
 	// ParentColumn is the table column denoting the parent relation/edge.
 	ParentColumn = "parent_id"
 	// ChildrenTable is the table that holds the children relation/edge.
-	ChildrenTable = "menus"
+	ChildrenTable = "sys_menus"
 	// ChildrenColumn is the table column denoting the children relation/edge.
 	ChildrenColumn = "parent_id"
-	// ParamTable is the table that holds the param relation/edge.
-	ParamTable = "menu_params"
-	// ParamInverseTable is the table name for the MenuParam entity.
+	// ParamsTable is the table that holds the params relation/edge.
+	ParamsTable = "sys_menu_params"
+	// ParamsInverseTable is the table name for the MenuParam entity.
 	// It exists in this package in order to avoid circular dependency with the "menuparam" package.
-	ParamInverseTable = "menu_params"
-	// ParamColumn is the table column denoting the param relation/edge.
-	ParamColumn = "menu_param"
+	ParamsInverseTable = "sys_menu_params"
+	// ParamsColumn is the table column denoting the params relation/edge.
+	ParamsColumn = "menu_params"
 )
 
 // Columns holds all SQL columns for menu fields.

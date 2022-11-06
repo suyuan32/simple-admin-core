@@ -34,9 +34,9 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 	if in.Id == 0 {
 		err := l.svcCtx.DB.MenuParam.Create().
 			SetType(in.Type).
-			SetMenuID(in.MenuId).
 			SetKey(in.Key).
 			SetValue(in.Value).
+			SetMenusID(in.MenuId).
 			Exec(l.ctx)
 
 		if err != nil {
@@ -65,9 +65,9 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 
 		err = l.svcCtx.DB.MenuParam.UpdateOneID(in.Id).
 			SetType(in.Type).
-			SetMenuID(in.MenuId).
 			SetKey(in.Key).
 			SetValue(in.Value).
+			SetMenusID(in.MenuId).
 			Exec(l.ctx)
 
 		if err != nil {

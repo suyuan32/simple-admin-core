@@ -6,7 +6,6 @@ import (
 	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -14,56 +13,33 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type UpdateProfileLogic struct {
+type UpdateUserStatusLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewUpdateProfileLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateProfileLogic {
-	return &UpdateProfileLogic{
+func NewUpdateUserStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateUserStatusLogic {
+	return &UpdateUserStatusLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *UpdateProfileLogic) UpdateProfile(in *core.UpdateProfileReq) (*core.BaseResp, error) {
-
-	u := l.svcCtx.DB.User.Update().
-		Where(user.UUID(in.Uuid))
-
-	if in.Email != "" {
-		u.SetEmail(in.Email)
-	}
-
-	if in.Avatar != "" {
-		u.SetAvatar(in.Avatar)
-	}
-
-	if in.Mobile != "" {
-		u.SetMobile(in.Mobile)
-	}
-
-	if in.Nickname != "" {
-		u.SetNickname(in.Nickname)
-	}
-
-	err := u.Exec(l.ctx)
+func (l *UpdateUserStatusLogic) UpdateUserStatus(in *core.StatusCodeReq) (*core.BaseResp, error) {
+	err := l.svcCtx.DB.User.UpdateOneID(in.Id).SetStatus(uint8(in.Status)).Exec(l.ctx)
 
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
 			logx.Errorw(err.Error(), logx.Field("detail", in))
 			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
-		case ent.IsConstraintError(err):
-			logx.Errorw(err.Error(), logx.Field("detail", in))
-			return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
 		default:
 			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
 	}
 
-	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
+	return &core.BaseResp{}, nil
 }

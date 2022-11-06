@@ -1980,25 +1980,25 @@ func HasChildrenWith(preds ...predicate.Menu) predicate.Menu {
 	})
 }
 
-// HasParam applies the HasEdge predicate on the "param" edge.
-func HasParam() predicate.Menu {
+// HasParams applies the HasEdge predicate on the "params" edge.
+func HasParams() predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(ParamTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, ParamTable, ParamColumn),
+			sqlgraph.To(ParamsTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, ParamsTable, ParamsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasParamWith applies the HasEdge predicate on the "param" edge with a given conditions (other predicates).
-func HasParamWith(preds ...predicate.MenuParam) predicate.Menu {
+// HasParamsWith applies the HasEdge predicate on the "params" edge with a given conditions (other predicates).
+func HasParamsWith(preds ...predicate.MenuParam) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(ParamInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, ParamTable, ParamColumn),
+			sqlgraph.To(ParamsInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, ParamsTable, ParamsColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

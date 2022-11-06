@@ -44,7 +44,7 @@ func (l *GetProviderListLogic) GetProviderList(req *types.PageInfo) (resp *types
 					UpdatedAt: v.UpdatedAt,
 				},
 				Name:         v.Name,
-				ClientID:     v.ClientId,
+				ClientId:     v.ClientId,
 				ClientSecret: v.ClientSecret,
 				RedirectURL:  v.RedirectUrl,
 				Scopes:       v.Scopes,

@@ -115,8 +115,8 @@ service core {
     post /token/list (TokenListReq) returns (TokenListResp)
 
     // Set token status | 设置token状态
-    @handler setTokenStatus
-    post /token/status (SetBooleanStatusReq) returns (SimpleMsg)
+    @handler updateTokenStatus
+    post /token/status (StatusCodeReq) returns (SimpleMsg)
 
     // Force logging out by user UUID | 根据UUID强制用户退出
     @handler logout

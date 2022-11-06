@@ -3,13 +3,14 @@
 package migrate
 
 import (
+	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/dialect/sql/schema"
 	"entgo.io/ent/schema/field"
 )
 
 var (
-	// ApIsColumns holds the columns for the "ap_is" table.
-	ApIsColumns = []*schema.Column{
+	// SysApisColumns holds the columns for the "sys_apis" table.
+	SysApisColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
@@ -18,55 +19,55 @@ var (
 		{Name: "api_group", Type: field.TypeString},
 		{Name: "method", Type: field.TypeString, Default: "POST"},
 	}
-	// ApIsTable holds the schema information for the "ap_is" table.
-	ApIsTable = &schema.Table{
-		Name:       "ap_is",
-		Columns:    ApIsColumns,
-		PrimaryKey: []*schema.Column{ApIsColumns[0]},
+	// SysApisTable holds the schema information for the "sys_apis" table.
+	SysApisTable = &schema.Table{
+		Name:       "sys_apis",
+		Columns:    SysApisColumns,
+		PrimaryKey: []*schema.Column{SysApisColumns[0]},
 	}
-	// DictionariesColumns holds the columns for the "dictionaries" table.
-	DictionariesColumns = []*schema.Column{
+	// SysDictionariesColumns holds the columns for the "sys_dictionaries" table.
+	SysDictionariesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
 		{Name: "title", Type: field.TypeString},
 		{Name: "name", Type: field.TypeString},
 		{Name: "desc", Type: field.TypeString},
 	}
-	// DictionariesTable holds the schema information for the "dictionaries" table.
-	DictionariesTable = &schema.Table{
-		Name:       "dictionaries",
-		Columns:    DictionariesColumns,
-		PrimaryKey: []*schema.Column{DictionariesColumns[0]},
+	// SysDictionariesTable holds the schema information for the "sys_dictionaries" table.
+	SysDictionariesTable = &schema.Table{
+		Name:       "sys_dictionaries",
+		Columns:    SysDictionariesColumns,
+		PrimaryKey: []*schema.Column{SysDictionariesColumns[0]},
 	}
-	// DictionaryDetailsColumns holds the columns for the "dictionary_details" table.
-	DictionaryDetailsColumns = []*schema.Column{
+	// SysDictionaryDetailsColumns holds the columns for the "sys_dictionary_details" table.
+	SysDictionaryDetailsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
 		{Name: "title", Type: field.TypeString},
 		{Name: "key", Type: field.TypeString},
 		{Name: "value", Type: field.TypeString},
 		{Name: "dictionary_dictionary_details", Type: field.TypeUint64, Nullable: true},
 	}
-	// DictionaryDetailsTable holds the schema information for the "dictionary_details" table.
-	DictionaryDetailsTable = &schema.Table{
-		Name:       "dictionary_details",
-		Columns:    DictionaryDetailsColumns,
-		PrimaryKey: []*schema.Column{DictionaryDetailsColumns[0]},
+	// SysDictionaryDetailsTable holds the schema information for the "sys_dictionary_details" table.
+	SysDictionaryDetailsTable = &schema.Table{
+		Name:       "sys_dictionary_details",
+		Columns:    SysDictionaryDetailsColumns,
+		PrimaryKey: []*schema.Column{SysDictionaryDetailsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "dictionary_details_dictionaries_dictionary_details",
-				Columns:    []*schema.Column{DictionaryDetailsColumns[7]},
-				RefColumns: []*schema.Column{DictionariesColumns[0]},
+				Symbol:     "sys_dictionary_details_sys_dictionaries_dictionary_details",
+				Columns:    []*schema.Column{SysDictionaryDetailsColumns[7]},
+				RefColumns: []*schema.Column{SysDictionariesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// MenusColumns holds the columns for the "menus" table.
-	MenusColumns = []*schema.Column{
+	// SysMenusColumns holds the columns for the "sys_menus" table.
+	SysMenusColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
@@ -93,46 +94,46 @@ var (
 		{Name: "real_path", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "parent_id", Type: field.TypeUint64, Nullable: true},
 	}
-	// MenusTable holds the schema information for the "menus" table.
-	MenusTable = &schema.Table{
-		Name:       "menus",
-		Columns:    MenusColumns,
-		PrimaryKey: []*schema.Column{MenusColumns[0]},
+	// SysMenusTable holds the schema information for the "sys_menus" table.
+	SysMenusTable = &schema.Table{
+		Name:       "sys_menus",
+		Columns:    SysMenusColumns,
+		PrimaryKey: []*schema.Column{SysMenusColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "menus_menus_children",
-				Columns:    []*schema.Column{MenusColumns[24]},
-				RefColumns: []*schema.Column{MenusColumns[0]},
+				Symbol:     "sys_menus_sys_menus_children",
+				Columns:    []*schema.Column{SysMenusColumns[24]},
+				RefColumns: []*schema.Column{SysMenusColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// MenuParamsColumns holds the columns for the "menu_params" table.
-	MenuParamsColumns = []*schema.Column{
+	// SysMenuParamsColumns holds the columns for the "sys_menu_params" table.
+	SysMenuParamsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "type", Type: field.TypeString},
 		{Name: "key", Type: field.TypeString},
 		{Name: "value", Type: field.TypeString},
-		{Name: "menu_param", Type: field.TypeUint64, Nullable: true},
+		{Name: "menu_params", Type: field.TypeUint64, Nullable: true},
 	}
-	// MenuParamsTable holds the schema information for the "menu_params" table.
-	MenuParamsTable = &schema.Table{
-		Name:       "menu_params",
-		Columns:    MenuParamsColumns,
-		PrimaryKey: []*schema.Column{MenuParamsColumns[0]},
+	// SysMenuParamsTable holds the schema information for the "sys_menu_params" table.
+	SysMenuParamsTable = &schema.Table{
+		Name:       "sys_menu_params",
+		Columns:    SysMenuParamsColumns,
+		PrimaryKey: []*schema.Column{SysMenuParamsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "menu_params_menus_param",
-				Columns:    []*schema.Column{MenuParamsColumns[6]},
-				RefColumns: []*schema.Column{MenusColumns[0]},
+				Symbol:     "sys_menu_params_sys_menus_params",
+				Columns:    []*schema.Column{SysMenuParamsColumns[6]},
+				RefColumns: []*schema.Column{SysMenusColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
 	}
-	// OauthProvidersColumns holds the columns for the "oauth_providers" table.
-	OauthProvidersColumns = []*schema.Column{
+	// SysOauthProvidersColumns holds the columns for the "sys_oauth_providers" table.
+	SysOauthProvidersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
@@ -146,65 +147,65 @@ var (
 		{Name: "auth_style", Type: field.TypeUint64},
 		{Name: "info_url", Type: field.TypeString},
 	}
-	// OauthProvidersTable holds the schema information for the "oauth_providers" table.
-	OauthProvidersTable = &schema.Table{
-		Name:       "oauth_providers",
-		Columns:    OauthProvidersColumns,
-		PrimaryKey: []*schema.Column{OauthProvidersColumns[0]},
+	// SysOauthProvidersTable holds the schema information for the "sys_oauth_providers" table.
+	SysOauthProvidersTable = &schema.Table{
+		Name:       "sys_oauth_providers",
+		Columns:    SysOauthProvidersColumns,
+		PrimaryKey: []*schema.Column{SysOauthProvidersColumns[0]},
 	}
-	// RolesColumns holds the columns for the "roles" table.
-	RolesColumns = []*schema.Column{
+	// SysRolesColumns holds the columns for the "sys_roles" table.
+	SysRolesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
 		{Name: "name", Type: field.TypeString},
 		{Name: "value", Type: field.TypeString, Unique: true},
 		{Name: "default_router", Type: field.TypeString, Default: "dashboard"},
 		{Name: "remark", Type: field.TypeString, Default: ""},
 		{Name: "order_no", Type: field.TypeUint32, Default: 0},
 	}
-	// RolesTable holds the schema information for the "roles" table.
-	RolesTable = &schema.Table{
-		Name:       "roles",
-		Columns:    RolesColumns,
-		PrimaryKey: []*schema.Column{RolesColumns[0]},
+	// SysRolesTable holds the schema information for the "sys_roles" table.
+	SysRolesTable = &schema.Table{
+		Name:       "sys_roles",
+		Columns:    SysRolesColumns,
+		PrimaryKey: []*schema.Column{SysRolesColumns[0]},
 	}
-	// TokensColumns holds the columns for the "tokens" table.
-	TokensColumns = []*schema.Column{
+	// SysTokensColumns holds the columns for the "sys_tokens" table.
+	SysTokensColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
 		{Name: "uuid", Type: field.TypeString},
 		{Name: "token", Type: field.TypeString},
 		{Name: "source", Type: field.TypeString},
 		{Name: "expired_at", Type: field.TypeTime},
 	}
-	// TokensTable holds the schema information for the "tokens" table.
-	TokensTable = &schema.Table{
-		Name:       "tokens",
-		Columns:    TokensColumns,
-		PrimaryKey: []*schema.Column{TokensColumns[0]},
+	// SysTokensTable holds the schema information for the "sys_tokens" table.
+	SysTokensTable = &schema.Table{
+		Name:       "sys_tokens",
+		Columns:    SysTokensColumns,
+		PrimaryKey: []*schema.Column{SysTokensColumns[0]},
 		Indexes: []*schema.Index{
 			{
 				Name:    "token_uuid",
 				Unique:  false,
-				Columns: []*schema.Column{TokensColumns[4]},
+				Columns: []*schema.Column{SysTokensColumns[4]},
 			},
 			{
 				Name:    "token_expired_at",
 				Unique:  false,
-				Columns: []*schema.Column{TokensColumns[7]},
+				Columns: []*schema.Column{SysTokensColumns[7]},
 			},
 		},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// SysUsersColumns holds the columns for the "sys_users" table.
+	SysUsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 0},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
 		{Name: "uuid", Type: field.TypeString},
 		{Name: "username", Type: field.TypeString, Unique: true},
 		{Name: "password", Type: field.TypeString},
@@ -217,16 +218,16 @@ var (
 		{Name: "email", Type: field.TypeString, Nullable: true},
 		{Name: "avatar", Type: field.TypeString, Nullable: true, Default: "", SchemaType: map[string]string{"mysql": "varchar(512)"}},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// SysUsersTable holds the schema information for the "sys_users" table.
+	SysUsersTable = &schema.Table{
+		Name:       "sys_users",
+		Columns:    SysUsersColumns,
+		PrimaryKey: []*schema.Column{SysUsersColumns[0]},
 		Indexes: []*schema.Index{
 			{
 				Name:    "user_username_email",
 				Unique:  true,
-				Columns: []*schema.Column{UsersColumns[5], UsersColumns[13]},
+				Columns: []*schema.Column{SysUsersColumns[5], SysUsersColumns[13]},
 			},
 		},
 	}
@@ -244,36 +245,63 @@ var (
 			{
 				Symbol:     "role_menus_role_id",
 				Columns:    []*schema.Column{RoleMenusColumns[0]},
-				RefColumns: []*schema.Column{RolesColumns[0]},
+				RefColumns: []*schema.Column{SysRolesColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "role_menus_menu_id",
 				Columns:    []*schema.Column{RoleMenusColumns[1]},
-				RefColumns: []*schema.Column{MenusColumns[0]},
+				RefColumns: []*schema.Column{SysMenusColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		ApIsTable,
-		DictionariesTable,
-		DictionaryDetailsTable,
-		MenusTable,
-		MenuParamsTable,
-		OauthProvidersTable,
-		RolesTable,
-		TokensTable,
-		UsersTable,
+		SysApisTable,
+		SysDictionariesTable,
+		SysDictionaryDetailsTable,
+		SysMenusTable,
+		SysMenuParamsTable,
+		SysOauthProvidersTable,
+		SysRolesTable,
+		SysTokensTable,
+		SysUsersTable,
 		RoleMenusTable,
 	}
 )
 
 func init() {
-	DictionaryDetailsTable.ForeignKeys[0].RefTable = DictionariesTable
-	MenusTable.ForeignKeys[0].RefTable = MenusTable
-	MenuParamsTable.ForeignKeys[0].RefTable = MenusTable
-	RoleMenusTable.ForeignKeys[0].RefTable = RolesTable
-	RoleMenusTable.ForeignKeys[1].RefTable = MenusTable
+	SysApisTable.Annotation = &entsql.Annotation{
+		Table: "sys_apis",
+	}
+	SysDictionariesTable.Annotation = &entsql.Annotation{
+		Table: "sys_dictionaries",
+	}
+	SysDictionaryDetailsTable.ForeignKeys[0].RefTable = SysDictionariesTable
+	SysDictionaryDetailsTable.Annotation = &entsql.Annotation{
+		Table: "sys_dictionary_details",
+	}
+	SysMenusTable.ForeignKeys[0].RefTable = SysMenusTable
+	SysMenusTable.Annotation = &entsql.Annotation{
+		Table: "sys_menus",
+	}
+	SysMenuParamsTable.ForeignKeys[0].RefTable = SysMenusTable
+	SysMenuParamsTable.Annotation = &entsql.Annotation{
+		Table: "sys_menu_params",
+	}
+	SysOauthProvidersTable.Annotation = &entsql.Annotation{
+		Table: "sys_oauth_providers",
+	}
+	SysRolesTable.Annotation = &entsql.Annotation{
+		Table: "sys_roles",
+	}
+	SysTokensTable.Annotation = &entsql.Annotation{
+		Table: "sys_tokens",
+	}
+	SysUsersTable.Annotation = &entsql.Annotation{
+		Table: "sys_users",
+	}
+	RoleMenusTable.ForeignKeys[0].RefTable = SysRolesTable
+	RoleMenusTable.ForeignKeys[1].RefTable = SysMenusTable
 }

@@ -26,10 +26,8 @@ func NewGetTokenListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetT
 
 func (l *GetTokenListLogic) GetTokenList(req *types.TokenListReq) (resp *types.TokenListResp, err error) {
 	result, err := l.svcCtx.CoreRpc.GetTokenList(l.ctx, &core.TokenListReq{
-		Page: &core.PageInfoReq{
-			Page:     req.Page,
-			PageSize: req.PageSize,
-		},
+		Page:     req.Page,
+		PageSize: req.PageSize,
 		Uuid:     req.UUID,
 		Username: req.Username,
 		Nickname: req.Nickname,

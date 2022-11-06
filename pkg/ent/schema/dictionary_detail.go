@@ -2,6 +2,8 @@ package schema
 
 import (
 	"entgo.io/ent"
+	"entgo.io/ent/dialect/entsql"
+	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
 
@@ -30,5 +32,11 @@ func (DictionaryDetail) Mixin() []ent.Mixin {
 func (DictionaryDetail) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.From("dictionary", Dictionary.Type).Ref("dictionary_details").Unique(),
+	}
+}
+
+func (DictionaryDetail) Annotations() []schema.Annotation {
+	return []schema.Annotation{
+		entsql.Annotation{Table: "sys_dictionary_details"},
 	}
 }

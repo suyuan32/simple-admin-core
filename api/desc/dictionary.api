@@ -34,7 +34,7 @@ type (
     CreateOrUpdateDictionaryReq {
         // ID
         // Required: true
-        ID            uint64 `json:"ID" validate:"number"`
+        Id            uint64 `json:"id" validate:"number"`
 
         // Dictionary title | 字典显示名称
         // Required: true
@@ -117,7 +117,7 @@ type (
     CreateOrUpdateDictionaryDetailReq {
         // ID
         // Required: true
-        ID            uint64 `json:"ID" validate:"number"`
+        Id            uint64 `json:"id" validate:"number"`
 
         // Detail title | 字典值显示名称
         // Required: true
@@ -141,7 +141,7 @@ type (
 
         // Parent ID | 所属字典ID
         // Required: true
-        ParentID     uint64 `json:"parentID" validate:"number"`
+        ParentId     uint64 `json:"parentId" validate:"number"`
     }
 
     // Get dictionary detail list by dictionary name request | 根据字典名称获取对应键值请求

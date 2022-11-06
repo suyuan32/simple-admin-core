@@ -20,7 +20,7 @@ type User struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
-	// status 0 normal 1 ban | 状态 0 正常 1 禁用
+	// status 1 normal 0 ban | 状态 1 正常 0 禁用
 	Status uint8 `json:"status,omitempty"`
 	// user's UUID | 用户 UUID
 	UUID string `json:"uuid,omitempty"`

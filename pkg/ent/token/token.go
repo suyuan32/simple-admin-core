@@ -26,7 +26,7 @@ const (
 	// FieldExpiredAt holds the string denoting the expired_at field in the database.
 	FieldExpiredAt = "expired_at"
 	// Table holds the table name of the token in the database.
-	Table = "tokens"
+	Table = "sys_tokens"
 )
 
 // Columns holds all SQL columns for token fields.

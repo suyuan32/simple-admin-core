@@ -33,7 +33,7 @@ func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.U
 		Nickname: req.Nickname,
 		Email:    req.Email,
 		Mobile:   req.Mobile,
-		RoleId:   req.RoleID,
+		RoleId:   req.RoleId,
 	})
 	if err != nil {
 		return nil, err
@@ -49,7 +49,7 @@ func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.U
 			Username: v.Username,
 			Nickname: v.Nickname,
 			Mobile:   v.Mobile,
-			RoleID:   v.RoleId,
+			RoleId:   v.RoleId,
 			Email:    v.Email,
 			Avatar:   v.Avatar,
 			Status:   v.Status,

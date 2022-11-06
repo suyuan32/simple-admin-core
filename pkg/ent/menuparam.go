@@ -29,30 +29,30 @@ type MenuParam struct {
 	Value string `json:"value,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the MenuParamQuery when eager-loading is set.
-	Edges      MenuParamEdges `json:"edges"`
-	menu_param *uint64
+	Edges       MenuParamEdges `json:"edges"`
+	menu_params *uint64
 }
 
 // MenuParamEdges holds the relations/edges for other nodes in the graph.
 type MenuParamEdges struct {
-	// Menu holds the value of the menu edge.
-	Menu *Menu `json:"menu,omitempty"`
+	// Menus holds the value of the menus edge.
+	Menus *Menu `json:"menus,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// MenuOrErr returns the Menu value or an error if the edge
+// MenusOrErr returns the Menus value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e MenuParamEdges) MenuOrErr() (*Menu, error) {
+func (e MenuParamEdges) MenusOrErr() (*Menu, error) {
 	if e.loadedTypes[0] {
-		if e.Menu == nil {
+		if e.Menus == nil {
 			// Edge was loaded but was not found.
 			return nil, &NotFoundError{label: menu.Label}
 		}
-		return e.Menu, nil
+		return e.Menus, nil
 	}
-	return nil, &NotLoadedError{edge: "menu"}
+	return nil, &NotLoadedError{edge: "menus"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -66,7 +66,7 @@ func (*MenuParam) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullString)
 		case menuparam.FieldCreatedAt, menuparam.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
-		case menuparam.ForeignKeys[0]: // menu_param
+		case menuparam.ForeignKeys[0]: // menu_params
 			values[i] = new(sql.NullInt64)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type MenuParam", columns[i])
@@ -121,19 +121,19 @@ func (mp *MenuParam) assignValues(columns []string, values []any) error {
 			}
 		case menuparam.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field menu_param", value)
+				return fmt.Errorf("unexpected type %T for edge-field menu_params", value)
 			} else if value.Valid {
-				mp.menu_param = new(uint64)
-				*mp.menu_param = uint64(value.Int64)
+				mp.menu_params = new(uint64)
+				*mp.menu_params = uint64(value.Int64)
 			}
 		}
 	}
 	return nil
 }
 
-// QueryMenu queries the "menu" edge of the MenuParam entity.
-func (mp *MenuParam) QueryMenu() *MenuQuery {
-	return (&MenuParamClient{config: mp.config}).QueryMenu(mp)
+// QueryMenus queries the "menus" edge of the MenuParam entity.
+func (mp *MenuParam) QueryMenus() *MenuQuery {
+	return (&MenuParamClient{config: mp.config}).QueryMenus(mp)
 }
 
 // Update returns a builder for updating this MenuParam.
