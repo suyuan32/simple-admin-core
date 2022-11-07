@@ -7,6 +7,7 @@
     * [File Manager](/simple-admin/en/docs/file_manager.md)
     * [Web Setting](/simple-admin/en/docs/web-setting.md)
     * [Global Variable](/simple-admin/en/docs/global_vars.md)
+    * [Quick Commands](/simple-admin/en/docs/quickcmd.md)
 * Quick Start
     * Develop Core Project
       * [Develop Backend](simple-admin/en/docs/quick_develop_example.md)
@@ -17,6 +18,7 @@
     * [Validator](/simple-admin/en/docs/validator.md)
     * [Swagger](simple-admin/en/docs/swagger.md)
     * [GORM](simple-admin/en/docs/gorm.md)
+    * [Ent](simple-admin/en/docs/ent.md)
     * [Authorization](simple-admin/en/docs/authorization.md)
     * [Error Handling](simple-admin/en/docs/error_handling.md)
     * [Oauth](simple-admin/en/docs/oauth.md)

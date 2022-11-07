@@ -1,5 +1,9 @@
 # GORM 使用方法
 
+#### [Gorm 版本点此](https://github.com/suyuan32/simple-admin-core/tree/gorm)
+
+#### [官方文档](https://gorm.io/)
+
 > 初始化
 
 ```go

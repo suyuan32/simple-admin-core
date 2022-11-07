@@ -1,5 +1,9 @@
 # GORM Usage
 
+#### [Gorm Version Here](https://github.com/suyuan32/simple-admin-core/tree/gorm)
+
+#### [Official Doc](https://gorm.io/)
+
 > Initialize GORM
 
 ```go
