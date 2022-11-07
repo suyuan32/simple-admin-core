@@ -31,6 +31,7 @@ type DatabaseConf struct {
 	Type         string `json:",optional"` // "postgres" or "mysql"
 	MaxOpenConns *int   `json:",optional,default=100"`
 	Debug        bool   `json:",optional,default=false"`
+	CacheTime    int    `json:",optional,default=10"`
 }
 
 func (c DatabaseConf) NewEntOption(redisConf redis2.RedisConf) ([]ent.Option, error) {
@@ -77,7 +78,7 @@ func (c DatabaseConf) getEntDriver(dbtype string, dialect string, dsn string, re
 
 	cacheDrv := entcache.NewDriver(
 		driver,
-		entcache.TTL(5*time.Second),
+		entcache.TTL(time.Duration(c.CacheTime)*time.Second),
 		entcache.Levels(
 			entcache.NewLRU(256),
 			entcache.NewRedis(rdb),

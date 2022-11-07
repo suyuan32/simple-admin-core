@@ -107,6 +107,7 @@ DatabaseConf:
   Password: "123456" # 密码
   MaxOpenConn: 100 # 最大连接数
   SSLMode: false # 是否在 postgresql 中使用 SSL
+  CacheTime: 5 # 秒, 数据库存时间，会导致更新数据延迟显示修改，但会加速查询
 
 # casbin 规则
 CasbinConf:
