@@ -10,6 +10,9 @@ go get -d entgo.io/ent/cmd/ent
 
 # 创建 User 模板
 go run -mod=mod entgo.io/ent/cmd/ent init User
+
+# 生成代码
+go run -mod=mod entgo.io/ent/cmd/ent generate --template glob="./ent/template/*.tmpl" ./ent/schema
 ```
 
 > 定义数据模型
