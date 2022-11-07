@@ -31,7 +31,6 @@ type DatabaseConf struct {
 	Type         string `json:",optional"` // "postgres" or "mysql"
 	MaxOpenConns *int   `json:",optional,default=100"`
 	Debug        bool   `json:",optional,default=false"`
-	AutoMigrate  bool   `json:",optional,default=false"`
 }
 
 func (c DatabaseConf) NewEntOption(redisConf redis2.RedisConf) ([]ent.Option, error) {
