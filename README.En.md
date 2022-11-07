@@ -30,10 +30,6 @@ It can help you to develop a microservice back-end management core in a short ti
 - **Authority** Manage authority via casbin, based on RBAC
 - **Other** builtin concurrency control, adaptive circuit breaker, adaptive load shedding, auto-trigger, auto recover
 
-## Notice 
-
-I will pay my all attention to develop ent version this week, in the future we can choose different orm via selecting different branch. I recommend to use ent.
-
 ## Current Progress
 
 | Module                | Status   |
@@ -89,6 +85,7 @@ docsify serve .
 
 ## Preparation
 - [Golang](http://go.dev/) and [git](https://git-scm.com/) - Project development environment
+- [Ent](https://entgo.io/docs/getting-started) - Ent
 - [Mysql](https://www.mysql.com/) - Familiar with mysql database
 - [GORM](https://gorm.io/) - Familiar with GORM apis
 - [Casbin](https://casbin.org/) - Familiar with Casbin apis

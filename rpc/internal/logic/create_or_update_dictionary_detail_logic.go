@@ -5,8 +5,6 @@ import (
 
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
@@ -62,10 +60,6 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
-		}
-		if err != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return nil, status.Error(codes.Internal, err.Error())
 		}
 
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
