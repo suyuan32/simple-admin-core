@@ -60,17 +60,27 @@ Captcha:
 
 DatabaseConf:
   Type: mysql
-  Path: "127.0.0.1"  # 修改成自己的mysql地址
+  Host: "127.0.0.1"  # 修改成自己的mysql地址
   Port: 3306
-  Config: charset=utf8mb4&parseTime=True&loc=Local
-  DBName: simple_admin
+  DBName: simple_admin # 数据库名称
   Username: root   # 用户名
   Password: "123456" # 密码
-  MaxIdleConn: 10  # 最大空闲连接
   MaxOpenConn: 100 # 最大连接数
-  LogMode: error
-  LogZap: false
+  SSLMode: false # 是否在 postgresql 中使用 SSL
 
+# casbin 规则
+CasbinConf:
+  ModelText: |
+    [request_definition]
+    r = sub, obj, act
+    [policy_definition]
+    p = sub, obj, act
+    [role_definition]
+    g = _, _
+    [policy_effect]
+    e = some(where (p.eft == allow))
+    [matchers]
+    m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
 ```
 
 > 小型网站直接使用
@@ -90,16 +100,27 @@ ListenOn: 0.0.0.0:9101  # ip可以是0.0.0.0也可以是127.0.0.1,如需其他�
 
 DatabaseConf:
   Type: mysql
-  Path: "127.0.0.1"  # 修改成自己的mysql地址
+  Host: "127.0.0.1"  # 修改成自己的mysql地址
   Port: 3306
-  Config: charset=utf8mb4&parseTime=True&loc=Local
-  DBName: simple_admin
+  DBName: simple_admin # 数据库名称
   Username: root   # 用户名
   Password: "123456" # 密码
-  MaxIdleConn: 10  # 最大空闲连接
   MaxOpenConn: 100 # 最大连接数
-  LogMode: error
-  LogZap: false
+  SSLMode: false # 是否在 postgresql 中使用 SSL
+
+# casbin 规则
+CasbinConf:
+  ModelText: |
+    [request_definition]
+    r = sub, obj, act
+    [policy_definition]
+    p = sub, obj, act
+    [role_definition]
+    g = _, _
+    [policy_effect]
+    e = some(where (p.eft == allow))
+    [matchers]
+    m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
 
 Log:
   ServiceName: coreRpcLogger

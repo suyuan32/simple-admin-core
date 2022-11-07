@@ -7,98 +7,124 @@ For example:
 package svc
 
 import (
-	"github.com/suyuan32/simple-admin-core/api/internal/config"
-	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
-	"github.com/suyuan32/simple-admin-core/common/logmessage"
-	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/config"
 
-	"github.com/casbin/casbin/v2"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
-	"github.com/zeromicro/go-zero/core/utils"
-	"github.com/zeromicro/go-zero/rest"
-	"github.com/zeromicro/go-zero/zrpc"
 )
 
 type ServiceContext struct {
-	Config    config.Config
-	Authority rest.Middleware
-	CoreRpc   coreclient.Core
-	Redis     *redis.Redis
-	Casbin    *casbin.SyncedEnforcer
+	Config config.Config
+	DB     *ent.Client
+	Redis  *redis.Redis
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
+	opts, err := c.DatabaseConf.NewEntOption(c.RedisConf)
+	logx.Must(err)
+
+	db := ent.NewClient(opts...)
+	logx.Info("Initialize database connection successfully")
+
 	// initialize redis
 	rds := c.RedisConf.NewRedis()
-	logx.Info("Initialize redis connection successfully")
-
-	// initialize database connection
-	db, err := c.DB.NewGORM()
-	if err != nil {
-		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
+	if !rds.Ping() {
+		logx.Error("Initialize redis failed")
 		return nil
 	}
-	logx.Info("Initialize database connection successful")
-
-	// initialize casbin
-	cbn := utils.NewCasbin(db)
+	logx.Info("Initialize redis connection successfully")
 
 	return &ServiceContext{
-		Config:    c,
-		Authority: middleware.NewAuthorityMiddleware(cbn, rds).Handle,
-		CoreRpc:   coreclient.NewCore(zrpc.MustNewClient(c.CoreRpc)),
-		Redis:     rds,
-		Casbin:    cbn,
+		Config: c,
+		DB:     db,
+		Redis:  rds,
 	}
 }
+
 
 ```
 
 > How to use it?
 
 ```go
-package api
+package logic
 
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/svc"
-	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type CreateOrUpdateApiLogic struct {
-	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	logx.Logger
 }
 
 func NewCreateOrUpdateApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOrUpdateApiLogic {
 	return &CreateOrUpdateApiLogic{
-		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
+		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(req *types.CreateOrUpdateApiReq) (resp *types.SimpleMsg, err error) {
-	data, err := l.svcCtx.CoreRpc.CreateOrUpdateApi(l.ctx,
-		&core.ApiInfo{
-			ID:          req.Id,
-			CreatedAt:    req.CreatedAt,
-			Path:        req.Path,
-			Description: req.Description,
-			Group:       req.Group,
-			Method:      req.Method,
-		})
-	if err != nil {
-		return nil, err
+// api management service
+func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.BaseResp, error) {
+	if in.Id == 0 {
+		err := l.svcCtx.DB.API.Create().
+			SetPath(in.Path).
+			SetDescription(in.Description).
+			SetAPIGroup(in.Group).
+			SetMethod(in.Method).
+			Exec(l.ctx)
+
+		if err != nil {
+			switch {
+			case ent.IsConstraintError(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(i18n.ApiAlreadyExists)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
+		}
+
+		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
+	} else {
+		err := l.svcCtx.DB.API.UpdateOneID(in.Id).
+			SetPath(in.Path).
+			SetDescription(in.Description).
+			SetAPIGroup(in.Group).
+			SetMethod(in.Method).
+			Exec(l.ctx)
+
+		if err != nil {
+			switch {
+			case ent.IsNotFound(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+			case ent.IsConstraintError(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
+		}
+
+		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 	}
-	return &types.SimpleMsg{Msg: data.Msg}, nil
 }
+
 
 ```
 

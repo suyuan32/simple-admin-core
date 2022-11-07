@@ -62,16 +62,27 @@ Captcha:
 
 DatabaseConf:
   Type: mysql
-  Path: "127.0.0.1"  # change to your own mysql address
+  Host: "127.0.0.1"  # change to your own mysql address
   Port: 3306
-  Config: charset=utf8mb4&parseTime=True&loc=Local # set the config for time convert in gorm
   DBName: simple_admin # database name, you can set your own name
   Username: root   # username 
   Password: "123456" # password
-  MaxIdleConn: 10  # the maximum number of connections in the idle connection pool
-  MaxOpenConn: 100 # the maximum number of open connections to the database
-  LogMode: error
-  LogZap: false
+  MaxOpenConn: 100 # the maximum number of opened connections in the  connection pool
+  SSLMode: false # in postgresql if using ssl
+
+# casbin rule
+CasbinConf:
+  ModelText: |
+    [request_definition]
+    r = sub, obj, act
+    [policy_definition]
+    p = sub, obj, act
+    [role_definition]
+    g = _, _
+    [policy_effect]
+    e = some(where (p.eft == allow))
+    [matchers]
+    m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
 
 ```
 
@@ -92,16 +103,27 @@ ListenOn: 0.0.0.0:9101  # ip can be 0.0.0.0 or 127.0.0.1, it should be 0.0.0.0 i
 
 DatabaseConf:
   Type: mysql
-  Path: "127.0.0.1"  # change to your own mysql address
+  Host: "127.0.0.1"  # change to your own mysql address
   Port: 3306
-  Config: charset=utf8mb4&parseTime=True&loc=Local # set the config for time convert in gorm
   DBName: simple_admin # database name, you can set your own name
   Username: root   # username 
   Password: "123456" # password
-  MaxIdleConn: 10  # the maximum number of connections in the idle connection pool
-  MaxOpenConn: 100 # the maximum number of open connections to the database
-  LogMode: error
-  LogZap: false
+  MaxOpenConn: 100 # the maximum number of opened connections in the  connection pool
+  SSLMode: false # in postgresql if using ssl
+
+# casbin rule
+CasbinConf:
+  ModelText: |
+    [request_definition]
+    r = sub, obj, act
+    [policy_definition]
+    p = sub, obj, act
+    [role_definition]
+    g = _, _
+    [policy_effect]
+    e = some(where (p.eft == allow))
+    [matchers]
+    m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
 
 Log:
   ServiceName: coreApiLogger

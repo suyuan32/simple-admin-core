@@ -67,7 +67,6 @@ func (Role) Annotations() []schema.Annotation {
 
 
 ```
-创建新的 schema 只需在 ent 目录执行 
 
 
 #### [schema中文参考（上）](https://blog.csdn.net/OpenSkill/article/details/108271774)
