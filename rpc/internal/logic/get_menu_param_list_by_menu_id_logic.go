@@ -4,12 +4,10 @@ import (
 	"context"
 
 	"github.com/zeromicro/go-zero/core/errorx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
-
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -31,19 +29,24 @@ func NewGetMenuParamListByMenuIdLogic(ctx context.Context, svcCtx *svc.ServiceCo
 }
 
 func (l *GetMenuParamListByMenuIdLogic) GetMenuParamListByMenuId(in *core.IDReq) (*core.MenuParamListResp, error) {
-	var paramsList []model.MenuParam
-	result := l.svcCtx.DB.Where("menu_id = ?", in.ID).Find(&paramsList)
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, errorx.DatabaseError)
+	params, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.Id)).QueryParams().All(l.ctx)
+
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+		default:
+			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		}
 	}
 
 	resp := &core.MenuParamListResp{}
-	resp.Total = uint64(result.RowsAffected)
-	for _, v := range paramsList {
+	resp.Total = uint64(len(params))
+	for _, v := range params {
 		resp.Data = append(resp.Data, &core.MenuParamResp{
-			Id:        uint64(v.ID),
-			MenuId:    uint64(v.MenuId),
+			Id:        v.ID,
 			Type:      v.Type,
 			Key:       v.Key,
 			Value:     v.Value,

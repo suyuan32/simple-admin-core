@@ -2,12 +2,12 @@ package logic
 
 import (
 	"context"
-	"errors"
-	"time"
 
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -15,7 +15,6 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
 )
 
 type CreateOrUpdateMenuLogic struct {
@@ -36,111 +35,119 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 	// get parent level
 	var menuLevel uint32
 	if in.ParentId != 0 {
-		var parent model.Menu
-		result := l.svcCtx.DB.Where("id = ?", in.ParentId).First(&parent)
-		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw("wrong parent ID", logx.Field("parentId", in.ParentId))
-			return nil, status.Error(codes.InvalidArgument, i18n.ParentNotExist)
+		m, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.ParentId)).First(l.ctx)
+
+		if err != nil {
+			switch {
+			case ent.IsNotFound(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
-		}
-		menuLevel = parent.MenuLevel + 1
+
+		menuLevel = m.MenuLevel + 1
 	} else {
 		in.ParentId = 1
 		menuLevel = 1
 	}
-	var data *model.Menu
+
 	if in.Id == 0 {
-		// create menu
-		data = &model.Menu{
-			Model:     gorm.Model{},
-			MenuType:  in.MenuType,
-			MenuLevel: menuLevel,
-			ParentId:  uint(in.ParentId),
-			Path:      in.Path,
-			Name:      in.Name,
-			Redirect:  in.Redirect,
-			Component: in.Component,
-			OrderNo:   in.OrderNo,
-			Disabled:  in.Disabled,
-			Meta: model.Meta{
-				Title:              in.Meta.Title,
-				Icon:               in.Meta.Icon,
-				HideMenu:           in.Meta.HideMenu,
-				HideBreadcrumb:     in.Meta.HideBreadcrumb,
-				CurrentActiveMenu:  in.Meta.CurrentActiveMenu,
-				IgnoreKeepAlive:    in.Meta.IgnoreKeepAlive,
-				HideTab:            in.Meta.HideTab,
-				FrameSrc:           in.Meta.FrameSrc,
-				CarryParam:         in.Meta.CarryParam,
-				HideChildrenInMenu: in.Meta.HideChildrenInMenu,
-				Affix:              in.Meta.Affix,
-				DynamicLevel:       in.Meta.DynamicLevel,
-				RealPath:           in.Meta.RealPath,
-			},
-		}
-		result := l.svcCtx.DB.Create(data)
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, errorx.DatabaseError)
-		}
-		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, i18n.MenuAlreadyExists)
+		err := l.svcCtx.DB.Menu.Create().
+			SetMenuLevel(menuLevel).
+			SetMenuType(in.MenuType).
+			SetParentID(in.ParentId).
+			SetPath(in.Path).
+			SetName(in.Name).
+			SetRedirect(in.Redirect).
+			SetComponent(in.Component).
+			SetOrderNo(in.OrderNo).
+			SetDisabled(in.Disabled).
+			// meta
+			SetTitle(in.Meta.Title).
+			SetIcon(in.Meta.Icon).
+			SetHideMenu(in.Meta.HideMenu).
+			SetHideBreadcrumb(in.Meta.HideBreadcrumb).
+			SetCurrentActiveMenu(in.Meta.CurrentActiveMenu).
+			SetIgnoreKeepAlive(in.Meta.IgnoreKeepAlive).
+			SetHideTab(in.Meta.HideTab).
+			SetFrameSrc(in.Meta.FrameSrc).
+			SetCarryParam(in.Meta.CarryParam).
+			SetHideChildrenInMenu(in.Meta.HideChildrenInMenu).
+			SetAffix(in.Meta.Affix).
+			SetDynamicLevel(in.Meta.DynamicLevel).
+			SetRealPath(in.Meta.RealPath).
+			Exec(l.ctx)
+
+		if err != nil {
+			switch {
+			case ent.IsNotFound(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+			case ent.IsConstraintError(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
 
-		logx.Infow("Create menu successfully", logx.Field("menuDetail", data))
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {
-		var origin *model.Menu
-		result := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
-		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+		exist, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.ParentId)).Exist(l.ctx)
+		if err != nil {
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, err
+		}
+
+		if !exist {
+			logx.Errorw("menu not found", logx.Field("menuId", in.Id))
 			return nil, status.Error(codes.InvalidArgument, i18n.MenuNotExists)
 		}
 
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, errorx.DatabaseError)
+		err = l.svcCtx.DB.Menu.UpdateOneID(in.Id).
+			SetMenuLevel(menuLevel).
+			SetMenuType(in.MenuType).
+			SetParentID(in.ParentId).
+			SetPath(in.Path).
+			SetName(in.Name).
+			SetRedirect(in.Redirect).
+			SetComponent(in.Component).
+			SetOrderNo(in.OrderNo).
+			SetDisabled(in.Disabled).
+			// meta
+			SetTitle(in.Meta.Title).
+			SetIcon(in.Meta.Icon).
+			SetHideMenu(in.Meta.HideMenu).
+			SetHideBreadcrumb(in.Meta.HideBreadcrumb).
+			SetCurrentActiveMenu(in.Meta.CurrentActiveMenu).
+			SetIgnoreKeepAlive(in.Meta.IgnoreKeepAlive).
+			SetHideTab(in.Meta.HideTab).
+			SetFrameSrc(in.Meta.FrameSrc).
+			SetCarryParam(in.Meta.CarryParam).
+			SetHideChildrenInMenu(in.Meta.HideChildrenInMenu).
+			SetAffix(in.Meta.Affix).
+			SetDynamicLevel(in.Meta.DynamicLevel).
+			SetRealPath(in.Meta.RealPath).
+			Exec(l.ctx)
+
+		if err != nil {
+			switch {
+			case ent.IsNotFound(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+			case ent.IsConstraintError(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
 
-		data = &model.Menu{
-			Model:     gorm.Model{ID: uint(in.Id), CreatedAt: origin.CreatedAt, UpdatedAt: time.Now()},
-			MenuLevel: menuLevel,
-			MenuType:  in.MenuType,
-			ParentId:  uint(in.ParentId),
-			Path:      in.Path,
-			Name:      in.Name,
-			Redirect:  in.Redirect,
-			Component: in.Component,
-			OrderNo:   in.OrderNo,
-			Disabled:  in.Disabled,
-			Meta: model.Meta{
-				Title:              in.Meta.Title,
-				Icon:               in.Meta.Icon,
-				HideMenu:           in.Meta.HideMenu,
-				HideBreadcrumb:     in.Meta.HideBreadcrumb,
-				CurrentActiveMenu:  in.Meta.CurrentActiveMenu,
-				IgnoreKeepAlive:    in.Meta.IgnoreKeepAlive,
-				HideTab:            in.Meta.HideTab,
-				FrameSrc:           in.Meta.FrameSrc,
-				CarryParam:         in.Meta.CarryParam,
-				HideChildrenInMenu: in.Meta.HideChildrenInMenu,
-				Affix:              in.Meta.Affix,
-				DynamicLevel:       in.Meta.DynamicLevel,
-				RealPath:           in.Meta.RealPath,
-			},
-		}
-		result = l.svcCtx.DB.Save(data)
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
-		}
-		if result.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
-		}
-
-		logx.Infow("Update menu successfully", logx.Field("detail", data))
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 	}
 }

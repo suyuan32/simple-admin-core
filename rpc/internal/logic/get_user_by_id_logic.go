@@ -4,15 +4,15 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/zeromicro/go-zero/core/errorx"
+
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type GetUserByIdLogic struct {
@@ -30,32 +30,37 @@ func NewGetUserByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfoResp, error) {
-	var u model.User
-	result := l.svcCtx.DB.Where("uuid = ?", in.UUID).First(&u)
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, result.Error
-	} else if result.RowsAffected == 0 {
-		logx.Errorw("user dose not find, please check the UUID", logx.Field("UUID", in.UUID))
-		return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
+	u, err := l.svcCtx.DB.User.Query().Where(user.UUIDEQ(in.Uuid)).First(l.ctx)
+
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+		default:
+			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		}
 	}
-	roleName, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d", u.RoleId))
-	roleValue, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d_value", u.RoleId))
+
+	roleName, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d", u.RoleID))
+	roleValue, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d_value", u.RoleID))
 	if err != nil {
 		return nil, err
 	}
+
 	return &core.UserInfoResp{
 		Nickname:  u.Nickname,
 		Avatar:    u.Avatar,
-		RoleId:    u.RoleId,
+		RoleId:    u.RoleID,
 		RoleName:  roleName,
 		RoleValue: roleValue,
 		Mobile:    u.Mobile,
 		Email:     u.Email,
-		Status:    u.Status,
-		Id:        uint64(u.ID),
+		Status:    uint64(u.Status),
+		Id:        u.ID,
 		Username:  u.Username,
-		UUID:      u.UUID,
+		Uuid:      u.UUID,
 		CreatedAt: u.CreatedAt.Unix(),
 		UpdatedAt: u.UpdatedAt.Unix(),
 	}, nil

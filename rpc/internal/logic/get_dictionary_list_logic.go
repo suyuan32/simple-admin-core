@@ -3,12 +3,11 @@ package logic
 import (
 	"context"
 
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
+	"github.com/zeromicro/go-zero/core/errorx"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
-
+	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -30,36 +29,35 @@ func NewGetDictionaryListLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryPageReq) (*core.DictionaryList, error) {
-	var dict []model.Dictionary
-	db := l.svcCtx.DB.Model(&model.Dictionary{})
+	var predicates []predicate.Dictionary
 
 	if in.Name != "" {
-		db = db.Where("name LIKE ?", "%"+in.Name+"%")
+		predicates = append(predicates, dictionary.NameContains(in.Name))
 	}
 
 	if in.Title != "" {
-		db = db.Where("title LIKE ?", "%"+in.Title+"%")
+		predicates = append(predicates, dictionary.TitleContains(in.Title))
 	}
+
+	dicts, err := l.svcCtx.DB.Dictionary.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+
+	if err != nil {
+		logx.Error(err.Error())
+		return nil, statuserr.NewInternalError(errorx.DatabaseError)
+	}
+
 	resp := &core.DictionaryList{}
-	var total int64
-	db.Count(&total)
-	resp.Total = uint64(total)
-	result := db.Limit(int(in.PageSize)).Offset(int((in.Page - 1) * in.PageSize)).Find(&dict)
+	resp.Total = dicts.PageDetails.Total
 
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, result.Error.Error())
-	}
-
-	for _, v := range dict {
+	for _, v := range dicts.List {
 		resp.Data = append(resp.Data, &core.DictionaryInfo{
-			Id:        uint64(v.ID),
-			Title:     v.Title,
-			Name:      v.Name,
-			Status:    v.Status,
-			Desc:      v.Desc,
+			Id:        v.ID,
 			CreatedAt: v.CreatedAt.UnixMilli(),
 			UpdatedAt: v.UpdatedAt.UnixMilli(),
+			Name:      v.Name,
+			Title:     v.Title,
+			Status:    uint64(v.Status),
+			Desc:      v.Desc,
 		})
 	}
 

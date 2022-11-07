@@ -13,16 +13,14 @@ Redis:
 
 DatabaseConf:
   Type: mysql
-  Path: localhost
+  Host: localhost
   Port: 3306
-  Config: charset=utf8mb4&parseTime=True&loc=Local
   DBName: simple_admin
   Username: root
   Password: "123456"
-  MaxIdleConn: 10
   MaxOpenConn: 100
-  LogMode: error
-  LogZap: false
+  SSLMode: false
+  AutoMigrate: true
 
 Log:
   ServiceName: coreMqLogger

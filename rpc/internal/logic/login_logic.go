@@ -5,20 +5,20 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
-	"gorm.io/gorm"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type LoginLogic struct {
@@ -37,46 +37,49 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 // user service
 func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
-	var u model.User
-	result := l.svcCtx.DB.Where(&model.User{Username: in.Username}).First(&u)
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
+	result, err := l.svcCtx.DB.User.Query().Where(user.UsernameEQ(in.Username)).First(l.ctx)
+	if err != nil {
+		if ent.IsNotFound(err) {
+			logx.Errorw("user not found", logx.Field("username", in.Username))
+			return nil, status.Error(codes.InvalidArgument, i18n.UserNotExists)
+		}
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 
-	if result.RowsAffected == 0 {
-		logx.Errorw("user does not find", logx.Field("username", in.Username))
-		return nil, status.Error(codes.InvalidArgument, i18n.UserNotExists)
-	}
-
-	if ok := utils.BcryptCheck(in.Password, u.Password); !ok {
+	if ok := utils.BcryptCheck(in.Password, result.Password); !ok {
 		logx.Errorw("wrong password", logx.Field("detail", in))
 		return nil, status.Error(codes.InvalidArgument, i18n.WrongUsernameOrPassword)
 	}
 
-	roleName, value, err := getRoleInfo(u.RoleId, l.svcCtx.Redis, l.svcCtx.DB)
+	roleName, value, err := getRoleInfo(result.RoleID, l.svcCtx.Redis, l.svcCtx.DB, l.ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	logx.Infow("log in successfully", logx.Field("UUID", u.UUID))
+	logx.Infow("log in successfully", logx.Field("UUID", result.UUID))
 	return &core.LoginResp{
-		Id:        u.UUID,
+		Id:        result.UUID,
 		RoleValue: value,
 		RoleName:  roleName,
-		RoleId:    u.RoleId,
+		RoleId:    result.RoleID,
 	}, nil
 
+	return nil, nil
 }
 
-func getRoleInfo(roleId uint32, rds *redis.Redis, db *gorm.DB) (roleName, roleValue string, err error) {
+func getRoleInfo(roleId uint64, rds *redis.Redis, db *ent.Client, ctx context.Context) (roleName, roleValue string, err error) {
 	if s, err := rds.Hget("roleData", strconv.Itoa(int(roleId))); err != nil {
-		var roleData []model.Role
-		res := db.Find(&roleData)
-		if res.RowsAffected == 0 {
-			logx.Error("fail to find any role")
+		roleData, err := db.Role.Query().All(ctx)
+		if err != nil {
+			if ent.IsNotFound(err) {
+				logx.Error("fail to find any roles")
+				return "", "", status.Error(codes.NotFound, errorx.TargetNotExist)
+			}
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return "", "", status.Error(codes.NotFound, errorx.TargetNotExist)
 		}
+
 		for _, v := range roleData {
 			err = rds.Hset("roleData", strconv.Itoa(int(v.ID)), v.Name)
 			err = rds.Hset("roleData", fmt.Sprintf("%d_value", v.ID), v.Value)
@@ -85,7 +88,7 @@ func getRoleInfo(roleId uint32, rds *redis.Redis, db *gorm.DB) (roleName, roleVa
 				logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
 				return "", "", status.Error(codes.Internal, errorx.RedisError)
 			}
-			if v.ID == uint(roleId) {
+			if v.ID == roleId {
 				roleName = v.Name
 				roleValue = v.Value
 			}

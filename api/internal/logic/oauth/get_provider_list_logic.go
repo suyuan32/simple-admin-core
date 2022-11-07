@@ -25,7 +25,7 @@ func NewGetProviderListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 }
 
 func (l *GetProviderListLogic) GetProviderList(req *types.PageInfo) (resp *types.ProviderListResp, err error) {
-	data, err := l.svcCtx.CoreRpc.GetProviderList(context.Background(),
+	data, err := l.svcCtx.CoreRpc.GetProviderList(l.ctx,
 		&core.PageInfoReq{
 			Page:     req.Page,
 			PageSize: req.PageSize,
@@ -38,10 +38,13 @@ func (l *GetProviderListLogic) GetProviderList(req *types.PageInfo) (resp *types
 	for _, v := range data.Data {
 		resp.Data = append(resp.Data,
 			types.ProviderInfo{
-				Id:           v.Id,
-				CreatedAt:    v.CreatedAt,
+				BaseInfo: types.BaseInfo{
+					Id:        v.Id,
+					CreatedAt: v.CreatedAt,
+					UpdatedAt: v.UpdatedAt,
+				},
 				Name:         v.Name,
-				ClientID:     v.ClientId,
+				ClientId:     v.ClientId,
 				ClientSecret: v.ClientSecret,
 				RedirectURL:  v.RedirectUrl,
 				Scopes:       v.Scopes,

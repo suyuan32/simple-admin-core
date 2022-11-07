@@ -30,14 +30,14 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.GetUserInfoResp, err error
 	if l.ctx.Value("userId").(string) == "" {
 		return nil, errorx.NewApiError(http.StatusUnauthorized, "Please log in")
 	}
-	user, err := l.svcCtx.CoreRpc.GetUserById(context.Background(),
-		&core.UUIDReq{UUID: l.ctx.Value("userId").(string)})
+	user, err := l.svcCtx.CoreRpc.GetUserById(l.ctx,
+		&core.UUIDReq{Uuid: l.ctx.Value("userId").(string)})
 	if err != nil {
 		return nil, err
 	}
 
 	return &types.GetUserInfoResp{
-		UUID:     user.UUID,
+		UUID:     user.Uuid,
 		Username: user.Username,
 		Nickname: user.Nickname,
 		Avatar:   user.Avatar,

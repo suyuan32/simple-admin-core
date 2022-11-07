@@ -3,12 +3,11 @@ package logic
 import (
 	"context"
 
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
+	"github.com/zeromicro/go-zero/core/errorx"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
-
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -30,26 +29,34 @@ func NewGetDetailByDictionaryNameLogic(ctx context.Context, svcCtx *svc.ServiceC
 }
 
 func (l *GetDetailByDictionaryNameLogic) GetDetailByDictionaryName(in *core.DictionaryDetailReq) (*core.DictionaryDetailList, error) {
-	var dict model.Dictionary
-	result := l.svcCtx.DB.Preload("Detail").Where("name = ?", in.Name).First(&dict)
+	details, err := l.svcCtx.DB.Dictionary.Query().Where(dictionary.
+		NameEQ(in.Name)).
+		QueryDictionaryDetails().
+		All(l.ctx)
 
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, result.Error.Error())
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+		default:
+			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		}
 	}
 
 	resp := &core.DictionaryDetailList{}
-	resp.Total = uint64(len(dict.Detail))
-	for _, v := range dict.Detail {
+	resp.Total = uint64(len(details))
+
+	for _, v := range details {
 		resp.Data = append(resp.Data, &core.DictionaryDetail{
-			Id:        uint64(v.ID),
+			Id:        v.ID,
 			Title:     v.Title,
 			Key:       v.Key,
 			Value:     v.Value,
-			Status:    v.Status,
+			Status:    uint64(v.Status),
 			CreatedAt: v.CreatedAt.UnixMilli(),
 			UpdatedAt: v.UpdatedAt.UnixMilli(),
-			ParentId:  int64(v.DictionaryID),
 		})
 	}
 

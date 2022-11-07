@@ -3,13 +3,11 @@ package svc
 import (
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
 	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
-	"github.com/zeromicro/go-zero/core/utils"
 	"github.com/zeromicro/go-zero/rest"
 	"github.com/zeromicro/go-zero/zrpc"
 )
@@ -19,24 +17,24 @@ type ServiceContext struct {
 	Authority rest.Middleware
 	CoreRpc   coreclient.Core
 	Redis     *redis.Redis
-	Casbin    *casbin.SyncedEnforcer
+	Casbin    *casbin.Enforcer
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	// initialize redis
 	rds := c.RedisConf.NewRedis()
-	logx.Info("Initialize redis connection successfully")
-
-	// initialize database connection
-	db, err := c.DatabaseConf.NewGORM()
-	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+	if !rds.Ping() {
+		logx.Error("initialize redis failed")
 		return nil
 	}
-	logx.Info("Initialize database connection successful")
+	logx.Info("initialize redis connection successfully")
 
-	// initialize casbin
-	cbn := utils.NewCasbin(db)
+	// initialize database connection
+	cbn, err := c.CasbinConf.NewCasbin(c.DatabaseConf)
+	if err != nil {
+		logx.Errorw("Initialize casbin failed", logx.Field("detail", err.Error()))
+		return nil
+	}
 
 	return &ServiceContext{
 		Config:    c,

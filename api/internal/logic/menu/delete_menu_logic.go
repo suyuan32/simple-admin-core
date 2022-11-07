@@ -26,7 +26,7 @@ func NewDeleteMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 }
 
 func (l *DeleteMenuLogic) DeleteMenu(req *types.IDReq) (resp *types.SimpleMsg, err error) {
-	result, err := l.svcCtx.CoreRpc.DeleteMenu(context.Background(), &core.IDReq{ID: uint64(req.ID)})
+	result, err := l.svcCtx.CoreRpc.DeleteMenu(l.ctx, &core.IDReq{Id: uint64(req.Id)})
 	if err != nil {
 		return nil, err
 	}

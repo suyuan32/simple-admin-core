@@ -17,10 +17,10 @@
         // Max length: 30
         Password   string `json:"password" validate:"max=30,min=6"`
 
-        // Captcha Id which store in redis | 验证码编号, 存在redis中
+        // Captcha ID which store in redis | 验证码编号, 存在redis中
         // Required: true
         // Max length: 20
-        CaptchaId  string `json:"captchaId"  validate:"len=20"`
+        CaptchaID  string `json:"captchaId"  validate:"len=20"`
 
         // The Captcha which users input | 用户输入的验证码
         // Required: true

@@ -64,6 +64,11 @@ func (s *CoreServer) UpdateProfile(ctx context.Context, in *core.UpdateProfileRe
 	return l.UpdateProfile(in)
 }
 
+func (s *CoreServer) UpdateUserStatus(ctx context.Context, in *core.StatusCodeReq) (*core.BaseResp, error) {
+	l := logic.NewUpdateUserStatusLogic(ctx, s.svcCtx)
+	return l.UpdateUserStatus(in)
+}
+
 // menu service
 func (s *CoreServer) CreateOrUpdateMenu(ctx context.Context, in *core.CreateOrUpdateMenuReq) (*core.BaseResp, error) {
 	l := logic.NewCreateOrUpdateMenuLogic(ctx, s.svcCtx)
@@ -80,9 +85,9 @@ func (s *CoreServer) GetMenuListByRole(ctx context.Context, in *core.IDReq) (*co
 	return l.GetMenuListByRole(in)
 }
 
-func (s *CoreServer) GetMenuByPage(ctx context.Context, in *core.PageInfoReq) (*core.MenuInfoList, error) {
-	l := logic.NewGetMenuByPageLogic(ctx, s.svcCtx)
-	return l.GetMenuByPage(in)
+func (s *CoreServer) GetMenuList(ctx context.Context, in *core.PageInfoReq) (*core.MenuInfoList, error) {
+	l := logic.NewGetMenuListLogic(ctx, s.svcCtx)
+	return l.GetMenuList(in)
 }
 
 func (s *CoreServer) CreateOrUpdateMenuParam(ctx context.Context, in *core.CreateOrUpdateMenuParamReq) (*core.BaseResp, error) {
@@ -121,9 +126,9 @@ func (s *CoreServer) GetRoleList(ctx context.Context, in *core.PageInfoReq) (*co
 	return l.GetRoleList(in)
 }
 
-func (s *CoreServer) SetRoleStatus(ctx context.Context, in *core.SetStatusReq) (*core.BaseResp, error) {
-	l := logic.NewSetRoleStatusLogic(ctx, s.svcCtx)
-	return l.SetRoleStatus(in)
+func (s *CoreServer) UpdateRoleStatus(ctx context.Context, in *core.StatusCodeReq) (*core.BaseResp, error) {
+	l := logic.NewUpdateRoleStatusLogic(ctx, s.svcCtx)
+	return l.UpdateRoleStatus(in)
 }
 
 // api management service
@@ -226,9 +231,9 @@ func (s *CoreServer) GetTokenList(ctx context.Context, in *core.TokenListReq) (*
 	return l.GetTokenList(in)
 }
 
-func (s *CoreServer) SetTokenStatus(ctx context.Context, in *core.SetStatusReq) (*core.BaseResp, error) {
-	l := logic.NewSetTokenStatusLogic(ctx, s.svcCtx)
-	return l.SetTokenStatus(in)
+func (s *CoreServer) UpdateTokenStatus(ctx context.Context, in *core.StatusCodeReq) (*core.BaseResp, error) {
+	l := logic.NewUpdateTokenStatusLogic(ctx, s.svcCtx)
+	return l.UpdateTokenStatus(in)
 }
 
 func (s *CoreServer) BlockUserAllToken(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {

@@ -3,15 +3,15 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/zeromicro/go-zero/core/errorx"
+
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type UpdateProfileLogic struct {
@@ -29,41 +29,40 @@ func NewUpdateProfileLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upd
 }
 
 func (l *UpdateProfileLogic) UpdateProfile(in *core.UpdateProfileReq) (*core.BaseResp, error) {
-	var origin model.User
-	result := l.svcCtx.DB.Where("uuid = ?", in.Uuid).First(&origin)
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, errorx.DatabaseError)
-	}
-	if result.RowsAffected == 0 {
-		logx.Errorw("Fail to find user, please check the UUID", logx.Field("UUID", in.Uuid))
-		return nil, status.Error(codes.NotFound, errorx.TargetNotExist)
-	}
+
+	u := l.svcCtx.DB.User.Update().
+		Where(user.UUID(in.Uuid))
 
 	if in.Email != "" {
-		origin.Email = in.Email
-	}
-
-	if in.Mobile != "" {
-		origin.Mobile = in.Mobile
-	}
-
-	if in.Nickname != "" {
-		origin.Nickname = in.Nickname
+		u.SetEmail(in.Email)
 	}
 
 	if in.Avatar != "" {
-		origin.Avatar = in.Avatar
+		u.SetAvatar(in.Avatar)
 	}
 
-	result = l.svcCtx.DB.Save(&origin)
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, errorx.DatabaseError)
+	if in.Mobile != "" {
+		u.SetMobile(in.Mobile)
 	}
-	if result.RowsAffected == 0 {
-		logx.Errorw("Fail to update the user profile", logx.Field("detail", origin))
-		return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
+
+	if in.Nickname != "" {
+		u.SetNickname(in.Nickname)
+	}
+
+	err := u.Exec(l.ctx)
+
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+		case ent.IsConstraintError(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
+		default:
+			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		}
 	}
 
 	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil

@@ -14,10 +14,7 @@ type (
     // The response data of dictionary information | 字典信息
     // swagger:model DictionaryInfo
     DictionaryInfo {
-        // ID
-        Id            uint64 `json:"id"`
-
-        CreatedAt      int64  `json:"createdAt"`
+        BaseInfo
 
         // Dictionary title | 字典显示名称
         Title         string `json:"title"`
@@ -26,7 +23,7 @@ type (
         Name          string `json:"name"`
 
         // Dictionary status | 字典状态
-        Status         bool   `json:"status"`
+        Status        uint64   `json:"status"`
 
         // Dictionary description | 字典描述
         Description   string `json:"description"`
@@ -53,7 +50,7 @@ type (
 
         // Dictionary status | 字典状态
         // Required: true
-        Status         bool   `json:"status" validator:"boolean"`
+        Status        uint64 `json:"status" validator:"boolean"`
 
         // Dictionary description | 字典描述
         // Required: true
@@ -89,10 +86,7 @@ type (
     // The response data of dictionary information | 字典信息
     // swagger:model DictionaryDetailInfo
     DictionaryDetailInfo {
-        // ID
-        Id            uint64 `json:"id"`
-
-        CreatedAt      int64  `json:"createdAt"`
+        BaseInfo
 
         // Dictionary title | 字典显示名称
         Title         string `json:"title"`
@@ -104,7 +98,7 @@ type (
         Value          string `json:"value"`
 
         // Status | 状态
-        Status         bool   `json:"status" validate:"boolean"`
+        Status         uint64 `json:"status" validate:"boolean"`
     }
 
     // The response data of dictionary KV list | 字典值的列表数据
@@ -143,7 +137,7 @@ type (
 
         // Status | 状态
         // Required: true
-        Status       bool   `json:"status" validate:"boolean"`
+        Status       uint64   `json:"status" validate:"boolean"`
 
         // Parent ID | 所属字典ID
         // Required: true

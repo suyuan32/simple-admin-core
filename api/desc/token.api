@@ -14,10 +14,7 @@ type (
     // The response data of Token information | Token信息
     // swagger:response TokenInfo
     TokenInfo {
-        // ID
-        Id            uint64 `json:"id"`
-
-        CreatedAt      int64  `json:"createdAt"`
+        BaseInfo
 
         // User's UUID | 用户的UUID
         UUID          string `json:"UUID"`
@@ -29,7 +26,7 @@ type (
         Source  string `json:"source"`
 
         // JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-        Status  uint32 `json:"status"`
+        Status  uint64 `json:"status"`
 
         // Expire time | 过期时间
         ExpiredAt int64 `json:"expiredAt"`
@@ -40,11 +37,7 @@ type (
     CreateOrUpdateTokenReq {
        // ID
        // Required: true
-       Id            uint64 `json:"id" validate="number"`
-
-       // Create date | 创建日期
-       // Required: true
-       CreatedAt      int64  `json:"createdAt" validate:"number"`
+       Id            uint64 `json:"ID" validate="number"`
 
        // User's UUID | 用户的UUID
        // Required: true
@@ -62,7 +55,7 @@ type (
 
        // JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
        // Required: true
-       Status  uint32 `json:"status" validate:"number"`
+       Status  uint64 `json:"status" validate:"number"`
 
        // Expire time | 过期时间
        // Required: true
@@ -122,8 +115,8 @@ service core {
     post /token/list (TokenListReq) returns (TokenListResp)
 
     // Set token status | 设置token状态
-    @handler setTokenStatus
-    post /token/status (SetBooleanStatusReq) returns (SimpleMsg)
+    @handler updateTokenStatus
+    post /token/status (StatusCodeReq) returns (SimpleMsg)
 
     // Force logging out by user UUID | 根据UUID强制用户退出
     @handler logout

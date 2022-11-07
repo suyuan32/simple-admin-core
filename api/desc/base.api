@@ -35,7 +35,7 @@ type SimpleMsg {
 type PageInfo {
     // Page number | 第几页
     // Required: true
-    Page      uint64    `json:"page" validate:"number"`
+    Page   uint64    `json:"page" validate:"number"`
 
     // Page size | 单页数据行数
     // Required: true
@@ -58,7 +58,7 @@ type PageList {
 type IDReq {
     // ID
     // Required: true
-    ID  uint `json:"id" validate:"number"`
+    Id  uint64 `json:"id" validate:"number"`
 }
 
 
@@ -67,7 +67,7 @@ type IDReq {
 type IDPathReq {
     // ID
     // Required: true
-    ID  uint `path:"id"`
+    Id  uint `path:"id"`
 }
 
 // Basic UUID request | 基础UUID参数请求
@@ -80,29 +80,26 @@ type UUIDReq {
 }
 
 // The base response data | 基础信息
-// swagger:response BaseInfo
+// swagger:model BaseInfo
 type BaseInfo {
     // ID
-    ID        uint      `json:"id"`
+    Id        uint64    `json:"id"`
 
     // Create date | 创建日期
     CreatedAt int64     `json:"createdAt"`
 
     // Update date | 更新日期
     UpdatedAt int64     `json:"updatedAt"`
-
-    // Delete date | 删除日期
-    DeletedAt int64     `json:"deletedAt"`
 }
 
 // The request params of setting boolean status | 设置状态参数
-// swagger:model SetBooleanStatusReq
-type SetBooleanStatusReq {
+// swagger:model SetStatusCodeReq
+type StatusCodeReq {
     // ID
     // Required: true
     Id     uint64  `json:"id" validate:"number"`
 
     // Status code | 状态码
     // Required: true
-    Status uint32  `json:"status" validate:"number"`
+    Status uint64  `json:"status" validate:"number"`
 }

@@ -32,7 +32,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
 	if ok := captcha.Store.Verify(req.CaptchaId, req.Captcha, true); ok {
-		user, err := l.svcCtx.CoreRpc.Login(context.Background(),
+		user, err := l.svcCtx.CoreRpc.Login(l.ctx,
 			&core.LoginReq{
 				Username: req.Username,
 				Password: req.Password,
@@ -49,10 +49,10 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 
 		// add token into database
 		expiredAt := time.Now().Add(time.Second * 259200).Unix()
-		_, err = l.svcCtx.CoreRpc.CreateOrUpdateToken(context.Background(), &core.TokenInfo{
+		_, err = l.svcCtx.CoreRpc.CreateOrUpdateToken(l.ctx, &core.TokenInfo{
 			Id:        0,
 			CreatedAt: 0,
-			UUID:      user.Id,
+			Uuid:      user.Id,
 			Token:     token,
 			Source:    "core",
 			Status:    1,

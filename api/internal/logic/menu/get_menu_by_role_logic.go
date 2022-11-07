@@ -28,7 +28,7 @@ func NewGetMenuByRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Get
 
 func (l *GetMenuByRoleLogic) GetMenuByRole() (resp []*types.GetMenuListBase, err error) {
 	roleId, _ := l.ctx.Value("roleId").(json.Number).Int64()
-	data, err := l.svcCtx.CoreRpc.GetMenuListByRole(context.Background(), &core.IDReq{ID: uint64(roleId)})
+	data, err := l.svcCtx.CoreRpc.GetMenuListByRole(l.ctx, &core.IDReq{Id: uint64(roleId)})
 	if err != nil {
 		return nil, err
 	}

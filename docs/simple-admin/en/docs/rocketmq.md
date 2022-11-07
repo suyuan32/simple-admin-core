@@ -55,7 +55,7 @@ func (l *DeleteInvalidTokenTask) Start() {
 		}
 		msg.WithKeys([]string{"DeleteInvalidTokenTask"})
 
-		res, err := l.producer.SendSync(context.Background(), msg)
+		res, err := l.producer.SendSync(l.ctx, msg)
 
 		if err != nil {
 			logx.Errorf("DeleteInvalidTokenTask send message error: %s\n", err.Error())

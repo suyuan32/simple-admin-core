@@ -2,17 +2,15 @@ package logic
 
 import (
 	"context"
-	"fmt"
-	"strings"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type CreateOrUpdateMenuAuthorityLogic struct {
@@ -30,29 +28,27 @@ func NewCreateOrUpdateMenuAuthorityLogic(ctx context.Context, svcCtx *svc.Servic
 }
 
 func (l *CreateOrUpdateMenuAuthorityLogic) CreateOrUpdateMenuAuthority(in *core.RoleMenuAuthorityReq) (*core.BaseResp, error) {
-	// delete the data create before
-	deleteString := fmt.Sprintf("DELETE from role_menus where role_id = %d", in.RoleId)
-	result := l.svcCtx.DB.Exec(deleteString)
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, errorx.DatabaseError)
-	}
+	err := utils.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
+		err := tx.Role.UpdateOneID(in.RoleId).ClearMenus().Exec(l.ctx)
 
-	var insertString strings.Builder
-	insertString.WriteString("insert into role_menus values ")
-	for i := 0; i < len(in.MenuId); i++ {
-		if i != len(in.MenuId)-1 {
-			insertString.WriteString(fmt.Sprintf("(%d, %d),", in.MenuId[i], in.RoleId))
-		} else {
-			insertString.WriteString(fmt.Sprintf("(%d, %d);", in.MenuId[i], in.RoleId))
+		if err != nil {
+			logx.Errorf("delete role's menu failed, error: %s", err.Error())
+			return err
 		}
-	}
-	result = l.svcCtx.DB.Exec(insertString.String())
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, errorx.DatabaseError)
+
+		err = tx.Role.UpdateOneID(in.RoleId).AddMenuIDs(in.MenuId...).Exec(l.ctx)
+		if err != nil {
+			logx.Errorf("add role's menu failed, error: %s", err.Error())
+			return err
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		logx.Errorf("update menu authority failed, error : %s", err.Error())
+		return nil, statuserr.NewInternalError(errorx.DatabaseError)
 	}
 
-	logx.Infow(logmsg.UpdateSuccess, logx.Field("authorityRelation", insertString.String()))
 	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
 }

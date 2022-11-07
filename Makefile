@@ -1,3 +1,10 @@
+RED  =  "\e[31;1m"
+GREEN = "\e[32;1m"
+YELLOW = "\e[33;1m"
+BLUE  = "\e[34;1m"
+PURPLE = "\e[35;1m"
+CYAN  = "\e[36;1m"
+
 docker:
 	docker build -f Dockerfile-api -t ${DOCKER_USERNAME}/core-api:${VERSION} .
 	docker build -f Dockerfile-rpc -t ${DOCKER_USERNAME}/core-rpc:${VERSION} .
@@ -8,3 +15,21 @@ publish-docker:
 	docker push ${REPO}/${DOCKER_USERNAME}/core-rpc:${VERSION}
 	docker push ${REPO}/${DOCKER_USERNAME}/core-api:${VERSION}
 	# docker push ${REPO}/${DOCKER_USERNAME}/core-job:${VERSION}
+
+gen-api:
+	goctls api go --api ./api/desc/core.api --dir ./api
+	swagger generate spec --output=./core.yml --scan-models
+	@printf $(GREEN)"[SUCCESS] generate API success"
+
+gen-rpc:
+	goctls rpc protoc ./rpc/core.proto --go_out=./rpc/types --go-grpc_out=./rpc/types --zrpc_out=./rpc
+	@printf $(GREEN)"[SUCCESS] generate rpc success"
+
+gen-swagger:
+	swagger generate spec --output=./core.yml --scan-models
+	@printf $(GREEN)"[SUCCESS] generate swagger success"
+
+serve-swagger:
+	lsof -i:36666 | awk 'NR!=1 {print $2}' | xargs killall -9 || true
+	@printf $(GREEN)"[SUCCESS] serve swagger-ui success"
+	swagger serve -F=swagger --port 36666 core.yml

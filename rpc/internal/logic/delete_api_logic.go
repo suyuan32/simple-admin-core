@@ -3,16 +3,13 @@ package logic
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
 )
 
 type DeleteApiLogic struct {
@@ -30,19 +27,18 @@ func NewDeleteApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteA
 }
 
 func (l *DeleteApiLogic) DeleteApi(in *core.IDReq) (*core.BaseResp, error) {
-	result := l.svcCtx.DB.Delete(&model.Api{
-		Model: gorm.Model{ID: uint(in.ID)},
-	})
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, result.Error.Error())
-	}
-	if result.RowsAffected == 0 {
-		logx.Errorw("delete API failed, check the id", logx.Field("apiId", in.ID))
-		return nil, status.Error(codes.InvalidArgument, errorx.DeleteFailed)
-	}
+	err := l.svcCtx.DB.API.DeleteOneID(in.Id).Exec(l.ctx)
 
-	logx.Infow("delete API successfully", logx.Field("apiId", in.ID))
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+		default:
+			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		}
+	}
 
 	return &core.BaseResp{Msg: errorx.DeleteSuccess}, nil
 }

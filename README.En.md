@@ -20,7 +20,7 @@ It can help you to develop a microservice back-end management core in a short ti
 
 ## Feature
 
-- **State of The Art Development**：Use latest back-end technology development such as gorm, go-zero, casbin
+- **State of The Art Development**：Use latest back-end technology development such as ent, go-zero, casbin
 - **Fully support go-swagger**: Write comment in api file and generate swagger doc easily
 - **Error handling**: Handle error messages via one module
 - **International**：support different languages show in the front-end via put locale path in the message 
@@ -52,6 +52,7 @@ I will pay my all attention to develop ent version this week, in the future we c
 | JWT blacklist | Finished |
 | Job Schedule | Finished | 
 | Message queue | Finished |
+| Ent | Finished |
 
 ### The use of consul for service registration discovery in the early stage of the project is mainly to adapt to low-configuration servers. In the near future, the deployment process of K8s will be mainly optimized, and the project will mainly use K8s for deployment in the future.
 

@@ -26,8 +26,8 @@ func NewCreateOrUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(req *types.CreateOrUpdateUserReq) (resp *types.SimpleMsg, err error) {
-	data, err := l.svcCtx.CoreRpc.CreateOrUpdateUser(context.Background(), &core.CreateOrUpdateUserReq{
-		Id:       uint64(req.Id),
+	data, err := l.svcCtx.CoreRpc.CreateOrUpdateUser(l.ctx, &core.CreateOrUpdateUserReq{
+		Id:       req.Id,
 		Avatar:   req.Avatar,
 		RoleId:   req.RoleId,
 		Mobile:   req.Mobile,

@@ -4,10 +4,7 @@ package types
 // Create or update role information params | 创建或更新角色信息参数
 // swagger:model RoleInfo
 type RoleInfo struct {
-	// Role ID | 角色 ID
-	// Required : true
-	// Maximum: 1000
-	Id uint64 `json:"id" validate:"number,max=1000"`
+	BaseInfo
 	// Role Name | 角色名
 	// Required : true
 	// Max length: 20
@@ -32,9 +29,6 @@ type RoleInfo struct {
 	// Required : true
 	// Maximum: 1000
 	OrderNo uint32 `json:"orderNo" validate:"number,max=1000"`
-	// Create time | 创建日期
-	// Required: true
-	CreatedAt int64 `json:"createdAt" validate:"number"`
 }
 
 // The response data of role list | 角色列表数据
@@ -45,19 +39,6 @@ type RoleListResp struct {
 	// The role list data | 角色列表数据
 	// in: body
 	Data []RoleInfo `json:"data"`
-}
-
-// The request params of setting role status | 设置角色状态参数
-// swagger:model SetStatusReq
-type SetStatusReq struct {
-	// ID
-	// Required: true
-	// Maximum: 1000
-	Id uint64 `json:"id" validate:"number,max=1000"`
-	// Status code | 状态码
-	// Required: true
-	// Maximum: 20
-	Status uint32 `json:"status" validate:"number,max=20"`
 }
 
 // The basic response with data | 基础带数据信息
@@ -108,7 +89,7 @@ type PageList struct {
 type IDReq struct {
 	// ID
 	// Required: true
-	ID uint `json:"id" validate:"number"`
+	Id uint64 `json:"id" validate:"number"`
 }
 
 // Basic id request | 基础id参数请求
@@ -116,7 +97,7 @@ type IDReq struct {
 type IDPathReq struct {
 	// ID
 	// Required: true
-	ID uint `path:"id"`
+	Id uint `path:"id"`
 }
 
 // Basic UUID request | 基础UUID参数请求
@@ -129,27 +110,25 @@ type UUIDReq struct {
 }
 
 // The base response data | 基础信息
-// swagger:response BaseInfo
+// swagger:model BaseInfo
 type BaseInfo struct {
 	// ID
-	ID uint `json:"id"`
+	Id uint64 `json:"id"`
 	// Create date | 创建日期
 	CreatedAt int64 `json:"createdAt"`
 	// Update date | 更新日期
 	UpdatedAt int64 `json:"updatedAt"`
-	// Delete date | 删除日期
-	DeletedAt int64 `json:"deletedAt"`
 }
 
 // The request params of setting boolean status | 设置状态参数
-// swagger:model SetBooleanStatusReq
-type SetBooleanStatusReq struct {
+// swagger:model SetStatusCodeReq
+type StatusCodeReq struct {
 	// ID
 	// Required: true
 	Id uint64 `json:"id" validate:"number"`
 	// Status code | 状态码
 	// Required: true
-	Status uint32 `json:"status" validate:"number"`
+	Status uint64 `json:"status" validate:"number"`
 }
 
 // login request | 登录参数
@@ -164,7 +143,7 @@ type LoginReq struct {
 	// Min length: 6
 	// Max length: 30
 	Password string `json:"password" validate:"max=30,min=6"`
-	// Captcha Id which store in redis | 验证码编号, 存在redis中
+	// Captcha ID which store in redis | 验证码编号, 存在redis中
 	// Required: true
 	// Max length: 20
 	CaptchaId string `json:"captchaId"  validate:"len=20"`
@@ -238,7 +217,7 @@ type RegisterReq struct {
 	// Min length: 6
 	// Max length: 30
 	Password string `json:"password" validate:"max=30,min=6"`
-	// Captcha Id which store in redis | 验证码编号, 存在redis中
+	// Captcha ID which store in redis | 验证码编号, 存在redis中
 	// Required: true
 	// Max length: 20
 	CaptchaId string `json:"captchaId" validate:"len=20"`
@@ -268,8 +247,7 @@ type ChangePasswordReq struct {
 // The response data of user's information | 用户信息返回数据
 // swagger:response UserInfoResp
 type UserInfoResp struct {
-	// User's id | 用户Id
-	Id int64 `json:"id"`
+	BaseInfo
 	// User's UUID | 用户的UUID
 	UUID string `json:"UUID"`
 	// User Name | 用户名
@@ -278,8 +256,8 @@ type UserInfoResp struct {
 	Nickname string `json:"nickname"`
 	// User's mobile phone number | 用户的手机号码
 	Mobile string `json:"mobile"`
-	// User's role id | 用户的角色Id
-	RoleId uint32 `json:"roleId"`
+	// User's role id | 用户的角色ID
+	RoleId uint64 `json:"roleId"`
 	// The user's email address | 用户的邮箱
 	Email string `json:"email"`
 	// The user's avatar path | 用户的头像路径
@@ -288,16 +266,14 @@ type UserInfoResp struct {
 	SideMode string `json:"sideMode"`
 	// The user's status | 用户状态
 	// 1 normal, 2 ban | 1 正常 2 拉黑
-	Status    int32 `json:"status"`
-	CreatedAt int64 `json:"createdAt"`
-	UpdatedAt int64 `json:"updatedAt"`
+	Status uint64 `json:"status"`
 }
 
 // The response data of user's basic information | 用户基本信息返回数据
 // swagger:model GetUserInfoResp
 type GetUserInfoResp struct {
 	// User's UUID | 用户的UUID
-	UUID string `json:"UUID"`
+	UUID string `json:"userId"`
 	// User's name | 用户名
 	Username string `json:"username"`
 	// User's nickname | 用户的昵称
@@ -338,9 +314,9 @@ type PermCodeResp struct {
 // Create or update user information request | 创建或更新用户信息
 // swagger:model CreateOrUpdateUserReq
 type CreateOrUpdateUserReq struct {
-	// User's id | 用户Id
+	// User's id | 用户ID
 	// Required: true
-	Id int64 `json:"id" validate:"number"`
+	Id uint64 `json:"id" validate:"number"`
 	// User Name | 用户名
 	// Required: true
 	// Max length: 20
@@ -358,10 +334,10 @@ type CreateOrUpdateUserReq struct {
 	// Required: true
 	// Max length: 18
 	Mobile string `json:"mobile" validate:"numeric,max=18"`
-	// User's role id | 用户的角色Id
+	// User's role id | 用户的角色ID
 	// Required: true
 	// Maximum: 1000
-	RoleId uint32 `json:"roleId" validate:"number,max=1000"`
+	RoleId uint64 `json:"roleId" validate:"number,max=1000"`
 	// The user's email address | 用户的邮箱
 	// Required: true
 	// Max length: 100
@@ -374,7 +350,7 @@ type CreateOrUpdateUserReq struct {
 	// 1 normal, 2 ban | 1 正常 2 拉黑
 	// Required: true
 	// Maximum: 20
-	Status int32 `json:"status" validate:"number,max=20"`
+	Status uint64 `json:"status" validate:"number,max=20"`
 }
 
 // Get user list request | 获取用户列表请求参数
@@ -399,20 +375,20 @@ type GetUserListReq struct {
 	// The user's email address | 用户的邮箱
 	// Max length: 100
 	Email string `json:"email,optional" validate:"omitempty,email,max=100"`
-	// User's role ID | 用户的角色Id
+	// User's role ID | 用户的角色ID
 	// Maximum: 1000
 	RoleId uint64 `json:"roleId,optional" validate:"omitempty,number,max=1000"`
 }
 
 // The response data of menu information | 菜单返回数据
 // swagger:response Menu
-type Menu struct {
+type MenuInfo struct {
 	BaseInfo
 	// Menu type: directory or menu | 菜单类型: 目录或菜单
 	// 0. directory group 1. menu | 0 目录 1 菜单
 	MenuType uint32 `json:"type"`
 	// Parent menu ID | 父级菜单ID
-	ParentId uint `json:"parentId"`
+	ParentId uint64 `json:"parentId"`
 	// The menu level | 菜单等级
 	MenuLevel uint32 `json:"level"`
 	// The path to visit menu | 菜单访问路径
@@ -430,7 +406,7 @@ type Menu struct {
 	Meta
 	// children | 子集
 	// in: body
-	Children []*Menu `json:"children"`
+	Children []*MenuInfo `json:"children"`
 }
 
 // The meta data of menu | 菜单的meta数据
@@ -474,16 +450,16 @@ type MenuListResp struct {
 	Total uint64 `json:"total"`
 	// The menu list data | 菜单列表数据
 	// in: body
-	Data []*Menu `json:"data"`
+	Data []*MenuInfo `json:"data"`
 }
 
 // The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
-// swagger:response MenuListResp
+// swagger:response GetMenuListBase
 type GetMenuListBase struct {
 	// Menu type: directory or menu | 菜单类型: 目录或菜单
 	MenuType uint32 `json:"type"`
 	// Parent menu ID | 父级菜单ID
-	ParentId uint `json:"parentId"`
+	ParentId uint64 `json:"parentId"`
 	// The menu level | 菜单等级
 	MenuLevel uint32 `json:"level"`
 	// The path to visit menu | 菜单访问路径
@@ -510,14 +486,14 @@ type GetMenuListBase struct {
 type CreateOrUpdateMenuReq struct {
 	// ID
 	// Required: true
-	ID uint32 `json:"id" validate:"number"`
+	Id uint64 `json:"id" validate:"number"`
 	// Menu type: directory or menu | 菜单类型: 目录或菜单
 	// Required: true
 	// Maximum: 10
 	MenuType uint32 `json:"type" validate:"number,max=10"`
 	// Parent menu ID | 父级菜单ID
 	// Required: true
-	ParentId uint `json:"parentId" validate:"number"`
+	ParentId uint64 `json:"parentId" validate:"number"`
 	// The path to visit menu | 菜单访问路径
 	// Required: true
 	// Max length: 30
@@ -551,10 +527,10 @@ type CreateOrUpdateMenuReq struct {
 type CreateOrUpdateMenuParamReq struct {
 	// ID
 	// Required: true
-	ID uint32 `json:"id" validate:"number"`
+	Id uint64 `json:"id" validate:"number"`
 	// Menu ID | 菜单ID
 	// Required: true
-	MenuId uint32 `json:"menuId" validate:"number"`
+	MenuId uint64 `json:"menuId" validate:"number"`
 	// Data Type | 数据类型
 	// Required: true
 	// Min length: 1
@@ -576,8 +552,6 @@ type CreateOrUpdateMenuParamReq struct {
 // swagger:response MenuParamResp
 type MenuParamResp struct {
 	BaseInfo
-	// Menu ID | 菜单ID
-	MenuId uint32 `json:"menuId"`
 	// Data Type | 数据类型
 	DataType string `json:"dataType"`
 	// Key | 键
@@ -606,9 +580,7 @@ type CaptchaInfo struct {
 // The response data of API information | API信息
 // swagger:response ApiInfo
 type ApiInfo struct {
-	// ID
-	Id        uint64 `json:"id"`
-	CreatedAt int64  `json:"createdAt"`
+	BaseInfo
 	// API path | API路径
 	Path string `json:"path"`
 	// API Description | API 描述
@@ -625,9 +597,6 @@ type CreateOrUpdateApiReq struct {
 	// ID
 	// Required: true
 	Id uint64 `json:"id" validate:"number"`
-	// Create date | 创建日期
-	// Required: true
-	CreatedAt int64 `json:"createdAt" validate:"number"`
 	// API path | API路径
 	// Required: true
 	// Min length: 1
@@ -732,15 +701,13 @@ type MenuAuthorityInfoResp struct {
 // The response data of dictionary information | 字典信息
 // swagger:model DictionaryInfo
 type DictionaryInfo struct {
-	// ID
-	Id        uint64 `json:"id"`
-	CreatedAt int64  `json:"createdAt"`
+	BaseInfo
 	// Dictionary title | 字典显示名称
 	Title string `json:"title"`
 	// Dictionary name | 字典名称
 	Name string `json:"name"`
 	// Dictionary status | 字典状态
-	Status bool `json:"status"`
+	Status uint64 `json:"status"`
 	// Dictionary description | 字典描述
 	Description string `json:"description"`
 }
@@ -763,7 +730,7 @@ type CreateOrUpdateDictionaryReq struct {
 	Name string `json:"name" validate:"min=1,max=50"`
 	// Dictionary status | 字典状态
 	// Required: true
-	Status bool `json:"status" validator:"boolean"`
+	Status uint64 `json:"status" validator:"boolean"`
 	// Dictionary description | 字典描述
 	// Required: true
 	// Max length: 50
@@ -795,9 +762,7 @@ type DictionaryListReq struct {
 // The response data of dictionary information | 字典信息
 // swagger:model DictionaryDetailInfo
 type DictionaryDetailInfo struct {
-	// ID
-	Id        uint64 `json:"id"`
-	CreatedAt int64  `json:"createdAt"`
+	BaseInfo
 	// Dictionary title | 字典显示名称
 	Title string `json:"title"`
 	// Key name | 键
@@ -805,7 +770,7 @@ type DictionaryDetailInfo struct {
 	// Value | 值
 	Value string `json:"value"`
 	// Status | 状态
-	Status bool `json:"status" validate:"boolean"`
+	Status uint64 `json:"status" validate:"boolean"`
 }
 
 // The response data of dictionary KV list | 字典值的列表数据
@@ -839,7 +804,7 @@ type CreateOrUpdateDictionaryDetailReq struct {
 	Value string `json:"value"`
 	// Status | 状态
 	// Required: true
-	Status bool `json:"status" validate:"boolean"`
+	Status uint64 `json:"status" validate:"boolean"`
 	// Parent ID | 所属字典ID
 	// Required: true
 	ParentId uint64 `json:"parentId" validate:"number"`
@@ -855,13 +820,11 @@ type DictionaryDetailReq struct {
 // The response data of oauth provider information | 提供者信息
 // swagger:response ProviderInfo
 type ProviderInfo struct {
-	// ID
-	Id        uint64 `json:"id"`
-	CreatedAt int64  `json:"createdAt"`
+	BaseInfo
 	// Provider name | 提供商名字
 	Name string `json:"name"`
 	// Client ID | 客户端ID
-	ClientID string `json:"clientID"`
+	ClientId string `json:"clientId"`
 	// Client secret | 客户端密码
 	ClientSecret string `json:"clientSecret"`
 	// Redirect URL | 跳转URL
@@ -884,9 +847,6 @@ type CreateOrUpdateProviderReq struct {
 	// ID
 	// Required: true
 	Id uint64 `json:"id" validate:"number"`
-	// Create date | 创建日期
-	// Required: true
-	CreatedAt int64 `json:"createdAt" validate:"number"`
 	// Provider name | 提供商名字
 	// Required: true
 	// Min length: 1
@@ -895,7 +855,7 @@ type CreateOrUpdateProviderReq struct {
 	// Client ID | 客户端ID
 	// Required: true
 	// Max length: 100
-	ClientID string `json:"clientID" validate:"max=100"`
+	ClientId string `json:"clientId" validate:"max=100"`
 	// Client secret | 客户端密码
 	// Require: true
 	// Min length: 1
@@ -975,9 +935,7 @@ type CallbackResp struct {
 // The response data of Token information | Token信息
 // swagger:response TokenInfo
 type TokenInfo struct {
-	// ID
-	Id        uint64 `json:"id"`
-	CreatedAt int64  `json:"createdAt"`
+	BaseInfo
 	// User's UUID | 用户的UUID
 	UUID string `json:"UUID"`
 	// Token string | Token 字符串
@@ -985,7 +943,7 @@ type TokenInfo struct {
 	// Log in source such as github | Token 来源 （本地为core, 第三方如github等）
 	Source string `json:"source"`
 	// JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-	Status uint32 `json:"status"`
+	Status uint64 `json:"status"`
 	// Expire time | 过期时间
 	ExpiredAt int64 `json:"expiredAt"`
 }
@@ -995,10 +953,7 @@ type TokenInfo struct {
 type CreateOrUpdateTokenReq struct {
 	// ID
 	// Required: true
-	Id uint64 `json:"id" validate="number"`
-	// Create date | 创建日期
-	// Required: true
-	CreatedAt int64 `json:"createdAt" validate:"number"`
+	Id uint64 `json:"ID" validate="number"`
 	// User's UUID | 用户的UUID
 	// Required: true
 	// Max Length: 36
@@ -1012,7 +967,7 @@ type CreateOrUpdateTokenReq struct {
 	Source string `json:"source" validate:"max=50"`
 	// JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
 	// Required: true
-	Status uint32 `json:"status" validate:"number"`
+	Status uint64 `json:"status" validate:"number"`
 	// Expire time | 过期时间
 	// Required: true
 	ExpiredAt int64 `json:"expiredAt" validate:"number"`

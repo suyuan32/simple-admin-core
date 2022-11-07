@@ -13,8 +13,11 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -44,65 +47,73 @@ func NewOauthCallbackLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Oau
 func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginResp, error) {
 	provider := strings.Split(in.State, "-")[1]
 	if _, ok := providerConfig[provider]; !ok {
-		var target model.OauthProvider
-		check := l.svcCtx.DB.Where("name = ?", provider).First(&target)
-		if check.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", check.Error.Error()))
-			return nil, status.Error(codes.Internal, check.Error.Error())
-		}
+		p, err := l.svcCtx.DB.OauthProvider.Query().Where(oauthprovider.NameEQ(provider)).First(l.ctx)
 
-		if check.RowsAffected == 0 {
-			logx.Errorw("provider not found", logx.Field("detail", target))
-			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
+		if err != nil {
+			switch {
+			case ent.IsNotFound(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
 
 		providerConfig[provider] = oauth2.Config{
-			ClientID:     target.ClientID,
-			ClientSecret: target.ClientSecret,
+			ClientID:     p.ClientID,
+			ClientSecret: p.ClientSecret,
 			Endpoint: oauth2.Endpoint{
-				AuthURL:   target.AuthURL,
-				TokenURL:  target.TokenURL,
-				AuthStyle: oauth2.AuthStyle(target.AuthStyle),
+				AuthURL:   p.AuthURL,
+				TokenURL:  p.TokenURL,
+				AuthStyle: oauth2.AuthStyle(p.AuthStyle),
 			},
-			RedirectURL: target.RedirectURL,
-			Scopes:      strings.Split(target.Scopes, " "),
+			RedirectURL: p.RedirectURL,
+			Scopes:      strings.Split(p.Scopes, " "),
 		}
-		if _, ok := userInfoURL[target.Name]; !ok {
-			userInfoURL[target.Name] = target.InfoURL
+		if _, ok := userInfoURL[p.Name]; !ok {
+			userInfoURL[p.Name] = p.InfoURL
 		}
 	}
 
 	// get user information
 	content, err := getUserInfo(providerConfig[provider], userInfoURL[provider], in.Code)
 	if err != nil {
-		return nil, status.Error(codes.InvalidArgument, err.Error())
+		return nil, statuserr.NewInvalidArgumentError(err.Error())
 	}
 
 	// find or register user
 	var u userInfo
 	err = json.Unmarshal(content, &u)
 	if err != nil {
-		return nil, status.Error(codes.Internal, err.Error())
+		return nil, statuserr.NewInternalError(err.Error())
 	}
 
 	if u.Email != "" {
-		var targetUser model.User
-		check := l.svcCtx.DB.Where("email = ?", u.Email).First(&targetUser)
-		if check.RowsAffected == 0 {
-			return nil, status.Error(codes.InvalidArgument, u.Email)
-		} else {
-			roleName, roleValue, err := getRoleInfo(targetUser.RoleId, l.svcCtx.Redis, l.svcCtx.DB)
-			if err != nil {
-				return nil, err
-			}
+		targetUser, err := l.svcCtx.DB.User.Query().Where(user.EmailEQ(u.Email)).First(l.ctx)
 
-			return &core.LoginResp{
-				Id:        targetUser.UUID,
-				RoleName:  roleName,
-				RoleValue: roleValue,
-				RoleId:    targetUser.RoleId,
-			}, nil
+		if err != nil {
+			switch {
+			case ent.IsNotFound(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, statuserr.NewInvalidArgumentError(i18n.UserNotExists)
+			default:
+				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			}
 		}
+
+		roleName, roleValue, err := getRoleInfo(targetUser.RoleID, l.svcCtx.Redis, l.svcCtx.DB, l.ctx)
+		if err != nil {
+			return nil, err
+		}
+
+		return &core.LoginResp{
+			Id:        targetUser.UUID,
+			RoleName:  roleName,
+			RoleValue: roleValue,
+			RoleId:    targetUser.RoleID,
+		}, nil
 	}
 
 	return nil, status.Error(codes.InvalidArgument, errorx.Failed)

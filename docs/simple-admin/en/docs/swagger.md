@@ -81,7 +81,7 @@ type BarSliceParam struct {
     // swagger:response ApiInfo
     ApiInfo {
         // ID
-        Id            uint64 `json:"id"`
+        ID            uint64 `json:"id"`
 
         CreatedAt      int64  `json:"createdAt"`
 

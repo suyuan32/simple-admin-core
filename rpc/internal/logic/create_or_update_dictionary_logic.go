@@ -2,16 +2,15 @@ package logic
 
 import (
 	"context"
-	"errors"
 
 	"github.com/zeromicro/go-zero/core/errorx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -36,52 +35,49 @@ func NewCreateOrUpdateDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceCo
 // dictionary management service
 func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.DictionaryInfo) (*core.BaseResp, error) {
 	if in.Id == 0 {
-		result := l.svcCtx.DB.Create(&model.Dictionary{
-			Model:  gorm.Model{},
-			Title:  in.Title,
-			Name:   in.Name,
-			Status: in.Status,
-			Desc:   in.Desc,
-			Detail: nil,
-		})
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
-		}
-		if result.RowsAffected == 0 {
-			logx.Errorw("dictionary already exists", logx.Field("detail", in))
-			return nil, status.Error(codes.InvalidArgument, i18n.DictionaryAlreadyExists)
+		err := l.svcCtx.DB.Dictionary.Create().
+			SetTitle(in.Title).
+			SetName(in.Name).
+			SetStatus(uint8(in.Status)).
+			SetDesc(in.Desc).
+			Exec(l.ctx)
+
+		if err != nil {
+			if ent.IsConstraintError(err) {
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
+			}
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
 
 		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
 	} else {
-		var origin model.Dictionary
-		check := l.svcCtx.DB.Where("id = ?", in.Id).First(&origin)
-		if check.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", check.Error.Error()))
-			return nil, status.Error(codes.Internal, check.Error.Error())
+		exist, err := l.svcCtx.DB.Dictionary.Query().Where(dictionary.IDEQ(in.Id)).Exist(l.ctx)
+		if err != nil {
+			return nil, err
 		}
 
-		if errors.Is(check.Error, gorm.ErrRecordNotFound) {
-			logx.Errorw(logmsg.TargetNotFound, logx.Field("detail", in))
-			return nil, status.Error(codes.InvalidArgument, errorx.TargetNotExist)
+		if err != nil {
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, status.Error(codes.Internal, err.Error())
 		}
 
-		origin.Title = in.Title
-		origin.Name = in.Name
-		origin.Status = in.Status
-		origin.Desc = in.Desc
-
-		result := l.svcCtx.DB.Save(&origin)
-
-		if result.Error != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-			return nil, status.Error(codes.Internal, result.Error.Error())
-		}
-
-		if result.RowsAffected == 0 {
-			logx.Errorw(logmsg.UpdateFailed, logx.Field("detail", in))
+		if !exist {
+			logx.Errorw(errorx.TargetNotExist, logx.Field("id", in.Id))
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
+		}
+
+		err = l.svcCtx.DB.Dictionary.UpdateOneID(in.Id).
+			SetTitle(in.Title).
+			SetName(in.Name).
+			SetStatus(uint8(in.Status)).
+			SetDesc(in.Desc).
+			Exec(l.ctx)
+
+		if err != nil {
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInvalidArgumentError(logmsg.UpdateFailed)
 		}
 
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil

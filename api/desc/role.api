@@ -14,10 +14,7 @@ type (
     // Create or update role information params | 创建或更新角色信息参数
     // swagger:model RoleInfo
     RoleInfo {
-        // Role ID | 角色 ID
-        // Required : true
-        // Maximum: 1000
-        Id            uint64 `json:"id" validate:"number,max=1000"`
+        BaseInfo
 
         // Role Name | 角色名
         // Required : true
@@ -48,10 +45,6 @@ type (
         // Required : true
         // Maximum: 1000
         OrderNo       uint32 `json:"orderNo" validate:"number,max=1000"`
-
-        // Create time | 创建日期
-        // Required: true
-        CreatedAt      int64  `json:"createdAt" validate:"number"`
     }
 
     // The response data of role list | 角色列表数据
@@ -63,20 +56,6 @@ type (
         // The role list data | 角色列表数据
         // in: body
         Data  []RoleInfo  `json:"data"`
-    }
-
-    // The request params of setting role status | 设置角色状态参数
-    // swagger:model SetStatusReq
-    SetStatusReq {
-        // ID
-        // Required: true
-        // Maximum: 1000
-        Id     uint64  `json:"id" validate:"number,max=1000"`
-
-        // Status code | 状态码
-        // Required: true
-        // Maximum: 20
-        Status uint32  `json:"status" validate:"number,max=20"`
     }
 )
 
@@ -100,6 +79,6 @@ service core {
     post /role/list (PageInfo) returns (RoleListResp)
 
     // Set role status | 设置角色状态
-    @handler setRoleStatus
-    post /role/status (SetStatusReq) returns (SimpleMsg)
+    @handler updateRoleStatus
+    post /role/status (StatusCodeReq) returns (SimpleMsg)
 }

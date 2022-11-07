@@ -26,7 +26,7 @@ func NewDeleteDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *DeleteDictionaryLogic) DeleteDictionary(req *types.IDReq) (resp *types.SimpleMsg, err error) {
-	result, err := l.svcCtx.CoreRpc.DeleteDictionary(context.Background(), &core.IDReq{ID: uint64(req.ID)})
+	result, err := l.svcCtx.CoreRpc.DeleteDictionary(l.ctx, &core.IDReq{Id: req.Id})
 
 	if err != nil {
 		return nil, err

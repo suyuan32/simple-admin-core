@@ -2,16 +2,14 @@ package logic
 
 import (
 	"context"
-	"errors"
 	"time"
 
 	"github.com/zeromicro/go-zero/core/errorx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
 
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -33,26 +31,41 @@ func NewBlockUserAllTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.BaseResp, error) {
-	result := l.svcCtx.DB.Model(&model.Token{}).Where("uuid = ?", in.UUID).Update("status", 0)
-	if result.Error != nil && !errors.Is(result.Error, gorm.ErrRecordNotFound) {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, errorx.DatabaseError)
+	err := l.svcCtx.DB.Token.Update().Where(token.UUIDEQ(in.Uuid)).SetStatus(0).Exec(l.ctx)
+
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+		default:
+			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		}
 	}
 
-	var tokens []model.Token
-	tokenData := l.svcCtx.DB.Where("uuid = ?", in.UUID).Where("status = ?", 0).
-		Where("expired_at > ?", time.Now()).Find(&tokens)
+	tokenData, err := l.svcCtx.DB.Token.Query().
+		Where(token.UUIDEQ(in.Uuid)).
+		Where(token.StatusEQ(0)).
+		Where(token.ExpiredAtGT(time.Now())).
+		All(l.ctx)
 
-	if tokenData.Error != nil && !errors.Is(tokenData.Error, gorm.ErrRecordNotFound) {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		return nil, status.Error(codes.Internal, errorx.DatabaseError)
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+		default:
+			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		}
 	}
 
-	for _, v := range tokens {
+	for _, v := range tokenData {
 		err := l.svcCtx.Redis.Set("token_"+v.Token, "1")
 		if err != nil {
 			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
-			return nil, status.Error(codes.Internal, errorx.RedisError)
+			return nil, statuserr.NewInternalError(errorx.RedisError)
 		}
 	}
 

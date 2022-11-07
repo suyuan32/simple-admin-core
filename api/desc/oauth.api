@@ -14,16 +14,13 @@ type (
     // The response data of oauth provider information | 提供者信息
     // swagger:response ProviderInfo
     ProviderInfo {
-        // ID
-        Id            uint64 `json:"id"`
-
-        CreatedAt      int64  `json:"createdAt"`
+        BaseInfo
 
         // Provider name | 提供商名字
         Name          string `json:"name"`
 
         // Client ID | 客户端ID
-        ClientID      string `json:"clientID"`
+        ClientId      string `json:"clientId"`
 
         // Client secret | 客户端密码
         ClientSecret   string `json:"clientSecret"`
@@ -55,10 +52,6 @@ type (
         // Required: true
         Id            uint64 `json:"id" validate:"number"`
 
-        // Create date | 创建日期
-        // Required: true
-        CreatedAt      int64  `json:"createdAt" validate:"number"`
-
         // Provider name | 提供商名字
         // Required: true
         // Min length: 1
@@ -68,7 +61,7 @@ type (
         // Client ID | 客户端ID
         // Required: true
         // Max length: 100
-        ClientID      string `json:"clientID" validate:"max=100"`
+        ClientId      string `json:"clientId" validate:"max=100"`
 
         // Client secret | 客户端密码
         // Require: true

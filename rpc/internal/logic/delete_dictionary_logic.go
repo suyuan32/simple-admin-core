@@ -2,15 +2,14 @@ package logic
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/zeromicro/go-zero/core/errorx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	"gorm.io/gorm"
 
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/model"
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/utils"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -33,30 +32,24 @@ func NewDeleteDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *DeleteDictionaryLogic) DeleteDictionary(in *core.IDReq) (*core.BaseResp, error) {
-	tx := l.svcCtx.DB.Begin()
-	childResult := tx.Exec(fmt.Sprintf("delete from dictionary_details where dictionary_id = %d", in.ID))
-	if childResult.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", childResult.Error.Error()))
-		tx.Rollback()
-		return nil, status.Error(codes.Internal, childResult.Error.Error())
-	}
 
-	result := tx.Delete(&model.Dictionary{
-		Model: gorm.Model{ID: uint(in.ID)},
+	err := utils.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
+		_, err := tx.DictionaryDetail.Delete().Where(dictionarydetail.HasDictionaryWith(dictionary.IDEQ(in.Id))).Exec(l.ctx)
+		if err != nil {
+			return err
+		}
+
+		err = tx.Dictionary.DeleteOneID(in.Id).Exec(l.ctx)
+		if err != nil {
+			return err
+		}
+		return nil
 	})
-	if result.Error != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", result.Error.Error()))
-		tx.Rollback()
-		return nil, status.Error(codes.Internal, result.Error.Error())
-	}
-	if result.RowsAffected == 0 {
-		logx.Errorw("delete dictionary failed, check the id", logx.Field("DictionaryId", in.ID))
-		return nil, status.Error(codes.InvalidArgument, errorx.DeleteFailed)
-	}
 
-	tx.Commit()
-
-	logx.Infow("delete dictionary successfully", logx.Field("DictionaryId", in.ID))
+	if err != nil {
+		logx.Errorf("delete dictionary failed, error : %s", err.Error())
+		return nil, statuserr.NewInternalError(errorx.DatabaseError)
+	}
 
 	return &core.BaseResp{Msg: errorx.DeleteSuccess}, nil
 }

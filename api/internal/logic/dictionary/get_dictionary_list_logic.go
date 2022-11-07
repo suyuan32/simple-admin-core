@@ -26,7 +26,7 @@ func NewGetDictionaryListLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *GetDictionaryListLogic) GetDictionaryList(req *types.DictionaryListReq) (resp *types.DictionaryListResp, err error) {
-	result, err := l.svcCtx.CoreRpc.GetDictionaryList(context.Background(), &core.DictionaryPageReq{
+	result, err := l.svcCtx.CoreRpc.GetDictionaryList(l.ctx, &core.DictionaryPageReq{
 		Title:    req.Title,
 		Name:     req.Name,
 		Page:     req.Page,
@@ -41,8 +41,11 @@ func (l *GetDictionaryListLogic) GetDictionaryList(req *types.DictionaryListReq)
 	resp.Total = result.Total
 	for _, v := range result.Data {
 		resp.Data = append(resp.Data, types.DictionaryInfo{
-			Id:          v.Id,
-			CreatedAt:   v.CreatedAt,
+			BaseInfo: types.BaseInfo{
+				Id:        v.Id,
+				CreatedAt: v.CreatedAt,
+				UpdatedAt: v.UpdatedAt,
+			},
 			Title:       v.Title,
 			Name:        v.Name,
 			Status:      v.Status,

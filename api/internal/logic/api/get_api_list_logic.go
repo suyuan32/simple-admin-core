@@ -25,12 +25,10 @@ func NewGetApiListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetApi
 }
 
 func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiListResp, err error) {
-	data, err := l.svcCtx.CoreRpc.GetApiList(context.Background(),
+	data, err := l.svcCtx.CoreRpc.GetApiList(l.ctx,
 		&core.ApiPageReq{
-			Page: &core.PageInfoReq{
-				Page:     req.Page,
-				PageSize: req.PageSize,
-			},
+			Page:        req.Page,
+			PageSize:    req.PageSize,
 			Path:        req.Path,
 			Description: req.Description,
 			Method:      req.Method,
@@ -44,8 +42,11 @@ func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiList
 	for _, v := range data.Data {
 		resp.Data = append(resp.Data,
 			types.ApiInfo{
-				Id:          v.Id,
-				CreatedAt:   v.CreatedAt,
+				BaseInfo: types.BaseInfo{
+					Id:        v.Id,
+					CreatedAt: v.CreatedAt,
+					UpdatedAt: v.UpdatedAt,
+				},
 				Path:        v.Path,
 				Description: v.Description,
 				Group:       v.Group,

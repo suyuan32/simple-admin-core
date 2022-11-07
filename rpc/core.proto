@@ -8,11 +8,11 @@ option go_package = "./core";
 message Empty {}
 
 message IDReq {
-  uint64 ID = 1;
+  uint64 id = 1;
 }
 
 message UUIDReq {
-  string UUID = 1;
+  string uuid = 1;
 }
 
 message BaseResp {
@@ -35,7 +35,7 @@ message LoginResp {
   string id = 1;
   string role_name = 2;
   string role_value = 3;
-  uint32 role_id = 4;
+  uint64 role_id = 4;
 }
 
 message ChangePasswordReq {
@@ -47,10 +47,10 @@ message ChangePasswordReq {
 message CreateOrUpdateUserReq {
   uint64 id = 1;
   string avatar = 2;
-  uint32 role_id = 3;
+  uint64 role_id = 3;
   string mobile = 4;
   string email = 5;
-  int32  status = 6;
+  uint64 status = 6;
   string username = 7;
   string nickname = 8;
   string password = 9;
@@ -59,12 +59,12 @@ message CreateOrUpdateUserReq {
 message UserInfoResp {
   uint64 id = 1;
   string avatar = 2;
-  uint32 role_id = 3;
+  uint64 role_id = 3;
   string mobile = 4;
   string email = 5;
-  int32  status = 6;
+  uint64 status = 6;
   string username = 7;
-  string UUID = 8;
+  string uuid = 8;
   string nickname = 9;
   string roleName = 10;
   int64 created_at = 11;
@@ -73,7 +73,7 @@ message UserInfoResp {
 }
 
 message UserListResp {
-  uint32 total = 1;
+  uint64 total = 1;
   repeated UserInfoResp data = 2;
 }
 
@@ -99,7 +99,7 @@ message UpdateProfileReq {
 
 message CreateOrUpdateMenuReq {
   uint32 level = 1;
-  uint32 parent_id = 2;
+  uint64 parent_id = 2;
   string path = 3;
   string name = 4;
   string redirect = 5;
@@ -116,7 +116,7 @@ message MenuInfo {
   int64 created_at = 2;
   int64 updated_at = 3;
   uint32 level = 4;
-  uint32 parent_id = 5;
+  uint64 parent_id = 5;
   string path = 6;
   string name = 7;
   string redirect = 8;
@@ -170,7 +170,6 @@ message CreateOrUpdateMenuParamReq {
 
 message MenuParamResp {
   uint64 id = 1;
-  uint64 menu_id = 2;
   string type = 3;
   string key = 4;
   string value = 5;
@@ -190,7 +189,7 @@ message RoleInfo {
   string name = 2;
   string value = 3;
   string default_router = 4;
-  uint32 status = 5;
+  uint64 status = 5;
   string remark = 6;
   uint32 order_no = 7;
   int64 createdAt = 8;
@@ -201,9 +200,9 @@ message RoleListResp {
   repeated RoleInfo data = 2;
 }
 
-message SetStatusReq {
+message StatusCodeReq {
   uint64 id = 1;
-  uint32 status = 2;
+  uint64 status = 2;
 }
 
 // casbin
@@ -226,7 +225,8 @@ message CreatePolicyReq {
 message ApiInfo {
   uint64 id = 1;
   int64 created_at = 2;
-  string path = 3;
+  int64 updated_at = 3;
+  string path = 4;
   string description = 5;
   string group = 6;
   string method = 7;
@@ -238,11 +238,12 @@ message ApiListResp {
 }
 
 message ApiPageReq {
-  PageInfoReq page = 1;
-  string path = 2;
-  string description = 3;
-  string method = 4;
-  string group = 5;
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string path = 3;
+  string description = 4;
+  string method = 5;
+  string group = 6;
 }
 
 // authorization message
@@ -260,7 +261,7 @@ message DictionaryInfo {
   uint64 id = 1;
   string title = 2;
   string name = 3;
-  bool status = 4;
+  uint64 status = 4;
   string desc = 5;
   int64 created_at = 6;
   int64 updated_at = 7;
@@ -271,10 +272,10 @@ message DictionaryDetail {
   string title = 2;
   string key = 3;
   string value = 4;
-  bool  status = 5;
+  uint64 status = 5;
   int64 created_at = 6;
   int64 updated_at = 7;
-  int64 parent_id = 8;
+  uint64 dictionary_id = 8;
 }
 
 message DictionaryList {
@@ -338,11 +339,12 @@ message CallbackReq {
 message TokenInfo {
   uint64 id = 1;
   int64 created_at = 2;
-  string UUID = 3;
-  string token = 4;
-  string source = 5;
-  uint32 status = 6;
-  int64 expired_at = 7;
+  int64 updated_at = 3;
+  string uuid = 4;
+  string token = 5;
+  string source = 6;
+  uint64 status = 7;
+  int64 expired_at = 8;
 }
 
 message TokenListResp {
@@ -351,11 +353,12 @@ message TokenListResp {
 }
 
 message TokenListReq {
-  PageInfoReq page = 1;
-  string username = 2;
-  string nickname = 3;
-  string email = 4;
-  string UUID = 5;
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string username = 3;
+  string nickname = 4;
+  string email = 5;
+  string uuid = 6;
 }
 
 // service
@@ -371,13 +374,14 @@ service core {
   rpc getUserList (GetUserListReq) returns (UserListResp);
   rpc deleteUser (IDReq) returns (BaseResp);
   rpc updateProfile (UpdateProfileReq) returns (BaseResp);
+  rpc updateUserStatus (StatusCodeReq) returns (BaseResp);
 
   // menu service
   //menu management
   rpc createOrUpdateMenu (CreateOrUpdateMenuReq) returns (BaseResp);
   rpc deleteMenu (IDReq) returns (BaseResp);
   rpc getMenuListByRole (IDReq) returns (MenuInfoList);
-  rpc getMenuByPage (PageInfoReq) returns (MenuInfoList);
+  rpc getMenuList (PageInfoReq) returns (MenuInfoList);
   rpc createOrUpdateMenuParam (CreateOrUpdateMenuParamReq) returns (BaseResp);
   rpc deleteMenuParam (IDReq) returns (BaseResp);
   rpc getMenuParamListByMenuId (IDReq) returns (MenuParamListResp);
@@ -387,7 +391,7 @@ service core {
   rpc deleteRole (IDReq) returns (BaseResp);
   rpc getRoleById (IDReq) returns (RoleInfo);
   rpc getRoleList (PageInfoReq) returns (RoleListResp);
-  rpc setRoleStatus (SetStatusReq) returns (BaseResp);
+  rpc updateRoleStatus (StatusCodeReq) returns (BaseResp);
 
   // api management service
   rpc createOrUpdateApi (ApiInfo) returns (BaseResp);
@@ -417,6 +421,6 @@ service core {
   rpc createOrUpdateToken (TokenInfo) returns (BaseResp);
   rpc deleteToken (IDReq) returns (BaseResp);
   rpc getTokenList (TokenListReq) returns (TokenListResp);
-  rpc setTokenStatus (SetStatusReq) returns (BaseResp);
+  rpc updateTokenStatus (StatusCodeReq) returns (BaseResp);
   rpc blockUserAllToken (UUIDReq) returns (BaseResp);
 }

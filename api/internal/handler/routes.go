@@ -57,7 +57,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/role/status",
-					Handler: role.SetRoleStatusHandler(serverCtx),
+					Handler: role.UpdateRoleStatusHandler(serverCtx),
 				},
 			}...,
 		),
@@ -122,6 +122,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/user/profile",
 					Handler: user.UpdateUserProfileHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/user/status",
+					Handler: user.UpdateUserStatusHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
@@ -340,7 +345,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				{
 					Method:  http.MethodPost,
 					Path:    "/token/status",
-					Handler: token.SetTokenStatusHandler(serverCtx),
+					Handler: token.UpdateTokenStatusHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
