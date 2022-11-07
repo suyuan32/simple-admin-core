@@ -9,27 +9,33 @@ docker:
 	docker build -f Dockerfile-api -t ${DOCKER_USERNAME}/core-api:${VERSION} .
 	docker build -f Dockerfile-rpc -t ${DOCKER_USERNAME}/core-rpc:${VERSION} .
 	# docker build -f Dockerfile-job -t ${DOCKER_USERNAME}/core-job:${VERSION} .
+	@printf $(GREEN)"[SUCCESS] build docker successfully"
 
 publish-docker:
 	echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin http://${REPO}
 	docker push ${REPO}/${DOCKER_USERNAME}/core-rpc:${VERSION}
 	docker push ${REPO}/${DOCKER_USERNAME}/core-api:${VERSION}
 	# docker push ${REPO}/${DOCKER_USERNAME}/core-job:${VERSION}
+	@printf $(GREEN)"[SUCCESS] publish docker successfully"
 
 gen-api:
 	goctls api go --api ./api/desc/core.api --dir ./api
 	swagger generate spec --output=./core.yml --scan-models
-	@printf $(GREEN)"[SUCCESS] generate API success"
+	@printf $(GREEN)"[SUCCESS] generate API successfully"
 
 gen-rpc:
 	goctls rpc protoc ./rpc/core.proto --go_out=./rpc/types --go-grpc_out=./rpc/types --zrpc_out=./rpc
-	@printf $(GREEN)"[SUCCESS] generate rpc success"
+	@printf $(GREEN)"[SUCCESS] generate rpc successfully"
+
+gen-ent:
+	go run -mod=mod entgo.io/ent/cmd/ent generate --template glob="./pkg/ent/template/*.tmpl" ./pkg/ent/schema
+	@printf $(GREEN)"[SUCCESS] generate ent successfully"
 
 gen-swagger:
 	swagger generate spec --output=./core.yml --scan-models
-	@printf $(GREEN)"[SUCCESS] generate swagger success"
+	@printf $(GREEN)"[SUCCESS] generate swagger successfully"
 
 serve-swagger:
 	lsof -i:36666 | awk 'NR!=1 {print $2}' | xargs killall -9 || true
-	@printf $(GREEN)"[SUCCESS] serve swagger-ui success"
+	@printf $(GREEN)"[SUCCESS] serve swagger-ui successfully"
 	swagger serve -F=swagger --port 36666 core.yml

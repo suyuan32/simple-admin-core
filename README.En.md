@@ -18,6 +18,8 @@ Simple Admin is a powerful microservice framework for basic management.
 It is based on go-zero and supports several advanced features. 
 It can help you to develop a microservice back-end management core in a short time.
 
+#### [Gorm version here](https://github.com/suyuan32/simple-admin-core/tree/gorm)
+
 ## Feature
 
 - **State of The Art Development**：Use latest back-end technology development such as ent, go-zero, casbin

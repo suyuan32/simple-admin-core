@@ -19,6 +19,8 @@
 Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基于go-zero开发，提供丰富的功能如服务发现，权限管理等。
 该框架可以帮助您快速开发具有RPC服务的后台管理系统。
 
+#### [Gorm 版本点此](https://github.com/suyuan32/simple-admin-core/tree/gorm)
+
 ## 特性
 
 - **最新技术栈**：使用 ent, casbin, kafka 等前沿技术开发
