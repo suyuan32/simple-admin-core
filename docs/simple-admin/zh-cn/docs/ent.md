@@ -72,7 +72,4 @@ func (Role) Annotations() []schema.Annotation {
 ```
 
 
-#### [schema中文参考（上）](https://blog.csdn.net/OpenSkill/article/details/108271774)
-#### [schema （下）](https://blog.csdn.net/OpenSkill/article/details/108289545)
-
-#### [代码生成及CRUD](https://blog.csdn.net/OpenSkill/article/details/108373737)
+#### [schema中文文档](https://suyuan32.github.io/ent-chinese-doc/#/zh-cn/getting-started)
