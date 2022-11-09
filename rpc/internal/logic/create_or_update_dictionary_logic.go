@@ -3,19 +3,17 @@ package logic
 import (
 	"context"
 
-	"github.com/zeromicro/go-zero/core/errorx"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
-
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type CreateOrUpdateDictionaryLogic struct {
@@ -64,7 +62,7 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 		}
 
 		if !exist {
-			logx.Errorw(errorx.TargetNotExist, logx.Field("id", in.Id))
+			logx.Errorw(logmsg.TargetNotFound, logx.Field("id", in.Id))
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 

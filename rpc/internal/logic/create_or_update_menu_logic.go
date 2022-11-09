@@ -40,7 +40,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
@@ -84,7 +84,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
 			case ent.IsConstraintError(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
@@ -104,7 +104,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 
 		if !exist {
 			logx.Errorw("menu not found", logx.Field("menuId", in.Id))
-			return nil, status.Error(codes.InvalidArgument, "sys.menu.menuNotExists")
+			return nil, status.Error(codes.InvalidArgument, "menu.menuNotExists")
 		}
 
 		err = l.svcCtx.DB.Menu.UpdateOneID(in.Id).
@@ -137,7 +137,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
 			case ent.IsConstraintError(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)

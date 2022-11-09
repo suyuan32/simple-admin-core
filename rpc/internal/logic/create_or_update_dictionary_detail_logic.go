@@ -3,15 +3,15 @@ package logic
 import (
 	"context"
 
-	"github.com/zeromicro/go-zero/core/errorx"
-	"github.com/zeromicro/go-zero/core/logx"
-
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+
+	"github.com/zeromicro/go-zero/core/errorx"
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type CreateOrUpdateDictionaryDetailLogic struct {
@@ -38,7 +38,7 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 
 	if !exist {
 		logx.Errorw("the parent menu does not exist", logx.Field("detail", in))
-		return nil, statuserr.NewInvalidArgumentError("sys.menu.parentNotExist")
+		return nil, statuserr.NewInvalidArgumentError("menu.parentNotExist")
 	}
 
 	if in.Id == 0 {
@@ -74,7 +74,7 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
 			case ent.IsConstraintError(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)

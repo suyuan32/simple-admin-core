@@ -39,7 +39,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 	if exist {
 		logx.Errorw("delete menu failed, please check its children had been deleted",
 			logx.Field("menuId", in.Id))
-		return nil, statuserr.NewInvalidArgumentError("sys.menu.deleteChildrenDesc")
+		return nil, statuserr.NewInvalidArgumentError("menu.deleteChildrenDesc")
 	}
 
 	err = utils.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
@@ -56,7 +56,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+				return statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return statuserr.NewInternalError(errorx.DatabaseError)

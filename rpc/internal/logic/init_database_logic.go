@@ -3,12 +3,6 @@ package logic
 import (
 	"context"
 
-	"github.com/google/uuid"
-	"github.com/zeromicro/go-zero/core/errorx"
-	"github.com/zeromicro/go-zero/core/stores/redis"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
@@ -16,7 +10,12 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
+	"github.com/google/uuid"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/stores/redis"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type InitDatabaseLogic struct {
@@ -42,10 +41,10 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	if ok, err := lock.Acquire(); !ok || err != nil {
 		if !ok {
 			logx.Error("last initialization is running")
-			return nil, status.Error(codes.InvalidArgument, errorx.InitRunning)
+			return nil, statuserr.NewInternalError(errorx.InitRunning)
 		} else {
 			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
-			return nil, status.Error(codes.Internal, errorx.RedisError)
+			return nil, statuserr.NewInternalError(errorx.RedisError)
 		}
 	}
 	defer func() {
@@ -156,19 +155,19 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 	var roles []*ent.RoleCreate
 	roles = make([]*ent.RoleCreate, 3)
 	roles[0] = l.svcCtx.DB.Role.Create().
-		SetName("sys.role.admin").
+		SetName("role.admin").
 		SetValue("admin").
 		SetRemark("超级管理员").
 		SetOrderNo(1)
 
 	roles[1] = l.svcCtx.DB.Role.Create().
-		SetName("sys.role.stuff").
+		SetName("role.stuff").
 		SetValue("stuff").
 		SetRemark("普通员工").
 		SetOrderNo(2)
 
 	roles[2] = l.svcCtx.DB.Role.Create().
-		SetName("sys.role.member").
+		SetName("role.member").
 		SetValue("member").
 		SetRemark("注册会员").
 		SetOrderNo(3)
@@ -474,7 +473,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis[45] = l.svcCtx.DB.API.Create().
 		SetPath("/token/logout").
-		SetDescription("sys.user.forceLoggingOut").
+		SetDescription("user.forceLoggingOut").
 		SetAPIGroup("token").
 		SetMethod("POST")
 

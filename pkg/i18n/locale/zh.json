@@ -14,41 +14,39 @@
 		"databaseError": "数据库错误",
 		"redisError": "Redis 错误"
 	},
-	"sys": {
-		"login": {
-			"loginSuccessTitle": "登录成功",
-			"signupSuccessTitle": "注册成功",
-			"signupUserExist": "用户名或者邮箱已被注册",
-			"userNotExist": "用户不存在",
-			"wrongCaptcha": "验证码错误",
-			"wrongUsernameOrPassword": "用户名或密码错误",
-			"requireLogin": "请重新登录"
-		},
-		"menu": {
-			"deleteChildrenDesc": "请先删除子菜单",
-			"menuNotExists": "菜单不存在",
-			"menuAlreadyExists": "菜单已存在",
-			"parentNotExist": "父级不存在"
-		},
-		"role": {
-			"changeStatusSuccess": "已成功修改角色状态",
-			"changeStatusFailed": "修改角色状态失败",
-			"duplicateRoleValue": "角色值重复",
-			"userExists": "请先删除该角色下的用户",
-			"roleForbidden": "您的角色已停用"
-		},
-		"user": {
-			"wrongPassword": "密码错误"
-		},
-		"init": {
-			"initializeIsRunning": "正在初始化...",
-			"alreadyInit": "数据库已被初始化。"
-		},
-		"dictionary": {
-			"createDetailFailed": "创建字典键值失败, key已被使用"
-		},
-		"oauth": {
-			"createAccount": "请创建一个该邮箱的账号或绑定该邮箱到一个账号"
-		}
+	"login": {
+		"loginSuccessTitle": "登录成功",
+		"signupSuccessTitle": "注册成功",
+		"signupUserExist": "用户名或者邮箱已被注册",
+		"userNotExist": "用户不存在",
+		"wrongCaptcha": "验证码错误",
+		"wrongUsernameOrPassword": "用户名或密码错误",
+		"requireLogin": "请重新登录"
+	},
+	"menu": {
+		"deleteChildrenDesc": "请先删除子菜单",
+		"menuNotExists": "菜单不存在",
+		"menuAlreadyExists": "菜单已存在",
+		"parentNotExist": "父级不存在"
+	},
+	"role": {
+		"changeStatusSuccess": "已成功修改角色状态",
+		"changeStatusFailed": "修改角色状态失败",
+		"duplicateRoleValue": "角色值重复",
+		"userExists": "请先删除该角色下的用户",
+		"roleForbidden": "您的角色已停用"
+	},
+	"user": {
+		"wrongPassword": "密码错误"
+	},
+	"init": {
+		"initializeIsRunning": "正在初始化...",
+		"alreadyInit": "数据库已被初始化。"
+	},
+	"dictionary": {
+		"createDetailFailed": "创建字典键值失败, key已被使用"
+	},
+	"oauth": {
+		"createAccount": "请创建一个该邮箱的账号或绑定该邮箱到一个账号"
 	}
 }

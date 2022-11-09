@@ -5,6 +5,7 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -35,7 +36,7 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 		switch {
 		case ent.IsNotFound(err):
 			logx.Errorw(err.Error(), logx.Field("uuid", in.Uuid))
-			return nil, statuserr.NewInvalidArgumentError("sys.login.userNotExist")
+			return nil, statuserr.NewInvalidArgumentError("login.userNotExist")
 		default:
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(errorx.DatabaseError)
@@ -50,7 +51,7 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("uuid", in.Uuid))
-				return nil, statuserr.NewInvalidArgumentError("sys.login.userNotExist")
+				return nil, statuserr.NewInvalidArgumentError("login.userNotExist")
 			case ent.IsConstraintError(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
@@ -61,7 +62,7 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 		}
 	} else {
 		logx.Errorw("old password is wrong", logx.Field("UUID", in.Uuid))
-		return nil, statuserr.NewInvalidArgumentError("sys.user.wrongPassword")
+		return nil, statuserr.NewInvalidArgumentError("user.wrongPassword")
 	}
 
 	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil

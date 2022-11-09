@@ -8,6 +8,6 @@ import (
 func TestTranslator(t *testing.T) {
 	l := &Translator{}
 	l.NewBundle()
-	res := l.Trans("zh", "sys.login.userNotExist")
+	res := l.Trans("zh", "login.userNotExist")
 	fmt.Println(res)
 }

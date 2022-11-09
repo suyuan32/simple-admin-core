@@ -31,7 +31,7 @@ func (l *GetUserPermCodeLogic) GetUserPermCode() (resp *types.PermCodeResp, err 
 	if roleId == nil {
 		return nil, &errorx.ApiError{
 			Code: http.StatusUnauthorized,
-			Msg:  "sys.login.requireLogin",
+			Msg:  "login.requireLogin",
 		}
 	}
 	return &types.PermCodeResp{Data: []string{fmt.Sprintf("%v", roleId)}}, nil

@@ -45,6 +45,6 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.SimpleMsg,
 		}
 		return resp, nil
 	} else {
-		return nil, errorx.NewApiError(http.StatusBadRequest, "sys.login.wrongCaptcha")
+		return nil, errorx.NewApiError(http.StatusBadRequest, "login.wrongCaptcha")
 	}
 }

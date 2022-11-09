@@ -3,8 +3,6 @@ package logic
 import (
 	"context"
 
-	"github.com/zeromicro/go-zero/core/errorx"
-
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
@@ -12,6 +10,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -59,7 +58,7 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 
 		if !exist {
 			logx.Errorw("menu not found", logx.Field("menuId", in.Id))
-			return nil, statuserr.NewInvalidArgumentError("sys.menu.menuNotExists")
+			return nil, statuserr.NewInvalidArgumentError("menu.menuNotExists")
 		}
 
 		err = l.svcCtx.DB.MenuParam.UpdateOneID(in.Id).
@@ -73,7 +72,7 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
+				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
 			case ent.IsConstraintError(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)

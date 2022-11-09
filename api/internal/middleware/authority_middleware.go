@@ -42,7 +42,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 			return
 		} else if roleStatus == "0" {
 			logx.Errorw("role is on forbidden status", logx.Field("roleId", roleId))
-			httpx.Error(w, errorx.NewApiError(http.StatusBadRequest, "sys.role.roleForbidden"))
+			httpx.Error(w, errorx.NewApiError(http.StatusBadRequest, "role.roleForbidden"))
 			return
 		}
 

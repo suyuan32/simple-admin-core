@@ -44,16 +44,20 @@ func (l *Translator) Trans(lang string, msgId string) string {
 
 func (l *Translator) TransError(lang string, err error) error {
 	localizer := i18n.NewLocalizer(l.bundle, lang)
-	message, e := localizer.LocalizeMessage(&i18n.Message{ID: strings.Split(err.Error(), "desc = ")[1]})
-	if e != nil || message == "" {
-		message = err.Error()
-	}
 
 	if errcode.IsGrpcError(err) {
+		message, e := localizer.LocalizeMessage(&i18n.Message{ID: strings.Split(err.Error(), "desc = ")[1]})
+		if e != nil {
+			message = err.Error()
+		}
 		return errorx.NewApiError(errcode.CodeFromGrpcError(err), message)
 	} else if apiErr, ok := err.(*errorx.ApiError); ok {
+		message, e := localizer.LocalizeMessage(&i18n.Message{ID: apiErr.Error()})
+		if e != nil {
+			message = apiErr.Error()
+		}
 		return errorx.NewApiError(apiErr.Code, message)
 	} else {
-		return errorx.NewApiError(http.StatusInternalServerError, message)
+		return errorx.NewApiError(http.StatusInternalServerError, "failed to translate error message")
 	}
 }
