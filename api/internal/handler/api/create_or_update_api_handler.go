@@ -37,6 +37,7 @@ func CreateOrUpdateApiHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := api.NewCreateOrUpdateApiLogic(r.Context(), svcCtx)
 		resp, err := l.CreateOrUpdateApi(&req)
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)

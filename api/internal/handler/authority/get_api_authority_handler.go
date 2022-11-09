@@ -37,6 +37,7 @@ func GetApiAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := authority.NewGetApiAuthorityLogic(r.Context(), svcCtx)
 		resp, err := l.GetApiAuthority(&req)
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)

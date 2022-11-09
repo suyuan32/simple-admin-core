@@ -6,7 +6,6 @@ import (
 	"strconv"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -45,9 +44,9 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 			switch {
 			case ent.IsConstraintError(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(i18n.DuplicateRoleValue)
+				return nil, statuserr.NewInvalidArgumentError("sys.role.duplicateRoleValue")
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -76,9 +75,9 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
 			case ent.IsConstraintError(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(i18n.DuplicateRoleValue)
+				return nil, statuserr.NewInvalidArgumentError("sys.role.duplicateRoleValue")
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -105,7 +104,7 @@ func (l *CreateOrUpdateRoleLogic) UpdateRoleInfoInRedis() error {
 			logx.Error(err.Error())
 			return statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
 		default:
-			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return statuserr.NewInternalError(errorx.DatabaseError)
 		}
 	}

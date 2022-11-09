@@ -8,7 +8,6 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -39,7 +38,7 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 
 	if !exist {
 		logx.Errorw("the parent menu does not exist", logx.Field("detail", in))
-		return nil, statuserr.NewInvalidArgumentError(i18n.ParentNotExist)
+		return nil, statuserr.NewInvalidArgumentError("sys.menu.parentNotExist")
 	}
 
 	if in.Id == 0 {
@@ -57,7 +56,7 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -80,7 +79,7 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}

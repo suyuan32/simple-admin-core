@@ -35,7 +35,7 @@ func (l *DeleteUserLogic) DeleteUser(in *core.IDReq) (*core.BaseResp, error) {
 			logx.Errorw(err.Error(), logx.Field("detail", in))
 			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
 		default:
-			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
 	}

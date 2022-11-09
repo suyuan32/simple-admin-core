@@ -37,6 +37,7 @@ func OauthLoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := oauth.NewOauthLoginLogic(r.Context(), svcCtx)
 		resp, err := l.OauthLogin(&req)
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)

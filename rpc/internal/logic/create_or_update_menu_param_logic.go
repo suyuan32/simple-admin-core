@@ -7,7 +7,6 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -45,7 +44,7 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -60,7 +59,7 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 
 		if !exist {
 			logx.Errorw("menu not found", logx.Field("menuId", in.Id))
-			return nil, statuserr.NewInvalidArgumentError(i18n.MenuNotExists)
+			return nil, statuserr.NewInvalidArgumentError("sys.menu.menuNotExists")
 		}
 
 		err = l.svcCtx.DB.MenuParam.UpdateOneID(in.Id).
@@ -79,7 +78,7 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(in *core.CreateOr
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}

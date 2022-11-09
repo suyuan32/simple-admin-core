@@ -3,24 +3,23 @@ package user
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
-
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 // swagger:route post /user/status user UpdateUserStatus
 //
-// Update user's status | 更新用户状态
+// Set user's status | 更新用户状态
 //
-// Update user's status | 更新用户状态
+// Set user's status | 更新用户状态
 //
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
-//    type: SetStatusCodeReq
+//    type: StatusCodeReq
 //
 // Responses:
 //  200: SimpleMsg
@@ -38,6 +37,7 @@ func UpdateUserStatusHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := user.NewUpdateUserStatusLogic(r.Context(), svcCtx)
 		resp, err := l.UpdateUserStatus(&req)
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)

@@ -37,6 +37,7 @@ func ChangePasswordHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := user.NewChangePasswordLogic(r.Context(), svcCtx)
 		resp, err := l.ChangePassword(&req)
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)

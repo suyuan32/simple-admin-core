@@ -1,0 +1,52 @@
+{
+	"common": {
+		"updateSuccess": "Update successfully",
+		"updateFailed": "Update failed",
+		"createSuccess": "Create successfully",
+		"createFailed": "Create failed",
+		"deleteSuccess": "Delete successfully",
+		"deleteFailed": "Delete failed",
+		"getInfoSuccess": "Get information Successfully",
+		"getInfoFailed": "Get information Failed",
+		"changeStatusSuccess": "Change status successfully",
+		"changeStatusFailed": "Change status failed",
+		"targetNotExist": "Target does not exist",
+		"databaseError": "Database error",
+		"redisError": "Redis error"
+	},
+	"login": {
+		"loginSuccessTitle": "Login successful",
+		"signupSuccessTitle": "Sign up successful",
+		"signupUserExist": "Username or email address had been registered",
+		"userNotExist": "User does not register",
+		"wrongCaptcha": "Wrong captcha",
+		"wrongUsernameOrPassword": "Wrong username or password",
+		"requireLogin": "Please log in again"
+	},
+	"menu": {
+		"deleteChildrenDesc": "Please delete menu's children first",
+		"menuNotExists": "Menu does not exist",
+		"menuAlreadyExists": "Menu already exists",
+		"parentNotExist": "The parent does not exist"
+	},
+	"role": {
+		"changeStatusSuccess": "Change role status successfully",
+		"changeStatusFailed": "Change role status failed",
+		"duplicateRoleValue": "Duplicate role value",
+		"userExists": "Please delete users who belong to this role",
+		"roleForbidden": "Your role is forbidden"
+	},
+	"user": {
+		"wrongPassword": "Wrong password"
+	},
+	"init": {
+		"alreadyInit": "The database had been initialized.",
+		"initializeIsRunning": "The initialization is running..."
+	},
+	"dictionary": {
+		"createDetailFailed": "Create Key/Value failed, key had been used"
+	},
+	"oauth": {
+		"createAccount": "Please register an account with this email or bind the email to an account"
+	}
+}

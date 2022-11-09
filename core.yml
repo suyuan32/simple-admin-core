@@ -1547,7 +1547,7 @@ info:
         email: yuansu.china.work@gmail.com
     description: This is simple admin api doc
     title: Simple Admin
-    version: 0.1.1
+    version: 0.1.2
 paths:
     /api:
         delete:
@@ -2299,7 +2299,7 @@ paths:
                 - user
     /user/info:
         get:
-            description: Get user basic infomation | 获取用户基本信息
+            description: Get user basic information | 获取用户基本信息
             operationId: GetUserInfo
             responses:
                 "200":
@@ -2310,7 +2310,7 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
-            summary: Get user basic infomation | 获取用户基本信息
+            summary: Get user basic information | 获取用户基本信息
             tags:
                 - user
     /user/list:
@@ -2436,13 +2436,13 @@ paths:
                 - user
     /user/status:
         post:
-            description: Update user's status | 更新用户状态
+            description: Set user's status | 更新用户状态
             operationId: UpdateUserStatus
             parameters:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/SetStatusCodeReq'
+                    $ref: '#/definitions/StatusCodeReq'
                     type: object
             responses:
                 "200":
@@ -2451,7 +2451,7 @@ paths:
                     $ref: '#/responses/SimpleMsg'
                 "500":
                     $ref: '#/responses/SimpleMsg'
-            summary: Update user's status | 更新用户状态
+            summary: Set user's status | 更新用户状态
             tags:
                 - user
 produces:

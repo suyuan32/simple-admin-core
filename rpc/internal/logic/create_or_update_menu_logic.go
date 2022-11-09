@@ -5,7 +5,6 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -43,7 +42,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -90,7 +89,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -105,7 +104,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 
 		if !exist {
 			logx.Errorw("menu not found", logx.Field("menuId", in.Id))
-			return nil, status.Error(codes.InvalidArgument, i18n.MenuNotExists)
+			return nil, status.Error(codes.InvalidArgument, "sys.menu.menuNotExists")
 		}
 
 		err = l.svcCtx.DB.Menu.UpdateOneID(in.Id).
@@ -143,7 +142,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}

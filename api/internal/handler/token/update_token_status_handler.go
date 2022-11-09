@@ -3,11 +3,10 @@ package token
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
-
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/token"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 // swagger:route post /token/status token UpdateTokenStatus
@@ -38,6 +37,7 @@ func UpdateTokenStatusHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := token.NewUpdateTokenStatusLogic(r.Context(), svcCtx)
 		resp, err := l.UpdateTokenStatus(&req)
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)

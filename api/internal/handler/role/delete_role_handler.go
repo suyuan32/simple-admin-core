@@ -37,6 +37,7 @@ func DeleteRoleHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := role.NewDeleteRoleLogic(r.Context(), svcCtx)
 		resp, err := l.DeleteRole(&req)
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)

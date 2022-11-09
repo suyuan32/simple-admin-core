@@ -4,9 +4,7 @@ go 1.19
 
 require (
 	ariga.io/entcache v0.1.0
-	entgo.io/contrib v0.3.3
 	entgo.io/ent v0.11.4
-	github.com/99designs/gqlgen v0.17.20
 	github.com/apache/rocketmq-client-go/v2 v2.1.1
 	github.com/casbin/casbin/v2 v2.52.1
 	github.com/casbin/ent-adapter v0.2.2
@@ -20,16 +18,14 @@ require (
 	github.com/lib/pq v1.10.7
 	github.com/mattn/go-sqlite3 v1.14.16
 	github.com/mojocn/base64Captcha v1.3.5
+	github.com/nicksnyder/go-i18n/v2 v2.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.8.0
-	github.com/suyuan32/simple-models v0.0.2
-	github.com/vektah/gqlparser/v2 v2.5.1
 	github.com/zeromicro/go-zero v1.4.2
 	golang.org/x/crypto v0.0.0-20221005025214-4161e89ecf1b
 	golang.org/x/oauth2 v0.0.0-20220223155221-ee480838109b
 	google.golang.org/grpc v1.50.1
 	google.golang.org/protobuf v1.28.1
-	gorm.io/gorm v1.24.1
 )
 
 replace github.com/zeromicro/go-zero v1.4.2 => github.com/suyuan32/simple-admin-tools v0.0.8-0.20221101160516-5508bc435bfb
@@ -38,7 +34,6 @@ require (
 	ariga.io/atlas v0.7.3-0.20221011160332-3ca609863edd // indirect
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
 	github.com/agext/levenshtein v1.2.1 // indirect
-	github.com/agnivade/levenshtein v1.1.1 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/casbin/gorm-adapter/v3 v3.7.4 // indirect
@@ -66,9 +61,7 @@ require (
 	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/googleapis/gnostic v0.5.5 // indirect
-	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.0 // indirect
-	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/hcl/v2 v2.13.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.13.0 // indirect
@@ -88,7 +81,6 @@ require (
 	github.com/microsoft/go-mssqldb v0.17.0 // indirect
 	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect
 	github.com/mitchellh/hashstructure v1.1.0 // indirect
-	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/openzipkin/zipkin-go v0.4.0 // indirect
@@ -103,10 +95,10 @@ require (
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/rogpeppe/go-internal v1.8.1 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
+	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/stathat/consistent v1.0.0 // indirect
-	github.com/stretchr/objx v0.4.0 // indirect
 	github.com/tidwall/gjson v1.13.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
@@ -135,7 +127,6 @@ require (
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
 	golang.org/x/text v0.4.0 // indirect
 	golang.org/x/time v0.0.0-20220411224347-583f2d630306 // indirect
-	golang.org/x/tools v0.1.13-0.20220819182638-587a15310bdd // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/genproto v0.0.0-20220602131408-e326c6e8e9c8 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
@@ -145,6 +136,7 @@ require (
 	gorm.io/driver/mysql v1.4.3 // indirect
 	gorm.io/driver/postgres v1.4.5 // indirect
 	gorm.io/driver/sqlserver v1.4.1 // indirect
+	gorm.io/gorm v1.24.1 // indirect
 	gorm.io/plugin/dbresolver v1.3.0 // indirect
 	k8s.io/api v0.22.9 // indirect
 	k8s.io/apimachinery v0.22.9 // indirect

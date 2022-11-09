@@ -37,6 +37,7 @@ func GetDetailByDictionaryNameHandler(svcCtx *svc.ServiceContext) http.HandlerFu
 		l := dictionary.NewGetDetailByDictionaryNameLogic(r.Context(), svcCtx)
 		resp, err := l.GetDetailByDictionaryName(&req)
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)

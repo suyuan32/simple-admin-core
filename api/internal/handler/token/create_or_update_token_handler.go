@@ -37,6 +37,7 @@ func CreateOrUpdateTokenHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := token.NewCreateOrUpdateTokenLogic(r.Context(), svcCtx)
 		resp, err := l.CreateOrUpdateToken(&req)
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)

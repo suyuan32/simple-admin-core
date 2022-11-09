@@ -16,7 +16,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -55,7 +54,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -96,9 +95,9 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(i18n.UserNotExists)
+				return nil, statuserr.NewInvalidArgumentError("sys.login.userNotExist")
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}

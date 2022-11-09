@@ -5,7 +5,6 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
@@ -40,14 +39,14 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 	if exist {
 		logx.Errorw("delete menu failed, please check its children had been deleted",
 			logx.Field("menuId", in.Id))
-		return nil, statuserr.NewInvalidArgumentError(i18n.ChildrenExistError)
+		return nil, statuserr.NewInvalidArgumentError("sys.menu.deleteChildrenDesc")
 	}
 
 	err = utils.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
 		err = l.svcCtx.DB.Menu.Update().ClearParams().Exec(l.ctx)
 
 		if err != nil {
-			logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return statuserr.NewInternalError(errorx.DatabaseError)
 		}
 
@@ -59,7 +58,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return statuserr.NewInvalidArgumentError(errorx.TargetNotExist)
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}

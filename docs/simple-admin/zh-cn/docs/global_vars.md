@@ -92,7 +92,7 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(i18n.ApiAlreadyExists)
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -115,7 +115,7 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
 			default:
-				logx.Errorw(errorx.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}

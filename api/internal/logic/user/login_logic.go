@@ -8,7 +8,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/captcha"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -74,7 +73,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		}
 		return resp, nil
 	} else {
-		return nil, errorx.NewApiError(http.StatusBadRequest, i18n.WrongCaptcha)
+		return nil, errorx.NewApiError(http.StatusBadRequest, "sys.login.wrongCaptcha")
 	}
 }
 

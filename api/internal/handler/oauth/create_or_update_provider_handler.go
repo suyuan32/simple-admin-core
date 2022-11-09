@@ -37,6 +37,7 @@ func CreateOrUpdateProviderHandler(svcCtx *svc.ServiceContext) http.HandlerFunc 
 		l := oauth.NewCreateOrUpdateProviderLogic(r.Context(), svcCtx)
 		resp, err := l.CreateOrUpdateProvider(&req)
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)

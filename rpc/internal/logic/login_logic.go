@@ -12,7 +12,6 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -41,7 +40,7 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 	if err != nil {
 		if ent.IsNotFound(err) {
 			logx.Errorw("user not found", logx.Field("username", in.Username))
-			return nil, status.Error(codes.InvalidArgument, i18n.UserNotExists)
+			return nil, status.Error(codes.InvalidArgument, "sys.login.userNotExist")
 		}
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
@@ -49,7 +48,7 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 
 	if ok := utils.BcryptCheck(in.Password, result.Password); !ok {
 		logx.Errorw("wrong password", logx.Field("detail", in))
-		return nil, status.Error(codes.InvalidArgument, i18n.WrongUsernameOrPassword)
+		return nil, status.Error(codes.InvalidArgument, "sys.login.wrongUsernameOrPassword")
 	}
 
 	roleName, value, err := getRoleInfo(result.RoleID, l.svcCtx.Redis, l.svcCtx.DB, l.ctx)

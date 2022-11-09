@@ -25,6 +25,7 @@ func OauthCallbackHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := oauth.NewOauthCallbackLogic(r, svcCtx)
 		resp, err := l.OauthCallback()
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)
