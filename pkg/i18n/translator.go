@@ -11,6 +11,7 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"golang.org/x/text/language"
 
+	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errcode"
 )
 
@@ -18,8 +19,9 @@ import (
 var LocaleFS embed.FS
 
 type Translator struct {
-	bundle    *i18n.Bundle
-	localizer *i18n.Localizer
+	bundle       *i18n.Bundle
+	localizer    map[language.Tag]*i18n.Localizer
+	supportLangs []language.Tag
 }
 
 func (l *Translator) NewBundle(file embed.FS) {
@@ -33,9 +35,16 @@ func (l *Translator) NewBundle(file embed.FS) {
 	l.bundle = bundle
 }
 
+func (l *Translator) NewTranslator() {
+	l.supportLangs = append(l.supportLangs, language.Chinese)
+	l.supportLangs = append(l.supportLangs, language.English)
+	l.localizer = make(map[language.Tag]*i18n.Localizer)
+	l.localizer[language.Chinese] = i18n.NewLocalizer(l.bundle, language.Chinese.String())
+	l.localizer[language.English] = i18n.NewLocalizer(l.bundle, language.English.String())
+}
+
 func (l *Translator) Trans(lang string, msgId string) string {
-	localizer := i18n.NewLocalizer(l.bundle, lang)
-	message, err := localizer.LocalizeMessage(&i18n.Message{ID: msgId})
+	message, err := l.MatchLocalizer(lang).LocalizeMessage(&i18n.Message{ID: msgId})
 	if err != nil {
 		return msgId
 	}
@@ -43,16 +52,14 @@ func (l *Translator) Trans(lang string, msgId string) string {
 }
 
 func (l *Translator) TransError(lang string, err error) error {
-	localizer := i18n.NewLocalizer(l.bundle, lang)
-
 	if errcode.IsGrpcError(err) {
-		message, e := localizer.LocalizeMessage(&i18n.Message{ID: strings.Split(err.Error(), "desc = ")[1]})
+		message, e := l.MatchLocalizer(lang).LocalizeMessage(&i18n.Message{ID: strings.Split(err.Error(), "desc = ")[1]})
 		if e != nil {
 			message = err.Error()
 		}
 		return errorx.NewApiError(errcode.CodeFromGrpcError(err), message)
 	} else if apiErr, ok := err.(*errorx.ApiError); ok {
-		message, e := localizer.LocalizeMessage(&i18n.Message{ID: apiErr.Error()})
+		message, e := l.MatchLocalizer(lang).LocalizeMessage(&i18n.Message{ID: apiErr.Error()})
 		if e != nil {
 			message = apiErr.Error()
 		}
@@ -60,4 +67,15 @@ func (l *Translator) TransError(lang string, err error) error {
 	} else {
 		return errorx.NewApiError(http.StatusInternalServerError, "failed to translate error message")
 	}
+}
+
+func (l *Translator) MatchLocalizer(lang string) *i18n.Localizer {
+	tags := utils.ParseTags(lang)
+	for _, v := range tags {
+		if val, ok := l.localizer[v]; ok {
+			return val
+		}
+	}
+
+	return l.localizer[language.Chinese]
 }

@@ -19,6 +19,9 @@ type (
         // API path | API路径
         Path          string `json:"path"`
 
+        // Api translation | API 多语言翻译
+        Title         string `json:"title"`
+
         // API Description | API 描述
         Description   string `json:"description"`
 

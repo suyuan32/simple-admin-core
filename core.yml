@@ -44,6 +44,10 @@ definitions:
                 description: API path | API路径
                 type: string
                 x-go-name: Path
+            title:
+                description: Api translation | API 多语言翻译
+                type: string
+                x-go-name: Title
             updatedAt:
                 description: Update date | 更新日期
                 format: int64
@@ -2499,6 +2503,9 @@ responses:
                 type: string
             path:
                 description: API path | API路径
+                type: string
+            title:
+                description: Api translation | API 多语言翻译
                 type: string
             updatedAt:
                 description: Update date | 更新日期

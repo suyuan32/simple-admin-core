@@ -41,6 +41,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	// initialize translator
 	trans := &i18n.Translator{}
 	trans.NewBundle(i18n.LocaleFS)
+	trans.NewTranslator()
 
 	return &ServiceContext{
 		Config:    c,
