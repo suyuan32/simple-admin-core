@@ -15,19 +15,19 @@ import (
 )
 
 //go:embed locale/*.json
-var localeFS embed.FS
+var LocaleFS embed.FS
 
 type Translator struct {
 	bundle    *i18n.Bundle
 	localizer *i18n.Localizer
 }
 
-func (l *Translator) NewBundle() {
+func (l *Translator) NewBundle(file embed.FS) {
 	bundle := i18n.NewBundle(language.Chinese)
 	bundle.RegisterUnmarshalFunc("json", json.Unmarshal)
-	_, err := bundle.LoadMessageFileFS(localeFS, "locale/zh.json")
+	_, err := bundle.LoadMessageFileFS(file, "locale/zh.json")
 	logx.Must(err)
-	_, err = bundle.LoadMessageFileFS(localeFS, "locale/en.json")
+	_, err = bundle.LoadMessageFileFS(file, "locale/en.json")
 	logx.Must(err)
 
 	l.bundle = bundle
