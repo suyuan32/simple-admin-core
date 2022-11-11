@@ -321,12 +321,12 @@ type CreateOrUpdateUserReq struct {
 	Id uint64 `json:"id" validate:"number"`
 	// User Name | 用户名
 	// Required: true
-	// Max length: 20
-	Username string `json:"username" validate:"alphanum,max=20"`
+	// Max length: 30
+	Username string `json:"username" validate:"alphanum,max=30"`
 	// User's nickname | 用户的昵称
 	// Required: true
-	// Max length: 10
-	Nickname string `json:"nickname" validate:"alphanumunicode,max=10"`
+	// Max length: 30
+	Nickname string `json:"nickname" validate:"alphanumunicode,max=30"`
 	// Password | 密码
 	// Required: true
 	// Max length: 30
