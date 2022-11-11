@@ -12,7 +12,6 @@ import "base.api"
 
 type (
     // The response data of Token information | Token信息
-    // swagger:response TokenInfo
     TokenInfo {
         BaseInfo
 
@@ -33,7 +32,6 @@ type (
     }
 
     // Create or update token information request | 创建或更新token信息
-    // swagger:model CreateOrUpdateTokenReq
     CreateOrUpdateTokenReq {
        // ID
        // Required: true
@@ -63,7 +61,6 @@ type (
     }
 
     // The response data of Token list | Token列表数据
-    // swagger:response TokenListResp
     TokenListResp {
         // The total number of data | 数据总数
         Total uint64 `json:"total"`
@@ -74,7 +71,6 @@ type (
     }
 
     // Get token list request params | token列表请求参数
-    // swagger:model TokenListReq
     TokenListReq {
         PageInfo
         // User's UUID | 用户的UUID

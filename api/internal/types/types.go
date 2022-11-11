@@ -50,7 +50,7 @@ type BaseMsg struct {
 }
 
 // The basic response without data | 基础不带数据信息
-// swagger:response BaseMsg
+// swagger:response BaseResp
 type BaseResp struct {
 	Code int32  `json:"code"`
 	Msg  string `json:"msg"`
@@ -63,8 +63,8 @@ type SimpleMsg struct {
 	Msg string `json:"msg"`
 }
 
-// swagger:model PageInfo
 // The page request parameters | 列表请求参数
+// swagger:model PageInfo
 type PageInfo struct {
 	// Page number | 第几页
 	// Required: true
@@ -121,7 +121,7 @@ type BaseInfo struct {
 }
 
 // The request params of setting boolean status | 设置状态参数
-// swagger:model SetStatusCodeReq
+// swagger:model StatusCodeReq
 type StatusCodeReq struct {
 	// ID
 	// Required: true
@@ -270,7 +270,7 @@ type UserInfoResp struct {
 }
 
 // The response data of user's basic information | 用户基本信息返回数据
-// swagger:model GetUserInfoResp
+// swagger:response GetUserInfoResp
 type GetUserInfoResp struct {
 	// User's UUID | 用户的UUID
 	UUID string `json:"userId"`
@@ -381,7 +381,7 @@ type GetUserListReq struct {
 }
 
 // The response data of menu information | 菜单返回数据
-// swagger:response Menu
+// swagger:model MenuInfo
 type MenuInfo struct {
 	BaseInfo
 	// Menu type: directory or menu | 菜单类型: 目录或菜单
@@ -454,7 +454,6 @@ type MenuListResp struct {
 }
 
 // The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
-// swagger:response GetMenuListBase
 type GetMenuListBase struct {
 	// Menu type: directory or menu | 菜单类型: 目录或菜单
 	MenuType uint32 `json:"type"`
@@ -571,14 +570,14 @@ type MenuParamListByMenuIdResp struct {
 }
 
 // The response data of captcha | 验证码返回数据
-// swagger:response CaptchaInfo
+// swagger:model CaptchaInfo
 type CaptchaInfo struct {
 	CaptchaId string `json:"captchaId"`
 	ImgPath   string `json:"imgPath"`
 }
 
 // The response data of API information | API信息
-// swagger:response ApiInfo
+// swagger:model ApiInfo
 type ApiInfo struct {
 	BaseInfo
 	// API path | API路径
@@ -649,7 +648,7 @@ type ApiListReq struct {
 }
 
 // The response data of api authorization | API授权数据
-// swagger:response ApiAuthorityInfo
+// swagger:model ApiAuthorityInfo
 type ApiAuthorityInfo struct {
 	// API path | API 路径
 	Path string `json:"path"`
@@ -692,7 +691,7 @@ type MenuAuthorityInfoReq struct {
 }
 
 // Create or update menu authorization information request params | 创建或更新菜单授权信息参数
-// swagger:response MenuAuthorityInfo
+// swagger:response MenuAuthorityInfoResp
 type MenuAuthorityInfoResp struct {
 	// role ID | 角色ID
 	RoleId uint64 `json:"roleId"`
@@ -820,7 +819,7 @@ type DictionaryDetailReq struct {
 }
 
 // The response data of oauth provider information | 提供者信息
-// swagger:response ProviderInfo
+// swagger:model ProviderInfo
 type ProviderInfo struct {
 	BaseInfo
 	// Provider name | 提供商名字
@@ -935,7 +934,7 @@ type CallbackResp struct {
 }
 
 // The response data of Token information | Token信息
-// swagger:response TokenInfo
+// swagger:model TokenInfo
 type TokenInfo struct {
 	BaseInfo
 	// User's UUID | 用户的UUID

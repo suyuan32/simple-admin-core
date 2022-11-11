@@ -12,7 +12,6 @@ import "base.api"
 
 type (
     // Create or update role information params | 创建或更新角色信息参数
-    // swagger:model RoleInfo
     RoleInfo {
         BaseInfo
 
@@ -48,7 +47,6 @@ type (
     }
 
     // The response data of role list | 角色列表数据
-    // swagger:response RoleListResp
     RoleListResp {
         // The total number of data | 数据总数
         Total uint64      `json:"total"`

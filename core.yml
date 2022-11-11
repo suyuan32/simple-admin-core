@@ -114,6 +114,17 @@ definitions:
                 x-go-name: UpdatedAt
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    CaptchaInfo:
+        description: The response data of captcha | 验证码返回数据
+        properties:
+            captchaId:
+                type: string
+                x-go-name: CaptchaId
+            imgPath:
+                type: string
+                x-go-name: ImgPath
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ChangePasswordReq:
         description: change user's password request | 修改密码请求参数
         properties:
@@ -720,84 +731,6 @@ definitions:
             - pageSize
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-    GetMenuListBase:
-        description: The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
-        properties:
-            children:
-                description: |-
-                    children | 子集
-                    in: body
-                items:
-                    $ref: '#/definitions/GetMenuListBase'
-                type: array
-                x-go-name: Children
-            component:
-                description: The component path | 组件路径
-                type: string
-                x-go-name: Component
-            disabled:
-                description: If disabled | 是否禁用菜单
-                type: boolean
-                x-go-name: Disabled
-            level:
-                description: The menu level | 菜单等级
-                format: uint32
-                type: integer
-                x-go-name: MenuLevel
-            meta:
-                $ref: '#/definitions/Meta'
-            name:
-                description: Menu name | 菜单名
-                type: string
-                x-go-name: Name
-            orderNo:
-                description: The sorting number | 排序编号
-                format: uint32
-                type: integer
-                x-go-name: OrderNo
-            parentId:
-                description: Parent menu ID | 父级菜单ID
-                format: uint64
-                type: integer
-                x-go-name: ParentId
-            path:
-                description: The path to visit menu | 菜单访问路径
-                type: string
-                x-go-name: Path
-            redirect:
-                description: Redirect path | 跳转路径
-                type: string
-                x-go-name: Redirect
-            type:
-                description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
-                format: uint32
-                type: integer
-                x-go-name: MenuType
-        type: object
-        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-    GetUserInfoResp:
-        description: The response data of user's basic information | 用户基本信息返回数据
-        properties:
-            avatar:
-                description: The user's avatar path | 用户的头像路径
-                type: string
-                x-go-name: Avatar
-            nickname:
-                description: User's nickname | 用户的昵称
-                type: string
-                x-go-name: Nickname
-            roles:
-                $ref: '#/definitions/GetUserRoleInfo'
-            userId:
-                description: User's UUID | 用户的UUID
-                type: string
-                x-go-name: UUID
-            username:
-                description: User's name | 用户名
-                type: string
-                x-go-name: Username
-        type: object
-        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetUserListReq:
         description: Get user list request | 获取用户列表请求参数
         properties:
@@ -1170,6 +1103,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     PageInfo:
+        description: The page request parameters | 列表请求参数
         properties:
             page:
                 description: Page number | 第几页
@@ -1377,7 +1311,7 @@ definitions:
                 x-go-name: Value
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-    SetStatusCodeReq:
+    StatusCodeReq:
         description: The request params of setting boolean status | 设置状态参数
         properties:
             id:
@@ -1394,7 +1328,6 @@ definitions:
             - id
             - status
         type: object
-        x-go-name: StatusCodeReq
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TokenInfo:
         description: The response data of Token information | Token信息
@@ -1698,7 +1631,9 @@ paths:
             operationId: GetCaptcha
             responses:
                 "200":
-                    $ref: '#/responses/CaptchaInfo'
+                    description: CaptchaInfo
+                    schema:
+                        $ref: '#/definitions/CaptchaInfo'
                 "401":
                     $ref: '#/responses/SimpleMsg'
                 "500":
@@ -2307,9 +2242,7 @@ paths:
             operationId: GetUserInfo
             responses:
                 "200":
-                    description: GetUserInfoResp
-                    schema:
-                        $ref: '#/definitions/GetUserInfoResp'
+                    $ref: '#/responses/GetUserInfoResp'
                 "401":
                     $ref: '#/responses/SimpleMsg'
                 "500":
@@ -2461,15 +2394,6 @@ paths:
 produces:
     - application/json
 responses:
-    ApiAuthorityInfo:
-        description: The response data of api authorization | API授权数据
-        headers:
-            method:
-                description: API method | API请求方法
-                type: string
-            path:
-                description: API path | API 路径
-                type: string
     ApiAuthorityListResp:
         description: The response data of api authorization list | API授权列表数据
         headers:
@@ -2481,36 +2405,6 @@ responses:
             items:
                 $ref: '#/definitions/ApiAuthorityInfo'
             type: array
-    ApiInfo:
-        description: The response data of API information | API信息
-        headers:
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-            description:
-                description: API Description | API 描述
-                type: string
-            group:
-                description: API group | API分组
-                type: string
-            id:
-                description: ID
-                format: uint64
-                type: integer
-            method:
-                description: API request method e.g. POST | API请求类型 如POST
-                type: string
-            path:
-                description: API path | API路径
-                type: string
-            title:
-                description: Api translation | API 多语言翻译
-                type: string
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
     ApiListResp:
         description: The response data of API list | API列表数据
         headers:
@@ -2523,6 +2417,16 @@ responses:
                 $ref: '#/definitions/ApiInfo'
             type: array
     BaseMsg:
+        description: The basic response with data | 基础带数据信息
+        headers:
+            code:
+                format: int32
+                type: integer
+            data:
+                type: string
+            msg:
+                type: string
+    BaseResp:
         description: The basic response without data | 基础不带数据信息
         headers:
             code:
@@ -2545,13 +2449,6 @@ responses:
                 type: string
         schema:
             $ref: '#/definitions/RoleInfoSimple'
-    CaptchaInfo:
-        description: The response data of captcha | 验证码返回数据
-        headers:
-            captchaId:
-                type: string
-            imgPath:
-                type: string
     DictionaryDetailListResp:
         description: The response data of dictionary KV list | 字典值的列表数据
         headers:
@@ -2574,45 +2471,23 @@ responses:
             items:
                 $ref: '#/definitions/DictionaryInfo'
             type: array
-    GetMenuListBase:
-        description: The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
+    GetUserInfoResp:
+        description: The response data of user's basic information | 用户基本信息返回数据
         headers:
-            component:
-                description: The component path | 组件路径
+            avatar:
+                description: The user's avatar path | 用户的头像路径
                 type: string
-            disabled:
-                description: If disabled | 是否禁用菜单
-                type: boolean
-            level:
-                description: The menu level | 菜单等级
-                format: uint32
-                type: integer
-            name:
-                description: Menu name | 菜单名
+            nickname:
+                description: User's nickname | 用户的昵称
                 type: string
-            orderNo:
-                description: The sorting number | 排序编号
-                format: uint32
-                type: integer
-            parentId:
-                description: Parent menu ID | 父级菜单ID
-                format: uint64
-                type: integer
-            path:
-                description: The path to visit menu | 菜单访问路径
+            userId:
+                description: User's UUID | 用户的UUID
                 type: string
-            redirect:
-                description: Redirect path | 跳转路径
+            username:
+                description: User's name | 用户名
                 type: string
-            type:
-                description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
-                format: uint32
-                type: integer
         schema:
-            $ref: '#/definitions/Meta'
-            items:
-                $ref: '#/definitions/GetMenuListBase'
-            type: array
+            $ref: '#/definitions/GetUserRoleInfo'
     LoginResp:
         description: The login response data | 登录返回数据
         headers:
@@ -2628,102 +2503,7 @@ responses:
                 type: string
         schema:
             $ref: '#/definitions/RoleInfoSimple'
-    Menu:
-        description: The response data of menu information | 菜单返回数据
-        headers:
-            affix:
-                description: Affix tab | 是否固定标签
-                type: boolean
-            carryParam:
-                description: The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
-                type: boolean
-            component:
-                description: The component path | 组件路径
-                type: string
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-            currentActiveMenu:
-                description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
-                maxLength: 30
-                type: string
-            disabled:
-                description: If disabled | 是否禁用菜单
-                type: boolean
-            dynamicLevel:
-                description: The maximum number of pages the router can open | 动态路由可打开Tab页数
-                format: uint32
-                type: integer
-            frameSrc:
-                description: Iframe path | 内嵌iframe的地址
-                type: string
-            hideBreadcrumb:
-                description: If hide the breadcrumb | 隐藏面包屑
-                type: boolean
-            hideChildrenInMenu:
-                description: Hide children menu or not | 隐藏所有子菜单
-                type: boolean
-            hideMenu:
-                description: Hide menu | 隐藏菜单
-                type: boolean
-            hideTab:
-                description: Hide the tab header | 当前路由不在标签页显示
-                type: boolean
-            icon:
-                description: Menu Icon | 菜单图标
-                maxLength: 50
-                type: string
-            id:
-                description: ID
-                format: uint64
-                type: integer
-            ignoreKeepAlive:
-                description: Do not keep alive the tab | 不缓存Tab
-                type: boolean
-            level:
-                description: The menu level | 菜单等级
-                format: uint32
-                type: integer
-            name:
-                description: Menu name | 菜单名
-                type: string
-            orderNo:
-                description: The sorting number | 排序编号
-                format: uint32
-                type: integer
-            parentId:
-                description: Parent menu ID | 父级菜单ID
-                format: uint64
-                type: integer
-            path:
-                description: The path to visit menu | 菜单访问路径
-                type: string
-            realPath:
-                description: The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
-                type: string
-            redirect:
-                description: Redirect path | 跳转路径
-                type: string
-            title:
-                description: Menu title show in page | 菜单显示名
-                maxLength: 50
-                type: string
-            type:
-                description: |-
-                    Menu type: directory or menu | 菜单类型: 目录或菜单
-                    0. directory group 1. menu | 0 目录 1 菜单
-                format: uint32
-                type: integer
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/MenuInfo'
-            type: array
-    MenuAuthorityInfo:
+    MenuAuthorityInfoResp:
         description: Create or update menu authorization information request params | 创建或更新菜单授权信息参数
         headers:
             menuIds:
@@ -2863,49 +2643,6 @@ responses:
             nickname:
                 description: user's nickname | 用户的昵称
                 type: string
-    ProviderInfo:
-        description: The response data of oauth provider information | 提供者信息
-        headers:
-            authStyle:
-                description: Auth Style is specifies how the endpoint wants the client ID & client secret sent. The zero value means to auto-detect. | 鉴权方式, 0 表示自动检测
-                format: int64
-                type: integer
-            authURL:
-                description: Auth URL | 鉴权URL
-                type: string
-            clientId:
-                description: Client ID | 客户端ID
-                type: string
-            clientSecret:
-                description: Client secret | 客户端密码
-                type: string
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-            id:
-                description: ID
-                format: uint64
-                type: integer
-            infoURL:
-                description: Get User information URL | 获取用户信息地址
-                type: string
-            name:
-                description: Provider name | 提供商名字
-                type: string
-            redirectURL:
-                description: Redirect URL | 跳转URL
-                type: string
-            scopes:
-                description: Scopes | 范围
-                type: string
-            tokenURL:
-                description: Token URL | 获取 Token 的网址
-                type: string
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
     ProviderListResp:
         description: The response data of provider list | 提供商列表数据
         headers:
@@ -2948,38 +2685,6 @@ responses:
             msg:
                 description: Message | 信息
                 type: string
-    TokenInfo:
-        description: The response data of Token information | Token信息
-        headers:
-            UUID:
-                description: User's UUID | 用户的UUID
-                type: string
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-            expiredAt:
-                description: Expire time | 过期时间
-                format: int64
-                type: integer
-            id:
-                description: ID
-                format: uint64
-                type: integer
-            source:
-                description: Log in source such as github | Token 来源 （本地为core, 第三方如github等）
-                type: string
-            status:
-                description: JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-                format: uint64
-                type: integer
-            token:
-                description: Token string | Token 字符串
-                type: string
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
     TokenListResp:
         description: The response data of Token list | Token列表数据
         headers:

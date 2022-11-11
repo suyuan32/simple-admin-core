@@ -17,7 +17,6 @@ type BaseMsg {
 }
 
 // The basic response without data | 基础不带数据信息
-// swagger:response BaseMsg
 type BaseResp {
     Code int32  `json:"code"`
     Msg  string `json:"msg"`
@@ -30,8 +29,8 @@ type SimpleMsg {
     Msg string `json:"msg"`
 }
 
-// swagger:model PageInfo
 // The page request parameters | 列表请求参数
+// swagger:model PageInfo
 type PageInfo {
     // Page number | 第几页
     // Required: true
@@ -54,7 +53,6 @@ type PageList {
 }
 
 // Basic id request | 基础id参数请求
-// swagger:model IDReq
 type IDReq {
     // ID
     // Required: true
@@ -63,7 +61,6 @@ type IDReq {
 
 
 // Basic id request | 基础id参数请求
-// swagger:model IDPathReq
 type IDPathReq {
     // ID
     // Required: true
@@ -71,7 +68,6 @@ type IDPathReq {
 }
 
 // Basic UUID request | 基础UUID参数请求
-// swagger:model UUIDReq
 type UUIDReq {
     // UUID
     // Required: true
@@ -93,7 +89,6 @@ type BaseInfo {
 }
 
 // The request params of setting boolean status | 设置状态参数
-// swagger:model SetStatusCodeReq
 type StatusCodeReq {
     // ID
     // Required: true

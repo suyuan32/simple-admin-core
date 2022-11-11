@@ -12,7 +12,6 @@ import "base.api"
 
 type (
     // The response data of oauth provider information | 提供者信息
-    // swagger:response ProviderInfo
     ProviderInfo {
         BaseInfo
 
@@ -46,7 +45,6 @@ type (
     }
 
     // Create or update provider information request | 创建或更新提供商信息
-    // swagger:model CreateOrUpdateProviderReq
     CreateOrUpdateProviderReq {
         // ID
         // Required: true
@@ -102,7 +100,6 @@ type (
     }
 
     // The response data of provider list | 提供商列表数据
-    // swagger:response ProviderListResp
     ProviderListResp {
         // The total number of data | 数据总数
         Total uint64 `json:"total"`
@@ -113,7 +110,6 @@ type (
     }
 
     // Oauth log in request | Oauth 登录请求
-    // swagger:model OauthLoginReq
     OauthLoginReq {
         // State code to avoid hack | 状态码，请求前后相同避免安全问题
         // Required: true
@@ -128,13 +124,11 @@ type (
     }
 
     // Redirect response | 跳转网址
-    // swagger:response RedirectResp
     RedirectResp {
         URL string `json:"URL"`
     }
 
     // The oauth callback response data | Oauth回调数据
-    // swagger:response CallbackResp
     CallbackResp {
         // User's UUID | 用户的UUID
         UserId       string          `json:"userId"`

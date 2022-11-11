@@ -14,6 +14,14 @@ swagger generate spec --output=./core.yml --scan-models
 swagger serve --no-open -F=swagger --port 36666 core.yaml
 ```
 
+use make
+
+```shell
+make gen-api
+
+make serve-swagger
+```
+
 ![pic](../../assets/swagger.png)
 
 > Get Token
@@ -29,64 +37,20 @@ swagger serve --no-open -F=swagger --port 36666 core.yaml
 
 We use normally use Req suffix to represent  Request， Resp to represent Response.
 
-```text
-// For post body, we use swagger:model, such as
 
-// Get API list request params | API列表请求参数
-// swagger:model ApiListReq
-ApiListReq {
-    PageInfo
-    // API path | API路径
-    // Max length: 100
-    Path          string `json:"path,optional" validate:"omitempty,max=100"`
-    
-    // API Description | API 描述
-    // Max length: 50
-    Description   string `json:"description,optional" validate:"omitempty,max=50"`
-    
-    // API group | API分组
-    // Max length: 10
-    Group         string `json:"group,optional" validate:"omitempty,alphanum,max=10"`
-    
-    // API request method e.g. POST | API请求类型 如POST
-    // Max length: 4
-    Method        string `json:"method,optional" validate:"omitempty,uppercase,max=4"`
-}
+#### If the type name has suffix "Req" and "Info", you can omit the swagger model type declaration.
 
-// For get query ， we use swagger:parameters ， you can also use model
-
-// swagger:parameters listBars addBars
-type BarSliceParam struct {
-    // a BarSlice has bars which are strings
-    //
-    // min items: 3
-    // max items: 10
-    // unique: true
-    // items.minItems: 4
-    // items.maxItems: 9
-    // items.items.minItems: 5
-    // items.items.maxItems: 8
-    // items.items.items.minLength: 3
-    // items.items.items.maxLength: 10
-    // items.items.items.pattern: \w+
-    // collection format: pipe
-    // in: query
-    // example: [[["bar_000"]]]
-    BarSlice [][][]string `json:"bar_slice"`
-}
-
-// For response ， use swagger:response 
-
-// The response data of API information | API信息
-    // swagger:response ApiInfo
+```go
+type (
+    // The response data of API information | API信息
     ApiInfo {
-        // ID
-        ID            uint64 `json:"id"`
-
-        CreatedAt      int64  `json:"createdAt"`
+        BaseInfo
 
         // API path | API路径
         Path          string `json:"path"`
+
+        // Api translation | API 多语言翻译
+        Title         string `json:"title"`
 
         // API Description | API 描述
         Description   string `json:"description"`
@@ -97,17 +61,88 @@ type BarSliceParam struct {
         // API request method e.g. POST | API请求类型 如POST
         Method        string `json:"method"`
     }
+}
+```
 
+generate 
 
-// For route， you need only one comment, such as api/desc/apis.api
+```go
+// The response data of API information | API信息
+// swagger:model ApiInfo
+type ApiInfo struct {
+	BaseInfo
+	// API path | API路径
+	Path string `json:"path"`
+	// Api translation | API 多语言翻译
+	Title string `json:"title"`
+	// API Description | API 描述
+	Description string `json:"description"`
+	// API group | API分组
+	Group string `json:"group"`
+	// API request method e.g. POST | API请求类型 如POST
+	Method string `json:"method"`
+}
 
+```
+You can also overwrite it, just add your own comment.
+```go
+type (
+    // The response data of API information | API信息
+    // swagger:response ApiInfo
+    ApiInfo {
+        BaseInfo
+
+        // API path | API路径
+        Path          string `json:"path"`
+
+        // Api translation | API 多语言翻译
+        Title         string `json:"title"`
+
+        // API Description | API 描述
+        Description   string `json:"description"`
+
+        // API group | API分组
+        Group         string `json:"group"`
+
+        // API request method e.g. POST | API请求类型 如POST
+        Method        string `json:"method"`
+    }
+}
+
+```
+generate 
+```go
+// The response data of API information | API信息
+// swagger:response ApiInfo
+type ApiInfo struct {
+	BaseInfo
+	// API path | API路径
+	Path string `json:"path"`
+	// Api translation | API 多语言翻译
+	Title string `json:"title"`
+	// API Description | API 描述
+	Description string `json:"description"`
+	// API group | API分组
+	Group string `json:"group"`
+	// API request method e.g. POST | API请求类型 如POST
+	Method string `json:"method"`
+}
+```
+
+#### If the type name has suffix "Resp"  you can omit the swagger response type declaration. Just like "Info" and "Req".
+
+> For route, you can just add a comment for it.
+
+api/desc/apis.api
+```go
 // Create or update API information | 创建或更新API
 @handler createOrUpdateApi
 post /api (CreateOrUpdateApiReq) returns (SimpleMsg)
+```
 
-// Auto generate api/internal/handler/api/create_or_update_api_handler.go, you can adjust your need in handler. 
-// It will not be overwrite when generate code. 
+It will generate :
 
+```go
 package api
 
 import (
@@ -147,6 +182,7 @@ func CreateOrUpdateApiHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := api.NewCreateOrUpdateApiLogic(r.Context(), svcCtx)
 		resp, err := l.CreateOrUpdateApi(&req)
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)
@@ -155,6 +191,8 @@ func CreateOrUpdateApiHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 }
 
 ```
+
+You can add more config in handler because it will not be over write if the file exists. 
 
 > Notice: goctls' generating will only overwrite internal/types/* and internal/handler/routes.go. 
 > If  handler and logic and so on need to regenerate, you must delete them by yourself.

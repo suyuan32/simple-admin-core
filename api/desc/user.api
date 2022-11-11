@@ -12,7 +12,6 @@ import "base.api"
 
 type (
     // login request | 登录参数
-    // swagger:model LoginReq
     LoginReq {
         // User Name | 用户名
         // Required: true
@@ -37,7 +36,6 @@ type (
     }
 
     // The login response data | 登录返回数据
-    // swagger:response LoginResp
     LoginResp {
         // User's UUID | 用户的UUID
         UserId       string          `json:"userId"`
@@ -54,7 +52,6 @@ type (
     }
 
     // The profile response data | 个人信息返回数据
-    // swagger:response ProfileResp
     ProfileResp {
         // user's nickname | 用户的昵称
         Nickname     string       `json:"nickname"`
@@ -70,7 +67,6 @@ type (
     }
 
     // The profile request data | 个人信息请求参数
-    // swagger:model ProfileReq
     ProfileReq {
         // user's nickname | 用户的昵称
         // Max length: 10
@@ -99,7 +95,6 @@ type (
     }
 
     // register request | 注册参数
-    // swagger:model RegisterReq
     RegisterReq {
         // User Name | 用户名
         // Required: true
@@ -129,7 +124,6 @@ type (
     }
 
     // change user's password request | 修改密码请求参数
-    // swagger:model ChangePasswordReq
     ChangePasswordReq {
         // User's old password | 用户旧密码
         // Required: true
@@ -144,7 +138,6 @@ type (
 
 
     // The response data of user's information | 用户信息返回数据
-    // swagger:response UserInfoResp
     UserInfoResp {
         BaseInfo
 
@@ -178,7 +171,6 @@ type (
     }
 
     // The response data of user's basic information | 用户基本信息返回数据
-    // swagger:model GetUserInfoResp
     GetUserInfoResp {
         // User's UUID | 用户的UUID
         UUID         string       `json:"userId"`
@@ -198,7 +190,6 @@ type (
     }
 
     // The response data of user's basic role information | 用户角色信息数据
-    // swagger:model GetUserRoleInfo
     GetUserRoleInfo {
         // Role name | 角色名
         RoleName   string `json:"roleName"`
@@ -208,7 +199,6 @@ type (
     }
 
     // The response data of user list | 用户列表数据
-    // swagger:response UserListResp
     UserListResp {
         // The total number of data | 数据总数
         Total uint64 `json:"total"`
@@ -219,14 +209,12 @@ type (
     }
 
     // The permission code for front end permission control | 权限码： 用于前端权限控制
-    // swagger:response PermCodeResp
     PermCodeResp {
         // Permission code data | 权限码数据
         Data []string `json:"data"`
     }
 
     // Create or update user information request | 创建或更新用户信息
-    // swagger:model CreateOrUpdateUserReq
     CreateOrUpdateUserReq {
         // User's id | 用户ID
         // Required: true
@@ -276,7 +264,6 @@ type (
     }
 
     // Get user list request | 获取用户列表请求参数
-    // swagger:model GetUserListReq
     GetUserListReq {
         // Page number | 第几页
         // Required: true

@@ -31,64 +31,20 @@ swagger serve --no-open -F=swagger --port 36666 core.yaml
 
 通常对于请求参数我们使用 Req 即 Request 的缩写， 返回值 Resp 即 Response 的缩写
 
-```text
-// 对于 post 请求体我们使用 swagger:model, 如
 
-// Get API list request params | API列表请求参数
-// swagger:model ApiListReq
-ApiListReq {
-    PageInfo
-    // API path | API路径
-    // Max length: 100
-    Path          string `json:"path,optional" validate:"omitempty,max=100"`
-    
-    // API Description | API 描述
-    // Max length: 50
-    Description   string `json:"description,optional" validate:"omitempty,max=50"`
-    
-    // API group | API分组
-    // Max length: 10
-    Group         string `json:"group,optional" validate:"omitempty,alphanum,max=10"`
-    
-    // API request method e.g. POST | API请求类型 如POST
-    // Max length: 4
-    Method        string `json:"method,optional" validate:"omitempty,uppercase,max=4"`
-}
+#### 如果你声明的类型后缀有 "Req" 和 "Info", 你可以忽略 swagger:model 的声明. 系统自动添加 swagger:model 注解。
 
-// 对于 get query 请求， 可以使用 swagger:parameters 注解，也可使用model
-
-// swagger:parameters listBars addBars
-type BarSliceParam struct {
-    // a BarSlice has bars which are strings
-    //
-    // min items: 3
-    // max items: 10
-    // unique: true
-    // items.minItems: 4
-    // items.maxItems: 9
-    // items.items.minItems: 5
-    // items.items.maxItems: 8
-    // items.items.items.minLength: 3
-    // items.items.items.maxLength: 10
-    // items.items.items.pattern: \w+
-    // collection format: pipe
-    // in: query
-    // example: [[["bar_000"]]]
-    BarSlice [][][]string `json:"bar_slice"`
-}
-
-// 对于 response 来说， 使用 swagger:response 注解
-
-// The response data of API information | API信息
-    // swagger:response ApiInfo
+```go
+type (
+    // The response data of API information | API信息
     ApiInfo {
-        // ID
-        Id            uint64 `json:"id"`
-
-        CreatedAt      int64  `json:"createdAt"`
+        BaseInfo
 
         // API path | API路径
         Path          string `json:"path"`
+
+        // Api translation | API 多语言翻译
+        Title         string `json:"title"`
 
         // API Description | API 描述
         Description   string `json:"description"`
@@ -99,16 +55,88 @@ type BarSliceParam struct {
         // API request method e.g. POST | API请求类型 如POST
         Method        string `json:"method"`
     }
+}
+```
 
+生成
 
-// 对于 route 来说， 只需要一行注解, 如 api/desc/apis.api
+```go
+// The response data of API information | API信息
+// swagger:model ApiInfo
+type ApiInfo struct {
+	BaseInfo
+	// API path | API路径
+	Path string `json:"path"`
+	// Api translation | API 多语言翻译
+	Title string `json:"title"`
+	// API Description | API 描述
+	Description string `json:"description"`
+	// API group | API分组
+	Group string `json:"group"`
+	// API request method e.g. POST | API请求类型 如POST
+	Method string `json:"method"`
+}
 
+```
+你也可以覆盖掉它, 添加自己的swagger类型，如下：
+```go
+type (
+    // The response data of API information | API信息
+    // swagger:response ApiInfo
+    ApiInfo {
+        BaseInfo
+
+        // API path | API路径
+        Path          string `json:"path"`
+
+        // Api translation | API 多语言翻译
+        Title         string `json:"title"`
+
+        // API Description | API 描述
+        Description   string `json:"description"`
+
+        // API group | API分组
+        Group         string `json:"group"`
+
+        // API request method e.g. POST | API请求类型 如POST
+        Method        string `json:"method"`
+    }
+}
+
+```
+生成
+```go
+// The response data of API information | API信息
+// swagger:response ApiInfo
+type ApiInfo struct {
+	BaseInfo
+	// API path | API路径
+	Path string `json:"path"`
+	// Api translation | API 多语言翻译
+	Title string `json:"title"`
+	// API Description | API 描述
+	Description string `json:"description"`
+	// API group | API分组
+	Group string `json:"group"`
+	// API request method e.g. POST | API请求类型 如POST
+	Method string `json:"method"`
+}
+```
+
+#### 如果类型后缀为"Resp"，你可以忽略swagger注解，系统自动添加 response 注解. 和 "Info" "Req" 类似.
+
+> 对于 route 来说，只需添加简单的一行介绍即可
+
+api/desc/apis.api
+```go
 // Create or update API information | 创建或更新API
 @handler createOrUpdateApi
 post /api (CreateOrUpdateApiReq) returns (SimpleMsg)
+```
 
-// 自动生成 api/internal/handler/api/create_or_update_api_handler.go
+将会生成 :
 
+```go
 package api
 
 import (
@@ -148,6 +176,7 @@ func CreateOrUpdateApiHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		l := api.NewCreateOrUpdateApiLogic(r.Context(), svcCtx)
 		resp, err := l.CreateOrUpdateApi(&req)
 		if err != nil {
+			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
 			httpx.Error(w, err)
 		} else {
 			httpx.OkJson(w, resp)
@@ -156,5 +185,7 @@ func CreateOrUpdateApiHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 }
 
 ```
+
+你可以修改不同的 response， 或者进行更复杂的配置， 它不会被覆盖，除非将文件删除。
 
 > 注意 goctls 的生成只会覆盖 internal/types/* 和 internal/handler/routes.go， 如果 handler 需要重新生成需要手动删除再生成

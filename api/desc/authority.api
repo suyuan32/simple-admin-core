@@ -12,7 +12,6 @@ import "base.api"
 
 type (
     // The response data of api authorization | API授权数据
-    // swagger:response ApiAuthorityInfo
     ApiAuthorityInfo {
         // API path | API 路径
         Path string   `json:"path"`
@@ -23,7 +22,6 @@ type (
 
 
     // Create or update api authorization information request | 创建或更新API授权信息
-    // swagger:model CreateOrUpdateApiAuthorityReq
     CreateOrUpdateApiAuthorityReq {
         // Role ID | 角色ID
         // Required: true
@@ -36,7 +34,6 @@ type (
     }
 
     // The response data of api authorization list | API授权列表数据
-    // swagger:response ApiAuthorityListResp
     ApiAuthorityListResp {
         // The total number of data | 数据总数
         Total uint64   `json:"total"`
@@ -47,7 +44,6 @@ type (
     }
 
     // Create or update menu authorization information request params | 创建或更新菜单授权信息参数
-    // swagger:model MenuAuthorityInfoReq
     MenuAuthorityInfoReq {
         // role ID | 角色ID
         // Required: true
@@ -60,7 +56,6 @@ type (
     }
 
     // Create or update menu authorization information request params | 创建或更新菜单授权信息参数
-    // swagger:response MenuAuthorityInfo
     MenuAuthorityInfoResp {
         // role ID | 角色ID
         RoleId  uint64   `json:"roleId"`

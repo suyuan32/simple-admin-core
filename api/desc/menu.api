@@ -12,7 +12,6 @@ import "base.api"
 
 type (
     // The response data of menu information | 菜单返回数据
-    // swagger:response Menu
     MenuInfo {
         BaseInfo
 
@@ -99,7 +98,6 @@ type (
     }
 
     // The response data of menu list | 菜单列表数据
-    // swagger:response MenuListResp
     MenuListResp {
         // The total number of data | 数据总数
         Total uint64 `json:"total"`
@@ -110,7 +108,6 @@ type (
     }
 
     // The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
-    // swagger:response GetMenuListBase
     GetMenuListBase {
         // Menu type: directory or menu | 菜单类型: 目录或菜单
         menuType     uint32      `json:"type"`
@@ -147,7 +144,6 @@ type (
     }
 
     // Create or update menu information request params | 创建或更新菜单信息参数
-    // swagger:model CreateOrUpdateMenuReq
     CreateOrUpdateMenuReq {
         // ID
         // Required: true
@@ -199,7 +195,6 @@ type (
 
 
     // Create or update menu extra parameters request params | 创建或更新菜单额外参数的请求参数
-    // swagger:model CreateOrUpdateMenuParamReq
     CreateOrUpdateMenuParamReq {
         // ID
         // Required: true
@@ -229,7 +224,6 @@ type (
     }
 
     // The response data of menu parameters  | 菜单参数列表数据
-    // swagger:response MenuParamResp
     MenuParamResp {
         BaseInfo
 
@@ -244,7 +238,6 @@ type (
     }
 
     // The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
-    // swagger:response MenuParamListByMenuIdResp
     MenuParamListByMenuIdResp {
         // The total number of data | 数据总数
         Total uint64 `json:"total"`

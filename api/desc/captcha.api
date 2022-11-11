@@ -11,7 +11,6 @@ info(
 import "base.api"
 
 // The response data of captcha | 验证码返回数据
-// swagger:response CaptchaInfo
 type CaptchaInfo {
 	CaptchaId string `json:"captchaId"`
 	ImgPath   string `json:"imgPath"`

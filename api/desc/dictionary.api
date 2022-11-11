@@ -12,7 +12,6 @@ import "base.api"
 
 type (
     // The response data of dictionary information | 字典信息
-    // swagger:model DictionaryInfo
     DictionaryInfo {
         BaseInfo
 
@@ -30,7 +29,6 @@ type (
     }
 
     // Create or update dictionary information request | 创建或更新字典信息请求
-    // swagger:model CreateOrUpdateDictionaryReq
     CreateOrUpdateDictionaryReq {
         // ID
         // Required: true
@@ -59,7 +57,6 @@ type (
     }
 
     // The response data of dictionary list | 字典列表数据
-    // swagger:response DictionaryListResp
     DictionaryListResp {
         // The total number of data | 数据总数
         Total uint64 `json:"total"`
@@ -70,7 +67,6 @@ type (
     }
 
     // Get dictionary list request params | 字典列表请求参数
-    // swagger:model DictionaryListReq
     DictionaryListReq {
        PageInfo
 
@@ -84,7 +80,6 @@ type (
     }
 
     // The response data of dictionary information | 字典信息
-    // swagger:model DictionaryDetailInfo
     DictionaryDetailInfo {
         BaseInfo
 
@@ -102,7 +97,6 @@ type (
     }
 
     // The response data of dictionary KV list | 字典值的列表数据
-    // swagger:response DictionaryDetailListResp
     DictionaryDetailListResp {
         // The total number of data | 数据总数
         Total uint64 `json:"total"`
@@ -113,7 +107,6 @@ type (
     }
 
     // Create or update dictionary KV information request | 创建或更新字典键值信息请求
-    // swagger:model CreateOrUpdateDictionaryDetailReq
     CreateOrUpdateDictionaryDetailReq {
         // ID
         // Required: true
@@ -145,7 +138,6 @@ type (
     }
 
     // Get dictionary detail list by dictionary name request | 根据字典名称获取对应键值请求
-    // swagger:model DictionaryDetailReq
     DictionaryDetailReq {
         // Dictionary name | 字典名
         Name    string  `json:"name"`
