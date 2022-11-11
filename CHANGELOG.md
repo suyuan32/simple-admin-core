@@ -1,3 +1,41 @@
+# 0.1.4 (2022/11/11)
+
+### Features
+
+- chore: update simple admin tool to 0.0.8
+- Add CNAME for doc
+- docs: ent
+- feat: error msg i18n
+- wip: update trans
+- docs: update Chinese doc for ent
+- docs: update Chinese doc for ent
+- feat: cache config
+
+### Bug Fixes
+
+- fix: optimize api definition
+- fix: use server translate api description
+
+# 0.1.4-beta (2022/11/07)
+
+### Features
+
+- docs: update ent doc
+- docs: env setting and global vars
+- docs: update quick cmd and ent doc
+- docs: update read me
+- feat: ent support
+- wip: ent support
+- wip: ent support
+- Update README.En.md
+- Update README.md
+- docs: update change log
+
+### Bug Fixes
+
+- fix: remove auto migrate
+- fix: duplicate err
+
 # 0.1.3 (2022/11/02)
 
 ### Features
