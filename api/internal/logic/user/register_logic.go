@@ -35,6 +35,7 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.SimpleMsg,
 				Username: req.Username,
 				Password: req.Password,
 				Email:    req.Email,
+				Nickname: req.Username,
 			})
 		if err != nil {
 			l.Logger.Error("register logic: create user err: ", err.Error())

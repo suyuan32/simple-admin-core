@@ -35,7 +35,7 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 			SetUUID(uuid.NewString()).
 			SetUsername(in.Username).
 			SetPassword(utils.BcryptEncrypt(in.Password)).
-			SetNickname(in.Email).
+			SetNickname(in.Nickname).
 			SetEmail(in.Email).
 			SetMobile(in.Mobile).
 			SetAvatar(in.Avatar).
@@ -55,16 +55,27 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 
 		return &core.BaseResp{Msg: errorx.Success}, nil
 	} else {
-		err := l.svcCtx.DB.User.UpdateOneID(in.Id).
-			SetUUID(uuid.NewString()).
-			SetUsername(in.Username).
-			SetPassword(utils.BcryptEncrypt(in.Password)).
-			SetNickname(in.Email).
-			SetEmail(in.Email).
-			SetMobile(in.Mobile).
-			SetAvatar(in.Avatar).
-			SetRoleID(in.RoleId).
-			Exec(l.ctx)
+		var err error
+		if in.Password != "" {
+			err = l.svcCtx.DB.User.UpdateOneID(in.Id).
+				SetUsername(in.Username).
+				SetPassword(utils.BcryptEncrypt(in.Password)).
+				SetNickname(in.Nickname).
+				SetEmail(in.Email).
+				SetMobile(in.Mobile).
+				SetAvatar(in.Avatar).
+				SetRoleID(in.RoleId).
+				Exec(l.ctx)
+		} else {
+			err = l.svcCtx.DB.User.UpdateOneID(in.Id).
+				SetUsername(in.Username).
+				SetNickname(in.Nickname).
+				SetEmail(in.Email).
+				SetMobile(in.Mobile).
+				SetAvatar(in.Avatar).
+				SetRoleID(in.RoleId).
+				Exec(l.ctx)
+		}
 
 		if err != nil {
 			switch {

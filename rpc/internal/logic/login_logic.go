@@ -63,8 +63,6 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 		RoleName:  roleName,
 		RoleId:    result.RoleID,
 	}, nil
-
-	return nil, nil
 }
 
 func getRoleInfo(roleId uint64, rds *redis.Redis, db *ent.Client, ctx context.Context) (roleName, roleValue string, err error) {
