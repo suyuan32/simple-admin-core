@@ -506,6 +506,12 @@ func (l *HelloLogic) Hello(req *types.HelloReq) (resp *types.HelloResp, err erro
 
 ```
 
+> In order to support i18n, we should modify pkg/i18n/locals/zh.json  和  pkg/i18n/locals/en.json to add routes
+
+![example](../../assets/example_zh_title.png)
+![example](../../assets/example_en_title.png)
+
+
 > Run rpc and api service
 
 Run in api and rpc directory respectively

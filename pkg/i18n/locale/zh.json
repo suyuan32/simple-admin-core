@@ -71,7 +71,7 @@
 		"getTokenList": "获取Token列表",
 		"setTokenStatus": "设置Token状态"
 	},
-	"routes": {
+	"route": {
 		"dashboard": "控制台",
 		"systemManagementTitle": "系统管理",
 		"menuManagementTitle": "菜单管理",

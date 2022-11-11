@@ -90,12 +90,6 @@ export const Hello = (params: HelloReq, mode: ErrorMessageMode = 'modal') => {
 ![example](../../assets/example_validator_modal_mode.png)
 
 
-
-> 由于默认需要支持两种语言，所以要分别设置 src/locals/zh-CN/routes/system.ts  和  src/locals/en/routes/system.ts 
-
-![example](../../assets/example_zh_title.png)
-![example](../../assets/example_en_title.png)
-
 > 推荐使用 i18n 插件，可以直接复制路径 
 
 ![I18n](../../assets/i18n_ext.png)

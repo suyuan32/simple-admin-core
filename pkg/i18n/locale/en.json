@@ -71,7 +71,7 @@
 		"getTokenList": "Get token list",
 		"setTokenStatus": "Set token status"
 	},
-	"routes": {
+	"route": {
 		"dashboard": "Dashboard",
 		"systemManagementTitle": "System",
 		"menuManagementTitle": "Menu",

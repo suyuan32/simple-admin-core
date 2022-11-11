@@ -503,6 +503,12 @@ func (l *HelloLogic) Hello(req *types.HelloReq) (resp *types.HelloResp, err erro
 
 ```
 
+> 由于默认需要支持两种语言，所以要分别在 pkg/i18n/locals/zh.json  和  pkg/i18n/locals/en.json 添加 route
+
+![example](../../assets/example_zh_title.png)
+![example](../../assets/example_en_title.png)
+
+
 > 启动 rpc 和 api
 
 分别在 api rpc 目录下执行

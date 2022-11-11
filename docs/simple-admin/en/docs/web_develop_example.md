@@ -111,11 +111,6 @@ export const Hello = (params: HelloReq, mode: ErrorMessageMode = 'modal') => {
 
 ![Menu](../../assets/add_example_authority.png)
 
-> API description also recommend to set chinese and english translation
-
-![Example](../../assets/example_api_desc_title_en.png)
-![Example](../../assets/example_api_desc_title_zh.png)
-
 > Add API
 
 ![Example](../../assets/add_example_api_zh.png)
