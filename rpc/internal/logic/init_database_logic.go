@@ -3,6 +3,8 @@ package logic
 import (
 	"context"
 
+	"entgo.io/ent/dialect/sql/schema"
+
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
@@ -35,6 +37,10 @@ func NewInitDatabaseLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Init
 //  init database
 
 func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error) {
+	// If your mysql speed is high, comment the code below.
+	// Because the context deadline will reach if the database is too slow
+	l.ctx = context.Background()
+
 	//add lock to avoid duplicate initialization
 	lock := redis.NewRedisLock(l.svcCtx.Redis, "init_database_lock")
 	lock.SetExpire(60)
@@ -75,7 +81,7 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	l.svcCtx.Redis.Set("database_init_state", "0")
 
 	// initialize table structure
-	if err := l.svcCtx.DB.Schema.Create(l.ctx); err != nil {
+	if err := l.svcCtx.DB.Schema.Create(l.ctx, schema.WithForeignKeys(false)); err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, status.Error(codes.Internal, err.Error())
