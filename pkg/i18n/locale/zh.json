@@ -71,6 +71,21 @@
 		"getTokenList": "获取Token列表",
 		"setTokenStatus": "设置Token状态"
 	},
+	"routes": {
+		"dashboard": "控制台",
+		"systemManagementTitle": "系统管理",
+		"menuManagementTitle": "菜单管理",
+		"roleManagementTitle": "角色管理",
+		"apiManagementTitle": "API管理",
+		"userManagementTitle": "用户管理",
+		"fileManagementTitle": "文件管理",
+		"userProfileTitle": "用户个人信息",
+		"dictionaryManagementTitle": "字典管理",
+		"dictionaryDetailManagementTitle": "键值管理",
+		"oauthManagement": "Oauth管理",
+		"tokenManagement": "Token管理",
+		"otherPages": "其他页面"
+	},
 	"login": {
 		"loginSuccessTitle": "登录成功",
 		"signupSuccessTitle": "注册成功",
@@ -87,6 +102,10 @@
 		"parentNotExist": "父级不存在"
 	},
 	"role": {
+		"admin": "管理员",
+		"stuff": "员工",
+		"seller": "销售",
+		"member": "会员",
 		"changeStatusSuccess": "已成功修改角色状态",
 		"changeStatusFailed": "修改角色状态失败",
 		"duplicateRoleValue": "角色值重复",

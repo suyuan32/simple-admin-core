@@ -71,6 +71,21 @@
 		"getTokenList": "Get token list",
 		"setTokenStatus": "Set token status"
 	},
+	"routes": {
+		"dashboard": "Dashboard",
+		"systemManagementTitle": "System",
+		"menuManagementTitle": "Menu",
+		"roleManagementTitle": "Role",
+		"apiManagementTitle": "API",
+		"userManagementTitle": "User",
+		"fileManagementTitle": "File",
+		"userProfileTitle": "Profile",
+		"dictionaryManagementTitle": "Dictionary",
+		"dictionaryDetailManagementTitle": "Key/Value Management",
+		"oauthManagement": "Oauth",
+		"tokenManagement": "Token",
+		"otherPages": "Other pages"
+	},
 	"login": {
 		"loginSuccessTitle": "Login successful",
 		"signupSuccessTitle": "Sign up successful",
@@ -87,6 +102,10 @@
 		"parentNotExist": "The parent does not exist"
 	},
 	"role": {
+		"admin": "Administrator",
+		"stuff": "Stuff",
+		"seller": "Seller",
+		"member": "Member",
 		"changeStatusSuccess": "Change role status successfully",
 		"changeStatusFailed": "Change role status failed",
 		"duplicateRoleValue": "Duplicate role value",

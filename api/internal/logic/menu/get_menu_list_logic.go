@@ -2,6 +2,7 @@ package menu
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -14,13 +15,15 @@ type GetMenuListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	r      *http.Request
 }
 
-func NewGetMenuListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMenuListLogic {
+func NewGetMenuListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetMenuListLogic {
 	return &GetMenuListLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		r:      r,
 	}
 }
 
@@ -34,11 +37,11 @@ func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuListResp, err error) {
 	}
 	resp = &types.MenuListResp{}
 	resp.Total = data.Total
-	resp.Data = convertMenuList(data.Data)
+	resp.Data = l.convertMenuList(data.Data, l.r.Header.Get("Accept-Language"))
 	return resp, nil
 }
 
-func convertMenuList(data []*core.MenuInfo) []*types.MenuInfo {
+func (l *GetMenuListLogic) convertMenuList(data []*core.MenuInfo, lang string) []*types.MenuInfo {
 	if data == nil {
 		return nil
 	}
@@ -50,6 +53,7 @@ func convertMenuList(data []*core.MenuInfo) []*types.MenuInfo {
 				CreatedAt: v.CreatedAt,
 				UpdatedAt: v.UpdatedAt,
 			},
+			Trans:     l.svcCtx.Trans.Trans(lang, v.Meta.Title),
 			MenuType:  v.MenuType,
 			ParentId:  v.ParentId,
 			MenuLevel: v.Level,
@@ -73,7 +77,7 @@ func convertMenuList(data []*core.MenuInfo) []*types.MenuInfo {
 				DynamicLevel:       v.Meta.DynamicLevel,
 				RealPath:           v.Meta.RealPath,
 			},
-			Children: convertMenuList(v.Children),
+			Children: l.convertMenuList(v.Children, lang),
 		}
 		result = append(result, tmp)
 	}

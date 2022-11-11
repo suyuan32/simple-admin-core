@@ -2,6 +2,7 @@ package role
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -14,13 +15,15 @@ type GetRoleListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	r      *http.Request
 }
 
-func NewGetRoleListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRoleListLogic {
+func NewGetRoleListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetRoleListLogic {
 	return &GetRoleListLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		r:      r,
 	}
 }
 
@@ -34,12 +37,16 @@ func (l *GetRoleListLogic) GetRoleList(req *types.PageInfo) (resp *types.RoleLis
 	}
 	resp = &types.RoleListResp{}
 	resp.Total = data.Total
+
+	lang := l.r.Header.Get("Accept-Language")
+
 	for _, v := range data.Data {
 		resp.Data = append(resp.Data, types.RoleInfo{
 			BaseInfo: types.BaseInfo{
 				Id:        v.Id,
 				CreatedAt: v.CreatedAt,
 			},
+			Title:         l.svcCtx.Trans.Trans(lang, v.Name),
 			Name:          v.Name,
 			Value:         v.Value,
 			DefaultRouter: v.DefaultRouter,

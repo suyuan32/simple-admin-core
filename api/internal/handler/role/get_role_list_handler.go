@@ -3,10 +3,11 @@ package role
 import (
 	"net/http"
 
+	"github.com/zeromicro/go-zero/rest/httpx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/role"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 // swagger:route post /role/list role GetRoleList
@@ -34,7 +35,7 @@ func GetRoleListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := role.NewGetRoleListLogic(r.Context(), svcCtx)
+		l := role.NewGetRoleListLogic(r, svcCtx)
 		resp, err := l.GetRoleList(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

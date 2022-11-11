@@ -5,6 +5,8 @@ package types
 // swagger:model RoleInfo
 type RoleInfo struct {
 	BaseInfo
+	// Role translation | 角色名称国际化
+	Title string `json:"title,optional"`
 	// Role Name | 角色名
 	// Required : true
 	// Max length: 20
@@ -115,9 +117,9 @@ type BaseInfo struct {
 	// ID
 	Id uint64 `json:"id"`
 	// Create date | 创建日期
-	CreatedAt int64 `json:"createdAt"`
+	CreatedAt int64 `json:"createdAt,optional"`
 	// Update date | 更新日期
-	UpdatedAt int64 `json:"updatedAt"`
+	UpdatedAt int64 `json:"updatedAt,optional"`
 }
 
 // The request params of setting boolean status | 设置状态参数
@@ -384,6 +386,8 @@ type GetUserListReq struct {
 // swagger:model MenuInfo
 type MenuInfo struct {
 	BaseInfo
+	// Title translation | 标题翻译
+	Trans string `json:"trans,optional"`
 	// Menu type: directory or menu | 菜单类型: 目录或菜单
 	// 0. directory group 1. menu | 0 目录 1 菜单
 	MenuType uint32 `json:"type"`

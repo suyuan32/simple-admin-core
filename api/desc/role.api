@@ -15,6 +15,9 @@ type (
     RoleInfo {
         BaseInfo
 
+        // Role translation | 角色名称国际化
+        Title       string `json:"title,optional"`
+
         // Role Name | 角色名
         // Required : true
         // Max length: 20

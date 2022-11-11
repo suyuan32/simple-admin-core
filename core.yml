@@ -976,6 +976,10 @@ definitions:
                 maxLength: 50
                 type: string
                 x-go-name: Title
+            trans:
+                description: Title translation | 标题翻译
+                type: string
+                x-go-name: Trans
             type:
                 description: |-
                     Menu type: directory or menu | 菜单类型: 目录或菜单
@@ -1279,6 +1283,10 @@ definitions:
                 maximum: 20
                 type: integer
                 x-go-name: Status
+            title:
+                description: Role translation | 角色名称国际化
+                type: string
+                x-go-name: Title
             updatedAt:
                 description: Update date | 更新日期
                 format: int64

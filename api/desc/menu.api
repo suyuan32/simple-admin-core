@@ -15,6 +15,9 @@ type (
     MenuInfo {
         BaseInfo
 
+        // Title translation | 标题翻译
+        trans  string `json:"trans,optional"`
+
         // Menu type: directory or menu | 菜单类型: 目录或菜单
         // 0. directory group 1. menu | 0 目录 1 菜单
         menuType     uint32      `json:"type"`

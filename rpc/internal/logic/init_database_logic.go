@@ -516,7 +516,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("Dashboard").
 		SetComponent("/dashboard/workbench/index").
 		SetOrderNo(0).
-		SetTitle("routes.dashboard.dashboard").
+		SetTitle("routes.dashboard").
 		SetIcon("ant-design:home-outlined").
 		SetHideMenu(false)
 
@@ -528,7 +528,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("System Management").
 		SetComponent("LAYOUT").
 		SetOrderNo(1).
-		SetTitle("routes.system.systemManagementTitle").
+		SetTitle("routes.systemManagementTitle").
 		SetIcon("ant-design:tool-outlined").
 		SetHideMenu(false)
 
@@ -540,7 +540,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("MenuManagement").
 		SetComponent("/sys/menu/index").
 		SetOrderNo(1).
-		SetTitle("routes.system.menuManagementTitle").
+		SetTitle("routes.menuManagementTitle").
 		SetIcon("ant-design:bars-outlined").
 		SetHideMenu(false)
 
@@ -552,7 +552,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("Role Management").
 		SetComponent("/sys/role/index").
 		SetOrderNo(2).
-		SetTitle("routes.system.roleManagementTitle").
+		SetTitle("routes.roleManagementTitle").
 		SetIcon("ant-design:user-outlined").
 		SetHideMenu(false)
 
@@ -564,7 +564,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("API Management").
 		SetComponent("/sys/api/index").
 		SetOrderNo(4).
-		SetTitle("routes.system.apiManagementTitle").
+		SetTitle("routes.apiManagementTitle").
 		SetIcon("ant-design:api-outlined").
 		SetHideMenu(false)
 
@@ -576,7 +576,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("User Management").
 		SetComponent("/sys/user/index").
 		SetOrderNo(3).
-		SetTitle("routes.system.userManagementTitle").
+		SetTitle("routes.userManagementTitle").
 		SetIcon("ant-design:user-outlined").
 		SetHideMenu(false)
 
@@ -588,7 +588,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("File Management").
 		SetComponent("/file/index").
 		SetOrderNo(2).
-		SetTitle("routes.system.fileManagementTitle").
+		SetTitle("routes.fileManagementTitle").
 		SetIcon("ant-design:folder-open-outlined").
 		SetHideMenu(true)
 
@@ -600,7 +600,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("Dictionary Management").
 		SetComponent("/sys/dictionary/index").
 		SetOrderNo(5).
-		SetTitle("routes.system.dictionaryManagementTitle").
+		SetTitle("routes.dictionaryManagementTitle").
 		SetIcon("ant-design:book-outlined").
 		SetHideMenu(false)
 
@@ -612,7 +612,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("Other Pages").
 		SetComponent("LAYOUT").
 		SetOrderNo(4).
-		SetTitle("routes.system.otherPages").
+		SetTitle("routes.otherPages").
 		SetIcon("ant-design:question-circle-outlined").
 		SetHideMenu(true)
 
@@ -624,7 +624,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("Dictionary Detail").
 		SetComponent("/sys/dictionary/detail").
 		SetOrderNo(1).
-		SetTitle("routes.system.dictionaryDetailManagementTitle").
+		SetTitle("routes.dictionaryDetailManagementTitle").
 		SetIcon("ant-design:align-left-outlined").
 		SetHideMenu(true)
 
@@ -636,7 +636,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("Profile").
 		SetComponent("/sys/profile/index").
 		SetOrderNo(3).
-		SetTitle("routes.system.userProfileTitle").
+		SetTitle("routes.userProfileTitle").
 		SetIcon("ant-design:profile-outlined").
 		SetHideMenu(true)
 
@@ -648,7 +648,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("Oauth Management").
 		SetComponent("/sys/oauth/index").
 		SetOrderNo(6).
-		SetTitle("routes.system.oauthManagement").
+		SetTitle("routes.oauthManagement").
 		SetIcon("ant-design:unlock-filled").
 		SetHideMenu(false)
 
@@ -660,7 +660,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("Token Management").
 		SetComponent("/sys/token/index").
 		SetOrderNo(7).
-		SetTitle("routes.system.tokenManagement").
+		SetTitle("routes.tokenManagement").
 		SetIcon("ant-design:lock-outlined").
 		SetHideMenu(false)
 

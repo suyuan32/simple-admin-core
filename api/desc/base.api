@@ -82,10 +82,10 @@ type BaseInfo {
     Id        uint64    `json:"id"`
 
     // Create date | 创建日期
-    CreatedAt int64     `json:"createdAt"`
+    CreatedAt int64     `json:"createdAt,optional"`
 
     // Update date | 更新日期
-    UpdatedAt int64     `json:"updatedAt"`
+    UpdatedAt int64     `json:"updatedAt,optional"`
 }
 
 // The request params of setting boolean status | 设置状态参数

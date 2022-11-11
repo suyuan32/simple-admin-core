@@ -3,9 +3,10 @@ package menu
 import (
 	"net/http"
 
+	"github.com/zeromicro/go-zero/rest/httpx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/menu"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 // swagger:route get /menu/list menu GetMenuList
@@ -21,7 +22,7 @@ import (
 
 func GetMenuListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := menu.NewGetMenuListLogic(r.Context(), svcCtx)
+		l := menu.NewGetMenuListLogic(r, svcCtx)
 		resp, err := l.GetMenuList()
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

@@ -3,6 +3,7 @@ package menu
 import (
 	"context"
 	"encoding/json"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -15,13 +16,15 @@ type GetMenuByRoleLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	r      *http.Request
 }
 
-func NewGetMenuByRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMenuByRoleLogic {
+func NewGetMenuByRoleLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetMenuByRoleLogic {
 	return &GetMenuByRoleLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		r:      r,
 	}
 }
 
@@ -32,11 +35,11 @@ func (l *GetMenuByRoleLogic) GetMenuByRole() (resp []*types.GetMenuListBase, err
 		return nil, err
 	}
 	var result []*types.GetMenuListBase
-	result = convertRoleMenuList(data.Data)
+	result = l.convertRoleMenuList(data.Data, l.r.Header.Get("Accept-Language"))
 	return result, nil
 }
 
-func convertRoleMenuList(data []*core.MenuInfo) []*types.GetMenuListBase {
+func (l *GetMenuByRoleLogic) convertRoleMenuList(data []*core.MenuInfo, lang string) []*types.GetMenuListBase {
 	if data == nil {
 		return nil
 	}
@@ -51,7 +54,7 @@ func convertRoleMenuList(data []*core.MenuInfo) []*types.GetMenuListBase {
 			Component: v.Component,
 			OrderNo:   v.OrderNo,
 			Meta: types.Meta{
-				Title:              v.Meta.Title,
+				Title:              l.svcCtx.Trans.Trans(lang, v.Meta.Title),
 				Icon:               v.Meta.Icon,
 				HideMenu:           v.Meta.HideMenu,
 				HideBreadcrumb:     v.Meta.HideBreadcrumb,
@@ -65,7 +68,7 @@ func convertRoleMenuList(data []*core.MenuInfo) []*types.GetMenuListBase {
 				DynamicLevel:       v.Meta.DynamicLevel,
 				RealPath:           v.Meta.RealPath,
 			},
-			Children: convertRoleMenuList(v.Children),
+			Children: l.convertRoleMenuList(v.Children, lang),
 		}
 		result = append(result, tmp)
 	}
