@@ -48,6 +48,11 @@ func (l *Translator) Trans(lang string, msgId string) string {
 	if err != nil {
 		return msgId
 	}
+
+	if message == "" {
+		return msgId
+	}
+
 	return message
 }
 
