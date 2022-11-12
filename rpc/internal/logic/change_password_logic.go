@@ -38,7 +38,7 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 			logx.Errorw(err.Error(), logx.Field("uuid", in.Uuid))
 			return nil, statuserr.NewInvalidArgumentError("login.userNotExist")
 		default:
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
 	}
@@ -56,7 +56,7 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
 			default:
-				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}

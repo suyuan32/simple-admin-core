@@ -3,10 +3,11 @@ package api
 import (
 	"net/http"
 
+	"github.com/zeromicro/go-zero/rest/httpx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/api"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 // swagger:route delete /api api DeleteApi
@@ -34,7 +35,7 @@ func DeleteApiHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := api.NewDeleteApiLogic(r.Context(), svcCtx)
+		l := api.NewDeleteApiLogic(r, svcCtx)
 		resp, err := l.DeleteApi(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

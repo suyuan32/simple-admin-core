@@ -42,7 +42,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
 			default:
-				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -89,7 +89,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
 			default:
-				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -98,7 +98,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 	} else {
 		exist, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.ParentId)).Exist(l.ctx)
 		if err != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 			return nil, err
 		}
 
@@ -142,7 +142,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
 			default:
-				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}

@@ -37,7 +37,7 @@ func (l *GetMenuParamListByMenuIdLogic) GetMenuParamListByMenuId(in *core.IDReq)
 			logx.Errorw(err.Error(), logx.Field("detail", in))
 			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
 		default:
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
 	}

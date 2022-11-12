@@ -31,7 +31,7 @@ func NewDeleteRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 func (l *DeleteRoleLogic) DeleteRole(in *core.IDReq) (*core.BaseResp, error) {
 	exist, err := l.svcCtx.DB.User.Query().Where(user.RoleIDEQ(in.Id)).Exist(l.ctx)
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 		return nil, statuserr.NewInternalError(errorx.DatabaseError)
 	}
 
@@ -49,7 +49,7 @@ func (l *DeleteRoleLogic) DeleteRole(in *core.IDReq) (*core.BaseResp, error) {
 			logx.Errorw(err.Error(), logx.Field("detail", in))
 			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
 		default:
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
 	}

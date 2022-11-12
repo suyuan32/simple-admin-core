@@ -3,10 +3,11 @@ package api
 import (
 	"net/http"
 
+	"github.com/zeromicro/go-zero/rest/httpx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/api"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 // swagger:route post /api api CreateOrUpdateApi
@@ -34,7 +35,7 @@ func CreateOrUpdateApiHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := api.NewCreateOrUpdateApiLogic(r.Context(), svcCtx)
+		l := api.NewCreateOrUpdateApiLogic(r, svcCtx)
 		resp, err := l.CreateOrUpdateApi(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

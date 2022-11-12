@@ -55,7 +55,7 @@ type (
     }
 
     // The meta data of menu | 菜单的meta数据
-    // swagger:response Meta
+    // swagger:model Meta
     Meta {
         // Menu title show in page | 菜单显示名
         // Max length: 50
@@ -102,11 +102,9 @@ type (
 
     // The response data of menu list | 菜单列表数据
     MenuListResp {
-        // The total number of data | 数据总数
-        Total uint64 `json:"total"`
+        BaseListInfo
 
         // The menu list data | 菜单列表数据
-        // in: body
         Data []*MenuInfo `json:"data"`
     }
 
@@ -114,6 +112,7 @@ type (
     GetMenuListBase {
         // Menu type: directory or menu | 菜单类型: 目录或菜单
         menuType     uint32      `json:"type"`
+
         // Parent menu ID | 父级菜单ID
         ParentId     uint64      `json:"parentId"`
 
@@ -242,11 +241,9 @@ type (
 
     // The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
     MenuParamListByMenuIdResp {
-        // The total number of data | 数据总数
-        Total uint64 `json:"total"`
+        BaseListInfo
 
         // The menu list data | 菜单列表数据
-        // in: body
         Data []MenuParamResp `json:"data"`
     }
 )

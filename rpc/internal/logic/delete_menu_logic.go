@@ -32,7 +32,7 @@ func NewDeleteMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 	exist, err := l.svcCtx.DB.Menu.Query().Where(menu.ParentID(in.Id)).Exist(l.ctx)
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 		return nil, statuserr.NewInternalError(errorx.DatabaseError)
 	}
 
@@ -46,7 +46,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 		err = l.svcCtx.DB.Menu.Update().ClearParams().Exec(l.ctx)
 
 		if err != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 			return statuserr.NewInternalError(errorx.DatabaseError)
 		}
 
@@ -58,7 +58,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
 			default:
-				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 				return statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}

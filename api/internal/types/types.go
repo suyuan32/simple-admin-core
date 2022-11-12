@@ -44,17 +44,33 @@ type RoleListResp struct {
 }
 
 // The basic response with data | 基础带数据信息
-// swagger:response BaseMsg
-type BaseMsg struct {
-	Code int32  `json:"code"`
-	Msg  string `json:"msg"`
-	Data string `json:"data"`
+// swagger:model BaseDataResp
+type BaseDataResp struct {
+	// Error code | 错误代码
+	Code int `json:"code"`
+	// Message | 提示信息
+	Msg string `json:"msg"`
+	// Data | 数据
+	Data string `json:"data,omitempty"`
+}
+
+// The basic response with data | 基础带数据信息
+// swagger:model BaseListResp
+type BaseListResp struct {
+	// Error code | 错误代码
+	Code int `json:"code"`
+	// Message | 提示信息
+	Msg string `json:"msg"`
+	// The total number of data | 数据总数
+	Total uint64 `json:"total"`
+	// Data | 数据
+	Data string `json:"data,omitempty"`
 }
 
 // The basic response without data | 基础不带数据信息
 // swagger:response BaseResp
 type BaseResp struct {
-	Code int32  `json:"code"`
+	Code int    `json:"code"`
 	Msg  string `json:"msg"`
 }
 
@@ -624,12 +640,10 @@ type CreateOrUpdateApiReq struct {
 }
 
 // The response data of API list | API列表数据
-// swagger:response ApiListResp
+// swagger:model ApiListResp
 type ApiListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
+	BaseListResp
 	// The API list data | API列表数据
-	// in: body
 	Data []ApiInfo `json:"data"`
 }
 
@@ -673,12 +687,10 @@ type CreateOrUpdateApiAuthorityReq struct {
 }
 
 // The response data of api authorization list | API授权列表数据
-// swagger:response ApiAuthorityListResp
+// swagger:model ApiAuthorityListResp
 type ApiAuthorityListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
+	BaseListResp
 	// The api authorization list data | API授权列表数据
-	// in: body
 	Data []ApiAuthorityInfo `json:"data"`
 }
 
@@ -694,13 +706,10 @@ type MenuAuthorityInfoReq struct {
 	MenuIds []uint64 `json:"menuIds"`
 }
 
-// Create or update menu authorization information request params | 创建或更新菜单授权信息参数
+// Menu authorization response data | 菜单授权信息数据
 // swagger:response MenuAuthorityInfoResp
 type MenuAuthorityInfoResp struct {
-	// role ID | 角色ID
-	RoleId uint64 `json:"roleId"`
-	// menu ID array | 菜单ID数组
-	MenuIds []uint64 `json:"menuIds"`
+	BaseDataResp
 }
 
 // The response data of dictionary information | 字典信息

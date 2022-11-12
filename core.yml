@@ -15,6 +15,31 @@ definitions:
                 x-go-name: Path
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    ApiAuthorityListResp:
+        description: The response data of api authorization list | API授权列表数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                description: The api authorization list data | API授权列表数据
+                items:
+                    $ref: '#/definitions/ApiAuthorityInfo'
+                type: array
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ApiInfo:
         description: The response data of API information | API信息
         properties:
@@ -94,6 +119,49 @@ definitions:
             - pageSize
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    ApiListResp:
+        description: The response data of API list | API列表数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                description: The API list data | API列表数据
+                items:
+                    $ref: '#/definitions/ApiInfo'
+                type: array
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    BaseDataResp:
+        description: The basic response with data | 基础带数据信息
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     BaseInfo:
         description: The base response data | 基础信息
         properties:
@@ -112,6 +180,29 @@ definitions:
                 format: int64
                 type: integer
                 x-go-name: UpdatedAt
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    BaseListResp:
+        description: The basic response with data | 基础带数据信息
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CaptchaInfo:
@@ -1545,7 +1636,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/ApiListResp'
+                    description: ApiListResp
+                    schema:
+                        $ref: '#/definitions/ApiListResp'
                 "401":
                     $ref: '#/responses/SimpleMsg'
                 "500":
@@ -1585,7 +1678,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/ApiAuthorityListResp'
+                    description: ApiAuthorityListResp
+                    schema:
+                        $ref: '#/definitions/ApiAuthorityListResp'
                 "401":
                     $ref: '#/responses/SimpleMsg'
                 "500":
@@ -2402,43 +2497,11 @@ paths:
 produces:
     - application/json
 responses:
-    ApiAuthorityListResp:
-        description: The response data of api authorization list | API授权列表数据
-        headers:
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/ApiAuthorityInfo'
-            type: array
-    ApiListResp:
-        description: The response data of API list | API列表数据
-        headers:
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/ApiInfo'
-            type: array
-    BaseMsg:
-        description: The basic response with data | 基础带数据信息
-        headers:
-            code:
-                format: int32
-                type: integer
-            data:
-                type: string
-            msg:
-                type: string
     BaseResp:
         description: The basic response without data | 基础不带数据信息
         headers:
             code:
-                format: int32
+                format: int64
                 type: integer
             msg:
                 type: string
@@ -2512,18 +2575,18 @@ responses:
         schema:
             $ref: '#/definitions/RoleInfoSimple'
     MenuAuthorityInfoResp:
-        description: Create or update menu authorization information request params | 创建或更新菜单授权信息参数
+        description: Menu authorization response data | 菜单授权信息数据
         headers:
-            menuIds:
-                description: menu ID array | 菜单ID数组
-                items:
-                    format: uint64
-                    type: integer
-                type: array
-            roleId:
-                description: role ID | 角色ID
-                format: uint64
+            code:
+                description: Error code | 错误代码
+                format: int64
                 type: integer
+            data:
+                description: Data | 数据
+                type: string
+            msg:
+                description: Message | 提示信息
+                type: string
     MenuListResp:
         description: The response data of menu list | 菜单列表数据
         headers:

@@ -45,7 +45,7 @@ func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(in *core.TokenInfo) (*cor
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
 			default:
-				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -69,7 +69,7 @@ func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(in *core.TokenInfo) (*cor
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
 			default:
-				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}

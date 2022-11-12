@@ -32,7 +32,7 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 	exist, err := l.svcCtx.DB.Dictionary.Query().Where(dictionary.IDEQ(in.DictionaryId)).Exist(l.ctx)
 
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 		return nil, statuserr.NewInternalError(errorx.DatabaseError)
 	}
 
@@ -56,7 +56,7 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
 			default:
-				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -79,7 +79,7 @@ func (l *CreateOrUpdateDictionaryDetailLogic) CreateOrUpdateDictionaryDetail(in 
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
 			default:
-				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}

@@ -38,7 +38,7 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 			logx.Errorw(err.Error(), logx.Field("detail", in))
 			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
 		default:
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
 	}
@@ -55,7 +55,7 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 			logx.Errorw(err.Error(), logx.Field("detail", in))
 			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
 		default:
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
 	}
@@ -63,7 +63,7 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 	for _, v := range tokenData {
 		err := l.svcCtx.Redis.Set("token_"+v.Token, "1")
 		if err != nil {
-			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.REDIS_ERROR, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(errorx.RedisError)
 		}
 	}

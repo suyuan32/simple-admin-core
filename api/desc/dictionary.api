@@ -58,11 +58,9 @@ type (
 
     // The response data of dictionary list | 字典列表数据
     DictionaryListResp {
-        // The total number of data | 数据总数
-        Total uint64 `json:"total"`
+        BaseListInfo
 
         // The dictionary list data | 字典列表数据
-        // in: body
         Data  []DictionaryInfo  `json:"data"`
     }
 
@@ -98,11 +96,9 @@ type (
 
     // The response data of dictionary KV list | 字典值的列表数据
     DictionaryDetailListResp {
-        // The total number of data | 数据总数
-        Total uint64 `json:"total"`
+        BaseListInfo
 
         // The dictionary list data | 字典列表数据
-        // in: body
         Data  []DictionaryDetailInfo  `json:"data"`
     }
 

@@ -9,16 +9,38 @@ info(
 )
 
 // The basic response with data | 基础带数据信息
-// swagger:response BaseMsg
-type BaseMsg {
-    Code int32  `json:"code"`
+type BaseDataInfo {
+    // Error code | 错误代码
+    Code int    `json:"code"`
+
+    // Message | 提示信息
     Msg  string `json:"msg"`
-    Data string `json:"data"`
+
+    // Data | 数据
+    Data string `json:"data,omitempty"`
+}
+
+// The basic response with data | 基础带数据信息
+type BaseListInfo {
+    // Error code | 错误代码
+    Code int    `json:"code"`
+
+    // Message | 提示信息
+    Msg  string `json:"msg"`
+
+    // The total number of data | 数据总数
+    Total uint64 `json:"total"`
+
+    // Data | 数据
+    Data string `json:"data,omitempty"`
 }
 
 // The basic response without data | 基础不带数据信息
-type BaseResp {
-    Code int32  `json:"code"`
+type BaseMsgInfo {
+    // Error code | 错误代码
+    Code int    `json:"code"`
+
+    // Message | 提示信息
     Msg  string `json:"msg"`
 }
 

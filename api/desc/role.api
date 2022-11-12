@@ -51,11 +51,9 @@ type (
 
     // The response data of role list | 角色列表数据
     RoleListResp {
-        // The total number of data | 数据总数
-        Total uint64      `json:"total"`
+        BaseListInfo
 
         // The role list data | 角色列表数据
-        // in: body
         Data  []RoleInfo  `json:"data"`
     }
 )

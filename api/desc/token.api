@@ -62,11 +62,9 @@ type (
 
     // The response data of Token list | Token列表数据
     TokenListResp {
-        // The total number of data | 数据总数
-        Total uint64 `json:"total"`
+        BaseListInfo
 
         // The token list data | Token列表数据
-        // in: body
         Data  []TokenInfo  `json:"data"`
     }
 
