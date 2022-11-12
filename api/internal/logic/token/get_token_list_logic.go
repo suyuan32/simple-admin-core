@@ -2,9 +2,11 @@ package token
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -14,13 +16,15 @@ type GetTokenListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewGetTokenListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetTokenListLogic {
+func NewGetTokenListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetTokenListLogic {
 	return &GetTokenListLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -39,10 +43,11 @@ func (l *GetTokenListLogic) GetTokenList(req *types.TokenListReq) (resp *types.T
 	}
 
 	resp = &types.TokenListResp{}
-	resp.Total = result.Total
+	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	resp.Data.Total = result.Total
 
 	for _, v := range result.Data {
-		resp.Data = append(resp.Data, types.TokenInfo{
+		resp.Data.Data = append(resp.Data.Data, types.TokenInfo{
 			BaseInfo: types.BaseInfo{
 				Id:        v.Id,
 				CreatedAt: v.CreatedAt,

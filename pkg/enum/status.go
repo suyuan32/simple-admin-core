@@ -4,3 +4,5 @@ const (
 	StatusBanned uint8 = iota
 	StatusNormal
 )
+
+const ()

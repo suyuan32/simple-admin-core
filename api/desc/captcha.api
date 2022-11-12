@@ -21,7 +21,7 @@ type CaptchaResp {
     BaseDataInfo
 
     // The menu authorization data | 菜单授权信息数据
-    Data []CaptchaInfo `json:"data"`
+    Data CaptchaInfo `json:"data"`
 }
 
 @server(

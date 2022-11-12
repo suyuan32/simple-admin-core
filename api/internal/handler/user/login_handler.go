@@ -23,8 +23,6 @@ import (
 //
 // Responses:
 //  200: LoginResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func LoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func LoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := user.NewLoginLogic(r.Context(), svcCtx)
+		l := user.NewLoginLogic(r, svcCtx)
 		resp, err := l.Login(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

@@ -22,12 +22,6 @@ type BaseDataInfo {
 
 // The basic response with data | 基础带数据信息
 type BaseListInfo {
-    // Error code | 错误代码
-    Code int    `json:"code"`
-
-    // Message | 提示信息
-    Msg  string `json:"msg"`
-
     // The total number of data | 数据总数
     Total uint64 `json:"total"`
 
@@ -36,7 +30,7 @@ type BaseListInfo {
 }
 
 // The basic response without data | 基础不带数据信息
-type BaseMsgInfo {
+type BaseMsgResp {
     // Error code | 错误代码
     Code int    `json:"code"`
 

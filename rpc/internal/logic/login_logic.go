@@ -42,7 +42,7 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 			logx.Errorw("user not found", logx.Field("username", in.Username))
 			return nil, status.Error(codes.InvalidArgument, "login.userNotExist")
 		}
-		logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		return nil, status.Error(codes.Internal, errorx.DatabaseError)
 	}
 
@@ -73,7 +73,7 @@ func getRoleInfo(roleId uint64, rds *redis.Redis, db *ent.Client, ctx context.Co
 				logx.Error("fail to find any roles")
 				return "", "", status.Error(codes.NotFound, errorx.TargetNotFound)
 			}
-			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return "", "", status.Error(codes.NotFound, errorx.TargetNotFound)
 		}
 
@@ -82,7 +82,7 @@ func getRoleInfo(roleId uint64, rds *redis.Redis, db *ent.Client, ctx context.Co
 			err = rds.Hset("roleData", fmt.Sprintf("%d_value", v.ID), v.Value)
 			err = rds.Hset("roleData", fmt.Sprintf("%d_status", v.ID), strconv.Itoa(int(v.Status)))
 			if err != nil {
-				logx.Errorw(logmsg.REDIS_ERROR, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
 				return "", "", statuserr.NewInternalError(errorx.RedisError)
 			}
 			if v.ID == roleId {

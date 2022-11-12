@@ -23,8 +23,6 @@ import (
 //
 // Responses:
 //  200: RedirectResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func OauthLoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func OauthLoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := oauth.NewOauthLoginLogic(r.Context(), svcCtx)
+		l := oauth.NewOauthLoginLogic(r, svcCtx)
 		resp, err := l.OauthLogin(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

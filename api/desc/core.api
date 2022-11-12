@@ -30,5 +30,5 @@ service core {
 	
 	// Initialize database | 初始化数据库
 	@handler initDatabase
-	get /core/init/database returns (SimpleMsg)
+	get /core/init/database returns (BaseMsgResp)
 }

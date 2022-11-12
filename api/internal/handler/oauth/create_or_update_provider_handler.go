@@ -22,9 +22,7 @@ import (
 //    type: CreateOrUpdateProviderReq
 //
 // Responses:
-//  200: SimpleMsg
-//  401: SimpleMsg
-//  500: SimpleMsg
+//  200: BaseMsgResp
 
 func CreateOrUpdateProviderHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func CreateOrUpdateProviderHandler(svcCtx *svc.ServiceContext) http.HandlerFunc 
 			return
 		}
 
-		l := oauth.NewCreateOrUpdateProviderLogic(r.Context(), svcCtx)
+		l := oauth.NewCreateOrUpdateProviderLogic(r, svcCtx)
 		resp, err := l.CreateOrUpdateProvider(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

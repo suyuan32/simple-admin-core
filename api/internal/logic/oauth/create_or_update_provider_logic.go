@@ -2,6 +2,7 @@ package oauth
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -14,18 +15,20 @@ type CreateOrUpdateProviderLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewCreateOrUpdateProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOrUpdateProviderLogic {
+func NewCreateOrUpdateProviderLogic(r *http.Request, svcCtx *svc.ServiceContext) *CreateOrUpdateProviderLogic {
 	return &CreateOrUpdateProviderLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
-func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(req *types.CreateOrUpdateProviderReq) (resp *types.SimpleMsg, err error) {
-	data, err := l.svcCtx.CoreRpc.CreateOrUpdateProvider(l.ctx,
+func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(req *types.CreateOrUpdateProviderReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.CreateOrUpdateProvider(l.ctx,
 		&core.ProviderInfo{
 			Id:           req.Id,
 			Name:         req.Name,
@@ -41,5 +44,5 @@ func (l *CreateOrUpdateProviderLogic) CreateOrUpdateProvider(req *types.CreateOr
 	if err != nil {
 		return nil, err
 	}
-	return &types.SimpleMsg{Msg: data.Msg}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
 }

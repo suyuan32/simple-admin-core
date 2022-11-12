@@ -3,11 +3,10 @@ package role
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
-
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/role"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 // swagger:route post /role/list role GetRoleList
@@ -24,8 +23,6 @@ import (
 //
 // Responses:
 //  200: RoleListResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func GetRoleListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

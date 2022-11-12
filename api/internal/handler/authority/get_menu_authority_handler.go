@@ -23,8 +23,6 @@ import (
 //
 // Responses:
 //  200: MenuAuthorityInfoResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func GetMenuAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func GetMenuAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := authority.NewGetMenuAuthorityLogic(r.Context(), svcCtx)
+		l := authority.NewGetMenuAuthorityLogic(r, svcCtx)
 		resp, err := l.GetMenuAuthority(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

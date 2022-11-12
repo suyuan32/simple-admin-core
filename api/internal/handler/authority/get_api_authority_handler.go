@@ -23,8 +23,6 @@ import (
 //
 // Responses:
 //  200: ApiAuthorityListResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func GetApiAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func GetApiAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := authority.NewGetApiAuthorityLogic(r.Context(), svcCtx)
+		l := authority.NewGetApiAuthorityLogic(r, svcCtx)
 		resp, err := l.GetApiAuthority(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

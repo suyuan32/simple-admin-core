@@ -3,11 +3,10 @@ package api
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
-
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/api"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 // swagger:route post /api/list api GetApiList
@@ -24,8 +23,6 @@ import (
 //
 // Responses:
 //  200: ApiListResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func GetApiListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

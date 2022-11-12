@@ -22,9 +22,7 @@ import (
 //    type: CreateOrUpdateApiAuthorityReq
 //
 // Responses:
-//  200: SimpleMsg
-//  401: SimpleMsg
-//  500: SimpleMsg
+//  200: BaseMsgResp
 
 func CreateOrUpdateApiAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func CreateOrUpdateApiAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerF
 			return
 		}
 
-		l := authority.NewCreateOrUpdateApiAuthorityLogic(r.Context(), svcCtx)
+		l := authority.NewCreateOrUpdateApiAuthorityLogic(r, svcCtx)
 		resp, err := l.CreateOrUpdateApiAuthority(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

@@ -35,8 +35,16 @@ type (
         Captcha    string `json:"captcha" validate:"len=5"`
     }
 
-    // The login response data | 登录返回数据
+    // The log in response data | 登录返回数据
     LoginResp {
+        BaseDataInfo
+
+        // The log in information | 登陆返回的数据信息
+        Data LoginInfo `json:"data"`
+    }
+
+    // The log in information | 登陆返回的数据信息
+    LoginInfo {
         // User's UUID | 用户的UUID
         UserId       string          `json:"userId"`
 
@@ -180,6 +188,14 @@ type (
 
     // The response data of user's basic information | 用户基本信息返回数据
     GetUserInfoResp {
+        BaseDataInfo
+
+        // The  data of user's basic information | 用户基本信息
+        Data UserBaseInfo `json:"data"`
+    }
+
+    // The  data of user's basic information | 用户基本信息
+    UserBaseInfo {
         // User's UUID | 用户的UUID
         UUID         string       `json:"userId"`
 
@@ -206,8 +222,16 @@ type (
         Value      string `json:"value"`
     }
 
-    // The response data of user list | 用户列表数据
+    // The response data of user list | 用户列表返回数据
     UserListResp {
+        BaseDataInfo
+
+        // The user list data | 用户列表数据
+        Data    UserListInfo  `json:"data"`
+    }
+
+    // The response data of user list | 用户列表数据
+    UserListInfo {
         BaseListInfo
 
         // The user list data | 用户列表数据
@@ -315,7 +339,7 @@ service core {
 
     // Register | 注册
     @handler register
-    post /user/register (RegisterReq) returns (SimpleMsg)
+    post /user/register (RegisterReq) returns (BaseMsgResp)
 }
 
 @server(
@@ -327,7 +351,7 @@ service core {
 service core {
     // Change Password | 修改密码
     @handler changePassword
-    post /user/change-password (ChangePasswordReq) returns (SimpleMsg)
+    post /user/change-password (ChangePasswordReq) returns (BaseMsgResp)
 
     // Get user basic information | 获取用户基本信息
     @handler getUserInfo
@@ -335,7 +359,7 @@ service core {
 
     // Create or update user's information | 新增或更新用户
     @handler createOrUpdateUser
-    post /user (CreateOrUpdateUserReq) returns (SimpleMsg)
+    post /user (CreateOrUpdateUserReq) returns (BaseMsgResp)
 
     // Get user list | 获取用户列表
     @handler getUserList
@@ -343,7 +367,7 @@ service core {
 
     // Delete user information | 删除用户信息
     @handler deleteUser
-    delete /user (IDReq) returns (SimpleMsg)
+    delete /user (IDReq) returns (BaseMsgResp)
 
     // Get user's permission code | 获取用户权限码
     @handler getUserPermCode
@@ -355,13 +379,13 @@ service core {
 
     // Update user's profile | 更新用户个人信息
     @handler updateUserProfile
-    post /user/profile (ProfileReq) returns (SimpleMsg)
+    post /user/profile (ProfileReq) returns (BaseMsgResp)
 
     // Set user's status | 更新用户状态
     @handler updateUserStatus
-    post /user/status (StatusCodeReq) returns (SimpleMsg)
+    post /user/status (StatusCodeReq) returns (BaseMsgResp)
 
     // Log out | 退出登陆
     @handler logout
-    get /user/logout returns (SimpleMsg)
+    get /user/logout returns (BaseMsgResp)
 }

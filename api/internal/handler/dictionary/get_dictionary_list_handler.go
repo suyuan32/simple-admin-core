@@ -23,8 +23,6 @@ import (
 //
 // Responses:
 //  200: DictionaryListResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func GetDictionaryListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func GetDictionaryListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := dictionary.NewGetDictionaryListLogic(r.Context(), svcCtx)
+		l := dictionary.NewGetDictionaryListLogic(r, svcCtx)
 		resp, err := l.GetDictionaryList(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

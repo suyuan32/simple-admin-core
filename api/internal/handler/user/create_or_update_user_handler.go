@@ -22,9 +22,7 @@ import (
 //    type: CreateOrUpdateUserReq
 //
 // Responses:
-//  200: SimpleMsg
-//  401: SimpleMsg
-//  500: SimpleMsg
+//  200: BaseMsgResp
 
 func CreateOrUpdateUserHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func CreateOrUpdateUserHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := user.NewCreateOrUpdateUserLogic(r.Context(), svcCtx)
+		l := user.NewCreateOrUpdateUserLogic(r, svcCtx)
 		resp, err := l.CreateOrUpdateUser(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

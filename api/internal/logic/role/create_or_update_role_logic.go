@@ -2,6 +2,7 @@ package role
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -14,18 +15,20 @@ type CreateOrUpdateRoleLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewCreateOrUpdateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOrUpdateRoleLogic {
+func NewCreateOrUpdateRoleLogic(r *http.Request, svcCtx *svc.ServiceContext) *CreateOrUpdateRoleLogic {
 	return &CreateOrUpdateRoleLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
-func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(req *types.RoleInfo) (resp *types.SimpleMsg, err error) {
-	data, err := l.svcCtx.CoreRpc.CreateOrUpdateRole(l.ctx, &core.RoleInfo{
+func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(req *types.RoleInfo) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.CreateOrUpdateRole(l.ctx, &core.RoleInfo{
 		Id:            req.Id,
 		Name:          req.Name,
 		Value:         req.Value,
@@ -37,7 +40,5 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(req *types.RoleInfo) (resp 
 	if err != nil {
 		return nil, err
 	}
-	resp = &types.SimpleMsg{}
-	resp.Msg = data.Msg
-	return resp, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
 }

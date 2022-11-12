@@ -2,25 +2,29 @@ package oauth
 
 import (
 	"context"
-
-	"github.com/zeromicro/go-zero/core/logx"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type OauthLoginLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewOauthLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *OauthLoginLogic {
+func NewOauthLoginLogic(r *http.Request, svcCtx *svc.ServiceContext) *OauthLoginLogic {
 	return &OauthLoginLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -33,5 +37,8 @@ func (l *OauthLoginLogic) OauthLogin(req *types.OauthLoginReq) (resp *types.Redi
 		return nil, err
 	}
 
-	return &types.RedirectResp{URL: result.Url}, nil
+	return &types.RedirectResp{
+		BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success)},
+		Data:         types.RedirectInfo{URL: result.Url},
+	}, nil
 }

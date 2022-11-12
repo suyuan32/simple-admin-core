@@ -23,8 +23,6 @@ import (
 //
 // Responses:
 //  200: UserListResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func GetUserListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func GetUserListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := user.NewGetUserListLogic(r.Context(), svcCtx)
+		l := user.NewGetUserListLogic(r, svcCtx)
 		resp, err := l.GetUserList(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

@@ -124,5 +124,9 @@
 	},
 	"oauth": {
 		"createAccount": "Please register an account with this email or bind the email to an account"
+	},
+	"casbin": {
+		"removeFailed": "Fail to remove old policies",
+		"addFailed": "Fail to add new policies"
 	}
 }

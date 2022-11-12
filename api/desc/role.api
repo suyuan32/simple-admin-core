@@ -49,8 +49,16 @@ type (
         OrderNo       uint32 `json:"orderNo" validate:"number,max=1000"`
     }
 
-    // The response data of role list | 角色列表数据
+    // The response data of role list | 角色列表返回数据
     RoleListResp {
+        BaseDataInfo
+
+        // The role list data | 角色列表数据
+        Data  RoleListInfo  `json:"data"`
+    }
+
+    // The data of role list | 角色列表数据
+    RoleListInfo {
         BaseListInfo
 
         // The role list data | 角色列表数据
@@ -67,11 +75,11 @@ type (
 service core {
     // Create or update role information | 创建或更新角色
     @handler createOrUpdateRole
-    post /role (RoleInfo) returns (SimpleMsg)
+    post /role (RoleInfo) returns (BaseMsgResp)
 
     // Delete role information | 删除角色信息
     @handler deleteRole
-    delete /role (IDReq) returns (SimpleMsg)
+    delete /role (IDReq) returns (BaseMsgResp)
 
     // Get role list | 获取角色列表
     @handler getRoleList
@@ -79,5 +87,5 @@ service core {
 
     // Set role status | 设置角色状态
     @handler updateRoleStatus
-    post /role/status (StatusCodeReq) returns (SimpleMsg)
+    post /role/status (StatusCodeReq) returns (BaseMsgResp)
 }

@@ -23,8 +23,6 @@ import (
 //
 // Responses:
 //  200: ProviderListResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func GetProviderListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func GetProviderListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := oauth.NewGetProviderListLogic(r.Context(), svcCtx)
+		l := oauth.NewGetProviderListLogic(r, svcCtx)
 		resp, err := l.GetProviderList(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

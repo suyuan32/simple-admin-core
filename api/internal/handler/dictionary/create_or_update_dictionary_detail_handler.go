@@ -22,9 +22,7 @@ import (
 //    type: CreateOrUpdateDictionaryDetailReq
 //
 // Responses:
-//  200: SimpleMsg
-//  401: SimpleMsg
-//  500: SimpleMsg
+//  200: BaseMsgResp
 
 func CreateOrUpdateDictionaryDetailHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func CreateOrUpdateDictionaryDetailHandler(svcCtx *svc.ServiceContext) http.Hand
 			return
 		}
 
-		l := dictionary.NewCreateOrUpdateDictionaryDetailLogic(r.Context(), svcCtx)
+		l := dictionary.NewCreateOrUpdateDictionaryDetailLogic(r, svcCtx)
 		resp, err := l.CreateOrUpdateDictionaryDetail(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

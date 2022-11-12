@@ -124,5 +124,9 @@
 	},
 	"oauth": {
 		"createAccount": "请创建一个该邮箱的账号或绑定该邮箱到一个账号"
+	},
+	"casbin": {
+		"removeFailed": "无法删除旧规则",
+		"addFailed": "无法添加新规则"
 	}
 }

@@ -47,7 +47,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError("role.duplicateRoleValue")
 			default:
-				logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -78,7 +78,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 				logx.Errorw(err.Error(), logx.Field("detail", in))
 				return nil, statuserr.NewInvalidArgumentError("role.duplicateRoleValue")
 			default:
-				logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInternalError(errorx.DatabaseError)
 			}
 		}
@@ -105,7 +105,7 @@ func (l *CreateOrUpdateRoleLogic) UpdateRoleInfoInRedis() error {
 			logx.Error(err.Error())
 			return statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
 		default:
-			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return statuserr.NewInternalError(errorx.DatabaseError)
 		}
 	}

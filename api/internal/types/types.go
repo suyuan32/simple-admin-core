@@ -33,19 +33,25 @@ type RoleInfo struct {
 	OrderNo uint32 `json:"orderNo" validate:"number,max=1000"`
 }
 
-// The response data of role list | 角色列表数据
-// swagger:response RoleListResp
+// The response data of role list | 角色列表返回数据
+// swagger:model RoleListResp
 type RoleListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
+	BaseDataInfo
 	// The role list data | 角色列表数据
-	// in: body
+	Data RoleListInfo `json:"data"`
+}
+
+// The data of role list | 角色列表数据
+// swagger:model RoleListInfo
+type RoleListInfo struct {
+	BaseListInfo
+	// The role list data | 角色列表数据
 	Data []RoleInfo `json:"data"`
 }
 
 // The basic response with data | 基础带数据信息
-// swagger:model BaseDataResp
-type BaseDataResp struct {
+// swagger:model BaseDataInfo
+type BaseDataInfo struct {
 	// Error code | 错误代码
 	Code int `json:"code"`
 	// Message | 提示信息
@@ -55,12 +61,8 @@ type BaseDataResp struct {
 }
 
 // The basic response with data | 基础带数据信息
-// swagger:model BaseListResp
-type BaseListResp struct {
-	// Error code | 错误代码
-	Code int `json:"code"`
-	// Message | 提示信息
-	Msg string `json:"msg"`
+// swagger:model BaseListInfo
+type BaseListInfo struct {
 	// The total number of data | 数据总数
 	Total uint64 `json:"total"`
 	// Data | 数据
@@ -68,10 +70,12 @@ type BaseListResp struct {
 }
 
 // The basic response without data | 基础不带数据信息
-// swagger:response BaseResp
-type BaseResp struct {
-	Code int    `json:"code"`
-	Msg  string `json:"msg"`
+// swagger:model BaseMsgResp
+type BaseMsgResp struct {
+	// Error code | 错误代码
+	Code int `json:"code"`
+	// Message | 提示信息
+	Msg string `json:"msg"`
 }
 
 // The simplest message | 最简单的信息
@@ -171,9 +175,17 @@ type LoginReq struct {
 	Captcha string `json:"captcha" validate:"len=5"`
 }
 
-// The login response data | 登录返回数据
-// swagger:response LoginResp
+// The log in response data | 登录返回数据
+// swagger:model LoginResp
 type LoginResp struct {
+	BaseDataInfo
+	// The log in information | 登陆返回的数据信息
+	Data LoginInfo `json:"data"`
+}
+
+// The log in information | 登陆返回的数据信息
+// swagger:model LoginInfo
+type LoginInfo struct {
 	// User's UUID | 用户的UUID
 	UserId string `json:"userId"`
 	// User's role information| 用户的角色信息
@@ -185,9 +197,9 @@ type LoginResp struct {
 	Expire uint64 `json:"expire"`
 }
 
-// The profile response data | 个人信息返回数据
-// swagger:response ProfileResp
-type ProfileResp struct {
+// The profile information | 个人信息
+// swagger:model ProfileInfo
+type ProfileInfo struct {
 	// user's nickname | 用户的昵称
 	Nickname string `json:"nickname"`
 	// The user's avatar path | 用户的头像路径
@@ -196,6 +208,14 @@ type ProfileResp struct {
 	Mobile string `json:"mobile"`
 	// The user's email address | 用户的邮箱
 	Email string `json:"email"`
+}
+
+// The profile response data | 个人信息返回数据
+// swagger:model ProfileResp
+type ProfileResp struct {
+	BaseDataInfo
+	// The profile information | 个人信息
+	Data ProfileInfo `json:"data"`
 }
 
 // The profile request data | 个人信息请求参数
@@ -215,7 +235,7 @@ type ProfileReq struct {
 }
 
 // The simple role data | 简单的角色数据
-// swagger:response RoleInfoSimple
+// swagger:model RoleInfoSimple
 type RoleInfoSimple struct {
 	// Role name | 角色名
 	RoleName string `json:"roleName"`
@@ -263,7 +283,7 @@ type ChangePasswordReq struct {
 }
 
 // The response data of user's information | 用户信息返回数据
-// swagger:response UserInfoResp
+// swagger:model UserInfoResp
 type UserInfoResp struct {
 	BaseInfo
 	// User's UUID | 用户的UUID
@@ -288,8 +308,16 @@ type UserInfoResp struct {
 }
 
 // The response data of user's basic information | 用户基本信息返回数据
-// swagger:response GetUserInfoResp
+// swagger:model GetUserInfoResp
 type GetUserInfoResp struct {
+	BaseDataInfo
+	// The  data of user's basic information | 用户基本信息
+	Data UserBaseInfo `json:"data"`
+}
+
+// The  data of user's basic information | 用户基本信息
+// swagger:model UserBaseInfo
+type UserBaseInfo struct {
 	// User's UUID | 用户的UUID
 	UUID string `json:"userId"`
 	// User's name | 用户名
@@ -312,19 +340,26 @@ type GetUserRoleInfo struct {
 	Value string `json:"value"`
 }
 
-// The response data of user list | 用户列表数据
-// swagger:response UserListResp
+// The response data of user list | 用户列表返回数据
+// swagger:model UserListResp
 type UserListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
+	BaseDataInfo
 	// The user list data | 用户列表数据
-	// in: body
+	Data UserListInfo `json:"data"`
+}
+
+// The response data of user list | 用户列表数据
+// swagger:model UserListInfo
+type UserListInfo struct {
+	BaseListInfo
+	// The user list data | 用户列表数据
 	Data []UserInfoResp `json:"data"`
 }
 
 // The permission code for front end permission control | 权限码： 用于前端权限控制
-// swagger:response PermCodeResp
+// swagger:model PermCodeResp
 type PermCodeResp struct {
+	BaseDataInfo
 	// Permission code data | 权限码数据
 	Data []string `json:"data"`
 }
@@ -430,7 +465,7 @@ type MenuInfo struct {
 }
 
 // The meta data of menu | 菜单的meta数据
-// swagger:response Meta
+// swagger:model Meta
 type Meta struct {
 	// Menu title show in page | 菜单显示名
 	// Max length: 50
@@ -463,17 +498,23 @@ type Meta struct {
 	RealPath string `json:"realPath,omitempty" validate:"max=200"`
 }
 
-// The response data of menu list | 菜单列表数据
-// swagger:response MenuListResp
+// The response data of menu list | 菜单列表返回数据
+// swagger:model MenuListResp
 type MenuListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
+	BaseDataInfo
 	// The menu list data | 菜单列表数据
-	// in: body
+	Data MenuListInfo `json:"data"`
+}
+
+// The  data of menu list | 菜单列表数据
+// swagger:model MenuListInfo
+type MenuListInfo struct {
+	BaseListInfo
+	// The menu list data | 菜单列表数据
 	Data []*MenuInfo `json:"data"`
 }
 
-// The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
+// The response data of role menu list data | 角色菜单列表数据
 type GetMenuListBase struct {
 	// Menu type: directory or menu | 菜单类型: 目录或菜单
 	MenuType uint32 `json:"type"`
@@ -498,6 +539,22 @@ type GetMenuListBase struct {
 	// children | 子集
 	// in: body
 	Children []*GetMenuListBase `json:"children"`
+}
+
+// The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
+// swagger:model GetMenuListBaseResp
+type GetMenuListBaseResp struct {
+	BaseDataInfo
+	// The data of role menu list data | 角色菜单列表数据
+	Data GetMenuListBaseInfo `json:"data"`
+}
+
+// The data of role menu list, show after user login | 角色菜单列表数据
+// swagger:model GetMenuListBaseInfo
+type GetMenuListBaseInfo struct {
+	BaseListInfo
+	// The response data of role menu list data | 角色菜单列表数据
+	Data []*GetMenuListBase `json:"data"`
 }
 
 // Create or update menu information request params | 创建或更新菜单信息参数
@@ -567,9 +624,17 @@ type CreateOrUpdateMenuParamReq struct {
 	Value string `json:"value" validate:"min=1,max=100"`
 }
 
-// The response data of menu parameters  | 菜单参数列表数据
-// swagger:response MenuParamResp
+// The response data of menu parameters  | 菜单参数返回数据
+// swagger:model MenuParamResp
 type MenuParamResp struct {
+	BaseDataInfo
+	// The information of menu parameter  | 菜单参数数据
+	Data MenuParamInfo `json:"data"`
+}
+
+// The information of menu parameter  | 菜单参数数据
+// swagger:model MenuParamInfo
+type MenuParamInfo struct {
 	BaseInfo
 	// Data Type | 数据类型
 	DataType string `json:"dataType"`
@@ -580,20 +645,34 @@ type MenuParamResp struct {
 }
 
 // The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
-// swagger:response MenuParamListByMenuIdResp
+// swagger:model MenuParamListByMenuIdResp
 type MenuParamListByMenuIdResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
+	BaseDataInfo
 	// The menu list data | 菜单列表数据
-	// in: body
-	Data []MenuParamResp `json:"data"`
+	Data MenuParamListByMenuIdInfo `json:"data"`
 }
 
-// The response data of captcha | 验证码返回数据
+// The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
+// swagger:model MenuParamListByMenuIdInfo
+type MenuParamListByMenuIdInfo struct {
+	BaseListInfo
+	// The menu list data | 菜单列表数据
+	Data []MenuParamInfo `json:"data"`
+}
+
+// The information of captcha | 验证码数据
 // swagger:model CaptchaInfo
 type CaptchaInfo struct {
 	CaptchaId string `json:"captchaId"`
 	ImgPath   string `json:"imgPath"`
+}
+
+// The response data of captcha | 验证码返回数据
+// swagger:model CaptchaResp
+type CaptchaResp struct {
+	BaseDataInfo
+	// The menu authorization data | 菜单授权信息数据
+	Data CaptchaInfo `json:"data"`
 }
 
 // The response data of API information | API信息
@@ -642,7 +721,15 @@ type CreateOrUpdateApiReq struct {
 // The response data of API list | API列表数据
 // swagger:model ApiListResp
 type ApiListResp struct {
-	BaseListResp
+	BaseDataInfo
+	// API list data | API 列表数据
+	Data ApiListInfo `json:"data"`
+}
+
+// API list data | API 列表数据
+// swagger:model ApiListInfo
+type ApiListInfo struct {
+	BaseListInfo
 	// The API list data | API列表数据
 	Data []ApiInfo `json:"data"`
 }
@@ -686,10 +773,18 @@ type CreateOrUpdateApiAuthorityReq struct {
 	Data []ApiAuthorityInfo `json:"data"`
 }
 
-// The response data of api authorization list | API授权列表数据
+// The response data of api authorization list | API授权列表返回数据
 // swagger:model ApiAuthorityListResp
 type ApiAuthorityListResp struct {
-	BaseListResp
+	BaseDataInfo
+	// The api authorization list data | API授权列表数据
+	Data ApiAuthorityListInfo `json:"data"`
+}
+
+// The  data of api authorization list | API授权列表数据
+// swagger:model ApiAuthorityListInfo
+type ApiAuthorityListInfo struct {
+	BaseListInfo
 	// The api authorization list data | API授权列表数据
 	Data []ApiAuthorityInfo `json:"data"`
 }
@@ -707,9 +802,11 @@ type MenuAuthorityInfoReq struct {
 }
 
 // Menu authorization response data | 菜单授权信息数据
-// swagger:response MenuAuthorityInfoResp
+// swagger:model MenuAuthorityInfoResp
 type MenuAuthorityInfoResp struct {
-	BaseDataResp
+	BaseDataInfo
+	// The menu authorization data | 菜单授权信息数据
+	Data MenuAuthorityInfoReq `json:"data"`
 }
 
 // The response data of dictionary information | 字典信息
@@ -752,12 +849,18 @@ type CreateOrUpdateDictionaryReq struct {
 }
 
 // The response data of dictionary list | 字典列表数据
-// swagger:response DictionaryListResp
+// swagger:model DictionaryListResp
 type DictionaryListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
+	BaseDataInfo
 	// The dictionary list data | 字典列表数据
-	// in: body
+	Data DictionaryListInfo `json:"data"`
+}
+
+// The response data of dictionary list | 字典列表数据
+// swagger:model DictionaryListInfo
+type DictionaryListInfo struct {
+	BaseListInfo
+	// The dictionary list data | 字典列表数据
 	Data []DictionaryInfo `json:"data"`
 }
 
@@ -788,12 +891,18 @@ type DictionaryDetailInfo struct {
 }
 
 // The response data of dictionary KV list | 字典值的列表数据
-// swagger:response DictionaryDetailListResp
+// swagger:model DictionaryDetailListResp
 type DictionaryDetailListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
+	BaseDataInfo
 	// The dictionary list data | 字典列表数据
-	// in: body
+	Data DictionaryDetailListInfo `json:"data"`
+}
+
+// The data of dictionary KV list | 字典值的列表数据
+// swagger:model DictionaryDetailListInfo
+type DictionaryDetailListInfo struct {
+	BaseListInfo
+	// The dictionary list data | 字典列表数据
 	Data []DictionaryDetailInfo `json:"data"`
 }
 
@@ -903,12 +1012,10 @@ type CreateOrUpdateProviderReq struct {
 }
 
 // The response data of provider list | 提供商列表数据
-// swagger:response ProviderListResp
+// swagger:model ProviderListResp
 type ProviderListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
+	BaseListInfo
 	// The provider list data | 提供商列表数据
-	// in: body
 	Data []ProviderInfo `json:"data"`
 }
 
@@ -926,14 +1033,23 @@ type OauthLoginReq struct {
 	Provider string `json:"provider" validate:"max=40"`
 }
 
-// Redirect response | 跳转网址
-// swagger:response RedirectResp
+// Redirect response | 跳转网址返回信息
+// swagger:model RedirectResp
 type RedirectResp struct {
+	BaseDataInfo
+	// Redirect information | 跳转网址
+	Data RedirectInfo `json:"data"`
+}
+
+// Redirect information | 跳转网址
+// swagger:model RedirectInfo
+type RedirectInfo struct {
+	// Redirect URL | 跳转网址
 	URL string `json:"URL"`
 }
 
 // The oauth callback response data | Oauth回调数据
-// swagger:response CallbackResp
+// swagger:model CallbackResp
 type CallbackResp struct {
 	// User's UUID | 用户的UUID
 	UserId string `json:"userId"`
@@ -987,13 +1103,19 @@ type CreateOrUpdateTokenReq struct {
 	ExpiredAt int64 `json:"expiredAt" validate:"number"`
 }
 
-// The response data of Token list | Token列表数据
-// swagger:response TokenListResp
+// The response data of Token list | Token列表返回数据
+// swagger:model TokenListResp
 type TokenListResp struct {
-	// The total number of data | 数据总数
-	Total uint64 `json:"total"`
+	BaseDataInfo
 	// The token list data | Token列表数据
-	// in: body
+	Data TokenListInfo `json:"data"`
+}
+
+// The  data of Token list | Token列表数据
+// swagger:model TokenListInfo
+type TokenListInfo struct {
+	BaseListInfo
+	// The token list data | Token列表数据
 	Data []TokenInfo `json:"data"`
 }
 

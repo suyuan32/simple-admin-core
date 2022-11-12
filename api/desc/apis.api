@@ -62,8 +62,15 @@ type (
     }
 
     // The response data of API list | API列表数据
-    // swagger:model ApiListResp
     ApiListResp {
+        BaseDataInfo
+
+        // API list data | API 列表数据
+        Data ApiListInfo `json:"data"`
+    }
+
+    // API list data | API 列表数据
+    ApiListInfo {
         BaseListInfo
 
         // The API list data | API列表数据
@@ -101,11 +108,11 @@ type (
 service core {
     // Create or update API information | 创建或更新API
     @handler createOrUpdateApi
-    post /api (CreateOrUpdateApiReq) returns (SimpleMsg)
+    post /api (CreateOrUpdateApiReq) returns (BaseMsgResp)
 
     // Delete API information | 删除API信息
     @handler deleteApi
-    delete /api (IDReq) returns (SimpleMsg)
+    delete /api (IDReq) returns (BaseMsgResp)
 
     // Get API list | 获取API列表
     @handler getApiList

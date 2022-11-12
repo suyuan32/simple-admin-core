@@ -100,15 +100,23 @@ type (
         RealPath  string `json:"realPath,omitempty" validate:"max=200"`
     }
 
-    // The response data of menu list | 菜单列表数据
+    // The response data of menu list | 菜单列表返回数据
     MenuListResp {
+        BaseDataInfo
+
+        // The menu list data | 菜单列表数据
+        Data MenuListInfo `json:"data"`
+    }
+
+    // The  data of menu list | 菜单列表数据
+    MenuListInfo {
         BaseListInfo
 
         // The menu list data | 菜单列表数据
         Data []*MenuInfo `json:"data"`
     }
 
-    // The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
+    // The response data of role menu list data | 角色菜单列表数据
     GetMenuListBase {
         // Menu type: directory or menu | 菜单类型: 目录或菜单
         menuType     uint32      `json:"type"`
@@ -143,6 +151,22 @@ type (
         // children | 子集
         // in: body
         Children     []*GetMenuListBase      `json:"children"`
+    }
+
+    // The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
+    GetMenuListBaseResp {
+        BaseDataInfo
+
+        // The data of role menu list data | 角色菜单列表数据
+        Data GetMenuListBaseInfo `json:"data"`
+    }
+
+    // The data of role menu list, show after user login | 角色菜单列表数据
+    GetMenuListBaseInfo {
+        BaseListInfo
+
+        // The response data of role menu list data | 角色菜单列表数据
+        Data []*GetMenuListBase `json:"data"`
     }
 
     // Create or update menu information request params | 创建或更新菜单信息参数
@@ -225,8 +249,16 @@ type (
         Value     string      `json:"value" validate:"min=1,max=100"`
     }
 
-    // The response data of menu parameters  | 菜单参数列表数据
+    // The response data of menu parameters  | 菜单参数返回数据
     MenuParamResp {
+        BaseDataInfo
+
+        // The information of menu parameter  | 菜单参数数据
+        Data MenuParamInfo `json:"data"`
+    }
+
+    // The information of menu parameter  | 菜单参数数据
+    MenuParamInfo {
         BaseInfo
 
         // Data Type | 数据类型
@@ -241,10 +273,18 @@ type (
 
     // The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
     MenuParamListByMenuIdResp {
+        BaseDataInfo
+
+        // The menu list data | 菜单列表数据
+        Data MenuParamListByMenuIdInfo `json:"data"`
+    }
+
+    // The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
+    MenuParamListByMenuIdInfo {
         BaseListInfo
 
         // The menu list data | 菜单列表数据
-        Data []MenuParamResp `json:"data"`
+        Data []MenuParamInfo `json:"data"`
     }
 )
 
@@ -257,11 +297,11 @@ type (
 service core {
     // Create or update menu information | 创建或更新菜单
     @handler createOrUpdateMenu
-    post /menu (CreateOrUpdateMenuReq) returns (SimpleMsg)
+    post /menu (CreateOrUpdateMenuReq) returns (BaseMsgResp)
 
     // Delete menu information | 删除菜单信息
     @handler deleteMenu
-    delete /menu (IDReq) returns (SimpleMsg)
+    delete /menu (IDReq) returns (BaseMsgResp)
 
     // Get menu list | 获取菜单列表
     @handler getMenuList
@@ -273,7 +313,7 @@ service core {
 
     // Create or update menu parameters | 创建或更新菜单参数
     @handler createOrUpdateMenuParam
-    post /menu/param (CreateOrUpdateMenuParamReq) returns (SimpleMsg)
+    post /menu/param (CreateOrUpdateMenuParamReq) returns (BaseMsgResp)
 
     // Get menu extra parameters by menu ID | 获取某个菜单的额外参数列表
     @handler getMenuParamListByMenuId
@@ -281,5 +321,5 @@ service core {
 
     // Delete menu extra parameters | 删除菜单额外参数
     @handler deleteMenuParam
-    delete /menu/param (IDReq) returns (SimpleMsg)
+    delete /menu/param (IDReq) returns (BaseMsgResp)
 }

@@ -27,7 +27,7 @@ func NewCreateOrUpdateApiLogic(r *http.Request, svcCtx *svc.ServiceContext) *Cre
 	}
 }
 
-func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(req *types.CreateOrUpdateApiReq) (resp *types.SimpleMsg, err error) {
+func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(req *types.CreateOrUpdateApiReq) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateOrUpdateApi(l.ctx,
 		&core.ApiInfo{
 			Id:          req.Id,
@@ -39,5 +39,5 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(req *types.CreateOrUpdateApiR
 	if err != nil {
 		return nil, err
 	}
-	return &types.SimpleMsg{Msg: data.Msg}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, data.Msg)}, nil
 }

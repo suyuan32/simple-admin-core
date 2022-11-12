@@ -15,13 +15,11 @@ import (
 // Get captcha | 获取验证码
 //
 // Responses:
-//  200: CaptchaInfo
-//  401: SimpleMsg
-//  500: SimpleMsg
+//  200: CaptchaResp
 
 func GetCaptchaHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := captcha.NewGetCaptchaLogic(r.Context(), svcCtx)
+		l := captcha.NewGetCaptchaLogic(r, svcCtx)
 		resp, err := l.GetCaptcha()
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

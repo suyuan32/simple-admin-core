@@ -42,10 +42,10 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 
 		if err != nil {
 			if ent.IsConstraintError(err) {
-				logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
 			}
-			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
 
@@ -57,12 +57,12 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 		}
 
 		if err != nil {
-			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return nil, status.Error(codes.Internal, err.Error())
 		}
 
 		if !exist {
-			logx.Errorw(logmsg.TARGET_NOT_FOUND, logx.Field("id", in.Id))
+			logx.Errorw(logmsg.TargetNotFound, logx.Field("id", in.Id))
 			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
 		}
 
@@ -74,8 +74,8 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 			Exec(l.ctx)
 
 		if err != nil {
-			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInvalidArgumentError(logmsg.UPDATE_FAILED)
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInvalidArgumentError(logmsg.UpdateFailed)
 		}
 
 		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil

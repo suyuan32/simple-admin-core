@@ -16,12 +16,10 @@ import (
 //
 // Responses:
 //  200: ProfileResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func GetUserProfileHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := user.NewGetUserProfileLogic(r.Context(), svcCtx)
+		l := user.NewGetUserProfileLogic(r, svcCtx)
 		resp, err := l.GetUserProfile()
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

@@ -17,7 +17,7 @@ import (
 
 func HealthCheckHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := core.NewHealthCheckLogic(r.Context(), svcCtx)
+		l := core.NewHealthCheckLogic(r, svcCtx)
 		err := l.HealthCheck()
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

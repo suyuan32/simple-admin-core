@@ -42,12 +42,11 @@ func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiList
 		return nil, err
 	}
 	resp = &types.ApiListResp{}
-	resp.Code = 0
-	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.SUCCESS)
-	resp.Total = data.GetTotal()
+	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	resp.Data.Total = data.GetTotal()
 
 	for _, v := range data.Data {
-		resp.Data = append(resp.Data,
+		resp.Data.Data = append(resp.Data.Data,
 			types.ApiInfo{
 				BaseInfo: types.BaseInfo{
 					Id:        v.Id,

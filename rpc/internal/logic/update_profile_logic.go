@@ -60,7 +60,7 @@ func (l *UpdateProfileLogic) UpdateProfile(in *core.UpdateProfileReq) (*core.Bas
 			logx.Errorw(err.Error(), logx.Field("detail", in))
 			return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
 		default:
-			logx.Errorw(logmsg.DATABASE_ERROR, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(errorx.DatabaseError)
 		}
 	}

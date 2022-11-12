@@ -2,9 +2,11 @@ package dictionary
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -14,13 +16,15 @@ type GetDictionaryListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewGetDictionaryListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetDictionaryListLogic {
+func NewGetDictionaryListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetDictionaryListLogic {
 	return &GetDictionaryListLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -37,9 +41,10 @@ func (l *GetDictionaryListLogic) GetDictionaryList(req *types.DictionaryListReq)
 	}
 
 	resp = &types.DictionaryListResp{}
-	resp.Total = result.Total
+	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	resp.Data.Total = result.Total
 	for _, v := range result.Data {
-		resp.Data = append(resp.Data, types.DictionaryInfo{
+		resp.Data.Data = append(resp.Data.Data, types.DictionaryInfo{
 			BaseInfo: types.BaseInfo{
 				Id:        v.Id,
 				CreatedAt: v.CreatedAt,

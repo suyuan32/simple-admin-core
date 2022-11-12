@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -14,17 +15,19 @@ type UpdateUserStatusLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewUpdateUserStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateUserStatusLogic {
+func NewUpdateUserStatusLogic(r *http.Request, svcCtx *svc.ServiceContext) *UpdateUserStatusLogic {
 	return &UpdateUserStatusLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
-func (l *UpdateUserStatusLogic) UpdateUserStatus(req *types.StatusCodeReq) (resp *types.SimpleMsg, err error) {
+func (l *UpdateUserStatusLogic) UpdateUserStatus(req *types.StatusCodeReq) (resp *types.BaseMsgResp, err error) {
 	result, err := l.svcCtx.CoreRpc.UpdateUserStatus(l.ctx, &core.StatusCodeReq{
 		Id:     req.Id,
 		Status: req.Status,
@@ -34,5 +37,5 @@ func (l *UpdateUserStatusLogic) UpdateUserStatus(req *types.StatusCodeReq) (resp
 		return nil, err
 	}
 
-	return &types.SimpleMsg{Msg: result.Msg}, nil
+	return &types.BaseMsgResp{Msg: result.Msg}, nil
 }

@@ -63,6 +63,12 @@ func (l *Translator) TransError(lang string, err error) error {
 			message = err.Error()
 		}
 		return errorx.NewApiError(errcode.CodeFromGrpcError(err), message)
+	} else if codeErr, ok := err.(*errorx.CodeError); ok {
+		message, e := l.MatchLocalizer(lang).LocalizeMessage(&i18n.Message{ID: codeErr.Error()})
+		if e != nil {
+			message = codeErr.Error()
+		}
+		return errorx.NewCodeError(codeErr.Code, message)
 	} else if apiErr, ok := err.(*errorx.ApiError); ok {
 		message, e := l.MatchLocalizer(lang).LocalizeMessage(&i18n.Message{ID: apiErr.Error()})
 		if e != nil {

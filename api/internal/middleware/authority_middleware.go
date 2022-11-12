@@ -37,7 +37,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		// check the role status
 		roleStatus, err := m.Rds.Hget("roleData", fmt.Sprintf("%s_status", roleId))
 		if err != nil {
-			logx.Errorw(logmsg.REDIS_ERROR, logx.Field("detail", err.Error()))
+			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
 			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
 			return
 		} else if roleStatus == "0" {
