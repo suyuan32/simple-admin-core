@@ -79,8 +79,7 @@ export const Hello = (params: HelloReq, mode: ErrorMessageMode = 'modal') => {
 
   async function SayHello() {
     const result = await Hello({ name: name.value }, 'message');
-    resp.value = 'Hello ' + result.msg;
-    console.log(result);
+    if (result.code === 0) resp.value = 'Hello ' + result.msg;
   }
 </script>
 ```
