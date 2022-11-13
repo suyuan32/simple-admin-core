@@ -42,7 +42,7 @@ func (l *InitDatabaseLogic) InitDatabase() (resp *types.BaseMsgResp, err error) 
 	} else if errors.Is(err, status.Error(codes.DeadlineExceeded, "context deadline exceeded")) {
 		for {
 			// wait 10 second for initialization
-			time.Sleep(time.Second * 10)
+			time.Sleep(time.Second * 5)
 			if initState, err := l.svcCtx.Redis.Get("database_init_state"); err == nil {
 				if initState == "1" {
 					return nil, errorx.NewCodeError(enum.InvalidArgument,
@@ -63,5 +63,5 @@ func (l *InitDatabaseLogic) InitDatabase() (resp *types.BaseMsgResp, err error) 
 			}
 		}
 	}
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, l.svcCtx.Trans.Trans(l.lang, result.Msg))}, nil
 }

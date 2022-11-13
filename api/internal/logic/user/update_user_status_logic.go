@@ -37,5 +37,5 @@ func (l *UpdateUserStatusLogic) UpdateUserStatus(req *types.StatusCodeReq) (resp
 		return nil, err
 	}
 
-	return &types.BaseMsgResp{Msg: result.Msg}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
 }

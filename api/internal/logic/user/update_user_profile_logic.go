@@ -40,5 +40,5 @@ func (l *UpdateUserProfileLogic) UpdateUserProfile(req *types.ProfileReq) (resp 
 		return nil, err
 	}
 
-	return &types.BaseMsgResp{Msg: result.Msg}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
 }

@@ -386,7 +386,7 @@ type CreateOrUpdateUserReq struct {
 	// User's mobile phone number | 用户的手机号码
 	// Required: true
 	// Max length: 18
-	Mobile string `json:"mobile" validate:"numeric,max=18"`
+	Mobile string `json:"mobile,optional" validate:"numeric,max=18"`
 	// User's role id | 用户的角色ID
 	// Required: true
 	// Maximum: 1000
