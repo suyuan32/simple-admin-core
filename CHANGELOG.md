@@ -1,3 +1,23 @@
+# 0.1.5 (2022/11/13)
+
+### Features
+
+- docs: update error_handling.md
+- refactor: response data
+- refactor: response data
+- wip: error code optimize
+- wip: error code optimize
+- Update doc and route
+- Update change log
+
+### Bug Fixes
+
+- fix: user validator
+- fix: update user
+- fix: empty translation
+- fix: move menu translation to server
+- fix: init database error
+
 # 0.1.4 (2022/11/11)
 
 ### Features
