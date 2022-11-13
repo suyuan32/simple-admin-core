@@ -1747,8 +1747,8 @@ definitions:
                 x-go-name: UpdatedAt
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-    ProviderListResp:
-        description: The response data of provider list | 提供商列表数据
+    ProviderListInfo:
+        description: The data of provider list | 提供商列表数据
         properties:
             data:
                 description: The provider list data | 提供商列表数据
@@ -1761,6 +1761,25 @@ definitions:
                 format: uint64
                 type: integer
                 x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    ProviderListResp:
+        description: The response data of provider list | 提供商列表返回数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/ProviderListInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RedirectInfo:

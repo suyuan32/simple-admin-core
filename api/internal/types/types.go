@@ -26,7 +26,7 @@ type RoleInfo struct {
 	// Role remark | 角色备注
 	// Required : true
 	// Max length: 200
-	Remark string `json:"remark" validate:"omitempty,max=200"`
+	Remark string `json:"remark,optional" validate:"omitempty,max=200"`
 	// Role's sorting number | 角色排序
 	// Required : true
 	// Maximum: 1000
@@ -1011,9 +1011,17 @@ type CreateOrUpdateProviderReq struct {
 	InfoURL string `json:"infoURL" validate:"max=200"`
 }
 
-// The response data of provider list | 提供商列表数据
+// The response data of provider list | 提供商列表返回数据
 // swagger:model ProviderListResp
 type ProviderListResp struct {
+	BaseDataInfo
+	// The provider list data | 提供商列表数据
+	Data ProviderListInfo `json:"data"`
+}
+
+// The data of provider list | 提供商列表数据
+// swagger:model ProviderListInfo
+type ProviderListInfo struct {
 	BaseListInfo
 	// The provider list data | 提供商列表数据
 	Data []ProviderInfo `json:"data"`

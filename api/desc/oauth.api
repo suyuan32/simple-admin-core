@@ -99,8 +99,16 @@ type (
         InfoURL   string `json:"infoURL" validate:"max=200"`
     }
 
-    // The response data of provider list | 提供商列表数据
+    // The response data of provider list | 提供商列表返回数据
     ProviderListResp {
+        BaseDataInfo
+
+        // The provider list data | 提供商列表数据
+        Data  ProviderListInfo  `json:"data"`
+    }
+
+    // The data of provider list | 提供商列表数据
+    ProviderListInfo {
         BaseListInfo
 
         // The provider list data | 提供商列表数据
