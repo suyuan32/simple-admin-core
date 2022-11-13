@@ -15,6 +15,41 @@ definitions:
                 x-go-name: Path
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    ApiAuthorityListInfo:
+        description: The  data of api authorization list | API授权列表数据
+        properties:
+            data:
+                description: The api authorization list data | API授权列表数据
+                items:
+                    $ref: '#/definitions/ApiAuthorityInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    ApiAuthorityListResp:
+        description: The response data of api authorization list | API授权列表返回数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/ApiAuthorityListInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ApiInfo:
         description: The response data of API information | API信息
         properties:
@@ -53,6 +88,22 @@ definitions:
                 format: int64
                 type: integer
                 x-go-name: UpdatedAt
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    ApiListInfo:
+        description: API list data | API 列表数据
+        properties:
+            data:
+                description: The API list data | API列表数据
+                items:
+                    $ref: '#/definitions/ApiInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ApiListReq:
@@ -94,6 +145,43 @@ definitions:
             - pageSize
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    ApiListResp:
+        description: The response data of API list | API列表数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/ApiListInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    BaseDataInfo:
+        description: The basic response with data | 基础带数据信息
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     BaseInfo:
         description: The base response data | 基础信息
         properties:
@@ -114,8 +202,56 @@ definitions:
                 x-go-name: UpdatedAt
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    BaseListInfo:
+        description: The basic response with data | 基础带数据信息
+        properties:
+            data:
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    BaseMsgResp:
+        description: The basic response without data | 基础不带数据信息
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    CallbackResp:
+        description: The oauth callback response data | Oauth回调数据
+        properties:
+            expire:
+                description: Expire timestamp | 过期时间戳
+                format: uint64
+                type: integer
+                x-go-name: Expire
+            role:
+                $ref: '#/definitions/RoleInfoSimple'
+            token:
+                description: Token for authorization | 验证身份的token
+                type: string
+                x-go-name: Token
+            userId:
+                description: User's UUID | 用户的UUID
+                type: string
+                x-go-name: UserId
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CaptchaInfo:
-        description: The response data of captcha | 验证码返回数据
+        description: The information of captcha | 验证码数据
         properties:
             captchaId:
                 type: string
@@ -123,6 +259,25 @@ definitions:
             imgPath:
                 type: string
                 x-go-name: ImgPath
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    CaptchaResp:
+        description: The response data of captcha | 验证码返回数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/CaptchaInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ChangePasswordReq:
@@ -656,6 +811,41 @@ definitions:
                 x-go-name: Value
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    DictionaryDetailListInfo:
+        description: The data of dictionary KV list | 字典值的列表数据
+        properties:
+            data:
+                description: The dictionary list data | 字典列表数据
+                items:
+                    $ref: '#/definitions/DictionaryDetailInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    DictionaryDetailListResp:
+        description: The response data of dictionary KV list | 字典值的列表数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/DictionaryDetailListInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     DictionaryDetailReq:
         description: Get dictionary detail list by dictionary name request | 根据字典名称获取对应键值请求
         properties:
@@ -702,6 +892,22 @@ definitions:
                 x-go-name: UpdatedAt
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    DictionaryListInfo:
+        description: The response data of dictionary list | 字典列表数据
+        properties:
+            data:
+                description: The dictionary list data | 字典列表数据
+                items:
+                    $ref: '#/definitions/DictionaryInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     DictionaryListReq:
         description: Get dictionary list request params | 字典列表请求参数
         properties:
@@ -729,6 +935,134 @@ definitions:
         required:
             - page
             - pageSize
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    DictionaryListResp:
+        description: The response data of dictionary list | 字典列表数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/DictionaryListInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    GetMenuListBase:
+        description: The response data of role menu list data | 角色菜单列表数据
+        properties:
+            children:
+                description: |-
+                    children | 子集
+                    in: body
+                items:
+                    $ref: '#/definitions/GetMenuListBase'
+                type: array
+                x-go-name: Children
+            component:
+                description: The component path | 组件路径
+                type: string
+                x-go-name: Component
+            disabled:
+                description: If disabled | 是否禁用菜单
+                type: boolean
+                x-go-name: Disabled
+            level:
+                description: The menu level | 菜单等级
+                format: uint32
+                type: integer
+                x-go-name: MenuLevel
+            meta:
+                $ref: '#/definitions/Meta'
+            name:
+                description: Menu name | 菜单名
+                type: string
+                x-go-name: Name
+            orderNo:
+                description: The sorting number | 排序编号
+                format: uint32
+                type: integer
+                x-go-name: OrderNo
+            parentId:
+                description: Parent menu ID | 父级菜单ID
+                format: uint64
+                type: integer
+                x-go-name: ParentId
+            path:
+                description: The path to visit menu | 菜单访问路径
+                type: string
+                x-go-name: Path
+            redirect:
+                description: Redirect path | 跳转路径
+                type: string
+                x-go-name: Redirect
+            type:
+                description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
+                format: uint32
+                type: integer
+                x-go-name: MenuType
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    GetMenuListBaseInfo:
+        description: The data of role menu list, show after user login | 角色菜单列表数据
+        properties:
+            data:
+                description: The response data of role menu list data | 角色菜单列表数据
+                items:
+                    $ref: '#/definitions/GetMenuListBase'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    GetMenuListBaseResp:
+        description: The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/GetMenuListBaseInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    GetUserInfoResp:
+        description: The response data of user's basic information | 用户基本信息返回数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/UserBaseInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetUserListReq:
@@ -812,6 +1146,26 @@ definitions:
             - id
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    LoginInfo:
+        description: The log in information | 登陆返回的数据信息
+        properties:
+            expire:
+                description: Expire timestamp | 过期时间戳
+                format: uint64
+                type: integer
+                x-go-name: Expire
+            role:
+                $ref: '#/definitions/RoleInfoSimple'
+            token:
+                description: Token for authorization | 验证身份的token
+                type: string
+                x-go-name: Token
+            userId:
+                description: User's UUID | 用户的UUID
+                type: string
+                x-go-name: UserId
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     LoginReq:
         description: login request | 登录参数
         properties:
@@ -843,6 +1197,25 @@ definitions:
             - captcha
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    LoginResp:
+        description: The log in response data | 登录返回数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/LoginInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuAuthorityInfoReq:
         description: Create or update menu authorization information request params | 创建或更新菜单授权信息参数
         properties:
@@ -862,6 +1235,25 @@ definitions:
         required:
             - roleId
             - menuIds
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MenuAuthorityInfoResp:
+        description: Menu authorization response data | 菜单授权信息数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/MenuAuthorityInfoReq'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuInfo:
@@ -994,8 +1386,43 @@ definitions:
                 x-go-name: UpdatedAt
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-    MenuParamResp:
-        description: The response data of menu parameters  | 菜单参数列表数据
+    MenuListInfo:
+        description: The  data of menu list | 菜单列表数据
+        properties:
+            data:
+                description: The menu list data | 菜单列表数据
+                items:
+                    $ref: '#/definitions/MenuInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MenuListResp:
+        description: The response data of menu list | 菜单列表返回数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/MenuListInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MenuParamInfo:
+        description: The information of menu parameter  | 菜单参数数据
         properties:
             createdAt:
                 description: Create date | 创建日期
@@ -1024,6 +1451,60 @@ definitions:
                 description: Value | 值
                 type: string
                 x-go-name: Value
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MenuParamListByMenuIdInfo:
+        description: The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
+        properties:
+            data:
+                description: The menu list data | 菜单列表数据
+                items:
+                    $ref: '#/definitions/MenuParamInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MenuParamListByMenuIdResp:
+        description: The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/MenuParamListByMenuIdInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MenuParamResp:
+        description: The response data of menu parameters  | 菜单参数返回数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/MenuParamInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     Meta:
@@ -1125,6 +1606,47 @@ definitions:
             - pageSize
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    PermCodeResp:
+        description: The permission code for front end permission control | 权限码： 用于前端权限控制
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                description: Permission code data | 权限码数据
+                items:
+                    type: string
+                type: array
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    ProfileInfo:
+        description: The profile information | 个人信息
+        properties:
+            avatar:
+                description: The user's avatar path | 用户的头像路径
+                type: string
+                x-go-name: Avatar
+            email:
+                description: The user's email address | 用户的邮箱
+                type: string
+                x-go-name: Email
+            mobile:
+                description: User's mobile phone number | 用户的手机号码
+                type: string
+                x-go-name: Mobile
+            nickname:
+                description: user's nickname | 用户的昵称
+                type: string
+                x-go-name: Nickname
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ProfileReq:
         description: The profile request data | 个人信息请求参数
         properties:
@@ -1147,6 +1669,25 @@ definitions:
                 maxLength: 10
                 type: string
                 x-go-name: Nickname
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    ProfileResp:
+        description: The profile response data | 个人信息返回数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/ProfileInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ProviderInfo:
@@ -1204,6 +1745,68 @@ definitions:
                 format: int64
                 type: integer
                 x-go-name: UpdatedAt
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    ProviderListInfo:
+        description: The data of provider list | 提供商列表数据
+        properties:
+            data:
+                description: The provider list data | 提供商列表数据
+                items:
+                    $ref: '#/definitions/ProviderInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    ProviderListResp:
+        description: The response data of provider list | 提供商列表返回数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/ProviderListInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    RedirectInfo:
+        description: Redirect information | 跳转网址
+        properties:
+            URL:
+                description: Redirect URL | 跳转网址
+                type: string
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    RedirectResp:
+        description: Redirect response | 跳转网址返回信息
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/RedirectInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RegisterReq:
@@ -1319,6 +1922,41 @@ definitions:
                 x-go-name: Value
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    RoleListInfo:
+        description: The data of role list | 角色列表数据
+        properties:
+            data:
+                description: The role list data | 角色列表数据
+                items:
+                    $ref: '#/definitions/RoleInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    RoleListResp:
+        description: The response data of role list | 角色列表返回数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/RoleListInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     StatusCodeReq:
         description: The request params of setting boolean status | 设置状态参数
         properties:
@@ -1378,6 +2016,22 @@ definitions:
                 x-go-name: UpdatedAt
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TokenListInfo:
+        description: The  data of Token list | Token列表数据
+        properties:
+            data:
+                description: The token list data | Token列表数据
+                items:
+                    $ref: '#/definitions/TokenInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TokenListReq:
         description: Get token list request params | token列表请求参数
         properties:
@@ -1416,6 +2070,25 @@ definitions:
             - pageSize
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TokenListResp:
+        description: The response data of Token list | Token列表返回数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/TokenListInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UUIDReq:
         description: Basic UUID request | 基础UUID参数请求
         properties:
@@ -1425,6 +2098,29 @@ definitions:
                 type: string
         required:
             - UUID
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    UserBaseInfo:
+        description: The  data of user's basic information | 用户基本信息
+        properties:
+            avatar:
+                description: The user's avatar path | 用户的头像路径
+                type: string
+                x-go-name: Avatar
+            nickname:
+                description: User's nickname | 用户的昵称
+                type: string
+                x-go-name: Nickname
+            roles:
+                $ref: '#/definitions/GetUserRoleInfo'
+            userId:
+                description: User's UUID | 用户的UUID
+                type: string
+                x-go-name: UUID
+            username:
+                description: User's name | 用户名
+                type: string
+                x-go-name: Username
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UserInfoResp:
@@ -1486,6 +2182,41 @@ definitions:
                 x-go-name: Username
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    UserListInfo:
+        description: The response data of user list | 用户列表数据
+        properties:
+            data:
+                description: The user list data | 用户列表数据
+                items:
+                    $ref: '#/definitions/UserInfoResp'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    UserListResp:
+        description: The response data of user list | 用户列表返回数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/UserListInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
 host: localhost:9100
 info:
     contact:
@@ -1506,11 +2237,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Delete API information | 删除API信息
             tags:
                 - api
@@ -1525,11 +2254,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Create or update API information | 创建或更新API
             tags:
                 - api
@@ -1545,11 +2272,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/ApiListResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: ApiListResp
+                    schema:
+                        $ref: '#/definitions/ApiListResp'
             summary: Get API list | 获取API列表
             tags:
                 - api
@@ -1565,11 +2290,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Create or update API authorization information | 创建或更新API权限
             tags:
                 - authority
@@ -1585,11 +2308,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/ApiAuthorityListResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: ApiAuthorityListResp
+                    schema:
+                        $ref: '#/definitions/ApiAuthorityListResp'
             summary: Get role's API authorization list | 获取角色api权限列表
             tags:
                 - authority
@@ -1605,11 +2326,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Create or update menu authorization information | 创建或更新菜单权限
             tags:
                 - authority
@@ -1625,11 +2344,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/MenuAuthorityInfoResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: MenuAuthorityInfoResp
+                    schema:
+                        $ref: '#/definitions/MenuAuthorityInfoResp'
             summary: Get role's menu authorization list | 获取角色菜单权限列表
             tags:
                 - authority
@@ -1639,13 +2356,9 @@ paths:
             operationId: GetCaptcha
             responses:
                 "200":
-                    description: CaptchaInfo
+                    description: CaptchaResp
                     schema:
-                        $ref: '#/definitions/CaptchaInfo'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                        $ref: '#/definitions/CaptchaResp'
             summary: Get captcha | 获取验证码
             tags:
                 - captcha
@@ -1662,11 +2375,9 @@ paths:
             operationId: InitDatabase
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Initialize database | 初始化数据库
             tags:
                 - core
@@ -1682,11 +2393,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Delete dictionary information | 删除字典信息
             tags:
                 - dictionary
@@ -1701,11 +2410,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Create or update dictionary information | 创建或更新字典信息
             tags:
                 - dictionary
@@ -1721,11 +2428,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Delete dictionary KV information | 删除字典键值信息
             tags:
                 - dictionary
@@ -1740,11 +2445,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Create or update dictionary KV information | 创建或更新字典键值信息
             tags:
                 - dictionary
@@ -1760,11 +2463,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/DictionaryDetailListResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: DictionaryDetailListResp
+                    schema:
+                        $ref: '#/definitions/DictionaryDetailListResp'
             summary: Get dictionary detail list by dictionary name | 根据字典名获取字典键值列表
             tags:
                 - dictionary
@@ -1780,11 +2481,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/DictionaryListResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: DictionaryListResp
+                    schema:
+                        $ref: '#/definitions/DictionaryListResp'
             summary: Get dictionary list | 获取字典列表
             tags:
                 - dictionary
@@ -1800,11 +2499,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Delete menu information | 删除菜单信息
             tags:
                 - menu
@@ -1819,11 +2516,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Create or update menu information | 创建或更新菜单
             tags:
                 - menu
@@ -1833,11 +2528,9 @@ paths:
             operationId: GetMenuList
             responses:
                 "200":
-                    $ref: '#/responses/MenuListResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: MenuListResp
+                    schema:
+                        $ref: '#/definitions/MenuListResp'
             summary: Get menu list | 获取菜单列表
             tags:
                 - menu
@@ -1853,11 +2546,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Delete menu extra parameters | 删除菜单额外参数
             tags:
                 - menu
@@ -1872,11 +2563,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Create or update menu parameters | 创建或更新菜单参数
             tags:
                 - menu
@@ -1892,11 +2581,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/MenuParamListByMenuIdResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: MenuParamListByMenuIdResp
+                    schema:
+                        $ref: '#/definitions/MenuParamListByMenuIdResp'
             summary: Get menu extra parameters by menu ID | 获取某个菜单的额外参数列表
             tags:
                 - menu
@@ -1906,11 +2593,9 @@ paths:
             operationId: GetMenuByRole
             responses:
                 "200":
-                    $ref: '#/responses/GetMenuListBase'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: GetMenuListBase
+                    schema:
+                        $ref: '#/definitions/GetMenuListBase'
             summary: Get role's menu list API | 获取角色菜单列表
             tags:
                 - menu
@@ -1926,11 +2611,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/RedirectResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: RedirectResp
+                    schema:
+                        $ref: '#/definitions/RedirectResp'
             summary: Oauth log in | Oauth 登录
             tags:
                 - oauth
@@ -1940,11 +2623,9 @@ paths:
             operationId: OauthCallback
             responses:
                 "200":
-                    $ref: '#/responses/CallbackResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: CallbackResp
+                    schema:
+                        $ref: '#/definitions/CallbackResp'
             summary: Oauth log in callback route | Oauth 登录返回调接口
             tags:
                 - oauth
@@ -1960,11 +2641,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Delete provider information | 删除提供商信息
             tags:
                 - oauth
@@ -1979,11 +2658,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Create or update Provider information | 创建或更新提供商
             tags:
                 - oauth
@@ -1999,11 +2676,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/ProviderListResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: ProviderListResp
+                    schema:
+                        $ref: '#/definitions/ProviderListResp'
             summary: Get provider list | 获取提供商列表
             tags:
                 - oauth
@@ -2019,11 +2694,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Delete role information | 删除角色信息
             tags:
                 - role
@@ -2038,11 +2711,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Create or update role information | 创建或更新角色
             tags:
                 - role
@@ -2058,11 +2729,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/RoleListResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: RoleListResp
+                    schema:
+                        $ref: '#/definitions/RoleListResp'
             summary: Get role list | 获取角色列表
             tags:
                 - role
@@ -2078,11 +2747,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Set role status | 设置角色状态
             tags:
                 - role
@@ -2098,11 +2765,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Delete token information | 删除token信息
             tags:
                 - token
@@ -2117,11 +2782,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Create or update Token information | 创建或更新Token
             tags:
                 - token
@@ -2137,11 +2800,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/TokenListResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: TokenListResp
+                    schema:
+                        $ref: '#/definitions/TokenListResp'
             summary: Get Token list | 获取token列表
             tags:
                 - token
@@ -2157,11 +2818,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Force logging out by user UUID | 根据UUID强制用户退出
             tags:
                 - token
@@ -2177,11 +2836,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Set token status | 设置token状态
             tags:
                 - token
@@ -2197,11 +2854,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Delete user information | 删除用户信息
             tags:
                 - user
@@ -2216,11 +2871,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Create or update user's information | 新增或更新用户
             tags:
                 - user
@@ -2236,11 +2889,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Change Password | 修改密码
             tags:
                 - user
@@ -2250,11 +2901,9 @@ paths:
             operationId: GetUserInfo
             responses:
                 "200":
-                    $ref: '#/responses/GetUserInfoResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: GetUserInfoResp
+                    schema:
+                        $ref: '#/definitions/GetUserInfoResp'
             summary: Get user basic information | 获取用户基本信息
             tags:
                 - user
@@ -2270,11 +2919,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/UserListResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: UserListResp
+                    schema:
+                        $ref: '#/definitions/UserListResp'
             summary: Get user list | 获取用户列表
             tags:
                 - user
@@ -2290,11 +2937,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/LoginResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: LoginResp
+                    schema:
+                        $ref: '#/definitions/LoginResp'
             summary: Log in | 登录
             tags:
                 - user
@@ -2304,11 +2949,9 @@ paths:
             operationId: Logout
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Log out | 退出登陆
             tags:
                 - user
@@ -2318,11 +2961,9 @@ paths:
             operationId: GetUserPermCode
             responses:
                 "200":
-                    $ref: '#/responses/PermCodeResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: PermCodeResp
+                    schema:
+                        $ref: '#/definitions/PermCodeResp'
             summary: Get user's permission code | 获取用户权限码
             tags:
                 - user
@@ -2332,11 +2973,9 @@ paths:
             operationId: GetUserProfile
             responses:
                 "200":
-                    $ref: '#/responses/ProfileResp'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: ProfileResp
+                    schema:
+                        $ref: '#/definitions/ProfileResp'
             summary: Get user's profile | 获取用户个人信息
             tags:
                 - user
@@ -2351,11 +2990,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Update user's profile | 更新用户个人信息
             tags:
                 - user
@@ -2371,11 +3008,9 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Register | 注册
             tags:
                 - user
@@ -2391,231 +3026,15 @@ paths:
                     type: object
             responses:
                 "200":
-                    $ref: '#/responses/SimpleMsg'
-                "401":
-                    $ref: '#/responses/SimpleMsg'
-                "500":
-                    $ref: '#/responses/SimpleMsg'
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
             summary: Set user's status | 更新用户状态
             tags:
                 - user
 produces:
     - application/json
 responses:
-    ApiAuthorityListResp:
-        description: The response data of api authorization list | API授权列表数据
-        headers:
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/ApiAuthorityInfo'
-            type: array
-    ApiListResp:
-        description: The response data of API list | API列表数据
-        headers:
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/ApiInfo'
-            type: array
-    BaseMsg:
-        description: The basic response with data | 基础带数据信息
-        headers:
-            code:
-                format: int32
-                type: integer
-            data:
-                type: string
-            msg:
-                type: string
-    BaseResp:
-        description: The basic response without data | 基础不带数据信息
-        headers:
-            code:
-                format: int32
-                type: integer
-            msg:
-                type: string
-    CallbackResp:
-        description: The oauth callback response data | Oauth回调数据
-        headers:
-            expire:
-                description: Expire timestamp | 过期时间戳
-                format: uint64
-                type: integer
-            token:
-                description: Token for authorization | 验证身份的token
-                type: string
-            userId:
-                description: User's UUID | 用户的UUID
-                type: string
-        schema:
-            $ref: '#/definitions/RoleInfoSimple'
-    DictionaryDetailListResp:
-        description: The response data of dictionary KV list | 字典值的列表数据
-        headers:
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/DictionaryDetailInfo'
-            type: array
-    DictionaryListResp:
-        description: The response data of dictionary list | 字典列表数据
-        headers:
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/DictionaryInfo'
-            type: array
-    GetUserInfoResp:
-        description: The response data of user's basic information | 用户基本信息返回数据
-        headers:
-            avatar:
-                description: The user's avatar path | 用户的头像路径
-                type: string
-            nickname:
-                description: User's nickname | 用户的昵称
-                type: string
-            userId:
-                description: User's UUID | 用户的UUID
-                type: string
-            username:
-                description: User's name | 用户名
-                type: string
-        schema:
-            $ref: '#/definitions/GetUserRoleInfo'
-    LoginResp:
-        description: The login response data | 登录返回数据
-        headers:
-            expire:
-                description: Expire timestamp | 过期时间戳
-                format: uint64
-                type: integer
-            token:
-                description: Token for authorization | 验证身份的token
-                type: string
-            userId:
-                description: User's UUID | 用户的UUID
-                type: string
-        schema:
-            $ref: '#/definitions/RoleInfoSimple'
-    MenuAuthorityInfoResp:
-        description: Create or update menu authorization information request params | 创建或更新菜单授权信息参数
-        headers:
-            menuIds:
-                description: menu ID array | 菜单ID数组
-                items:
-                    format: uint64
-                    type: integer
-                type: array
-            roleId:
-                description: role ID | 角色ID
-                format: uint64
-                type: integer
-    MenuListResp:
-        description: The response data of menu list | 菜单列表数据
-        headers:
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/MenuInfo'
-            type: array
-    MenuParamListByMenuIdResp:
-        description: The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
-        headers:
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/MenuParamResp'
-            type: array
-    MenuParamResp:
-        description: The response data of menu parameters  | 菜单参数列表数据
-        headers:
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-            dataType:
-                description: Data Type | 数据类型
-                type: string
-            id:
-                description: ID
-                format: uint64
-                type: integer
-            key:
-                description: Key | 键
-                type: string
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-            value:
-                description: Value | 值
-                type: string
-    Meta:
-        description: The meta data of menu | 菜单的meta数据
-        headers:
-            affix:
-                description: Affix tab | 是否固定标签
-                type: boolean
-            carryParam:
-                description: The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
-                type: boolean
-            currentActiveMenu:
-                description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
-                maxLength: 30
-                type: string
-            dynamicLevel:
-                description: The maximum number of pages the router can open | 动态路由可打开Tab页数
-                format: uint32
-                type: integer
-            frameSrc:
-                description: Iframe path | 内嵌iframe的地址
-                type: string
-            hideBreadcrumb:
-                description: If hide the breadcrumb | 隐藏面包屑
-                type: boolean
-            hideChildrenInMenu:
-                description: Hide children menu or not | 隐藏所有子菜单
-                type: boolean
-            hideMenu:
-                description: Hide menu | 隐藏菜单
-                type: boolean
-            hideTab:
-                description: Hide the tab header | 当前路由不在标签页显示
-                type: boolean
-            icon:
-                description: Menu Icon | 菜单图标
-                maxLength: 50
-                type: string
-            ignoreKeepAlive:
-                description: Do not keep alive the tab | 不缓存Tab
-                type: boolean
-            realPath:
-                description: The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
-                type: string
-            title:
-                description: Menu title show in page | 菜单显示名
-                maxLength: 50
-                type: string
     PageList:
         description: The page response data model | 列表返回信息
         headers:
@@ -2628,139 +3047,12 @@ responses:
                 description: Total number | 数据总数
                 format: uint64
                 type: integer
-    PermCodeResp:
-        description: The permission code for front end permission control | 权限码： 用于前端权限控制
-        headers:
-            data:
-                description: Permission code data | 权限码数据
-                items:
-                    type: string
-                type: array
-    ProfileResp:
-        description: The profile response data | 个人信息返回数据
-        headers:
-            avatar:
-                description: The user's avatar path | 用户的头像路径
-                type: string
-            email:
-                description: The user's email address | 用户的邮箱
-                type: string
-            mobile:
-                description: User's mobile phone number | 用户的手机号码
-                type: string
-            nickname:
-                description: user's nickname | 用户的昵称
-                type: string
-    ProviderListResp:
-        description: The response data of provider list | 提供商列表数据
-        headers:
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/ProviderInfo'
-            type: array
-    RedirectResp:
-        description: Redirect response | 跳转网址
-        headers:
-            URL:
-                type: string
-    RoleInfoSimple:
-        description: The simple role data | 简单的角色数据
-        headers:
-            roleName:
-                description: Role name | 角色名
-                type: string
-            value:
-                description: Role value | 角色值
-                type: string
-    RoleListResp:
-        description: The response data of role list | 角色列表数据
-        headers:
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/RoleInfo'
-            type: array
     SimpleMsg:
         description: The simplest message | 最简单的信息
         headers:
             msg:
                 description: Message | 信息
                 type: string
-    TokenListResp:
-        description: The response data of Token list | Token列表数据
-        headers:
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/TokenInfo'
-            type: array
-    UserInfoResp:
-        description: The response data of user's information | 用户信息返回数据
-        headers:
-            UUID:
-                description: User's UUID | 用户的UUID
-                type: string
-            avatar:
-                description: The user's avatar path | 用户的头像路径
-                type: string
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-            email:
-                description: The user's email address | 用户的邮箱
-                type: string
-            id:
-                description: ID
-                format: uint64
-                type: integer
-            mobile:
-                description: User's mobile phone number | 用户的手机号码
-                type: string
-            nickname:
-                description: User's nickname | 用户的昵称
-                type: string
-            roleId:
-                description: User's role id | 用户的角色ID
-                format: uint64
-                type: integer
-            sideMode:
-                description: The user's layout mode | 用户的布局
-                type: string
-            status:
-                description: |-
-                    The user's status | 用户状态
-                    1 normal, 2 ban | 1 正常 2 拉黑
-                format: uint64
-                type: integer
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-            username:
-                description: User Name | 用户名
-                type: string
-    UserListResp:
-        description: The response data of user list | 用户列表数据
-        headers:
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-        schema:
-            items:
-                $ref: '#/definitions/UserInfoResp'
-            type: array
 schemes:
     - http
     - https

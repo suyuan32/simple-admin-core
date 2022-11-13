@@ -6,6 +6,7 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -15,7 +16,7 @@ type GetRoleListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	r      *http.Request
+	lang   string
 }
 
 func NewGetRoleListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetRoleListLogic {
@@ -23,7 +24,7 @@ func NewGetRoleListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetRoleLi
 		Logger: logx.WithContext(r.Context()),
 		ctx:    r.Context(),
 		svcCtx: svcCtx,
-		r:      r,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -36,17 +37,16 @@ func (l *GetRoleListLogic) GetRoleList(req *types.PageInfo) (resp *types.RoleLis
 		return nil, err
 	}
 	resp = &types.RoleListResp{}
-	resp.Total = data.Total
-
-	lang := l.r.Header.Get("Accept-Language")
+	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	resp.Data.Total = data.Total
 
 	for _, v := range data.Data {
-		resp.Data = append(resp.Data, types.RoleInfo{
+		resp.Data.Data = append(resp.Data.Data, types.RoleInfo{
 			BaseInfo: types.BaseInfo{
 				Id:        v.Id,
 				CreatedAt: v.CreatedAt,
 			},
-			Title:         l.svcCtx.Trans.Trans(lang, v.Name),
+			Title:         l.svcCtx.Trans.Trans(l.lang, v.Name),
 			Name:          v.Name,
 			Value:         v.Value,
 			DefaultRouter: v.DefaultRouter,

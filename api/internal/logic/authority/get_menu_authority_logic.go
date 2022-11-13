@@ -2,9 +2,11 @@ package authority
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -14,13 +16,15 @@ type GetMenuAuthorityLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewGetMenuAuthorityLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMenuAuthorityLogic {
+func NewGetMenuAuthorityLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetMenuAuthorityLogic {
 	return &GetMenuAuthorityLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -31,13 +35,16 @@ func (l *GetMenuAuthorityLogic) GetMenuAuthority(req *types.IDReq) (resp *types.
 	if err != nil {
 		return nil, err
 	}
+
 	resp = &types.MenuAuthorityInfoResp{
-		RoleId:  req.Id,
-		MenuIds: []uint64{},
+		BaseDataInfo: types.BaseDataInfo{
+			Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success),
+		},
+		Data: types.MenuAuthorityInfoReq{
+			RoleId:  req.Id,
+			MenuIds: data.MenuId,
+		},
 	}
 
-	for _, v := range data.MenuId {
-		resp.MenuIds = append(resp.MenuIds, v)
-	}
 	return resp, nil
 }

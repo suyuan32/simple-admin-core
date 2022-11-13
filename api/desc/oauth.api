@@ -99,13 +99,19 @@ type (
         InfoURL   string `json:"infoURL" validate:"max=200"`
     }
 
-    // The response data of provider list | 提供商列表数据
+    // The response data of provider list | 提供商列表返回数据
     ProviderListResp {
-        // The total number of data | 数据总数
-        Total uint64 `json:"total"`
+        BaseDataInfo
 
         // The provider list data | 提供商列表数据
-        // in: body
+        Data  ProviderListInfo  `json:"data"`
+    }
+
+    // The data of provider list | 提供商列表数据
+    ProviderListInfo {
+        BaseListInfo
+
+        // The provider list data | 提供商列表数据
         Data  []ProviderInfo  `json:"data"`
     }
 
@@ -123,8 +129,17 @@ type (
         Provider string `json:"provider" validate:"max=40"`
     }
 
-    // Redirect response | 跳转网址
+    // Redirect response | 跳转网址返回信息
     RedirectResp {
+        BaseDataInfo
+
+        // Redirect information | 跳转网址
+        Data  RedirectInfo `json:"data"`
+    }
+
+    // Redirect information | 跳转网址
+    RedirectInfo {
+        // Redirect URL | 跳转网址
         URL string `json:"URL"`
     }
 
@@ -168,11 +183,11 @@ service core {
 service core {
     // Create or update Provider information | 创建或更新提供商
     @handler createOrUpdateProvider
-    post /oauth/provider (CreateOrUpdateProviderReq) returns (SimpleMsg)
+    post /oauth/provider (CreateOrUpdateProviderReq) returns (BaseMsgResp)
 
     // Delete provider information | 删除提供商信息
     @handler deleteProvider
-    delete /oauth/provider (IDReq) returns (SimpleMsg)
+    delete /oauth/provider (IDReq) returns (BaseMsgResp)
 
     // Get provider list | 获取提供商列表
     @handler getProviderList

@@ -1,13 +1,13 @@
 {
 	"common": {
+		"success": "successfully",
+		"failed": "failed",
 		"updateSuccess": "Update successfully",
 		"updateFailed": "Update failed",
 		"createSuccess": "Create successfully",
 		"createFailed": "Create failed",
 		"deleteSuccess": "Delete successfully",
 		"deleteFailed": "Delete failed",
-		"getInfoSuccess": "Get information Successfully",
-		"getInfoFailed": "Get information Failed",
 		"changeStatusSuccess": "Change status successfully",
 		"changeStatusFailed": "Change status failed",
 		"targetNotExist": "Target does not exist",
@@ -124,5 +124,9 @@
 	},
 	"oauth": {
 		"createAccount": "Please register an account with this email or bind the email to an account"
+	},
+	"casbin": {
+		"removeFailed": "Fail to remove old policies",
+		"addFailed": "Fail to add new policies"
 	}
 }

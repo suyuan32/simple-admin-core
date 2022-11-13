@@ -23,8 +23,6 @@ import (
 //
 // Responses:
 //  200: TokenListResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func GetTokenListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func GetTokenListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := token.NewGetTokenListLogic(r.Context(), svcCtx)
+		l := token.NewGetTokenListLogic(r, svcCtx)
 		resp, err := l.GetTokenList(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

@@ -22,9 +22,7 @@ import (
 //    type: IDReq
 //
 // Responses:
-//  200: SimpleMsg
-//  401: SimpleMsg
-//  500: SimpleMsg
+//  200: BaseMsgResp
 
 func DeleteApiHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func DeleteApiHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := api.NewDeleteApiLogic(r.Context(), svcCtx)
+		l := api.NewDeleteApiLogic(r, svcCtx)
 		resp, err := l.DeleteApi(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

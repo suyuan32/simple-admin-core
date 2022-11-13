@@ -41,7 +41,7 @@ type (
         // Role remark | 角色备注
         // Required : true
         // Max length: 200
-        Remark        string `json:"remark" validate:"omitempty,max=200"`
+        Remark        string `json:"remark,optional" validate:"omitempty,max=200"`
 
         // Role's sorting number | 角色排序
         // Required : true
@@ -49,13 +49,19 @@ type (
         OrderNo       uint32 `json:"orderNo" validate:"number,max=1000"`
     }
 
-    // The response data of role list | 角色列表数据
+    // The response data of role list | 角色列表返回数据
     RoleListResp {
-        // The total number of data | 数据总数
-        Total uint64      `json:"total"`
+        BaseDataInfo
 
         // The role list data | 角色列表数据
-        // in: body
+        Data  RoleListInfo  `json:"data"`
+    }
+
+    // The data of role list | 角色列表数据
+    RoleListInfo {
+        BaseListInfo
+
+        // The role list data | 角色列表数据
         Data  []RoleInfo  `json:"data"`
     }
 )
@@ -69,11 +75,11 @@ type (
 service core {
     // Create or update role information | 创建或更新角色
     @handler createOrUpdateRole
-    post /role (RoleInfo) returns (SimpleMsg)
+    post /role (RoleInfo) returns (BaseMsgResp)
 
     // Delete role information | 删除角色信息
     @handler deleteRole
-    delete /role (IDReq) returns (SimpleMsg)
+    delete /role (IDReq) returns (BaseMsgResp)
 
     // Get role list | 获取角色列表
     @handler getRoleList
@@ -81,5 +87,5 @@ service core {
 
     // Set role status | 设置角色状态
     @handler updateRoleStatus
-    post /role/status (StatusCodeReq) returns (SimpleMsg)
+    post /role/status (StatusCodeReq) returns (BaseMsgResp)
 }

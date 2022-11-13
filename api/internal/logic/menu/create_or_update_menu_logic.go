@@ -2,6 +2,7 @@ package menu
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -14,18 +15,20 @@ type CreateOrUpdateMenuLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewCreateOrUpdateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOrUpdateMenuLogic {
+func NewCreateOrUpdateMenuLogic(r *http.Request, svcCtx *svc.ServiceContext) *CreateOrUpdateMenuLogic {
 	return &CreateOrUpdateMenuLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
-func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(req *types.CreateOrUpdateMenuReq) (resp *types.SimpleMsg, err error) {
-	data, err := l.svcCtx.CoreRpc.CreateOrUpdateMenu(l.ctx, &core.CreateOrUpdateMenuReq{
+func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(req *types.CreateOrUpdateMenuReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.CreateOrUpdateMenu(l.ctx, &core.CreateOrUpdateMenuReq{
 		Id:        req.Id,
 		MenuType:  req.MenuType,
 		ParentId:  req.ParentId,
@@ -54,5 +57,5 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(req *types.CreateOrUpdateMe
 	if err != nil {
 		return nil, err
 	}
-	return &types.SimpleMsg{Msg: data.Msg}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
 }

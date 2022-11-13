@@ -5,6 +5,7 @@ import (
 	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
+	"entgo.io/ent/schema/index"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent/schema/mixins"
 )
@@ -30,6 +31,13 @@ func (API) Mixin() []ent.Mixin {
 
 func (API) Edges() []ent.Edge {
 	return nil
+}
+
+func (API) Indexes() []ent.Index {
+	return []ent.Index{
+		index.Fields("path", "method").
+			Unique(),
+	}
 }
 
 func (API) Annotations() []schema.Annotation {

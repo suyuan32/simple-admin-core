@@ -58,11 +58,17 @@ type (
 
     // The response data of dictionary list | 字典列表数据
     DictionaryListResp {
-        // The total number of data | 数据总数
-        Total uint64 `json:"total"`
+        BaseDataInfo
 
         // The dictionary list data | 字典列表数据
-        // in: body
+        Data  DictionaryListInfo  `json:"data"`
+    }
+
+    // The response data of dictionary list | 字典列表数据
+    DictionaryListInfo {
+        BaseListInfo
+
+        // The dictionary list data | 字典列表数据
         Data  []DictionaryInfo  `json:"data"`
     }
 
@@ -98,11 +104,17 @@ type (
 
     // The response data of dictionary KV list | 字典值的列表数据
     DictionaryDetailListResp {
-        // The total number of data | 数据总数
-        Total uint64 `json:"total"`
+        BaseDataInfo
 
         // The dictionary list data | 字典列表数据
-        // in: body
+        Data  DictionaryDetailListInfo  `json:"data"`
+    }
+
+    // The data of dictionary KV list | 字典值的列表数据
+    DictionaryDetailListInfo {
+        BaseListInfo
+
+        // The dictionary list data | 字典列表数据
         Data  []DictionaryDetailInfo  `json:"data"`
     }
 
@@ -153,11 +165,11 @@ type (
 service core {
     // Create or update dictionary information | 创建或更新字典信息
     @handler createOrUpdateDictionary
-    post /dict (CreateOrUpdateDictionaryReq) returns (SimpleMsg)
+    post /dict (CreateOrUpdateDictionaryReq) returns (BaseMsgResp)
 
     // Delete dictionary information | 删除字典信息
     @handler deleteDictionary
-    delete /dict (IDReq) returns (SimpleMsg)
+    delete /dict (IDReq) returns (BaseMsgResp)
 
     // Get dictionary list | 获取字典列表
     @handler getDictionaryList
@@ -165,11 +177,11 @@ service core {
 
     // Create or update dictionary KV information | 创建或更新字典键值信息
     @handler createOrUpdateDictionaryDetail
-    post /dict/detail (CreateOrUpdateDictionaryDetailReq) returns (SimpleMsg)
+    post /dict/detail (CreateOrUpdateDictionaryDetailReq) returns (BaseMsgResp)
 
     // Delete dictionary KV information | 删除字典键值信息
     @handler deleteDictionaryDetail
-    delete /dict/detail (IDReq) returns (SimpleMsg)
+    delete /dict/detail (IDReq) returns (BaseMsgResp)
 
     // Get dictionary detail list by dictionary name | 根据字典名获取字典键值列表
     @handler getDetailByDictionaryName

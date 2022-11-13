@@ -22,9 +22,7 @@ import (
 //    type: IDReq
 //
 // Responses:
-//  200: SimpleMsg
-//  401: SimpleMsg
-//  500: SimpleMsg
+//  200: BaseMsgResp
 
 func DeleteMenuParamHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func DeleteMenuParamHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := menu.NewDeleteMenuParamLogic(r.Context(), svcCtx)
+		l := menu.NewDeleteMenuParamLogic(r, svcCtx)
 		resp, err := l.DeleteMenuParam(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

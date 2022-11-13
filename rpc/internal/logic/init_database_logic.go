@@ -16,8 +16,6 @@ import (
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type InitDatabaseLogic struct {
@@ -71,67 +69,67 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		err := l.svcCtx.Redis.Set("database_init_state", "1")
 		if err != nil {
 			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
-			return nil, status.Error(codes.Internal, errorx.RedisError)
+			return nil, statuserr.NewInternalError(errorx.RedisError)
 		}
 		return &core.BaseResp{Msg: errorx.AlreadyInit}, nil
 	}
 
 	// set default state value
 	l.svcCtx.Redis.Setex("database_error_msg", "", 300)
-	l.svcCtx.Redis.Set("database_init_state", "0")
+	l.svcCtx.Redis.Setex("database_init_state", "0", 300)
 
 	// initialize table structure
 	if err := l.svcCtx.DB.Schema.Create(l.ctx, schema.WithForeignKeys(false)); err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, status.Error(codes.Internal, err.Error())
+		return nil, statuserr.NewInternalError(err.Error())
 	}
 
 	err = l.insertUserData()
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, status.Error(codes.Internal, err.Error())
+		return nil, statuserr.NewInternalError(err.Error())
 	}
 	err = l.insertRoleData()
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, status.Error(codes.Internal, err.Error())
+		return nil, statuserr.NewInternalError(err.Error())
 	}
 	err = l.insertMenuData()
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, status.Error(codes.Internal, err.Error())
+		return nil, statuserr.NewInternalError(err.Error())
 	}
 	err = l.insertApiData()
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, status.Error(codes.Internal, err.Error())
+		return nil, statuserr.NewInternalError(err.Error())
 	}
 	err = l.insertRoleMenuAuthorityData()
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, status.Error(codes.Internal, err.Error())
+		return nil, statuserr.NewInternalError(err.Error())
 	}
 	err = l.insertCasbinPoliciesData()
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, status.Error(codes.Internal, err.Error())
+		return nil, statuserr.NewInternalError(err.Error())
 	}
 
 	err = l.insertProviderData()
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, status.Error(codes.Internal, err.Error())
+		return nil, statuserr.NewInternalError(err.Error())
 	}
 
-	l.svcCtx.Redis.Set("database_init_state", "1")
+	l.svcCtx.Redis.Setex("database_init_state", "1", 300)
 	return &core.BaseResp{Msg: errorx.Success}, nil
 }
 

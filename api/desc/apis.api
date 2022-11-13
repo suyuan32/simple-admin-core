@@ -63,17 +63,24 @@ type (
 
     // The response data of API list | API列表数据
     ApiListResp {
-        // The total number of data | 数据总数
-        Total uint64 `json:"total"`
+        BaseDataInfo
+
+        // API list data | API 列表数据
+        Data ApiListInfo `json:"data"`
+    }
+
+    // API list data | API 列表数据
+    ApiListInfo {
+        BaseListInfo
 
         // The API list data | API列表数据
-        // in: body
         Data  []ApiInfo  `json:"data"`
     }
 
     // Get API list request params | API列表请求参数
     ApiListReq {
         PageInfo
+
         // API path | API路径
         // Max length: 100
         Path          string `json:"path,optional" validate:"omitempty,max=100"`
@@ -101,11 +108,11 @@ type (
 service core {
     // Create or update API information | 创建或更新API
     @handler createOrUpdateApi
-    post /api (CreateOrUpdateApiReq) returns (SimpleMsg)
+    post /api (CreateOrUpdateApiReq) returns (BaseMsgResp)
 
     // Delete API information | 删除API信息
     @handler deleteApi
-    delete /api (IDReq) returns (SimpleMsg)
+    delete /api (IDReq) returns (BaseMsgResp)
 
     // Get API list | 获取API列表
     @handler getApiList

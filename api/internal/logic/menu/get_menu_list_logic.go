@@ -6,6 +6,7 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -15,7 +16,7 @@ type GetMenuListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	r      *http.Request
+	lang   string
 }
 
 func NewGetMenuListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetMenuListLogic {
@@ -23,7 +24,7 @@ func NewGetMenuListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetMenuLi
 		Logger: logx.WithContext(r.Context()),
 		ctx:    r.Context(),
 		svcCtx: svcCtx,
-		r:      r,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -36,8 +37,9 @@ func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuListResp, err error) {
 		return nil, err
 	}
 	resp = &types.MenuListResp{}
-	resp.Total = data.Total
-	resp.Data = l.convertMenuList(data.Data, l.r.Header.Get("Accept-Language"))
+	resp.Data.Total = data.Total
+	resp.Data.Data = l.convertMenuList(data.Data, l.lang)
+	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
 	return resp, nil
 }
 

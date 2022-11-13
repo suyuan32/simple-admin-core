@@ -19,7 +19,6 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.16
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
-	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.8.0
 	github.com/zeromicro/go-zero v1.4.2
 	golang.org/x/crypto v0.0.0-20221005025214-4161e89ecf1b
@@ -29,7 +28,7 @@ require (
 	google.golang.org/protobuf v1.28.1
 )
 
-replace github.com/zeromicro/go-zero v1.4.2 => github.com/suyuan32/simple-admin-tools v0.0.8
+replace github.com/zeromicro/go-zero v1.4.2 => github.com/suyuan32/simple-admin-tools v0.0.9
 
 require (
 	ariga.io/atlas v0.7.3-0.20221011160332-3ca609863edd // indirect
@@ -87,6 +86,7 @@ require (
 	github.com/openzipkin/zipkin-go v0.4.0 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_golang v1.13.0 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect

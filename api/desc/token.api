@@ -60,13 +60,19 @@ type (
        ExpiredAt int64 `json:"expiredAt" validate:"number"`
     }
 
-    // The response data of Token list | Token列表数据
+    // The response data of Token list | Token列表返回数据
     TokenListResp {
-        // The total number of data | 数据总数
-        Total uint64 `json:"total"`
+        BaseDataInfo
 
         // The token list data | Token列表数据
-        // in: body
+        Data  TokenListInfo  `json:"data"`
+    }
+
+    // The  data of Token list | Token列表数据
+    TokenListInfo {
+        BaseListInfo
+
+        // The token list data | Token列表数据
         Data  []TokenInfo  `json:"data"`
     }
 
@@ -100,11 +106,11 @@ type (
 service core {
     // Create or update Token information | 创建或更新Token
     @handler createOrUpdateToken
-    post /token (CreateOrUpdateTokenReq) returns (SimpleMsg)
+    post /token (CreateOrUpdateTokenReq) returns (BaseMsgResp)
 
     // Delete token information | 删除token信息
     @handler deleteToken
-    delete /token (IDReq) returns (SimpleMsg)
+    delete /token (IDReq) returns (BaseMsgResp)
 
     // Get Token list | 获取token列表
     @handler getTokenList
@@ -112,9 +118,9 @@ service core {
 
     // Set token status | 设置token状态
     @handler updateTokenStatus
-    post /token/status (StatusCodeReq) returns (SimpleMsg)
+    post /token/status (StatusCodeReq) returns (BaseMsgResp)
 
     // Force logging out by user UUID | 根据UUID强制用户退出
     @handler logout
-    post /token/logout (UUIDReq) returns (SimpleMsg)
+    post /token/logout (UUIDReq) returns (BaseMsgResp)
 }

@@ -3,10 +3,9 @@ package oauth
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
-
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/oauth"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 // swagger:route get /oauth/login/callback oauth OauthCallback
@@ -17,8 +16,6 @@ import (
 //
 // Responses:
 //  200: CallbackResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func OauthCallbackHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

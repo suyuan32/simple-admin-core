@@ -22,9 +22,7 @@ import (
 //    type: CreateOrUpdateTokenReq
 //
 // Responses:
-//  200: SimpleMsg
-//  401: SimpleMsg
-//  500: SimpleMsg
+//  200: BaseMsgResp
 
 func CreateOrUpdateTokenHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func CreateOrUpdateTokenHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := token.NewCreateOrUpdateTokenLogic(r.Context(), svcCtx)
+		l := token.NewCreateOrUpdateTokenLogic(r, svcCtx)
 		resp, err := l.CreateOrUpdateToken(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

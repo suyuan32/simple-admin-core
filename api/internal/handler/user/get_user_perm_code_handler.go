@@ -16,12 +16,10 @@ import (
 //
 // Responses:
 //  200: PermCodeResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func GetUserPermCodeHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := user.NewGetUserPermCodeLogic(r.Context(), svcCtx)
+		l := user.NewGetUserPermCodeLogic(r, svcCtx)
 		resp, err := l.GetUserPermCode()
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

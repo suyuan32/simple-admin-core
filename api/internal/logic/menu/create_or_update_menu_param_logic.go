@@ -2,6 +2,7 @@ package menu
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -14,17 +15,19 @@ type CreateOrUpdateMenuParamLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewCreateOrUpdateMenuParamLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOrUpdateMenuParamLogic {
+func NewCreateOrUpdateMenuParamLogic(r *http.Request, svcCtx *svc.ServiceContext) *CreateOrUpdateMenuParamLogic {
 	return &CreateOrUpdateMenuParamLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
-func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(req *types.CreateOrUpdateMenuParamReq) (resp *types.SimpleMsg, err error) {
+func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(req *types.CreateOrUpdateMenuParamReq) (resp *types.BaseMsgResp, err error) {
 	result, err := l.svcCtx.CoreRpc.CreateOrUpdateMenuParam(l.ctx, &core.CreateOrUpdateMenuParamReq{
 		Id:     req.Id,
 		MenuId: req.MenuId,
@@ -37,5 +40,5 @@ func (l *CreateOrUpdateMenuParamLogic) CreateOrUpdateMenuParam(req *types.Create
 		return nil, err
 	}
 
-	return &types.SimpleMsg{Msg: result.Msg}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
 }

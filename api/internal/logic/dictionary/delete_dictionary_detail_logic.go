@@ -2,6 +2,7 @@ package dictionary
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -14,22 +15,24 @@ type DeleteDictionaryDetailLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewDeleteDictionaryDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteDictionaryDetailLogic {
+func NewDeleteDictionaryDetailLogic(r *http.Request, svcCtx *svc.ServiceContext) *DeleteDictionaryDetailLogic {
 	return &DeleteDictionaryDetailLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
-func (l *DeleteDictionaryDetailLogic) DeleteDictionaryDetail(req *types.IDReq) (resp *types.SimpleMsg, err error) {
+func (l *DeleteDictionaryDetailLogic) DeleteDictionaryDetail(req *types.IDReq) (resp *types.BaseMsgResp, err error) {
 	result, err := l.svcCtx.CoreRpc.DeleteDictionaryDetail(l.ctx, &core.IDReq{Id: req.Id})
 
 	if err != nil {
 		return nil, err
 	}
 
-	return &types.SimpleMsg{Msg: result.Msg}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
 }

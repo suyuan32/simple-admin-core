@@ -10,10 +10,18 @@ info(
 
 import "base.api"
 
-// The response data of captcha | 验证码返回数据
+// The information of captcha | 验证码数据
 type CaptchaInfo {
 	CaptchaId string `json:"captchaId"`
 	ImgPath   string `json:"imgPath"`
+}
+
+// The response data of captcha | 验证码返回数据
+type CaptchaResp {
+    BaseDataInfo
+
+    // The menu authorization data | 菜单授权信息数据
+    Data CaptchaInfo `json:"data"`
 }
 
 @server(
@@ -23,5 +31,5 @@ type CaptchaInfo {
 service core {
 	// Get captcha | 获取验证码
 	@handler getCaptcha
-	get /captcha returns (CaptchaInfo)
+	get /captcha returns (CaptchaResp)
 }

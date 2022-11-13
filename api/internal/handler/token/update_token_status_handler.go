@@ -22,9 +22,7 @@ import (
 //    type: StatusCodeReq
 //
 // Responses:
-//  200: SimpleMsg
-//  401: SimpleMsg
-//  500: SimpleMsg
+//  200: BaseMsgResp
 
 func UpdateTokenStatusHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func UpdateTokenStatusHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := token.NewUpdateTokenStatusLogic(r.Context(), svcCtx)
+		l := token.NewUpdateTokenStatusLogic(r, svcCtx)
 		resp, err := l.UpdateTokenStatus(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

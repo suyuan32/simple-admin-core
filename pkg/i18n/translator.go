@@ -10,6 +10,7 @@ import (
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"golang.org/x/text/language"
+	"google.golang.org/grpc/status"
 
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errcode"
@@ -59,10 +60,16 @@ func (l *Translator) Trans(lang string, msgId string) string {
 func (l *Translator) TransError(lang string, err error) error {
 	if errcode.IsGrpcError(err) {
 		message, e := l.MatchLocalizer(lang).LocalizeMessage(&i18n.Message{ID: strings.Split(err.Error(), "desc = ")[1]})
-		if e != nil {
+		if e != nil || message == "" {
 			message = err.Error()
 		}
-		return errorx.NewApiError(errcode.CodeFromGrpcError(err), message)
+		return status.Error(status.Code(err), message)
+	} else if codeErr, ok := err.(*errorx.CodeError); ok {
+		message, e := l.MatchLocalizer(lang).LocalizeMessage(&i18n.Message{ID: codeErr.Error()})
+		if e != nil || message == "" {
+			message = codeErr.Error()
+		}
+		return errorx.NewCodeError(codeErr.Code, message)
 	} else if apiErr, ok := err.(*errorx.ApiError); ok {
 		message, e := l.MatchLocalizer(lang).LocalizeMessage(&i18n.Message{ID: apiErr.Error()})
 		if e != nil {

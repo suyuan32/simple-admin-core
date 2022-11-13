@@ -7,8 +7,9 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/enum"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -16,17 +17,19 @@ type CreateOrUpdateApiAuthorityLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewCreateOrUpdateApiAuthorityLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOrUpdateApiAuthorityLogic {
+func NewCreateOrUpdateApiAuthorityLogic(r *http.Request, svcCtx *svc.ServiceContext) *CreateOrUpdateApiAuthorityLogic {
 	return &CreateOrUpdateApiAuthorityLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
-func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.CreateOrUpdateApiAuthorityReq) (resp *types.SimpleMsg, err error) {
+func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.CreateOrUpdateApiAuthorityReq) (resp *types.BaseMsgResp, err error) {
 	// clear old policies
 	roleIdString := strconv.Itoa(int(req.RoleId))
 	var oldPolicies [][]string
@@ -34,13 +37,12 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	if len(oldPolicies) != 0 {
 		removeResult, err := l.svcCtx.Casbin.RemoveFilteredPolicy(0, roleIdString)
 		if err != nil {
-			return nil, &errorx.ApiError{
-				Code: http.StatusInternalServerError,
-				Msg:  err.Error(),
-			}
+			return &types.BaseMsgResp{Code: enum.Internal,
+				Msg: err.Error()}, nil
 		}
 		if !removeResult {
-			return nil, errorx.NewApiError(http.StatusInternalServerError, "cannot clear old policies")
+			return &types.BaseMsgResp{Code: enum.Internal,
+				Msg: l.svcCtx.Trans.Trans(l.lang, "casbin.removeFailed")}, nil
 		}
 	}
 	// add new policies
@@ -50,11 +52,12 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	}
 	addResult, err := l.svcCtx.Casbin.AddPolicies(policies)
 	if err != nil {
-		return nil, err
+		return &types.BaseMsgResp{Code: enum.Internal,
+			Msg: l.svcCtx.Trans.Trans(l.lang, "casbin.addFailed")}, nil
 	}
 	if addResult {
-		return &types.SimpleMsg{Msg: errorx.UpdateSuccess}, nil
+		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.UpdateSuccess)}, nil
 	} else {
-		return nil, errorx.NewApiError(http.StatusBadRequest, errorx.UpdateFailed)
+		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.UpdateFailed)}, nil
 	}
 }

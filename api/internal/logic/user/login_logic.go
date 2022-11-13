@@ -5,13 +5,16 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/golang-jwt/jwt/v4"
+	"github.com/zeromicro/go-zero/core/errorx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/captcha"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/enum"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/golang-jwt/jwt/v4"
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -19,13 +22,15 @@ type LoginLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic {
+func NewLoginLogic(r *http.Request, svcCtx *svc.ServiceContext) *LoginLogic {
 	return &LoginLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -63,17 +68,20 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		}
 
 		resp = &types.LoginResp{
-			UserId: user.Id,
-			Token:  token,
-			Expire: uint64(expiredAt),
-			Role: types.RoleInfoSimple{
-				Value:    user.RoleValue,
-				RoleName: user.RoleName,
+			BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success)},
+			Data: types.LoginInfo{
+				UserId: user.Id,
+				Token:  token,
+				Expire: uint64(expiredAt),
+				Role: types.RoleInfoSimple{
+					Value:    user.RoleValue,
+					RoleName: user.RoleName,
+				},
 			},
 		}
 		return resp, nil
 	} else {
-		return nil, errorx.NewApiError(http.StatusBadRequest, "login.wrongCaptcha")
+		return nil, errorx.NewCodeError(enum.InvalidArgument, "login.wrongCaptcha")
 	}
 }
 

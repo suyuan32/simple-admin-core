@@ -33,13 +33,19 @@ type (
         Data    []ApiAuthorityInfo  `json:"data"`
     }
 
-    // The response data of api authorization list | API授权列表数据
+    // The response data of api authorization list | API授权列表返回数据
     ApiAuthorityListResp {
-        // The total number of data | 数据总数
-        Total uint64   `json:"total"`
+        BaseDataInfo
 
         // The api authorization list data | API授权列表数据
-        // in: body
+        Data ApiAuthorityListInfo `json:"data"`
+    }
+
+    // The  data of api authorization list | API授权列表数据
+    ApiAuthorityListInfo {
+        BaseListInfo
+
+        // The api authorization list data | API授权列表数据
         Data []ApiAuthorityInfo `json:"data"`
     }
 
@@ -55,13 +61,12 @@ type (
         MenuIds []uint64 `json:"menuIds"`
     }
 
-    // Create or update menu authorization information request params | 创建或更新菜单授权信息参数
+    // Menu authorization response data | 菜单授权信息数据
     MenuAuthorityInfoResp {
-        // role ID | 角色ID
-        RoleId  uint64   `json:"roleId"`
+        BaseDataInfo
 
-        // menu ID array | 菜单ID数组
-        MenuIds []uint64 `json:"menuIds"`
+        // The menu authorization data | 菜单授权信息数据
+        Data MenuAuthorityInfoReq `json:"data"`
     }
 )
 
@@ -74,7 +79,7 @@ type (
 service core {
     // Create or update API authorization information | 创建或更新API权限
     @handler createOrUpdateApiAuthority
-    post /authority/api (CreateOrUpdateApiAuthorityReq) returns (SimpleMsg)
+    post /authority/api (CreateOrUpdateApiAuthorityReq) returns (BaseMsgResp)
 
     // Get role's API authorization list | 获取角色api权限列表
     @handler getApiAuthority
@@ -82,7 +87,7 @@ service core {
 
     // Create or update menu authorization information | 创建或更新菜单权限
     @handler createOrUpdateMenuAuthority
-    post /authority/menu (MenuAuthorityInfoReq) returns (SimpleMsg)
+    post /authority/menu (MenuAuthorityInfoReq) returns (BaseMsgResp)
 
     // Get role's menu authorization list | 获取角色菜单权限列表
     @handler getMenuAuthority

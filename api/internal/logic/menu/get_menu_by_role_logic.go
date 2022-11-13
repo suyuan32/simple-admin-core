@@ -7,6 +7,7 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -16,7 +17,7 @@ type GetMenuByRoleLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	r      *http.Request
+	lang   string
 }
 
 func NewGetMenuByRoleLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetMenuByRoleLogic {
@@ -24,19 +25,20 @@ func NewGetMenuByRoleLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetMenu
 		Logger: logx.WithContext(r.Context()),
 		ctx:    r.Context(),
 		svcCtx: svcCtx,
-		r:      r,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
-func (l *GetMenuByRoleLogic) GetMenuByRole() (resp []*types.GetMenuListBase, err error) {
+func (l *GetMenuByRoleLogic) GetMenuByRole() (resp *types.GetMenuListBaseResp, err error) {
 	roleId, _ := l.ctx.Value("roleId").(json.Number).Int64()
 	data, err := l.svcCtx.CoreRpc.GetMenuListByRole(l.ctx, &core.IDReq{Id: uint64(roleId)})
 	if err != nil {
 		return nil, err
 	}
-	var result []*types.GetMenuListBase
-	result = l.convertRoleMenuList(data.Data, l.r.Header.Get("Accept-Language"))
-	return result, nil
+	resp = &types.GetMenuListBaseResp{}
+	resp.Data.Data = l.convertRoleMenuList(data.Data, l.lang)
+	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	return resp, nil
 }
 
 func (l *GetMenuByRoleLogic) convertRoleMenuList(data []*core.MenuInfo, lang string) []*types.GetMenuListBase {

@@ -7,7 +7,7 @@ const (
 	DeleteFailed   string = "delete failed"
 	UpdateSuccess  string = "update successful"
 	UpdateFailed   string = "update failed"
-	TargetNotFound string = "target cannot be found"
+	TargetNotFound string = "target not found"
 	DatabaseError  string = "database error"
 	RedisError     string = "redis error"
 )

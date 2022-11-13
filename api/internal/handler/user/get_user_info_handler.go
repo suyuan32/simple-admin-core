@@ -16,12 +16,10 @@ import (
 //
 // Responses:
 //  200: GetUserInfoResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func GetUserInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := user.NewGetUserInfoLogic(r.Context(), svcCtx)
+		l := user.NewGetUserInfoLogic(r, svcCtx)
 		resp, err := l.GetUserInfo()
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

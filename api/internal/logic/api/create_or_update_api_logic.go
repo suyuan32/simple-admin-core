@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -14,17 +15,19 @@ type CreateOrUpdateApiLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
+	lang   string
 }
 
-func NewCreateOrUpdateApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOrUpdateApiLogic {
+func NewCreateOrUpdateApiLogic(r *http.Request, svcCtx *svc.ServiceContext) *CreateOrUpdateApiLogic {
 	return &CreateOrUpdateApiLogic{
-		Logger: logx.WithContext(ctx),
-		ctx:    ctx,
+		Logger: logx.WithContext(r.Context()),
+		ctx:    r.Context(),
 		svcCtx: svcCtx,
+		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
-func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(req *types.CreateOrUpdateApiReq) (resp *types.SimpleMsg, err error) {
+func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(req *types.CreateOrUpdateApiReq) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateOrUpdateApi(l.ctx,
 		&core.ApiInfo{
 			Id:          req.Id,
@@ -36,5 +39,5 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(req *types.CreateOrUpdateApiR
 	if err != nil {
 		return nil, err
 	}
-	return &types.SimpleMsg{Msg: data.Msg}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, data.Msg)}, nil
 }

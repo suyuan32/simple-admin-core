@@ -23,8 +23,6 @@ import (
 //
 // Responses:
 //  200: MenuParamListByMenuIdResp
-//  401: SimpleMsg
-//  500: SimpleMsg
 
 func GetMenuParamListByMenuIdHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +32,7 @@ func GetMenuParamListByMenuIdHandler(svcCtx *svc.ServiceContext) http.HandlerFun
 			return
 		}
 
-		l := menu.NewGetMenuParamListByMenuIdLogic(r.Context(), svcCtx)
+		l := menu.NewGetMenuParamListByMenuIdLogic(r, svcCtx)
 		resp, err := l.GetMenuParamListByMenuId(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)

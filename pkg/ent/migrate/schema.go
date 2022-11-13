@@ -24,6 +24,13 @@ var (
 		Name:       "sys_apis",
 		Columns:    SysApisColumns,
 		PrimaryKey: []*schema.Column{SysApisColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "api_path_method",
+				Unique:  true,
+				Columns: []*schema.Column{SysApisColumns[3], SysApisColumns[6]},
+			},
+		},
 	}
 	// SysDictionariesColumns holds the columns for the "sys_dictionaries" table.
 	SysDictionariesColumns = []*schema.Column{
@@ -32,7 +39,7 @@ var (
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
 		{Name: "title", Type: field.TypeString},
-		{Name: "name", Type: field.TypeString},
+		{Name: "name", Type: field.TypeString, Unique: true},
 		{Name: "desc", Type: field.TypeString},
 	}
 	// SysDictionariesTable holds the schema information for the "sys_dictionaries" table.
