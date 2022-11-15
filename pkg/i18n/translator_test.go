@@ -7,7 +7,7 @@ import (
 
 func TestTranslator(t *testing.T) {
 	l := &Translator{}
-	l.NewBundle()
+	l.NewBundle(LocaleFS)
 	res := l.Trans("zh", "login.userNotExist")
 	fmt.Println(res)
 }

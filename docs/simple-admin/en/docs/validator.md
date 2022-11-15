@@ -31,36 +31,37 @@
 
 > Default translation support Chinese and English, you can add other languages in servicecontext.go like below
 
-[Example](https://github.com/suyuan32/simple-admin-core/blob/master/api/internal/svc/servicecontext_test.go)
+[File](https://github.com/suyuan32/simple-admin-tools/blob/master/rest/httpx/util.go)
 
 ```go
-func TestAddTrans(t *testing.T) {
-	jaLang := ja_lang.New()
-	err := httpx.XValidator.Uni.AddTranslator(jaLang, true)
+func NewValidator() *Validator {
+	v := Validator{}
+	en := enLang.New()
+	zh := zhLang.New()
+	v.Uni = ut.New(zh, en, zh)
+	v.Validator = validator.New()
+	enTrans, _ := v.Uni.GetTranslator("en")
+	zhTrans, _ := v.Uni.GetTranslator("zh")
+	v.Trans = make(map[string]ut.Translator)
+	v.Trans["en"] = enTrans
+	v.Trans["zh"] = zhTrans
+	// add support languages
+	initSupportLanguages()
+
+	err := enTranslations.RegisterDefaultTranslations(v.Validator, enTrans)
 	if err != nil {
-		t.Error(err.Error())
-		return
+		logx.Errorw("register English translation failed", logx.Field("detail", err.Error()))
+		return nil
 	}
-	jaTrans, _ := httpx.XValidator.Uni.GetTranslator("ja")
-	httpx.XValidator.Trans["ja"] = jaTrans
-	err = ja_translations.RegisterDefaultTranslations(httpx.XValidator.Validator, jaTrans)
+	err = zhTranslations.RegisterDefaultTranslations(v.Validator, zhTrans)
 	if err != nil {
-		t.Error(err.Error())
-		return
+		logx.Errorw("register Chinese translation failed", logx.Field("detail", err.Error()))
+
+		return nil
 	}
 
-	type User struct {
-		Username string `validate:"alphanum,max=20"`
-		Password string `validate:"min=6,max=30"`
-	}
-	u := User{
-		Username: "admin",
-		Password: "1",
-	}
-	result := httpx.XValidator.Validate(u, "ja")
-
-	if result != "Passwordの長さは少なくとも6文字はなければなりません " {
-		t.Error(result)
+	return &v
+}
 
 ```
 
