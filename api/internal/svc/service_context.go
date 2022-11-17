@@ -2,8 +2,8 @@ package svc
 
 import (
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
-	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/middleware"
 	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
 
 	"github.com/casbin/casbin/v2"
@@ -31,7 +31,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	}
 	logx.Info("initialize redis connection successfully")
 
-	// initialize database connection
+	// initialize casbin connection
 	cbn, err := c.CasbinConf.NewCasbin(c.DatabaseConf.Type, c.DatabaseConf.GetDSN())
 	if err != nil {
 		logx.Errorw("Initialize casbin failed", logx.Field("detail", err.Error()))
