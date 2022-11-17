@@ -712,7 +712,8 @@ func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 		policies = append(policies, []string{"1", v.Path, v.Method})
 	}
 
-	csb, err := l.svcCtx.Config.CasbinConf.NewCasbin(l.svcCtx.Config.DatabaseConf)
+	csb, err := l.svcCtx.Config.CasbinConf.NewCasbin(l.svcCtx.Config.DatabaseConf.Type,
+		l.svcCtx.Config.DatabaseConf.GetDSN())
 
 	if err != nil {
 		logx.Error("initialize casbin policy failed")

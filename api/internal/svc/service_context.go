@@ -32,7 +32,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	logx.Info("initialize redis connection successfully")
 
 	// initialize database connection
-	cbn, err := c.CasbinConf.NewCasbin(c.DatabaseConf)
+	cbn, err := c.CasbinConf.NewCasbin(c.DatabaseConf.Type, c.DatabaseConf.GetDSN())
 	if err != nil {
 		logx.Errorw("Initialize casbin failed", logx.Field("detail", err.Error()))
 		return nil
