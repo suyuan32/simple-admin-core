@@ -2,8 +2,8 @@ package svc
 
 import (
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
+	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/middleware"
 	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
 
 	"github.com/casbin/casbin/v2"
