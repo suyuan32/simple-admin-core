@@ -61,10 +61,13 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 	}
 
 	for _, v := range tokenData {
-		err := l.svcCtx.Redis.Set("token_"+v.Token, "1")
-		if err != nil {
-			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInternalError(i18n.RedisError)
+		expiredTime := int(v.ExpiredAt.Unix() - time.Now().Unix())
+		if expiredTime > 0 {
+			err = l.svcCtx.Redis.Setex("token_"+v.Token, "1", expiredTime)
+			if err != nil {
+				logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
+				return nil, statuserr.NewInternalError(i18n.RedisError)
+			}
 		}
 	}
 
