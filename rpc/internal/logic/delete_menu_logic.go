@@ -5,13 +5,13 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -33,7 +33,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 	exist, err := l.svcCtx.DB.Menu.Query().Where(menu.ParentID(in.Id)).Exist(l.ctx)
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		return nil, statuserr.NewInternalError(i18n.DatabaseError)
 	}
 
 	if exist {
@@ -47,7 +47,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 
 		if err != nil {
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return statuserr.NewInternalError(errorx.DatabaseError)
+			return statuserr.NewInternalError(i18n.DatabaseError)
 		}
 
 		err = l.svcCtx.DB.Menu.DeleteOneID(in.Id).Exec(l.ctx)
@@ -56,10 +56,10 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
+				return statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-				return statuserr.NewInternalError(errorx.DatabaseError)
+				return statuserr.NewInternalError(i18n.DatabaseError)
 			}
 		}
 
@@ -71,5 +71,5 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 		return nil, err
 	}
 
-	return &core.BaseResp{Msg: errorx.DeleteSuccess}, nil
+	return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil
 }

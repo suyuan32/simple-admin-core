@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
@@ -11,7 +12,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/google/uuid"
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -46,14 +46,14 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 			switch {
 			case ent.IsConstraintError(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
+				return nil, statuserr.NewInvalidArgumentError(i18n.CreateFailed)
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+				return nil, statuserr.NewInternalError(i18n.DatabaseError)
 			}
 		}
 
-		return &core.BaseResp{Msg: errorx.Success}, nil
+		return &core.BaseResp{Msg: i18n.Success}, nil
 	} else {
 		var err error
 		if in.Password != "" {
@@ -81,18 +81,18 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
+				return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
 			case ent.IsConstraintError(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
+				return nil, statuserr.NewInvalidArgumentError(i18n.UpdateFailed)
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+				return nil, statuserr.NewInternalError(i18n.DatabaseError)
 			}
 		}
 
 		return &core.BaseResp{
-			Msg: errorx.Success,
+			Msg: i18n.Success,
 		}, nil
 	}
 }

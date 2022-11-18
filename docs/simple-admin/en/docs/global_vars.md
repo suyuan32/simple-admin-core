@@ -94,11 +94,11 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 				return nil, statuserr.NewInvalidArgumentError(i18n.ApiAlreadyExists)
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+				return nil, statuserr.NewInternalError(i18n.DatabaseError)
 			}
 		}
 
-		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
+		return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
 	} else {
 		err := l.svcCtx.DB.API.UpdateOneID(in.Id).
 			SetPath(in.Path).
@@ -111,17 +111,17 @@ func (l *CreateOrUpdateApiLogic) CreateOrUpdateApi(in *core.ApiInfo) (*core.Base
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
+				return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
 			case ent.IsConstraintError(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(errorx.UpdateFailed)
+				return nil, statuserr.NewInvalidArgumentError(i18n.UpdateFailed)
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+				return nil, statuserr.NewInternalError(i18n.DatabaseError)
 			}
 		}
 
-		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
+		return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
 	}
 }
 

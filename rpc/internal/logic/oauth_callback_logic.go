@@ -11,12 +11,12 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"golang.org/x/oauth2"
 	"google.golang.org/grpc/codes"
@@ -52,10 +52,10 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
+				return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+				return nil, statuserr.NewInternalError(i18n.DatabaseError)
 			}
 		}
 
@@ -98,7 +98,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 				return nil, statuserr.NewInvalidArgumentError("login.userNotExist")
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+				return nil, statuserr.NewInternalError(i18n.DatabaseError)
 			}
 		}
 
@@ -115,7 +115,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 		}, nil
 	}
 
-	return nil, status.Error(codes.InvalidArgument, errorx.Failed)
+	return nil, status.Error(codes.InvalidArgument, i18n.Failed)
 }
 
 func getUserInfo(c oauth2.Config, infoURL string, code string) ([]byte, error) {

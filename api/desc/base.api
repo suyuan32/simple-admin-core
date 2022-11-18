@@ -46,7 +46,6 @@ type SimpleMsg {
 }
 
 // The page request parameters | 列表请求参数
-// swagger:model PageInfo
 type PageInfo {
     // Page number | 第几页
     // Required: true
@@ -58,17 +57,7 @@ type PageInfo {
     PageSize  uint64    `json:"pageSize" validate:"number,max=100000"`
 }
 
-// The page response data model | 列表返回信息
-// swagger:response PageList
-type PageList {
-    // Total number | 数据总数
-    Total    uint64      `json:"total"`
-
-    // Data | 数据
-    Data     []string    `json:"data"`
-}
-
-// Basic id request | 基础id参数请求
+// Basic ID request | 基础ID参数请求
 type IDReq {
     // ID
     // Required: true
@@ -76,11 +65,11 @@ type IDReq {
 }
 
 
-// Basic id request | 基础id参数请求
+// Basic ID request | 基础ID地址参数请求
 type IDPathReq {
     // ID
     // Required: true
-    Id  uint `path:"id"`
+    Id  uint64 `path:"id"`
 }
 
 // Basic UUID request | 基础UUID参数请求
@@ -92,7 +81,6 @@ type UUIDReq {
 }
 
 // The base response data | 基础信息
-// swagger:model BaseInfo
 type BaseInfo {
     // ID
     Id        uint64    `json:"id"`

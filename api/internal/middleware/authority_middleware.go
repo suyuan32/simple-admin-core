@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 
 	"github.com/casbin/casbin/v2"
@@ -63,7 +64,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		result, err := m.Cbn.Enforce(sub, obj, act)
 		if err != nil {
 			logx.Errorw("casbin enforce error", logx.Field("detail", err.Error()))
-			httpx.Error(w, errorx.NewApiError(http.StatusInternalServerError, errorx.ApiRequestFailed))
+			httpx.Error(w, errorx.NewApiError(http.StatusInternalServerError, i18n.ApiRequestFailed))
 			return
 		}
 		if result {

@@ -6,12 +6,12 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -36,10 +36,10 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 		switch {
 		case ent.IsNotFound(err):
 			logx.Errorw(err.Error(), logx.Field("detail", in))
-			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
+			return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
 		default:
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			return nil, statuserr.NewInternalError(i18n.DatabaseError)
 		}
 	}
 
@@ -53,10 +53,10 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 		switch {
 		case ent.IsNotFound(err):
 			logx.Errorw(err.Error(), logx.Field("detail", in))
-			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
+			return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
 		default:
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			return nil, statuserr.NewInternalError(i18n.DatabaseError)
 		}
 	}
 
@@ -64,9 +64,9 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 		err := l.svcCtx.Redis.Set("token_"+v.Token, "1")
 		if err != nil {
 			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInternalError(errorx.RedisError)
+			return nil, statuserr.NewInternalError(i18n.RedisError)
 		}
 	}
 
-	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
+	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
 }

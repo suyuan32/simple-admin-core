@@ -5,12 +5,12 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -43,13 +43,13 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 		if err != nil {
 			if ent.IsConstraintError(err) {
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-				return nil, statuserr.NewInvalidArgumentError(errorx.CreateFailed)
+				return nil, statuserr.NewInvalidArgumentError(i18n.CreateFailed)
 			}
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			return nil, statuserr.NewInternalError(i18n.DatabaseError)
 		}
 
-		return &core.BaseResp{Msg: errorx.CreateSuccess}, nil
+		return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
 	} else {
 		exist, err := l.svcCtx.DB.Dictionary.Query().Where(dictionary.IDEQ(in.Id)).Exist(l.ctx)
 		if err != nil {
@@ -63,7 +63,7 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 
 		if !exist {
 			logx.Errorw(logmsg.TargetNotFound, logx.Field("id", in.Id))
-			return nil, status.Error(codes.InvalidArgument, errorx.UpdateFailed)
+			return nil, status.Error(codes.InvalidArgument, i18n.UpdateFailed)
 		}
 
 		err = l.svcCtx.DB.Dictionary.UpdateOneID(in.Id).
@@ -78,6 +78,6 @@ func (l *CreateOrUpdateDictionaryLogic) CreateOrUpdateDictionary(in *core.Dictio
 			return nil, statuserr.NewInvalidArgumentError(logmsg.UpdateFailed)
 		}
 
-		return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
+		return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
 	}
 }

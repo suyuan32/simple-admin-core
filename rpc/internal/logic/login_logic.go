@@ -7,13 +7,13 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"google.golang.org/grpc/codes"
@@ -43,7 +43,7 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 			return nil, status.Error(codes.InvalidArgument, "login.userNotExist")
 		}
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		return nil, status.Error(codes.Internal, errorx.DatabaseError)
+		return nil, status.Error(codes.Internal, i18n.DatabaseError)
 	}
 
 	if ok := utils.BcryptCheck(in.Password, result.Password); !ok {
@@ -71,10 +71,10 @@ func getRoleInfo(roleId uint64, rds *redis.Redis, db *ent.Client, ctx context.Co
 		if err != nil {
 			if ent.IsNotFound(err) {
 				logx.Error("fail to find any roles")
-				return "", "", status.Error(codes.NotFound, errorx.TargetNotFound)
+				return "", "", status.Error(codes.NotFound, i18n.TargetNotFound)
 			}
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return "", "", status.Error(codes.NotFound, errorx.TargetNotFound)
+			return "", "", status.Error(codes.NotFound, i18n.TargetNotFound)
 		}
 
 		for _, v := range roleData {
@@ -83,7 +83,7 @@ func getRoleInfo(roleId uint64, rds *redis.Redis, db *ent.Client, ctx context.Co
 			err = rds.Hset("roleData", fmt.Sprintf("%d_status", v.ID), strconv.Itoa(int(v.Status)))
 			if err != nil {
 				logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
-				return "", "", statuserr.NewInternalError(errorx.RedisError)
+				return "", "", statuserr.NewInternalError(i18n.RedisError)
 			}
 			if v.ID == roleId {
 				roleName = v.Name
@@ -95,7 +95,7 @@ func getRoleInfo(roleId uint64, rds *redis.Redis, db *ent.Client, ctx context.Co
 		roleValue, err = rds.Hget("roleData", fmt.Sprintf("%d_value", roleId))
 		if err != nil {
 			logx.Error("fail to find the role data")
-			return "", "", status.Error(codes.NotFound, errorx.TargetNotFound)
+			return "", "", status.Error(codes.NotFound, i18n.TargetNotFound)
 		}
 	}
 	return roleName, roleValue, nil

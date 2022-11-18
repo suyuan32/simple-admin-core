@@ -46,7 +46,7 @@ func (l *InitDatabaseLogic) InitDatabase() (resp *types.BaseMsgResp, err error) 
 			if initState, err := l.svcCtx.Redis.Get("database_init_state"); err == nil {
 				if initState == "1" {
 					return nil, errorx.NewCodeError(enum.InvalidArgument,
-						l.svcCtx.Trans.Trans(l.lang, "init.alreadyInit"))
+						l.svcCtx.Trans.Trans(l.lang, i18n.AlreadyInit))
 				}
 			} else {
 				return nil, errorx.NewCodeError(enum.Internal,
