@@ -5,12 +5,12 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -32,13 +32,13 @@ func (l *DeleteRoleLogic) DeleteRole(in *core.IDReq) (*core.BaseResp, error) {
 	exist, err := l.svcCtx.DB.User.Query().Where(user.RoleIDEQ(in.Id)).Exist(l.ctx)
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		return nil, statuserr.NewInternalError(i18n.DatabaseError)
 	}
 
 	if exist {
 		logx.Errorw("delete role failed, please check the role id",
 			logx.Field("roleId", in.Id))
-		return nil, statuserr.NewInvalidArgumentError(errorx.DeleteFailed)
+		return nil, statuserr.NewInvalidArgumentError(i18n.DeleteFailed)
 	}
 
 	err = l.svcCtx.DB.Role.DeleteOneID(in.Id).Exec(l.ctx)
@@ -47,12 +47,12 @@ func (l *DeleteRoleLogic) DeleteRole(in *core.IDReq) (*core.BaseResp, error) {
 		switch {
 		case ent.IsNotFound(err):
 			logx.Errorw(err.Error(), logx.Field("detail", in))
-			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
+			return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
 		default:
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			return nil, statuserr.NewInternalError(i18n.DatabaseError)
 		}
 	}
 
-	return &core.BaseResp{Msg: errorx.DeleteSuccess}, nil
+	return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil
 }

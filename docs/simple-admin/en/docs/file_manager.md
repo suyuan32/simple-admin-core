@@ -33,16 +33,14 @@ RedisConf:
 
 DatabaseConf:
   Type: mysql
-  Path: 127.0.0.1
+  Host: 127.0.0.1
   Port: 3306
-  Config: charset=utf8mb4&parseTime=True&loc=Local
-  DBName: simple_admin_file
-  Username:
-  Password:
-  MaxIdleConn: 10
+  DBName: simple_admin
+  Username: # set your username
+  Password: # set your password
   MaxOpenConn: 100
-  LogMode: error
-  LogZap: false
+  SSLMode: false
+  CacheTime: 5
 
 UploadConf:
   MaxImageSize: 33554432  # 32 mb the maximum size of image
@@ -51,12 +49,16 @@ UploadConf:
   MaxOtherSize: 10485760  # 10 mb the maximum size of other type
   PrivateStorePath: /home/ryan/www/private  # private path 
   PublicStorePath: /home/ryan/www/public  # public path for every one access e.g. nginx path
+
+CoreRpc:
+  Target: k8s://default/core-rpc-svc:9101 # core rpc address, use endpoint in local | core 服务RPC地址，本地测试使用直连
 ```
 
 > You should use nginx to set PublicStorePath as static path for front end.
-> Make sure AccessSecret is the same as simple-admin-core' api set
+> Make sure AccessSecret is the same as simple-admin-core's api set
 > The configuration is similar as core
 > Run code the same as core
+> Init database in http://localhost:3100/init
 
 ### K8s Deployment
 > It is similar with core api.

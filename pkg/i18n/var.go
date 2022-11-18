@@ -1,6 +1,7 @@
 package i18n
 
 const (
+	// common msg
 	Success             = "common.success"
 	Failed              = "common.failed"
 	UpdateSuccess       = "common.updateSuccess"
@@ -14,4 +15,9 @@ const (
 	TargetNotFound      = "common.targetNotExist"
 	DatabaseError       = "common.databaseError"
 	RedisError          = "common.redisError"
+	AlreadyInit         = "init.alreadyInit"
+	InitRunning         = "init.initializeIsRunning"
+
+	// front end msg
+	ApiRequestFailed = "sys.api.apiRequestFailed"
 )

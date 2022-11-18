@@ -5,11 +5,11 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent/api"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -50,7 +50,7 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, er
 
 	if err != nil {
 		logx.Error(err.Error())
-		return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		return nil, statuserr.NewInternalError(i18n.DatabaseError)
 	}
 
 	resp := &core.ApiListResp{}

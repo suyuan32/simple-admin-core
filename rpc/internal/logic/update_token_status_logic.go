@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -36,10 +37,10 @@ func (l *UpdateTokenStatusLogic) UpdateTokenStatus(in *core.StatusCodeReq) (*cor
 		switch {
 		case ent.IsNotFound(err):
 			logx.Errorw(err.Error(), logx.Field("detail", in))
-			return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
+			return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
 		default:
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			return nil, statuserr.NewInternalError(i18n.DatabaseError)
 		}
 	}
 
@@ -48,16 +49,16 @@ func (l *UpdateTokenStatusLogic) UpdateTokenStatus(in *core.StatusCodeReq) (*cor
 		err = l.svcCtx.Redis.Setex("token_"+token.Token, "1", int(token.ExpiredAt.Unix()-
 			time.Now().Unix()))
 		if err != nil {
-			return nil, errorx.NewApiError(http.StatusInternalServerError, errorx.RedisError)
+			return nil, errorx.NewApiError(http.StatusInternalServerError, i18n.RedisError)
 		}
 	} else if in.Status == 1 {
 		_, err = l.svcCtx.Redis.Del("token_" + token.Token)
 		if err != nil {
-			return nil, errorx.NewApiError(http.StatusInternalServerError, errorx.RedisError)
+			return nil, errorx.NewApiError(http.StatusInternalServerError, i18n.RedisError)
 		}
 	}
 
 	logx.Infow("Update token status successfully", logx.Field("TokenId", in.Id),
 		logx.Field("Status", in.Status))
-	return &core.BaseResp{Msg: errorx.UpdateSuccess}, nil
+	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
 }

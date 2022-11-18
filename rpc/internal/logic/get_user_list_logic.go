@@ -5,11 +5,11 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -54,7 +54,7 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 
 	if err != nil {
 		logx.Error(err.Error())
-		return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		return nil, statuserr.NewInternalError(i18n.DatabaseError)
 	}
 
 	resp := &core.UserListResp{}

@@ -1,8 +1,6 @@
 package config
 
 import (
-	"errors"
-
 	"github.com/casbin/casbin/v2"
 	"github.com/casbin/casbin/v2/model"
 	entadapter "github.com/casbin/ent-adapter"
@@ -13,18 +11,8 @@ type CasbinConf struct {
 	ModelText string `json:"ModelText,optional"`
 }
 
-func (l CasbinConf) NewCasbin(c DatabaseConf) (*casbin.Enforcer, error) {
-	var dsn string
-	switch c.Type {
-	case "mysql":
-		dsn = c.MysqlDSN()
-	case "postgres":
-		dsn = c.PostgresDSN()
-	default:
-		return nil, errors.New("unsupported database type")
-	}
-
-	adapter, err := entadapter.NewAdapter(c.Type, dsn)
+func (l CasbinConf) NewCasbin(dbType, dsn string) (*casbin.Enforcer, error) {
+	adapter, err := entadapter.NewAdapter(dbType, dsn)
 	logx.Must(err)
 
 	var text string

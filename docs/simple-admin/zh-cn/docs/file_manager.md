@@ -34,16 +34,14 @@ RedisConf:
 
 DatabaseConf:
   Type: mysql
-  Path: 127.0.0.1
+  Host: 127.0.0.1
   Port: 3306
-  Config: charset=utf8mb4&parseTime=True&loc=Local
-  DBName: simple_admin_file
-  Username:
-  Password:
-  MaxIdleConn: 10
+  DBName: simple_admin
+  Username: # set your username
+  Password: # set your password
   MaxOpenConn: 100
-  LogMode: error
-  LogZap: false
+  SSLMode: false
+  CacheTime: 5
 
 UploadConf:
   MaxImageSize: 33554432  # 32 mb 最大图片大小
@@ -52,12 +50,16 @@ UploadConf:
   MaxOtherSize: 10485760  # 10 mb 最大其他类型大小
   PrivateStorePath: /home/ryan/www/private  # private 私有文件路径
   PublicStorePath: /home/ryan/www/public  # public path for every one access e.g. nginx path 公开文件路径
+
+CoreRpc:
+  Target: k8s://default/core-rpc-svc:9101 # core rpc address, use endpoint in local | core 服务RPC地址，本地测试使用直连
 ```
 > 你可以使用nginx 将 PublicStorePath 转发为静态地址方便前端调用
 
-> 确保 AccessSecret 和 simple-admin-core的api配置文件内一致 \
-配置方式参考core \
-运行方式同理
+> 确保 AccessSecret 和 simple-admin-core的api配置文件内一致 
+> 配置方式参考core 
+> 运行方式同理
+> 初始化数据库 http://localhost:3100/init
 
 ### K8s 部署
 > 和 core api 相似

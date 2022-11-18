@@ -7,12 +7,12 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -38,7 +38,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 
 		if err != nil {
 			logx.Error(err.Error())
-			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			return nil, statuserr.NewInternalError(i18n.DatabaseError)
 		}
 	} else {
 		var predicates []predicate.User
@@ -65,10 +65,10 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(errorx.TargetNotFound)
+				return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-				return nil, statuserr.NewInternalError(errorx.DatabaseError)
+				return nil, statuserr.NewInternalError(i18n.DatabaseError)
 			}
 		}
 
@@ -76,7 +76,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 
 		if err != nil {
 			logx.Error(err.Error())
-			return nil, statuserr.NewInternalError(errorx.DatabaseError)
+			return nil, statuserr.NewInternalError(i18n.DatabaseError)
 		}
 	}
 

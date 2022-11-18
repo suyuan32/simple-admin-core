@@ -6,12 +6,12 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -46,8 +46,8 @@ func (l *DeleteDictionaryLogic) DeleteDictionary(in *core.IDReq) (*core.BaseResp
 
 	if err != nil {
 		logx.Errorf("delete dictionary failed, error : %s", err.Error())
-		return nil, statuserr.NewInternalError(errorx.DatabaseError)
+		return nil, statuserr.NewInternalError(i18n.DatabaseError)
 	}
 
-	return &core.BaseResp{Msg: errorx.DeleteSuccess}, nil
+	return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil
 }

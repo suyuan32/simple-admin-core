@@ -6,6 +6,7 @@ import (
 	"entgo.io/ent/dialect/sql/schema"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
@@ -13,7 +14,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/google/uuid"
-	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 )
@@ -45,10 +45,10 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	if ok, err := lock.Acquire(); !ok || err != nil {
 		if !ok {
 			logx.Error("last initialization is running")
-			return nil, statuserr.NewInternalError(errorx.InitRunning)
+			return nil, statuserr.NewInternalError(i18n.InitRunning)
 		} else {
 			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInternalError(errorx.RedisError)
+			return nil, statuserr.NewInternalError(i18n.RedisError)
 		}
 	}
 	defer func() {
@@ -59,19 +59,13 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	// judge if the initialization had been done
 	check, err := l.svcCtx.DB.API.Query().Count(l.ctx)
 
-	//if err != nil {
-	//	logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-	//	l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-	//	return nil, status.Error(codes.Internal, err.Error())
-	//}
-
 	if check != 0 {
 		err := l.svcCtx.Redis.Set("database_init_state", "1")
 		if err != nil {
 			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInternalError(errorx.RedisError)
+			return nil, statuserr.NewInternalError(i18n.RedisError)
 		}
-		return &core.BaseResp{Msg: errorx.AlreadyInit}, nil
+		return &core.BaseResp{Msg: i18n.AlreadyInit}, nil
 	}
 
 	// set default state value
@@ -130,7 +124,7 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	}
 
 	l.svcCtx.Redis.Setex("database_init_state", "1", 300)
-	return &core.BaseResp{Msg: errorx.Success}, nil
+	return &core.BaseResp{Msg: i18n.Success}, nil
 }
 
 // insert init user data
@@ -712,7 +706,8 @@ func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 		policies = append(policies, []string{"1", v.Path, v.Method})
 	}
 
-	csb, err := l.svcCtx.Config.CasbinConf.NewCasbin(l.svcCtx.Config.DatabaseConf)
+	csb, err := l.svcCtx.Config.CasbinConf.NewCasbin(l.svcCtx.Config.DatabaseConf.Type,
+		l.svcCtx.Config.DatabaseConf.GetDSN())
 
 	if err != nil {
 		logx.Error("initialize casbin policy failed")

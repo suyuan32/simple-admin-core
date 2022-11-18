@@ -15,10 +15,11 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
-	opts, err := c.DatabaseConf.NewEntOption(c.RedisConf)
-	logx.Must(err)
-
-	db := ent.NewClient(opts...)
+	db := ent.NewClient(
+		ent.Log(logx.Info), // logger
+		ent.Driver(c.DatabaseConf.GetCacheDriver(c.RedisConf)),
+		ent.Debug(), // debug mode
+	)
 	logx.Info("Initialize database connection successfully")
 
 	// initialize redis
