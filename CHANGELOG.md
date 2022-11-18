@@ -1,3 +1,21 @@
+# 0.1.6 (2022/11/18)
+
+### Features
+
+- docs: update swagger version
+- docs: update file manager doc
+- refactor: move errorx.msg to i18n.var
+- refactor: move middleware to pkg for common usage
+- refactor: move middleware to pkg for common usage
+- perf: optimize database config
+- docs: update README.md
+- docs: update CHANGELOG.md
+
+### Bug Fixes
+
+- fix: block token bug
+- fix: validator example
+
 # 0.1.5 (2022/11/13)
 
 ### Features
