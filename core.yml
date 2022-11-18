@@ -1124,7 +1124,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     IDPathReq:
-        description: Basic id request | 基础id参数请求
+        description: Basic ID request | 基础ID地址参数请求
         properties:
             Id:
                 description: ID
@@ -1135,7 +1135,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     IDReq:
-        description: Basic id request | 基础id参数请求
+        description: Basic ID request | 基础ID参数请求
         properties:
             id:
                 description: ID
@@ -2223,7 +2223,7 @@ info:
         email: yuansu.china.work@gmail.com
     description: This is simple admin api doc
     title: Simple Admin
-    version: 0.1.2
+    version: 0.1.6
 paths:
     /api:
         delete:
@@ -3035,18 +3035,6 @@ paths:
 produces:
     - application/json
 responses:
-    PageList:
-        description: The page response data model | 列表返回信息
-        headers:
-            data:
-                description: Data | 数据
-                items:
-                    type: string
-                type: array
-            total:
-                description: Total number | 数据总数
-                format: uint64
-                type: integer
     SimpleMsg:
         description: The simplest message | 最简单的信息
         headers:

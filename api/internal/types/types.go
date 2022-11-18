@@ -97,16 +97,7 @@ type PageInfo struct {
 	PageSize uint64 `json:"pageSize" validate:"number,max=100000"`
 }
 
-// The page response data model | 列表返回信息
-// swagger:response PageList
-type PageList struct {
-	// Total number | 数据总数
-	Total uint64 `json:"total"`
-	// Data | 数据
-	Data []string `json:"data"`
-}
-
-// Basic id request | 基础id参数请求
+// Basic ID request | 基础ID参数请求
 // swagger:model IDReq
 type IDReq struct {
 	// ID
@@ -114,12 +105,12 @@ type IDReq struct {
 	Id uint64 `json:"id" validate:"number"`
 }
 
-// Basic id request | 基础id参数请求
+// Basic ID request | 基础ID地址参数请求
 // swagger:model IDPathReq
 type IDPathReq struct {
 	// ID
 	// Required: true
-	Id uint `path:"id"`
+	Id uint64 `path:"id"`
 }
 
 // Basic UUID request | 基础UUID参数请求
