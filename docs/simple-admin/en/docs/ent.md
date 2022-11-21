@@ -186,3 +186,129 @@ func (l *UpdateRoleStatusLogic) UpdateRoleStatus(in *core.StatusCodeReq) (*core.
 }
 
 ```
+
+> Query data
+
+See [Predicates](http://ent.ryansu.pro/#/zh-cn/predicates)
+
+```go
+package logic
+
+import (
+	"context"
+
+	"github.com/suyuan32/simple-admin-core/pkg/ent/api"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
+	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+
+	"github.com/zeromicro/go-zero/core/logx"
+)
+
+type GetApiListLogic struct {
+	ctx    context.Context
+	svcCtx *svc.ServiceContext
+	logx.Logger
+}
+
+func NewGetApiListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetApiListLogic {
+	return &GetApiListLogic{
+		ctx:    ctx,
+		svcCtx: svcCtx,
+		Logger: logx.WithContext(ctx),
+	}
+}
+
+func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, error) {
+	var predicates []predicate.API
+
+	if in.Path != "" {
+		predicates = append(predicates, api.PathContains(in.Path))
+	}
+
+	if in.Description != "" {
+		predicates = append(predicates, api.DescriptionContains(in.Description))
+	}
+
+	if in.Method != "" {
+		predicates = append(predicates, api.MethodContains(in.Method))
+	}
+
+	if in.Group != "" {
+		predicates = append(predicates, api.APIGroupContains(in.Group))
+	}
+
+	apis, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+
+	if err != nil {
+		logx.Error(err.Error())
+		return nil, statuserr.NewInternalError(i18n.DatabaseError)
+	}
+
+	resp := &core.ApiListResp{}
+	resp.Total = apis.PageDetails.Total
+
+	for _, v := range apis.List {
+		resp.Data = append(resp.Data, &core.ApiInfo{
+			Id:          v.ID,
+			CreatedAt:   v.CreatedAt.UnixMilli(),
+			Path:        v.Path,
+			Description: v.Description,
+			Group:       v.APIGroup,
+			Method:      v.Method,
+		})
+	}
+
+	return resp, nil
+}
+
+```
+
+> query raw sql
+
+If you want to execute raw sql ，you need to modify makefile ， add flag --feature sql/execquery
+
+```shell
+go run -mod=mod entgo.io/ent/cmd/ent generate --template glob="./pkg/ent/template/*.tmpl" ./pkg/ent/schema --feature sql/execquery
+```
+
+and then you can use client.QueryContext to execute raw sql
+
+```go
+students, err := client.QueryContext(context.Background(), "select * from student")
+```
+
+>  Project add pagination template by default, you can copy this template to other project
+
+In ent/template/pagination.tmpl，add flag --template glob="./pkg/ent/template/*.tmpl" when generating code and 
+then you can use pagination like below:
+
+```go
+apis, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+```
+
+> Common functions used in query
+
+```go
+// .ExecX() execute query，don't return anything
+client.Student.UpdateOneID(1).SetName("Jack").ExecX(context.Background())
+
+// .Exec() execute query and return error
+err := client.Student.UpdateOneID(1).SetName("Jack").Exec(context.Background())
+
+// .Save() execute query and  return error and student data
+s, err := client.Student.Create().
+SetName("Jack").
+SetAddress("Road").
+SetAge(10).
+Save(context.Background())
+
+// .SaveX() execute query and  return student data without error
+s := client.Student.Create().
+SetName("Jack").
+SetAddress("Road").
+SetAge(10).
+SaveX(context.Background())
+```

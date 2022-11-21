@@ -1,7 +1,7 @@
 ## Ent 快速入门
 
 #### [官方文档](https://entgo.io/zh/docs/getting-started/)
-#### [schema中文文档](https://suyuan32.github.io/ent-chinese-doc/#/zh-cn/getting-started)
+#### [schema中文文档(推荐)](https://suyuan32.github.io/ent-chinese-doc/#/zh-cn/getting-started)
 
 ## 实战
 > 安装
@@ -186,3 +186,130 @@ func (l *UpdateRoleStatusLogic) UpdateRoleStatus(in *core.StatusCodeReq) (*core.
 }
 
 ```
+
+> 查询数据
+
+查看文档 [断言](http://ent.ryansu.pro/#/zh-cn/predicates)
+
+```go
+package logic
+
+import (
+	"context"
+
+	"github.com/suyuan32/simple-admin-core/pkg/ent/api"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
+	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+
+	"github.com/zeromicro/go-zero/core/logx"
+)
+
+type GetApiListLogic struct {
+	ctx    context.Context
+	svcCtx *svc.ServiceContext
+	logx.Logger
+}
+
+func NewGetApiListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetApiListLogic {
+	return &GetApiListLogic{
+		ctx:    ctx,
+		svcCtx: svcCtx,
+		Logger: logx.WithContext(ctx),
+	}
+}
+
+func (l *GetApiListLogic) GetApiList(in *core.ApiPageReq) (*core.ApiListResp, error) {
+	var predicates []predicate.API
+
+	if in.Path != "" {
+		predicates = append(predicates, api.PathContains(in.Path))
+	}
+
+	if in.Description != "" {
+		predicates = append(predicates, api.DescriptionContains(in.Description))
+	}
+
+	if in.Method != "" {
+		predicates = append(predicates, api.MethodContains(in.Method))
+	}
+
+	if in.Group != "" {
+		predicates = append(predicates, api.APIGroupContains(in.Group))
+	}
+
+	apis, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+
+	if err != nil {
+		logx.Error(err.Error())
+		return nil, statuserr.NewInternalError(i18n.DatabaseError)
+	}
+
+	resp := &core.ApiListResp{}
+	resp.Total = apis.PageDetails.Total
+
+	for _, v := range apis.List {
+		resp.Data = append(resp.Data, &core.ApiInfo{
+			Id:          v.ID,
+			CreatedAt:   v.CreatedAt.UnixMilli(),
+			Path:        v.Path,
+			Description: v.Description,
+			Group:       v.APIGroup,
+			Method:      v.Method,
+		})
+	}
+
+	return resp, nil
+}
+
+```
+
+> 执行raw sql
+
+若要支持纯 sql ，需要修改 makefile 生成代码， 添加 --feature sql/execquery
+
+```shell
+go run -mod=mod entgo.io/ent/cmd/ent generate --template glob="./pkg/ent/template/*.tmpl" ./pkg/ent/schema --feature sql/execquery
+```
+
+即可通过client.QueryContext 调用
+
+```go
+students, err := client.QueryContext(context.Background(), "select * from student")
+```
+
+> 项目默认添加了 page 模板
+
+位于 ent/template/pagination.tmpl，生成代码时通过 --template glob="./pkg/ent/template/*.tmpl" 导入, 提供简便的分页功能,
+如果你的其他项目也想要这个分页功能需要将 template 文件夹复制到新项目的ent文件夹中。
+
+```go
+apis, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+```
+
+> 常见结果返回函数，用于query末尾
+
+```go
+// .ExecX() 只执行，不返回错误和数据
+client.Student.UpdateOneID(1).SetName("Jack").ExecX(context.Background())
+
+// .Exec() 执行并返回错误
+err := client.Student.UpdateOneID(1).SetName("Jack").Exec(context.Background())
+
+// .Save() 执行并返回结果数据和错误， 例如下面 s 保存 student 对象
+s, err := client.Student.Create().
+SetName("Jack").
+SetAddress("Road").
+SetAge(10).
+Save(context.Background())
+
+// .SaveX() 执行并返回结果数据， 例如下面 s 保存 student 对象
+s := client.Student.Create().
+SetName("Jack").
+SetAddress("Road").
+SetAge(10).
+SaveX(context.Background())
+```
+
