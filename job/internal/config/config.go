@@ -12,7 +12,7 @@ type Config struct {
 	service.ServiceConf
 
 	DatabaseConf config.DatabaseConf
-	Redis        redis2.RedisConf
+	RedisConf    redis2.RedisConf
 	ConsumerConf rocketmq.ConsumerConf
 	ProducerConf rocketmq.ProducerConf
 }
