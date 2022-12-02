@@ -9,7 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route post /user user CreateOrUpdateUser
+// swagger:route post /user/create_or_update user CreateOrUpdateUser
 //
 // Create or update user's information | 新增或更新用户
 //

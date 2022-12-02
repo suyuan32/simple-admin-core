@@ -359,7 +359,7 @@ service core {
 
     // Create or update user's information | 新增或更新用户
     @handler createOrUpdateUser
-    post /user (CreateOrUpdateUserReq) returns (BaseMsgResp)
+    post /user/create_or_update (CreateOrUpdateUserReq) returns (BaseMsgResp)
 
     // Get user list | 获取用户列表
     @handler getUserList
@@ -367,7 +367,7 @@ service core {
 
     // Delete user information | 删除用户信息
     @handler deleteUser
-    delete /user (IDReq) returns (BaseMsgResp)
+    post /user/delete (IDReq) returns (BaseMsgResp)
 
     // Get user's permission code | 获取用户权限码
     @handler getUserPermCode

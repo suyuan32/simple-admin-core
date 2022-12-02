@@ -9,7 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route delete /oauth/provider oauth DeleteProvider
+// swagger:route post /oauth/provider/delete oauth DeleteProvider
 //
 // Delete provider information | 删除提供商信息
 //

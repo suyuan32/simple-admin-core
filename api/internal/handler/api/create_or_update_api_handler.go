@@ -3,14 +3,13 @@ package api
 import (
 	"net/http"
 
-	"github.com/zeromicro/go-zero/rest/httpx"
-
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/api"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route post /api api CreateOrUpdateApi
+// swagger:route post /api/create_or_update api CreateOrUpdateApi
 //
 // Create or update API information | 创建或更新API
 //

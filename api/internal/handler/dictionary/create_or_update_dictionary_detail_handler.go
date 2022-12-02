@@ -9,7 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route post /dict/detail dictionary CreateOrUpdateDictionaryDetail
+// swagger:route post /dict/detail/create_or_update dictionary CreateOrUpdateDictionaryDetail
 //
 // Create or update dictionary KV information | 创建或更新字典键值信息
 //

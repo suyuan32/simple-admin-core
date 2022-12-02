@@ -9,7 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route post /menu/param menu CreateOrUpdateMenuParam
+// swagger:route post /menu/param/create_or_update menu CreateOrUpdateMenuParam
 //
 // Create or update menu parameters | 创建或更新菜单参数
 //

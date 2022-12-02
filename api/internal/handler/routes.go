@@ -21,32 +21,17 @@ import (
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
-		[]rest.Route{
-			{
-				Method:  http.MethodGet,
-				Path:    "/core/health",
-				Handler: core.HealthCheckHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodGet,
-				Path:    "/core/init/database",
-				Handler: core.InitDatabaseHandler(serverCtx),
-			},
-		},
-	)
-
-	server.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.Authority},
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
-					Path:    "/role",
+					Path:    "/role/create_or_update",
 					Handler: role.CreateOrUpdateRoleHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodDelete,
-					Path:    "/role",
+					Method:  http.MethodPost,
+					Path:    "/role/delete",
 					Handler: role.DeleteRoleHandler(serverCtx),
 				},
 				{
@@ -95,7 +80,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/user",
+					Path:    "/user/create_or_update",
 					Handler: user.CreateOrUpdateUserHandler(serverCtx),
 				},
 				{
@@ -104,8 +89,8 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: user.GetUserListHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodDelete,
-					Path:    "/user",
+					Method:  http.MethodPost,
+					Path:    "/user/delete",
 					Handler: user.DeleteUserHandler(serverCtx),
 				},
 				{
@@ -144,12 +129,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
-					Path:    "/menu",
+					Path:    "/menu/create_or_update",
 					Handler: menu.CreateOrUpdateMenuHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodDelete,
-					Path:    "/menu",
+					Method:  http.MethodPost,
+					Path:    "/menu/delete",
 					Handler: menu.DeleteMenuHandler(serverCtx),
 				},
 				{
@@ -164,7 +149,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/menu/param",
+					Path:    "/menu/param/create_or_update",
 					Handler: menu.CreateOrUpdateMenuParamHandler(serverCtx),
 				},
 				{
@@ -173,8 +158,8 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: menu.GetMenuParamListByMenuIdHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodDelete,
-					Path:    "/menu/param",
+					Method:  http.MethodPost,
+					Path:    "/menu/param/delete",
 					Handler: menu.DeleteMenuParamHandler(serverCtx),
 				},
 			}...,
@@ -198,12 +183,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
-					Path:    "/api",
+					Path:    "/api/create_or_update",
 					Handler: api.CreateOrUpdateApiHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodDelete,
-					Path:    "/api",
+					Method:  http.MethodPost,
+					Path:    "/api/delete",
 					Handler: api.DeleteApiHandler(serverCtx),
 				},
 				{
@@ -251,12 +236,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
-					Path:    "/dict",
+					Path:    "/dict/create_or_update",
 					Handler: dictionary.CreateOrUpdateDictionaryHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodDelete,
-					Path:    "/dict",
+					Method:  http.MethodPost,
+					Path:    "/dict/delete",
 					Handler: dictionary.DeleteDictionaryHandler(serverCtx),
 				},
 				{
@@ -266,12 +251,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/dict/detail",
+					Path:    "/dict/detail/create_or_update",
 					Handler: dictionary.CreateOrUpdateDictionaryDetailHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodDelete,
-					Path:    "/dict/detail",
+					Method:  http.MethodPost,
+					Path:    "/dict/detail/delete",
 					Handler: dictionary.DeleteDictionaryDetailHandler(serverCtx),
 				},
 				{
@@ -305,12 +290,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
-					Path:    "/oauth/provider",
+					Path:    "/oauth/provider/create_or_update",
 					Handler: oauth.CreateOrUpdateProviderHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodDelete,
-					Path:    "/oauth/provider",
+					Method:  http.MethodPost,
+					Path:    "/oauth/provider/delete",
 					Handler: oauth.DeleteProviderHandler(serverCtx),
 				},
 				{
@@ -329,12 +314,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
-					Path:    "/token",
+					Path:    "/token/create_or_update",
 					Handler: token.CreateOrUpdateTokenHandler(serverCtx),
 				},
 				{
-					Method:  http.MethodDelete,
-					Path:    "/token",
+					Method:  http.MethodPost,
+					Path:    "/token/delete",
 					Handler: token.DeleteTokenHandler(serverCtx),
 				},
 				{
@@ -355,5 +340,20 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/core/health",
+				Handler: core.HealthCheckHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/core/init/database",
+				Handler: core.InitDatabaseHandler(serverCtx),
+			},
+		},
 	)
 }

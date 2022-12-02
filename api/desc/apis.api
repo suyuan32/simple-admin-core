@@ -108,11 +108,11 @@ type (
 service core {
     // Create or update API information | 创建或更新API
     @handler createOrUpdateApi
-    post /api (CreateOrUpdateApiReq) returns (BaseMsgResp)
+    post /api/create_or_update (CreateOrUpdateApiReq) returns (BaseMsgResp)
 
     // Delete API information | 删除API信息
     @handler deleteApi
-    delete /api (IDReq) returns (BaseMsgResp)
+    post /api/delete (IDReq) returns (BaseMsgResp)
 
     // Get API list | 获取API列表
     @handler getApiList

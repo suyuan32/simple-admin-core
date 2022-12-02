@@ -9,7 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route delete /user user DeleteUser
+// swagger:route post /user/delete user DeleteUser
 //
 // Delete user information | 删除用户信息
 //

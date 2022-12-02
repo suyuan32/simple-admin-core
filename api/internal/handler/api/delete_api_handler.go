@@ -9,7 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route delete /api api DeleteApi
+// swagger:route post /api/delete api DeleteApi
 //
 // Delete API information | 删除API信息
 //

@@ -9,7 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route post /oauth/provider oauth CreateOrUpdateProvider
+// swagger:route post /oauth/provider/create_or_update oauth CreateOrUpdateProvider
 //
 // Create or update Provider information | 创建或更新提供商
 //

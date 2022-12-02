@@ -183,11 +183,11 @@ service core {
 service core {
     // Create or update Provider information | 创建或更新提供商
     @handler createOrUpdateProvider
-    post /oauth/provider (CreateOrUpdateProviderReq) returns (BaseMsgResp)
+    post /oauth/provider/create_or_update (CreateOrUpdateProviderReq) returns (BaseMsgResp)
 
     // Delete provider information | 删除提供商信息
     @handler deleteProvider
-    delete /oauth/provider (IDReq) returns (BaseMsgResp)
+    post /oauth/provider/delete (IDReq) returns (BaseMsgResp)
 
     // Get provider list | 获取提供商列表
     @handler getProviderList

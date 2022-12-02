@@ -9,7 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route post /role role CreateOrUpdateRole
+// swagger:route post /role/create_or_update role CreateOrUpdateRole
 //
 // Create or update role information | 创建或更新角色
 //

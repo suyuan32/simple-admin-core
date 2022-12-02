@@ -165,11 +165,11 @@ type (
 service core {
     // Create or update dictionary information | 创建或更新字典信息
     @handler createOrUpdateDictionary
-    post /dict (CreateOrUpdateDictionaryReq) returns (BaseMsgResp)
+    post /dict/create_or_update (CreateOrUpdateDictionaryReq) returns (BaseMsgResp)
 
     // Delete dictionary information | 删除字典信息
     @handler deleteDictionary
-    delete /dict (IDReq) returns (BaseMsgResp)
+    post /dict/delete (IDReq) returns (BaseMsgResp)
 
     // Get dictionary list | 获取字典列表
     @handler getDictionaryList
@@ -177,11 +177,11 @@ service core {
 
     // Create or update dictionary KV information | 创建或更新字典键值信息
     @handler createOrUpdateDictionaryDetail
-    post /dict/detail (CreateOrUpdateDictionaryDetailReq) returns (BaseMsgResp)
+    post /dict/detail/create_or_update (CreateOrUpdateDictionaryDetailReq) returns (BaseMsgResp)
 
     // Delete dictionary KV information | 删除字典键值信息
     @handler deleteDictionaryDetail
-    delete /dict/detail (IDReq) returns (BaseMsgResp)
+    post /dict/detail/delete (IDReq) returns (BaseMsgResp)
 
     // Get dictionary detail list by dictionary name | 根据字典名获取字典键值列表
     @handler getDetailByDictionaryName

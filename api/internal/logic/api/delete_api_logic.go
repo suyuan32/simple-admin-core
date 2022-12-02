@@ -28,13 +28,12 @@ func NewDeleteApiLogic(r *http.Request, svcCtx *svc.ServiceContext) *DeleteApiLo
 }
 
 func (l *DeleteApiLogic) DeleteApi(req *types.IDReq) (resp *types.BaseMsgResp, err error) {
-	data, err := l.svcCtx.CoreRpc.DeleteApi(l.ctx, &core.IDReq{
+	result, err := l.svcCtx.CoreRpc.DeleteApi(l.ctx, &core.IDReq{
 		Id: req.Id,
 	})
 	if err != nil {
 		return nil, err
 	}
-	resp = &types.BaseMsgResp{}
-	resp.Msg = data.Msg
-	return resp, nil
+
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
 }

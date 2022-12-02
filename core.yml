@@ -2225,24 +2225,7 @@ info:
     title: Simple Admin
     version: 0.1.6
 paths:
-    /api:
-        delete:
-            description: Delete API information | 删除API信息
-            operationId: DeleteApi
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/IDReq'
-                    type: object
-            responses:
-                "200":
-                    description: BaseMsgResp
-                    schema:
-                        $ref: '#/definitions/BaseMsgResp'
-            summary: Delete API information | 删除API信息
-            tags:
-                - api
+    /api/create_or_update:
         post:
             description: Create or update API information | 创建或更新API
             operationId: CreateOrUpdateApi
@@ -2258,6 +2241,24 @@ paths:
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
             summary: Create or update API information | 创建或更新API
+            tags:
+                - api
+    /api/delete:
+        post:
+            description: Delete API information | 删除API信息
+            operationId: DeleteApi
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete API information | 删除API信息
             tags:
                 - api
     /api/list:
@@ -2381,24 +2382,7 @@ paths:
             summary: Initialize database | 初始化数据库
             tags:
                 - core
-    /dict:
-        delete:
-            description: Delete dictionary information | 删除字典信息
-            operationId: DeleteDictionary
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/IDReq'
-                    type: object
-            responses:
-                "200":
-                    description: BaseMsgResp
-                    schema:
-                        $ref: '#/definitions/BaseMsgResp'
-            summary: Delete dictionary information | 删除字典信息
-            tags:
-                - dictionary
+    /dict/create_or_update:
         post:
             description: Create or update dictionary information | 创建或更新字典信息
             operationId: CreateOrUpdateDictionary
@@ -2416,10 +2400,10 @@ paths:
             summary: Create or update dictionary information | 创建或更新字典信息
             tags:
                 - dictionary
-    /dict/detail:
-        delete:
-            description: Delete dictionary KV information | 删除字典键值信息
-            operationId: DeleteDictionaryDetail
+    /dict/delete:
+        post:
+            description: Delete dictionary information | 删除字典信息
+            operationId: DeleteDictionary
             parameters:
                 - in: body
                   name: body
@@ -2431,9 +2415,10 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Delete dictionary KV information | 删除字典键值信息
+            summary: Delete dictionary information | 删除字典信息
             tags:
                 - dictionary
+    /dict/detail/create_or_update:
         post:
             description: Create or update dictionary KV information | 创建或更新字典键值信息
             operationId: CreateOrUpdateDictionaryDetail
@@ -2449,6 +2434,24 @@ paths:
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
             summary: Create or update dictionary KV information | 创建或更新字典键值信息
+            tags:
+                - dictionary
+    /dict/detail/delete:
+        post:
+            description: Delete dictionary KV information | 删除字典键值信息
+            operationId: DeleteDictionaryDetail
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete dictionary KV information | 删除字典键值信息
             tags:
                 - dictionary
     /dict/detail/list:
@@ -2487,24 +2490,7 @@ paths:
             summary: Get dictionary list | 获取字典列表
             tags:
                 - dictionary
-    /menu:
-        delete:
-            description: Delete menu information | 删除菜单信息
-            operationId: DeleteMenu
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/IDReq'
-                    type: object
-            responses:
-                "200":
-                    description: BaseMsgResp
-                    schema:
-                        $ref: '#/definitions/BaseMsgResp'
-            summary: Delete menu information | 删除菜单信息
-            tags:
-                - menu
+    /menu/create_or_update:
         post:
             description: Create or update menu information | 创建或更新菜单
             operationId: CreateOrUpdateMenu
@@ -2522,6 +2508,24 @@ paths:
             summary: Create or update menu information | 创建或更新菜单
             tags:
                 - menu
+    /menu/delete:
+        post:
+            description: Delete menu information | 删除菜单信息
+            operationId: DeleteMenu
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete menu information | 删除菜单信息
+            tags:
+                - menu
     /menu/list:
         get:
             description: Get menu list | 获取菜单列表
@@ -2534,24 +2538,7 @@ paths:
             summary: Get menu list | 获取菜单列表
             tags:
                 - menu
-    /menu/param:
-        delete:
-            description: Delete menu extra parameters | 删除菜单额外参数
-            operationId: DeleteMenuParam
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/IDReq'
-                    type: object
-            responses:
-                "200":
-                    description: BaseMsgResp
-                    schema:
-                        $ref: '#/definitions/BaseMsgResp'
-            summary: Delete menu extra parameters | 删除菜单额外参数
-            tags:
-                - menu
+    /menu/param/create_or_update:
         post:
             description: Create or update menu parameters | 创建或更新菜单参数
             operationId: CreateOrUpdateMenuParam
@@ -2567,6 +2554,24 @@ paths:
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
             summary: Create or update menu parameters | 创建或更新菜单参数
+            tags:
+                - menu
+    /menu/param/delete:
+        post:
+            description: Delete menu extra parameters | 删除菜单额外参数
+            operationId: DeleteMenuParam
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete menu extra parameters | 删除菜单额外参数
             tags:
                 - menu
     /menu/param/list:
@@ -2629,24 +2634,7 @@ paths:
             summary: Oauth log in callback route | Oauth 登录返回调接口
             tags:
                 - oauth
-    /oauth/provider:
-        delete:
-            description: Delete provider information | 删除提供商信息
-            operationId: DeleteProvider
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/IDReq'
-                    type: object
-            responses:
-                "200":
-                    description: BaseMsgResp
-                    schema:
-                        $ref: '#/definitions/BaseMsgResp'
-            summary: Delete provider information | 删除提供商信息
-            tags:
-                - oauth
+    /oauth/provider/create_or_update:
         post:
             description: Create or update Provider information | 创建或更新提供商
             operationId: CreateOrUpdateProvider
@@ -2662,6 +2650,24 @@ paths:
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
             summary: Create or update Provider information | 创建或更新提供商
+            tags:
+                - oauth
+    /oauth/provider/delete:
+        post:
+            description: Delete provider information | 删除提供商信息
+            operationId: DeleteProvider
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete provider information | 删除提供商信息
             tags:
                 - oauth
     /oauth/provider/list:
@@ -2682,24 +2688,7 @@ paths:
             summary: Get provider list | 获取提供商列表
             tags:
                 - oauth
-    /role:
-        delete:
-            description: Delete role information | 删除角色信息
-            operationId: DeleteRole
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/IDReq'
-                    type: object
-            responses:
-                "200":
-                    description: BaseMsgResp
-                    schema:
-                        $ref: '#/definitions/BaseMsgResp'
-            summary: Delete role information | 删除角色信息
-            tags:
-                - role
+    /role/create_or_update:
         post:
             description: Create or update role information | 创建或更新角色
             operationId: CreateOrUpdateRole
@@ -2715,6 +2704,24 @@ paths:
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
             summary: Create or update role information | 创建或更新角色
+            tags:
+                - role
+    /role/delete:
+        post:
+            description: Delete role information | 删除角色信息
+            operationId: DeleteRole
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete role information | 删除角色信息
             tags:
                 - role
     /role/list:
@@ -2753,24 +2760,7 @@ paths:
             summary: Set role status | 设置角色状态
             tags:
                 - role
-    /token:
-        delete:
-            description: Delete token information | 删除token信息
-            operationId: DeleteToken
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/IDReq'
-                    type: object
-            responses:
-                "200":
-                    description: BaseMsgResp
-                    schema:
-                        $ref: '#/definitions/BaseMsgResp'
-            summary: Delete token information | 删除token信息
-            tags:
-                - token
+    /token/create_or_update:
         post:
             description: Create or update Token information | 创建或更新Token
             operationId: CreateOrUpdateToken
@@ -2786,6 +2776,24 @@ paths:
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
             summary: Create or update Token information | 创建或更新Token
+            tags:
+                - token
+    /token/delete:
+        post:
+            description: Delete token information | 删除token信息
+            operationId: DeleteToken
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete token information | 删除token信息
             tags:
                 - token
     /token/list:
@@ -2842,24 +2850,25 @@ paths:
             summary: Set token status | 设置token状态
             tags:
                 - token
-    /user:
-        delete:
-            description: Delete user information | 删除用户信息
-            operationId: DeleteUser
+    /user/change-password:
+        post:
+            description: Change Password | 修改密码
+            operationId: ChangePassword
             parameters:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/IDReq'
+                    $ref: '#/definitions/ChangePasswordReq'
                     type: object
             responses:
                 "200":
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Delete user information | 删除用户信息
+            summary: Change Password | 修改密码
             tags:
                 - user
+    /user/create_or_update:
         post:
             description: Create or update user's information | 新增或更新用户
             operationId: CreateOrUpdateUser
@@ -2877,22 +2886,22 @@ paths:
             summary: Create or update user's information | 新增或更新用户
             tags:
                 - user
-    /user/change-password:
+    /user/delete:
         post:
-            description: Change Password | 修改密码
-            operationId: ChangePassword
+            description: Delete user information | 删除用户信息
+            operationId: DeleteUser
             parameters:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/ChangePasswordReq'
+                    $ref: '#/definitions/IDReq'
                     type: object
             responses:
                 "200":
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Change Password | 修改密码
+            summary: Delete user information | 删除用户信息
             tags:
                 - user
     /user/info:

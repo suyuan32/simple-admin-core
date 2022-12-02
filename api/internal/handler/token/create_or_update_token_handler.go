@@ -9,7 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route post /token token CreateOrUpdateToken
+// swagger:route post /token/create_or_update token CreateOrUpdateToken
 //
 // Create or update Token information | 创建或更新Token
 //

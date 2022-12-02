@@ -9,7 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route delete /dict dictionary DeleteDictionary
+// swagger:route post /dict/delete dictionary DeleteDictionary
 //
 // Delete dictionary information | 删除字典信息
 //

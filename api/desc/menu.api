@@ -297,11 +297,11 @@ type (
 service core {
     // Create or update menu information | 创建或更新菜单
     @handler createOrUpdateMenu
-    post /menu (CreateOrUpdateMenuReq) returns (BaseMsgResp)
+    post /menu/create_or_update (CreateOrUpdateMenuReq) returns (BaseMsgResp)
 
     // Delete menu information | 删除菜单信息
     @handler deleteMenu
-    delete /menu (IDReq) returns (BaseMsgResp)
+    post /menu/delete (IDReq) returns (BaseMsgResp)
 
     // Get menu list | 获取菜单列表
     @handler getMenuList
@@ -313,7 +313,7 @@ service core {
 
     // Create or update menu parameters | 创建或更新菜单参数
     @handler createOrUpdateMenuParam
-    post /menu/param (CreateOrUpdateMenuParamReq) returns (BaseMsgResp)
+    post /menu/param/create_or_update (CreateOrUpdateMenuParamReq) returns (BaseMsgResp)
 
     // Get menu extra parameters by menu ID | 获取某个菜单的额外参数列表
     @handler getMenuParamListByMenuId
@@ -321,5 +321,5 @@ service core {
 
     // Delete menu extra parameters | 删除菜单额外参数
     @handler deleteMenuParam
-    delete /menu/param (IDReq) returns (BaseMsgResp)
+    post /menu/param/delete (IDReq) returns (BaseMsgResp)
 }

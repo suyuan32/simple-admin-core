@@ -9,7 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route delete /menu/param menu DeleteMenuParam
+// swagger:route post /menu/param/delete menu DeleteMenuParam
 //
 // Delete menu extra parameters | 删除菜单额外参数
 //
