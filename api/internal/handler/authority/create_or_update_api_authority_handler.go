@@ -3,13 +3,14 @@ package authority
 import (
 	"net/http"
 
+	"github.com/zeromicro/go-zero/rest/httpx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/authority"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route post /authority/api authority CreateOrUpdateApiAuthority
+// swagger:route post /authority/api/create_or_update authority CreateOrUpdateApiAuthority
 //
 // Create or update API authorization information | 创建或更新API权限
 //

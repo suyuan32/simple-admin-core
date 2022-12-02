@@ -9,7 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route post /authority/menu authority CreateOrUpdateMenuAuthority
+// swagger:route post /authority/menu/create_or_update authority CreateOrUpdateMenuAuthority
 //
 // Create or update menu authorization information | 创建或更新菜单权限
 //

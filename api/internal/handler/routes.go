@@ -207,7 +207,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
-					Path:    "/authority/api",
+					Path:    "/authority/api/create_or_update",
 					Handler: authority.CreateOrUpdateApiAuthorityHandler(serverCtx),
 				},
 				{
@@ -217,7 +217,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/authority/menu",
+					Path:    "/authority/menu/create_or_update",
 					Handler: authority.CreateOrUpdateMenuAuthorityHandler(serverCtx),
 				},
 				{
