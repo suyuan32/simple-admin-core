@@ -1,3 +1,22 @@
+# 0.1.7 (2022/12/03)
+
+### Features
+
+- docs: update quick_develop_example.md
+- docs: api and rpc code generation doc
+- docs: feat rpc ent logic tutorials
+- docs: update ent doc
+- docs: update change log
+
+### Bug Fixes
+
+- fix: update tool to v0.1.0
+- fix: initialize code
+- fix: init api code
+- fix: optimize request url
+- fix: optimize request url
+- fix: job service_context.go
+
 # 0.1.6 (2022/11/18)
 
 ### Features

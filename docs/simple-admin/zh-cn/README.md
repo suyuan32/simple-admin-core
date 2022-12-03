@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://s1.imagehub.cc/images/2022/08/12/logo_512.png" width="300px" height="300px"/>
+<img src="https://i.postimg.cc/nh8mVKkf/logo.png" width="300px" height="300px"/>
 <h1>Simple Admin</h1>
 </div>
 
@@ -7,9 +7,9 @@
 ---
 [![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.4.1-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.8.0-yellow.svg)](https://vvbin.cn/doc-next/)
-[![GORM](https://img.shields.io/badge/GORM-v1.24.0-blue.svg)](https://gorm.io/)
+[![Ent](https://img.shields.io/badge/Ent-v0.11.0-blue.svg)](https://entgo.io/)
 [![Casbin](https://img.shields.io/badge/Casbin-v2.52.1-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v0.0.6-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Release](https://img.shields.io/badge/Release-v0.1.4-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
 ![QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-801043319-blue)
@@ -19,9 +19,12 @@
 Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基于go-zero开发，提供丰富的功能如服务发现，权限管理等。
 该框架可以帮助您快速开发具有RPC服务的后台管理系统。
 
+#### [Gorm 版本点此](https://github.com/suyuan32/simple-admin-core/tree/gorm)
+#### [Ent 中文文档](https://suyuan32.github.io/ent-chinese-doc/#/zh-cn/getting-started)
+
 ## 特性
 
-- **最新技术栈**：使用 gorm, casbin, kafka 等前沿技术开发
+- **最新技术栈**：使用 ent, casbin, kafka 等前沿技术开发
 - **完全支持go-swagger**: 直接在api文件内编写注释即可直接生成swagger文档
 - **统一的错误处理**: 整个系统拥有国际化的统一错误处理
 - **国际化**：内置完善的国际化方案
@@ -31,24 +34,23 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 
 ## 当前进度
 
-| 功能   | 进度 |
-|------|--|
-| 登录注册 | 已完成 |
-| 菜单管理 | 已完成 |
-| 角色管理 | 已完成 |
-| 角色权限 | 已完成 |
-| 用户管理 | 已完成 |
-| 操作日志 | 已完成 |
-| 服务注册发现 | 已完成 |
-| 配置中心 | 已完成 |
-| 字典功能 | 已完成 |
-| 三方登录管理 | 已完成 |
-| 全面支持 K8s | 已完成 |
-| 服务监控 | 已完成 |
-| 日志收集 | 已完成 |
-| JWT黑名单 | 已完成 |
-| 定时任务 | 已完成 |
-| 消息队列 | 已完成 |
+- [x] 登录注册
+- [x] 菜单管理
+- [x] 角色管理
+- [x] 角色权限
+- [x] 用户管理
+- [x] 操作日志
+- [x] 服务注册发现
+- [x] 字典功能
+- [x] 三方登录管理
+- [x] 全面支持 K8s
+- [x] 服务监控
+- [x] 日志收集
+- [x] JWT黑名单
+- [x] 定时任务
+- [x] 消息队列
+- [x] Ent
+- [x] 后端 CRUD 代码生成
 
 ## 预览
 
@@ -58,9 +60,8 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 密码 simple-admin
 #### 只读，不可修改和注册
 
-![pic](https://s1.imagehub.cc/images/2022/09/15/-2022-09-05-21-49-00.png)
-![pic](https://s1.imagehub.cc/images/2022/09/15/register_zh_cn.png)
-![pic](https://s1.imagehub.cc/images/2022/09/15/add_example_api_authority.png)
+![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png)
+![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
 
 [更多预览](https://suyuan32.github.io/simple-admin-core/#/simple-admin/zh-cn/docs/screenshot)
 
@@ -82,6 +83,7 @@ docsify serve .
 ## 准备
 
 - [Golang](http://go.dev/) and [git](https://git-scm.com/) - Go 语言
+- [Ent](https://entgo.io/docs/getting-started) - Ent
 - [Mysql](https://www.mysql.com/) - Mysql数据库
 - [GORM](https://gorm.io/) - GORM 数据库ORM组件
 - [Casbin](https://casbin.org/) - 权限管理

@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://s1.imagehub.cc/images/2022/08/12/logo_512.png" width="300px" height="300px"/>
+<img src="https://i.postimg.cc/nh8mVKkf/logo.png" width="300px" height="300px"/>
 <h1>Simple Admin</h1>
 </div>
 
@@ -27,31 +27,29 @@ It can help you to develop a microservice back-end management core in a short ti
 - **Error handling**: Handle error messages via one module
 - **International**：support different languages show in the front-end via put locale path in the message 
 - **Service Discover**: use k8s endpoints to do service discovery and load-balance
-- **Authority** Manage authority via casbin, based on RBAC
+- **Authority** Manage authority via Casbin, based on RBAC
 - **Other** builtin concurrency control, adaptive circuit breaker, adaptive load shedding, auto-trigger, auto recover
 
 ## Current Progress
 
-| Module                | Status   |
-|-----------------------|----------|
-| Login and Register    | Finished |
-| Menu Management       | Finished |
-| Role Management       | Finished |
-| Role Authority        | Finished |
-| User Management       | Finished |
-| Operation log         | Finished |
-| Service discovery     | Finished |
-| Configuration center  | Finished |
-| Dictionary management | Finished |    
-| Oauth management      | Finished |
-| Fully support K8s     | Finished | 
-| Service Monitor       | Finished |
-| Log collecting        | Finished | 
-| JWT blacklist | Finished |
-| Job Schedule | Finished | 
-| Message queue | Finished |
-| Ent | Finished |
-| CRUD generate | In progress |
+- [x] Login and Register
+- [x] Menu Management
+- [x] Role Management
+- [x] Role Authority
+- [x] User Management
+- [x] Operation log
+- [x] Service discovery
+- [x] Dictionary management
+- [x] Oauth management
+- [x] Fully support K8s
+- [x] Service Monitor
+- [x] Log collecting
+- [x] JWT blacklist
+- [x] Job Schedule
+- [x] Message queue
+- [x] Ent
+- [x] Backend CRUD generation
+- [ ] Frontend CRUD code generation
 
 ### The use of consul for service registration discovery in the early stage of the project is mainly to adapt to low-configuration servers. In the near future, the deployment process of K8s will be mainly optimized, and the project will mainly use K8s for deployment in the future.
 
@@ -63,9 +61,8 @@ Account:   admin
 Password:  simple-admin
 #### Read Only, cannot register and modify
 
-![pic](https://s1.imagehub.cc/images/2022/09/15/-2022-09-05-21-49-00.png)
-![pic](https://s1.imagehub.cc/images/2022/09/15/register_zh_cn.png)
-![pic](https://s1.imagehub.cc/images/2022/09/15/add_example_api_authority.png)
+![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png)
+![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
 
 [More](https://suyuan32.github.io/simple-admin-core/#/simple-admin/zh-cn/docs/screenshot)
 
