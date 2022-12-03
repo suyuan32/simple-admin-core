@@ -20,6 +20,7 @@ goctls api new example --i18n=true --casbin=true --goZeroVersion=v1.4.2 --toolVe
 | moduleName    | go.mod 中的module名称      | 如果项目需要被在外部import，需要像上面例子设置为github或者其他地方的仓库网址， 为空则只在本地使用 |
 | goZeroVersion | go zero版本              | 需要到github 查看最新release                                   |
 | toolVersion   | simple admin tools 版本号 | 需要到github查看simple admin  tools 最新 release               |
+| transErr      | 国际化翻译错误信息              | true 为启用                                                |
 | port          | 端口号                    | 服务暴露的端口号                                                |
 
 > 你可以看到以下结构
