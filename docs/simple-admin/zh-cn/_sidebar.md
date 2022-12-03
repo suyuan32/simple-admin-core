@@ -13,7 +13,7 @@
   * 集成到原项目
     * [后端](simple-admin/zh-cn/docs/quick_develop_example.md)
     * [前端](simple-admin/zh-cn/docs/web_develop_example.md)
-  * [API微服务](simple-admin/zh-cn/docs/api_example.md)
+  * [API 微服务](simple-admin/zh-cn/docs/api_example.md)
   * [RPC 微服务](simple-admin/zh-cn/docs/rpc_example.md)
 * 工具
   * [验证器](/simple-admin/zh-cn/docs/validator.md)
