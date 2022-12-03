@@ -264,7 +264,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetMethod("POST")
 
 	apis[13] = l.svcCtx.DB.API.Create().
-		SetPath("/role").
+		SetPath("/role/delete").
 		SetDescription("apiDesc.deleteRole").
 		SetAPIGroup("role").
 		SetMethod("POST")

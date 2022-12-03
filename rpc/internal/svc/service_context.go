@@ -20,7 +20,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		ent.Driver(c.DatabaseConf.GetCacheDriver(c.RedisConf)),
 		ent.Debug(), // debug mode
 	)
-	logx.Info("Initialize database connection successfully")
 
 	// initialize redis
 	rds := c.RedisConf.NewRedis()
@@ -28,7 +27,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		logx.Error("Initialize redis failed")
 		return nil
 	}
-	logx.Info("Initialize redis connection successfully")
 
 	return &ServiceContext{
 		Config: c,
