@@ -1,4 +1,9 @@
 ## 快速开发demo
+
+> 除非想为 core 服务贡献代码，否则不建议将自己的代码写进 core 。请模仿 [example-api](https://github.com/suyuan32/simple-admin-example-api) 和 
+> [simple-admin-file](https://github.com/suyuan32/simple-admin-file) 创建自己的服务 \
+> 查看 [API微服务](./api_example.md) 快速创建 API
+
 [例子](https://github.com/suyuan32/simple-admin-core/tree/example)
 > 安装goctls
 [Simple-admin-tool](simple-admin/zh-cn/docs/simple-admin-tools.md)

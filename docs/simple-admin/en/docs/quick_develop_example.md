@@ -1,4 +1,9 @@
 ## Back end example demo
+
+> Unless you want to contribute code to the core service, it is not recommended to write your own code into the core. Please imitate [example-api](https://github.com/suyuan32/simple-admin-example-api) and
+> [simple-admin-file](https://github.com/suyuan32/simple-admin-file) Create your own service \
+> See [API microservice](./api_example.md) to quickly create an API
+
 [Example](https://github.com/suyuan32/simple-admin-core/tree/example)
 > Install goctls
 [Simple-admin-tool](simple-admin/zh-cn/docs/simple-admin-tools.md)
