@@ -12,10 +12,10 @@ docker:
 	@printf $(GREEN)"[SUCCESS] build docker successfully"
 
 publish-docker:
-	echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin http://${REPO}
-	docker push ${REPO}/${DOCKER_USERNAME}/core-rpc:${VERSION}
-	docker push ${REPO}/${DOCKER_USERNAME}/core-api:${VERSION}
-	# docker push ${REPO}/${DOCKER_USERNAME}/core-job:${VERSION}
+	echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin https://${REPO}
+	docker push ${DOCKER_USERNAME}/core-rpc:${VERSION}
+	docker push ${DOCKER_USERNAME}/core-api:${VERSION}
+	# docker push ${DOCKER_USERNAME}/core-job:${VERSION}
 	@printf $(GREEN)"[SUCCESS] publish docker successfully"
 
 gen-api:

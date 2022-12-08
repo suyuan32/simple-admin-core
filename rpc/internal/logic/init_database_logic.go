@@ -182,7 +182,7 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 // insert init user data
 func (l *InitDatabaseLogic) insertApiData() error {
 	var apis []*ent.APICreate
-	apis = make([]*ent.APICreate, 46)
+	apis = make([]*ent.APICreate, 47)
 	// USER
 	apis[0] = l.svcCtx.DB.API.Create().
 		SetPath("/user/login").

@@ -1,0 +1,59 @@
+Name: core.api
+Host: 0.0.0.0
+Port: 9100
+Timeout: 30000
+
+Auth:
+  AccessSecret: jS6VKDtsJf3z1n2VKDtsJf3z1n2
+  AccessExpire: 259200
+
+Log:
+  ServiceName: coreApiLogger
+  Mode: file
+  Path: /home/data/logs/core/api
+  Level: info
+  Compress: false
+  KeepDays: 7
+  StackCoolDownMillis: 100
+
+RedisConf:
+  Host: 10.5.0.3:6379
+  Type: node
+
+CoreRpc:
+  Endpoints:
+    - 10.5.0.4:9101
+
+Captcha:
+  KeyLong: 5
+  ImgWidth: 240
+  ImgHeight: 80
+
+DatabaseConf:
+  Type: mysql
+  Host: 10.5.0.2
+  Port: 3306
+  DBName: simple_admin
+  Username: root # set your username
+  Password: simple-admin. # set your password
+  MaxOpenConn: 100
+  SSLMode: false
+  CacheTime: 5
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4000
+  Path: /metrics
+
+CasbinConf:
+  ModelText: |
+    [request_definition]
+    r = sub, obj, act
+    [policy_definition]
+    p = sub, obj, act
+    [role_definition]
+    g = _, _
+    [policy_effect]
+    e = some(where (p.eft == allow))
+    [matchers]
+    m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act

@@ -7,6 +7,10 @@ volumes:
 networks:
   simple-admin:
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.5.0.0/16
 
 services:
   mysql:
@@ -18,13 +22,14 @@ services:
       - '3306:3306'
     environment:
       MYSQL_DATABASE: 'simple_admin'
-      MYSQL_ROOT_PASSWORD: '123456'
+      MYSQL_ROOT_PASSWORD: 'simple-admin.'
     volumes:
       - mysql:/var/lib/mysql
     networks:
       simple-admin:
         aliases:
           - mysqlserver
+        ipv4_address: 10.5.0.2
     deploy:
       resources:
         limits:
@@ -46,6 +51,46 @@ services:
       simple-admin:
         aliases:
           - redisserver
+        ipv4_address: 10.5.0.3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 500M
+        reservations:
+          cpus: '0.05'
+          memory: 200M
+  core-rpc:
+    image: ryanpower/core-rpc:0.1.7
+    container_name: core-rpc
+    restart: always
+    ports:
+      - '9101:9101'
+    networks:
+      simple-admin:
+        aliases:
+          - core-rpc
+        ipv4_address: 10.5.0.4
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 500M
+        reservations:
+          cpus: '0.05'
+          memory: 200M
+
+  core-api:
+    image: ryanpower/core-api:0.1.7
+    container_name: core-api
+    restart: always
+    ports:
+      - '9100:9100'
+    networks:
+      simple-admin:
+        aliases:
+          - core-api
+        ipv4_address: 10.5.0.5
     deploy:
       resources:
         limits:

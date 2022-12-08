@@ -1,0 +1,45 @@
+Name: core.rpc
+ListenOn: 0.0.0.0:9101
+
+DatabaseConf:
+  Type: mysql
+  Host: 10.5.0.2
+  Port: 3306
+  DBName: simple_admin
+  Username: root # set your username
+  Password: simple-admin. # set your password
+  MaxOpenConn: 100
+  SSLMode: false
+  CacheTime: 5
+
+Log:
+  ServiceName: coreRpcLogger
+  Mode: file
+  Path: /home/data/logs/core/rpc
+  Encoding: json
+  Level: info
+  Compress: false
+  KeepDays: 7
+  StackCoolDownMillis: 100
+
+RedisConf:
+  Host: 10.5.0.3:6379
+  Type: node
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4001
+  Path: /metrics
+
+CasbinConf:
+  ModelText: |
+    [request_definition]
+    r = sub, obj, act
+    [policy_definition]
+    p = sub, obj, act
+    [role_definition]
+    g = _, _
+    [policy_effect]
+    e = some(where (p.eft == allow))
+    [matchers]
+    m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
