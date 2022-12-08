@@ -49,7 +49,8 @@ It can help you to develop a microservice back-end management core in a short ti
 - [x] Message queue
 - [x] Ent
 - [x] Backend CRUD generation
-- [ ] Frontend CRUD code generation
+- [x] Frontend CRUD code generation
+- [ ] docker-compose script
 
 ### The use of consul for service registration discovery in the early stage of the project is mainly to adapt to low-configuration servers. In the near future, the deployment process of K8s will be mainly optimized, and the project will mainly use K8s for deployment in the future.
 

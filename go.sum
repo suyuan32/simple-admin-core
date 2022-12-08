@@ -839,8 +839,8 @@ github.com/stretchr/testify v1.7.5/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO
 github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PKk=
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
 github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
-github.com/suyuan32/simple-admin-tools v0.1.0 h1:PGOW4GMGruyzaeU3MAZQiME8EUdgJEB+nErXTLSjmg0=
-github.com/suyuan32/simple-admin-tools v0.1.0/go.mod h1:oQzMoiMFcz/1yhb93r6ZHovSLL7yhz1qS6zxgGVREfk=
+github.com/suyuan32/simple-admin-tools v0.1.1 h1:7yL9RjHN+wq0GsZjAYoC3vpwhkObdDdCAg3mFcKVtQU=
+github.com/suyuan32/simple-admin-tools v0.1.1/go.mod h1:oQzMoiMFcz/1yhb93r6ZHovSLL7yhz1qS6zxgGVREfk=
 github.com/tidwall/gjson v1.13.0 h1:3TFY9yxOQShrvmjdM76K+jc66zJeT6D3/VFFYCGQf7M=
 github.com/tidwall/gjson v1.13.0/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/match v1.1.1 h1:+Ho715JplO36QYgwN9PGYNhgZvoUSc9X2c80KVTi+GA=
