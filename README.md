@@ -172,6 +172,8 @@ go build -o core core.go
 
 >[Discord](https://discord.gg/NDED5p2hJk)
 
+> [论坛](https://github.com/suyuan32/simple-admin-core/discussions)
+
 ## Stars
 
 [![Star History Chart](https://api.star-history.com/svg?repos=suyuan32/simple-admin-core&type=Date)](https://github.com/suyuan32/simple-admin-core)

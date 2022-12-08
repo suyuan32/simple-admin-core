@@ -167,8 +167,10 @@ You are very welcome to join！[Raise an issue](https://github.com/suyuan32/Simp
     - `wip` In development
 
 # Community
-[Discard](https://discord.gg/NDED5p2hJk)
 
+> [Discard](https://discord.gg/NDED5p2hJk)
+
+> [Discussion](https://github.com/suyuan32/simple-admin-core/discussions)
 
 ## Stars
 
