@@ -16,6 +16,7 @@
   * [API 微服务](simple-admin/zh-cn/docs/api_example.md)
   * [RPC 微服务](simple-admin/zh-cn/docs/rpc_example.md)
   * [Web 端](simple-admin/zh-cn/docs/web_codegen.md)
+  * [快速体验](simple-admin/zh-cn/docs/all_in_one.md)
 * 工具
   * [验证器](/simple-admin/zh-cn/docs/validator.md)
   * [Swagger](simple-admin/zh-cn/docs/swagger.md)

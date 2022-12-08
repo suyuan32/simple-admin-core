@@ -1,5 +1,7 @@
 # Quick start with docker-compose
 
+In deploy/docker-compose/all_in_one directory
+
 > 3 Steps
 
 1. Run docker-compose

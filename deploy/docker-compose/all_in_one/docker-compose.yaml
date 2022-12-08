@@ -99,3 +99,23 @@ services:
         reservations:
           cpus: '0.05'
           memory: 200M
+
+  backend-ui:
+    image: ryanpower/backend-ui:0.1.7
+    container_name: backend-ui
+    restart: always
+    ports:
+      - '80:80'
+    networks:
+      simple-admin:
+        aliases:
+          - backend-ui
+        ipv4_address: 10.5.0.6
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 500M
+        reservations:
+          cpus: '0.05'
+          memory: 200M

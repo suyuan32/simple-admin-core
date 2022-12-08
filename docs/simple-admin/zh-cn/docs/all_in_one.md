@@ -1,5 +1,7 @@
 # 一键体验 docker-compose
 
+在 deploy/docker-compose/all_in_one 文件夹下
+
 > 只需三步
 
 1. 启动 docker-compose
