@@ -14,6 +14,7 @@
       * [Develop Frontend](simple-admin/en/docs/web_develop_example.md)
     * [API Service](simple-admin/en/docs/api_example.md)
     * [RPC Service](simple-admin/en/docs/rpc_example.md)
+    * [Web Page](simple-admin/en/docs/web_codegen.md)
 * Tools
     * [Validator](/simple-admin/en/docs/validator.md)
     * [Swagger](simple-admin/en/docs/swagger.md)
