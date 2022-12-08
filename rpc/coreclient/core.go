@@ -32,6 +32,7 @@ type (
 	Empty                      = core.Empty
 	GetUserListReq             = core.GetUserListReq
 	IDReq                      = core.IDReq
+	IDsReq                     = core.IDsReq
 	LoginReq                   = core.LoginReq
 	LoginResp                  = core.LoginResp
 	MenuInfo                   = core.MenuInfo
@@ -110,6 +111,7 @@ type (
 		// Token management
 		CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		BatchDeleteToken(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
 		UpdateTokenStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 		BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -328,6 +330,11 @@ func (m *defaultCore) CreateOrUpdateToken(ctx context.Context, in *TokenInfo, op
 func (m *defaultCore) DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteToken(ctx, in, opts...)
+}
+
+func (m *defaultCore) BatchDeleteToken(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.BatchDeleteToken(ctx, in, opts...)
 }
 
 func (m *defaultCore) GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error) {

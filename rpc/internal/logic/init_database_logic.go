@@ -475,6 +475,12 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetAPIGroup("token").
 		SetMethod("POST")
 
+	apis[46] = l.svcCtx.DB.API.Create().
+		SetPath("/token/batch_delete").
+		SetDescription("apiDesc.batchDeleteToken").
+		SetAPIGroup("token").
+		SetMethod("POST")
+
 	err := l.svcCtx.DB.API.CreateBulk(apis...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())

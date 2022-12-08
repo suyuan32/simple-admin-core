@@ -11,6 +11,10 @@ message IDReq {
   uint64 id = 1;
 }
 
+message IDsReq {
+  repeated uint64 ids = 1;
+}
+
 message UUIDReq {
   string uuid = 1;
 }
@@ -420,6 +424,7 @@ service core {
   // Token management
   rpc createOrUpdateToken (TokenInfo) returns (BaseResp);
   rpc deleteToken (IDReq) returns (BaseResp);
+  rpc batchDeleteToken (IDsReq) returns (BaseResp);
   rpc getTokenList (TokenListReq) returns (TokenListResp);
   rpc updateTokenStatus (StatusCodeReq) returns (BaseResp);
   rpc blockUserAllToken (UUIDReq) returns (BaseResp);

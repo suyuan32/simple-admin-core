@@ -71,6 +71,7 @@ type CoreClient interface {
 	// Token management
 	CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	BatchDeleteToken(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
 	UpdateTokenStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 	BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -435,6 +436,15 @@ func (c *coreClient) DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.Ca
 	return out, nil
 }
 
+func (c *coreClient) BatchDeleteToken(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/batchDeleteToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *coreClient) GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error) {
 	out := new(TokenListResp)
 	err := c.cc.Invoke(ctx, "/core.core/getTokenList", in, out, opts...)
@@ -515,6 +525,7 @@ type CoreServer interface {
 	// Token management
 	CreateOrUpdateToken(context.Context, *TokenInfo) (*BaseResp, error)
 	DeleteToken(context.Context, *IDReq) (*BaseResp, error)
+	BatchDeleteToken(context.Context, *IDsReq) (*BaseResp, error)
 	GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error)
 	UpdateTokenStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
 	BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error)
@@ -641,6 +652,9 @@ func (UnimplementedCoreServer) CreateOrUpdateToken(context.Context, *TokenInfo) 
 }
 func (UnimplementedCoreServer) DeleteToken(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteToken not implemented")
+}
+func (UnimplementedCoreServer) BatchDeleteToken(context.Context, *IDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteToken not implemented")
 }
 func (UnimplementedCoreServer) GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTokenList not implemented")
@@ -1366,6 +1380,24 @@ func _Core_DeleteToken_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_BatchDeleteToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).BatchDeleteToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/batchDeleteToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).BatchDeleteToken(ctx, req.(*IDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Core_GetTokenList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(TokenListReq)
 	if err := dec(in); err != nil {
@@ -1582,6 +1614,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteToken",
 			Handler:    _Core_DeleteToken_Handler,
+		},
+		{
+			MethodName: "batchDeleteToken",
+			Handler:    _Core_BatchDeleteToken_Handler,
 		},
 		{
 			MethodName: "getTokenList",

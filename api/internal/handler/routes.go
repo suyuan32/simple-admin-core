@@ -324,6 +324,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				},
 				{
 					Method:  http.MethodPost,
+					Path:    "/token/batch_delete",
+					Handler: token.BatchDeleteTokenHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
 					Path:    "/token/list",
 					Handler: token.GetTokenListHandler(serverCtx),
 				},

@@ -1146,6 +1146,20 @@ definitions:
             - id
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    IDsReq:
+        description: Basic IDs request | 基础ID数组参数请求
+        properties:
+            ids:
+                description: IDs
+                items:
+                    format: uint64
+                    type: integer
+                type: array
+                x-go-name: Ids
+        required:
+            - ids
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     LoginInfo:
         description: The log in information | 登陆返回的数据信息
         properties:
@@ -2279,7 +2293,7 @@ paths:
             summary: Get API list | 获取API列表
             tags:
                 - api
-    /authority/api:
+    /authority/api/create_or_update:
         post:
             description: Create or update API authorization information | 创建或更新API权限
             operationId: CreateOrUpdateApiAuthority
@@ -2315,7 +2329,7 @@ paths:
             summary: Get role's API authorization list | 获取角色api权限列表
             tags:
                 - authority
-    /authority/menu:
+    /authority/menu/create_or_update:
         post:
             description: Create or update menu authorization information | 创建或更新菜单权限
             operationId: CreateOrUpdateMenuAuthority
@@ -2760,6 +2774,24 @@ paths:
             summary: Set role status | 设置角色状态
             tags:
                 - role
+    /token/batch_delete:
+        post:
+            description: Batch delete token information | 批量删除token信息
+            operationId: BatchDeleteToken
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDsReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Batch delete token information | 批量删除token信息
+            tags:
+                - token
     /token/create_or_update:
         post:
             description: Create or update Token information | 创建或更新Token

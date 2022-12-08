@@ -112,6 +112,10 @@ service core {
     @handler deleteToken
     post /token/delete (IDReq) returns (BaseMsgResp)
 
+    // Batch delete token information | 批量删除token信息
+    @handler BatchDeleteToken
+    post /token/batch_delete (IDsReq) returns (BaseMsgResp)
+
     // Get Token list | 获取token列表
     @handler getTokenList
     post /token/list (TokenListReq) returns (TokenListResp)

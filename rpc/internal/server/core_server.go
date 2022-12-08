@@ -226,6 +226,11 @@ func (s *CoreServer) DeleteToken(ctx context.Context, in *core.IDReq) (*core.Bas
 	return l.DeleteToken(in)
 }
 
+func (s *CoreServer) BatchDeleteToken(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := logic.NewBatchDeleteTokenLogic(ctx, s.svcCtx)
+	return l.BatchDeleteToken(in)
+}
+
 func (s *CoreServer) GetTokenList(ctx context.Context, in *core.TokenListReq) (*core.TokenListResp, error) {
 	l := logic.NewGetTokenListLogic(ctx, s.svcCtx)
 	return l.GetTokenList(in)

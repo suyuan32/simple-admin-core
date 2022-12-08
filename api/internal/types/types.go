@@ -105,6 +105,14 @@ type IDReq struct {
 	Id uint64 `json:"id" validate:"number"`
 }
 
+// Basic IDs request | 基础ID数组参数请求
+// swagger:model IDsReq
+type IDsReq struct {
+	// IDs
+	// Required: true
+	Ids []uint64 `json:"ids"`
+}
+
 // Basic ID request | 基础ID地址参数请求
 // swagger:model IDPathReq
 type IDPathReq struct {
