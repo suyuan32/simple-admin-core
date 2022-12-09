@@ -262,3 +262,5 @@ func CreateOrUpdateApiHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 ```
 
 err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+
+> 注意： CodeError 是将错误码写在返回体中，返回的状态全部为 200 StatusOK, 若需要返回带http请求状态码的错误信息，请使用 errorx.ApiError.

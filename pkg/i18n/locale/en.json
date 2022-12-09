@@ -70,7 +70,8 @@
 		"deleteToken": "Delete token",
 		"getTokenList": "Get token list",
 		"setTokenStatus": "Set token status",
-		"batchDeleteToken": "Batch delete tokens"
+		"batchDeleteToken": "Batch delete tokens",
+		"forceLoggingOut": "Force logging out"
 	},
 	"route": {
 		"dashboard": "Dashboard",

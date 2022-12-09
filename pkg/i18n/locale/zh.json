@@ -70,7 +70,8 @@
 		"deleteToken": "删除Token",
 		"getTokenList": "获取Token列表",
 		"setTokenStatus": "设置Token状态",
-		"batchDeleteToken": "批量删除Token"
+		"batchDeleteToken": "批量删除Token",
+		"forceLoggingOut": "强制登出"
 	},
 	"route": {
 		"dashboard": "控制台",

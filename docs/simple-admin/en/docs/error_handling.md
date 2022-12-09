@@ -263,3 +263,6 @@ func CreateOrUpdateApiHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 ```
 
 err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+
+> Notice： CodeError puts the error code in response body, all the status is 200 StatusOK.
+> If you want to response with status code such as 400，please use  errorx.ApiError .

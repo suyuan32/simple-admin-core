@@ -471,7 +471,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis[45] = l.svcCtx.DB.API.Create().
 		SetPath("/token/logout").
-		SetDescription("user.forceLoggingOut").
+		SetDescription("apiDesc.forceLoggingOut").
 		SetAPIGroup("token").
 		SetMethod("POST")
 

@@ -206,28 +206,6 @@ func (l *UpdateRoleStatusLogic) UpdateRoleStatus(in *core.StatusCodeReq) (*core.
 
 ```
 
-注意： ent driver 有两种驱动，带缓存和不带缓存
-
-> 带缓存 （会导致更新数据需要等待缓存时间过去才能看到更新，适合更新少的系统）
-
-```go
-db := ent.NewClient(
-    ent.Log(logx.Info), // logger
-    ent.Driver(c.DatabaseConf.GetCacheDriver(c.RedisConf)),
-    ent.Debug(), // debug mode
-)
-```
-
-> 不带缓存 (数据立即更新)
-
-```go
-db := ent.NewClient(
-    ent.Log(logx.Info), // logger
-    ent.Driver(c.DatabaseConf.GetNoCacheDriver()),
-    ent.Debug(), // debug mode
-)
-```
-
 > 查询数据
 
 查看文档 [断言](http://ent.ryansu.pro/#/zh-cn/predicates)
