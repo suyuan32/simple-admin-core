@@ -17,14 +17,14 @@ type ServiceContext struct {
 func NewServiceContext(c config.Config) *ServiceContext {
 	db := ent.NewClient(
 		ent.Log(logx.Info), // logger
-		ent.Driver(c.DatabaseConf.GetCacheDriver(c.RedisConf)),
+		ent.Driver(c.DatabaseConf.GetNoCacheDriver()),
 		ent.Debug(), // debug mode
 	)
 
 	// initialize redis
 	rds := c.RedisConf.NewRedis()
 	if !rds.Ping() {
-		logx.Error("Initialize redis failed")
+		logx.Error("initialize redis failed")
 		return nil
 	}
 

@@ -120,8 +120,27 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 ```
 
-Use c.DatabaseConf.NewEntOption(c.RedisConf) initialize options，use ent.NewClient(opts...) create client and then you
-can use it globally
+Notice： There are two drivers for ent，cache and no cache.
+
+> Cache （Will cause changes show slowly, suitable for system whose data have less changes）
+
+```go
+db := ent.NewClient(
+    ent.Log(logx.Info), // logger
+    ent.Driver(c.DatabaseConf.GetCacheDriver(c.RedisConf)),
+    ent.Debug(), // debug mode
+)
+```
+
+> No cache (Changes will show immediately)
+
+```go
+db := ent.NewClient(
+    ent.Log(logx.Info), // logger
+    ent.Driver(c.DatabaseConf.GetNoCacheDriver()),
+    ent.Debug(), // debug mode
+)
+```
 
 > Usage in logic
 

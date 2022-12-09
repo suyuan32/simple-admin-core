@@ -50,6 +50,16 @@ func (c DatabaseConf) GetCacheDriver(redisConf redis2.RedisConf) *entcache.Drive
 	return cacheDrv
 }
 
+func (c DatabaseConf) GetNoCacheDriver() *entsql.Driver {
+	db, err := sql.Open(c.Type, c.GetDSN())
+	logx.Must(err)
+
+	db.SetMaxOpenConns(*c.MaxOpenConns)
+	driver := entsql.OpenDB(c.Type, db)
+
+	return driver
+}
+
 func (c DatabaseConf) MysqlDSN() string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=True", c.Username, c.Password, c.Host, c.Port, c.DBName)
 }
