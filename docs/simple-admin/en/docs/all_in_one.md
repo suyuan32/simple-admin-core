@@ -16,6 +16,6 @@ docker-compose up -d
 
 3. Restart core-api, core-rpc container
 
-# In this folder, you can check the  api and rpc configuration 
+> In this folder, you can check the  api and rpc configuration 
 
 

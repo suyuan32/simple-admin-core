@@ -2,10 +2,12 @@
 Simple admin tools is a tool fork from go-zero.
 It provides more addition features than origin project such as:
 - go-swagger : it is different with origin which uses @doc comments
-- consul: default use consul to do service discovery and configuration
 - multi-language support
 - optimize error message
 - fully support validator and easy to use
+- code auto generation for API, RPC and web
+- error handling which support multi-languages
+- several plugins such as RocketMQ, GORM 
 - so on
 
 > But it is a little complex to install the goctls and import the dependencies due to forking.\

@@ -16,6 +16,6 @@ docker-compose up -d
 
 3. 重启 core-api, core-rpc 容器
 
-# 该文件夹下有 api 和 rpc 的 etc 配置文件参考
+> 该文件夹下有 api 和 rpc 的 etc 配置文件参考
 
 

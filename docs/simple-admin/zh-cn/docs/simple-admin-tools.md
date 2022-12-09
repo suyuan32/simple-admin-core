@@ -2,10 +2,12 @@
 Simple admin tools 是一个基于go-zero的fork项目。
 它提供了许多额外的功能，例如:
 - go-swagger : 基于go-swagger而不是官方的@doc注解
-- consul: 默认使用consul进行服务发现和作为配置中心
 - 多国语言支持
-- 优化错误信息处理
+- 优化错误信息处理,支持多语言错误
 - 简单易用的校验器
+- 支持代码生成，生成API,RPC 和 web 端的CRUD代码
+- 支持多种额外插件如GORM, RocketMQ
+- 对Simple Admin 的针对性优化 
 
 由于本工具是fork项目，因此使用goctls会有些麻烦. 使用fork主要是为了同步官方最新代码。\
 \
@@ -30,7 +32,7 @@ go build -o goctls goctl.go
 cp ./goctls $GOPATH/bin/goctls
 ```
 
-> 直接运行在 goctl 文件夹运行 **sh build.sh** 
+> 简单方法： 直接运行在 goctl 文件夹运行 **sh build.sh** 
 
 > 如何使用？
 

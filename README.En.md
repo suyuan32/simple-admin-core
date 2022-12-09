@@ -131,14 +131,19 @@ go build -o core core.go
 
 [CHANGELOG](./CHANGELOG.zh_CN.md)
 
-## Project
+## Relative Project
 
-- [Simple-Admin-ui](https://github.com/suyuan32/Simple-Admin-ui)
-- [Simple-Admin](https://github.com/suyuan32/Simple-Admin)
+- [Simple Admin](https://github.com/suyuan32/simple-admin-core)
+- [Simple Admin Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)
+
+## Optional Components
+
+- [Simple Admin File Manager](https://github.com/suyuan32/simple-admin-file)
+
 
 ## How to contribute
 
-You are very welcome to join！[Raise an issue](https://github.com/suyuan32/Simple-Admin/issues/new/choose) Or submit a Pull Request。
+You are very welcome to join！[Raise an issue](https://github.com/suyuan32/simple-admin-core/issues/new) Or submit a Pull Request。
 
 **Pull Request:**
 
