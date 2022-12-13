@@ -369,6 +369,10 @@ service core {
     @handler deleteUser
     post /user/delete (IDReq) returns (BaseMsgResp)
 
+     // Batch delete user information | 批量删除用户信息
+    @handler batchDeleteUser
+    post /user/batch_delete (IDsReq) returns (BaseMsgResp)
+
     // Get user's permission code | 获取用户权限码
     @handler getUserPermCode
     get /user/perm returns (PermCodeResp)

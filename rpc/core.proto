@@ -370,17 +370,17 @@ service core {
   // init
   rpc initDatabase (Empty) returns (BaseResp);
 
-  // user service
+  // user management
   rpc login(LoginReq) returns (LoginResp);
   rpc changePassword (ChangePasswordReq) returns (BaseResp);
   rpc createOrUpdateUser (CreateOrUpdateUserReq) returns (BaseResp);
   rpc getUserById (UUIDReq) returns (UserInfoResp);
   rpc getUserList (GetUserListReq) returns (UserListResp);
   rpc deleteUser (IDReq) returns (BaseResp);
+  rpc batchDeleteUser (IDsReq) returns (BaseResp);
   rpc updateProfile (UpdateProfileReq) returns (BaseResp);
   rpc updateUserStatus (StatusCodeReq) returns (BaseResp);
 
-  // menu service
   //menu management
   rpc createOrUpdateMenu (CreateOrUpdateMenuReq) returns (BaseResp);
   rpc deleteMenu (IDReq) returns (BaseResp);

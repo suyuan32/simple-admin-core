@@ -2882,6 +2882,24 @@ paths:
             summary: Set token status | 设置token状态
             tags:
                 - token
+    /user/batch_delete:
+        post:
+            description: Batch delete user information | 批量删除用户信息
+            operationId: BatchDeleteUser
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDsReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Batch delete user information | 批量删除用户信息
+            tags:
+                - user
     /user/change-password:
         post:
             description: Change Password | 修改密码

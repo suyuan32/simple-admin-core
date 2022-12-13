@@ -127,7 +127,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 ```go
 db := ent.NewClient(
     ent.Log(logx.Info), // logger
-    ent.Driver(c.DatabaseConf.GetCacheDriver(c.RedisConf)),
+    ent.Driver(c.DatabaseConf.NewCacheDriver(c.RedisConf)),
     ent.Debug(), // debug mode
 )
 ```
@@ -137,7 +137,7 @@ db := ent.NewClient(
 ```go
 db := ent.NewClient(
     ent.Log(logx.Info), // logger
-    ent.Driver(c.DatabaseConf.GetNoCacheDriver()),
+    ent.Driver(c.DatabaseConf.NewNoCacheDriver()),
     ent.Debug(), // debug mode
 )
 ```

@@ -65,16 +65,17 @@ type (
 	Core interface {
 		// init
 		InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
-		// user service
+		// user management
 		Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 		ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error)
 		CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateUserReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error)
 		GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error)
 		DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		BatchDeleteUser(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error)
 		UpdateUserStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
-		// menu service
+		// menu management
 		CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
@@ -134,7 +135,7 @@ func (m *defaultCore) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.
 	return client.InitDatabase(ctx, in, opts...)
 }
 
-// user service
+// user management
 func (m *defaultCore) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.Login(ctx, in, opts...)
@@ -165,6 +166,11 @@ func (m *defaultCore) DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.Ca
 	return client.DeleteUser(ctx, in, opts...)
 }
 
+func (m *defaultCore) BatchDeleteUser(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.BatchDeleteUser(ctx, in, opts...)
+}
+
 func (m *defaultCore) UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.UpdateProfile(ctx, in, opts...)
@@ -175,7 +181,7 @@ func (m *defaultCore) UpdateUserStatus(ctx context.Context, in *StatusCodeReq, o
 	return client.UpdateUserStatus(ctx, in, opts...)
 }
 
-// menu service
+// menu management
 func (m *defaultCore) CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.CreateOrUpdateMenu(ctx, in, opts...)

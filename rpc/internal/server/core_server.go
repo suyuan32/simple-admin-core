@@ -28,7 +28,7 @@ func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.Ba
 	return l.InitDatabase(in)
 }
 
-// user service
+// user management
 func (s *CoreServer) Login(ctx context.Context, in *core.LoginReq) (*core.LoginResp, error) {
 	l := logic.NewLoginLogic(ctx, s.svcCtx)
 	return l.Login(in)
@@ -59,6 +59,11 @@ func (s *CoreServer) DeleteUser(ctx context.Context, in *core.IDReq) (*core.Base
 	return l.DeleteUser(in)
 }
 
+func (s *CoreServer) BatchDeleteUser(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := logic.NewBatchDeleteUserLogic(ctx, s.svcCtx)
+	return l.BatchDeleteUser(in)
+}
+
 func (s *CoreServer) UpdateProfile(ctx context.Context, in *core.UpdateProfileReq) (*core.BaseResp, error) {
 	l := logic.NewUpdateProfileLogic(ctx, s.svcCtx)
 	return l.UpdateProfile(in)
@@ -69,7 +74,7 @@ func (s *CoreServer) UpdateUserStatus(ctx context.Context, in *core.StatusCodeRe
 	return l.UpdateUserStatus(in)
 }
 
-// menu service
+// menu management
 func (s *CoreServer) CreateOrUpdateMenu(ctx context.Context, in *core.CreateOrUpdateMenuReq) (*core.BaseResp, error) {
 	l := logic.NewCreateOrUpdateMenuLogic(ctx, s.svcCtx)
 	return l.CreateOrUpdateMenu(in)

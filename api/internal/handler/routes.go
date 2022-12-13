@@ -94,6 +94,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Handler: user.DeleteUserHandler(serverCtx),
 				},
 				{
+					Method:  http.MethodPost,
+					Path:    "/user/batch_delete",
+					Handler: user.BatchDeleteUserHandler(serverCtx),
+				},
+				{
 					Method:  http.MethodGet,
 					Path:    "/user/perm",
 					Handler: user.GetUserPermCodeHandler(serverCtx),

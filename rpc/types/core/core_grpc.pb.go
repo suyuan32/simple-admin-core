@@ -24,16 +24,16 @@ const _ = grpc.SupportPackageIsVersion7
 type CoreClient interface {
 	// init
 	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
-	// user service
+	// user management
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 	ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error)
 	CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateUserReq, opts ...grpc.CallOption) (*BaseResp, error)
 	GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error)
 	GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error)
 	DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	BatchDeleteUser(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error)
 	UpdateUserStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// menu service
 	// menu management
 	CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
 	DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -142,6 +142,15 @@ func (c *coreClient) GetUserList(ctx context.Context, in *GetUserListReq, opts .
 func (c *coreClient) DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.core/deleteUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) BatchDeleteUser(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/batchDeleteUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -478,16 +487,16 @@ func (c *coreClient) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ..
 type CoreServer interface {
 	// init
 	InitDatabase(context.Context, *Empty) (*BaseResp, error)
-	// user service
+	// user management
 	Login(context.Context, *LoginReq) (*LoginResp, error)
 	ChangePassword(context.Context, *ChangePasswordReq) (*BaseResp, error)
 	CreateOrUpdateUser(context.Context, *CreateOrUpdateUserReq) (*BaseResp, error)
 	GetUserById(context.Context, *UUIDReq) (*UserInfoResp, error)
 	GetUserList(context.Context, *GetUserListReq) (*UserListResp, error)
 	DeleteUser(context.Context, *IDReq) (*BaseResp, error)
+	BatchDeleteUser(context.Context, *IDsReq) (*BaseResp, error)
 	UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error)
 	UpdateUserStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
-	// menu service
 	// menu management
 	CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error)
 	DeleteMenu(context.Context, *IDReq) (*BaseResp, error)
@@ -556,6 +565,9 @@ func (UnimplementedCoreServer) GetUserList(context.Context, *GetUserListReq) (*U
 }
 func (UnimplementedCoreServer) DeleteUser(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
+}
+func (UnimplementedCoreServer) BatchDeleteUser(context.Context, *IDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteUser not implemented")
 }
 func (UnimplementedCoreServer) UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
@@ -800,6 +812,24 @@ func _Core_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteUser(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_BatchDeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).BatchDeleteUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/batchDeleteUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).BatchDeleteUser(ctx, req.(*IDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1486,6 +1516,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteUser",
 			Handler:    _Core_DeleteUser_Handler,
+		},
+		{
+			MethodName: "batchDeleteUser",
+			Handler:    _Core_BatchDeleteUser_Handler,
 		},
 		{
 			MethodName: "updateProfile",
