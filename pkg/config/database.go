@@ -29,7 +29,7 @@ type DatabaseConf struct {
 	CacheTime    int    `json:",optional,default=10"`
 }
 
-func (c DatabaseConf) GetCacheDriver(redisConf redis2.RedisConf) *entcache.Driver {
+func (c DatabaseConf) NewCacheDriver(redisConf redis2.RedisConf) *entcache.Driver {
 	db, err := sql.Open(c.Type, c.GetDSN())
 	logx.Must(err)
 
@@ -50,7 +50,7 @@ func (c DatabaseConf) GetCacheDriver(redisConf redis2.RedisConf) *entcache.Drive
 	return cacheDrv
 }
 
-func (c DatabaseConf) GetNoCacheDriver() *entsql.Driver {
+func (c DatabaseConf) NewNoCacheDriver() *entsql.Driver {
 	db, err := sql.Open(c.Type, c.GetDSN())
 	logx.Must(err)
 

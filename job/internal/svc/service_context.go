@@ -13,10 +13,9 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
-	// initialize database connection
 	db := ent.NewClient(
 		ent.Log(logx.Info), // logger
-		ent.Driver(c.DatabaseConf.GetNoCacheDriver()),
+		ent.Driver(c.DatabaseConf.NewNoCacheDriver()),
 		ent.Debug(), // debug mode
 	)
 
