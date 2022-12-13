@@ -7,7 +7,7 @@ Make sure that you have been installed follow software:
 ## Create API project
 > Create example project
 ```shell
-goctls api new example --i18n=true --casbin=true --goZeroVersion=v1.4.2 --toolVersion=v0.0.9 --transErr=true --moduleName=github.com/suyuan32/simple-admin-example-api --port=8081
+goctls api new example --i18n=true --casbin=true --goZeroVersion=v1.4.2 --toolVersion=v0.1.2 --transErr=true --moduleName=github.com/suyuan32/simple-admin-example-api --port=8081
 
 ```
 

@@ -8,7 +8,7 @@
 > Create example project
 >
 ```shell
-goctls rpc new example --ent=true --moduleName=github.com/suyuan32/simple-admin-example-rpc --goZeroVersion=v1.4.2 --toolVersion=v0.0.9 --port=8080
+goctls rpc new example --ent=true --moduleName=github.com/suyuan32/simple-admin-example-rpc --goZeroVersion=v1.4.2 --toolVersion=v0.1.2 --port=8080
 ```
 
 ### Parameters
