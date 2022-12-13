@@ -28,3 +28,13 @@ make serve-swagger
 make doc
 
 ```
+
+
+| Environment Variables | Introduction                                       |
+|-----------------------|----------------------------------------------------|
+| VERSION               | Version number such as 0.0.1                       |
+| DOCKER_USERNAME       | docker repository username                         |
+| DOCKER_PASSWORD       | docker repository password                         |
+| REPO                  | docker repository address， official hub: docker.io |
+
+> If you want to publish docker images, you must set all environment variables above.

@@ -28,3 +28,12 @@ make serve-swagger
 make doc
 
 ```
+
+| 环境变量            | 介绍                         |
+|-----------------|----------------------------|
+| VERSION         | 版本号                        |
+| DOCKER_USERNAME | docker 仓库用户名               |
+| DOCKER_PASSWORD | docker 仓库密码                |
+| REPO            | docker 仓库地址， 官网为 docker.io |
+
+> 若要发布镜像需要 export 上述环境变量
