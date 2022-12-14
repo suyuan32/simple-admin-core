@@ -8,19 +8,21 @@
 > Create example project
 >
 ```shell
-goctls rpc new example --ent=true --moduleName=github.com/suyuan32/simple-admin-example-rpc --goZeroVersion=v1.4.2 --toolVersion=v0.1.2 --port=8080
+goctls rpc new example --ent=true --moduleName=github.com/suyuan32/simple-admin-example-rpc --goZeroVersion=v1.4.2 --toolVersion=v0.1.2 --port=8080  --gitlab=true
 ```
 
 ### Parameters
 
-| Parameter     | Introduction               | Usage                                                                                               |
-|---------------|----------------------------|-----------------------------------------------------------------------------------------------------|
-| ent           | Whether to use Ent         | true means use                                                                                      |
-| moduleName    | module name in  go.mod     | If your project will be used by other project, you should set as above which is a github repository |
-| goZeroVersion | go zero version            | Go to [go-zero](https://github.com/zeromicro/go-zero/releases) to get the latest release            |
-| toolVersion   | simple admin tools version | Go to [tool](https://github.com/suyuan32/simple-admin-tools/releases) to get the latest release     |
-| port          | port number                | The service port                                                                                    |
+| Parameter     | Introduction                        | Usage                                                                                               |
+|---------------|-------------------------------------|-----------------------------------------------------------------------------------------------------|
+| ent           | Whether to use Ent                  | true means use                                                                                      |
+| moduleName    | module name in  go.mod              | If your project will be used by other project, you should set as above which is a github repository |
+| goZeroVersion | go zero version                     | Go to [go-zero](https://github.com/zeromicro/go-zero/releases) to get the latest release            |
+| toolVersion   | simple admin tools version          | Go to [tool](https://github.com/suyuan32/simple-admin-tools/releases) to get the latest release     |
+| gitlab        | Whether to generating gitlab-ci.yml | true means generating                                                                               |
+| port          | port number                         | The service port                                                                                    |
 
+More parameters please check `goctls rpc new --help`
 
 > You can see the project structure:
 

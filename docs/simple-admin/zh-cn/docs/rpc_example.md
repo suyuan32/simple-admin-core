@@ -8,7 +8,7 @@
 > 创建 example 服务 
 > 
 ```shell
-goctls rpc new example --ent=true --moduleName=github.com/suyuan32/simple-admin-example-rpc --goZeroVersion=v1.4.2 --toolVersion=v0.1.2 --port=8080
+goctls rpc new example --ent=true --moduleName=github.com/suyuan32/simple-admin-example-rpc --goZeroVersion=v1.4.2 --toolVersion=v0.1.2 --port=8080 --gitlab=true
 ```
 
 ### 参数介绍
@@ -19,8 +19,10 @@ goctls rpc new example --ent=true --moduleName=github.com/suyuan32/simple-admin-
 | moduleName    | go.mod 中的module名称      | 如果项目需要被在外部import，需要像上面例子设置为github或者其他地方的仓库网址， 为空则只在本地使用                                            |
 | goZeroVersion | go zero版本              | 需要到[go-zero](https://github.com/zeromicro/go-zero/releases)查看最新release                             |
 | toolVersion   | simple admin tools 版本号 | 需要到[tool](https://github.com/suyuan32/simple-admin-tools/releases)查看simple admin  tools 最新 release |
+| gitlab        | 是否生成 gitlab-ci.yml     | true 为生成                                                                                           |
 | port          | 端口号                    | 服务暴露的端口号                                                                                           |
 
+详细参数请在命令行查看 `goctls rpc new --help`
 
 > 你可以看到如下项目结构 
 

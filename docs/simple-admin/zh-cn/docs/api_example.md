@@ -7,7 +7,7 @@
 ## 创建 API 项目
 创建 example
 ```shell
-goctls api new example --i18n=true --casbin=true --goZeroVersion=v1.4.2 --toolVersion=v0.1.2 --transErr=true --moduleName=github.com/suyuan32/simple-admin-example-api --port=8081
+goctls api new example --i18n=true --casbin=true --goZeroVersion=v1.4.2 --toolVersion=v0.1.2 --transErr=true --moduleName=github.com/suyuan32/simple-admin-example-api --port=8081 --gitlab=true
 
 ```
 
@@ -21,7 +21,10 @@ goctls api new example --i18n=true --casbin=true --goZeroVersion=v1.4.2 --toolVe
 | goZeroVersion | go zero版本              | 需要到[go-zero](https://github.com/zeromicro/go-zero/releases)查看最新release                             |
 | toolVersion   | simple admin tools 版本号 | 需要到[tool](https://github.com/suyuan32/simple-admin-tools/releases)查看simple admin  tools 最新 release |
 | transErr      | 国际化翻译错误信息              | true 为启用                                                                                           |
+| gitlab        | 是否生成 gitlab-ci.yml     | true 为生成                                                                                           |
 | port          | 端口号                    | 服务暴露的端口号                                                                                           |
+
+详细参数请在命令行查看 `goctls api new --help`
 
 > 你可以看到以下结构
 
