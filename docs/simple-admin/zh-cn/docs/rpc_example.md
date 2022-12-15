@@ -1,7 +1,7 @@
 # 3分钟开发 RPC 服务
 
 > 首先确认你安装了以下软件:
-- simple-admin-tool (goctls) v0.1.0-beta +
+- simple-admin-tool (goctls) v0.1.3
 
 
 ## 创建 RPC 基本项目
@@ -116,6 +116,8 @@ make gen-ent
 
 ```shell
 goctls rpc ent --schema=./ent/schema  --style=go_zero --multiple=false --service_name=example --o=./ --model=Student --group=student
+
+make gen-rpc
 ```
 
 ### 参数介绍
@@ -132,10 +134,12 @@ goctls rpc ent --schema=./ent/schema  --style=go_zero --multiple=false --service
 
 详细参数请在命令行查看 `goctls rpc ent --help`
 
-> model=Student 表示只生成 schema 为 Student 的代码， 为空则全部生成
+> 快捷命令：gen-rpc-ent-logic model=Student 表示只生成 schema 为 Student 的代码， 为空则全部生成 group 为分组文件夹名称
 
 ```shell
-make gen-rpc-ent-logic model=Student
+make gen-rpc-ent-logic model=Student group=student
+
+make gen-rpc
 
 # 可能需要运行下
 go mod tidy 

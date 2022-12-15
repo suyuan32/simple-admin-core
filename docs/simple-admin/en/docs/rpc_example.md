@@ -1,7 +1,7 @@
 # 3 minutes developing RPC service
 
 > Make sure that you have been installed follow software:
-- simple-admin-tool (goctls) v0.1.0-beta +
+- simple-admin-tool (goctls) v0.1.3 +
 
 
 ## Create RPC project
@@ -116,6 +116,8 @@ make gen-ent
 
 ```shell
 goctls rpc ent --schema=./ent/schema  --style=go_zero --multiple=false --service_name=example --o=./ --model=Student --group=student
+
+make gen-rpc
 ```
 
 | Parameters   | Introduction     | Usage                                                                                   |
@@ -129,10 +131,13 @@ goctls rpc ent --schema=./ent/schema  --style=go_zero --multiple=false --service
 
 More parameters please check `goctls rpc ent --help`
 
-> model=Student means only generate structure called 'Student' in schema. If it is empty, generating all structures in schema fold.  
+> Quick command: gen-rpc-ent-logic model=Student means only generate structure called 'Student' in schema. If it is empty, generating all structures in schema fold.  
+> Group means logic codes put in the group name folder.
 
 ```shell
-make gen-rpc-ent-logic model=Student
+make gen-rpc-ent-logic model=Student group=student
+
+make gen-rpc
 
 # You may need to run 
 go mod tidy 
