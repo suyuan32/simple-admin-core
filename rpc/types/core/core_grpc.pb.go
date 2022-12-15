@@ -22,58 +22,93 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CoreClient interface {
-	// init
+	// group: base
 	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
-	// user management
+	// group: user
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
+	// group: user
 	ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: user
 	CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateUserReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: user
 	GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error)
+	// group: user
 	GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error)
+	// group: user
 	DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: user
 	BatchDeleteUser(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: user
 	UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: user
 	UpdateUserStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// menu management
+	// group: menu
 	CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: menu
 	DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: menu
 	GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
+	// group: menu
 	GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
+	// group: menu
 	CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: menu
 	DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: menu
 	GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
-	// role service
+	// group: role
 	CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: role
 	DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: role
 	GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
+	// group: role
 	GetRoleList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*RoleListResp, error)
+	// group: role
 	UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// api management service
+	// group: api
 	CreateOrUpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: api
 	DeleteApi(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: api
 	GetApiList(ctx context.Context, in *ApiPageReq, opts ...grpc.CallOption) (*ApiListResp, error)
-	// authorization management service
+	// group: authority
 	GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
+	// group: authority
 	CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// dictionary management service
+	// group: dictionary
 	CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: dictionary
 	DeleteDictionary(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: dictionary
 	GetDictionaryList(ctx context.Context, in *DictionaryPageReq, opts ...grpc.CallOption) (*DictionaryList, error)
+	// group: dictionary
 	GetDetailByDictionaryName(ctx context.Context, in *DictionaryDetailReq, opts ...grpc.CallOption) (*DictionaryDetailList, error)
+	// group: dictionary
 	CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: dictionary
 	DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// oauth management
+	// group: oauth
 	CreateOrUpdateProvider(ctx context.Context, in *ProviderInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: oauth
 	DeleteProvider(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: oauth
 	GetProviderList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*ProviderListResp, error)
+	// group: oauth
 	OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
+	// group: oauth
 	OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error)
-	// Token management
+	// group: token
 	CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: token
 	DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: token
 	BatchDeleteToken(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: token
 	GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
+	// group: token
 	UpdateTokenStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: token
 	BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 }
 
@@ -485,58 +520,93 @@ func (c *coreClient) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ..
 // All implementations must embed UnimplementedCoreServer
 // for forward compatibility
 type CoreServer interface {
-	// init
+	// group: base
 	InitDatabase(context.Context, *Empty) (*BaseResp, error)
-	// user management
+	// group: user
 	Login(context.Context, *LoginReq) (*LoginResp, error)
+	// group: user
 	ChangePassword(context.Context, *ChangePasswordReq) (*BaseResp, error)
+	// group: user
 	CreateOrUpdateUser(context.Context, *CreateOrUpdateUserReq) (*BaseResp, error)
+	// group: user
 	GetUserById(context.Context, *UUIDReq) (*UserInfoResp, error)
+	// group: user
 	GetUserList(context.Context, *GetUserListReq) (*UserListResp, error)
+	// group: user
 	DeleteUser(context.Context, *IDReq) (*BaseResp, error)
+	// group: user
 	BatchDeleteUser(context.Context, *IDsReq) (*BaseResp, error)
+	// group: user
 	UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error)
+	// group: user
 	UpdateUserStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
-	// menu management
+	// group: menu
 	CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error)
+	// group: menu
 	DeleteMenu(context.Context, *IDReq) (*BaseResp, error)
+	// group: menu
 	GetMenuListByRole(context.Context, *IDReq) (*MenuInfoList, error)
+	// group: menu
 	GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error)
+	// group: menu
 	CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error)
+	// group: menu
 	DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error)
+	// group: menu
 	GetMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error)
-	// role service
+	// group: role
 	CreateOrUpdateRole(context.Context, *RoleInfo) (*BaseResp, error)
+	// group: role
 	DeleteRole(context.Context, *IDReq) (*BaseResp, error)
+	// group: role
 	GetRoleById(context.Context, *IDReq) (*RoleInfo, error)
+	// group: role
 	GetRoleList(context.Context, *PageInfoReq) (*RoleListResp, error)
+	// group: role
 	UpdateRoleStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
-	// api management service
+	// group: api
 	CreateOrUpdateApi(context.Context, *ApiInfo) (*BaseResp, error)
+	// group: api
 	DeleteApi(context.Context, *IDReq) (*BaseResp, error)
+	// group: api
 	GetApiList(context.Context, *ApiPageReq) (*ApiListResp, error)
-	// authorization management service
+	// group: authority
 	GetMenuAuthority(context.Context, *IDReq) (*RoleMenuAuthorityResp, error)
+	// group: authority
 	CreateOrUpdateMenuAuthority(context.Context, *RoleMenuAuthorityReq) (*BaseResp, error)
-	// dictionary management service
+	// group: dictionary
 	CreateOrUpdateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error)
+	// group: dictionary
 	DeleteDictionary(context.Context, *IDReq) (*BaseResp, error)
+	// group: dictionary
 	GetDictionaryList(context.Context, *DictionaryPageReq) (*DictionaryList, error)
+	// group: dictionary
 	GetDetailByDictionaryName(context.Context, *DictionaryDetailReq) (*DictionaryDetailList, error)
+	// group: dictionary
 	CreateOrUpdateDictionaryDetail(context.Context, *DictionaryDetail) (*BaseResp, error)
+	// group: dictionary
 	DeleteDictionaryDetail(context.Context, *IDReq) (*BaseResp, error)
-	// oauth management
+	// group: oauth
 	CreateOrUpdateProvider(context.Context, *ProviderInfo) (*BaseResp, error)
+	// group: oauth
 	DeleteProvider(context.Context, *IDReq) (*BaseResp, error)
+	// group: oauth
 	GetProviderList(context.Context, *PageInfoReq) (*ProviderListResp, error)
+	// group: oauth
 	OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error)
+	// group: oauth
 	OauthCallback(context.Context, *CallbackReq) (*LoginResp, error)
-	// Token management
+	// group: token
 	CreateOrUpdateToken(context.Context, *TokenInfo) (*BaseResp, error)
+	// group: token
 	DeleteToken(context.Context, *IDReq) (*BaseResp, error)
+	// group: token
 	BatchDeleteToken(context.Context, *IDsReq) (*BaseResp, error)
+	// group: token
 	GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error)
+	// group: token
 	UpdateTokenStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
+	// group: token
 	BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error)
 	mustEmbedUnimplementedCoreServer()
 }

@@ -27,6 +27,8 @@ make serve-swagger
 # visit doc locally
 make doc
 
+# generate CRUD code ( You need to set model name and group name)
+make gen-rpc-ent-logic model={modelName} group={groupName}
 ```
 
 

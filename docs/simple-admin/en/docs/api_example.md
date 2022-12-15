@@ -108,17 +108,17 @@ That means running successfully.
 ## Code generation（based on Proto file）
 
 ```shell
-goctls api proto --proto=/home/ryan/GolandProjects/simple-admin-example-rpc/example.proto --style=go_zero --serviceName=example --o=./ --model=Student --rpcName=Example --grpcPackage=github.com/suyuan32/simple-admin-example-rpc/example
+goctls api proto --proto=/home/ryan/GolandProjects/simple-admin-example-rpc/example.proto --style=go_zero --service_name=example --o=./ --model=Student --rpc_name=Example --grpc_package=github.com/suyuan32/simple-admin-example-rpc/example
 ```
-| Parameters  | Introduction               | Usage                                                                                   |
-|-------------|----------------------------|-----------------------------------------------------------------------------------------|
-| proto       | Proto file path            | Input the absolute path of proto file                                                   |
-| style       | File name format           | The go_zero means snack format                                                          |
-| serviceName | Service name               | The same as the name when use new to generate. e.g. example.go's serviceName is example |
-| o           | Output path                | The output path，it can be relative path. It should target to the root path of project.  |
-| model       | Model name                 | The structure name in schema，e.g. the Student in example peoject                        |
-| rpcName     | RPC name                   | Input Example will generate l.svcCtx.ExampleRpc                                         |
-| grpcPackage | RPC *_grpc.go package path | In example project is github.com/suyuan32/simple-admin-example-rpc/example              |
+| Parameters   | Introduction               | Usage                                                                                   |
+|--------------|----------------------------|-----------------------------------------------------------------------------------------|
+| proto        | Proto file path            | Input the absolute path of proto file                                                   |
+| style        | File name format           | The go_zero means snack format                                                          |
+| service_name | Service name               | The same as the name when use new to generate. e.g. example.go's serviceName is example |
+| o            | Output path                | The output path，it can be relative path. It should target to the root path of project.  |
+| model        | Model name                 | The structure name in schema，e.g. the Student in example project                        |
+| rpc_name     | RPC name                   | Input Example will generate l.svcCtx.ExampleRpc                                         |
+| grpc_package | RPC *_grpc.go package path | In example project is github.com/suyuan32/simple-admin-example-rpc/example              |
 
 The codes generated is like below:
 

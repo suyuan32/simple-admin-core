@@ -368,64 +368,117 @@ message TokenListReq {
 // service
 service core {
   // init
+
+  // group: base
   rpc initDatabase (Empty) returns (BaseResp);
 
   // user management
+
+  // group: user
   rpc login(LoginReq) returns (LoginResp);
+  // group: user
   rpc changePassword (ChangePasswordReq) returns (BaseResp);
+  // group: user
   rpc createOrUpdateUser (CreateOrUpdateUserReq) returns (BaseResp);
+  // group: user
   rpc getUserById (UUIDReq) returns (UserInfoResp);
+  // group: user
   rpc getUserList (GetUserListReq) returns (UserListResp);
+  // group: user
   rpc deleteUser (IDReq) returns (BaseResp);
+  // group: user
   rpc batchDeleteUser (IDsReq) returns (BaseResp);
+  // group: user
   rpc updateProfile (UpdateProfileReq) returns (BaseResp);
+  // group: user
   rpc updateUserStatus (StatusCodeReq) returns (BaseResp);
 
   //menu management
+
+  // group: menu
   rpc createOrUpdateMenu (CreateOrUpdateMenuReq) returns (BaseResp);
+  // group: menu
   rpc deleteMenu (IDReq) returns (BaseResp);
+  // group: menu
   rpc getMenuListByRole (IDReq) returns (MenuInfoList);
+  // group: menu
   rpc getMenuList (PageInfoReq) returns (MenuInfoList);
+  // group: menu
   rpc createOrUpdateMenuParam (CreateOrUpdateMenuParamReq) returns (BaseResp);
+  // group: menu
   rpc deleteMenuParam (IDReq) returns (BaseResp);
+  // group: menu
   rpc getMenuParamListByMenuId (IDReq) returns (MenuParamListResp);
 
   // role service
+
+  // group: role
   rpc createOrUpdateRole (RoleInfo) returns (BaseResp);
+  // group: role
   rpc deleteRole (IDReq) returns (BaseResp);
+  // group: role
   rpc getRoleById (IDReq) returns (RoleInfo);
+  // group: role
   rpc getRoleList (PageInfoReq) returns (RoleListResp);
+  // group: role
   rpc updateRoleStatus (StatusCodeReq) returns (BaseResp);
 
   // api management service
+
+  // group: api
   rpc createOrUpdateApi (ApiInfo) returns (BaseResp);
+  // group: api
   rpc deleteApi (IDReq) returns (BaseResp);
+  // group: api
   rpc getApiList (ApiPageReq) returns (ApiListResp);
 
   // authorization management service
+
+  // group: authority
   rpc getMenuAuthority (IDReq) returns (RoleMenuAuthorityResp);
+  // group: authority
   rpc createOrUpdateMenuAuthority (RoleMenuAuthorityReq) returns (BaseResp);
 
   // dictionary management service
+
+  // group: dictionary
   rpc createOrUpdateDictionary (DictionaryInfo) returns (BaseResp);
+  // group: dictionary
   rpc deleteDictionary (IDReq) returns (BaseResp);
+  // group: dictionary
   rpc getDictionaryList (DictionaryPageReq) returns (DictionaryList);
+  // group: dictionary
   rpc getDetailByDictionaryName (DictionaryDetailReq) returns (DictionaryDetailList);
+  // group: dictionary
   rpc createOrUpdateDictionaryDetail (DictionaryDetail) returns (BaseResp);
+  // group: dictionary
   rpc deleteDictionaryDetail (IDReq) returns (BaseResp);
 
   // oauth management
+
+  // group: oauth
   rpc createOrUpdateProvider (ProviderInfo) returns (BaseResp);
+  // group: oauth
   rpc deleteProvider (IDReq) returns (BaseResp);
+  // group: oauth
   rpc getProviderList (PageInfoReq) returns (ProviderListResp);
+  // group: oauth
   rpc oauthLogin (OauthLoginReq) returns (OauthRedirectResp);
+  // group: oauth
   rpc oauthCallback (CallbackReq) returns (LoginResp);
 
   // Token management
+
+  // group: token
   rpc createOrUpdateToken (TokenInfo) returns (BaseResp);
+  // group: token
   rpc deleteToken (IDReq) returns (BaseResp);
+  // group: token
   rpc batchDeleteToken (IDsReq) returns (BaseResp);
+  // group: token
   rpc getTokenList (TokenListReq) returns (TokenListResp);
+  // group: token
   rpc updateTokenStatus (StatusCodeReq) returns (BaseResp);
+  // group: token
   rpc blockUserAllToken (UUIDReq) returns (BaseResp);
 }

@@ -19,7 +19,7 @@ publish-docker:
 	@printf $(GREEN)"[SUCCESS] publish docker successfully"
 
 gen-api:
-	goctls api go --api ./api/desc/all.api --dir ./api --transErr=true
+	goctls api go --api ./api/desc/all.api --dir ./api --trans_err=true
 	swagger generate spec --output=./core.yml --scan-models
 	@printf $(GREEN)"[SUCCESS] generate API successfully"
 
@@ -30,6 +30,10 @@ gen-rpc:
 gen-ent:
 	go run -mod=mod entgo.io/ent/cmd/ent generate --template glob="./pkg/ent/template/*.tmpl" ./pkg/ent/schema
 	@printf $(GREEN)"[SUCCESS] generate ent successfully"
+
+gen-rpc-ent-logic:
+	goctls rpc ent --schema=./ent/schema  --style=go_zero --service_name=example --o=./ --model=$(model) --group=$(group)
+	@printf $(GREEN)"[SUCCESS] generate ent logic codes successfully"
 
 gen-swagger:
 	swagger generate spec --output=./core.yml --scan-models
