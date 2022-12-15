@@ -61,7 +61,7 @@ Captcha:
   ImgHeight: 80 # captcha image height
 
 DatabaseConf:
-  Type: mysql
+  Type: mysql # support mysql and postgres
   Host: "127.0.0.1"  # change to your own mysql address
   Port: 3306
   DBName: simple_admin # database name, you can set your own name
@@ -102,7 +102,7 @@ Name: core.rpc
 ListenOn: 0.0.0.0:9101  # ip can be 0.0.0.0 or 127.0.0.1, it should be 0.0.0.0 if you want to access from another host
 
 DatabaseConf:
-  Type: mysql
+  Type: mysql # support mysql and postgres
   Host: "127.0.0.1"  # change to your own mysql address
   Port: 3306
   DBName: simple_admin # database name, you can set your own name

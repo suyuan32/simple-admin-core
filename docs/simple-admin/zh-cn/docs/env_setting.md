@@ -59,7 +59,7 @@ Captcha:
   ImgHeight: 80 # 验证码图片高度
 
 DatabaseConf:
-  Type: mysql
+  Type: mysql # 支持 mysql 和 postgres
   Host: "127.0.0.1"  # 修改成自己的mysql地址
   Port: 3306
   DBName: simple_admin # 数据库名称
@@ -99,7 +99,7 @@ Name: core.rpc
 ListenOn: 0.0.0.0:9101  # ip可以是0.0.0.0也可以是127.0.0.1,如需其他外部主机访问则需要为 0.0.0.0
 
 DatabaseConf:
-  Type: mysql
+  Type: mysql # 支持 mysql 和 postgres
   Host: "127.0.0.1"  # 修改成自己的mysql地址
   Port: 3306
   DBName: simple_admin # 数据库名称
