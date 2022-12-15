@@ -1,3 +1,10 @@
+## v0.1.9 (2022-12-15)
+
+### New feature:
+
+- gitlab file generating([`a47cac3`](https://github.com/suyuan32/simple-admin-core/commit/a47cac3a7dcdb714b845f3bf12b372ee05e83736)) (by Ryan SU)
+- batch delete user([`1c94f85`](https://github.com/suyuan32/simple-admin-core/commit/1c94f853db3eb9503fc68e2d544ee30a72b084cb)) (by Ryan SU)
+
 ## v0.1.8 (2022-12-10)
 
 ### New feature:
