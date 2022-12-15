@@ -7,22 +7,22 @@
 ## 创建 API 项目
 创建 example
 ```shell
-goctls api new example --i18n=true --casbin=true --goZeroVersion=v1.4.2 --toolVersion=v0.1.2 --transErr=true --moduleName=github.com/suyuan32/simple-admin-example-api --port=8081 --gitlab=true
+goctls api new example --i18n=true --casbin=true --go_zero_version=v1.4.2 --tool_version=v0.1.2 --trans_err=true --module_name=github.com/suyuan32/simple-admin-example-api --port=8081 --gitlab=true
 
 ```
 
 ### 参数介绍
 
-| 参数            | 介绍                     | 使用方法                                                                                               |
-|---------------|------------------------|----------------------------------------------------------------------------------------------------|
-| i18n          | 是否启用 i18n              | true 为启用                                                                                           |
-| casbin        | 是否启用 casbin            | true 为启用                                                                                           |
-| moduleName    | go.mod 中的module名称      | 如果项目需要被在外部import，需要像上面例子设置为github或者其他地方的仓库网址， 为空则只在本地使用                                            |
-| goZeroVersion | go zero版本              | 需要到[go-zero](https://github.com/zeromicro/go-zero/releases)查看最新release                             |
-| toolVersion   | simple admin tools 版本号 | 需要到[tool](https://github.com/suyuan32/simple-admin-tools/releases)查看simple admin  tools 最新 release |
-| transErr      | 国际化翻译错误信息              | true 为启用                                                                                           |
-| gitlab        | 是否生成 gitlab-ci.yml     | true 为生成                                                                                           |
-| port          | 端口号                    | 服务暴露的端口号                                                                                           |
+| 参数              | 介绍                     | 使用方法                                                                                               |
+|-----------------|------------------------|----------------------------------------------------------------------------------------------------|
+| i18n            | 是否启用 i18n              | true 为启用                                                                                           |
+| casbin          | 是否启用 casbin            | true 为启用                                                                                           |
+| module_name     | go.mod 中的module名称      | 如果项目需要被在外部import，需要像上面例子设置为github或者其他地方的仓库网址， 为空则只在本地使用                                            |
+| go_zero_version | go zero版本              | 需要到[go-zero](https://github.com/zeromicro/go-zero/releases)查看最新release                             |
+| tool_version    | simple admin tools 版本号 | 需要到[tool](https://github.com/suyuan32/simple-admin-tools/releases)查看simple admin  tools 最新 release |
+| trans_err       | 国际化翻译错误信息              | true 为启用                                                                                           |
+| gitlab          | 是否生成 gitlab-ci.yml     | true 为生成                                                                                           |
+| port            | 端口号                    | 服务暴露的端口号                                                                                           |
 
 详细参数请在命令行查看 `goctls api new --help`
 
@@ -108,21 +108,25 @@ Starting server at 127.0.0.1:8081...
 ## 代码生成（基于Proto）
 
 ```shell
-goctls api proto --proto=/home/ryan/GolandProjects/simple-admin-example-rpc/example.proto --style=go_zero --serviceName=example --o=./ --model=Student --rpcName=Example --grpcPackage=github.com/suyuan32/simple-admin-example-rpc/example
+goctls api proto --proto=/home/ryan/GolandProjects/simple-admin-example-rpc/example.proto --style=go_zero --service_name=example --o=./ --model=Student --rpc_name=Example --grpcPackage=github.com/suyuan32/simple-admin-example-rpc/example
 ```
-| 参数          | 介绍                | 使用方法                                                           |
-|-------------|-------------------|----------------------------------------------------------------|
-| proto       | proto文件地址         | 输入proto文件的绝对路径                                                 |
-| style       | 文件名格式             | go_zero为蛇形格式                                                   |
-| serviceName | 服务名称              | 和new 时的名称相同，如example.go的serviceName是 example                   |
-| o           | 输出位置              | 文件输出位置，可以为相对路径，指向main文件目录                                      |
-| model       | 模型名称              | schema中内部struct名称，如example中的Student                            |
-| rpcName     | RPC名称             | 输入Example则生成文件会生成l.svcCtx.ExampleRpc                           |
-| grpcPackage | RPC *_grpc.go 包路径 | 在example中是github.com/suyuan32/simple-admin-example-rpc/example |
+| 参数             | 介绍                | 使用方法                                                           |
+|----------------|-------------------|----------------------------------------------------------------|
+| proto          | proto文件地址         | 输入proto文件的绝对路径                                                 |
+| style          | 文件名格式             | go_zero为蛇形格式                                                   |
+| service_name   | 服务名称              | 和new 时的名称相同，如example.go的serviceName是 example                   |
+| o              | 输出位置              | 文件输出位置，可以为相对路径，指向main文件目录                                      |
+| model          | 模型名称              | schema中内部struct名称，如example中的Student                            |
+| rpc_name       | RPC名称             | 输入Example则生成文件会生成l.svcCtx.ExampleRpc                           |
+| search_key_num | 搜索字段数量（默认为3）      | 列表搜索字段数量，只能自动生成string的字段                                       |
+| grpcPackage    | RPC *_grpc.go 包路径 | 在example中是github.com/suyuan32/simple-admin-example-rpc/example |
 
-生成效果
+详细参数请在命令行查看 `goctls api proto --help` 
+
+> 生成效果
 
 ![pic](../../assets/api_gen_struct.png)
+
 
 > 详情查看 simple admin example api 地址 https://github.com/suyuan32/simple-admin-example-api
 

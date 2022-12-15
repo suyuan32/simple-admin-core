@@ -8,19 +8,19 @@
 > Create example project
 >
 ```shell
-goctls rpc new example --ent=true --moduleName=github.com/suyuan32/simple-admin-example-rpc --goZeroVersion=v1.4.2 --toolVersion=v0.1.2 --port=8080  --gitlab=true
+goctls rpc new example --ent=true --module_name=github.com/suyuan32/simple-admin-example-rpc --go_zero_version=v1.4.2 --tool_version=v0.1.2 --port=8080  --gitlab=true
 ```
 
 ### Parameters
 
-| Parameter     | Introduction                        | Usage                                                                                               |
-|---------------|-------------------------------------|-----------------------------------------------------------------------------------------------------|
-| ent           | Whether to use Ent                  | true means use                                                                                      |
-| moduleName    | module name in  go.mod              | If your project will be used by other project, you should set as above which is a github repository |
-| goZeroVersion | go zero version                     | Go to [go-zero](https://github.com/zeromicro/go-zero/releases) to get the latest release            |
-| toolVersion   | simple admin tools version          | Go to [tool](https://github.com/suyuan32/simple-admin-tools/releases) to get the latest release     |
-| gitlab        | Whether to generating gitlab-ci.yml | true means generating                                                                               |
-| port          | port number                         | The service port                                                                                    |
+| Parameter       | Introduction                        | Usage                                                                                               |
+|-----------------|-------------------------------------|-----------------------------------------------------------------------------------------------------|
+| ent             | Whether to use Ent                  | true means use                                                                                      |
+| module_name     | module name in  go.mod              | If your project will be used by other project, you should set as above which is a github repository |
+| go_zero_version | go zero version                     | Go to [go-zero](https://github.com/zeromicro/go-zero/releases) to get the latest release            |
+| tool_version    | simple admin tools version          | Go to [tool](https://github.com/suyuan32/simple-admin-tools/releases) to get the latest release     |
+| gitlab          | Whether to generating gitlab-ci.yml | true means generating                                                                               |
+| port            | port number                         | The service port                                                                                    |
 
 More parameters please check `goctls rpc new --help`
 
@@ -114,7 +114,22 @@ make gen-ent
 
 > Generate Student CRUD logic codes
 
-model=Student means only generate structure called 'Student' in schema. If it is empty, generating all structures in schema fold.  
+```shell
+goctls rpc ent --schema=./ent/schema  --style=go_zero --multiple=false --service_name=example --o=./ --model=Student --group=student
+```
+
+| Parameters   | Introduction     | Usage                                                                                   |
+|--------------|------------------|-----------------------------------------------------------------------------------------|
+| schema       | Schema folder    | Input the relative path of Ent schema                                                   |
+| style        | File name format | The go_zero means snack format                                                          |
+| service_name | Service name     | The same as the name when use new to generate. e.g. example.go's serviceName is example |
+| o            | Output path      | The output path，it can be relative path. It should target to the root path of project.  |
+| model        | Model name       | The structure name in schema，e.g. the Student in example project                        |
+| group        | Group Name       | The group name is used to separate logic code                                           |
+
+More parameters please check `goctls rpc ent --help`
+
+> model=Student means only generate structure called 'Student' in schema. If it is empty, generating all structures in schema fold.  
 
 ```shell
 make gen-rpc-ent-logic model=Student
@@ -128,6 +143,78 @@ go mod tidy
 You can see CRUD code !
 
 > And then you can run the code !
+
+> Proto File code
+
+```protobuf
+syntax = "proto3";
+
+package example;
+option go_package="./example";
+
+message Empty {}
+
+message IDReq {
+  uint64 id = 1;
+}
+
+message IDsReq {
+  repeated uint64 ids = 1;
+}
+
+message UUIDReq {
+  string uuid = 1;
+}
+
+message BaseResp {
+  string msg = 1;
+}
+
+message PageInfoReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+}
+
+
+// Student message
+
+message StudentInfo {
+  uint64 id = 1;
+  int64 created_at = 2;
+  int64 updated_at = 3;
+  string name = 4;
+  int64 age = 5;
+}
+
+message StudentListResp {
+  uint64 total = 1;
+  repeated StudentInfo data = 2;
+}
+
+message StudentPageReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string name = 3;
+}
+
+service Example {
+  // group: base
+  rpc initDatabase (Empty) returns (BaseResp);
+
+  // Student management
+  // group: student
+  rpc createOrUpdateStudent (StudentInfo) returns (BaseResp);
+  // group: student
+  rpc getStudentList (StudentPageReq) returns (StudentListResp);
+  // group: student
+  rpc deleteStudent (IDReq) returns (BaseResp);
+  // group: student
+  rpc batchDeleteStudent (IDsReq) returns (BaseResp);
+}
+
+```
+
+Use group comment to separate rpc logic
 
 ```shell
 go run example.go -f etc/example.yaml
