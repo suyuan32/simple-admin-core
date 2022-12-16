@@ -332,3 +332,4 @@ SetAge(10).
 SaveX(context.Background())
 ```
 
+> Ent schema 生成工具 [ent import](https://github.com/ariga/entimport)

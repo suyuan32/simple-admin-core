@@ -331,3 +331,5 @@ SetAddress("Road").
 SetAge(10).
 SaveX(context.Background())
 ```
+
+> Ent schema import tool [ent import](https://github.com/ariga/entimport)
