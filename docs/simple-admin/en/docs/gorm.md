@@ -4,6 +4,17 @@
 
 #### [Official Doc](https://gorm.io/)
 
+> Config file definition
+
+```go
+type Config struct {
+	zrpc.RpcServerConf
+	DatabaseConf gormsql.GORMConf
+	RedisConf    redis.RedisConf
+}
+```
+
+
 > Initialize GORM
 
 ```go

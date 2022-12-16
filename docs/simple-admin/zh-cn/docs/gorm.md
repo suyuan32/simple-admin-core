@@ -4,10 +4,20 @@
 
 #### [官方文档](https://gorm.io/)
 
+> config 文件声明
+
+```go
+type Config struct {
+	zrpc.RpcServerConf
+	DatabaseConf gormsql.GORMConf
+	RedisConf    redis.RedisConf
+}
+```
+
 > 初始化
 
 ```go
-    db, err := c.DB.NewGORM()
+    db, err := c.DatabaseConf.NewGORM()
 	if err != nil {
 		logx.Errorw(logmessage.DatabaseError, logx.Field("detail", err.Error()))
 		return nil
