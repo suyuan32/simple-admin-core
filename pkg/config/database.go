@@ -22,7 +22,7 @@ type DatabaseConf struct {
 	Username     string `json:",optional"`
 	Password     string `json:",optional"`
 	DBName       string `json:",optional"`
-	SSLMode      bool   `json:",optional"`
+	SSLMode      string `json:",optional"`
 	Type         string `json:",optional"` // "postgres" or "mysql"
 	MaxOpenConns *int   `json:",optional,default=100"`
 	Debug        bool   `json:",optional,default=false"`
@@ -65,8 +65,7 @@ func (c DatabaseConf) MysqlDSN() string {
 }
 
 func (c DatabaseConf) PostgresDSN() string {
-	return fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=%s", c.Host, c.Username, c.Password,
-		c.DBName, c.Port, c.SSLMode)
+	return fmt.Sprintf("postgresql://%s:%s@%s/%s?sslmode=%s", c.Username, c.Password, c.Host, c.DBName, c.SSLMode)
 }
 
 func (c DatabaseConf) GetDSN() string {
