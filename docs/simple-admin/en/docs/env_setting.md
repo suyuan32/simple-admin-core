@@ -68,7 +68,7 @@ DatabaseConf:
   Username: root   # username 
   Password: "123456" # password
   MaxOpenConn: 100 # the maximum number of opened connections in the  connection pool
-  SSLMode: false # in postgresql if using ssl
+  SSLMode: disable # in postgresql, disable or require
 
 # casbin rule
 CasbinConf:
@@ -109,7 +109,7 @@ DatabaseConf:
   Username: root   # username 
   Password: "123456" # password
   MaxOpenConn: 100 # the maximum number of opened connections in the  connection pool
-  SSLMode: false # in postgresql if using ssl
+  SSLMode: disable # in postgresql, disable or require
   CacheTime: 5 # second, database cache time，it will cause delay when update or create，but it can help to speed up get data.
 
 # casbin rule

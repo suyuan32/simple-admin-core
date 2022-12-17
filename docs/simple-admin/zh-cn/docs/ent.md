@@ -308,6 +308,19 @@ students, err := client.QueryContext(context.Background(), "select * from studen
 apis, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 ```
 
+> 注意： 排序需要放到 Page 中, 同时支持 Filter 对 query 进行过滤
+
+```go
+apis, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize, func(pager *ent.APIPager) {
+    pager.Order = ent.Asc(api.FieldID)
+    pager.Filter = func(query *ent.APIQuery) (*ent.APIQuery, error) {
+        return query, nil
+    }
+})
+```
+
+默认使用ID排序，可以不用设置
+
 > 常见结果返回函数，用于query末尾
 
 ```go
