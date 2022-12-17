@@ -65,7 +65,7 @@ func (c DatabaseConf) MysqlDSN() string {
 }
 
 func (c DatabaseConf) PostgresDSN() string {
-	return fmt.Sprintf("postgresql://%s:%s@%s/%s?sslmode=%s", c.Username, c.Password, c.Host, c.DBName, c.SSLMode)
+	return fmt.Sprintf("postgresql://%s:%s@%s:%d/%s?sslmode=%s", c.Username, c.Password, c.Host, c.Port, c.DBName, c.SSLMode)
 }
 
 func (c DatabaseConf) GetDSN() string {
