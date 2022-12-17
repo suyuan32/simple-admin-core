@@ -27,18 +27,12 @@ const (
 
 type PageDetails struct {
 	Page  uint64 `json:"page"`
-	Limit uint64 `json:"limit"`
+	Size  uint64 `json:"size"`
 	Total uint64 `json:"total"`
 }
 
 // OrderDirection defines the directions in which to order a list of items.
 type OrderDirection string
-
-// Cursor of an edge type.
-type Cursor struct {
-	ID    uint64
-	Value Value
-}
 
 const (
 	// OrderDirectionAsc specifies an ascending order.
@@ -67,62 +61,33 @@ func (o OrderDirection) reverse() OrderDirection {
 	return OrderDirectionDesc
 }
 
-func (o OrderDirection) orderFunc(field string) OrderFunc {
-	if o == OrderDirectionDesc {
-		return Desc(field)
-	}
-	return Asc(field)
-}
-
 const errInvalidPagination = "INVALID_PAGINATION"
 
-type apiPager struct {
-	order  *APIOrder
-	filter func(*APIQuery) (*APIQuery, error)
+type APIPager struct {
+	Order  OrderFunc
+	Filter func(*APIQuery) (*APIQuery, error)
 }
 
 // APIPaginateOption enables pagination customization.
-type APIPaginateOption func(*apiPager) error
-
-// APIOrder defines the ordering of API.
-type APIOrder struct {
-	Direction OrderDirection `json:"direction"`
-	Field     *APIOrderField `json:"field"`
-}
-
-// APIOrderField defines the ordering field of API.
-type APIOrderField struct {
-	field    string
-	toCursor func(*API) Cursor
-}
+type APIPaginateOption func(*APIPager)
 
 // DefaultAPIOrder is the default ordering of API.
-var DefaultAPIOrder = &APIOrder{
-	Direction: OrderDirectionAsc,
-	Field: &APIOrderField{
-		field: api.FieldID,
-		toCursor: func(a *API) Cursor {
-			return Cursor{ID: a.ID}
-		},
-	},
-}
+var DefaultAPIOrder = Asc(api.FieldID)
 
-func newAPIPager(opts []APIPaginateOption) (*apiPager, error) {
-	pager := &apiPager{}
+func newAPIPager(opts []APIPaginateOption) (*APIPager, error) {
+	pager := &APIPager{}
 	for _, opt := range opts {
-		if err := opt(pager); err != nil {
-			return nil, err
-		}
+		opt(pager)
 	}
-	if pager.order == nil {
-		pager.order = DefaultAPIOrder
+	if pager.Order == nil {
+		pager.Order = DefaultAPIOrder
 	}
 	return pager, nil
 }
 
-func (p *apiPager) applyFilter(query *APIQuery) (*APIQuery, error) {
-	if p.filter != nil {
-		return p.filter(query)
+func (p *APIPager) ApplyFilter(query *APIQuery) (*APIQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
 	}
 	return query, nil
 }
@@ -142,15 +107,15 @@ func (a *APIQuery) Page(
 		return nil, err
 	}
 
-	if a, err = pager.applyFilter(a); err != nil {
+	if a, err = pager.ApplyFilter(a); err != nil {
 		return nil, err
 	}
 
 	ret := &APIPageList{}
 
 	ret.PageDetails = &PageDetails{
-		Page:  pageNum,
-		Limit: pageSize,
+		Page: pageNum,
+		Size: pageSize,
 	}
 
 	count, err := a.Clone().Count(ctx)
@@ -161,10 +126,10 @@ func (a *APIQuery) Page(
 
 	ret.PageDetails.Total = uint64(count)
 
-	direction := pager.order.Direction
-	a = a.Order(direction.orderFunc(pager.order.Field.field))
-	if pager.order.Field != DefaultAPIOrder.Field {
-		a = a.Order(direction.orderFunc(DefaultAPIOrder.Field.field))
+	if pager.Order != nil {
+		a = a.Order(pager.Order)
+	} else {
+		a = a.Order(DefaultAPIOrder)
 	}
 
 	a = a.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -177,53 +142,31 @@ func (a *APIQuery) Page(
 	return ret, nil
 }
 
-type dictionaryPager struct {
-	order  *DictionaryOrder
-	filter func(*DictionaryQuery) (*DictionaryQuery, error)
+type DictionaryPager struct {
+	Order  OrderFunc
+	Filter func(*DictionaryQuery) (*DictionaryQuery, error)
 }
 
 // DictionaryPaginateOption enables pagination customization.
-type DictionaryPaginateOption func(*dictionaryPager) error
-
-// DictionaryOrder defines the ordering of Dictionary.
-type DictionaryOrder struct {
-	Direction OrderDirection        `json:"direction"`
-	Field     *DictionaryOrderField `json:"field"`
-}
-
-// DictionaryOrderField defines the ordering field of Dictionary.
-type DictionaryOrderField struct {
-	field    string
-	toCursor func(*Dictionary) Cursor
-}
+type DictionaryPaginateOption func(*DictionaryPager)
 
 // DefaultDictionaryOrder is the default ordering of Dictionary.
-var DefaultDictionaryOrder = &DictionaryOrder{
-	Direction: OrderDirectionAsc,
-	Field: &DictionaryOrderField{
-		field: dictionary.FieldID,
-		toCursor: func(d *Dictionary) Cursor {
-			return Cursor{ID: d.ID}
-		},
-	},
-}
+var DefaultDictionaryOrder = Asc(dictionary.FieldID)
 
-func newDictionaryPager(opts []DictionaryPaginateOption) (*dictionaryPager, error) {
-	pager := &dictionaryPager{}
+func newDictionaryPager(opts []DictionaryPaginateOption) (*DictionaryPager, error) {
+	pager := &DictionaryPager{}
 	for _, opt := range opts {
-		if err := opt(pager); err != nil {
-			return nil, err
-		}
+		opt(pager)
 	}
-	if pager.order == nil {
-		pager.order = DefaultDictionaryOrder
+	if pager.Order == nil {
+		pager.Order = DefaultDictionaryOrder
 	}
 	return pager, nil
 }
 
-func (p *dictionaryPager) applyFilter(query *DictionaryQuery) (*DictionaryQuery, error) {
-	if p.filter != nil {
-		return p.filter(query)
+func (p *DictionaryPager) ApplyFilter(query *DictionaryQuery) (*DictionaryQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
 	}
 	return query, nil
 }
@@ -243,15 +186,15 @@ func (d *DictionaryQuery) Page(
 		return nil, err
 	}
 
-	if d, err = pager.applyFilter(d); err != nil {
+	if d, err = pager.ApplyFilter(d); err != nil {
 		return nil, err
 	}
 
 	ret := &DictionaryPageList{}
 
 	ret.PageDetails = &PageDetails{
-		Page:  pageNum,
-		Limit: pageSize,
+		Page: pageNum,
+		Size: pageSize,
 	}
 
 	count, err := d.Clone().Count(ctx)
@@ -262,10 +205,10 @@ func (d *DictionaryQuery) Page(
 
 	ret.PageDetails.Total = uint64(count)
 
-	direction := pager.order.Direction
-	d = d.Order(direction.orderFunc(pager.order.Field.field))
-	if pager.order.Field != DefaultDictionaryOrder.Field {
-		d = d.Order(direction.orderFunc(DefaultDictionaryOrder.Field.field))
+	if pager.Order != nil {
+		d = d.Order(pager.Order)
+	} else {
+		d = d.Order(DefaultDictionaryOrder)
 	}
 
 	d = d.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -278,53 +221,31 @@ func (d *DictionaryQuery) Page(
 	return ret, nil
 }
 
-type dictionarydetailPager struct {
-	order  *DictionaryDetailOrder
-	filter func(*DictionaryDetailQuery) (*DictionaryDetailQuery, error)
+type DictionaryDetailPager struct {
+	Order  OrderFunc
+	Filter func(*DictionaryDetailQuery) (*DictionaryDetailQuery, error)
 }
 
 // DictionaryDetailPaginateOption enables pagination customization.
-type DictionaryDetailPaginateOption func(*dictionarydetailPager) error
-
-// DictionaryDetailOrder defines the ordering of DictionaryDetail.
-type DictionaryDetailOrder struct {
-	Direction OrderDirection              `json:"direction"`
-	Field     *DictionaryDetailOrderField `json:"field"`
-}
-
-// DictionaryDetailOrderField defines the ordering field of DictionaryDetail.
-type DictionaryDetailOrderField struct {
-	field    string
-	toCursor func(*DictionaryDetail) Cursor
-}
+type DictionaryDetailPaginateOption func(*DictionaryDetailPager)
 
 // DefaultDictionaryDetailOrder is the default ordering of DictionaryDetail.
-var DefaultDictionaryDetailOrder = &DictionaryDetailOrder{
-	Direction: OrderDirectionAsc,
-	Field: &DictionaryDetailOrderField{
-		field: dictionarydetail.FieldID,
-		toCursor: func(dd *DictionaryDetail) Cursor {
-			return Cursor{ID: dd.ID}
-		},
-	},
-}
+var DefaultDictionaryDetailOrder = Asc(dictionarydetail.FieldID)
 
-func newDictionaryDetailPager(opts []DictionaryDetailPaginateOption) (*dictionarydetailPager, error) {
-	pager := &dictionarydetailPager{}
+func newDictionaryDetailPager(opts []DictionaryDetailPaginateOption) (*DictionaryDetailPager, error) {
+	pager := &DictionaryDetailPager{}
 	for _, opt := range opts {
-		if err := opt(pager); err != nil {
-			return nil, err
-		}
+		opt(pager)
 	}
-	if pager.order == nil {
-		pager.order = DefaultDictionaryDetailOrder
+	if pager.Order == nil {
+		pager.Order = DefaultDictionaryDetailOrder
 	}
 	return pager, nil
 }
 
-func (p *dictionarydetailPager) applyFilter(query *DictionaryDetailQuery) (*DictionaryDetailQuery, error) {
-	if p.filter != nil {
-		return p.filter(query)
+func (p *DictionaryDetailPager) ApplyFilter(query *DictionaryDetailQuery) (*DictionaryDetailQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
 	}
 	return query, nil
 }
@@ -344,15 +265,15 @@ func (dd *DictionaryDetailQuery) Page(
 		return nil, err
 	}
 
-	if dd, err = pager.applyFilter(dd); err != nil {
+	if dd, err = pager.ApplyFilter(dd); err != nil {
 		return nil, err
 	}
 
 	ret := &DictionaryDetailPageList{}
 
 	ret.PageDetails = &PageDetails{
-		Page:  pageNum,
-		Limit: pageSize,
+		Page: pageNum,
+		Size: pageSize,
 	}
 
 	count, err := dd.Clone().Count(ctx)
@@ -363,10 +284,10 @@ func (dd *DictionaryDetailQuery) Page(
 
 	ret.PageDetails.Total = uint64(count)
 
-	direction := pager.order.Direction
-	dd = dd.Order(direction.orderFunc(pager.order.Field.field))
-	if pager.order.Field != DefaultDictionaryDetailOrder.Field {
-		dd = dd.Order(direction.orderFunc(DefaultDictionaryDetailOrder.Field.field))
+	if pager.Order != nil {
+		dd = dd.Order(pager.Order)
+	} else {
+		dd = dd.Order(DefaultDictionaryDetailOrder)
 	}
 
 	dd = dd.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -379,53 +300,31 @@ func (dd *DictionaryDetailQuery) Page(
 	return ret, nil
 }
 
-type menuPager struct {
-	order  *MenuOrder
-	filter func(*MenuQuery) (*MenuQuery, error)
+type MenuPager struct {
+	Order  OrderFunc
+	Filter func(*MenuQuery) (*MenuQuery, error)
 }
 
 // MenuPaginateOption enables pagination customization.
-type MenuPaginateOption func(*menuPager) error
-
-// MenuOrder defines the ordering of Menu.
-type MenuOrder struct {
-	Direction OrderDirection  `json:"direction"`
-	Field     *MenuOrderField `json:"field"`
-}
-
-// MenuOrderField defines the ordering field of Menu.
-type MenuOrderField struct {
-	field    string
-	toCursor func(*Menu) Cursor
-}
+type MenuPaginateOption func(*MenuPager)
 
 // DefaultMenuOrder is the default ordering of Menu.
-var DefaultMenuOrder = &MenuOrder{
-	Direction: OrderDirectionAsc,
-	Field: &MenuOrderField{
-		field: menu.FieldID,
-		toCursor: func(m *Menu) Cursor {
-			return Cursor{ID: m.ID}
-		},
-	},
-}
+var DefaultMenuOrder = Asc(menu.FieldID)
 
-func newMenuPager(opts []MenuPaginateOption) (*menuPager, error) {
-	pager := &menuPager{}
+func newMenuPager(opts []MenuPaginateOption) (*MenuPager, error) {
+	pager := &MenuPager{}
 	for _, opt := range opts {
-		if err := opt(pager); err != nil {
-			return nil, err
-		}
+		opt(pager)
 	}
-	if pager.order == nil {
-		pager.order = DefaultMenuOrder
+	if pager.Order == nil {
+		pager.Order = DefaultMenuOrder
 	}
 	return pager, nil
 }
 
-func (p *menuPager) applyFilter(query *MenuQuery) (*MenuQuery, error) {
-	if p.filter != nil {
-		return p.filter(query)
+func (p *MenuPager) ApplyFilter(query *MenuQuery) (*MenuQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
 	}
 	return query, nil
 }
@@ -445,15 +344,15 @@ func (m *MenuQuery) Page(
 		return nil, err
 	}
 
-	if m, err = pager.applyFilter(m); err != nil {
+	if m, err = pager.ApplyFilter(m); err != nil {
 		return nil, err
 	}
 
 	ret := &MenuPageList{}
 
 	ret.PageDetails = &PageDetails{
-		Page:  pageNum,
-		Limit: pageSize,
+		Page: pageNum,
+		Size: pageSize,
 	}
 
 	count, err := m.Clone().Count(ctx)
@@ -464,10 +363,10 @@ func (m *MenuQuery) Page(
 
 	ret.PageDetails.Total = uint64(count)
 
-	direction := pager.order.Direction
-	m = m.Order(direction.orderFunc(pager.order.Field.field))
-	if pager.order.Field != DefaultMenuOrder.Field {
-		m = m.Order(direction.orderFunc(DefaultMenuOrder.Field.field))
+	if pager.Order != nil {
+		m = m.Order(pager.Order)
+	} else {
+		m = m.Order(DefaultMenuOrder)
 	}
 
 	m = m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -480,53 +379,31 @@ func (m *MenuQuery) Page(
 	return ret, nil
 }
 
-type menuparamPager struct {
-	order  *MenuParamOrder
-	filter func(*MenuParamQuery) (*MenuParamQuery, error)
+type MenuParamPager struct {
+	Order  OrderFunc
+	Filter func(*MenuParamQuery) (*MenuParamQuery, error)
 }
 
 // MenuParamPaginateOption enables pagination customization.
-type MenuParamPaginateOption func(*menuparamPager) error
-
-// MenuParamOrder defines the ordering of MenuParam.
-type MenuParamOrder struct {
-	Direction OrderDirection       `json:"direction"`
-	Field     *MenuParamOrderField `json:"field"`
-}
-
-// MenuParamOrderField defines the ordering field of MenuParam.
-type MenuParamOrderField struct {
-	field    string
-	toCursor func(*MenuParam) Cursor
-}
+type MenuParamPaginateOption func(*MenuParamPager)
 
 // DefaultMenuParamOrder is the default ordering of MenuParam.
-var DefaultMenuParamOrder = &MenuParamOrder{
-	Direction: OrderDirectionAsc,
-	Field: &MenuParamOrderField{
-		field: menuparam.FieldID,
-		toCursor: func(mp *MenuParam) Cursor {
-			return Cursor{ID: mp.ID}
-		},
-	},
-}
+var DefaultMenuParamOrder = Asc(menuparam.FieldID)
 
-func newMenuParamPager(opts []MenuParamPaginateOption) (*menuparamPager, error) {
-	pager := &menuparamPager{}
+func newMenuParamPager(opts []MenuParamPaginateOption) (*MenuParamPager, error) {
+	pager := &MenuParamPager{}
 	for _, opt := range opts {
-		if err := opt(pager); err != nil {
-			return nil, err
-		}
+		opt(pager)
 	}
-	if pager.order == nil {
-		pager.order = DefaultMenuParamOrder
+	if pager.Order == nil {
+		pager.Order = DefaultMenuParamOrder
 	}
 	return pager, nil
 }
 
-func (p *menuparamPager) applyFilter(query *MenuParamQuery) (*MenuParamQuery, error) {
-	if p.filter != nil {
-		return p.filter(query)
+func (p *MenuParamPager) ApplyFilter(query *MenuParamQuery) (*MenuParamQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
 	}
 	return query, nil
 }
@@ -546,15 +423,15 @@ func (mp *MenuParamQuery) Page(
 		return nil, err
 	}
 
-	if mp, err = pager.applyFilter(mp); err != nil {
+	if mp, err = pager.ApplyFilter(mp); err != nil {
 		return nil, err
 	}
 
 	ret := &MenuParamPageList{}
 
 	ret.PageDetails = &PageDetails{
-		Page:  pageNum,
-		Limit: pageSize,
+		Page: pageNum,
+		Size: pageSize,
 	}
 
 	count, err := mp.Clone().Count(ctx)
@@ -565,10 +442,10 @@ func (mp *MenuParamQuery) Page(
 
 	ret.PageDetails.Total = uint64(count)
 
-	direction := pager.order.Direction
-	mp = mp.Order(direction.orderFunc(pager.order.Field.field))
-	if pager.order.Field != DefaultMenuParamOrder.Field {
-		mp = mp.Order(direction.orderFunc(DefaultMenuParamOrder.Field.field))
+	if pager.Order != nil {
+		mp = mp.Order(pager.Order)
+	} else {
+		mp = mp.Order(DefaultMenuParamOrder)
 	}
 
 	mp = mp.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -581,53 +458,31 @@ func (mp *MenuParamQuery) Page(
 	return ret, nil
 }
 
-type oauthproviderPager struct {
-	order  *OauthProviderOrder
-	filter func(*OauthProviderQuery) (*OauthProviderQuery, error)
+type OauthProviderPager struct {
+	Order  OrderFunc
+	Filter func(*OauthProviderQuery) (*OauthProviderQuery, error)
 }
 
 // OauthProviderPaginateOption enables pagination customization.
-type OauthProviderPaginateOption func(*oauthproviderPager) error
-
-// OauthProviderOrder defines the ordering of OauthProvider.
-type OauthProviderOrder struct {
-	Direction OrderDirection           `json:"direction"`
-	Field     *OauthProviderOrderField `json:"field"`
-}
-
-// OauthProviderOrderField defines the ordering field of OauthProvider.
-type OauthProviderOrderField struct {
-	field    string
-	toCursor func(*OauthProvider) Cursor
-}
+type OauthProviderPaginateOption func(*OauthProviderPager)
 
 // DefaultOauthProviderOrder is the default ordering of OauthProvider.
-var DefaultOauthProviderOrder = &OauthProviderOrder{
-	Direction: OrderDirectionAsc,
-	Field: &OauthProviderOrderField{
-		field: oauthprovider.FieldID,
-		toCursor: func(op *OauthProvider) Cursor {
-			return Cursor{ID: op.ID}
-		},
-	},
-}
+var DefaultOauthProviderOrder = Asc(oauthprovider.FieldID)
 
-func newOauthProviderPager(opts []OauthProviderPaginateOption) (*oauthproviderPager, error) {
-	pager := &oauthproviderPager{}
+func newOauthProviderPager(opts []OauthProviderPaginateOption) (*OauthProviderPager, error) {
+	pager := &OauthProviderPager{}
 	for _, opt := range opts {
-		if err := opt(pager); err != nil {
-			return nil, err
-		}
+		opt(pager)
 	}
-	if pager.order == nil {
-		pager.order = DefaultOauthProviderOrder
+	if pager.Order == nil {
+		pager.Order = DefaultOauthProviderOrder
 	}
 	return pager, nil
 }
 
-func (p *oauthproviderPager) applyFilter(query *OauthProviderQuery) (*OauthProviderQuery, error) {
-	if p.filter != nil {
-		return p.filter(query)
+func (p *OauthProviderPager) ApplyFilter(query *OauthProviderQuery) (*OauthProviderQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
 	}
 	return query, nil
 }
@@ -647,15 +502,15 @@ func (op *OauthProviderQuery) Page(
 		return nil, err
 	}
 
-	if op, err = pager.applyFilter(op); err != nil {
+	if op, err = pager.ApplyFilter(op); err != nil {
 		return nil, err
 	}
 
 	ret := &OauthProviderPageList{}
 
 	ret.PageDetails = &PageDetails{
-		Page:  pageNum,
-		Limit: pageSize,
+		Page: pageNum,
+		Size: pageSize,
 	}
 
 	count, err := op.Clone().Count(ctx)
@@ -666,10 +521,10 @@ func (op *OauthProviderQuery) Page(
 
 	ret.PageDetails.Total = uint64(count)
 
-	direction := pager.order.Direction
-	op = op.Order(direction.orderFunc(pager.order.Field.field))
-	if pager.order.Field != DefaultOauthProviderOrder.Field {
-		op = op.Order(direction.orderFunc(DefaultOauthProviderOrder.Field.field))
+	if pager.Order != nil {
+		op = op.Order(pager.Order)
+	} else {
+		op = op.Order(DefaultOauthProviderOrder)
 	}
 
 	op = op.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -682,53 +537,31 @@ func (op *OauthProviderQuery) Page(
 	return ret, nil
 }
 
-type rolePager struct {
-	order  *RoleOrder
-	filter func(*RoleQuery) (*RoleQuery, error)
+type RolePager struct {
+	Order  OrderFunc
+	Filter func(*RoleQuery) (*RoleQuery, error)
 }
 
 // RolePaginateOption enables pagination customization.
-type RolePaginateOption func(*rolePager) error
-
-// RoleOrder defines the ordering of Role.
-type RoleOrder struct {
-	Direction OrderDirection  `json:"direction"`
-	Field     *RoleOrderField `json:"field"`
-}
-
-// RoleOrderField defines the ordering field of Role.
-type RoleOrderField struct {
-	field    string
-	toCursor func(*Role) Cursor
-}
+type RolePaginateOption func(*RolePager)
 
 // DefaultRoleOrder is the default ordering of Role.
-var DefaultRoleOrder = &RoleOrder{
-	Direction: OrderDirectionAsc,
-	Field: &RoleOrderField{
-		field: role.FieldID,
-		toCursor: func(r *Role) Cursor {
-			return Cursor{ID: r.ID}
-		},
-	},
-}
+var DefaultRoleOrder = Asc(role.FieldID)
 
-func newRolePager(opts []RolePaginateOption) (*rolePager, error) {
-	pager := &rolePager{}
+func newRolePager(opts []RolePaginateOption) (*RolePager, error) {
+	pager := &RolePager{}
 	for _, opt := range opts {
-		if err := opt(pager); err != nil {
-			return nil, err
-		}
+		opt(pager)
 	}
-	if pager.order == nil {
-		pager.order = DefaultRoleOrder
+	if pager.Order == nil {
+		pager.Order = DefaultRoleOrder
 	}
 	return pager, nil
 }
 
-func (p *rolePager) applyFilter(query *RoleQuery) (*RoleQuery, error) {
-	if p.filter != nil {
-		return p.filter(query)
+func (p *RolePager) ApplyFilter(query *RoleQuery) (*RoleQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
 	}
 	return query, nil
 }
@@ -748,15 +581,15 @@ func (r *RoleQuery) Page(
 		return nil, err
 	}
 
-	if r, err = pager.applyFilter(r); err != nil {
+	if r, err = pager.ApplyFilter(r); err != nil {
 		return nil, err
 	}
 
 	ret := &RolePageList{}
 
 	ret.PageDetails = &PageDetails{
-		Page:  pageNum,
-		Limit: pageSize,
+		Page: pageNum,
+		Size: pageSize,
 	}
 
 	count, err := r.Clone().Count(ctx)
@@ -767,10 +600,10 @@ func (r *RoleQuery) Page(
 
 	ret.PageDetails.Total = uint64(count)
 
-	direction := pager.order.Direction
-	r = r.Order(direction.orderFunc(pager.order.Field.field))
-	if pager.order.Field != DefaultRoleOrder.Field {
-		r = r.Order(direction.orderFunc(DefaultRoleOrder.Field.field))
+	if pager.Order != nil {
+		r = r.Order(pager.Order)
+	} else {
+		r = r.Order(DefaultRoleOrder)
 	}
 
 	r = r.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -783,53 +616,31 @@ func (r *RoleQuery) Page(
 	return ret, nil
 }
 
-type tokenPager struct {
-	order  *TokenOrder
-	filter func(*TokenQuery) (*TokenQuery, error)
+type TokenPager struct {
+	Order  OrderFunc
+	Filter func(*TokenQuery) (*TokenQuery, error)
 }
 
 // TokenPaginateOption enables pagination customization.
-type TokenPaginateOption func(*tokenPager) error
-
-// TokenOrder defines the ordering of Token.
-type TokenOrder struct {
-	Direction OrderDirection   `json:"direction"`
-	Field     *TokenOrderField `json:"field"`
-}
-
-// TokenOrderField defines the ordering field of Token.
-type TokenOrderField struct {
-	field    string
-	toCursor func(*Token) Cursor
-}
+type TokenPaginateOption func(*TokenPager)
 
 // DefaultTokenOrder is the default ordering of Token.
-var DefaultTokenOrder = &TokenOrder{
-	Direction: OrderDirectionAsc,
-	Field: &TokenOrderField{
-		field: token.FieldID,
-		toCursor: func(t *Token) Cursor {
-			return Cursor{ID: t.ID}
-		},
-	},
-}
+var DefaultTokenOrder = Asc(token.FieldID)
 
-func newTokenPager(opts []TokenPaginateOption) (*tokenPager, error) {
-	pager := &tokenPager{}
+func newTokenPager(opts []TokenPaginateOption) (*TokenPager, error) {
+	pager := &TokenPager{}
 	for _, opt := range opts {
-		if err := opt(pager); err != nil {
-			return nil, err
-		}
+		opt(pager)
 	}
-	if pager.order == nil {
-		pager.order = DefaultTokenOrder
+	if pager.Order == nil {
+		pager.Order = DefaultTokenOrder
 	}
 	return pager, nil
 }
 
-func (p *tokenPager) applyFilter(query *TokenQuery) (*TokenQuery, error) {
-	if p.filter != nil {
-		return p.filter(query)
+func (p *TokenPager) ApplyFilter(query *TokenQuery) (*TokenQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
 	}
 	return query, nil
 }
@@ -849,15 +660,15 @@ func (t *TokenQuery) Page(
 		return nil, err
 	}
 
-	if t, err = pager.applyFilter(t); err != nil {
+	if t, err = pager.ApplyFilter(t); err != nil {
 		return nil, err
 	}
 
 	ret := &TokenPageList{}
 
 	ret.PageDetails = &PageDetails{
-		Page:  pageNum,
-		Limit: pageSize,
+		Page: pageNum,
+		Size: pageSize,
 	}
 
 	count, err := t.Clone().Count(ctx)
@@ -868,10 +679,10 @@ func (t *TokenQuery) Page(
 
 	ret.PageDetails.Total = uint64(count)
 
-	direction := pager.order.Direction
-	t = t.Order(direction.orderFunc(pager.order.Field.field))
-	if pager.order.Field != DefaultTokenOrder.Field {
-		t = t.Order(direction.orderFunc(DefaultTokenOrder.Field.field))
+	if pager.Order != nil {
+		t = t.Order(pager.Order)
+	} else {
+		t = t.Order(DefaultTokenOrder)
 	}
 
 	t = t.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -884,53 +695,31 @@ func (t *TokenQuery) Page(
 	return ret, nil
 }
 
-type userPager struct {
-	order  *UserOrder
-	filter func(*UserQuery) (*UserQuery, error)
+type UserPager struct {
+	Order  OrderFunc
+	Filter func(*UserQuery) (*UserQuery, error)
 }
 
 // UserPaginateOption enables pagination customization.
-type UserPaginateOption func(*userPager) error
-
-// UserOrder defines the ordering of User.
-type UserOrder struct {
-	Direction OrderDirection  `json:"direction"`
-	Field     *UserOrderField `json:"field"`
-}
-
-// UserOrderField defines the ordering field of User.
-type UserOrderField struct {
-	field    string
-	toCursor func(*User) Cursor
-}
+type UserPaginateOption func(*UserPager)
 
 // DefaultUserOrder is the default ordering of User.
-var DefaultUserOrder = &UserOrder{
-	Direction: OrderDirectionAsc,
-	Field: &UserOrderField{
-		field: user.FieldID,
-		toCursor: func(u *User) Cursor {
-			return Cursor{ID: u.ID}
-		},
-	},
-}
+var DefaultUserOrder = Asc(user.FieldID)
 
-func newUserPager(opts []UserPaginateOption) (*userPager, error) {
-	pager := &userPager{}
+func newUserPager(opts []UserPaginateOption) (*UserPager, error) {
+	pager := &UserPager{}
 	for _, opt := range opts {
-		if err := opt(pager); err != nil {
-			return nil, err
-		}
+		opt(pager)
 	}
-	if pager.order == nil {
-		pager.order = DefaultUserOrder
+	if pager.Order == nil {
+		pager.Order = DefaultUserOrder
 	}
 	return pager, nil
 }
 
-func (p *userPager) applyFilter(query *UserQuery) (*UserQuery, error) {
-	if p.filter != nil {
-		return p.filter(query)
+func (p *UserPager) ApplyFilter(query *UserQuery) (*UserQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
 	}
 	return query, nil
 }
@@ -950,15 +739,15 @@ func (u *UserQuery) Page(
 		return nil, err
 	}
 
-	if u, err = pager.applyFilter(u); err != nil {
+	if u, err = pager.ApplyFilter(u); err != nil {
 		return nil, err
 	}
 
 	ret := &UserPageList{}
 
 	ret.PageDetails = &PageDetails{
-		Page:  pageNum,
-		Limit: pageSize,
+		Page: pageNum,
+		Size: pageSize,
 	}
 
 	count, err := u.Clone().Count(ctx)
@@ -969,10 +758,10 @@ func (u *UserQuery) Page(
 
 	ret.PageDetails.Total = uint64(count)
 
-	direction := pager.order.Direction
-	u = u.Order(direction.orderFunc(pager.order.Field.field))
-	if pager.order.Field != DefaultUserOrder.Field {
-		u = u.Order(direction.orderFunc(DefaultUserOrder.Field.field))
+	if pager.Order != nil {
+		u = u.Order(pager.Order)
+	} else {
+		u = u.Order(DefaultUserOrder)
 	}
 
 	u = u.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))

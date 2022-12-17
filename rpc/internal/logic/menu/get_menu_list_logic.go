@@ -28,7 +28,9 @@ func NewGetMenuListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMe
 }
 
 func (l *GetMenuListLogic) GetMenuList(in *core.PageInfoReq) (*core.MenuInfoList, error) {
-	menus, err := l.svcCtx.DB.Menu.Query().Order(ent.Asc(menu.FieldOrderNo)).Page(l.ctx, in.Page, in.PageSize)
+	menus, err := l.svcCtx.DB.Menu.Query().Page(l.ctx, in.Page, in.PageSize, func(pager *ent.MenuPager) {
+		pager.Order = ent.Asc(menu.FieldOrderNo)
+	})
 
 	if err != nil {
 		logx.Error(err.Error())

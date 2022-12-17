@@ -308,6 +308,19 @@ then you can use pagination like below:
 apis, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 ```
 
+> Note： Order operation needs to be set in Page function, we support Filter for query at the same time
+
+```go
+apis, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize, func(pager *ent.APIPager) {
+    pager.Order = ent.Asc(api.FieldID)
+    pager.Filter = func(query *ent.APIQuery) (*ent.APIQuery, error) {
+        return query, nil
+    }
+})
+```
+
+By default, we order by ID, you do not need to set it.
+
 > Common functions used in query
 
 ```go

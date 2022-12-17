@@ -66,7 +66,7 @@ DatabaseConf:
   Username: root   # 用户名
   Password: "123456" # 密码
   MaxOpenConn: 100 # 最大连接数
-  SSLMode: false # 是否在 postgresql 中使用 SSL
+  SSLMode: disable # 是否在 postgresql 中使用 SSL, disable 或 require
 
 # casbin 规则
 CasbinConf:
@@ -106,7 +106,7 @@ DatabaseConf:
   Username: root   # 用户名
   Password: "123456" # 密码
   MaxOpenConn: 100 # 最大连接数
-  SSLMode: false # 是否在 postgresql 中使用 SSL
+  SSLMode: disable # 是否在 postgresql 中使用 SSL, disable 或 require
   CacheTime: 5 # 秒, 数据库存时间，会导致更新数据延迟显示修改，但会加速查询
 
 # casbin 规则

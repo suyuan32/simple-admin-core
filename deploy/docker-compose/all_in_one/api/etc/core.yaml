@@ -37,7 +37,7 @@ DatabaseConf:
   Username: root # set your username
   Password: simple-admin. # set your password
   MaxOpenConn: 100
-  SSLMode: false
+  SSLMode: disable
   CacheTime: 5
 
 Prometheus:

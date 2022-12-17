@@ -42,7 +42,7 @@ DatabaseConf:
   Username: root # set your username
   Password: "123456" # set your password
   MaxOpenConn: 100
-  SSLMode: false
+  SSLMode: disable
   CacheTime: 5
 
 RedisConf:
