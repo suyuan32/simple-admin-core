@@ -7,22 +7,22 @@ Make sure that you have been installed follow software:
 ## Create API project
 > Create example project
 ```shell
-goctls api new example --i18n=true --casbin=true --goZeroVersion=v1.4.2 --toolVersion=v0.1.2 --transErr=true --moduleName=github.com/suyuan32/simple-admin-example-api --port=8081 --gitlab=true
+goctls api new example --i18n=true --casbin=true --go_zero_version=v1.4.3 --toolVersion=v0.1.3 --trans_err=true --module_name=github.com/suyuan32/simple-admin-example-api --port=8081 --gitlab=true
 
 ```
 
 ### Parameters
 
-| Parameter	    | Introduction                        | Usage                                                                                               |
-|---------------|-------------------------------------|-----------------------------------------------------------------------------------------------------|
-| i18n          | Whether to use i18n                 | true means use                                                                                      |
-| casbin        | Whether to use casbin               | true means use                                                                                      |
-| moduleName    | module name in  go.mod              | If your project will be used by other project, you should set as above which is a github repository |
-| goZeroVersion | go zero version                     | Go to [go-zero](https://github.com/zeromicro/go-zero/releases) to get the latest release            |
-| toolVersion   | simple admin tools version          | Go to [tool](https://github.com/suyuan32/simple-admin-tools/releases) to get the latest release     |
-| transErr      | Whether to use i18n in error        | true means use                                                                                      |
-| gitlab        | Whether to generating gitlab-ci.yml | true means generating                                                                               |
-| port          | port number                         | The service port                                                                                    |
+| Parameter	      | Introduction                        | Usage                                                                                               |
+|-----------------|-------------------------------------|-----------------------------------------------------------------------------------------------------|
+| i18n            | Whether to use i18n                 | true means use                                                                                      |
+| casbin          | Whether to use casbin               | true means use                                                                                      |
+| module_name     | module name in  go.mod              | If your project will be used by other project, you should set as above which is a github repository |
+| go_zero_version | go zero version                     | Go to [go-zero](https://github.com/zeromicro/go-zero/releases) to get the latest release            |
+| tool_version    | simple admin tools version          | Go to [tool](https://github.com/suyuan32/simple-admin-tools/releases) to get the latest release     |
+| trans_err       | Whether to use i18n in error        | true means use                                                                                      |
+| gitlab          | Whether to generating gitlab-ci.yml | true means generating                                                                               |
+| port            | port number                         | The service port                                                                                    |
 
 More parameters please check `goctls api new --help`
 

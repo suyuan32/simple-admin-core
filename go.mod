@@ -18,7 +18,7 @@ require (
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
 	github.com/stretchr/testify v1.8.1
-	github.com/zeromicro/go-zero v1.4.2
+	github.com/zeromicro/go-zero v1.4.3
 	golang.org/x/crypto v0.4.0
 	golang.org/x/oauth2 v0.3.0
 	golang.org/x/text v0.5.0
@@ -26,7 +26,7 @@ require (
 	google.golang.org/protobuf v1.28.1
 )
 
-replace github.com/zeromicro/go-zero v1.4.2 => github.com/suyuan32/simple-admin-tools v0.1.3
+replace github.com/zeromicro/go-zero v1.4.3 => github.com/suyuan32/simple-admin-tools v0.1.3
 
 require (
 	ariga.io/atlas v0.7.3-0.20221011160332-3ca609863edd // indirect

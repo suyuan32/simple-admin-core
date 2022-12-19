@@ -8,7 +8,7 @@
 > 创建 example 服务 
 > 
 ```shell
-goctls rpc new example --ent=true --module_name=github.com/suyuan32/simple-admin-example-rpc --go_zero_version=v1.4.2 --tool_version=v0.1.2 --port=8080 --gitlab=true
+goctls rpc new example --ent=true --module_name=github.com/suyuan32/simple-admin-example-rpc --go_zero_version=v1.4.3 --tool_version=v0.1.2 --port=8080 --gitlab=true
 ```
 
 ### 参数介绍
