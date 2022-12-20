@@ -71,13 +71,8 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 
 ## 文档
 
-[文档](https://suyuan32.github.io/simple-admin-core/)
+[Simple Admin 文档](https://doc.ryansu.pro)
 
-或者直接本地运行
-```shell
-cd docs
-docsify serve .
-```
 
 - go-zero
   [Document](https://go-zero.dev/)

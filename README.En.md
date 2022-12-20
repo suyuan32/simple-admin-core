@@ -70,14 +70,7 @@ Password:  simple-admin
 
 ## Documentation
 
-[Document](https://suyuan32.github.io/simple-admin-core/)
-
-or running locally
-
-```shell
-cd docs
-docsify serve .
-```
+[Simple Admin Document](https://doc.ryansu.pro)
 
 - go-zero
   [Document](https://go-zero.dev/)
