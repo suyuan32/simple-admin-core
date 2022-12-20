@@ -43,6 +43,3 @@ serve-swagger:
 	lsof -i:36666 | awk 'NR!=1 {print $2}' | xargs killall -9 || true
 	@printf $(GREEN)"[SUCCESS] serve swagger-ui successfully"
 	swagger serve -F=swagger --port 36666 core.yml
-
-doc:
-	docsify serve ./docs
