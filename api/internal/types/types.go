@@ -840,7 +840,7 @@ type CreateOrUpdateDictionaryReq struct {
 	Name string `json:"name" validate:"min=1,max=50"`
 	// Dictionary status | 字典状态
 	// Required: true
-	Status uint64 `json:"status" validator:"boolean"`
+	Status uint64 `json:"status" validate:"number"`
 	// Dictionary description | 字典描述
 	// Required: true
 	// Max length: 50
@@ -886,7 +886,7 @@ type DictionaryDetailInfo struct {
 	// Value | 值
 	Value string `json:"value"`
 	// Status | 状态
-	Status uint64 `json:"status" validate:"boolean"`
+	Status uint64 `json:"status"`
 }
 
 // The response data of dictionary KV list | 字典值的列表数据
@@ -926,7 +926,7 @@ type CreateOrUpdateDictionaryDetailReq struct {
 	Value string `json:"value"`
 	// Status | 状态
 	// Required: true
-	Status uint64 `json:"status" validate:"boolean"`
+	Status uint64 `json:"status" validate:"number"`
 	// Parent ID | 所属字典ID
 	// Required: true
 	ParentId uint64 `json:"parentId" validate:"number"`
