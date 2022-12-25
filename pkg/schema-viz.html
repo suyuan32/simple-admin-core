@@ -1,0 +1,148 @@
+<html lang="en">
+
+<head>
+  <title>ent schema network</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css">
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.6.1/randomColor.min.js" integrity="sha512-vPeZ7JCboHcfpqSx5ZD+/jpEhS4JpXxfz9orSvAPPj0EKUVShU2tgy7XkU+oujBJKnWmu4hU7r9MMQNWPfXsYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style type="text/css">
+    html * {
+      font-family: 'Fira Code', monospace !important;
+      font-size: 14px;
+    }
+
+    #schema {
+      width: 100%;
+      height: 100%;
+      border: 1px solid lightgray;
+    }
+
+    .var-type {
+      color: #4EC9B0;
+    }
+
+    table {
+      padding: 2px 3px;
+    }
+
+    .vis-tooltip,
+    .table-container {
+      background-color: #1e1e1e !important;
+      color: white;
+    }
+
+    tr {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="schema"></div>
+  <br />
+  <script type="text/javascript">
+    
+    const fieldsToTable = fields => {
+      const container = document.createElement("div");
+      container.setAttribute("class", "table-container")
+      if (!fields) {
+        container.innerText = "no fields";
+        return container;
+      }
+      const tbl = document.createElement("table");
+      const tblBody = document.createElement("tbody");
+      for (const field of fields) {
+        const row = document.createElement("tr");
+        for (const key of ["name", "type"]) {
+          const cell = document.createElement("td");
+          const cellText = document.createTextNode(field[key]);
+          if (key === "type") {
+            cell.setAttribute("class", "var-type")
+          }
+          cell.appendChild(cellText);
+          row.appendChild(cell);
+        }
+        tblBody.appendChild(row);
+      }
+      tbl.appendChild(tblBody);
+      container.appendChild(tbl);
+      return container;
+    }
+
+    
+    const entGraph = JSON.parse("{\"nodes\":[{\"id\":\"API\",\"fields\":[{\"name\":\"created_at\",\"type\":\"time.Time\"},{\"name\":\"updated_at\",\"type\":\"time.Time\"},{\"name\":\"path\",\"type\":\"string\"},{\"name\":\"description\",\"type\":\"string\"},{\"name\":\"api_group\",\"type\":\"string\"},{\"name\":\"method\",\"type\":\"string\"}]},{\"id\":\"Dictionary\",\"fields\":[{\"name\":\"created_at\",\"type\":\"time.Time\"},{\"name\":\"updated_at\",\"type\":\"time.Time\"},{\"name\":\"status\",\"type\":\"uint8\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"desc\",\"type\":\"string\"}]},{\"id\":\"DictionaryDetail\",\"fields\":[{\"name\":\"created_at\",\"type\":\"time.Time\"},{\"name\":\"updated_at\",\"type\":\"time.Time\"},{\"name\":\"status\",\"type\":\"uint8\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"key\",\"type\":\"string\"},{\"name\":\"value\",\"type\":\"string\"}]},{\"id\":\"Menu\",\"fields\":[{\"name\":\"created_at\",\"type\":\"time.Time\"},{\"name\":\"updated_at\",\"type\":\"time.Time\"},{\"name\":\"parent_id\",\"type\":\"uint64\"},{\"name\":\"menu_level\",\"type\":\"uint32\"},{\"name\":\"menu_type\",\"type\":\"uint32\"},{\"name\":\"path\",\"type\":\"string\"},{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"redirect\",\"type\":\"string\"},{\"name\":\"component\",\"type\":\"string\"},{\"name\":\"order_no\",\"type\":\"uint32\"},{\"name\":\"disabled\",\"type\":\"bool\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"icon\",\"type\":\"string\"},{\"name\":\"hide_menu\",\"type\":\"bool\"},{\"name\":\"hide_breadcrumb\",\"type\":\"bool\"},{\"name\":\"current_active_menu\",\"type\":\"string\"},{\"name\":\"ignore_keep_alive\",\"type\":\"bool\"},{\"name\":\"hide_tab\",\"type\":\"bool\"},{\"name\":\"frame_src\",\"type\":\"string\"},{\"name\":\"carry_param\",\"type\":\"bool\"},{\"name\":\"hide_children_in_menu\",\"type\":\"bool\"},{\"name\":\"affix\",\"type\":\"bool\"},{\"name\":\"dynamic_level\",\"type\":\"uint32\"},{\"name\":\"real_path\",\"type\":\"string\"}]},{\"id\":\"MenuParam\",\"fields\":[{\"name\":\"created_at\",\"type\":\"time.Time\"},{\"name\":\"updated_at\",\"type\":\"time.Time\"},{\"name\":\"type\",\"type\":\"string\"},{\"name\":\"key\",\"type\":\"string\"},{\"name\":\"value\",\"type\":\"string\"}]},{\"id\":\"OauthProvider\",\"fields\":[{\"name\":\"created_at\",\"type\":\"time.Time\"},{\"name\":\"updated_at\",\"type\":\"time.Time\"},{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"client_id\",\"type\":\"string\"},{\"name\":\"client_secret\",\"type\":\"string\"},{\"name\":\"redirect_url\",\"type\":\"string\"},{\"name\":\"scopes\",\"type\":\"string\"},{\"name\":\"auth_url\",\"type\":\"string\"},{\"name\":\"token_url\",\"type\":\"string\"},{\"name\":\"auth_style\",\"type\":\"uint64\"},{\"name\":\"info_url\",\"type\":\"string\"}]},{\"id\":\"Role\",\"fields\":[{\"name\":\"created_at\",\"type\":\"time.Time\"},{\"name\":\"updated_at\",\"type\":\"time.Time\"},{\"name\":\"status\",\"type\":\"uint8\"},{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"value\",\"type\":\"string\"},{\"name\":\"default_router\",\"type\":\"string\"},{\"name\":\"remark\",\"type\":\"string\"},{\"name\":\"order_no\",\"type\":\"uint32\"}]},{\"id\":\"Tenant\",\"fields\":[{\"name\":\"created_at\",\"type\":\"time.Time\"},{\"name\":\"updated_at\",\"type\":\"time.Time\"},{\"name\":\"status\",\"type\":\"uint8\"},{\"name\":\"uuid\",\"type\":\"string\"},{\"name\":\"pid\",\"type\":\"string\"},{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"account\",\"type\":\"string\"},{\"name\":\"start_time\",\"type\":\"time.Time\"},{\"name\":\"end_time\",\"type\":\"time.Time\"},{\"name\":\"contact\",\"type\":\"string\"},{\"name\":\"mobile\",\"type\":\"string\"},{\"name\":\"sort_no\",\"type\":\"int\"}]},{\"id\":\"Token\",\"fields\":[{\"name\":\"created_at\",\"type\":\"time.Time\"},{\"name\":\"updated_at\",\"type\":\"time.Time\"},{\"name\":\"status\",\"type\":\"uint8\"},{\"name\":\"uuid\",\"type\":\"string\"},{\"name\":\"token\",\"type\":\"string\"},{\"name\":\"source\",\"type\":\"string\"},{\"name\":\"expired_at\",\"type\":\"time.Time\"}]},{\"id\":\"User\",\"fields\":[{\"name\":\"created_at\",\"type\":\"time.Time\"},{\"name\":\"updated_at\",\"type\":\"time.Time\"},{\"name\":\"status\",\"type\":\"uint8\"},{\"name\":\"uuid\",\"type\":\"string\"},{\"name\":\"username\",\"type\":\"string\"},{\"name\":\"password\",\"type\":\"string\"},{\"name\":\"nickname\",\"type\":\"string\"},{\"name\":\"side_mode\",\"type\":\"string\"},{\"name\":\"base_color\",\"type\":\"string\"},{\"name\":\"active_color\",\"type\":\"string\"},{\"name\":\"role_id\",\"type\":\"uint64\"},{\"name\":\"mobile\",\"type\":\"string\"},{\"name\":\"email\",\"type\":\"string\"},{\"name\":\"avatar\",\"type\":\"string\"}]}],\"edges\":[{\"from\":\"Dictionary\",\"to\":\"DictionaryDetail\",\"label\":\"dictionary_details\"},{\"from\":\"Menu\",\"to\":\"Menu\",\"label\":\"children\"},{\"from\":\"Menu\",\"to\":\"MenuParam\",\"label\":\"params\"},{\"from\":\"Role\",\"to\":\"Menu\",\"label\":\"menus\"},{\"from\":\"Tenant\",\"to\":\"User\",\"label\":\"users\"},{\"from\":\"Tenant\",\"to\":\"Tenant\",\"label\":\"children\"}]}");
+    const nodes = new vis.DataSet((entGraph.nodes || []).map(n =>
+    ({
+      id: n.id,
+      label: n.id,
+      color: randomColor({
+        luminosity: 'light',
+        hue: 'random',
+      }),
+      title: fieldsToTable(n.fields),
+    })
+    ));
+    edgesCounter = {};
+    
+    
+    const edgeKey = e => `${e.to}::${e.from}`
+    const edges = new vis.DataSet((entGraph.edges || []).map(e => {
+      const counter = (edgesCounter[edgeKey(e)] || 0) + 1;
+      edgesCounter[edgeKey(e)] = counter;
+      if (e.from === e.to) {
+        return {
+          ...e,
+          physics: false,
+          arrows: "to",
+          type: 'curvedCW',
+          selfReference: {
+            size: (counter + 1) * 10,
+            angle: (counter * 0.8) * Math.PI / 4,
+            renderBehindTheNode: false
+          }
+        }
+      }
+      return { ...e, type: 'curvedCW', physics: false, arrows: "to", smooth: { type: 'curvedCW', roundness: Math.pow(-1, counter) * 0.2 * counter } }
+    }));
+    const options = {
+      manipulation: false,
+      edges: {
+        physics: false,
+        smooth: { type: 'curvedCW', roundness: 0.2 },
+        arrows: "to",
+      },
+      nodes: {
+        widthConstraint: 60,
+        heightConstraint: 60,
+        shape: "box",
+        font: { align: "center" },
+      },
+      layout: {
+        improvedLayout: true,
+        hierarchical: {
+          enabled: true,
+          levelSeparation: 250,
+        },
+      },
+      physics: {
+        enabled: true,
+        barnesHut: {
+          springConstant: 0,
+          avoidOverlap: 1,
+          springConstant: 0
+        },
+        solver: "barnesHut",
+        repulsion: {
+          nodeDistance: 150,
+          springConstant: 0,
+          damping: 0,
+          springLength: 0
+        }
+      }
+    };
+    const container = document.getElementById("schema");
+    const gph = new vis.Network(container, { nodes, edges }, options);
+  </script>
+</body>
+
+</html>

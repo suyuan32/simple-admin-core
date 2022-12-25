@@ -1,0 +1,1 @@
+{"@timestamp":"2022-12-24T23:33:04.057+08:00","caller":"handler/loghandler.go:196","content":"[HTTP] 200 - GET /core/init/database - 127.0.0.1:52752 - PostmanRuntime-ApipostRuntime/1.1.0","duration":"255.5ms","level":"info","span":"d5185ca93c0957d0","trace":"209be2cbb23fc143c519acafd59b4302"}

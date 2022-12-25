@@ -31,6 +31,7 @@ type hooks struct {
 	MenuParam        []ent.Hook
 	OauthProvider    []ent.Hook
 	Role             []ent.Hook
+	Tenant           []ent.Hook
 	Token            []ent.Hook
 	User             []ent.Hook
 }

@@ -77,6 +77,12 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		return nil, statuserr.NewInternalError(err.Error())
 	}
 
+	err = l.insertTenantData()
+	if err != nil {
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
+		return nil, statuserr.NewInternalError(err.Error())
+	}
 	err = l.insertUserData()
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
@@ -123,6 +129,23 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 
 	l.svcCtx.Redis.Setex("database_init_state", "1", 300)
 	return &core.BaseResp{Msg: i18n.Success}, nil
+}
+
+// insert init tenant data
+func (l *InitDatabaseLogic) insertTenantData() error {
+	var tenants []*ent.TenantCreate
+	tenants = append(tenants, l.svcCtx.DB.Tenant.Create().
+		SetName("平台系统管理").
+		SetAccount("admin"),
+	)
+
+	err := l.svcCtx.DB.Tenant.CreateBulk(tenants...).Exec(l.ctx)
+	if err != nil {
+		logx.Errorw(err.Error())
+		return statuserr.NewInternalError(err.Error())
+	} else {
+		return nil
+	}
 }
 
 // insert init user data

@@ -9,8 +9,8 @@ Auth:
 
 Log:
   ServiceName: coreApiLogger
-  Mode: file
-  Path: /home/data/logs/core/api
+  Mode: console
+  Path: ./logs/api
   Level: info
   Compress: false
   KeepDays: 7
@@ -21,7 +21,9 @@ RedisConf:
   Type: node
 
 CoreRpc:
-  Target: k8s://default/core-rpc-svc:9101
+  # Target: k8s://default/core-rpc-svc:9101
+  Endpoints:
+    - 127.0.0.1:9101
 
 Captcha:
   KeyLong: 5
@@ -33,16 +35,16 @@ DatabaseConf:
   Host: 127.0.0.1
   Port: 3306
   DBName: simple_admin
-  Username: # set your username
-  Password: # set your password
+  Username: root
+  Password: "123456"
   MaxOpenConn: 100
   SSLMode: disable
   CacheTime: 5
 
-Prometheus:
-  Host: 0.0.0.0
-  Port: 4000
-  Path: /metrics
+# Prometheus:
+#   Host: 0.0.0.0
+#   Port: 4000
+#   Path: /metrics
 
 CasbinConf:
   ModelText: |

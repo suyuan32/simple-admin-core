@@ -31,8 +31,9 @@ message PageInfoReq {
 // user message
 
 message LoginReq {
-  string username = 1;
-  string password = 2;
+  string tenant = 1;
+  string username = 2;
+  string password = 3;
 }
 
 message LoginResp {
@@ -377,7 +378,7 @@ service core {
   // group: user
   rpc login(LoginReq) returns (LoginResp);
   // group: user
-  rpc changePassword (ChangePasswordReq) returns (BaseResp);
+  rpc changePassword (ChangePasswordReq) returns (BaseResp);·
   // group: user
   rpc createOrUpdateUser (CreateOrUpdateUserReq) returns (BaseResp);
   // group: user

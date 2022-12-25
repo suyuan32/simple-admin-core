@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/tenant"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
@@ -232,9 +233,45 @@ func (uu *UserUpdate) ClearAvatar() *UserUpdate {
 	return uu
 }
 
+// AddTenantIDs adds the "tenant" edge to the Tenant entity by IDs.
+func (uu *UserUpdate) AddTenantIDs(ids ...uint64) *UserUpdate {
+	uu.mutation.AddTenantIDs(ids...)
+	return uu
+}
+
+// AddTenant adds the "tenant" edges to the Tenant entity.
+func (uu *UserUpdate) AddTenant(t ...*Tenant) *UserUpdate {
+	ids := make([]uint64, len(t))
+	for i := range t {
+		ids[i] = t[i].ID
+	}
+	return uu.AddTenantIDs(ids...)
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (uu *UserUpdate) Mutation() *UserMutation {
 	return uu.mutation
+}
+
+// ClearTenant clears all "tenant" edges to the Tenant entity.
+func (uu *UserUpdate) ClearTenant() *UserUpdate {
+	uu.mutation.ClearTenant()
+	return uu
+}
+
+// RemoveTenantIDs removes the "tenant" edge to Tenant entities by IDs.
+func (uu *UserUpdate) RemoveTenantIDs(ids ...uint64) *UserUpdate {
+	uu.mutation.RemoveTenantIDs(ids...)
+	return uu
+}
+
+// RemoveTenant removes "tenant" edges to Tenant entities.
+func (uu *UserUpdate) RemoveTenant(t ...*Tenant) *UserUpdate {
+	ids := make([]uint64, len(t))
+	for i := range t {
+		ids[i] = t[i].ID
+	}
+	return uu.RemoveTenantIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -386,6 +423,60 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if uu.mutation.AvatarCleared() {
 		_spec.ClearField(user.FieldAvatar, field.TypeString)
+	}
+	if uu.mutation.TenantCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   user.TenantTable,
+			Columns: user.TenantPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: tenant.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uu.mutation.RemovedTenantIDs(); len(nodes) > 0 && !uu.mutation.TenantCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   user.TenantTable,
+			Columns: user.TenantPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: tenant.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uu.mutation.TenantIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   user.TenantTable,
+			Columns: user.TenantPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: tenant.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, uu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -610,9 +701,45 @@ func (uuo *UserUpdateOne) ClearAvatar() *UserUpdateOne {
 	return uuo
 }
 
+// AddTenantIDs adds the "tenant" edge to the Tenant entity by IDs.
+func (uuo *UserUpdateOne) AddTenantIDs(ids ...uint64) *UserUpdateOne {
+	uuo.mutation.AddTenantIDs(ids...)
+	return uuo
+}
+
+// AddTenant adds the "tenant" edges to the Tenant entity.
+func (uuo *UserUpdateOne) AddTenant(t ...*Tenant) *UserUpdateOne {
+	ids := make([]uint64, len(t))
+	for i := range t {
+		ids[i] = t[i].ID
+	}
+	return uuo.AddTenantIDs(ids...)
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (uuo *UserUpdateOne) Mutation() *UserMutation {
 	return uuo.mutation
+}
+
+// ClearTenant clears all "tenant" edges to the Tenant entity.
+func (uuo *UserUpdateOne) ClearTenant() *UserUpdateOne {
+	uuo.mutation.ClearTenant()
+	return uuo
+}
+
+// RemoveTenantIDs removes the "tenant" edge to Tenant entities by IDs.
+func (uuo *UserUpdateOne) RemoveTenantIDs(ids ...uint64) *UserUpdateOne {
+	uuo.mutation.RemoveTenantIDs(ids...)
+	return uuo
+}
+
+// RemoveTenant removes "tenant" edges to Tenant entities.
+func (uuo *UserUpdateOne) RemoveTenant(t ...*Tenant) *UserUpdateOne {
+	ids := make([]uint64, len(t))
+	for i := range t {
+		ids[i] = t[i].ID
+	}
+	return uuo.RemoveTenantIDs(ids...)
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
@@ -794,6 +921,60 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	}
 	if uuo.mutation.AvatarCleared() {
 		_spec.ClearField(user.FieldAvatar, field.TypeString)
+	}
+	if uuo.mutation.TenantCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   user.TenantTable,
+			Columns: user.TenantPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: tenant.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uuo.mutation.RemovedTenantIDs(); len(nodes) > 0 && !uuo.mutation.TenantCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   user.TenantTable,
+			Columns: user.TenantPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: tenant.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uuo.mutation.TenantIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   user.TenantTable,
+			Columns: user.TenantPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: tenant.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
 	_node = &User{config: uuo.config}
 	_spec.Assign = _node.assignValues
