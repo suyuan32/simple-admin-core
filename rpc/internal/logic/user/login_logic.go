@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/tenant"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
@@ -36,7 +36,8 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
-	result, err := l.svcCtx.DB.User.Query().Where(user.UsernameEQ(in.Username)).First(l.ctx)
+	// user, err := l.svcCtx.DB.User.Query().Where(user.UsernameEQ(in.Username)).First(l.ctx)
+	user, err := l.svcCtx.DB.Tenant.Query().Where(tenant.AccountEQ(in.TenantAccount)).QueryUsers().First(l.ctx)
 	if err != nil {
 		if ent.IsNotFound(err) {
 			logx.Errorw("user not found", logx.Field("username", in.Username))
@@ -45,23 +46,33 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		return nil, status.Error(codes.Internal, i18n.DatabaseError)
 	}
+	tenants, err := user.QueryTenant().Where(tenant.AccountEQ(in.TenantAccount)).All(l.ctx)
+	if err != nil {
+		if ent.IsNotFound(err) {
+			logx.Errorw("tentant not found", logx.Field("tenant", in.TenantAccount))
+			return nil, status.Error(codes.InvalidArgument, "login.tenantNotExist")
+		}
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		return nil, status.Error(codes.Internal, i18n.DatabaseError)
+	}
 
-	if ok := utils.BcryptCheck(in.Password, result.Password); !ok {
+	if ok := utils.BcryptCheck(in.Password, user.Password); !ok {
 		logx.Errorw("wrong password", logx.Field("detail", in))
 		return nil, status.Error(codes.InvalidArgument, "login.wrongUsernameOrPassword")
 	}
 
-	roleName, value, err := GetRoleInfo(result.RoleID, l.svcCtx.Redis, l.svcCtx.DB, l.ctx)
+	roleName, value, err := GetRoleInfo(user.RoleID, l.svcCtx.Redis, l.svcCtx.DB, l.ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	logx.Infow("log in successfully", logx.Field("UUID", result.UUID))
+	logx.Infow("log in successfully", logx.Field("UUID", user.UUID))
 	return &core.LoginResp{
-		Id:        result.UUID,
+		Tid:       tenants[0].UUID,
+		Uid:       user.UUID,
 		RoleValue: value,
 		RoleName:  roleName,
-		RoleId:    result.RoleID,
+		RoleId:    user.RoleID,
 	}, nil
 }
 

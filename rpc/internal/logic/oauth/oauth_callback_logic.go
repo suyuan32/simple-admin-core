@@ -110,7 +110,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 		}
 
 		return &core.LoginResp{
-			Id:        targetUser.UUID,
+			Uid:       targetUser.UUID,
 			RoleName:  roleName,
 			RoleValue: roleValue,
 			RoleId:    targetUser.RoleID,

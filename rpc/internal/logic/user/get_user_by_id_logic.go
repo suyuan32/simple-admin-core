@@ -30,8 +30,8 @@ func NewGetUserByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfoResp, error) {
+	// 查询用户
 	u, err := l.svcCtx.DB.User.Query().Where(user.UUIDEQ(in.Uuid)).First(l.ctx)
-
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
@@ -43,13 +43,37 @@ func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfoResp, er
 		}
 	}
 
+	// 查询租户
+	t, err := u.QueryTenant().All(l.ctx)
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("can't found user's tenant", in))
+			return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
+		default:
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(i18n.DatabaseError)
+		}
+	}
+
+	// 查询角色
 	roleName, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d", u.RoleID))
 	roleValue, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d_value", u.RoleID))
 	if err != nil {
 		return nil, err
 	}
 
+	// 组装数据
+	tenants := make([]*core.TenantInfo, 0)
+	for _, v := range t {
+		tenants = append(tenants, &core.TenantInfo{
+			TenantId:   v.UUID,
+			TenantName: v.Name,
+		})
+	}
+
 	return &core.UserInfoResp{
+		Tenants:   tenants,
 		Nickname:  u.Nickname,
 		Avatar:    u.Avatar,
 		RoleId:    u.RoleID,

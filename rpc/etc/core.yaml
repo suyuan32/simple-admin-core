@@ -17,7 +17,7 @@ Log:
   # Mode: file
   Mode: console
   Path: ./logs/rpc
-  Encoding: json
+  Encoding: plain
   Level: info
   Compress: false
   KeepDays: 7

@@ -31,22 +31,24 @@ message PageInfoReq {
 // user message
 
 message LoginReq {
-  string tenant = 1;
+  string tenant_account = 1;
   string username = 2;
   string password = 3;
 }
 
 message LoginResp {
-  string id = 1;
-  string role_name = 2;
-  string role_value = 3;
-  uint64 role_id = 4;
+  string tid = 1;
+  string uid = 2;
+  string role_name = 3;
+  string role_value = 4;
+  uint64 role_id = 5;
 }
 
 message ChangePasswordReq {
-  string uuid = 1;
-  string old_password = 2;
-  string new_password = 3;
+  string tenant_uuid = 1;
+  string user_uuid = 2;
+  string old_password = 3;
+  string new_password = 4;
 }
 
 message CreateOrUpdateUserReq {
@@ -59,6 +61,11 @@ message CreateOrUpdateUserReq {
   string username = 7;
   string nickname = 8;
   string password = 9;
+}
+
+message TenantInfo {
+  string tenant_id = 1;
+  string tenant_name = 2;
 }
 
 message UserInfoResp {
@@ -75,6 +82,7 @@ message UserInfoResp {
   int64 created_at = 11;
   int64 updated_at = 12;
   string roleValue = 13;
+  repeated TenantInfo tenants = 14;
 }
 
 message UserListResp {
@@ -378,7 +386,7 @@ service core {
   // group: user
   rpc login(LoginReq) returns (LoginResp);
   // group: user
-  rpc changePassword (ChangePasswordReq) returns (BaseResp);·
+  rpc changePassword (ChangePasswordReq) returns (BaseResp);
   // group: user
   rpc createOrUpdateUser (CreateOrUpdateUserReq) returns (BaseResp);
   // group: user

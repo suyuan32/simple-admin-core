@@ -155,6 +155,10 @@ type StatusCodeReq struct {
 // login request | 登录参数
 // swagger:model LoginReq
 type LoginReq struct {
+	// Tenant Account | 租户账号
+	// required: true
+	// Max length: 20
+	TenantAccount string `json:"tenant_account" validate:"alphanum,max=20"`
 	// User Name | 用户名
 	// Required: true
 	// Max length: 20
@@ -185,6 +189,8 @@ type LoginResp struct {
 // The log in information | 登陆返回的数据信息
 // swagger:model LoginInfo
 type LoginInfo struct {
+	// Tenant's UUID | 租户的UUID
+	TenantId string `json:"tenant_id"`
 	// User's UUID | 用户的UUID
 	UserId string `json:"userId"`
 	// User's role information| 用户的角色信息
@@ -314,9 +320,17 @@ type GetUserInfoResp struct {
 	Data UserBaseInfo `json:"data"`
 }
 
+type Tanent struct {
+	// tenant's UUID | 租户的UUID
+	Tenant_Id string `json:"tenant_id"`
+	// tenant's name | 租户的名称
+	TenantName string `json:"tenant_name"`
+}
+
 // The  data of user's basic information | 用户基本信息
 // swagger:model UserBaseInfo
 type UserBaseInfo struct {
+	Tenants []Tanent `json:"tenants"`
 	// User's UUID | 用户的UUID
 	UUID string `json:"userId"`
 	// User's name | 用户名

@@ -53,6 +53,7 @@ type (
 	RoleMenuAuthorityReq       = core.RoleMenuAuthorityReq
 	RoleMenuAuthorityResp      = core.RoleMenuAuthorityResp
 	StatusCodeReq              = core.StatusCodeReq
+	TenantInfo                 = core.TenantInfo
 	TokenInfo                  = core.TokenInfo
 	TokenListReq               = core.TokenListReq
 	TokenListResp              = core.TokenListResp

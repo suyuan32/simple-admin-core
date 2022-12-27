@@ -29,7 +29,7 @@ func NewChangePasswordLogic(r *http.Request, svcCtx *svc.ServiceContext) *Change
 
 func (l *ChangePasswordLogic) ChangePassword(req *types.ChangePasswordReq) (resp *types.BaseMsgResp, err error) {
 	result, err := l.svcCtx.CoreRpc.ChangePassword(l.ctx, &core.ChangePasswordReq{
-		Uuid:        l.ctx.Value("userId").(string),
+		UserUuid:    l.ctx.Value("userId").(string),
 		OldPassword: req.OldPassword,
 		NewPassword: req.NewPassword,
 	})

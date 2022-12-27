@@ -1170,6 +1170,10 @@ definitions:
                 x-go-name: Expire
             role:
                 $ref: '#/definitions/RoleInfoSimple'
+            tenant_id:
+                description: Tenant's UUID | 租户的UUID
+                type: string
+                x-go-name: TenantId
             token:
                 description: Token for authorization | 验证身份的token
                 type: string
@@ -1199,12 +1203,18 @@ definitions:
                 minLength: 6
                 type: string
                 x-go-name: Password
+            tenant_account:
+                description: Tenant Account | 租户账号
+                maxLength: 20
+                type: string
+                x-go-name: TenantAccount
             username:
                 description: User Name | 用户名
                 maxLength: 20
                 type: string
                 x-go-name: Username
         required:
+            - tenant_account
             - username
             - password
             - captchaId
@@ -1989,6 +1999,18 @@ definitions:
             - status
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    Tanent:
+        properties:
+            tenant_id:
+                description: tenant's UUID | 租户的UUID
+                type: string
+                x-go-name: Tenant_Id
+            tenant_name:
+                description: tenant's name | 租户的名称
+                type: string
+                x-go-name: TenantName
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TokenInfo:
         description: The response data of Token information | Token信息
         properties:
@@ -2127,6 +2149,11 @@ definitions:
                 x-go-name: Nickname
             roles:
                 $ref: '#/definitions/GetUserRoleInfo'
+            tenants:
+                items:
+                    $ref: '#/definitions/Tanent'
+                type: array
+                x-go-name: Tenants
             userId:
                 description: User's UUID | 用户的UUID
                 type: string

@@ -40,9 +40,18 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.GetUserInfoResp, err error
 		return nil, err
 	}
 
+	tenants := make([]types.Tanent, 0)
+	for _, v := range user.Tenants {
+		tenants = append(tenants, types.Tanent{
+			Tenant_Id:  v.TenantId,
+			TenantName: v.TenantName,
+		})
+	}
+
 	return &types.GetUserInfoResp{
 		BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success)},
 		Data: types.UserBaseInfo{
+			Tenants:  tenants,
 			UUID:     user.Uuid,
 			Username: user.Username,
 			Nickname: user.Nickname,

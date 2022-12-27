@@ -36,17 +36,18 @@ func NewLoginLogic(r *http.Request, svcCtx *svc.ServiceContext) *LoginLogic {
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
 	if ok := captcha.Store.Verify(req.CaptchaId, req.Captcha, true); ok {
-		user, err := l.svcCtx.CoreRpc.Login(l.ctx,
+		userInfo, err := l.svcCtx.CoreRpc.Login(l.ctx,
 			&core.LoginReq{
-				Username: req.Username,
-				Password: req.Password,
+				TenantAccount: req.TenantAccount,
+				Username:      req.Username,
+				Password:      req.Password,
 			})
 		if err != nil {
 			return nil, err
 		}
 
-		token, err := GetJwtToken(l.svcCtx.Config.Auth.AccessSecret, user.Id, time.Now().Unix(),
-			l.svcCtx.Config.Auth.AccessExpire, int64(user.RoleId))
+		token, err := GetJwtToken(l.svcCtx.Config.Auth.AccessSecret, userInfo.Tid, userInfo.Uid, time.Now().Unix(),
+			l.svcCtx.Config.Auth.AccessExpire, int64(userInfo.RoleId))
 		if err != nil {
 			return nil, err
 		}
@@ -56,7 +57,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		_, err = l.svcCtx.CoreRpc.CreateOrUpdateToken(l.ctx, &core.TokenInfo{
 			Id:        0,
 			CreatedAt: 0,
-			Uuid:      user.Id,
+			Uuid:      userInfo.Uid,
 			Token:     token,
 			Source:    "core",
 			Status:    1,
@@ -70,12 +71,13 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		resp = &types.LoginResp{
 			BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success)},
 			Data: types.LoginInfo{
-				UserId: user.Id,
-				Token:  token,
-				Expire: uint64(expiredAt),
+				TenantId: userInfo.Tid,
+				UserId:   userInfo.Uid,
+				Token:    token,
+				Expire:   uint64(expiredAt),
 				Role: types.RoleInfoSimple{
-					Value:    user.RoleValue,
-					RoleName: user.RoleName,
+					Value:    userInfo.RoleValue,
+					RoleName: userInfo.RoleName,
 				},
 			},
 		}
@@ -85,10 +87,12 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 	}
 }
 
-func GetJwtToken(secretKey, uuid string, iat, seconds, roleId int64) (string, error) {
+// tacc is tenant account
+func GetJwtToken(secretKey, tuid string, uuid string, iat, seconds, roleId int64) (string, error) {
 	claims := make(jwt.MapClaims)
 	claims["exp"] = iat + seconds
 	claims["iat"] = iat
+	claims["tenantId"] = tuid
 	claims["userId"] = uuid
 	claims["roleId"] = roleId
 	token := jwt.New(jwt.SigningMethodHS256)

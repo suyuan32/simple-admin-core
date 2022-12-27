@@ -10,6 +10,7 @@ Auth:
 Log:
   ServiceName: coreApiLogger
   Mode: console
+  Encoding: plain
   Path: ./logs/api
   Level: info
   Compress: false
