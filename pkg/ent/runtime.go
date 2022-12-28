@@ -251,11 +251,11 @@ func init() {
 	// tenant.DefaultUUID holds the default value on creation for the uuid field.
 	tenant.DefaultUUID = tenantDescUUID.Default.(string)
 	// tenantDescStartTime is the schema descriptor for start_time field.
-	tenantDescStartTime := tenantFields[4].Descriptor()
+	tenantDescStartTime := tenantFields[5].Descriptor()
 	// tenant.DefaultStartTime holds the default value on creation for the start_time field.
 	tenant.DefaultStartTime = tenantDescStartTime.Default.(func() time.Time)
 	// tenantDescSortNo is the schema descriptor for sort_no field.
-	tenantDescSortNo := tenantFields[8].Descriptor()
+	tenantDescSortNo := tenantFields[9].Descriptor()
 	// tenant.DefaultSortNo holds the default value on creation for the sort_no field.
 	tenant.DefaultSortNo = tenantDescSortNo.Default.(int)
 	tokenMixin := schema.Token{}.Mixin()

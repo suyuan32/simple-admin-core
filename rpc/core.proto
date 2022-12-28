@@ -28,6 +28,19 @@ message PageInfoReq {
   uint64 page_size = 2;
 }
 
+// tenant message
+message CreateOrUpdateTenantReq {
+  string uuid = 1;
+  string pid = 2;
+  string name = 3;
+  string account = 4;
+  string start_time = 5;
+  string end_time = 6; 
+  string contact = 7;
+  string mobile = 8;
+  string sort_no = 9;
+}
+
 // user message
 
 message LoginReq {
@@ -380,6 +393,9 @@ service core {
 
   // group: base
   rpc initDatabase (Empty) returns (BaseResp);
+
+  // group: tenant
+  rpc CreateOrUpdateTenant (CreateOrUpdateTenantReq) returns (BaseResp);
 
   // user management
 

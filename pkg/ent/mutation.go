@@ -6774,7 +6774,8 @@ type TenantMutation struct {
 	status          *uint8
 	addstatus       *int8
 	uuid            *string
-	pid             *string
+	level           *uint32
+	addlevel        *int32
 	name            *string
 	account         *string
 	start_time      *time.Time
@@ -6787,11 +6788,11 @@ type TenantMutation struct {
 	users           map[uint64]struct{}
 	removedusers    map[uint64]struct{}
 	clearedusers    bool
+	parent          *uint64
+	clearedparent   bool
 	children        map[uint64]struct{}
 	removedchildren map[uint64]struct{}
 	clearedchildren bool
-	parent          *uint64
-	clearedparent   bool
 	done            bool
 	oldValue        func(context.Context) (*Tenant, error)
 	predicates      []predicate.Tenant
@@ -7080,13 +7081,13 @@ func (m *TenantMutation) ResetUUID() {
 }
 
 // SetPid sets the "pid" field.
-func (m *TenantMutation) SetPid(s string) {
-	m.pid = &s
+func (m *TenantMutation) SetPid(u uint64) {
+	m.parent = &u
 }
 
 // Pid returns the value of the "pid" field in the mutation.
-func (m *TenantMutation) Pid() (r string, exists bool) {
-	v := m.pid
+func (m *TenantMutation) Pid() (r uint64, exists bool) {
+	v := m.parent
 	if v == nil {
 		return
 	}
@@ -7096,7 +7097,7 @@ func (m *TenantMutation) Pid() (r string, exists bool) {
 // OldPid returns the old "pid" field's value of the Tenant entity.
 // If the Tenant object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *TenantMutation) OldPid(ctx context.Context) (v *string, err error) {
+func (m *TenantMutation) OldPid(ctx context.Context) (v uint64, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldPid is only allowed on UpdateOne operations")
 	}
@@ -7112,7 +7113,7 @@ func (m *TenantMutation) OldPid(ctx context.Context) (v *string, err error) {
 
 // ClearPid clears the value of the "pid" field.
 func (m *TenantMutation) ClearPid() {
-	m.pid = nil
+	m.parent = nil
 	m.clearedFields[tenant.FieldPid] = struct{}{}
 }
 
@@ -7124,8 +7125,64 @@ func (m *TenantMutation) PidCleared() bool {
 
 // ResetPid resets all changes to the "pid" field.
 func (m *TenantMutation) ResetPid() {
-	m.pid = nil
+	m.parent = nil
 	delete(m.clearedFields, tenant.FieldPid)
+}
+
+// SetLevel sets the "level" field.
+func (m *TenantMutation) SetLevel(u uint32) {
+	m.level = &u
+	m.addlevel = nil
+}
+
+// Level returns the value of the "level" field in the mutation.
+func (m *TenantMutation) Level() (r uint32, exists bool) {
+	v := m.level
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLevel returns the old "level" field's value of the Tenant entity.
+// If the Tenant object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TenantMutation) OldLevel(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLevel is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLevel requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLevel: %w", err)
+	}
+	return oldValue.Level, nil
+}
+
+// AddLevel adds u to the "level" field.
+func (m *TenantMutation) AddLevel(u int32) {
+	if m.addlevel != nil {
+		*m.addlevel += u
+	} else {
+		m.addlevel = &u
+	}
+}
+
+// AddedLevel returns the value that was added to the "level" field in this mutation.
+func (m *TenantMutation) AddedLevel() (r int32, exists bool) {
+	v := m.addlevel
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetLevel resets all changes to the "level" field.
+func (m *TenantMutation) ResetLevel() {
+	m.level = nil
+	m.addlevel = nil
 }
 
 // SetName sets the "name" field.
@@ -7507,6 +7564,45 @@ func (m *TenantMutation) ResetUsers() {
 	m.removedusers = nil
 }
 
+// SetParentID sets the "parent" edge to the Tenant entity by id.
+func (m *TenantMutation) SetParentID(id uint64) {
+	m.parent = &id
+}
+
+// ClearParent clears the "parent" edge to the Tenant entity.
+func (m *TenantMutation) ClearParent() {
+	m.clearedparent = true
+}
+
+// ParentCleared reports if the "parent" edge to the Tenant entity was cleared.
+func (m *TenantMutation) ParentCleared() bool {
+	return m.PidCleared() || m.clearedparent
+}
+
+// ParentID returns the "parent" edge ID in the mutation.
+func (m *TenantMutation) ParentID() (id uint64, exists bool) {
+	if m.parent != nil {
+		return *m.parent, true
+	}
+	return
+}
+
+// ParentIDs returns the "parent" edge IDs in the mutation.
+// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
+// ParentID instead. It exists only for internal usage by the builders.
+func (m *TenantMutation) ParentIDs() (ids []uint64) {
+	if id := m.parent; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetParent resets all changes to the "parent" edge.
+func (m *TenantMutation) ResetParent() {
+	m.parent = nil
+	m.clearedparent = false
+}
+
 // AddChildIDs adds the "children" edge to the Tenant entity by ids.
 func (m *TenantMutation) AddChildIDs(ids ...uint64) {
 	if m.children == nil {
@@ -7561,45 +7657,6 @@ func (m *TenantMutation) ResetChildren() {
 	m.removedchildren = nil
 }
 
-// SetParentID sets the "parent" edge to the Tenant entity by id.
-func (m *TenantMutation) SetParentID(id uint64) {
-	m.parent = &id
-}
-
-// ClearParent clears the "parent" edge to the Tenant entity.
-func (m *TenantMutation) ClearParent() {
-	m.clearedparent = true
-}
-
-// ParentCleared reports if the "parent" edge to the Tenant entity was cleared.
-func (m *TenantMutation) ParentCleared() bool {
-	return m.clearedparent
-}
-
-// ParentID returns the "parent" edge ID in the mutation.
-func (m *TenantMutation) ParentID() (id uint64, exists bool) {
-	if m.parent != nil {
-		return *m.parent, true
-	}
-	return
-}
-
-// ParentIDs returns the "parent" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// ParentID instead. It exists only for internal usage by the builders.
-func (m *TenantMutation) ParentIDs() (ids []uint64) {
-	if id := m.parent; id != nil {
-		ids = append(ids, *id)
-	}
-	return
-}
-
-// ResetParent resets all changes to the "parent" edge.
-func (m *TenantMutation) ResetParent() {
-	m.parent = nil
-	m.clearedparent = false
-}
-
 // Where appends a list predicates to the TenantMutation builder.
 func (m *TenantMutation) Where(ps ...predicate.Tenant) {
 	m.predicates = append(m.predicates, ps...)
@@ -7619,7 +7676,7 @@ func (m *TenantMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *TenantMutation) Fields() []string {
-	fields := make([]string, 0, 12)
+	fields := make([]string, 0, 13)
 	if m.created_at != nil {
 		fields = append(fields, tenant.FieldCreatedAt)
 	}
@@ -7632,8 +7689,11 @@ func (m *TenantMutation) Fields() []string {
 	if m.uuid != nil {
 		fields = append(fields, tenant.FieldUUID)
 	}
-	if m.pid != nil {
+	if m.parent != nil {
 		fields = append(fields, tenant.FieldPid)
+	}
+	if m.level != nil {
+		fields = append(fields, tenant.FieldLevel)
 	}
 	if m.name != nil {
 		fields = append(fields, tenant.FieldName)
@@ -7674,6 +7734,8 @@ func (m *TenantMutation) Field(name string) (ent.Value, bool) {
 		return m.UUID()
 	case tenant.FieldPid:
 		return m.Pid()
+	case tenant.FieldLevel:
+		return m.Level()
 	case tenant.FieldName:
 		return m.Name()
 	case tenant.FieldAccount:
@@ -7707,6 +7769,8 @@ func (m *TenantMutation) OldField(ctx context.Context, name string) (ent.Value, 
 		return m.OldUUID(ctx)
 	case tenant.FieldPid:
 		return m.OldPid(ctx)
+	case tenant.FieldLevel:
+		return m.OldLevel(ctx)
 	case tenant.FieldName:
 		return m.OldName(ctx)
 	case tenant.FieldAccount:
@@ -7759,11 +7823,18 @@ func (m *TenantMutation) SetField(name string, value ent.Value) error {
 		m.SetUUID(v)
 		return nil
 	case tenant.FieldPid:
-		v, ok := value.(string)
+		v, ok := value.(uint64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPid(v)
+		return nil
+	case tenant.FieldLevel:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLevel(v)
 		return nil
 	case tenant.FieldName:
 		v, ok := value.(string)
@@ -7825,6 +7896,9 @@ func (m *TenantMutation) AddedFields() []string {
 	if m.addstatus != nil {
 		fields = append(fields, tenant.FieldStatus)
 	}
+	if m.addlevel != nil {
+		fields = append(fields, tenant.FieldLevel)
+	}
 	if m.addsort_no != nil {
 		fields = append(fields, tenant.FieldSortNo)
 	}
@@ -7838,6 +7912,8 @@ func (m *TenantMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
 	case tenant.FieldStatus:
 		return m.AddedStatus()
+	case tenant.FieldLevel:
+		return m.AddedLevel()
 	case tenant.FieldSortNo:
 		return m.AddedSortNo()
 	}
@@ -7855,6 +7931,13 @@ func (m *TenantMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddStatus(v)
+		return nil
+	case tenant.FieldLevel:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddLevel(v)
 		return nil
 	case tenant.FieldSortNo:
 		v, ok := value.(int)
@@ -7944,6 +8027,9 @@ func (m *TenantMutation) ResetField(name string) error {
 	case tenant.FieldPid:
 		m.ResetPid()
 		return nil
+	case tenant.FieldLevel:
+		m.ResetLevel()
+		return nil
 	case tenant.FieldName:
 		m.ResetName()
 		return nil
@@ -7975,11 +8061,11 @@ func (m *TenantMutation) AddedEdges() []string {
 	if m.users != nil {
 		edges = append(edges, tenant.EdgeUsers)
 	}
-	if m.children != nil {
-		edges = append(edges, tenant.EdgeChildren)
-	}
 	if m.parent != nil {
 		edges = append(edges, tenant.EdgeParent)
+	}
+	if m.children != nil {
+		edges = append(edges, tenant.EdgeChildren)
 	}
 	return edges
 }
@@ -7994,16 +8080,16 @@ func (m *TenantMutation) AddedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
+	case tenant.EdgeParent:
+		if id := m.parent; id != nil {
+			return []ent.Value{*id}
+		}
 	case tenant.EdgeChildren:
 		ids := make([]ent.Value, 0, len(m.children))
 		for id := range m.children {
 			ids = append(ids, id)
 		}
 		return ids
-	case tenant.EdgeParent:
-		if id := m.parent; id != nil {
-			return []ent.Value{*id}
-		}
 	}
 	return nil
 }
@@ -8046,11 +8132,11 @@ func (m *TenantMutation) ClearedEdges() []string {
 	if m.clearedusers {
 		edges = append(edges, tenant.EdgeUsers)
 	}
-	if m.clearedchildren {
-		edges = append(edges, tenant.EdgeChildren)
-	}
 	if m.clearedparent {
 		edges = append(edges, tenant.EdgeParent)
+	}
+	if m.clearedchildren {
+		edges = append(edges, tenant.EdgeChildren)
 	}
 	return edges
 }
@@ -8061,10 +8147,10 @@ func (m *TenantMutation) EdgeCleared(name string) bool {
 	switch name {
 	case tenant.EdgeUsers:
 		return m.clearedusers
-	case tenant.EdgeChildren:
-		return m.clearedchildren
 	case tenant.EdgeParent:
 		return m.clearedparent
+	case tenant.EdgeChildren:
+		return m.clearedchildren
 	}
 	return false
 }
@@ -8087,11 +8173,11 @@ func (m *TenantMutation) ResetEdge(name string) error {
 	case tenant.EdgeUsers:
 		m.ResetUsers()
 		return nil
-	case tenant.EdgeChildren:
-		m.ResetChildren()
-		return nil
 	case tenant.EdgeParent:
 		m.ResetParent()
+		return nil
+	case tenant.EdgeChildren:
+		m.ResetChildren()
 		return nil
 	}
 	return fmt.Errorf("unknown Tenant edge %s", name)

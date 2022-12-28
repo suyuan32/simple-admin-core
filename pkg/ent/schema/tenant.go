@@ -22,7 +22,8 @@ type Tenant struct {
 func (Tenant) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("uuid").Default(uuid.NewString()).Comment("tenant's UUID | 租户的UUID"),
-		field.String("pid").Optional().Nillable().Comment("parent id | 父级ID"),
+		field.Uint64("pid").Optional().Comment("parent id | 父级ID"),
+		field.Uint32("level").Comment("tenant's level | 租户级别（含部门）"),
 		field.String("name").Unique().Comment("tenant's name | 租户的名称"),
 		field.String("account").Unique().Comment("tenant's account | 租户登录账号"),
 		field.Time("start_time").Comment("start_time | 租期的开始时间").
@@ -47,10 +48,7 @@ func (Tenant) Edges() []ent.Edge {
 		// tenant contains users
 		edge.To("users", User.Type),
 		// tenant children and parent relations
-		edge.To("children", Tenant.Type),
-		edge.From("parent", Tenant.Type).
-			Ref("children").
-			Unique(),
+		edge.To("children", Tenant.Type).From("parent").Unique().Field("pid"),
 	}
 }
 

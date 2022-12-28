@@ -21,6 +21,8 @@ const (
 	FieldUUID = "uuid"
 	// FieldPid holds the string denoting the pid field in the database.
 	FieldPid = "pid"
+	// FieldLevel holds the string denoting the level field in the database.
+	FieldLevel = "level"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldAccount holds the string denoting the account field in the database.
@@ -37,10 +39,10 @@ const (
 	FieldSortNo = "sort_no"
 	// EdgeUsers holds the string denoting the users edge name in mutations.
 	EdgeUsers = "users"
-	// EdgeChildren holds the string denoting the children edge name in mutations.
-	EdgeChildren = "children"
 	// EdgeParent holds the string denoting the parent edge name in mutations.
 	EdgeParent = "parent"
+	// EdgeChildren holds the string denoting the children edge name in mutations.
+	EdgeChildren = "children"
 	// Table holds the table name of the tenant in the database.
 	Table = "sys_tenant"
 	// UsersTable is the table that holds the users relation/edge. The primary key declared below.
@@ -48,14 +50,14 @@ const (
 	// UsersInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
 	UsersInverseTable = "sys_users"
-	// ChildrenTable is the table that holds the children relation/edge.
-	ChildrenTable = "sys_tenant"
-	// ChildrenColumn is the table column denoting the children relation/edge.
-	ChildrenColumn = "tenant_children"
 	// ParentTable is the table that holds the parent relation/edge.
 	ParentTable = "sys_tenant"
 	// ParentColumn is the table column denoting the parent relation/edge.
-	ParentColumn = "tenant_children"
+	ParentColumn = "pid"
+	// ChildrenTable is the table that holds the children relation/edge.
+	ChildrenTable = "sys_tenant"
+	// ChildrenColumn is the table column denoting the children relation/edge.
+	ChildrenColumn = "pid"
 )
 
 // Columns holds all SQL columns for tenant fields.
@@ -66,6 +68,7 @@ var Columns = []string{
 	FieldStatus,
 	FieldUUID,
 	FieldPid,
+	FieldLevel,
 	FieldName,
 	FieldAccount,
 	FieldStartTime,
@@ -73,12 +76,6 @@ var Columns = []string{
 	FieldContact,
 	FieldMobile,
 	FieldSortNo,
-}
-
-// ForeignKeys holds the SQL foreign-keys that are owned by the "sys_tenant"
-// table and are not defined as standalone fields in the schema.
-var ForeignKeys = []string{
-	"tenant_children",
 }
 
 var (
@@ -91,11 +88,6 @@ var (
 func ValidColumn(column string) bool {
 	for i := range Columns {
 		if column == Columns[i] {
-			return true
-		}
-	}
-	for i := range ForeignKeys {
-		if column == ForeignKeys[i] {
 			return true
 		}
 	}

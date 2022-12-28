@@ -78,16 +78,22 @@ func (tc *TenantCreate) SetNillableUUID(s *string) *TenantCreate {
 }
 
 // SetPid sets the "pid" field.
-func (tc *TenantCreate) SetPid(s string) *TenantCreate {
-	tc.mutation.SetPid(s)
+func (tc *TenantCreate) SetPid(u uint64) *TenantCreate {
+	tc.mutation.SetPid(u)
 	return tc
 }
 
 // SetNillablePid sets the "pid" field if the given value is not nil.
-func (tc *TenantCreate) SetNillablePid(s *string) *TenantCreate {
-	if s != nil {
-		tc.SetPid(*s)
+func (tc *TenantCreate) SetNillablePid(u *uint64) *TenantCreate {
+	if u != nil {
+		tc.SetPid(*u)
 	}
+	return tc
+}
+
+// SetLevel sets the "level" field.
+func (tc *TenantCreate) SetLevel(u uint32) *TenantCreate {
+	tc.mutation.SetLevel(u)
 	return tc
 }
 
@@ -194,21 +200,6 @@ func (tc *TenantCreate) AddUsers(u ...*User) *TenantCreate {
 	return tc.AddUserIDs(ids...)
 }
 
-// AddChildIDs adds the "children" edge to the Tenant entity by IDs.
-func (tc *TenantCreate) AddChildIDs(ids ...uint64) *TenantCreate {
-	tc.mutation.AddChildIDs(ids...)
-	return tc
-}
-
-// AddChildren adds the "children" edges to the Tenant entity.
-func (tc *TenantCreate) AddChildren(t ...*Tenant) *TenantCreate {
-	ids := make([]uint64, len(t))
-	for i := range t {
-		ids[i] = t[i].ID
-	}
-	return tc.AddChildIDs(ids...)
-}
-
 // SetParentID sets the "parent" edge to the Tenant entity by ID.
 func (tc *TenantCreate) SetParentID(id uint64) *TenantCreate {
 	tc.mutation.SetParentID(id)
@@ -226,6 +217,21 @@ func (tc *TenantCreate) SetNillableParentID(id *uint64) *TenantCreate {
 // SetParent sets the "parent" edge to the Tenant entity.
 func (tc *TenantCreate) SetParent(t *Tenant) *TenantCreate {
 	return tc.SetParentID(t.ID)
+}
+
+// AddChildIDs adds the "children" edge to the Tenant entity by IDs.
+func (tc *TenantCreate) AddChildIDs(ids ...uint64) *TenantCreate {
+	tc.mutation.AddChildIDs(ids...)
+	return tc
+}
+
+// AddChildren adds the "children" edges to the Tenant entity.
+func (tc *TenantCreate) AddChildren(t ...*Tenant) *TenantCreate {
+	ids := make([]uint64, len(t))
+	for i := range t {
+		ids[i] = t[i].ID
+	}
+	return tc.AddChildIDs(ids...)
 }
 
 // Mutation returns the TenantMutation object of the builder.
@@ -342,6 +348,9 @@ func (tc *TenantCreate) check() error {
 	if _, ok := tc.mutation.UUID(); !ok {
 		return &ValidationError{Name: "uuid", err: errors.New(`ent: missing required field "Tenant.uuid"`)}
 	}
+	if _, ok := tc.mutation.Level(); !ok {
+		return &ValidationError{Name: "level", err: errors.New(`ent: missing required field "Tenant.level"`)}
+	}
 	if _, ok := tc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Tenant.name"`)}
 	}
@@ -400,9 +409,9 @@ func (tc *TenantCreate) createSpec() (*Tenant, *sqlgraph.CreateSpec) {
 		_spec.SetField(tenant.FieldUUID, field.TypeString, value)
 		_node.UUID = value
 	}
-	if value, ok := tc.mutation.Pid(); ok {
-		_spec.SetField(tenant.FieldPid, field.TypeString, value)
-		_node.Pid = &value
+	if value, ok := tc.mutation.Level(); ok {
+		_spec.SetField(tenant.FieldLevel, field.TypeUint32, value)
+		_node.Level = value
 	}
 	if value, ok := tc.mutation.Name(); ok {
 		_spec.SetField(tenant.FieldName, field.TypeString, value)
@@ -451,25 +460,6 @@ func (tc *TenantCreate) createSpec() (*Tenant, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := tc.mutation.ChildrenIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
-			Inverse: false,
-			Table:   tenant.ChildrenTable,
-			Columns: []string{tenant.ChildrenColumn},
-			Bidi:    true,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: tenant.FieldID,
-				},
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges = append(_spec.Edges, edge)
-	}
 	if nodes := tc.mutation.ParentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
@@ -487,7 +477,26 @@ func (tc *TenantCreate) createSpec() (*Tenant, *sqlgraph.CreateSpec) {
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.tenant_children = &nodes[0]
+		_node.Pid = nodes[0]
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := tc.mutation.ChildrenIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   tenant.ChildrenTable,
+			Columns: []string{tenant.ChildrenColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: tenant.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

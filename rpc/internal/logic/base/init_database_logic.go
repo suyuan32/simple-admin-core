@@ -71,6 +71,7 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	l.svcCtx.Redis.Setex("database_init_state", "0", 300)
 
 	// initialize table structure
+	// if err := l.svcCtx.DB.Schema.Create(l.ctx, migrate.WithDropColumn(true), migrate.WithDropIndex(true), schema.WithForeignKeys(false)); err != nil {
 	if err := l.svcCtx.DB.Schema.Create(l.ctx, schema.WithForeignKeys(false)); err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
@@ -131,11 +132,35 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	return &core.BaseResp{Msg: i18n.Success}, nil
 }
 
+// insert init user data
+func (l *InitDatabaseLogic) insertUserData() error {
+	var users []*ent.UserCreate
+	users = append(users, l.svcCtx.DB.User.Create().
+		SetUsername("admin").
+		SetNickname("admin").
+		SetPassword(utils.BcryptEncrypt("simple-admin")).
+		SetUUID(uuid.NewString()).
+		SetEmail("simple_admin@gmail.com").
+		SetRoleID(1),
+	)
+	err := l.svcCtx.DB.User.CreateBulk(users...).Exec(l.ctx)
+	if err != nil {
+		logx.Errorw(err.Error())
+		return statuserr.NewInternalError(err.Error())
+	} else {
+		return nil
+	}
+}
+
+// TODO: how to add tenant and user?
 // insert init tenant data
 func (l *InitDatabaseLogic) insertTenantData() error {
 	var tenants []*ent.TenantCreate
+	ids := []uint64{1}
 	tenants = append(tenants, l.svcCtx.DB.Tenant.Create().
 		SetName("平台系统管理").
+		SetLevel(0).
+		AddUserIDs(ids...).
 		SetAccount("admin"),
 	)
 
@@ -148,31 +173,9 @@ func (l *InitDatabaseLogic) insertTenantData() error {
 	}
 }
 
-// insert init user data
-func (l *InitDatabaseLogic) insertUserData() error {
-	var users []*ent.UserCreate
-	users = append(users, l.svcCtx.DB.User.Create().
-		SetUsername("admin").
-		SetNickname("admin").
-		SetPassword(utils.BcryptEncrypt("simple-admin")).
-		SetUUID(uuid.NewString()).
-		SetEmail("simple_admin@gmail.com").
-		SetRoleID(1),
-	)
-
-	err := l.svcCtx.DB.User.CreateBulk(users...).Exec(l.ctx)
-	if err != nil {
-		logx.Errorw(err.Error())
-		return statuserr.NewInternalError(err.Error())
-	} else {
-		return nil
-	}
-}
-
 // insert init apis data
 func (l *InitDatabaseLogic) insertRoleData() error {
-	var roles []*ent.RoleCreate
-	roles = make([]*ent.RoleCreate, 3)
+	roles := make([]*ent.RoleCreate, 3)
 	roles[0] = l.svcCtx.DB.Role.Create().
 		SetName("role.admin").
 		SetValue("admin").
@@ -202,8 +205,7 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 
 // insert init user data
 func (l *InitDatabaseLogic) insertApiData() error {
-	var apis []*ent.APICreate
-	apis = make([]*ent.APICreate, 48)
+	apis := make([]*ent.APICreate, 48)
 	// USER
 	apis[0] = l.svcCtx.DB.API.Create().
 		SetPath("/user/login").

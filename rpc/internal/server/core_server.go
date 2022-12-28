@@ -13,6 +13,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauth"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/role"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/tenant"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -33,6 +34,11 @@ func NewCoreServer(svcCtx *svc.ServiceContext) *CoreServer {
 func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.BaseResp, error) {
 	l := base.NewInitDatabaseLogic(ctx, s.svcCtx)
 	return l.InitDatabase(in)
+}
+
+func (s *CoreServer) CreateOrUpdateTenant(ctx context.Context, in *core.CreateOrUpdateTenantReq) (*core.BaseResp, error) {
+	l := tenant.NewCreateOrUpdateTenantLogic(ctx, s.svcCtx)
+	return l.CreateOrUpdateTenant(in)
 }
 
 func (s *CoreServer) Login(ctx context.Context, in *core.LoginReq) (*core.LoginResp, error) {

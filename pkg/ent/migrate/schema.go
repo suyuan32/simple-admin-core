@@ -184,8 +184,8 @@ var (
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
-		{Name: "uuid", Type: field.TypeString, Default: "fd002091-dbde-4ff1-aa15-69114119de9b"},
-		{Name: "pid", Type: field.TypeString, Nullable: true},
+		{Name: "uuid", Type: field.TypeString, Default: "b992782a-f9bb-4b06-8067-e7bb5b3bac2d"},
+		{Name: "level", Type: field.TypeUint32},
 		{Name: "name", Type: field.TypeString, Unique: true},
 		{Name: "account", Type: field.TypeString, Unique: true},
 		{Name: "start_time", Type: field.TypeTime},
@@ -193,7 +193,7 @@ var (
 		{Name: "contact", Type: field.TypeString, Nullable: true},
 		{Name: "mobile", Type: field.TypeString, Nullable: true},
 		{Name: "sort_no", Type: field.TypeInt, Nullable: true, Default: 0},
-		{Name: "tenant_children", Type: field.TypeUint64, Nullable: true},
+		{Name: "pid", Type: field.TypeUint64, Nullable: true},
 	}
 	// SysTenantTable holds the schema information for the "sys_tenant" table.
 	SysTenantTable = &schema.Table{
@@ -212,7 +212,7 @@ var (
 			{
 				Name:    "tenant_uuid_pid",
 				Unique:  true,
-				Columns: []*schema.Column{SysTenantColumns[4], SysTenantColumns[5]},
+				Columns: []*schema.Column{SysTenantColumns[4], SysTenantColumns[13]},
 			},
 			{
 				Name:    "tenant_sort_no",

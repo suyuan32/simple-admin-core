@@ -1045,22 +1045,6 @@ func (c *TenantClient) QueryUsers(t *Tenant) *UserQuery {
 	return query
 }
 
-// QueryChildren queries the children edge of a Tenant.
-func (c *TenantClient) QueryChildren(t *Tenant) *TenantQuery {
-	query := &TenantQuery{config: c.config}
-	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := t.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(tenant.Table, tenant.FieldID, id),
-			sqlgraph.To(tenant.Table, tenant.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, tenant.ChildrenTable, tenant.ChildrenColumn),
-		)
-		fromV = sqlgraph.Neighbors(t.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
 // QueryParent queries the parent edge of a Tenant.
 func (c *TenantClient) QueryParent(t *Tenant) *TenantQuery {
 	query := &TenantQuery{config: c.config}
@@ -1070,6 +1054,22 @@ func (c *TenantClient) QueryParent(t *Tenant) *TenantQuery {
 			sqlgraph.From(tenant.Table, tenant.FieldID, id),
 			sqlgraph.To(tenant.Table, tenant.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, tenant.ParentTable, tenant.ParentColumn),
+		)
+		fromV = sqlgraph.Neighbors(t.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// QueryChildren queries the children edge of a Tenant.
+func (c *TenantClient) QueryChildren(t *Tenant) *TenantQuery {
+	query := &TenantQuery{config: c.config}
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := t.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(tenant.Table, tenant.FieldID, id),
+			sqlgraph.To(tenant.Table, tenant.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, tenant.ChildrenTable, tenant.ChildrenColumn),
 		)
 		fromV = sqlgraph.Neighbors(t.driver.Dialect(), step)
 		return fromV, nil

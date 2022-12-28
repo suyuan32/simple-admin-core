@@ -26,9 +26,8 @@ type TenantQuery struct {
 	fields       []string
 	predicates   []predicate.Tenant
 	withUsers    *UserQuery
-	withChildren *TenantQuery
 	withParent   *TenantQuery
-	withFKs      bool
+	withChildren *TenantQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -87,28 +86,6 @@ func (tq *TenantQuery) QueryUsers() *UserQuery {
 	return query
 }
 
-// QueryChildren chains the current query on the "children" edge.
-func (tq *TenantQuery) QueryChildren() *TenantQuery {
-	query := &TenantQuery{config: tq.config}
-	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := tq.prepareQuery(ctx); err != nil {
-			return nil, err
-		}
-		selector := tq.sqlQuery(ctx)
-		if err := selector.Err(); err != nil {
-			return nil, err
-		}
-		step := sqlgraph.NewStep(
-			sqlgraph.From(tenant.Table, tenant.FieldID, selector),
-			sqlgraph.To(tenant.Table, tenant.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, tenant.ChildrenTable, tenant.ChildrenColumn),
-		)
-		fromU = sqlgraph.SetNeighbors(tq.driver.Dialect(), step)
-		return fromU, nil
-	}
-	return query
-}
-
 // QueryParent chains the current query on the "parent" edge.
 func (tq *TenantQuery) QueryParent() *TenantQuery {
 	query := &TenantQuery{config: tq.config}
@@ -124,6 +101,28 @@ func (tq *TenantQuery) QueryParent() *TenantQuery {
 			sqlgraph.From(tenant.Table, tenant.FieldID, selector),
 			sqlgraph.To(tenant.Table, tenant.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, tenant.ParentTable, tenant.ParentColumn),
+		)
+		fromU = sqlgraph.SetNeighbors(tq.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
+// QueryChildren chains the current query on the "children" edge.
+func (tq *TenantQuery) QueryChildren() *TenantQuery {
+	query := &TenantQuery{config: tq.config}
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := tq.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		selector := tq.sqlQuery(ctx)
+		if err := selector.Err(); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(tenant.Table, tenant.FieldID, selector),
+			sqlgraph.To(tenant.Table, tenant.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, tenant.ChildrenTable, tenant.ChildrenColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(tq.driver.Dialect(), step)
 		return fromU, nil
@@ -313,8 +312,8 @@ func (tq *TenantQuery) Clone() *TenantQuery {
 		order:        append([]OrderFunc{}, tq.order...),
 		predicates:   append([]predicate.Tenant{}, tq.predicates...),
 		withUsers:    tq.withUsers.Clone(),
-		withChildren: tq.withChildren.Clone(),
 		withParent:   tq.withParent.Clone(),
+		withChildren: tq.withChildren.Clone(),
 		// clone intermediate query.
 		sql:    tq.sql.Clone(),
 		path:   tq.path,
@@ -333,17 +332,6 @@ func (tq *TenantQuery) WithUsers(opts ...func(*UserQuery)) *TenantQuery {
 	return tq
 }
 
-// WithChildren tells the query-builder to eager-load the nodes that are connected to
-// the "children" edge. The optional arguments are used to configure the query builder of the edge.
-func (tq *TenantQuery) WithChildren(opts ...func(*TenantQuery)) *TenantQuery {
-	query := &TenantQuery{config: tq.config}
-	for _, opt := range opts {
-		opt(query)
-	}
-	tq.withChildren = query
-	return tq
-}
-
 // WithParent tells the query-builder to eager-load the nodes that are connected to
 // the "parent" edge. The optional arguments are used to configure the query builder of the edge.
 func (tq *TenantQuery) WithParent(opts ...func(*TenantQuery)) *TenantQuery {
@@ -352,6 +340,17 @@ func (tq *TenantQuery) WithParent(opts ...func(*TenantQuery)) *TenantQuery {
 		opt(query)
 	}
 	tq.withParent = query
+	return tq
+}
+
+// WithChildren tells the query-builder to eager-load the nodes that are connected to
+// the "children" edge. The optional arguments are used to configure the query builder of the edge.
+func (tq *TenantQuery) WithChildren(opts ...func(*TenantQuery)) *TenantQuery {
+	query := &TenantQuery{config: tq.config}
+	for _, opt := range opts {
+		opt(query)
+	}
+	tq.withChildren = query
 	return tq
 }
 
@@ -427,20 +426,13 @@ func (tq *TenantQuery) prepareQuery(ctx context.Context) error {
 func (tq *TenantQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Tenant, error) {
 	var (
 		nodes       = []*Tenant{}
-		withFKs     = tq.withFKs
 		_spec       = tq.querySpec()
 		loadedTypes = [3]bool{
 			tq.withUsers != nil,
-			tq.withChildren != nil,
 			tq.withParent != nil,
+			tq.withChildren != nil,
 		}
 	)
-	if tq.withParent != nil {
-		withFKs = true
-	}
-	if withFKs {
-		_spec.Node.Columns = append(_spec.Node.Columns, tenant.ForeignKeys...)
-	}
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*Tenant).scanValues(nil, columns)
 	}
@@ -466,16 +458,16 @@ func (tq *TenantQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Tenan
 			return nil, err
 		}
 	}
+	if query := tq.withParent; query != nil {
+		if err := tq.loadParent(ctx, query, nodes, nil,
+			func(n *Tenant, e *Tenant) { n.Edges.Parent = e }); err != nil {
+			return nil, err
+		}
+	}
 	if query := tq.withChildren; query != nil {
 		if err := tq.loadChildren(ctx, query, nodes,
 			func(n *Tenant) { n.Edges.Children = []*Tenant{} },
 			func(n *Tenant, e *Tenant) { n.Edges.Children = append(n.Edges.Children, e) }); err != nil {
-			return nil, err
-		}
-	}
-	if query := tq.withParent; query != nil {
-		if err := tq.loadParent(ctx, query, nodes, nil,
-			func(n *Tenant, e *Tenant) { n.Edges.Parent = e }); err != nil {
 			return nil, err
 		}
 	}
@@ -540,45 +532,11 @@ func (tq *TenantQuery) loadUsers(ctx context.Context, query *UserQuery, nodes []
 	}
 	return nil
 }
-func (tq *TenantQuery) loadChildren(ctx context.Context, query *TenantQuery, nodes []*Tenant, init func(*Tenant), assign func(*Tenant, *Tenant)) error {
-	fks := make([]driver.Value, 0, len(nodes))
-	nodeids := make(map[uint64]*Tenant)
-	for i := range nodes {
-		fks = append(fks, nodes[i].ID)
-		nodeids[nodes[i].ID] = nodes[i]
-		if init != nil {
-			init(nodes[i])
-		}
-	}
-	query.withFKs = true
-	query.Where(predicate.Tenant(func(s *sql.Selector) {
-		s.Where(sql.InValues(tenant.ChildrenColumn, fks...))
-	}))
-	neighbors, err := query.All(ctx)
-	if err != nil {
-		return err
-	}
-	for _, n := range neighbors {
-		fk := n.tenant_children
-		if fk == nil {
-			return fmt.Errorf(`foreign-key "tenant_children" is nil for node %v`, n.ID)
-		}
-		node, ok := nodeids[*fk]
-		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "tenant_children" returned %v for node %v`, *fk, n.ID)
-		}
-		assign(node, n)
-	}
-	return nil
-}
 func (tq *TenantQuery) loadParent(ctx context.Context, query *TenantQuery, nodes []*Tenant, init func(*Tenant), assign func(*Tenant, *Tenant)) error {
 	ids := make([]uint64, 0, len(nodes))
 	nodeids := make(map[uint64][]*Tenant)
 	for i := range nodes {
-		if nodes[i].tenant_children == nil {
-			continue
-		}
-		fk := *nodes[i].tenant_children
+		fk := nodes[i].Pid
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -592,11 +550,38 @@ func (tq *TenantQuery) loadParent(ctx context.Context, query *TenantQuery, nodes
 	for _, n := range neighbors {
 		nodes, ok := nodeids[n.ID]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "tenant_children" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "pid" returned %v`, n.ID)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
 		}
+	}
+	return nil
+}
+func (tq *TenantQuery) loadChildren(ctx context.Context, query *TenantQuery, nodes []*Tenant, init func(*Tenant), assign func(*Tenant, *Tenant)) error {
+	fks := make([]driver.Value, 0, len(nodes))
+	nodeids := make(map[uint64]*Tenant)
+	for i := range nodes {
+		fks = append(fks, nodes[i].ID)
+		nodeids[nodes[i].ID] = nodes[i]
+		if init != nil {
+			init(nodes[i])
+		}
+	}
+	query.Where(predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.InValues(tenant.ChildrenColumn, fks...))
+	}))
+	neighbors, err := query.All(ctx)
+	if err != nil {
+		return err
+	}
+	for _, n := range neighbors {
+		fk := n.Pid
+		node, ok := nodeids[fk]
+		if !ok {
+			return fmt.Errorf(`unexpected foreign-key "pid" returned %v for node %v`, fk, n.ID)
+		}
+		assign(node, n)
 	}
 	return nil
 }

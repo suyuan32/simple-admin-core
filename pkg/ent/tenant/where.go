@@ -110,9 +110,16 @@ func UUID(v string) predicate.Tenant {
 }
 
 // Pid applies equality check predicate on the "pid" field. It's identical to PidEQ.
-func Pid(v string) predicate.Tenant {
+func Pid(v uint64) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldPid), v))
+	})
+}
+
+// Level applies equality check predicate on the "level" field. It's identical to LevelEQ.
+func Level(v uint32) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldLevel), v))
 	})
 }
 
@@ -471,21 +478,21 @@ func UUIDContainsFold(v string) predicate.Tenant {
 }
 
 // PidEQ applies the EQ predicate on the "pid" field.
-func PidEQ(v string) predicate.Tenant {
+func PidEQ(v uint64) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldPid), v))
 	})
 }
 
 // PidNEQ applies the NEQ predicate on the "pid" field.
-func PidNEQ(v string) predicate.Tenant {
+func PidNEQ(v uint64) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldPid), v))
 	})
 }
 
 // PidIn applies the In predicate on the "pid" field.
-func PidIn(vs ...string) predicate.Tenant {
+func PidIn(vs ...uint64) predicate.Tenant {
 	v := make([]any, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -496,62 +503,13 @@ func PidIn(vs ...string) predicate.Tenant {
 }
 
 // PidNotIn applies the NotIn predicate on the "pid" field.
-func PidNotIn(vs ...string) predicate.Tenant {
+func PidNotIn(vs ...uint64) predicate.Tenant {
 	v := make([]any, len(vs))
 	for i := range v {
 		v[i] = vs[i]
 	}
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.NotIn(s.C(FieldPid), v...))
-	})
-}
-
-// PidGT applies the GT predicate on the "pid" field.
-func PidGT(v string) predicate.Tenant {
-	return predicate.Tenant(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldPid), v))
-	})
-}
-
-// PidGTE applies the GTE predicate on the "pid" field.
-func PidGTE(v string) predicate.Tenant {
-	return predicate.Tenant(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldPid), v))
-	})
-}
-
-// PidLT applies the LT predicate on the "pid" field.
-func PidLT(v string) predicate.Tenant {
-	return predicate.Tenant(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldPid), v))
-	})
-}
-
-// PidLTE applies the LTE predicate on the "pid" field.
-func PidLTE(v string) predicate.Tenant {
-	return predicate.Tenant(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldPid), v))
-	})
-}
-
-// PidContains applies the Contains predicate on the "pid" field.
-func PidContains(v string) predicate.Tenant {
-	return predicate.Tenant(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldPid), v))
-	})
-}
-
-// PidHasPrefix applies the HasPrefix predicate on the "pid" field.
-func PidHasPrefix(v string) predicate.Tenant {
-	return predicate.Tenant(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldPid), v))
-	})
-}
-
-// PidHasSuffix applies the HasSuffix predicate on the "pid" field.
-func PidHasSuffix(v string) predicate.Tenant {
-	return predicate.Tenant(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldPid), v))
 	})
 }
 
@@ -569,17 +527,67 @@ func PidNotNil() predicate.Tenant {
 	})
 }
 
-// PidEqualFold applies the EqualFold predicate on the "pid" field.
-func PidEqualFold(v string) predicate.Tenant {
+// LevelEQ applies the EQ predicate on the "level" field.
+func LevelEQ(v uint32) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldPid), v))
+		s.Where(sql.EQ(s.C(FieldLevel), v))
 	})
 }
 
-// PidContainsFold applies the ContainsFold predicate on the "pid" field.
-func PidContainsFold(v string) predicate.Tenant {
+// LevelNEQ applies the NEQ predicate on the "level" field.
+func LevelNEQ(v uint32) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldPid), v))
+		s.Where(sql.NEQ(s.C(FieldLevel), v))
+	})
+}
+
+// LevelIn applies the In predicate on the "level" field.
+func LevelIn(vs ...uint32) predicate.Tenant {
+	v := make([]any, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldLevel), v...))
+	})
+}
+
+// LevelNotIn applies the NotIn predicate on the "level" field.
+func LevelNotIn(vs ...uint32) predicate.Tenant {
+	v := make([]any, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldLevel), v...))
+	})
+}
+
+// LevelGT applies the GT predicate on the "level" field.
+func LevelGT(v uint32) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldLevel), v))
+	})
+}
+
+// LevelGTE applies the GTE predicate on the "level" field.
+func LevelGTE(v uint32) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldLevel), v))
+	})
+}
+
+// LevelLT applies the LT predicate on the "level" field.
+func LevelLT(v uint32) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldLevel), v))
+	})
+}
+
+// LevelLTE applies the LTE predicate on the "level" field.
+func LevelLTE(v uint32) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldLevel), v))
 	})
 }
 
@@ -1255,34 +1263,6 @@ func HasUsersWith(preds ...predicate.User) predicate.Tenant {
 	})
 }
 
-// HasChildren applies the HasEdge predicate on the "children" edge.
-func HasChildren() predicate.Tenant {
-	return predicate.Tenant(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(ChildrenTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, ChildrenTable, ChildrenColumn),
-		)
-		sqlgraph.HasNeighbors(s, step)
-	})
-}
-
-// HasChildrenWith applies the HasEdge predicate on the "children" edge with a given conditions (other predicates).
-func HasChildrenWith(preds ...predicate.Tenant) predicate.Tenant {
-	return predicate.Tenant(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, ChildrenTable, ChildrenColumn),
-		)
-		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
-			for _, p := range preds {
-				p(s)
-			}
-		})
-	})
-}
-
 // HasParent applies the HasEdge predicate on the "parent" edge.
 func HasParent() predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
@@ -1302,6 +1282,34 @@ func HasParentWith(preds ...predicate.Tenant) predicate.Tenant {
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(Table, FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, ParentTable, ParentColumn),
+		)
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
+}
+
+// HasChildren applies the HasEdge predicate on the "children" edge.
+func HasChildren() predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(ChildrenTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, ChildrenTable, ChildrenColumn),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasChildrenWith applies the HasEdge predicate on the "children" edge with a given conditions (other predicates).
+func HasChildrenWith(preds ...predicate.Tenant) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(Table, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, ChildrenTable, ChildrenColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

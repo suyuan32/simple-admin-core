@@ -21,6 +21,7 @@ type (
 	ChangePasswordReq          = core.ChangePasswordReq
 	CreateOrUpdateMenuParamReq = core.CreateOrUpdateMenuParamReq
 	CreateOrUpdateMenuReq      = core.CreateOrUpdateMenuReq
+	CreateOrUpdateTenantReq    = core.CreateOrUpdateTenantReq
 	CreateOrUpdateUserReq      = core.CreateOrUpdateUserReq
 	CreatePolicyReq            = core.CreatePolicyReq
 	DictionaryDetail           = core.DictionaryDetail
@@ -65,6 +66,7 @@ type (
 
 	Core interface {
 		InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
+		CreateOrUpdateTenant(ctx context.Context, in *CreateOrUpdateTenantReq, opts ...grpc.CallOption) (*BaseResp, error)
 		Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 		ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error)
 		CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateUserReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -124,6 +126,11 @@ func NewCore(cli zrpc.Client) Core {
 func (m *defaultCore) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.InitDatabase(ctx, in, opts...)
+}
+
+func (m *defaultCore) CreateOrUpdateTenant(ctx context.Context, in *CreateOrUpdateTenantReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateOrUpdateTenant(ctx, in, opts...)
 }
 
 func (m *defaultCore) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {

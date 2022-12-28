@@ -24,6 +24,8 @@ const _ = grpc.SupportPackageIsVersion7
 type CoreClient interface {
 	// group: base
 	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: tenant
+	CreateOrUpdateTenant(ctx context.Context, in *CreateOrUpdateTenantReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: user
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 	// group: user
@@ -123,6 +125,15 @@ func NewCoreClient(cc grpc.ClientConnInterface) CoreClient {
 func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.core/initDatabase", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreateOrUpdateTenant(ctx context.Context, in *CreateOrUpdateTenantReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/CreateOrUpdateTenant", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -522,6 +533,8 @@ func (c *coreClient) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ..
 type CoreServer interface {
 	// group: base
 	InitDatabase(context.Context, *Empty) (*BaseResp, error)
+	// group: tenant
+	CreateOrUpdateTenant(context.Context, *CreateOrUpdateTenantReq) (*BaseResp, error)
 	// group: user
 	Login(context.Context, *LoginReq) (*LoginResp, error)
 	// group: user
@@ -617,6 +630,9 @@ type UnimplementedCoreServer struct {
 
 func (UnimplementedCoreServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
+}
+func (UnimplementedCoreServer) CreateOrUpdateTenant(context.Context, *CreateOrUpdateTenantReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateTenant not implemented")
 }
 func (UnimplementedCoreServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
@@ -774,6 +790,24 @@ func _Core_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).InitDatabase(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreateOrUpdateTenant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOrUpdateTenantReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateOrUpdateTenant(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/CreateOrUpdateTenant",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateOrUpdateTenant(ctx, req.(*CreateOrUpdateTenantReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1562,6 +1596,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "initDatabase",
 			Handler:    _Core_InitDatabase_Handler,
+		},
+		{
+			MethodName: "CreateOrUpdateTenant",
+			Handler:    _Core_CreateOrUpdateTenant_Handler,
 		},
 		{
 			MethodName: "login",
