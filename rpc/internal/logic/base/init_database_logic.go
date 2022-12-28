@@ -512,7 +512,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 
 	menus[1] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
-		SetMenuType(0).
+		SetMenuType(1).
 		SetParentID(1).
 		SetPath("/dashboard").
 		SetName("Dashboard").
