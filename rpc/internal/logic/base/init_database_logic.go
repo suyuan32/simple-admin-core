@@ -54,6 +54,14 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		lock.Release()
 	}()
 
+	// initialize table structure
+	if err := l.svcCtx.DB.Schema.Create(l.ctx, schema.WithForeignKeys(false), schema.WithDropColumn(true),
+		schema.WithDropIndex(true)); err != nil {
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
+		return nil, statuserr.NewInternalError(err.Error())
+	}
+
 	// judge if the initialization had been done
 	check, err := l.svcCtx.DB.API.Query().Count(l.ctx)
 
@@ -69,13 +77,6 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	// set default state value
 	l.svcCtx.Redis.Setex("database_error_msg", "", 300)
 	l.svcCtx.Redis.Setex("database_init_state", "0", 300)
-
-	// initialize table structure
-	if err := l.svcCtx.DB.Schema.Create(l.ctx, schema.WithForeignKeys(false)); err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, statuserr.NewInternalError(err.Error())
-	}
 
 	err = l.insertUserData()
 	if err != nil {
