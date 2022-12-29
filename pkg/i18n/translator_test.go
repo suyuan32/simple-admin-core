@@ -1,13 +1,15 @@
 package i18n
 
 import (
-	"fmt"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestTranslator(t *testing.T) {
 	l := &Translator{}
 	l.NewBundle(LocaleFS)
+	l.NewTranslator()
 	res := l.Trans("zh", "login.userNotExist")
-	fmt.Println(res)
+	assert.Equal(t, "用户不存在", res)
 }
