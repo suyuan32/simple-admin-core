@@ -669,6 +669,56 @@ definitions:
             - infoURL
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    CreateOrUpdateTenantReq:
+        properties:
+            account:
+                description: Account | 租户账号
+                type: string
+                x-go-name: Account
+            contact:
+                description: Contact | 联系人
+                type: string
+                x-go-name: Contact
+            end_time:
+                description: StartTime | 租用结束时间
+                format: uint64
+                type: integer
+                x-go-name: EndTime
+            level:
+                description: Level | 租户级别
+                format: uint64
+                type: integer
+                x-go-name: Level
+            mobile:
+                description: Mobile ｜ 联系电话
+                type: string
+                x-go-name: Mobile
+            name:
+                description: Name | 租户名称
+                type: string
+                x-go-name: Name
+            parent_id:
+                description: ParentID | 租户父级标识
+                type: string
+                x-go-name: ParentID
+            sort_no:
+                description: SortNo ｜ 显示排序
+                format: uint32
+                type: integer
+                x-go-name: SortNo
+            start_time:
+                description: StartTime | 租用开始时间
+                format: uint64
+                type: integer
+                x-go-name: StartTime
+        required:
+            - parent_id
+            - level
+            - name
+            - account
+            - start_time
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateTokenReq:
         description: Create or update token information request | 创建或更新token信息
         properties:
@@ -2801,6 +2851,11 @@ paths:
             summary: Set role status | 设置角色状态
             tags:
                 - role
+    /tencent/create_or_update:
+        post:
+            operationId: CreateOrUpdateTencent
+            tags:
+                - tenant
     /token/batch_delete:
         post:
             description: Batch delete token information | 批量删除token信息

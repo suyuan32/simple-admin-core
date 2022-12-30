@@ -31,7 +31,7 @@ func (Tenant) Fields() []ent.Field {
 		field.Time("end_time").Optional().Comment("end_time ｜ 租期的结束时间"),
 		field.String("contact").Optional().Comment("contact | 客户联系人"),
 		field.String("mobile").Optional().Comment("mobile | 客户联系电话"),
-		field.Int("sort_no").Optional().Default(0).Comment("sort number | 显示排序"),
+		field.Uint32("sort_no").Optional().Default(0).Comment("sort number | 显示排序"),
 	}
 }
 

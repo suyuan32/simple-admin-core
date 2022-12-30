@@ -166,15 +166,15 @@ func (tc *TenantCreate) SetNillableMobile(s *string) *TenantCreate {
 }
 
 // SetSortNo sets the "sort_no" field.
-func (tc *TenantCreate) SetSortNo(i int) *TenantCreate {
-	tc.mutation.SetSortNo(i)
+func (tc *TenantCreate) SetSortNo(u uint32) *TenantCreate {
+	tc.mutation.SetSortNo(u)
 	return tc
 }
 
 // SetNillableSortNo sets the "sort_no" field if the given value is not nil.
-func (tc *TenantCreate) SetNillableSortNo(i *int) *TenantCreate {
-	if i != nil {
-		tc.SetSortNo(*i)
+func (tc *TenantCreate) SetNillableSortNo(u *uint32) *TenantCreate {
+	if u != nil {
+		tc.SetSortNo(*u)
 	}
 	return tc
 }
@@ -438,7 +438,7 @@ func (tc *TenantCreate) createSpec() (*Tenant, *sqlgraph.CreateSpec) {
 		_node.Mobile = value
 	}
 	if value, ok := tc.mutation.SortNo(); ok {
-		_spec.SetField(tenant.FieldSortNo, field.TypeInt, value)
+		_spec.SetField(tenant.FieldSortNo, field.TypeUint32, value)
 		_node.SortNo = value
 	}
 	if nodes := tc.mutation.UsersIDs(); len(nodes) > 0 {

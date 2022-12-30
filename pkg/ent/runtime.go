@@ -257,7 +257,7 @@ func init() {
 	// tenantDescSortNo is the schema descriptor for sort_no field.
 	tenantDescSortNo := tenantFields[9].Descriptor()
 	// tenant.DefaultSortNo holds the default value on creation for the sort_no field.
-	tenant.DefaultSortNo = tenantDescSortNo.Default.(int)
+	tenant.DefaultSortNo = tenantDescSortNo.Default.(uint32)
 	tokenMixin := schema.Token{}.Mixin()
 	tokenMixinFields0 := tokenMixin[0].Fields()
 	_ = tokenMixinFields0

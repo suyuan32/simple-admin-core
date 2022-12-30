@@ -12,6 +12,7 @@ import (
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
 	oauth "github.com/suyuan32/simple-admin-core/api/internal/handler/oauth"
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
+	tenant "github.com/suyuan32/simple-admin-core/api/internal/handler/tenant"
 	token "github.com/suyuan32/simple-admin-core/api/internal/handler/token"
 	user "github.com/suyuan32/simple-admin-core/api/internal/handler/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -20,6 +21,20 @@ import (
 )
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/tencent/create_or_update",
+					Handler: tenant.CreateOrUpdateTencentHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
 	server.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.Authority},

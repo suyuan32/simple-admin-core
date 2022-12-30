@@ -108,5 +108,5 @@ var (
 	// DefaultStartTime holds the default value on creation for the "start_time" field.
 	DefaultStartTime func() time.Time
 	// DefaultSortNo holds the default value on creation for the "sort_no" field.
-	DefaultSortNo int
+	DefaultSortNo uint32
 )

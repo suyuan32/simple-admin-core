@@ -1,3 +1,4 @@
+import "tenant.api"
 import "role.api"
 import "user.api"
 import "menu.api"

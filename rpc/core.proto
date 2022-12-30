@@ -30,15 +30,16 @@ message PageInfoReq {
 
 // tenant message
 message CreateOrUpdateTenantReq {
-  string uuid = 1;
-  string pid = 2;
-  string name = 3;
-  string account = 4;
-  string start_time = 5;
-  string end_time = 6; 
-  string contact = 7;
-  string mobile = 8;
-  string sort_no = 9;
+  uint64 id         = 1;
+  uint64 pid        = 2;
+  string uuid       = 3;
+  string name       = 4;
+  string account    = 5;
+  int64 start_time = 6;
+  int64 end_time   = 7;
+  string contact    = 8;
+  string mobile     = 9;
+  uint32 sort_no    = 10;
 }
 
 // user message

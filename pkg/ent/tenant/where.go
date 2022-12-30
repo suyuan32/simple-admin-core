@@ -166,7 +166,7 @@ func Mobile(v string) predicate.Tenant {
 }
 
 // SortNo applies equality check predicate on the "sort_no" field. It's identical to SortNoEQ.
-func SortNo(v int) predicate.Tenant {
+func SortNo(v uint32) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldSortNo), v))
 	})
@@ -1158,21 +1158,21 @@ func MobileContainsFold(v string) predicate.Tenant {
 }
 
 // SortNoEQ applies the EQ predicate on the "sort_no" field.
-func SortNoEQ(v int) predicate.Tenant {
+func SortNoEQ(v uint32) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldSortNo), v))
 	})
 }
 
 // SortNoNEQ applies the NEQ predicate on the "sort_no" field.
-func SortNoNEQ(v int) predicate.Tenant {
+func SortNoNEQ(v uint32) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldSortNo), v))
 	})
 }
 
 // SortNoIn applies the In predicate on the "sort_no" field.
-func SortNoIn(vs ...int) predicate.Tenant {
+func SortNoIn(vs ...uint32) predicate.Tenant {
 	v := make([]any, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -1183,7 +1183,7 @@ func SortNoIn(vs ...int) predicate.Tenant {
 }
 
 // SortNoNotIn applies the NotIn predicate on the "sort_no" field.
-func SortNoNotIn(vs ...int) predicate.Tenant {
+func SortNoNotIn(vs ...uint32) predicate.Tenant {
 	v := make([]any, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -1194,28 +1194,28 @@ func SortNoNotIn(vs ...int) predicate.Tenant {
 }
 
 // SortNoGT applies the GT predicate on the "sort_no" field.
-func SortNoGT(v int) predicate.Tenant {
+func SortNoGT(v uint32) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldSortNo), v))
 	})
 }
 
 // SortNoGTE applies the GTE predicate on the "sort_no" field.
-func SortNoGTE(v int) predicate.Tenant {
+func SortNoGTE(v uint32) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldSortNo), v))
 	})
 }
 
 // SortNoLT applies the LT predicate on the "sort_no" field.
-func SortNoLT(v int) predicate.Tenant {
+func SortNoLT(v uint32) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldSortNo), v))
 	})
 }
 
 // SortNoLTE applies the LTE predicate on the "sort_no" field.
-func SortNoLTE(v int) predicate.Tenant {
+func SortNoLTE(v uint32) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldSortNo), v))
 	})

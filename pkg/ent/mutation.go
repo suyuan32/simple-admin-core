@@ -6782,8 +6782,8 @@ type TenantMutation struct {
 	end_time        *time.Time
 	contact         *string
 	mobile          *string
-	sort_no         *int
-	addsort_no      *int
+	sort_no         *uint32
+	addsort_no      *int32
 	clearedFields   map[string]struct{}
 	users           map[uint64]struct{}
 	removedusers    map[uint64]struct{}
@@ -7441,13 +7441,13 @@ func (m *TenantMutation) ResetMobile() {
 }
 
 // SetSortNo sets the "sort_no" field.
-func (m *TenantMutation) SetSortNo(i int) {
-	m.sort_no = &i
+func (m *TenantMutation) SetSortNo(u uint32) {
+	m.sort_no = &u
 	m.addsort_no = nil
 }
 
 // SortNo returns the value of the "sort_no" field in the mutation.
-func (m *TenantMutation) SortNo() (r int, exists bool) {
+func (m *TenantMutation) SortNo() (r uint32, exists bool) {
 	v := m.sort_no
 	if v == nil {
 		return
@@ -7458,7 +7458,7 @@ func (m *TenantMutation) SortNo() (r int, exists bool) {
 // OldSortNo returns the old "sort_no" field's value of the Tenant entity.
 // If the Tenant object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *TenantMutation) OldSortNo(ctx context.Context) (v int, err error) {
+func (m *TenantMutation) OldSortNo(ctx context.Context) (v uint32, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldSortNo is only allowed on UpdateOne operations")
 	}
@@ -7472,17 +7472,17 @@ func (m *TenantMutation) OldSortNo(ctx context.Context) (v int, err error) {
 	return oldValue.SortNo, nil
 }
 
-// AddSortNo adds i to the "sort_no" field.
-func (m *TenantMutation) AddSortNo(i int) {
+// AddSortNo adds u to the "sort_no" field.
+func (m *TenantMutation) AddSortNo(u int32) {
 	if m.addsort_no != nil {
-		*m.addsort_no += i
+		*m.addsort_no += u
 	} else {
-		m.addsort_no = &i
+		m.addsort_no = &u
 	}
 }
 
 // AddedSortNo returns the value that was added to the "sort_no" field in this mutation.
-func (m *TenantMutation) AddedSortNo() (r int, exists bool) {
+func (m *TenantMutation) AddedSortNo() (r int32, exists bool) {
 	v := m.addsort_no
 	if v == nil {
 		return
@@ -7879,7 +7879,7 @@ func (m *TenantMutation) SetField(name string, value ent.Value) error {
 		m.SetMobile(v)
 		return nil
 	case tenant.FieldSortNo:
-		v, ok := value.(int)
+		v, ok := value.(uint32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -7940,7 +7940,7 @@ func (m *TenantMutation) AddField(name string, value ent.Value) error {
 		m.AddLevel(v)
 		return nil
 	case tenant.FieldSortNo:
-		v, ok := value.(int)
+		v, ok := value.(int32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}

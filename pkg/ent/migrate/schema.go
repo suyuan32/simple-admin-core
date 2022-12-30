@@ -184,7 +184,7 @@ var (
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
-		{Name: "uuid", Type: field.TypeString, Default: "b992782a-f9bb-4b06-8067-e7bb5b3bac2d"},
+		{Name: "uuid", Type: field.TypeString, Default: "74c3b390-5f23-4808-8078-25a8b7f759d9"},
 		{Name: "level", Type: field.TypeUint32},
 		{Name: "name", Type: field.TypeString, Unique: true},
 		{Name: "account", Type: field.TypeString, Unique: true},
@@ -192,7 +192,7 @@ var (
 		{Name: "end_time", Type: field.TypeTime, Nullable: true},
 		{Name: "contact", Type: field.TypeString, Nullable: true},
 		{Name: "mobile", Type: field.TypeString, Nullable: true},
-		{Name: "sort_no", Type: field.TypeInt, Nullable: true, Default: 0},
+		{Name: "sort_no", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "pid", Type: field.TypeUint64, Nullable: true},
 	}
 	// SysTenantTable holds the schema information for the "sys_tenant" table.
@@ -228,7 +228,7 @@ var (
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
 		{Name: "uuid", Type: field.TypeString},
-		{Name: "token", Type: field.TypeString},
+		{Name: "token", Type: field.TypeString, SchemaType: map[string]string{"mysql": "varchar(512)"}},
 		{Name: "source", Type: field.TypeString},
 		{Name: "expired_at", Type: field.TypeTime},
 	}

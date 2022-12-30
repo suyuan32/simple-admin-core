@@ -1,0 +1,56 @@
+syntax = "v1"
+
+info(
+    title: "tenant management"
+    desc: "tenant management api"
+    author: "zhuangpeng"
+    email: "zhuangpeng@sina.com"
+    version: "v1.0"
+)
+
+import "base.api"
+
+type (
+  CreateOrUpdateTenantReq {
+        // UUID ｜ 租户的UUID
+        // required: false
+        UUID string `json:"uuid"`
+        // ParentID | 租户父级标识
+        // required: true
+        ParentID string `json:"parent_id"`
+        // Level | 租户级别
+        // required: true
+        Level uint64 `json:"level"`
+        // Name | 租户名称
+        // required: true
+        Name string `json:"name"`
+        // Account | 租户账号
+        // required: true
+        Account string `json:"account" validate:"alphanum,max=20"`
+        // StartTime | 租用开始时间
+        // required: true
+        StartTime uint64 `json:"start_time"`
+        // StartTime | 租用结束时间
+        // required: false
+        EndTime uint64 `json:"end_time"`
+        // Contact | 联系人
+        // required: false
+        Contact string `json:"contact"`
+        // Mobile ｜ 联系电话
+        // required: false
+        Mobile string `json:"mobile"`
+        // SortNo ｜ 显示排序
+        SortNo uint32 `json:"sort_no"`
+    }
+)
+
+@server(
+    group : tenant
+    jwt : Auth
+    middleware: Authority
+)
+
+service core {
+    @handler createOrUpdateTencent
+    post /tencent/create_or_update (CreateOrUpdateTenantReq) returns (BaseMsgResp)
+}

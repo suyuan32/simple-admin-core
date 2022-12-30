@@ -27,6 +27,8 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		return nil
 	}
 
+	c.GlobalEnv.NewGlobalEnv()
+
 	return &ServiceContext{
 		Config: c,
 		DB:     db,

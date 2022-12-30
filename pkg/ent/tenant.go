@@ -41,7 +41,7 @@ type Tenant struct {
 	// mobile | 客户联系电话
 	Mobile string `json:"mobile,omitempty"`
 	// sort number | 显示排序
-	SortNo int `json:"sort_no,omitempty"`
+	SortNo uint32 `json:"sort_no,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the TenantQuery when eager-loading is set.
 	Edges TenantEdges `json:"edges"`
@@ -199,7 +199,7 @@ func (t *Tenant) assignValues(columns []string, values []any) error {
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field sort_no", values[i])
 			} else if value.Valid {
-				t.SortNo = int(value.Int64)
+				t.SortNo = uint32(value.Int64)
 			}
 		}
 	}

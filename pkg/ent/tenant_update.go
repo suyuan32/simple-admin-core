@@ -196,23 +196,23 @@ func (tu *TenantUpdate) ClearMobile() *TenantUpdate {
 }
 
 // SetSortNo sets the "sort_no" field.
-func (tu *TenantUpdate) SetSortNo(i int) *TenantUpdate {
+func (tu *TenantUpdate) SetSortNo(u uint32) *TenantUpdate {
 	tu.mutation.ResetSortNo()
-	tu.mutation.SetSortNo(i)
+	tu.mutation.SetSortNo(u)
 	return tu
 }
 
 // SetNillableSortNo sets the "sort_no" field if the given value is not nil.
-func (tu *TenantUpdate) SetNillableSortNo(i *int) *TenantUpdate {
-	if i != nil {
-		tu.SetSortNo(*i)
+func (tu *TenantUpdate) SetNillableSortNo(u *uint32) *TenantUpdate {
+	if u != nil {
+		tu.SetSortNo(*u)
 	}
 	return tu
 }
 
-// AddSortNo adds i to the "sort_no" field.
-func (tu *TenantUpdate) AddSortNo(i int) *TenantUpdate {
-	tu.mutation.AddSortNo(i)
+// AddSortNo adds u to the "sort_no" field.
+func (tu *TenantUpdate) AddSortNo(u int32) *TenantUpdate {
+	tu.mutation.AddSortNo(u)
 	return tu
 }
 
@@ -454,13 +454,13 @@ func (tu *TenantUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.ClearField(tenant.FieldMobile, field.TypeString)
 	}
 	if value, ok := tu.mutation.SortNo(); ok {
-		_spec.SetField(tenant.FieldSortNo, field.TypeInt, value)
+		_spec.SetField(tenant.FieldSortNo, field.TypeUint32, value)
 	}
 	if value, ok := tu.mutation.AddedSortNo(); ok {
-		_spec.AddField(tenant.FieldSortNo, field.TypeInt, value)
+		_spec.AddField(tenant.FieldSortNo, field.TypeUint32, value)
 	}
 	if tu.mutation.SortNoCleared() {
-		_spec.ClearField(tenant.FieldSortNo, field.TypeInt)
+		_spec.ClearField(tenant.FieldSortNo, field.TypeUint32)
 	}
 	if tu.mutation.UsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -791,23 +791,23 @@ func (tuo *TenantUpdateOne) ClearMobile() *TenantUpdateOne {
 }
 
 // SetSortNo sets the "sort_no" field.
-func (tuo *TenantUpdateOne) SetSortNo(i int) *TenantUpdateOne {
+func (tuo *TenantUpdateOne) SetSortNo(u uint32) *TenantUpdateOne {
 	tuo.mutation.ResetSortNo()
-	tuo.mutation.SetSortNo(i)
+	tuo.mutation.SetSortNo(u)
 	return tuo
 }
 
 // SetNillableSortNo sets the "sort_no" field if the given value is not nil.
-func (tuo *TenantUpdateOne) SetNillableSortNo(i *int) *TenantUpdateOne {
-	if i != nil {
-		tuo.SetSortNo(*i)
+func (tuo *TenantUpdateOne) SetNillableSortNo(u *uint32) *TenantUpdateOne {
+	if u != nil {
+		tuo.SetSortNo(*u)
 	}
 	return tuo
 }
 
-// AddSortNo adds i to the "sort_no" field.
-func (tuo *TenantUpdateOne) AddSortNo(i int) *TenantUpdateOne {
-	tuo.mutation.AddSortNo(i)
+// AddSortNo adds u to the "sort_no" field.
+func (tuo *TenantUpdateOne) AddSortNo(u int32) *TenantUpdateOne {
+	tuo.mutation.AddSortNo(u)
 	return tuo
 }
 
@@ -1079,13 +1079,13 @@ func (tuo *TenantUpdateOne) sqlSave(ctx context.Context) (_node *Tenant, err err
 		_spec.ClearField(tenant.FieldMobile, field.TypeString)
 	}
 	if value, ok := tuo.mutation.SortNo(); ok {
-		_spec.SetField(tenant.FieldSortNo, field.TypeInt, value)
+		_spec.SetField(tenant.FieldSortNo, field.TypeUint32, value)
 	}
 	if value, ok := tuo.mutation.AddedSortNo(); ok {
-		_spec.AddField(tenant.FieldSortNo, field.TypeInt, value)
+		_spec.AddField(tenant.FieldSortNo, field.TypeUint32, value)
 	}
 	if tuo.mutation.SortNoCleared() {
-		_spec.ClearField(tenant.FieldSortNo, field.TypeInt)
+		_spec.ClearField(tenant.FieldSortNo, field.TypeUint32)
 	}
 	if tuo.mutation.UsersCleared() {
 		edge := &sqlgraph.EdgeSpec{

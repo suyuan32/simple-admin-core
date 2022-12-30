@@ -36,6 +36,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
+	logx.Infof("========>", l.svcCtx.Config.GlobalEnv.Endtime)
 	// user, err := l.svcCtx.DB.User.Query().Where(user.UsernameEQ(in.Username)).First(l.ctx)
 	user, err := l.svcCtx.DB.Tenant.Query().Where(tenant.AccountEQ(in.TenantAccount)).QueryUsers().First(l.ctx)
 	if err != nil {
