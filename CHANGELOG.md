@@ -1,3 +1,18 @@
+## v0.2.0 (2022-12-29)
+
+### Bugs fixed:
+
+- allow to alter table structure([`d07abeb`](https://github.com/suyuan32/simple-admin-core/commit/d07abeba476d98b99884ce847bfbd3034bbb96c4)) (by Ryan SU)
+- translator test([`1581cc8`](https://github.com/suyuan32/simple-admin-core/commit/1581cc8c7de660f8b7aabdab42c24bdcdc2b9677)) (by Ryan SU)
+- dashboard menu type([`2d73f0f`](https://github.com/suyuan32/simple-admin-core/commit/2d73f0ff701f9b128702630bf674cb0cfccf4486)) (by Ryan SU)
+- status validator([`f727017`](https://github.com/suyuan32/simple-admin-core/commit/f727017848e51b84114aca4ed8dc20e809da0726)) (by Ryan SU)
+
+## v0.2.0-beta (2022-12-17)
+
+### Bugs fixed:
+
+- postgres dsn([`5becd10`](https://github.com/suyuan32/simple-admin-core/commit/5becd1039bff22f1c3b8fc6e7511e24edd4d7e8b)) (by Ryan SU)
+
 ## v0.1.9 (2022-12-15)
 
 ### New feature:
