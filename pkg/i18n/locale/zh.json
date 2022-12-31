@@ -98,6 +98,9 @@
 		"wrongUsernameOrPassword": "用户名或密码错误",
 		"requireLogin": "请重新登录"
 	},
+	"tenant": {
+		"notExists": "企业不存在"
+	},
 	"menu": {
 		"deleteChildrenDesc": "请先删除子菜单",
 		"menuNotExists": "菜单不存在",

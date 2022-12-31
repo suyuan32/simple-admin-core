@@ -681,12 +681,12 @@ definitions:
                 x-go-name: Contact
             end_time:
                 description: StartTime | 租用结束时间
-                format: uint64
+                format: int64
                 type: integer
                 x-go-name: EndTime
             level:
                 description: Level | 租户级别
-                format: uint64
+                format: uint32
                 type: integer
                 x-go-name: Level
             mobile:
@@ -699,7 +699,8 @@ definitions:
                 x-go-name: Name
             parent_id:
                 description: ParentID | 租户父级标识
-                type: string
+                format: uint64
+                type: integer
                 x-go-name: ParentID
             sort_no:
                 description: SortNo ｜ 显示排序
@@ -708,7 +709,7 @@ definitions:
                 x-go-name: SortNo
             start_time:
                 description: StartTime | 租用开始时间
-                format: uint64
+                format: int64
                 type: integer
                 x-go-name: StartTime
         required:

@@ -12,8 +12,8 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	// "google.golang.org/grpc/codes"
-	// "google.golang.org/grpc/status"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -37,9 +37,9 @@ func (l *CreateOrUpdateTenantLogic) CreateOrUpdateTenant(in *core.CreateOrUpdate
 	// 企业级别
 	var tenantLevel uint32
 
-	// 结束时间设置：如果没有传值，则有效期至3000年12月31日0时0分0秒（时间戳：32535100800）
+	// 设置结束时间
 	if in.EndTime == 0 {
-		in.EndTime = 32535100800
+		in.EndTime = l.svcCtx.Config.GlobalEnv.Endtime
 	}
 
 	// 如果Pid不为0，则需要提前设置租户的level；否则设置为企业的根级
@@ -63,7 +63,6 @@ func (l *CreateOrUpdateTenantLogic) CreateOrUpdateTenant(in *core.CreateOrUpdate
 
 	// 如果是新增租户
 	if in.Id == 0 {
-		//  end_time :=sql.NullTime{time.Unix(in.EndTime, 0), in.EndTime == 0}
 		err := l.svcCtx.DB.Tenant.Create().
 			SetParentID(in.Pid).
 			SetLevel(tenantLevel).
@@ -89,29 +88,30 @@ func (l *CreateOrUpdateTenantLogic) CreateOrUpdateTenant(in *core.CreateOrUpdate
 		return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
 
 	} else {
-		// 	// 如果是更新租户信息
-		// 	// 判断指定的父级标识是否在系统中存在，如果存在则不进行更新
-		// 	exist, err := l.svcCtx.DB.Tenant.Query().Where(tenant.IDEQ(in.Pid)).Exist(l.ctx)
-		// 	if err != nil {
-		// 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		// 		return nil, err
-		// 	}
-		// 	if !exist {
-		// 		logx.Errorw("menu not found", logx.Field("menuId", in.Id))
-		// 		return nil, status.Error(codes.InvalidArgument, "menu.menuNotExists")
-		// 	}
-		// 	l.svcCtx.DB.Tenant.UpdateOneID(in.Id).
-		// 		SetParentID(in.Pid).
-		// 		SetLevel(tenantLevel).
-		// 		SetName(in.Name).
-		// 		SetAccount(in.Account).
-		// 		SetEndTime(time.Unix(in.EndTime, 0)).
-		// 		SetContact(in.Contact).
-		// 		SetMobile(in.Mobile).
-		// 		SetSortNo(in.SortNo).
-		// 		Exec(l.ctx)
+		// 如果是更新租户信息
+		// 判断指定的父级标识是否在系统中存在，如果不存在则不进行更新
+		exist, err := l.svcCtx.DB.Tenant.Query().Where(tenant.IDEQ(in.Pid)).Exist(l.ctx)
+		if err != nil {
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, err
+		}
+		if !exist {
+			logx.Errorw("tenant not found", logx.Field("tenantPid", in.Pid))
+			return nil, status.Error(codes.InvalidArgument, "tenant.notExists")
+		}
+		l.svcCtx.DB.Tenant.UpdateOneID(in.Id).
+			SetParentID(in.Pid).
+			SetLevel(tenantLevel).
+			SetName(in.Name).
+			SetAccount(in.Account).
+			SetStartTime(time.Unix(in.StartTime, 0)).
+			SetEndTime(time.Unix(in.EndTime, 0)).
+			SetContact(in.Contact).
+			SetMobile(in.Mobile).
+			SetSortNo(in.SortNo).
+			Exec(l.ctx)
 
-		return &core.BaseResp{}, nil
+		return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
 
 	}
 }

@@ -184,7 +184,7 @@ var (
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
-		{Name: "uuid", Type: field.TypeString, Default: "74c3b390-5f23-4808-8078-25a8b7f759d9"},
+		{Name: "uuid", Type: field.TypeString, Default: "70a26f02-4da8-4c31-aedf-8708c3cb42e5"},
 		{Name: "level", Type: field.TypeUint32},
 		{Name: "name", Type: field.TypeString, Unique: true},
 		{Name: "account", Type: field.TypeString, Unique: true},

@@ -45,5 +45,6 @@ CasbinConf:
     [matchers]
     m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
 
+# Endtime 2037-12-31 
 GlobalEnv:
-  Endtime: 32535100800
+  Endtime: 2145830400

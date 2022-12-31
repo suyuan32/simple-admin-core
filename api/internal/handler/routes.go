@@ -27,7 +27,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
-					Path:    "/tencent/create_or_update",
+					Path:    "/tenant/create_or_update",
 					Handler: tenant.CreateOrUpdateTencentHandler(serverCtx),
 				},
 			}...,

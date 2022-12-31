@@ -98,9 +98,12 @@
 		"wrongUsernameOrPassword": "Wrong username or password",
 		"requireLogin": "Please log in again"
 	},
+	"tenant": {
+		"tenantNotExists": "tenant not exists"
+	},
 	"menu": {
 		"deleteChildrenDesc": "Please delete menu's children first",
-		"menuNotExists": "Menu does not exist",
+		"notExists": "Menu does not exist",
 		"menuAlreadyExists": "Menu already exists",
 		"parentNotExist": "The parent does not exist"
 	},

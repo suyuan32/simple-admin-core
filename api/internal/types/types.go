@@ -3,12 +3,13 @@ package types
 
 // swagger:model CreateOrUpdateTenantReq
 type CreateOrUpdateTenantReq struct {
+	ID uint64 `json:"parent_id"`
 	// ParentID | 租户父级标识
 	// required: true
-	ParentID string `json:"parent_id"`
+	ParentID uint64 `json:"parent_id"`
 	// Level | 租户级别
 	// required: true
-	Level uint64 `json:"level"`
+	Level uint32 `json:"level"`
 	// Name | 租户名称
 	// required: true
 	Name string `json:"name"`
@@ -17,10 +18,10 @@ type CreateOrUpdateTenantReq struct {
 	Account string `json:"account" validate:"alphanum,max=20"`
 	// StartTime | 租用开始时间
 	// required: true
-	StartTime uint64 `json:"start_time"`
+	StartTime int64 `json:"start_time"`
 	// StartTime | 租用结束时间
 	// required: false
-	EndTime uint64 `json:"end_time"`
+	EndTime int64 `json:"end_time"`
 	// Contact | 联系人
 	// required: false
 	Contact string `json:"contact"`

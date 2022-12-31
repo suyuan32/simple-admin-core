@@ -6,6 +6,7 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -28,6 +29,21 @@ func NewCreateOrUpdateTencentLogic(r *http.Request, svcCtx *svc.ServiceContext) 
 
 func (l *CreateOrUpdateTencentLogic) CreateOrUpdateTencent(req *types.CreateOrUpdateTenantReq) (resp *types.BaseMsgResp, err error) {
 	// todo: add your logic here and delete this line
+	result, err := l.svcCtx.CoreRpc.CreateOrUpdateTenant(l.ctx, &core.CreateOrUpdateTenantReq{
+		Id:        req.ID,
+		Pid:       req.ParentID,
+		Name:      req.Name,
+		Level:     req.Level,
+		Account:   req.Account,
+		StartTime: req.StartTime,
+		EndTime:   req.EndTime,
+		Contact:   req.Contact,
+		Mobile:    req.Mobile,
+		SortNo:    req.SortNo,
+	})
+	if err != nil {
+		return nil, err
+	}
 
-	return
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
 }
