@@ -56,9 +56,9 @@ func (l *LoginLogic) Login(in *core.LoginReq) (*core.LoginResp, error) {
 		return nil, err
 	}
 
-	logx.Infow("log in successfully", logx.Field("UUID", result.UUID))
+	logx.Infow("log in successfully", logx.Field("UUID", result.ID.String()))
 	return &core.LoginResp{
-		Id:        result.UUID,
+		Id:        result.ID.String(),
 		RoleValue: value,
 		RoleName:  roleName,
 		RoleId:    result.RoleID,

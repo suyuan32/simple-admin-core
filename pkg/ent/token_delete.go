@@ -72,7 +72,7 @@ func (td *TokenDelete) sqlExec(ctx context.Context) (int, error) {
 		Node: &sqlgraph.NodeSpec{
 			Table: token.Table,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
+				Type:   field.TypeUUID,
 				Column: token.FieldID,
 			},
 		},

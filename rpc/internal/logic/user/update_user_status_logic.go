@@ -7,6 +7,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -27,8 +28,8 @@ func NewUpdateUserStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	}
 }
 
-func (l *UpdateUserStatusLogic) UpdateUserStatus(in *core.StatusCodeReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.User.UpdateOneID(in.Id).SetStatus(uint8(in.Status)).Exec(l.ctx)
+func (l *UpdateUserStatusLogic) UpdateUserStatus(in *core.StatusCodeUUIDReq) (*core.BaseResp, error) {
+	err := l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).SetStatus(uint8(in.Status)).Exec(l.ctx)
 
 	if err != nil {
 		switch {

@@ -8,6 +8,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -29,9 +30,9 @@ func NewCreateOrUpdateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(in *core.TokenInfo) (*core.BaseResp, error) {
-	if in.Id == 0 {
+	if in.Id == "" {
 		err := l.svcCtx.DB.Token.Create().
-			SetUUID(in.Uuid).
+			SetUUID(uuidx.ParseUUIDString(in.Uuid)).
 			SetToken(in.Token).
 			SetStatus(uint8(in.Status)).
 			SetSource(in.Source).
@@ -51,8 +52,8 @@ func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(in *core.TokenInfo) (*cor
 
 		return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
 	} else {
-		err := l.svcCtx.DB.Token.UpdateOneID(in.Id).
-			SetUUID(in.Uuid).
+		err := l.svcCtx.DB.Token.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
+			SetUUID(uuidx.ParseUUIDString(in.Uuid)).
 			SetToken(in.Token).
 			SetStatus(uint8(in.Status)).
 			SetSource(in.Source).

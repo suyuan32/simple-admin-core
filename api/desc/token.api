@@ -13,7 +13,7 @@ import "base.api"
 type (
     // The response data of Token information | Token信息
     TokenInfo {
-        BaseInfo
+        BaseUUIDInfo
 
         // User's UUID | 用户的UUID
         UUID          string `json:"UUID"`
@@ -35,7 +35,7 @@ type (
     CreateOrUpdateTokenReq {
        // ID
        // Required: true
-       Id            uint64 `json:"ID" validate="number"`
+       Id            string `json:"ID"`
 
        // User's UUID | 用户的UUID
        // Required: true
@@ -110,11 +110,11 @@ service core {
 
     // Delete token information | 删除token信息
     @handler deleteToken
-    post /token/delete (IDReq) returns (BaseMsgResp)
+    post /token/delete (UUIDReq) returns (BaseMsgResp)
 
     // Batch delete token information | 批量删除token信息
     @handler BatchDeleteToken
-    post /token/batch_delete (IDsReq) returns (BaseMsgResp)
+    post /token/batch_delete (UUIDsReq) returns (BaseMsgResp)
 
     // Get Token list | 获取token列表
     @handler getTokenList
@@ -122,7 +122,7 @@ service core {
 
     // Set token status | 设置token状态
     @handler updateTokenStatus
-    post /token/status (StatusCodeReq) returns (BaseMsgResp)
+    post /token/status (StatusCodeUUIDReq) returns (BaseMsgResp)
 
     // Force logging out by user UUID | 根据UUID强制用户退出
     @handler logout

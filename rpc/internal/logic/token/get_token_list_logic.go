@@ -10,6 +10,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -44,7 +45,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 		var predicates []predicate.User
 
 		if in.Uuid != "" {
-			predicates = append(predicates, user.UUIDEQ(in.Uuid))
+			predicates = append(predicates, user.IDEQ(uuidx.ParseUUIDString(in.Uuid)))
 		}
 
 		if in.Username != "" {
@@ -72,7 +73,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 			}
 		}
 
-		tokens, err = l.svcCtx.DB.Token.Query().Where(token.UUIDEQ(u.UUID)).Page(l.ctx, in.Page, in.PageSize)
+		tokens, err = l.svcCtx.DB.Token.Query().Where(token.UUIDEQ(u.ID)).Page(l.ctx, in.Page, in.PageSize)
 
 		if err != nil {
 			logx.Error(err.Error())
@@ -85,8 +86,8 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 
 	for _, v := range tokens.List {
 		resp.Data = append(resp.Data, &core.TokenInfo{
-			Id:        v.ID,
-			Uuid:      v.UUID,
+			Id:        v.ID.String(),
+			Uuid:      v.UUID.String(),
 			Token:     v.Token,
 			Status:    uint64(v.Status),
 			Source:    v.Source,

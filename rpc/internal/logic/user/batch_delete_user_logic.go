@@ -8,6 +8,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -28,8 +29,8 @@ func NewBatchDeleteUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *B
 	}
 }
 
-func (l *BatchDeleteUserLogic) BatchDeleteUser(in *core.IDsReq) (*core.BaseResp, error) {
-	_, err := l.svcCtx.DB.User.Delete().Where(user.IDIn(in.Ids...)).Exec(l.ctx)
+func (l *BatchDeleteUserLogic) BatchDeleteUser(in *core.UUIDsReq) (*core.BaseResp, error) {
+	_, err := l.svcCtx.DB.User.Delete().Where(user.IDIn(uuidx.ParseUUIDSlice(in.Ids)...)).Exec(l.ctx)
 
 	if err != nil {
 		switch {

@@ -29,7 +29,7 @@ func NewUpdateUserProfileLogic(r *http.Request, svcCtx *svc.ServiceContext) *Upd
 
 func (l *UpdateUserProfileLogic) UpdateUserProfile(req *types.ProfileReq) (resp *types.BaseMsgResp, err error) {
 	result, err := l.svcCtx.CoreRpc.UpdateProfile(l.ctx, &core.UpdateProfileReq{
-		Uuid:     l.ctx.Value("userId").(string),
+		Id:       l.ctx.Value("userId").(string),
 		Nickname: req.Nickname,
 		Email:    req.Email,
 		Mobile:   req.Mobile,

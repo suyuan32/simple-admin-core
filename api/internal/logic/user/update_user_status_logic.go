@@ -27,8 +27,8 @@ func NewUpdateUserStatusLogic(r *http.Request, svcCtx *svc.ServiceContext) *Upda
 	}
 }
 
-func (l *UpdateUserStatusLogic) UpdateUserStatus(req *types.StatusCodeReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.UpdateUserStatus(l.ctx, &core.StatusCodeReq{
+func (l *UpdateUserStatusLogic) UpdateUserStatus(req *types.StatusCodeUUIDReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.UpdateUserStatus(l.ctx, &core.StatusCodeUUIDReq{
 		Id:     req.Id,
 		Status: req.Status,
 	})

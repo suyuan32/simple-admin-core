@@ -10,6 +10,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/gofrs/uuid"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 )
 
@@ -63,8 +64,8 @@ func (tc *TokenCreate) SetNillableStatus(u *uint8) *TokenCreate {
 }
 
 // SetUUID sets the "uuid" field.
-func (tc *TokenCreate) SetUUID(s string) *TokenCreate {
-	tc.mutation.SetUUID(s)
+func (tc *TokenCreate) SetUUID(u uuid.UUID) *TokenCreate {
+	tc.mutation.SetUUID(u)
 	return tc
 }
 
@@ -87,8 +88,16 @@ func (tc *TokenCreate) SetExpiredAt(t time.Time) *TokenCreate {
 }
 
 // SetID sets the "id" field.
-func (tc *TokenCreate) SetID(u uint64) *TokenCreate {
+func (tc *TokenCreate) SetID(u uuid.UUID) *TokenCreate {
 	tc.mutation.SetID(u)
+	return tc
+}
+
+// SetNillableID sets the "id" field if the given value is not nil.
+func (tc *TokenCreate) SetNillableID(u *uuid.UUID) *TokenCreate {
+	if u != nil {
+		tc.SetID(*u)
+	}
 	return tc
 }
 
@@ -181,6 +190,10 @@ func (tc *TokenCreate) defaults() {
 		v := token.DefaultStatus
 		tc.mutation.SetStatus(v)
 	}
+	if _, ok := tc.mutation.ID(); !ok {
+		v := token.DefaultID()
+		tc.mutation.SetID(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -214,9 +227,12 @@ func (tc *TokenCreate) sqlSave(ctx context.Context) (*Token, error) {
 		}
 		return nil, err
 	}
-	if _spec.ID.Value != _node.ID {
-		id := _spec.ID.Value.(int64)
-		_node.ID = uint64(id)
+	if _spec.ID.Value != nil {
+		if id, ok := _spec.ID.Value.(*uuid.UUID); ok {
+			_node.ID = *id
+		} else if err := _node.ID.Scan(_spec.ID.Value); err != nil {
+			return nil, err
+		}
 	}
 	return _node, nil
 }
@@ -227,14 +243,14 @@ func (tc *TokenCreate) createSpec() (*Token, *sqlgraph.CreateSpec) {
 		_spec = &sqlgraph.CreateSpec{
 			Table: token.Table,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
+				Type:   field.TypeUUID,
 				Column: token.FieldID,
 			},
 		}
 	)
 	if id, ok := tc.mutation.ID(); ok {
 		_node.ID = id
-		_spec.ID.Value = id
+		_spec.ID.Value = &id
 	}
 	if value, ok := tc.mutation.CreatedAt(); ok {
 		_spec.SetField(token.FieldCreatedAt, field.TypeTime, value)
@@ -249,7 +265,7 @@ func (tc *TokenCreate) createSpec() (*Token, *sqlgraph.CreateSpec) {
 		_node.Status = value
 	}
 	if value, ok := tc.mutation.UUID(); ok {
-		_spec.SetField(token.FieldUUID, field.TypeString, value)
+		_spec.SetField(token.FieldUUID, field.TypeUUID, value)
 		_node.UUID = value
 	}
 	if value, ok := tc.mutation.Token(); ok {
@@ -308,10 +324,6 @@ func (tcb *TokenCreateBulk) Save(ctx context.Context) ([]*Token, error) {
 					return nil, err
 				}
 				mutation.id = &nodes[i].ID
-				if specs[i].ID.Value != nil && nodes[i].ID == 0 {
-					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = uint64(id)
-				}
 				mutation.done = true
 				return nodes[i], nil
 			})

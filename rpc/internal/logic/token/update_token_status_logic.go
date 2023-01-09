@@ -11,6 +11,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -31,8 +32,8 @@ func NewUpdateTokenStatusLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 	}
 }
 
-func (l *UpdateTokenStatusLogic) UpdateTokenStatus(in *core.StatusCodeReq) (*core.BaseResp, error) {
-	token, err := l.svcCtx.DB.Token.UpdateOneID(in.Id).SetStatus(uint8(in.Status)).Save(l.ctx)
+func (l *UpdateTokenStatusLogic) UpdateTokenStatus(in *core.StatusCodeUUIDReq) (*core.BaseResp, error) {
+	token, err := l.svcCtx.DB.Token.UpdateOneID(uuidx.ParseUUIDString(in.Id)).SetStatus(uint8(in.Status)).Save(l.ctx)
 
 	if err != nil {
 		switch {

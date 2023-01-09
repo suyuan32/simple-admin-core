@@ -48,7 +48,7 @@ func (l *GetTokenListLogic) GetTokenList(req *types.TokenListReq) (resp *types.T
 
 	for _, v := range result.Data {
 		resp.Data.Data = append(resp.Data.Data, types.TokenInfo{
-			BaseInfo: types.BaseInfo{
+			BaseUUIDInfo: types.BaseUUIDInfo{
 				Id:        v.Id,
 				CreatedAt: v.CreatedAt,
 				UpdatedAt: v.UpdatedAt,

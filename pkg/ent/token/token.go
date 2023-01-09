@@ -4,6 +4,8 @@ package token
 
 import (
 	"time"
+
+	"github.com/gofrs/uuid"
 )
 
 const (
@@ -60,4 +62,6 @@ var (
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultStatus holds the default value on creation for the "status" field.
 	DefaultStatus uint8
+	// DefaultID holds the default value on creation for the "id" field.
+	DefaultID func() uuid.UUID
 )

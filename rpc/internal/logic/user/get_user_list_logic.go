@@ -62,14 +62,13 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 
 	for _, v := range users.List {
 		resp.Data = append(resp.Data, &core.UserInfoResp{
-			Id:        v.ID,
+			Id:        v.ID.String(),
 			Avatar:    v.Avatar,
 			RoleId:    v.RoleID,
 			Mobile:    v.Mobile,
 			Email:     v.Email,
 			Status:    uint64(v.Status),
 			Username:  v.Username,
-			Uuid:      v.UUID,
 			Nickname:  v.Nickname,
 			CreatedAt: v.CreatedAt.UnixMilli(),
 			UpdatedAt: v.UpdatedAt.UnixMilli(),

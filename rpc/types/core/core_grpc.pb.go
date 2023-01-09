@@ -35,13 +35,13 @@ type CoreClient interface {
 	// group: user
 	GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error)
 	// group: user
-	DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	DeleteUser(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: user
-	BatchDeleteUser(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	BatchDeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: user
 	UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: user
-	UpdateUserStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
+	UpdateUserStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
 	CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
@@ -101,13 +101,13 @@ type CoreClient interface {
 	// group: token
 	CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: token
-	DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	DeleteToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: token
-	BatchDeleteToken(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	BatchDeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: token
 	GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
 	// group: token
-	UpdateTokenStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
+	UpdateTokenStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: token
 	BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 }
@@ -174,7 +174,7 @@ func (c *coreClient) GetUserList(ctx context.Context, in *GetUserListReq, opts .
 	return out, nil
 }
 
-func (c *coreClient) DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) DeleteUser(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.core/deleteUser", in, out, opts...)
 	if err != nil {
@@ -183,7 +183,7 @@ func (c *coreClient) DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.Cal
 	return out, nil
 }
 
-func (c *coreClient) BatchDeleteUser(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) BatchDeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.core/batchDeleteUser", in, out, opts...)
 	if err != nil {
@@ -201,7 +201,7 @@ func (c *coreClient) UpdateProfile(ctx context.Context, in *UpdateProfileReq, op
 	return out, nil
 }
 
-func (c *coreClient) UpdateUserStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) UpdateUserStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.core/updateUserStatus", in, out, opts...)
 	if err != nil {
@@ -471,7 +471,7 @@ func (c *coreClient) CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opt
 	return out, nil
 }
 
-func (c *coreClient) DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) DeleteToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.core/deleteToken", in, out, opts...)
 	if err != nil {
@@ -480,7 +480,7 @@ func (c *coreClient) DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.Ca
 	return out, nil
 }
 
-func (c *coreClient) BatchDeleteToken(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) BatchDeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.core/batchDeleteToken", in, out, opts...)
 	if err != nil {
@@ -498,7 +498,7 @@ func (c *coreClient) GetTokenList(ctx context.Context, in *TokenListReq, opts ..
 	return out, nil
 }
 
-func (c *coreClient) UpdateTokenStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) UpdateTokenStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.core/updateTokenStatus", in, out, opts...)
 	if err != nil {
@@ -533,13 +533,13 @@ type CoreServer interface {
 	// group: user
 	GetUserList(context.Context, *GetUserListReq) (*UserListResp, error)
 	// group: user
-	DeleteUser(context.Context, *IDReq) (*BaseResp, error)
+	DeleteUser(context.Context, *UUIDReq) (*BaseResp, error)
 	// group: user
-	BatchDeleteUser(context.Context, *IDsReq) (*BaseResp, error)
+	BatchDeleteUser(context.Context, *UUIDsReq) (*BaseResp, error)
 	// group: user
 	UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error)
 	// group: user
-	UpdateUserStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
+	UpdateUserStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error)
 	// group: menu
 	CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error)
 	// group: menu
@@ -599,13 +599,13 @@ type CoreServer interface {
 	// group: token
 	CreateOrUpdateToken(context.Context, *TokenInfo) (*BaseResp, error)
 	// group: token
-	DeleteToken(context.Context, *IDReq) (*BaseResp, error)
+	DeleteToken(context.Context, *UUIDReq) (*BaseResp, error)
 	// group: token
-	BatchDeleteToken(context.Context, *IDsReq) (*BaseResp, error)
+	BatchDeleteToken(context.Context, *UUIDsReq) (*BaseResp, error)
 	// group: token
 	GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error)
 	// group: token
-	UpdateTokenStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
+	UpdateTokenStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error)
 	// group: token
 	BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error)
 	mustEmbedUnimplementedCoreServer()
@@ -633,16 +633,16 @@ func (UnimplementedCoreServer) GetUserById(context.Context, *UUIDReq) (*UserInfo
 func (UnimplementedCoreServer) GetUserList(context.Context, *GetUserListReq) (*UserListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserList not implemented")
 }
-func (UnimplementedCoreServer) DeleteUser(context.Context, *IDReq) (*BaseResp, error) {
+func (UnimplementedCoreServer) DeleteUser(context.Context, *UUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
 }
-func (UnimplementedCoreServer) BatchDeleteUser(context.Context, *IDsReq) (*BaseResp, error) {
+func (UnimplementedCoreServer) BatchDeleteUser(context.Context, *UUIDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteUser not implemented")
 }
 func (UnimplementedCoreServer) UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
 }
-func (UnimplementedCoreServer) UpdateUserStatus(context.Context, *StatusCodeReq) (*BaseResp, error) {
+func (UnimplementedCoreServer) UpdateUserStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserStatus not implemented")
 }
 func (UnimplementedCoreServer) CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error) {
@@ -732,16 +732,16 @@ func (UnimplementedCoreServer) OauthCallback(context.Context, *CallbackReq) (*Lo
 func (UnimplementedCoreServer) CreateOrUpdateToken(context.Context, *TokenInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateToken not implemented")
 }
-func (UnimplementedCoreServer) DeleteToken(context.Context, *IDReq) (*BaseResp, error) {
+func (UnimplementedCoreServer) DeleteToken(context.Context, *UUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteToken not implemented")
 }
-func (UnimplementedCoreServer) BatchDeleteToken(context.Context, *IDsReq) (*BaseResp, error) {
+func (UnimplementedCoreServer) BatchDeleteToken(context.Context, *UUIDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteToken not implemented")
 }
 func (UnimplementedCoreServer) GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTokenList not implemented")
 }
-func (UnimplementedCoreServer) UpdateTokenStatus(context.Context, *StatusCodeReq) (*BaseResp, error) {
+func (UnimplementedCoreServer) UpdateTokenStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateTokenStatus not implemented")
 }
 func (UnimplementedCoreServer) BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error) {
@@ -869,7 +869,7 @@ func _Core_GetUserList_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 func _Core_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDReq)
+	in := new(UUIDReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -881,13 +881,13 @@ func _Core_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: "/core.core/deleteUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteUser(ctx, req.(*IDReq))
+		return srv.(CoreServer).DeleteUser(ctx, req.(*UUIDReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Core_BatchDeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDsReq)
+	in := new(UUIDsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -899,7 +899,7 @@ func _Core_BatchDeleteUser_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: "/core.core/batchDeleteUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).BatchDeleteUser(ctx, req.(*IDsReq))
+		return srv.(CoreServer).BatchDeleteUser(ctx, req.(*UUIDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -923,7 +923,7 @@ func _Core_UpdateProfile_Handler(srv interface{}, ctx context.Context, dec func(
 }
 
 func _Core_UpdateUserStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StatusCodeReq)
+	in := new(StatusCodeUUIDReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -935,7 +935,7 @@ func _Core_UpdateUserStatus_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: "/core.core/updateUserStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).UpdateUserStatus(ctx, req.(*StatusCodeReq))
+		return srv.(CoreServer).UpdateUserStatus(ctx, req.(*StatusCodeUUIDReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1463,7 +1463,7 @@ func _Core_CreateOrUpdateToken_Handler(srv interface{}, ctx context.Context, dec
 }
 
 func _Core_DeleteToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDReq)
+	in := new(UUIDReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1475,13 +1475,13 @@ func _Core_DeleteToken_Handler(srv interface{}, ctx context.Context, dec func(in
 		FullMethod: "/core.core/deleteToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteToken(ctx, req.(*IDReq))
+		return srv.(CoreServer).DeleteToken(ctx, req.(*UUIDReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Core_BatchDeleteToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDsReq)
+	in := new(UUIDsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1493,7 +1493,7 @@ func _Core_BatchDeleteToken_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: "/core.core/batchDeleteToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).BatchDeleteToken(ctx, req.(*IDsReq))
+		return srv.(CoreServer).BatchDeleteToken(ctx, req.(*UUIDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1517,7 +1517,7 @@ func _Core_GetTokenList_Handler(srv interface{}, ctx context.Context, dec func(i
 }
 
 func _Core_UpdateTokenStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StatusCodeReq)
+	in := new(StatusCodeUUIDReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1529,7 +1529,7 @@ func _Core_UpdateTokenStatus_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: "/core.core/updateTokenStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).UpdateTokenStatus(ctx, req.(*StatusCodeReq))
+		return srv.(CoreServer).UpdateTokenStatus(ctx, req.(*StatusCodeUUIDReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

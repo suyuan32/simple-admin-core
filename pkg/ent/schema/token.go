@@ -6,6 +6,7 @@ import (
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
+	"github.com/gofrs/uuid"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent/schema/mixins"
 )
@@ -16,8 +17,7 @@ type Token struct {
 
 func (Token) Fields() []ent.Field {
 	return []ent.Field{
-		field.Uint64("id"),
-		field.String("uuid").Comment(" User's UUID | 用户的UUID"),
+		field.UUID("uuid", uuid.UUID{}).Comment(" User's UUID | 用户的UUID"),
 		field.String("token").Comment("Token string | Token 字符串"),
 		field.String("source").Comment("Log in source such as GitHub | Token 来源 （本地为core, 第三方如github等）"),
 		field.Time("expired_at").Comment(" Expire time | 过期时间"),
@@ -26,7 +26,7 @@ func (Token) Fields() []ent.Field {
 
 func (Token) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		mixins.BaseMixin{},
+		mixins.UUIDMixin{},
 		mixins.StatusMixin{},
 	}
 }

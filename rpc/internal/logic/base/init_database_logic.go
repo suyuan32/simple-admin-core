@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"entgo.io/ent/dialect/sql/schema"
-	"github.com/google/uuid"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
@@ -133,7 +132,6 @@ func (l *InitDatabaseLogic) insertUserData() error {
 		SetUsername("admin").
 		SetNickname("admin").
 		SetPassword(utils.BcryptEncrypt("simple-admin")).
-		SetUUID(uuid.NewString()).
 		SetEmail("simple_admin@gmail.com").
 		SetRoleID(1),
 	)

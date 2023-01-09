@@ -27,8 +27,8 @@ func NewBatchDeleteTokenLogic(r *http.Request, svcCtx *svc.ServiceContext) *Batc
 	}
 }
 
-func (l *BatchDeleteTokenLogic) BatchDeleteToken(req *types.IDsReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.BatchDeleteToken(l.ctx, &core.IDsReq{
+func (l *BatchDeleteTokenLogic) BatchDeleteToken(req *types.UUIDsReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.BatchDeleteToken(l.ctx, &core.UUIDsReq{
 		Ids: req.Ids,
 	})
 	if err != nil {

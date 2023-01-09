@@ -124,10 +124,19 @@ type IDPathReq struct {
 // Basic UUID request | 基础UUID参数请求
 // swagger:model UUIDReq
 type UUIDReq struct {
-	// UUID
+	// ID
 	// Required: true
 	// Max length: 36
-	UUID string `json:"UUID" validate:"len=36"`
+	Id string `json:"id" validate:"len=36"`
+}
+
+// Basic UUID array request | 基础UUID数组参数请求
+// swagger:model UUIDsReq
+type UUIDsReq struct {
+	// Ids
+	// Required: true
+	// Max length: 36
+	Ids []string `json:"ids"`
 }
 
 // The base response data | 基础信息
@@ -141,12 +150,34 @@ type BaseInfo struct {
 	UpdatedAt int64 `json:"updatedAt,optional"`
 }
 
-// The request params of setting boolean status | 设置状态参数
+// The base UUID response data | 基础信息
+// swagger:model BaseUUIDInfo
+type BaseUUIDInfo struct {
+	// ID
+	Id string `json:"id"`
+	// Create date | 创建日期
+	CreatedAt int64 `json:"createdAt,optional"`
+	// Update date | 更新日期
+	UpdatedAt int64 `json:"updatedAt,optional"`
+}
+
+// The request params of setting status code | 设置状态参数
 // swagger:model StatusCodeReq
 type StatusCodeReq struct {
 	// ID
 	// Required: true
 	Id uint64 `json:"id" validate:"number"`
+	// Status code | 状态码
+	// Required: true
+	Status uint64 `json:"status" validate:"number"`
+}
+
+// The request params of setting status code by UUID | 根据UUID设置状态参数
+// swagger:model StatusCodeUUIDReq
+type StatusCodeUUIDReq struct {
+	// ID
+	// Required: true
+	Id string `json:"id"`
 	// Status code | 状态码
 	// Required: true
 	Status uint64 `json:"status" validate:"number"`
@@ -284,9 +315,7 @@ type ChangePasswordReq struct {
 // The response data of user's information | 用户信息返回数据
 // swagger:model UserInfoResp
 type UserInfoResp struct {
-	BaseInfo
-	// User's UUID | 用户的UUID
-	UUID string `json:"UUID"`
+	BaseUUIDInfo
 	// User Name | 用户名
 	Username string `json:"username"`
 	// User's nickname | 用户的昵称
@@ -368,7 +397,7 @@ type PermCodeResp struct {
 type CreateOrUpdateUserReq struct {
 	// User's id | 用户ID
 	// Required: true
-	Id uint64 `json:"id" validate:"number"`
+	Id string `json:"id"`
 	// User Name | 用户名
 	// Required: true
 	// Max length: 30
@@ -1072,7 +1101,7 @@ type CallbackResp struct {
 // The response data of Token information | Token信息
 // swagger:model TokenInfo
 type TokenInfo struct {
-	BaseInfo
+	BaseUUIDInfo
 	// User's UUID | 用户的UUID
 	UUID string `json:"UUID"`
 	// Token string | Token 字符串
@@ -1090,7 +1119,7 @@ type TokenInfo struct {
 type CreateOrUpdateTokenReq struct {
 	// ID
 	// Required: true
-	Id uint64 `json:"ID" validate="number"`
+	Id string `json:"ID"`
 	// User's UUID | 用户的UUID
 	// Required: true
 	// Max Length: 36

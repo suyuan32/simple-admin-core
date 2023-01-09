@@ -27,8 +27,8 @@ func NewUpdateTokenStatusLogic(r *http.Request, svcCtx *svc.ServiceContext) *Upd
 	}
 }
 
-func (l *UpdateTokenStatusLogic) UpdateTokenStatus(req *types.StatusCodeReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.UpdateTokenStatus(l.ctx, &core.StatusCodeReq{
+func (l *UpdateTokenStatusLogic) UpdateTokenStatus(req *types.StatusCodeUUIDReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.UpdateTokenStatus(l.ctx, &core.StatusCodeUUIDReq{
 		Id:     req.Id,
 		Status: req.Status,
 	})

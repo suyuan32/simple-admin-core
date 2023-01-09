@@ -15,8 +15,12 @@ message IDsReq {
   repeated uint64 ids = 1;
 }
 
+message UUIDsReq {
+  repeated string ids = 1;
+}
+
 message UUIDReq {
-  string uuid = 1;
+  string id = 1;
 }
 
 message BaseResp {
@@ -26,6 +30,16 @@ message BaseResp {
 message PageInfoReq {
   uint64 page = 1;
   uint64 page_size = 2;
+}
+
+message StatusCodeReq {
+  uint64 id = 1;
+  uint64 status = 2;
+}
+
+message StatusCodeUUIDReq {
+  string id = 1;
+  uint64 status = 2;
 }
 
 // user message
@@ -43,13 +57,13 @@ message LoginResp {
 }
 
 message ChangePasswordReq {
-  string uuid = 1;
+  string id = 1;
   string old_password = 2;
   string new_password = 3;
 }
 
 message CreateOrUpdateUserReq {
-  uint64 id = 1;
+  string id = 1;
   string avatar = 2;
   uint64 role_id = 3;
   string mobile = 4;
@@ -61,19 +75,18 @@ message CreateOrUpdateUserReq {
 }
 
 message UserInfoResp {
-  uint64 id = 1;
+  string id = 1;
   string avatar = 2;
   uint64 role_id = 3;
   string mobile = 4;
   string email = 5;
   uint64 status = 6;
   string username = 7;
-  string uuid = 8;
-  string nickname = 9;
-  string roleName = 10;
-  int64 created_at = 11;
-  int64 updated_at = 12;
-  string roleValue = 13;
+  string nickname = 8;
+  string roleName = 9;
+  int64 created_at = 10;
+  int64 updated_at = 11;
+  string roleValue = 12;
 }
 
 message UserListResp {
@@ -92,7 +105,7 @@ message GetUserListReq {
 }
 
 message UpdateProfileReq {
-  string uuid = 1;
+  string id = 1;
   string nickname = 2;
   string email = 3;
   string mobile = 4;
@@ -204,10 +217,7 @@ message RoleListResp {
   repeated RoleInfo data = 2;
 }
 
-message StatusCodeReq {
-  uint64 id = 1;
-  uint64 status = 2;
-}
+
 
 // casbin
 message UpdatePolicyReq {
@@ -341,7 +351,7 @@ message CallbackReq {
 // JWT message
 
 message TokenInfo {
-  uint64 id = 1;
+  string id = 1;
   int64 created_at = 2;
   int64 updated_at = 3;
   string uuid = 4;
@@ -385,13 +395,13 @@ service core {
   // group: user
   rpc getUserList (GetUserListReq) returns (UserListResp);
   // group: user
-  rpc deleteUser (IDReq) returns (BaseResp);
+  rpc deleteUser (UUIDReq) returns (BaseResp);
   // group: user
-  rpc batchDeleteUser (IDsReq) returns (BaseResp);
+  rpc batchDeleteUser (UUIDsReq) returns (BaseResp);
   // group: user
   rpc updateProfile (UpdateProfileReq) returns (BaseResp);
   // group: user
-  rpc updateUserStatus (StatusCodeReq) returns (BaseResp);
+  rpc updateUserStatus (StatusCodeUUIDReq) returns (BaseResp);
 
   //menu management
 
@@ -472,13 +482,13 @@ service core {
   // group: token
   rpc createOrUpdateToken (TokenInfo) returns (BaseResp);
   // group: token
-  rpc deleteToken (IDReq) returns (BaseResp);
+  rpc deleteToken (UUIDReq) returns (BaseResp);
   // group: token
-  rpc batchDeleteToken (IDsReq) returns (BaseResp);
+  rpc batchDeleteToken (UUIDsReq) returns (BaseResp);
   // group: token
   rpc getTokenList (TokenListReq) returns (TokenListResp);
   // group: token
-  rpc updateTokenStatus (StatusCodeReq) returns (BaseResp);
+  rpc updateTokenStatus (StatusCodeUUIDReq) returns (BaseResp);
   // group: token
   rpc blockUserAllToken (UUIDReq) returns (BaseResp);
 }

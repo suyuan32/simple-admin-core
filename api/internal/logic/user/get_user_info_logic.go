@@ -35,7 +35,7 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.GetUserInfoResp, err error
 		return nil, errorx.NewApiError(http.StatusUnauthorized, "Please log in")
 	}
 	user, err := l.svcCtx.CoreRpc.GetUserById(l.ctx,
-		&core.UUIDReq{Uuid: l.ctx.Value("userId").(string)})
+		&core.UUIDReq{Id: l.ctx.Value("userId").(string)})
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.GetUserInfoResp, err error
 	return &types.GetUserInfoResp{
 		BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success)},
 		Data: types.UserBaseInfo{
-			UUID:     user.Uuid,
+			UUID:     user.Id,
 			Username: user.Username,
 			Nickname: user.Nickname,
 			Avatar:   user.Avatar,

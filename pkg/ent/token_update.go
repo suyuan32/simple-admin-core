@@ -11,6 +11,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/gofrs/uuid"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 )
@@ -62,8 +63,8 @@ func (tu *TokenUpdate) ClearStatus() *TokenUpdate {
 }
 
 // SetUUID sets the "uuid" field.
-func (tu *TokenUpdate) SetUUID(s string) *TokenUpdate {
-	tu.mutation.SetUUID(s)
+func (tu *TokenUpdate) SetUUID(u uuid.UUID) *TokenUpdate {
+	tu.mutation.SetUUID(u)
 	return tu
 }
 
@@ -159,7 +160,7 @@ func (tu *TokenUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Table:   token.Table,
 			Columns: token.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
+				Type:   field.TypeUUID,
 				Column: token.FieldID,
 			},
 		},
@@ -184,7 +185,7 @@ func (tu *TokenUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.ClearField(token.FieldStatus, field.TypeUint8)
 	}
 	if value, ok := tu.mutation.UUID(); ok {
-		_spec.SetField(token.FieldUUID, field.TypeString, value)
+		_spec.SetField(token.FieldUUID, field.TypeUUID, value)
 	}
 	if value, ok := tu.mutation.Token(); ok {
 		_spec.SetField(token.FieldToken, field.TypeString, value)
@@ -248,8 +249,8 @@ func (tuo *TokenUpdateOne) ClearStatus() *TokenUpdateOne {
 }
 
 // SetUUID sets the "uuid" field.
-func (tuo *TokenUpdateOne) SetUUID(s string) *TokenUpdateOne {
-	tuo.mutation.SetUUID(s)
+func (tuo *TokenUpdateOne) SetUUID(u uuid.UUID) *TokenUpdateOne {
+	tuo.mutation.SetUUID(u)
 	return tuo
 }
 
@@ -358,7 +359,7 @@ func (tuo *TokenUpdateOne) sqlSave(ctx context.Context) (_node *Token, err error
 			Table:   token.Table,
 			Columns: token.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
+				Type:   field.TypeUUID,
 				Column: token.FieldID,
 			},
 		},
@@ -400,7 +401,7 @@ func (tuo *TokenUpdateOne) sqlSave(ctx context.Context) (_node *Token, err error
 		_spec.ClearField(token.FieldStatus, field.TypeUint8)
 	}
 	if value, ok := tuo.mutation.UUID(); ok {
-		_spec.SetField(token.FieldUUID, field.TypeString, value)
+		_spec.SetField(token.FieldUUID, field.TypeUUID, value)
 	}
 	if value, ok := tuo.mutation.Token(); ok {
 		_spec.SetField(token.FieldToken, field.TypeString, value)

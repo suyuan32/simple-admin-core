@@ -53,10 +53,12 @@ type (
 	RoleMenuAuthorityReq       = core.RoleMenuAuthorityReq
 	RoleMenuAuthorityResp      = core.RoleMenuAuthorityResp
 	StatusCodeReq              = core.StatusCodeReq
+	StatusCodeUUIDReq          = core.StatusCodeUUIDReq
 	TokenInfo                  = core.TokenInfo
 	TokenListReq               = core.TokenListReq
 	TokenListResp              = core.TokenListResp
 	UUIDReq                    = core.UUIDReq
+	UUIDsReq                   = core.UUIDsReq
 	UpdatePolicyReq            = core.UpdatePolicyReq
 	UpdateProfileReq           = core.UpdateProfileReq
 	UserInfoResp               = core.UserInfoResp
@@ -69,10 +71,10 @@ type (
 		CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateUserReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error)
 		GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error)
-		DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		BatchDeleteUser(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteUser(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		BatchDeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error)
-		UpdateUserStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateUserStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
@@ -102,10 +104,10 @@ type (
 		OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
 		OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error)
 		CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
-		DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		BatchDeleteToken(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		BatchDeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
-		UpdateTokenStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateTokenStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	}
 
@@ -150,12 +152,12 @@ func (m *defaultCore) GetUserList(ctx context.Context, in *GetUserListReq, opts 
 	return client.GetUserList(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteUser(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) DeleteUser(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteUser(ctx, in, opts...)
 }
 
-func (m *defaultCore) BatchDeleteUser(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) BatchDeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.BatchDeleteUser(ctx, in, opts...)
 }
@@ -165,7 +167,7 @@ func (m *defaultCore) UpdateProfile(ctx context.Context, in *UpdateProfileReq, o
 	return client.UpdateProfile(ctx, in, opts...)
 }
 
-func (m *defaultCore) UpdateUserStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateUserStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.UpdateUserStatus(ctx, in, opts...)
 }
@@ -315,12 +317,12 @@ func (m *defaultCore) CreateOrUpdateToken(ctx context.Context, in *TokenInfo, op
 	return client.CreateOrUpdateToken(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteToken(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) DeleteToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteToken(ctx, in, opts...)
 }
 
-func (m *defaultCore) BatchDeleteToken(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) BatchDeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.BatchDeleteToken(ctx, in, opts...)
 }
@@ -330,7 +332,7 @@ func (m *defaultCore) GetTokenList(ctx context.Context, in *TokenListReq, opts .
 	return client.GetTokenList(ctx, in, opts...)
 }
 
-func (m *defaultCore) UpdateTokenStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateTokenStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.UpdateTokenStatus(ctx, in, opts...)
 }

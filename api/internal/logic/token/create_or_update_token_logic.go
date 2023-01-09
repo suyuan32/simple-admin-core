@@ -28,9 +28,13 @@ func NewCreateOrUpdateTokenLogic(r *http.Request, svcCtx *svc.ServiceContext) *C
 }
 
 func (l *CreateOrUpdateTokenLogic) CreateOrUpdateToken(req *types.CreateOrUpdateTokenReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.UpdateRoleStatus(l.ctx, &core.StatusCodeReq{
-		Id:     req.Id,
-		Status: req.Status,
+	result, err := l.svcCtx.CoreRpc.CreateOrUpdateToken(l.ctx, &core.TokenInfo{
+		Id:        req.Id,
+		Uuid:      req.UUID,
+		Token:     req.Token,
+		Source:    req.Source,
+		ExpiredAt: req.ExpiredAt,
+		Status:    req.Status,
 	})
 	if err != nil {
 		return nil, err

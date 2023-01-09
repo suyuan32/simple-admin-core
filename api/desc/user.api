@@ -155,10 +155,7 @@ type (
 
     // The response data of user's information | 用户信息返回数据
     UserInfoResp {
-        BaseInfo
-
-        // User's UUID | 用户的UUID
-        UUID         string       `json:"UUID"`
+        BaseUUIDInfo
 
         // User Name | 用户名
         Username     string       `json:"username"`
@@ -250,7 +247,7 @@ type (
     CreateOrUpdateUserReq {
         // User's id | 用户ID
         // Required: true
-        Id           uint64        `json:"id" validate:"number"`
+        Id           string        `json:"id"`
 
         // User Name | 用户名
         // Required: true
@@ -367,11 +364,11 @@ service core {
 
     // Delete user information | 删除用户信息
     @handler deleteUser
-    post /user/delete (IDReq) returns (BaseMsgResp)
+    post /user/delete (UUIDReq) returns (BaseMsgResp)
 
      // Batch delete user information | 批量删除用户信息
     @handler batchDeleteUser
-    post /user/batch_delete (IDsReq) returns (BaseMsgResp)
+    post /user/batch_delete (UUIDsReq) returns (BaseMsgResp)
 
     // Get user's permission code | 获取用户权限码
     @handler getUserPermCode
@@ -387,7 +384,7 @@ service core {
 
     // Set user's status | 更新用户状态
     @handler updateUserStatus
-    post /user/status (StatusCodeReq) returns (BaseMsgResp)
+    post /user/status (StatusCodeUUIDReq) returns (BaseMsgResp)
 
     // Log out | 退出登陆
     @handler logout

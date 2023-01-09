@@ -8,6 +8,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -28,8 +29,8 @@ func NewBatchDeleteTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	}
 }
 
-func (l *BatchDeleteTokenLogic) BatchDeleteToken(in *core.IDsReq) (*core.BaseResp, error) {
-	_, err := l.svcCtx.DB.Token.Delete().Where(token.IDIn(in.Ids...)).Exec(l.ctx)
+func (l *BatchDeleteTokenLogic) BatchDeleteToken(in *core.UUIDsReq) (*core.BaseResp, error) {
+	_, err := l.svcCtx.DB.Token.Delete().Where(token.IDIn(uuidx.ParseUUIDSlice(in.Ids)...)).Exec(l.ctx)
 
 	if err != nil {
 		switch {

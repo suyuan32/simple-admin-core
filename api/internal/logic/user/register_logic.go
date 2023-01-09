@@ -35,7 +35,7 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseMsgRes
 	if ok := captcha.Store.Verify(req.CaptchaId, req.Captcha, true); ok {
 		user, err := l.svcCtx.CoreRpc.CreateOrUpdateUser(l.ctx,
 			&core.CreateOrUpdateUserReq{
-				Id:       0,
+				Id:       "",
 				Username: req.Username,
 				Password: req.Password,
 				Email:    req.Email,

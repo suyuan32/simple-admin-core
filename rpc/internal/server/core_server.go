@@ -60,12 +60,12 @@ func (s *CoreServer) GetUserList(ctx context.Context, in *core.GetUserListReq) (
 	return l.GetUserList(in)
 }
 
-func (s *CoreServer) DeleteUser(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+func (s *CoreServer) DeleteUser(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
 	l := user.NewDeleteUserLogic(ctx, s.svcCtx)
 	return l.DeleteUser(in)
 }
 
-func (s *CoreServer) BatchDeleteUser(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+func (s *CoreServer) BatchDeleteUser(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
 	l := user.NewBatchDeleteUserLogic(ctx, s.svcCtx)
 	return l.BatchDeleteUser(in)
 }
@@ -75,7 +75,7 @@ func (s *CoreServer) UpdateProfile(ctx context.Context, in *core.UpdateProfileRe
 	return l.UpdateProfile(in)
 }
 
-func (s *CoreServer) UpdateUserStatus(ctx context.Context, in *core.StatusCodeReq) (*core.BaseResp, error) {
+func (s *CoreServer) UpdateUserStatus(ctx context.Context, in *core.StatusCodeUUIDReq) (*core.BaseResp, error) {
 	l := user.NewUpdateUserStatusLogic(ctx, s.svcCtx)
 	return l.UpdateUserStatus(in)
 }
@@ -225,12 +225,12 @@ func (s *CoreServer) CreateOrUpdateToken(ctx context.Context, in *core.TokenInfo
 	return l.CreateOrUpdateToken(in)
 }
 
-func (s *CoreServer) DeleteToken(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+func (s *CoreServer) DeleteToken(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
 	l := token.NewDeleteTokenLogic(ctx, s.svcCtx)
 	return l.DeleteToken(in)
 }
 
-func (s *CoreServer) BatchDeleteToken(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+func (s *CoreServer) BatchDeleteToken(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
 	l := token.NewBatchDeleteTokenLogic(ctx, s.svcCtx)
 	return l.BatchDeleteToken(in)
 }
@@ -240,7 +240,7 @@ func (s *CoreServer) GetTokenList(ctx context.Context, in *core.TokenListReq) (*
 	return l.GetTokenList(in)
 }
 
-func (s *CoreServer) UpdateTokenStatus(ctx context.Context, in *core.StatusCodeReq) (*core.BaseResp, error) {
+func (s *CoreServer) UpdateTokenStatus(ctx context.Context, in *core.StatusCodeUUIDReq) (*core.BaseResp, error) {
 	l := token.NewUpdateTokenStatusLogic(ctx, s.svcCtx)
 	return l.UpdateTokenStatus(in)
 }

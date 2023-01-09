@@ -27,8 +27,8 @@ func NewBatchDeleteUserLogic(r *http.Request, svcCtx *svc.ServiceContext) *Batch
 	}
 }
 
-func (l *BatchDeleteUserLogic) BatchDeleteUser(req *types.IDsReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.BatchDeleteUser(l.ctx, &core.IDsReq{
+func (l *BatchDeleteUserLogic) BatchDeleteUser(req *types.UUIDsReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.BatchDeleteUser(l.ctx, &core.UUIDsReq{
 		Ids: req.Ids,
 	})
 	if err != nil {

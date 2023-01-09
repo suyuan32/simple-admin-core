@@ -230,6 +230,25 @@ definitions:
                 x-go-name: Msg
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    BaseUUIDInfo:
+        description: The base UUID response data | 基础信息
+        properties:
+            createdAt:
+                description: Create date | 创建日期
+                format: int64
+                type: integer
+                x-go-name: CreatedAt
+            id:
+                description: ID
+                type: string
+                x-go-name: Id
+            updatedAt:
+                description: Update date | 更新日期
+                format: int64
+                type: integer
+                x-go-name: UpdatedAt
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CallbackResp:
         description: The oauth callback response data | Oauth回调数据
         properties:
@@ -674,8 +693,7 @@ definitions:
         properties:
             ID:
                 description: ID
-                format: uint64
-                type: integer
+                type: string
                 x-go-name: Id
             UUID:
                 description: User's UUID | 用户的UUID
@@ -724,8 +742,7 @@ definitions:
                 x-go-name: Email
             id:
                 description: User's id | 用户ID
-                format: uint64
-                type: integer
+                type: string
                 x-go-name: Id
             mobile:
                 description: User's mobile phone number | 用户的手机号码
@@ -1972,12 +1989,29 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     StatusCodeReq:
-        description: The request params of setting boolean status | 设置状态参数
+        description: The request params of setting status code | 设置状态参数
         properties:
             id:
                 description: ID
                 format: uint64
                 type: integer
+                x-go-name: Id
+            status:
+                description: Status code | 状态码
+                format: uint64
+                type: integer
+                x-go-name: Status
+        required:
+            - id
+            - status
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    StatusCodeUUIDReq:
+        description: The request params of setting status code by UUID | 根据UUID设置状态参数
+        properties:
+            id:
+                description: ID
+                type: string
                 x-go-name: Id
             status:
                 description: Status code | 状态码
@@ -2007,8 +2041,7 @@ definitions:
                 x-go-name: ExpiredAt
             id:
                 description: ID
-                format: uint64
-                type: integer
+                type: string
                 x-go-name: Id
             source:
                 description: Log in source such as github | Token 来源 （本地为core, 第三方如github等）
@@ -2106,12 +2139,27 @@ definitions:
     UUIDReq:
         description: Basic UUID request | 基础UUID参数请求
         properties:
-            UUID:
-                description: UUID
+            id:
+                description: ID
                 maxLength: 36
                 type: string
+                x-go-name: Id
         required:
-            - UUID
+            - id
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    UUIDsReq:
+        description: Basic UUID array request | 基础UUID数组参数请求
+        properties:
+            ids:
+                description: Ids
+                items:
+                    type: string
+                maxLength: 36
+                type: array
+                x-go-name: Ids
+        required:
+            - ids
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UserBaseInfo:
@@ -2140,9 +2188,6 @@ definitions:
     UserInfoResp:
         description: The response data of user's information | 用户信息返回数据
         properties:
-            UUID:
-                description: User's UUID | 用户的UUID
-                type: string
             avatar:
                 description: The user's avatar path | 用户的头像路径
                 type: string
@@ -2158,8 +2203,7 @@ definitions:
                 x-go-name: Email
             id:
                 description: ID
-                format: uint64
-                type: integer
+                type: string
                 x-go-name: Id
             mobile:
                 description: User's mobile phone number | 用户的手机号码
@@ -2782,7 +2826,7 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/IDsReq'
+                    $ref: '#/definitions/UUIDsReq'
                     type: object
             responses:
                 "200":
@@ -2818,7 +2862,7 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/IDReq'
+                    $ref: '#/definitions/UUIDReq'
                     type: object
             responses:
                 "200":
@@ -2872,7 +2916,7 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/StatusCodeReq'
+                    $ref: '#/definitions/StatusCodeUUIDReq'
                     type: object
             responses:
                 "200":
@@ -2890,7 +2934,7 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/IDsReq'
+                    $ref: '#/definitions/UUIDsReq'
                     type: object
             responses:
                 "200":
@@ -2944,7 +2988,7 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/IDReq'
+                    $ref: '#/definitions/UUIDReq'
                     type: object
             responses:
                 "200":
@@ -3081,7 +3125,7 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/StatusCodeReq'
+                    $ref: '#/definitions/StatusCodeUUIDReq'
                     type: object
             responses:
                 "200":

@@ -180,11 +180,11 @@ var (
 	}
 	// SysTokensColumns holds the columns for the "sys_tokens" table.
 	SysTokensColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "id", Type: field.TypeUUID},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
-		{Name: "uuid", Type: field.TypeString},
+		{Name: "uuid", Type: field.TypeUUID},
 		{Name: "token", Type: field.TypeString},
 		{Name: "source", Type: field.TypeString},
 		{Name: "expired_at", Type: field.TypeTime},
@@ -209,11 +209,10 @@ var (
 	}
 	// SysUsersColumns holds the columns for the "sys_users" table.
 	SysUsersColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "id", Type: field.TypeUUID},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
-		{Name: "uuid", Type: field.TypeString},
 		{Name: "username", Type: field.TypeString, Unique: true},
 		{Name: "password", Type: field.TypeString},
 		{Name: "nickname", Type: field.TypeString, Unique: true},
@@ -234,7 +233,7 @@ var (
 			{
 				Name:    "user_username_email",
 				Unique:  true,
-				Columns: []*schema.Column{SysUsersColumns[5], SysUsersColumns[13]},
+				Columns: []*schema.Column{SysUsersColumns[4], SysUsersColumns[12]},
 			},
 		},
 	}

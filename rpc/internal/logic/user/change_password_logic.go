@@ -9,6 +9,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
+	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -30,12 +31,12 @@ func NewChangePasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ch
 }
 
 func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.BaseResp, error) {
-	target, err := l.svcCtx.DB.User.Query().Where(user.UUIDEQ(in.Uuid)).First(l.ctx)
+	target, err := l.svcCtx.DB.User.Query().Where(user.IDEQ(uuidx.ParseUUIDString(in.Id))).First(l.ctx)
 
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
-			logx.Errorw(err.Error(), logx.Field("uuid", in.Uuid))
+			logx.Errorw(err.Error(), logx.Field("uuid", in.Id))
 			return nil, statuserr.NewInvalidArgumentError("login.userNotExist")
 		default:
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
@@ -46,11 +47,11 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 	if ok := utils.BcryptCheck(in.OldPassword, target.Password); ok {
 		newPassword := utils.BcryptEncrypt(in.NewPassword)
 
-		err = l.svcCtx.DB.User.Update().Where(user.UUIDEQ(in.Uuid)).SetPassword(newPassword).Exec(l.ctx)
+		err = l.svcCtx.DB.User.Update().Where(user.IDEQ(uuidx.ParseUUIDString(in.Id))).SetPassword(newPassword).Exec(l.ctx)
 		if err != nil {
 			switch {
 			case ent.IsNotFound(err):
-				logx.Errorw(err.Error(), logx.Field("uuid", in.Uuid))
+				logx.Errorw(err.Error(), logx.Field("uuid", in.Id))
 				return nil, statuserr.NewInvalidArgumentError("login.userNotExist")
 			case ent.IsConstraintError(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
@@ -61,7 +62,7 @@ func (l *ChangePasswordLogic) ChangePassword(in *core.ChangePasswordReq) (*core.
 			}
 		}
 	} else {
-		logx.Errorw("old password is wrong", logx.Field("UUID", in.Uuid))
+		logx.Errorw("old password is wrong", logx.Field("UUID", in.Id))
 		return nil, statuserr.NewInvalidArgumentError("user.wrongPassword")
 	}
 

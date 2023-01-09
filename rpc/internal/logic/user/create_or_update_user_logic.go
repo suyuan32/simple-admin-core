@@ -3,13 +3,12 @@ package user
 import (
 	"context"
 
-	"github.com/google/uuid"
-
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
+	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -31,9 +30,8 @@ func NewCreateOrUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUserReq) (*core.BaseResp, error) {
-	if in.Id == 0 {
+	if in.Id == "" {
 		err := l.svcCtx.DB.User.Create().
-			SetUUID(uuid.NewString()).
 			SetUsername(in.Username).
 			SetPassword(utils.BcryptEncrypt(in.Password)).
 			SetNickname(in.Nickname).
@@ -58,7 +56,7 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 	} else {
 		var err error
 		if in.Password != "" {
-			err = l.svcCtx.DB.User.UpdateOneID(in.Id).
+			err = l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
 				SetUsername(in.Username).
 				SetPassword(utils.BcryptEncrypt(in.Password)).
 				SetNickname(in.Nickname).
@@ -68,7 +66,7 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 				SetRoleID(in.RoleId).
 				Exec(l.ctx)
 		} else {
-			err = l.svcCtx.DB.User.UpdateOneID(in.Id).
+			err = l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
 				SetUsername(in.Username).
 				SetNickname(in.Nickname).
 				SetEmail(in.Email).

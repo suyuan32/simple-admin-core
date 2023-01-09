@@ -7,6 +7,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -27,8 +28,8 @@ func NewDeleteUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 	}
 }
 
-func (l *DeleteUserLogic) DeleteUser(in *core.IDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.User.DeleteOneID(in.Id).Exec(l.ctx)
+func (l *DeleteUserLogic) DeleteUser(in *core.UUIDReq) (*core.BaseResp, error) {
+	err := l.svcCtx.DB.User.DeleteOneID(uuidx.ParseUUIDString(in.Id)).Exec(l.ctx)
 
 	if err != nil {
 		switch {

@@ -4,6 +4,8 @@ package user
 
 import (
 	"time"
+
+	"github.com/gofrs/uuid"
 )
 
 const (
@@ -17,8 +19,6 @@ const (
 	FieldUpdatedAt = "updated_at"
 	// FieldStatus holds the string denoting the status field in the database.
 	FieldStatus = "status"
-	// FieldUUID holds the string denoting the uuid field in the database.
-	FieldUUID = "uuid"
 	// FieldUsername holds the string denoting the username field in the database.
 	FieldUsername = "username"
 	// FieldPassword holds the string denoting the password field in the database.
@@ -49,7 +49,6 @@ var Columns = []string{
 	FieldCreatedAt,
 	FieldUpdatedAt,
 	FieldStatus,
-	FieldUUID,
 	FieldUsername,
 	FieldPassword,
 	FieldNickname,
@@ -91,4 +90,6 @@ var (
 	DefaultRoleID uint64
 	// DefaultAvatar holds the default value on creation for the "avatar" field.
 	DefaultAvatar string
+	// DefaultID holds the default value on creation for the "id" field.
+	DefaultID func() uuid.UUID
 )

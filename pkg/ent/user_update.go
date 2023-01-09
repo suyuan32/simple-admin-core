@@ -61,12 +61,6 @@ func (uu *UserUpdate) ClearStatus() *UserUpdate {
 	return uu
 }
 
-// SetUUID sets the "uuid" field.
-func (uu *UserUpdate) SetUUID(s string) *UserUpdate {
-	uu.mutation.SetUUID(s)
-	return uu
-}
-
 // SetUsername sets the "username" field.
 func (uu *UserUpdate) SetUsername(s string) *UserUpdate {
 	uu.mutation.SetUsername(s)
@@ -306,7 +300,7 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Table:   user.Table,
 			Columns: user.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
+				Type:   field.TypeUUID,
 				Column: user.FieldID,
 			},
 		},
@@ -329,9 +323,6 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if uu.mutation.StatusCleared() {
 		_spec.ClearField(user.FieldStatus, field.TypeUint8)
-	}
-	if value, ok := uu.mutation.UUID(); ok {
-		_spec.SetField(user.FieldUUID, field.TypeString, value)
 	}
 	if value, ok := uu.mutation.Username(); ok {
 		_spec.SetField(user.FieldUsername, field.TypeString, value)
@@ -436,12 +427,6 @@ func (uuo *UserUpdateOne) AddStatus(u int8) *UserUpdateOne {
 // ClearStatus clears the value of the "status" field.
 func (uuo *UserUpdateOne) ClearStatus() *UserUpdateOne {
 	uuo.mutation.ClearStatus()
-	return uuo
-}
-
-// SetUUID sets the "uuid" field.
-func (uuo *UserUpdateOne) SetUUID(s string) *UserUpdateOne {
-	uuo.mutation.SetUUID(s)
 	return uuo
 }
 
@@ -697,7 +682,7 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Table:   user.Table,
 			Columns: user.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
+				Type:   field.TypeUUID,
 				Column: user.FieldID,
 			},
 		},
@@ -737,9 +722,6 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	}
 	if uuo.mutation.StatusCleared() {
 		_spec.ClearField(user.FieldStatus, field.TypeUint8)
-	}
-	if value, ok := uuo.mutation.UUID(); ok {
-		_spec.SetField(user.FieldUUID, field.TypeString, value)
 	}
 	if value, ok := uuo.mutation.Username(); ok {
 		_spec.SetField(user.FieldUsername, field.TypeString, value)

@@ -17,7 +17,6 @@ type User struct {
 
 func (User) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("uuid").Comment("user's UUID | 用户 UUID"),
 		field.String("username").Unique().Comment("user's login name | 登录名"),
 		field.String("password").Comment("password | 密码"),
 		field.String("nickname").Unique().Comment("nickname | 昵称"),
@@ -37,7 +36,7 @@ func (User) Fields() []ent.Field {
 
 func (User) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		mixins.BaseMixin{},
+		mixins.UUIDMixin{},
 		mixins.StatusMixin{},
 	}
 }

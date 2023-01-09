@@ -9,6 +9,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -30,7 +31,7 @@ func NewBlockUserAllTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Token.Update().Where(token.UUIDEQ(in.Uuid)).SetStatus(0).Exec(l.ctx)
+	err := l.svcCtx.DB.Token.Update().Where(token.UUIDEQ(uuidx.ParseUUIDString(in.Id))).SetStatus(0).Exec(l.ctx)
 
 	if err != nil {
 		switch {
@@ -44,7 +45,7 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 	}
 
 	tokenData, err := l.svcCtx.DB.Token.Query().
-		Where(token.UUIDEQ(in.Uuid)).
+		Where(token.UUIDEQ(uuidx.ParseUUIDString(in.Id))).
 		Where(token.StatusEQ(0)).
 		Where(token.ExpiredAtGT(time.Now())).
 		All(l.ctx)
