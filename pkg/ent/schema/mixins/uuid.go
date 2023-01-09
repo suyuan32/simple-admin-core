@@ -6,6 +6,9 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/mixin"
+	"github.com/gofrs/uuid"
+
+	"github.com/suyuan32/simple-admin-core/pkg/utils"
 )
 
 // UUIDMixin implements the ent.Mixin for sharing
@@ -18,7 +21,7 @@ type UUIDMixin struct {
 
 func (UUIDMixin) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("id").Comment("UUID"),
+		field.UUID("id", uuid.UUID{}).Default(utils.NewUUID).Comment("UUID"),
 		field.Time("created_at").
 			Immutable().
 			Default(time.Now),

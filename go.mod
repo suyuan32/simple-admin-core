@@ -11,13 +11,13 @@ require (
 	github.com/go-co-op/gocron v1.17.1
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-sql-driver/mysql v1.7.0
+	github.com/gofrs/uuid v4.3.2-0.20230107014446-9363593625d7+incompatible
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/google/uuid v1.3.0
 	github.com/lib/pq v1.10.7
 	github.com/mattn/go-sqlite3 v1.14.16
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
-	github.com/oklog/ulid/v2 v2.1.0
 	github.com/stretchr/testify v1.8.1
 	github.com/zeromicro/go-zero v1.4.3
 	golang.org/x/crypto v0.4.0
