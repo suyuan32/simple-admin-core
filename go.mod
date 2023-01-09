@@ -17,6 +17,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.16
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
+	github.com/oklog/ulid/v2 v2.1.0
 	github.com/stretchr/testify v1.8.1
 	github.com/zeromicro/go-zero v1.4.3
 	golang.org/x/crypto v0.4.0
