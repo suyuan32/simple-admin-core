@@ -23,9 +23,9 @@ func GetMenuByRoleHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		resp, err := l.GetMenuByRole()
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
-			httpx.Error(w, err)
+			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
-			httpx.OkJson(w, resp)
+			httpx.OkJsonCtx(r.Context(), w, resp)
 		}
 	}
 }

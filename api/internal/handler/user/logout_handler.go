@@ -3,9 +3,10 @@ package user
 import (
 	"net/http"
 
+	"github.com/zeromicro/go-zero/rest/httpx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 // swagger:route get /user/logout user Logout
@@ -23,9 +24,9 @@ func LogoutHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		resp, err := l.Logout()
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
-			httpx.Error(w, err)
+			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
-			httpx.OkJson(w, resp)
+			httpx.OkJsonCtx(r.Context(), w, resp)
 		}
 	}
 }

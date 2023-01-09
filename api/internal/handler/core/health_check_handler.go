@@ -21,7 +21,7 @@ func HealthCheckHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		err := l.HealthCheck()
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
-			httpx.Error(w, err)
+			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.Ok(w)
 		}
