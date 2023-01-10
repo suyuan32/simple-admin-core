@@ -44,6 +44,27 @@ type User struct {
 	Email string `json:"email,omitempty"`
 	// avatar | 头像路径
 	Avatar string `json:"avatar,omitempty"`
+	// Edges holds the relations/edges for other nodes in the graph.
+	// The values are being populated by the UserQuery when eager-loading is set.
+	Edges UserEdges `json:"edges"`
+}
+
+// UserEdges holds the relations/edges for other nodes in the graph.
+type UserEdges struct {
+	// Tenant holds the value of the tenant edge.
+	Tenant []*Tenant `json:"tenant,omitempty"`
+	// loadedTypes holds the information for reporting if a
+	// type was loaded (or requested) in eager-loading or not.
+	loadedTypes [1]bool
+}
+
+// TenantOrErr returns the Tenant value or an error if the edge
+// was not loaded in eager-loading.
+func (e UserEdges) TenantOrErr() ([]*Tenant, error) {
+	if e.loadedTypes[0] {
+		return e.Tenant, nil
+	}
+	return nil, &NotLoadedError{edge: "tenant"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -161,6 +182,11 @@ func (u *User) assignValues(columns []string, values []any) error {
 		}
 	}
 	return nil
+}
+
+// QueryTenant queries the "tenant" edge of the User entity.
+func (u *User) QueryTenant() *TenantQuery {
+	return (&UserClient{config: u.config}).QueryTenant(u)
 }
 
 // Update returns a builder for updating this User.

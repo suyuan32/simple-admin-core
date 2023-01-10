@@ -11,6 +11,7 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/gofrs/uuid"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/tenant"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
@@ -191,6 +192,21 @@ func (uc *UserCreate) SetNillableID(u *uuid.UUID) *UserCreate {
 		uc.SetID(*u)
 	}
 	return uc
+}
+
+// AddTenantIDs adds the "tenant" edge to the Tenant entity by IDs.
+func (uc *UserCreate) AddTenantIDs(ids ...uuid.UUID) *UserCreate {
+	uc.mutation.AddTenantIDs(ids...)
+	return uc
+}
+
+// AddTenant adds the "tenant" edges to the Tenant entity.
+func (uc *UserCreate) AddTenant(t ...*Tenant) *UserCreate {
+	ids := make([]uuid.UUID, len(t))
+	for i := range t {
+		ids[i] = t[i].ID
+	}
+	return uc.AddTenantIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -412,6 +428,25 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := uc.mutation.Avatar(); ok {
 		_spec.SetField(user.FieldAvatar, field.TypeString, value)
 		_node.Avatar = value
+	}
+	if nodes := uc.mutation.TenantIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   user.TenantTable,
+			Columns: user.TenantPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: tenant.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
 }

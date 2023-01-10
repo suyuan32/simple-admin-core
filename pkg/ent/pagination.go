@@ -13,6 +13,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/tenant"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
@@ -608,6 +609,85 @@ func (r *RoleQuery) Page(
 
 	r = r.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
 	list, err := r.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type TenantPager struct {
+	Order  OrderFunc
+	Filter func(*TenantQuery) (*TenantQuery, error)
+}
+
+// TenantPaginateOption enables pagination customization.
+type TenantPaginateOption func(*TenantPager)
+
+// DefaultTenantOrder is the default ordering of Tenant.
+var DefaultTenantOrder = Asc(tenant.FieldID)
+
+func newTenantPager(opts []TenantPaginateOption) (*TenantPager, error) {
+	pager := &TenantPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultTenantOrder
+	}
+	return pager, nil
+}
+
+func (p *TenantPager) ApplyFilter(query *TenantQuery) (*TenantQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// TenantPageList is Tenant PageList result.
+type TenantPageList struct {
+	List        []*Tenant    `json:"list"`
+	PageDetails *PageDetails `json:"pageDetails"`
+}
+
+func (t *TenantQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...TenantPaginateOption,
+) (*TenantPageList, error) {
+
+	pager, err := newTenantPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if t, err = pager.ApplyFilter(t); err != nil {
+		return nil, err
+	}
+
+	ret := &TenantPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	count, err := t.Clone().Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		t = t.Order(pager.Order)
+	} else {
+		t = t.Order(DefaultTenantOrder)
+	}
+
+	t = t.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := t.All(ctx)
 	if err != nil {
 		return nil, err
 	}

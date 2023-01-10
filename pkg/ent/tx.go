@@ -26,6 +26,8 @@ type Tx struct {
 	OauthProvider *OauthProviderClient
 	// Role is the client for interacting with the Role builders.
 	Role *RoleClient
+	// Tenant is the client for interacting with the Tenant builders.
+	Tenant *TenantClient
 	// Token is the client for interacting with the Token builders.
 	Token *TokenClient
 	// User is the client for interacting with the User builders.
@@ -168,6 +170,7 @@ func (tx *Tx) init() {
 	tx.MenuParam = NewMenuParamClient(tx.config)
 	tx.OauthProvider = NewOauthProviderClient(tx.config)
 	tx.Role = NewRoleClient(tx.config)
+	tx.Tenant = NewTenantClient(tx.config)
 	tx.Token = NewTokenClient(tx.config)
 	tx.User = NewUserClient(tx.config)
 }

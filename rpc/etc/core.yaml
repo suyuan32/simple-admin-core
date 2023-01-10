@@ -6,17 +6,17 @@ DatabaseConf:
   Host: 127.0.0.1
   Port: 3306
   DBName: simple_admin
-  Username: # set your username
-  Password: # set your password
+  Username: root
+  Password: "123456"
   MaxOpenConn: 100
   SSLMode: disable # disable or require
   CacheTime: 5
 
 Log:
   ServiceName: coreRpcLogger
-  Mode: file
+  Mode: console
   Path: /home/data/logs/core/rpc
-  Encoding: json
+  Encoding: plain
   Level: info
   Compress: false
   KeepDays: 7
@@ -26,10 +26,10 @@ RedisConf:
   Host: 127.0.0.1:6379
   Type: node
 
-Prometheus:
-  Host: 0.0.0.0
-  Port: 4001
-  Path: /metrics
+# Prometheus:
+#   Host: 0.0.0.0
+#   Port: 4001
+#   Path: /metrics
 
 CasbinConf:
   ModelText: |

@@ -178,6 +178,47 @@ var (
 		Columns:    SysRolesColumns,
 		PrimaryKey: []*schema.Column{SysRolesColumns[0]},
 	}
+	// SysTenantColumns holds the columns for the "sys_tenant" table.
+	SysTenantColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "name", Type: field.TypeString, Unique: true},
+		{Name: "level", Type: field.TypeUint32},
+		{Name: "start_time", Type: field.TypeTime},
+		{Name: "end_time", Type: field.TypeTime, Nullable: true},
+		{Name: "contact", Type: field.TypeString, Nullable: true},
+		{Name: "mobile", Type: field.TypeString, Nullable: true},
+		{Name: "sort_no", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "parent_id", Type: field.TypeUUID, Nullable: true},
+	}
+	// SysTenantTable holds the schema information for the "sys_tenant" table.
+	SysTenantTable = &schema.Table{
+		Name:       "sys_tenant",
+		Columns:    SysTenantColumns,
+		PrimaryKey: []*schema.Column{SysTenantColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "sys_tenant_sys_tenant_children",
+				Columns:    []*schema.Column{SysTenantColumns[11]},
+				RefColumns: []*schema.Column{SysTenantColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+		Indexes: []*schema.Index{
+			{
+				Name:    "tenant_parent_id",
+				Unique:  false,
+				Columns: []*schema.Column{SysTenantColumns[11]},
+			},
+			{
+				Name:    "tenant_sort_no",
+				Unique:  false,
+				Columns: []*schema.Column{SysTenantColumns[10]},
+			},
+		},
+	}
 	// SysTokensColumns holds the columns for the "sys_tokens" table.
 	SysTokensColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
@@ -262,6 +303,31 @@ var (
 			},
 		},
 	}
+	// TenantUsersColumns holds the columns for the "tenant_users" table.
+	TenantUsersColumns = []*schema.Column{
+		{Name: "tenant_id", Type: field.TypeUUID},
+		{Name: "user_id", Type: field.TypeUUID},
+	}
+	// TenantUsersTable holds the schema information for the "tenant_users" table.
+	TenantUsersTable = &schema.Table{
+		Name:       "tenant_users",
+		Columns:    TenantUsersColumns,
+		PrimaryKey: []*schema.Column{TenantUsersColumns[0], TenantUsersColumns[1]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "tenant_users_tenant_id",
+				Columns:    []*schema.Column{TenantUsersColumns[0]},
+				RefColumns: []*schema.Column{SysTenantColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+			{
+				Symbol:     "tenant_users_user_id",
+				Columns:    []*schema.Column{TenantUsersColumns[1]},
+				RefColumns: []*schema.Column{SysUsersColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+		},
+	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		SysApisTable,
@@ -271,9 +337,11 @@ var (
 		SysMenuParamsTable,
 		SysOauthProvidersTable,
 		SysRolesTable,
+		SysTenantTable,
 		SysTokensTable,
 		SysUsersTable,
 		RoleMenusTable,
+		TenantUsersTable,
 	}
 )
 
@@ -302,6 +370,10 @@ func init() {
 	SysRolesTable.Annotation = &entsql.Annotation{
 		Table: "sys_roles",
 	}
+	SysTenantTable.ForeignKeys[0].RefTable = SysTenantTable
+	SysTenantTable.Annotation = &entsql.Annotation{
+		Table: "sys_tenant",
+	}
 	SysTokensTable.Annotation = &entsql.Annotation{
 		Table: "sys_tokens",
 	}
@@ -310,4 +382,6 @@ func init() {
 	}
 	RoleMenusTable.ForeignKeys[0].RefTable = SysRolesTable
 	RoleMenusTable.ForeignKeys[1].RefTable = SysMenusTable
+	TenantUsersTable.ForeignKeys[0].RefTable = SysTenantTable
+	TenantUsersTable.ForeignKeys[1].RefTable = SysUsersTable
 }

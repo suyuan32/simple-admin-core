@@ -39,8 +39,15 @@ const (
 	FieldEmail = "email"
 	// FieldAvatar holds the string denoting the avatar field in the database.
 	FieldAvatar = "avatar"
+	// EdgeTenant holds the string denoting the tenant edge name in mutations.
+	EdgeTenant = "tenant"
 	// Table holds the table name of the user in the database.
 	Table = "sys_users"
+	// TenantTable is the table that holds the tenant relation/edge. The primary key declared below.
+	TenantTable = "tenant_users"
+	// TenantInverseTable is the table name for the Tenant entity.
+	// It exists in this package in order to avoid circular dependency with the "tenant" package.
+	TenantInverseTable = "sys_tenant"
 )
 
 // Columns holds all SQL columns for user fields.
@@ -60,6 +67,12 @@ var Columns = []string{
 	FieldEmail,
 	FieldAvatar,
 }
+
+var (
+	// TenantPrimaryKey and TenantColumn2 are the table columns denoting the
+	// primary key for the tenant relation (M2M).
+	TenantPrimaryKey = []string{"tenant_id", "user_id"}
+)
 
 // ValidColumn reports if the column name is valid (part of the table columns).
 func ValidColumn(column string) bool {

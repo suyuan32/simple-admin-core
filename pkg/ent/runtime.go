@@ -14,6 +14,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/schema"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/tenant"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
@@ -225,6 +226,39 @@ func init() {
 	roleDescOrderNo := roleFields[4].Descriptor()
 	// role.DefaultOrderNo holds the default value on creation for the order_no field.
 	role.DefaultOrderNo = roleDescOrderNo.Default.(uint32)
+	tenantMixin := schema.Tenant{}.Mixin()
+	tenantMixinFields0 := tenantMixin[0].Fields()
+	_ = tenantMixinFields0
+	tenantMixinFields1 := tenantMixin[1].Fields()
+	_ = tenantMixinFields1
+	tenantFields := schema.Tenant{}.Fields()
+	_ = tenantFields
+	// tenantDescCreatedAt is the schema descriptor for created_at field.
+	tenantDescCreatedAt := tenantMixinFields0[1].Descriptor()
+	// tenant.DefaultCreatedAt holds the default value on creation for the created_at field.
+	tenant.DefaultCreatedAt = tenantDescCreatedAt.Default.(func() time.Time)
+	// tenantDescUpdatedAt is the schema descriptor for updated_at field.
+	tenantDescUpdatedAt := tenantMixinFields0[2].Descriptor()
+	// tenant.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	tenant.DefaultUpdatedAt = tenantDescUpdatedAt.Default.(func() time.Time)
+	// tenant.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	tenant.UpdateDefaultUpdatedAt = tenantDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// tenantDescStatus is the schema descriptor for status field.
+	tenantDescStatus := tenantMixinFields1[0].Descriptor()
+	// tenant.DefaultStatus holds the default value on creation for the status field.
+	tenant.DefaultStatus = tenantDescStatus.Default.(uint8)
+	// tenantDescStartTime is the schema descriptor for start_time field.
+	tenantDescStartTime := tenantFields[3].Descriptor()
+	// tenant.DefaultStartTime holds the default value on creation for the start_time field.
+	tenant.DefaultStartTime = tenantDescStartTime.Default.(func() time.Time)
+	// tenantDescSortNo is the schema descriptor for sort_no field.
+	tenantDescSortNo := tenantFields[7].Descriptor()
+	// tenant.DefaultSortNo holds the default value on creation for the sort_no field.
+	tenant.DefaultSortNo = tenantDescSortNo.Default.(uint32)
+	// tenantDescID is the schema descriptor for id field.
+	tenantDescID := tenantMixinFields0[0].Descriptor()
+	// tenant.DefaultID holds the default value on creation for the id field.
+	tenant.DefaultID = tenantDescID.Default.(func() uuid.UUID)
 	tokenMixin := schema.Token{}.Mixin()
 	tokenMixinFields0 := tokenMixin[0].Fields()
 	_ = tokenMixinFields0
