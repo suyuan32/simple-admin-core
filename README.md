@@ -9,7 +9,7 @@
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.8.0-yellow.svg)](https://vvbin.cn/doc-next/)
 [![Ent](https://img.shields.io/badge/Ent-v0.11.0-blue.svg)](https://entgo.io/)
 [![Casbin](https://img.shields.io/badge/Casbin-v2.52.1-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v0.1.9-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Release](https://img.shields.io/badge/Release-v0.2.1-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
 ![QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-801043319-blue)
@@ -19,7 +19,6 @@
 Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基于go-zero开发，提供丰富的功能如服务发现，权限管理等。
 该框架可以帮助您快速开发具有RPC服务的后台管理系统。
 
-#### [Gorm 版本点此](https://github.com/suyuan32/simple-admin-core/tree/gorm)   
 #### [Ent 中文文档](https://suyuan32.github.io/ent-chinese-doc/#/zh-cn/getting-started)
 
 ## 特性
@@ -66,9 +65,6 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 ![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png)
 ![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
 
-[更多预览](https://suyuan32.github.io/simple-admin-core/#/simple-admin/zh-cn/docs/screenshot)
-
-
 ## 文档
 
 [Simple Admin 文档](https://doc.ryansu.pro)
@@ -87,42 +83,9 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 - [Casbin](https://casbin.org/) - 权限管理
 - [Go-swagger](https://goswagger.io/) - Go-swagger 文档生成调试
 
-## 安装使用
+## 快速开始
 
-- 获取项目代码
-
-```bash
-git clone https://github.com/suyuan32/simple-admin-core.git
-```
-
-- 安装依赖
-
-```bash
-cd simple-admin-core/
-
-go mod tidy
-```
-- 编辑配置文件 api/etc/core.yaml  rpc/etc/core.yaml
-- 
-- 运行
-
-```bash
-# run core api
-cd api 
-go run core.go -f etc/core.yaml
-
-# run core rpc
-cd rpc
-go run core.go -f etc/core.yaml
-```
-
-- 打包
-
-
-```bash
-go build -o core core.go
-```
-
+[快速开始文档](https://doc.ryansu.pro/zh/guide/basic-config/env_setting.html)
 
 ## 更新日志
 
@@ -173,6 +136,12 @@ go build -o core core.go
 >[Discord](https://discord.gg/NDED5p2hJk)
 
 > [论坛](https://github.com/suyuan32/simple-admin-core/discussions)
+
+> 微信群
+
+<div align="center">
+<img src="https://doc.ryansu.pro/assets/contact.png" width="250px" height="320px"/>
+</div>
 
 ## Stars
 

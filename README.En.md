@@ -9,7 +9,7 @@
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.8.0-yellow.svg)](https://vvbin.cn/doc-next/)
 [![Ent](https://img.shields.io/badge/Ent-v0.11.0-blue.svg)](https://entgo.io/)
 [![Casbin](https://img.shields.io/badge/Casbin-v2.52.1-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v0.1.9-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Release](https://img.shields.io/badge/Release-v0.2.1-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
 ## Introduction
@@ -18,7 +18,6 @@ Simple Admin is a powerful microservice framework for basic management.
 It is based on go-zero and supports several advanced features. 
 It can help you to develop a microservice back-end management core in a short time.
 
-#### [Gorm version here](https://github.com/suyuan32/simple-admin-core/tree/gorm)
 
 ## Feature
 
@@ -53,8 +52,6 @@ It can help you to develop a microservice back-end management core in a short ti
 - [x] docker-compose script
 - [x] RPC logic group
 
-### The use of consul for service registration discovery in the early stage of the project is mainly to adapt to low-configuration servers. In the near future, the deployment process of K8s will be mainly optimized, and the project will mainly use K8s for deployment in the future.
-
 ## Preview
 
 ### Online preview
@@ -65,8 +62,6 @@ Password:  simple-admin
 
 ![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png)
 ![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
-
-[More](https://suyuan32.github.io/simple-admin-core/#/simple-admin/zh-cn/docs/screenshot)
 
 ## Documentation
 
@@ -84,42 +79,9 @@ Password:  simple-admin
 - [Casbin](https://casbin.org/) - Familiar with Casbin apis
 - [Go-swagger](https://goswagger.io/) - Go-swagger document generation
 
-## Install and use
+## Quick Start
 
-- Get the project code
-
-```bash
-git clone https://github.com/suyuan32/simple-admin-core.git
-```
-
-- Installation dependencies
-
-```bash
-cd simple-admin-core/
-
-go mod tidy
-
-```
-
-- Edit api/etc/core.yaml  rpc/etc/core.yaml
-
-- Run
-
-```bash
-# run core api
-cd api 
-go run core.go -f etc/core.yaml
-
-# run core rpc
-cd rpc
-go run core.go -f etc/core.yaml
-```
-
-- Build
-
-```bash
-go build -o core core.go
-```
+[Quick Start Document](https://doc.ryansu.pro/en/guide/basic-config/env_setting.html)
 
 ## Change Log
 

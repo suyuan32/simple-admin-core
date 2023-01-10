@@ -1,254 +1,636 @@
-## v0.2.0 (2022-12-29)
 
-### Bugs fixed:
+<a name="v0.2.1"></a>
+## [v0.2.1](https://github.com/suyuan32/simple-admin-core/compare/v0.2.1-beta...v0.2.1) (2023-01-10)
 
-- allow to alter table structure([`d07abeb`](https://github.com/suyuan32/simple-admin-core/commit/d07abeba476d98b99884ce847bfbd3034bbb96c4)) (by Ryan SU)
-- translator test([`1581cc8`](https://github.com/suyuan32/simple-admin-core/commit/1581cc8c7de660f8b7aabdab42c24bdcdc2b9677)) (by Ryan SU)
-- dashboard menu type([`2d73f0f`](https://github.com/suyuan32/simple-admin-core/commit/2d73f0ff701f9b128702630bf674cb0cfccf4486)) (by Ryan SU)
-- status validator([`f727017`](https://github.com/suyuan32/simple-admin-core/commit/f727017848e51b84114aca4ed8dc20e809da0726)) (by Ryan SU)
+### Doc
 
-## v0.2.0-beta (2022-12-17)
+* update readme
 
-### Bugs fixed:
 
-- postgres dsn([`5becd10`](https://github.com/suyuan32/simple-admin-core/commit/5becd1039bff22f1c3b8fc6e7511e24edd4d7e8b)) (by Ryan SU)
+<a name="v0.2.1-beta"></a>
+## [v0.2.1-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.2.0...v0.2.1-beta) (2023-01-09)
 
-## v0.1.9 (2022-12-15)
+### Chore
 
-### New feature:
+* update tool version
 
-- gitlab file generating([`a47cac3`](https://github.com/suyuan32/simple-admin-core/commit/a47cac3a7dcdb714b845f3bf12b372ee05e83736)) (by Ryan SU)
-- batch delete user([`1c94f85`](https://github.com/suyuan32/simple-admin-core/commit/1c94f853db3eb9503fc68e2d544ee30a72b084cb)) (by Ryan SU)
+### Docs
 
-## v0.1.8 (2022-12-10)
+* update changelog
 
-### New feature:
+### Feat
 
-- ent no cache driver([`5ac7cf5`](https://github.com/suyuan32/simple-admin-core/commit/5ac7cf5e557d926fc7cea84c1a8443e95b96b5d5)) (by Ryan SU)
-- all in one docker-compose file([`6e184d0`](https://github.com/suyuan32/simple-admin-core/commit/6e184d068f9e039efdf2b4fd2e8720c9c6cf71d3)) (by Ryan SU)
-- add batch delete for token management([`395dacb`](https://github.com/suyuan32/simple-admin-core/commit/395dacbb4b15ef71d8e40cb18fba0534998b0664)) (by Ryan SU)
+* change user and token id to uuid
+* uuid mixin
 
-### Bugs fixed:
+### Fix
 
-- force logging out i18n([`f35f3a7`](https://github.com/suyuan32/simple-admin-core/commit/f35f3a752db786231d8f8d31e69296676ef603b4)) (by Ryan SU)
+* ErrorCtx and OkJsonCtx
+* uuid mixin
 
-## v0.1.7 (2022-12-03)
 
-### Bugs fixed:
+<a name="v0.2.0"></a>
+## [v0.2.0](https://github.com/suyuan32/simple-admin-core/compare/v0.2.0-beta...v0.2.0) (2022-12-29)
 
-- update tool to v0.1.0([`fd2fc1b`](https://github.com/suyuan32/simple-admin-core/commit/fd2fc1b8cc34f7887af574098e5a03c9e374587a)) (by Ryan SU)
-- initialize code([`2fa5708`](https://github.com/suyuan32/simple-admin-core/commit/2fa57084e702c1526082d13f1b341cd3a808631c)) (by Ryan SU)
-- init api code([`b42ee63`](https://github.com/suyuan32/simple-admin-core/commit/b42ee630962e04ff7a295cf23a60f9bf011206e9)) (by Ryan SU)
-- optimize request url([`2041c34`](https://github.com/suyuan32/simple-admin-core/commit/2041c347029d4da8460e4857a203ed64c6c0190f)) (by Ryan SU)
-- optimize request url([`418bffe`](https://github.com/suyuan32/simple-admin-core/commit/418bffe1ca015774f15a34177793eab5391917a1)) (by Ryan SU)
-- job service_context.go([`b891cf6`](https://github.com/suyuan32/simple-admin-core/commit/b891cf60baf6e82f6b595b0315cc49136057ffe6)) (by Ryan SU)
+### Chore
 
-## v0.1.6 (2022-11-18)
+* update go zero version to 1.4.3
 
-### Bugs fixed:
+### Docs
 
-- validator example([`941af56`](https://github.com/suyuan32/simple-admin-core/commit/941af5635b4c70977266e57a58ba3785a65f28f1)) (by Ryan SU)
+* update readme
 
-## v0.1.5 (2022-11-13)
+### Fix
 
-### Bugs fixed:
+* allow to alter table structure
+* translator test
+* dashboard menu type
+* status validator
 
-- user validator([`987b3da`](https://github.com/suyuan32/simple-admin-core/commit/987b3dae092246134c617d7836350bef3e63469f)) (by Ryan SU)
-- update user([`fa8e969`](https://github.com/suyuan32/simple-admin-core/commit/fa8e969c828eaec2b58b1b346a7b8ccb578de267)) (by Ryan SU)
-- empty translation([`6477a8b`](https://github.com/suyuan32/simple-admin-core/commit/6477a8b2b44936d904827396bb835625136436e8)) (by Ryan SU)
-- move menu translation to server([`a5902a7`](https://github.com/suyuan32/simple-admin-core/commit/a5902a749c8b75efb71f4f0f4c470793294457f0)) (by Ryan SU)
-- init database error([`88ae340`](https://github.com/suyuan32/simple-admin-core/commit/88ae340b1fc62e61443604e90de72bc95e5712e2)) (by Ryan SU)
+### Refactor
 
-## v0.1.4 (2022-11-11)
+* move docs outside the project
 
-### New feature:
 
-- error msg i18n([`6d5e792`](https://github.com/suyuan32/simple-admin-core/commit/6d5e7926ef1448d9773579d82b150c5079ab013c)) (by Ryan SU)
-- cache config([`0b92a50`](https://github.com/suyuan32/simple-admin-core/commit/0b92a5059bae2cbf4a51dd4927734f173a49b6d5)) (by Ryan SU)
+<a name="v0.2.0-beta"></a>
+## [v0.2.0-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.1.9...v0.2.0-beta) (2022-12-17)
 
-### Bugs fixed:
+### Docs
 
-- optimize api definition([`de0e90c`](https://github.com/suyuan32/simple-admin-core/commit/de0e90cecb66c17f6a460dee48e409354b626ff7)) (by Ryan SU)
-- use server translate api description([`9f586fd`](https://github.com/suyuan32/simple-admin-core/commit/9f586fd4ec9e10b494b622e203193243818f6b37)) (by Ryan SU)
+* update api_example.md
+* update ent doc
+* update gorm doc
+* update CHANGELOG.md
 
-## v0.1.4-beta (2022-11-07)
+### Fix
 
-### Bugs fixed:
+* postgres dsn
+* pagination template bug [#51](https://github.com/suyuan32/simple-admin-core/issues/51)
+* postgres dsn
 
-- remove auto migrate([`3775290`](https://github.com/suyuan32/simple-admin-core/commit/3775290e12e0ae2e94088043ae77a85defe46b93)) (by Ryan SU)
-- duplicate err([`68053e3`](https://github.com/suyuan32/simple-admin-core/commit/68053e313633c00114a7b132139cf4ec4ec360c8)) (by Ryan SU)
+### Pull Requests
 
-## v0.1.3 (2022-11-02)
+* Merge pull request [#52](https://github.com/suyuan32/simple-admin-core/issues/52) from suyuan32/fix-pagination
 
-### New feature:
 
-- docker ignore([`f9f4515`](https://github.com/suyuan32/simple-admin-core/commit/f9f451543f8ec7188ac2b47c5f10d68ac85fbfe6)) (by Ryan SU)
+<a name="v0.1.9"></a>
+## [v0.1.9](https://github.com/suyuan32/simple-admin-core/compare/list...v0.1.9) (2022-12-15)
 
-### Bugs fixed:
+### Chore
 
-- DictionaryDetail 表结构 #38([`d8c5eaa`](https://github.com/suyuan32/simple-admin-core/commit/d8c5eaa0d15f4c8be31d86af55a0bcbb0c076af7)) (by Ryan SU)
-- blocking in cron([`5f8e317`](https://github.com/suyuan32/simple-admin-core/commit/5f8e3172f637e405709134a954033d7f05ebdeda)) (by Ryan SU)
-- api model index([`4be8d57`](https://github.com/suyuan32/simple-admin-core/commit/4be8d570ebbdd0ee16e88fa8613b8f7cadff609f)) (by Ryan SU)
+* update tool to v0.1.3
+* update tools
 
-## v0.1.2 (2022-10-28)
+### Docs
 
-### New feature:
+* group doc
+* group doc
+* update env_setting.md
+* update quickcmd.md
+* update CHANGELOG.md
 
-- job dockerfile([`91b5d2b`](https://github.com/suyuan32/simple-admin-core/commit/91b5d2b8769c99628e18b1cc54f015e11e47cd77)) (by Ryan SU)
+### Feat
 
-### Bugs fixed:
+* group rpc logic
+* gitlab file generating
+* batch delete user
 
-- add optional tag for userprofile request([`daebdaa`](https://github.com/suyuan32/simple-admin-core/commit/daebdaa314082baf03aaeabc375c660e1d3ee344)) (by Ryan SU)
-- add optional tag for userprofile request([`2967a8a`](https://github.com/suyuan32/simple-admin-core/commit/2967a8aac126d1781db71d04ca60c30072464824)) (by Ryan SU)
-- add optional tag for page request([`ebab59d`](https://github.com/suyuan32/simple-admin-core/commit/ebab59d98b5677b84f70e1ef67b7bddd765d1a67)) (by Ryan SU)
-- CreateAt,UpdateAt,DeleteAt 命名不统一 #29([`befa6b6`](https://github.com/suyuan32/simple-admin-core/commit/befa6b62bd9148a4d1d059f38bdf18c3aa148f9c)) (by Ryan SU)
-- swagger response type definition wrong #27([`e9c11de`](https://github.com/suyuan32/simple-admin-core/commit/e9c11decedd1f465d8840ef8b9e4184812e85274)) (by Ryan SU)
-- change log message into lowercase([`cf587b2`](https://github.com/suyuan32/simple-admin-core/commit/cf587b2d300214f807d31df031b103ac27226a5e)) (by Ryan SU)
+### Refactor
 
-### Performance improves:
+* optimize database driver name
 
-- optimizer api generation([`4ec8166`](https://github.com/suyuan32/simple-admin-core/commit/4ec8166e517a53edf742deeb8201c9076e885951)) (by Ryan SU)
+### Pull Requests
 
-## v0.1.1 (2022-10-21)
+* Merge pull request [#49](https://github.com/suyuan32/simple-admin-core/issues/49) from suyuan32/group-logic
 
-### New feature:
 
-- force log out([`8a93548`](https://github.com/suyuan32/simple-admin-core/commit/8a935489c704ab94828e3c745bb71bcf130a3f02)) (by Ryan SU)
-- api service for token management([`9e7b929`](https://github.com/suyuan32/simple-admin-core/commit/9e7b929c5dd14083f8a393905b9778ec72beb4ce)) (by Ryan SU)
-- rpc service for token management([`f073a02`](https://github.com/suyuan32/simple-admin-core/commit/f073a0242c531a7aa1196217f0d3d90b98640eb6)) (by Ryan SU)
-- jwt management([`a26a82d`](https://github.com/suyuan32/simple-admin-core/commit/a26a82d9d20701d615f76a4b4f3512fab828654d)) (by Ryan SU)
+<a name="list"></a>
+## [list](https://github.com/suyuan32/simple-admin-core/compare/v0.1.8...list) (2022-12-10)
 
-### Bugs fixed:
 
-- error judgement in database([`08954ca`](https://github.com/suyuan32/simple-admin-core/commit/08954cad8dea9044e22d6d46c0f9a18715069ec2)) (by Ryan SU)
+<a name="v0.1.8"></a>
+## [v0.1.8](https://github.com/suyuan32/simple-admin-core/compare/v0.1.7...v0.1.8) (2022-12-10)
 
-## v0.1.0 (2022-10-17)
+### Docs
 
-### Bugs fixed:
+* update all in one and simple admin tools docs
+* all in one tutorial
+* all in one tutorial
+* all in one tutorial
+* add discussion
+* update sidebar
+* update readme
+* update web code generation tutorial
+* update quick_develop_example.md
+* update readme and change log
+* update statistic code
+* update api example parameter
 
-- update change log([`45d97ba`](https://github.com/suyuan32/simple-admin-core/commit/45d97ba02cc2e07771a54ceffd1f91b3c74d19be)) (by Ryan SU)
+### Feat
 
-## v0.0.9 (2022-10-12)
+* ent no cache driver
+* all in one docker-compose file
+* add batch delete for token management
 
-### Bugs fixed:
+### Fix
 
-- update go mod([`d34f591`](https://github.com/suyuan32/simple-admin-core/commit/d34f591abc9b05d2954eea4637a70229f998caf8)) (by Ryan SU)
-- initialize url([`1f66583`](https://github.com/suyuan32/simple-admin-core/commit/1f665839f99121b33e5a36451fcd7685341228d4)) (by Ryan SU)
-- delete provider config when update([`4e2b3b1`](https://github.com/suyuan32/simple-admin-core/commit/4e2b3b11c34069d3fcb8dc11bfedaaa04e9d2fe5)) (by Ryan SU)
+* force logging out i18n
 
-## v0.0.8 (2022-10-08)
 
-### New feature:
+<a name="v0.1.7"></a>
+## [v0.1.7](https://github.com/suyuan32/simple-admin-core/compare/v0.1.6...v0.1.7) (2022-12-03)
 
-- oauth api service([`1bc07ac`](https://github.com/suyuan32/simple-admin-core/commit/1bc07ac7f0f93674909d20d388d869f98507c4ad)) (by Ryan SU)
-- oauth rpc service([`60ca944`](https://github.com/suyuan32/simple-admin-core/commit/60ca9441d85e4f6662d58bb32abf28cb4477feee)) (by Ryan SU)
+### Docs
 
-### Bugs fixed:
+* update quick_develop_example.md
+* api and rpc code generation doc
+* feat rpc ent logic tutorials
+* update ent doc
+* update change log
 
-- oauth initialize bugs and callback bugs([`297ada5`](https://github.com/suyuan32/simple-admin-core/commit/297ada5edf5bf084857a9b564eebca4e29ea306e)) (by Ryan SU)
-- add oauth menu insert in initialization code([`3bbe4a6`](https://github.com/suyuan32/simple-admin-core/commit/3bbe4a6a2ae404e2b27118268033d08ffd63cd26)) (by Ryan SU)
-- change create account rules when use oauth log in([`8189836`](https://github.com/suyuan32/simple-admin-core/commit/818983660fb4c60dab851133512ca3ca233084f1)) (by Ryan SU)
-- google oauth([`8759264`](https://github.com/suyuan32/simple-admin-core/commit/8759264014b4850bec17fe937f66c40e887c1310)) (by Ryan SU)
+### Fix
 
-## v0.0.7 (2022-09-30)
+* update tool to v0.1.0
+* initialize code
+* init api code
+* optimize request url
+* optimize request url
+* job service_context.go
 
-### Bugs fixed:
+### Pull Requests
 
-- authority tree generation and init database code([`ad1318b`](https://github.com/suyuan32/simple-admin-core/commit/ad1318b8f988e143a5e383f5b12580c1dc5e86e0)) (by Ryan Su)
-- bugs in menu tree generation([`df4eb98`](https://github.com/suyuan32/simple-admin-core/commit/df4eb98222e9e5d1a9883317eab2ebc17f79b56d)) (by Ryan Su)
+* Merge pull request [#46](https://github.com/suyuan32/simple-admin-core/issues/46) from suyuan32/fix-reuse-pkg
 
-## v0.0.7-beta (2022-09-29)
 
-### New feature:
+<a name="v0.1.6"></a>
+## [v0.1.6](https://github.com/suyuan32/simple-admin-core/compare/v0.1.5...v0.1.6) (2022-11-18)
 
-- dictionary([`dde94f1`](https://github.com/suyuan32/simple-admin-core/commit/dde94f181c565c3a5a61a1cd15643fdbb34ae227)) (by Ryan Su)
-- dictionary([`46171c7`](https://github.com/suyuan32/simple-admin-core/commit/46171c7c4e768f3561443aba1abb7e7950935761)) (by Ryan Su)
-- online preview([`bc06d10`](https://github.com/suyuan32/simple-admin-core/commit/bc06d10801f9014b35f7866f1d102c0b1832ad38)) (by Ryan Su)
-- online preview([`f7720bd`](https://github.com/suyuan32/simple-admin-core/commit/f7720bd3a0ee6c93069ef9a03dd4a71916a954fe)) (by Ryan Su)
-- error handling doc([`b8aef6b`](https://github.com/suyuan32/simple-admin-core/commit/b8aef6b3a4fe3ba6bd1651a9847d9461ba1e2625)) (by Ryan Su)
-- global variable, GORM and authorization doc([`0a903c2`](https://github.com/suyuan32/simple-admin-core/commit/0a903c2ab8f0e0e03f7d788a7620c92d01b70012)) (by Ryan Su)
-- example doc([`ccd6160`](https://github.com/suyuan32/simple-admin-core/commit/ccd616020484f750945660010c9522df8c9ce56b)) (by Ryan Su)
-- discord link and qq link([`a178948`](https://github.com/suyuan32/simple-admin-core/commit/a178948fc0ea68b035f48c1c160490f0ec1839e7)) (by Ryan Su)
-- API and RPC example doc([`fec6ef9`](https://github.com/suyuan32/simple-admin-core/commit/fec6ef90088ccd56b03d09f21fb6a321f13781f9)) (by Ryan Su)
-- update changelog([`f956bc0`](https://github.com/suyuan32/simple-admin-core/commit/f956bc04ead71e2c49451ca50f25df9cb9ae565a)) (by Ryan Su)
+### Docs
 
-### Bugs fixed:
+* update swagger version
+* update file manager doc
+* update README.md
+* update CHANGELOG.md
 
-- docker compose and rpc doc([`eddbf1c`](https://github.com/suyuan32/simple-admin-core/commit/eddbf1c4fd9090c21c64eedb806bdb961755663f)) (by Ryan Su)
-- update tool version([`bddda09`](https://github.com/suyuan32/simple-admin-core/commit/bddda0985266075439b9d2ef7f91f7184e10a60c)) (by Ryan Su)
+### Fix
 
-## v0.0.6 (2022-09-23)
+* block token bug
+* validator example
 
-### New feature:
+### Perf
 
-- use consul to do service discover and get configuration([`0a090e8`](https://github.com/suyuan32/simple-admin-core/commit/0a090e89d998f768f72f9ca176ab698a642df976)) (by Ryan Su)
+* optimize database config
 
-### Bugs fixed:
+### Refactor
 
-- update change log([`1efc182`](https://github.com/suyuan32/simple-admin-core/commit/1efc182c0b4bad881d9f50792641d1fb29401677)) (by Ryan Su)
+* move errorx.msg to i18n.var
+* move middleware to pkg for common usage
+* move middleware to pkg for common usage
 
-## v0.0.5 (2022-09-21)
+### Pull Requests
 
-### New feature:
+* Merge pull request [#45](https://github.com/suyuan32/simple-admin-core/issues/45) from suyuan32/fix-reuse-pkg
 
-- validator doc([`f9d83a4`](https://github.com/suyuan32/simple-admin-core/commit/f9d83a434a0cf881e579f867d803ea97870c2a6b)) (by Ryan Su)
-- add translation test([`67eba05`](https://github.com/suyuan32/simple-admin-core/commit/67eba051f38f7ec5e8548cbf6a57e2a9713bd6ad)) (by Ryan Su)
-- validator definition([`69c435f`](https://github.com/suyuan32/simple-admin-core/commit/69c435f8dc905be2953a9a8a0187e62400a1375b)) (by Ryan Su)
-- validator([`1bc633a`](https://github.com/suyuan32/simple-admin-core/commit/1bc633a638d79c3b5df19bd86a9916dcf096e16f)) (by Ryan Su)
 
-### Bugs fixed:
+<a name="v0.1.5"></a>
+## [v0.1.5](https://github.com/suyuan32/simple-admin-core/compare/v0.1.4...v0.1.5) (2022-11-13)
 
-- update simple admin tools version([`da7a95a`](https://github.com/suyuan32/simple-admin-core/commit/da7a95ad27f3a381aae6b4714ccccef6c50d160a)) (by Ryan Su)
-- add ui build doc([`29b6bcb`](https://github.com/suyuan32/simple-admin-core/commit/29b6bcbcb6b379e26f033731a55ac7f1d7aa1466)) (by Ryan Su)
-- menu meta setting logic([`43868ce`](https://github.com/suyuan32/simple-admin-core/commit/43868ce9cac0e25a2d63eef57f082fecfa00fc0f)) (by Ryan Su)
-- use default logger and fix some bugs([`f138039`](https://github.com/suyuan32/simple-admin-core/commit/f1380395fbfd1a82145e5dce2fb79f0df38403ca)) (by Ryan Su)
-- update readme([`2752f6b`](https://github.com/suyuan32/simple-admin-core/commit/2752f6b6c5ce08d06172a21b6a59bb599953a401)) (by Ryan Su)
-- update doc([`beef910`](https://github.com/suyuan32/simple-admin-core/commit/beef910dd7c2c6875583767ed8297e95d07ea288)) (by Ryan Su)
-- update readme([`6b28dae`](https://github.com/suyuan32/simple-admin-core/commit/6b28daea177cb1b82154cce41e8d3b1ce65e389c)) (by Ryan Su)
+### Docs
 
-## v0.0.4 (2022-09-13)
+* update error_handling.md
 
-### New feature:
+### Fix
 
-- add bilibili link([`fcb7ce8`](https://github.com/suyuan32/simple-admin-core/commit/fcb7ce863e7724628ca669435c2862629f19efe1)) (by Ryan Su)
-- web setting doc([`aac67b7`](https://github.com/suyuan32/simple-admin-core/commit/aac67b786e223f036ed426ac1b85550ee5796283)) (by Ryan Su)
-- file manager doc([`acf7076`](https://github.com/suyuan32/simple-admin-core/commit/acf7076d2705986a7dd25a8ff6891707f2ab7af2)) (by Ryan Su)
-- swagger doc([`5aa2e25`](https://github.com/suyuan32/simple-admin-core/commit/5aa2e254c30685e5bb7e82d752d0523f3d5164a9)) (by Ryan Su)
-- example doc([`a535d0c`](https://github.com/suyuan32/simple-admin-core/commit/a535d0c92823f96daca5b66905ae4d44aebfcdaa)) (by Ryan Su)
+* user validator
+* update user
+* empty translation
+* move menu translation to server
+* init database error
 
-### Bugs fixed:
+### Refactor
 
-- require properties in api doc([`5e283cb`](https://github.com/suyuan32/simple-admin-core/commit/5e283cb52159030a5f828c38e0f58f097e4cdc9e)) (by Ryan Su)
-- add recommend in doc([`5546470`](https://github.com/suyuan32/simple-admin-core/commit/5546470103976c180ec4f1b9de33e57d03da6aa4)) (by Ryan Su)
-- fix the bugs of post request in swagger([`9f908ce`](https://github.com/suyuan32/simple-admin-core/commit/9f908ce0762041d60f33543c7a58c5dcc7edffe1)) (by Ryan Su)
-- tip for doc([`e5f9cd1`](https://github.com/suyuan32/simple-admin-core/commit/e5f9cd1dd9e1d1b6a2aa316ec603bd98477fdc44)) (by Ryan Su)
-- tip for init([`ffc0e17`](https://github.com/suyuan32/simple-admin-core/commit/ffc0e17f50b77c5da1b0903d2359006313661fe3)) (by Ryan Su)
-- preview url([`947e5e5`](https://github.com/suyuan32/simple-admin-core/commit/947e5e507e514ea49a3cfd8e5c1454f325a3c7c0)) (by Ryan Su)
-- update tool version([`20f9513`](https://github.com/suyuan32/simple-admin-core/commit/20f9513c547b42d0c4f3b19c94d3df9b1bb299cf)) (by Ryan Su)
-- simple admin tool version([`c374d9c`](https://github.com/suyuan32/simple-admin-core/commit/c374d9c701ce55f4343d251d222721d0da064e5f)) (by Ryan Su)
-- adjust imports for new goctl([`3ed820a`](https://github.com/suyuan32/simple-admin-core/commit/3ed820a8716e7b8799c9e121d26cb7730b1222e5)) (by Ryan Su)
+* response data
+* response data
 
-## v0.0.2 (2022-09-05)
+### Wip
 
-### New feature:
+* error code optimize
+* error code optimize
 
-- add video link([`a629742`](https://github.com/suyuan32/simple-admin-core/commit/a6297420462b07be544974ed850d9ba420bd3b49)) (by Ryan Su)
-- add init url([`38f9736`](https://github.com/suyuan32/simple-admin-core/commit/38f973635202b10f0d26ef7af3ffd594000ef862)) (by Ryan Su)
-- doc([`f064c97`](https://github.com/suyuan32/simple-admin-core/commit/f064c9724d72e4dd3075994be5e6623a4de93f26)) (by Ryan Su)
+### Pull Requests
 
-### Bugs fixed:
+* Merge pull request [#43](https://github.com/suyuan32/simple-admin-core/issues/43) from suyuan32/fix-error-code
 
-- readme([`8f2b231`](https://github.com/suyuan32/simple-admin-core/commit/8f2b231ae8fca80a613db4ea4e507726e89ad818)) (by Ryan Su)
 
+<a name="v0.1.4"></a>
+## [v0.1.4](https://github.com/suyuan32/simple-admin-core/compare/v0.1.4-beta...v0.1.4) (2022-11-11)
+
+### Chore
+
+* update simple admin tool to 0.0.8
+
+### Docs
+
+* ent
+* update Chinese doc for ent
+* update Chinese doc for ent
+
+### Feat
+
+* error msg i18n
+* cache config
+
+### Fix
+
+* optimize api definition
+* use server translate api description
+
+### Wip
+
+* update trans
+
+
+<a name="v0.1.4-beta"></a>
+## [v0.1.4-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.1.3...v0.1.4-beta) (2022-11-07)
+
+### Docs
+
+* update ent doc
+* env setting and global vars
+* update quick cmd and ent doc
+* update read me
+* update change log
+
+### Feat
+
+* ent support
+
+### Fix
+
+* remove auto migrate
+* duplicate err
+
+### Wip
+
+* ent support
+* ent support
+
+### Pull Requests
+
+* Merge pull request [#40](https://github.com/suyuan32/simple-admin-core/issues/40) from suyuan32/ent
+
+
+<a name="v0.1.3"></a>
+## [v0.1.3](https://github.com/suyuan32/simple-admin-core/compare/v0.1.2...v0.1.3) (2022-11-02)
+
+### Chore
+
+* update goctls
+* update gorm version
+
+### Docs
+
+* update swagger doc
+* update changelog
+
+### Feat
+
+* docker ignore
+
+### Fix
+
+* DictionaryDetail 表结构 [#38](https://github.com/suyuan32/simple-admin-core/issues/38)
+* blocking in cron
+* api model index
+* http status
+
+### Refactor
+
+* optimize project structure
+* model path and use simple-models in cron
+* rename api_desc directory
+* logmessage and message
+
+### Pull Requests
+
+* Merge pull request [#37](https://github.com/suyuan32/simple-admin-core/issues/37) from MUHM/fix/status
+
+
+<a name="v0.1.2"></a>
+## [v0.1.2](https://github.com/suyuan32/simple-admin-core/compare/v0.1.1...v0.1.2) (2022-10-28)
+
+### Chore
+
+* update simple admin tool
+
+### Docs
+
+* update readme
+* job schedule doc
+
+### Feat
+
+* job dockerfile
+* rocket mq deploy file
+* rocket mq deploy file
+
+### Fix
+
+* add optional tag for userprofile request
+* add optional tag for userprofile request
+* add optional tag for page request
+* CreateAt,UpdateAt,DeleteAt 命名不统一 [#29](https://github.com/suyuan32/simple-admin-core/issues/29)
+* swagger response type definition wrong [#27](https://github.com/suyuan32/simple-admin-core/issues/27)
+* change log message into lowercase
+
+### Perf
+
+* optimizer api generation
+
+### Refactor
+
+* change api file name into snake format
+* change rpc file name into snake format
+
+### Wip
+
+* cron and mq
+
+### Pull Requests
+
+* Merge pull request [#34](https://github.com/suyuan32/simple-admin-core/issues/34) from suyuan32/feat-rckmq
+* Merge pull request [#31](https://github.com/suyuan32/simple-admin-core/issues/31) from RogueCultivators/fix/list
+
+
+<a name="v0.1.1"></a>
+## [v0.1.1](https://github.com/suyuan32/simple-admin-core/compare/v0.1.0...v0.1.1) (2022-10-21)
+
+### Docs
+
+* jwt black list
+
+### Feat
+
+* force log out
+* api service for token management
+* rpc service for token management
+* jwt management
+
+### Fix
+
+* error judgement in database
+
+
+<a name="v0.1.0"></a>
+## [v0.1.0](https://github.com/suyuan32/simple-admin-core/compare/v0.0.9...v0.1.0) (2022-10-17)
+
+### Docs
+
+* log collecting
+* update k8s-deploy
+* update prometheus doc
+* prometheus deployment
+* update file manager deploy doc
+* update env setting
+* update file manager doc
+
+### Feat
+
+* filebeat deploy
+* storing log into persistence volume
+* prometheus deployment and fix bugs in other deployment
+* prometheus support
+
+### Fix
+
+* update change log
+
+### Pull Requests
+
+* Merge pull request [#20](https://github.com/suyuan32/simple-admin-core/issues/20) from suyuan32/feat-log-collection
+* Merge pull request [#19](https://github.com/suyuan32/simple-admin-core/issues/19) from suyuan32/feat-log-collection
+* Merge pull request [#18](https://github.com/suyuan32/simple-admin-core/issues/18) from suyuan32/feat-monitor
+
+
+<a name="v0.0.9"></a>
+## [v0.0.9](https://github.com/suyuan32/simple-admin-core/compare/v0.0.8.1...v0.0.9) (2022-10-12)
+
+### Docs
+
+* update english doc
+* update chinese doc
+* update k8s deployment english doc
+* update k8s deployment chinese doc
+* k8s deploy
+* update index readme
+
+### Feat
+
+* k8s deploy config
+* k8s config
+* gitlab ci/cd
+
+### Fix
+
+* update go mod
+
+### Revert
+
+* api config
+* origin config
+
+### Pull Requests
+
+* Merge pull request [#16](https://github.com/suyuan32/simple-admin-core/issues/16) from suyuan32/feat-k8s
+
+
+<a name="v0.0.8.1"></a>
+## [v0.0.8.1](https://github.com/suyuan32/simple-admin-core/compare/v0.0.8...v0.0.8.1) (2022-10-09)
+
+### Docs
+
+* update readme about k8s support
+* changelog and readme
+
+### Fix
+
+* initialize url
+* delete provider config when update
+
+
+<a name="v0.0.8"></a>
+## [v0.0.8](https://github.com/suyuan32/simple-admin-core/compare/v0.0.7...v0.0.8) (2022-10-08)
+
+### Docs
+
+* fix nginx config
+* add oauth doc
+* update change log
+
+### Feat
+
+* oauth api service
+* oauth rpc service
+
+### Fix
+
+* oauth initialize bugs and callback bugs
+* add oauth menu insert in initialization code
+* change create account rules when use oauth log in
+* google oauth
+
+
+<a name="v0.0.7"></a>
+## [v0.0.7](https://github.com/suyuan32/simple-admin-core/compare/v0.0.7-beta...v0.0.7) (2022-09-30)
+
+### Fix
+
+* authority tree generation and init database code
+* bugs in menu tree generation
+
+
+<a name="v0.0.7-beta"></a>
+## [v0.0.7-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.0.6...v0.0.7-beta) (2022-09-29)
+
+### Docs
+
+* add badges
+* read only notice
+* deploy in docker
+* add consul url
+* add consul url
+* rpc example service config
+* call rpc service
+* docker
+* docker
+
+### Feat
+
+* dictionary
+* dictionary
+* online preview
+* online preview
+* error handling doc
+* global variable, GORM and authorization doc
+* example doc
+* discord link and qq link
+* API and RPC example doc
+* update changelog
+
+### Fix
+
+* docker compose and rpc doc
+* update tool version
+
+
+<a name="v0.0.6"></a>
+## [v0.0.6](https://github.com/suyuan32/simple-admin-core/compare/v0.0.5...v0.0.6) (2022-09-23)
+
+### Feat
+
+* use consul to do service discover and get configuration feat: dockerfile feat: consul doc
+
+### Fix
+
+* update change log
+
+
+<a name="v0.0.5"></a>
+## [v0.0.5](https://github.com/suyuan32/simple-admin-core/compare/v0.0.4...v0.0.5) (2022-09-21)
+
+### Feat
+
+* validator doc
+* add translation test
+* validator definition fix: swagger doc about conditions
+* validator
+
+### Fix
+
+* update simple admin tools version
+* add ui build doc
+* menu meta setting logic
+* use default logger and fix some bugs
+* update readme
+* update doc
+* update readme
+
+
+<a name="v0.0.4"></a>
+## [v0.0.4](https://github.com/suyuan32/simple-admin-core/compare/v0.0.2...v0.0.4) (2022-09-13)
+
+### Feat
+
+* add bilibili link
+* web setting doc
+* file manager doc
+* swagger doc
+* example doc
+
+### Fix
+
+* require properties in api doc
+* add recommend in doc
+* fix the bugs of post request in swagger 修复go-swagger中的post请求参数
+* tip for doc
+* tip for init
+* preview url
+* update tool version
+* simple admin tool version
+* adjust imports for new goctl
+
+### Refactor
+
+* menu properties fix: bug in mysql group
+
+
+<a name="v0.0.2"></a>
+## [v0.0.2](https://github.com/suyuan32/simple-admin-core/compare/v0.0.1...v0.0.2) (2022-09-05)
+
+### Feat
+
+* add video link
+* add init url
+* doc
+* add logger for all logic fix: some bugs in config
+* user profile
+
+### Fix
+
+* readme
+* optimize readme
+* optimize config file
+* add user profile init
+
+### Pull Requests
+
+* Merge pull request [#2](https://github.com/suyuan32/simple-admin-core/issues/2) from suyuan32/dev
+
+
+<a name="v0.0.1"></a>
 ## v0.0.1 (2022-08-26)
 
-### New feature:
+### Feat
 
-- change password([`840fb11`](https://github.com/suyuan32/simple-admin-core/commit/840fb11e9c9c3008fd7a3d6448fa401dc45394ea)) (by ryansu)
-- initialize database api([`621cef9`](https://github.com/suyuan32/simple-admin-core/commit/621cef96df4c4ce11809ffe5d4b5f9f37fd6621f)) (by ryansu)
+* swagger doc
+* part swagger
+* change password
+* initialize database api
 
-### Bugs fixed:
+### Fix
 
-- add error msg([`aa91603`](https://github.com/suyuan32/simple-admin-core/commit/aa916031f9e86226a384e65170567445bcd19150)) (by ryansu)
-- init database context exceed timeout([`e4831f5`](https://github.com/suyuan32/simple-admin-core/commit/e4831f563f346a7e3fc197d90f08a14480a19e8d)) (by ryansu)
-- optimize error messages management([`1388b3d`](https://github.com/suyuan32/simple-admin-core/commit/1388b3d8b894c6f5a6fcd8c60b5dff7e5d936ed2)) (by ryansu)
+* some bugs on menu and model
+* some bugs on user and captcha
+* add error msg
+* init database context exceed timeout
+* optimize error messages management
+
+### Refactor
+
+* optimize project error handler and initialize
+* reconstruct project
+
+### Pull Requests
+
+* Merge pull request [#1](https://github.com/suyuan32/simple-admin-core/issues/1) from suyuan32/dev
+
