@@ -12,4 +12,5 @@ type Config struct {
 	DatabaseConf config.DatabaseConf
 	CasbinConf   config.CasbinConf
 	RedisConf    redis.RedisConf
+	GlobalEnv    config.GLobalEnv
 }
