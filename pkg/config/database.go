@@ -3,17 +3,15 @@ package config
 import (
 	"database/sql"
 	"fmt"
+	"time"
 
 	"ariga.io/entcache"
 	entsql "entgo.io/ent/dialect/sql"
 	"github.com/go-redis/redis/v8"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
-	_ "github.com/mattn/go-sqlite3"
 	"github.com/zeromicro/go-zero/core/logx"
 	redis2 "github.com/zeromicro/go-zero/core/stores/redis"
-
-	"time"
 )
 
 type DatabaseConf struct {
