@@ -21,7 +21,7 @@ type DatabaseConf struct {
 	Password     string `json:",optional"`
 	DBName       string `json:",optional"`
 	SSLMode      string `json:",optional"`
-	Type         string `json:",optional"` // "postgres" or "mysql"
+	Type         string `json:",default=mysql,options=[mysql,postgres]"`
 	MaxOpenConns *int   `json:",optional,default=100"`
 	Debug        bool   `json:",optional,default=false"`
 	CacheTime    int    `json:",optional,default=10"`
