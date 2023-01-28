@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+message LoginReq {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResp {
+  string id = 1;
+  string role_name = 2;
+  string role_value = 3;
+  uint64 role_id = 4;
+}
+
+message ChangePasswordReq {
+  string id = 1;
+  string old_password = 2;
+  string new_password = 3;
+}
+
+message CreateOrUpdateUserReq {
+  string id = 1;
+  string avatar = 2;
+  uint64 role_id = 3;
+  string mobile = 4;
+  string email = 5;
+  uint64 status = 6;
+  string username = 7;
+  string nickname = 8;
+  string password = 9;
+}
+
+message UserInfoResp {
+  string id = 1;
+  string avatar = 2;
+  uint64 role_id = 3;
+  string mobile = 4;
+  string email = 5;
+  uint64 status = 6;
+  string username = 7;
+  string nickname = 8;
+  string roleName = 9;
+  int64 created_at = 10;
+  int64 updated_at = 11;
+  string roleValue = 12;
+}
+
+message UserListResp {
+  uint64 total = 1;
+  repeated UserInfoResp data = 2;
+}
+
+message GetUserListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string username = 3;
+  string nickname = 4;
+  string email = 5;
+  string mobile = 6;
+  uint64 role_id = 7;
+}
+
+message UpdateProfileReq {
+  string id = 1;
+  string nickname = 2;
+  string email = 3;
+  string mobile = 4;
+  string avatar = 5;
+}
+
+// service
+service core {
+  // init
+
+  // group: base
+  rpc initDatabase (Empty) returns (BaseResp);
+
+  // user management
+
+  // group: user
+  rpc login(LoginReq) returns (LoginResp);
+  // group: user
+  rpc changePassword (ChangePasswordReq) returns (BaseResp);
+  // group: user
+  rpc createOrUpdateUser (CreateOrUpdateUserReq) returns (BaseResp);
+  // group: user
+  rpc getUserById (UUIDReq) returns (UserInfoResp);
+  // group: user
+  rpc getUserList (GetUserListReq) returns (UserListResp);
+  // group: user
+  rpc deleteUser (UUIDReq) returns (BaseResp);
+  // group: user
+  rpc batchDeleteUser (UUIDsReq) returns (BaseResp);
+  // group: user
+  rpc updateProfile (UpdateProfileReq) returns (BaseResp);
+  // group: user
+  rpc updateUserStatus (StatusCodeUUIDReq) returns (BaseResp);
+}

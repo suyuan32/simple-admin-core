@@ -1,0 +1,33 @@
+syntax="proto3";
+
+// role messages
+message RoleInfo {
+  uint64 id = 1;
+  string name = 2;
+  string value = 3;
+  string default_router = 4;
+  uint64 status = 5;
+  string remark = 6;
+  uint32 order_no = 7;
+  int64 createdAt = 8;
+}
+
+message RoleListResp {
+  uint64 total = 1;
+  repeated RoleInfo data = 2;
+}
+
+service core {
+  // role service
+
+  // group: role
+  rpc createOrUpdateRole (RoleInfo) returns (BaseResp);
+  // group: role
+  rpc deleteRole (IDReq) returns (BaseResp);
+  // group: role
+  rpc getRoleById (IDReq) returns (RoleInfo);
+  // group: role
+  rpc getRoleList (PageInfoReq) returns (RoleListResp);
+  // group: role
+  rpc updateRoleStatus (StatusCodeReq) returns (BaseResp);
+}

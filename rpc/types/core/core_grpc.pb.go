@@ -22,50 +22,6 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CoreClient interface {
-	// group: base
-	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: user
-	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
-	// group: user
-	ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: user
-	CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateUserReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: user
-	GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error)
-	// group: user
-	GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error)
-	// group: user
-	DeleteUser(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: user
-	BatchDeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: user
-	UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: user
-	UpdateUserStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: menu
-	CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: menu
-	DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: menu
-	GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
-	// group: menu
-	GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
-	// group: menu
-	CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: menu
-	DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: menu
-	GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
-	// group: role
-	CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: role
-	DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: role
-	GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
-	// group: role
-	GetRoleList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*RoleListResp, error)
-	// group: role
-	UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: api
 	CreateOrUpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: api
@@ -88,6 +44,20 @@ type CoreClient interface {
 	CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: dictionary
 	DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: menu
+	CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: menu
+	DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: menu
+	GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
+	// group: menu
+	GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
+	// group: menu
+	CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: menu
+	DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: menu
+	GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
 	// group: oauth
 	CreateOrUpdateProvider(ctx context.Context, in *ProviderInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: oauth
@@ -98,6 +68,16 @@ type CoreClient interface {
 	OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
 	// group: oauth
 	OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error)
+	// group: role
+	CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: role
+	DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: role
+	GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
+	// group: role
+	GetRoleList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*RoleListResp, error)
+	// group: role
+	UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: token
 	CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: token
@@ -110,6 +90,26 @@ type CoreClient interface {
 	UpdateTokenStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: token
 	BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: base
+	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: user
+	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
+	// group: user
+	ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: user
+	CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateUserReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: user
+	GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error)
+	// group: user
+	GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error)
+	// group: user
+	DeleteUser(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: user
+	BatchDeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: user
+	UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: user
+	UpdateUserStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 }
 
 type coreClient struct {
@@ -118,204 +118,6 @@ type coreClient struct {
 
 func NewCoreClient(cc grpc.ClientConnInterface) CoreClient {
 	return &coreClient{cc}
-}
-
-func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/initDatabase", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
-	out := new(LoginResp)
-	err := c.cc.Invoke(ctx, "/core.core/login", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/changePassword", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateUserReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateUser", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error) {
-	out := new(UserInfoResp)
-	err := c.cc.Invoke(ctx, "/core.core/getUserById", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error) {
-	out := new(UserListResp)
-	err := c.cc.Invoke(ctx, "/core.core/getUserList", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) DeleteUser(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteUser", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) BatchDeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/batchDeleteUser", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/updateProfile", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) UpdateUserStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/updateUserStatus", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
-	out := new(MenuInfoList)
-	err := c.cc.Invoke(ctx, "/core.core/getMenuListByRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
-	out := new(MenuInfoList)
-	err := c.cc.Invoke(ctx, "/core.core/getMenuList", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateMenuParam", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteMenuParam", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
-	out := new(MenuParamListResp)
-	err := c.cc.Invoke(ctx, "/core.core/getMenuParamListByMenuId", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error) {
-	out := new(RoleInfo)
-	err := c.cc.Invoke(ctx, "/core.core/getRoleById", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) GetRoleList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*RoleListResp, error) {
-	out := new(RoleListResp)
-	err := c.cc.Invoke(ctx, "/core.core/getRoleList", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/updateRoleStatus", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *coreClient) CreateOrUpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error) {
@@ -417,6 +219,69 @@ func (c *coreClient) DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts
 	return out, nil
 }
 
+func (c *coreClient) CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/deleteMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
+	out := new(MenuInfoList)
+	err := c.cc.Invoke(ctx, "/core.core/getMenuListByRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
+	out := new(MenuInfoList)
+	err := c.cc.Invoke(ctx, "/core.core/getMenuList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateMenuParam", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/deleteMenuParam", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
+	out := new(MenuParamListResp)
+	err := c.cc.Invoke(ctx, "/core.core/getMenuParamListByMenuId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *coreClient) CreateOrUpdateProvider(ctx context.Context, in *ProviderInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateProvider", in, out, opts...)
@@ -456,6 +321,51 @@ func (c *coreClient) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...
 func (c *coreClient) OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error) {
 	out := new(LoginResp)
 	err := c.cc.Invoke(ctx, "/core.core/oauthCallback", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/deleteRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error) {
+	out := new(RoleInfo)
+	err := c.cc.Invoke(ctx, "/core.core/getRoleById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetRoleList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*RoleListResp, error) {
+	out := new(RoleListResp)
+	err := c.cc.Invoke(ctx, "/core.core/getRoleList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/updateRoleStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -516,54 +426,100 @@ func (c *coreClient) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ..
 	return out, nil
 }
 
+func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/initDatabase", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
+	out := new(LoginResp)
+	err := c.cc.Invoke(ctx, "/core.core/login", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/changePassword", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateUserReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error) {
+	out := new(UserInfoResp)
+	err := c.cc.Invoke(ctx, "/core.core/getUserById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error) {
+	out := new(UserListResp)
+	err := c.cc.Invoke(ctx, "/core.core/getUserList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteUser(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/deleteUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) BatchDeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/batchDeleteUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/updateProfile", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateUserStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/updateUserStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoreServer is the server API for Core service.
 // All implementations must embed UnimplementedCoreServer
 // for forward compatibility
 type CoreServer interface {
-	// group: base
-	InitDatabase(context.Context, *Empty) (*BaseResp, error)
-	// group: user
-	Login(context.Context, *LoginReq) (*LoginResp, error)
-	// group: user
-	ChangePassword(context.Context, *ChangePasswordReq) (*BaseResp, error)
-	// group: user
-	CreateOrUpdateUser(context.Context, *CreateOrUpdateUserReq) (*BaseResp, error)
-	// group: user
-	GetUserById(context.Context, *UUIDReq) (*UserInfoResp, error)
-	// group: user
-	GetUserList(context.Context, *GetUserListReq) (*UserListResp, error)
-	// group: user
-	DeleteUser(context.Context, *UUIDReq) (*BaseResp, error)
-	// group: user
-	BatchDeleteUser(context.Context, *UUIDsReq) (*BaseResp, error)
-	// group: user
-	UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error)
-	// group: user
-	UpdateUserStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error)
-	// group: menu
-	CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error)
-	// group: menu
-	DeleteMenu(context.Context, *IDReq) (*BaseResp, error)
-	// group: menu
-	GetMenuListByRole(context.Context, *IDReq) (*MenuInfoList, error)
-	// group: menu
-	GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error)
-	// group: menu
-	CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error)
-	// group: menu
-	DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error)
-	// group: menu
-	GetMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error)
-	// group: role
-	CreateOrUpdateRole(context.Context, *RoleInfo) (*BaseResp, error)
-	// group: role
-	DeleteRole(context.Context, *IDReq) (*BaseResp, error)
-	// group: role
-	GetRoleById(context.Context, *IDReq) (*RoleInfo, error)
-	// group: role
-	GetRoleList(context.Context, *PageInfoReq) (*RoleListResp, error)
-	// group: role
-	UpdateRoleStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
 	// group: api
 	CreateOrUpdateApi(context.Context, *ApiInfo) (*BaseResp, error)
 	// group: api
@@ -586,6 +542,20 @@ type CoreServer interface {
 	CreateOrUpdateDictionaryDetail(context.Context, *DictionaryDetail) (*BaseResp, error)
 	// group: dictionary
 	DeleteDictionaryDetail(context.Context, *IDReq) (*BaseResp, error)
+	// group: menu
+	CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error)
+	// group: menu
+	DeleteMenu(context.Context, *IDReq) (*BaseResp, error)
+	// group: menu
+	GetMenuListByRole(context.Context, *IDReq) (*MenuInfoList, error)
+	// group: menu
+	GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error)
+	// group: menu
+	CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error)
+	// group: menu
+	DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error)
+	// group: menu
+	GetMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error)
 	// group: oauth
 	CreateOrUpdateProvider(context.Context, *ProviderInfo) (*BaseResp, error)
 	// group: oauth
@@ -596,6 +566,16 @@ type CoreServer interface {
 	OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error)
 	// group: oauth
 	OauthCallback(context.Context, *CallbackReq) (*LoginResp, error)
+	// group: role
+	CreateOrUpdateRole(context.Context, *RoleInfo) (*BaseResp, error)
+	// group: role
+	DeleteRole(context.Context, *IDReq) (*BaseResp, error)
+	// group: role
+	GetRoleById(context.Context, *IDReq) (*RoleInfo, error)
+	// group: role
+	GetRoleList(context.Context, *PageInfoReq) (*RoleListResp, error)
+	// group: role
+	UpdateRoleStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
 	// group: token
 	CreateOrUpdateToken(context.Context, *TokenInfo) (*BaseResp, error)
 	// group: token
@@ -608,6 +588,26 @@ type CoreServer interface {
 	UpdateTokenStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error)
 	// group: token
 	BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error)
+	// group: base
+	InitDatabase(context.Context, *Empty) (*BaseResp, error)
+	// group: user
+	Login(context.Context, *LoginReq) (*LoginResp, error)
+	// group: user
+	ChangePassword(context.Context, *ChangePasswordReq) (*BaseResp, error)
+	// group: user
+	CreateOrUpdateUser(context.Context, *CreateOrUpdateUserReq) (*BaseResp, error)
+	// group: user
+	GetUserById(context.Context, *UUIDReq) (*UserInfoResp, error)
+	// group: user
+	GetUserList(context.Context, *GetUserListReq) (*UserListResp, error)
+	// group: user
+	DeleteUser(context.Context, *UUIDReq) (*BaseResp, error)
+	// group: user
+	BatchDeleteUser(context.Context, *UUIDsReq) (*BaseResp, error)
+	// group: user
+	UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error)
+	// group: user
+	UpdateUserStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error)
 	mustEmbedUnimplementedCoreServer()
 }
 
@@ -615,72 +615,6 @@ type CoreServer interface {
 type UnimplementedCoreServer struct {
 }
 
-func (UnimplementedCoreServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
-}
-func (UnimplementedCoreServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
-}
-func (UnimplementedCoreServer) ChangePassword(context.Context, *ChangePasswordReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ChangePassword not implemented")
-}
-func (UnimplementedCoreServer) CreateOrUpdateUser(context.Context, *CreateOrUpdateUserReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateUser not implemented")
-}
-func (UnimplementedCoreServer) GetUserById(context.Context, *UUIDReq) (*UserInfoResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserById not implemented")
-}
-func (UnimplementedCoreServer) GetUserList(context.Context, *GetUserListReq) (*UserListResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserList not implemented")
-}
-func (UnimplementedCoreServer) DeleteUser(context.Context, *UUIDReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
-}
-func (UnimplementedCoreServer) BatchDeleteUser(context.Context, *UUIDsReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteUser not implemented")
-}
-func (UnimplementedCoreServer) UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
-}
-func (UnimplementedCoreServer) UpdateUserStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserStatus not implemented")
-}
-func (UnimplementedCoreServer) CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenu not implemented")
-}
-func (UnimplementedCoreServer) DeleteMenu(context.Context, *IDReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
-}
-func (UnimplementedCoreServer) GetMenuListByRole(context.Context, *IDReq) (*MenuInfoList, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMenuListByRole not implemented")
-}
-func (UnimplementedCoreServer) GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMenuList not implemented")
-}
-func (UnimplementedCoreServer) CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenuParam not implemented")
-}
-func (UnimplementedCoreServer) DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenuParam not implemented")
-}
-func (UnimplementedCoreServer) GetMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMenuParamListByMenuId not implemented")
-}
-func (UnimplementedCoreServer) CreateOrUpdateRole(context.Context, *RoleInfo) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateRole not implemented")
-}
-func (UnimplementedCoreServer) DeleteRole(context.Context, *IDReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
-}
-func (UnimplementedCoreServer) GetRoleById(context.Context, *IDReq) (*RoleInfo, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRoleById not implemented")
-}
-func (UnimplementedCoreServer) GetRoleList(context.Context, *PageInfoReq) (*RoleListResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRoleList not implemented")
-}
-func (UnimplementedCoreServer) UpdateRoleStatus(context.Context, *StatusCodeReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateRoleStatus not implemented")
-}
 func (UnimplementedCoreServer) CreateOrUpdateApi(context.Context, *ApiInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateApi not implemented")
 }
@@ -714,6 +648,27 @@ func (UnimplementedCoreServer) CreateOrUpdateDictionaryDetail(context.Context, *
 func (UnimplementedCoreServer) DeleteDictionaryDetail(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionaryDetail not implemented")
 }
+func (UnimplementedCoreServer) CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenu not implemented")
+}
+func (UnimplementedCoreServer) DeleteMenu(context.Context, *IDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
+}
+func (UnimplementedCoreServer) GetMenuListByRole(context.Context, *IDReq) (*MenuInfoList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMenuListByRole not implemented")
+}
+func (UnimplementedCoreServer) GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMenuList not implemented")
+}
+func (UnimplementedCoreServer) CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenuParam not implemented")
+}
+func (UnimplementedCoreServer) DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenuParam not implemented")
+}
+func (UnimplementedCoreServer) GetMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMenuParamListByMenuId not implemented")
+}
 func (UnimplementedCoreServer) CreateOrUpdateProvider(context.Context, *ProviderInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateProvider not implemented")
 }
@@ -728,6 +683,21 @@ func (UnimplementedCoreServer) OauthLogin(context.Context, *OauthLoginReq) (*Oau
 }
 func (UnimplementedCoreServer) OauthCallback(context.Context, *CallbackReq) (*LoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OauthCallback not implemented")
+}
+func (UnimplementedCoreServer) CreateOrUpdateRole(context.Context, *RoleInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateRole not implemented")
+}
+func (UnimplementedCoreServer) DeleteRole(context.Context, *IDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
+}
+func (UnimplementedCoreServer) GetRoleById(context.Context, *IDReq) (*RoleInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRoleById not implemented")
+}
+func (UnimplementedCoreServer) GetRoleList(context.Context, *PageInfoReq) (*RoleListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRoleList not implemented")
+}
+func (UnimplementedCoreServer) UpdateRoleStatus(context.Context, *StatusCodeReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRoleStatus not implemented")
 }
 func (UnimplementedCoreServer) CreateOrUpdateToken(context.Context, *TokenInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateToken not implemented")
@@ -747,6 +717,36 @@ func (UnimplementedCoreServer) UpdateTokenStatus(context.Context, *StatusCodeUUI
 func (UnimplementedCoreServer) BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlockUserAllToken not implemented")
 }
+func (UnimplementedCoreServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
+}
+func (UnimplementedCoreServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedCoreServer) ChangePassword(context.Context, *ChangePasswordReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangePassword not implemented")
+}
+func (UnimplementedCoreServer) CreateOrUpdateUser(context.Context, *CreateOrUpdateUserReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateUser not implemented")
+}
+func (UnimplementedCoreServer) GetUserById(context.Context, *UUIDReq) (*UserInfoResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserById not implemented")
+}
+func (UnimplementedCoreServer) GetUserList(context.Context, *GetUserListReq) (*UserListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserList not implemented")
+}
+func (UnimplementedCoreServer) DeleteUser(context.Context, *UUIDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
+}
+func (UnimplementedCoreServer) BatchDeleteUser(context.Context, *UUIDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteUser not implemented")
+}
+func (UnimplementedCoreServer) UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
+}
+func (UnimplementedCoreServer) UpdateUserStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserStatus not implemented")
+}
 func (UnimplementedCoreServer) mustEmbedUnimplementedCoreServer() {}
 
 // UnsafeCoreServer may be embedded to opt out of forward compatibility for this service.
@@ -758,402 +758,6 @@ type UnsafeCoreServer interface {
 
 func RegisterCoreServer(s grpc.ServiceRegistrar, srv CoreServer) {
 	s.RegisterService(&Core_ServiceDesc, srv)
-}
-
-func _Core_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).InitDatabase(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/initDatabase",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).InitDatabase(ctx, req.(*Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LoginReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).Login(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/login",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).Login(ctx, req.(*LoginReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_ChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ChangePasswordReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).ChangePassword(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/changePassword",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).ChangePassword(ctx, req.(*ChangePasswordReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_CreateOrUpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateOrUpdateUserReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).CreateOrUpdateUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).CreateOrUpdateUser(ctx, req.(*CreateOrUpdateUserReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_GetUserById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UUIDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).GetUserById(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/getUserById",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetUserById(ctx, req.(*UUIDReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_GetUserList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserListReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).GetUserList(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/getUserList",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetUserList(ctx, req.(*GetUserListReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UUIDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).DeleteUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/deleteUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteUser(ctx, req.(*UUIDReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_BatchDeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UUIDsReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).BatchDeleteUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/batchDeleteUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).BatchDeleteUser(ctx, req.(*UUIDsReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_UpdateProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateProfileReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).UpdateProfile(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/updateProfile",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).UpdateProfile(ctx, req.(*UpdateProfileReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_UpdateUserStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StatusCodeUUIDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).UpdateUserStatus(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/updateUserStatus",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).UpdateUserStatus(ctx, req.(*StatusCodeUUIDReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_CreateOrUpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateOrUpdateMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).CreateOrUpdateMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).CreateOrUpdateMenu(ctx, req.(*CreateOrUpdateMenuReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).DeleteMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/deleteMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteMenu(ctx, req.(*IDReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_GetMenuListByRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).GetMenuListByRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/getMenuListByRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetMenuListByRole(ctx, req.(*IDReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_GetMenuList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PageInfoReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).GetMenuList(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/getMenuList",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetMenuList(ctx, req.(*PageInfoReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_CreateOrUpdateMenuParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateOrUpdateMenuParamReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).CreateOrUpdateMenuParam(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateMenuParam",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).CreateOrUpdateMenuParam(ctx, req.(*CreateOrUpdateMenuParamReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_DeleteMenuParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).DeleteMenuParam(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/deleteMenuParam",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteMenuParam(ctx, req.(*IDReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_GetMenuParamListByMenuId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).GetMenuParamListByMenuId(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/getMenuParamListByMenuId",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetMenuParamListByMenuId(ctx, req.(*IDReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_CreateOrUpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RoleInfo)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).CreateOrUpdateRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).CreateOrUpdateRole(ctx, req.(*RoleInfo))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).DeleteRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/deleteRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteRole(ctx, req.(*IDReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_GetRoleById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).GetRoleById(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/getRoleById",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetRoleById(ctx, req.(*IDReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_GetRoleList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PageInfoReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).GetRoleList(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/getRoleList",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetRoleList(ctx, req.(*PageInfoReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_UpdateRoleStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StatusCodeReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).UpdateRoleStatus(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/updateRoleStatus",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).UpdateRoleStatus(ctx, req.(*StatusCodeReq))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Core_CreateOrUpdateApi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1354,6 +958,132 @@ func _Core_DeleteDictionaryDetail_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_CreateOrUpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOrUpdateMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateOrUpdateMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/createOrUpdateMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateOrUpdateMenu(ctx, req.(*CreateOrUpdateMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/deleteMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteMenu(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetMenuListByRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetMenuListByRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/getMenuListByRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetMenuListByRole(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetMenuList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetMenuList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/getMenuList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetMenuList(ctx, req.(*PageInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreateOrUpdateMenuParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOrUpdateMenuParamReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateOrUpdateMenuParam(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/createOrUpdateMenuParam",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateOrUpdateMenuParam(ctx, req.(*CreateOrUpdateMenuParamReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteMenuParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteMenuParam(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/deleteMenuParam",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteMenuParam(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetMenuParamListByMenuId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetMenuParamListByMenuId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/getMenuParamListByMenuId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetMenuParamListByMenuId(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Core_CreateOrUpdateProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ProviderInfo)
 	if err := dec(in); err != nil {
@@ -1440,6 +1170,96 @@ func _Core_OauthCallback_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).OauthCallback(ctx, req.(*CallbackReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreateOrUpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateOrUpdateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/createOrUpdateRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateOrUpdateRole(ctx, req.(*RoleInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/deleteRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteRole(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetRoleById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetRoleById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/getRoleById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetRoleById(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetRoleList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetRoleList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/getRoleList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetRoleList(ctx, req.(*PageInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateRoleStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StatusCodeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateRoleStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/updateRoleStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateRoleStatus(ctx, req.(*StatusCodeReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1552,6 +1372,186 @@ func _Core_BlockUserAllToken_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).InitDatabase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/initDatabase",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).InitDatabase(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/login",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).Login(ctx, req.(*LoginReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_ChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangePasswordReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).ChangePassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/changePassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).ChangePassword(ctx, req.(*ChangePasswordReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreateOrUpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOrUpdateUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateOrUpdateUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/createOrUpdateUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateOrUpdateUser(ctx, req.(*CreateOrUpdateUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetUserById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetUserById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/getUserById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetUserById(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetUserList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetUserList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/getUserList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetUserList(ctx, req.(*GetUserListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/deleteUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteUser(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_BatchDeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).BatchDeleteUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/batchDeleteUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).BatchDeleteUser(ctx, req.(*UUIDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateProfileReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/updateProfile",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateProfile(ctx, req.(*UpdateProfileReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateUserStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StatusCodeUUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateUserStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/updateUserStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateUserStatus(ctx, req.(*StatusCodeUUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Core_ServiceDesc is the grpc.ServiceDesc for Core service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1559,94 +1559,6 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "core.core",
 	HandlerType: (*CoreServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "initDatabase",
-			Handler:    _Core_InitDatabase_Handler,
-		},
-		{
-			MethodName: "login",
-			Handler:    _Core_Login_Handler,
-		},
-		{
-			MethodName: "changePassword",
-			Handler:    _Core_ChangePassword_Handler,
-		},
-		{
-			MethodName: "createOrUpdateUser",
-			Handler:    _Core_CreateOrUpdateUser_Handler,
-		},
-		{
-			MethodName: "getUserById",
-			Handler:    _Core_GetUserById_Handler,
-		},
-		{
-			MethodName: "getUserList",
-			Handler:    _Core_GetUserList_Handler,
-		},
-		{
-			MethodName: "deleteUser",
-			Handler:    _Core_DeleteUser_Handler,
-		},
-		{
-			MethodName: "batchDeleteUser",
-			Handler:    _Core_BatchDeleteUser_Handler,
-		},
-		{
-			MethodName: "updateProfile",
-			Handler:    _Core_UpdateProfile_Handler,
-		},
-		{
-			MethodName: "updateUserStatus",
-			Handler:    _Core_UpdateUserStatus_Handler,
-		},
-		{
-			MethodName: "createOrUpdateMenu",
-			Handler:    _Core_CreateOrUpdateMenu_Handler,
-		},
-		{
-			MethodName: "deleteMenu",
-			Handler:    _Core_DeleteMenu_Handler,
-		},
-		{
-			MethodName: "getMenuListByRole",
-			Handler:    _Core_GetMenuListByRole_Handler,
-		},
-		{
-			MethodName: "getMenuList",
-			Handler:    _Core_GetMenuList_Handler,
-		},
-		{
-			MethodName: "createOrUpdateMenuParam",
-			Handler:    _Core_CreateOrUpdateMenuParam_Handler,
-		},
-		{
-			MethodName: "deleteMenuParam",
-			Handler:    _Core_DeleteMenuParam_Handler,
-		},
-		{
-			MethodName: "getMenuParamListByMenuId",
-			Handler:    _Core_GetMenuParamListByMenuId_Handler,
-		},
-		{
-			MethodName: "createOrUpdateRole",
-			Handler:    _Core_CreateOrUpdateRole_Handler,
-		},
-		{
-			MethodName: "deleteRole",
-			Handler:    _Core_DeleteRole_Handler,
-		},
-		{
-			MethodName: "getRoleById",
-			Handler:    _Core_GetRoleById_Handler,
-		},
-		{
-			MethodName: "getRoleList",
-			Handler:    _Core_GetRoleList_Handler,
-		},
-		{
-			MethodName: "updateRoleStatus",
-			Handler:    _Core_UpdateRoleStatus_Handler,
-		},
 		{
 			MethodName: "createOrUpdateApi",
 			Handler:    _Core_CreateOrUpdateApi_Handler,
@@ -1692,6 +1604,34 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_DeleteDictionaryDetail_Handler,
 		},
 		{
+			MethodName: "createOrUpdateMenu",
+			Handler:    _Core_CreateOrUpdateMenu_Handler,
+		},
+		{
+			MethodName: "deleteMenu",
+			Handler:    _Core_DeleteMenu_Handler,
+		},
+		{
+			MethodName: "getMenuListByRole",
+			Handler:    _Core_GetMenuListByRole_Handler,
+		},
+		{
+			MethodName: "getMenuList",
+			Handler:    _Core_GetMenuList_Handler,
+		},
+		{
+			MethodName: "createOrUpdateMenuParam",
+			Handler:    _Core_CreateOrUpdateMenuParam_Handler,
+		},
+		{
+			MethodName: "deleteMenuParam",
+			Handler:    _Core_DeleteMenuParam_Handler,
+		},
+		{
+			MethodName: "getMenuParamListByMenuId",
+			Handler:    _Core_GetMenuParamListByMenuId_Handler,
+		},
+		{
 			MethodName: "createOrUpdateProvider",
 			Handler:    _Core_CreateOrUpdateProvider_Handler,
 		},
@@ -1710,6 +1650,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "oauthCallback",
 			Handler:    _Core_OauthCallback_Handler,
+		},
+		{
+			MethodName: "createOrUpdateRole",
+			Handler:    _Core_CreateOrUpdateRole_Handler,
+		},
+		{
+			MethodName: "deleteRole",
+			Handler:    _Core_DeleteRole_Handler,
+		},
+		{
+			MethodName: "getRoleById",
+			Handler:    _Core_GetRoleById_Handler,
+		},
+		{
+			MethodName: "getRoleList",
+			Handler:    _Core_GetRoleList_Handler,
+		},
+		{
+			MethodName: "updateRoleStatus",
+			Handler:    _Core_UpdateRoleStatus_Handler,
 		},
 		{
 			MethodName: "createOrUpdateToken",
@@ -1734,6 +1694,46 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "blockUserAllToken",
 			Handler:    _Core_BlockUserAllToken_Handler,
+		},
+		{
+			MethodName: "initDatabase",
+			Handler:    _Core_InitDatabase_Handler,
+		},
+		{
+			MethodName: "login",
+			Handler:    _Core_Login_Handler,
+		},
+		{
+			MethodName: "changePassword",
+			Handler:    _Core_ChangePassword_Handler,
+		},
+		{
+			MethodName: "createOrUpdateUser",
+			Handler:    _Core_CreateOrUpdateUser_Handler,
+		},
+		{
+			MethodName: "getUserById",
+			Handler:    _Core_GetUserById_Handler,
+		},
+		{
+			MethodName: "getUserList",
+			Handler:    _Core_GetUserList_Handler,
+		},
+		{
+			MethodName: "deleteUser",
+			Handler:    _Core_DeleteUser_Handler,
+		},
+		{
+			MethodName: "batchDeleteUser",
+			Handler:    _Core_BatchDeleteUser_Handler,
+		},
+		{
+			MethodName: "updateProfile",
+			Handler:    _Core_UpdateProfile_Handler,
+		},
+		{
+			MethodName: "updateUserStatus",
+			Handler:    _Core_UpdateUserStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

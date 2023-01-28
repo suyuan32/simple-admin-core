@@ -51,6 +51,7 @@ It can help you to develop a microservice back-end management core in a short ti
 - [x] Frontend CRUD code generation
 - [x] docker-compose script
 - [x] RPC logic group
+- [ ] Proto files divide
 
 ## Preview
 

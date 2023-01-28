@@ -53,6 +53,7 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 - [x] 前端 CRUD 代码生成
 - [x] 一键运行 demo 脚本
 - [x] RPC logic 分组
+- [ ] Proto 文件拆分 
 
 ## 预览
 
