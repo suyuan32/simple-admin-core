@@ -32,7 +32,7 @@ gen-ent:
 	@printf $(GREEN)"[SUCCESS] generate ent successfully"
 
 gen-rpc-ent-logic:
-	goctls rpc ent --schema=./ent/schema  --style=go_zero --service_name=example --o=./ --model=$(model) --group=$(group)
+	goctls rpc ent --schema=./pkg/ent/schema --service_name=core --project_name=core --o=./rpc --model=$(model) --group=$(group) --proto_out=./rpc/desc/$(shell echo $(model) | tr A-Z a-z).proto
 	@printf $(GREEN)"[SUCCESS] generate ent logic codes successfully"
 
 gen-swagger:
