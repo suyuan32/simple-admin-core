@@ -1,0 +1,45 @@
+syntax="proto3";
+
+// JWT message
+
+message TokenInfo {
+  string id = 1;
+  int64 created_at = 2;
+  int64 updated_at = 3;
+  string uuid = 4;
+  string token = 5;
+  string source = 6;
+  uint64 status = 7;
+  int64 expired_at = 8;
+}
+
+message TokenListResp {
+  uint64 total = 1;
+  repeated TokenInfo data = 2;
+}
+
+message TokenListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string username = 3;
+  string nickname = 4;
+  string email = 5;
+  string uuid = 6;
+}
+
+service Core {
+  // Token management
+
+  // group: token
+  rpc createOrUpdateToken (TokenInfo) returns (BaseResp);
+  // group: token
+  rpc deleteToken (UUIDReq) returns (BaseResp);
+  // group: token
+  rpc batchDeleteToken (UUIDsReq) returns (BaseResp);
+  // group: token
+  rpc getTokenList (TokenListReq) returns (TokenListResp);
+  // group: token
+  rpc updateTokenStatus (StatusCodeUUIDReq) returns (BaseResp);
+  // group: token
+  rpc blockUserAllToken (UUIDReq) returns (BaseResp);
+}

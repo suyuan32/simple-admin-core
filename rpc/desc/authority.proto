@@ -1,0 +1,21 @@
+syntax="proto3";
+
+// authorization message
+message RoleMenuAuthorityReq {
+  uint64 role_id = 1;
+  repeated uint64 menu_id = 2;
+}
+// return the role's authorization menu's ids
+message RoleMenuAuthorityResp {
+  repeated uint64 menu_id = 1;
+}
+
+
+service Core {
+  // authorization management service
+
+  // group: authority
+  rpc getMenuAuthority (IDReq) returns (RoleMenuAuthorityResp);
+  // group: authority
+  rpc createOrUpdateMenuAuthority (RoleMenuAuthorityReq) returns (BaseResp);
+}

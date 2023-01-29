@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package core;
+
+option go_package = "./core";
+
+// base message
+message Empty {}
+
+message IDReq {
+  uint64 id = 1;
+}
+
+message IDsReq {
+  repeated uint64 ids = 1;
+}
+
+message UUIDsReq {
+  repeated string ids = 1;
+}
+
+message UUIDReq {
+  string id = 1;
+}
+
+message BaseResp {
+  string msg = 1;
+}
+
+message PageInfoReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+}
+
+message StatusCodeReq {
+  uint64 id = 1;
+  uint64 status = 2;
+}
+
+message StatusCodeUUIDReq {
+  string id = 1;
+  uint64 status = 2;
+}
+
+service Core {
+  // group: base
+  rpc initDatabase (Empty) returns (BaseResp);
+}

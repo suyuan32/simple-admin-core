@@ -1,0 +1,51 @@
+syntax="proto3";
+
+// oauth message
+message OauthLoginReq {
+  string state = 1;
+  string provider = 2;
+}
+
+message OauthRedirectResp {
+  string url = 1;
+}
+
+message ProviderInfo {
+  uint64 id = 1;
+  string name = 2;
+  string client_id = 3;
+  string client_secret = 4;
+  string redirect_url = 5;
+  string scopes = 6;
+  string auth_url = 7;
+  string token_url = 8;
+  uint64 auth_style = 9;
+  string info_url = 10;
+  int64  created_at = 11;
+  int64  updated_at = 12;
+}
+
+message ProviderListResp {
+  uint64 total = 1;
+  repeated ProviderInfo data = 2;
+}
+
+message CallbackReq {
+  string state = 1;
+  string code = 2;
+}
+
+service Core {
+  // oauth management
+
+  // group: oauth
+  rpc createOrUpdateProvider (ProviderInfo) returns (BaseResp);
+  // group: oauth
+  rpc deleteProvider (IDReq) returns (BaseResp);
+  // group: oauth
+  rpc getProviderList (PageInfoReq) returns (ProviderListResp);
+  // group: oauth
+  rpc oauthLogin (OauthLoginReq) returns (OauthRedirectResp);
+  // group: oauth
+  rpc oauthCallback (CallbackReq) returns (LoginResp);
+}
