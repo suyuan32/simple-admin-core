@@ -86,7 +86,7 @@ message MenuParamListResp {
   repeated MenuParamResp data = 2;
 }
 
-service core {
+service Core {
   //menu management
 
   // group: menu

@@ -43,7 +43,7 @@ message DictionaryPageReq {
   uint64 page_size = 4;
 }
 
-service core {
+service Core {
   // dictionary management service
 
   // group: dictionary

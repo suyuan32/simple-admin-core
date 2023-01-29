@@ -11,7 +11,7 @@ message RoleMenuAuthorityResp {
 }
 
 
-service core {
+service Core {
   // authorization management service
 
   // group: authority

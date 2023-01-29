@@ -27,7 +27,7 @@ message TokenListReq {
   string uuid = 6;
 }
 
-service core {
+service Core {
   // Token management
 
   // group: token

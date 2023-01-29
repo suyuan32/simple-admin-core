@@ -122,7 +122,7 @@ func NewCoreClient(cc grpc.ClientConnInterface) CoreClient {
 
 func (c *coreClient) CreateOrUpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateApi", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateApi", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ func (c *coreClient) CreateOrUpdateApi(ctx context.Context, in *ApiInfo, opts ..
 
 func (c *coreClient) DeleteApi(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteApi", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteApi", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -140,7 +140,7 @@ func (c *coreClient) DeleteApi(ctx context.Context, in *IDReq, opts ...grpc.Call
 
 func (c *coreClient) GetApiList(ctx context.Context, in *ApiPageReq, opts ...grpc.CallOption) (*ApiListResp, error) {
 	out := new(ApiListResp)
-	err := c.cc.Invoke(ctx, "/core.core/getApiList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getApiList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -149,7 +149,7 @@ func (c *coreClient) GetApiList(ctx context.Context, in *ApiPageReq, opts ...grp
 
 func (c *coreClient) GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error) {
 	out := new(RoleMenuAuthorityResp)
-	err := c.cc.Invoke(ctx, "/core.core/getMenuAuthority", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getMenuAuthority", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +158,7 @@ func (c *coreClient) GetMenuAuthority(ctx context.Context, in *IDReq, opts ...gr
 
 func (c *coreClient) CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateMenuAuthority", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateMenuAuthority", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -167,7 +167,7 @@ func (c *coreClient) CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMe
 
 func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/initDatabase", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/initDatabase", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -176,7 +176,7 @@ func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.C
 
 func (c *coreClient) CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateDictionary", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateDictionary", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -185,7 +185,7 @@ func (c *coreClient) CreateOrUpdateDictionary(ctx context.Context, in *Dictionar
 
 func (c *coreClient) DeleteDictionary(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteDictionary", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteDictionary", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -194,7 +194,7 @@ func (c *coreClient) DeleteDictionary(ctx context.Context, in *IDReq, opts ...gr
 
 func (c *coreClient) GetDictionaryList(ctx context.Context, in *DictionaryPageReq, opts ...grpc.CallOption) (*DictionaryList, error) {
 	out := new(DictionaryList)
-	err := c.cc.Invoke(ctx, "/core.core/getDictionaryList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getDictionaryList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +203,7 @@ func (c *coreClient) GetDictionaryList(ctx context.Context, in *DictionaryPageRe
 
 func (c *coreClient) GetDetailByDictionaryName(ctx context.Context, in *DictionaryDetailReq, opts ...grpc.CallOption) (*DictionaryDetailList, error) {
 	out := new(DictionaryDetailList)
-	err := c.cc.Invoke(ctx, "/core.core/getDetailByDictionaryName", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getDetailByDictionaryName", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -212,7 +212,7 @@ func (c *coreClient) GetDetailByDictionaryName(ctx context.Context, in *Dictiona
 
 func (c *coreClient) CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateDictionaryDetail", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateDictionaryDetail", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +221,7 @@ func (c *coreClient) CreateOrUpdateDictionaryDetail(ctx context.Context, in *Dic
 
 func (c *coreClient) DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteDictionaryDetail", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteDictionaryDetail", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -230,7 +230,7 @@ func (c *coreClient) DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts
 
 func (c *coreClient) CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateMenu", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateMenu", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -239,7 +239,7 @@ func (c *coreClient) CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateM
 
 func (c *coreClient) DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteMenu", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteMenu", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -248,7 +248,7 @@ func (c *coreClient) DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.Cal
 
 func (c *coreClient) GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
 	out := new(MenuInfoList)
-	err := c.cc.Invoke(ctx, "/core.core/getMenuListByRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getMenuListByRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -257,7 +257,7 @@ func (c *coreClient) GetMenuListByRole(ctx context.Context, in *IDReq, opts ...g
 
 func (c *coreClient) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
 	out := new(MenuInfoList)
-	err := c.cc.Invoke(ctx, "/core.core/getMenuList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getMenuList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -266,7 +266,7 @@ func (c *coreClient) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...g
 
 func (c *coreClient) CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateMenuParam", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateMenuParam", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -275,7 +275,7 @@ func (c *coreClient) CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUp
 
 func (c *coreClient) DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteMenuParam", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteMenuParam", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -284,7 +284,7 @@ func (c *coreClient) DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grp
 
 func (c *coreClient) GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
 	out := new(MenuParamListResp)
-	err := c.cc.Invoke(ctx, "/core.core/getMenuParamListByMenuId", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getMenuParamListByMenuId", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -293,7 +293,7 @@ func (c *coreClient) GetMenuParamListByMenuId(ctx context.Context, in *IDReq, op
 
 func (c *coreClient) CreateOrUpdateProvider(ctx context.Context, in *ProviderInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateProvider", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateProvider", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -302,7 +302,7 @@ func (c *coreClient) CreateOrUpdateProvider(ctx context.Context, in *ProviderInf
 
 func (c *coreClient) DeleteProvider(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteProvider", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteProvider", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -311,7 +311,7 @@ func (c *coreClient) DeleteProvider(ctx context.Context, in *IDReq, opts ...grpc
 
 func (c *coreClient) GetProviderList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*ProviderListResp, error) {
 	out := new(ProviderListResp)
-	err := c.cc.Invoke(ctx, "/core.core/getProviderList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getProviderList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -320,7 +320,7 @@ func (c *coreClient) GetProviderList(ctx context.Context, in *PageInfoReq, opts 
 
 func (c *coreClient) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error) {
 	out := new(OauthRedirectResp)
-	err := c.cc.Invoke(ctx, "/core.core/oauthLogin", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/oauthLogin", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -329,7 +329,7 @@ func (c *coreClient) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...
 
 func (c *coreClient) OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error) {
 	out := new(LoginResp)
-	err := c.cc.Invoke(ctx, "/core.core/oauthCallback", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/oauthCallback", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -338,7 +338,7 @@ func (c *coreClient) OauthCallback(ctx context.Context, in *CallbackReq, opts ..
 
 func (c *coreClient) CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -347,7 +347,7 @@ func (c *coreClient) CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts 
 
 func (c *coreClient) DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -356,7 +356,7 @@ func (c *coreClient) DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.Cal
 
 func (c *coreClient) GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error) {
 	out := new(RoleInfo)
-	err := c.cc.Invoke(ctx, "/core.core/getRoleById", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getRoleById", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -365,7 +365,7 @@ func (c *coreClient) GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.Ca
 
 func (c *coreClient) GetRoleList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*RoleListResp, error) {
 	out := new(RoleListResp)
-	err := c.cc.Invoke(ctx, "/core.core/getRoleList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getRoleList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -374,7 +374,7 @@ func (c *coreClient) GetRoleList(ctx context.Context, in *PageInfoReq, opts ...g
 
 func (c *coreClient) UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/updateRoleStatus", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/updateRoleStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -383,7 +383,7 @@ func (c *coreClient) UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, op
 
 func (c *coreClient) CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateToken", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateToken", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -392,7 +392,7 @@ func (c *coreClient) CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opt
 
 func (c *coreClient) DeleteToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteToken", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteToken", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -401,7 +401,7 @@ func (c *coreClient) DeleteToken(ctx context.Context, in *UUIDReq, opts ...grpc.
 
 func (c *coreClient) BatchDeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/batchDeleteToken", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/batchDeleteToken", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -410,7 +410,7 @@ func (c *coreClient) BatchDeleteToken(ctx context.Context, in *UUIDsReq, opts ..
 
 func (c *coreClient) GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error) {
 	out := new(TokenListResp)
-	err := c.cc.Invoke(ctx, "/core.core/getTokenList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getTokenList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -419,7 +419,7 @@ func (c *coreClient) GetTokenList(ctx context.Context, in *TokenListReq, opts ..
 
 func (c *coreClient) UpdateTokenStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/updateTokenStatus", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/updateTokenStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -428,7 +428,7 @@ func (c *coreClient) UpdateTokenStatus(ctx context.Context, in *StatusCodeUUIDRe
 
 func (c *coreClient) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/blockUserAllToken", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/blockUserAllToken", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -437,7 +437,7 @@ func (c *coreClient) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ..
 
 func (c *coreClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
 	out := new(LoginResp)
-	err := c.cc.Invoke(ctx, "/core.core/login", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/login", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -446,7 +446,7 @@ func (c *coreClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallO
 
 func (c *coreClient) ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/changePassword", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/changePassword", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -455,7 +455,7 @@ func (c *coreClient) ChangePassword(ctx context.Context, in *ChangePasswordReq, 
 
 func (c *coreClient) CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateUserReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -464,7 +464,7 @@ func (c *coreClient) CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateU
 
 func (c *coreClient) GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error) {
 	out := new(UserInfoResp)
-	err := c.cc.Invoke(ctx, "/core.core/getUserById", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getUserById", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -473,7 +473,7 @@ func (c *coreClient) GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.
 
 func (c *coreClient) GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error) {
 	out := new(UserListResp)
-	err := c.cc.Invoke(ctx, "/core.core/getUserList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/getUserList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -482,7 +482,7 @@ func (c *coreClient) GetUserList(ctx context.Context, in *GetUserListReq, opts .
 
 func (c *coreClient) DeleteUser(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/deleteUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -491,7 +491,7 @@ func (c *coreClient) DeleteUser(ctx context.Context, in *UUIDReq, opts ...grpc.C
 
 func (c *coreClient) BatchDeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/batchDeleteUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/batchDeleteUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -500,7 +500,7 @@ func (c *coreClient) BatchDeleteUser(ctx context.Context, in *UUIDsReq, opts ...
 
 func (c *coreClient) UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/updateProfile", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/updateProfile", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -509,7 +509,7 @@ func (c *coreClient) UpdateProfile(ctx context.Context, in *UpdateProfileReq, op
 
 func (c *coreClient) UpdateUserStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/updateUserStatus", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/updateUserStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -770,7 +770,7 @@ func _Core_CreateOrUpdateApi_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateApi",
+		FullMethod: "/core.Core/createOrUpdateApi",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).CreateOrUpdateApi(ctx, req.(*ApiInfo))
@@ -788,7 +788,7 @@ func _Core_DeleteApi_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/deleteApi",
+		FullMethod: "/core.Core/deleteApi",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteApi(ctx, req.(*IDReq))
@@ -806,7 +806,7 @@ func _Core_GetApiList_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getApiList",
+		FullMethod: "/core.Core/getApiList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetApiList(ctx, req.(*ApiPageReq))
@@ -824,7 +824,7 @@ func _Core_GetMenuAuthority_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getMenuAuthority",
+		FullMethod: "/core.Core/getMenuAuthority",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetMenuAuthority(ctx, req.(*IDReq))
@@ -842,7 +842,7 @@ func _Core_CreateOrUpdateMenuAuthority_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateMenuAuthority",
+		FullMethod: "/core.Core/createOrUpdateMenuAuthority",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).CreateOrUpdateMenuAuthority(ctx, req.(*RoleMenuAuthorityReq))
@@ -860,7 +860,7 @@ func _Core_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/initDatabase",
+		FullMethod: "/core.Core/initDatabase",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).InitDatabase(ctx, req.(*Empty))
@@ -878,7 +878,7 @@ func _Core_CreateOrUpdateDictionary_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateDictionary",
+		FullMethod: "/core.Core/createOrUpdateDictionary",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).CreateOrUpdateDictionary(ctx, req.(*DictionaryInfo))
@@ -896,7 +896,7 @@ func _Core_DeleteDictionary_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/deleteDictionary",
+		FullMethod: "/core.Core/deleteDictionary",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteDictionary(ctx, req.(*IDReq))
@@ -914,7 +914,7 @@ func _Core_GetDictionaryList_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getDictionaryList",
+		FullMethod: "/core.Core/getDictionaryList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetDictionaryList(ctx, req.(*DictionaryPageReq))
@@ -932,7 +932,7 @@ func _Core_GetDetailByDictionaryName_Handler(srv interface{}, ctx context.Contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getDetailByDictionaryName",
+		FullMethod: "/core.Core/getDetailByDictionaryName",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetDetailByDictionaryName(ctx, req.(*DictionaryDetailReq))
@@ -950,7 +950,7 @@ func _Core_CreateOrUpdateDictionaryDetail_Handler(srv interface{}, ctx context.C
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateDictionaryDetail",
+		FullMethod: "/core.Core/createOrUpdateDictionaryDetail",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).CreateOrUpdateDictionaryDetail(ctx, req.(*DictionaryDetail))
@@ -968,7 +968,7 @@ func _Core_DeleteDictionaryDetail_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/deleteDictionaryDetail",
+		FullMethod: "/core.Core/deleteDictionaryDetail",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteDictionaryDetail(ctx, req.(*IDReq))
@@ -986,7 +986,7 @@ func _Core_CreateOrUpdateMenu_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateMenu",
+		FullMethod: "/core.Core/createOrUpdateMenu",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).CreateOrUpdateMenu(ctx, req.(*CreateOrUpdateMenuReq))
@@ -1004,7 +1004,7 @@ func _Core_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/deleteMenu",
+		FullMethod: "/core.Core/deleteMenu",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteMenu(ctx, req.(*IDReq))
@@ -1022,7 +1022,7 @@ func _Core_GetMenuListByRole_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getMenuListByRole",
+		FullMethod: "/core.Core/getMenuListByRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetMenuListByRole(ctx, req.(*IDReq))
@@ -1040,7 +1040,7 @@ func _Core_GetMenuList_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getMenuList",
+		FullMethod: "/core.Core/getMenuList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetMenuList(ctx, req.(*PageInfoReq))
@@ -1058,7 +1058,7 @@ func _Core_CreateOrUpdateMenuParam_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateMenuParam",
+		FullMethod: "/core.Core/createOrUpdateMenuParam",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).CreateOrUpdateMenuParam(ctx, req.(*CreateOrUpdateMenuParamReq))
@@ -1076,7 +1076,7 @@ func _Core_DeleteMenuParam_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/deleteMenuParam",
+		FullMethod: "/core.Core/deleteMenuParam",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteMenuParam(ctx, req.(*IDReq))
@@ -1094,7 +1094,7 @@ func _Core_GetMenuParamListByMenuId_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getMenuParamListByMenuId",
+		FullMethod: "/core.Core/getMenuParamListByMenuId",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetMenuParamListByMenuId(ctx, req.(*IDReq))
@@ -1112,7 +1112,7 @@ func _Core_CreateOrUpdateProvider_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateProvider",
+		FullMethod: "/core.Core/createOrUpdateProvider",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).CreateOrUpdateProvider(ctx, req.(*ProviderInfo))
@@ -1130,7 +1130,7 @@ func _Core_DeleteProvider_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/deleteProvider",
+		FullMethod: "/core.Core/deleteProvider",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteProvider(ctx, req.(*IDReq))
@@ -1148,7 +1148,7 @@ func _Core_GetProviderList_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getProviderList",
+		FullMethod: "/core.Core/getProviderList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetProviderList(ctx, req.(*PageInfoReq))
@@ -1166,7 +1166,7 @@ func _Core_OauthLogin_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/oauthLogin",
+		FullMethod: "/core.Core/oauthLogin",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).OauthLogin(ctx, req.(*OauthLoginReq))
@@ -1184,7 +1184,7 @@ func _Core_OauthCallback_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/oauthCallback",
+		FullMethod: "/core.Core/oauthCallback",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).OauthCallback(ctx, req.(*CallbackReq))
@@ -1202,7 +1202,7 @@ func _Core_CreateOrUpdateRole_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateRole",
+		FullMethod: "/core.Core/createOrUpdateRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).CreateOrUpdateRole(ctx, req.(*RoleInfo))
@@ -1220,7 +1220,7 @@ func _Core_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/deleteRole",
+		FullMethod: "/core.Core/deleteRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteRole(ctx, req.(*IDReq))
@@ -1238,7 +1238,7 @@ func _Core_GetRoleById_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getRoleById",
+		FullMethod: "/core.Core/getRoleById",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetRoleById(ctx, req.(*IDReq))
@@ -1256,7 +1256,7 @@ func _Core_GetRoleList_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getRoleList",
+		FullMethod: "/core.Core/getRoleList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetRoleList(ctx, req.(*PageInfoReq))
@@ -1274,7 +1274,7 @@ func _Core_UpdateRoleStatus_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/updateRoleStatus",
+		FullMethod: "/core.Core/updateRoleStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).UpdateRoleStatus(ctx, req.(*StatusCodeReq))
@@ -1292,7 +1292,7 @@ func _Core_CreateOrUpdateToken_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateToken",
+		FullMethod: "/core.Core/createOrUpdateToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).CreateOrUpdateToken(ctx, req.(*TokenInfo))
@@ -1310,7 +1310,7 @@ func _Core_DeleteToken_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/deleteToken",
+		FullMethod: "/core.Core/deleteToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteToken(ctx, req.(*UUIDReq))
@@ -1328,7 +1328,7 @@ func _Core_BatchDeleteToken_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/batchDeleteToken",
+		FullMethod: "/core.Core/batchDeleteToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).BatchDeleteToken(ctx, req.(*UUIDsReq))
@@ -1346,7 +1346,7 @@ func _Core_GetTokenList_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getTokenList",
+		FullMethod: "/core.Core/getTokenList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetTokenList(ctx, req.(*TokenListReq))
@@ -1364,7 +1364,7 @@ func _Core_UpdateTokenStatus_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/updateTokenStatus",
+		FullMethod: "/core.Core/updateTokenStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).UpdateTokenStatus(ctx, req.(*StatusCodeUUIDReq))
@@ -1382,7 +1382,7 @@ func _Core_BlockUserAllToken_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/blockUserAllToken",
+		FullMethod: "/core.Core/blockUserAllToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).BlockUserAllToken(ctx, req.(*UUIDReq))
@@ -1400,7 +1400,7 @@ func _Core_Login_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/login",
+		FullMethod: "/core.Core/login",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).Login(ctx, req.(*LoginReq))
@@ -1418,7 +1418,7 @@ func _Core_ChangePassword_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/changePassword",
+		FullMethod: "/core.Core/changePassword",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).ChangePassword(ctx, req.(*ChangePasswordReq))
@@ -1436,7 +1436,7 @@ func _Core_CreateOrUpdateUser_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/createOrUpdateUser",
+		FullMethod: "/core.Core/createOrUpdateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).CreateOrUpdateUser(ctx, req.(*CreateOrUpdateUserReq))
@@ -1454,7 +1454,7 @@ func _Core_GetUserById_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getUserById",
+		FullMethod: "/core.Core/getUserById",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetUserById(ctx, req.(*UUIDReq))
@@ -1472,7 +1472,7 @@ func _Core_GetUserList_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/getUserList",
+		FullMethod: "/core.Core/getUserList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetUserList(ctx, req.(*GetUserListReq))
@@ -1490,7 +1490,7 @@ func _Core_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/deleteUser",
+		FullMethod: "/core.Core/deleteUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteUser(ctx, req.(*UUIDReq))
@@ -1508,7 +1508,7 @@ func _Core_BatchDeleteUser_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/batchDeleteUser",
+		FullMethod: "/core.Core/batchDeleteUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).BatchDeleteUser(ctx, req.(*UUIDsReq))
@@ -1526,7 +1526,7 @@ func _Core_UpdateProfile_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/updateProfile",
+		FullMethod: "/core.Core/updateProfile",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).UpdateProfile(ctx, req.(*UpdateProfileReq))
@@ -1544,7 +1544,7 @@ func _Core_UpdateUserStatus_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.core/updateUserStatus",
+		FullMethod: "/core.Core/updateUserStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).UpdateUserStatus(ctx, req.(*StatusCodeUUIDReq))
@@ -1556,7 +1556,7 @@ func _Core_UpdateUserStatus_Handler(srv interface{}, ctx context.Context, dec fu
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Core_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "core.core",
+	ServiceName: "core.Core",
 	HandlerType: (*CoreServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

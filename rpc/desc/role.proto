@@ -17,7 +17,7 @@ message RoleListResp {
   repeated RoleInfo data = 2;
 }
 
-service core {
+service Core {
   // role service
 
   // group: role
