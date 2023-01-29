@@ -55,6 +55,11 @@ func (s *CoreServer) CreateOrUpdateMenuAuthority(ctx context.Context, in *core.R
 	return l.CreateOrUpdateMenuAuthority(in)
 }
 
+func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.BaseResp, error) {
+	l := base.NewInitDatabaseLogic(ctx, s.svcCtx)
+	return l.InitDatabase(in)
+}
+
 func (s *CoreServer) CreateOrUpdateDictionary(ctx context.Context, in *core.DictionaryInfo) (*core.BaseResp, error) {
 	l := dictionary.NewCreateOrUpdateDictionaryLogic(ctx, s.svcCtx)
 	return l.CreateOrUpdateDictionary(in)
@@ -198,11 +203,6 @@ func (s *CoreServer) UpdateTokenStatus(ctx context.Context, in *core.StatusCodeU
 func (s *CoreServer) BlockUserAllToken(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
 	l := token.NewBlockUserAllTokenLogic(ctx, s.svcCtx)
 	return l.BlockUserAllToken(in)
-}
-
-func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.BaseResp, error) {
-	l := base.NewInitDatabaseLogic(ctx, s.svcCtx)
-	return l.InitDatabase(in)
 }
 
 func (s *CoreServer) Login(ctx context.Context, in *core.LoginReq) (*core.LoginResp, error) {

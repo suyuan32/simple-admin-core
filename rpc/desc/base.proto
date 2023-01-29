@@ -42,4 +42,7 @@ message StatusCodeUUIDReq {
   uint64 status = 2;
 }
 
-service core {}
+service core {
+  // group: base
+  rpc initDatabase (Empty) returns (BaseResp);
+}

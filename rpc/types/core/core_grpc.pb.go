@@ -32,6 +32,8 @@ type CoreClient interface {
 	GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
 	// group: authority
 	CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: base
+	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: dictionary
 	CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: dictionary
@@ -90,8 +92,6 @@ type CoreClient interface {
 	UpdateTokenStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: token
 	BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: base
-	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: user
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 	// group: user
@@ -159,6 +159,15 @@ func (c *coreClient) GetMenuAuthority(ctx context.Context, in *IDReq, opts ...gr
 func (c *coreClient) CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.core/createOrUpdateMenuAuthority", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.core/initDatabase", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -426,15 +435,6 @@ func (c *coreClient) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ..
 	return out, nil
 }
 
-func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.core/initDatabase", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *coreClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
 	out := new(LoginResp)
 	err := c.cc.Invoke(ctx, "/core.core/login", in, out, opts...)
@@ -530,6 +530,8 @@ type CoreServer interface {
 	GetMenuAuthority(context.Context, *IDReq) (*RoleMenuAuthorityResp, error)
 	// group: authority
 	CreateOrUpdateMenuAuthority(context.Context, *RoleMenuAuthorityReq) (*BaseResp, error)
+	// group: base
+	InitDatabase(context.Context, *Empty) (*BaseResp, error)
 	// group: dictionary
 	CreateOrUpdateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error)
 	// group: dictionary
@@ -588,8 +590,6 @@ type CoreServer interface {
 	UpdateTokenStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error)
 	// group: token
 	BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error)
-	// group: base
-	InitDatabase(context.Context, *Empty) (*BaseResp, error)
 	// group: user
 	Login(context.Context, *LoginReq) (*LoginResp, error)
 	// group: user
@@ -629,6 +629,9 @@ func (UnimplementedCoreServer) GetMenuAuthority(context.Context, *IDReq) (*RoleM
 }
 func (UnimplementedCoreServer) CreateOrUpdateMenuAuthority(context.Context, *RoleMenuAuthorityReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenuAuthority not implemented")
+}
+func (UnimplementedCoreServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
 }
 func (UnimplementedCoreServer) CreateOrUpdateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateDictionary not implemented")
@@ -716,9 +719,6 @@ func (UnimplementedCoreServer) UpdateTokenStatus(context.Context, *StatusCodeUUI
 }
 func (UnimplementedCoreServer) BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlockUserAllToken not implemented")
-}
-func (UnimplementedCoreServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
 }
 func (UnimplementedCoreServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
@@ -846,6 +846,24 @@ func _Core_CreateOrUpdateMenuAuthority_Handler(srv interface{}, ctx context.Cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).CreateOrUpdateMenuAuthority(ctx, req.(*RoleMenuAuthorityReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).InitDatabase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.core/initDatabase",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).InitDatabase(ctx, req.(*Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1372,24 +1390,6 @@ func _Core_BlockUserAllToken_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).InitDatabase(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.core/initDatabase",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).InitDatabase(ctx, req.(*Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Core_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LoginReq)
 	if err := dec(in); err != nil {
@@ -1580,6 +1580,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_CreateOrUpdateMenuAuthority_Handler,
 		},
 		{
+			MethodName: "initDatabase",
+			Handler:    _Core_InitDatabase_Handler,
+		},
+		{
 			MethodName: "createOrUpdateDictionary",
 			Handler:    _Core_CreateOrUpdateDictionary_Handler,
 		},
@@ -1694,10 +1698,6 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "blockUserAllToken",
 			Handler:    _Core_BlockUserAllToken_Handler,
-		},
-		{
-			MethodName: "initDatabase",
-			Handler:    _Core_InitDatabase_Handler,
 		},
 		{
 			MethodName: "login",

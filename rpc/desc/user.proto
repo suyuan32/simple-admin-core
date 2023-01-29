@@ -70,11 +70,6 @@ message UpdateProfileReq {
 
 // service
 service core {
-  // init
-
-  // group: base
-  rpc initDatabase (Empty) returns (BaseResp);
-
   // user management
 
   // group: user
