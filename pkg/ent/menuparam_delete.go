@@ -4,7 +4,6 @@ package ent
 
 import (
 	"context"
-	"fmt"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -28,34 +27,7 @@ func (mpd *MenuParamDelete) Where(ps ...predicate.MenuParam) *MenuParamDelete {
 
 // Exec executes the deletion query and returns how many vertices were deleted.
 func (mpd *MenuParamDelete) Exec(ctx context.Context) (int, error) {
-	var (
-		err      error
-		affected int
-	)
-	if len(mpd.hooks) == 0 {
-		affected, err = mpd.sqlExec(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*MenuParamMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			mpd.mutation = mutation
-			affected, err = mpd.sqlExec(ctx)
-			mutation.done = true
-			return affected, err
-		})
-		for i := len(mpd.hooks) - 1; i >= 0; i-- {
-			if mpd.hooks[i] == nil {
-				return 0, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = mpd.hooks[i](mut)
-		}
-		if _, err := mut.Mutate(ctx, mpd.mutation); err != nil {
-			return 0, err
-		}
-	}
-	return affected, err
+	return withHooks[int, MenuParamMutation](ctx, mpd.sqlExec, mpd.mutation, mpd.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
@@ -88,12 +60,19 @@ func (mpd *MenuParamDelete) sqlExec(ctx context.Context) (int, error) {
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
+	mpd.mutation.done = true
 	return affected, err
 }
 
 // MenuParamDeleteOne is the builder for deleting a single MenuParam entity.
 type MenuParamDeleteOne struct {
 	mpd *MenuParamDelete
+}
+
+// Where appends a list predicates to the MenuParamDelete builder.
+func (mpdo *MenuParamDeleteOne) Where(ps ...predicate.MenuParam) *MenuParamDeleteOne {
+	mpdo.mpd.mutation.Where(ps...)
+	return mpdo
 }
 
 // Exec executes the deletion query.
@@ -111,5 +90,7 @@ func (mpdo *MenuParamDeleteOne) Exec(ctx context.Context) error {
 
 // ExecX is like Exec, but panics if an error occurs.
 func (mpdo *MenuParamDeleteOne) ExecX(ctx context.Context) {
-	mpdo.mpd.ExecX(ctx)
+	if err := mpdo.Exec(ctx); err != nil {
+		panic(err)
+	}
 }

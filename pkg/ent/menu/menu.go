@@ -29,8 +29,8 @@ const (
 	FieldRedirect = "redirect"
 	// FieldComponent holds the string denoting the component field in the database.
 	FieldComponent = "component"
-	// FieldOrderNo holds the string denoting the order_no field in the database.
-	FieldOrderNo = "order_no"
+	// FieldSort holds the string denoting the sort field in the database.
+	FieldSort = "sort"
 	// FieldDisabled holds the string denoting the disabled field in the database.
 	FieldDisabled = "disabled"
 	// FieldTitle holds the string denoting the title field in the database.
@@ -103,7 +103,7 @@ var Columns = []string{
 	FieldName,
 	FieldRedirect,
 	FieldComponent,
-	FieldOrderNo,
+	FieldSort,
 	FieldDisabled,
 	FieldTitle,
 	FieldIcon,
@@ -149,8 +149,8 @@ var (
 	DefaultRedirect string
 	// DefaultComponent holds the default value on creation for the "component" field.
 	DefaultComponent string
-	// DefaultOrderNo holds the default value on creation for the "order_no" field.
-	DefaultOrderNo uint32
+	// DefaultSort holds the default value on creation for the "sort" field.
+	DefaultSort uint32
 	// DefaultDisabled holds the default value on creation for the "disabled" field.
 	DefaultDisabled bool
 	// DefaultHideMenu holds the default value on creation for the "hide_menu" field.

@@ -84,7 +84,7 @@ var (
 		{Name: "name", Type: field.TypeString},
 		{Name: "redirect", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "component", Type: field.TypeString, Nullable: true, Default: ""},
-		{Name: "order_no", Type: field.TypeUint32, Default: 0},
+		{Name: "sort", Type: field.TypeUint32, Default: 0},
 		{Name: "disabled", Type: field.TypeBool, Nullable: true, Default: false},
 		{Name: "title", Type: field.TypeString},
 		{Name: "icon", Type: field.TypeString},
@@ -170,7 +170,7 @@ var (
 		{Name: "value", Type: field.TypeString, Unique: true},
 		{Name: "default_router", Type: field.TypeString, Default: "dashboard"},
 		{Name: "remark", Type: field.TypeString, Default: ""},
-		{Name: "order_no", Type: field.TypeUint32, Default: 0},
+		{Name: "sort", Type: field.TypeUint32, Default: 0},
 	}
 	// SysRolesTable holds the schema information for the "sys_roles" table.
 	SysRolesTable = &schema.Table{

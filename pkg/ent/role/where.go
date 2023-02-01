@@ -12,795 +12,517 @@ import (
 
 // ID filters vertices based on their ID field.
 func ID(id uint64) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldID), id))
-	})
+	return predicate.Role(sql.FieldEQ(FieldID, id))
 }
 
 // IDEQ applies the EQ predicate on the ID field.
 func IDEQ(id uint64) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldID), id))
-	})
+	return predicate.Role(sql.FieldEQ(FieldID, id))
 }
 
 // IDNEQ applies the NEQ predicate on the ID field.
 func IDNEQ(id uint64) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldID), id))
-	})
+	return predicate.Role(sql.FieldNEQ(FieldID, id))
 }
 
 // IDIn applies the In predicate on the ID field.
 func IDIn(ids ...uint64) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		v := make([]any, len(ids))
-		for i := range v {
-			v[i] = ids[i]
-		}
-		s.Where(sql.In(s.C(FieldID), v...))
-	})
+	return predicate.Role(sql.FieldIn(FieldID, ids...))
 }
 
 // IDNotIn applies the NotIn predicate on the ID field.
 func IDNotIn(ids ...uint64) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		v := make([]any, len(ids))
-		for i := range v {
-			v[i] = ids[i]
-		}
-		s.Where(sql.NotIn(s.C(FieldID), v...))
-	})
+	return predicate.Role(sql.FieldNotIn(FieldID, ids...))
 }
 
 // IDGT applies the GT predicate on the ID field.
 func IDGT(id uint64) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldID), id))
-	})
+	return predicate.Role(sql.FieldGT(FieldID, id))
 }
 
 // IDGTE applies the GTE predicate on the ID field.
 func IDGTE(id uint64) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldID), id))
-	})
+	return predicate.Role(sql.FieldGTE(FieldID, id))
 }
 
 // IDLT applies the LT predicate on the ID field.
 func IDLT(id uint64) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldID), id))
-	})
+	return predicate.Role(sql.FieldLT(FieldID, id))
 }
 
 // IDLTE applies the LTE predicate on the ID field.
 func IDLTE(id uint64) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldID), id))
-	})
+	return predicate.Role(sql.FieldLTE(FieldID, id))
 }
 
 // CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
 func CreatedAt(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCreatedAt), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldCreatedAt, v))
 }
 
 // UpdatedAt applies equality check predicate on the "updated_at" field. It's identical to UpdatedAtEQ.
 func UpdatedAt(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldUpdatedAt), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldUpdatedAt, v))
 }
 
 // Status applies equality check predicate on the "status" field. It's identical to StatusEQ.
 func Status(v uint8) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldStatus), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldStatus, v))
 }
 
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.
 func Name(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldName), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldName, v))
 }
 
 // Value applies equality check predicate on the "value" field. It's identical to ValueEQ.
 func Value(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldValue), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldValue, v))
 }
 
 // DefaultRouter applies equality check predicate on the "default_router" field. It's identical to DefaultRouterEQ.
 func DefaultRouter(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldDefaultRouter), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldDefaultRouter, v))
 }
 
 // Remark applies equality check predicate on the "remark" field. It's identical to RemarkEQ.
 func Remark(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldRemark), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldRemark, v))
 }
 
-// OrderNo applies equality check predicate on the "order_no" field. It's identical to OrderNoEQ.
-func OrderNo(v uint32) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldOrderNo), v))
-	})
+// Sort applies equality check predicate on the "sort" field. It's identical to SortEQ.
+func Sort(v uint32) predicate.Role {
+	return predicate.Role(sql.FieldEQ(FieldSort, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCreatedAt), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldCreatedAt, v))
 }
 
 // CreatedAtNEQ applies the NEQ predicate on the "created_at" field.
 func CreatedAtNEQ(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldCreatedAt), v))
-	})
+	return predicate.Role(sql.FieldNEQ(FieldCreatedAt, v))
 }
 
 // CreatedAtIn applies the In predicate on the "created_at" field.
 func CreatedAtIn(vs ...time.Time) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldCreatedAt), v...))
-	})
+	return predicate.Role(sql.FieldIn(FieldCreatedAt, vs...))
 }
 
 // CreatedAtNotIn applies the NotIn predicate on the "created_at" field.
 func CreatedAtNotIn(vs ...time.Time) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldCreatedAt), v...))
-	})
+	return predicate.Role(sql.FieldNotIn(FieldCreatedAt, vs...))
 }
 
 // CreatedAtGT applies the GT predicate on the "created_at" field.
 func CreatedAtGT(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldCreatedAt), v))
-	})
+	return predicate.Role(sql.FieldGT(FieldCreatedAt, v))
 }
 
 // CreatedAtGTE applies the GTE predicate on the "created_at" field.
 func CreatedAtGTE(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldCreatedAt), v))
-	})
+	return predicate.Role(sql.FieldGTE(FieldCreatedAt, v))
 }
 
 // CreatedAtLT applies the LT predicate on the "created_at" field.
 func CreatedAtLT(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldCreatedAt), v))
-	})
+	return predicate.Role(sql.FieldLT(FieldCreatedAt, v))
 }
 
 // CreatedAtLTE applies the LTE predicate on the "created_at" field.
 func CreatedAtLTE(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldCreatedAt), v))
-	})
+	return predicate.Role(sql.FieldLTE(FieldCreatedAt, v))
 }
 
 // UpdatedAtEQ applies the EQ predicate on the "updated_at" field.
 func UpdatedAtEQ(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldUpdatedAt), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldUpdatedAt, v))
 }
 
 // UpdatedAtNEQ applies the NEQ predicate on the "updated_at" field.
 func UpdatedAtNEQ(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldUpdatedAt), v))
-	})
+	return predicate.Role(sql.FieldNEQ(FieldUpdatedAt, v))
 }
 
 // UpdatedAtIn applies the In predicate on the "updated_at" field.
 func UpdatedAtIn(vs ...time.Time) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldUpdatedAt), v...))
-	})
+	return predicate.Role(sql.FieldIn(FieldUpdatedAt, vs...))
 }
 
 // UpdatedAtNotIn applies the NotIn predicate on the "updated_at" field.
 func UpdatedAtNotIn(vs ...time.Time) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldUpdatedAt), v...))
-	})
+	return predicate.Role(sql.FieldNotIn(FieldUpdatedAt, vs...))
 }
 
 // UpdatedAtGT applies the GT predicate on the "updated_at" field.
 func UpdatedAtGT(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldUpdatedAt), v))
-	})
+	return predicate.Role(sql.FieldGT(FieldUpdatedAt, v))
 }
 
 // UpdatedAtGTE applies the GTE predicate on the "updated_at" field.
 func UpdatedAtGTE(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldUpdatedAt), v))
-	})
+	return predicate.Role(sql.FieldGTE(FieldUpdatedAt, v))
 }
 
 // UpdatedAtLT applies the LT predicate on the "updated_at" field.
 func UpdatedAtLT(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldUpdatedAt), v))
-	})
+	return predicate.Role(sql.FieldLT(FieldUpdatedAt, v))
 }
 
 // UpdatedAtLTE applies the LTE predicate on the "updated_at" field.
 func UpdatedAtLTE(v time.Time) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldUpdatedAt), v))
-	})
+	return predicate.Role(sql.FieldLTE(FieldUpdatedAt, v))
 }
 
 // StatusEQ applies the EQ predicate on the "status" field.
 func StatusEQ(v uint8) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldStatus), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldStatus, v))
 }
 
 // StatusNEQ applies the NEQ predicate on the "status" field.
 func StatusNEQ(v uint8) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldStatus), v))
-	})
+	return predicate.Role(sql.FieldNEQ(FieldStatus, v))
 }
 
 // StatusIn applies the In predicate on the "status" field.
 func StatusIn(vs ...uint8) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldStatus), v...))
-	})
+	return predicate.Role(sql.FieldIn(FieldStatus, vs...))
 }
 
 // StatusNotIn applies the NotIn predicate on the "status" field.
 func StatusNotIn(vs ...uint8) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldStatus), v...))
-	})
+	return predicate.Role(sql.FieldNotIn(FieldStatus, vs...))
 }
 
 // StatusGT applies the GT predicate on the "status" field.
 func StatusGT(v uint8) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldStatus), v))
-	})
+	return predicate.Role(sql.FieldGT(FieldStatus, v))
 }
 
 // StatusGTE applies the GTE predicate on the "status" field.
 func StatusGTE(v uint8) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldStatus), v))
-	})
+	return predicate.Role(sql.FieldGTE(FieldStatus, v))
 }
 
 // StatusLT applies the LT predicate on the "status" field.
 func StatusLT(v uint8) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldStatus), v))
-	})
+	return predicate.Role(sql.FieldLT(FieldStatus, v))
 }
 
 // StatusLTE applies the LTE predicate on the "status" field.
 func StatusLTE(v uint8) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldStatus), v))
-	})
+	return predicate.Role(sql.FieldLTE(FieldStatus, v))
 }
 
 // StatusIsNil applies the IsNil predicate on the "status" field.
 func StatusIsNil() predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.IsNull(s.C(FieldStatus)))
-	})
+	return predicate.Role(sql.FieldIsNull(FieldStatus))
 }
 
 // StatusNotNil applies the NotNil predicate on the "status" field.
 func StatusNotNil() predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NotNull(s.C(FieldStatus)))
-	})
+	return predicate.Role(sql.FieldNotNull(FieldStatus))
 }
 
 // NameEQ applies the EQ predicate on the "name" field.
 func NameEQ(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldName), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldName, v))
 }
 
 // NameNEQ applies the NEQ predicate on the "name" field.
 func NameNEQ(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldName), v))
-	})
+	return predicate.Role(sql.FieldNEQ(FieldName, v))
 }
 
 // NameIn applies the In predicate on the "name" field.
 func NameIn(vs ...string) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldName), v...))
-	})
+	return predicate.Role(sql.FieldIn(FieldName, vs...))
 }
 
 // NameNotIn applies the NotIn predicate on the "name" field.
 func NameNotIn(vs ...string) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldName), v...))
-	})
+	return predicate.Role(sql.FieldNotIn(FieldName, vs...))
 }
 
 // NameGT applies the GT predicate on the "name" field.
 func NameGT(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldName), v))
-	})
+	return predicate.Role(sql.FieldGT(FieldName, v))
 }
 
 // NameGTE applies the GTE predicate on the "name" field.
 func NameGTE(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldName), v))
-	})
+	return predicate.Role(sql.FieldGTE(FieldName, v))
 }
 
 // NameLT applies the LT predicate on the "name" field.
 func NameLT(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldName), v))
-	})
+	return predicate.Role(sql.FieldLT(FieldName, v))
 }
 
 // NameLTE applies the LTE predicate on the "name" field.
 func NameLTE(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldName), v))
-	})
+	return predicate.Role(sql.FieldLTE(FieldName, v))
 }
 
 // NameContains applies the Contains predicate on the "name" field.
 func NameContains(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldName), v))
-	})
+	return predicate.Role(sql.FieldContains(FieldName, v))
 }
 
 // NameHasPrefix applies the HasPrefix predicate on the "name" field.
 func NameHasPrefix(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldName), v))
-	})
+	return predicate.Role(sql.FieldHasPrefix(FieldName, v))
 }
 
 // NameHasSuffix applies the HasSuffix predicate on the "name" field.
 func NameHasSuffix(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldName), v))
-	})
+	return predicate.Role(sql.FieldHasSuffix(FieldName, v))
 }
 
 // NameEqualFold applies the EqualFold predicate on the "name" field.
 func NameEqualFold(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldName), v))
-	})
+	return predicate.Role(sql.FieldEqualFold(FieldName, v))
 }
 
 // NameContainsFold applies the ContainsFold predicate on the "name" field.
 func NameContainsFold(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldName), v))
-	})
+	return predicate.Role(sql.FieldContainsFold(FieldName, v))
 }
 
 // ValueEQ applies the EQ predicate on the "value" field.
 func ValueEQ(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldValue), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldValue, v))
 }
 
 // ValueNEQ applies the NEQ predicate on the "value" field.
 func ValueNEQ(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldValue), v))
-	})
+	return predicate.Role(sql.FieldNEQ(FieldValue, v))
 }
 
 // ValueIn applies the In predicate on the "value" field.
 func ValueIn(vs ...string) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldValue), v...))
-	})
+	return predicate.Role(sql.FieldIn(FieldValue, vs...))
 }
 
 // ValueNotIn applies the NotIn predicate on the "value" field.
 func ValueNotIn(vs ...string) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldValue), v...))
-	})
+	return predicate.Role(sql.FieldNotIn(FieldValue, vs...))
 }
 
 // ValueGT applies the GT predicate on the "value" field.
 func ValueGT(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldValue), v))
-	})
+	return predicate.Role(sql.FieldGT(FieldValue, v))
 }
 
 // ValueGTE applies the GTE predicate on the "value" field.
 func ValueGTE(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldValue), v))
-	})
+	return predicate.Role(sql.FieldGTE(FieldValue, v))
 }
 
 // ValueLT applies the LT predicate on the "value" field.
 func ValueLT(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldValue), v))
-	})
+	return predicate.Role(sql.FieldLT(FieldValue, v))
 }
 
 // ValueLTE applies the LTE predicate on the "value" field.
 func ValueLTE(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldValue), v))
-	})
+	return predicate.Role(sql.FieldLTE(FieldValue, v))
 }
 
 // ValueContains applies the Contains predicate on the "value" field.
 func ValueContains(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldValue), v))
-	})
+	return predicate.Role(sql.FieldContains(FieldValue, v))
 }
 
 // ValueHasPrefix applies the HasPrefix predicate on the "value" field.
 func ValueHasPrefix(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldValue), v))
-	})
+	return predicate.Role(sql.FieldHasPrefix(FieldValue, v))
 }
 
 // ValueHasSuffix applies the HasSuffix predicate on the "value" field.
 func ValueHasSuffix(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldValue), v))
-	})
+	return predicate.Role(sql.FieldHasSuffix(FieldValue, v))
 }
 
 // ValueEqualFold applies the EqualFold predicate on the "value" field.
 func ValueEqualFold(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldValue), v))
-	})
+	return predicate.Role(sql.FieldEqualFold(FieldValue, v))
 }
 
 // ValueContainsFold applies the ContainsFold predicate on the "value" field.
 func ValueContainsFold(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldValue), v))
-	})
+	return predicate.Role(sql.FieldContainsFold(FieldValue, v))
 }
 
 // DefaultRouterEQ applies the EQ predicate on the "default_router" field.
 func DefaultRouterEQ(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldDefaultRouter), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldDefaultRouter, v))
 }
 
 // DefaultRouterNEQ applies the NEQ predicate on the "default_router" field.
 func DefaultRouterNEQ(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldDefaultRouter), v))
-	})
+	return predicate.Role(sql.FieldNEQ(FieldDefaultRouter, v))
 }
 
 // DefaultRouterIn applies the In predicate on the "default_router" field.
 func DefaultRouterIn(vs ...string) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldDefaultRouter), v...))
-	})
+	return predicate.Role(sql.FieldIn(FieldDefaultRouter, vs...))
 }
 
 // DefaultRouterNotIn applies the NotIn predicate on the "default_router" field.
 func DefaultRouterNotIn(vs ...string) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldDefaultRouter), v...))
-	})
+	return predicate.Role(sql.FieldNotIn(FieldDefaultRouter, vs...))
 }
 
 // DefaultRouterGT applies the GT predicate on the "default_router" field.
 func DefaultRouterGT(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldDefaultRouter), v))
-	})
+	return predicate.Role(sql.FieldGT(FieldDefaultRouter, v))
 }
 
 // DefaultRouterGTE applies the GTE predicate on the "default_router" field.
 func DefaultRouterGTE(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldDefaultRouter), v))
-	})
+	return predicate.Role(sql.FieldGTE(FieldDefaultRouter, v))
 }
 
 // DefaultRouterLT applies the LT predicate on the "default_router" field.
 func DefaultRouterLT(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldDefaultRouter), v))
-	})
+	return predicate.Role(sql.FieldLT(FieldDefaultRouter, v))
 }
 
 // DefaultRouterLTE applies the LTE predicate on the "default_router" field.
 func DefaultRouterLTE(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldDefaultRouter), v))
-	})
+	return predicate.Role(sql.FieldLTE(FieldDefaultRouter, v))
 }
 
 // DefaultRouterContains applies the Contains predicate on the "default_router" field.
 func DefaultRouterContains(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldDefaultRouter), v))
-	})
+	return predicate.Role(sql.FieldContains(FieldDefaultRouter, v))
 }
 
 // DefaultRouterHasPrefix applies the HasPrefix predicate on the "default_router" field.
 func DefaultRouterHasPrefix(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldDefaultRouter), v))
-	})
+	return predicate.Role(sql.FieldHasPrefix(FieldDefaultRouter, v))
 }
 
 // DefaultRouterHasSuffix applies the HasSuffix predicate on the "default_router" field.
 func DefaultRouterHasSuffix(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldDefaultRouter), v))
-	})
+	return predicate.Role(sql.FieldHasSuffix(FieldDefaultRouter, v))
 }
 
 // DefaultRouterEqualFold applies the EqualFold predicate on the "default_router" field.
 func DefaultRouterEqualFold(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldDefaultRouter), v))
-	})
+	return predicate.Role(sql.FieldEqualFold(FieldDefaultRouter, v))
 }
 
 // DefaultRouterContainsFold applies the ContainsFold predicate on the "default_router" field.
 func DefaultRouterContainsFold(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldDefaultRouter), v))
-	})
+	return predicate.Role(sql.FieldContainsFold(FieldDefaultRouter, v))
 }
 
 // RemarkEQ applies the EQ predicate on the "remark" field.
 func RemarkEQ(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldRemark), v))
-	})
+	return predicate.Role(sql.FieldEQ(FieldRemark, v))
 }
 
 // RemarkNEQ applies the NEQ predicate on the "remark" field.
 func RemarkNEQ(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldRemark), v))
-	})
+	return predicate.Role(sql.FieldNEQ(FieldRemark, v))
 }
 
 // RemarkIn applies the In predicate on the "remark" field.
 func RemarkIn(vs ...string) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldRemark), v...))
-	})
+	return predicate.Role(sql.FieldIn(FieldRemark, vs...))
 }
 
 // RemarkNotIn applies the NotIn predicate on the "remark" field.
 func RemarkNotIn(vs ...string) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldRemark), v...))
-	})
+	return predicate.Role(sql.FieldNotIn(FieldRemark, vs...))
 }
 
 // RemarkGT applies the GT predicate on the "remark" field.
 func RemarkGT(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldRemark), v))
-	})
+	return predicate.Role(sql.FieldGT(FieldRemark, v))
 }
 
 // RemarkGTE applies the GTE predicate on the "remark" field.
 func RemarkGTE(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldRemark), v))
-	})
+	return predicate.Role(sql.FieldGTE(FieldRemark, v))
 }
 
 // RemarkLT applies the LT predicate on the "remark" field.
 func RemarkLT(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldRemark), v))
-	})
+	return predicate.Role(sql.FieldLT(FieldRemark, v))
 }
 
 // RemarkLTE applies the LTE predicate on the "remark" field.
 func RemarkLTE(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldRemark), v))
-	})
+	return predicate.Role(sql.FieldLTE(FieldRemark, v))
 }
 
 // RemarkContains applies the Contains predicate on the "remark" field.
 func RemarkContains(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldRemark), v))
-	})
+	return predicate.Role(sql.FieldContains(FieldRemark, v))
 }
 
 // RemarkHasPrefix applies the HasPrefix predicate on the "remark" field.
 func RemarkHasPrefix(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldRemark), v))
-	})
+	return predicate.Role(sql.FieldHasPrefix(FieldRemark, v))
 }
 
 // RemarkHasSuffix applies the HasSuffix predicate on the "remark" field.
 func RemarkHasSuffix(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldRemark), v))
-	})
+	return predicate.Role(sql.FieldHasSuffix(FieldRemark, v))
 }
 
 // RemarkEqualFold applies the EqualFold predicate on the "remark" field.
 func RemarkEqualFold(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldRemark), v))
-	})
+	return predicate.Role(sql.FieldEqualFold(FieldRemark, v))
 }
 
 // RemarkContainsFold applies the ContainsFold predicate on the "remark" field.
 func RemarkContainsFold(v string) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldRemark), v))
-	})
+	return predicate.Role(sql.FieldContainsFold(FieldRemark, v))
 }
 
-// OrderNoEQ applies the EQ predicate on the "order_no" field.
-func OrderNoEQ(v uint32) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldOrderNo), v))
-	})
+// SortEQ applies the EQ predicate on the "sort" field.
+func SortEQ(v uint32) predicate.Role {
+	return predicate.Role(sql.FieldEQ(FieldSort, v))
 }
 
-// OrderNoNEQ applies the NEQ predicate on the "order_no" field.
-func OrderNoNEQ(v uint32) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldOrderNo), v))
-	})
+// SortNEQ applies the NEQ predicate on the "sort" field.
+func SortNEQ(v uint32) predicate.Role {
+	return predicate.Role(sql.FieldNEQ(FieldSort, v))
 }
 
-// OrderNoIn applies the In predicate on the "order_no" field.
-func OrderNoIn(vs ...uint32) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldOrderNo), v...))
-	})
+// SortIn applies the In predicate on the "sort" field.
+func SortIn(vs ...uint32) predicate.Role {
+	return predicate.Role(sql.FieldIn(FieldSort, vs...))
 }
 
-// OrderNoNotIn applies the NotIn predicate on the "order_no" field.
-func OrderNoNotIn(vs ...uint32) predicate.Role {
-	v := make([]any, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldOrderNo), v...))
-	})
+// SortNotIn applies the NotIn predicate on the "sort" field.
+func SortNotIn(vs ...uint32) predicate.Role {
+	return predicate.Role(sql.FieldNotIn(FieldSort, vs...))
 }
 
-// OrderNoGT applies the GT predicate on the "order_no" field.
-func OrderNoGT(v uint32) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldOrderNo), v))
-	})
+// SortGT applies the GT predicate on the "sort" field.
+func SortGT(v uint32) predicate.Role {
+	return predicate.Role(sql.FieldGT(FieldSort, v))
 }
 
-// OrderNoGTE applies the GTE predicate on the "order_no" field.
-func OrderNoGTE(v uint32) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldOrderNo), v))
-	})
+// SortGTE applies the GTE predicate on the "sort" field.
+func SortGTE(v uint32) predicate.Role {
+	return predicate.Role(sql.FieldGTE(FieldSort, v))
 }
 
-// OrderNoLT applies the LT predicate on the "order_no" field.
-func OrderNoLT(v uint32) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldOrderNo), v))
-	})
+// SortLT applies the LT predicate on the "sort" field.
+func SortLT(v uint32) predicate.Role {
+	return predicate.Role(sql.FieldLT(FieldSort, v))
 }
 
-// OrderNoLTE applies the LTE predicate on the "order_no" field.
-func OrderNoLTE(v uint32) predicate.Role {
-	return predicate.Role(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldOrderNo), v))
-	})
+// SortLTE applies the LTE predicate on the "sort" field.
+func SortLTE(v uint32) predicate.Role {
+	return predicate.Role(sql.FieldLTE(FieldSort, v))
 }
 
 // HasMenus applies the HasEdge predicate on the "menus" edge.
@@ -808,7 +530,6 @@ func HasMenus() predicate.Role {
 	return predicate.Role(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(MenusTable, FieldID),
 			sqlgraph.Edge(sqlgraph.M2M, false, MenusTable, MenusPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)

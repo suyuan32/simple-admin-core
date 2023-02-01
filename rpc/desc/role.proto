@@ -8,7 +8,7 @@ message RoleInfo {
   string default_router = 4;
   uint64 status = 5;
   string remark = 6;
-  uint32 order_no = 7;
+  uint32 sort = 7;
   int64 createdAt = 8;
 }
 

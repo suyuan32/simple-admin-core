@@ -53,7 +53,7 @@ type Client struct {
 
 // NewClient creates a new client configured with the given options.
 func NewClient(opts ...Option) *Client {
-	cfg := config{log: log.Println, hooks: &hooks{}}
+	cfg := config{log: log.Println, hooks: &hooks{}, inters: &inters{}}
 	cfg.options(opts...)
 	client := &Client{config: cfg}
 	client.init()
@@ -180,6 +180,46 @@ func (c *Client) Use(hooks ...Hook) {
 	c.User.Use(hooks...)
 }
 
+// Intercept adds the query interceptors to all the entity clients.
+// In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
+func (c *Client) Intercept(interceptors ...Interceptor) {
+	c.API.Intercept(interceptors...)
+	c.Dictionary.Intercept(interceptors...)
+	c.DictionaryDetail.Intercept(interceptors...)
+	c.Menu.Intercept(interceptors...)
+	c.MenuParam.Intercept(interceptors...)
+	c.OauthProvider.Intercept(interceptors...)
+	c.Role.Intercept(interceptors...)
+	c.Token.Intercept(interceptors...)
+	c.User.Intercept(interceptors...)
+}
+
+// Mutate implements the ent.Mutator interface.
+func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
+	switch m := m.(type) {
+	case *APIMutation:
+		return c.API.mutate(ctx, m)
+	case *DictionaryMutation:
+		return c.Dictionary.mutate(ctx, m)
+	case *DictionaryDetailMutation:
+		return c.DictionaryDetail.mutate(ctx, m)
+	case *MenuMutation:
+		return c.Menu.mutate(ctx, m)
+	case *MenuParamMutation:
+		return c.MenuParam.mutate(ctx, m)
+	case *OauthProviderMutation:
+		return c.OauthProvider.mutate(ctx, m)
+	case *RoleMutation:
+		return c.Role.mutate(ctx, m)
+	case *TokenMutation:
+		return c.Token.mutate(ctx, m)
+	case *UserMutation:
+		return c.User.mutate(ctx, m)
+	default:
+		return nil, fmt.Errorf("ent: unknown mutation type %T", m)
+	}
+}
+
 // APIClient is a client for the API schema.
 type APIClient struct {
 	config
@@ -194,6 +234,12 @@ func NewAPIClient(c config) *APIClient {
 // A call to `Use(f, g, h)` equals to `api.Hooks(f(g(h())))`.
 func (c *APIClient) Use(hooks ...Hook) {
 	c.hooks.API = append(c.hooks.API, hooks...)
+}
+
+// Use adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `api.Intercept(f(g(h())))`.
+func (c *APIClient) Intercept(interceptors ...Interceptor) {
+	c.inters.API = append(c.inters.API, interceptors...)
 }
 
 // Create returns a builder for creating a API entity.
@@ -248,6 +294,8 @@ func (c *APIClient) DeleteOneID(id uint64) *APIDeleteOne {
 func (c *APIClient) Query() *APIQuery {
 	return &APIQuery{
 		config: c.config,
+		ctx:    &QueryContext{Type: TypeAPI},
+		inters: c.Interceptors(),
 	}
 }
 
@@ -270,6 +318,26 @@ func (c *APIClient) Hooks() []Hook {
 	return c.hooks.API
 }
 
+// Interceptors returns the client interceptors.
+func (c *APIClient) Interceptors() []Interceptor {
+	return c.inters.API
+}
+
+func (c *APIClient) mutate(ctx context.Context, m *APIMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&APICreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&APIUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&APIUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&APIDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown API mutation op: %q", m.Op())
+	}
+}
+
 // DictionaryClient is a client for the Dictionary schema.
 type DictionaryClient struct {
 	config
@@ -284,6 +352,12 @@ func NewDictionaryClient(c config) *DictionaryClient {
 // A call to `Use(f, g, h)` equals to `dictionary.Hooks(f(g(h())))`.
 func (c *DictionaryClient) Use(hooks ...Hook) {
 	c.hooks.Dictionary = append(c.hooks.Dictionary, hooks...)
+}
+
+// Use adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `dictionary.Intercept(f(g(h())))`.
+func (c *DictionaryClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Dictionary = append(c.inters.Dictionary, interceptors...)
 }
 
 // Create returns a builder for creating a Dictionary entity.
@@ -338,6 +412,8 @@ func (c *DictionaryClient) DeleteOneID(id uint64) *DictionaryDeleteOne {
 func (c *DictionaryClient) Query() *DictionaryQuery {
 	return &DictionaryQuery{
 		config: c.config,
+		ctx:    &QueryContext{Type: TypeDictionary},
+		inters: c.Interceptors(),
 	}
 }
 
@@ -357,7 +433,7 @@ func (c *DictionaryClient) GetX(ctx context.Context, id uint64) *Dictionary {
 
 // QueryDictionaryDetails queries the dictionary_details edge of a Dictionary.
 func (c *DictionaryClient) QueryDictionaryDetails(d *Dictionary) *DictionaryDetailQuery {
-	query := &DictionaryDetailQuery{config: c.config}
+	query := (&DictionaryDetailClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := d.ID
 		step := sqlgraph.NewStep(
@@ -376,6 +452,26 @@ func (c *DictionaryClient) Hooks() []Hook {
 	return c.hooks.Dictionary
 }
 
+// Interceptors returns the client interceptors.
+func (c *DictionaryClient) Interceptors() []Interceptor {
+	return c.inters.Dictionary
+}
+
+func (c *DictionaryClient) mutate(ctx context.Context, m *DictionaryMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&DictionaryCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&DictionaryUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&DictionaryUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&DictionaryDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Dictionary mutation op: %q", m.Op())
+	}
+}
+
 // DictionaryDetailClient is a client for the DictionaryDetail schema.
 type DictionaryDetailClient struct {
 	config
@@ -390,6 +486,12 @@ func NewDictionaryDetailClient(c config) *DictionaryDetailClient {
 // A call to `Use(f, g, h)` equals to `dictionarydetail.Hooks(f(g(h())))`.
 func (c *DictionaryDetailClient) Use(hooks ...Hook) {
 	c.hooks.DictionaryDetail = append(c.hooks.DictionaryDetail, hooks...)
+}
+
+// Use adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `dictionarydetail.Intercept(f(g(h())))`.
+func (c *DictionaryDetailClient) Intercept(interceptors ...Interceptor) {
+	c.inters.DictionaryDetail = append(c.inters.DictionaryDetail, interceptors...)
 }
 
 // Create returns a builder for creating a DictionaryDetail entity.
@@ -444,6 +546,8 @@ func (c *DictionaryDetailClient) DeleteOneID(id uint64) *DictionaryDetailDeleteO
 func (c *DictionaryDetailClient) Query() *DictionaryDetailQuery {
 	return &DictionaryDetailQuery{
 		config: c.config,
+		ctx:    &QueryContext{Type: TypeDictionaryDetail},
+		inters: c.Interceptors(),
 	}
 }
 
@@ -463,7 +567,7 @@ func (c *DictionaryDetailClient) GetX(ctx context.Context, id uint64) *Dictionar
 
 // QueryDictionary queries the dictionary edge of a DictionaryDetail.
 func (c *DictionaryDetailClient) QueryDictionary(dd *DictionaryDetail) *DictionaryQuery {
-	query := &DictionaryQuery{config: c.config}
+	query := (&DictionaryClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := dd.ID
 		step := sqlgraph.NewStep(
@@ -482,6 +586,26 @@ func (c *DictionaryDetailClient) Hooks() []Hook {
 	return c.hooks.DictionaryDetail
 }
 
+// Interceptors returns the client interceptors.
+func (c *DictionaryDetailClient) Interceptors() []Interceptor {
+	return c.inters.DictionaryDetail
+}
+
+func (c *DictionaryDetailClient) mutate(ctx context.Context, m *DictionaryDetailMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&DictionaryDetailCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&DictionaryDetailUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&DictionaryDetailUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&DictionaryDetailDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown DictionaryDetail mutation op: %q", m.Op())
+	}
+}
+
 // MenuClient is a client for the Menu schema.
 type MenuClient struct {
 	config
@@ -496,6 +620,12 @@ func NewMenuClient(c config) *MenuClient {
 // A call to `Use(f, g, h)` equals to `menu.Hooks(f(g(h())))`.
 func (c *MenuClient) Use(hooks ...Hook) {
 	c.hooks.Menu = append(c.hooks.Menu, hooks...)
+}
+
+// Use adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `menu.Intercept(f(g(h())))`.
+func (c *MenuClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Menu = append(c.inters.Menu, interceptors...)
 }
 
 // Create returns a builder for creating a Menu entity.
@@ -550,6 +680,8 @@ func (c *MenuClient) DeleteOneID(id uint64) *MenuDeleteOne {
 func (c *MenuClient) Query() *MenuQuery {
 	return &MenuQuery{
 		config: c.config,
+		ctx:    &QueryContext{Type: TypeMenu},
+		inters: c.Interceptors(),
 	}
 }
 
@@ -569,7 +701,7 @@ func (c *MenuClient) GetX(ctx context.Context, id uint64) *Menu {
 
 // QueryRoles queries the roles edge of a Menu.
 func (c *MenuClient) QueryRoles(m *Menu) *RoleQuery {
-	query := &RoleQuery{config: c.config}
+	query := (&RoleClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := m.ID
 		step := sqlgraph.NewStep(
@@ -585,7 +717,7 @@ func (c *MenuClient) QueryRoles(m *Menu) *RoleQuery {
 
 // QueryParent queries the parent edge of a Menu.
 func (c *MenuClient) QueryParent(m *Menu) *MenuQuery {
-	query := &MenuQuery{config: c.config}
+	query := (&MenuClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := m.ID
 		step := sqlgraph.NewStep(
@@ -601,7 +733,7 @@ func (c *MenuClient) QueryParent(m *Menu) *MenuQuery {
 
 // QueryChildren queries the children edge of a Menu.
 func (c *MenuClient) QueryChildren(m *Menu) *MenuQuery {
-	query := &MenuQuery{config: c.config}
+	query := (&MenuClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := m.ID
 		step := sqlgraph.NewStep(
@@ -617,7 +749,7 @@ func (c *MenuClient) QueryChildren(m *Menu) *MenuQuery {
 
 // QueryParams queries the params edge of a Menu.
 func (c *MenuClient) QueryParams(m *Menu) *MenuParamQuery {
-	query := &MenuParamQuery{config: c.config}
+	query := (&MenuParamClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := m.ID
 		step := sqlgraph.NewStep(
@@ -636,6 +768,26 @@ func (c *MenuClient) Hooks() []Hook {
 	return c.hooks.Menu
 }
 
+// Interceptors returns the client interceptors.
+func (c *MenuClient) Interceptors() []Interceptor {
+	return c.inters.Menu
+}
+
+func (c *MenuClient) mutate(ctx context.Context, m *MenuMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&MenuCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&MenuUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&MenuUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&MenuDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Menu mutation op: %q", m.Op())
+	}
+}
+
 // MenuParamClient is a client for the MenuParam schema.
 type MenuParamClient struct {
 	config
@@ -650,6 +802,12 @@ func NewMenuParamClient(c config) *MenuParamClient {
 // A call to `Use(f, g, h)` equals to `menuparam.Hooks(f(g(h())))`.
 func (c *MenuParamClient) Use(hooks ...Hook) {
 	c.hooks.MenuParam = append(c.hooks.MenuParam, hooks...)
+}
+
+// Use adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `menuparam.Intercept(f(g(h())))`.
+func (c *MenuParamClient) Intercept(interceptors ...Interceptor) {
+	c.inters.MenuParam = append(c.inters.MenuParam, interceptors...)
 }
 
 // Create returns a builder for creating a MenuParam entity.
@@ -704,6 +862,8 @@ func (c *MenuParamClient) DeleteOneID(id uint64) *MenuParamDeleteOne {
 func (c *MenuParamClient) Query() *MenuParamQuery {
 	return &MenuParamQuery{
 		config: c.config,
+		ctx:    &QueryContext{Type: TypeMenuParam},
+		inters: c.Interceptors(),
 	}
 }
 
@@ -723,7 +883,7 @@ func (c *MenuParamClient) GetX(ctx context.Context, id uint64) *MenuParam {
 
 // QueryMenus queries the menus edge of a MenuParam.
 func (c *MenuParamClient) QueryMenus(mp *MenuParam) *MenuQuery {
-	query := &MenuQuery{config: c.config}
+	query := (&MenuClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := mp.ID
 		step := sqlgraph.NewStep(
@@ -742,6 +902,26 @@ func (c *MenuParamClient) Hooks() []Hook {
 	return c.hooks.MenuParam
 }
 
+// Interceptors returns the client interceptors.
+func (c *MenuParamClient) Interceptors() []Interceptor {
+	return c.inters.MenuParam
+}
+
+func (c *MenuParamClient) mutate(ctx context.Context, m *MenuParamMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&MenuParamCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&MenuParamUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&MenuParamUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&MenuParamDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown MenuParam mutation op: %q", m.Op())
+	}
+}
+
 // OauthProviderClient is a client for the OauthProvider schema.
 type OauthProviderClient struct {
 	config
@@ -756,6 +936,12 @@ func NewOauthProviderClient(c config) *OauthProviderClient {
 // A call to `Use(f, g, h)` equals to `oauthprovider.Hooks(f(g(h())))`.
 func (c *OauthProviderClient) Use(hooks ...Hook) {
 	c.hooks.OauthProvider = append(c.hooks.OauthProvider, hooks...)
+}
+
+// Use adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `oauthprovider.Intercept(f(g(h())))`.
+func (c *OauthProviderClient) Intercept(interceptors ...Interceptor) {
+	c.inters.OauthProvider = append(c.inters.OauthProvider, interceptors...)
 }
 
 // Create returns a builder for creating a OauthProvider entity.
@@ -810,6 +996,8 @@ func (c *OauthProviderClient) DeleteOneID(id uint64) *OauthProviderDeleteOne {
 func (c *OauthProviderClient) Query() *OauthProviderQuery {
 	return &OauthProviderQuery{
 		config: c.config,
+		ctx:    &QueryContext{Type: TypeOauthProvider},
+		inters: c.Interceptors(),
 	}
 }
 
@@ -832,6 +1020,26 @@ func (c *OauthProviderClient) Hooks() []Hook {
 	return c.hooks.OauthProvider
 }
 
+// Interceptors returns the client interceptors.
+func (c *OauthProviderClient) Interceptors() []Interceptor {
+	return c.inters.OauthProvider
+}
+
+func (c *OauthProviderClient) mutate(ctx context.Context, m *OauthProviderMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&OauthProviderCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&OauthProviderUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&OauthProviderUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&OauthProviderDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown OauthProvider mutation op: %q", m.Op())
+	}
+}
+
 // RoleClient is a client for the Role schema.
 type RoleClient struct {
 	config
@@ -846,6 +1054,12 @@ func NewRoleClient(c config) *RoleClient {
 // A call to `Use(f, g, h)` equals to `role.Hooks(f(g(h())))`.
 func (c *RoleClient) Use(hooks ...Hook) {
 	c.hooks.Role = append(c.hooks.Role, hooks...)
+}
+
+// Use adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `role.Intercept(f(g(h())))`.
+func (c *RoleClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Role = append(c.inters.Role, interceptors...)
 }
 
 // Create returns a builder for creating a Role entity.
@@ -900,6 +1114,8 @@ func (c *RoleClient) DeleteOneID(id uint64) *RoleDeleteOne {
 func (c *RoleClient) Query() *RoleQuery {
 	return &RoleQuery{
 		config: c.config,
+		ctx:    &QueryContext{Type: TypeRole},
+		inters: c.Interceptors(),
 	}
 }
 
@@ -919,7 +1135,7 @@ func (c *RoleClient) GetX(ctx context.Context, id uint64) *Role {
 
 // QueryMenus queries the menus edge of a Role.
 func (c *RoleClient) QueryMenus(r *Role) *MenuQuery {
-	query := &MenuQuery{config: c.config}
+	query := (&MenuClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := r.ID
 		step := sqlgraph.NewStep(
@@ -938,6 +1154,26 @@ func (c *RoleClient) Hooks() []Hook {
 	return c.hooks.Role
 }
 
+// Interceptors returns the client interceptors.
+func (c *RoleClient) Interceptors() []Interceptor {
+	return c.inters.Role
+}
+
+func (c *RoleClient) mutate(ctx context.Context, m *RoleMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&RoleCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&RoleUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&RoleUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&RoleDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Role mutation op: %q", m.Op())
+	}
+}
+
 // TokenClient is a client for the Token schema.
 type TokenClient struct {
 	config
@@ -952,6 +1188,12 @@ func NewTokenClient(c config) *TokenClient {
 // A call to `Use(f, g, h)` equals to `token.Hooks(f(g(h())))`.
 func (c *TokenClient) Use(hooks ...Hook) {
 	c.hooks.Token = append(c.hooks.Token, hooks...)
+}
+
+// Use adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `token.Intercept(f(g(h())))`.
+func (c *TokenClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Token = append(c.inters.Token, interceptors...)
 }
 
 // Create returns a builder for creating a Token entity.
@@ -1006,6 +1248,8 @@ func (c *TokenClient) DeleteOneID(id uuid.UUID) *TokenDeleteOne {
 func (c *TokenClient) Query() *TokenQuery {
 	return &TokenQuery{
 		config: c.config,
+		ctx:    &QueryContext{Type: TypeToken},
+		inters: c.Interceptors(),
 	}
 }
 
@@ -1028,6 +1272,26 @@ func (c *TokenClient) Hooks() []Hook {
 	return c.hooks.Token
 }
 
+// Interceptors returns the client interceptors.
+func (c *TokenClient) Interceptors() []Interceptor {
+	return c.inters.Token
+}
+
+func (c *TokenClient) mutate(ctx context.Context, m *TokenMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&TokenCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&TokenUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&TokenUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&TokenDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Token mutation op: %q", m.Op())
+	}
+}
+
 // UserClient is a client for the User schema.
 type UserClient struct {
 	config
@@ -1042,6 +1306,12 @@ func NewUserClient(c config) *UserClient {
 // A call to `Use(f, g, h)` equals to `user.Hooks(f(g(h())))`.
 func (c *UserClient) Use(hooks ...Hook) {
 	c.hooks.User = append(c.hooks.User, hooks...)
+}
+
+// Use adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `user.Intercept(f(g(h())))`.
+func (c *UserClient) Intercept(interceptors ...Interceptor) {
+	c.inters.User = append(c.inters.User, interceptors...)
 }
 
 // Create returns a builder for creating a User entity.
@@ -1096,6 +1366,8 @@ func (c *UserClient) DeleteOneID(id uuid.UUID) *UserDeleteOne {
 func (c *UserClient) Query() *UserQuery {
 	return &UserQuery{
 		config: c.config,
+		ctx:    &QueryContext{Type: TypeUser},
+		inters: c.Interceptors(),
 	}
 }
 
@@ -1116,4 +1388,24 @@ func (c *UserClient) GetX(ctx context.Context, id uuid.UUID) *User {
 // Hooks returns the client hooks.
 func (c *UserClient) Hooks() []Hook {
 	return c.hooks.User
+}
+
+// Interceptors returns the client interceptors.
+func (c *UserClient) Interceptors() []Interceptor {
+	return c.inters.User
+}
+
+func (c *UserClient) mutate(ctx context.Context, m *UserMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&UserCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&UserUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&UserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&UserDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown User mutation op: %q", m.Op())
+	}
 }

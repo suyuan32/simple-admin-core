@@ -30,7 +30,7 @@ type RoleInfo struct {
 	// Role's sorting number | 角色排序
 	// Required : true
 	// Maximum: 1000
-	OrderNo uint32 `json:"orderNo" validate:"number,max=1000"`
+	Sort uint32 `json:"sort" validate:"number,max=1000"`
 }
 
 // The response data of role list | 角色列表返回数据
@@ -483,7 +483,7 @@ type MenuInfo struct {
 	// The component path | 组件路径
 	Component string `json:"component"`
 	// The sorting number | 排序编号
-	OrderNo uint32 `json:"orderNo"`
+	Sort uint32 `json:"sort"`
 	// If disabled | 是否禁用菜单
 	Disabled bool `json:"disabled"`
 	Meta
@@ -559,7 +559,7 @@ type GetMenuListBase struct {
 	// The component path | 组件路径
 	Component string `json:"component"`
 	// The sorting number | 排序编号
-	OrderNo uint32 `json:"orderNo"`
+	Sort uint32 `json:"sort"`
 	// If disabled | 是否禁用菜单
 	Disabled bool `json:"disabled"`
 	// in: body
@@ -619,7 +619,7 @@ type CreateOrUpdateMenuReq struct {
 	// The sorting number | 排序编号
 	// Required: true
 	// Maximum: 1000
-	OrderNo uint32 `json:"orderNo" validate:"number,max=1000"`
+	Sort uint32 `json:"sort" validate:"number,max=1000"`
 	// If disabled | 是否禁用菜单
 	// Required: true
 	Disabled bool `json:"disabled" validate:"boolean"`

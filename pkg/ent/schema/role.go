@@ -20,7 +20,7 @@ func (Role) Fields() []ent.Field {
 		field.String("value").Unique().Comment("role value for permission control in front end | 角色值，用于前端权限控制"),
 		field.String("default_router").Default("dashboard").Comment("default menu : dashboard | 默认登录页面"),
 		field.String("remark").Default("").Comment("remark | 备注"),
-		field.Uint32("order_no").Default(0).Comment("order number | 排序编号"),
+		field.Uint32("sort").Default(0).Comment("order number | 排序编号"),
 	}
 }
 

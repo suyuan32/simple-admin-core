@@ -115,50 +115,8 @@ func (opc *OauthProviderCreate) Mutation() *OauthProviderMutation {
 
 // Save creates the OauthProvider in the database.
 func (opc *OauthProviderCreate) Save(ctx context.Context) (*OauthProvider, error) {
-	var (
-		err  error
-		node *OauthProvider
-	)
 	opc.defaults()
-	if len(opc.hooks) == 0 {
-		if err = opc.check(); err != nil {
-			return nil, err
-		}
-		node, err = opc.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*OauthProviderMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			if err = opc.check(); err != nil {
-				return nil, err
-			}
-			opc.mutation = mutation
-			if node, err = opc.sqlSave(ctx); err != nil {
-				return nil, err
-			}
-			mutation.id = &node.ID
-			mutation.done = true
-			return node, err
-		})
-		for i := len(opc.hooks) - 1; i >= 0; i-- {
-			if opc.hooks[i] == nil {
-				return nil, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = opc.hooks[i](mut)
-		}
-		v, err := mut.Mutate(ctx, opc.mutation)
-		if err != nil {
-			return nil, err
-		}
-		nv, ok := v.(*OauthProvider)
-		if !ok {
-			return nil, fmt.Errorf("unexpected node type %T returned from OauthProviderMutation", v)
-		}
-		node = nv
-	}
-	return node, err
+	return withHooks[*OauthProvider, OauthProviderMutation](ctx, opc.sqlSave, opc.mutation, opc.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
@@ -234,6 +192,9 @@ func (opc *OauthProviderCreate) check() error {
 }
 
 func (opc *OauthProviderCreate) sqlSave(ctx context.Context) (*OauthProvider, error) {
+	if err := opc.check(); err != nil {
+		return nil, err
+	}
 	_node, _spec := opc.createSpec()
 	if err := sqlgraph.CreateNode(ctx, opc.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
@@ -245,6 +206,8 @@ func (opc *OauthProviderCreate) sqlSave(ctx context.Context) (*OauthProvider, er
 		id := _spec.ID.Value.(int64)
 		_node.ID = uint64(id)
 	}
+	opc.mutation.id = &_node.ID
+	opc.mutation.done = true
 	return _node, nil
 }
 

@@ -103,16 +103,16 @@ func (rc *RoleCreate) SetNillableRemark(s *string) *RoleCreate {
 	return rc
 }
 
-// SetOrderNo sets the "order_no" field.
-func (rc *RoleCreate) SetOrderNo(u uint32) *RoleCreate {
-	rc.mutation.SetOrderNo(u)
+// SetSort sets the "sort" field.
+func (rc *RoleCreate) SetSort(u uint32) *RoleCreate {
+	rc.mutation.SetSort(u)
 	return rc
 }
 
-// SetNillableOrderNo sets the "order_no" field if the given value is not nil.
-func (rc *RoleCreate) SetNillableOrderNo(u *uint32) *RoleCreate {
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (rc *RoleCreate) SetNillableSort(u *uint32) *RoleCreate {
 	if u != nil {
-		rc.SetOrderNo(*u)
+		rc.SetSort(*u)
 	}
 	return rc
 }
@@ -145,50 +145,8 @@ func (rc *RoleCreate) Mutation() *RoleMutation {
 
 // Save creates the Role in the database.
 func (rc *RoleCreate) Save(ctx context.Context) (*Role, error) {
-	var (
-		err  error
-		node *Role
-	)
 	rc.defaults()
-	if len(rc.hooks) == 0 {
-		if err = rc.check(); err != nil {
-			return nil, err
-		}
-		node, err = rc.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*RoleMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			if err = rc.check(); err != nil {
-				return nil, err
-			}
-			rc.mutation = mutation
-			if node, err = rc.sqlSave(ctx); err != nil {
-				return nil, err
-			}
-			mutation.id = &node.ID
-			mutation.done = true
-			return node, err
-		})
-		for i := len(rc.hooks) - 1; i >= 0; i-- {
-			if rc.hooks[i] == nil {
-				return nil, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = rc.hooks[i](mut)
-		}
-		v, err := mut.Mutate(ctx, rc.mutation)
-		if err != nil {
-			return nil, err
-		}
-		nv, ok := v.(*Role)
-		if !ok {
-			return nil, fmt.Errorf("unexpected node type %T returned from RoleMutation", v)
-		}
-		node = nv
-	}
-	return node, err
+	return withHooks[*Role, RoleMutation](ctx, rc.sqlSave, rc.mutation, rc.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
@@ -235,9 +193,9 @@ func (rc *RoleCreate) defaults() {
 		v := role.DefaultRemark
 		rc.mutation.SetRemark(v)
 	}
-	if _, ok := rc.mutation.OrderNo(); !ok {
-		v := role.DefaultOrderNo
-		rc.mutation.SetOrderNo(v)
+	if _, ok := rc.mutation.Sort(); !ok {
+		v := role.DefaultSort
+		rc.mutation.SetSort(v)
 	}
 }
 
@@ -261,13 +219,16 @@ func (rc *RoleCreate) check() error {
 	if _, ok := rc.mutation.Remark(); !ok {
 		return &ValidationError{Name: "remark", err: errors.New(`ent: missing required field "Role.remark"`)}
 	}
-	if _, ok := rc.mutation.OrderNo(); !ok {
-		return &ValidationError{Name: "order_no", err: errors.New(`ent: missing required field "Role.order_no"`)}
+	if _, ok := rc.mutation.Sort(); !ok {
+		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "Role.sort"`)}
 	}
 	return nil
 }
 
 func (rc *RoleCreate) sqlSave(ctx context.Context) (*Role, error) {
+	if err := rc.check(); err != nil {
+		return nil, err
+	}
 	_node, _spec := rc.createSpec()
 	if err := sqlgraph.CreateNode(ctx, rc.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
@@ -279,6 +240,8 @@ func (rc *RoleCreate) sqlSave(ctx context.Context) (*Role, error) {
 		id := _spec.ID.Value.(int64)
 		_node.ID = uint64(id)
 	}
+	rc.mutation.id = &_node.ID
+	rc.mutation.done = true
 	return _node, nil
 }
 
@@ -325,9 +288,9 @@ func (rc *RoleCreate) createSpec() (*Role, *sqlgraph.CreateSpec) {
 		_spec.SetField(role.FieldRemark, field.TypeString, value)
 		_node.Remark = value
 	}
-	if value, ok := rc.mutation.OrderNo(); ok {
-		_spec.SetField(role.FieldOrderNo, field.TypeUint32, value)
-		_node.OrderNo = value
+	if value, ok := rc.mutation.Sort(); ok {
+		_spec.SetField(role.FieldSort, field.TypeUint32, value)
+		_node.Sort = value
 	}
 	if nodes := rc.mutation.MenusIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

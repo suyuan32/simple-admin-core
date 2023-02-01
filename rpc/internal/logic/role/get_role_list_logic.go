@@ -27,7 +27,6 @@ func NewGetRoleListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRo
 
 func (l *GetRoleListLogic) GetRoleList(in *core.PageInfoReq) (*core.RoleListResp, error) {
 	roles, err := l.svcCtx.DB.Role.Query().Page(l.ctx, in.Page, in.PageSize)
-
 	if err != nil {
 		logx.Error(err.Error())
 		return nil, statuserr.NewInternalError(i18n.DatabaseError)
@@ -44,7 +43,7 @@ func (l *GetRoleListLogic) GetRoleList(in *core.PageInfoReq) (*core.RoleListResp
 			DefaultRouter: v.DefaultRouter,
 			Status:        uint64(v.Status),
 			Remark:        v.Remark,
-			OrderNo:       v.OrderNo,
+			Sort:          v.Sort,
 			CreatedAt:     v.CreatedAt.UnixMilli(),
 		})
 	}

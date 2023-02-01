@@ -123,35 +123,8 @@ func (du *DictionaryUpdate) RemoveDictionaryDetails(d ...*DictionaryDetail) *Dic
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (du *DictionaryUpdate) Save(ctx context.Context) (int, error) {
-	var (
-		err      error
-		affected int
-	)
 	du.defaults()
-	if len(du.hooks) == 0 {
-		affected, err = du.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*DictionaryMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			du.mutation = mutation
-			affected, err = du.sqlSave(ctx)
-			mutation.done = true
-			return affected, err
-		})
-		for i := len(du.hooks) - 1; i >= 0; i-- {
-			if du.hooks[i] == nil {
-				return 0, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = du.hooks[i](mut)
-		}
-		if _, err := mut.Mutate(ctx, du.mutation); err != nil {
-			return 0, err
-		}
-	}
-	return affected, err
+	return withHooks[int, DictionaryMutation](ctx, du.sqlSave, du.mutation, du.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -285,6 +258,7 @@ func (du *DictionaryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
+	du.mutation.done = true
 	return n, nil
 }
 
@@ -397,41 +371,8 @@ func (duo *DictionaryUpdateOne) Select(field string, fields ...string) *Dictiona
 
 // Save executes the query and returns the updated Dictionary entity.
 func (duo *DictionaryUpdateOne) Save(ctx context.Context) (*Dictionary, error) {
-	var (
-		err  error
-		node *Dictionary
-	)
 	duo.defaults()
-	if len(duo.hooks) == 0 {
-		node, err = duo.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*DictionaryMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			duo.mutation = mutation
-			node, err = duo.sqlSave(ctx)
-			mutation.done = true
-			return node, err
-		})
-		for i := len(duo.hooks) - 1; i >= 0; i-- {
-			if duo.hooks[i] == nil {
-				return nil, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = duo.hooks[i](mut)
-		}
-		v, err := mut.Mutate(ctx, duo.mutation)
-		if err != nil {
-			return nil, err
-		}
-		nv, ok := v.(*Dictionary)
-		if !ok {
-			return nil, fmt.Errorf("unexpected node type %T returned from DictionaryMutation", v)
-		}
-		node = nv
-	}
-	return node, err
+	return withHooks[*Dictionary, DictionaryMutation](ctx, duo.sqlSave, duo.mutation, duo.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -585,5 +526,6 @@ func (duo *DictionaryUpdateOne) sqlSave(ctx context.Context) (_node *Dictionary,
 		}
 		return nil, err
 	}
+	duo.mutation.done = true
 	return _node, nil
 }

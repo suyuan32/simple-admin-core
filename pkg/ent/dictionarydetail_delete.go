@@ -4,7 +4,6 @@ package ent
 
 import (
 	"context"
-	"fmt"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -28,34 +27,7 @@ func (ddd *DictionaryDetailDelete) Where(ps ...predicate.DictionaryDetail) *Dict
 
 // Exec executes the deletion query and returns how many vertices were deleted.
 func (ddd *DictionaryDetailDelete) Exec(ctx context.Context) (int, error) {
-	var (
-		err      error
-		affected int
-	)
-	if len(ddd.hooks) == 0 {
-		affected, err = ddd.sqlExec(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*DictionaryDetailMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			ddd.mutation = mutation
-			affected, err = ddd.sqlExec(ctx)
-			mutation.done = true
-			return affected, err
-		})
-		for i := len(ddd.hooks) - 1; i >= 0; i-- {
-			if ddd.hooks[i] == nil {
-				return 0, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = ddd.hooks[i](mut)
-		}
-		if _, err := mut.Mutate(ctx, ddd.mutation); err != nil {
-			return 0, err
-		}
-	}
-	return affected, err
+	return withHooks[int, DictionaryDetailMutation](ctx, ddd.sqlExec, ddd.mutation, ddd.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
@@ -88,12 +60,19 @@ func (ddd *DictionaryDetailDelete) sqlExec(ctx context.Context) (int, error) {
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
+	ddd.mutation.done = true
 	return affected, err
 }
 
 // DictionaryDetailDeleteOne is the builder for deleting a single DictionaryDetail entity.
 type DictionaryDetailDeleteOne struct {
 	ddd *DictionaryDetailDelete
+}
+
+// Where appends a list predicates to the DictionaryDetailDelete builder.
+func (dddo *DictionaryDetailDeleteOne) Where(ps ...predicate.DictionaryDetail) *DictionaryDetailDeleteOne {
+	dddo.ddd.mutation.Where(ps...)
+	return dddo
 }
 
 // Exec executes the deletion query.
@@ -111,5 +90,7 @@ func (dddo *DictionaryDetailDeleteOne) Exec(ctx context.Context) error {
 
 // ExecX is like Exec, but panics if an error occurs.
 func (dddo *DictionaryDetailDeleteOne) ExecX(ctx context.Context) {
-	dddo.ddd.ExecX(ctx)
+	if err := dddo.Exec(ctx); err != nil {
+		panic(err)
+	}
 }

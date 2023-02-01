@@ -63,7 +63,7 @@ func (l *GetMenuListLogic) convertMenuList(data []*core.MenuInfo, lang string) [
 			Name:      v.Name,
 			Redirect:  v.Redirect,
 			Component: v.Component,
-			OrderNo:   v.OrderNo,
+			Sort:      v.Sort,
 			Meta: types.Meta{
 				Title:              v.Meta.Title,
 				Icon:               v.Meta.Icon,

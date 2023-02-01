@@ -31,8 +31,7 @@ func NewGetMenuListByRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.IDReq) (*core.MenuInfoList, error) {
 	menus, err := l.svcCtx.DB.Role.Query().Where(role.ID(in.Id)).
-		QueryMenus().Order(ent.Asc(menu.FieldOrderNo)).All(l.ctx)
-
+		QueryMenus().Order(ent.Asc(menu.FieldSort)).All(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
@@ -50,7 +49,6 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.IDReq) (*core.MenuIn
 	resp.Data = findRoleMenuChildren(menus, 1)
 
 	return resp, nil
-
 }
 
 func findRoleMenuChildren(data []*ent.Menu, parentId uint64) []*core.MenuInfo {
@@ -71,7 +69,7 @@ func findRoleMenuChildren(data []*ent.Menu, parentId uint64) []*core.MenuInfo {
 				Name:      v.Name,
 				Redirect:  v.Redirect,
 				Component: v.Component,
-				OrderNo:   v.OrderNo,
+				Sort:      v.Sort,
 				Meta: &core.Meta{
 					Title:              v.Title,
 					Icon:               v.Icon,
@@ -91,7 +89,6 @@ func findRoleMenuChildren(data []*ent.Menu, parentId uint64) []*core.MenuInfo {
 			}
 			result = append(result, tmp)
 		}
-
 	}
 	return result
 }

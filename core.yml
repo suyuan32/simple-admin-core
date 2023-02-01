@@ -567,12 +567,6 @@ definitions:
                 maxLength: 50
                 type: string
                 x-go-name: Name
-            orderNo:
-                description: The sorting number | 排序编号
-                format: uint32
-                maximum: 1000
-                type: integer
-                x-go-name: OrderNo
             parentId:
                 description: Parent menu ID | 父级菜单ID
                 format: uint64
@@ -593,6 +587,12 @@ definitions:
                 maxLength: 100
                 type: string
                 x-go-name: Redirect
+            sort:
+                description: The sorting number | 排序编号
+                format: uint32
+                maximum: 1000
+                type: integer
+                x-go-name: Sort
             title:
                 description: Menu title show in page | 菜单显示名
                 maxLength: 50
@@ -612,7 +612,7 @@ definitions:
             - name
             - redirect
             - component
-            - orderNo
+            - sort
             - disabled
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
@@ -1003,11 +1003,6 @@ definitions:
                 description: Menu name | 菜单名
                 type: string
                 x-go-name: Name
-            orderNo:
-                description: The sorting number | 排序编号
-                format: uint32
-                type: integer
-                x-go-name: OrderNo
             parentId:
                 description: Parent menu ID | 父级菜单ID
                 format: uint64
@@ -1021,6 +1016,11 @@ definitions:
                 description: Redirect path | 跳转路径
                 type: string
                 x-go-name: Redirect
+            sort:
+                description: The sorting number | 排序编号
+                format: uint32
+                type: integer
+                x-go-name: Sort
             type:
                 description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
                 format: uint32
@@ -1372,11 +1372,6 @@ definitions:
                 description: Menu name | 菜单名
                 type: string
                 x-go-name: Name
-            orderNo:
-                description: The sorting number | 排序编号
-                format: uint32
-                type: integer
-                x-go-name: OrderNo
             parentId:
                 description: Parent menu ID | 父级菜单ID
                 format: uint64
@@ -1394,6 +1389,11 @@ definitions:
                 description: Redirect path | 跳转路径
                 type: string
                 x-go-name: Redirect
+            sort:
+                description: The sorting number | 排序编号
+                format: uint32
+                type: integer
+                x-go-name: Sort
             title:
                 description: Menu title show in page | 菜单显示名
                 maxLength: 50
@@ -1900,17 +1900,17 @@ definitions:
                 maxLength: 20
                 type: string
                 x-go-name: Name
-            orderNo:
-                description: Role's sorting number | 角色排序
-                format: uint32
-                maximum: 1000
-                type: integer
-                x-go-name: OrderNo
             remark:
                 description: Role remark | 角色备注
                 maxLength: 200
                 type: string
                 x-go-name: Remark
+            sort:
+                description: Role's sorting number | 角色排序
+                format: uint32
+                maximum: 1000
+                type: integer
+                x-go-name: Sort
             status:
                 description: Role status | 角色状态
                 format: uint32
@@ -1937,7 +1937,7 @@ definitions:
             - defaultRouter
             - status
             - remark
-            - orderNo
+            - sort
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleInfoSimple:

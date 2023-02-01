@@ -126,14 +126,14 @@ func (d *Dictionary) assignValues(columns []string, values []any) error {
 
 // QueryDictionaryDetails queries the "dictionary_details" edge of the Dictionary entity.
 func (d *Dictionary) QueryDictionaryDetails() *DictionaryDetailQuery {
-	return (&DictionaryClient{config: d.config}).QueryDictionaryDetails(d)
+	return NewDictionaryClient(d.config).QueryDictionaryDetails(d)
 }
 
 // Update returns a builder for updating this Dictionary.
 // Note that you need to call Dictionary.Unwrap() before calling this method if this Dictionary
 // was returned from a transaction, and the transaction was committed or rolled back.
 func (d *Dictionary) Update() *DictionaryUpdateOne {
-	return (&DictionaryClient{config: d.config}).UpdateOne(d)
+	return NewDictionaryClient(d.config).UpdateOne(d)
 }
 
 // Unwrap unwraps the Dictionary entity that was returned from a transaction after it was closed,

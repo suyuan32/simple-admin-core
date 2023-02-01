@@ -148,24 +148,24 @@ func (mu *MenuUpdate) ClearComponent() *MenuUpdate {
 	return mu
 }
 
-// SetOrderNo sets the "order_no" field.
-func (mu *MenuUpdate) SetOrderNo(u uint32) *MenuUpdate {
-	mu.mutation.ResetOrderNo()
-	mu.mutation.SetOrderNo(u)
+// SetSort sets the "sort" field.
+func (mu *MenuUpdate) SetSort(u uint32) *MenuUpdate {
+	mu.mutation.ResetSort()
+	mu.mutation.SetSort(u)
 	return mu
 }
 
-// SetNillableOrderNo sets the "order_no" field if the given value is not nil.
-func (mu *MenuUpdate) SetNillableOrderNo(u *uint32) *MenuUpdate {
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableSort(u *uint32) *MenuUpdate {
 	if u != nil {
-		mu.SetOrderNo(*u)
+		mu.SetSort(*u)
 	}
 	return mu
 }
 
-// AddOrderNo adds u to the "order_no" field.
-func (mu *MenuUpdate) AddOrderNo(u int32) *MenuUpdate {
-	mu.mutation.AddOrderNo(u)
+// AddSort adds u to the "sort" field.
+func (mu *MenuUpdate) AddSort(u int32) *MenuUpdate {
+	mu.mutation.AddSort(u)
 	return mu
 }
 
@@ -554,35 +554,8 @@ func (mu *MenuUpdate) RemoveParams(m ...*MenuParam) *MenuUpdate {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (mu *MenuUpdate) Save(ctx context.Context) (int, error) {
-	var (
-		err      error
-		affected int
-	)
 	mu.defaults()
-	if len(mu.hooks) == 0 {
-		affected, err = mu.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*MenuMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			mu.mutation = mutation
-			affected, err = mu.sqlSave(ctx)
-			mutation.done = true
-			return affected, err
-		})
-		for i := len(mu.hooks) - 1; i >= 0; i-- {
-			if mu.hooks[i] == nil {
-				return 0, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = mu.hooks[i](mut)
-		}
-		if _, err := mut.Mutate(ctx, mu.mutation); err != nil {
-			return 0, err
-		}
-	}
-	return affected, err
+	return withHooks[int, MenuMutation](ctx, mu.sqlSave, mu.mutation, mu.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -669,11 +642,11 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if mu.mutation.ComponentCleared() {
 		_spec.ClearField(menu.FieldComponent, field.TypeString)
 	}
-	if value, ok := mu.mutation.OrderNo(); ok {
-		_spec.SetField(menu.FieldOrderNo, field.TypeUint32, value)
+	if value, ok := mu.mutation.Sort(); ok {
+		_spec.SetField(menu.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := mu.mutation.AddedOrderNo(); ok {
-		_spec.AddField(menu.FieldOrderNo, field.TypeUint32, value)
+	if value, ok := mu.mutation.AddedSort(); ok {
+		_spec.AddField(menu.FieldSort, field.TypeUint32, value)
 	}
 	if value, ok := mu.mutation.Disabled(); ok {
 		_spec.SetField(menu.FieldDisabled, field.TypeBool, value)
@@ -961,6 +934,7 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
+	mu.mutation.done = true
 	return n, nil
 }
 
@@ -1090,24 +1064,24 @@ func (muo *MenuUpdateOne) ClearComponent() *MenuUpdateOne {
 	return muo
 }
 
-// SetOrderNo sets the "order_no" field.
-func (muo *MenuUpdateOne) SetOrderNo(u uint32) *MenuUpdateOne {
-	muo.mutation.ResetOrderNo()
-	muo.mutation.SetOrderNo(u)
+// SetSort sets the "sort" field.
+func (muo *MenuUpdateOne) SetSort(u uint32) *MenuUpdateOne {
+	muo.mutation.ResetSort()
+	muo.mutation.SetSort(u)
 	return muo
 }
 
-// SetNillableOrderNo sets the "order_no" field if the given value is not nil.
-func (muo *MenuUpdateOne) SetNillableOrderNo(u *uint32) *MenuUpdateOne {
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableSort(u *uint32) *MenuUpdateOne {
 	if u != nil {
-		muo.SetOrderNo(*u)
+		muo.SetSort(*u)
 	}
 	return muo
 }
 
-// AddOrderNo adds u to the "order_no" field.
-func (muo *MenuUpdateOne) AddOrderNo(u int32) *MenuUpdateOne {
-	muo.mutation.AddOrderNo(u)
+// AddSort adds u to the "sort" field.
+func (muo *MenuUpdateOne) AddSort(u int32) *MenuUpdateOne {
+	muo.mutation.AddSort(u)
 	return muo
 }
 
@@ -1503,41 +1477,8 @@ func (muo *MenuUpdateOne) Select(field string, fields ...string) *MenuUpdateOne 
 
 // Save executes the query and returns the updated Menu entity.
 func (muo *MenuUpdateOne) Save(ctx context.Context) (*Menu, error) {
-	var (
-		err  error
-		node *Menu
-	)
 	muo.defaults()
-	if len(muo.hooks) == 0 {
-		node, err = muo.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*MenuMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			muo.mutation = mutation
-			node, err = muo.sqlSave(ctx)
-			mutation.done = true
-			return node, err
-		})
-		for i := len(muo.hooks) - 1; i >= 0; i-- {
-			if muo.hooks[i] == nil {
-				return nil, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = muo.hooks[i](mut)
-		}
-		v, err := mut.Mutate(ctx, muo.mutation)
-		if err != nil {
-			return nil, err
-		}
-		nv, ok := v.(*Menu)
-		if !ok {
-			return nil, fmt.Errorf("unexpected node type %T returned from MenuMutation", v)
-		}
-		node = nv
-	}
-	return node, err
+	return withHooks[*Menu, MenuMutation](ctx, muo.sqlSave, muo.mutation, muo.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -1641,11 +1582,11 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	if muo.mutation.ComponentCleared() {
 		_spec.ClearField(menu.FieldComponent, field.TypeString)
 	}
-	if value, ok := muo.mutation.OrderNo(); ok {
-		_spec.SetField(menu.FieldOrderNo, field.TypeUint32, value)
+	if value, ok := muo.mutation.Sort(); ok {
+		_spec.SetField(menu.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := muo.mutation.AddedOrderNo(); ok {
-		_spec.AddField(menu.FieldOrderNo, field.TypeUint32, value)
+	if value, ok := muo.mutation.AddedSort(); ok {
+		_spec.AddField(menu.FieldSort, field.TypeUint32, value)
 	}
 	if value, ok := muo.mutation.Disabled(); ok {
 		_spec.SetField(menu.FieldDisabled, field.TypeBool, value)
@@ -1936,5 +1877,6 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 		}
 		return nil, err
 	}
+	muo.mutation.done = true
 	return _node, nil
 }

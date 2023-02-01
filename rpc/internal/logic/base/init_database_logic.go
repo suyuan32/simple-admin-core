@@ -36,7 +36,7 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	// Because the context deadline will reach if the database is too slow
 	l.ctx = context.Background()
 
-	//add lock to avoid duplicate initialization
+	// add lock to avoid duplicate initialization
 	lock := redis.NewRedisLock(l.svcCtx.Redis, "init_database_lock")
 	lock.SetExpire(60)
 	if ok, err := lock.Acquire(); !ok || err != nil {
@@ -153,19 +153,19 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 		SetName("role.admin").
 		SetValue("admin").
 		SetRemark("超级管理员").
-		SetOrderNo(1)
+		SetSort(1)
 
 	roles[1] = l.svcCtx.DB.Role.Create().
 		SetName("role.stuff").
 		SetValue("stuff").
 		SetRemark("普通员工").
-		SetOrderNo(2)
+		SetSort(2)
 
 	roles[2] = l.svcCtx.DB.Role.Create().
 		SetName("role.member").
 		SetValue("member").
 		SetRemark("注册会员").
-		SetOrderNo(3)
+		SetSort(3)
 
 	err := l.svcCtx.DB.Role.CreateBulk(roles...).Exec(l.ctx)
 	if err != nil {
@@ -504,7 +504,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("").
 		SetName("root").
 		SetComponent("").
-		SetOrderNo(0).
+		SetSort(0).
 		SetTitle("").
 		SetIcon("").
 		SetHideMenu(false)
@@ -516,7 +516,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/dashboard").
 		SetName("Dashboard").
 		SetComponent("/dashboard/workbench/index").
-		SetOrderNo(0).
+		SetSort(0).
 		SetTitle("route.dashboard").
 		SetIcon("ant-design:home-outlined").
 		SetHideMenu(false)
@@ -528,7 +528,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("").
 		SetName("System Management").
 		SetComponent("LAYOUT").
-		SetOrderNo(1).
+		SetSort(1).
 		SetTitle("route.systemManagementTitle").
 		SetIcon("ant-design:tool-outlined").
 		SetHideMenu(false)
@@ -540,7 +540,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/menu").
 		SetName("MenuManagement").
 		SetComponent("/sys/menu/index").
-		SetOrderNo(1).
+		SetSort(1).
 		SetTitle("route.menuManagementTitle").
 		SetIcon("ant-design:bars-outlined").
 		SetHideMenu(false)
@@ -552,7 +552,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/role").
 		SetName("Role Management").
 		SetComponent("/sys/role/index").
-		SetOrderNo(2).
+		SetSort(2).
 		SetTitle("route.roleManagementTitle").
 		SetIcon("ant-design:user-outlined").
 		SetHideMenu(false)
@@ -564,7 +564,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/api").
 		SetName("API Management").
 		SetComponent("/sys/api/index").
-		SetOrderNo(4).
+		SetSort(4).
 		SetTitle("route.apiManagementTitle").
 		SetIcon("ant-design:api-outlined").
 		SetHideMenu(false)
@@ -576,7 +576,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/user").
 		SetName("User Management").
 		SetComponent("/sys/user/index").
-		SetOrderNo(3).
+		SetSort(3).
 		SetTitle("route.userManagementTitle").
 		SetIcon("ant-design:user-outlined").
 		SetHideMenu(false)
@@ -588,7 +588,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/file").
 		SetName("File Management").
 		SetComponent("/file/index").
-		SetOrderNo(2).
+		SetSort(2).
 		SetTitle("route.fileManagementTitle").
 		SetIcon("ant-design:folder-open-outlined").
 		SetHideMenu(true)
@@ -600,7 +600,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/dictionary").
 		SetName("Dictionary Management").
 		SetComponent("/sys/dictionary/index").
-		SetOrderNo(5).
+		SetSort(5).
 		SetTitle("route.dictionaryManagementTitle").
 		SetIcon("ant-design:book-outlined").
 		SetHideMenu(false)
@@ -612,7 +612,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("").
 		SetName("Other Pages").
 		SetComponent("LAYOUT").
-		SetOrderNo(4).
+		SetSort(4).
 		SetTitle("route.otherPages").
 		SetIcon("ant-design:question-circle-outlined").
 		SetHideMenu(true)
@@ -624,7 +624,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/dictionary/detail").
 		SetName("Dictionary Detail").
 		SetComponent("/sys/dictionary/detail").
-		SetOrderNo(1).
+		SetSort(1).
 		SetTitle("route.dictionaryDetailManagementTitle").
 		SetIcon("ant-design:align-left-outlined").
 		SetHideMenu(true)
@@ -636,7 +636,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/profile").
 		SetName("Profile").
 		SetComponent("/sys/profile/index").
-		SetOrderNo(3).
+		SetSort(3).
 		SetTitle("route.userProfileTitle").
 		SetIcon("ant-design:profile-outlined").
 		SetHideMenu(true)
@@ -648,7 +648,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/oauth").
 		SetName("Oauth Management").
 		SetComponent("/sys/oauth/index").
-		SetOrderNo(6).
+		SetSort(6).
 		SetTitle("route.oauthManagement").
 		SetIcon("ant-design:unlock-filled").
 		SetHideMenu(false)
@@ -660,7 +660,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/token").
 		SetName("Token Management").
 		SetComponent("/sys/token/index").
-		SetOrderNo(7).
+		SetSort(7).
 		SetTitle("route.tokenManagement").
 		SetIcon("ant-design:lock-outlined").
 		SetHideMenu(false)
@@ -704,7 +704,6 @@ func (l *InitDatabaseLogic) insertRoleMenuAuthorityData() error {
 
 func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 	apis, err := l.svcCtx.DB.API.Query().All(l.ctx)
-
 	if err != nil {
 		logx.Errorw(err.Error())
 		return statuserr.NewInternalError(err.Error())
@@ -717,14 +716,12 @@ func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 
 	csb, err := l.svcCtx.Config.CasbinConf.NewCasbin(l.svcCtx.Config.DatabaseConf.Type,
 		l.svcCtx.Config.DatabaseConf.GetDSN())
-
 	if err != nil {
 		logx.Error("initialize casbin policy failed")
 		return statuserr.NewInternalError(err.Error())
 	}
 
 	addResult, err := csb.AddPolicies(policies)
-
 	if err != nil {
 		return statuserr.NewInternalError(err.Error())
 	}

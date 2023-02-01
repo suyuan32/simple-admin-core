@@ -41,7 +41,7 @@ type (
         Component    string      `json:"component"`
 
         // The sorting number | 排序编号
-        OrderNo      uint32      `json:"orderNo"`
+        Sort      uint32      `json:"sort"`
 
         // If disabled | 是否禁用菜单
         Disabled     bool        `json:"disabled"`
@@ -140,7 +140,7 @@ type (
         Component    string      `json:"component"`
 
         // The sorting number | 排序编号
-        OrderNo      uint32      `json:"orderNo"`
+        Sort      uint32      `json:"sort"`
 
         // If disabled | 是否禁用菜单
         Disabled     bool        `json:"disabled"`
@@ -209,7 +209,7 @@ type (
         // The sorting number | 排序编号
         // Required: true
         // Maximum: 1000
-        OrderNo      uint32      `json:"orderNo" validate:"number,max=1000"`
+        Sort      uint32      `json:"sort" validate:"number,max=1000"`
 
         // If disabled | 是否禁用菜单
         // Required: true

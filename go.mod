@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	ariga.io/entcache v0.1.0
-	entgo.io/ent v0.11.5
+	entgo.io/ent v0.11.7
 	github.com/apache/rocketmq-client-go/v2 v2.1.1
 	github.com/casbin/casbin/v2 v2.60.0
 	github.com/casbin/ent-adapter v0.2.2
@@ -28,7 +28,7 @@ require (
 replace github.com/zeromicro/go-zero v1.4.3 => github.com/suyuan32/simple-admin-tools v0.1.8
 
 require (
-	ariga.io/atlas v0.8.4-0.20221212165942-e53dd27a603d // indirect
+	ariga.io/atlas v0.9.1-0.20230119145809-92243f7c55cb // indirect
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
 	github.com/agext/levenshtein v1.2.1 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect

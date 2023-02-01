@@ -4,7 +4,6 @@ package ent
 
 import (
 	"context"
-	"fmt"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -28,34 +27,7 @@ func (md *MenuDelete) Where(ps ...predicate.Menu) *MenuDelete {
 
 // Exec executes the deletion query and returns how many vertices were deleted.
 func (md *MenuDelete) Exec(ctx context.Context) (int, error) {
-	var (
-		err      error
-		affected int
-	)
-	if len(md.hooks) == 0 {
-		affected, err = md.sqlExec(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*MenuMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			md.mutation = mutation
-			affected, err = md.sqlExec(ctx)
-			mutation.done = true
-			return affected, err
-		})
-		for i := len(md.hooks) - 1; i >= 0; i-- {
-			if md.hooks[i] == nil {
-				return 0, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = md.hooks[i](mut)
-		}
-		if _, err := mut.Mutate(ctx, md.mutation); err != nil {
-			return 0, err
-		}
-	}
-	return affected, err
+	return withHooks[int, MenuMutation](ctx, md.sqlExec, md.mutation, md.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
@@ -88,12 +60,19 @@ func (md *MenuDelete) sqlExec(ctx context.Context) (int, error) {
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
+	md.mutation.done = true
 	return affected, err
 }
 
 // MenuDeleteOne is the builder for deleting a single Menu entity.
 type MenuDeleteOne struct {
 	md *MenuDelete
+}
+
+// Where appends a list predicates to the MenuDelete builder.
+func (mdo *MenuDeleteOne) Where(ps ...predicate.Menu) *MenuDeleteOne {
+	mdo.md.mutation.Where(ps...)
+	return mdo
 }
 
 // Exec executes the deletion query.
@@ -111,5 +90,7 @@ func (mdo *MenuDeleteOne) Exec(ctx context.Context) error {
 
 // ExecX is like Exec, but panics if an error occurs.
 func (mdo *MenuDeleteOne) ExecX(ctx context.Context) {
-	mdo.md.ExecX(ctx)
+	if err := mdo.Exec(ctx); err != nil {
+		panic(err)
+	}
 }

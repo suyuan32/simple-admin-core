@@ -36,7 +36,6 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 	var menuLevel uint32
 	if in.ParentId != 0 {
 		m, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.ParentId)).First(l.ctx)
-
 		if err != nil {
 			switch {
 			case ent.IsNotFound(err):
@@ -63,7 +62,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 			SetName(in.Name).
 			SetRedirect(in.Redirect).
 			SetComponent(in.Component).
-			SetOrderNo(in.OrderNo).
+			SetSort(in.Sort).
 			SetDisabled(in.Disabled).
 			// meta
 			SetTitle(in.Meta.Title).
@@ -80,7 +79,6 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 			SetDynamicLevel(in.Meta.DynamicLevel).
 			SetRealPath(in.Meta.RealPath).
 			Exec(l.ctx)
-
 		if err != nil {
 			switch {
 			case ent.IsNotFound(err):
@@ -116,7 +114,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 			SetName(in.Name).
 			SetRedirect(in.Redirect).
 			SetComponent(in.Component).
-			SetOrderNo(in.OrderNo).
+			SetSort(in.Sort).
 			SetDisabled(in.Disabled).
 			// meta
 			SetTitle(in.Meta.Title).

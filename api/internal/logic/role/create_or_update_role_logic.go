@@ -35,7 +35,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(req *types.RoleInfo) (resp 
 		DefaultRouter: req.DefaultRouter,
 		Status:        uint64(req.Status),
 		Remark:        req.Remark,
-		OrderNo:       req.OrderNo,
+		Sort:          req.Sort,
 	})
 	if err != nil {
 		return nil, err

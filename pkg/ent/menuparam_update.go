@@ -85,35 +85,8 @@ func (mpu *MenuParamUpdate) ClearMenus() *MenuParamUpdate {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (mpu *MenuParamUpdate) Save(ctx context.Context) (int, error) {
-	var (
-		err      error
-		affected int
-	)
 	mpu.defaults()
-	if len(mpu.hooks) == 0 {
-		affected, err = mpu.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*MenuParamMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			mpu.mutation = mutation
-			affected, err = mpu.sqlSave(ctx)
-			mutation.done = true
-			return affected, err
-		})
-		for i := len(mpu.hooks) - 1; i >= 0; i-- {
-			if mpu.hooks[i] == nil {
-				return 0, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = mpu.hooks[i](mut)
-		}
-		if _, err := mut.Mutate(ctx, mpu.mutation); err != nil {
-			return 0, err
-		}
-	}
-	return affected, err
+	return withHooks[int, MenuParamMutation](ctx, mpu.sqlSave, mpu.mutation, mpu.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -219,6 +192,7 @@ func (mpu *MenuParamUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
+	mpu.mutation.done = true
 	return n, nil
 }
 
@@ -293,41 +267,8 @@ func (mpuo *MenuParamUpdateOne) Select(field string, fields ...string) *MenuPara
 
 // Save executes the query and returns the updated MenuParam entity.
 func (mpuo *MenuParamUpdateOne) Save(ctx context.Context) (*MenuParam, error) {
-	var (
-		err  error
-		node *MenuParam
-	)
 	mpuo.defaults()
-	if len(mpuo.hooks) == 0 {
-		node, err = mpuo.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*MenuParamMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			mpuo.mutation = mutation
-			node, err = mpuo.sqlSave(ctx)
-			mutation.done = true
-			return node, err
-		})
-		for i := len(mpuo.hooks) - 1; i >= 0; i-- {
-			if mpuo.hooks[i] == nil {
-				return nil, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = mpuo.hooks[i](mut)
-		}
-		v, err := mut.Mutate(ctx, mpuo.mutation)
-		if err != nil {
-			return nil, err
-		}
-		nv, ok := v.(*MenuParam)
-		if !ok {
-			return nil, fmt.Errorf("unexpected node type %T returned from MenuParamMutation", v)
-		}
-		node = nv
-	}
-	return node, err
+	return withHooks[*MenuParam, MenuParamMutation](ctx, mpuo.sqlSave, mpuo.mutation, mpuo.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -453,5 +394,6 @@ func (mpuo *MenuParamUpdateOne) sqlSave(ctx context.Context) (_node *MenuParam, 
 		}
 		return nil, err
 	}
+	mpuo.mutation.done = true
 	return _node, nil
 }

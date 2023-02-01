@@ -23,7 +23,7 @@ func (Menu) Fields() []ent.Field {
 		field.String("name").Comment("index name | 菜单名称"),
 		field.String("redirect").Optional().Default("").Comment("redirect path | 跳转路径 （外链）"),
 		field.String("component").Optional().Default("").Comment("the path of vue file | 组件路径"),
-		field.Uint32("order_no").Default(0).Comment("sorting numbers | 排序编号"),
+		field.Uint32("sort").Default(0).Comment("sorting numbers | 排序编号"),
 		field.Bool("disabled").Optional().Default(false).Comment("disable status | 是否停用"),
 		// meta
 		field.String("title").Comment("menu name | 菜单显示标题"),

@@ -29,7 +29,6 @@ func NewGetRoleByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRo
 
 func (l *GetRoleByIdLogic) GetRoleById(in *core.IDReq) (*core.RoleInfo, error) {
 	r, err := l.svcCtx.DB.Role.Get(l.ctx, in.Id)
-
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
@@ -48,7 +47,7 @@ func (l *GetRoleByIdLogic) GetRoleById(in *core.IDReq) (*core.RoleInfo, error) {
 		DefaultRouter: r.DefaultRouter,
 		Status:        uint64(r.Status),
 		Remark:        r.Remark,
-		OrderNo:       r.OrderNo,
+		Sort:          r.Sort,
 		CreatedAt:     r.CreatedAt.UnixMilli(),
 	}, nil
 }

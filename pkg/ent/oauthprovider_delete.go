@@ -4,7 +4,6 @@ package ent
 
 import (
 	"context"
-	"fmt"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -28,34 +27,7 @@ func (opd *OauthProviderDelete) Where(ps ...predicate.OauthProvider) *OauthProvi
 
 // Exec executes the deletion query and returns how many vertices were deleted.
 func (opd *OauthProviderDelete) Exec(ctx context.Context) (int, error) {
-	var (
-		err      error
-		affected int
-	)
-	if len(opd.hooks) == 0 {
-		affected, err = opd.sqlExec(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*OauthProviderMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			opd.mutation = mutation
-			affected, err = opd.sqlExec(ctx)
-			mutation.done = true
-			return affected, err
-		})
-		for i := len(opd.hooks) - 1; i >= 0; i-- {
-			if opd.hooks[i] == nil {
-				return 0, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = opd.hooks[i](mut)
-		}
-		if _, err := mut.Mutate(ctx, opd.mutation); err != nil {
-			return 0, err
-		}
-	}
-	return affected, err
+	return withHooks[int, OauthProviderMutation](ctx, opd.sqlExec, opd.mutation, opd.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
@@ -88,12 +60,19 @@ func (opd *OauthProviderDelete) sqlExec(ctx context.Context) (int, error) {
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
+	opd.mutation.done = true
 	return affected, err
 }
 
 // OauthProviderDeleteOne is the builder for deleting a single OauthProvider entity.
 type OauthProviderDeleteOne struct {
 	opd *OauthProviderDelete
+}
+
+// Where appends a list predicates to the OauthProviderDelete builder.
+func (opdo *OauthProviderDeleteOne) Where(ps ...predicate.OauthProvider) *OauthProviderDeleteOne {
+	opdo.opd.mutation.Where(ps...)
+	return opdo
 }
 
 // Exec executes the deletion query.
@@ -111,5 +90,7 @@ func (opdo *OauthProviderDeleteOne) Exec(ctx context.Context) error {
 
 // ExecX is like Exec, but panics if an error occurs.
 func (opdo *OauthProviderDeleteOne) ExecX(ctx context.Context) {
-	opdo.opd.ExecX(ctx)
+	if err := opdo.Exec(ctx); err != nil {
+		panic(err)
+	}
 }

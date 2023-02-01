@@ -36,7 +36,7 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(req *types.CreateOrUpdateMe
 		Name:      req.Name,
 		Redirect:  req.Redirect,
 		Component: req.Component,
-		OrderNo:   req.OrderNo,
+		Sort:      req.Sort,
 		Disabled:  req.Disabled,
 		Meta: &core.Meta{
 			Title:              req.Meta.Title,

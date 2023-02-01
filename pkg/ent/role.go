@@ -31,7 +31,7 @@ type Role struct {
 	// remark | 备注
 	Remark string `json:"remark,omitempty"`
 	// order number | 排序编号
-	OrderNo uint32 `json:"order_no,omitempty"`
+	Sort uint32 `json:"sort,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the RoleQuery when eager-loading is set.
 	Edges RoleEdges `json:"edges"`
@@ -60,7 +60,7 @@ func (*Role) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case role.FieldID, role.FieldStatus, role.FieldOrderNo:
+		case role.FieldID, role.FieldStatus, role.FieldSort:
 			values[i] = new(sql.NullInt64)
 		case role.FieldName, role.FieldValue, role.FieldDefaultRouter, role.FieldRemark:
 			values[i] = new(sql.NullString)
@@ -129,11 +129,11 @@ func (r *Role) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				r.Remark = value.String
 			}
-		case role.FieldOrderNo:
+		case role.FieldSort:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field order_no", values[i])
+				return fmt.Errorf("unexpected type %T for field sort", values[i])
 			} else if value.Valid {
-				r.OrderNo = uint32(value.Int64)
+				r.Sort = uint32(value.Int64)
 			}
 		}
 	}
@@ -142,14 +142,14 @@ func (r *Role) assignValues(columns []string, values []any) error {
 
 // QueryMenus queries the "menus" edge of the Role entity.
 func (r *Role) QueryMenus() *MenuQuery {
-	return (&RoleClient{config: r.config}).QueryMenus(r)
+	return NewRoleClient(r.config).QueryMenus(r)
 }
 
 // Update returns a builder for updating this Role.
 // Note that you need to call Role.Unwrap() before calling this method if this Role
 // was returned from a transaction, and the transaction was committed or rolled back.
 func (r *Role) Update() *RoleUpdateOne {
-	return (&RoleClient{config: r.config}).UpdateOne(r)
+	return NewRoleClient(r.config).UpdateOne(r)
 }
 
 // Unwrap unwraps the Role entity that was returned from a transaction after it was closed,
@@ -189,8 +189,8 @@ func (r *Role) String() string {
 	builder.WriteString("remark=")
 	builder.WriteString(r.Remark)
 	builder.WriteString(", ")
-	builder.WriteString("order_no=")
-	builder.WriteString(fmt.Sprintf("%v", r.OrderNo))
+	builder.WriteString("sort=")
+	builder.WriteString(fmt.Sprintf("%v", r.Sort))
 	builder.WriteByte(')')
 	return builder.String()
 }

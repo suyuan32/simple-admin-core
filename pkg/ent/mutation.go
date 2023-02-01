@@ -22,6 +22,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 
 	"entgo.io/ent"
+	"entgo.io/ent/dialect/sql"
 )
 
 const (
@@ -387,9 +388,24 @@ func (m *APIMutation) Where(ps ...predicate.API) {
 	m.predicates = append(m.predicates, ps...)
 }
 
+// WhereP appends storage-level predicates to the APIMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *APIMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.API, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
 // Op returns the operation name.
 func (m *APIMutation) Op() Op {
 	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *APIMutation) SetOp(op Op) {
+	m.op = op
 }
 
 // Type returns the node type of this mutation (API).
@@ -1066,9 +1082,24 @@ func (m *DictionaryMutation) Where(ps ...predicate.Dictionary) {
 	m.predicates = append(m.predicates, ps...)
 }
 
+// WhereP appends storage-level predicates to the DictionaryMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *DictionaryMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.Dictionary, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
 // Op returns the operation name.
 func (m *DictionaryMutation) Op() Op {
 	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *DictionaryMutation) SetOp(op Op) {
+	m.op = op
 }
 
 // Type returns the node type of this mutation (Dictionary).
@@ -1789,9 +1820,24 @@ func (m *DictionaryDetailMutation) Where(ps ...predicate.DictionaryDetail) {
 	m.predicates = append(m.predicates, ps...)
 }
 
+// WhereP appends storage-level predicates to the DictionaryDetailMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *DictionaryDetailMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.DictionaryDetail, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
 // Op returns the operation name.
 func (m *DictionaryDetailMutation) Op() Op {
 	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *DictionaryDetailMutation) SetOp(op Op) {
+	m.op = op
 }
 
 // Type returns the node type of this mutation (DictionaryDetail).
@@ -2099,8 +2145,8 @@ type MenuMutation struct {
 	name                  *string
 	redirect              *string
 	component             *string
-	order_no              *uint32
-	addorder_no           *int32
+	sort                  *uint32
+	addsort               *int32
 	disabled              *bool
 	title                 *string
 	icon                  *string
@@ -2653,60 +2699,60 @@ func (m *MenuMutation) ResetComponent() {
 	delete(m.clearedFields, menu.FieldComponent)
 }
 
-// SetOrderNo sets the "order_no" field.
-func (m *MenuMutation) SetOrderNo(u uint32) {
-	m.order_no = &u
-	m.addorder_no = nil
+// SetSort sets the "sort" field.
+func (m *MenuMutation) SetSort(u uint32) {
+	m.sort = &u
+	m.addsort = nil
 }
 
-// OrderNo returns the value of the "order_no" field in the mutation.
-func (m *MenuMutation) OrderNo() (r uint32, exists bool) {
-	v := m.order_no
+// Sort returns the value of the "sort" field in the mutation.
+func (m *MenuMutation) Sort() (r uint32, exists bool) {
+	v := m.sort
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldOrderNo returns the old "order_no" field's value of the Menu entity.
+// OldSort returns the old "sort" field's value of the Menu entity.
 // If the Menu object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *MenuMutation) OldOrderNo(ctx context.Context) (v uint32, err error) {
+func (m *MenuMutation) OldSort(ctx context.Context) (v uint32, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldOrderNo is only allowed on UpdateOne operations")
+		return v, errors.New("OldSort is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldOrderNo requires an ID field in the mutation")
+		return v, errors.New("OldSort requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldOrderNo: %w", err)
+		return v, fmt.Errorf("querying old value for OldSort: %w", err)
 	}
-	return oldValue.OrderNo, nil
+	return oldValue.Sort, nil
 }
 
-// AddOrderNo adds u to the "order_no" field.
-func (m *MenuMutation) AddOrderNo(u int32) {
-	if m.addorder_no != nil {
-		*m.addorder_no += u
+// AddSort adds u to the "sort" field.
+func (m *MenuMutation) AddSort(u int32) {
+	if m.addsort != nil {
+		*m.addsort += u
 	} else {
-		m.addorder_no = &u
+		m.addsort = &u
 	}
 }
 
-// AddedOrderNo returns the value that was added to the "order_no" field in this mutation.
-func (m *MenuMutation) AddedOrderNo() (r int32, exists bool) {
-	v := m.addorder_no
+// AddedSort returns the value that was added to the "sort" field in this mutation.
+func (m *MenuMutation) AddedSort() (r int32, exists bool) {
+	v := m.addsort
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// ResetOrderNo resets all changes to the "order_no" field.
-func (m *MenuMutation) ResetOrderNo() {
-	m.order_no = nil
-	m.addorder_no = nil
+// ResetSort resets all changes to the "sort" field.
+func (m *MenuMutation) ResetSort() {
+	m.sort = nil
+	m.addsort = nil
 }
 
 // SetDisabled sets the "disabled" field.
@@ -3583,9 +3629,24 @@ func (m *MenuMutation) Where(ps ...predicate.Menu) {
 	m.predicates = append(m.predicates, ps...)
 }
 
+// WhereP appends storage-level predicates to the MenuMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *MenuMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.Menu, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
 // Op returns the operation name.
 func (m *MenuMutation) Op() Op {
 	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *MenuMutation) SetOp(op Op) {
+	m.op = op
 }
 
 // Type returns the node type of this mutation (Menu).
@@ -3625,8 +3686,8 @@ func (m *MenuMutation) Fields() []string {
 	if m.component != nil {
 		fields = append(fields, menu.FieldComponent)
 	}
-	if m.order_no != nil {
-		fields = append(fields, menu.FieldOrderNo)
+	if m.sort != nil {
+		fields = append(fields, menu.FieldSort)
 	}
 	if m.disabled != nil {
 		fields = append(fields, menu.FieldDisabled)
@@ -3696,8 +3757,8 @@ func (m *MenuMutation) Field(name string) (ent.Value, bool) {
 		return m.Redirect()
 	case menu.FieldComponent:
 		return m.Component()
-	case menu.FieldOrderNo:
-		return m.OrderNo()
+	case menu.FieldSort:
+		return m.Sort()
 	case menu.FieldDisabled:
 		return m.Disabled()
 	case menu.FieldTitle:
@@ -3753,8 +3814,8 @@ func (m *MenuMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldRedirect(ctx)
 	case menu.FieldComponent:
 		return m.OldComponent(ctx)
-	case menu.FieldOrderNo:
-		return m.OldOrderNo(ctx)
+	case menu.FieldSort:
+		return m.OldSort(ctx)
 	case menu.FieldDisabled:
 		return m.OldDisabled(ctx)
 	case menu.FieldTitle:
@@ -3855,12 +3916,12 @@ func (m *MenuMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetComponent(v)
 		return nil
-	case menu.FieldOrderNo:
+	case menu.FieldSort:
 		v, ok := value.(uint32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetOrderNo(v)
+		m.SetSort(v)
 		return nil
 	case menu.FieldDisabled:
 		v, ok := value.(bool)
@@ -3974,8 +4035,8 @@ func (m *MenuMutation) AddedFields() []string {
 	if m.addmenu_type != nil {
 		fields = append(fields, menu.FieldMenuType)
 	}
-	if m.addorder_no != nil {
-		fields = append(fields, menu.FieldOrderNo)
+	if m.addsort != nil {
+		fields = append(fields, menu.FieldSort)
 	}
 	if m.adddynamic_level != nil {
 		fields = append(fields, menu.FieldDynamicLevel)
@@ -3992,8 +4053,8 @@ func (m *MenuMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedMenuLevel()
 	case menu.FieldMenuType:
 		return m.AddedMenuType()
-	case menu.FieldOrderNo:
-		return m.AddedOrderNo()
+	case menu.FieldSort:
+		return m.AddedSort()
 	case menu.FieldDynamicLevel:
 		return m.AddedDynamicLevel()
 	}
@@ -4019,12 +4080,12 @@ func (m *MenuMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddMenuType(v)
 		return nil
-	case menu.FieldOrderNo:
+	case menu.FieldSort:
 		v, ok := value.(int32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddOrderNo(v)
+		m.AddSort(v)
 		return nil
 	case menu.FieldDynamicLevel:
 		v, ok := value.(int32)
@@ -4186,8 +4247,8 @@ func (m *MenuMutation) ResetField(name string) error {
 	case menu.FieldComponent:
 		m.ResetComponent()
 		return nil
-	case menu.FieldOrderNo:
-		m.ResetOrderNo()
+	case menu.FieldSort:
+		m.ResetSort()
 		return nil
 	case menu.FieldDisabled:
 		m.ResetDisabled()
@@ -4736,9 +4797,24 @@ func (m *MenuParamMutation) Where(ps ...predicate.MenuParam) {
 	m.predicates = append(m.predicates, ps...)
 }
 
+// WhereP appends storage-level predicates to the MenuParamMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *MenuParamMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.MenuParam, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
 // Op returns the operation name.
 func (m *MenuParamMutation) Op() Op {
 	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *MenuParamMutation) SetOp(op Op) {
+	m.op = op
 }
 
 // Type returns the node type of this mutation (MenuParam).
@@ -5538,9 +5614,24 @@ func (m *OauthProviderMutation) Where(ps ...predicate.OauthProvider) {
 	m.predicates = append(m.predicates, ps...)
 }
 
+// WhereP appends storage-level predicates to the OauthProviderMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *OauthProviderMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.OauthProvider, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
 // Op returns the operation name.
 func (m *OauthProviderMutation) Op() Op {
 	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *OauthProviderMutation) SetOp(op Op) {
+	m.op = op
 }
 
 // Type returns the node type of this mutation (OauthProvider).
@@ -5896,8 +5987,8 @@ type RoleMutation struct {
 	value          *string
 	default_router *string
 	remark         *string
-	order_no       *uint32
-	addorder_no    *int32
+	sort           *uint32
+	addsort        *int32
 	clearedFields  map[string]struct{}
 	menus          map[uint64]struct{}
 	removedmenus   map[uint64]struct{}
@@ -6297,60 +6388,60 @@ func (m *RoleMutation) ResetRemark() {
 	m.remark = nil
 }
 
-// SetOrderNo sets the "order_no" field.
-func (m *RoleMutation) SetOrderNo(u uint32) {
-	m.order_no = &u
-	m.addorder_no = nil
+// SetSort sets the "sort" field.
+func (m *RoleMutation) SetSort(u uint32) {
+	m.sort = &u
+	m.addsort = nil
 }
 
-// OrderNo returns the value of the "order_no" field in the mutation.
-func (m *RoleMutation) OrderNo() (r uint32, exists bool) {
-	v := m.order_no
+// Sort returns the value of the "sort" field in the mutation.
+func (m *RoleMutation) Sort() (r uint32, exists bool) {
+	v := m.sort
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldOrderNo returns the old "order_no" field's value of the Role entity.
+// OldSort returns the old "sort" field's value of the Role entity.
 // If the Role object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *RoleMutation) OldOrderNo(ctx context.Context) (v uint32, err error) {
+func (m *RoleMutation) OldSort(ctx context.Context) (v uint32, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldOrderNo is only allowed on UpdateOne operations")
+		return v, errors.New("OldSort is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldOrderNo requires an ID field in the mutation")
+		return v, errors.New("OldSort requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldOrderNo: %w", err)
+		return v, fmt.Errorf("querying old value for OldSort: %w", err)
 	}
-	return oldValue.OrderNo, nil
+	return oldValue.Sort, nil
 }
 
-// AddOrderNo adds u to the "order_no" field.
-func (m *RoleMutation) AddOrderNo(u int32) {
-	if m.addorder_no != nil {
-		*m.addorder_no += u
+// AddSort adds u to the "sort" field.
+func (m *RoleMutation) AddSort(u int32) {
+	if m.addsort != nil {
+		*m.addsort += u
 	} else {
-		m.addorder_no = &u
+		m.addsort = &u
 	}
 }
 
-// AddedOrderNo returns the value that was added to the "order_no" field in this mutation.
-func (m *RoleMutation) AddedOrderNo() (r int32, exists bool) {
-	v := m.addorder_no
+// AddedSort returns the value that was added to the "sort" field in this mutation.
+func (m *RoleMutation) AddedSort() (r int32, exists bool) {
+	v := m.addsort
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// ResetOrderNo resets all changes to the "order_no" field.
-func (m *RoleMutation) ResetOrderNo() {
-	m.order_no = nil
-	m.addorder_no = nil
+// ResetSort resets all changes to the "sort" field.
+func (m *RoleMutation) ResetSort() {
+	m.sort = nil
+	m.addsort = nil
 }
 
 // AddMenuIDs adds the "menus" edge to the Menu entity by ids.
@@ -6412,9 +6503,24 @@ func (m *RoleMutation) Where(ps ...predicate.Role) {
 	m.predicates = append(m.predicates, ps...)
 }
 
+// WhereP appends storage-level predicates to the RoleMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *RoleMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.Role, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
 // Op returns the operation name.
 func (m *RoleMutation) Op() Op {
 	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *RoleMutation) SetOp(op Op) {
+	m.op = op
 }
 
 // Type returns the node type of this mutation (Role).
@@ -6448,8 +6554,8 @@ func (m *RoleMutation) Fields() []string {
 	if m.remark != nil {
 		fields = append(fields, role.FieldRemark)
 	}
-	if m.order_no != nil {
-		fields = append(fields, role.FieldOrderNo)
+	if m.sort != nil {
+		fields = append(fields, role.FieldSort)
 	}
 	return fields
 }
@@ -6473,8 +6579,8 @@ func (m *RoleMutation) Field(name string) (ent.Value, bool) {
 		return m.DefaultRouter()
 	case role.FieldRemark:
 		return m.Remark()
-	case role.FieldOrderNo:
-		return m.OrderNo()
+	case role.FieldSort:
+		return m.Sort()
 	}
 	return nil, false
 }
@@ -6498,8 +6604,8 @@ func (m *RoleMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldDefaultRouter(ctx)
 	case role.FieldRemark:
 		return m.OldRemark(ctx)
-	case role.FieldOrderNo:
-		return m.OldOrderNo(ctx)
+	case role.FieldSort:
+		return m.OldSort(ctx)
 	}
 	return nil, fmt.Errorf("unknown Role field %s", name)
 }
@@ -6558,12 +6664,12 @@ func (m *RoleMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetRemark(v)
 		return nil
-	case role.FieldOrderNo:
+	case role.FieldSort:
 		v, ok := value.(uint32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetOrderNo(v)
+		m.SetSort(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Role field %s", name)
@@ -6576,8 +6682,8 @@ func (m *RoleMutation) AddedFields() []string {
 	if m.addstatus != nil {
 		fields = append(fields, role.FieldStatus)
 	}
-	if m.addorder_no != nil {
-		fields = append(fields, role.FieldOrderNo)
+	if m.addsort != nil {
+		fields = append(fields, role.FieldSort)
 	}
 	return fields
 }
@@ -6589,8 +6695,8 @@ func (m *RoleMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
 	case role.FieldStatus:
 		return m.AddedStatus()
-	case role.FieldOrderNo:
-		return m.AddedOrderNo()
+	case role.FieldSort:
+		return m.AddedSort()
 	}
 	return nil, false
 }
@@ -6607,12 +6713,12 @@ func (m *RoleMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddStatus(v)
 		return nil
-	case role.FieldOrderNo:
+	case role.FieldSort:
 		v, ok := value.(int32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddOrderNo(v)
+		m.AddSort(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Role numeric field %s", name)
@@ -6671,8 +6777,8 @@ func (m *RoleMutation) ResetField(name string) error {
 	case role.FieldRemark:
 		m.ResetRemark()
 		return nil
-	case role.FieldOrderNo:
-		m.ResetOrderNo()
+	case role.FieldSort:
+		m.ResetSort()
 		return nil
 	}
 	return fmt.Errorf("unknown Role field %s", name)
@@ -7177,9 +7283,24 @@ func (m *TokenMutation) Where(ps ...predicate.Token) {
 	m.predicates = append(m.predicates, ps...)
 }
 
+// WhereP appends storage-level predicates to the TokenMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *TokenMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.Token, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
 // Op returns the operation name.
 func (m *TokenMutation) Op() Op {
 	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *TokenMutation) SetOp(op Op) {
+	m.op = op
 }
 
 // Type returns the node type of this mutation (Token).
@@ -8212,9 +8333,24 @@ func (m *UserMutation) Where(ps ...predicate.User) {
 	m.predicates = append(m.predicates, ps...)
 }
 
+// WhereP appends storage-level predicates to the UserMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *UserMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.User, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
 // Op returns the operation name.
 func (m *UserMutation) Op() Op {
 	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *UserMutation) SetOp(op Op) {
+	m.op = op
 }
 
 // Type returns the node type of this mutation (User).

@@ -107,7 +107,7 @@ func (a *API) assignValues(columns []string, values []any) error {
 // Note that you need to call API.Unwrap() before calling this method if this API
 // was returned from a transaction, and the transaction was committed or rolled back.
 func (a *API) Update() *APIUpdateOne {
-	return (&APIClient{config: a.config}).UpdateOne(a)
+	return NewAPIClient(a.config).UpdateOne(a)
 }
 
 // Unwrap unwraps the API entity that was returned from a transaction after it was closed,

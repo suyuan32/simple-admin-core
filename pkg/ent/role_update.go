@@ -102,24 +102,24 @@ func (ru *RoleUpdate) SetNillableRemark(s *string) *RoleUpdate {
 	return ru
 }
 
-// SetOrderNo sets the "order_no" field.
-func (ru *RoleUpdate) SetOrderNo(u uint32) *RoleUpdate {
-	ru.mutation.ResetOrderNo()
-	ru.mutation.SetOrderNo(u)
+// SetSort sets the "sort" field.
+func (ru *RoleUpdate) SetSort(u uint32) *RoleUpdate {
+	ru.mutation.ResetSort()
+	ru.mutation.SetSort(u)
 	return ru
 }
 
-// SetNillableOrderNo sets the "order_no" field if the given value is not nil.
-func (ru *RoleUpdate) SetNillableOrderNo(u *uint32) *RoleUpdate {
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (ru *RoleUpdate) SetNillableSort(u *uint32) *RoleUpdate {
 	if u != nil {
-		ru.SetOrderNo(*u)
+		ru.SetSort(*u)
 	}
 	return ru
 }
 
-// AddOrderNo adds u to the "order_no" field.
-func (ru *RoleUpdate) AddOrderNo(u int32) *RoleUpdate {
-	ru.mutation.AddOrderNo(u)
+// AddSort adds u to the "sort" field.
+func (ru *RoleUpdate) AddSort(u int32) *RoleUpdate {
+	ru.mutation.AddSort(u)
 	return ru
 }
 
@@ -166,35 +166,8 @@ func (ru *RoleUpdate) RemoveMenus(m ...*Menu) *RoleUpdate {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (ru *RoleUpdate) Save(ctx context.Context) (int, error) {
-	var (
-		err      error
-		affected int
-	)
 	ru.defaults()
-	if len(ru.hooks) == 0 {
-		affected, err = ru.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*RoleMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			ru.mutation = mutation
-			affected, err = ru.sqlSave(ctx)
-			mutation.done = true
-			return affected, err
-		})
-		for i := len(ru.hooks) - 1; i >= 0; i-- {
-			if ru.hooks[i] == nil {
-				return 0, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = ru.hooks[i](mut)
-		}
-		if _, err := mut.Mutate(ctx, ru.mutation); err != nil {
-			return 0, err
-		}
-	}
-	return affected, err
+	return withHooks[int, RoleMutation](ctx, ru.sqlSave, ru.mutation, ru.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -269,11 +242,11 @@ func (ru *RoleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := ru.mutation.Remark(); ok {
 		_spec.SetField(role.FieldRemark, field.TypeString, value)
 	}
-	if value, ok := ru.mutation.OrderNo(); ok {
-		_spec.SetField(role.FieldOrderNo, field.TypeUint32, value)
+	if value, ok := ru.mutation.Sort(); ok {
+		_spec.SetField(role.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := ru.mutation.AddedOrderNo(); ok {
-		_spec.AddField(role.FieldOrderNo, field.TypeUint32, value)
+	if value, ok := ru.mutation.AddedSort(); ok {
+		_spec.AddField(role.FieldSort, field.TypeUint32, value)
 	}
 	if ru.mutation.MenusCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -337,6 +310,7 @@ func (ru *RoleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
+	ru.mutation.done = true
 	return n, nil
 }
 
@@ -421,24 +395,24 @@ func (ruo *RoleUpdateOne) SetNillableRemark(s *string) *RoleUpdateOne {
 	return ruo
 }
 
-// SetOrderNo sets the "order_no" field.
-func (ruo *RoleUpdateOne) SetOrderNo(u uint32) *RoleUpdateOne {
-	ruo.mutation.ResetOrderNo()
-	ruo.mutation.SetOrderNo(u)
+// SetSort sets the "sort" field.
+func (ruo *RoleUpdateOne) SetSort(u uint32) *RoleUpdateOne {
+	ruo.mutation.ResetSort()
+	ruo.mutation.SetSort(u)
 	return ruo
 }
 
-// SetNillableOrderNo sets the "order_no" field if the given value is not nil.
-func (ruo *RoleUpdateOne) SetNillableOrderNo(u *uint32) *RoleUpdateOne {
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (ruo *RoleUpdateOne) SetNillableSort(u *uint32) *RoleUpdateOne {
 	if u != nil {
-		ruo.SetOrderNo(*u)
+		ruo.SetSort(*u)
 	}
 	return ruo
 }
 
-// AddOrderNo adds u to the "order_no" field.
-func (ruo *RoleUpdateOne) AddOrderNo(u int32) *RoleUpdateOne {
-	ruo.mutation.AddOrderNo(u)
+// AddSort adds u to the "sort" field.
+func (ruo *RoleUpdateOne) AddSort(u int32) *RoleUpdateOne {
+	ruo.mutation.AddSort(u)
 	return ruo
 }
 
@@ -492,41 +466,8 @@ func (ruo *RoleUpdateOne) Select(field string, fields ...string) *RoleUpdateOne 
 
 // Save executes the query and returns the updated Role entity.
 func (ruo *RoleUpdateOne) Save(ctx context.Context) (*Role, error) {
-	var (
-		err  error
-		node *Role
-	)
 	ruo.defaults()
-	if len(ruo.hooks) == 0 {
-		node, err = ruo.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*RoleMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			ruo.mutation = mutation
-			node, err = ruo.sqlSave(ctx)
-			mutation.done = true
-			return node, err
-		})
-		for i := len(ruo.hooks) - 1; i >= 0; i-- {
-			if ruo.hooks[i] == nil {
-				return nil, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = ruo.hooks[i](mut)
-		}
-		v, err := mut.Mutate(ctx, ruo.mutation)
-		if err != nil {
-			return nil, err
-		}
-		nv, ok := v.(*Role)
-		if !ok {
-			return nil, fmt.Errorf("unexpected node type %T returned from RoleMutation", v)
-		}
-		node = nv
-	}
-	return node, err
+	return withHooks[*Role, RoleMutation](ctx, ruo.sqlSave, ruo.mutation, ruo.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -618,11 +559,11 @@ func (ruo *RoleUpdateOne) sqlSave(ctx context.Context) (_node *Role, err error) 
 	if value, ok := ruo.mutation.Remark(); ok {
 		_spec.SetField(role.FieldRemark, field.TypeString, value)
 	}
-	if value, ok := ruo.mutation.OrderNo(); ok {
-		_spec.SetField(role.FieldOrderNo, field.TypeUint32, value)
+	if value, ok := ruo.mutation.Sort(); ok {
+		_spec.SetField(role.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := ruo.mutation.AddedOrderNo(); ok {
-		_spec.AddField(role.FieldOrderNo, field.TypeUint32, value)
+	if value, ok := ruo.mutation.AddedSort(); ok {
+		_spec.AddField(role.FieldSort, field.TypeUint32, value)
 	}
 	if ruo.mutation.MenusCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -689,5 +630,6 @@ func (ruo *RoleUpdateOne) sqlSave(ctx context.Context) (_node *Role, err error) 
 		}
 		return nil, err
 	}
+	ruo.mutation.done = true
 	return _node, nil
 }

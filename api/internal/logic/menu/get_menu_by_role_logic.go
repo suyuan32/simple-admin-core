@@ -54,7 +54,7 @@ func (l *GetMenuByRoleLogic) convertRoleMenuList(data []*core.MenuInfo, lang str
 			Name:      v.Name,
 			Redirect:  v.Redirect,
 			Component: v.Component,
-			OrderNo:   v.OrderNo,
+			Sort:      v.Sort,
 			Meta: types.Meta{
 				Title:              l.svcCtx.Trans.Trans(lang, v.Meta.Title),
 				Icon:               v.Meta.Icon,

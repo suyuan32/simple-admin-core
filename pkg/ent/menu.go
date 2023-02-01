@@ -35,7 +35,7 @@ type Menu struct {
 	// the path of vue file | 组件路径
 	Component string `json:"component,omitempty"`
 	// sorting numbers | 排序编号
-	OrderNo uint32 `json:"order_no,omitempty"`
+	Sort uint32 `json:"sort,omitempty"`
 	// disable status | 是否停用
 	Disabled bool `json:"disabled,omitempty"`
 	// menu name | 菜单显示标题
@@ -131,7 +131,7 @@ func (*Menu) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case menu.FieldDisabled, menu.FieldHideMenu, menu.FieldHideBreadcrumb, menu.FieldIgnoreKeepAlive, menu.FieldHideTab, menu.FieldCarryParam, menu.FieldHideChildrenInMenu, menu.FieldAffix:
 			values[i] = new(sql.NullBool)
-		case menu.FieldID, menu.FieldParentID, menu.FieldMenuLevel, menu.FieldMenuType, menu.FieldOrderNo, menu.FieldDynamicLevel:
+		case menu.FieldID, menu.FieldParentID, menu.FieldMenuLevel, menu.FieldMenuType, menu.FieldSort, menu.FieldDynamicLevel:
 			values[i] = new(sql.NullInt64)
 		case menu.FieldPath, menu.FieldName, menu.FieldRedirect, menu.FieldComponent, menu.FieldTitle, menu.FieldIcon, menu.FieldCurrentActiveMenu, menu.FieldFrameSrc, menu.FieldRealPath:
 			values[i] = new(sql.NullString)
@@ -212,11 +212,11 @@ func (m *Menu) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				m.Component = value.String
 			}
-		case menu.FieldOrderNo:
+		case menu.FieldSort:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field order_no", values[i])
+				return fmt.Errorf("unexpected type %T for field sort", values[i])
 			} else if value.Valid {
-				m.OrderNo = uint32(value.Int64)
+				m.Sort = uint32(value.Int64)
 			}
 		case menu.FieldDisabled:
 			if value, ok := values[i].(*sql.NullBool); !ok {
@@ -309,29 +309,29 @@ func (m *Menu) assignValues(columns []string, values []any) error {
 
 // QueryRoles queries the "roles" edge of the Menu entity.
 func (m *Menu) QueryRoles() *RoleQuery {
-	return (&MenuClient{config: m.config}).QueryRoles(m)
+	return NewMenuClient(m.config).QueryRoles(m)
 }
 
 // QueryParent queries the "parent" edge of the Menu entity.
 func (m *Menu) QueryParent() *MenuQuery {
-	return (&MenuClient{config: m.config}).QueryParent(m)
+	return NewMenuClient(m.config).QueryParent(m)
 }
 
 // QueryChildren queries the "children" edge of the Menu entity.
 func (m *Menu) QueryChildren() *MenuQuery {
-	return (&MenuClient{config: m.config}).QueryChildren(m)
+	return NewMenuClient(m.config).QueryChildren(m)
 }
 
 // QueryParams queries the "params" edge of the Menu entity.
 func (m *Menu) QueryParams() *MenuParamQuery {
-	return (&MenuClient{config: m.config}).QueryParams(m)
+	return NewMenuClient(m.config).QueryParams(m)
 }
 
 // Update returns a builder for updating this Menu.
 // Note that you need to call Menu.Unwrap() before calling this method if this Menu
 // was returned from a transaction, and the transaction was committed or rolled back.
 func (m *Menu) Update() *MenuUpdateOne {
-	return (&MenuClient{config: m.config}).UpdateOne(m)
+	return NewMenuClient(m.config).UpdateOne(m)
 }
 
 // Unwrap unwraps the Menu entity that was returned from a transaction after it was closed,
@@ -377,8 +377,8 @@ func (m *Menu) String() string {
 	builder.WriteString("component=")
 	builder.WriteString(m.Component)
 	builder.WriteString(", ")
-	builder.WriteString("order_no=")
-	builder.WriteString(fmt.Sprintf("%v", m.OrderNo))
+	builder.WriteString("sort=")
+	builder.WriteString(fmt.Sprintf("%v", m.Sort))
 	builder.WriteString(", ")
 	builder.WriteString("disabled=")
 	builder.WriteString(fmt.Sprintf("%v", m.Disabled))

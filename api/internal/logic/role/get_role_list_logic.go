@@ -52,7 +52,7 @@ func (l *GetRoleListLogic) GetRoleList(req *types.PageInfo) (resp *types.RoleLis
 			DefaultRouter: v.DefaultRouter,
 			Status:        uint32(v.Status),
 			Remark:        v.Remark,
-			OrderNo:       v.OrderNo,
+			Sort:          v.Sort,
 		})
 	}
 	return resp, nil

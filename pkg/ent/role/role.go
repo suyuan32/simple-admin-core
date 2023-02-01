@@ -25,8 +25,8 @@ const (
 	FieldDefaultRouter = "default_router"
 	// FieldRemark holds the string denoting the remark field in the database.
 	FieldRemark = "remark"
-	// FieldOrderNo holds the string denoting the order_no field in the database.
-	FieldOrderNo = "order_no"
+	// FieldSort holds the string denoting the sort field in the database.
+	FieldSort = "sort"
 	// EdgeMenus holds the string denoting the menus edge name in mutations.
 	EdgeMenus = "menus"
 	// Table holds the table name of the role in the database.
@@ -48,7 +48,7 @@ var Columns = []string{
 	FieldValue,
 	FieldDefaultRouter,
 	FieldRemark,
-	FieldOrderNo,
+	FieldSort,
 }
 
 var (
@@ -80,6 +80,6 @@ var (
 	DefaultDefaultRouter string
 	// DefaultRemark holds the default value on creation for the "remark" field.
 	DefaultRemark string
-	// DefaultOrderNo holds the default value on creation for the "order_no" field.
-	DefaultOrderNo uint32
+	// DefaultSort holds the default value on creation for the "sort" field.
+	DefaultSort uint32
 )

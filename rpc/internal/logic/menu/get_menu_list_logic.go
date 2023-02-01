@@ -29,9 +29,8 @@ func NewGetMenuListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMe
 
 func (l *GetMenuListLogic) GetMenuList(in *core.PageInfoReq) (*core.MenuInfoList, error) {
 	menus, err := l.svcCtx.DB.Menu.Query().Page(l.ctx, in.Page, in.PageSize, func(pager *ent.MenuPager) {
-		pager.Order = ent.Asc(menu.FieldOrderNo)
+		pager.Order = ent.Asc(menu.FieldSort)
 	})
-
 	if err != nil {
 		logx.Error(err.Error())
 		return nil, statuserr.NewInternalError(i18n.DatabaseError)
@@ -62,7 +61,7 @@ func findMenuChildren(data []*ent.Menu, parentId uint64) []*core.MenuInfo {
 				Name:      v.Name,
 				Redirect:  v.Redirect,
 				Component: v.Component,
-				OrderNo:   v.OrderNo,
+				Sort:      v.Sort,
 				Meta: &core.Meta{
 					Title:              v.Title,
 					Icon:               v.Icon,

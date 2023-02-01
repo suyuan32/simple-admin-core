@@ -102,35 +102,8 @@ func (opu *OauthProviderUpdate) Mutation() *OauthProviderMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (opu *OauthProviderUpdate) Save(ctx context.Context) (int, error) {
-	var (
-		err      error
-		affected int
-	)
 	opu.defaults()
-	if len(opu.hooks) == 0 {
-		affected, err = opu.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*OauthProviderMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			opu.mutation = mutation
-			affected, err = opu.sqlSave(ctx)
-			mutation.done = true
-			return affected, err
-		})
-		for i := len(opu.hooks) - 1; i >= 0; i-- {
-			if opu.hooks[i] == nil {
-				return 0, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = opu.hooks[i](mut)
-		}
-		if _, err := mut.Mutate(ctx, opu.mutation); err != nil {
-			return 0, err
-		}
-	}
-	return affected, err
+	return withHooks[int, OauthProviderMutation](ctx, opu.sqlSave, opu.mutation, opu.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -222,6 +195,7 @@ func (opu *OauthProviderUpdate) sqlSave(ctx context.Context) (n int, err error) 
 		}
 		return 0, err
 	}
+	opu.mutation.done = true
 	return n, nil
 }
 
@@ -314,41 +288,8 @@ func (opuo *OauthProviderUpdateOne) Select(field string, fields ...string) *Oaut
 
 // Save executes the query and returns the updated OauthProvider entity.
 func (opuo *OauthProviderUpdateOne) Save(ctx context.Context) (*OauthProvider, error) {
-	var (
-		err  error
-		node *OauthProvider
-	)
 	opuo.defaults()
-	if len(opuo.hooks) == 0 {
-		node, err = opuo.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*OauthProviderMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			opuo.mutation = mutation
-			node, err = opuo.sqlSave(ctx)
-			mutation.done = true
-			return node, err
-		})
-		for i := len(opuo.hooks) - 1; i >= 0; i-- {
-			if opuo.hooks[i] == nil {
-				return nil, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = opuo.hooks[i](mut)
-		}
-		v, err := mut.Mutate(ctx, opuo.mutation)
-		if err != nil {
-			return nil, err
-		}
-		nv, ok := v.(*OauthProvider)
-		if !ok {
-			return nil, fmt.Errorf("unexpected node type %T returned from OauthProviderMutation", v)
-		}
-		node = nv
-	}
-	return node, err
+	return withHooks[*OauthProvider, OauthProviderMutation](ctx, opuo.sqlSave, opuo.mutation, opuo.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -460,5 +401,6 @@ func (opuo *OauthProviderUpdateOne) sqlSave(ctx context.Context) (_node *OauthPr
 		}
 		return nil, err
 	}
+	opuo.mutation.done = true
 	return _node, nil
 }

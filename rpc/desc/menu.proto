@@ -8,7 +8,7 @@ message CreateOrUpdateMenuReq {
   string name = 4;
   string redirect = 5;
   string component = 6;
-  uint32 order_no = 7;
+  uint32 sort = 7;
   bool disabled = 8;
   Meta meta = 9;
   uint64 id = 10;
@@ -25,7 +25,7 @@ message MenuInfo {
   string name = 7;
   string redirect = 8;
   string component = 9;
-  uint32 order_no = 10;
+  uint32 sort = 10;
   bool disabled = 11;
   Meta meta = 12;
   repeated MenuInfo children = 13;

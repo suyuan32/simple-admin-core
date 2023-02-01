@@ -110,10 +110,10 @@ func init() {
 	menuDescComponent := menuFields[6].Descriptor()
 	// menu.DefaultComponent holds the default value on creation for the component field.
 	menu.DefaultComponent = menuDescComponent.Default.(string)
-	// menuDescOrderNo is the schema descriptor for order_no field.
-	menuDescOrderNo := menuFields[7].Descriptor()
-	// menu.DefaultOrderNo holds the default value on creation for the order_no field.
-	menu.DefaultOrderNo = menuDescOrderNo.Default.(uint32)
+	// menuDescSort is the schema descriptor for sort field.
+	menuDescSort := menuFields[7].Descriptor()
+	// menu.DefaultSort holds the default value on creation for the sort field.
+	menu.DefaultSort = menuDescSort.Default.(uint32)
 	// menuDescDisabled is the schema descriptor for disabled field.
 	menuDescDisabled := menuFields[8].Descriptor()
 	// menu.DefaultDisabled holds the default value on creation for the disabled field.
@@ -221,10 +221,10 @@ func init() {
 	roleDescRemark := roleFields[3].Descriptor()
 	// role.DefaultRemark holds the default value on creation for the remark field.
 	role.DefaultRemark = roleDescRemark.Default.(string)
-	// roleDescOrderNo is the schema descriptor for order_no field.
-	roleDescOrderNo := roleFields[4].Descriptor()
-	// role.DefaultOrderNo holds the default value on creation for the order_no field.
-	role.DefaultOrderNo = roleDescOrderNo.Default.(uint32)
+	// roleDescSort is the schema descriptor for sort field.
+	roleDescSort := roleFields[4].Descriptor()
+	// role.DefaultSort holds the default value on creation for the sort field.
+	role.DefaultSort = roleDescSort.Default.(uint32)
 	tokenMixin := schema.Token{}.Mixin()
 	tokenMixinFields0 := tokenMixin[0].Fields()
 	_ = tokenMixinFields0

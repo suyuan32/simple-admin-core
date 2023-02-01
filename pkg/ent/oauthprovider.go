@@ -147,7 +147,7 @@ func (op *OauthProvider) assignValues(columns []string, values []any) error {
 // Note that you need to call OauthProvider.Unwrap() before calling this method if this OauthProvider
 // was returned from a transaction, and the transaction was committed or rolled back.
 func (op *OauthProvider) Update() *OauthProviderUpdateOne {
-	return (&OauthProviderClient{config: op.config}).UpdateOne(op)
+	return NewOauthProviderClient(op.config).UpdateOne(op)
 }
 
 // Unwrap unwraps the OauthProvider entity that was returned from a transaction after it was closed,

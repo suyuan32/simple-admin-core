@@ -133,14 +133,14 @@ func (mp *MenuParam) assignValues(columns []string, values []any) error {
 
 // QueryMenus queries the "menus" edge of the MenuParam entity.
 func (mp *MenuParam) QueryMenus() *MenuQuery {
-	return (&MenuParamClient{config: mp.config}).QueryMenus(mp)
+	return NewMenuParamClient(mp.config).QueryMenus(mp)
 }
 
 // Update returns a builder for updating this MenuParam.
 // Note that you need to call MenuParam.Unwrap() before calling this method if this MenuParam
 // was returned from a transaction, and the transaction was committed or rolled back.
 func (mp *MenuParam) Update() *MenuParamUpdateOne {
-	return (&MenuParamClient{config: mp.config}).UpdateOne(mp)
+	return NewMenuParamClient(mp.config).UpdateOne(mp)
 }
 
 // Unwrap unwraps the MenuParam entity that was returned from a transaction after it was closed,

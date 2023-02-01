@@ -36,10 +36,9 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 			SetValue(in.Value).
 			SetDefaultRouter(in.DefaultRouter).
 			SetStatus(uint8(in.Status)).
-			SetOrderNo(in.OrderNo).
+			SetSort(in.Sort).
 			SetRemark(in.Remark).
 			Exec(l.ctx)
-
 		if err != nil {
 			switch {
 			case ent.IsConstraintError(err):
@@ -64,10 +63,9 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 			SetValue(in.Value).
 			SetDefaultRouter(in.DefaultRouter).
 			SetStatus(uint8(in.Status)).
-			SetOrderNo(in.OrderNo).
+			SetSort(in.Sort).
 			SetRemark(in.Remark).
 			Exec(l.ctx)
-
 		if err != nil {
 			switch {
 			case ent.IsNotFound(err):
@@ -94,7 +92,6 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(in *core.RoleInfo) (*core.B
 
 func (l *CreateOrUpdateRoleLogic) UpdateRoleInfoInRedis() error {
 	roles, err := l.svcCtx.DB.Role.Query().All(l.ctx)
-
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):

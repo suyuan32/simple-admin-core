@@ -113,50 +113,8 @@ func (ddc *DictionaryDetailCreate) Mutation() *DictionaryDetailMutation {
 
 // Save creates the DictionaryDetail in the database.
 func (ddc *DictionaryDetailCreate) Save(ctx context.Context) (*DictionaryDetail, error) {
-	var (
-		err  error
-		node *DictionaryDetail
-	)
 	ddc.defaults()
-	if len(ddc.hooks) == 0 {
-		if err = ddc.check(); err != nil {
-			return nil, err
-		}
-		node, err = ddc.sqlSave(ctx)
-	} else {
-		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*DictionaryDetailMutation)
-			if !ok {
-				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			if err = ddc.check(); err != nil {
-				return nil, err
-			}
-			ddc.mutation = mutation
-			if node, err = ddc.sqlSave(ctx); err != nil {
-				return nil, err
-			}
-			mutation.id = &node.ID
-			mutation.done = true
-			return node, err
-		})
-		for i := len(ddc.hooks) - 1; i >= 0; i-- {
-			if ddc.hooks[i] == nil {
-				return nil, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
-			}
-			mut = ddc.hooks[i](mut)
-		}
-		v, err := mut.Mutate(ctx, ddc.mutation)
-		if err != nil {
-			return nil, err
-		}
-		nv, ok := v.(*DictionaryDetail)
-		if !ok {
-			return nil, fmt.Errorf("unexpected node type %T returned from DictionaryDetailMutation", v)
-		}
-		node = nv
-	}
-	return node, err
+	return withHooks[*DictionaryDetail, DictionaryDetailMutation](ctx, ddc.sqlSave, ddc.mutation, ddc.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
@@ -218,6 +176,9 @@ func (ddc *DictionaryDetailCreate) check() error {
 }
 
 func (ddc *DictionaryDetailCreate) sqlSave(ctx context.Context) (*DictionaryDetail, error) {
+	if err := ddc.check(); err != nil {
+		return nil, err
+	}
 	_node, _spec := ddc.createSpec()
 	if err := sqlgraph.CreateNode(ctx, ddc.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
@@ -229,6 +190,8 @@ func (ddc *DictionaryDetailCreate) sqlSave(ctx context.Context) (*DictionaryDeta
 		id := _spec.ID.Value.(int64)
 		_node.ID = uint64(id)
 	}
+	ddc.mutation.id = &_node.ID
+	ddc.mutation.done = true
 	return _node, nil
 }
 
