@@ -9,7 +9,7 @@ message TokenInfo {
   string uuid = 4;
   string token = 5;
   string source = 6;
-  uint64 status = 7;
+  uint32 status = 7;
   int64 expired_at = 8;
 }
 

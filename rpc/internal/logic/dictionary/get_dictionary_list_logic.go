@@ -27,7 +27,7 @@ func NewGetDictionaryListLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 	}
 }
 
-func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryPageReq) (*core.DictionaryList, error) {
+func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryListReq) (*core.DictionaryList, error) {
 	var predicates []predicate.Dictionary
 
 	if in.Name != "" {
@@ -39,7 +39,6 @@ func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryPageReq) (
 	}
 
 	dicts, err := l.svcCtx.DB.Dictionary.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
-
 	if err != nil {
 		logx.Error(err.Error())
 		return nil, statuserr.NewInternalError(i18n.DatabaseError)
@@ -55,7 +54,7 @@ func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryPageReq) (
 			UpdatedAt: v.UpdatedAt.UnixMilli(),
 			Name:      v.Name,
 			Title:     v.Title,
-			Status:    uint64(v.Status),
+			Status:    uint32(v.Status),
 			Desc:      v.Desc,
 		})
 	}

@@ -1,4 +1,4 @@
-package role
+package department
 
 import (
 	"context"
@@ -11,15 +11,15 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type CreateOrUpdateRoleLogic struct {
+type UpdateDepartmentStatusLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	lang   string
 }
 
-func NewCreateOrUpdateRoleLogic(r *http.Request, svcCtx *svc.ServiceContext) *CreateOrUpdateRoleLogic {
-	return &CreateOrUpdateRoleLogic{
+func NewUpdateDepartmentStatusLogic(r *http.Request, svcCtx *svc.ServiceContext) *UpdateDepartmentStatusLogic {
+	return &UpdateDepartmentStatusLogic{
 		Logger: logx.WithContext(r.Context()),
 		ctx:    r.Context(),
 		svcCtx: svcCtx,
@@ -27,18 +27,13 @@ func NewCreateOrUpdateRoleLogic(r *http.Request, svcCtx *svc.ServiceContext) *Cr
 	}
 }
 
-func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(req *types.RoleInfo) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.CreateOrUpdateRole(l.ctx, &core.RoleInfo{
-		Id:            req.Id,
-		Name:          req.Name,
-		Value:         req.Value,
-		DefaultRouter: req.DefaultRouter,
-		Status:        uint32(req.Status),
-		Remark:        req.Remark,
-		Sort:          req.Sort,
+func (l *UpdateDepartmentStatusLogic) UpdateDepartmentStatus(req *types.StatusCodeReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.UpdateDepartmentStatus(l.ctx, &core.StatusCodeReq{
+		Id: req.Id,
 	})
 	if err != nil {
 		return nil, err
 	}
+
 	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
 }

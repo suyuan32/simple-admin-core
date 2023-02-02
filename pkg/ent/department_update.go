@@ -104,6 +104,12 @@ func (du *DepartmentUpdate) AddSort(u int32) *DepartmentUpdate {
 	return du
 }
 
+// SetRemark sets the "remark" field.
+func (du *DepartmentUpdate) SetRemark(s string) *DepartmentUpdate {
+	du.mutation.SetRemark(s)
+	return du
+}
+
 // SetParentID sets the "parent_id" field.
 func (du *DepartmentUpdate) SetParentID(u uint64) *DepartmentUpdate {
 	du.mutation.SetParentID(u)
@@ -262,6 +268,9 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := du.mutation.AddedSort(); ok {
 		_spec.AddField(department.FieldSort, field.TypeUint32, value)
+	}
+	if value, ok := du.mutation.Remark(); ok {
+		_spec.SetField(department.FieldRemark, field.TypeString, value)
 	}
 	if du.mutation.ParentCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -448,6 +457,12 @@ func (duo *DepartmentUpdateOne) AddSort(u int32) *DepartmentUpdateOne {
 	return duo
 }
 
+// SetRemark sets the "remark" field.
+func (duo *DepartmentUpdateOne) SetRemark(s string) *DepartmentUpdateOne {
+	duo.mutation.SetRemark(s)
+	return duo
+}
+
 // SetParentID sets the "parent_id" field.
 func (duo *DepartmentUpdateOne) SetParentID(u uint64) *DepartmentUpdateOne {
 	duo.mutation.SetParentID(u)
@@ -630,6 +645,9 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 	}
 	if value, ok := duo.mutation.AddedSort(); ok {
 		_spec.AddField(department.FieldSort, field.TypeUint32, value)
+	}
+	if value, ok := duo.mutation.Remark(); ok {
+		_spec.SetField(department.FieldRemark, field.TypeString, value)
 	}
 	if duo.mutation.ParentCleared() {
 		edge := &sqlgraph.EdgeSpec{

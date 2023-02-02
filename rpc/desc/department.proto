@@ -6,14 +6,15 @@ message DepartmentInfo {
   uint64 id = 1;
   int64 created_at = 2;
   int64 updated_at = 3;
-  uint64 status = 4;
+  uint32 status = 4;
   string name = 5;
   string ancestors = 6;
   string leader = 7;
   string phone = 8;
   string email = 9;
   uint32 sort = 10;
-  uint64 parent_id = 11;
+  string remark = 11;
+  uint64 parent_id = 12;
 }
 
 message DepartmentListResp {
@@ -21,11 +22,10 @@ message DepartmentListResp {
   repeated DepartmentInfo data = 2;
 }
 
-message DepartmentPageReq {
+message DepartmentListReq {
   uint64 page = 1;
   uint64 page_size = 2;
   string name = 3;
-  string ancestors = 4;
   string leader = 5;
 }
 
@@ -36,11 +36,13 @@ service Core {
   // group: department
   rpc createOrUpdateDepartment (DepartmentInfo) returns (BaseResp);
   // group: department
-  rpc getDepartmentList (DepartmentPageReq) returns (DepartmentListResp);
+  rpc getDepartmentList (DepartmentListReq) returns (DepartmentListResp);
   // group: department
   rpc deleteDepartment (IDReq) returns (BaseResp);
   // group: department
   rpc batchDeleteDepartment (IDsReq) returns (BaseResp);
+  // group: department
+  rpc updateDepartmentStatus(StatusCodeReq) returns (BaseResp);
 
 
 }

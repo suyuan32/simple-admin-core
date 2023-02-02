@@ -32,8 +32,8 @@ var (
 			},
 		},
 	}
-	// SysDeptColumns holds the columns for the "sys_dept" table.
-	SysDeptColumns = []*schema.Column{
+	// SysDepartmentColumns holds the columns for the "sys_department" table.
+	SysDepartmentColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
@@ -44,18 +44,19 @@ var (
 		{Name: "phone", Type: field.TypeString},
 		{Name: "email", Type: field.TypeString},
 		{Name: "sort", Type: field.TypeUint32},
+		{Name: "remark", Type: field.TypeString},
 		{Name: "parent_id", Type: field.TypeUint64, Nullable: true},
 	}
-	// SysDeptTable holds the schema information for the "sys_dept" table.
-	SysDeptTable = &schema.Table{
-		Name:       "sys_dept",
-		Columns:    SysDeptColumns,
-		PrimaryKey: []*schema.Column{SysDeptColumns[0]},
+	// SysDepartmentTable holds the schema information for the "sys_department" table.
+	SysDepartmentTable = &schema.Table{
+		Name:       "sys_department",
+		Columns:    SysDepartmentColumns,
+		PrimaryKey: []*schema.Column{SysDepartmentColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "sys_dept_sys_dept_children",
-				Columns:    []*schema.Column{SysDeptColumns[10]},
-				RefColumns: []*schema.Column{SysDeptColumns[0]},
+				Symbol:     "sys_department_sys_department_children",
+				Columns:    []*schema.Column{SysDepartmentColumns[11]},
+				RefColumns: []*schema.Column{SysDepartmentColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -293,7 +294,7 @@ var (
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		SysApisTable,
-		SysDeptTable,
+		SysDepartmentTable,
 		SysDictionariesTable,
 		SysDictionaryDetailsTable,
 		SysMenusTable,
@@ -310,9 +311,9 @@ func init() {
 	SysApisTable.Annotation = &entsql.Annotation{
 		Table: "sys_apis",
 	}
-	SysDeptTable.ForeignKeys[0].RefTable = SysDeptTable
-	SysDeptTable.Annotation = &entsql.Annotation{
-		Table: "sys_dept",
+	SysDepartmentTable.ForeignKeys[0].RefTable = SysDepartmentTable
+	SysDepartmentTable.Annotation = &entsql.Annotation{
+		Table: "sys_department",
 	}
 	SysDictionariesTable.Annotation = &entsql.Annotation{
 		Table: "sys_dictionaries",

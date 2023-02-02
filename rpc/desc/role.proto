@@ -6,7 +6,7 @@ message RoleInfo {
   string name = 2;
   string value = 3;
   string default_router = 4;
-  uint64 status = 5;
+  uint32 status = 5;
   string remark = 6;
   uint32 sort = 7;
   int64 createdAt = 8;

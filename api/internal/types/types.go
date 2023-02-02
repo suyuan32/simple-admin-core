@@ -169,7 +169,7 @@ type StatusCodeReq struct {
 	Id uint64 `json:"id" validate:"number"`
 	// Status code | 状态码
 	// Required: true
-	Status uint64 `json:"status" validate:"number"`
+	Status uint32 `json:"status" validate:"number"`
 }
 
 // The request params of setting status code by UUID | 根据UUID设置状态参数
@@ -180,7 +180,7 @@ type StatusCodeUUIDReq struct {
 	Id string `json:"id"`
 	// Status code | 状态码
 	// Required: true
-	Status uint64 `json:"status" validate:"number"`
+	Status uint32 `json:"status" validate:"number"`
 }
 
 // login request | 登录参数
@@ -332,7 +332,7 @@ type UserInfoResp struct {
 	SideMode string `json:"sideMode"`
 	// The user's status | 用户状态
 	// 1 normal, 2 ban | 1 正常 2 拉黑
-	Status uint64 `json:"status"`
+	Status uint32 `json:"status"`
 }
 
 // The response data of user's basic information | 用户基本信息返回数据
@@ -431,7 +431,7 @@ type CreateOrUpdateUserReq struct {
 	// 1 normal, 2 ban | 1 正常 2 拉黑
 	// Required: true
 	// Maximum: 20
-	Status uint64 `json:"status" validate:"number,max=20"`
+	Status uint32 `json:"status" validate:"number,max=20"`
 }
 
 // Get user list request | 获取用户列表请求参数
@@ -846,7 +846,7 @@ type DictionaryInfo struct {
 	// Dictionary name | 字典名称
 	Name string `json:"name"`
 	// Dictionary status | 字典状态
-	Status uint64 `json:"status"`
+	Status uint32 `json:"status"`
 	// Dictionary description | 字典描述
 	Description string `json:"description"`
 }
@@ -869,7 +869,7 @@ type CreateOrUpdateDictionaryReq struct {
 	Name string `json:"name" validate:"min=1,max=50"`
 	// Dictionary status | 字典状态
 	// Required: true
-	Status uint64 `json:"status" validate:"number"`
+	Status uint32 `json:"status" validate:"number"`
 	// Dictionary description | 字典描述
 	// Required: true
 	// Max length: 50
@@ -915,7 +915,7 @@ type DictionaryDetailInfo struct {
 	// Value | 值
 	Value string `json:"value"`
 	// Status | 状态
-	Status uint64 `json:"status"`
+	Status uint32 `json:"status"`
 }
 
 // The response data of dictionary KV list | 字典值的列表数据
@@ -955,7 +955,7 @@ type CreateOrUpdateDictionaryDetailReq struct {
 	Value string `json:"value"`
 	// Status | 状态
 	// Required: true
-	Status uint64 `json:"status" validate:"number"`
+	Status uint32 `json:"status" validate:"number"`
 	// Parent ID | 所属字典ID
 	// Required: true
 	ParentId uint64 `json:"parentId" validate:"number"`
@@ -1109,7 +1109,7 @@ type TokenInfo struct {
 	// Log in source such as github | Token 来源 （本地为core, 第三方如github等）
 	Source string `json:"source"`
 	// JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-	Status uint64 `json:"status"`
+	Status uint32 `json:"status"`
 	// Expire time | 过期时间
 	ExpiredAt int64 `json:"expiredAt"`
 }
@@ -1133,7 +1133,7 @@ type CreateOrUpdateTokenReq struct {
 	Source string `json:"source" validate:"max=50"`
 	// JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
 	// Required: true
-	Status uint64 `json:"status" validate:"number"`
+	Status uint32 `json:"status" validate:"number"`
 	// Expire time | 过期时间
 	// Required: true
 	ExpiredAt int64 `json:"expiredAt" validate:"number"`
@@ -1171,4 +1171,88 @@ type TokenListReq struct {
 	// The user's email address | 用户的邮箱
 	// Max length: 100
 	Email string `json:"email,optional" validate:"omitempty,email,max=100"`
+}
+
+// The response data of Department information | Department信息
+// swagger:model DepartmentInfo
+type DepartmentInfo struct {
+	BaseInfo
+	// Status
+	Status uint32 `json:"status"`
+	// Name
+	Name string `json:"name"`
+	// Ancestors
+	Ancestors string `json:"ancestors"`
+	// Leader
+	Leader string `json:"leader"`
+	// Phone
+	Phone string `json:"phone"`
+	// Email
+	Email string `json:"email"`
+	// Sort
+	Sort uint32 `json:"sort"`
+	// Remark
+	Remark string `json:"remark"`
+	// ParentId
+	ParentId uint64 `json:"parentId"`
+}
+
+// Create or update Department information request | 创建或更新Department信息
+// swagger:model CreateOrUpdateDepartmentReq
+type CreateOrUpdateDepartmentReq struct {
+	// ID
+	// Required: true
+	Id uint64 `json:"id"`
+	// Status
+	Status uint32 `json:"status"`
+	// Name
+	Name string `json:"name"`
+	// Ancestors
+	Ancestors string `json:"ancestors"`
+	// Leader
+	Leader string `json:"leader"`
+	// Phone
+	Phone string `json:"phone"`
+	// Email
+	Email string `json:"email"`
+	// Sort
+	Sort uint32 `json:"sort"`
+	// Remark
+	Remark string `json:"remark"`
+	// ParentId
+	ParentId uint64 `json:"parentId"`
+}
+
+// The response data of Department list | Department列表数据
+// swagger:model DepartmentListResp
+type DepartmentListResp struct {
+	BaseDataInfo
+	// Department list data | Department 列表数据
+	Data DepartmentListInfo `json:"data"`
+}
+
+// Department list data | Department 列表数据
+// swagger:model DepartmentListInfo
+type DepartmentListInfo struct {
+	BaseListInfo
+	// The API list data | Department 列表数据
+	Data []DepartmentInfo `json:"data"`
+}
+
+// Get department list request params | Department列表请求参数
+// swagger:model DepartmentListReq
+type DepartmentListReq struct {
+	PageInfo
+	// Name
+	Name string `json:"name"`
+	// Ancestors
+	Ancestors string `json:"ancestors"`
+	// Leader
+	Leader string `json:"leader"`
+	// Phone
+	Phone string `json:"phone"`
+	// Email
+	Email string `json:"email"`
+	// Remark
+	Remark string `json:"remark"`
 }

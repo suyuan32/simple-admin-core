@@ -51,7 +51,6 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 	}
 
 	users, err := l.svcCtx.DB.User.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
-
 	if err != nil {
 		logx.Error(err.Error())
 		return nil, statuserr.NewInternalError(i18n.DatabaseError)
@@ -67,7 +66,7 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 			RoleId:    v.RoleID,
 			Mobile:    v.Mobile,
 			Email:     v.Email,
-			Status:    uint64(v.Status),
+			Status:    uint32(v.Status),
 			Username:  v.Username,
 			Nickname:  v.Nickname,
 			CreatedAt: v.CreatedAt.UnixMilli(),

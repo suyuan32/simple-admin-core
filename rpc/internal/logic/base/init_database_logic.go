@@ -179,7 +179,7 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 // insert init user data
 func (l *InitDatabaseLogic) insertApiData() error {
 	var apis []*ent.APICreate
-	apis = make([]*ent.APICreate, 48)
+	apis = make([]*ent.APICreate, 52)
 	// USER
 	apis[0] = l.svcCtx.DB.API.Create().
 		SetPath("/user/login").
@@ -484,6 +484,32 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetAPIGroup("token").
 		SetMethod("POST")
 
+	// department
+
+	apis[48] = l.svcCtx.DB.API.Create().
+		SetPath("/department/create_or_update").
+		SetDescription("apiDesc.createOrUpdateDepartment").
+		SetAPIGroup("department").
+		SetMethod("POST")
+
+	apis[49] = l.svcCtx.DB.API.Create().
+		SetPath("/department/batch_delete").
+		SetDescription("apiDesc.batchDeleteDepartment").
+		SetAPIGroup("department").
+		SetMethod("POST")
+
+	apis[50] = l.svcCtx.DB.API.Create().
+		SetPath("/department/delete").
+		SetDescription("apiDesc.deleteDepartment").
+		SetAPIGroup("department").
+		SetMethod("POST")
+
+	apis[51] = l.svcCtx.DB.API.Create().
+		SetPath("/department/list").
+		SetDescription("apiDesc.getDepartmentList").
+		SetAPIGroup("department").
+		SetMethod("POST")
+
 	err := l.svcCtx.DB.API.CreateBulk(apis...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
@@ -496,7 +522,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 // init menu data
 func (l *InitDatabaseLogic) insertMenuData() error {
 	var menus []*ent.MenuCreate
-	menus = make([]*ent.MenuCreate, 14)
+	menus = make([]*ent.MenuCreate, 15)
 	menus[0] = l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(0).
 		SetMenuType(0).
@@ -662,6 +688,18 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetComponent("/sys/token/index").
 		SetSort(7).
 		SetTitle("route.tokenManagement").
+		SetIcon("ant-design:lock-outlined").
+		SetHideMenu(false)
+
+	menus[14] = l.svcCtx.DB.Menu.Create().
+		SetMenuLevel(2).
+		SetMenuType(1).
+		SetParentID(3).
+		SetPath("/department").
+		SetName("Department Management").
+		SetComponent("/sys/department/index").
+		SetSort(8).
+		SetTitle("route.departmentManagement").
 		SetIcon("ant-design:lock-outlined").
 		SetHideMenu(false)
 

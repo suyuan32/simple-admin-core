@@ -24,7 +24,7 @@ message CreateOrUpdateUserReq {
   uint64 role_id = 3;
   string mobile = 4;
   string email = 5;
-  uint64 status = 6;
+  uint32 status = 6;
   string username = 7;
   string nickname = 8;
   string password = 9;
@@ -36,7 +36,7 @@ message UserInfoResp {
   uint64 role_id = 3;
   string mobile = 4;
   string email = 5;
-  uint64 status = 6;
+  uint32 status = 6;
   string username = 7;
   string nickname = 8;
   string roleName = 9;

@@ -28,13 +28,10 @@ func NewGetDepartmentListLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 	}
 }
 
-func (l *GetDepartmentListLogic) GetDepartmentList(in *core.DepartmentPageReq) (*core.DepartmentListResp, error) {
+func (l *GetDepartmentListLogic) GetDepartmentList(in *core.DepartmentListReq) (*core.DepartmentListResp, error) {
 	var predicates []predicate.Department
 	if in.Name != "" {
 		predicates = append(predicates, department.NameContains(in.Name))
-	}
-	if in.Ancestors != "" {
-		predicates = append(predicates, department.AncestorsContains(in.Ancestors))
 	}
 	if in.Leader != "" {
 		predicates = append(predicates, department.LeaderContains(in.Leader))
@@ -52,13 +49,14 @@ func (l *GetDepartmentListLogic) GetDepartmentList(in *core.DepartmentPageReq) (
 		resp.Data = append(resp.Data, &core.DepartmentInfo{
 			Id:        v.ID,
 			CreatedAt: v.CreatedAt.UnixMilli(),
-			Status:    uint64(v.Status),
+			Status:    uint32(v.Status),
 			Name:      v.Name,
 			Ancestors: v.Ancestors,
 			Leader:    v.Leader,
 			Phone:     v.Phone,
 			Email:     v.Email,
 			Sort:      v.Sort,
+			Remark:    v.Remark,
 			ParentId:  v.ParentID,
 		})
 	}

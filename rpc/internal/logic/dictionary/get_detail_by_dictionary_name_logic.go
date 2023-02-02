@@ -33,7 +33,6 @@ func (l *GetDetailByDictionaryNameLogic) GetDetailByDictionaryName(in *core.Dict
 		NameEQ(in.Name)).
 		QueryDictionaryDetails().
 		All(l.ctx)
-
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
@@ -54,7 +53,7 @@ func (l *GetDetailByDictionaryNameLogic) GetDetailByDictionaryName(in *core.Dict
 			Title:     v.Title,
 			Key:       v.Key,
 			Value:     v.Value,
-			Status:    uint64(v.Status),
+			Status:    uint32(v.Status),
 			CreatedAt: v.CreatedAt.UnixMilli(),
 			UpdatedAt: v.UpdatedAt.UnixMilli(),
 		})

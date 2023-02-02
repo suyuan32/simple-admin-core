@@ -61,7 +61,6 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 		}
 
 		u, err := l.svcCtx.DB.User.Query().Where(predicates...).First(l.ctx)
-
 		if err != nil {
 			switch {
 			case ent.IsNotFound(err):
@@ -89,7 +88,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 			Id:        v.ID.String(),
 			Uuid:      v.UUID.String(),
 			Token:     v.Token,
-			Status:    uint64(v.Status),
+			Status:    uint32(v.Status),
 			Source:    v.Source,
 			ExpiredAt: v.ExpiredAt.UnixMilli(),
 			CreatedAt: v.CreatedAt.UnixMilli(),

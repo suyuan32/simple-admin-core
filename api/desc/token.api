@@ -25,7 +25,7 @@ type (
         Source  string `json:"source"`
 
         // JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-        Status  uint64 `json:"status"`
+        Status  uint32 `json:"status"`
 
         // Expire time | 过期时间
         ExpiredAt int64 `json:"expiredAt"`
@@ -53,7 +53,7 @@ type (
 
        // JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
        // Required: true
-       Status  uint64 `json:"status" validate:"number"`
+       Status  uint32 `json:"status" validate:"number"`
 
        // Expire time | 过期时间
        // Required: true

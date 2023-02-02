@@ -666,6 +666,7 @@ type DepartmentMutation struct {
 	email           *string
 	sort            *uint32
 	addsort         *int32
+	remark          *string
 	clearedFields   map[string]struct{}
 	parent          *uint64
 	clearedparent   bool
@@ -1159,6 +1160,42 @@ func (m *DepartmentMutation) ResetSort() {
 	m.addsort = nil
 }
 
+// SetRemark sets the "remark" field.
+func (m *DepartmentMutation) SetRemark(s string) {
+	m.remark = &s
+}
+
+// Remark returns the value of the "remark" field in the mutation.
+func (m *DepartmentMutation) Remark() (r string, exists bool) {
+	v := m.remark
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemark returns the old "remark" field's value of the Department entity.
+// If the Department object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DepartmentMutation) OldRemark(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRemark is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRemark requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemark: %w", err)
+	}
+	return oldValue.Remark, nil
+}
+
+// ResetRemark resets all changes to the "remark" field.
+func (m *DepartmentMutation) ResetRemark() {
+	m.remark = nil
+}
+
 // SetParentID sets the "parent_id" field.
 func (m *DepartmentMutation) SetParentID(u uint64) {
 	m.parent = &u
@@ -1322,7 +1359,7 @@ func (m *DepartmentMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *DepartmentMutation) Fields() []string {
-	fields := make([]string, 0, 10)
+	fields := make([]string, 0, 11)
 	if m.created_at != nil {
 		fields = append(fields, department.FieldCreatedAt)
 	}
@@ -1349,6 +1386,9 @@ func (m *DepartmentMutation) Fields() []string {
 	}
 	if m.sort != nil {
 		fields = append(fields, department.FieldSort)
+	}
+	if m.remark != nil {
+		fields = append(fields, department.FieldRemark)
 	}
 	if m.parent != nil {
 		fields = append(fields, department.FieldParentID)
@@ -1379,6 +1419,8 @@ func (m *DepartmentMutation) Field(name string) (ent.Value, bool) {
 		return m.Email()
 	case department.FieldSort:
 		return m.Sort()
+	case department.FieldRemark:
+		return m.Remark()
 	case department.FieldParentID:
 		return m.ParentID()
 	}
@@ -1408,6 +1450,8 @@ func (m *DepartmentMutation) OldField(ctx context.Context, name string) (ent.Val
 		return m.OldEmail(ctx)
 	case department.FieldSort:
 		return m.OldSort(ctx)
+	case department.FieldRemark:
+		return m.OldRemark(ctx)
 	case department.FieldParentID:
 		return m.OldParentID(ctx)
 	}
@@ -1481,6 +1525,13 @@ func (m *DepartmentMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetSort(v)
+		return nil
+	case department.FieldRemark:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemark(v)
 		return nil
 	case department.FieldParentID:
 		v, ok := value.(uint64)
@@ -1606,6 +1657,9 @@ func (m *DepartmentMutation) ResetField(name string) error {
 		return nil
 	case department.FieldSort:
 		m.ResetSort()
+		return nil
+	case department.FieldRemark:
+		m.ResetRemark()
 		return nil
 	case department.FieldParentID:
 		m.ResetParentID()

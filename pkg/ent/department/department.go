@@ -29,6 +29,8 @@ const (
 	FieldEmail = "email"
 	// FieldSort holds the string denoting the sort field in the database.
 	FieldSort = "sort"
+	// FieldRemark holds the string denoting the remark field in the database.
+	FieldRemark = "remark"
 	// FieldParentID holds the string denoting the parent_id field in the database.
 	FieldParentID = "parent_id"
 	// EdgeParent holds the string denoting the parent edge name in mutations.
@@ -36,13 +38,13 @@ const (
 	// EdgeChildren holds the string denoting the children edge name in mutations.
 	EdgeChildren = "children"
 	// Table holds the table name of the department in the database.
-	Table = "sys_dept"
+	Table = "sys_department"
 	// ParentTable is the table that holds the parent relation/edge.
-	ParentTable = "sys_dept"
+	ParentTable = "sys_department"
 	// ParentColumn is the table column denoting the parent relation/edge.
 	ParentColumn = "parent_id"
 	// ChildrenTable is the table that holds the children relation/edge.
-	ChildrenTable = "sys_dept"
+	ChildrenTable = "sys_department"
 	// ChildrenColumn is the table column denoting the children relation/edge.
 	ChildrenColumn = "parent_id"
 )
@@ -59,6 +61,7 @@ var Columns = []string{
 	FieldPhone,
 	FieldEmail,
 	FieldSort,
+	FieldRemark,
 	FieldParentID,
 }
 

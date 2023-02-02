@@ -98,6 +98,12 @@ func (dc *DepartmentCreate) SetSort(u uint32) *DepartmentCreate {
 	return dc
 }
 
+// SetRemark sets the "remark" field.
+func (dc *DepartmentCreate) SetRemark(s string) *DepartmentCreate {
+	dc.mutation.SetRemark(s)
+	return dc
+}
+
 // SetParentID sets the "parent_id" field.
 func (dc *DepartmentCreate) SetParentID(u uint64) *DepartmentCreate {
 	dc.mutation.SetParentID(u)
@@ -213,6 +219,9 @@ func (dc *DepartmentCreate) check() error {
 	if _, ok := dc.mutation.Sort(); !ok {
 		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "Department.sort"`)}
 	}
+	if _, ok := dc.mutation.Remark(); !ok {
+		return &ValidationError{Name: "remark", err: errors.New(`ent: missing required field "Department.remark"`)}
+	}
 	return nil
 }
 
@@ -286,6 +295,10 @@ func (dc *DepartmentCreate) createSpec() (*Department, *sqlgraph.CreateSpec) {
 	if value, ok := dc.mutation.Sort(); ok {
 		_spec.SetField(department.FieldSort, field.TypeUint32, value)
 		_node.Sort = value
+	}
+	if value, ok := dc.mutation.Remark(); ok {
+		_spec.SetField(department.FieldRemark, field.TypeString, value)
+		_node.Remark = value
 	}
 	if nodes := dc.mutation.ParentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

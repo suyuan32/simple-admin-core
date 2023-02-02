@@ -41,7 +41,7 @@ func (l *GetRoleListLogic) GetRoleList(in *core.PageInfoReq) (*core.RoleListResp
 			Name:          v.Name,
 			Value:         v.Value,
 			DefaultRouter: v.DefaultRouter,
-			Status:        uint64(v.Status),
+			Status:        uint32(v.Status),
 			Remark:        v.Remark,
 			Sort:          v.Sort,
 			CreatedAt:     v.CreatedAt.UnixMilli(),

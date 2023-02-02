@@ -180,7 +180,7 @@ type (
 
         // The user's status | 用户状态
         // 1 normal, 2 ban | 1 正常 2 拉黑
-        Status        uint64       `json:"status"`
+        Status        uint32       `json:"status"`
     }
 
     // The response data of user's basic information | 用户基本信息返回数据
@@ -289,7 +289,7 @@ type (
         // 1 normal, 2 ban | 1 正常 2 拉黑
         // Required: true
         // Maximum: 20
-        Status       uint64      `json:"status" validate:"number,max=20"`
+        Status       uint32      `json:"status" validate:"number,max=20"`
     }
 
     // Get user list request | 获取用户列表请求参数

@@ -72,7 +72,11 @@
 		"getTokenList": "Get token list",
 		"setTokenStatus": "Set token's status",
 		"batchDeleteToken": "Batch delete tokens",
-		"forceLoggingOut": "Force logging out"
+		"forceLoggingOut": "Force logging out",
+		"createOrUpdateDepartment": "Create or update a department",
+		"deleteDepartment": "Delete a department",
+		"batchDeleteDepartment": "Batch delete departments",
+		"getDepartmentList": "Get department list"
 	},
 	"route": {
 		"dashboard": "Dashboard",
@@ -87,7 +91,8 @@
 		"dictionaryDetailManagementTitle": "Key/Value Management",
 		"oauthManagement": "Oauth",
 		"tokenManagement": "Token",
-		"otherPages": "Other pages"
+		"otherPages": "Other pages",
+		"departmentManagement": "Department Management"
 	},
 	"login": {
 		"loginSuccessTitle": "Login successful",

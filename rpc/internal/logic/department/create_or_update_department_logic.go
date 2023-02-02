@@ -38,8 +38,10 @@ func (l *CreateOrUpdateDepartmentLogic) CreateOrUpdateDepartment(in *core.Depart
 			SetPhone(in.Phone).
 			SetEmail(in.Email).
 			SetSort(in.Sort).
+			SetRemark(in.Remark).
 			SetParentID(in.ParentId).
 			Exec(l.ctx)
+
 		if err != nil {
 			switch {
 			case ent.IsConstraintError(err):
@@ -61,8 +63,10 @@ func (l *CreateOrUpdateDepartmentLogic) CreateOrUpdateDepartment(in *core.Depart
 			SetPhone(in.Phone).
 			SetEmail(in.Email).
 			SetSort(in.Sort).
+			SetRemark(in.Remark).
 			SetParentID(in.ParentId).
 			Exec(l.ctx)
+
 		if err != nil {
 			switch {
 			case ent.IsNotFound(err):

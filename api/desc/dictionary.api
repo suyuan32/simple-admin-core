@@ -22,7 +22,7 @@ type (
         Name          string `json:"name"`
 
         // Dictionary status | 字典状态
-        Status        uint64   `json:"status"`
+        Status        uint32   `json:"status"`
 
         // Dictionary description | 字典描述
         Description   string `json:"description"`
@@ -48,7 +48,7 @@ type (
 
         // Dictionary status | 字典状态
         // Required: true
-        Status        uint64 `json:"status" validate:"number"`
+        Status        uint32 `json:"status" validate:"number"`
 
         // Dictionary description | 字典描述
         // Required: true
@@ -99,7 +99,7 @@ type (
         Value          string `json:"value"`
 
         // Status | 状态
-        Status         uint64 `json:"status"`
+        Status         uint32 `json:"status"`
     }
 
     // The response data of dictionary KV list | 字典值的列表数据
@@ -142,7 +142,7 @@ type (
 
         // Status | 状态
         // Required: true
-        Status       uint64   `json:"status" validate:"number"`
+        Status       uint32   `json:"status" validate:"number"`
 
         // Parent ID | 所属字典ID
         // Required: true

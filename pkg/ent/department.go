@@ -34,6 +34,8 @@ type Department struct {
 	Email string `json:"email,omitempty"`
 	// Sort number | 排序编号
 	Sort uint32 `json:"sort,omitempty"`
+	// Remark | 备注
+	Remark string `json:"remark,omitempty"`
 	// Parent department ID | 父级部门ID
 	ParentID uint64 `json:"parent_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -81,7 +83,7 @@ func (*Department) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case department.FieldID, department.FieldStatus, department.FieldSort, department.FieldParentID:
 			values[i] = new(sql.NullInt64)
-		case department.FieldName, department.FieldAncestors, department.FieldLeader, department.FieldPhone, department.FieldEmail:
+		case department.FieldName, department.FieldAncestors, department.FieldLeader, department.FieldPhone, department.FieldEmail, department.FieldRemark:
 			values[i] = new(sql.NullString)
 		case department.FieldCreatedAt, department.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -160,6 +162,12 @@ func (d *Department) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				d.Sort = uint32(value.Int64)
 			}
+		case department.FieldRemark:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field remark", values[i])
+			} else if value.Valid {
+				d.Remark = value.String
+			}
 		case department.FieldParentID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field parent_id", values[i])
@@ -230,6 +238,9 @@ func (d *Department) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("sort=")
 	builder.WriteString(fmt.Sprintf("%v", d.Sort))
+	builder.WriteString(", ")
+	builder.WriteString("remark=")
+	builder.WriteString(d.Remark)
 	builder.WriteString(", ")
 	builder.WriteString("parent_id=")
 	builder.WriteString(fmt.Sprintf("%v", d.ParentID))
