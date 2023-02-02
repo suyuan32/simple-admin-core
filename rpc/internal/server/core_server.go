@@ -9,6 +9,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/api"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/authority"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/base"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauth"
@@ -58,6 +59,27 @@ func (s *CoreServer) CreateOrUpdateMenuAuthority(ctx context.Context, in *core.R
 func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.BaseResp, error) {
 	l := base.NewInitDatabaseLogic(ctx, s.svcCtx)
 	return l.InitDatabase(in)
+}
+
+// Department management
+func (s *CoreServer) CreateOrUpdateDepartment(ctx context.Context, in *core.DepartmentInfo) (*core.BaseResp, error) {
+	l := department.NewCreateOrUpdateDepartmentLogic(ctx, s.svcCtx)
+	return l.CreateOrUpdateDepartment(in)
+}
+
+func (s *CoreServer) GetDepartmentList(ctx context.Context, in *core.DepartmentPageReq) (*core.DepartmentListResp, error) {
+	l := department.NewGetDepartmentListLogic(ctx, s.svcCtx)
+	return l.GetDepartmentList(in)
+}
+
+func (s *CoreServer) DeleteDepartment(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+	l := department.NewDeleteDepartmentLogic(ctx, s.svcCtx)
+	return l.DeleteDepartment(in)
+}
+
+func (s *CoreServer) BatchDeleteDepartment(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := department.NewBatchDeleteDepartmentLogic(ctx, s.svcCtx)
+	return l.BatchDeleteDepartment(in)
 }
 
 func (s *CoreServer) CreateOrUpdateDictionary(ctx context.Context, in *core.DictionaryInfo) (*core.BaseResp, error) {

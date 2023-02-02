@@ -34,6 +34,15 @@ type CoreClient interface {
 	CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: base
 	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
+	// Department management
+	// group: department
+	CreateOrUpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: department
+	GetDepartmentList(ctx context.Context, in *DepartmentPageReq, opts ...grpc.CallOption) (*DepartmentListResp, error)
+	// group: department
+	DeleteDepartment(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: department
+	BatchDeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: dictionary
 	CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: dictionary
@@ -168,6 +177,42 @@ func (c *coreClient) CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMe
 func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.Core/initDatabase", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreateOrUpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateDepartment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetDepartmentList(ctx context.Context, in *DepartmentPageReq, opts ...grpc.CallOption) (*DepartmentListResp, error) {
+	out := new(DepartmentListResp)
+	err := c.cc.Invoke(ctx, "/core.Core/getDepartmentList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteDepartment(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteDepartment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) BatchDeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/batchDeleteDepartment", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -532,6 +577,15 @@ type CoreServer interface {
 	CreateOrUpdateMenuAuthority(context.Context, *RoleMenuAuthorityReq) (*BaseResp, error)
 	// group: base
 	InitDatabase(context.Context, *Empty) (*BaseResp, error)
+	// Department management
+	// group: department
+	CreateOrUpdateDepartment(context.Context, *DepartmentInfo) (*BaseResp, error)
+	// group: department
+	GetDepartmentList(context.Context, *DepartmentPageReq) (*DepartmentListResp, error)
+	// group: department
+	DeleteDepartment(context.Context, *IDReq) (*BaseResp, error)
+	// group: department
+	BatchDeleteDepartment(context.Context, *IDsReq) (*BaseResp, error)
 	// group: dictionary
 	CreateOrUpdateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error)
 	// group: dictionary
@@ -632,6 +686,18 @@ func (UnimplementedCoreServer) CreateOrUpdateMenuAuthority(context.Context, *Rol
 }
 func (UnimplementedCoreServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
+}
+func (UnimplementedCoreServer) CreateOrUpdateDepartment(context.Context, *DepartmentInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateDepartment not implemented")
+}
+func (UnimplementedCoreServer) GetDepartmentList(context.Context, *DepartmentPageReq) (*DepartmentListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDepartmentList not implemented")
+}
+func (UnimplementedCoreServer) DeleteDepartment(context.Context, *IDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDepartment not implemented")
+}
+func (UnimplementedCoreServer) BatchDeleteDepartment(context.Context, *IDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteDepartment not implemented")
 }
 func (UnimplementedCoreServer) CreateOrUpdateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateDictionary not implemented")
@@ -864,6 +930,78 @@ func _Core_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).InitDatabase(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreateOrUpdateDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DepartmentInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateOrUpdateDepartment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/createOrUpdateDepartment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateOrUpdateDepartment(ctx, req.(*DepartmentInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetDepartmentList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DepartmentPageReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetDepartmentList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/getDepartmentList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetDepartmentList(ctx, req.(*DepartmentPageReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteDepartment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/deleteDepartment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteDepartment(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_BatchDeleteDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).BatchDeleteDepartment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/batchDeleteDepartment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).BatchDeleteDepartment(ctx, req.(*IDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1582,6 +1720,22 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "initDatabase",
 			Handler:    _Core_InitDatabase_Handler,
+		},
+		{
+			MethodName: "createOrUpdateDepartment",
+			Handler:    _Core_CreateOrUpdateDepartment_Handler,
+		},
+		{
+			MethodName: "getDepartmentList",
+			Handler:    _Core_GetDepartmentList_Handler,
+		},
+		{
+			MethodName: "deleteDepartment",
+			Handler:    _Core_DeleteDepartment_Handler,
+		},
+		{
+			MethodName: "batchDeleteDepartment",
+			Handler:    _Core_BatchDeleteDepartment_Handler,
 		},
 		{
 			MethodName: "createOrUpdateDictionary",
