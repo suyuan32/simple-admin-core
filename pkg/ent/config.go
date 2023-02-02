@@ -28,6 +28,7 @@ type config struct {
 type (
 	hooks struct {
 		API              []ent.Hook
+		Department       []ent.Hook
 		Dictionary       []ent.Hook
 		DictionaryDetail []ent.Hook
 		Menu             []ent.Hook
@@ -39,6 +40,7 @@ type (
 	}
 	inters struct {
 		API              []ent.Interceptor
+		Department       []ent.Interceptor
 		Dictionary       []ent.Interceptor
 		DictionaryDetail []ent.Interceptor
 		Menu             []ent.Interceptor

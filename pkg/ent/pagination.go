@@ -7,6 +7,7 @@ import (
 	"fmt"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent/api"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
@@ -134,6 +135,85 @@ func (a *APIQuery) Page(
 
 	a = a.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
 	list, err := a.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type DepartmentPager struct {
+	Order  OrderFunc
+	Filter func(*DepartmentQuery) (*DepartmentQuery, error)
+}
+
+// DepartmentPaginateOption enables pagination customization.
+type DepartmentPaginateOption func(*DepartmentPager)
+
+// DefaultDepartmentOrder is the default ordering of Department.
+var DefaultDepartmentOrder = Asc(department.FieldID)
+
+func newDepartmentPager(opts []DepartmentPaginateOption) (*DepartmentPager, error) {
+	pager := &DepartmentPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultDepartmentOrder
+	}
+	return pager, nil
+}
+
+func (p *DepartmentPager) ApplyFilter(query *DepartmentQuery) (*DepartmentQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// DepartmentPageList is Department PageList result.
+type DepartmentPageList struct {
+	List        []*Department `json:"list"`
+	PageDetails *PageDetails  `json:"pageDetails"`
+}
+
+func (d *DepartmentQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...DepartmentPaginateOption,
+) (*DepartmentPageList, error) {
+
+	pager, err := newDepartmentPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if d, err = pager.ApplyFilter(d); err != nil {
+		return nil, err
+	}
+
+	ret := &DepartmentPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	count, err := d.Clone().Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		d = d.Order(pager.Order)
+	} else {
+		d = d.Order(DefaultDepartmentOrder)
+	}
+
+	d = d.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := d.All(ctx)
 	if err != nil {
 		return nil, err
 	}

@@ -32,6 +32,34 @@ var (
 			},
 		},
 	}
+	// SysDeptColumns holds the columns for the "sys_dept" table.
+	SysDeptColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "name", Type: field.TypeString},
+		{Name: "ancestors", Type: field.TypeString},
+		{Name: "leader", Type: field.TypeString},
+		{Name: "phone", Type: field.TypeString},
+		{Name: "email", Type: field.TypeString},
+		{Name: "sort", Type: field.TypeUint32},
+		{Name: "parent_id", Type: field.TypeUint64, Nullable: true},
+	}
+	// SysDeptTable holds the schema information for the "sys_dept" table.
+	SysDeptTable = &schema.Table{
+		Name:       "sys_dept",
+		Columns:    SysDeptColumns,
+		PrimaryKey: []*schema.Column{SysDeptColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "sys_dept_sys_dept_children",
+				Columns:    []*schema.Column{SysDeptColumns[10]},
+				RefColumns: []*schema.Column{SysDeptColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
 	// SysDictionariesColumns holds the columns for the "sys_dictionaries" table.
 	SysDictionariesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -265,6 +293,7 @@ var (
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		SysApisTable,
+		SysDeptTable,
 		SysDictionariesTable,
 		SysDictionaryDetailsTable,
 		SysMenusTable,
@@ -280,6 +309,10 @@ var (
 func init() {
 	SysApisTable.Annotation = &entsql.Annotation{
 		Table: "sys_apis",
+	}
+	SysDeptTable.ForeignKeys[0].RefTable = SysDeptTable
+	SysDeptTable.Annotation = &entsql.Annotation{
+		Table: "sys_dept",
 	}
 	SysDictionariesTable.Annotation = &entsql.Annotation{
 		Table: "sys_dictionaries",
