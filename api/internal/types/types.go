@@ -1244,15 +1244,7 @@ type DepartmentListInfo struct {
 type DepartmentListReq struct {
 	PageInfo
 	// Name
-	Name string `json:"name"`
-	// Ancestors
-	Ancestors string `json:"ancestors"`
+	Name string `json:"name,optional"`
 	// Leader
-	Leader string `json:"leader"`
-	// Phone
-	Phone string `json:"phone"`
-	// Email
-	Email string `json:"email"`
-	// Remark
-	Remark string `json:"remark"`
+	Leader string `json:"leader,optional"`
 }

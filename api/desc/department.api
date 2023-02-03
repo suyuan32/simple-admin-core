@@ -86,6 +86,12 @@ type (
     // Get department list request params | Department列表请求参数
     DepartmentListReq {
         PageInfo
+
+        // Name
+        Name  string `json:"name,optional"`
+
+        // Leader
+        Leader  string `json:"leader,optional"`
     }
 )
 

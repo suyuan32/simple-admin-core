@@ -179,7 +179,7 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 // insert init user data
 func (l *InitDatabaseLogic) insertApiData() error {
 	var apis []*ent.APICreate
-	apis = make([]*ent.APICreate, 52)
+	apis = make([]*ent.APICreate, 53)
 	// USER
 	apis[0] = l.svcCtx.DB.API.Create().
 		SetPath("/user/login").
@@ -507,6 +507,12 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	apis[51] = l.svcCtx.DB.API.Create().
 		SetPath("/department/list").
 		SetDescription("apiDesc.getDepartmentList").
+		SetAPIGroup("department").
+		SetMethod("POST")
+
+	apis[52] = l.svcCtx.DB.API.Create().
+		SetPath("/department/status").
+		SetDescription("apiDesc.updateDepartmentStatus").
 		SetAPIGroup("department").
 		SetMethod("POST")
 

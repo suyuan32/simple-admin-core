@@ -76,7 +76,8 @@
 		"createOrUpdateDepartment": "创建或更新部门信息",
 		"deleteDepartment": "删除一个部门",
 		"batchDeleteDepartment": "批量删除部门",
-		"getDepartmentList": "获取部门列表"
+		"getDepartmentList": "获取部门列表",
+		"updateDepartmentStatus": "修改部门状态"
 	},
 	"route": {
 		"dashboard": "控制台",

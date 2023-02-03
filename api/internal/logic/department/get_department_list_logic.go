@@ -52,6 +52,15 @@ func (l *GetDepartmentListLogic) GetDepartmentList(req *types.DepartmentListReq)
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,
 				},
+				Status:    v.Status,
+				Name:      v.Name,
+				Ancestors: v.Ancestors,
+				Leader:    v.Leader,
+				Phone:     v.Phone,
+				Email:     v.Email,
+				Sort:      v.Sort,
+				Remark:    v.Remark,
+				ParentId:  v.ParentId,
 			})
 	}
 	return resp, nil

@@ -76,7 +76,8 @@
 		"createOrUpdateDepartment": "Create or update a department",
 		"deleteDepartment": "Delete a department",
 		"batchDeleteDepartment": "Batch delete departments",
-		"getDepartmentList": "Get department list"
+		"getDepartmentList": "Get department list",
+		"updateDepartmentStatus": "Modify the department status"
 	},
 	"route": {
 		"dashboard": "Dashboard",
