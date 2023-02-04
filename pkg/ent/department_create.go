@@ -10,7 +10,9 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/gofrs/uuid"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
 // DepartmentCreate is the builder for creating a Department entity.
@@ -144,6 +146,21 @@ func (dc *DepartmentCreate) AddChildren(d ...*Department) *DepartmentCreate {
 	return dc.AddChildIDs(ids...)
 }
 
+// AddUserIDs adds the "user" edge to the User entity by IDs.
+func (dc *DepartmentCreate) AddUserIDs(ids ...uuid.UUID) *DepartmentCreate {
+	dc.mutation.AddUserIDs(ids...)
+	return dc
+}
+
+// AddUser adds the "user" edges to the User entity.
+func (dc *DepartmentCreate) AddUser(u ...*User) *DepartmentCreate {
+	ids := make([]uuid.UUID, len(u))
+	for i := range u {
+		ids[i] = u[i].ID
+	}
+	return dc.AddUserIDs(ids...)
+}
+
 // Mutation returns the DepartmentMutation object of the builder.
 func (dc *DepartmentCreate) Mutation() *DepartmentMutation {
 	return dc.mutation
@@ -190,6 +207,10 @@ func (dc *DepartmentCreate) defaults() {
 	if _, ok := dc.mutation.Status(); !ok {
 		v := department.DefaultStatus
 		dc.mutation.SetStatus(v)
+	}
+	if _, ok := dc.mutation.ParentID(); !ok {
+		v := department.DefaultParentID
+		dc.mutation.SetParentID(v)
 	}
 }
 
@@ -331,6 +352,25 @@ func (dc *DepartmentCreate) createSpec() (*Department, *sqlgraph.CreateSpec) {
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeUint64,
 					Column: department.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := dc.mutation.UserIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   department.UserTable,
+			Columns: []string{department.UserColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
 				},
 			},
 		}

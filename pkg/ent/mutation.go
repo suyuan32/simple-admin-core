@@ -673,6 +673,9 @@ type DepartmentMutation struct {
 	children        map[uint64]struct{}
 	removedchildren map[uint64]struct{}
 	clearedchildren bool
+	user            map[uuid.UUID]struct{}
+	removeduser     map[uuid.UUID]struct{}
+	cleareduser     bool
 	done            bool
 	oldValue        func(context.Context) (*Department, error)
 	predicates      []predicate.Department
@@ -1325,6 +1328,60 @@ func (m *DepartmentMutation) ResetChildren() {
 	m.removedchildren = nil
 }
 
+// AddUserIDs adds the "user" edge to the User entity by ids.
+func (m *DepartmentMutation) AddUserIDs(ids ...uuid.UUID) {
+	if m.user == nil {
+		m.user = make(map[uuid.UUID]struct{})
+	}
+	for i := range ids {
+		m.user[ids[i]] = struct{}{}
+	}
+}
+
+// ClearUser clears the "user" edge to the User entity.
+func (m *DepartmentMutation) ClearUser() {
+	m.cleareduser = true
+}
+
+// UserCleared reports if the "user" edge to the User entity was cleared.
+func (m *DepartmentMutation) UserCleared() bool {
+	return m.cleareduser
+}
+
+// RemoveUserIDs removes the "user" edge to the User entity by IDs.
+func (m *DepartmentMutation) RemoveUserIDs(ids ...uuid.UUID) {
+	if m.removeduser == nil {
+		m.removeduser = make(map[uuid.UUID]struct{})
+	}
+	for i := range ids {
+		delete(m.user, ids[i])
+		m.removeduser[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedUser returns the removed IDs of the "user" edge to the User entity.
+func (m *DepartmentMutation) RemovedUserIDs() (ids []uuid.UUID) {
+	for id := range m.removeduser {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// UserIDs returns the "user" edge IDs in the mutation.
+func (m *DepartmentMutation) UserIDs() (ids []uuid.UUID) {
+	for id := range m.user {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// ResetUser resets all changes to the "user" edge.
+func (m *DepartmentMutation) ResetUser() {
+	m.user = nil
+	m.cleareduser = false
+	m.removeduser = nil
+}
+
 // Where appends a list predicates to the DepartmentMutation builder.
 func (m *DepartmentMutation) Where(ps ...predicate.Department) {
 	m.predicates = append(m.predicates, ps...)
@@ -1670,12 +1727,15 @@ func (m *DepartmentMutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *DepartmentMutation) AddedEdges() []string {
-	edges := make([]string, 0, 2)
+	edges := make([]string, 0, 3)
 	if m.parent != nil {
 		edges = append(edges, department.EdgeParent)
 	}
 	if m.children != nil {
 		edges = append(edges, department.EdgeChildren)
+	}
+	if m.user != nil {
+		edges = append(edges, department.EdgeUser)
 	}
 	return edges
 }
@@ -1694,15 +1754,24 @@ func (m *DepartmentMutation) AddedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
+	case department.EdgeUser:
+		ids := make([]ent.Value, 0, len(m.user))
+		for id := range m.user {
+			ids = append(ids, id)
+		}
+		return ids
 	}
 	return nil
 }
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *DepartmentMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 2)
+	edges := make([]string, 0, 3)
 	if m.removedchildren != nil {
 		edges = append(edges, department.EdgeChildren)
+	}
+	if m.removeduser != nil {
+		edges = append(edges, department.EdgeUser)
 	}
 	return edges
 }
@@ -1717,18 +1786,27 @@ func (m *DepartmentMutation) RemovedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
+	case department.EdgeUser:
+		ids := make([]ent.Value, 0, len(m.removeduser))
+		for id := range m.removeduser {
+			ids = append(ids, id)
+		}
+		return ids
 	}
 	return nil
 }
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *DepartmentMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 2)
+	edges := make([]string, 0, 3)
 	if m.clearedparent {
 		edges = append(edges, department.EdgeParent)
 	}
 	if m.clearedchildren {
 		edges = append(edges, department.EdgeChildren)
+	}
+	if m.cleareduser {
+		edges = append(edges, department.EdgeUser)
 	}
 	return edges
 }
@@ -1741,6 +1819,8 @@ func (m *DepartmentMutation) EdgeCleared(name string) bool {
 		return m.clearedparent
 	case department.EdgeChildren:
 		return m.clearedchildren
+	case department.EdgeUser:
+		return m.cleareduser
 	}
 	return false
 }
@@ -1765,6 +1845,9 @@ func (m *DepartmentMutation) ResetEdge(name string) error {
 		return nil
 	case department.EdgeChildren:
 		m.ResetChildren()
+		return nil
+	case department.EdgeUser:
+		m.ResetUser()
 		return nil
 	}
 	return fmt.Errorf("unknown Department edge %s", name)
@@ -8709,28 +8792,29 @@ func (m *TokenMutation) ResetEdge(name string) error {
 // UserMutation represents an operation that mutates the User nodes in the graph.
 type UserMutation struct {
 	config
-	op            Op
-	typ           string
-	id            *uuid.UUID
-	created_at    *time.Time
-	updated_at    *time.Time
-	status        *uint8
-	addstatus     *int8
-	username      *string
-	password      *string
-	nickname      *string
-	side_mode     *string
-	base_color    *string
-	active_color  *string
-	role_id       *uint64
-	addrole_id    *int64
-	mobile        *string
-	email         *string
-	avatar        *string
-	clearedFields map[string]struct{}
-	done          bool
-	oldValue      func(context.Context) (*User, error)
-	predicates    []predicate.User
+	op                Op
+	typ               string
+	id                *uuid.UUID
+	created_at        *time.Time
+	updated_at        *time.Time
+	status            *uint8
+	addstatus         *int8
+	username          *string
+	password          *string
+	nickname          *string
+	description       *string
+	home_path         *string
+	role_id           *uint64
+	addrole_id        *int64
+	mobile            *string
+	email             *string
+	avatar            *string
+	clearedFields     map[string]struct{}
+	department        *uint64
+	cleareddepartment bool
+	done              bool
+	oldValue          func(context.Context) (*User, error)
+	predicates        []predicate.User
 }
 
 var _ ent.Mutation = (*UserMutation)(nil)
@@ -9087,151 +9171,89 @@ func (m *UserMutation) ResetNickname() {
 	m.nickname = nil
 }
 
-// SetSideMode sets the "side_mode" field.
-func (m *UserMutation) SetSideMode(s string) {
-	m.side_mode = &s
+// SetDescription sets the "description" field.
+func (m *UserMutation) SetDescription(s string) {
+	m.description = &s
 }
 
-// SideMode returns the value of the "side_mode" field in the mutation.
-func (m *UserMutation) SideMode() (r string, exists bool) {
-	v := m.side_mode
+// Description returns the value of the "description" field in the mutation.
+func (m *UserMutation) Description() (r string, exists bool) {
+	v := m.description
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldSideMode returns the old "side_mode" field's value of the User entity.
+// OldDescription returns the old "description" field's value of the User entity.
 // If the User object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *UserMutation) OldSideMode(ctx context.Context) (v string, err error) {
+func (m *UserMutation) OldDescription(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldSideMode is only allowed on UpdateOne operations")
+		return v, errors.New("OldDescription is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldSideMode requires an ID field in the mutation")
+		return v, errors.New("OldDescription requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldSideMode: %w", err)
+		return v, fmt.Errorf("querying old value for OldDescription: %w", err)
 	}
-	return oldValue.SideMode, nil
+	return oldValue.Description, nil
 }
 
-// ClearSideMode clears the value of the "side_mode" field.
-func (m *UserMutation) ClearSideMode() {
-	m.side_mode = nil
-	m.clearedFields[user.FieldSideMode] = struct{}{}
+// ClearDescription clears the value of the "description" field.
+func (m *UserMutation) ClearDescription() {
+	m.description = nil
+	m.clearedFields[user.FieldDescription] = struct{}{}
 }
 
-// SideModeCleared returns if the "side_mode" field was cleared in this mutation.
-func (m *UserMutation) SideModeCleared() bool {
-	_, ok := m.clearedFields[user.FieldSideMode]
+// DescriptionCleared returns if the "description" field was cleared in this mutation.
+func (m *UserMutation) DescriptionCleared() bool {
+	_, ok := m.clearedFields[user.FieldDescription]
 	return ok
 }
 
-// ResetSideMode resets all changes to the "side_mode" field.
-func (m *UserMutation) ResetSideMode() {
-	m.side_mode = nil
-	delete(m.clearedFields, user.FieldSideMode)
+// ResetDescription resets all changes to the "description" field.
+func (m *UserMutation) ResetDescription() {
+	m.description = nil
+	delete(m.clearedFields, user.FieldDescription)
 }
 
-// SetBaseColor sets the "base_color" field.
-func (m *UserMutation) SetBaseColor(s string) {
-	m.base_color = &s
+// SetHomePath sets the "home_path" field.
+func (m *UserMutation) SetHomePath(s string) {
+	m.home_path = &s
 }
 
-// BaseColor returns the value of the "base_color" field in the mutation.
-func (m *UserMutation) BaseColor() (r string, exists bool) {
-	v := m.base_color
+// HomePath returns the value of the "home_path" field in the mutation.
+func (m *UserMutation) HomePath() (r string, exists bool) {
+	v := m.home_path
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldBaseColor returns the old "base_color" field's value of the User entity.
+// OldHomePath returns the old "home_path" field's value of the User entity.
 // If the User object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *UserMutation) OldBaseColor(ctx context.Context) (v string, err error) {
+func (m *UserMutation) OldHomePath(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldBaseColor is only allowed on UpdateOne operations")
+		return v, errors.New("OldHomePath is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldBaseColor requires an ID field in the mutation")
+		return v, errors.New("OldHomePath requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldBaseColor: %w", err)
+		return v, fmt.Errorf("querying old value for OldHomePath: %w", err)
 	}
-	return oldValue.BaseColor, nil
+	return oldValue.HomePath, nil
 }
 
-// ClearBaseColor clears the value of the "base_color" field.
-func (m *UserMutation) ClearBaseColor() {
-	m.base_color = nil
-	m.clearedFields[user.FieldBaseColor] = struct{}{}
-}
-
-// BaseColorCleared returns if the "base_color" field was cleared in this mutation.
-func (m *UserMutation) BaseColorCleared() bool {
-	_, ok := m.clearedFields[user.FieldBaseColor]
-	return ok
-}
-
-// ResetBaseColor resets all changes to the "base_color" field.
-func (m *UserMutation) ResetBaseColor() {
-	m.base_color = nil
-	delete(m.clearedFields, user.FieldBaseColor)
-}
-
-// SetActiveColor sets the "active_color" field.
-func (m *UserMutation) SetActiveColor(s string) {
-	m.active_color = &s
-}
-
-// ActiveColor returns the value of the "active_color" field in the mutation.
-func (m *UserMutation) ActiveColor() (r string, exists bool) {
-	v := m.active_color
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldActiveColor returns the old "active_color" field's value of the User entity.
-// If the User object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *UserMutation) OldActiveColor(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldActiveColor is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldActiveColor requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldActiveColor: %w", err)
-	}
-	return oldValue.ActiveColor, nil
-}
-
-// ClearActiveColor clears the value of the "active_color" field.
-func (m *UserMutation) ClearActiveColor() {
-	m.active_color = nil
-	m.clearedFields[user.FieldActiveColor] = struct{}{}
-}
-
-// ActiveColorCleared returns if the "active_color" field was cleared in this mutation.
-func (m *UserMutation) ActiveColorCleared() bool {
-	_, ok := m.clearedFields[user.FieldActiveColor]
-	return ok
-}
-
-// ResetActiveColor resets all changes to the "active_color" field.
-func (m *UserMutation) ResetActiveColor() {
-	m.active_color = nil
-	delete(m.clearedFields, user.FieldActiveColor)
+// ResetHomePath resets all changes to the "home_path" field.
+func (m *UserMutation) ResetHomePath() {
+	m.home_path = nil
 }
 
 // SetRoleID sets the "role_id" field.
@@ -9451,6 +9473,81 @@ func (m *UserMutation) ResetAvatar() {
 	delete(m.clearedFields, user.FieldAvatar)
 }
 
+// SetDepartmentID sets the "department_id" field.
+func (m *UserMutation) SetDepartmentID(u uint64) {
+	m.department = &u
+}
+
+// DepartmentID returns the value of the "department_id" field in the mutation.
+func (m *UserMutation) DepartmentID() (r uint64, exists bool) {
+	v := m.department
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDepartmentID returns the old "department_id" field's value of the User entity.
+// If the User object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserMutation) OldDepartmentID(ctx context.Context) (v uint64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDepartmentID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDepartmentID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDepartmentID: %w", err)
+	}
+	return oldValue.DepartmentID, nil
+}
+
+// ClearDepartmentID clears the value of the "department_id" field.
+func (m *UserMutation) ClearDepartmentID() {
+	m.department = nil
+	m.clearedFields[user.FieldDepartmentID] = struct{}{}
+}
+
+// DepartmentIDCleared returns if the "department_id" field was cleared in this mutation.
+func (m *UserMutation) DepartmentIDCleared() bool {
+	_, ok := m.clearedFields[user.FieldDepartmentID]
+	return ok
+}
+
+// ResetDepartmentID resets all changes to the "department_id" field.
+func (m *UserMutation) ResetDepartmentID() {
+	m.department = nil
+	delete(m.clearedFields, user.FieldDepartmentID)
+}
+
+// ClearDepartment clears the "department" edge to the Department entity.
+func (m *UserMutation) ClearDepartment() {
+	m.cleareddepartment = true
+}
+
+// DepartmentCleared reports if the "department" edge to the Department entity was cleared.
+func (m *UserMutation) DepartmentCleared() bool {
+	return m.DepartmentIDCleared() || m.cleareddepartment
+}
+
+// DepartmentIDs returns the "department" edge IDs in the mutation.
+// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
+// DepartmentID instead. It exists only for internal usage by the builders.
+func (m *UserMutation) DepartmentIDs() (ids []uint64) {
+	if id := m.department; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetDepartment resets all changes to the "department" edge.
+func (m *UserMutation) ResetDepartment() {
+	m.department = nil
+	m.cleareddepartment = false
+}
+
 // Where appends a list predicates to the UserMutation builder.
 func (m *UserMutation) Where(ps ...predicate.User) {
 	m.predicates = append(m.predicates, ps...)
@@ -9504,14 +9601,11 @@ func (m *UserMutation) Fields() []string {
 	if m.nickname != nil {
 		fields = append(fields, user.FieldNickname)
 	}
-	if m.side_mode != nil {
-		fields = append(fields, user.FieldSideMode)
+	if m.description != nil {
+		fields = append(fields, user.FieldDescription)
 	}
-	if m.base_color != nil {
-		fields = append(fields, user.FieldBaseColor)
-	}
-	if m.active_color != nil {
-		fields = append(fields, user.FieldActiveColor)
+	if m.home_path != nil {
+		fields = append(fields, user.FieldHomePath)
 	}
 	if m.role_id != nil {
 		fields = append(fields, user.FieldRoleID)
@@ -9524,6 +9618,9 @@ func (m *UserMutation) Fields() []string {
 	}
 	if m.avatar != nil {
 		fields = append(fields, user.FieldAvatar)
+	}
+	if m.department != nil {
+		fields = append(fields, user.FieldDepartmentID)
 	}
 	return fields
 }
@@ -9545,12 +9642,10 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 		return m.Password()
 	case user.FieldNickname:
 		return m.Nickname()
-	case user.FieldSideMode:
-		return m.SideMode()
-	case user.FieldBaseColor:
-		return m.BaseColor()
-	case user.FieldActiveColor:
-		return m.ActiveColor()
+	case user.FieldDescription:
+		return m.Description()
+	case user.FieldHomePath:
+		return m.HomePath()
 	case user.FieldRoleID:
 		return m.RoleID()
 	case user.FieldMobile:
@@ -9559,6 +9654,8 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 		return m.Email()
 	case user.FieldAvatar:
 		return m.Avatar()
+	case user.FieldDepartmentID:
+		return m.DepartmentID()
 	}
 	return nil, false
 }
@@ -9580,12 +9677,10 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldPassword(ctx)
 	case user.FieldNickname:
 		return m.OldNickname(ctx)
-	case user.FieldSideMode:
-		return m.OldSideMode(ctx)
-	case user.FieldBaseColor:
-		return m.OldBaseColor(ctx)
-	case user.FieldActiveColor:
-		return m.OldActiveColor(ctx)
+	case user.FieldDescription:
+		return m.OldDescription(ctx)
+	case user.FieldHomePath:
+		return m.OldHomePath(ctx)
 	case user.FieldRoleID:
 		return m.OldRoleID(ctx)
 	case user.FieldMobile:
@@ -9594,6 +9689,8 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldEmail(ctx)
 	case user.FieldAvatar:
 		return m.OldAvatar(ctx)
+	case user.FieldDepartmentID:
+		return m.OldDepartmentID(ctx)
 	}
 	return nil, fmt.Errorf("unknown User field %s", name)
 }
@@ -9645,26 +9742,19 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetNickname(v)
 		return nil
-	case user.FieldSideMode:
+	case user.FieldDescription:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetSideMode(v)
+		m.SetDescription(v)
 		return nil
-	case user.FieldBaseColor:
+	case user.FieldHomePath:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetBaseColor(v)
-		return nil
-	case user.FieldActiveColor:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetActiveColor(v)
+		m.SetHomePath(v)
 		return nil
 	case user.FieldRoleID:
 		v, ok := value.(uint64)
@@ -9693,6 +9783,13 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetAvatar(v)
+		return nil
+	case user.FieldDepartmentID:
+		v, ok := value.(uint64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDepartmentID(v)
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
@@ -9754,14 +9851,8 @@ func (m *UserMutation) ClearedFields() []string {
 	if m.FieldCleared(user.FieldStatus) {
 		fields = append(fields, user.FieldStatus)
 	}
-	if m.FieldCleared(user.FieldSideMode) {
-		fields = append(fields, user.FieldSideMode)
-	}
-	if m.FieldCleared(user.FieldBaseColor) {
-		fields = append(fields, user.FieldBaseColor)
-	}
-	if m.FieldCleared(user.FieldActiveColor) {
-		fields = append(fields, user.FieldActiveColor)
+	if m.FieldCleared(user.FieldDescription) {
+		fields = append(fields, user.FieldDescription)
 	}
 	if m.FieldCleared(user.FieldRoleID) {
 		fields = append(fields, user.FieldRoleID)
@@ -9774,6 +9865,9 @@ func (m *UserMutation) ClearedFields() []string {
 	}
 	if m.FieldCleared(user.FieldAvatar) {
 		fields = append(fields, user.FieldAvatar)
+	}
+	if m.FieldCleared(user.FieldDepartmentID) {
+		fields = append(fields, user.FieldDepartmentID)
 	}
 	return fields
 }
@@ -9792,14 +9886,8 @@ func (m *UserMutation) ClearField(name string) error {
 	case user.FieldStatus:
 		m.ClearStatus()
 		return nil
-	case user.FieldSideMode:
-		m.ClearSideMode()
-		return nil
-	case user.FieldBaseColor:
-		m.ClearBaseColor()
-		return nil
-	case user.FieldActiveColor:
-		m.ClearActiveColor()
+	case user.FieldDescription:
+		m.ClearDescription()
 		return nil
 	case user.FieldRoleID:
 		m.ClearRoleID()
@@ -9812,6 +9900,9 @@ func (m *UserMutation) ClearField(name string) error {
 		return nil
 	case user.FieldAvatar:
 		m.ClearAvatar()
+		return nil
+	case user.FieldDepartmentID:
+		m.ClearDepartmentID()
 		return nil
 	}
 	return fmt.Errorf("unknown User nullable field %s", name)
@@ -9839,14 +9930,11 @@ func (m *UserMutation) ResetField(name string) error {
 	case user.FieldNickname:
 		m.ResetNickname()
 		return nil
-	case user.FieldSideMode:
-		m.ResetSideMode()
+	case user.FieldDescription:
+		m.ResetDescription()
 		return nil
-	case user.FieldBaseColor:
-		m.ResetBaseColor()
-		return nil
-	case user.FieldActiveColor:
-		m.ResetActiveColor()
+	case user.FieldHomePath:
+		m.ResetHomePath()
 		return nil
 	case user.FieldRoleID:
 		m.ResetRoleID()
@@ -9860,25 +9948,37 @@ func (m *UserMutation) ResetField(name string) error {
 	case user.FieldAvatar:
 		m.ResetAvatar()
 		return nil
+	case user.FieldDepartmentID:
+		m.ResetDepartmentID()
+		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
 }
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *UserMutation) AddedEdges() []string {
-	edges := make([]string, 0, 0)
+	edges := make([]string, 0, 1)
+	if m.department != nil {
+		edges = append(edges, user.EdgeDepartment)
+	}
 	return edges
 }
 
 // AddedIDs returns all IDs (to other nodes) that were added for the given edge
 // name in this mutation.
 func (m *UserMutation) AddedIDs(name string) []ent.Value {
+	switch name {
+	case user.EdgeDepartment:
+		if id := m.department; id != nil {
+			return []ent.Value{*id}
+		}
+	}
 	return nil
 }
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *UserMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 0)
+	edges := make([]string, 0, 1)
 	return edges
 }
 
@@ -9890,24 +9990,41 @@ func (m *UserMutation) RemovedIDs(name string) []ent.Value {
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *UserMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 0)
+	edges := make([]string, 0, 1)
+	if m.cleareddepartment {
+		edges = append(edges, user.EdgeDepartment)
+	}
 	return edges
 }
 
 // EdgeCleared returns a boolean which indicates if the edge with the given name
 // was cleared in this mutation.
 func (m *UserMutation) EdgeCleared(name string) bool {
+	switch name {
+	case user.EdgeDepartment:
+		return m.cleareddepartment
+	}
 	return false
 }
 
 // ClearEdge clears the value of the edge with the given name. It returns an error
 // if that edge is not defined in the schema.
 func (m *UserMutation) ClearEdge(name string) error {
+	switch name {
+	case user.EdgeDepartment:
+		m.ClearDepartment()
+		return nil
+	}
 	return fmt.Errorf("unknown User unique edge %s", name)
 }
 
 // ResetEdge resets all changes to the edge with the given name in this mutation.
 // It returns an error if the edge is not defined in the schema.
 func (m *UserMutation) ResetEdge(name string) error {
+	switch name {
+	case user.EdgeDepartment:
+		m.ResetDepartment()
+		return nil
+	}
 	return fmt.Errorf("unknown User edge %s", name)
 }

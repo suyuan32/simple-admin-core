@@ -37,6 +37,8 @@ const (
 	EdgeParent = "parent"
 	// EdgeChildren holds the string denoting the children edge name in mutations.
 	EdgeChildren = "children"
+	// EdgeUser holds the string denoting the user edge name in mutations.
+	EdgeUser = "user"
 	// Table holds the table name of the department in the database.
 	Table = "sys_department"
 	// ParentTable is the table that holds the parent relation/edge.
@@ -47,6 +49,13 @@ const (
 	ChildrenTable = "sys_department"
 	// ChildrenColumn is the table column denoting the children relation/edge.
 	ChildrenColumn = "parent_id"
+	// UserTable is the table that holds the user relation/edge.
+	UserTable = "sys_users"
+	// UserInverseTable is the table name for the User entity.
+	// It exists in this package in order to avoid circular dependency with the "user" package.
+	UserInverseTable = "sys_users"
+	// UserColumn is the table column denoting the user relation/edge.
+	UserColumn = "department_id"
 )
 
 // Columns holds all SQL columns for department fields.
@@ -84,4 +93,6 @@ var (
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultStatus holds the default value on creation for the "status" field.
 	DefaultStatus uint8
+	// DefaultParentID holds the default value on creation for the "parent_id" field.
+	DefaultParentID uint64
 )

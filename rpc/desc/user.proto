@@ -28,6 +28,9 @@ message CreateOrUpdateUserReq {
   string username = 7;
   string nickname = 8;
   string password = 9;
+  string home_path = 10;
+  string description = 11;
+  uint64 department_id = 12;
 }
 
 message UserInfoResp {
@@ -43,6 +46,9 @@ message UserInfoResp {
   int64 created_at = 10;
   int64 updated_at = 11;
   string roleValue = 12;
+  string home_path = 13;
+  string description = 14;
+  uint64 department_id = 15;
 }
 
 message UserListResp {
@@ -66,6 +72,7 @@ message UpdateProfileReq {
   string email = 3;
   string mobile = 4;
   string avatar = 5;
+  string description = 6;
 }
 
 // service

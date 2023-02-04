@@ -121,6 +121,13 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		return nil, statuserr.NewInternalError(err.Error())
 	}
 
+	err = l.insertDepartmentData()
+	if err != nil {
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
+		return nil, statuserr.NewInternalError(err.Error())
+	}
+
 	l.svcCtx.Redis.Setex("database_init_state", "1", 300)
 	return &core.BaseResp{Msg: i18n.Success}, nil
 }
@@ -861,6 +868,29 @@ func (l *InitDatabaseLogic) insertProviderData() error {
 	)
 
 	err := l.svcCtx.DB.OauthProvider.CreateBulk(providers...).Exec(l.ctx)
+	if err != nil {
+		logx.Errorw(err.Error())
+		return statuserr.NewInternalError(err.Error())
+	} else {
+		return nil
+	}
+}
+
+// insert init department data
+func (l *InitDatabaseLogic) insertDepartmentData() error {
+	var departments []*ent.DepartmentCreate
+	departments = append(departments, l.svcCtx.DB.Department.Create().
+		SetName("department.managementDepartment").
+		SetAncestors("").
+		SetLeader("admin").
+		SetEmail("simpleadmin@gmail.com").
+		SetPhone("18888888888").
+		SetRemark("Super Administrator").
+		SetSort(1).
+		SetParentID(0),
+	)
+
+	err := l.svcCtx.DB.Department.CreateBulk(departments...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
 		return statuserr.NewInternalError(err.Error())

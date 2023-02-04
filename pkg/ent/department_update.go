@@ -11,8 +11,10 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/gofrs/uuid"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
 // DepartmentUpdate is the builder for updating Department entities.
@@ -150,6 +152,21 @@ func (du *DepartmentUpdate) AddChildren(d ...*Department) *DepartmentUpdate {
 	return du.AddChildIDs(ids...)
 }
 
+// AddUserIDs adds the "user" edge to the User entity by IDs.
+func (du *DepartmentUpdate) AddUserIDs(ids ...uuid.UUID) *DepartmentUpdate {
+	du.mutation.AddUserIDs(ids...)
+	return du
+}
+
+// AddUser adds the "user" edges to the User entity.
+func (du *DepartmentUpdate) AddUser(u ...*User) *DepartmentUpdate {
+	ids := make([]uuid.UUID, len(u))
+	for i := range u {
+		ids[i] = u[i].ID
+	}
+	return du.AddUserIDs(ids...)
+}
+
 // Mutation returns the DepartmentMutation object of the builder.
 func (du *DepartmentUpdate) Mutation() *DepartmentMutation {
 	return du.mutation
@@ -180,6 +197,27 @@ func (du *DepartmentUpdate) RemoveChildren(d ...*Department) *DepartmentUpdate {
 		ids[i] = d[i].ID
 	}
 	return du.RemoveChildIDs(ids...)
+}
+
+// ClearUser clears all "user" edges to the User entity.
+func (du *DepartmentUpdate) ClearUser() *DepartmentUpdate {
+	du.mutation.ClearUser()
+	return du
+}
+
+// RemoveUserIDs removes the "user" edge to User entities by IDs.
+func (du *DepartmentUpdate) RemoveUserIDs(ids ...uuid.UUID) *DepartmentUpdate {
+	du.mutation.RemoveUserIDs(ids...)
+	return du
+}
+
+// RemoveUser removes "user" edges to User entities.
+func (du *DepartmentUpdate) RemoveUser(u ...*User) *DepartmentUpdate {
+	ids := make([]uuid.UUID, len(u))
+	for i := range u {
+		ids[i] = u[i].ID
+	}
+	return du.RemoveUserIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -361,6 +399,60 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	if du.mutation.UserCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   department.UserTable,
+			Columns: []string{department.UserColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := du.mutation.RemovedUserIDs(); len(nodes) > 0 && !du.mutation.UserCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   department.UserTable,
+			Columns: []string{department.UserColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := du.mutation.UserIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   department.UserTable,
+			Columns: []string{department.UserColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, du.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{department.Label}
@@ -503,6 +595,21 @@ func (duo *DepartmentUpdateOne) AddChildren(d ...*Department) *DepartmentUpdateO
 	return duo.AddChildIDs(ids...)
 }
 
+// AddUserIDs adds the "user" edge to the User entity by IDs.
+func (duo *DepartmentUpdateOne) AddUserIDs(ids ...uuid.UUID) *DepartmentUpdateOne {
+	duo.mutation.AddUserIDs(ids...)
+	return duo
+}
+
+// AddUser adds the "user" edges to the User entity.
+func (duo *DepartmentUpdateOne) AddUser(u ...*User) *DepartmentUpdateOne {
+	ids := make([]uuid.UUID, len(u))
+	for i := range u {
+		ids[i] = u[i].ID
+	}
+	return duo.AddUserIDs(ids...)
+}
+
 // Mutation returns the DepartmentMutation object of the builder.
 func (duo *DepartmentUpdateOne) Mutation() *DepartmentMutation {
 	return duo.mutation
@@ -533,6 +640,27 @@ func (duo *DepartmentUpdateOne) RemoveChildren(d ...*Department) *DepartmentUpda
 		ids[i] = d[i].ID
 	}
 	return duo.RemoveChildIDs(ids...)
+}
+
+// ClearUser clears all "user" edges to the User entity.
+func (duo *DepartmentUpdateOne) ClearUser() *DepartmentUpdateOne {
+	duo.mutation.ClearUser()
+	return duo
+}
+
+// RemoveUserIDs removes the "user" edge to User entities by IDs.
+func (duo *DepartmentUpdateOne) RemoveUserIDs(ids ...uuid.UUID) *DepartmentUpdateOne {
+	duo.mutation.RemoveUserIDs(ids...)
+	return duo
+}
+
+// RemoveUser removes "user" edges to User entities.
+func (duo *DepartmentUpdateOne) RemoveUser(u ...*User) *DepartmentUpdateOne {
+	ids := make([]uuid.UUID, len(u))
+	for i := range u {
+		ids[i] = u[i].ID
+	}
+	return duo.RemoveUserIDs(ids...)
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
@@ -730,6 +858,60 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeUint64,
 					Column: department.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if duo.mutation.UserCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   department.UserTable,
+			Columns: []string{department.UserColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := duo.mutation.RemovedUserIDs(); len(nodes) > 0 && !duo.mutation.UserCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   department.UserTable,
+			Columns: []string{department.UserColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := duo.mutation.UserIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   department.UserTable,
+			Columns: []string{department.UserColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
 				},
 			},
 		}

@@ -45,7 +45,7 @@ var (
 		{Name: "email", Type: field.TypeString},
 		{Name: "sort", Type: field.TypeUint32},
 		{Name: "remark", Type: field.TypeString},
-		{Name: "parent_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "parent_id", Type: field.TypeUint64, Nullable: true, Default: 0},
 	}
 	// SysDepartmentTable holds the schema information for the "sys_department" table.
 	SysDepartmentTable = &schema.Table{
@@ -245,24 +245,32 @@ var (
 		{Name: "username", Type: field.TypeString, Unique: true},
 		{Name: "password", Type: field.TypeString},
 		{Name: "nickname", Type: field.TypeString, Unique: true},
-		{Name: "side_mode", Type: field.TypeString, Nullable: true, Default: "dark"},
-		{Name: "base_color", Type: field.TypeString, Nullable: true, Default: "#fff"},
-		{Name: "active_color", Type: field.TypeString, Nullable: true, Default: "#1890ff"},
+		{Name: "description", Type: field.TypeString, Nullable: true},
+		{Name: "home_path", Type: field.TypeString, Default: "/dashboard"},
 		{Name: "role_id", Type: field.TypeUint64, Nullable: true, Default: 2},
 		{Name: "mobile", Type: field.TypeString, Nullable: true},
 		{Name: "email", Type: field.TypeString, Nullable: true},
 		{Name: "avatar", Type: field.TypeString, Nullable: true, Default: "", SchemaType: map[string]string{"mysql": "varchar(512)"}},
+		{Name: "department_id", Type: field.TypeUint64, Nullable: true, Default: 1},
 	}
 	// SysUsersTable holds the schema information for the "sys_users" table.
 	SysUsersTable = &schema.Table{
 		Name:       "sys_users",
 		Columns:    SysUsersColumns,
 		PrimaryKey: []*schema.Column{SysUsersColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "sys_users_sys_department_department",
+				Columns:    []*schema.Column{SysUsersColumns[13]},
+				RefColumns: []*schema.Column{SysDepartmentColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
 		Indexes: []*schema.Index{
 			{
 				Name:    "user_username_email",
 				Unique:  true,
-				Columns: []*schema.Column{SysUsersColumns[4], SysUsersColumns[12]},
+				Columns: []*schema.Column{SysUsersColumns[4], SysUsersColumns[11]},
 			},
 		},
 	}
@@ -339,6 +347,7 @@ func init() {
 	SysTokensTable.Annotation = &entsql.Annotation{
 		Table: "sys_tokens",
 	}
+	SysUsersTable.ForeignKeys[0].RefTable = SysDepartmentTable
 	SysUsersTable.Annotation = &entsql.Annotation{
 		Table: "sys_users",
 	}

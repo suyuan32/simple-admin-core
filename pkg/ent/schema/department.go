@@ -23,7 +23,7 @@ func (Department) Fields() []ent.Field {
 		field.String("email").Comment("Leader's email | 部门负责人电子邮箱"),
 		field.Uint32("sort").Comment("Sort number | 排序编号"),
 		field.String("remark").Comment("Remark | 备注"),
-		field.Uint64("parent_id").Optional().Comment("Parent department ID | 父级部门ID"),
+		field.Uint64("parent_id").Optional().Default(0).Comment("Parent department ID | 父级部门ID"),
 	}
 }
 
@@ -37,6 +37,7 @@ func (Department) Mixin() []ent.Mixin {
 func (Department) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("children", Department.Type).From("parent").Unique().Field("parent_id"),
+		edge.From("user", User.Type).Ref("department"),
 	}
 }
 

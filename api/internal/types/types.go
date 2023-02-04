@@ -328,11 +328,15 @@ type UserInfoResp struct {
 	Email string `json:"email"`
 	// The user's avatar path | 用户的头像路径
 	Avatar string `json:"avatar"`
-	// The user's layout mode | 用户的布局
-	SideMode string `json:"sideMode"`
 	// The user's status | 用户状态
 	// 1 normal, 2 ban | 1 正常 2 拉黑
 	Status uint32 `json:"status"`
+	// The home page that the user enters after logging in | 用户登陆后进入的首页
+	HomePath string `json:"homePath"`
+	// The description of user | 用户的描述信息
+	Description string `json:"desc"`
+	// User's department id | 用户的部门ID
+	DepartmentId uint64 `json:"departmentId"`
 }
 
 // The response data of user's basic information | 用户基本信息返回数据
@@ -355,8 +359,11 @@ type UserBaseInfo struct {
 	// The user's avatar path | 用户的头像路径
 	Avatar string `json:"avatar"`
 	// User's role information| 用户的角色信息
-	// in: body
 	Roles GetUserRoleInfo `json:"roles"`
+	// The home page that the user enters after logging in | 用户登陆后进入的首页
+	HomePath string `json:"homePath"`
+	// The description of user | 用户的描述信息
+	Description string `json:"desc"`
 }
 
 // The response data of user's basic role information | 用户角色信息数据
@@ -432,6 +439,13 @@ type CreateOrUpdateUserReq struct {
 	// Required: true
 	// Maximum: 20
 	Status uint32 `json:"status" validate:"number,max=20"`
+	// User's department id | 用户的部门ID
+	// Required: true
+	DepartmentId uint64 `json:"departmentId"`
+	// The home page that the user enters after logging in | 用户登陆后进入的首页
+	HomePath string `json:"homePath"`
+	// The description of user | 用户的描述信息
+	Description string `json:"desc"`
 }
 
 // Get user list request | 获取用户列表请求参数

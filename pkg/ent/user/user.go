@@ -25,12 +25,10 @@ const (
 	FieldPassword = "password"
 	// FieldNickname holds the string denoting the nickname field in the database.
 	FieldNickname = "nickname"
-	// FieldSideMode holds the string denoting the side_mode field in the database.
-	FieldSideMode = "side_mode"
-	// FieldBaseColor holds the string denoting the base_color field in the database.
-	FieldBaseColor = "base_color"
-	// FieldActiveColor holds the string denoting the active_color field in the database.
-	FieldActiveColor = "active_color"
+	// FieldDescription holds the string denoting the description field in the database.
+	FieldDescription = "description"
+	// FieldHomePath holds the string denoting the home_path field in the database.
+	FieldHomePath = "home_path"
 	// FieldRoleID holds the string denoting the role_id field in the database.
 	FieldRoleID = "role_id"
 	// FieldMobile holds the string denoting the mobile field in the database.
@@ -39,8 +37,19 @@ const (
 	FieldEmail = "email"
 	// FieldAvatar holds the string denoting the avatar field in the database.
 	FieldAvatar = "avatar"
+	// FieldDepartmentID holds the string denoting the department_id field in the database.
+	FieldDepartmentID = "department_id"
+	// EdgeDepartment holds the string denoting the department edge name in mutations.
+	EdgeDepartment = "department"
 	// Table holds the table name of the user in the database.
 	Table = "sys_users"
+	// DepartmentTable is the table that holds the department relation/edge.
+	DepartmentTable = "sys_users"
+	// DepartmentInverseTable is the table name for the Department entity.
+	// It exists in this package in order to avoid circular dependency with the "department" package.
+	DepartmentInverseTable = "sys_department"
+	// DepartmentColumn is the table column denoting the department relation/edge.
+	DepartmentColumn = "department_id"
 )
 
 // Columns holds all SQL columns for user fields.
@@ -52,13 +61,13 @@ var Columns = []string{
 	FieldUsername,
 	FieldPassword,
 	FieldNickname,
-	FieldSideMode,
-	FieldBaseColor,
-	FieldActiveColor,
+	FieldDescription,
+	FieldHomePath,
 	FieldRoleID,
 	FieldMobile,
 	FieldEmail,
 	FieldAvatar,
+	FieldDepartmentID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -80,16 +89,14 @@ var (
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultStatus holds the default value on creation for the "status" field.
 	DefaultStatus uint8
-	// DefaultSideMode holds the default value on creation for the "side_mode" field.
-	DefaultSideMode string
-	// DefaultBaseColor holds the default value on creation for the "base_color" field.
-	DefaultBaseColor string
-	// DefaultActiveColor holds the default value on creation for the "active_color" field.
-	DefaultActiveColor string
+	// DefaultHomePath holds the default value on creation for the "home_path" field.
+	DefaultHomePath string
 	// DefaultRoleID holds the default value on creation for the "role_id" field.
 	DefaultRoleID uint64
 	// DefaultAvatar holds the default value on creation for the "avatar" field.
 	DefaultAvatar string
+	// DefaultDepartmentID holds the default value on creation for the "department_id" field.
+	DefaultDepartmentID uint64
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

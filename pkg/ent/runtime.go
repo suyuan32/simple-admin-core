@@ -63,6 +63,10 @@ func init() {
 	departmentDescStatus := departmentMixinFields1[0].Descriptor()
 	// department.DefaultStatus holds the default value on creation for the status field.
 	department.DefaultStatus = departmentDescStatus.Default.(uint8)
+	// departmentDescParentID is the schema descriptor for parent_id field.
+	departmentDescParentID := departmentFields[7].Descriptor()
+	// department.DefaultParentID holds the default value on creation for the parent_id field.
+	department.DefaultParentID = departmentDescParentID.Default.(uint64)
 	dictionaryMixin := schema.Dictionary{}.Mixin()
 	dictionaryMixinFields0 := dictionaryMixin[0].Fields()
 	_ = dictionaryMixinFields0
@@ -293,26 +297,22 @@ func init() {
 	userDescStatus := userMixinFields1[0].Descriptor()
 	// user.DefaultStatus holds the default value on creation for the status field.
 	user.DefaultStatus = userDescStatus.Default.(uint8)
-	// userDescSideMode is the schema descriptor for side_mode field.
-	userDescSideMode := userFields[3].Descriptor()
-	// user.DefaultSideMode holds the default value on creation for the side_mode field.
-	user.DefaultSideMode = userDescSideMode.Default.(string)
-	// userDescBaseColor is the schema descriptor for base_color field.
-	userDescBaseColor := userFields[4].Descriptor()
-	// user.DefaultBaseColor holds the default value on creation for the base_color field.
-	user.DefaultBaseColor = userDescBaseColor.Default.(string)
-	// userDescActiveColor is the schema descriptor for active_color field.
-	userDescActiveColor := userFields[5].Descriptor()
-	// user.DefaultActiveColor holds the default value on creation for the active_color field.
-	user.DefaultActiveColor = userDescActiveColor.Default.(string)
+	// userDescHomePath is the schema descriptor for home_path field.
+	userDescHomePath := userFields[4].Descriptor()
+	// user.DefaultHomePath holds the default value on creation for the home_path field.
+	user.DefaultHomePath = userDescHomePath.Default.(string)
 	// userDescRoleID is the schema descriptor for role_id field.
-	userDescRoleID := userFields[6].Descriptor()
+	userDescRoleID := userFields[5].Descriptor()
 	// user.DefaultRoleID holds the default value on creation for the role_id field.
 	user.DefaultRoleID = userDescRoleID.Default.(uint64)
 	// userDescAvatar is the schema descriptor for avatar field.
-	userDescAvatar := userFields[9].Descriptor()
+	userDescAvatar := userFields[8].Descriptor()
 	// user.DefaultAvatar holds the default value on creation for the avatar field.
 	user.DefaultAvatar = userDescAvatar.Default.(string)
+	// userDescDepartmentID is the schema descriptor for department_id field.
+	userDescDepartmentID := userFields[9].Descriptor()
+	// user.DefaultDepartmentID holds the default value on creation for the department_id field.
+	user.DefaultDepartmentID = userDescDepartmentID.Default.(uint64)
 	// userDescID is the schema descriptor for id field.
 	userDescID := userMixinFields0[0].Descriptor()
 	// user.DefaultID holds the default value on creation for the id field.

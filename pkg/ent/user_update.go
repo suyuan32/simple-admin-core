@@ -11,6 +11,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
@@ -79,63 +80,37 @@ func (uu *UserUpdate) SetNickname(s string) *UserUpdate {
 	return uu
 }
 
-// SetSideMode sets the "side_mode" field.
-func (uu *UserUpdate) SetSideMode(s string) *UserUpdate {
-	uu.mutation.SetSideMode(s)
+// SetDescription sets the "description" field.
+func (uu *UserUpdate) SetDescription(s string) *UserUpdate {
+	uu.mutation.SetDescription(s)
 	return uu
 }
 
-// SetNillableSideMode sets the "side_mode" field if the given value is not nil.
-func (uu *UserUpdate) SetNillableSideMode(s *string) *UserUpdate {
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableDescription(s *string) *UserUpdate {
 	if s != nil {
-		uu.SetSideMode(*s)
+		uu.SetDescription(*s)
 	}
 	return uu
 }
 
-// ClearSideMode clears the value of the "side_mode" field.
-func (uu *UserUpdate) ClearSideMode() *UserUpdate {
-	uu.mutation.ClearSideMode()
+// ClearDescription clears the value of the "description" field.
+func (uu *UserUpdate) ClearDescription() *UserUpdate {
+	uu.mutation.ClearDescription()
 	return uu
 }
 
-// SetBaseColor sets the "base_color" field.
-func (uu *UserUpdate) SetBaseColor(s string) *UserUpdate {
-	uu.mutation.SetBaseColor(s)
+// SetHomePath sets the "home_path" field.
+func (uu *UserUpdate) SetHomePath(s string) *UserUpdate {
+	uu.mutation.SetHomePath(s)
 	return uu
 }
 
-// SetNillableBaseColor sets the "base_color" field if the given value is not nil.
-func (uu *UserUpdate) SetNillableBaseColor(s *string) *UserUpdate {
+// SetNillableHomePath sets the "home_path" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableHomePath(s *string) *UserUpdate {
 	if s != nil {
-		uu.SetBaseColor(*s)
+		uu.SetHomePath(*s)
 	}
-	return uu
-}
-
-// ClearBaseColor clears the value of the "base_color" field.
-func (uu *UserUpdate) ClearBaseColor() *UserUpdate {
-	uu.mutation.ClearBaseColor()
-	return uu
-}
-
-// SetActiveColor sets the "active_color" field.
-func (uu *UserUpdate) SetActiveColor(s string) *UserUpdate {
-	uu.mutation.SetActiveColor(s)
-	return uu
-}
-
-// SetNillableActiveColor sets the "active_color" field if the given value is not nil.
-func (uu *UserUpdate) SetNillableActiveColor(s *string) *UserUpdate {
-	if s != nil {
-		uu.SetActiveColor(*s)
-	}
-	return uu
-}
-
-// ClearActiveColor clears the value of the "active_color" field.
-func (uu *UserUpdate) ClearActiveColor() *UserUpdate {
-	uu.mutation.ClearActiveColor()
 	return uu
 }
 
@@ -226,9 +201,40 @@ func (uu *UserUpdate) ClearAvatar() *UserUpdate {
 	return uu
 }
 
+// SetDepartmentID sets the "department_id" field.
+func (uu *UserUpdate) SetDepartmentID(u uint64) *UserUpdate {
+	uu.mutation.SetDepartmentID(u)
+	return uu
+}
+
+// SetNillableDepartmentID sets the "department_id" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableDepartmentID(u *uint64) *UserUpdate {
+	if u != nil {
+		uu.SetDepartmentID(*u)
+	}
+	return uu
+}
+
+// ClearDepartmentID clears the value of the "department_id" field.
+func (uu *UserUpdate) ClearDepartmentID() *UserUpdate {
+	uu.mutation.ClearDepartmentID()
+	return uu
+}
+
+// SetDepartment sets the "department" edge to the Department entity.
+func (uu *UserUpdate) SetDepartment(d *Department) *UserUpdate {
+	return uu.SetDepartmentID(d.ID)
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (uu *UserUpdate) Mutation() *UserMutation {
 	return uu.mutation
+}
+
+// ClearDepartment clears the "department" edge to the Department entity.
+func (uu *UserUpdate) ClearDepartment() *UserUpdate {
+	uu.mutation.ClearDepartment()
+	return uu
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -306,23 +312,14 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := uu.mutation.Nickname(); ok {
 		_spec.SetField(user.FieldNickname, field.TypeString, value)
 	}
-	if value, ok := uu.mutation.SideMode(); ok {
-		_spec.SetField(user.FieldSideMode, field.TypeString, value)
+	if value, ok := uu.mutation.Description(); ok {
+		_spec.SetField(user.FieldDescription, field.TypeString, value)
 	}
-	if uu.mutation.SideModeCleared() {
-		_spec.ClearField(user.FieldSideMode, field.TypeString)
+	if uu.mutation.DescriptionCleared() {
+		_spec.ClearField(user.FieldDescription, field.TypeString)
 	}
-	if value, ok := uu.mutation.BaseColor(); ok {
-		_spec.SetField(user.FieldBaseColor, field.TypeString, value)
-	}
-	if uu.mutation.BaseColorCleared() {
-		_spec.ClearField(user.FieldBaseColor, field.TypeString)
-	}
-	if value, ok := uu.mutation.ActiveColor(); ok {
-		_spec.SetField(user.FieldActiveColor, field.TypeString, value)
-	}
-	if uu.mutation.ActiveColorCleared() {
-		_spec.ClearField(user.FieldActiveColor, field.TypeString)
+	if value, ok := uu.mutation.HomePath(); ok {
+		_spec.SetField(user.FieldHomePath, field.TypeString, value)
 	}
 	if value, ok := uu.mutation.RoleID(); ok {
 		_spec.SetField(user.FieldRoleID, field.TypeUint64, value)
@@ -350,6 +347,41 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if uu.mutation.AvatarCleared() {
 		_spec.ClearField(user.FieldAvatar, field.TypeString)
+	}
+	if uu.mutation.DepartmentCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   user.DepartmentTable,
+			Columns: []string{user.DepartmentColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: department.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uu.mutation.DepartmentIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   user.DepartmentTable,
+			Columns: []string{user.DepartmentColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: department.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, uu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -422,63 +454,37 @@ func (uuo *UserUpdateOne) SetNickname(s string) *UserUpdateOne {
 	return uuo
 }
 
-// SetSideMode sets the "side_mode" field.
-func (uuo *UserUpdateOne) SetSideMode(s string) *UserUpdateOne {
-	uuo.mutation.SetSideMode(s)
+// SetDescription sets the "description" field.
+func (uuo *UserUpdateOne) SetDescription(s string) *UserUpdateOne {
+	uuo.mutation.SetDescription(s)
 	return uuo
 }
 
-// SetNillableSideMode sets the "side_mode" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableSideMode(s *string) *UserUpdateOne {
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableDescription(s *string) *UserUpdateOne {
 	if s != nil {
-		uuo.SetSideMode(*s)
+		uuo.SetDescription(*s)
 	}
 	return uuo
 }
 
-// ClearSideMode clears the value of the "side_mode" field.
-func (uuo *UserUpdateOne) ClearSideMode() *UserUpdateOne {
-	uuo.mutation.ClearSideMode()
+// ClearDescription clears the value of the "description" field.
+func (uuo *UserUpdateOne) ClearDescription() *UserUpdateOne {
+	uuo.mutation.ClearDescription()
 	return uuo
 }
 
-// SetBaseColor sets the "base_color" field.
-func (uuo *UserUpdateOne) SetBaseColor(s string) *UserUpdateOne {
-	uuo.mutation.SetBaseColor(s)
+// SetHomePath sets the "home_path" field.
+func (uuo *UserUpdateOne) SetHomePath(s string) *UserUpdateOne {
+	uuo.mutation.SetHomePath(s)
 	return uuo
 }
 
-// SetNillableBaseColor sets the "base_color" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableBaseColor(s *string) *UserUpdateOne {
+// SetNillableHomePath sets the "home_path" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableHomePath(s *string) *UserUpdateOne {
 	if s != nil {
-		uuo.SetBaseColor(*s)
+		uuo.SetHomePath(*s)
 	}
-	return uuo
-}
-
-// ClearBaseColor clears the value of the "base_color" field.
-func (uuo *UserUpdateOne) ClearBaseColor() *UserUpdateOne {
-	uuo.mutation.ClearBaseColor()
-	return uuo
-}
-
-// SetActiveColor sets the "active_color" field.
-func (uuo *UserUpdateOne) SetActiveColor(s string) *UserUpdateOne {
-	uuo.mutation.SetActiveColor(s)
-	return uuo
-}
-
-// SetNillableActiveColor sets the "active_color" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableActiveColor(s *string) *UserUpdateOne {
-	if s != nil {
-		uuo.SetActiveColor(*s)
-	}
-	return uuo
-}
-
-// ClearActiveColor clears the value of the "active_color" field.
-func (uuo *UserUpdateOne) ClearActiveColor() *UserUpdateOne {
-	uuo.mutation.ClearActiveColor()
 	return uuo
 }
 
@@ -569,9 +575,40 @@ func (uuo *UserUpdateOne) ClearAvatar() *UserUpdateOne {
 	return uuo
 }
 
+// SetDepartmentID sets the "department_id" field.
+func (uuo *UserUpdateOne) SetDepartmentID(u uint64) *UserUpdateOne {
+	uuo.mutation.SetDepartmentID(u)
+	return uuo
+}
+
+// SetNillableDepartmentID sets the "department_id" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableDepartmentID(u *uint64) *UserUpdateOne {
+	if u != nil {
+		uuo.SetDepartmentID(*u)
+	}
+	return uuo
+}
+
+// ClearDepartmentID clears the value of the "department_id" field.
+func (uuo *UserUpdateOne) ClearDepartmentID() *UserUpdateOne {
+	uuo.mutation.ClearDepartmentID()
+	return uuo
+}
+
+// SetDepartment sets the "department" edge to the Department entity.
+func (uuo *UserUpdateOne) SetDepartment(d *Department) *UserUpdateOne {
+	return uuo.SetDepartmentID(d.ID)
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (uuo *UserUpdateOne) Mutation() *UserMutation {
 	return uuo.mutation
+}
+
+// ClearDepartment clears the "department" edge to the Department entity.
+func (uuo *UserUpdateOne) ClearDepartment() *UserUpdateOne {
+	uuo.mutation.ClearDepartment()
+	return uuo
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
@@ -673,23 +710,14 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	if value, ok := uuo.mutation.Nickname(); ok {
 		_spec.SetField(user.FieldNickname, field.TypeString, value)
 	}
-	if value, ok := uuo.mutation.SideMode(); ok {
-		_spec.SetField(user.FieldSideMode, field.TypeString, value)
+	if value, ok := uuo.mutation.Description(); ok {
+		_spec.SetField(user.FieldDescription, field.TypeString, value)
 	}
-	if uuo.mutation.SideModeCleared() {
-		_spec.ClearField(user.FieldSideMode, field.TypeString)
+	if uuo.mutation.DescriptionCleared() {
+		_spec.ClearField(user.FieldDescription, field.TypeString)
 	}
-	if value, ok := uuo.mutation.BaseColor(); ok {
-		_spec.SetField(user.FieldBaseColor, field.TypeString, value)
-	}
-	if uuo.mutation.BaseColorCleared() {
-		_spec.ClearField(user.FieldBaseColor, field.TypeString)
-	}
-	if value, ok := uuo.mutation.ActiveColor(); ok {
-		_spec.SetField(user.FieldActiveColor, field.TypeString, value)
-	}
-	if uuo.mutation.ActiveColorCleared() {
-		_spec.ClearField(user.FieldActiveColor, field.TypeString)
+	if value, ok := uuo.mutation.HomePath(); ok {
+		_spec.SetField(user.FieldHomePath, field.TypeString, value)
 	}
 	if value, ok := uuo.mutation.RoleID(); ok {
 		_spec.SetField(user.FieldRoleID, field.TypeUint64, value)
@@ -717,6 +745,41 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	}
 	if uuo.mutation.AvatarCleared() {
 		_spec.ClearField(user.FieldAvatar, field.TypeString)
+	}
+	if uuo.mutation.DepartmentCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   user.DepartmentTable,
+			Columns: []string{user.DepartmentColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: department.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uuo.mutation.DepartmentIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   user.DepartmentTable,
+			Columns: []string{user.DepartmentColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: department.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
 	_node = &User{config: uuo.config}
 	_spec.Assign = _node.assignValues

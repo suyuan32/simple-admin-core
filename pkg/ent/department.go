@@ -49,9 +49,11 @@ type DepartmentEdges struct {
 	Parent *Department `json:"parent,omitempty"`
 	// Children holds the value of the children edge.
 	Children []*Department `json:"children,omitempty"`
+	// User holds the value of the user edge.
+	User []*User `json:"user,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [2]bool
+	loadedTypes [3]bool
 }
 
 // ParentOrErr returns the Parent value or an error if the edge
@@ -74,6 +76,15 @@ func (e DepartmentEdges) ChildrenOrErr() ([]*Department, error) {
 		return e.Children, nil
 	}
 	return nil, &NotLoadedError{edge: "children"}
+}
+
+// UserOrErr returns the User value or an error if the edge
+// was not loaded in eager-loading.
+func (e DepartmentEdges) UserOrErr() ([]*User, error) {
+	if e.loadedTypes[2] {
+		return e.User, nil
+	}
+	return nil, &NotLoadedError{edge: "user"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -187,6 +198,11 @@ func (d *Department) QueryParent() *DepartmentQuery {
 // QueryChildren queries the "children" edge of the Department entity.
 func (d *Department) QueryChildren() *DepartmentQuery {
 	return NewDepartmentClient(d.config).QueryChildren(d)
+}
+
+// QueryUser queries the "user" edge of the Department entity.
+func (d *Department) QueryUser() *UserQuery {
+	return NewDepartmentClient(d.config).QueryUser(d)
 }
 
 // Update returns a builder for updating this Department.

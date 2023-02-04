@@ -11,6 +11,7 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/gofrs/uuid"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
@@ -81,44 +82,30 @@ func (uc *UserCreate) SetNickname(s string) *UserCreate {
 	return uc
 }
 
-// SetSideMode sets the "side_mode" field.
-func (uc *UserCreate) SetSideMode(s string) *UserCreate {
-	uc.mutation.SetSideMode(s)
+// SetDescription sets the "description" field.
+func (uc *UserCreate) SetDescription(s string) *UserCreate {
+	uc.mutation.SetDescription(s)
 	return uc
 }
 
-// SetNillableSideMode sets the "side_mode" field if the given value is not nil.
-func (uc *UserCreate) SetNillableSideMode(s *string) *UserCreate {
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (uc *UserCreate) SetNillableDescription(s *string) *UserCreate {
 	if s != nil {
-		uc.SetSideMode(*s)
+		uc.SetDescription(*s)
 	}
 	return uc
 }
 
-// SetBaseColor sets the "base_color" field.
-func (uc *UserCreate) SetBaseColor(s string) *UserCreate {
-	uc.mutation.SetBaseColor(s)
+// SetHomePath sets the "home_path" field.
+func (uc *UserCreate) SetHomePath(s string) *UserCreate {
+	uc.mutation.SetHomePath(s)
 	return uc
 }
 
-// SetNillableBaseColor sets the "base_color" field if the given value is not nil.
-func (uc *UserCreate) SetNillableBaseColor(s *string) *UserCreate {
+// SetNillableHomePath sets the "home_path" field if the given value is not nil.
+func (uc *UserCreate) SetNillableHomePath(s *string) *UserCreate {
 	if s != nil {
-		uc.SetBaseColor(*s)
-	}
-	return uc
-}
-
-// SetActiveColor sets the "active_color" field.
-func (uc *UserCreate) SetActiveColor(s string) *UserCreate {
-	uc.mutation.SetActiveColor(s)
-	return uc
-}
-
-// SetNillableActiveColor sets the "active_color" field if the given value is not nil.
-func (uc *UserCreate) SetNillableActiveColor(s *string) *UserCreate {
-	if s != nil {
-		uc.SetActiveColor(*s)
+		uc.SetHomePath(*s)
 	}
 	return uc
 }
@@ -179,6 +166,20 @@ func (uc *UserCreate) SetNillableAvatar(s *string) *UserCreate {
 	return uc
 }
 
+// SetDepartmentID sets the "department_id" field.
+func (uc *UserCreate) SetDepartmentID(u uint64) *UserCreate {
+	uc.mutation.SetDepartmentID(u)
+	return uc
+}
+
+// SetNillableDepartmentID sets the "department_id" field if the given value is not nil.
+func (uc *UserCreate) SetNillableDepartmentID(u *uint64) *UserCreate {
+	if u != nil {
+		uc.SetDepartmentID(*u)
+	}
+	return uc
+}
+
 // SetID sets the "id" field.
 func (uc *UserCreate) SetID(u uuid.UUID) *UserCreate {
 	uc.mutation.SetID(u)
@@ -191,6 +192,11 @@ func (uc *UserCreate) SetNillableID(u *uuid.UUID) *UserCreate {
 		uc.SetID(*u)
 	}
 	return uc
+}
+
+// SetDepartment sets the "department" edge to the Department entity.
+func (uc *UserCreate) SetDepartment(d *Department) *UserCreate {
+	return uc.SetDepartmentID(d.ID)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -240,17 +246,9 @@ func (uc *UserCreate) defaults() {
 		v := user.DefaultStatus
 		uc.mutation.SetStatus(v)
 	}
-	if _, ok := uc.mutation.SideMode(); !ok {
-		v := user.DefaultSideMode
-		uc.mutation.SetSideMode(v)
-	}
-	if _, ok := uc.mutation.BaseColor(); !ok {
-		v := user.DefaultBaseColor
-		uc.mutation.SetBaseColor(v)
-	}
-	if _, ok := uc.mutation.ActiveColor(); !ok {
-		v := user.DefaultActiveColor
-		uc.mutation.SetActiveColor(v)
+	if _, ok := uc.mutation.HomePath(); !ok {
+		v := user.DefaultHomePath
+		uc.mutation.SetHomePath(v)
 	}
 	if _, ok := uc.mutation.RoleID(); !ok {
 		v := user.DefaultRoleID
@@ -259,6 +257,10 @@ func (uc *UserCreate) defaults() {
 	if _, ok := uc.mutation.Avatar(); !ok {
 		v := user.DefaultAvatar
 		uc.mutation.SetAvatar(v)
+	}
+	if _, ok := uc.mutation.DepartmentID(); !ok {
+		v := user.DefaultDepartmentID
+		uc.mutation.SetDepartmentID(v)
 	}
 	if _, ok := uc.mutation.ID(); !ok {
 		v := user.DefaultID()
@@ -282,6 +284,9 @@ func (uc *UserCreate) check() error {
 	}
 	if _, ok := uc.mutation.Nickname(); !ok {
 		return &ValidationError{Name: "nickname", err: errors.New(`ent: missing required field "User.nickname"`)}
+	}
+	if _, ok := uc.mutation.HomePath(); !ok {
+		return &ValidationError{Name: "home_path", err: errors.New(`ent: missing required field "User.home_path"`)}
 	}
 	return nil
 }
@@ -348,17 +353,13 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_spec.SetField(user.FieldNickname, field.TypeString, value)
 		_node.Nickname = value
 	}
-	if value, ok := uc.mutation.SideMode(); ok {
-		_spec.SetField(user.FieldSideMode, field.TypeString, value)
-		_node.SideMode = value
+	if value, ok := uc.mutation.Description(); ok {
+		_spec.SetField(user.FieldDescription, field.TypeString, value)
+		_node.Description = value
 	}
-	if value, ok := uc.mutation.BaseColor(); ok {
-		_spec.SetField(user.FieldBaseColor, field.TypeString, value)
-		_node.BaseColor = value
-	}
-	if value, ok := uc.mutation.ActiveColor(); ok {
-		_spec.SetField(user.FieldActiveColor, field.TypeString, value)
-		_node.ActiveColor = value
+	if value, ok := uc.mutation.HomePath(); ok {
+		_spec.SetField(user.FieldHomePath, field.TypeString, value)
+		_node.HomePath = value
 	}
 	if value, ok := uc.mutation.RoleID(); ok {
 		_spec.SetField(user.FieldRoleID, field.TypeUint64, value)
@@ -375,6 +376,26 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := uc.mutation.Avatar(); ok {
 		_spec.SetField(user.FieldAvatar, field.TypeString, value)
 		_node.Avatar = value
+	}
+	if nodes := uc.mutation.DepartmentIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   user.DepartmentTable,
+			Columns: []string{user.DepartmentColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: department.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_node.DepartmentID = nodes[0]
+		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
 }
