@@ -30,7 +30,7 @@ func NewGetApiListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetApiList
 
 func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiListResp, err error) {
 	data, err := l.svcCtx.CoreRpc.GetApiList(l.ctx,
-		&core.ApiPageReq{
+		&core.ApiListReq{
 			Page:        req.Page,
 			PageSize:    req.PageSize,
 			Path:        req.Path,

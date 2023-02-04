@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/api"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
@@ -48,6 +49,7 @@ type OrderFunc func(*sql.Selector)
 func columnChecker(table string) func(string) error {
 	checks := map[string]func(string) bool{
 		api.Table:              api.ValidColumn,
+		department.Table:       department.ValidColumn,
 		dictionary.Table:       dictionary.ValidColumn,
 		dictionarydetail.Table: dictionarydetail.ValidColumn,
 		menu.Table:             menu.ValidColumn,

@@ -32,7 +32,6 @@ func NewGetUserByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 
 func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfoResp, error) {
 	u, err := l.svcCtx.DB.User.Query().Where(user.IDEQ(uuidx.ParseUUIDString(in.Id))).First(l.ctx)
-
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
@@ -51,17 +50,20 @@ func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfoResp, er
 	}
 
 	return &core.UserInfoResp{
-		Nickname:  u.Nickname,
-		Avatar:    u.Avatar,
-		RoleId:    u.RoleID,
-		RoleName:  roleName,
-		RoleValue: roleValue,
-		Mobile:    u.Mobile,
-		Email:     u.Email,
-		Status:    uint64(u.Status),
-		Id:        u.ID.String(),
-		Username:  u.Username,
-		CreatedAt: u.CreatedAt.Unix(),
-		UpdatedAt: u.UpdatedAt.Unix(),
+		Nickname:     u.Nickname,
+		Avatar:       u.Avatar,
+		RoleId:       u.RoleID,
+		RoleName:     roleName,
+		RoleValue:    roleValue,
+		Mobile:       u.Mobile,
+		Email:        u.Email,
+		Status:       uint32(u.Status),
+		Id:           u.ID.String(),
+		Username:     u.Username,
+		HomePath:     u.HomePath,
+		Description:  u.Description,
+		DepartmentId: u.DepartmentID,
+		CreatedAt:    u.CreatedAt.Unix(),
+		UpdatedAt:    u.UpdatedAt.Unix(),
 	}, nil
 }

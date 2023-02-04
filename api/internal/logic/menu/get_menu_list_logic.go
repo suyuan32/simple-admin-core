@@ -38,32 +38,22 @@ func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuListResp, err error) {
 	}
 	resp = &types.MenuListResp{}
 	resp.Data.Total = data.Total
-	resp.Data.Data = l.convertMenuList(data.Data, l.lang)
-	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
-	return resp, nil
-}
-
-func (l *GetMenuListLogic) convertMenuList(data []*core.MenuInfo, lang string) []*types.MenuInfo {
-	if data == nil {
-		return nil
-	}
-	var result []*types.MenuInfo
-	for _, v := range data {
-		tmp := &types.MenuInfo{
+	for _, v := range data.Data {
+		resp.Data.Data = append(resp.Data.Data, &types.MenuInfo{
 			BaseInfo: types.BaseInfo{
 				Id:        v.Id,
 				CreatedAt: v.CreatedAt,
 				UpdatedAt: v.UpdatedAt,
 			},
-			Trans:     l.svcCtx.Trans.Trans(lang, v.Meta.Title),
+			Trans:     l.svcCtx.Trans.Trans(l.lang, v.Meta.Title),
 			MenuType:  v.MenuType,
-			ParentId:  v.ParentId,
 			MenuLevel: v.Level,
 			Path:      v.Path,
 			Name:      v.Name,
 			Redirect:  v.Redirect,
 			Component: v.Component,
 			Sort:      v.Sort,
+			ParentId:  v.ParentId,
 			Meta: types.Meta{
 				Title:              v.Meta.Title,
 				Icon:               v.Meta.Icon,
@@ -79,9 +69,8 @@ func (l *GetMenuListLogic) convertMenuList(data []*core.MenuInfo, lang string) [
 				DynamicLevel:       v.Meta.DynamicLevel,
 				RealPath:           v.Meta.RealPath,
 			},
-			Children: l.convertMenuList(v.Children, lang),
-		}
-		result = append(result, tmp)
+		})
 	}
-	return result
+	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	return resp, nil
 }

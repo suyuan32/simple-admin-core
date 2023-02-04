@@ -33,7 +33,7 @@ func (l *CreateOrUpdateRoleLogic) CreateOrUpdateRole(req *types.RoleInfo) (resp 
 		Name:          req.Name,
 		Value:         req.Value,
 		DefaultRouter: req.DefaultRouter,
-		Status:        uint64(req.Status),
+		Status:        uint32(req.Status),
 		Remark:        req.Remark,
 		Sort:          req.Sort,
 	})

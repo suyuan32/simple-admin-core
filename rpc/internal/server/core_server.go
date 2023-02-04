@@ -9,6 +9,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/api"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/authority"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/base"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauth"
@@ -40,7 +41,7 @@ func (s *CoreServer) DeleteApi(ctx context.Context, in *core.IDReq) (*core.BaseR
 	return l.DeleteApi(in)
 }
 
-func (s *CoreServer) GetApiList(ctx context.Context, in *core.ApiPageReq) (*core.ApiListResp, error) {
+func (s *CoreServer) GetApiList(ctx context.Context, in *core.ApiListReq) (*core.ApiListResp, error) {
 	l := api.NewGetApiListLogic(ctx, s.svcCtx)
 	return l.GetApiList(in)
 }
@@ -60,6 +61,32 @@ func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.Ba
 	return l.InitDatabase(in)
 }
 
+// Department management
+func (s *CoreServer) CreateOrUpdateDepartment(ctx context.Context, in *core.DepartmentInfo) (*core.BaseResp, error) {
+	l := department.NewCreateOrUpdateDepartmentLogic(ctx, s.svcCtx)
+	return l.CreateOrUpdateDepartment(in)
+}
+
+func (s *CoreServer) GetDepartmentList(ctx context.Context, in *core.DepartmentListReq) (*core.DepartmentListResp, error) {
+	l := department.NewGetDepartmentListLogic(ctx, s.svcCtx)
+	return l.GetDepartmentList(in)
+}
+
+func (s *CoreServer) DeleteDepartment(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+	l := department.NewDeleteDepartmentLogic(ctx, s.svcCtx)
+	return l.DeleteDepartment(in)
+}
+
+func (s *CoreServer) BatchDeleteDepartment(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := department.NewBatchDeleteDepartmentLogic(ctx, s.svcCtx)
+	return l.BatchDeleteDepartment(in)
+}
+
+func (s *CoreServer) UpdateDepartmentStatus(ctx context.Context, in *core.StatusCodeReq) (*core.BaseResp, error) {
+	l := department.NewUpdateDepartmentStatusLogic(ctx, s.svcCtx)
+	return l.UpdateDepartmentStatus(in)
+}
+
 func (s *CoreServer) CreateOrUpdateDictionary(ctx context.Context, in *core.DictionaryInfo) (*core.BaseResp, error) {
 	l := dictionary.NewCreateOrUpdateDictionaryLogic(ctx, s.svcCtx)
 	return l.CreateOrUpdateDictionary(in)
@@ -70,7 +97,7 @@ func (s *CoreServer) DeleteDictionary(ctx context.Context, in *core.IDReq) (*cor
 	return l.DeleteDictionary(in)
 }
 
-func (s *CoreServer) GetDictionaryList(ctx context.Context, in *core.DictionaryPageReq) (*core.DictionaryList, error) {
+func (s *CoreServer) GetDictionaryList(ctx context.Context, in *core.DictionaryListReq) (*core.DictionaryList, error) {
 	l := dictionary.NewGetDictionaryListLogic(ctx, s.svcCtx)
 	return l.GetDictionaryList(in)
 }

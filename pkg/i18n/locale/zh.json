@@ -72,7 +72,12 @@
 		"getTokenList": "获取Token列表",
 		"setTokenStatus": "设置Token状态",
 		"batchDeleteToken": "批量删除Token",
-		"forceLoggingOut": "强制登出"
+		"forceLoggingOut": "强制登出",
+		"createOrUpdateDepartment": "创建或更新部门信息",
+		"deleteDepartment": "删除一个部门",
+		"batchDeleteDepartment": "批量删除部门",
+		"getDepartmentList": "获取部门列表",
+		"updateDepartmentStatus": "修改部门状态"
 	},
 	"route": {
 		"dashboard": "控制台",
@@ -87,7 +92,8 @@
 		"dictionaryDetailManagementTitle": "键值管理",
 		"oauthManagement": "Oauth管理",
 		"tokenManagement": "Token管理",
-		"otherPages": "其他页面"
+		"otherPages": "其他页面",
+		"departmentManagement": "部门管理"
 	},
 	"login": {
 		"loginSuccessTitle": "登录成功",
@@ -131,5 +137,8 @@
 	"casbin": {
 		"removeFailed": "无法删除旧规则",
 		"addFailed": "无法添加新规则"
+	},
+	"department": {
+		"managementDepartment": "核心管理部门"
 	}
 }

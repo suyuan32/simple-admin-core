@@ -8,6 +8,7 @@ import (
 	authority "github.com/suyuan32/simple-admin-core/api/internal/handler/authority"
 	captcha "github.com/suyuan32/simple-admin-core/api/internal/handler/captcha"
 	core "github.com/suyuan32/simple-admin-core/api/internal/handler/core"
+	department "github.com/suyuan32/simple-admin-core/api/internal/handler/department"
 	dictionary "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionary"
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
 	oauth "github.com/suyuan32/simple-admin-core/api/internal/handler/oauth"
@@ -365,5 +366,39 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: core.InitDatabaseHandler(serverCtx),
 			},
 		},
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/department/create_or_update",
+					Handler: department.CreateOrUpdateDepartmentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/department/delete",
+					Handler: department.DeleteDepartmentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/department/list",
+					Handler: department.GetDepartmentListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/department/batch_delete",
+					Handler: department.BatchDeleteDepartmentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/department/status",
+					Handler: department.UpdateDepartmentStatusHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 	)
 }

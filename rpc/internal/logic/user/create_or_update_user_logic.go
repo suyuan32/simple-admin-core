@@ -39,8 +39,10 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 			SetMobile(in.Mobile).
 			SetAvatar(in.Avatar).
 			SetRoleID(in.RoleId).
+			SetHomePath(in.HomePath).
+			SetDescription(in.Description).
+			SetDepartmentID(in.DepartmentId).
 			Exec(l.ctx)
-
 		if err != nil {
 			switch {
 			case ent.IsConstraintError(err):
@@ -64,6 +66,9 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 				SetMobile(in.Mobile).
 				SetAvatar(in.Avatar).
 				SetRoleID(in.RoleId).
+				SetHomePath(in.HomePath).
+				SetDescription(in.Description).
+				SetDepartmentID(in.DepartmentId).
 				Exec(l.ctx)
 		} else {
 			err = l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
@@ -73,6 +78,9 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 				SetMobile(in.Mobile).
 				SetAvatar(in.Avatar).
 				SetRoleID(in.RoleId).
+				SetHomePath(in.HomePath).
+				SetDescription(in.Description).
+				SetDepartmentID(in.DepartmentId).
 				Exec(l.ctx)
 		}
 

@@ -127,7 +127,7 @@ type StatusCodeReq {
 
     // Status code | 状态码
     // Required: true
-    Status uint64  `json:"status" validate:"number"`
+    Status uint32  `json:"status" validate:"number"`
 }
 
 // The request params of setting status code by UUID | 根据UUID设置状态参数
@@ -138,5 +138,5 @@ type StatusCodeUUIDReq {
 
     // Status code | 状态码
     // Required: true
-    Status uint64  `json:"status" validate:"number"`
+    Status uint32  `json:"status" validate:"number"`
 }

@@ -29,13 +29,12 @@ func NewGetDictionaryListLogic(r *http.Request, svcCtx *svc.ServiceContext) *Get
 }
 
 func (l *GetDictionaryListLogic) GetDictionaryList(req *types.DictionaryListReq) (resp *types.DictionaryListResp, err error) {
-	result, err := l.svcCtx.CoreRpc.GetDictionaryList(l.ctx, &core.DictionaryPageReq{
+	result, err := l.svcCtx.CoreRpc.GetDictionaryList(l.ctx, &core.DictionaryListReq{
 		Title:    req.Title,
 		Name:     req.Name,
 		Page:     req.Page,
 		PageSize: req.PageSize,
 	})
-
 	if err != nil {
 		return nil, err
 	}

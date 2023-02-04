@@ -50,8 +50,11 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 		predicates = append(predicates, user.RoleIDEQ(in.RoleId))
 	}
 
-	users, err := l.svcCtx.DB.User.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+	if in.DepartmentId != 0 {
+		predicates = append(predicates, user.DepartmentIDEQ(in.DepartmentId))
+	}
 
+	users, err := l.svcCtx.DB.User.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		logx.Error(err.Error())
 		return nil, statuserr.NewInternalError(i18n.DatabaseError)
@@ -62,16 +65,19 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 
 	for _, v := range users.List {
 		resp.Data = append(resp.Data, &core.UserInfoResp{
-			Id:        v.ID.String(),
-			Avatar:    v.Avatar,
-			RoleId:    v.RoleID,
-			Mobile:    v.Mobile,
-			Email:     v.Email,
-			Status:    uint64(v.Status),
-			Username:  v.Username,
-			Nickname:  v.Nickname,
-			CreatedAt: v.CreatedAt.UnixMilli(),
-			UpdatedAt: v.UpdatedAt.UnixMilli(),
+			Id:           v.ID.String(),
+			Avatar:       v.Avatar,
+			RoleId:       v.RoleID,
+			Mobile:       v.Mobile,
+			Email:        v.Email,
+			Status:       uint32(v.Status),
+			Username:     v.Username,
+			Nickname:     v.Nickname,
+			HomePath:     v.HomePath,
+			Description:  v.Description,
+			DepartmentId: v.DepartmentID,
+			CreatedAt:    v.CreatedAt.UnixMilli(),
+			UpdatedAt:    v.UpdatedAt.UnixMilli(),
 		})
 	}
 

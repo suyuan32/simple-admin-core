@@ -1,0 +1,128 @@
+import "base.api"
+
+type (
+    // The response data of Department information | Department信息
+    DepartmentInfo {
+        BaseInfo
+
+        // Translated Name
+        Trans string `json:"trans"`
+
+        // Status
+        Status  uint32 `json:"status"`
+
+        // Name
+        Name  string `json:"name"`
+
+        // Ancestors
+        Ancestors  string `json:"ancestors"`
+
+        // Leader
+        Leader  string `json:"leader"`
+
+        // Phone
+        Phone  string `json:"phone"`
+
+        // Email
+        Email  string `json:"email"`
+
+        // Sort
+        Sort  uint32 `json:"sort"`
+
+        // Remark
+        Remark  string `json:"remark"`
+
+        // ParentId
+        ParentId  uint64 `json:"parentId"`
+    }
+
+    // Create or update Department information request | 创建或更新Department信息
+    CreateOrUpdateDepartmentReq {
+        // ID
+        // Required: true
+        Id    uint64    `json:"id"`
+
+        // Status
+        Status  uint32 `json:"status"`
+
+        // Name
+        Name  string `json:"name"`
+
+        // Ancestors
+        Ancestors  string `json:"ancestors,optional"`
+
+        // Leader
+        Leader  string `json:"leader"`
+
+        // Phone
+        Phone  string `json:"phone"`
+
+        // Email
+        Email  string `json:"email"`
+
+        // Sort
+        Sort  uint32 `json:"sort"`
+
+        // Remark
+        Remark  string `json:"remark"`
+
+        // ParentId
+        ParentId  uint64 `json:"parentId"`
+    }
+
+    // The response data of Department list | Department列表数据
+    DepartmentListResp {
+        BaseDataInfo
+
+        // Department list data | Department 列表数据
+        Data DepartmentListInfo `json:"data"`
+    }
+
+    // Department list data | Department 列表数据
+    DepartmentListInfo {
+        BaseListInfo
+
+        // The API list data | Department 列表数据
+        Data  []DepartmentInfo  `json:"data"`
+    }
+
+    // Get department list request params | Department列表请求参数
+    DepartmentListReq {
+        PageInfo
+
+        // Name
+        Name  string `json:"name,optional"`
+
+        // Leader
+        Leader  string `json:"leader,optional"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: department
+    middleware: Authority
+)
+
+service core {
+    // Create or update Department information | 创建或更新Department
+    @handler createOrUpdateDepartment
+    post /department/create_or_update (CreateOrUpdateDepartmentReq) returns (BaseMsgResp)
+
+    // Delete Department information | 删除Department信息
+    @handler deleteDepartment
+    post /department/delete (IDReq) returns (BaseMsgResp)
+
+    // Get Department list | 获取Department列表
+    @handler getDepartmentList
+    post /department/list (DepartmentListReq) returns (DepartmentListResp)
+
+    // Delete Department information | 删除Department信息
+    @handler batchDeleteDepartment
+    post /department/batch_delete (IDsReq) returns (BaseMsgResp)
+
+    // Set department's status | 更新Department状态
+    @handler updateDepartmentStatus
+    post /department/status (StatusCodeReq) returns (BaseMsgResp)
+
+}

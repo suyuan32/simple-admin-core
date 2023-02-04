@@ -9,6 +9,7 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/gofrs/uuid"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
@@ -30,12 +31,10 @@ type User struct {
 	Password string `json:"password,omitempty"`
 	// nickname | 昵称
 	Nickname string `json:"nickname,omitempty"`
-	// template mode | 布局方式
-	SideMode string `json:"side_mode,omitempty"`
-	// base color of template | 后台页面色调
-	BaseColor string `json:"base_color,omitempty"`
-	// active color of template | 当前激活的颜色设定
-	ActiveColor string `json:"active_color,omitempty"`
+	// The description of user | 用户的描述信息
+	Description string `json:"description,omitempty"`
+	// The home page that the user enters after logging in | 用户登陆后进入的首页
+	HomePath string `json:"home_path,omitempty"`
 	// role id | 角色ID
 	RoleID uint64 `json:"role_id,omitempty"`
 	// mobile number | 手机号
@@ -44,6 +43,33 @@ type User struct {
 	Email string `json:"email,omitempty"`
 	// avatar | 头像路径
 	Avatar string `json:"avatar,omitempty"`
+	// Department ID | 部门ID
+	DepartmentID uint64 `json:"department_id,omitempty"`
+	// Edges holds the relations/edges for other nodes in the graph.
+	// The values are being populated by the UserQuery when eager-loading is set.
+	Edges UserEdges `json:"edges"`
+}
+
+// UserEdges holds the relations/edges for other nodes in the graph.
+type UserEdges struct {
+	// Department holds the value of the department edge.
+	Department *Department `json:"department,omitempty"`
+	// loadedTypes holds the information for reporting if a
+	// type was loaded (or requested) in eager-loading or not.
+	loadedTypes [1]bool
+}
+
+// DepartmentOrErr returns the Department value or an error if the edge
+// was not loaded in eager-loading, or loaded but was not found.
+func (e UserEdges) DepartmentOrErr() (*Department, error) {
+	if e.loadedTypes[0] {
+		if e.Department == nil {
+			// Edge was loaded but was not found.
+			return nil, &NotFoundError{label: department.Label}
+		}
+		return e.Department, nil
+	}
+	return nil, &NotLoadedError{edge: "department"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -51,9 +77,9 @@ func (*User) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldStatus, user.FieldRoleID:
+		case user.FieldStatus, user.FieldRoleID, user.FieldDepartmentID:
 			values[i] = new(sql.NullInt64)
-		case user.FieldUsername, user.FieldPassword, user.FieldNickname, user.FieldSideMode, user.FieldBaseColor, user.FieldActiveColor, user.FieldMobile, user.FieldEmail, user.FieldAvatar:
+		case user.FieldUsername, user.FieldPassword, user.FieldNickname, user.FieldDescription, user.FieldHomePath, user.FieldMobile, user.FieldEmail, user.FieldAvatar:
 			values[i] = new(sql.NullString)
 		case user.FieldCreatedAt, user.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -116,23 +142,17 @@ func (u *User) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				u.Nickname = value.String
 			}
-		case user.FieldSideMode:
+		case user.FieldDescription:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field side_mode", values[i])
+				return fmt.Errorf("unexpected type %T for field description", values[i])
 			} else if value.Valid {
-				u.SideMode = value.String
+				u.Description = value.String
 			}
-		case user.FieldBaseColor:
+		case user.FieldHomePath:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field base_color", values[i])
+				return fmt.Errorf("unexpected type %T for field home_path", values[i])
 			} else if value.Valid {
-				u.BaseColor = value.String
-			}
-		case user.FieldActiveColor:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field active_color", values[i])
-			} else if value.Valid {
-				u.ActiveColor = value.String
+				u.HomePath = value.String
 			}
 		case user.FieldRoleID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -158,9 +178,20 @@ func (u *User) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				u.Avatar = value.String
 			}
+		case user.FieldDepartmentID:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field department_id", values[i])
+			} else if value.Valid {
+				u.DepartmentID = uint64(value.Int64)
+			}
 		}
 	}
 	return nil
+}
+
+// QueryDepartment queries the "department" edge of the User entity.
+func (u *User) QueryDepartment() *DepartmentQuery {
+	return NewUserClient(u.config).QueryDepartment(u)
 }
 
 // Update returns a builder for updating this User.
@@ -204,14 +235,11 @@ func (u *User) String() string {
 	builder.WriteString("nickname=")
 	builder.WriteString(u.Nickname)
 	builder.WriteString(", ")
-	builder.WriteString("side_mode=")
-	builder.WriteString(u.SideMode)
+	builder.WriteString("description=")
+	builder.WriteString(u.Description)
 	builder.WriteString(", ")
-	builder.WriteString("base_color=")
-	builder.WriteString(u.BaseColor)
-	builder.WriteString(", ")
-	builder.WriteString("active_color=")
-	builder.WriteString(u.ActiveColor)
+	builder.WriteString("home_path=")
+	builder.WriteString(u.HomePath)
 	builder.WriteString(", ")
 	builder.WriteString("role_id=")
 	builder.WriteString(fmt.Sprintf("%v", u.RoleID))
@@ -224,6 +252,9 @@ func (u *User) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("avatar=")
 	builder.WriteString(u.Avatar)
+	builder.WriteString(", ")
+	builder.WriteString("department_id=")
+	builder.WriteString(fmt.Sprintf("%v", u.DepartmentID))
 	builder.WriteByte(')')
 	return builder.String()
 }

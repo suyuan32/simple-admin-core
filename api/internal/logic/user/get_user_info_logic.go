@@ -43,10 +43,12 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.GetUserInfoResp, err error
 	return &types.GetUserInfoResp{
 		BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success)},
 		Data: types.UserBaseInfo{
-			UUID:     user.Id,
-			Username: user.Username,
-			Nickname: user.Nickname,
-			Avatar:   user.Avatar,
+			UUID:        user.Id,
+			Username:    user.Username,
+			Nickname:    user.Nickname,
+			Avatar:      user.Avatar,
+			HomePath:    user.HomePath,
+			Description: user.Description,
 			Roles: types.GetUserRoleInfo{
 				RoleName: user.RoleName,
 				Value:    user.RoleValue,

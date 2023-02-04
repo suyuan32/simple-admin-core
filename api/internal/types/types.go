@@ -169,7 +169,7 @@ type StatusCodeReq struct {
 	Id uint64 `json:"id" validate:"number"`
 	// Status code | 状态码
 	// Required: true
-	Status uint64 `json:"status" validate:"number"`
+	Status uint32 `json:"status" validate:"number"`
 }
 
 // The request params of setting status code by UUID | 根据UUID设置状态参数
@@ -180,7 +180,7 @@ type StatusCodeUUIDReq struct {
 	Id string `json:"id"`
 	// Status code | 状态码
 	// Required: true
-	Status uint64 `json:"status" validate:"number"`
+	Status uint32 `json:"status" validate:"number"`
 }
 
 // login request | 登录参数
@@ -328,11 +328,15 @@ type UserInfoResp struct {
 	Email string `json:"email"`
 	// The user's avatar path | 用户的头像路径
 	Avatar string `json:"avatar"`
-	// The user's layout mode | 用户的布局
-	SideMode string `json:"sideMode"`
 	// The user's status | 用户状态
 	// 1 normal, 2 ban | 1 正常 2 拉黑
-	Status uint64 `json:"status"`
+	Status uint32 `json:"status"`
+	// The home page that the user enters after logging in | 用户登陆后进入的首页
+	HomePath string `json:"homePath"`
+	// The description of user | 用户的描述信息
+	Description string `json:"desc"`
+	// User's department id | 用户的部门ID
+	DepartmentId uint64 `json:"departmentId"`
 }
 
 // The response data of user's basic information | 用户基本信息返回数据
@@ -355,8 +359,11 @@ type UserBaseInfo struct {
 	// The user's avatar path | 用户的头像路径
 	Avatar string `json:"avatar"`
 	// User's role information| 用户的角色信息
-	// in: body
 	Roles GetUserRoleInfo `json:"roles"`
+	// The home page that the user enters after logging in | 用户登陆后进入的首页
+	HomePath string `json:"homePath"`
+	// The description of user | 用户的描述信息
+	Description string `json:"desc"`
 }
 
 // The response data of user's basic role information | 用户角色信息数据
@@ -414,7 +421,7 @@ type CreateOrUpdateUserReq struct {
 	// User's mobile phone number | 用户的手机号码
 	// Required: true
 	// Max length: 18
-	Mobile string `json:"mobile,optional" validate:"numeric,max=18"`
+	Mobile string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
 	// User's role id | 用户的角色ID
 	// Required: true
 	// Maximum: 1000
@@ -431,7 +438,14 @@ type CreateOrUpdateUserReq struct {
 	// 1 normal, 2 ban | 1 正常 2 拉黑
 	// Required: true
 	// Maximum: 20
-	Status uint64 `json:"status" validate:"number,max=20"`
+	Status uint32 `json:"status" validate:"number,max=20"`
+	// User's department id | 用户的部门ID
+	// Required: true
+	DepartmentId uint64 `json:"departmentId"`
+	// The home page that the user enters after logging in | 用户登陆后进入的首页
+	HomePath string `json:"homePath,optional"`
+	// The description of user | 用户的描述信息
+	Description string `json:"desc,optional"`
 }
 
 // Get user list request | 获取用户列表请求参数
@@ -459,6 +473,8 @@ type GetUserListReq struct {
 	// User's role ID | 用户的角色ID
 	// Maximum: 1000
 	RoleId uint64 `json:"roleId,optional" validate:"omitempty,number,max=1000"`
+	// The user's department ID | 用户所属部门ID
+	DepartmentId uint64 `json:"departmentId,optional"`
 }
 
 // The response data of menu information | 菜单返回数据
@@ -487,9 +503,6 @@ type MenuInfo struct {
 	// If disabled | 是否禁用菜单
 	Disabled bool `json:"disabled"`
 	Meta
-	// children | 子集
-	// in: body
-	Children []*MenuInfo `json:"children"`
 }
 
 // The meta data of menu | 菜单的meta数据
@@ -507,13 +520,13 @@ type Meta struct {
 	HideBreadcrumb bool `json:"hideBreadcrumb" validate:"boolean"`
 	// Current active menu, if not nil, it will active the tab | 当前激活的菜单
 	// Max length: 30
-	CurrentActiveMenu string `json:"currentActiveMenu,omitempty" validate:"max=30"`
+	CurrentActiveMenu string `json:"currentActiveMenu"`
 	// Do not keep alive the tab | 不缓存Tab
 	IgnoreKeepAlive bool `json:"ignoreKeepAlive" validate:"boolean"`
 	// Hide the tab header | 当前路由不在标签页显示
 	HideTab bool `json:"hideTab" validate:"boolean"`
 	// Iframe path | 内嵌iframe的地址
-	FrameSrc string `json:"frameSrc,omitempty" validate:"max=100"`
+	FrameSrc string `json:"frameSrc"`
 	// The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
 	CarryParam bool `json:"carryParam" validate:"boolean"`
 	// Hide children menu or not | 隐藏所有子菜单
@@ -523,7 +536,7 @@ type Meta struct {
 	// The maximum number of pages the router can open | 动态路由可打开Tab页数
 	DynamicLevel uint32 `json:"dynamicLevel" validate:"number,lt=30"`
 	// The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
-	RealPath string `json:"realPath,omitempty" validate:"max=200"`
+	RealPath string `json:"realPath"`
 }
 
 // The response data of menu list | 菜单列表返回数据
@@ -544,6 +557,9 @@ type MenuListInfo struct {
 
 // The response data of role menu list data | 角色菜单列表数据
 type GetMenuListBase struct {
+	// ID
+	// Required: true
+	Id uint64 `json:"id"`
 	// Menu type: directory or menu | 菜单类型: 目录或菜单
 	MenuType uint32 `json:"type"`
 	// Parent menu ID | 父级菜单ID
@@ -562,11 +578,7 @@ type GetMenuListBase struct {
 	Sort uint32 `json:"sort"`
 	// If disabled | 是否禁用菜单
 	Disabled bool `json:"disabled"`
-	// in: body
-	Meta Meta `json:"meta"`
-	// children | 子集
-	// in: body
-	Children []*GetMenuListBase `json:"children"`
+	Meta     Meta `json:"meta"`
 }
 
 // The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
@@ -846,7 +858,7 @@ type DictionaryInfo struct {
 	// Dictionary name | 字典名称
 	Name string `json:"name"`
 	// Dictionary status | 字典状态
-	Status uint64 `json:"status"`
+	Status uint32 `json:"status"`
 	// Dictionary description | 字典描述
 	Description string `json:"description"`
 }
@@ -869,7 +881,7 @@ type CreateOrUpdateDictionaryReq struct {
 	Name string `json:"name" validate:"min=1,max=50"`
 	// Dictionary status | 字典状态
 	// Required: true
-	Status uint64 `json:"status" validate:"number"`
+	Status uint32 `json:"status" validate:"number"`
 	// Dictionary description | 字典描述
 	// Required: true
 	// Max length: 50
@@ -915,7 +927,7 @@ type DictionaryDetailInfo struct {
 	// Value | 值
 	Value string `json:"value"`
 	// Status | 状态
-	Status uint64 `json:"status"`
+	Status uint32 `json:"status"`
 }
 
 // The response data of dictionary KV list | 字典值的列表数据
@@ -955,7 +967,7 @@ type CreateOrUpdateDictionaryDetailReq struct {
 	Value string `json:"value"`
 	// Status | 状态
 	// Required: true
-	Status uint64 `json:"status" validate:"number"`
+	Status uint32 `json:"status" validate:"number"`
 	// Parent ID | 所属字典ID
 	// Required: true
 	ParentId uint64 `json:"parentId" validate:"number"`
@@ -1109,7 +1121,7 @@ type TokenInfo struct {
 	// Log in source such as github | Token 来源 （本地为core, 第三方如github等）
 	Source string `json:"source"`
 	// JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-	Status uint64 `json:"status"`
+	Status uint32 `json:"status"`
 	// Expire time | 过期时间
 	ExpiredAt int64 `json:"expiredAt"`
 }
@@ -1133,7 +1145,7 @@ type CreateOrUpdateTokenReq struct {
 	Source string `json:"source" validate:"max=50"`
 	// JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
 	// Required: true
-	Status uint64 `json:"status" validate:"number"`
+	Status uint32 `json:"status" validate:"number"`
 	// Expire time | 过期时间
 	// Required: true
 	ExpiredAt int64 `json:"expiredAt" validate:"number"`
@@ -1171,4 +1183,82 @@ type TokenListReq struct {
 	// The user's email address | 用户的邮箱
 	// Max length: 100
 	Email string `json:"email,optional" validate:"omitempty,email,max=100"`
+}
+
+// The response data of Department information | Department信息
+// swagger:model DepartmentInfo
+type DepartmentInfo struct {
+	BaseInfo
+	// Translated Name
+	Trans string `json:"trans"`
+	// Status
+	Status uint32 `json:"status"`
+	// Name
+	Name string `json:"name"`
+	// Ancestors
+	Ancestors string `json:"ancestors"`
+	// Leader
+	Leader string `json:"leader"`
+	// Phone
+	Phone string `json:"phone"`
+	// Email
+	Email string `json:"email"`
+	// Sort
+	Sort uint32 `json:"sort"`
+	// Remark
+	Remark string `json:"remark"`
+	// ParentId
+	ParentId uint64 `json:"parentId"`
+}
+
+// Create or update Department information request | 创建或更新Department信息
+// swagger:model CreateOrUpdateDepartmentReq
+type CreateOrUpdateDepartmentReq struct {
+	// ID
+	// Required: true
+	Id uint64 `json:"id"`
+	// Status
+	Status uint32 `json:"status"`
+	// Name
+	Name string `json:"name"`
+	// Ancestors
+	Ancestors string `json:"ancestors,optional"`
+	// Leader
+	Leader string `json:"leader"`
+	// Phone
+	Phone string `json:"phone"`
+	// Email
+	Email string `json:"email"`
+	// Sort
+	Sort uint32 `json:"sort"`
+	// Remark
+	Remark string `json:"remark"`
+	// ParentId
+	ParentId uint64 `json:"parentId"`
+}
+
+// The response data of Department list | Department列表数据
+// swagger:model DepartmentListResp
+type DepartmentListResp struct {
+	BaseDataInfo
+	// Department list data | Department 列表数据
+	Data DepartmentListInfo `json:"data"`
+}
+
+// Department list data | Department 列表数据
+// swagger:model DepartmentListInfo
+type DepartmentListInfo struct {
+	BaseListInfo
+	// The API list data | Department 列表数据
+	Data []DepartmentInfo `json:"data"`
+}
+
+// Get department list request params | Department列表请求参数
+// swagger:model DepartmentListReq
+type DepartmentListReq struct {
+	PageInfo
+	// Name
+	Name string `json:"name,optional"`
+	// Leader
+	Leader string `json:"leader,optional"`
 }

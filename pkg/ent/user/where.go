@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"entgo.io/ent/dialect/sql"
+	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/gofrs/uuid"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 )
@@ -85,19 +86,14 @@ func Nickname(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldNickname, v))
 }
 
-// SideMode applies equality check predicate on the "side_mode" field. It's identical to SideModeEQ.
-func SideMode(v string) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldSideMode, v))
+// Description applies equality check predicate on the "description" field. It's identical to DescriptionEQ.
+func Description(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldDescription, v))
 }
 
-// BaseColor applies equality check predicate on the "base_color" field. It's identical to BaseColorEQ.
-func BaseColor(v string) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldBaseColor, v))
-}
-
-// ActiveColor applies equality check predicate on the "active_color" field. It's identical to ActiveColorEQ.
-func ActiveColor(v string) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldActiveColor, v))
+// HomePath applies equality check predicate on the "home_path" field. It's identical to HomePathEQ.
+func HomePath(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldHomePath, v))
 }
 
 // RoleID applies equality check predicate on the "role_id" field. It's identical to RoleIDEQ.
@@ -118,6 +114,11 @@ func Email(v string) predicate.User {
 // Avatar applies equality check predicate on the "avatar" field. It's identical to AvatarEQ.
 func Avatar(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldAvatar, v))
+}
+
+// DepartmentID applies equality check predicate on the "department_id" field. It's identical to DepartmentIDEQ.
+func DepartmentID(v uint64) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldDepartmentID, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
@@ -445,229 +446,144 @@ func NicknameContainsFold(v string) predicate.User {
 	return predicate.User(sql.FieldContainsFold(FieldNickname, v))
 }
 
-// SideModeEQ applies the EQ predicate on the "side_mode" field.
-func SideModeEQ(v string) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldSideMode, v))
+// DescriptionEQ applies the EQ predicate on the "description" field.
+func DescriptionEQ(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldDescription, v))
 }
 
-// SideModeNEQ applies the NEQ predicate on the "side_mode" field.
-func SideModeNEQ(v string) predicate.User {
-	return predicate.User(sql.FieldNEQ(FieldSideMode, v))
+// DescriptionNEQ applies the NEQ predicate on the "description" field.
+func DescriptionNEQ(v string) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldDescription, v))
 }
 
-// SideModeIn applies the In predicate on the "side_mode" field.
-func SideModeIn(vs ...string) predicate.User {
-	return predicate.User(sql.FieldIn(FieldSideMode, vs...))
+// DescriptionIn applies the In predicate on the "description" field.
+func DescriptionIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldIn(FieldDescription, vs...))
 }
 
-// SideModeNotIn applies the NotIn predicate on the "side_mode" field.
-func SideModeNotIn(vs ...string) predicate.User {
-	return predicate.User(sql.FieldNotIn(FieldSideMode, vs...))
+// DescriptionNotIn applies the NotIn predicate on the "description" field.
+func DescriptionNotIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldDescription, vs...))
 }
 
-// SideModeGT applies the GT predicate on the "side_mode" field.
-func SideModeGT(v string) predicate.User {
-	return predicate.User(sql.FieldGT(FieldSideMode, v))
+// DescriptionGT applies the GT predicate on the "description" field.
+func DescriptionGT(v string) predicate.User {
+	return predicate.User(sql.FieldGT(FieldDescription, v))
 }
 
-// SideModeGTE applies the GTE predicate on the "side_mode" field.
-func SideModeGTE(v string) predicate.User {
-	return predicate.User(sql.FieldGTE(FieldSideMode, v))
+// DescriptionGTE applies the GTE predicate on the "description" field.
+func DescriptionGTE(v string) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldDescription, v))
 }
 
-// SideModeLT applies the LT predicate on the "side_mode" field.
-func SideModeLT(v string) predicate.User {
-	return predicate.User(sql.FieldLT(FieldSideMode, v))
+// DescriptionLT applies the LT predicate on the "description" field.
+func DescriptionLT(v string) predicate.User {
+	return predicate.User(sql.FieldLT(FieldDescription, v))
 }
 
-// SideModeLTE applies the LTE predicate on the "side_mode" field.
-func SideModeLTE(v string) predicate.User {
-	return predicate.User(sql.FieldLTE(FieldSideMode, v))
+// DescriptionLTE applies the LTE predicate on the "description" field.
+func DescriptionLTE(v string) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldDescription, v))
 }
 
-// SideModeContains applies the Contains predicate on the "side_mode" field.
-func SideModeContains(v string) predicate.User {
-	return predicate.User(sql.FieldContains(FieldSideMode, v))
+// DescriptionContains applies the Contains predicate on the "description" field.
+func DescriptionContains(v string) predicate.User {
+	return predicate.User(sql.FieldContains(FieldDescription, v))
 }
 
-// SideModeHasPrefix applies the HasPrefix predicate on the "side_mode" field.
-func SideModeHasPrefix(v string) predicate.User {
-	return predicate.User(sql.FieldHasPrefix(FieldSideMode, v))
+// DescriptionHasPrefix applies the HasPrefix predicate on the "description" field.
+func DescriptionHasPrefix(v string) predicate.User {
+	return predicate.User(sql.FieldHasPrefix(FieldDescription, v))
 }
 
-// SideModeHasSuffix applies the HasSuffix predicate on the "side_mode" field.
-func SideModeHasSuffix(v string) predicate.User {
-	return predicate.User(sql.FieldHasSuffix(FieldSideMode, v))
+// DescriptionHasSuffix applies the HasSuffix predicate on the "description" field.
+func DescriptionHasSuffix(v string) predicate.User {
+	return predicate.User(sql.FieldHasSuffix(FieldDescription, v))
 }
 
-// SideModeIsNil applies the IsNil predicate on the "side_mode" field.
-func SideModeIsNil() predicate.User {
-	return predicate.User(sql.FieldIsNull(FieldSideMode))
+// DescriptionIsNil applies the IsNil predicate on the "description" field.
+func DescriptionIsNil() predicate.User {
+	return predicate.User(sql.FieldIsNull(FieldDescription))
 }
 
-// SideModeNotNil applies the NotNil predicate on the "side_mode" field.
-func SideModeNotNil() predicate.User {
-	return predicate.User(sql.FieldNotNull(FieldSideMode))
+// DescriptionNotNil applies the NotNil predicate on the "description" field.
+func DescriptionNotNil() predicate.User {
+	return predicate.User(sql.FieldNotNull(FieldDescription))
 }
 
-// SideModeEqualFold applies the EqualFold predicate on the "side_mode" field.
-func SideModeEqualFold(v string) predicate.User {
-	return predicate.User(sql.FieldEqualFold(FieldSideMode, v))
+// DescriptionEqualFold applies the EqualFold predicate on the "description" field.
+func DescriptionEqualFold(v string) predicate.User {
+	return predicate.User(sql.FieldEqualFold(FieldDescription, v))
 }
 
-// SideModeContainsFold applies the ContainsFold predicate on the "side_mode" field.
-func SideModeContainsFold(v string) predicate.User {
-	return predicate.User(sql.FieldContainsFold(FieldSideMode, v))
+// DescriptionContainsFold applies the ContainsFold predicate on the "description" field.
+func DescriptionContainsFold(v string) predicate.User {
+	return predicate.User(sql.FieldContainsFold(FieldDescription, v))
 }
 
-// BaseColorEQ applies the EQ predicate on the "base_color" field.
-func BaseColorEQ(v string) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldBaseColor, v))
+// HomePathEQ applies the EQ predicate on the "home_path" field.
+func HomePathEQ(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldHomePath, v))
 }
 
-// BaseColorNEQ applies the NEQ predicate on the "base_color" field.
-func BaseColorNEQ(v string) predicate.User {
-	return predicate.User(sql.FieldNEQ(FieldBaseColor, v))
+// HomePathNEQ applies the NEQ predicate on the "home_path" field.
+func HomePathNEQ(v string) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldHomePath, v))
 }
 
-// BaseColorIn applies the In predicate on the "base_color" field.
-func BaseColorIn(vs ...string) predicate.User {
-	return predicate.User(sql.FieldIn(FieldBaseColor, vs...))
+// HomePathIn applies the In predicate on the "home_path" field.
+func HomePathIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldIn(FieldHomePath, vs...))
 }
 
-// BaseColorNotIn applies the NotIn predicate on the "base_color" field.
-func BaseColorNotIn(vs ...string) predicate.User {
-	return predicate.User(sql.FieldNotIn(FieldBaseColor, vs...))
+// HomePathNotIn applies the NotIn predicate on the "home_path" field.
+func HomePathNotIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldHomePath, vs...))
 }
 
-// BaseColorGT applies the GT predicate on the "base_color" field.
-func BaseColorGT(v string) predicate.User {
-	return predicate.User(sql.FieldGT(FieldBaseColor, v))
+// HomePathGT applies the GT predicate on the "home_path" field.
+func HomePathGT(v string) predicate.User {
+	return predicate.User(sql.FieldGT(FieldHomePath, v))
 }
 
-// BaseColorGTE applies the GTE predicate on the "base_color" field.
-func BaseColorGTE(v string) predicate.User {
-	return predicate.User(sql.FieldGTE(FieldBaseColor, v))
+// HomePathGTE applies the GTE predicate on the "home_path" field.
+func HomePathGTE(v string) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldHomePath, v))
 }
 
-// BaseColorLT applies the LT predicate on the "base_color" field.
-func BaseColorLT(v string) predicate.User {
-	return predicate.User(sql.FieldLT(FieldBaseColor, v))
+// HomePathLT applies the LT predicate on the "home_path" field.
+func HomePathLT(v string) predicate.User {
+	return predicate.User(sql.FieldLT(FieldHomePath, v))
 }
 
-// BaseColorLTE applies the LTE predicate on the "base_color" field.
-func BaseColorLTE(v string) predicate.User {
-	return predicate.User(sql.FieldLTE(FieldBaseColor, v))
+// HomePathLTE applies the LTE predicate on the "home_path" field.
+func HomePathLTE(v string) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldHomePath, v))
 }
 
-// BaseColorContains applies the Contains predicate on the "base_color" field.
-func BaseColorContains(v string) predicate.User {
-	return predicate.User(sql.FieldContains(FieldBaseColor, v))
+// HomePathContains applies the Contains predicate on the "home_path" field.
+func HomePathContains(v string) predicate.User {
+	return predicate.User(sql.FieldContains(FieldHomePath, v))
 }
 
-// BaseColorHasPrefix applies the HasPrefix predicate on the "base_color" field.
-func BaseColorHasPrefix(v string) predicate.User {
-	return predicate.User(sql.FieldHasPrefix(FieldBaseColor, v))
+// HomePathHasPrefix applies the HasPrefix predicate on the "home_path" field.
+func HomePathHasPrefix(v string) predicate.User {
+	return predicate.User(sql.FieldHasPrefix(FieldHomePath, v))
 }
 
-// BaseColorHasSuffix applies the HasSuffix predicate on the "base_color" field.
-func BaseColorHasSuffix(v string) predicate.User {
-	return predicate.User(sql.FieldHasSuffix(FieldBaseColor, v))
+// HomePathHasSuffix applies the HasSuffix predicate on the "home_path" field.
+func HomePathHasSuffix(v string) predicate.User {
+	return predicate.User(sql.FieldHasSuffix(FieldHomePath, v))
 }
 
-// BaseColorIsNil applies the IsNil predicate on the "base_color" field.
-func BaseColorIsNil() predicate.User {
-	return predicate.User(sql.FieldIsNull(FieldBaseColor))
+// HomePathEqualFold applies the EqualFold predicate on the "home_path" field.
+func HomePathEqualFold(v string) predicate.User {
+	return predicate.User(sql.FieldEqualFold(FieldHomePath, v))
 }
 
-// BaseColorNotNil applies the NotNil predicate on the "base_color" field.
-func BaseColorNotNil() predicate.User {
-	return predicate.User(sql.FieldNotNull(FieldBaseColor))
-}
-
-// BaseColorEqualFold applies the EqualFold predicate on the "base_color" field.
-func BaseColorEqualFold(v string) predicate.User {
-	return predicate.User(sql.FieldEqualFold(FieldBaseColor, v))
-}
-
-// BaseColorContainsFold applies the ContainsFold predicate on the "base_color" field.
-func BaseColorContainsFold(v string) predicate.User {
-	return predicate.User(sql.FieldContainsFold(FieldBaseColor, v))
-}
-
-// ActiveColorEQ applies the EQ predicate on the "active_color" field.
-func ActiveColorEQ(v string) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldActiveColor, v))
-}
-
-// ActiveColorNEQ applies the NEQ predicate on the "active_color" field.
-func ActiveColorNEQ(v string) predicate.User {
-	return predicate.User(sql.FieldNEQ(FieldActiveColor, v))
-}
-
-// ActiveColorIn applies the In predicate on the "active_color" field.
-func ActiveColorIn(vs ...string) predicate.User {
-	return predicate.User(sql.FieldIn(FieldActiveColor, vs...))
-}
-
-// ActiveColorNotIn applies the NotIn predicate on the "active_color" field.
-func ActiveColorNotIn(vs ...string) predicate.User {
-	return predicate.User(sql.FieldNotIn(FieldActiveColor, vs...))
-}
-
-// ActiveColorGT applies the GT predicate on the "active_color" field.
-func ActiveColorGT(v string) predicate.User {
-	return predicate.User(sql.FieldGT(FieldActiveColor, v))
-}
-
-// ActiveColorGTE applies the GTE predicate on the "active_color" field.
-func ActiveColorGTE(v string) predicate.User {
-	return predicate.User(sql.FieldGTE(FieldActiveColor, v))
-}
-
-// ActiveColorLT applies the LT predicate on the "active_color" field.
-func ActiveColorLT(v string) predicate.User {
-	return predicate.User(sql.FieldLT(FieldActiveColor, v))
-}
-
-// ActiveColorLTE applies the LTE predicate on the "active_color" field.
-func ActiveColorLTE(v string) predicate.User {
-	return predicate.User(sql.FieldLTE(FieldActiveColor, v))
-}
-
-// ActiveColorContains applies the Contains predicate on the "active_color" field.
-func ActiveColorContains(v string) predicate.User {
-	return predicate.User(sql.FieldContains(FieldActiveColor, v))
-}
-
-// ActiveColorHasPrefix applies the HasPrefix predicate on the "active_color" field.
-func ActiveColorHasPrefix(v string) predicate.User {
-	return predicate.User(sql.FieldHasPrefix(FieldActiveColor, v))
-}
-
-// ActiveColorHasSuffix applies the HasSuffix predicate on the "active_color" field.
-func ActiveColorHasSuffix(v string) predicate.User {
-	return predicate.User(sql.FieldHasSuffix(FieldActiveColor, v))
-}
-
-// ActiveColorIsNil applies the IsNil predicate on the "active_color" field.
-func ActiveColorIsNil() predicate.User {
-	return predicate.User(sql.FieldIsNull(FieldActiveColor))
-}
-
-// ActiveColorNotNil applies the NotNil predicate on the "active_color" field.
-func ActiveColorNotNil() predicate.User {
-	return predicate.User(sql.FieldNotNull(FieldActiveColor))
-}
-
-// ActiveColorEqualFold applies the EqualFold predicate on the "active_color" field.
-func ActiveColorEqualFold(v string) predicate.User {
-	return predicate.User(sql.FieldEqualFold(FieldActiveColor, v))
-}
-
-// ActiveColorContainsFold applies the ContainsFold predicate on the "active_color" field.
-func ActiveColorContainsFold(v string) predicate.User {
-	return predicate.User(sql.FieldContainsFold(FieldActiveColor, v))
+// HomePathContainsFold applies the ContainsFold predicate on the "home_path" field.
+func HomePathContainsFold(v string) predicate.User {
+	return predicate.User(sql.FieldContainsFold(FieldHomePath, v))
 }
 
 // RoleIDEQ applies the EQ predicate on the "role_id" field.
@@ -943,6 +859,63 @@ func AvatarEqualFold(v string) predicate.User {
 // AvatarContainsFold applies the ContainsFold predicate on the "avatar" field.
 func AvatarContainsFold(v string) predicate.User {
 	return predicate.User(sql.FieldContainsFold(FieldAvatar, v))
+}
+
+// DepartmentIDEQ applies the EQ predicate on the "department_id" field.
+func DepartmentIDEQ(v uint64) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldDepartmentID, v))
+}
+
+// DepartmentIDNEQ applies the NEQ predicate on the "department_id" field.
+func DepartmentIDNEQ(v uint64) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldDepartmentID, v))
+}
+
+// DepartmentIDIn applies the In predicate on the "department_id" field.
+func DepartmentIDIn(vs ...uint64) predicate.User {
+	return predicate.User(sql.FieldIn(FieldDepartmentID, vs...))
+}
+
+// DepartmentIDNotIn applies the NotIn predicate on the "department_id" field.
+func DepartmentIDNotIn(vs ...uint64) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldDepartmentID, vs...))
+}
+
+// DepartmentIDIsNil applies the IsNil predicate on the "department_id" field.
+func DepartmentIDIsNil() predicate.User {
+	return predicate.User(sql.FieldIsNull(FieldDepartmentID))
+}
+
+// DepartmentIDNotNil applies the NotNil predicate on the "department_id" field.
+func DepartmentIDNotNil() predicate.User {
+	return predicate.User(sql.FieldNotNull(FieldDepartmentID))
+}
+
+// HasDepartment applies the HasEdge predicate on the "department" edge.
+func HasDepartment() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, DepartmentTable, DepartmentColumn),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasDepartmentWith applies the HasEdge predicate on the "department" edge with a given conditions (other predicates).
+func HasDepartmentWith(preds ...predicate.Department) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(DepartmentInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, DepartmentTable, DepartmentColumn),
+		)
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
 }
 
 // And groups predicates with the AND operator between them.

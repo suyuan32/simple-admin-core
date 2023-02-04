@@ -1,0 +1,48 @@
+package schema
+
+import (
+	"entgo.io/ent"
+	"entgo.io/ent/dialect/entsql"
+	"entgo.io/ent/schema"
+	"entgo.io/ent/schema/edge"
+	"entgo.io/ent/schema/field"
+
+	"github.com/suyuan32/simple-admin-core/pkg/ent/schema/mixins"
+)
+
+type Department struct {
+	ent.Schema
+}
+
+func (Department) Fields() []ent.Field {
+	return []ent.Field{
+		field.String("name").Comment("Department name | 部门名称"),
+		field.String("ancestors").Comment("Parents' IDs | 父级列表"),
+		field.String("leader").Comment("Department leader | 部门负责人"),
+		field.String("phone").Comment("Leader's phone number | 负责人电话"),
+		field.String("email").Comment("Leader's email | 部门负责人电子邮箱"),
+		field.Uint32("sort").Comment("Sort number | 排序编号"),
+		field.String("remark").Comment("Remark | 备注"),
+		field.Uint64("parent_id").Optional().Default(0).Comment("Parent department ID | 父级部门ID"),
+	}
+}
+
+func (Department) Mixin() []ent.Mixin {
+	return []ent.Mixin{
+		mixins.BaseMixin{},
+		mixins.StatusMixin{},
+	}
+}
+
+func (Department) Edges() []ent.Edge {
+	return []ent.Edge{
+		edge.To("children", Department.Type).From("parent").Unique().Field("parent_id"),
+		edge.From("user", User.Type).Ref("department"),
+	}
+}
+
+func (Department) Annotations() []schema.Annotation {
+	return []schema.Annotation{
+		entsql.Annotation{Table: "sys_department"},
+	}
+}

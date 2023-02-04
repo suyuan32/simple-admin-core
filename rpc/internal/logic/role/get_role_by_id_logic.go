@@ -45,7 +45,7 @@ func (l *GetRoleByIdLogic) GetRoleById(in *core.IDReq) (*core.RoleInfo, error) {
 		Name:          r.Name,
 		Value:         r.Value,
 		DefaultRouter: r.DefaultRouter,
-		Status:        uint64(r.Status),
+		Status:        uint32(r.Status),
 		Remark:        r.Remark,
 		Sort:          r.Sort,
 		CreatedAt:     r.CreatedAt.UnixMilli(),

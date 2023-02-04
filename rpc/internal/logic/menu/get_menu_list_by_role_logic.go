@@ -31,7 +31,7 @@ func NewGetMenuListByRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.IDReq) (*core.MenuInfoList, error) {
 	menus, err := l.svcCtx.DB.Role.Query().Where(role.ID(in.Id)).
-		QueryMenus().Order(ent.Asc(menu.FieldSort)).All(l.ctx)
+		QueryMenus().Where().Order(ent.Asc(menu.FieldSort)).All(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
@@ -46,49 +46,36 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.IDReq) (*core.MenuIn
 	resp := &core.MenuInfoList{}
 	resp.Total = uint64(len(menus))
 
-	resp.Data = findRoleMenuChildren(menus, 1)
+	for _, v := range menus {
+		resp.Data = append(resp.Data, &core.MenuInfo{
+			Id:        v.ID,
+			CreatedAt: v.CreatedAt.UnixMilli(),
+			UpdatedAt: v.UpdatedAt.UnixMilli(),
+			MenuType:  v.MenuType,
+			Level:     v.MenuLevel,
+			ParentId:  v.ParentID,
+			Path:      v.Path,
+			Name:      v.Name,
+			Redirect:  v.Redirect,
+			Component: v.Component,
+			Sort:      v.Sort,
+			Meta: &core.Meta{
+				Title:              v.Title,
+				Icon:               v.Icon,
+				HideMenu:           v.HideMenu,
+				HideBreadcrumb:     v.HideBreadcrumb,
+				CurrentActiveMenu:  v.CurrentActiveMenu,
+				IgnoreKeepAlive:    v.IgnoreKeepAlive,
+				HideTab:            v.HideTab,
+				FrameSrc:           v.FrameSrc,
+				CarryParam:         v.CarryParam,
+				HideChildrenInMenu: v.HideChildrenInMenu,
+				Affix:              v.Affix,
+				DynamicLevel:       v.DynamicLevel,
+				RealPath:           v.RealPath,
+			},
+		})
+	}
 
 	return resp, nil
-}
-
-func findRoleMenuChildren(data []*ent.Menu, parentId uint64) []*core.MenuInfo {
-	if data == nil {
-		return nil
-	}
-	var result []*core.MenuInfo
-	for _, v := range data {
-		if v.ParentID == parentId && v.ID != v.ParentID {
-			tmp := &core.MenuInfo{
-				Id:        v.ID,
-				CreatedAt: v.CreatedAt.UnixMilli(),
-				UpdatedAt: v.UpdatedAt.UnixMilli(),
-				MenuType:  v.MenuType,
-				Level:     v.MenuLevel,
-				ParentId:  v.ParentID,
-				Path:      v.Path,
-				Name:      v.Name,
-				Redirect:  v.Redirect,
-				Component: v.Component,
-				Sort:      v.Sort,
-				Meta: &core.Meta{
-					Title:              v.Title,
-					Icon:               v.Icon,
-					HideMenu:           v.HideMenu,
-					HideBreadcrumb:     v.HideBreadcrumb,
-					CurrentActiveMenu:  v.CurrentActiveMenu,
-					IgnoreKeepAlive:    v.IgnoreKeepAlive,
-					HideTab:            v.HideTab,
-					FrameSrc:           v.FrameSrc,
-					CarryParam:         v.CarryParam,
-					HideChildrenInMenu: v.HideChildrenInMenu,
-					Affix:              v.Affix,
-					DynamicLevel:       v.DynamicLevel,
-					RealPath:           v.RealPath,
-				},
-				Children: findRoleMenuChildren(data, v.ID),
-			}
-			result = append(result, tmp)
-		}
-	}
-	return result
 }

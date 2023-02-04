@@ -49,7 +49,6 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 
 		menuLevel = m.MenuLevel + 1
 	} else {
-		in.ParentId = 1
 		menuLevel = 1
 	}
 
@@ -95,18 +94,20 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 
 		return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
 	} else {
-		exist, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.ParentId)).Exist(l.ctx)
-		if err != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return nil, err
+		if in.ParentId != 0 {
+			exist, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.ParentId)).Exist(l.ctx)
+			if err != nil {
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, err
+			}
+
+			if !exist {
+				logx.Errorw("menu not found", logx.Field("menuId", in.Id))
+				return nil, status.Error(codes.InvalidArgument, "menu.menuNotExists")
+			}
 		}
 
-		if !exist {
-			logx.Errorw("menu not found", logx.Field("menuId", in.Id))
-			return nil, status.Error(codes.InvalidArgument, "menu.menuNotExists")
-		}
-
-		err = l.svcCtx.DB.Menu.UpdateOneID(in.Id).
+		err := l.svcCtx.DB.Menu.UpdateOneID(in.Id).
 			SetMenuLevel(menuLevel).
 			SetMenuType(in.MenuType).
 			SetParentID(in.ParentId).
@@ -131,7 +132,6 @@ func (l *CreateOrUpdateMenuLogic) CreateOrUpdateMenu(in *core.CreateOrUpdateMenu
 			SetDynamicLevel(in.Meta.DynamicLevel).
 			SetRealPath(in.Meta.RealPath).
 			Exec(l.ctx)
-
 		if err != nil {
 			switch {
 			case ent.IsNotFound(err):

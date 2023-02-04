@@ -175,12 +175,18 @@ type (
         // The user's avatar path | 用户的头像路径
         Avatar       string       `json:"avatar"`
 
-        // The user's layout mode | 用户的布局
-        SideMode     string       `json:"sideMode"`
-
         // The user's status | 用户状态
         // 1 normal, 2 ban | 1 正常 2 拉黑
-        Status        uint64       `json:"status"`
+        Status        uint32       `json:"status"`
+
+        // The home page that the user enters after logging in | 用户登陆后进入的首页
+        HomePath   string  `json:"homePath"`
+
+        // The description of user | 用户的描述信息
+        Description string `json:"desc"`
+
+        // User's department id | 用户的部门ID
+        DepartmentId       uint64       `json:"departmentId"`
     }
 
     // The response data of user's basic information | 用户基本信息返回数据
@@ -206,8 +212,13 @@ type (
         Avatar       string       `json:"avatar"`
 
         // User's role information| 用户的角色信息
-        // in: body
         Roles   GetUserRoleInfo `json:"roles"`
+
+        // The home page that the user enters after logging in | 用户登陆后进入的首页
+        HomePath   string  `json:"homePath"`
+
+        // The description of user | 用户的描述信息
+        Description string `json:"desc"`
     }
 
     // The response data of user's basic role information | 用户角色信息数据
@@ -268,7 +279,7 @@ type (
         // User's mobile phone number | 用户的手机号码
         // Required: true
         // Max length: 18
-        Mobile       string       `json:"mobile,optional" validate:"numeric,max=18"`
+        Mobile       string       `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
 
         // User's role id | 用户的角色ID
         // Required: true
@@ -289,7 +300,17 @@ type (
         // 1 normal, 2 ban | 1 正常 2 拉黑
         // Required: true
         // Maximum: 20
-        Status       uint64      `json:"status" validate:"number,max=20"`
+        Status       uint32      `json:"status" validate:"number,max=20"`
+
+        // User's department id | 用户的部门ID
+        // Required: true
+        DepartmentId       uint64       `json:"departmentId"`
+
+        // The home page that the user enters after logging in | 用户登陆后进入的首页
+        HomePath   string  `json:"homePath,optional"`
+
+        // The description of user | 用户的描述信息
+        Description string `json:"desc,optional"`
     }
 
     // Get user list request | 获取用户列表请求参数
@@ -322,6 +343,9 @@ type (
         // User's role ID | 用户的角色ID
         // Maximum: 1000
         RoleId uint64 `json:"roleId,optional" validate:"omitempty,number,max=1000"`
+
+        // The user's department ID | 用户所属部门ID
+        DepartmentId  uint64 `json:"departmentId,optional"`
     }
 )
 

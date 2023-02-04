@@ -32,6 +32,35 @@ var (
 			},
 		},
 	}
+	// SysDepartmentColumns holds the columns for the "sys_department" table.
+	SysDepartmentColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "name", Type: field.TypeString},
+		{Name: "ancestors", Type: field.TypeString},
+		{Name: "leader", Type: field.TypeString},
+		{Name: "phone", Type: field.TypeString},
+		{Name: "email", Type: field.TypeString},
+		{Name: "sort", Type: field.TypeUint32},
+		{Name: "remark", Type: field.TypeString},
+		{Name: "parent_id", Type: field.TypeUint64, Nullable: true, Default: 0},
+	}
+	// SysDepartmentTable holds the schema information for the "sys_department" table.
+	SysDepartmentTable = &schema.Table{
+		Name:       "sys_department",
+		Columns:    SysDepartmentColumns,
+		PrimaryKey: []*schema.Column{SysDepartmentColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "sys_department_sys_department_children",
+				Columns:    []*schema.Column{SysDepartmentColumns[11]},
+				RefColumns: []*schema.Column{SysDepartmentColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
 	// SysDictionariesColumns holds the columns for the "sys_dictionaries" table.
 	SysDictionariesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -216,24 +245,32 @@ var (
 		{Name: "username", Type: field.TypeString, Unique: true},
 		{Name: "password", Type: field.TypeString},
 		{Name: "nickname", Type: field.TypeString, Unique: true},
-		{Name: "side_mode", Type: field.TypeString, Nullable: true, Default: "dark"},
-		{Name: "base_color", Type: field.TypeString, Nullable: true, Default: "#fff"},
-		{Name: "active_color", Type: field.TypeString, Nullable: true, Default: "#1890ff"},
+		{Name: "description", Type: field.TypeString, Nullable: true},
+		{Name: "home_path", Type: field.TypeString, Default: "/dashboard"},
 		{Name: "role_id", Type: field.TypeUint64, Nullable: true, Default: 2},
 		{Name: "mobile", Type: field.TypeString, Nullable: true},
 		{Name: "email", Type: field.TypeString, Nullable: true},
 		{Name: "avatar", Type: field.TypeString, Nullable: true, Default: "", SchemaType: map[string]string{"mysql": "varchar(512)"}},
+		{Name: "department_id", Type: field.TypeUint64, Nullable: true, Default: 1},
 	}
 	// SysUsersTable holds the schema information for the "sys_users" table.
 	SysUsersTable = &schema.Table{
 		Name:       "sys_users",
 		Columns:    SysUsersColumns,
 		PrimaryKey: []*schema.Column{SysUsersColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "sys_users_sys_department_department",
+				Columns:    []*schema.Column{SysUsersColumns[13]},
+				RefColumns: []*schema.Column{SysDepartmentColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
 		Indexes: []*schema.Index{
 			{
 				Name:    "user_username_email",
 				Unique:  true,
-				Columns: []*schema.Column{SysUsersColumns[4], SysUsersColumns[12]},
+				Columns: []*schema.Column{SysUsersColumns[4], SysUsersColumns[11]},
 			},
 		},
 	}
@@ -265,6 +302,7 @@ var (
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		SysApisTable,
+		SysDepartmentTable,
 		SysDictionariesTable,
 		SysDictionaryDetailsTable,
 		SysMenusTable,
@@ -280,6 +318,10 @@ var (
 func init() {
 	SysApisTable.Annotation = &entsql.Annotation{
 		Table: "sys_apis",
+	}
+	SysDepartmentTable.ForeignKeys[0].RefTable = SysDepartmentTable
+	SysDepartmentTable.Annotation = &entsql.Annotation{
+		Table: "sys_department",
 	}
 	SysDictionariesTable.Annotation = &entsql.Annotation{
 		Table: "sys_dictionaries",
@@ -305,6 +347,7 @@ func init() {
 	SysTokensTable.Annotation = &entsql.Annotation{
 		Table: "sys_tokens",
 	}
+	SysUsersTable.ForeignKeys[0].RefTable = SysDepartmentTable
 	SysUsersTable.Annotation = &entsql.Annotation{
 		Table: "sys_users",
 	}

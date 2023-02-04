@@ -4,2276 +4,264 @@ consumes:
 definitions:
     ApiAuthorityInfo:
         description: The response data of api authorization | API授权数据
-        properties:
-            method:
-                description: API method | API请求方法
-                type: string
-                x-go-name: Method
-            path:
-                description: API path | API 路径
-                type: string
-                x-go-name: Path
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ApiAuthorityListInfo:
         description: The  data of api authorization list | API授权列表数据
-        properties:
-            data:
-                description: The api authorization list data | API授权列表数据
-                items:
-                    $ref: '#/definitions/ApiAuthorityInfo'
-                type: array
-                x-go-name: Data
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-                x-go-name: Total
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ApiAuthorityListResp:
         description: The response data of api authorization list | API授权列表返回数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/ApiAuthorityListInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ApiInfo:
         description: The response data of API information | API信息
-        properties:
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-                x-go-name: CreatedAt
-            description:
-                description: API Description | API 描述
-                type: string
-                x-go-name: Description
-            group:
-                description: API group | API分组
-                type: string
-                x-go-name: Group
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            method:
-                description: API request method e.g. POST | API请求类型 如POST
-                type: string
-                x-go-name: Method
-            path:
-                description: API path | API路径
-                type: string
-                x-go-name: Path
-            title:
-                description: Api translation | API 多语言翻译
-                type: string
-                x-go-name: Title
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-                x-go-name: UpdatedAt
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ApiListInfo:
         description: API list data | API 列表数据
-        properties:
-            data:
-                description: The API list data | API列表数据
-                items:
-                    $ref: '#/definitions/ApiInfo'
-                type: array
-                x-go-name: Data
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-                x-go-name: Total
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ApiListReq:
         description: Get API list request params | API列表请求参数
-        properties:
-            description:
-                description: API Description | API 描述
-                maxLength: 50
-                type: string
-                x-go-name: Description
-            group:
-                description: API group | API分组
-                maxLength: 10
-                type: string
-                x-go-name: Group
-            method:
-                description: API request method e.g. POST | API请求类型 如POST
-                maxLength: 4
-                type: string
-                x-go-name: Method
-            page:
-                description: Page number | 第几页
-                format: uint64
-                type: integer
-                x-go-name: Page
-            pageSize:
-                description: Page size | 单页数据行数
-                format: uint64
-                maximum: 100000
-                type: integer
-                x-go-name: PageSize
-            path:
-                description: API path | API路径
-                maxLength: 100
-                type: string
-                x-go-name: Path
-        required:
-            - page
-            - pageSize
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ApiListResp:
         description: The response data of API list | API列表数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/ApiListInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     BaseDataInfo:
         description: The basic response with data | 基础带数据信息
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     BaseInfo:
         description: The base response data | 基础信息
-        properties:
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-                x-go-name: CreatedAt
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-                x-go-name: UpdatedAt
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     BaseListInfo:
         description: The basic response with data | 基础带数据信息
-        properties:
-            data:
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-                x-go-name: Total
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     BaseMsgResp:
         description: The basic response without data | 基础不带数据信息
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     BaseUUIDInfo:
         description: The base UUID response data | 基础信息
-        properties:
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-                x-go-name: CreatedAt
-            id:
-                description: ID
-                type: string
-                x-go-name: Id
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-                x-go-name: UpdatedAt
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CallbackResp:
         description: The oauth callback response data | Oauth回调数据
-        properties:
-            expire:
-                description: Expire timestamp | 过期时间戳
-                format: uint64
-                type: integer
-                x-go-name: Expire
-            role:
-                $ref: '#/definitions/RoleInfoSimple'
-            token:
-                description: Token for authorization | 验证身份的token
-                type: string
-                x-go-name: Token
-            userId:
-                description: User's UUID | 用户的UUID
-                type: string
-                x-go-name: UserId
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CaptchaInfo:
         description: The information of captcha | 验证码数据
-        properties:
-            captchaId:
-                type: string
-                x-go-name: CaptchaId
-            imgPath:
-                type: string
-                x-go-name: ImgPath
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CaptchaResp:
         description: The response data of captcha | 验证码返回数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/CaptchaInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ChangePasswordReq:
         description: change user's password request | 修改密码请求参数
-        properties:
-            newPassword:
-                description: User's new password | 用户新密码
-                maxLength: 30
-                type: string
-                x-go-name: NewPassword
-            oldPassword:
-                description: User's old password | 用户旧密码
-                maxLength: 30
-                type: string
-                x-go-name: OldPassword
-        required:
-            - oldPassword
-            - newPassword
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateApiAuthorityReq:
         description: Create or update api authorization information request | 创建或更新API授权信息
-        properties:
-            data:
-                description: API authorization list | API授权列表数据
-                items:
-                    $ref: '#/definitions/ApiAuthorityInfo'
-                type: array
-                x-go-name: Data
-            roleId:
-                description: Role ID | 角色ID
-                format: uint64
-                maximum: 1000
-                type: integer
-                x-go-name: RoleId
-        required:
-            - roleId
-            - data
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateApiReq:
         description: Create or update API information request | 创建或更新API信息
-        properties:
-            description:
-                description: API Description | API 描述
-                maxLength: 50
-                type: string
-                x-go-name: Description
-            group:
-                description: |-
-                    API group | API分组
-                    Require: true
-                maxLength: 10
-                minLength: 1
-                type: string
-                x-go-name: Group
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            method:
-                description: API request method e.g. POST | API请求类型 如POST
-                maxLength: 4
-                minLength: 3
-                type: string
-                x-go-name: Method
-            path:
-                description: API path | API路径
-                maxLength: 50
-                minLength: 1
-                type: string
-                x-go-name: Path
-        required:
-            - id
-            - path
-            - description
-            - method
-        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    CreateOrUpdateDepartmentReq:
+        description: Create or update Department information request | 创建或更新Department信息
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateDictionaryDetailReq:
         description: Create or update dictionary KV information request | 创建或更新字典键值信息请求
-        properties:
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            key:
-                description: Detail key | 键
-                maxLength: 50
-                minLength: 1
-                type: string
-                x-go-name: Key
-            parentId:
-                description: Parent ID | 所属字典ID
-                format: uint64
-                type: integer
-                x-go-name: ParentId
-            status:
-                description: Status | 状态
-                format: uint64
-                type: integer
-                x-go-name: Status
-            title:
-                description: Detail title | 字典值显示名称
-                maxLength: 50
-                minLength: 1
-                type: string
-                x-go-name: Title
-            value:
-                description: Detail value | 值
-                type: string
-                x-go-name: Value
-        required:
-            - id
-            - title
-            - key
-            - value
-            - status
-            - parentId
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateDictionaryReq:
         description: Create or update dictionary information request | 创建或更新字典信息请求
-        properties:
-            description:
-                description: Dictionary description | 字典描述
-                maxLength: 50
-                type: string
-                x-go-name: Description
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            name:
-                description: Dictionary name | 字典名称
-                maxLength: 50
-                minLength: 1
-                type: string
-                x-go-name: Name
-            status:
-                description: Dictionary status | 字典状态
-                format: uint64
-                type: integer
-                x-go-name: Status
-            title:
-                description: Dictionary title | 字典显示名称
-                maxLength: 50
-                minLength: 1
-                type: string
-                x-go-name: Title
-        required:
-            - id
-            - title
-            - name
-            - status
-            - description
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateMenuParamReq:
         description: Create or update menu extra parameters request params | 创建或更新菜单额外参数的请求参数
-        properties:
-            dataType:
-                description: Data Type | 数据类型
-                maxLength: 8
-                minLength: 1
-                type: string
-                x-go-name: DataType
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            key:
-                description: Key | 键
-                maxLength: 20
-                minLength: 1
-                type: string
-                x-go-name: Key
-            menuId:
-                description: Menu ID | 菜单ID
-                format: uint64
-                type: integer
-                x-go-name: MenuId
-            value:
-                description: Value | 值
-                maxLength: 100
-                minLength: 1
-                type: string
-                x-go-name: Value
-        required:
-            - id
-            - menuId
-            - dataType
-            - key
-            - value
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateMenuReq:
         description: Create or update menu information request params | 创建或更新菜单信息参数
-        properties:
-            affix:
-                description: Affix tab | 是否固定标签
-                type: boolean
-                x-go-name: Affix
-            carryParam:
-                description: The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
-                type: boolean
-                x-go-name: CarryParam
-            component:
-                description: The component path | 组件路径
-                example: /sys/menu/index
-                maxLength: 100
-                type: string
-                x-go-name: Component
-            currentActiveMenu:
-                description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
-                maxLength: 30
-                type: string
-                x-go-name: CurrentActiveMenu
-            disabled:
-                description: If disabled | 是否禁用菜单
-                type: boolean
-                x-go-name: Disabled
-            dynamicLevel:
-                description: The maximum number of pages the router can open | 动态路由可打开Tab页数
-                format: uint32
-                type: integer
-                x-go-name: DynamicLevel
-            frameSrc:
-                description: Iframe path | 内嵌iframe的地址
-                type: string
-                x-go-name: FrameSrc
-            hideBreadcrumb:
-                description: If hide the breadcrumb | 隐藏面包屑
-                type: boolean
-                x-go-name: HideBreadcrumb
-            hideChildrenInMenu:
-                description: Hide children menu or not | 隐藏所有子菜单
-                type: boolean
-                x-go-name: HideChildrenInMenu
-            hideMenu:
-                description: Hide menu | 隐藏菜单
-                type: boolean
-                x-go-name: HideMenu
-            hideTab:
-                description: Hide the tab header | 当前路由不在标签页显示
-                type: boolean
-                x-go-name: HideTab
-            icon:
-                description: Menu Icon | 菜单图标
-                maxLength: 50
-                type: string
-                x-go-name: Icon
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            ignoreKeepAlive:
-                description: Do not keep alive the tab | 不缓存Tab
-                type: boolean
-                x-go-name: IgnoreKeepAlive
-            name:
-                description: Menu name | 菜单名
-                maxLength: 50
-                type: string
-                x-go-name: Name
-            parentId:
-                description: Parent menu ID | 父级菜单ID
-                format: uint64
-                type: integer
-                x-go-name: ParentId
-            path:
-                description: The path to visit menu | 菜单访问路径
-                maxLength: 30
-                type: string
-                x-go-name: Path
-            realPath:
-                description: The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
-                type: string
-                x-go-name: RealPath
-            redirect:
-                description: Redirect path | 跳转路径
-                example: https://www.google.com
-                maxLength: 100
-                type: string
-                x-go-name: Redirect
-            sort:
-                description: The sorting number | 排序编号
-                format: uint32
-                maximum: 1000
-                type: integer
-                x-go-name: Sort
-            title:
-                description: Menu title show in page | 菜单显示名
-                maxLength: 50
-                type: string
-                x-go-name: Title
-            type:
-                description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
-                format: uint32
-                maximum: 10
-                type: integer
-                x-go-name: MenuType
-        required:
-            - id
-            - type
-            - parentId
-            - path
-            - name
-            - redirect
-            - component
-            - sort
-            - disabled
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateProviderReq:
         description: Create or update provider information request | 创建或更新提供商信息
-        properties:
-            authStyle:
-                description: |-
-                    Auth Style is specifies how the endpoint wants the client ID & client secret sent. The zero value means to auto-detect. | 鉴权方式, 0 表示自动检测
-                    0 auto detect 1 client ID and client secret 2 username and password
-                example: 0
-                format: int64
-                type: integer
-                x-go-name: AuthStyle
-            authURL:
-                description: Auth URL | 鉴权URL
-                maxLength: 200
-                type: string
-                x-go-name: AuthURL
-            clientId:
-                description: Client ID | 客户端ID
-                maxLength: 100
-                type: string
-                x-go-name: ClientId
-            clientSecret:
-                description: |-
-                    Client secret | 客户端密码
-                    Require: true
-                maxLength: 100
-                minLength: 1
-                type: string
-                x-go-name: ClientSecret
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            infoURL:
-                description: Get User information URL | 获取用户信息地址
-                maxLength: 200
-                type: string
-                x-go-name: InfoURL
-            name:
-                description: Provider name | 提供商名字
-                maxLength: 50
-                minLength: 1
-                type: string
-                x-go-name: Name
-            redirectURL:
-                description: Redirect URL | 跳转URL
-                maxLength: 200
-                type: string
-                x-go-name: RedirectURL
-            scopes:
-                description: Scopes | 范围
-                maxLength: 200
-                type: string
-                x-go-name: Scopes
-            tokenURL:
-                description: Token URL | 获取 Token 的网址
-                maxLength: 200
-                type: string
-                x-go-name: TokenURL
-        required:
-            - id
-            - name
-            - clientId
-            - redirectURL
-            - scopes
-            - authURL
-            - tokenURL
-            - authStyle
-            - infoURL
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateTokenReq:
         description: Create or update token information request | 创建或更新token信息
-        properties:
-            ID:
-                description: ID
-                type: string
-                x-go-name: Id
-            UUID:
-                description: User's UUID | 用户的UUID
-                maxLength: 36
-                type: string
-            expiredAt:
-                description: Expire time | 过期时间
-                format: int64
-                type: integer
-                x-go-name: ExpiredAt
-            source:
-                description: Log in source such as github | Token 来源 （本地为core, 第三方如github等）
-                maxLength: 50
-                type: string
-                x-go-name: Source
-            status:
-                description: JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-                format: uint64
-                type: integer
-                x-go-name: Status
-            token:
-                description: Token string | Token 字符串
-                type: string
-                x-go-name: Token
-        required:
-            - ID
-            - UUID
-            - token
-            - source
-            - status
-            - expiredAt
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateUserReq:
         description: Create or update user information request | 创建或更新用户信息
-        properties:
-            avatar:
-                description: The user's avatar path | 用户的头像路径
-                example: https://localhost/static/1.png
-                type: string
-                x-go-name: Avatar
-            email:
-                description: The user's email address | 用户的邮箱
-                maxLength: 100
-                type: string
-                x-go-name: Email
-            id:
-                description: User's id | 用户ID
-                type: string
-                x-go-name: Id
-            mobile:
-                description: User's mobile phone number | 用户的手机号码
-                maxLength: 18
-                type: string
-                x-go-name: Mobile
-            nickname:
-                description: User's nickname | 用户的昵称
-                maxLength: 30
-                type: string
-                x-go-name: Nickname
-            password:
-                description: Password | 密码
-                maxLength: 30
-                minLength: 6
-                type: string
-                x-go-name: Password
-            roleId:
-                description: User's role id | 用户的角色ID
-                format: uint64
-                maximum: 1000
-                type: integer
-                x-go-name: RoleId
-            status:
-                description: |-
-                    The user's status | 用户状态
-                    1 normal, 2 ban | 1 正常 2 拉黑
-                format: uint64
-                maximum: 20
-                type: integer
-                x-go-name: Status
-            username:
-                description: User Name | 用户名
-                maxLength: 30
-                type: string
-                x-go-name: Username
-        required:
-            - id
-            - username
-            - nickname
-            - password
-            - mobile
-            - roleId
-            - email
-            - avatar
-            - status
-        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    DepartmentInfo:
+        description: The response data of Department information | Department信息
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    DepartmentListInfo:
+        description: Department list data | Department 列表数据
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    DepartmentListReq:
+        description: Get department list request params | Department列表请求参数
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    DepartmentListResp:
+        description: The response data of Department list | Department列表数据
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     DictionaryDetailInfo:
         description: The response data of dictionary information | 字典信息
-        properties:
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-                x-go-name: CreatedAt
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            key:
-                description: Key name | 键
-                type: string
-                x-go-name: Key
-            status:
-                description: Status | 状态
-                format: uint64
-                type: integer
-                x-go-name: Status
-            title:
-                description: Dictionary title | 字典显示名称
-                type: string
-                x-go-name: Title
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-                x-go-name: UpdatedAt
-            value:
-                description: Value | 值
-                type: string
-                x-go-name: Value
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     DictionaryDetailListInfo:
         description: The data of dictionary KV list | 字典值的列表数据
-        properties:
-            data:
-                description: The dictionary list data | 字典列表数据
-                items:
-                    $ref: '#/definitions/DictionaryDetailInfo'
-                type: array
-                x-go-name: Data
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-                x-go-name: Total
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     DictionaryDetailListResp:
         description: The response data of dictionary KV list | 字典值的列表数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/DictionaryDetailListInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     DictionaryDetailReq:
         description: Get dictionary detail list by dictionary name request | 根据字典名称获取对应键值请求
-        properties:
-            name:
-                description: Dictionary name | 字典名
-                type: string
-                x-go-name: Name
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     DictionaryInfo:
         description: The response data of dictionary information | 字典信息
-        properties:
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-                x-go-name: CreatedAt
-            description:
-                description: Dictionary description | 字典描述
-                type: string
-                x-go-name: Description
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            name:
-                description: Dictionary name | 字典名称
-                type: string
-                x-go-name: Name
-            status:
-                description: Dictionary status | 字典状态
-                format: uint64
-                type: integer
-                x-go-name: Status
-            title:
-                description: Dictionary title | 字典显示名称
-                type: string
-                x-go-name: Title
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-                x-go-name: UpdatedAt
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     DictionaryListInfo:
         description: The response data of dictionary list | 字典列表数据
-        properties:
-            data:
-                description: The dictionary list data | 字典列表数据
-                items:
-                    $ref: '#/definitions/DictionaryInfo'
-                type: array
-                x-go-name: Data
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-                x-go-name: Total
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     DictionaryListReq:
         description: Get dictionary list request params | 字典列表请求参数
-        properties:
-            name:
-                description: Dictionary name | 字典名称
-                maxLength: 50
-                type: string
-                x-go-name: Name
-            page:
-                description: Page number | 第几页
-                format: uint64
-                type: integer
-                x-go-name: Page
-            pageSize:
-                description: Page size | 单页数据行数
-                format: uint64
-                maximum: 100000
-                type: integer
-                x-go-name: PageSize
-            title:
-                description: Dictionary title | 字典显示名称
-                maxLength: 50
-                type: string
-                x-go-name: Title
-        required:
-            - page
-            - pageSize
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     DictionaryListResp:
         description: The response data of dictionary list | 字典列表数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/DictionaryListInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
-        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-    GetMenuListBase:
-        description: The response data of role menu list data | 角色菜单列表数据
-        properties:
-            children:
-                description: |-
-                    children | 子集
-                    in: body
-                items:
-                    $ref: '#/definitions/GetMenuListBase'
-                type: array
-                x-go-name: Children
-            component:
-                description: The component path | 组件路径
-                type: string
-                x-go-name: Component
-            disabled:
-                description: If disabled | 是否禁用菜单
-                type: boolean
-                x-go-name: Disabled
-            level:
-                description: The menu level | 菜单等级
-                format: uint32
-                type: integer
-                x-go-name: MenuLevel
-            meta:
-                $ref: '#/definitions/Meta'
-            name:
-                description: Menu name | 菜单名
-                type: string
-                x-go-name: Name
-            parentId:
-                description: Parent menu ID | 父级菜单ID
-                format: uint64
-                type: integer
-                x-go-name: ParentId
-            path:
-                description: The path to visit menu | 菜单访问路径
-                type: string
-                x-go-name: Path
-            redirect:
-                description: Redirect path | 跳转路径
-                type: string
-                x-go-name: Redirect
-            sort:
-                description: The sorting number | 排序编号
-                format: uint32
-                type: integer
-                x-go-name: Sort
-            type:
-                description: 'Menu type: directory or menu | 菜单类型: 目录或菜单'
-                format: uint32
-                type: integer
-                x-go-name: MenuType
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetMenuListBaseInfo:
         description: The data of role menu list, show after user login | 角色菜单列表数据
-        properties:
-            data:
-                description: The response data of role menu list data | 角色菜单列表数据
-                items:
-                    $ref: '#/definitions/GetMenuListBase'
-                type: array
-                x-go-name: Data
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-                x-go-name: Total
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetMenuListBaseResp:
         description: The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/GetMenuListBaseInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetUserInfoResp:
         description: The response data of user's basic information | 用户基本信息返回数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/UserBaseInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetUserListReq:
         description: Get user list request | 获取用户列表请求参数
-        properties:
-            email:
-                description: The user's email address | 用户的邮箱
-                maxLength: 100
-                type: string
-                x-go-name: Email
-            mobile:
-                description: User's mobile phone number | 用户的手机号码
-                maxLength: 18
-                type: string
-                x-go-name: Mobile
-            nickname:
-                description: User's nickname | 用户的昵称
-                maxLength: 10
-                type: string
-                x-go-name: Nickname
-            page:
-                description: Page number | 第几页
-                format: uint64
-                type: integer
-                x-go-name: Page
-            pageSize:
-                description: Page size | 单页数据行数
-                format: uint64
-                maximum: 100000
-                type: integer
-                x-go-name: PageSize
-            roleId:
-                description: User's role ID | 用户的角色ID
-                format: uint64
-                maximum: 1000
-                type: integer
-                x-go-name: RoleId
-            username:
-                description: User Name | 用户名
-                maxLength: 20
-                type: string
-                x-go-name: Username
-        required:
-            - page
-            - pageSize
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     GetUserRoleInfo:
         description: The response data of user's basic role information | 用户角色信息数据
-        properties:
-            roleName:
-                description: Role name | 角色名
-                type: string
-                x-go-name: RoleName
-            value:
-                description: Role value for permission control | 角色值用于前端页面组件显示权限
-                type: string
-                x-go-name: Value
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     IDPathReq:
         description: Basic ID request | 基础ID地址参数请求
-        properties:
-            Id:
-                description: ID
-                format: uint64
-                type: integer
-        required:
-            - Id
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     IDReq:
         description: Basic ID request | 基础ID参数请求
-        properties:
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-        required:
-            - id
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     IDsReq:
         description: Basic IDs request | 基础ID数组参数请求
-        properties:
-            ids:
-                description: IDs
-                items:
-                    format: uint64
-                    type: integer
-                type: array
-                x-go-name: Ids
-        required:
-            - ids
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     LoginInfo:
         description: The log in information | 登陆返回的数据信息
-        properties:
-            expire:
-                description: Expire timestamp | 过期时间戳
-                format: uint64
-                type: integer
-                x-go-name: Expire
-            role:
-                $ref: '#/definitions/RoleInfoSimple'
-            token:
-                description: Token for authorization | 验证身份的token
-                type: string
-                x-go-name: Token
-            userId:
-                description: User's UUID | 用户的UUID
-                type: string
-                x-go-name: UserId
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     LoginReq:
         description: login request | 登录参数
-        properties:
-            captcha:
-                description: The Captcha which users input | 用户输入的验证码
-                maxLength: 5
-                type: string
-                x-go-name: Captcha
-            captchaId:
-                description: Captcha ID which store in redis | 验证码编号, 存在redis中
-                maxLength: 20
-                type: string
-                x-go-name: CaptchaId
-            password:
-                description: Password | 密码
-                maxLength: 30
-                minLength: 6
-                type: string
-                x-go-name: Password
-            username:
-                description: User Name | 用户名
-                maxLength: 20
-                type: string
-                x-go-name: Username
-        required:
-            - username
-            - password
-            - captchaId
-            - captcha
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     LoginResp:
         description: The log in response data | 登录返回数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/LoginInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuAuthorityInfoReq:
         description: Create or update menu authorization information request params | 创建或更新菜单授权信息参数
-        properties:
-            menuIds:
-                description: menu ID array | 菜单ID数组
-                items:
-                    format: uint64
-                    type: integer
-                type: array
-                x-go-name: MenuIds
-            roleId:
-                description: role ID | 角色ID
-                format: uint64
-                maximum: 1000
-                type: integer
-                x-go-name: RoleId
-        required:
-            - roleId
-            - menuIds
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuAuthorityInfoResp:
         description: Menu authorization response data | 菜单授权信息数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/MenuAuthorityInfoReq'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuInfo:
         description: The response data of menu information | 菜单返回数据
-        properties:
-            affix:
-                description: Affix tab | 是否固定标签
-                type: boolean
-                x-go-name: Affix
-            carryParam:
-                description: The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
-                type: boolean
-                x-go-name: CarryParam
-            children:
-                description: |-
-                    children | 子集
-                    in: body
-                items:
-                    $ref: '#/definitions/MenuInfo'
-                type: array
-                x-go-name: Children
-            component:
-                description: The component path | 组件路径
-                type: string
-                x-go-name: Component
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-                x-go-name: CreatedAt
-            currentActiveMenu:
-                description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
-                maxLength: 30
-                type: string
-                x-go-name: CurrentActiveMenu
-            disabled:
-                description: If disabled | 是否禁用菜单
-                type: boolean
-                x-go-name: Disabled
-            dynamicLevel:
-                description: The maximum number of pages the router can open | 动态路由可打开Tab页数
-                format: uint32
-                type: integer
-                x-go-name: DynamicLevel
-            frameSrc:
-                description: Iframe path | 内嵌iframe的地址
-                type: string
-                x-go-name: FrameSrc
-            hideBreadcrumb:
-                description: If hide the breadcrumb | 隐藏面包屑
-                type: boolean
-                x-go-name: HideBreadcrumb
-            hideChildrenInMenu:
-                description: Hide children menu or not | 隐藏所有子菜单
-                type: boolean
-                x-go-name: HideChildrenInMenu
-            hideMenu:
-                description: Hide menu | 隐藏菜单
-                type: boolean
-                x-go-name: HideMenu
-            hideTab:
-                description: Hide the tab header | 当前路由不在标签页显示
-                type: boolean
-                x-go-name: HideTab
-            icon:
-                description: Menu Icon | 菜单图标
-                maxLength: 50
-                type: string
-                x-go-name: Icon
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            ignoreKeepAlive:
-                description: Do not keep alive the tab | 不缓存Tab
-                type: boolean
-                x-go-name: IgnoreKeepAlive
-            level:
-                description: The menu level | 菜单等级
-                format: uint32
-                type: integer
-                x-go-name: MenuLevel
-            name:
-                description: Menu name | 菜单名
-                type: string
-                x-go-name: Name
-            parentId:
-                description: Parent menu ID | 父级菜单ID
-                format: uint64
-                type: integer
-                x-go-name: ParentId
-            path:
-                description: The path to visit menu | 菜单访问路径
-                type: string
-                x-go-name: Path
-            realPath:
-                description: The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
-                type: string
-                x-go-name: RealPath
-            redirect:
-                description: Redirect path | 跳转路径
-                type: string
-                x-go-name: Redirect
-            sort:
-                description: The sorting number | 排序编号
-                format: uint32
-                type: integer
-                x-go-name: Sort
-            title:
-                description: Menu title show in page | 菜单显示名
-                maxLength: 50
-                type: string
-                x-go-name: Title
-            trans:
-                description: Title translation | 标题翻译
-                type: string
-                x-go-name: Trans
-            type:
-                description: |-
-                    Menu type: directory or menu | 菜单类型: 目录或菜单
-                    0. directory group 1. menu | 0 目录 1 菜单
-                format: uint32
-                type: integer
-                x-go-name: MenuType
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-                x-go-name: UpdatedAt
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuListInfo:
         description: The  data of menu list | 菜单列表数据
-        properties:
-            data:
-                description: The menu list data | 菜单列表数据
-                items:
-                    $ref: '#/definitions/MenuInfo'
-                type: array
-                x-go-name: Data
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-                x-go-name: Total
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuListResp:
         description: The response data of menu list | 菜单列表返回数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/MenuListInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuParamInfo:
         description: The information of menu parameter  | 菜单参数数据
-        properties:
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-                x-go-name: CreatedAt
-            dataType:
-                description: Data Type | 数据类型
-                type: string
-                x-go-name: DataType
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            key:
-                description: Key | 键
-                type: string
-                x-go-name: Key
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-                x-go-name: UpdatedAt
-            value:
-                description: Value | 值
-                type: string
-                x-go-name: Value
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuParamListByMenuIdInfo:
         description: The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
-        properties:
-            data:
-                description: The menu list data | 菜单列表数据
-                items:
-                    $ref: '#/definitions/MenuParamInfo'
-                type: array
-                x-go-name: Data
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-                x-go-name: Total
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuParamListByMenuIdResp:
         description: The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/MenuParamListByMenuIdInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuParamResp:
         description: The response data of menu parameters  | 菜单参数返回数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/MenuParamInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     Meta:
         description: The meta data of menu | 菜单的meta数据
-        properties:
-            affix:
-                description: Affix tab | 是否固定标签
-                type: boolean
-                x-go-name: Affix
-            carryParam:
-                description: The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
-                type: boolean
-                x-go-name: CarryParam
-            currentActiveMenu:
-                description: Current active menu, if not nil, it will active the tab | 当前激活的菜单
-                maxLength: 30
-                type: string
-                x-go-name: CurrentActiveMenu
-            dynamicLevel:
-                description: The maximum number of pages the router can open | 动态路由可打开Tab页数
-                format: uint32
-                type: integer
-                x-go-name: DynamicLevel
-            frameSrc:
-                description: Iframe path | 内嵌iframe的地址
-                type: string
-                x-go-name: FrameSrc
-            hideBreadcrumb:
-                description: If hide the breadcrumb | 隐藏面包屑
-                type: boolean
-                x-go-name: HideBreadcrumb
-            hideChildrenInMenu:
-                description: Hide children menu or not | 隐藏所有子菜单
-                type: boolean
-                x-go-name: HideChildrenInMenu
-            hideMenu:
-                description: Hide menu | 隐藏菜单
-                type: boolean
-                x-go-name: HideMenu
-            hideTab:
-                description: Hide the tab header | 当前路由不在标签页显示
-                type: boolean
-                x-go-name: HideTab
-            icon:
-                description: Menu Icon | 菜单图标
-                maxLength: 50
-                type: string
-                x-go-name: Icon
-            ignoreKeepAlive:
-                description: Do not keep alive the tab | 不缓存Tab
-                type: boolean
-                x-go-name: IgnoreKeepAlive
-            realPath:
-                description: The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
-                type: string
-                x-go-name: RealPath
-            title:
-                description: Menu title show in page | 菜单显示名
-                maxLength: 50
-                type: string
-                x-go-name: Title
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     OauthLoginReq:
         description: Oauth log in request | Oauth 登录请求
-        properties:
-            provider:
-                description: Provider name | 提供商名字
-                example: google
-                maxLength: 40
-                type: string
-                x-go-name: Provider
-            state:
-                description: State code to avoid hack | 状态码，请求前后相同避免安全问题
-                maxLength: 30
-                type: string
-                x-go-name: State
-        required:
-            - state
-            - provider
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     PageInfo:
         description: The page request parameters | 列表请求参数
-        properties:
-            page:
-                description: Page number | 第几页
-                format: uint64
-                type: integer
-                x-go-name: Page
-            pageSize:
-                description: Page size | 单页数据行数
-                format: uint64
-                maximum: 100000
-                type: integer
-                x-go-name: PageSize
-        required:
-            - page
-            - pageSize
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     PermCodeResp:
         description: The permission code for front end permission control | 权限码： 用于前端权限控制
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                description: Permission code data | 权限码数据
-                items:
-                    type: string
-                type: array
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ProfileInfo:
         description: The profile information | 个人信息
-        properties:
-            avatar:
-                description: The user's avatar path | 用户的头像路径
-                type: string
-                x-go-name: Avatar
-            email:
-                description: The user's email address | 用户的邮箱
-                type: string
-                x-go-name: Email
-            mobile:
-                description: User's mobile phone number | 用户的手机号码
-                type: string
-                x-go-name: Mobile
-            nickname:
-                description: user's nickname | 用户的昵称
-                type: string
-                x-go-name: Nickname
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ProfileReq:
         description: The profile request data | 个人信息请求参数
-        properties:
-            avatar:
-                description: The user's avatar path | 用户的头像路径
-                type: string
-                x-go-name: Avatar
-            email:
-                description: The user's email address | 用户的邮箱
-                maxLength: 100
-                type: string
-                x-go-name: Email
-            mobile:
-                description: User's mobile phone number | 用户的手机号码
-                maxLength: 18
-                type: string
-                x-go-name: Mobile
-            nickname:
-                description: user's nickname | 用户的昵称
-                maxLength: 10
-                type: string
-                x-go-name: Nickname
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ProfileResp:
         description: The profile response data | 个人信息返回数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/ProfileInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ProviderInfo:
         description: The response data of oauth provider information | 提供者信息
-        properties:
-            authStyle:
-                description: Auth Style is specifies how the endpoint wants the client ID & client secret sent. The zero value means to auto-detect. | 鉴权方式, 0 表示自动检测
-                format: int64
-                type: integer
-                x-go-name: AuthStyle
-            authURL:
-                description: Auth URL | 鉴权URL
-                type: string
-                x-go-name: AuthURL
-            clientId:
-                description: Client ID | 客户端ID
-                type: string
-                x-go-name: ClientId
-            clientSecret:
-                description: Client secret | 客户端密码
-                type: string
-                x-go-name: ClientSecret
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-                x-go-name: CreatedAt
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            infoURL:
-                description: Get User information URL | 获取用户信息地址
-                type: string
-                x-go-name: InfoURL
-            name:
-                description: Provider name | 提供商名字
-                type: string
-                x-go-name: Name
-            redirectURL:
-                description: Redirect URL | 跳转URL
-                type: string
-                x-go-name: RedirectURL
-            scopes:
-                description: Scopes | 范围
-                type: string
-                x-go-name: Scopes
-            tokenURL:
-                description: Token URL | 获取 Token 的网址
-                type: string
-                x-go-name: TokenURL
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-                x-go-name: UpdatedAt
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ProviderListInfo:
         description: The data of provider list | 提供商列表数据
-        properties:
-            data:
-                description: The provider list data | 提供商列表数据
-                items:
-                    $ref: '#/definitions/ProviderInfo'
-                type: array
-                x-go-name: Data
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-                x-go-name: Total
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ProviderListResp:
         description: The response data of provider list | 提供商列表返回数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/ProviderListInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RedirectInfo:
         description: Redirect information | 跳转网址
-        properties:
-            URL:
-                description: Redirect URL | 跳转网址
-                type: string
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RedirectResp:
         description: Redirect response | 跳转网址返回信息
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/RedirectInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RegisterReq:
         description: register request | 注册参数
-        properties:
-            captcha:
-                description: The Captcha which users input | 用户输入的验证码
-                maxLength: 5
-                type: string
-                x-go-name: Captcha
-            captchaId:
-                description: Captcha ID which store in redis | 验证码编号, 存在redis中
-                maxLength: 20
-                type: string
-                x-go-name: CaptchaId
-            email:
-                description: The user's email address | 用户的邮箱
-                maxLength: 100
-                type: string
-                x-go-name: Email
-            password:
-                description: Password | 密码
-                maxLength: 30
-                minLength: 6
-                type: string
-                x-go-name: Password
-            username:
-                description: User Name | 用户名
-                maxLength: 20
-                type: string
-                x-go-name: Username
-        required:
-            - username
-            - password
-            - captchaId
-            - captcha
-            - email
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleInfo:
         description: Create or update role information params | 创建或更新角色信息参数
-        properties:
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-                x-go-name: CreatedAt
-            defaultRouter:
-                description: Role's default page | 角色默认管理页面
-                maxLength: 20
-                type: string
-                x-go-name: DefaultRouter
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            name:
-                description: Role Name | 角色名
-                maxLength: 20
-                type: string
-                x-go-name: Name
-            remark:
-                description: Role remark | 角色备注
-                maxLength: 200
-                type: string
-                x-go-name: Remark
-            sort:
-                description: Role's sorting number | 角色排序
-                format: uint32
-                maximum: 1000
-                type: integer
-                x-go-name: Sort
-            status:
-                description: Role status | 角色状态
-                format: uint32
-                maximum: 20
-                type: integer
-                x-go-name: Status
-            title:
-                description: Role translation | 角色名称国际化
-                type: string
-                x-go-name: Title
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-                x-go-name: UpdatedAt
-            value:
-                description: Role value | 角色值
-                maxLength: 10
-                type: string
-                x-go-name: Value
-        required:
-            - name
-            - value
-            - defaultRouter
-            - status
-            - remark
-            - sort
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleInfoSimple:
         description: The simple role data | 简单的角色数据
-        properties:
-            roleName:
-                description: Role name | 角色名
-                type: string
-                x-go-name: RoleName
-            value:
-                description: Role value | 角色值
-                type: string
-                x-go-name: Value
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleListInfo:
         description: The data of role list | 角色列表数据
-        properties:
-            data:
-                description: The role list data | 角色列表数据
-                items:
-                    $ref: '#/definitions/RoleInfo'
-                type: array
-                x-go-name: Data
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-                x-go-name: Total
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleListResp:
         description: The response data of role list | 角色列表返回数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/RoleListInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     StatusCodeReq:
         description: The request params of setting status code | 设置状态参数
-        properties:
-            id:
-                description: ID
-                format: uint64
-                type: integer
-                x-go-name: Id
-            status:
-                description: Status code | 状态码
-                format: uint64
-                type: integer
-                x-go-name: Status
-        required:
-            - id
-            - status
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     StatusCodeUUIDReq:
         description: The request params of setting status code by UUID | 根据UUID设置状态参数
-        properties:
-            id:
-                description: ID
-                type: string
-                x-go-name: Id
-            status:
-                description: Status code | 状态码
-                format: uint64
-                type: integer
-                x-go-name: Status
-        required:
-            - id
-            - status
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TokenInfo:
         description: The response data of Token information | Token信息
-        properties:
-            UUID:
-                description: User's UUID | 用户的UUID
-                type: string
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-                x-go-name: CreatedAt
-            expiredAt:
-                description: Expire time | 过期时间
-                format: int64
-                type: integer
-                x-go-name: ExpiredAt
-            id:
-                description: ID
-                type: string
-                x-go-name: Id
-            source:
-                description: Log in source such as github | Token 来源 （本地为core, 第三方如github等）
-                type: string
-                x-go-name: Source
-            status:
-                description: JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-                format: uint64
-                type: integer
-                x-go-name: Status
-            token:
-                description: Token string | Token 字符串
-                type: string
-                x-go-name: Token
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-                x-go-name: UpdatedAt
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TokenListInfo:
         description: The  data of Token list | Token列表数据
-        properties:
-            data:
-                description: The token list data | Token列表数据
-                items:
-                    $ref: '#/definitions/TokenInfo'
-                type: array
-                x-go-name: Data
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-                x-go-name: Total
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TokenListReq:
         description: Get token list request params | token列表请求参数
-        properties:
-            UUID:
-                description: User's UUID | 用户的UUID
-                maxLength: 36
-                type: string
-            email:
-                description: The user's email address | 用户的邮箱
-                maxLength: 100
-                type: string
-                x-go-name: Email
-            nickname:
-                description: user's nickname | 用户的昵称
-                maxLength: 10
-                type: string
-                x-go-name: Nickname
-            page:
-                description: Page number | 第几页
-                format: uint64
-                type: integer
-                x-go-name: Page
-            pageSize:
-                description: Page size | 单页数据行数
-                format: uint64
-                maximum: 100000
-                type: integer
-                x-go-name: PageSize
-            username:
-                description: User Name | 用户名
-                maxLength: 20
-                type: string
-                x-go-name: Username
-        required:
-            - page
-            - pageSize
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TokenListResp:
         description: The response data of Token list | Token列表返回数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/TokenListInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UUIDReq:
         description: Basic UUID request | 基础UUID参数请求
-        properties:
-            id:
-                description: ID
-                maxLength: 36
-                type: string
-                x-go-name: Id
-        required:
-            - id
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UUIDsReq:
         description: Basic UUID array request | 基础UUID数组参数请求
-        properties:
-            ids:
-                description: Ids
-                items:
-                    type: string
-                maxLength: 36
-                type: array
-                x-go-name: Ids
-        required:
-            - ids
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UserBaseInfo:
         description: The  data of user's basic information | 用户基本信息
-        properties:
-            avatar:
-                description: The user's avatar path | 用户的头像路径
-                type: string
-                x-go-name: Avatar
-            nickname:
-                description: User's nickname | 用户的昵称
-                type: string
-                x-go-name: Nickname
-            roles:
-                $ref: '#/definitions/GetUserRoleInfo'
-            userId:
-                description: User's UUID | 用户的UUID
-                type: string
-                x-go-name: UUID
-            username:
-                description: User's name | 用户名
-                type: string
-                x-go-name: Username
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UserInfoResp:
         description: The response data of user's information | 用户信息返回数据
-        properties:
-            avatar:
-                description: The user's avatar path | 用户的头像路径
-                type: string
-                x-go-name: Avatar
-            createdAt:
-                description: Create date | 创建日期
-                format: int64
-                type: integer
-                x-go-name: CreatedAt
-            email:
-                description: The user's email address | 用户的邮箱
-                type: string
-                x-go-name: Email
-            id:
-                description: ID
-                type: string
-                x-go-name: Id
-            mobile:
-                description: User's mobile phone number | 用户的手机号码
-                type: string
-                x-go-name: Mobile
-            nickname:
-                description: User's nickname | 用户的昵称
-                type: string
-                x-go-name: Nickname
-            roleId:
-                description: User's role id | 用户的角色ID
-                format: uint64
-                type: integer
-                x-go-name: RoleId
-            sideMode:
-                description: The user's layout mode | 用户的布局
-                type: string
-                x-go-name: SideMode
-            status:
-                description: |-
-                    The user's status | 用户状态
-                    1 normal, 2 ban | 1 正常 2 拉黑
-                format: uint64
-                type: integer
-                x-go-name: Status
-            updatedAt:
-                description: Update date | 更新日期
-                format: int64
-                type: integer
-                x-go-name: UpdatedAt
-            username:
-                description: User Name | 用户名
-                type: string
-                x-go-name: Username
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UserListInfo:
         description: The response data of user list | 用户列表数据
-        properties:
-            data:
-                description: The user list data | 用户列表数据
-                items:
-                    $ref: '#/definitions/UserInfoResp'
-                type: array
-                x-go-name: Data
-            total:
-                description: The total number of data | 数据总数
-                format: uint64
-                type: integer
-                x-go-name: Total
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UserListResp:
         description: The response data of user list | 用户列表返回数据
-        properties:
-            code:
-                description: Error code | 错误代码
-                format: int64
-                type: integer
-                x-go-name: Code
-            data:
-                $ref: '#/definitions/UserListInfo'
-                description: Data | 数据
-                type: string
-                x-go-name: Data
-            msg:
-                description: Message | 提示信息
-                type: string
-                x-go-name: Msg
-        type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
 host: localhost:9100
 info:
@@ -2440,6 +428,96 @@ paths:
             summary: Initialize database | 初始化数据库
             tags:
                 - core
+    /department/batch_delete:
+        post:
+            description: Delete Department information | 删除Department信息
+            operationId: BatchDeleteDepartment
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDsReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete Department information | 删除Department信息
+            tags:
+                - department
+    /department/create_or_update:
+        post:
+            description: Create or update Department information | 创建或更新Department
+            operationId: CreateOrUpdateDepartment
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/CreateOrUpdateDepartmentReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Create or update Department information | 创建或更新Department
+            tags:
+                - department
+    /department/delete:
+        post:
+            description: Delete Department information | 删除Department信息
+            operationId: DeleteDepartment
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete Department information | 删除Department信息
+            tags:
+                - department
+    /department/list:
+        post:
+            description: Get Department list | 获取Department列表
+            operationId: GetDepartmentList
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/DepartmentListReq'
+                    type: object
+            responses:
+                "200":
+                    description: DepartmentListResp
+                    schema:
+                        $ref: '#/definitions/DepartmentListResp'
+            summary: Get Department list | 获取Department列表
+            tags:
+                - department
+    /department/status:
+        post:
+            description: Set department's status | 更新Department状态
+            operationId: UpdateDepartmentStatus
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/StatusCodeReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Set department's status | 更新Department状态
+            tags:
+                - department
     /dict/create_or_update:
         post:
             description: Create or update dictionary information | 创建或更新字典信息
@@ -2656,9 +734,7 @@ paths:
             operationId: GetMenuByRole
             responses:
                 "200":
-                    description: GetMenuListBase
-                    schema:
-                        $ref: '#/definitions/GetMenuListBase'
+                    $ref: '#/responses/GetMenuListBase'
             summary: Get role's menu list API | 获取角色菜单列表
             tags:
                 - menu

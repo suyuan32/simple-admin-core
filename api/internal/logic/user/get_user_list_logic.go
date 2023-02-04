@@ -30,13 +30,14 @@ func NewGetUserListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetUserLi
 
 func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.UserListResp, err error) {
 	data, err := l.svcCtx.CoreRpc.GetUserList(l.ctx, &core.GetUserListReq{
-		Page:     req.Page,
-		PageSize: req.PageSize,
-		Username: req.Username,
-		Nickname: req.Nickname,
-		Email:    req.Email,
-		Mobile:   req.Mobile,
-		RoleId:   req.RoleId,
+		Page:         req.Page,
+		PageSize:     req.PageSize,
+		Username:     req.Username,
+		Nickname:     req.Nickname,
+		Email:        req.Email,
+		Mobile:       req.Mobile,
+		RoleId:       req.RoleId,
+		DepartmentId: req.DepartmentId,
 	})
 	if err != nil {
 		return nil, err
@@ -49,13 +50,16 @@ func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.U
 				CreatedAt: v.CreatedAt,
 				UpdatedAt: v.UpdatedAt,
 			},
-			Username: v.Username,
-			Nickname: v.Nickname,
-			Mobile:   v.Mobile,
-			RoleId:   v.RoleId,
-			Email:    v.Email,
-			Avatar:   v.Avatar,
-			Status:   v.Status,
+			Username:     v.Username,
+			Nickname:     v.Nickname,
+			Mobile:       v.Mobile,
+			RoleId:       v.RoleId,
+			Email:        v.Email,
+			Avatar:       v.Avatar,
+			Status:       v.Status,
+			Description:  v.Description,
+			HomePath:     v.HomePath,
+			DepartmentId: v.DepartmentId,
 		})
 	}
 	resp = &types.UserListResp{}

@@ -27,19 +27,30 @@ type CoreClient interface {
 	// group: api
 	DeleteApi(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: api
-	GetApiList(ctx context.Context, in *ApiPageReq, opts ...grpc.CallOption) (*ApiListResp, error)
+	GetApiList(ctx context.Context, in *ApiListReq, opts ...grpc.CallOption) (*ApiListResp, error)
 	// group: authority
 	GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
 	// group: authority
 	CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: base
 	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
+	// Department management
+	// group: department
+	CreateOrUpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: department
+	GetDepartmentList(ctx context.Context, in *DepartmentListReq, opts ...grpc.CallOption) (*DepartmentListResp, error)
+	// group: department
+	DeleteDepartment(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: department
+	BatchDeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: department
+	UpdateDepartmentStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: dictionary
 	CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: dictionary
 	DeleteDictionary(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: dictionary
-	GetDictionaryList(ctx context.Context, in *DictionaryPageReq, opts ...grpc.CallOption) (*DictionaryList, error)
+	GetDictionaryList(ctx context.Context, in *DictionaryListReq, opts ...grpc.CallOption) (*DictionaryList, error)
 	// group: dictionary
 	GetDetailByDictionaryName(ctx context.Context, in *DictionaryDetailReq, opts ...grpc.CallOption) (*DictionaryDetailList, error)
 	// group: dictionary
@@ -138,7 +149,7 @@ func (c *coreClient) DeleteApi(ctx context.Context, in *IDReq, opts ...grpc.Call
 	return out, nil
 }
 
-func (c *coreClient) GetApiList(ctx context.Context, in *ApiPageReq, opts ...grpc.CallOption) (*ApiListResp, error) {
+func (c *coreClient) GetApiList(ctx context.Context, in *ApiListReq, opts ...grpc.CallOption) (*ApiListResp, error) {
 	out := new(ApiListResp)
 	err := c.cc.Invoke(ctx, "/core.Core/getApiList", in, out, opts...)
 	if err != nil {
@@ -174,6 +185,51 @@ func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.C
 	return out, nil
 }
 
+func (c *coreClient) CreateOrUpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateDepartment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetDepartmentList(ctx context.Context, in *DepartmentListReq, opts ...grpc.CallOption) (*DepartmentListResp, error) {
+	out := new(DepartmentListResp)
+	err := c.cc.Invoke(ctx, "/core.Core/getDepartmentList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteDepartment(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteDepartment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) BatchDeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/batchDeleteDepartment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateDepartmentStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/updateDepartmentStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *coreClient) CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateDictionary", in, out, opts...)
@@ -192,7 +248,7 @@ func (c *coreClient) DeleteDictionary(ctx context.Context, in *IDReq, opts ...gr
 	return out, nil
 }
 
-func (c *coreClient) GetDictionaryList(ctx context.Context, in *DictionaryPageReq, opts ...grpc.CallOption) (*DictionaryList, error) {
+func (c *coreClient) GetDictionaryList(ctx context.Context, in *DictionaryListReq, opts ...grpc.CallOption) (*DictionaryList, error) {
 	out := new(DictionaryList)
 	err := c.cc.Invoke(ctx, "/core.Core/getDictionaryList", in, out, opts...)
 	if err != nil {
@@ -525,19 +581,30 @@ type CoreServer interface {
 	// group: api
 	DeleteApi(context.Context, *IDReq) (*BaseResp, error)
 	// group: api
-	GetApiList(context.Context, *ApiPageReq) (*ApiListResp, error)
+	GetApiList(context.Context, *ApiListReq) (*ApiListResp, error)
 	// group: authority
 	GetMenuAuthority(context.Context, *IDReq) (*RoleMenuAuthorityResp, error)
 	// group: authority
 	CreateOrUpdateMenuAuthority(context.Context, *RoleMenuAuthorityReq) (*BaseResp, error)
 	// group: base
 	InitDatabase(context.Context, *Empty) (*BaseResp, error)
+	// Department management
+	// group: department
+	CreateOrUpdateDepartment(context.Context, *DepartmentInfo) (*BaseResp, error)
+	// group: department
+	GetDepartmentList(context.Context, *DepartmentListReq) (*DepartmentListResp, error)
+	// group: department
+	DeleteDepartment(context.Context, *IDReq) (*BaseResp, error)
+	// group: department
+	BatchDeleteDepartment(context.Context, *IDsReq) (*BaseResp, error)
+	// group: department
+	UpdateDepartmentStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
 	// group: dictionary
 	CreateOrUpdateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error)
 	// group: dictionary
 	DeleteDictionary(context.Context, *IDReq) (*BaseResp, error)
 	// group: dictionary
-	GetDictionaryList(context.Context, *DictionaryPageReq) (*DictionaryList, error)
+	GetDictionaryList(context.Context, *DictionaryListReq) (*DictionaryList, error)
 	// group: dictionary
 	GetDetailByDictionaryName(context.Context, *DictionaryDetailReq) (*DictionaryDetailList, error)
 	// group: dictionary
@@ -621,7 +688,7 @@ func (UnimplementedCoreServer) CreateOrUpdateApi(context.Context, *ApiInfo) (*Ba
 func (UnimplementedCoreServer) DeleteApi(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteApi not implemented")
 }
-func (UnimplementedCoreServer) GetApiList(context.Context, *ApiPageReq) (*ApiListResp, error) {
+func (UnimplementedCoreServer) GetApiList(context.Context, *ApiListReq) (*ApiListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApiList not implemented")
 }
 func (UnimplementedCoreServer) GetMenuAuthority(context.Context, *IDReq) (*RoleMenuAuthorityResp, error) {
@@ -633,13 +700,28 @@ func (UnimplementedCoreServer) CreateOrUpdateMenuAuthority(context.Context, *Rol
 func (UnimplementedCoreServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
 }
+func (UnimplementedCoreServer) CreateOrUpdateDepartment(context.Context, *DepartmentInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateDepartment not implemented")
+}
+func (UnimplementedCoreServer) GetDepartmentList(context.Context, *DepartmentListReq) (*DepartmentListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDepartmentList not implemented")
+}
+func (UnimplementedCoreServer) DeleteDepartment(context.Context, *IDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDepartment not implemented")
+}
+func (UnimplementedCoreServer) BatchDeleteDepartment(context.Context, *IDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteDepartment not implemented")
+}
+func (UnimplementedCoreServer) UpdateDepartmentStatus(context.Context, *StatusCodeReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDepartmentStatus not implemented")
+}
 func (UnimplementedCoreServer) CreateOrUpdateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateDictionary not implemented")
 }
 func (UnimplementedCoreServer) DeleteDictionary(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionary not implemented")
 }
-func (UnimplementedCoreServer) GetDictionaryList(context.Context, *DictionaryPageReq) (*DictionaryList, error) {
+func (UnimplementedCoreServer) GetDictionaryList(context.Context, *DictionaryListReq) (*DictionaryList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDictionaryList not implemented")
 }
 func (UnimplementedCoreServer) GetDetailByDictionaryName(context.Context, *DictionaryDetailReq) (*DictionaryDetailList, error) {
@@ -797,7 +879,7 @@ func _Core_DeleteApi_Handler(srv interface{}, ctx context.Context, dec func(inte
 }
 
 func _Core_GetApiList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ApiPageReq)
+	in := new(ApiListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -809,7 +891,7 @@ func _Core_GetApiList_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: "/core.Core/getApiList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetApiList(ctx, req.(*ApiPageReq))
+		return srv.(CoreServer).GetApiList(ctx, req.(*ApiListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -868,6 +950,96 @@ func _Core_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_CreateOrUpdateDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DepartmentInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateOrUpdateDepartment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/createOrUpdateDepartment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateOrUpdateDepartment(ctx, req.(*DepartmentInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetDepartmentList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DepartmentListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetDepartmentList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/getDepartmentList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetDepartmentList(ctx, req.(*DepartmentListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteDepartment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/deleteDepartment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteDepartment(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_BatchDeleteDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).BatchDeleteDepartment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/batchDeleteDepartment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).BatchDeleteDepartment(ctx, req.(*IDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateDepartmentStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StatusCodeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateDepartmentStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/updateDepartmentStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateDepartmentStatus(ctx, req.(*StatusCodeReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Core_CreateOrUpdateDictionary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DictionaryInfo)
 	if err := dec(in); err != nil {
@@ -905,7 +1077,7 @@ func _Core_DeleteDictionary_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 func _Core_GetDictionaryList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DictionaryPageReq)
+	in := new(DictionaryListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -917,7 +1089,7 @@ func _Core_GetDictionaryList_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: "/core.Core/getDictionaryList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetDictionaryList(ctx, req.(*DictionaryPageReq))
+		return srv.(CoreServer).GetDictionaryList(ctx, req.(*DictionaryListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1582,6 +1754,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "initDatabase",
 			Handler:    _Core_InitDatabase_Handler,
+		},
+		{
+			MethodName: "createOrUpdateDepartment",
+			Handler:    _Core_CreateOrUpdateDepartment_Handler,
+		},
+		{
+			MethodName: "getDepartmentList",
+			Handler:    _Core_GetDepartmentList_Handler,
+		},
+		{
+			MethodName: "deleteDepartment",
+			Handler:    _Core_DeleteDepartment_Handler,
+		},
+		{
+			MethodName: "batchDeleteDepartment",
+			Handler:    _Core_BatchDeleteDepartment_Handler,
+		},
+		{
+			MethodName: "updateDepartmentStatus",
+			Handler:    _Core_UpdateDepartmentStatus_Handler,
 		},
 		{
 			MethodName: "createOrUpdateDictionary",

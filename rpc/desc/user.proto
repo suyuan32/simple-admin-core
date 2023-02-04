@@ -24,10 +24,13 @@ message CreateOrUpdateUserReq {
   uint64 role_id = 3;
   string mobile = 4;
   string email = 5;
-  uint64 status = 6;
+  uint32 status = 6;
   string username = 7;
   string nickname = 8;
   string password = 9;
+  string home_path = 10;
+  string description = 11;
+  uint64 department_id = 12;
 }
 
 message UserInfoResp {
@@ -36,13 +39,16 @@ message UserInfoResp {
   uint64 role_id = 3;
   string mobile = 4;
   string email = 5;
-  uint64 status = 6;
+  uint32 status = 6;
   string username = 7;
   string nickname = 8;
   string roleName = 9;
   int64 created_at = 10;
   int64 updated_at = 11;
   string roleValue = 12;
+  string home_path = 13;
+  string description = 14;
+  uint64 department_id = 15;
 }
 
 message UserListResp {
@@ -58,6 +64,7 @@ message GetUserListReq {
   string email = 5;
   string mobile = 6;
   uint64 role_id = 7;
+  uint64 department_id = 8;
 }
 
 message UpdateProfileReq {
@@ -66,6 +73,7 @@ message UpdateProfileReq {
   string email = 3;
   string mobile = 4;
   string avatar = 5;
+  string description = 6;
 }
 
 // service

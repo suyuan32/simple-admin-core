@@ -16,7 +16,7 @@ message ApiListResp {
   repeated ApiInfo data = 2;
 }
 
-message ApiPageReq {
+message ApiListReq {
   uint64 page = 1;
   uint64 page_size = 2;
   string path = 3;
@@ -33,5 +33,5 @@ service Core {
   // group: api
   rpc deleteApi (IDReq) returns (BaseResp);
   // group: api
-  rpc getApiList (ApiPageReq) returns (ApiListResp);
+  rpc getApiList (ApiListReq) returns (ApiListResp);
 }
