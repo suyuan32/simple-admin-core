@@ -64,6 +64,7 @@ message GetUserListReq {
   string email = 5;
   string mobile = 6;
   uint64 role_id = 7;
+  uint64 department_id = 8;
 }
 
 message UpdateProfileReq {

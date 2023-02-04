@@ -646,12 +646,12 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuLevel(2).
 		SetMenuType(1).
 		SetParentID(2).
-		SetPath("/api").
-		SetName("API Management").
-		SetComponent("/sys/api/index").
-		SetSort(4).
-		SetTitle("route.apiManagementTitle").
-		SetIcon("ant-design:api-outlined").
+		SetPath("/user").
+		SetName("User Management").
+		SetComponent("/sys/user/index").
+		SetSort(3).
+		SetTitle("route.userManagementTitle").
+		SetIcon("ant-design:user-outlined").
 		SetHideMenu(false),
 	)
 
@@ -659,12 +659,25 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuLevel(2).
 		SetMenuType(1).
 		SetParentID(2).
-		SetPath("/user").
-		SetName("User Management").
-		SetComponent("/sys/user/index").
-		SetSort(3).
-		SetTitle("route.userManagementTitle").
-		SetIcon("ant-design:user-outlined").
+		SetPath("/department").
+		SetName("Department Management").
+		SetComponent("/sys/department/index").
+		SetSort(4).
+		SetTitle("route.departmentManagement").
+		SetIcon("ant-design:lock-outlined").
+		SetHideMenu(false),
+	)
+
+	menus = append(menus, l.svcCtx.DB.Menu.Create().
+		SetMenuLevel(2).
+		SetMenuType(1).
+		SetParentID(2).
+		SetPath("/api").
+		SetName("API Management").
+		SetComponent("/sys/api/index").
+		SetSort(5).
+		SetTitle("route.apiManagementTitle").
+		SetIcon("ant-design:api-outlined").
 		SetHideMenu(false),
 	)
 
@@ -688,7 +701,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/dictionary").
 		SetName("Dictionary Management").
 		SetComponent("/sys/dictionary/index").
-		SetSort(5).
+		SetSort(6).
 		SetTitle("route.dictionaryManagementTitle").
 		SetIcon("ant-design:book-outlined").
 		SetHideMenu(false),
@@ -709,8 +722,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
-		SetMenuType(2).
-		SetParentID(9).
+		SetMenuType(1).
+		SetParentID(10).
 		SetPath("/dictionary/detail").
 		SetName("Dictionary Detail").
 		SetComponent("/sys/dictionary/detail").
@@ -723,7 +736,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(1).
-		SetParentID(9).
+		SetParentID(10).
 		SetPath("/profile").
 		SetName("Profile").
 		SetComponent("/sys/profile/index").
@@ -755,19 +768,6 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetComponent("/sys/token/index").
 		SetSort(7).
 		SetTitle("route.tokenManagement").
-		SetIcon("ant-design:lock-outlined").
-		SetHideMenu(false),
-	)
-
-	menus = append(menus, l.svcCtx.DB.Menu.Create().
-		SetMenuLevel(2).
-		SetMenuType(1).
-		SetParentID(2).
-		SetPath("/department").
-		SetName("Department Management").
-		SetComponent("/sys/department/index").
-		SetSort(8).
-		SetTitle("route.departmentManagement").
 		SetIcon("ant-design:lock-outlined").
 		SetHideMenu(false),
 	)

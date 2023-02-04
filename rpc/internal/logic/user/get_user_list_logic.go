@@ -50,6 +50,10 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 		predicates = append(predicates, user.RoleIDEQ(in.RoleId))
 	}
 
+	if in.DepartmentId != 0 {
+		predicates = append(predicates, user.DepartmentIDEQ(in.DepartmentId))
+	}
+
 	users, err := l.svcCtx.DB.User.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		logx.Error(err.Error())

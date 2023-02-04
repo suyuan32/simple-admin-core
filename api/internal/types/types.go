@@ -421,7 +421,7 @@ type CreateOrUpdateUserReq struct {
 	// User's mobile phone number | 用户的手机号码
 	// Required: true
 	// Max length: 18
-	Mobile string `json:"mobile,optional" validate:"numeric,max=18"`
+	Mobile string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
 	// User's role id | 用户的角色ID
 	// Required: true
 	// Maximum: 1000
@@ -443,9 +443,9 @@ type CreateOrUpdateUserReq struct {
 	// Required: true
 	DepartmentId uint64 `json:"departmentId"`
 	// The home page that the user enters after logging in | 用户登陆后进入的首页
-	HomePath string `json:"homePath"`
+	HomePath string `json:"homePath,optional"`
 	// The description of user | 用户的描述信息
-	Description string `json:"desc"`
+	Description string `json:"desc,optional"`
 }
 
 // Get user list request | 获取用户列表请求参数
@@ -473,6 +473,8 @@ type GetUserListReq struct {
 	// User's role ID | 用户的角色ID
 	// Maximum: 1000
 	RoleId uint64 `json:"roleId,optional" validate:"omitempty,number,max=1000"`
+	// The user's department ID | 用户所属部门ID
+	DepartmentId uint64 `json:"departmentId,optional"`
 }
 
 // The response data of menu information | 菜单返回数据
