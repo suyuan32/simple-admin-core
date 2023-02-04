@@ -1173,6 +1173,8 @@ type TokenListReq struct {
 // swagger:model DepartmentInfo
 type DepartmentInfo struct {
 	BaseInfo
+	// Translated Name
+	Trans string `json:"trans"`
 	// Status
 	Status uint32 `json:"status"`
 	// Name
@@ -1204,7 +1206,7 @@ type CreateOrUpdateDepartmentReq struct {
 	// Name
 	Name string `json:"name"`
 	// Ancestors
-	Ancestors string `json:"ancestors"`
+	Ancestors string `json:"ancestors,optional"`
 	// Leader
 	Leader string `json:"leader"`
 	// Phone

@@ -137,5 +137,8 @@
 	"casbin": {
 		"removeFailed": "无法删除旧规则",
 		"addFailed": "无法添加新规则"
+	},
+	"department": {
+		"managementDepartment": "管理部门"
 	}
 }

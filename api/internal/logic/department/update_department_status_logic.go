@@ -29,7 +29,8 @@ func NewUpdateDepartmentStatusLogic(r *http.Request, svcCtx *svc.ServiceContext)
 
 func (l *UpdateDepartmentStatusLogic) UpdateDepartmentStatus(req *types.StatusCodeReq) (resp *types.BaseMsgResp, err error) {
 	result, err := l.svcCtx.CoreRpc.UpdateDepartmentStatus(l.ctx, &core.StatusCodeReq{
-		Id: req.Id,
+		Id:     req.Id,
+		Status: req.Status,
 	})
 	if err != nil {
 		return nil, err

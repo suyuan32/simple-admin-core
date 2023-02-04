@@ -137,5 +137,8 @@
 	"casbin": {
 		"removeFailed": "Fail to remove old policies",
 		"addFailed": "Fail to add new policies"
+	},
+	"department": {
+		"managementDepartment": "Management Department"
 	}
 }

@@ -52,6 +52,7 @@ func (l *GetDepartmentListLogic) GetDepartmentList(req *types.DepartmentListReq)
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,
 				},
+				Trans:     l.svcCtx.Trans.Trans(l.lang, v.Name),
 				Status:    v.Status,
 				Name:      v.Name,
 				Ancestors: v.Ancestors,
