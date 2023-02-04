@@ -487,9 +487,6 @@ type MenuInfo struct {
 	// If disabled | 是否禁用菜单
 	Disabled bool `json:"disabled"`
 	Meta
-	// children | 子集
-	// in: body
-	Children []*MenuInfo `json:"children"`
 }
 
 // The meta data of menu | 菜单的meta数据
@@ -507,13 +504,13 @@ type Meta struct {
 	HideBreadcrumb bool `json:"hideBreadcrumb" validate:"boolean"`
 	// Current active menu, if not nil, it will active the tab | 当前激活的菜单
 	// Max length: 30
-	CurrentActiveMenu string `json:"currentActiveMenu,omitempty" validate:"max=30"`
+	CurrentActiveMenu string `json:"currentActiveMenu"`
 	// Do not keep alive the tab | 不缓存Tab
 	IgnoreKeepAlive bool `json:"ignoreKeepAlive" validate:"boolean"`
 	// Hide the tab header | 当前路由不在标签页显示
 	HideTab bool `json:"hideTab" validate:"boolean"`
 	// Iframe path | 内嵌iframe的地址
-	FrameSrc string `json:"frameSrc,omitempty" validate:"max=100"`
+	FrameSrc string `json:"frameSrc"`
 	// The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
 	CarryParam bool `json:"carryParam" validate:"boolean"`
 	// Hide children menu or not | 隐藏所有子菜单
@@ -523,7 +520,7 @@ type Meta struct {
 	// The maximum number of pages the router can open | 动态路由可打开Tab页数
 	DynamicLevel uint32 `json:"dynamicLevel" validate:"number,lt=30"`
 	// The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
-	RealPath string `json:"realPath,omitempty" validate:"max=200"`
+	RealPath string `json:"realPath"`
 }
 
 // The response data of menu list | 菜单列表返回数据
@@ -544,6 +541,9 @@ type MenuListInfo struct {
 
 // The response data of role menu list data | 角色菜单列表数据
 type GetMenuListBase struct {
+	// ID
+	// Required: true
+	Id uint64 `json:"id"`
 	// Menu type: directory or menu | 菜单类型: 目录或菜单
 	MenuType uint32 `json:"type"`
 	// Parent menu ID | 父级菜单ID
@@ -562,11 +562,7 @@ type GetMenuListBase struct {
 	Sort uint32 `json:"sort"`
 	// If disabled | 是否禁用菜单
 	Disabled bool `json:"disabled"`
-	// in: body
-	Meta Meta `json:"meta"`
-	// children | 子集
-	// in: body
-	Children []*GetMenuListBase `json:"children"`
+	Meta     Meta `json:"meta"`
 }
 
 // The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取

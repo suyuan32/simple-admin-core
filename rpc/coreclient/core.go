@@ -14,8 +14,8 @@ import (
 
 type (
 	ApiInfo                    = core.ApiInfo
-	ApiListResp                = core.ApiListResp
 	ApiListReq                 = core.ApiListReq
+	ApiListResp                = core.ApiListResp
 	BaseResp                   = core.BaseResp
 	CallbackReq                = core.CallbackReq
 	ChangePasswordReq          = core.ChangePasswordReq
@@ -23,8 +23,8 @@ type (
 	CreateOrUpdateMenuReq      = core.CreateOrUpdateMenuReq
 	CreateOrUpdateUserReq      = core.CreateOrUpdateUserReq
 	DepartmentInfo             = core.DepartmentInfo
-	DepartmentListResp         = core.DepartmentListResp
 	DepartmentListReq          = core.DepartmentListReq
+	DepartmentListResp         = core.DepartmentListResp
 	DictionaryDetail           = core.DictionaryDetail
 	DictionaryDetailList       = core.DictionaryDetailList
 	DictionaryDetailReq        = core.DictionaryDetailReq

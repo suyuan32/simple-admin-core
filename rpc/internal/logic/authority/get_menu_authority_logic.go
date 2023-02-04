@@ -29,8 +29,7 @@ func NewGetMenuAuthorityLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *GetMenuAuthorityLogic) GetMenuAuthority(in *core.IDReq) (*core.RoleMenuAuthorityResp, error) {
-	menus, err := l.svcCtx.DB.Role.Query().Where(role.ID(in.Id)).QueryMenus().All(l.ctx)
-
+	menus, err := l.svcCtx.DB.Role.Query().Where(role.ID(in.Id)).QueryMenus().IDs(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
@@ -42,12 +41,5 @@ func (l *GetMenuAuthorityLogic) GetMenuAuthority(in *core.IDReq) (*core.RoleMenu
 		}
 	}
 
-	var menuIds []uint64
-	for _, v := range menus {
-		if v.ID != 1 {
-			menuIds = append(menuIds, v.ID)
-		}
-	}
-
-	return &core.RoleMenuAuthorityResp{MenuId: menuIds}, nil
+	return &core.RoleMenuAuthorityResp{MenuId: menus}, nil
 }

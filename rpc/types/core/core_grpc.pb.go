@@ -8,7 +8,6 @@ package core
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -680,200 +679,153 @@ type CoreServer interface {
 }
 
 // UnimplementedCoreServer must be embedded to have forward compatible implementations.
-type UnimplementedCoreServer struct{}
+type UnimplementedCoreServer struct {
+}
 
 func (UnimplementedCoreServer) CreateOrUpdateApi(context.Context, *ApiInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateApi not implemented")
 }
-
 func (UnimplementedCoreServer) DeleteApi(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteApi not implemented")
 }
-
 func (UnimplementedCoreServer) GetApiList(context.Context, *ApiListReq) (*ApiListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApiList not implemented")
 }
-
 func (UnimplementedCoreServer) GetMenuAuthority(context.Context, *IDReq) (*RoleMenuAuthorityResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMenuAuthority not implemented")
 }
-
 func (UnimplementedCoreServer) CreateOrUpdateMenuAuthority(context.Context, *RoleMenuAuthorityReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenuAuthority not implemented")
 }
-
 func (UnimplementedCoreServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
 }
-
 func (UnimplementedCoreServer) CreateOrUpdateDepartment(context.Context, *DepartmentInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateDepartment not implemented")
 }
-
 func (UnimplementedCoreServer) GetDepartmentList(context.Context, *DepartmentListReq) (*DepartmentListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDepartmentList not implemented")
 }
-
 func (UnimplementedCoreServer) DeleteDepartment(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDepartment not implemented")
 }
-
 func (UnimplementedCoreServer) BatchDeleteDepartment(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteDepartment not implemented")
 }
-
 func (UnimplementedCoreServer) UpdateDepartmentStatus(context.Context, *StatusCodeReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDepartmentStatus not implemented")
 }
-
 func (UnimplementedCoreServer) CreateOrUpdateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateDictionary not implemented")
 }
-
 func (UnimplementedCoreServer) DeleteDictionary(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionary not implemented")
 }
-
 func (UnimplementedCoreServer) GetDictionaryList(context.Context, *DictionaryListReq) (*DictionaryList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDictionaryList not implemented")
 }
-
 func (UnimplementedCoreServer) GetDetailByDictionaryName(context.Context, *DictionaryDetailReq) (*DictionaryDetailList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDetailByDictionaryName not implemented")
 }
-
 func (UnimplementedCoreServer) CreateOrUpdateDictionaryDetail(context.Context, *DictionaryDetail) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateDictionaryDetail not implemented")
 }
-
 func (UnimplementedCoreServer) DeleteDictionaryDetail(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionaryDetail not implemented")
 }
-
 func (UnimplementedCoreServer) CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenu not implemented")
 }
-
 func (UnimplementedCoreServer) DeleteMenu(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
 }
-
 func (UnimplementedCoreServer) GetMenuListByRole(context.Context, *IDReq) (*MenuInfoList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMenuListByRole not implemented")
 }
-
 func (UnimplementedCoreServer) GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMenuList not implemented")
 }
-
 func (UnimplementedCoreServer) CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenuParam not implemented")
 }
-
 func (UnimplementedCoreServer) DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenuParam not implemented")
 }
-
 func (UnimplementedCoreServer) GetMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMenuParamListByMenuId not implemented")
 }
-
 func (UnimplementedCoreServer) CreateOrUpdateProvider(context.Context, *ProviderInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateProvider not implemented")
 }
-
 func (UnimplementedCoreServer) DeleteProvider(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteProvider not implemented")
 }
-
 func (UnimplementedCoreServer) GetProviderList(context.Context, *PageInfoReq) (*ProviderListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProviderList not implemented")
 }
-
 func (UnimplementedCoreServer) OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OauthLogin not implemented")
 }
-
 func (UnimplementedCoreServer) OauthCallback(context.Context, *CallbackReq) (*LoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OauthCallback not implemented")
 }
-
 func (UnimplementedCoreServer) CreateOrUpdateRole(context.Context, *RoleInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateRole not implemented")
 }
-
 func (UnimplementedCoreServer) DeleteRole(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
 }
-
 func (UnimplementedCoreServer) GetRoleById(context.Context, *IDReq) (*RoleInfo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoleById not implemented")
 }
-
 func (UnimplementedCoreServer) GetRoleList(context.Context, *PageInfoReq) (*RoleListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoleList not implemented")
 }
-
 func (UnimplementedCoreServer) UpdateRoleStatus(context.Context, *StatusCodeReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRoleStatus not implemented")
 }
-
 func (UnimplementedCoreServer) CreateOrUpdateToken(context.Context, *TokenInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateToken not implemented")
 }
-
 func (UnimplementedCoreServer) DeleteToken(context.Context, *UUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteToken not implemented")
 }
-
 func (UnimplementedCoreServer) BatchDeleteToken(context.Context, *UUIDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteToken not implemented")
 }
-
 func (UnimplementedCoreServer) GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTokenList not implemented")
 }
-
 func (UnimplementedCoreServer) UpdateTokenStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateTokenStatus not implemented")
 }
-
 func (UnimplementedCoreServer) BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlockUserAllToken not implemented")
 }
-
 func (UnimplementedCoreServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-
 func (UnimplementedCoreServer) ChangePassword(context.Context, *ChangePasswordReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ChangePassword not implemented")
 }
-
 func (UnimplementedCoreServer) CreateOrUpdateUser(context.Context, *CreateOrUpdateUserReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateUser not implemented")
 }
-
 func (UnimplementedCoreServer) GetUserById(context.Context, *UUIDReq) (*UserInfoResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserById not implemented")
 }
-
 func (UnimplementedCoreServer) GetUserList(context.Context, *GetUserListReq) (*UserListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserList not implemented")
 }
-
 func (UnimplementedCoreServer) DeleteUser(context.Context, *UUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
 }
-
 func (UnimplementedCoreServer) BatchDeleteUser(context.Context, *UUIDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteUser not implemented")
 }
-
 func (UnimplementedCoreServer) UpdateProfile(context.Context, *UpdateProfileReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
 }
-
 func (UnimplementedCoreServer) UpdateUserStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserStatus not implemented")
 }

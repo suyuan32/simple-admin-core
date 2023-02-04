@@ -36,18 +36,10 @@ func (l *GetMenuByRoleLogic) GetMenuByRole() (resp *types.GetMenuListBaseResp, e
 		return nil, err
 	}
 	resp = &types.GetMenuListBaseResp{}
-	resp.Data.Data = l.convertRoleMenuList(data.Data, l.lang)
-	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
-	return resp, nil
-}
-
-func (l *GetMenuByRoleLogic) convertRoleMenuList(data []*core.MenuInfo, lang string) []*types.GetMenuListBase {
-	if data == nil {
-		return nil
-	}
-	var result []*types.GetMenuListBase
-	for _, v := range data {
-		tmp := &types.GetMenuListBase{
+	resp.Data.Total = data.Total
+	for _, v := range data.Data {
+		resp.Data.Data = append(resp.Data.Data, &types.GetMenuListBase{
+			Id:        v.Id,
 			MenuType:  v.MenuType,
 			MenuLevel: v.Level,
 			Path:      v.Path,
@@ -55,8 +47,9 @@ func (l *GetMenuByRoleLogic) convertRoleMenuList(data []*core.MenuInfo, lang str
 			Redirect:  v.Redirect,
 			Component: v.Component,
 			Sort:      v.Sort,
+			ParentId:  v.ParentId,
 			Meta: types.Meta{
-				Title:              l.svcCtx.Trans.Trans(lang, v.Meta.Title),
+				Title:              l.svcCtx.Trans.Trans(l.lang, v.Meta.Title),
 				Icon:               v.Meta.Icon,
 				HideMenu:           v.Meta.HideMenu,
 				HideBreadcrumb:     v.Meta.HideBreadcrumb,
@@ -70,9 +63,8 @@ func (l *GetMenuByRoleLogic) convertRoleMenuList(data []*core.MenuInfo, lang str
 				DynamicLevel:       v.Meta.DynamicLevel,
 				RealPath:           v.Meta.RealPath,
 			},
-			Children: l.convertRoleMenuList(v.Children, lang),
-		}
-		result = append(result, tmp)
+		})
 	}
-	return result
+	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	return resp, nil
 }
