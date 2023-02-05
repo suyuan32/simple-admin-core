@@ -64,35 +64,35 @@ type (
         HideMenu  bool           `json:"hideMenu" validate:"boolean"`
 
         // If hide the breadcrumb | 隐藏面包屑
-        HideBreadcrumb bool      `json:"hideBreadcrumb" validate:"boolean"`
+        HideBreadcrumb bool      `json:"hideBreadcrumb,optional" validate:"boolean"`
 
         // Current active menu, if not nil, it will active the tab | 当前激活的菜单
         // Max length: 30
-        CurrentActiveMenu string `json:"currentActiveMenu"`
+        CurrentActiveMenu string `json:"currentActiveMenu,optional"`
 
         // Do not keep alive the tab | 不缓存Tab
-        IgnoreKeepAlive  bool `json:"ignoreKeepAlive" validate:"boolean"`
+        IgnoreKeepAlive  bool `json:"ignoreKeepAlive,optional" validate:"boolean"`
 
         // Hide the tab header | 当前路由不在标签页显示
-        HideTab   bool `json:"hideTab" validate:"boolean"`
+        HideTab   bool `json:"hideTab,optional" validate:"boolean"`
 
         // Iframe path | 内嵌iframe的地址
-        FrameSrc  string `json:"frameSrc"`
+        FrameSrc  string `json:"frameSrc,optional"`
 
         // The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
-        CarryParam  bool `json:"carryParam" validate:"boolean"`
+        CarryParam  bool `json:"carryParam,optional" validate:"boolean"`
 
         // Hide children menu or not | 隐藏所有子菜单
-        HideChildrenInMenu  bool `json:"hideChildrenInMenu" validate:"boolean"`
+        HideChildrenInMenu  bool `json:"hideChildrenInMenu,optional" validate:"boolean"`
 
         // Affix tab | 是否固定标签
-        Affix  bool `json:"affix" validate:"boolean"`
+        Affix  bool `json:"affix,optional" validate:"boolean"`
 
         // The maximum number of pages the router can open | 动态路由可打开Tab页数
         DynamicLevel  uint32 `json:"dynamicLevel" validate:"number,lt=30"`
 
         // The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
-        RealPath  string `json:"realPath"`
+        RealPath  string `json:"realPath,optional"`
     }
 
     // The response data of menu list | 菜单列表返回数据
@@ -181,7 +181,7 @@ type (
         // The path to visit menu | 菜单访问路径
         // Required: true
         // Max length: 30
-        Path         string      `json:"path" validate:"max=200"`
+        Path         string      `json:"path,optional" validate:"max=200"`
 
         // Menu name | 菜单名
         // Required: true
@@ -192,13 +192,13 @@ type (
         // Required: true
         // Max length: 100
         // Example: https://www.google.com
-        Redirect     string      `json:"redirect" validate:"max=100"`
+        Redirect     string      `json:"redirect,optional" validate:"max=100"`
 
         // The component path | 组件路径
         // Required: true
         // Max length: 100
         // Example: /sys/menu/index
-        Component    string      `json:"component" validate:"max=100"`
+        Component    string      `json:"component,optional" validate:"max=100"`
 
         // The sorting number | 排序编号
         // Required: true

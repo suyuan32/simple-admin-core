@@ -700,7 +700,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("").
 		SetName("System Management").
 		SetComponent("LAYOUT").
-		SetSort(1).
+		SetSort(999).
 		SetTitle("route.systemManagementTitle").
 		SetIcon("ant-design:tool-outlined").
 		SetHideMenu(false),
@@ -804,7 +804,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("").
 		SetName("Other Pages").
 		SetComponent("LAYOUT").
-		SetSort(4).
+		SetSort(1000).
 		SetTitle("route.otherPages").
 		SetIcon("ant-design:question-circle-outlined").
 		SetHideMenu(true),
@@ -876,13 +876,26 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
+		SetMenuLevel(1).
+		SetMenuType(0).
+		SetParentID(0).
+		SetPath("").
+		SetName("Member Management Directory").
+		SetComponent("LAYOUT").
+		SetSort(1).
+		SetTitle("route.memberManagement").
+		SetIcon("ic:round-person-outline").
+		SetHideMenu(false),
+	)
+
+	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(0).
+		SetParentID(16).
 		SetPath("/member").
 		SetName("Member Management").
 		SetComponent("/sys/member/index").
-		SetSort(2).
+		SetSort(1).
 		SetTitle("route.memberManagement").
 		SetIcon("ic:round-person-outline").
 		SetHideMenu(false),
