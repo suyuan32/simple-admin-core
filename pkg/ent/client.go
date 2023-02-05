@@ -15,10 +15,12 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/member"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/memberrank"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/post"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
@@ -41,14 +43,18 @@ type Client struct {
 	Dictionary *DictionaryClient
 	// DictionaryDetail is the client for interacting with the DictionaryDetail builders.
 	DictionaryDetail *DictionaryDetailClient
+	// Member is the client for interacting with the Member builders.
+	Member *MemberClient
+	// MemberRank is the client for interacting with the MemberRank builders.
+	MemberRank *MemberRankClient
 	// Menu is the client for interacting with the Menu builders.
 	Menu *MenuClient
 	// MenuParam is the client for interacting with the MenuParam builders.
 	MenuParam *MenuParamClient
 	// OauthProvider is the client for interacting with the OauthProvider builders.
 	OauthProvider *OauthProviderClient
-	// Post is the client for interacting with the Post builders.
-	Post *PostClient
+	// Position is the client for interacting with the Position builders.
+	Position *PositionClient
 	// Role is the client for interacting with the Role builders.
 	Role *RoleClient
 	// Token is the client for interacting with the Token builders.
@@ -72,10 +78,12 @@ func (c *Client) init() {
 	c.Department = NewDepartmentClient(c.config)
 	c.Dictionary = NewDictionaryClient(c.config)
 	c.DictionaryDetail = NewDictionaryDetailClient(c.config)
+	c.Member = NewMemberClient(c.config)
+	c.MemberRank = NewMemberRankClient(c.config)
 	c.Menu = NewMenuClient(c.config)
 	c.MenuParam = NewMenuParamClient(c.config)
 	c.OauthProvider = NewOauthProviderClient(c.config)
-	c.Post = NewPostClient(c.config)
+	c.Position = NewPositionClient(c.config)
 	c.Role = NewRoleClient(c.config)
 	c.Token = NewTokenClient(c.config)
 	c.User = NewUserClient(c.config)
@@ -116,10 +124,12 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Department:       NewDepartmentClient(cfg),
 		Dictionary:       NewDictionaryClient(cfg),
 		DictionaryDetail: NewDictionaryDetailClient(cfg),
+		Member:           NewMemberClient(cfg),
+		MemberRank:       NewMemberRankClient(cfg),
 		Menu:             NewMenuClient(cfg),
 		MenuParam:        NewMenuParamClient(cfg),
 		OauthProvider:    NewOauthProviderClient(cfg),
-		Post:             NewPostClient(cfg),
+		Position:         NewPositionClient(cfg),
 		Role:             NewRoleClient(cfg),
 		Token:            NewTokenClient(cfg),
 		User:             NewUserClient(cfg),
@@ -146,10 +156,12 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Department:       NewDepartmentClient(cfg),
 		Dictionary:       NewDictionaryClient(cfg),
 		DictionaryDetail: NewDictionaryDetailClient(cfg),
+		Member:           NewMemberClient(cfg),
+		MemberRank:       NewMemberRankClient(cfg),
 		Menu:             NewMenuClient(cfg),
 		MenuParam:        NewMenuParamClient(cfg),
 		OauthProvider:    NewOauthProviderClient(cfg),
-		Post:             NewPostClient(cfg),
+		Position:         NewPositionClient(cfg),
 		Role:             NewRoleClient(cfg),
 		Token:            NewTokenClient(cfg),
 		User:             NewUserClient(cfg),
@@ -185,10 +197,12 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Department.Use(hooks...)
 	c.Dictionary.Use(hooks...)
 	c.DictionaryDetail.Use(hooks...)
+	c.Member.Use(hooks...)
+	c.MemberRank.Use(hooks...)
 	c.Menu.Use(hooks...)
 	c.MenuParam.Use(hooks...)
 	c.OauthProvider.Use(hooks...)
-	c.Post.Use(hooks...)
+	c.Position.Use(hooks...)
 	c.Role.Use(hooks...)
 	c.Token.Use(hooks...)
 	c.User.Use(hooks...)
@@ -201,10 +215,12 @@ func (c *Client) Intercept(interceptors ...Interceptor) {
 	c.Department.Intercept(interceptors...)
 	c.Dictionary.Intercept(interceptors...)
 	c.DictionaryDetail.Intercept(interceptors...)
+	c.Member.Intercept(interceptors...)
+	c.MemberRank.Intercept(interceptors...)
 	c.Menu.Intercept(interceptors...)
 	c.MenuParam.Intercept(interceptors...)
 	c.OauthProvider.Intercept(interceptors...)
-	c.Post.Intercept(interceptors...)
+	c.Position.Intercept(interceptors...)
 	c.Role.Intercept(interceptors...)
 	c.Token.Intercept(interceptors...)
 	c.User.Intercept(interceptors...)
@@ -221,14 +237,18 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.Dictionary.mutate(ctx, m)
 	case *DictionaryDetailMutation:
 		return c.DictionaryDetail.mutate(ctx, m)
+	case *MemberMutation:
+		return c.Member.mutate(ctx, m)
+	case *MemberRankMutation:
+		return c.MemberRank.mutate(ctx, m)
 	case *MenuMutation:
 		return c.Menu.mutate(ctx, m)
 	case *MenuParamMutation:
 		return c.MenuParam.mutate(ctx, m)
 	case *OauthProviderMutation:
 		return c.OauthProvider.mutate(ctx, m)
-	case *PostMutation:
-		return c.Post.mutate(ctx, m)
+	case *PositionMutation:
+		return c.Position.mutate(ctx, m)
 	case *RoleMutation:
 		return c.Role.mutate(ctx, m)
 	case *TokenMutation:
@@ -792,6 +812,274 @@ func (c *DictionaryDetailClient) mutate(ctx context.Context, m *DictionaryDetail
 	}
 }
 
+// MemberClient is a client for the Member schema.
+type MemberClient struct {
+	config
+}
+
+// NewMemberClient returns a client for the Member from the given config.
+func NewMemberClient(c config) *MemberClient {
+	return &MemberClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `member.Hooks(f(g(h())))`.
+func (c *MemberClient) Use(hooks ...Hook) {
+	c.hooks.Member = append(c.hooks.Member, hooks...)
+}
+
+// Use adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `member.Intercept(f(g(h())))`.
+func (c *MemberClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Member = append(c.inters.Member, interceptors...)
+}
+
+// Create returns a builder for creating a Member entity.
+func (c *MemberClient) Create() *MemberCreate {
+	mutation := newMemberMutation(c.config, OpCreate)
+	return &MemberCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Member entities.
+func (c *MemberClient) CreateBulk(builders ...*MemberCreate) *MemberCreateBulk {
+	return &MemberCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Member.
+func (c *MemberClient) Update() *MemberUpdate {
+	mutation := newMemberMutation(c.config, OpUpdate)
+	return &MemberUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *MemberClient) UpdateOne(m *Member) *MemberUpdateOne {
+	mutation := newMemberMutation(c.config, OpUpdateOne, withMember(m))
+	return &MemberUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *MemberClient) UpdateOneID(id uuid.UUID) *MemberUpdateOne {
+	mutation := newMemberMutation(c.config, OpUpdateOne, withMemberID(id))
+	return &MemberUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Member.
+func (c *MemberClient) Delete() *MemberDelete {
+	mutation := newMemberMutation(c.config, OpDelete)
+	return &MemberDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *MemberClient) DeleteOne(m *Member) *MemberDeleteOne {
+	return c.DeleteOneID(m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *MemberClient) DeleteOneID(id uuid.UUID) *MemberDeleteOne {
+	builder := c.Delete().Where(member.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &MemberDeleteOne{builder}
+}
+
+// Query returns a query builder for Member.
+func (c *MemberClient) Query() *MemberQuery {
+	return &MemberQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeMember},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a Member entity by its id.
+func (c *MemberClient) Get(ctx context.Context, id uuid.UUID) (*Member, error) {
+	return c.Query().Where(member.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *MemberClient) GetX(ctx context.Context, id uuid.UUID) *Member {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// QueryRank queries the rank edge of a Member.
+func (c *MemberClient) QueryRank(m *Member) *MemberRankQuery {
+	query := (&MemberRankClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := m.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(member.Table, member.FieldID, id),
+			sqlgraph.To(memberrank.Table, memberrank.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, member.RankTable, member.RankColumn),
+		)
+		fromV = sqlgraph.Neighbors(m.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// Hooks returns the client hooks.
+func (c *MemberClient) Hooks() []Hook {
+	return c.hooks.Member
+}
+
+// Interceptors returns the client interceptors.
+func (c *MemberClient) Interceptors() []Interceptor {
+	return c.inters.Member
+}
+
+func (c *MemberClient) mutate(ctx context.Context, m *MemberMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&MemberCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&MemberUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&MemberUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&MemberDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Member mutation op: %q", m.Op())
+	}
+}
+
+// MemberRankClient is a client for the MemberRank schema.
+type MemberRankClient struct {
+	config
+}
+
+// NewMemberRankClient returns a client for the MemberRank from the given config.
+func NewMemberRankClient(c config) *MemberRankClient {
+	return &MemberRankClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `memberrank.Hooks(f(g(h())))`.
+func (c *MemberRankClient) Use(hooks ...Hook) {
+	c.hooks.MemberRank = append(c.hooks.MemberRank, hooks...)
+}
+
+// Use adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `memberrank.Intercept(f(g(h())))`.
+func (c *MemberRankClient) Intercept(interceptors ...Interceptor) {
+	c.inters.MemberRank = append(c.inters.MemberRank, interceptors...)
+}
+
+// Create returns a builder for creating a MemberRank entity.
+func (c *MemberRankClient) Create() *MemberRankCreate {
+	mutation := newMemberRankMutation(c.config, OpCreate)
+	return &MemberRankCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of MemberRank entities.
+func (c *MemberRankClient) CreateBulk(builders ...*MemberRankCreate) *MemberRankCreateBulk {
+	return &MemberRankCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for MemberRank.
+func (c *MemberRankClient) Update() *MemberRankUpdate {
+	mutation := newMemberRankMutation(c.config, OpUpdate)
+	return &MemberRankUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *MemberRankClient) UpdateOne(mr *MemberRank) *MemberRankUpdateOne {
+	mutation := newMemberRankMutation(c.config, OpUpdateOne, withMemberRank(mr))
+	return &MemberRankUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *MemberRankClient) UpdateOneID(id uint64) *MemberRankUpdateOne {
+	mutation := newMemberRankMutation(c.config, OpUpdateOne, withMemberRankID(id))
+	return &MemberRankUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for MemberRank.
+func (c *MemberRankClient) Delete() *MemberRankDelete {
+	mutation := newMemberRankMutation(c.config, OpDelete)
+	return &MemberRankDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *MemberRankClient) DeleteOne(mr *MemberRank) *MemberRankDeleteOne {
+	return c.DeleteOneID(mr.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *MemberRankClient) DeleteOneID(id uint64) *MemberRankDeleteOne {
+	builder := c.Delete().Where(memberrank.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &MemberRankDeleteOne{builder}
+}
+
+// Query returns a query builder for MemberRank.
+func (c *MemberRankClient) Query() *MemberRankQuery {
+	return &MemberRankQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeMemberRank},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a MemberRank entity by its id.
+func (c *MemberRankClient) Get(ctx context.Context, id uint64) (*MemberRank, error) {
+	return c.Query().Where(memberrank.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *MemberRankClient) GetX(ctx context.Context, id uint64) *MemberRank {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// QueryMember queries the member edge of a MemberRank.
+func (c *MemberRankClient) QueryMember(mr *MemberRank) *MemberQuery {
+	query := (&MemberClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := mr.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(memberrank.Table, memberrank.FieldID, id),
+			sqlgraph.To(member.Table, member.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, true, memberrank.MemberTable, memberrank.MemberColumn),
+		)
+		fromV = sqlgraph.Neighbors(mr.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// Hooks returns the client hooks.
+func (c *MemberRankClient) Hooks() []Hook {
+	return c.hooks.MemberRank
+}
+
+// Interceptors returns the client interceptors.
+func (c *MemberRankClient) Interceptors() []Interceptor {
+	return c.inters.MemberRank
+}
+
+func (c *MemberRankClient) mutate(ctx context.Context, m *MemberRankMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&MemberRankCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&MemberRankUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&MemberRankUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&MemberRankDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown MemberRank mutation op: %q", m.Op())
+	}
+}
+
 // MenuClient is a client for the Menu schema.
 type MenuClient struct {
 	config
@@ -1226,92 +1514,92 @@ func (c *OauthProviderClient) mutate(ctx context.Context, m *OauthProviderMutati
 	}
 }
 
-// PostClient is a client for the Post schema.
-type PostClient struct {
+// PositionClient is a client for the Position schema.
+type PositionClient struct {
 	config
 }
 
-// NewPostClient returns a client for the Post from the given config.
-func NewPostClient(c config) *PostClient {
-	return &PostClient{config: c}
+// NewPositionClient returns a client for the Position from the given config.
+func NewPositionClient(c config) *PositionClient {
+	return &PositionClient{config: c}
 }
 
 // Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `post.Hooks(f(g(h())))`.
-func (c *PostClient) Use(hooks ...Hook) {
-	c.hooks.Post = append(c.hooks.Post, hooks...)
+// A call to `Use(f, g, h)` equals to `position.Hooks(f(g(h())))`.
+func (c *PositionClient) Use(hooks ...Hook) {
+	c.hooks.Position = append(c.hooks.Position, hooks...)
 }
 
 // Use adds a list of query interceptors to the interceptors stack.
-// A call to `Intercept(f, g, h)` equals to `post.Intercept(f(g(h())))`.
-func (c *PostClient) Intercept(interceptors ...Interceptor) {
-	c.inters.Post = append(c.inters.Post, interceptors...)
+// A call to `Intercept(f, g, h)` equals to `position.Intercept(f(g(h())))`.
+func (c *PositionClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Position = append(c.inters.Position, interceptors...)
 }
 
-// Create returns a builder for creating a Post entity.
-func (c *PostClient) Create() *PostCreate {
-	mutation := newPostMutation(c.config, OpCreate)
-	return &PostCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Create returns a builder for creating a Position entity.
+func (c *PositionClient) Create() *PositionCreate {
+	mutation := newPositionMutation(c.config, OpCreate)
+	return &PositionCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// CreateBulk returns a builder for creating a bulk of Post entities.
-func (c *PostClient) CreateBulk(builders ...*PostCreate) *PostCreateBulk {
-	return &PostCreateBulk{config: c.config, builders: builders}
+// CreateBulk returns a builder for creating a bulk of Position entities.
+func (c *PositionClient) CreateBulk(builders ...*PositionCreate) *PositionCreateBulk {
+	return &PositionCreateBulk{config: c.config, builders: builders}
 }
 
-// Update returns an update builder for Post.
-func (c *PostClient) Update() *PostUpdate {
-	mutation := newPostMutation(c.config, OpUpdate)
-	return &PostUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Update returns an update builder for Position.
+func (c *PositionClient) Update() *PositionUpdate {
+	mutation := newPositionMutation(c.config, OpUpdate)
+	return &PositionUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *PostClient) UpdateOne(po *Post) *PostUpdateOne {
-	mutation := newPostMutation(c.config, OpUpdateOne, withPost(po))
-	return &PostUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+func (c *PositionClient) UpdateOne(po *Position) *PositionUpdateOne {
+	mutation := newPositionMutation(c.config, OpUpdateOne, withPosition(po))
+	return &PositionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOneID returns an update builder for the given id.
-func (c *PostClient) UpdateOneID(id uint64) *PostUpdateOne {
-	mutation := newPostMutation(c.config, OpUpdateOne, withPostID(id))
-	return &PostUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+func (c *PositionClient) UpdateOneID(id uint64) *PositionUpdateOne {
+	mutation := newPositionMutation(c.config, OpUpdateOne, withPositionID(id))
+	return &PositionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// Delete returns a delete builder for Post.
-func (c *PostClient) Delete() *PostDelete {
-	mutation := newPostMutation(c.config, OpDelete)
-	return &PostDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Delete returns a delete builder for Position.
+func (c *PositionClient) Delete() *PositionDelete {
+	mutation := newPositionMutation(c.config, OpDelete)
+	return &PositionDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *PostClient) DeleteOne(po *Post) *PostDeleteOne {
+func (c *PositionClient) DeleteOne(po *Position) *PositionDeleteOne {
 	return c.DeleteOneID(po.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *PostClient) DeleteOneID(id uint64) *PostDeleteOne {
-	builder := c.Delete().Where(post.ID(id))
+func (c *PositionClient) DeleteOneID(id uint64) *PositionDeleteOne {
+	builder := c.Delete().Where(position.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
-	return &PostDeleteOne{builder}
+	return &PositionDeleteOne{builder}
 }
 
-// Query returns a query builder for Post.
-func (c *PostClient) Query() *PostQuery {
-	return &PostQuery{
+// Query returns a query builder for Position.
+func (c *PositionClient) Query() *PositionQuery {
+	return &PositionQuery{
 		config: c.config,
-		ctx:    &QueryContext{Type: TypePost},
+		ctx:    &QueryContext{Type: TypePosition},
 		inters: c.Interceptors(),
 	}
 }
 
-// Get returns a Post entity by its id.
-func (c *PostClient) Get(ctx context.Context, id uint64) (*Post, error) {
-	return c.Query().Where(post.ID(id)).Only(ctx)
+// Get returns a Position entity by its id.
+func (c *PositionClient) Get(ctx context.Context, id uint64) (*Position, error) {
+	return c.Query().Where(position.ID(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
-func (c *PostClient) GetX(ctx context.Context, id uint64) *Post {
+func (c *PositionClient) GetX(ctx context.Context, id uint64) *Position {
 	obj, err := c.Get(ctx, id)
 	if err != nil {
 		panic(err)
@@ -1319,15 +1607,15 @@ func (c *PostClient) GetX(ctx context.Context, id uint64) *Post {
 	return obj
 }
 
-// QueryUser queries the user edge of a Post.
-func (c *PostClient) QueryUser(po *Post) *UserQuery {
+// QueryUser queries the user edge of a Position.
+func (c *PositionClient) QueryUser(po *Position) *UserQuery {
 	query := (&UserClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := po.ID
 		step := sqlgraph.NewStep(
-			sqlgraph.From(post.Table, post.FieldID, id),
+			sqlgraph.From(position.Table, position.FieldID, id),
 			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, true, post.UserTable, post.UserColumn),
+			sqlgraph.Edge(sqlgraph.O2M, true, position.UserTable, position.UserColumn),
 		)
 		fromV = sqlgraph.Neighbors(po.driver.Dialect(), step)
 		return fromV, nil
@@ -1336,27 +1624,27 @@ func (c *PostClient) QueryUser(po *Post) *UserQuery {
 }
 
 // Hooks returns the client hooks.
-func (c *PostClient) Hooks() []Hook {
-	return c.hooks.Post
+func (c *PositionClient) Hooks() []Hook {
+	return c.hooks.Position
 }
 
 // Interceptors returns the client interceptors.
-func (c *PostClient) Interceptors() []Interceptor {
-	return c.inters.Post
+func (c *PositionClient) Interceptors() []Interceptor {
+	return c.inters.Position
 }
 
-func (c *PostClient) mutate(ctx context.Context, m *PostMutation) (Value, error) {
+func (c *PositionClient) mutate(ctx context.Context, m *PositionMutation) (Value, error) {
 	switch m.Op() {
 	case OpCreate:
-		return (&PostCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+		return (&PositionCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
 	case OpUpdate:
-		return (&PostUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+		return (&PositionUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
 	case OpUpdateOne:
-		return (&PostUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+		return (&PositionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
 	case OpDelete, OpDeleteOne:
-		return (&PostDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+		return (&PositionDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
-		return nil, fmt.Errorf("ent: unknown Post mutation op: %q", m.Op())
+		return nil, fmt.Errorf("ent: unknown Position mutation op: %q", m.Op())
 	}
 }
 
@@ -1721,15 +2009,15 @@ func (c *UserClient) QueryDepartment(u *User) *DepartmentQuery {
 	return query
 }
 
-// QueryPost queries the post edge of a User.
-func (c *UserClient) QueryPost(u *User) *PostQuery {
-	query := (&PostClient{config: c.config}).Query()
+// QueryPosition queries the position edge of a User.
+func (c *UserClient) QueryPosition(u *User) *PositionQuery {
+	query := (&PositionClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
 		id := u.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldID, id),
-			sqlgraph.To(post.Table, post.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, user.PostTable, user.PostColumn),
+			sqlgraph.To(position.Table, position.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, user.PositionTable, user.PositionColumn),
 		)
 		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
 		return fromV, nil

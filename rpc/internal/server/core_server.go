@@ -13,7 +13,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauth"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/post"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/position"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/role"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/user"
@@ -178,30 +178,30 @@ func (s *CoreServer) OauthCallback(ctx context.Context, in *core.CallbackReq) (*
 	return l.OauthCallback(in)
 }
 
-// Post management
-func (s *CoreServer) CreateOrUpdatePost(ctx context.Context, in *core.PostInfo) (*core.BaseResp, error) {
-	l := post.NewCreateOrUpdatePostLogic(ctx, s.svcCtx)
-	return l.CreateOrUpdatePost(in)
+// Position management
+func (s *CoreServer) CreateOrUpdatePosition(ctx context.Context, in *core.PositionInfo) (*core.BaseResp, error) {
+	l := position.NewCreateOrUpdatePositionLogic(ctx, s.svcCtx)
+	return l.CreateOrUpdatePosition(in)
 }
 
-func (s *CoreServer) GetPostList(ctx context.Context, in *core.PostListReq) (*core.PostListResp, error) {
-	l := post.NewGetPostListLogic(ctx, s.svcCtx)
-	return l.GetPostList(in)
+func (s *CoreServer) GetPositionList(ctx context.Context, in *core.PositionListReq) (*core.PositionListResp, error) {
+	l := position.NewGetPositionListLogic(ctx, s.svcCtx)
+	return l.GetPositionList(in)
 }
 
-func (s *CoreServer) DeletePost(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
-	l := post.NewDeletePostLogic(ctx, s.svcCtx)
-	return l.DeletePost(in)
+func (s *CoreServer) DeletePosition(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+	l := position.NewDeletePositionLogic(ctx, s.svcCtx)
+	return l.DeletePosition(in)
 }
 
-func (s *CoreServer) BatchDeletePost(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
-	l := post.NewBatchDeletePostLogic(ctx, s.svcCtx)
-	return l.BatchDeletePost(in)
+func (s *CoreServer) BatchDeletePosition(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := position.NewBatchDeletePositionLogic(ctx, s.svcCtx)
+	return l.BatchDeletePosition(in)
 }
 
-func (s *CoreServer) UpdatePostStatus(ctx context.Context, in *core.StatusCodeReq) (*core.BaseResp, error) {
-	l := post.NewUpdatePostStatusLogic(ctx, s.svcCtx)
-	return l.UpdatePostStatus(in)
+func (s *CoreServer) UpdatePositionStatus(ctx context.Context, in *core.StatusCodeReq) (*core.BaseResp, error) {
+	l := position.NewUpdatePositionStatusLogic(ctx, s.svcCtx)
+	return l.UpdatePositionStatus(in)
 }
 
 func (s *CoreServer) CreateOrUpdateRole(ctx context.Context, in *core.RoleInfo) (*core.BaseResp, error) {

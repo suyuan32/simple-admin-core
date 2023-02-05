@@ -18,6 +18,12 @@ type Dictionary func(*sql.Selector)
 // DictionaryDetail is the predicate function for dictionarydetail builders.
 type DictionaryDetail func(*sql.Selector)
 
+// Member is the predicate function for member builders.
+type Member func(*sql.Selector)
+
+// MemberRank is the predicate function for memberrank builders.
+type MemberRank func(*sql.Selector)
+
 // Menu is the predicate function for menu builders.
 type Menu func(*sql.Selector)
 
@@ -27,8 +33,8 @@ type MenuParam func(*sql.Selector)
 // OauthProvider is the predicate function for oauthprovider builders.
 type OauthProvider func(*sql.Selector)
 
-// Post is the predicate function for post builders.
-type Post func(*sql.Selector)
+// Position is the predicate function for position builders.
+type Position func(*sql.Selector)
 
 // Role is the predicate function for role builders.
 type Role func(*sql.Selector)

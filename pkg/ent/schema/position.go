@@ -1,0 +1,47 @@
+package schema
+
+import (
+	"entgo.io/ent"
+	"entgo.io/ent/dialect/entsql"
+	"entgo.io/ent/schema"
+	"entgo.io/ent/schema/edge"
+	"entgo.io/ent/schema/field"
+
+	"github.com/suyuan32/simple-admin-core/pkg/ent/schema/mixins"
+)
+
+type Position struct {
+	ent.Schema
+}
+
+func (Position) Fields() []ent.Field {
+	return []ent.Field{
+		field.String("name").Comment("Position Name | 职位名称"),
+		field.String("code").Comment("The code of position | 职位编码"),
+		field.String("remark").Comment("Remark | 备注"),
+	}
+}
+
+func (Position) Mixin() []ent.Mixin {
+	return []ent.Mixin{
+		mixins.BaseMixin{},
+		mixins.StatusMixin{},
+		mixins.SortMixin{},
+	}
+}
+
+func (Position) Edges() []ent.Edge {
+	return []ent.Edge{
+		edge.From("user", User.Type).Ref("position"),
+	}
+}
+
+func (Position) Indexes() []ent.Index {
+	return nil
+}
+
+func (Position) Annotations() []schema.Annotation {
+	return []schema.Annotation{
+		entsql.Annotation{Table: "sys_positions"},
+	}
+}

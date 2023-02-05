@@ -12,7 +12,7 @@ import (
 	dictionary "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionary"
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
 	oauth "github.com/suyuan32/simple-admin-core/api/internal/handler/oauth"
-	post "github.com/suyuan32/simple-admin-core/api/internal/handler/post"
+	position "github.com/suyuan32/simple-admin-core/api/internal/handler/position"
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
 	token "github.com/suyuan32/simple-admin-core/api/internal/handler/token"
 	user "github.com/suyuan32/simple-admin-core/api/internal/handler/user"
@@ -409,28 +409,28 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
-					Path:    "/post/create_or_update",
-					Handler: post.CreateOrUpdatePostHandler(serverCtx),
+					Path:    "/position/create_or_update",
+					Handler: position.CreateOrUpdatePositionHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/post/delete",
-					Handler: post.DeletePostHandler(serverCtx),
+					Path:    "/position/delete",
+					Handler: position.DeletePositionHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/post/list",
-					Handler: post.GetPostListHandler(serverCtx),
+					Path:    "/position/list",
+					Handler: position.GetPositionListHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/post/batch_delete",
-					Handler: post.BatchDeletePostHandler(serverCtx),
+					Path:    "/position/batch_delete",
+					Handler: position.BatchDeletePositionHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/post/status",
-					Handler: post.UpdatePostStatusHandler(serverCtx),
+					Path:    "/position/status",
+					Handler: position.UpdatePositionStatusHandler(serverCtx),
 				},
 			}...,
 		),

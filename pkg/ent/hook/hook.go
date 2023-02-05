@@ -57,6 +57,30 @@ func (f DictionaryDetailFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.V
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DictionaryDetailMutation", m)
 }
 
+// The MemberFunc type is an adapter to allow the use of ordinary
+// function as Member mutator.
+type MemberFunc func(context.Context, *ent.MemberMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f MemberFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.MemberMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MemberMutation", m)
+}
+
+// The MemberRankFunc type is an adapter to allow the use of ordinary
+// function as MemberRank mutator.
+type MemberRankFunc func(context.Context, *ent.MemberRankMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f MemberRankFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.MemberRankMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MemberRankMutation", m)
+}
+
 // The MenuFunc type is an adapter to allow the use of ordinary
 // function as Menu mutator.
 type MenuFunc func(context.Context, *ent.MenuMutation) (ent.Value, error)
@@ -93,16 +117,16 @@ func (f OauthProviderFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Valu
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.OauthProviderMutation", m)
 }
 
-// The PostFunc type is an adapter to allow the use of ordinary
-// function as Post mutator.
-type PostFunc func(context.Context, *ent.PostMutation) (ent.Value, error)
+// The PositionFunc type is an adapter to allow the use of ordinary
+// function as Position mutator.
+type PositionFunc func(context.Context, *ent.PositionMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f PostFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.PostMutation); ok {
+func (f PositionFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.PositionMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PostMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PositionMutation", m)
 }
 
 // The RoleFunc type is an adapter to allow the use of ordinary

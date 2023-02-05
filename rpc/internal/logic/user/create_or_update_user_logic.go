@@ -42,7 +42,7 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 			SetHomePath(in.HomePath).
 			SetDescription(in.Description).
 			SetDepartmentID(in.DepartmentId).
-			SetPostID(in.PostId).
+			SetPositionID(in.PositionId).
 			Exec(l.ctx)
 		if err != nil {
 			switch {
@@ -70,7 +70,7 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 				SetHomePath(in.HomePath).
 				SetDescription(in.Description).
 				SetDepartmentID(in.DepartmentId).
-				SetPostID(in.PostId).
+				SetPositionID(in.PositionId).
 				Exec(l.ctx)
 		} else {
 			err = l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
@@ -83,7 +83,7 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 				SetHomePath(in.HomePath).
 				SetDescription(in.Description).
 				SetDepartmentID(in.DepartmentId).
-				SetPostID(in.PostId).
+				SetPositionID(in.PositionId).
 				Exec(l.ctx)
 		}
 

@@ -10,10 +10,12 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/member"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/memberrank"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/post"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
@@ -381,6 +383,164 @@ func (dd *DictionaryDetailQuery) Page(
 	return ret, nil
 }
 
+type MemberPager struct {
+	Order  OrderFunc
+	Filter func(*MemberQuery) (*MemberQuery, error)
+}
+
+// MemberPaginateOption enables pagination customization.
+type MemberPaginateOption func(*MemberPager)
+
+// DefaultMemberOrder is the default ordering of Member.
+var DefaultMemberOrder = Asc(member.FieldID)
+
+func newMemberPager(opts []MemberPaginateOption) (*MemberPager, error) {
+	pager := &MemberPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultMemberOrder
+	}
+	return pager, nil
+}
+
+func (p *MemberPager) ApplyFilter(query *MemberQuery) (*MemberQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// MemberPageList is Member PageList result.
+type MemberPageList struct {
+	List        []*Member    `json:"list"`
+	PageDetails *PageDetails `json:"pageDetails"`
+}
+
+func (m *MemberQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...MemberPaginateOption,
+) (*MemberPageList, error) {
+
+	pager, err := newMemberPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if m, err = pager.ApplyFilter(m); err != nil {
+		return nil, err
+	}
+
+	ret := &MemberPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	count, err := m.Clone().Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		m = m.Order(pager.Order)
+	} else {
+		m = m.Order(DefaultMemberOrder)
+	}
+
+	m = m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := m.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type MemberRankPager struct {
+	Order  OrderFunc
+	Filter func(*MemberRankQuery) (*MemberRankQuery, error)
+}
+
+// MemberRankPaginateOption enables pagination customization.
+type MemberRankPaginateOption func(*MemberRankPager)
+
+// DefaultMemberRankOrder is the default ordering of MemberRank.
+var DefaultMemberRankOrder = Asc(memberrank.FieldID)
+
+func newMemberRankPager(opts []MemberRankPaginateOption) (*MemberRankPager, error) {
+	pager := &MemberRankPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultMemberRankOrder
+	}
+	return pager, nil
+}
+
+func (p *MemberRankPager) ApplyFilter(query *MemberRankQuery) (*MemberRankQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// MemberRankPageList is MemberRank PageList result.
+type MemberRankPageList struct {
+	List        []*MemberRank `json:"list"`
+	PageDetails *PageDetails  `json:"pageDetails"`
+}
+
+func (mr *MemberRankQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...MemberRankPaginateOption,
+) (*MemberRankPageList, error) {
+
+	pager, err := newMemberRankPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if mr, err = pager.ApplyFilter(mr); err != nil {
+		return nil, err
+	}
+
+	ret := &MemberRankPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	count, err := mr.Clone().Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		mr = mr.Order(pager.Order)
+	} else {
+		mr = mr.Order(DefaultMemberRankOrder)
+	}
+
+	mr = mr.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := mr.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
 type MenuPager struct {
 	Order  OrderFunc
 	Filter func(*MenuQuery) (*MenuQuery, error)
@@ -618,46 +778,46 @@ func (op *OauthProviderQuery) Page(
 	return ret, nil
 }
 
-type PostPager struct {
+type PositionPager struct {
 	Order  OrderFunc
-	Filter func(*PostQuery) (*PostQuery, error)
+	Filter func(*PositionQuery) (*PositionQuery, error)
 }
 
-// PostPaginateOption enables pagination customization.
-type PostPaginateOption func(*PostPager)
+// PositionPaginateOption enables pagination customization.
+type PositionPaginateOption func(*PositionPager)
 
-// DefaultPostOrder is the default ordering of Post.
-var DefaultPostOrder = Asc(post.FieldID)
+// DefaultPositionOrder is the default ordering of Position.
+var DefaultPositionOrder = Asc(position.FieldID)
 
-func newPostPager(opts []PostPaginateOption) (*PostPager, error) {
-	pager := &PostPager{}
+func newPositionPager(opts []PositionPaginateOption) (*PositionPager, error) {
+	pager := &PositionPager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultPostOrder
+		pager.Order = DefaultPositionOrder
 	}
 	return pager, nil
 }
 
-func (p *PostPager) ApplyFilter(query *PostQuery) (*PostQuery, error) {
+func (p *PositionPager) ApplyFilter(query *PositionQuery) (*PositionQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// PostPageList is Post PageList result.
-type PostPageList struct {
-	List        []*Post      `json:"list"`
+// PositionPageList is Position PageList result.
+type PositionPageList struct {
+	List        []*Position  `json:"list"`
 	PageDetails *PageDetails `json:"pageDetails"`
 }
 
-func (po *PostQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...PostPaginateOption,
-) (*PostPageList, error) {
+func (po *PositionQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...PositionPaginateOption,
+) (*PositionPageList, error) {
 
-	pager, err := newPostPager(opts)
+	pager, err := newPositionPager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -666,7 +826,7 @@ func (po *PostQuery) Page(
 		return nil, err
 	}
 
-	ret := &PostPageList{}
+	ret := &PositionPageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -684,7 +844,7 @@ func (po *PostQuery) Page(
 	if pager.Order != nil {
 		po = po.Order(pager.Order)
 	} else {
-		po = po.Order(DefaultPostOrder)
+		po = po.Order(DefaultPositionOrder)
 	}
 
 	po = po.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))

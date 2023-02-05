@@ -12,7 +12,7 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/post"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
@@ -222,23 +222,23 @@ func (uu *UserUpdate) ClearDepartmentID() *UserUpdate {
 	return uu
 }
 
-// SetPostID sets the "post_id" field.
-func (uu *UserUpdate) SetPostID(u uint64) *UserUpdate {
-	uu.mutation.SetPostID(u)
+// SetPositionID sets the "position_id" field.
+func (uu *UserUpdate) SetPositionID(u uint64) *UserUpdate {
+	uu.mutation.SetPositionID(u)
 	return uu
 }
 
-// SetNillablePostID sets the "post_id" field if the given value is not nil.
-func (uu *UserUpdate) SetNillablePostID(u *uint64) *UserUpdate {
+// SetNillablePositionID sets the "position_id" field if the given value is not nil.
+func (uu *UserUpdate) SetNillablePositionID(u *uint64) *UserUpdate {
 	if u != nil {
-		uu.SetPostID(*u)
+		uu.SetPositionID(*u)
 	}
 	return uu
 }
 
-// ClearPostID clears the value of the "post_id" field.
-func (uu *UserUpdate) ClearPostID() *UserUpdate {
-	uu.mutation.ClearPostID()
+// ClearPositionID clears the value of the "position_id" field.
+func (uu *UserUpdate) ClearPositionID() *UserUpdate {
+	uu.mutation.ClearPositionID()
 	return uu
 }
 
@@ -247,9 +247,9 @@ func (uu *UserUpdate) SetDepartment(d *Department) *UserUpdate {
 	return uu.SetDepartmentID(d.ID)
 }
 
-// SetPost sets the "post" edge to the Post entity.
-func (uu *UserUpdate) SetPost(p *Post) *UserUpdate {
-	return uu.SetPostID(p.ID)
+// SetPosition sets the "position" edge to the Position entity.
+func (uu *UserUpdate) SetPosition(p *Position) *UserUpdate {
+	return uu.SetPositionID(p.ID)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -263,9 +263,9 @@ func (uu *UserUpdate) ClearDepartment() *UserUpdate {
 	return uu
 }
 
-// ClearPost clears the "post" edge to the Post entity.
-func (uu *UserUpdate) ClearPost() *UserUpdate {
-	uu.mutation.ClearPost()
+// ClearPosition clears the "position" edge to the Position entity.
+func (uu *UserUpdate) ClearPosition() *UserUpdate {
+	uu.mutation.ClearPosition()
 	return uu
 }
 
@@ -415,33 +415,33 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if uu.mutation.PostCleared() {
+	if uu.mutation.PositionCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.PostTable,
-			Columns: []string{user.PostColumn},
+			Table:   user.PositionTable,
+			Columns: []string{user.PositionColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeUint64,
-					Column: post.FieldID,
+					Column: position.FieldID,
 				},
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uu.mutation.PostIDs(); len(nodes) > 0 {
+	if nodes := uu.mutation.PositionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.PostTable,
-			Columns: []string{user.PostColumn},
+			Table:   user.PositionTable,
+			Columns: []string{user.PositionColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeUint64,
-					Column: post.FieldID,
+					Column: position.FieldID,
 				},
 			},
 		}
@@ -662,23 +662,23 @@ func (uuo *UserUpdateOne) ClearDepartmentID() *UserUpdateOne {
 	return uuo
 }
 
-// SetPostID sets the "post_id" field.
-func (uuo *UserUpdateOne) SetPostID(u uint64) *UserUpdateOne {
-	uuo.mutation.SetPostID(u)
+// SetPositionID sets the "position_id" field.
+func (uuo *UserUpdateOne) SetPositionID(u uint64) *UserUpdateOne {
+	uuo.mutation.SetPositionID(u)
 	return uuo
 }
 
-// SetNillablePostID sets the "post_id" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillablePostID(u *uint64) *UserUpdateOne {
+// SetNillablePositionID sets the "position_id" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillablePositionID(u *uint64) *UserUpdateOne {
 	if u != nil {
-		uuo.SetPostID(*u)
+		uuo.SetPositionID(*u)
 	}
 	return uuo
 }
 
-// ClearPostID clears the value of the "post_id" field.
-func (uuo *UserUpdateOne) ClearPostID() *UserUpdateOne {
-	uuo.mutation.ClearPostID()
+// ClearPositionID clears the value of the "position_id" field.
+func (uuo *UserUpdateOne) ClearPositionID() *UserUpdateOne {
+	uuo.mutation.ClearPositionID()
 	return uuo
 }
 
@@ -687,9 +687,9 @@ func (uuo *UserUpdateOne) SetDepartment(d *Department) *UserUpdateOne {
 	return uuo.SetDepartmentID(d.ID)
 }
 
-// SetPost sets the "post" edge to the Post entity.
-func (uuo *UserUpdateOne) SetPost(p *Post) *UserUpdateOne {
-	return uuo.SetPostID(p.ID)
+// SetPosition sets the "position" edge to the Position entity.
+func (uuo *UserUpdateOne) SetPosition(p *Position) *UserUpdateOne {
+	return uuo.SetPositionID(p.ID)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -703,9 +703,9 @@ func (uuo *UserUpdateOne) ClearDepartment() *UserUpdateOne {
 	return uuo
 }
 
-// ClearPost clears the "post" edge to the Post entity.
-func (uuo *UserUpdateOne) ClearPost() *UserUpdateOne {
-	uuo.mutation.ClearPost()
+// ClearPosition clears the "position" edge to the Position entity.
+func (uuo *UserUpdateOne) ClearPosition() *UserUpdateOne {
+	uuo.mutation.ClearPosition()
 	return uuo
 }
 
@@ -879,33 +879,33 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if uuo.mutation.PostCleared() {
+	if uuo.mutation.PositionCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.PostTable,
-			Columns: []string{user.PostColumn},
+			Table:   user.PositionTable,
+			Columns: []string{user.PositionColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeUint64,
-					Column: post.FieldID,
+					Column: position.FieldID,
 				},
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uuo.mutation.PostIDs(); len(nodes) > 0 {
+	if nodes := uuo.mutation.PositionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.PostTable,
-			Columns: []string{user.PostColumn},
+			Table:   user.PositionTable,
+			Columns: []string{user.PositionColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeUint64,
-					Column: post.FieldID,
+					Column: position.FieldID,
 				},
 			},
 		}

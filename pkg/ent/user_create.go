@@ -12,7 +12,7 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/gofrs/uuid"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/post"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
@@ -181,16 +181,16 @@ func (uc *UserCreate) SetNillableDepartmentID(u *uint64) *UserCreate {
 	return uc
 }
 
-// SetPostID sets the "post_id" field.
-func (uc *UserCreate) SetPostID(u uint64) *UserCreate {
-	uc.mutation.SetPostID(u)
+// SetPositionID sets the "position_id" field.
+func (uc *UserCreate) SetPositionID(u uint64) *UserCreate {
+	uc.mutation.SetPositionID(u)
 	return uc
 }
 
-// SetNillablePostID sets the "post_id" field if the given value is not nil.
-func (uc *UserCreate) SetNillablePostID(u *uint64) *UserCreate {
+// SetNillablePositionID sets the "position_id" field if the given value is not nil.
+func (uc *UserCreate) SetNillablePositionID(u *uint64) *UserCreate {
 	if u != nil {
-		uc.SetPostID(*u)
+		uc.SetPositionID(*u)
 	}
 	return uc
 }
@@ -214,9 +214,9 @@ func (uc *UserCreate) SetDepartment(d *Department) *UserCreate {
 	return uc.SetDepartmentID(d.ID)
 }
 
-// SetPost sets the "post" edge to the Post entity.
-func (uc *UserCreate) SetPost(p *Post) *UserCreate {
-	return uc.SetPostID(p.ID)
+// SetPosition sets the "position" edge to the Position entity.
+func (uc *UserCreate) SetPosition(p *Position) *UserCreate {
+	return uc.SetPositionID(p.ID)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -282,9 +282,9 @@ func (uc *UserCreate) defaults() {
 		v := user.DefaultDepartmentID
 		uc.mutation.SetDepartmentID(v)
 	}
-	if _, ok := uc.mutation.PostID(); !ok {
-		v := user.DefaultPostID
-		uc.mutation.SetPostID(v)
+	if _, ok := uc.mutation.PositionID(); !ok {
+		v := user.DefaultPositionID
+		uc.mutation.SetPositionID(v)
 	}
 	if _, ok := uc.mutation.ID(); !ok {
 		v := user.DefaultID()
@@ -421,24 +421,24 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_node.DepartmentID = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := uc.mutation.PostIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.PositionIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.PostTable,
-			Columns: []string{user.PostColumn},
+			Table:   user.PositionTable,
+			Columns: []string{user.PositionColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeUint64,
-					Column: post.FieldID,
+					Column: position.FieldID,
 				},
 			},
 		}
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.PostID = nodes[0]
+		_node.PositionID = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

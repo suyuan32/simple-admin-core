@@ -10,7 +10,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/gofrs/uuid"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/post"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
@@ -26,28 +26,28 @@ type User struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// status 1 normal 0 ban | 状态 1 正常 0 禁用
 	Status uint8 `json:"status,omitempty"`
-	// user's login name | 登录名
+	// User's login name | 登录名
 	Username string `json:"username,omitempty"`
-	// password | 密码
+	// Password | 密码
 	Password string `json:"password,omitempty"`
-	// nickname | 昵称
+	// Nickname | 昵称
 	Nickname string `json:"nickname,omitempty"`
 	// The description of user | 用户的描述信息
 	Description string `json:"description,omitempty"`
 	// The home page that the user enters after logging in | 用户登陆后进入的首页
 	HomePath string `json:"home_path,omitempty"`
-	// role id | 角色ID
+	// Role id | 角色ID
 	RoleID uint64 `json:"role_id,omitempty"`
-	// mobile number | 手机号
+	// Mobile number | 手机号
 	Mobile string `json:"mobile,omitempty"`
-	// email | 邮箱号
+	// Email | 邮箱号
 	Email string `json:"email,omitempty"`
-	// avatar | 头像路径
+	// Avatar | 头像路径
 	Avatar string `json:"avatar,omitempty"`
 	// Department ID | 部门ID
 	DepartmentID uint64 `json:"department_id,omitempty"`
-	// Post ID | 职位ID
-	PostID uint64 `json:"post_id,omitempty"`
+	// Position ID | 职位ID
+	PositionID uint64 `json:"position_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the UserQuery when eager-loading is set.
 	Edges UserEdges `json:"edges"`
@@ -57,8 +57,8 @@ type User struct {
 type UserEdges struct {
 	// Department holds the value of the department edge.
 	Department *Department `json:"department,omitempty"`
-	// Post holds the value of the post edge.
-	Post *Post `json:"post,omitempty"`
+	// Position holds the value of the position edge.
+	Position *Position `json:"position,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [2]bool
@@ -77,17 +77,17 @@ func (e UserEdges) DepartmentOrErr() (*Department, error) {
 	return nil, &NotLoadedError{edge: "department"}
 }
 
-// PostOrErr returns the Post value or an error if the edge
+// PositionOrErr returns the Position value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) PostOrErr() (*Post, error) {
+func (e UserEdges) PositionOrErr() (*Position, error) {
 	if e.loadedTypes[1] {
-		if e.Post == nil {
+		if e.Position == nil {
 			// Edge was loaded but was not found.
-			return nil, &NotFoundError{label: post.Label}
+			return nil, &NotFoundError{label: position.Label}
 		}
-		return e.Post, nil
+		return e.Position, nil
 	}
-	return nil, &NotLoadedError{edge: "post"}
+	return nil, &NotLoadedError{edge: "position"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -95,7 +95,7 @@ func (*User) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldStatus, user.FieldRoleID, user.FieldDepartmentID, user.FieldPostID:
+		case user.FieldStatus, user.FieldRoleID, user.FieldDepartmentID, user.FieldPositionID:
 			values[i] = new(sql.NullInt64)
 		case user.FieldUsername, user.FieldPassword, user.FieldNickname, user.FieldDescription, user.FieldHomePath, user.FieldMobile, user.FieldEmail, user.FieldAvatar:
 			values[i] = new(sql.NullString)
@@ -202,11 +202,11 @@ func (u *User) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				u.DepartmentID = uint64(value.Int64)
 			}
-		case user.FieldPostID:
+		case user.FieldPositionID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field post_id", values[i])
+				return fmt.Errorf("unexpected type %T for field position_id", values[i])
 			} else if value.Valid {
-				u.PostID = uint64(value.Int64)
+				u.PositionID = uint64(value.Int64)
 			}
 		}
 	}
@@ -218,9 +218,9 @@ func (u *User) QueryDepartment() *DepartmentQuery {
 	return NewUserClient(u.config).QueryDepartment(u)
 }
 
-// QueryPost queries the "post" edge of the User entity.
-func (u *User) QueryPost() *PostQuery {
-	return NewUserClient(u.config).QueryPost(u)
+// QueryPosition queries the "position" edge of the User entity.
+func (u *User) QueryPosition() *PositionQuery {
+	return NewUserClient(u.config).QueryPosition(u)
 }
 
 // Update returns a builder for updating this User.
@@ -285,8 +285,8 @@ func (u *User) String() string {
 	builder.WriteString("department_id=")
 	builder.WriteString(fmt.Sprintf("%v", u.DepartmentID))
 	builder.WriteString(", ")
-	builder.WriteString("post_id=")
-	builder.WriteString(fmt.Sprintf("%v", u.PostID))
+	builder.WriteString("position_id=")
+	builder.WriteString(fmt.Sprintf("%v", u.PositionID))
 	builder.WriteByte(')')
 	return builder.String()
 }

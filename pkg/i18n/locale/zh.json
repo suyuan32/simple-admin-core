@@ -78,11 +78,11 @@
 		"batchDeleteDepartment": "批量删除部门",
 		"getDepartmentList": "获取部门列表",
 		"updateDepartmentStatus": "修改部门状态",
-		"createOrUpdatePost": "创建或更新职位信息",
-		"deletePost": "删除一个职位",
-		"batchDeletePost": "批量删除职位",
-		"getPostList": "获取职位列表",
-		"updatePostStatus": "修改职位状态"
+		"createOrUpdatePosition": "创建或更新职位信息",
+		"deletePosition": "删除一个职位",
+		"batchDeletePosition": "批量删除职位",
+		"getPositionList": "获取职位列表",
+		"updatePositionStatus": "修改职位状态"
 	},
 	"route": {
 		"dashboard": "控制台",
@@ -99,7 +99,7 @@
 		"tokenManagement": "Token管理",
 		"otherPages": "其他页面",
 		"departmentManagement": "部门管理",
-		"postManagement": "职位管理"
+		"positionManagement": "职位管理"
 	},
 	"login": {
 		"loginSuccessTitle": "登录成功",
@@ -147,7 +147,7 @@
 	"department": {
 		"managementDepartment": "核心管理部门"
 	},
-	"post": {
+	"position": {
 		"userExistError": "该职位下存在用户，禁止删除",
 		"ceo": "CEO"
 	}

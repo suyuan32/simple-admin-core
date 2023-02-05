@@ -121,9 +121,9 @@ func DepartmentID(v uint64) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldDepartmentID, v))
 }
 
-// PostID applies equality check predicate on the "post_id" field. It's identical to PostIDEQ.
-func PostID(v uint64) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldPostID, v))
+// PositionID applies equality check predicate on the "position_id" field. It's identical to PositionIDEQ.
+func PositionID(v uint64) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldPositionID, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
@@ -896,34 +896,34 @@ func DepartmentIDNotNil() predicate.User {
 	return predicate.User(sql.FieldNotNull(FieldDepartmentID))
 }
 
-// PostIDEQ applies the EQ predicate on the "post_id" field.
-func PostIDEQ(v uint64) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldPostID, v))
+// PositionIDEQ applies the EQ predicate on the "position_id" field.
+func PositionIDEQ(v uint64) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldPositionID, v))
 }
 
-// PostIDNEQ applies the NEQ predicate on the "post_id" field.
-func PostIDNEQ(v uint64) predicate.User {
-	return predicate.User(sql.FieldNEQ(FieldPostID, v))
+// PositionIDNEQ applies the NEQ predicate on the "position_id" field.
+func PositionIDNEQ(v uint64) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldPositionID, v))
 }
 
-// PostIDIn applies the In predicate on the "post_id" field.
-func PostIDIn(vs ...uint64) predicate.User {
-	return predicate.User(sql.FieldIn(FieldPostID, vs...))
+// PositionIDIn applies the In predicate on the "position_id" field.
+func PositionIDIn(vs ...uint64) predicate.User {
+	return predicate.User(sql.FieldIn(FieldPositionID, vs...))
 }
 
-// PostIDNotIn applies the NotIn predicate on the "post_id" field.
-func PostIDNotIn(vs ...uint64) predicate.User {
-	return predicate.User(sql.FieldNotIn(FieldPostID, vs...))
+// PositionIDNotIn applies the NotIn predicate on the "position_id" field.
+func PositionIDNotIn(vs ...uint64) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldPositionID, vs...))
 }
 
-// PostIDIsNil applies the IsNil predicate on the "post_id" field.
-func PostIDIsNil() predicate.User {
-	return predicate.User(sql.FieldIsNull(FieldPostID))
+// PositionIDIsNil applies the IsNil predicate on the "position_id" field.
+func PositionIDIsNil() predicate.User {
+	return predicate.User(sql.FieldIsNull(FieldPositionID))
 }
 
-// PostIDNotNil applies the NotNil predicate on the "post_id" field.
-func PostIDNotNil() predicate.User {
-	return predicate.User(sql.FieldNotNull(FieldPostID))
+// PositionIDNotNil applies the NotNil predicate on the "position_id" field.
+func PositionIDNotNil() predicate.User {
+	return predicate.User(sql.FieldNotNull(FieldPositionID))
 }
 
 // HasDepartment applies the HasEdge predicate on the "department" edge.
@@ -953,24 +953,24 @@ func HasDepartmentWith(preds ...predicate.Department) predicate.User {
 	})
 }
 
-// HasPost applies the HasEdge predicate on the "post" edge.
-func HasPost() predicate.User {
+// HasPosition applies the HasEdge predicate on the "position" edge.
+func HasPosition() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, PostTable, PostColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, PositionTable, PositionColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasPostWith applies the HasEdge predicate on the "post" edge with a given conditions (other predicates).
-func HasPostWith(preds ...predicate.Post) predicate.User {
+// HasPositionWith applies the HasEdge predicate on the "position" edge with a given conditions (other predicates).
+func HasPositionWith(preds ...predicate.Position) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(PostInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, PostTable, PostColumn),
+			sqlgraph.To(PositionInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, PositionTable, PositionColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

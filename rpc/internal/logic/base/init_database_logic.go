@@ -128,7 +128,7 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		return nil, statuserr.NewInternalError(err.Error())
 	}
 
-	err = l.insertPostData()
+	err = l.insertPositionData()
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
@@ -149,7 +149,7 @@ func (l *InitDatabaseLogic) insertUserData() error {
 		SetEmail("simple_admin@gmail.com").
 		SetRoleID(1).
 		SetDepartmentID(1).
-		SetPostID(1),
+		SetPositionID(1),
 	)
 
 	err := l.svcCtx.DB.User.CreateBulk(users...).Exec(l.ctx)
@@ -586,40 +586,40 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetMethod("POST"),
 	)
 
-	// POST
+	// POSITION
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetPath("/post/create_or_update").
-		SetDescription("apiDesc.createOrUpdatePost").
-		SetAPIGroup("post").
+		SetPath("/position/create_or_update").
+		SetDescription("apiDesc.createOrUpdatePosition").
+		SetAPIGroup("position").
 		SetMethod("POST"),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetPath("/post/batch_delete").
-		SetDescription("apiDesc.batchDeletePost").
-		SetAPIGroup("post").
+		SetPath("/position/batch_delete").
+		SetDescription("apiDesc.batchDeletePosition").
+		SetAPIGroup("position").
 		SetMethod("POST"),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetPath("/post/delete").
-		SetDescription("apiDesc.deletePost").
-		SetAPIGroup("post").
+		SetPath("/position/delete").
+		SetDescription("apiDesc.deletePosition").
+		SetAPIGroup("position").
 		SetMethod("POST"),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetPath("/post/list").
-		SetDescription("apiDesc.getPostList").
-		SetAPIGroup("post").
+		SetPath("/position/list").
+		SetDescription("apiDesc.getPositionList").
+		SetAPIGroup("position").
 		SetMethod("POST"),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetPath("/post/status").
-		SetDescription("apiDesc.updatePostStatus").
-		SetAPIGroup("post").
+		SetPath("/position/status").
+		SetDescription("apiDesc.updatePositionStatus").
+		SetAPIGroup("position").
 		SetMethod("POST"),
 	)
 
@@ -822,11 +822,11 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuLevel(2).
 		SetMenuType(1).
 		SetParentID(2).
-		SetPath("/post").
-		SetName("Post Management").
-		SetComponent("/sys/post/index").
+		SetPath("/position").
+		SetName("Position Management").
+		SetComponent("/sys/position/index").
 		SetSort(8).
-		SetTitle("route.postManagement").
+		SetTitle("route.positionManagement").
 		SetIcon("ic:twotone-work-outline").
 		SetHideMenu(false),
 	)
@@ -959,14 +959,14 @@ func (l *InitDatabaseLogic) insertDepartmentData() error {
 }
 
 // insert init post data
-func (l *InitDatabaseLogic) insertPostData() error {
-	var posts []*ent.PostCreate
-	posts = append(posts, l.svcCtx.DB.Post.Create().
-		SetName("post.ceo").
+func (l *InitDatabaseLogic) insertPositionData() error {
+	var posts []*ent.PositionCreate
+	posts = append(posts, l.svcCtx.DB.Position.Create().
+		SetName("position.ceo").
 		SetRemark("CEO").SetCode("001").SetSort(1),
 	)
 
-	err := l.svcCtx.DB.Post.CreateBulk(posts...).Exec(l.ctx)
+	err := l.svcCtx.DB.Position.CreateBulk(posts...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
 		return statuserr.NewInternalError(err.Error())

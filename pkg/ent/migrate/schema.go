@@ -102,6 +102,56 @@ var (
 			},
 		},
 	}
+	// CoreMmsMembersColumns holds the columns for the "core_mms_members" table.
+	CoreMmsMembersColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "username", Type: field.TypeString, Unique: true},
+		{Name: "password", Type: field.TypeString},
+		{Name: "nickname", Type: field.TypeString, Unique: true},
+		{Name: "mobile", Type: field.TypeString, Nullable: true},
+		{Name: "email", Type: field.TypeString, Nullable: true},
+		{Name: "avatar", Type: field.TypeString, Nullable: true, Default: "", SchemaType: map[string]string{"mysql": "varchar(512)"}},
+		{Name: "rank_id", Type: field.TypeUint64, Nullable: true, Default: 2},
+	}
+	// CoreMmsMembersTable holds the schema information for the "core_mms_members" table.
+	CoreMmsMembersTable = &schema.Table{
+		Name:       "core_mms_members",
+		Columns:    CoreMmsMembersColumns,
+		PrimaryKey: []*schema.Column{CoreMmsMembersColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "core_mms_members_core_mms_rank_rank",
+				Columns:    []*schema.Column{CoreMmsMembersColumns[10]},
+				RefColumns: []*schema.Column{CoreMmsRankColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+		Indexes: []*schema.Index{
+			{
+				Name:    "member_username_email",
+				Unique:  true,
+				Columns: []*schema.Column{CoreMmsMembersColumns[4], CoreMmsMembersColumns[8]},
+			},
+		},
+	}
+	// CoreMmsRankColumns holds the columns for the "core_mms_rank" table.
+	CoreMmsRankColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "name", Type: field.TypeString},
+		{Name: "description", Type: field.TypeString},
+		{Name: "remark", Type: field.TypeString},
+	}
+	// CoreMmsRankTable holds the schema information for the "core_mms_rank" table.
+	CoreMmsRankTable = &schema.Table{
+		Name:       "core_mms_rank",
+		Columns:    CoreMmsRankColumns,
+		PrimaryKey: []*schema.Column{CoreMmsRankColumns[0]},
+	}
 	// SysMenusColumns holds the columns for the "sys_menus" table.
 	SysMenusColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -189,8 +239,8 @@ var (
 		Columns:    SysOauthProvidersColumns,
 		PrimaryKey: []*schema.Column{SysOauthProvidersColumns[0]},
 	}
-	// SysPostsColumns holds the columns for the "sys_posts" table.
-	SysPostsColumns = []*schema.Column{
+	// SysPositionsColumns holds the columns for the "sys_positions" table.
+	SysPositionsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
@@ -200,11 +250,11 @@ var (
 		{Name: "code", Type: field.TypeString},
 		{Name: "remark", Type: field.TypeString},
 	}
-	// SysPostsTable holds the schema information for the "sys_posts" table.
-	SysPostsTable = &schema.Table{
-		Name:       "sys_posts",
-		Columns:    SysPostsColumns,
-		PrimaryKey: []*schema.Column{SysPostsColumns[0]},
+	// SysPositionsTable holds the schema information for the "sys_positions" table.
+	SysPositionsTable = &schema.Table{
+		Name:       "sys_positions",
+		Columns:    SysPositionsColumns,
+		PrimaryKey: []*schema.Column{SysPositionsColumns[0]},
 	}
 	// SysRolesColumns holds the columns for the "sys_roles" table.
 	SysRolesColumns = []*schema.Column{
@@ -269,7 +319,7 @@ var (
 		{Name: "email", Type: field.TypeString, Nullable: true},
 		{Name: "avatar", Type: field.TypeString, Nullable: true, Default: "", SchemaType: map[string]string{"mysql": "varchar(512)"}},
 		{Name: "department_id", Type: field.TypeUint64, Nullable: true, Default: 1},
-		{Name: "post_id", Type: field.TypeUint64, Nullable: true, Default: 1},
+		{Name: "position_id", Type: field.TypeUint64, Nullable: true, Default: 1},
 	}
 	// SysUsersTable holds the schema information for the "sys_users" table.
 	SysUsersTable = &schema.Table{
@@ -284,9 +334,9 @@ var (
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "sys_users_sys_posts_post",
+				Symbol:     "sys_users_sys_positions_position",
 				Columns:    []*schema.Column{SysUsersColumns[14]},
-				RefColumns: []*schema.Column{SysPostsColumns[0]},
+				RefColumns: []*schema.Column{SysPositionsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -329,10 +379,12 @@ var (
 		SysDepartmentsTable,
 		SysDictionariesTable,
 		SysDictionaryDetailsTable,
+		CoreMmsMembersTable,
+		CoreMmsRankTable,
 		SysMenusTable,
 		SysMenuParamsTable,
 		SysOauthProvidersTable,
-		SysPostsTable,
+		SysPositionsTable,
 		SysRolesTable,
 		SysTokensTable,
 		SysUsersTable,
@@ -355,6 +407,13 @@ func init() {
 	SysDictionaryDetailsTable.Annotation = &entsql.Annotation{
 		Table: "sys_dictionary_details",
 	}
+	CoreMmsMembersTable.ForeignKeys[0].RefTable = CoreMmsRankTable
+	CoreMmsMembersTable.Annotation = &entsql.Annotation{
+		Table: "core_mms_members",
+	}
+	CoreMmsRankTable.Annotation = &entsql.Annotation{
+		Table: "core_mms_rank",
+	}
 	SysMenusTable.ForeignKeys[0].RefTable = SysMenusTable
 	SysMenusTable.Annotation = &entsql.Annotation{
 		Table: "sys_menus",
@@ -366,8 +425,8 @@ func init() {
 	SysOauthProvidersTable.Annotation = &entsql.Annotation{
 		Table: "sys_oauth_providers",
 	}
-	SysPostsTable.Annotation = &entsql.Annotation{
-		Table: "sys_posts",
+	SysPositionsTable.Annotation = &entsql.Annotation{
+		Table: "sys_positions",
 	}
 	SysRolesTable.Annotation = &entsql.Annotation{
 		Table: "sys_roles",
@@ -376,7 +435,7 @@ func init() {
 		Table: "sys_tokens",
 	}
 	SysUsersTable.ForeignKeys[0].RefTable = SysDepartmentsTable
-	SysUsersTable.ForeignKeys[1].RefTable = SysPostsTable
+	SysUsersTable.ForeignKeys[1].RefTable = SysPositionsTable
 	SysUsersTable.Annotation = &entsql.Annotation{
 		Table: "sys_users",
 	}

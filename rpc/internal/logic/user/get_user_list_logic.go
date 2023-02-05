@@ -54,8 +54,8 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 		predicates = append(predicates, user.DepartmentIDEQ(in.DepartmentId))
 	}
 
-	if in.PostId != 0 {
-		predicates = append(predicates, user.PostIDEQ(in.PostId))
+	if in.PositionId != 0 {
+		predicates = append(predicates, user.PositionIDEQ(in.PositionId))
 	}
 
 	users, err := l.svcCtx.DB.User.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
@@ -80,7 +80,7 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 			HomePath:     v.HomePath,
 			Description:  v.Description,
 			DepartmentId: v.DepartmentID,
-			PostId:       v.PostID,
+			PositionId:   v.PositionID,
 			CreatedAt:    v.CreatedAt.UnixMilli(),
 			UpdatedAt:    v.UpdatedAt.UnixMilli(),
 		})
