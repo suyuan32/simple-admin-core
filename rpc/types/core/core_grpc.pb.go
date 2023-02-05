@@ -57,6 +57,17 @@ type CoreClient interface {
 	CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: dictionary
 	DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// Member management
+	// group: member
+	CreateOrUpdateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: member
+	GetMemberList(ctx context.Context, in *MemberListReq, opts ...grpc.CallOption) (*MemberListResp, error)
+	// group: member
+	DeleteMember(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: member
+	BatchDeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: member
+	UpdateMemberStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
 	CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
@@ -289,6 +300,51 @@ func (c *coreClient) CreateOrUpdateDictionaryDetail(ctx context.Context, in *Dic
 func (c *coreClient) DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.Core/deleteDictionaryDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreateOrUpdateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetMemberList(ctx context.Context, in *MemberListReq, opts ...grpc.CallOption) (*MemberListResp, error) {
+	out := new(MemberListResp)
+	err := c.cc.Invoke(ctx, "/core.Core/getMemberList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteMember(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) BatchDeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/batchDeleteMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateMemberStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/updateMemberStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -667,6 +723,17 @@ type CoreServer interface {
 	CreateOrUpdateDictionaryDetail(context.Context, *DictionaryDetail) (*BaseResp, error)
 	// group: dictionary
 	DeleteDictionaryDetail(context.Context, *IDReq) (*BaseResp, error)
+	// Member management
+	// group: member
+	CreateOrUpdateMember(context.Context, *MemberInfo) (*BaseResp, error)
+	// group: member
+	GetMemberList(context.Context, *MemberListReq) (*MemberListResp, error)
+	// group: member
+	DeleteMember(context.Context, *UUIDReq) (*BaseResp, error)
+	// group: member
+	BatchDeleteMember(context.Context, *UUIDsReq) (*BaseResp, error)
+	// group: member
+	UpdateMemberStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error)
 	// group: menu
 	CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error)
 	// group: menu
@@ -799,6 +866,21 @@ func (UnimplementedCoreServer) CreateOrUpdateDictionaryDetail(context.Context, *
 }
 func (UnimplementedCoreServer) DeleteDictionaryDetail(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionaryDetail not implemented")
+}
+func (UnimplementedCoreServer) CreateOrUpdateMember(context.Context, *MemberInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMember not implemented")
+}
+func (UnimplementedCoreServer) GetMemberList(context.Context, *MemberListReq) (*MemberListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMemberList not implemented")
+}
+func (UnimplementedCoreServer) DeleteMember(context.Context, *UUIDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteMember not implemented")
+}
+func (UnimplementedCoreServer) BatchDeleteMember(context.Context, *UUIDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteMember not implemented")
+}
+func (UnimplementedCoreServer) UpdateMemberStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMemberStatus not implemented")
 }
 func (UnimplementedCoreServer) CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenu not implemented")
@@ -1226,6 +1308,96 @@ func _Core_DeleteDictionaryDetail_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteDictionaryDetail(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreateOrUpdateMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateOrUpdateMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/createOrUpdateMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateOrUpdateMember(ctx, req.(*MemberInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetMemberList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetMemberList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/getMemberList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetMemberList(ctx, req.(*MemberListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/deleteMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteMember(ctx, req.(*UUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_BatchDeleteMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).BatchDeleteMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/batchDeleteMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).BatchDeleteMember(ctx, req.(*UUIDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateMemberStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StatusCodeUUIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateMemberStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/updateMemberStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateMemberStatus(ctx, req.(*StatusCodeUUIDReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1970,6 +2142,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteDictionaryDetail",
 			Handler:    _Core_DeleteDictionaryDetail_Handler,
+		},
+		{
+			MethodName: "createOrUpdateMember",
+			Handler:    _Core_CreateOrUpdateMember_Handler,
+		},
+		{
+			MethodName: "getMemberList",
+			Handler:    _Core_GetMemberList_Handler,
+		},
+		{
+			MethodName: "deleteMember",
+			Handler:    _Core_DeleteMember_Handler,
+		},
+		{
+			MethodName: "batchDeleteMember",
+			Handler:    _Core_BatchDeleteMember_Handler,
+		},
+		{
+			MethodName: "updateMemberStatus",
+			Handler:    _Core_UpdateMemberStatus_Handler,
 		},
 		{
 			MethodName: "createOrUpdateMenu",

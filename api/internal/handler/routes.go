@@ -10,6 +10,7 @@ import (
 	core "github.com/suyuan32/simple-admin-core/api/internal/handler/core"
 	department "github.com/suyuan32/simple-admin-core/api/internal/handler/department"
 	dictionary "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionary"
+	member "github.com/suyuan32/simple-admin-core/api/internal/handler/member"
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
 	oauth "github.com/suyuan32/simple-admin-core/api/internal/handler/oauth"
 	position "github.com/suyuan32/simple-admin-core/api/internal/handler/position"
@@ -431,6 +432,40 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/position/status",
 					Handler: position.UpdatePositionStatusHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/member/create_or_update",
+					Handler: member.CreateOrUpdateMemberHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/member/delete",
+					Handler: member.DeleteMemberHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/member/list",
+					Handler: member.GetMemberListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/member/batch_delete",
+					Handler: member.BatchDeleteMemberHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/member/status",
+					Handler: member.UpdateMemberStatusHandler(serverCtx),
 				},
 			}...,
 		),

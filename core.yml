@@ -65,6 +65,9 @@ definitions:
     CreateOrUpdateDictionaryReq:
         description: Create or update dictionary information request | 创建或更新字典信息请求
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    CreateOrUpdateMemberReq:
+        description: Create or update member information request | 创建或更新会员信息
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateMenuParamReq:
         description: Create or update menu extra parameters request params | 创建或更新菜单额外参数的请求参数
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
@@ -151,6 +154,18 @@ definitions:
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     LoginResp:
         description: The log in response data | 登录返回数据
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MemberInfo:
+        description: The response data of member information | 会员信息
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MemberListInfo:
+        description: Member list data | 会员列表数据
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MemberListReq:
+        description: Get member list request params | 会员列表请求参数
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MemberListResp:
+        description: The response data of member list | 会员列表数据
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuAuthorityInfoReq:
         description: Create or update menu authorization information request params | 创建或更新菜单授权信息参数
@@ -641,6 +656,96 @@ paths:
             summary: Get dictionary list | 获取字典列表
             tags:
                 - dictionary
+    /member/batch_delete:
+        post:
+            description: Delete member information | 删除会员信息
+            operationId: BatchDeleteMember
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/UUIDsReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete member information | 删除会员信息
+            tags:
+                - member
+    /member/create_or_update:
+        post:
+            description: Create or update member information | 创建或更新会员
+            operationId: CreateOrUpdateMember
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/CreateOrUpdateMemberReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Create or update member information | 创建或更新会员
+            tags:
+                - member
+    /member/delete:
+        post:
+            description: Delete member information | 删除会员信息
+            operationId: DeleteMember
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/UUIDReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete member information | 删除会员信息
+            tags:
+                - member
+    /member/list:
+        post:
+            description: Get member list | 获取会员列表
+            operationId: GetMemberList
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/MemberListReq'
+                    type: object
+            responses:
+                "200":
+                    description: MemberListResp
+                    schema:
+                        $ref: '#/definitions/MemberListResp'
+            summary: Get member list | 获取会员列表
+            tags:
+                - member
+    /member/status:
+        post:
+            description: Set member's status | 更新会员状态
+            operationId: UpdateMemberStatus
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/StatusCodeUUIDReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Set member's status | 更新会员状态
+            tags:
+                - member
     /menu/create_or_update:
         post:
             description: Create or update menu information | 创建或更新菜单

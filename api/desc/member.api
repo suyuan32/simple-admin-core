@@ -1,0 +1,125 @@
+import "base.api"
+
+type (
+    // The response data of member information | 会员信息
+    MemberInfo {
+        BaseUUIDInfo
+
+        // Status
+        Status  uint32 `json:"status"`
+
+        // Username
+        Username  string `json:"username"`
+
+        // Password
+        Password  string `json:"password"`
+
+        // Nickname
+        Nickname  string `json:"nickname"`
+
+        // RankId
+        RankId  uint64 `json:"rankId"`
+
+        // Mobile
+        Mobile  string `json:"mobile"`
+
+        // Email
+        Email  string `json:"email"`
+
+        // Avatar
+        Avatar  string `json:"avatar"`
+    }
+
+    // Create or update member information request | 创建或更新会员信息
+    CreateOrUpdateMemberReq {
+        // ID
+        // Required: true
+        Id    string    `json:"id"`
+
+        // Status
+        Status  uint32 `json:"status"`
+
+        // Username
+        Username  string `json:"username"`
+
+        // Password
+        Password  string `json:"password"`
+
+        // Nickname
+        Nickname  string `json:"nickname"`
+
+        // RankId
+        RankId  uint64 `json:"rankId"`
+
+        // Mobile
+        Mobile  string `json:"mobile"`
+
+        // Email
+        Email  string `json:"email"`
+
+        // Avatar
+        Avatar  string `json:"avatar"`
+    }
+
+    // The response data of member list | 会员列表数据
+    MemberListResp {
+        BaseDataInfo
+
+        // Member list data | 会员列表数据
+        Data MemberListInfo `json:"data"`
+    }
+
+    // Member list data | 会员列表数据
+    MemberListInfo {
+        BaseListInfo
+
+        // The API list data | 会员列表数据
+        Data  []MemberInfo  `json:"data"`
+    }
+
+    // Get member list request params | 会员列表请求参数
+    MemberListReq {
+        PageInfo
+
+        // Username
+        Username  string `json:"username,optional"`
+
+        // Nickname
+        Nickname  string `json:"nickname,optional"`
+
+        // Mobile
+        Mobile  string `json:"mobile,optional"`
+
+        // Email
+        Email  string `json:"email,optional"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: member
+    middleware: Authority
+)
+
+service core {
+    // Create or update member information | 创建或更新会员
+    @handler createOrUpdateMember
+    post /member/create_or_update (CreateOrUpdateMemberReq) returns (BaseMsgResp)
+
+    // Delete member information | 删除会员信息
+    @handler deleteMember
+    post /member/delete (UUIDReq) returns (BaseMsgResp)
+
+    // Get member list | 获取会员列表
+    @handler getMemberList
+    post /member/list (MemberListReq) returns (MemberListResp)
+
+    // Delete member information | 删除会员信息
+    @handler batchDeleteMember
+    post /member/batch_delete (UUIDsReq) returns (BaseMsgResp)
+
+    // Set member's status | 更新会员状态
+    @handler updateMemberStatus
+    post /member/status (StatusCodeUUIDReq) returns (BaseMsgResp)
+
+}

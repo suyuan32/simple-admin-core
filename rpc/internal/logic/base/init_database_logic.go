@@ -135,6 +135,13 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		return nil, statuserr.NewInternalError(err.Error())
 	}
 
+	err = l.insertMemberData()
+	if err != nil {
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
+		return nil, statuserr.NewInternalError(err.Error())
+	}
+
 	l.svcCtx.Redis.Setex("database_init_state", "1", 300)
 	return &core.BaseResp{Msg: i18n.Success}, nil
 }
@@ -623,6 +630,43 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetMethod("POST"),
 	)
 
+	// MEMBER
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/member/create_or_update").
+		SetDescription("apiDesc.createOrUpdateMember").
+		SetAPIGroup("member").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/member/batch_delete").
+		SetDescription("apiDesc.batchDeleteMember").
+		SetAPIGroup("member").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/member/delete").
+		SetDescription("apiDesc.deleteMember").
+		SetAPIGroup("member").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/member/list").
+		SetDescription("apiDesc.getMemberList").
+		SetAPIGroup("member").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/member/status").
+		SetDescription("apiDesc.updateMemberStatus").
+		SetAPIGroup("member").
+		SetMethod("POST"),
+	)
+
 	err := l.svcCtx.DB.API.CreateBulk(apis...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
@@ -734,7 +778,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetPath("/file").
 		SetName("File Management").
 		SetComponent("/file/index").
-		SetSort(2).
+		SetSort(3).
 		SetTitle("route.fileManagementTitle").
 		SetIcon("ant-design:folder-open-outlined").
 		SetHideMenu(true),
@@ -828,6 +872,19 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(8).
 		SetTitle("route.positionManagement").
 		SetIcon("ic:twotone-work-outline").
+		SetHideMenu(false),
+	)
+
+	menus = append(menus, l.svcCtx.DB.Menu.Create().
+		SetMenuLevel(2).
+		SetMenuType(1).
+		SetParentID(0).
+		SetPath("/member").
+		SetName("Member Management").
+		SetComponent("/sys/member/index").
+		SetSort(2).
+		SetTitle("route.memberManagement").
+		SetIcon("ic:round-person-outline").
 		SetHideMenu(false),
 	)
 
@@ -958,7 +1015,7 @@ func (l *InitDatabaseLogic) insertDepartmentData() error {
 	}
 }
 
-// insert init post data
+// insert init position data
 func (l *InitDatabaseLogic) insertPositionData() error {
 	var posts []*ent.PositionCreate
 	posts = append(posts, l.svcCtx.DB.Position.Create().
@@ -967,6 +1024,27 @@ func (l *InitDatabaseLogic) insertPositionData() error {
 	)
 
 	err := l.svcCtx.DB.Position.CreateBulk(posts...).Exec(l.ctx)
+	if err != nil {
+		logx.Errorw(err.Error())
+		return statuserr.NewInternalError(err.Error())
+	} else {
+		return nil
+	}
+}
+
+// insert init member data
+func (l *InitDatabaseLogic) insertMemberData() error {
+	var members []*ent.MemberCreate
+	members = append(members, l.svcCtx.DB.Member.Create().
+		SetUsername("test").
+		SetNickname("Test").
+		SetEmail("simpleadmin@gmail.com").
+		SetMobile("18888888888").
+		SetRankID(1).
+		SetPassword(utils.BcryptEncrypt("simple-admin")),
+	)
+
+	err := l.svcCtx.DB.Member.CreateBulk(members...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
 		return statuserr.NewInternalError(err.Error())

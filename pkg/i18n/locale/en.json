@@ -82,7 +82,12 @@
 		"deletePosition": "Delete a position",
 		"batchDeletePosition": "Batch delete positions",
 		"getPositionList": "Get position list",
-		"updatePositionStatus": "Modify the position status"
+		"updatePositionStatus": "Modify the position status",
+		"createOrUpdateMember": "Create or update a member",
+		"deleteMember": "Delete a member",
+		"batchDeleteMember": "Batch delete members",
+		"getMemberList": "Get member list",
+		"updateMemberStatus": "Modify the member status"
 	},
 	"route": {
 		"dashboard": "Dashboard",
@@ -99,7 +104,8 @@
 		"tokenManagement": "Token",
 		"otherPages": "Other pages",
 		"departmentManagement": "Department",
-		"positionManagement": "Position"
+		"positionManagement": "Position",
+		"memberManagement": "Member"
 	},
 	"login": {
 		"loginSuccessTitle": "Login successful",

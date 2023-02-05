@@ -1328,3 +1328,79 @@ type PositionListReq struct {
 	// Name
 	Name string `json:"name,optional"`
 }
+
+// The response data of member information | 会员信息
+// swagger:model MemberInfo
+type MemberInfo struct {
+	BaseUUIDInfo
+	// Status
+	Status uint32 `json:"status"`
+	// Username
+	Username string `json:"username"`
+	// Password
+	Password string `json:"password"`
+	// Nickname
+	Nickname string `json:"nickname"`
+	// RankId
+	RankId uint64 `json:"rankId"`
+	// Mobile
+	Mobile string `json:"mobile"`
+	// Email
+	Email string `json:"email"`
+	// Avatar
+	Avatar string `json:"avatar"`
+}
+
+// Create or update member information request | 创建或更新会员信息
+// swagger:model CreateOrUpdateMemberReq
+type CreateOrUpdateMemberReq struct {
+	// ID
+	// Required: true
+	Id string `json:"id"`
+	// Status
+	Status uint32 `json:"status"`
+	// Username
+	Username string `json:"username"`
+	// Password
+	Password string `json:"password"`
+	// Nickname
+	Nickname string `json:"nickname"`
+	// RankId
+	RankId uint64 `json:"rankId"`
+	// Mobile
+	Mobile string `json:"mobile"`
+	// Email
+	Email string `json:"email"`
+	// Avatar
+	Avatar string `json:"avatar"`
+}
+
+// The response data of member list | 会员列表数据
+// swagger:model MemberListResp
+type MemberListResp struct {
+	BaseDataInfo
+	// Member list data | 会员列表数据
+	Data MemberListInfo `json:"data"`
+}
+
+// Member list data | 会员列表数据
+// swagger:model MemberListInfo
+type MemberListInfo struct {
+	BaseListInfo
+	// The API list data | 会员列表数据
+	Data []MemberInfo `json:"data"`
+}
+
+// Get member list request params | 会员列表请求参数
+// swagger:model MemberListReq
+type MemberListReq struct {
+	PageInfo
+	// Username
+	Username string `json:"username,optional"`
+	// Nickname
+	Nickname string `json:"nickname,optional"`
+	// Mobile
+	Mobile string `json:"mobile,optional"`
+	// Email
+	Email string `json:"email,optional"`
+}

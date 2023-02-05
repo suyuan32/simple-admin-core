@@ -11,6 +11,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/base"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/member"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauth"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/position"
@@ -116,6 +117,32 @@ func (s *CoreServer) CreateOrUpdateDictionaryDetail(ctx context.Context, in *cor
 func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
 	l := dictionary.NewDeleteDictionaryDetailLogic(ctx, s.svcCtx)
 	return l.DeleteDictionaryDetail(in)
+}
+
+// Member management
+func (s *CoreServer) CreateOrUpdateMember(ctx context.Context, in *core.MemberInfo) (*core.BaseResp, error) {
+	l := member.NewCreateOrUpdateMemberLogic(ctx, s.svcCtx)
+	return l.CreateOrUpdateMember(in)
+}
+
+func (s *CoreServer) GetMemberList(ctx context.Context, in *core.MemberListReq) (*core.MemberListResp, error) {
+	l := member.NewGetMemberListLogic(ctx, s.svcCtx)
+	return l.GetMemberList(in)
+}
+
+func (s *CoreServer) DeleteMember(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
+	l := member.NewDeleteMemberLogic(ctx, s.svcCtx)
+	return l.DeleteMember(in)
+}
+
+func (s *CoreServer) BatchDeleteMember(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := member.NewBatchDeleteMemberLogic(ctx, s.svcCtx)
+	return l.BatchDeleteMember(in)
+}
+
+func (s *CoreServer) UpdateMemberStatus(ctx context.Context, in *core.StatusCodeUUIDReq) (*core.BaseResp, error) {
+	l := member.NewUpdateMemberStatusLogic(ctx, s.svcCtx)
+	return l.UpdateMemberStatus(in)
 }
 
 func (s *CoreServer) CreateOrUpdateMenu(ctx context.Context, in *core.CreateOrUpdateMenuReq) (*core.BaseResp, error) {

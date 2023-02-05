@@ -82,7 +82,12 @@
 		"deletePosition": "删除一个职位",
 		"batchDeletePosition": "批量删除职位",
 		"getPositionList": "获取职位列表",
-		"updatePositionStatus": "修改职位状态"
+		"updatePositionStatus": "修改职位状态",
+		"createOrUpdateMember": "创建或更新会员信息",
+		"deleteMember": "删除一个会员",
+		"batchDeleteMember": "批量删除会员",
+		"getMemberList": "获取会员列表",
+		"updateMemberStatus": "修改会员状态"
 	},
 	"route": {
 		"dashboard": "控制台",
@@ -99,7 +104,8 @@
 		"tokenManagement": "Token管理",
 		"otherPages": "其他页面",
 		"departmentManagement": "部门管理",
-		"positionManagement": "职位管理"
+		"positionManagement": "职位管理",
+		"memberManagement": "会员管理"
 	},
 	"login": {
 		"loginSuccessTitle": "登录成功",

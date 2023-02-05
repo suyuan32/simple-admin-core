@@ -1,7 +1,9 @@
-package user
+package member
 
 import (
 	"context"
+
+	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
@@ -11,38 +13,33 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
-
-	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type CreateOrUpdateUserLogic struct {
+type CreateOrUpdateMemberLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewCreateOrUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOrUpdateUserLogic {
-	return &CreateOrUpdateUserLogic{
+func NewCreateOrUpdateMemberLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOrUpdateMemberLogic {
+	return &CreateOrUpdateMemberLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUserReq) (*core.BaseResp, error) {
+func (l *CreateOrUpdateMemberLogic) CreateOrUpdateMember(in *core.MemberInfo) (*core.BaseResp, error) {
 	if in.Id == "" {
-		err := l.svcCtx.DB.User.Create().
+		err := l.svcCtx.DB.Member.Create().
+			SetStatus(uint8(in.Status)).
 			SetUsername(in.Username).
-			SetPassword(utils.BcryptEncrypt(in.Password)).
+			SetPassword(in.Password).
 			SetNickname(in.Nickname).
-			SetEmail(in.Email).
+			SetRankID(in.RankId).
 			SetMobile(in.Mobile).
+			SetEmail(in.Email).
 			SetAvatar(in.Avatar).
-			SetRoleID(in.RoleId).
-			SetHomePath(in.HomePath).
-			SetDescription(in.Description).
-			SetDepartmentID(in.DepartmentId).
-			SetPositionID(in.PositionId).
 			Exec(l.ctx)
 		if err != nil {
 			switch {
@@ -55,19 +52,16 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 			}
 		}
 
-		return &core.BaseResp{Msg: i18n.Success}, nil
+		return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
 	} else {
-		updateQuery := l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
+		updateQuery := l.svcCtx.DB.Member.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
+			SetStatus(uint8(in.Status)).
 			SetUsername(in.Username).
 			SetNickname(in.Nickname).
-			SetEmail(in.Email).
+			SetRankID(in.RankId).
 			SetMobile(in.Mobile).
-			SetAvatar(in.Avatar).
-			SetRoleID(in.RoleId).
-			SetHomePath(in.HomePath).
-			SetDescription(in.Description).
-			SetDepartmentID(in.DepartmentId).
-			SetPositionID(in.PositionId)
+			SetEmail(in.Email).
+			SetAvatar(in.Avatar)
 
 		if in.Password != "" {
 			updateQuery = updateQuery.SetPassword(utils.BcryptEncrypt(in.Password))
@@ -88,8 +82,6 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(in *core.CreateOrUpdateUser
 			}
 		}
 
-		return &core.BaseResp{
-			Msg: i18n.Success,
-		}, nil
+		return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
 	}
 }
