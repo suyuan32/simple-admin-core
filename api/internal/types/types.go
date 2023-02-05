@@ -791,8 +791,8 @@ type ApiListReq struct {
 	// Max length: 50
 	Description string `json:"description,optional" validate:"omitempty,max=50"`
 	// API group | API分组
-	// Max length: 10
-	Group string `json:"group,optional" validate:"omitempty,alphanum,max=10"`
+	// Max length: 20
+	Group string `json:"group,optional" validate:"omitempty,max=20"`
 	// API request method e.g. POST | API请求类型 如POST
 	// Max length: 4
 	Method string `json:"method,optional" validate:"omitempty,uppercase,max=4"`
@@ -1403,4 +1403,60 @@ type MemberListReq struct {
 	Mobile string `json:"mobile,optional"`
 	// Email
 	Email string `json:"email,optional"`
+}
+
+// The response data of member rank information | 会员等级信息
+// swagger:model MemberRankInfo
+type MemberRankInfo struct {
+	BaseInfo
+	// Translated Name
+	Trans string `json:"trans"`
+	// Name
+	Name string `json:"name"`
+	// Description
+	Description string `json:"description"`
+	// Remark
+	Remark string `json:"remark"`
+}
+
+// Create or update member rank information request | 创建或更新会员等级信息
+// swagger:model CreateOrUpdateMemberRankReq
+type CreateOrUpdateMemberRankReq struct {
+	// ID
+	// Required: true
+	Id uint64 `json:"id"`
+	// Name
+	Name string `json:"name"`
+	// Description
+	Description string `json:"description"`
+	// Remark
+	Remark string `json:"remark"`
+}
+
+// The response data of member rank list | 会员等级列表数据
+// swagger:model MemberRankListResp
+type MemberRankListResp struct {
+	BaseDataInfo
+	// MemberRank list data | 会员等级列表数据
+	Data MemberRankListInfo `json:"data"`
+}
+
+// MemberRank list data | 会员等级列表数据
+// swagger:model MemberRankListInfo
+type MemberRankListInfo struct {
+	BaseListInfo
+	// The API list data | 会员等级列表数据
+	Data []MemberRankInfo `json:"data"`
+}
+
+// Get member rank list request params | 会员等级列表请求参数
+// swagger:model MemberRankListReq
+type MemberRankListReq struct {
+	PageInfo
+	// Name
+	Name string `json:"name,optional"`
+	// Description
+	Description string `json:"description,optional"`
+	// Remark
+	Remark string `json:"remark,optional"`
 }

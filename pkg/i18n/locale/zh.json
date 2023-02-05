@@ -87,7 +87,11 @@
 		"deleteMember": "删除一个会员",
 		"batchDeleteMember": "批量删除会员",
 		"getMemberList": "获取会员列表",
-		"updateMemberStatus": "修改会员状态"
+		"updateMemberStatus": "修改会员状态",
+		"createOrUpdateMemberRank": "创建或更新会员等级信息",
+		"deleteMemberRank": "删除一个会员等级",
+		"batchDeleteMemberRank": "批量删除会员等级",
+		"getMemberRankList": "获取会员等级列表"
 	},
 	"route": {
 		"dashboard": "控制台",
@@ -105,7 +109,8 @@
 		"otherPages": "其他页面",
 		"departmentManagement": "部门管理",
 		"positionManagement": "职位管理",
-		"memberManagement": "会员管理"
+		"memberManagement": "会员管理",
+		"memberRankManagement": "会员等级管理"
 	},
 	"login": {
 		"loginSuccessTitle": "登录成功",
@@ -156,5 +161,10 @@
 	"position": {
 		"userExistError": "该职位下存在用户，禁止删除",
 		"ceo": "CEO"
+	},
+	"memberRank": {
+		"normal": "普通会员",
+		"vip": "VIP",
+		"memberExistError": "该等级下存在会员，禁止删除"
 	}
 }

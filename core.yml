@@ -65,6 +65,9 @@ definitions:
     CreateOrUpdateDictionaryReq:
         description: Create or update dictionary information request | 创建或更新字典信息请求
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    CreateOrUpdateMemberRankReq:
+        description: Create or update member rank information request | 创建或更新会员等级信息
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateMemberReq:
         description: Create or update member information request | 创建或更新会员信息
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
@@ -166,6 +169,18 @@ definitions:
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MemberListResp:
         description: The response data of member list | 会员列表数据
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MemberRankInfo:
+        description: The response data of member rank information | 会员等级信息
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MemberRankListInfo:
+        description: MemberRank list data | 会员等级列表数据
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MemberRankListReq:
+        description: Get member rank list request params | 会员等级列表请求参数
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    MemberRankListResp:
+        description: The response data of member rank list | 会员等级列表数据
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuAuthorityInfoReq:
         description: Create or update menu authorization information request params | 创建或更新菜单授权信息参数
@@ -746,6 +761,78 @@ paths:
             summary: Set member's status | 更新会员状态
             tags:
                 - member
+    /member_rank/batch_delete:
+        post:
+            description: Delete member rank information | 删除会员等级信息
+            operationId: BatchDeleteMemberRank
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDsReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete member rank information | 删除会员等级信息
+            tags:
+                - memberrank
+    /member_rank/create_or_update:
+        post:
+            description: Create or update member rank information | 创建或更新会员等级
+            operationId: CreateOrUpdateMemberRank
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/CreateOrUpdateMemberRankReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Create or update member rank information | 创建或更新会员等级
+            tags:
+                - memberrank
+    /member_rank/delete:
+        post:
+            description: Delete member rank information | 删除会员等级信息
+            operationId: DeleteMemberRank
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete member rank information | 删除会员等级信息
+            tags:
+                - memberrank
+    /member_rank/list:
+        post:
+            description: Get member rank list | 获取会员等级列表
+            operationId: GetMemberRankList
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/MemberRankListReq'
+                    type: object
+            responses:
+                "200":
+                    description: MemberRankListResp
+                    schema:
+                        $ref: '#/definitions/MemberRankListResp'
+            summary: Get member rank list | 获取会员等级列表
+            tags:
+                - memberrank
     /menu/create_or_update:
         post:
             description: Create or update menu information | 创建或更新菜单

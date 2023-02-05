@@ -87,7 +87,11 @@
 		"deleteMember": "Delete a member",
 		"batchDeleteMember": "Batch delete members",
 		"getMemberList": "Get member list",
-		"updateMemberStatus": "Modify the member status"
+		"updateMemberStatus": "Modify the member status",
+		"createOrUpdateMemberRank": "Create or update a member rank",
+		"deleteMemberRank": "Delete a member rank",
+		"batchDeleteMemberRank": "Batch delete member ranks",
+		"getMemberRankList": "Get member rank list"
 	},
 	"route": {
 		"dashboard": "Dashboard",
@@ -105,7 +109,8 @@
 		"otherPages": "Other pages",
 		"departmentManagement": "Department",
 		"positionManagement": "Position",
-		"memberManagement": "Member"
+		"memberManagement": "Member",
+		"memberRankManagement": "Member Rank"
 	},
 	"login": {
 		"loginSuccessTitle": "Login successful",
@@ -156,5 +161,10 @@
 	"position": {
 		"userExistError": "There are users under this position, it is forbidden to delete.",
 		"ceo": "CEO"
+	},
+	"memberRank": {
+		"normal": "Normal Member",
+		"vip": "VIP",
+		"memberExistError": "There are members under this rank, it is forbidden to delete."
 	}
 }

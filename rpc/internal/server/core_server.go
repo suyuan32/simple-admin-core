@@ -12,6 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/member"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/memberrank"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauth"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/position"
@@ -143,6 +144,27 @@ func (s *CoreServer) BatchDeleteMember(ctx context.Context, in *core.UUIDsReq) (
 func (s *CoreServer) UpdateMemberStatus(ctx context.Context, in *core.StatusCodeUUIDReq) (*core.BaseResp, error) {
 	l := member.NewUpdateMemberStatusLogic(ctx, s.svcCtx)
 	return l.UpdateMemberStatus(in)
+}
+
+// MemberRank management
+func (s *CoreServer) CreateOrUpdateMemberRank(ctx context.Context, in *core.MemberRankInfo) (*core.BaseResp, error) {
+	l := memberrank.NewCreateOrUpdateMemberRankLogic(ctx, s.svcCtx)
+	return l.CreateOrUpdateMemberRank(in)
+}
+
+func (s *CoreServer) GetMemberRankList(ctx context.Context, in *core.MemberRankListReq) (*core.MemberRankListResp, error) {
+	l := memberrank.NewGetMemberRankListLogic(ctx, s.svcCtx)
+	return l.GetMemberRankList(in)
+}
+
+func (s *CoreServer) DeleteMemberRank(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+	l := memberrank.NewDeleteMemberRankLogic(ctx, s.svcCtx)
+	return l.DeleteMemberRank(in)
+}
+
+func (s *CoreServer) BatchDeleteMemberRank(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := memberrank.NewBatchDeleteMemberRankLogic(ctx, s.svcCtx)
+	return l.BatchDeleteMemberRank(in)
 }
 
 func (s *CoreServer) CreateOrUpdateMenu(ctx context.Context, in *core.CreateOrUpdateMenuReq) (*core.BaseResp, error) {

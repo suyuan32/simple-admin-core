@@ -90,8 +90,8 @@ type (
         Description   string `json:"description,optional" validate:"omitempty,max=50"`
 
         // API group | API分组
-        // Max length: 10
-        Group         string `json:"group,optional" validate:"omitempty,alphanum,max=10"`
+        // Max length: 20
+        Group         string `json:"group,optional" validate:"omitempty,max=20"`
 
         // API request method e.g. POST | API请求类型 如POST
         // Max length: 4

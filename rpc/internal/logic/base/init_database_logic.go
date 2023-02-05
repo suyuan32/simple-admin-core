@@ -142,6 +142,13 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		return nil, statuserr.NewInternalError(err.Error())
 	}
 
+	err = l.insertMemberRankData()
+	if err != nil {
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
+		return nil, statuserr.NewInternalError(err.Error())
+	}
+
 	l.svcCtx.Redis.Setex("database_init_state", "1", 300)
 	return &core.BaseResp{Msg: i18n.Success}, nil
 }
@@ -667,6 +674,36 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetMethod("POST"),
 	)
 
+	// MEMBER RANK
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/member_rank/create_or_update").
+		SetDescription("apiDesc.createOrUpdateMemberRank").
+		SetAPIGroup("member_rank").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/member_rank/batch_delete").
+		SetDescription("apiDesc.batchDeleteMemberRank").
+		SetAPIGroup("member_rank").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/member_rank/delete").
+		SetDescription("apiDesc.deleteMemberRank").
+		SetAPIGroup("member_rank").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/member_rank/list").
+		SetDescription("apiDesc.getMemberRankList").
+		SetAPIGroup("member_rank").
+		SetMethod("POST"),
+	)
+
 	err := l.svcCtx.DB.API.CreateBulk(apis...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
@@ -901,6 +938,19 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetHideMenu(false),
 	)
 
+	menus = append(menus, l.svcCtx.DB.Menu.Create().
+		SetMenuLevel(2).
+		SetMenuType(1).
+		SetParentID(16).
+		SetPath("/member_rank").
+		SetName("Member Rank Management").
+		SetComponent("/sys/memberRank/index").
+		SetSort(2).
+		SetTitle("route.memberRankManagement").
+		SetIcon("ic:round-person-outline").
+		SetHideMenu(false),
+	)
+
 	err := l.svcCtx.DB.Menu.CreateBulk(menus...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
@@ -1058,6 +1108,30 @@ func (l *InitDatabaseLogic) insertMemberData() error {
 	)
 
 	err := l.svcCtx.DB.Member.CreateBulk(members...).Exec(l.ctx)
+	if err != nil {
+		logx.Errorw(err.Error())
+		return statuserr.NewInternalError(err.Error())
+	} else {
+		return nil
+	}
+}
+
+// insert init member rank data
+func (l *InitDatabaseLogic) insertMemberRankData() error {
+	var memberRanks []*ent.MemberRankCreate
+	memberRanks = append(memberRanks, l.svcCtx.DB.MemberRank.Create().
+		SetName("memberRank.normal").
+		SetDescription("普通会员 | Normal Member").
+		SetRemark("普通会员 | Normal Member"),
+	)
+
+	memberRanks = append(memberRanks, l.svcCtx.DB.MemberRank.Create().
+		SetName("memberRank.vip").
+		SetDescription("VIP").
+		SetRemark("VIP"),
+	)
+
+	err := l.svcCtx.DB.MemberRank.CreateBulk(memberRanks...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
 		return statuserr.NewInternalError(err.Error())

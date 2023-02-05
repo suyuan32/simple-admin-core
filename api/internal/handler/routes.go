@@ -11,6 +11,7 @@ import (
 	department "github.com/suyuan32/simple-admin-core/api/internal/handler/department"
 	dictionary "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionary"
 	member "github.com/suyuan32/simple-admin-core/api/internal/handler/member"
+	memberrank "github.com/suyuan32/simple-admin-core/api/internal/handler/memberrank"
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
 	oauth "github.com/suyuan32/simple-admin-core/api/internal/handler/oauth"
 	position "github.com/suyuan32/simple-admin-core/api/internal/handler/position"
@@ -466,6 +467,35 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/member/status",
 					Handler: member.UpdateMemberStatusHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/member_rank/create_or_update",
+					Handler: memberrank.CreateOrUpdateMemberRankHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/member_rank/delete",
+					Handler: memberrank.DeleteMemberRankHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/member_rank/list",
+					Handler: memberrank.GetMemberRankListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/member_rank/batch_delete",
+					Handler: memberrank.BatchDeleteMemberRankHandler(serverCtx),
 				},
 			}...,
 		),
