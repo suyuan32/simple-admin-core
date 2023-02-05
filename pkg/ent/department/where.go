@@ -70,6 +70,11 @@ func Status(v uint8) predicate.Department {
 	return predicate.Department(sql.FieldEQ(FieldStatus, v))
 }
 
+// Sort applies equality check predicate on the "sort" field. It's identical to SortEQ.
+func Sort(v uint32) predicate.Department {
+	return predicate.Department(sql.FieldEQ(FieldSort, v))
+}
+
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.
 func Name(v string) predicate.Department {
 	return predicate.Department(sql.FieldEQ(FieldName, v))
@@ -93,11 +98,6 @@ func Phone(v string) predicate.Department {
 // Email applies equality check predicate on the "email" field. It's identical to EmailEQ.
 func Email(v string) predicate.Department {
 	return predicate.Department(sql.FieldEQ(FieldEmail, v))
-}
-
-// Sort applies equality check predicate on the "sort" field. It's identical to SortEQ.
-func Sort(v uint32) predicate.Department {
-	return predicate.Department(sql.FieldEQ(FieldSort, v))
 }
 
 // Remark applies equality check predicate on the "remark" field. It's identical to RemarkEQ.
@@ -238,6 +238,46 @@ func StatusIsNil() predicate.Department {
 // StatusNotNil applies the NotNil predicate on the "status" field.
 func StatusNotNil() predicate.Department {
 	return predicate.Department(sql.FieldNotNull(FieldStatus))
+}
+
+// SortEQ applies the EQ predicate on the "sort" field.
+func SortEQ(v uint32) predicate.Department {
+	return predicate.Department(sql.FieldEQ(FieldSort, v))
+}
+
+// SortNEQ applies the NEQ predicate on the "sort" field.
+func SortNEQ(v uint32) predicate.Department {
+	return predicate.Department(sql.FieldNEQ(FieldSort, v))
+}
+
+// SortIn applies the In predicate on the "sort" field.
+func SortIn(vs ...uint32) predicate.Department {
+	return predicate.Department(sql.FieldIn(FieldSort, vs...))
+}
+
+// SortNotIn applies the NotIn predicate on the "sort" field.
+func SortNotIn(vs ...uint32) predicate.Department {
+	return predicate.Department(sql.FieldNotIn(FieldSort, vs...))
+}
+
+// SortGT applies the GT predicate on the "sort" field.
+func SortGT(v uint32) predicate.Department {
+	return predicate.Department(sql.FieldGT(FieldSort, v))
+}
+
+// SortGTE applies the GTE predicate on the "sort" field.
+func SortGTE(v uint32) predicate.Department {
+	return predicate.Department(sql.FieldGTE(FieldSort, v))
+}
+
+// SortLT applies the LT predicate on the "sort" field.
+func SortLT(v uint32) predicate.Department {
+	return predicate.Department(sql.FieldLT(FieldSort, v))
+}
+
+// SortLTE applies the LTE predicate on the "sort" field.
+func SortLTE(v uint32) predicate.Department {
+	return predicate.Department(sql.FieldLTE(FieldSort, v))
 }
 
 // NameEQ applies the EQ predicate on the "name" field.
@@ -563,46 +603,6 @@ func EmailEqualFold(v string) predicate.Department {
 // EmailContainsFold applies the ContainsFold predicate on the "email" field.
 func EmailContainsFold(v string) predicate.Department {
 	return predicate.Department(sql.FieldContainsFold(FieldEmail, v))
-}
-
-// SortEQ applies the EQ predicate on the "sort" field.
-func SortEQ(v uint32) predicate.Department {
-	return predicate.Department(sql.FieldEQ(FieldSort, v))
-}
-
-// SortNEQ applies the NEQ predicate on the "sort" field.
-func SortNEQ(v uint32) predicate.Department {
-	return predicate.Department(sql.FieldNEQ(FieldSort, v))
-}
-
-// SortIn applies the In predicate on the "sort" field.
-func SortIn(vs ...uint32) predicate.Department {
-	return predicate.Department(sql.FieldIn(FieldSort, vs...))
-}
-
-// SortNotIn applies the NotIn predicate on the "sort" field.
-func SortNotIn(vs ...uint32) predicate.Department {
-	return predicate.Department(sql.FieldNotIn(FieldSort, vs...))
-}
-
-// SortGT applies the GT predicate on the "sort" field.
-func SortGT(v uint32) predicate.Department {
-	return predicate.Department(sql.FieldGT(FieldSort, v))
-}
-
-// SortGTE applies the GTE predicate on the "sort" field.
-func SortGTE(v uint32) predicate.Department {
-	return predicate.Department(sql.FieldGTE(FieldSort, v))
-}
-
-// SortLT applies the LT predicate on the "sort" field.
-func SortLT(v uint32) predicate.Department {
-	return predicate.Department(sql.FieldLT(FieldSort, v))
-}
-
-// SortLTE applies the LTE predicate on the "sort" field.
-func SortLTE(v uint32) predicate.Department {
-	return predicate.Department(sql.FieldLTE(FieldSort, v))
 }
 
 // RemarkEQ applies the EQ predicate on the "remark" field.

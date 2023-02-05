@@ -36,6 +36,27 @@ func (mu *MenuUpdate) SetUpdatedAt(t time.Time) *MenuUpdate {
 	return mu
 }
 
+// SetSort sets the "sort" field.
+func (mu *MenuUpdate) SetSort(u uint32) *MenuUpdate {
+	mu.mutation.ResetSort()
+	mu.mutation.SetSort(u)
+	return mu
+}
+
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableSort(u *uint32) *MenuUpdate {
+	if u != nil {
+		mu.SetSort(*u)
+	}
+	return mu
+}
+
+// AddSort adds u to the "sort" field.
+func (mu *MenuUpdate) AddSort(u int32) *MenuUpdate {
+	mu.mutation.AddSort(u)
+	return mu
+}
+
 // SetParentID sets the "parent_id" field.
 func (mu *MenuUpdate) SetParentID(u uint64) *MenuUpdate {
 	mu.mutation.SetParentID(u)
@@ -145,27 +166,6 @@ func (mu *MenuUpdate) SetNillableComponent(s *string) *MenuUpdate {
 // ClearComponent clears the value of the "component" field.
 func (mu *MenuUpdate) ClearComponent() *MenuUpdate {
 	mu.mutation.ClearComponent()
-	return mu
-}
-
-// SetSort sets the "sort" field.
-func (mu *MenuUpdate) SetSort(u uint32) *MenuUpdate {
-	mu.mutation.ResetSort()
-	mu.mutation.SetSort(u)
-	return mu
-}
-
-// SetNillableSort sets the "sort" field if the given value is not nil.
-func (mu *MenuUpdate) SetNillableSort(u *uint32) *MenuUpdate {
-	if u != nil {
-		mu.SetSort(*u)
-	}
-	return mu
-}
-
-// AddSort adds u to the "sort" field.
-func (mu *MenuUpdate) AddSort(u int32) *MenuUpdate {
-	mu.mutation.AddSort(u)
 	return mu
 }
 
@@ -609,6 +609,12 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := mu.mutation.UpdatedAt(); ok {
 		_spec.SetField(menu.FieldUpdatedAt, field.TypeTime, value)
 	}
+	if value, ok := mu.mutation.Sort(); ok {
+		_spec.SetField(menu.FieldSort, field.TypeUint32, value)
+	}
+	if value, ok := mu.mutation.AddedSort(); ok {
+		_spec.AddField(menu.FieldSort, field.TypeUint32, value)
+	}
 	if value, ok := mu.mutation.MenuLevel(); ok {
 		_spec.SetField(menu.FieldMenuLevel, field.TypeUint32, value)
 	}
@@ -641,12 +647,6 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if mu.mutation.ComponentCleared() {
 		_spec.ClearField(menu.FieldComponent, field.TypeString)
-	}
-	if value, ok := mu.mutation.Sort(); ok {
-		_spec.SetField(menu.FieldSort, field.TypeUint32, value)
-	}
-	if value, ok := mu.mutation.AddedSort(); ok {
-		_spec.AddField(menu.FieldSort, field.TypeUint32, value)
 	}
 	if value, ok := mu.mutation.Disabled(); ok {
 		_spec.SetField(menu.FieldDisabled, field.TypeBool, value)
@@ -952,6 +952,27 @@ func (muo *MenuUpdateOne) SetUpdatedAt(t time.Time) *MenuUpdateOne {
 	return muo
 }
 
+// SetSort sets the "sort" field.
+func (muo *MenuUpdateOne) SetSort(u uint32) *MenuUpdateOne {
+	muo.mutation.ResetSort()
+	muo.mutation.SetSort(u)
+	return muo
+}
+
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableSort(u *uint32) *MenuUpdateOne {
+	if u != nil {
+		muo.SetSort(*u)
+	}
+	return muo
+}
+
+// AddSort adds u to the "sort" field.
+func (muo *MenuUpdateOne) AddSort(u int32) *MenuUpdateOne {
+	muo.mutation.AddSort(u)
+	return muo
+}
+
 // SetParentID sets the "parent_id" field.
 func (muo *MenuUpdateOne) SetParentID(u uint64) *MenuUpdateOne {
 	muo.mutation.SetParentID(u)
@@ -1061,27 +1082,6 @@ func (muo *MenuUpdateOne) SetNillableComponent(s *string) *MenuUpdateOne {
 // ClearComponent clears the value of the "component" field.
 func (muo *MenuUpdateOne) ClearComponent() *MenuUpdateOne {
 	muo.mutation.ClearComponent()
-	return muo
-}
-
-// SetSort sets the "sort" field.
-func (muo *MenuUpdateOne) SetSort(u uint32) *MenuUpdateOne {
-	muo.mutation.ResetSort()
-	muo.mutation.SetSort(u)
-	return muo
-}
-
-// SetNillableSort sets the "sort" field if the given value is not nil.
-func (muo *MenuUpdateOne) SetNillableSort(u *uint32) *MenuUpdateOne {
-	if u != nil {
-		muo.SetSort(*u)
-	}
-	return muo
-}
-
-// AddSort adds u to the "sort" field.
-func (muo *MenuUpdateOne) AddSort(u int32) *MenuUpdateOne {
-	muo.mutation.AddSort(u)
 	return muo
 }
 
@@ -1549,6 +1549,12 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	if value, ok := muo.mutation.UpdatedAt(); ok {
 		_spec.SetField(menu.FieldUpdatedAt, field.TypeTime, value)
 	}
+	if value, ok := muo.mutation.Sort(); ok {
+		_spec.SetField(menu.FieldSort, field.TypeUint32, value)
+	}
+	if value, ok := muo.mutation.AddedSort(); ok {
+		_spec.AddField(menu.FieldSort, field.TypeUint32, value)
+	}
 	if value, ok := muo.mutation.MenuLevel(); ok {
 		_spec.SetField(menu.FieldMenuLevel, field.TypeUint32, value)
 	}
@@ -1581,12 +1587,6 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	}
 	if muo.mutation.ComponentCleared() {
 		_spec.ClearField(menu.FieldComponent, field.TypeString)
-	}
-	if value, ok := muo.mutation.Sort(); ok {
-		_spec.SetField(menu.FieldSort, field.TypeUint32, value)
-	}
-	if value, ok := muo.mutation.AddedSort(); ok {
-		_spec.AddField(menu.FieldSort, field.TypeUint32, value)
 	}
 	if value, ok := muo.mutation.Disabled(); ok {
 		_spec.SetField(menu.FieldDisabled, field.TypeBool, value)

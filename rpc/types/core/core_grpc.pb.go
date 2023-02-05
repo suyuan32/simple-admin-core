@@ -81,6 +81,17 @@ type CoreClient interface {
 	OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
 	// group: oauth
 	OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error)
+	// Post management
+	// group: post
+	CreateOrUpdatePost(ctx context.Context, in *PostInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: post
+	GetPostList(ctx context.Context, in *PostListReq, opts ...grpc.CallOption) (*PostListResp, error)
+	// group: post
+	DeletePost(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: post
+	BatchDeletePost(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: post
+	UpdatePostStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: role
 	CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: role
@@ -392,6 +403,51 @@ func (c *coreClient) OauthCallback(ctx context.Context, in *CallbackReq, opts ..
 	return out, nil
 }
 
+func (c *coreClient) CreateOrUpdatePost(ctx context.Context, in *PostInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdatePost", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetPostList(ctx context.Context, in *PostListReq, opts ...grpc.CallOption) (*PostListResp, error) {
+	out := new(PostListResp)
+	err := c.cc.Invoke(ctx, "/core.Core/getPostList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeletePost(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/deletePost", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) BatchDeletePost(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/batchDeletePost", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdatePostStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/updatePostStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *coreClient) CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateRole", in, out, opts...)
@@ -635,6 +691,17 @@ type CoreServer interface {
 	OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error)
 	// group: oauth
 	OauthCallback(context.Context, *CallbackReq) (*LoginResp, error)
+	// Post management
+	// group: post
+	CreateOrUpdatePost(context.Context, *PostInfo) (*BaseResp, error)
+	// group: post
+	GetPostList(context.Context, *PostListReq) (*PostListResp, error)
+	// group: post
+	DeletePost(context.Context, *IDReq) (*BaseResp, error)
+	// group: post
+	BatchDeletePost(context.Context, *IDsReq) (*BaseResp, error)
+	// group: post
+	UpdatePostStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
 	// group: role
 	CreateOrUpdateRole(context.Context, *RoleInfo) (*BaseResp, error)
 	// group: role
@@ -768,6 +835,21 @@ func (UnimplementedCoreServer) OauthLogin(context.Context, *OauthLoginReq) (*Oau
 }
 func (UnimplementedCoreServer) OauthCallback(context.Context, *CallbackReq) (*LoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OauthCallback not implemented")
+}
+func (UnimplementedCoreServer) CreateOrUpdatePost(context.Context, *PostInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdatePost not implemented")
+}
+func (UnimplementedCoreServer) GetPostList(context.Context, *PostListReq) (*PostListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPostList not implemented")
+}
+func (UnimplementedCoreServer) DeletePost(context.Context, *IDReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePost not implemented")
+}
+func (UnimplementedCoreServer) BatchDeletePost(context.Context, *IDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchDeletePost not implemented")
+}
+func (UnimplementedCoreServer) UpdatePostStatus(context.Context, *StatusCodeReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePostStatus not implemented")
 }
 func (UnimplementedCoreServer) CreateOrUpdateRole(context.Context, *RoleInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateRole not implemented")
@@ -1364,6 +1446,96 @@ func _Core_OauthCallback_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_CreateOrUpdatePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PostInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateOrUpdatePost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/createOrUpdatePost",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateOrUpdatePost(ctx, req.(*PostInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetPostList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PostListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetPostList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/getPostList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetPostList(ctx, req.(*PostListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeletePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeletePost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/deletePost",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeletePost(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_BatchDeletePost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).BatchDeletePost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/batchDeletePost",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).BatchDeletePost(ctx, req.(*IDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdatePostStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StatusCodeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdatePostStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/updatePostStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdatePostStatus(ctx, req.(*StatusCodeReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Core_CreateOrUpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RoleInfo)
 	if err := dec(in); err != nil {
@@ -1846,6 +2018,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "oauthCallback",
 			Handler:    _Core_OauthCallback_Handler,
+		},
+		{
+			MethodName: "createOrUpdatePost",
+			Handler:    _Core_CreateOrUpdatePost_Handler,
+		},
+		{
+			MethodName: "getPostList",
+			Handler:    _Core_GetPostList_Handler,
+		},
+		{
+			MethodName: "deletePost",
+			Handler:    _Core_DeletePost_Handler,
+		},
+		{
+			MethodName: "batchDeletePost",
+			Handler:    _Core_BatchDeletePost_Handler,
+		},
+		{
+			MethodName: "updatePostStatus",
+			Handler:    _Core_UpdatePostStatus_Handler,
 		},
 		{
 			MethodName: "createOrUpdateRole",

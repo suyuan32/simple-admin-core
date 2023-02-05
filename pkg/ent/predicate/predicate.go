@@ -27,6 +27,9 @@ type MenuParam func(*sql.Selector)
 // OauthProvider is the predicate function for oauthprovider builders.
 type OauthProvider func(*sql.Selector)
 
+// Post is the predicate function for post builders.
+type Post func(*sql.Selector)
+
 // Role is the predicate function for role builders.
 type Role func(*sql.Selector)
 

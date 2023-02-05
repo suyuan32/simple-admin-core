@@ -13,6 +13,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/post"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/schema"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
@@ -47,6 +48,8 @@ func init() {
 	_ = departmentMixinFields0
 	departmentMixinFields1 := departmentMixin[1].Fields()
 	_ = departmentMixinFields1
+	departmentMixinFields2 := departmentMixin[2].Fields()
+	_ = departmentMixinFields2
 	departmentFields := schema.Department{}.Fields()
 	_ = departmentFields
 	// departmentDescCreatedAt is the schema descriptor for created_at field.
@@ -63,8 +66,12 @@ func init() {
 	departmentDescStatus := departmentMixinFields1[0].Descriptor()
 	// department.DefaultStatus holds the default value on creation for the status field.
 	department.DefaultStatus = departmentDescStatus.Default.(uint8)
+	// departmentDescSort is the schema descriptor for sort field.
+	departmentDescSort := departmentMixinFields2[0].Descriptor()
+	// department.DefaultSort holds the default value on creation for the sort field.
+	department.DefaultSort = departmentDescSort.Default.(uint32)
 	// departmentDescParentID is the schema descriptor for parent_id field.
-	departmentDescParentID := departmentFields[7].Descriptor()
+	departmentDescParentID := departmentFields[6].Descriptor()
 	// department.DefaultParentID holds the default value on creation for the parent_id field.
 	department.DefaultParentID = departmentDescParentID.Default.(uint64)
 	dictionaryMixin := schema.Dictionary{}.Mixin()
@@ -112,6 +119,8 @@ func init() {
 	menuMixin := schema.Menu{}.Mixin()
 	menuMixinFields0 := menuMixin[0].Fields()
 	_ = menuMixinFields0
+	menuMixinFields1 := menuMixin[1].Fields()
+	_ = menuMixinFields1
 	menuFields := schema.Menu{}.Fields()
 	_ = menuFields
 	// menuDescCreatedAt is the schema descriptor for created_at field.
@@ -124,6 +133,10 @@ func init() {
 	menu.DefaultUpdatedAt = menuDescUpdatedAt.Default.(func() time.Time)
 	// menu.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
 	menu.UpdateDefaultUpdatedAt = menuDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// menuDescSort is the schema descriptor for sort field.
+	menuDescSort := menuMixinFields1[0].Descriptor()
+	// menu.DefaultSort holds the default value on creation for the sort field.
+	menu.DefaultSort = menuDescSort.Default.(uint32)
 	// menuDescPath is the schema descriptor for path field.
 	menuDescPath := menuFields[3].Descriptor()
 	// menu.DefaultPath holds the default value on creation for the path field.
@@ -136,56 +149,52 @@ func init() {
 	menuDescComponent := menuFields[6].Descriptor()
 	// menu.DefaultComponent holds the default value on creation for the component field.
 	menu.DefaultComponent = menuDescComponent.Default.(string)
-	// menuDescSort is the schema descriptor for sort field.
-	menuDescSort := menuFields[7].Descriptor()
-	// menu.DefaultSort holds the default value on creation for the sort field.
-	menu.DefaultSort = menuDescSort.Default.(uint32)
 	// menuDescDisabled is the schema descriptor for disabled field.
-	menuDescDisabled := menuFields[8].Descriptor()
+	menuDescDisabled := menuFields[7].Descriptor()
 	// menu.DefaultDisabled holds the default value on creation for the disabled field.
 	menu.DefaultDisabled = menuDescDisabled.Default.(bool)
 	// menuDescHideMenu is the schema descriptor for hide_menu field.
-	menuDescHideMenu := menuFields[11].Descriptor()
+	menuDescHideMenu := menuFields[10].Descriptor()
 	// menu.DefaultHideMenu holds the default value on creation for the hide_menu field.
 	menu.DefaultHideMenu = menuDescHideMenu.Default.(bool)
 	// menuDescHideBreadcrumb is the schema descriptor for hide_breadcrumb field.
-	menuDescHideBreadcrumb := menuFields[12].Descriptor()
+	menuDescHideBreadcrumb := menuFields[11].Descriptor()
 	// menu.DefaultHideBreadcrumb holds the default value on creation for the hide_breadcrumb field.
 	menu.DefaultHideBreadcrumb = menuDescHideBreadcrumb.Default.(bool)
 	// menuDescCurrentActiveMenu is the schema descriptor for current_active_menu field.
-	menuDescCurrentActiveMenu := menuFields[13].Descriptor()
+	menuDescCurrentActiveMenu := menuFields[12].Descriptor()
 	// menu.DefaultCurrentActiveMenu holds the default value on creation for the current_active_menu field.
 	menu.DefaultCurrentActiveMenu = menuDescCurrentActiveMenu.Default.(string)
 	// menuDescIgnoreKeepAlive is the schema descriptor for ignore_keep_alive field.
-	menuDescIgnoreKeepAlive := menuFields[14].Descriptor()
+	menuDescIgnoreKeepAlive := menuFields[13].Descriptor()
 	// menu.DefaultIgnoreKeepAlive holds the default value on creation for the ignore_keep_alive field.
 	menu.DefaultIgnoreKeepAlive = menuDescIgnoreKeepAlive.Default.(bool)
 	// menuDescHideTab is the schema descriptor for hide_tab field.
-	menuDescHideTab := menuFields[15].Descriptor()
+	menuDescHideTab := menuFields[14].Descriptor()
 	// menu.DefaultHideTab holds the default value on creation for the hide_tab field.
 	menu.DefaultHideTab = menuDescHideTab.Default.(bool)
 	// menuDescFrameSrc is the schema descriptor for frame_src field.
-	menuDescFrameSrc := menuFields[16].Descriptor()
+	menuDescFrameSrc := menuFields[15].Descriptor()
 	// menu.DefaultFrameSrc holds the default value on creation for the frame_src field.
 	menu.DefaultFrameSrc = menuDescFrameSrc.Default.(string)
 	// menuDescCarryParam is the schema descriptor for carry_param field.
-	menuDescCarryParam := menuFields[17].Descriptor()
+	menuDescCarryParam := menuFields[16].Descriptor()
 	// menu.DefaultCarryParam holds the default value on creation for the carry_param field.
 	menu.DefaultCarryParam = menuDescCarryParam.Default.(bool)
 	// menuDescHideChildrenInMenu is the schema descriptor for hide_children_in_menu field.
-	menuDescHideChildrenInMenu := menuFields[18].Descriptor()
+	menuDescHideChildrenInMenu := menuFields[17].Descriptor()
 	// menu.DefaultHideChildrenInMenu holds the default value on creation for the hide_children_in_menu field.
 	menu.DefaultHideChildrenInMenu = menuDescHideChildrenInMenu.Default.(bool)
 	// menuDescAffix is the schema descriptor for affix field.
-	menuDescAffix := menuFields[19].Descriptor()
+	menuDescAffix := menuFields[18].Descriptor()
 	// menu.DefaultAffix holds the default value on creation for the affix field.
 	menu.DefaultAffix = menuDescAffix.Default.(bool)
 	// menuDescDynamicLevel is the schema descriptor for dynamic_level field.
-	menuDescDynamicLevel := menuFields[20].Descriptor()
+	menuDescDynamicLevel := menuFields[19].Descriptor()
 	// menu.DefaultDynamicLevel holds the default value on creation for the dynamic_level field.
 	menu.DefaultDynamicLevel = menuDescDynamicLevel.Default.(uint32)
 	// menuDescRealPath is the schema descriptor for real_path field.
-	menuDescRealPath := menuFields[21].Descriptor()
+	menuDescRealPath := menuFields[20].Descriptor()
 	// menu.DefaultRealPath holds the default value on creation for the real_path field.
 	menu.DefaultRealPath = menuDescRealPath.Default.(string)
 	menuparamMixin := schema.MenuParam{}.Mixin()
@@ -218,6 +227,33 @@ func init() {
 	oauthprovider.DefaultUpdatedAt = oauthproviderDescUpdatedAt.Default.(func() time.Time)
 	// oauthprovider.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
 	oauthprovider.UpdateDefaultUpdatedAt = oauthproviderDescUpdatedAt.UpdateDefault.(func() time.Time)
+	postMixin := schema.Post{}.Mixin()
+	postMixinFields0 := postMixin[0].Fields()
+	_ = postMixinFields0
+	postMixinFields1 := postMixin[1].Fields()
+	_ = postMixinFields1
+	postMixinFields2 := postMixin[2].Fields()
+	_ = postMixinFields2
+	postFields := schema.Post{}.Fields()
+	_ = postFields
+	// postDescCreatedAt is the schema descriptor for created_at field.
+	postDescCreatedAt := postMixinFields0[1].Descriptor()
+	// post.DefaultCreatedAt holds the default value on creation for the created_at field.
+	post.DefaultCreatedAt = postDescCreatedAt.Default.(func() time.Time)
+	// postDescUpdatedAt is the schema descriptor for updated_at field.
+	postDescUpdatedAt := postMixinFields0[2].Descriptor()
+	// post.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	post.DefaultUpdatedAt = postDescUpdatedAt.Default.(func() time.Time)
+	// post.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	post.UpdateDefaultUpdatedAt = postDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// postDescStatus is the schema descriptor for status field.
+	postDescStatus := postMixinFields1[0].Descriptor()
+	// post.DefaultStatus holds the default value on creation for the status field.
+	post.DefaultStatus = postDescStatus.Default.(uint8)
+	// postDescSort is the schema descriptor for sort field.
+	postDescSort := postMixinFields2[0].Descriptor()
+	// post.DefaultSort holds the default value on creation for the sort field.
+	post.DefaultSort = postDescSort.Default.(uint32)
 	roleMixin := schema.Role{}.Mixin()
 	roleMixinFields0 := roleMixin[0].Fields()
 	_ = roleMixinFields0
@@ -313,6 +349,10 @@ func init() {
 	userDescDepartmentID := userFields[9].Descriptor()
 	// user.DefaultDepartmentID holds the default value on creation for the department_id field.
 	user.DefaultDepartmentID = userDescDepartmentID.Default.(uint64)
+	// userDescPostID is the schema descriptor for post_id field.
+	userDescPostID := userFields[10].Descriptor()
+	// user.DefaultPostID holds the default value on creation for the post_id field.
+	user.DefaultPostID = userDescPostID.Default.(uint64)
 	// userDescID is the schema descriptor for id field.
 	userDescID := userMixinFields0[0].Descriptor()
 	// user.DefaultID holds the default value on creation for the id field.

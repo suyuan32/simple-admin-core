@@ -34,6 +34,7 @@ type (
 		Menu             []ent.Hook
 		MenuParam        []ent.Hook
 		OauthProvider    []ent.Hook
+		Post             []ent.Hook
 		Role             []ent.Hook
 		Token            []ent.Hook
 		User             []ent.Hook
@@ -46,6 +47,7 @@ type (
 		Menu             []ent.Interceptor
 		MenuParam        []ent.Interceptor
 		OauthProvider    []ent.Interceptor
+		Post             []ent.Interceptor
 		Role             []ent.Interceptor
 		Token            []ent.Interceptor
 		User             []ent.Interceptor

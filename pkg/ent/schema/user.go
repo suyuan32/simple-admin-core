@@ -32,6 +32,7 @@ func (User) Fields() []ent.Field {
 			Default("").
 			Comment("avatar | 头像路径"),
 		field.Uint64("department_id").Optional().Default(1).Comment("Department ID | 部门ID"),
+		field.Uint64("post_id").Optional().Default(1).Comment("Post ID | 岗位ID"),
 	}
 }
 
@@ -45,6 +46,7 @@ func (User) Mixin() []ent.Mixin {
 func (User) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("department", Department.Type).Unique().Field("department_id"),
+		edge.To("post", Post.Type).Unique().Field("post_id"),
 	}
 }
 

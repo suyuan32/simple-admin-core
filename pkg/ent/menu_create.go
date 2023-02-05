@@ -50,6 +50,20 @@ func (mc *MenuCreate) SetNillableUpdatedAt(t *time.Time) *MenuCreate {
 	return mc
 }
 
+// SetSort sets the "sort" field.
+func (mc *MenuCreate) SetSort(u uint32) *MenuCreate {
+	mc.mutation.SetSort(u)
+	return mc
+}
+
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableSort(u *uint32) *MenuCreate {
+	if u != nil {
+		mc.SetSort(*u)
+	}
+	return mc
+}
+
 // SetParentID sets the "parent_id" field.
 func (mc *MenuCreate) SetParentID(u uint64) *MenuCreate {
 	mc.mutation.SetParentID(u)
@@ -120,20 +134,6 @@ func (mc *MenuCreate) SetComponent(s string) *MenuCreate {
 func (mc *MenuCreate) SetNillableComponent(s *string) *MenuCreate {
 	if s != nil {
 		mc.SetComponent(*s)
-	}
-	return mc
-}
-
-// SetSort sets the "sort" field.
-func (mc *MenuCreate) SetSort(u uint32) *MenuCreate {
-	mc.mutation.SetSort(u)
-	return mc
-}
-
-// SetNillableSort sets the "sort" field if the given value is not nil.
-func (mc *MenuCreate) SetNillableSort(u *uint32) *MenuCreate {
-	if u != nil {
-		mc.SetSort(*u)
 	}
 	return mc
 }
@@ -417,6 +417,10 @@ func (mc *MenuCreate) defaults() {
 		v := menu.DefaultUpdatedAt()
 		mc.mutation.SetUpdatedAt(v)
 	}
+	if _, ok := mc.mutation.Sort(); !ok {
+		v := menu.DefaultSort
+		mc.mutation.SetSort(v)
+	}
 	if _, ok := mc.mutation.Path(); !ok {
 		v := menu.DefaultPath
 		mc.mutation.SetPath(v)
@@ -428,10 +432,6 @@ func (mc *MenuCreate) defaults() {
 	if _, ok := mc.mutation.Component(); !ok {
 		v := menu.DefaultComponent
 		mc.mutation.SetComponent(v)
-	}
-	if _, ok := mc.mutation.Sort(); !ok {
-		v := menu.DefaultSort
-		mc.mutation.SetSort(v)
 	}
 	if _, ok := mc.mutation.Disabled(); !ok {
 		v := menu.DefaultDisabled
@@ -491,6 +491,9 @@ func (mc *MenuCreate) check() error {
 	if _, ok := mc.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Menu.updated_at"`)}
 	}
+	if _, ok := mc.mutation.Sort(); !ok {
+		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "Menu.sort"`)}
+	}
 	if _, ok := mc.mutation.MenuLevel(); !ok {
 		return &ValidationError{Name: "menu_level", err: errors.New(`ent: missing required field "Menu.menu_level"`)}
 	}
@@ -499,9 +502,6 @@ func (mc *MenuCreate) check() error {
 	}
 	if _, ok := mc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Menu.name"`)}
-	}
-	if _, ok := mc.mutation.Sort(); !ok {
-		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "Menu.sort"`)}
 	}
 	if _, ok := mc.mutation.Title(); !ok {
 		return &ValidationError{Name: "title", err: errors.New(`ent: missing required field "Menu.title"`)}
@@ -555,6 +555,10 @@ func (mc *MenuCreate) createSpec() (*Menu, *sqlgraph.CreateSpec) {
 		_spec.SetField(menu.FieldUpdatedAt, field.TypeTime, value)
 		_node.UpdatedAt = value
 	}
+	if value, ok := mc.mutation.Sort(); ok {
+		_spec.SetField(menu.FieldSort, field.TypeUint32, value)
+		_node.Sort = value
+	}
 	if value, ok := mc.mutation.MenuLevel(); ok {
 		_spec.SetField(menu.FieldMenuLevel, field.TypeUint32, value)
 		_node.MenuLevel = value
@@ -578,10 +582,6 @@ func (mc *MenuCreate) createSpec() (*Menu, *sqlgraph.CreateSpec) {
 	if value, ok := mc.mutation.Component(); ok {
 		_spec.SetField(menu.FieldComponent, field.TypeString, value)
 		_node.Component = value
-	}
-	if value, ok := mc.mutation.Sort(); ok {
-		_spec.SetField(menu.FieldSort, field.TypeUint32, value)
-		_node.Sort = value
 	}
 	if value, ok := mc.mutation.Disabled(); ok {
 		_spec.SetField(menu.FieldDisabled, field.TypeBool, value)

@@ -64,6 +64,20 @@ func (dc *DepartmentCreate) SetNillableStatus(u *uint8) *DepartmentCreate {
 	return dc
 }
 
+// SetSort sets the "sort" field.
+func (dc *DepartmentCreate) SetSort(u uint32) *DepartmentCreate {
+	dc.mutation.SetSort(u)
+	return dc
+}
+
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (dc *DepartmentCreate) SetNillableSort(u *uint32) *DepartmentCreate {
+	if u != nil {
+		dc.SetSort(*u)
+	}
+	return dc
+}
+
 // SetName sets the "name" field.
 func (dc *DepartmentCreate) SetName(s string) *DepartmentCreate {
 	dc.mutation.SetName(s)
@@ -91,12 +105,6 @@ func (dc *DepartmentCreate) SetPhone(s string) *DepartmentCreate {
 // SetEmail sets the "email" field.
 func (dc *DepartmentCreate) SetEmail(s string) *DepartmentCreate {
 	dc.mutation.SetEmail(s)
-	return dc
-}
-
-// SetSort sets the "sort" field.
-func (dc *DepartmentCreate) SetSort(u uint32) *DepartmentCreate {
-	dc.mutation.SetSort(u)
 	return dc
 }
 
@@ -208,6 +216,10 @@ func (dc *DepartmentCreate) defaults() {
 		v := department.DefaultStatus
 		dc.mutation.SetStatus(v)
 	}
+	if _, ok := dc.mutation.Sort(); !ok {
+		v := department.DefaultSort
+		dc.mutation.SetSort(v)
+	}
 	if _, ok := dc.mutation.ParentID(); !ok {
 		v := department.DefaultParentID
 		dc.mutation.SetParentID(v)
@@ -221,6 +233,9 @@ func (dc *DepartmentCreate) check() error {
 	}
 	if _, ok := dc.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Department.updated_at"`)}
+	}
+	if _, ok := dc.mutation.Sort(); !ok {
+		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "Department.sort"`)}
 	}
 	if _, ok := dc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Department.name"`)}
@@ -236,9 +251,6 @@ func (dc *DepartmentCreate) check() error {
 	}
 	if _, ok := dc.mutation.Email(); !ok {
 		return &ValidationError{Name: "email", err: errors.New(`ent: missing required field "Department.email"`)}
-	}
-	if _, ok := dc.mutation.Sort(); !ok {
-		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "Department.sort"`)}
 	}
 	if _, ok := dc.mutation.Remark(); !ok {
 		return &ValidationError{Name: "remark", err: errors.New(`ent: missing required field "Department.remark"`)}
@@ -293,6 +305,10 @@ func (dc *DepartmentCreate) createSpec() (*Department, *sqlgraph.CreateSpec) {
 		_spec.SetField(department.FieldStatus, field.TypeUint8, value)
 		_node.Status = value
 	}
+	if value, ok := dc.mutation.Sort(); ok {
+		_spec.SetField(department.FieldSort, field.TypeUint32, value)
+		_node.Sort = value
+	}
 	if value, ok := dc.mutation.Name(); ok {
 		_spec.SetField(department.FieldName, field.TypeString, value)
 		_node.Name = value
@@ -312,10 +328,6 @@ func (dc *DepartmentCreate) createSpec() (*Department, *sqlgraph.CreateSpec) {
 	if value, ok := dc.mutation.Email(); ok {
 		_spec.SetField(department.FieldEmail, field.TypeString, value)
 		_node.Email = value
-	}
-	if value, ok := dc.mutation.Sort(); ok {
-		_spec.SetField(department.FieldSort, field.TypeUint32, value)
-		_node.Sort = value
 	}
 	if value, ok := dc.mutation.Remark(); ok {
 		_spec.SetField(department.FieldRemark, field.TypeString, value)

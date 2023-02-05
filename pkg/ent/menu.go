@@ -20,6 +20,8 @@ type Menu struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	// Sort number | 排序编号
+	Sort uint32 `json:"sort,omitempty"`
 	// parent menu ID | 父菜单ID
 	ParentID uint64 `json:"parent_id,omitempty"`
 	// menu level | 菜单层级
@@ -34,8 +36,6 @@ type Menu struct {
 	Redirect string `json:"redirect,omitempty"`
 	// the path of vue file | 组件路径
 	Component string `json:"component,omitempty"`
-	// sorting numbers | 排序编号
-	Sort uint32 `json:"sort,omitempty"`
 	// disable status | 是否停用
 	Disabled bool `json:"disabled,omitempty"`
 	// menu name | 菜单显示标题
@@ -131,7 +131,7 @@ func (*Menu) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case menu.FieldDisabled, menu.FieldHideMenu, menu.FieldHideBreadcrumb, menu.FieldIgnoreKeepAlive, menu.FieldHideTab, menu.FieldCarryParam, menu.FieldHideChildrenInMenu, menu.FieldAffix:
 			values[i] = new(sql.NullBool)
-		case menu.FieldID, menu.FieldParentID, menu.FieldMenuLevel, menu.FieldMenuType, menu.FieldSort, menu.FieldDynamicLevel:
+		case menu.FieldID, menu.FieldSort, menu.FieldParentID, menu.FieldMenuLevel, menu.FieldMenuType, menu.FieldDynamicLevel:
 			values[i] = new(sql.NullInt64)
 		case menu.FieldPath, menu.FieldName, menu.FieldRedirect, menu.FieldComponent, menu.FieldTitle, menu.FieldIcon, menu.FieldCurrentActiveMenu, menu.FieldFrameSrc, menu.FieldRealPath:
 			values[i] = new(sql.NullString)
@@ -169,6 +169,12 @@ func (m *Menu) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
 				m.UpdatedAt = value.Time
+			}
+		case menu.FieldSort:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field sort", values[i])
+			} else if value.Valid {
+				m.Sort = uint32(value.Int64)
 			}
 		case menu.FieldParentID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -211,12 +217,6 @@ func (m *Menu) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field component", values[i])
 			} else if value.Valid {
 				m.Component = value.String
-			}
-		case menu.FieldSort:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field sort", values[i])
-			} else if value.Valid {
-				m.Sort = uint32(value.Int64)
 			}
 		case menu.FieldDisabled:
 			if value, ok := values[i].(*sql.NullBool); !ok {
@@ -356,6 +356,9 @@ func (m *Menu) String() string {
 	builder.WriteString("updated_at=")
 	builder.WriteString(m.UpdatedAt.Format(time.ANSIC))
 	builder.WriteString(", ")
+	builder.WriteString("sort=")
+	builder.WriteString(fmt.Sprintf("%v", m.Sort))
+	builder.WriteString(", ")
 	builder.WriteString("parent_id=")
 	builder.WriteString(fmt.Sprintf("%v", m.ParentID))
 	builder.WriteString(", ")
@@ -376,9 +379,6 @@ func (m *Menu) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("component=")
 	builder.WriteString(m.Component)
-	builder.WriteString(", ")
-	builder.WriteString("sort=")
-	builder.WriteString(fmt.Sprintf("%v", m.Sort))
 	builder.WriteString(", ")
 	builder.WriteString("disabled=")
 	builder.WriteString(fmt.Sprintf("%v", m.Disabled))

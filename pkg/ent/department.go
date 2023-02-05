@@ -22,6 +22,8 @@ type Department struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// status 1 normal 0 ban | 状态 1 正常 0 禁用
 	Status uint8 `json:"status,omitempty"`
+	// Sort number | 排序编号
+	Sort uint32 `json:"sort,omitempty"`
 	// Department name | 部门名称
 	Name string `json:"name,omitempty"`
 	// Parents' IDs | 父级列表
@@ -32,8 +34,6 @@ type Department struct {
 	Phone string `json:"phone,omitempty"`
 	// Leader's email | 部门负责人电子邮箱
 	Email string `json:"email,omitempty"`
-	// Sort number | 排序编号
-	Sort uint32 `json:"sort,omitempty"`
 	// Remark | 备注
 	Remark string `json:"remark,omitempty"`
 	// Parent department ID | 父级部门ID
@@ -137,6 +137,12 @@ func (d *Department) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				d.Status = uint8(value.Int64)
 			}
+		case department.FieldSort:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field sort", values[i])
+			} else if value.Valid {
+				d.Sort = uint32(value.Int64)
+			}
 		case department.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
@@ -166,12 +172,6 @@ func (d *Department) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field email", values[i])
 			} else if value.Valid {
 				d.Email = value.String
-			}
-		case department.FieldSort:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field sort", values[i])
-			} else if value.Valid {
-				d.Sort = uint32(value.Int64)
 			}
 		case department.FieldRemark:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -237,6 +237,9 @@ func (d *Department) String() string {
 	builder.WriteString("status=")
 	builder.WriteString(fmt.Sprintf("%v", d.Status))
 	builder.WriteString(", ")
+	builder.WriteString("sort=")
+	builder.WriteString(fmt.Sprintf("%v", d.Sort))
+	builder.WriteString(", ")
 	builder.WriteString("name=")
 	builder.WriteString(d.Name)
 	builder.WriteString(", ")
@@ -251,9 +254,6 @@ func (d *Department) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("email=")
 	builder.WriteString(d.Email)
-	builder.WriteString(", ")
-	builder.WriteString("sort=")
-	builder.WriteString(fmt.Sprintf("%v", d.Sort))
 	builder.WriteString(", ")
 	builder.WriteString("remark=")
 	builder.WriteString(d.Remark)

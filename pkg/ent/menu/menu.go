@@ -15,6 +15,8 @@ const (
 	FieldCreatedAt = "created_at"
 	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
 	FieldUpdatedAt = "updated_at"
+	// FieldSort holds the string denoting the sort field in the database.
+	FieldSort = "sort"
 	// FieldParentID holds the string denoting the parent_id field in the database.
 	FieldParentID = "parent_id"
 	// FieldMenuLevel holds the string denoting the menu_level field in the database.
@@ -29,8 +31,6 @@ const (
 	FieldRedirect = "redirect"
 	// FieldComponent holds the string denoting the component field in the database.
 	FieldComponent = "component"
-	// FieldSort holds the string denoting the sort field in the database.
-	FieldSort = "sort"
 	// FieldDisabled holds the string denoting the disabled field in the database.
 	FieldDisabled = "disabled"
 	// FieldTitle holds the string denoting the title field in the database.
@@ -96,6 +96,7 @@ var Columns = []string{
 	FieldID,
 	FieldCreatedAt,
 	FieldUpdatedAt,
+	FieldSort,
 	FieldParentID,
 	FieldMenuLevel,
 	FieldMenuType,
@@ -103,7 +104,6 @@ var Columns = []string{
 	FieldName,
 	FieldRedirect,
 	FieldComponent,
-	FieldSort,
 	FieldDisabled,
 	FieldTitle,
 	FieldIcon,
@@ -143,14 +143,14 @@ var (
 	DefaultUpdatedAt func() time.Time
 	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
 	UpdateDefaultUpdatedAt func() time.Time
+	// DefaultSort holds the default value on creation for the "sort" field.
+	DefaultSort uint32
 	// DefaultPath holds the default value on creation for the "path" field.
 	DefaultPath string
 	// DefaultRedirect holds the default value on creation for the "redirect" field.
 	DefaultRedirect string
 	// DefaultComponent holds the default value on creation for the "component" field.
 	DefaultComponent string
-	// DefaultSort holds the default value on creation for the "sort" field.
-	DefaultSort uint32
 	// DefaultDisabled holds the default value on creation for the "disabled" field.
 	DefaultDisabled bool
 	// DefaultHideMenu holds the default value on creation for the "hide_menu" field.

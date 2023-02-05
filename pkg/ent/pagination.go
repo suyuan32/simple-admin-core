@@ -13,6 +13,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/post"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
@@ -609,6 +610,85 @@ func (op *OauthProviderQuery) Page(
 
 	op = op.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
 	list, err := op.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type PostPager struct {
+	Order  OrderFunc
+	Filter func(*PostQuery) (*PostQuery, error)
+}
+
+// PostPaginateOption enables pagination customization.
+type PostPaginateOption func(*PostPager)
+
+// DefaultPostOrder is the default ordering of Post.
+var DefaultPostOrder = Asc(post.FieldID)
+
+func newPostPager(opts []PostPaginateOption) (*PostPager, error) {
+	pager := &PostPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultPostOrder
+	}
+	return pager, nil
+}
+
+func (p *PostPager) ApplyFilter(query *PostQuery) (*PostQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// PostPageList is Post PageList result.
+type PostPageList struct {
+	List        []*Post      `json:"list"`
+	PageDetails *PageDetails `json:"pageDetails"`
+}
+
+func (po *PostQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...PostPaginateOption,
+) (*PostPageList, error) {
+
+	pager, err := newPostPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if po, err = pager.ApplyFilter(po); err != nil {
+		return nil, err
+	}
+
+	ret := &PostPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	count, err := po.Clone().Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		po = po.Order(pager.Order)
+	} else {
+		po = po.Order(DefaultPostOrder)
+	}
+
+	po = po.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := po.All(ctx)
 	if err != nil {
 		return nil, err
 	}
