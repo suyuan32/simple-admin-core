@@ -24,9 +24,9 @@ type Post struct {
 	Status uint8 `json:"status,omitempty"`
 	// Sort number | 排序编号
 	Sort uint32 `json:"sort,omitempty"`
-	// Post Name | 岗位名称
+	// Post Name | 职位名称
 	Name string `json:"name,omitempty"`
-	// The code of post | 岗位编码
+	// The code of post | 职位编码
 	Code string `json:"code,omitempty"`
 	// Remark | 备注
 	Remark string `json:"remark,omitempty"`

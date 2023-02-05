@@ -41,6 +41,7 @@ func (l *CreateOrUpdateUserLogic) CreateOrUpdateUser(req *types.CreateOrUpdateUs
 		Description:  req.Description,
 		HomePath:     req.HomePath,
 		DepartmentId: req.DepartmentId,
+		PostId:       req.PostId,
 	})
 	if err != nil {
 		return nil, err

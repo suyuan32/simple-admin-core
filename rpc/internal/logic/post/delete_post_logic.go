@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -29,7 +30,23 @@ func NewDeletePostLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 }
 
 func (l *DeletePostLogic) DeletePost(in *core.IDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Post.DeleteOneID(in.Id).Exec(l.ctx)
+	exist, err := l.svcCtx.DB.User.Query().Where(user.PostIDEQ(in.Id)).Exist(l.ctx)
+	if err != nil {
+		switch {
+		case ent.IsNotFound(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
+		default:
+			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+			return nil, statuserr.NewInternalError(i18n.DatabaseError)
+		}
+	}
+
+	if exist {
+		return nil, statuserr.NewInvalidArgumentError("post.userExistError")
+	}
+
+	err = l.svcCtx.DB.Post.DeleteOneID(in.Id).Exec(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):

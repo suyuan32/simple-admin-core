@@ -16,8 +16,8 @@ type Post struct {
 
 func (Post) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("name").Comment("Post Name | 岗位名称"),
-		field.String("code").Comment("The code of post | 岗位编码"),
+		field.String("name").Comment("Post Name | 职位名称"),
+		field.String("code").Comment("The code of post | 职位编码"),
 		field.String("remark").Comment("Remark | 备注"),
 	}
 }

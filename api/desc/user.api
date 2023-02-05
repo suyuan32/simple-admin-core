@@ -187,6 +187,9 @@ type (
 
         // User's department id | 用户的部门ID
         DepartmentId       uint64       `json:"departmentId"`
+
+        // User's post id | 用户的职位ID
+        PostId       uint64       `json:"postId"`
     }
 
     // The response data of user's basic information | 用户基本信息返回数据
@@ -311,6 +314,9 @@ type (
 
         // The description of user | 用户的描述信息
         Description string `json:"desc,optional"`
+
+        // User's post id | 用户的职位ID
+        PostId       uint64       `json:"postId"`
     }
 
     // Get user list request | 获取用户列表请求参数
@@ -346,6 +352,9 @@ type (
 
         // The user's department ID | 用户所属部门ID
         DepartmentId  uint64 `json:"departmentId,optional"`
+
+        // User's post id | 用户的职位ID
+        PostId       uint64       `json:"postId,optional"`
     }
 )
 

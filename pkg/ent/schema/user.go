@@ -32,7 +32,7 @@ func (User) Fields() []ent.Field {
 			Default("").
 			Comment("avatar | 头像路径"),
 		field.Uint64("department_id").Optional().Default(1).Comment("Department ID | 部门ID"),
-		field.Uint64("post_id").Optional().Default(1).Comment("Post ID | 岗位ID"),
+		field.Uint64("post_id").Optional().Default(1).Comment("Post ID | 职位ID"),
 	}
 }
 

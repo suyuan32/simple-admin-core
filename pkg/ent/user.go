@@ -46,7 +46,7 @@ type User struct {
 	Avatar string `json:"avatar,omitempty"`
 	// Department ID | 部门ID
 	DepartmentID uint64 `json:"department_id,omitempty"`
-	// Post ID | 岗位ID
+	// Post ID | 职位ID
 	PostID uint64 `json:"post_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the UserQuery when eager-loading is set.

@@ -38,13 +38,14 @@ func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.U
 		Mobile:       req.Mobile,
 		RoleId:       req.RoleId,
 		DepartmentId: req.DepartmentId,
+		PostId:       req.PostId,
 	})
 	if err != nil {
 		return nil, err
 	}
-	var res []types.UserInfoResp
+	resp = &types.UserListResp{}
 	for _, v := range data.Data {
-		res = append(res, types.UserInfoResp{
+		resp.Data.Data = append(resp.Data.Data, types.UserInfoResp{
 			BaseUUIDInfo: types.BaseUUIDInfo{
 				Id:        v.Id,
 				CreatedAt: v.CreatedAt,
@@ -60,11 +61,10 @@ func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.U
 			Description:  v.Description,
 			HomePath:     v.HomePath,
 			DepartmentId: v.DepartmentId,
+			PostId:       v.PostId,
 		})
 	}
-	resp = &types.UserListResp{}
 	resp.Data.Total = data.Total
 	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
-	resp.Data.Data = res
 	return resp, nil
 }
