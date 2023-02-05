@@ -77,7 +77,12 @@
 		"deleteDepartment": "Delete a department",
 		"batchDeleteDepartment": "Batch delete departments",
 		"getDepartmentList": "Get department list",
-		"updateDepartmentStatus": "Modify the department status"
+		"updateDepartmentStatus": "Modify the department status",
+		"createOrUpdatePost": "Create or update a post",
+		"deletePost": "Delete a post",
+		"batchDeletePost": "Batch delete posts",
+		"getPostList": "Get post list",
+		"updatePostStatus": "Modify the post status"
 	},
 	"route": {
 		"dashboard": "Dashboard",
@@ -93,7 +98,8 @@
 		"oauthManagement": "Oauth",
 		"tokenManagement": "Token",
 		"otherPages": "Other pages",
-		"departmentManagement": "Department Management"
+		"departmentManagement": "Department",
+		"postManagement": "Post"
 	},
 	"login": {
 		"loginSuccessTitle": "Login successful",
@@ -140,5 +146,9 @@
 	},
 	"department": {
 		"managementDepartment": "Management Department"
+	},
+	"post": {
+		"userExistError": "There are users under this position, it is forbidden to delete.",
+		"ceo": "CEO"
 	}
 }

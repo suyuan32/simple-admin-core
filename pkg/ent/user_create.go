@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/gofrs/uuid"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/post"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
@@ -180,6 +181,20 @@ func (uc *UserCreate) SetNillableDepartmentID(u *uint64) *UserCreate {
 	return uc
 }
 
+// SetPostID sets the "post_id" field.
+func (uc *UserCreate) SetPostID(u uint64) *UserCreate {
+	uc.mutation.SetPostID(u)
+	return uc
+}
+
+// SetNillablePostID sets the "post_id" field if the given value is not nil.
+func (uc *UserCreate) SetNillablePostID(u *uint64) *UserCreate {
+	if u != nil {
+		uc.SetPostID(*u)
+	}
+	return uc
+}
+
 // SetID sets the "id" field.
 func (uc *UserCreate) SetID(u uuid.UUID) *UserCreate {
 	uc.mutation.SetID(u)
@@ -197,6 +212,11 @@ func (uc *UserCreate) SetNillableID(u *uuid.UUID) *UserCreate {
 // SetDepartment sets the "department" edge to the Department entity.
 func (uc *UserCreate) SetDepartment(d *Department) *UserCreate {
 	return uc.SetDepartmentID(d.ID)
+}
+
+// SetPost sets the "post" edge to the Post entity.
+func (uc *UserCreate) SetPost(p *Post) *UserCreate {
+	return uc.SetPostID(p.ID)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -261,6 +281,10 @@ func (uc *UserCreate) defaults() {
 	if _, ok := uc.mutation.DepartmentID(); !ok {
 		v := user.DefaultDepartmentID
 		uc.mutation.SetDepartmentID(v)
+	}
+	if _, ok := uc.mutation.PostID(); !ok {
+		v := user.DefaultPostID
+		uc.mutation.SetPostID(v)
 	}
 	if _, ok := uc.mutation.ID(); !ok {
 		v := user.DefaultID()
@@ -395,6 +419,26 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_node.DepartmentID = nodes[0]
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := uc.mutation.PostIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   user.PostTable,
+			Columns: []string{user.PostColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: post.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_node.PostID = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

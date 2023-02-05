@@ -128,6 +128,13 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		return nil, statuserr.NewInternalError(err.Error())
 	}
 
+	err = l.insertPostData()
+	if err != nil {
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
+		return nil, statuserr.NewInternalError(err.Error())
+	}
+
 	l.svcCtx.Redis.Setex("database_init_state", "1", 300)
 	return &core.BaseResp{Msg: i18n.Success}, nil
 }
@@ -140,7 +147,9 @@ func (l *InitDatabaseLogic) insertUserData() error {
 		SetNickname("admin").
 		SetPassword(utils.BcryptEncrypt("simple-admin")).
 		SetEmail("simple_admin@gmail.com").
-		SetRoleID(1),
+		SetRoleID(1).
+		SetDepartmentID(1).
+		SetPostID(1),
 	)
 
 	err := l.svcCtx.DB.User.CreateBulk(users...).Exec(l.ctx)
@@ -540,7 +549,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetMethod("POST"),
 	)
 
-	// department
+	// DEPARTMENT
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
 		SetPath("/department/create_or_update").
@@ -574,6 +583,43 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/department/status").
 		SetDescription("apiDesc.updateDepartmentStatus").
 		SetAPIGroup("department").
+		SetMethod("POST"),
+	)
+
+	// POST
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/post/create_or_update").
+		SetDescription("apiDesc.createOrUpdatePost").
+		SetAPIGroup("post").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/post/batch_delete").
+		SetDescription("apiDesc.batchDeletePost").
+		SetAPIGroup("post").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/post/delete").
+		SetDescription("apiDesc.deletePost").
+		SetAPIGroup("post").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/post/list").
+		SetDescription("apiDesc.getPostList").
+		SetAPIGroup("post").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/post/status").
+		SetDescription("apiDesc.updatePostStatus").
+		SetAPIGroup("post").
 		SetMethod("POST"),
 	)
 
@@ -664,7 +710,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetComponent("/sys/department/index").
 		SetSort(4).
 		SetTitle("route.departmentManagement").
-		SetIcon("ant-design:lock-outlined").
+		SetIcon("ic:outline-people-alt").
 		SetHideMenu(false),
 	)
 
@@ -769,6 +815,19 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(7).
 		SetTitle("route.tokenManagement").
 		SetIcon("ant-design:lock-outlined").
+		SetHideMenu(false),
+	)
+
+	menus = append(menus, l.svcCtx.DB.Menu.Create().
+		SetMenuLevel(2).
+		SetMenuType(1).
+		SetParentID(2).
+		SetPath("/post").
+		SetName("Post Management").
+		SetComponent("/sys/post/index").
+		SetSort(8).
+		SetTitle("route.postManagement").
+		SetIcon("ic:twotone-work-outline").
 		SetHideMenu(false),
 	)
 
@@ -891,6 +950,23 @@ func (l *InitDatabaseLogic) insertDepartmentData() error {
 	)
 
 	err := l.svcCtx.DB.Department.CreateBulk(departments...).Exec(l.ctx)
+	if err != nil {
+		logx.Errorw(err.Error())
+		return statuserr.NewInternalError(err.Error())
+	} else {
+		return nil
+	}
+}
+
+// insert init post data
+func (l *InitDatabaseLogic) insertPostData() error {
+	var posts []*ent.PostCreate
+	posts = append(posts, l.svcCtx.DB.Post.Create().
+		SetName("post.ceo").
+		SetRemark("CEO").SetCode("001").SetSort(1),
+	)
+
+	err := l.svcCtx.DB.Post.CreateBulk(posts...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
 		return statuserr.NewInternalError(err.Error())

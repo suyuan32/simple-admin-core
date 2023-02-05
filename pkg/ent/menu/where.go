@@ -65,6 +65,11 @@ func UpdatedAt(v time.Time) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldUpdatedAt, v))
 }
 
+// Sort applies equality check predicate on the "sort" field. It's identical to SortEQ.
+func Sort(v uint32) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldSort, v))
+}
+
 // ParentID applies equality check predicate on the "parent_id" field. It's identical to ParentIDEQ.
 func ParentID(v uint64) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldParentID, v))
@@ -98,11 +103,6 @@ func Redirect(v string) predicate.Menu {
 // Component applies equality check predicate on the "component" field. It's identical to ComponentEQ.
 func Component(v string) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldComponent, v))
-}
-
-// Sort applies equality check predicate on the "sort" field. It's identical to SortEQ.
-func Sort(v uint32) predicate.Menu {
-	return predicate.Menu(sql.FieldEQ(FieldSort, v))
 }
 
 // Disabled applies equality check predicate on the "disabled" field. It's identical to DisabledEQ.
@@ -253,6 +253,46 @@ func UpdatedAtLT(v time.Time) predicate.Menu {
 // UpdatedAtLTE applies the LTE predicate on the "updated_at" field.
 func UpdatedAtLTE(v time.Time) predicate.Menu {
 	return predicate.Menu(sql.FieldLTE(FieldUpdatedAt, v))
+}
+
+// SortEQ applies the EQ predicate on the "sort" field.
+func SortEQ(v uint32) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldSort, v))
+}
+
+// SortNEQ applies the NEQ predicate on the "sort" field.
+func SortNEQ(v uint32) predicate.Menu {
+	return predicate.Menu(sql.FieldNEQ(FieldSort, v))
+}
+
+// SortIn applies the In predicate on the "sort" field.
+func SortIn(vs ...uint32) predicate.Menu {
+	return predicate.Menu(sql.FieldIn(FieldSort, vs...))
+}
+
+// SortNotIn applies the NotIn predicate on the "sort" field.
+func SortNotIn(vs ...uint32) predicate.Menu {
+	return predicate.Menu(sql.FieldNotIn(FieldSort, vs...))
+}
+
+// SortGT applies the GT predicate on the "sort" field.
+func SortGT(v uint32) predicate.Menu {
+	return predicate.Menu(sql.FieldGT(FieldSort, v))
+}
+
+// SortGTE applies the GTE predicate on the "sort" field.
+func SortGTE(v uint32) predicate.Menu {
+	return predicate.Menu(sql.FieldGTE(FieldSort, v))
+}
+
+// SortLT applies the LT predicate on the "sort" field.
+func SortLT(v uint32) predicate.Menu {
+	return predicate.Menu(sql.FieldLT(FieldSort, v))
+}
+
+// SortLTE applies the LTE predicate on the "sort" field.
+func SortLTE(v uint32) predicate.Menu {
+	return predicate.Menu(sql.FieldLTE(FieldSort, v))
 }
 
 // ParentIDEQ applies the EQ predicate on the "parent_id" field.
@@ -653,46 +693,6 @@ func ComponentEqualFold(v string) predicate.Menu {
 // ComponentContainsFold applies the ContainsFold predicate on the "component" field.
 func ComponentContainsFold(v string) predicate.Menu {
 	return predicate.Menu(sql.FieldContainsFold(FieldComponent, v))
-}
-
-// SortEQ applies the EQ predicate on the "sort" field.
-func SortEQ(v uint32) predicate.Menu {
-	return predicate.Menu(sql.FieldEQ(FieldSort, v))
-}
-
-// SortNEQ applies the NEQ predicate on the "sort" field.
-func SortNEQ(v uint32) predicate.Menu {
-	return predicate.Menu(sql.FieldNEQ(FieldSort, v))
-}
-
-// SortIn applies the In predicate on the "sort" field.
-func SortIn(vs ...uint32) predicate.Menu {
-	return predicate.Menu(sql.FieldIn(FieldSort, vs...))
-}
-
-// SortNotIn applies the NotIn predicate on the "sort" field.
-func SortNotIn(vs ...uint32) predicate.Menu {
-	return predicate.Menu(sql.FieldNotIn(FieldSort, vs...))
-}
-
-// SortGT applies the GT predicate on the "sort" field.
-func SortGT(v uint32) predicate.Menu {
-	return predicate.Menu(sql.FieldGT(FieldSort, v))
-}
-
-// SortGTE applies the GTE predicate on the "sort" field.
-func SortGTE(v uint32) predicate.Menu {
-	return predicate.Menu(sql.FieldGTE(FieldSort, v))
-}
-
-// SortLT applies the LT predicate on the "sort" field.
-func SortLT(v uint32) predicate.Menu {
-	return predicate.Menu(sql.FieldLT(FieldSort, v))
-}
-
-// SortLTE applies the LTE predicate on the "sort" field.
-func SortLTE(v uint32) predicate.Menu {
-	return predicate.Menu(sql.FieldLTE(FieldSort, v))
 }
 
 // DisabledEQ applies the EQ predicate on the "disabled" field.

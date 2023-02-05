@@ -32,31 +32,31 @@ var (
 			},
 		},
 	}
-	// SysDepartmentColumns holds the columns for the "sys_department" table.
-	SysDepartmentColumns = []*schema.Column{
+	// SysDepartmentsColumns holds the columns for the "sys_departments" table.
+	SysDepartmentsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "sort", Type: field.TypeUint32, Default: 1},
 		{Name: "name", Type: field.TypeString},
 		{Name: "ancestors", Type: field.TypeString},
 		{Name: "leader", Type: field.TypeString},
 		{Name: "phone", Type: field.TypeString},
 		{Name: "email", Type: field.TypeString},
-		{Name: "sort", Type: field.TypeUint32},
 		{Name: "remark", Type: field.TypeString},
 		{Name: "parent_id", Type: field.TypeUint64, Nullable: true, Default: 0},
 	}
-	// SysDepartmentTable holds the schema information for the "sys_department" table.
-	SysDepartmentTable = &schema.Table{
-		Name:       "sys_department",
-		Columns:    SysDepartmentColumns,
-		PrimaryKey: []*schema.Column{SysDepartmentColumns[0]},
+	// SysDepartmentsTable holds the schema information for the "sys_departments" table.
+	SysDepartmentsTable = &schema.Table{
+		Name:       "sys_departments",
+		Columns:    SysDepartmentsColumns,
+		PrimaryKey: []*schema.Column{SysDepartmentsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "sys_department_sys_department_children",
-				Columns:    []*schema.Column{SysDepartmentColumns[11]},
-				RefColumns: []*schema.Column{SysDepartmentColumns[0]},
+				Symbol:     "sys_departments_sys_departments_children",
+				Columns:    []*schema.Column{SysDepartmentsColumns[11]},
+				RefColumns: []*schema.Column{SysDepartmentsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -107,13 +107,13 @@ var (
 		{Name: "id", Type: field.TypeUint64, Increment: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "sort", Type: field.TypeUint32, Default: 1},
 		{Name: "menu_level", Type: field.TypeUint32},
 		{Name: "menu_type", Type: field.TypeUint32},
 		{Name: "path", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "name", Type: field.TypeString},
 		{Name: "redirect", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "component", Type: field.TypeString, Nullable: true, Default: ""},
-		{Name: "sort", Type: field.TypeUint32, Default: 0},
 		{Name: "disabled", Type: field.TypeBool, Nullable: true, Default: false},
 		{Name: "title", Type: field.TypeString},
 		{Name: "icon", Type: field.TypeString},
@@ -189,6 +189,23 @@ var (
 		Columns:    SysOauthProvidersColumns,
 		PrimaryKey: []*schema.Column{SysOauthProvidersColumns[0]},
 	}
+	// SysPostsColumns holds the columns for the "sys_posts" table.
+	SysPostsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "sort", Type: field.TypeUint32, Default: 1},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "remark", Type: field.TypeString},
+	}
+	// SysPostsTable holds the schema information for the "sys_posts" table.
+	SysPostsTable = &schema.Table{
+		Name:       "sys_posts",
+		Columns:    SysPostsColumns,
+		PrimaryKey: []*schema.Column{SysPostsColumns[0]},
+	}
 	// SysRolesColumns holds the columns for the "sys_roles" table.
 	SysRolesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -252,6 +269,7 @@ var (
 		{Name: "email", Type: field.TypeString, Nullable: true},
 		{Name: "avatar", Type: field.TypeString, Nullable: true, Default: "", SchemaType: map[string]string{"mysql": "varchar(512)"}},
 		{Name: "department_id", Type: field.TypeUint64, Nullable: true, Default: 1},
+		{Name: "post_id", Type: field.TypeUint64, Nullable: true, Default: 1},
 	}
 	// SysUsersTable holds the schema information for the "sys_users" table.
 	SysUsersTable = &schema.Table{
@@ -260,9 +278,15 @@ var (
 		PrimaryKey: []*schema.Column{SysUsersColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "sys_users_sys_department_department",
+				Symbol:     "sys_users_sys_departments_department",
 				Columns:    []*schema.Column{SysUsersColumns[13]},
-				RefColumns: []*schema.Column{SysDepartmentColumns[0]},
+				RefColumns: []*schema.Column{SysDepartmentsColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:     "sys_users_sys_posts_post",
+				Columns:    []*schema.Column{SysUsersColumns[14]},
+				RefColumns: []*schema.Column{SysPostsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -302,12 +326,13 @@ var (
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		SysApisTable,
-		SysDepartmentTable,
+		SysDepartmentsTable,
 		SysDictionariesTable,
 		SysDictionaryDetailsTable,
 		SysMenusTable,
 		SysMenuParamsTable,
 		SysOauthProvidersTable,
+		SysPostsTable,
 		SysRolesTable,
 		SysTokensTable,
 		SysUsersTable,
@@ -319,9 +344,9 @@ func init() {
 	SysApisTable.Annotation = &entsql.Annotation{
 		Table: "sys_apis",
 	}
-	SysDepartmentTable.ForeignKeys[0].RefTable = SysDepartmentTable
-	SysDepartmentTable.Annotation = &entsql.Annotation{
-		Table: "sys_department",
+	SysDepartmentsTable.ForeignKeys[0].RefTable = SysDepartmentsTable
+	SysDepartmentsTable.Annotation = &entsql.Annotation{
+		Table: "sys_departments",
 	}
 	SysDictionariesTable.Annotation = &entsql.Annotation{
 		Table: "sys_dictionaries",
@@ -341,13 +366,17 @@ func init() {
 	SysOauthProvidersTable.Annotation = &entsql.Annotation{
 		Table: "sys_oauth_providers",
 	}
+	SysPostsTable.Annotation = &entsql.Annotation{
+		Table: "sys_posts",
+	}
 	SysRolesTable.Annotation = &entsql.Annotation{
 		Table: "sys_roles",
 	}
 	SysTokensTable.Annotation = &entsql.Annotation{
 		Table: "sys_tokens",
 	}
-	SysUsersTable.ForeignKeys[0].RefTable = SysDepartmentTable
+	SysUsersTable.ForeignKeys[0].RefTable = SysDepartmentsTable
+	SysUsersTable.ForeignKeys[1].RefTable = SysPostsTable
 	SysUsersTable.Annotation = &entsql.Annotation{
 		Table: "sys_users",
 	}

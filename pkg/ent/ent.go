@@ -18,6 +18,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/post"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
@@ -55,6 +56,7 @@ func columnChecker(table string) func(string) error {
 		menu.Table:             menu.ValidColumn,
 		menuparam.Table:        menuparam.ValidColumn,
 		oauthprovider.Table:    oauthprovider.ValidColumn,
+		post.Table:             post.ValidColumn,
 		role.Table:             role.ValidColumn,
 		token.Table:            token.ValidColumn,
 		user.Table:             user.ValidColumn,

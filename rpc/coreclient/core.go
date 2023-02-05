@@ -47,6 +47,9 @@ type (
 	OauthLoginReq              = core.OauthLoginReq
 	OauthRedirectResp          = core.OauthRedirectResp
 	PageInfoReq                = core.PageInfoReq
+	PostInfo                   = core.PostInfo
+	PostListReq                = core.PostListReq
+	PostListResp               = core.PostListResp
 	ProviderInfo               = core.ProviderInfo
 	ProviderListResp           = core.ProviderListResp
 	RoleInfo                   = core.RoleInfo
@@ -95,6 +98,12 @@ type (
 		GetProviderList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*ProviderListResp, error)
 		OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
 		OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error)
+		// Post management
+		CreateOrUpdatePost(ctx context.Context, in *PostInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetPostList(ctx context.Context, in *PostListReq, opts ...grpc.CallOption) (*PostListResp, error)
+		DeletePost(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		BatchDeletePost(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdatePostStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 		CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
@@ -272,6 +281,32 @@ func (m *defaultCore) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ..
 func (m *defaultCore) OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.OauthCallback(ctx, in, opts...)
+}
+
+// Post management
+func (m *defaultCore) CreateOrUpdatePost(ctx context.Context, in *PostInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateOrUpdatePost(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetPostList(ctx context.Context, in *PostListReq, opts ...grpc.CallOption) (*PostListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetPostList(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeletePost(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeletePost(ctx, in, opts...)
+}
+
+func (m *defaultCore) BatchDeletePost(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.BatchDeletePost(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdatePostStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdatePostStatus(ctx, in, opts...)
 }
 
 func (m *defaultCore) CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error) {

@@ -17,6 +17,8 @@ const (
 	FieldUpdatedAt = "updated_at"
 	// FieldStatus holds the string denoting the status field in the database.
 	FieldStatus = "status"
+	// FieldSort holds the string denoting the sort field in the database.
+	FieldSort = "sort"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldAncestors holds the string denoting the ancestors field in the database.
@@ -27,8 +29,6 @@ const (
 	FieldPhone = "phone"
 	// FieldEmail holds the string denoting the email field in the database.
 	FieldEmail = "email"
-	// FieldSort holds the string denoting the sort field in the database.
-	FieldSort = "sort"
 	// FieldRemark holds the string denoting the remark field in the database.
 	FieldRemark = "remark"
 	// FieldParentID holds the string denoting the parent_id field in the database.
@@ -40,13 +40,13 @@ const (
 	// EdgeUser holds the string denoting the user edge name in mutations.
 	EdgeUser = "user"
 	// Table holds the table name of the department in the database.
-	Table = "sys_department"
+	Table = "sys_departments"
 	// ParentTable is the table that holds the parent relation/edge.
-	ParentTable = "sys_department"
+	ParentTable = "sys_departments"
 	// ParentColumn is the table column denoting the parent relation/edge.
 	ParentColumn = "parent_id"
 	// ChildrenTable is the table that holds the children relation/edge.
-	ChildrenTable = "sys_department"
+	ChildrenTable = "sys_departments"
 	// ChildrenColumn is the table column denoting the children relation/edge.
 	ChildrenColumn = "parent_id"
 	// UserTable is the table that holds the user relation/edge.
@@ -64,12 +64,12 @@ var Columns = []string{
 	FieldCreatedAt,
 	FieldUpdatedAt,
 	FieldStatus,
+	FieldSort,
 	FieldName,
 	FieldAncestors,
 	FieldLeader,
 	FieldPhone,
 	FieldEmail,
-	FieldSort,
 	FieldRemark,
 	FieldParentID,
 }
@@ -93,6 +93,8 @@ var (
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultStatus holds the default value on creation for the "status" field.
 	DefaultStatus uint8
+	// DefaultSort holds the default value on creation for the "sort" field.
+	DefaultSort uint32
 	// DefaultParentID holds the default value on creation for the "parent_id" field.
 	DefaultParentID uint64
 )

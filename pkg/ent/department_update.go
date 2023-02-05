@@ -63,6 +63,27 @@ func (du *DepartmentUpdate) ClearStatus() *DepartmentUpdate {
 	return du
 }
 
+// SetSort sets the "sort" field.
+func (du *DepartmentUpdate) SetSort(u uint32) *DepartmentUpdate {
+	du.mutation.ResetSort()
+	du.mutation.SetSort(u)
+	return du
+}
+
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (du *DepartmentUpdate) SetNillableSort(u *uint32) *DepartmentUpdate {
+	if u != nil {
+		du.SetSort(*u)
+	}
+	return du
+}
+
+// AddSort adds u to the "sort" field.
+func (du *DepartmentUpdate) AddSort(u int32) *DepartmentUpdate {
+	du.mutation.AddSort(u)
+	return du
+}
+
 // SetName sets the "name" field.
 func (du *DepartmentUpdate) SetName(s string) *DepartmentUpdate {
 	du.mutation.SetName(s)
@@ -90,19 +111,6 @@ func (du *DepartmentUpdate) SetPhone(s string) *DepartmentUpdate {
 // SetEmail sets the "email" field.
 func (du *DepartmentUpdate) SetEmail(s string) *DepartmentUpdate {
 	du.mutation.SetEmail(s)
-	return du
-}
-
-// SetSort sets the "sort" field.
-func (du *DepartmentUpdate) SetSort(u uint32) *DepartmentUpdate {
-	du.mutation.ResetSort()
-	du.mutation.SetSort(u)
-	return du
-}
-
-// AddSort adds u to the "sort" field.
-func (du *DepartmentUpdate) AddSort(u int32) *DepartmentUpdate {
-	du.mutation.AddSort(u)
 	return du
 }
 
@@ -286,6 +294,12 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if du.mutation.StatusCleared() {
 		_spec.ClearField(department.FieldStatus, field.TypeUint8)
 	}
+	if value, ok := du.mutation.Sort(); ok {
+		_spec.SetField(department.FieldSort, field.TypeUint32, value)
+	}
+	if value, ok := du.mutation.AddedSort(); ok {
+		_spec.AddField(department.FieldSort, field.TypeUint32, value)
+	}
 	if value, ok := du.mutation.Name(); ok {
 		_spec.SetField(department.FieldName, field.TypeString, value)
 	}
@@ -300,12 +314,6 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := du.mutation.Email(); ok {
 		_spec.SetField(department.FieldEmail, field.TypeString, value)
-	}
-	if value, ok := du.mutation.Sort(); ok {
-		_spec.SetField(department.FieldSort, field.TypeUint32, value)
-	}
-	if value, ok := du.mutation.AddedSort(); ok {
-		_spec.AddField(department.FieldSort, field.TypeUint32, value)
 	}
 	if value, ok := du.mutation.Remark(); ok {
 		_spec.SetField(department.FieldRemark, field.TypeString, value)
@@ -506,6 +514,27 @@ func (duo *DepartmentUpdateOne) ClearStatus() *DepartmentUpdateOne {
 	return duo
 }
 
+// SetSort sets the "sort" field.
+func (duo *DepartmentUpdateOne) SetSort(u uint32) *DepartmentUpdateOne {
+	duo.mutation.ResetSort()
+	duo.mutation.SetSort(u)
+	return duo
+}
+
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (duo *DepartmentUpdateOne) SetNillableSort(u *uint32) *DepartmentUpdateOne {
+	if u != nil {
+		duo.SetSort(*u)
+	}
+	return duo
+}
+
+// AddSort adds u to the "sort" field.
+func (duo *DepartmentUpdateOne) AddSort(u int32) *DepartmentUpdateOne {
+	duo.mutation.AddSort(u)
+	return duo
+}
+
 // SetName sets the "name" field.
 func (duo *DepartmentUpdateOne) SetName(s string) *DepartmentUpdateOne {
 	duo.mutation.SetName(s)
@@ -533,19 +562,6 @@ func (duo *DepartmentUpdateOne) SetPhone(s string) *DepartmentUpdateOne {
 // SetEmail sets the "email" field.
 func (duo *DepartmentUpdateOne) SetEmail(s string) *DepartmentUpdateOne {
 	duo.mutation.SetEmail(s)
-	return duo
-}
-
-// SetSort sets the "sort" field.
-func (duo *DepartmentUpdateOne) SetSort(u uint32) *DepartmentUpdateOne {
-	duo.mutation.ResetSort()
-	duo.mutation.SetSort(u)
-	return duo
-}
-
-// AddSort adds u to the "sort" field.
-func (duo *DepartmentUpdateOne) AddSort(u int32) *DepartmentUpdateOne {
-	duo.mutation.AddSort(u)
 	return duo
 }
 
@@ -753,6 +769,12 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 	if duo.mutation.StatusCleared() {
 		_spec.ClearField(department.FieldStatus, field.TypeUint8)
 	}
+	if value, ok := duo.mutation.Sort(); ok {
+		_spec.SetField(department.FieldSort, field.TypeUint32, value)
+	}
+	if value, ok := duo.mutation.AddedSort(); ok {
+		_spec.AddField(department.FieldSort, field.TypeUint32, value)
+	}
 	if value, ok := duo.mutation.Name(); ok {
 		_spec.SetField(department.FieldName, field.TypeString, value)
 	}
@@ -767,12 +789,6 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 	}
 	if value, ok := duo.mutation.Email(); ok {
 		_spec.SetField(department.FieldEmail, field.TypeString, value)
-	}
-	if value, ok := duo.mutation.Sort(); ok {
-		_spec.SetField(department.FieldSort, field.TypeUint32, value)
-	}
-	if value, ok := duo.mutation.AddedSort(); ok {
-		_spec.AddField(department.FieldSort, field.TypeUint32, value)
 	}
 	if value, ok := duo.mutation.Remark(); ok {
 		_spec.SetField(department.FieldRemark, field.TypeString, value)

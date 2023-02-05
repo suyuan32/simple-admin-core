@@ -71,6 +71,9 @@ definitions:
     CreateOrUpdateMenuReq:
         description: Create or update menu information request params | 创建或更新菜单信息参数
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    CreateOrUpdatePostReq:
+        description: Create or update post information request | 创建或更新职位信息
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     CreateOrUpdateProviderReq:
         description: Create or update provider information request | 创建或更新提供商信息
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
@@ -187,6 +190,18 @@ definitions:
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     PermCodeResp:
         description: The permission code for front end permission control | 权限码： 用于前端权限控制
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    PostInfo:
+        description: The response data of post information | 职位信息
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    PostListInfo:
+        description: Post list data | 职位 列表数据
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    PostListReq:
+        description: Get post list request params | 职位列表请求参数
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    PostListResp:
+        description: The response data of post list | 职位列表数据
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ProfileInfo:
         description: The profile information | 个人信息
@@ -822,6 +837,96 @@ paths:
             summary: Get provider list | 获取提供商列表
             tags:
                 - oauth
+    /post/batch_delete:
+        post:
+            description: Delete post information | 删除职位信息
+            operationId: BatchDeletePost
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDsReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete post information | 删除职位信息
+            tags:
+                - post
+    /post/create_or_update:
+        post:
+            description: Create or update post information | 创建或更新职位
+            operationId: CreateOrUpdatePost
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/CreateOrUpdatePostReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Create or update post information | 创建或更新职位
+            tags:
+                - post
+    /post/delete:
+        post:
+            description: Delete post information | 删除职位信息
+            operationId: DeletePost
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete post information | 删除职位信息
+            tags:
+                - post
+    /post/list:
+        post:
+            description: Get post list | 获取职位列表
+            operationId: GetPostList
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/PostListReq'
+                    type: object
+            responses:
+                "200":
+                    description: PostListResp
+                    schema:
+                        $ref: '#/definitions/PostListResp'
+            summary: Get post list | 获取职位列表
+            tags:
+                - post
+    /post/status:
+        post:
+            description: Set post's status | 更新职位状态
+            operationId: UpdatePostStatus
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/StatusCodeReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Set post's status | 更新职位状态
+            tags:
+                - post
     /role/create_or_update:
         post:
             description: Create or update role information | 创建或更新角色

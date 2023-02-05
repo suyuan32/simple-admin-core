@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/post"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
@@ -221,9 +222,34 @@ func (uu *UserUpdate) ClearDepartmentID() *UserUpdate {
 	return uu
 }
 
+// SetPostID sets the "post_id" field.
+func (uu *UserUpdate) SetPostID(u uint64) *UserUpdate {
+	uu.mutation.SetPostID(u)
+	return uu
+}
+
+// SetNillablePostID sets the "post_id" field if the given value is not nil.
+func (uu *UserUpdate) SetNillablePostID(u *uint64) *UserUpdate {
+	if u != nil {
+		uu.SetPostID(*u)
+	}
+	return uu
+}
+
+// ClearPostID clears the value of the "post_id" field.
+func (uu *UserUpdate) ClearPostID() *UserUpdate {
+	uu.mutation.ClearPostID()
+	return uu
+}
+
 // SetDepartment sets the "department" edge to the Department entity.
 func (uu *UserUpdate) SetDepartment(d *Department) *UserUpdate {
 	return uu.SetDepartmentID(d.ID)
+}
+
+// SetPost sets the "post" edge to the Post entity.
+func (uu *UserUpdate) SetPost(p *Post) *UserUpdate {
+	return uu.SetPostID(p.ID)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -234,6 +260,12 @@ func (uu *UserUpdate) Mutation() *UserMutation {
 // ClearDepartment clears the "department" edge to the Department entity.
 func (uu *UserUpdate) ClearDepartment() *UserUpdate {
 	uu.mutation.ClearDepartment()
+	return uu
+}
+
+// ClearPost clears the "post" edge to the Post entity.
+func (uu *UserUpdate) ClearPost() *UserUpdate {
+	uu.mutation.ClearPost()
 	return uu
 }
 
@@ -375,6 +407,41 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeUint64,
 					Column: department.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if uu.mutation.PostCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   user.PostTable,
+			Columns: []string{user.PostColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: post.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uu.mutation.PostIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   user.PostTable,
+			Columns: []string{user.PostColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: post.FieldID,
 				},
 			},
 		}
@@ -595,9 +662,34 @@ func (uuo *UserUpdateOne) ClearDepartmentID() *UserUpdateOne {
 	return uuo
 }
 
+// SetPostID sets the "post_id" field.
+func (uuo *UserUpdateOne) SetPostID(u uint64) *UserUpdateOne {
+	uuo.mutation.SetPostID(u)
+	return uuo
+}
+
+// SetNillablePostID sets the "post_id" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillablePostID(u *uint64) *UserUpdateOne {
+	if u != nil {
+		uuo.SetPostID(*u)
+	}
+	return uuo
+}
+
+// ClearPostID clears the value of the "post_id" field.
+func (uuo *UserUpdateOne) ClearPostID() *UserUpdateOne {
+	uuo.mutation.ClearPostID()
+	return uuo
+}
+
 // SetDepartment sets the "department" edge to the Department entity.
 func (uuo *UserUpdateOne) SetDepartment(d *Department) *UserUpdateOne {
 	return uuo.SetDepartmentID(d.ID)
+}
+
+// SetPost sets the "post" edge to the Post entity.
+func (uuo *UserUpdateOne) SetPost(p *Post) *UserUpdateOne {
+	return uuo.SetPostID(p.ID)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -608,6 +700,12 @@ func (uuo *UserUpdateOne) Mutation() *UserMutation {
 // ClearDepartment clears the "department" edge to the Department entity.
 func (uuo *UserUpdateOne) ClearDepartment() *UserUpdateOne {
 	uuo.mutation.ClearDepartment()
+	return uuo
+}
+
+// ClearPost clears the "post" edge to the Post entity.
+func (uuo *UserUpdateOne) ClearPost() *UserUpdateOne {
+	uuo.mutation.ClearPost()
 	return uuo
 }
 
@@ -773,6 +871,41 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeUint64,
 					Column: department.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if uuo.mutation.PostCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   user.PostTable,
+			Columns: []string{user.PostColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: post.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uuo.mutation.PostIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: false,
+			Table:   user.PostTable,
+			Columns: []string{user.PostColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: post.FieldID,
 				},
 			},
 		}

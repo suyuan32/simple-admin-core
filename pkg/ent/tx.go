@@ -26,6 +26,8 @@ type Tx struct {
 	MenuParam *MenuParamClient
 	// OauthProvider is the client for interacting with the OauthProvider builders.
 	OauthProvider *OauthProviderClient
+	// Post is the client for interacting with the Post builders.
+	Post *PostClient
 	// Role is the client for interacting with the Role builders.
 	Role *RoleClient
 	// Token is the client for interacting with the Token builders.
@@ -170,6 +172,7 @@ func (tx *Tx) init() {
 	tx.Menu = NewMenuClient(tx.config)
 	tx.MenuParam = NewMenuParamClient(tx.config)
 	tx.OauthProvider = NewOauthProviderClient(tx.config)
+	tx.Post = NewPostClient(tx.config)
 	tx.Role = NewRoleClient(tx.config)
 	tx.Token = NewTokenClient(tx.config)
 	tx.User = NewUserClient(tx.config)

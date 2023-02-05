@@ -18,6 +18,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/post"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
@@ -46,6 +47,8 @@ type Client struct {
 	MenuParam *MenuParamClient
 	// OauthProvider is the client for interacting with the OauthProvider builders.
 	OauthProvider *OauthProviderClient
+	// Post is the client for interacting with the Post builders.
+	Post *PostClient
 	// Role is the client for interacting with the Role builders.
 	Role *RoleClient
 	// Token is the client for interacting with the Token builders.
@@ -72,6 +75,7 @@ func (c *Client) init() {
 	c.Menu = NewMenuClient(c.config)
 	c.MenuParam = NewMenuParamClient(c.config)
 	c.OauthProvider = NewOauthProviderClient(c.config)
+	c.Post = NewPostClient(c.config)
 	c.Role = NewRoleClient(c.config)
 	c.Token = NewTokenClient(c.config)
 	c.User = NewUserClient(c.config)
@@ -115,6 +119,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Menu:             NewMenuClient(cfg),
 		MenuParam:        NewMenuParamClient(cfg),
 		OauthProvider:    NewOauthProviderClient(cfg),
+		Post:             NewPostClient(cfg),
 		Role:             NewRoleClient(cfg),
 		Token:            NewTokenClient(cfg),
 		User:             NewUserClient(cfg),
@@ -144,6 +149,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Menu:             NewMenuClient(cfg),
 		MenuParam:        NewMenuParamClient(cfg),
 		OauthProvider:    NewOauthProviderClient(cfg),
+		Post:             NewPostClient(cfg),
 		Role:             NewRoleClient(cfg),
 		Token:            NewTokenClient(cfg),
 		User:             NewUserClient(cfg),
@@ -182,6 +188,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Menu.Use(hooks...)
 	c.MenuParam.Use(hooks...)
 	c.OauthProvider.Use(hooks...)
+	c.Post.Use(hooks...)
 	c.Role.Use(hooks...)
 	c.Token.Use(hooks...)
 	c.User.Use(hooks...)
@@ -197,6 +204,7 @@ func (c *Client) Intercept(interceptors ...Interceptor) {
 	c.Menu.Intercept(interceptors...)
 	c.MenuParam.Intercept(interceptors...)
 	c.OauthProvider.Intercept(interceptors...)
+	c.Post.Intercept(interceptors...)
 	c.Role.Intercept(interceptors...)
 	c.Token.Intercept(interceptors...)
 	c.User.Intercept(interceptors...)
@@ -219,6 +227,8 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.MenuParam.mutate(ctx, m)
 	case *OauthProviderMutation:
 		return c.OauthProvider.mutate(ctx, m)
+	case *PostMutation:
+		return c.Post.mutate(ctx, m)
 	case *RoleMutation:
 		return c.Role.mutate(ctx, m)
 	case *TokenMutation:
@@ -1216,6 +1226,140 @@ func (c *OauthProviderClient) mutate(ctx context.Context, m *OauthProviderMutati
 	}
 }
 
+// PostClient is a client for the Post schema.
+type PostClient struct {
+	config
+}
+
+// NewPostClient returns a client for the Post from the given config.
+func NewPostClient(c config) *PostClient {
+	return &PostClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `post.Hooks(f(g(h())))`.
+func (c *PostClient) Use(hooks ...Hook) {
+	c.hooks.Post = append(c.hooks.Post, hooks...)
+}
+
+// Use adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `post.Intercept(f(g(h())))`.
+func (c *PostClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Post = append(c.inters.Post, interceptors...)
+}
+
+// Create returns a builder for creating a Post entity.
+func (c *PostClient) Create() *PostCreate {
+	mutation := newPostMutation(c.config, OpCreate)
+	return &PostCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Post entities.
+func (c *PostClient) CreateBulk(builders ...*PostCreate) *PostCreateBulk {
+	return &PostCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Post.
+func (c *PostClient) Update() *PostUpdate {
+	mutation := newPostMutation(c.config, OpUpdate)
+	return &PostUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *PostClient) UpdateOne(po *Post) *PostUpdateOne {
+	mutation := newPostMutation(c.config, OpUpdateOne, withPost(po))
+	return &PostUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *PostClient) UpdateOneID(id uint64) *PostUpdateOne {
+	mutation := newPostMutation(c.config, OpUpdateOne, withPostID(id))
+	return &PostUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Post.
+func (c *PostClient) Delete() *PostDelete {
+	mutation := newPostMutation(c.config, OpDelete)
+	return &PostDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *PostClient) DeleteOne(po *Post) *PostDeleteOne {
+	return c.DeleteOneID(po.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *PostClient) DeleteOneID(id uint64) *PostDeleteOne {
+	builder := c.Delete().Where(post.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &PostDeleteOne{builder}
+}
+
+// Query returns a query builder for Post.
+func (c *PostClient) Query() *PostQuery {
+	return &PostQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypePost},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a Post entity by its id.
+func (c *PostClient) Get(ctx context.Context, id uint64) (*Post, error) {
+	return c.Query().Where(post.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *PostClient) GetX(ctx context.Context, id uint64) *Post {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// QueryUser queries the user edge of a Post.
+func (c *PostClient) QueryUser(po *Post) *UserQuery {
+	query := (&UserClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := po.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(post.Table, post.FieldID, id),
+			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, true, post.UserTable, post.UserColumn),
+		)
+		fromV = sqlgraph.Neighbors(po.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// Hooks returns the client hooks.
+func (c *PostClient) Hooks() []Hook {
+	return c.hooks.Post
+}
+
+// Interceptors returns the client interceptors.
+func (c *PostClient) Interceptors() []Interceptor {
+	return c.inters.Post
+}
+
+func (c *PostClient) mutate(ctx context.Context, m *PostMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&PostCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&PostUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&PostUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&PostDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Post mutation op: %q", m.Op())
+	}
+}
+
 // RoleClient is a client for the Role schema.
 type RoleClient struct {
 	config
@@ -1570,6 +1714,22 @@ func (c *UserClient) QueryDepartment(u *User) *DepartmentQuery {
 			sqlgraph.From(user.Table, user.FieldID, id),
 			sqlgraph.To(department.Table, department.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, user.DepartmentTable, user.DepartmentColumn),
+		)
+		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// QueryPost queries the post edge of a User.
+func (c *UserClient) QueryPost(u *User) *PostQuery {
+	query := (&PostClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := u.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(user.Table, user.FieldID, id),
+			sqlgraph.To(post.Table, post.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, user.PostTable, user.PostColumn),
 		)
 		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
 		return fromV, nil

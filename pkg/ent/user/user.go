@@ -39,17 +39,28 @@ const (
 	FieldAvatar = "avatar"
 	// FieldDepartmentID holds the string denoting the department_id field in the database.
 	FieldDepartmentID = "department_id"
+	// FieldPostID holds the string denoting the post_id field in the database.
+	FieldPostID = "post_id"
 	// EdgeDepartment holds the string denoting the department edge name in mutations.
 	EdgeDepartment = "department"
+	// EdgePost holds the string denoting the post edge name in mutations.
+	EdgePost = "post"
 	// Table holds the table name of the user in the database.
 	Table = "sys_users"
 	// DepartmentTable is the table that holds the department relation/edge.
 	DepartmentTable = "sys_users"
 	// DepartmentInverseTable is the table name for the Department entity.
 	// It exists in this package in order to avoid circular dependency with the "department" package.
-	DepartmentInverseTable = "sys_department"
+	DepartmentInverseTable = "sys_departments"
 	// DepartmentColumn is the table column denoting the department relation/edge.
 	DepartmentColumn = "department_id"
+	// PostTable is the table that holds the post relation/edge.
+	PostTable = "sys_users"
+	// PostInverseTable is the table name for the Post entity.
+	// It exists in this package in order to avoid circular dependency with the "post" package.
+	PostInverseTable = "sys_posts"
+	// PostColumn is the table column denoting the post relation/edge.
+	PostColumn = "post_id"
 )
 
 // Columns holds all SQL columns for user fields.
@@ -68,6 +79,7 @@ var Columns = []string{
 	FieldEmail,
 	FieldAvatar,
 	FieldDepartmentID,
+	FieldPostID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -97,6 +109,8 @@ var (
 	DefaultAvatar string
 	// DefaultDepartmentID holds the default value on creation for the "department_id" field.
 	DefaultDepartmentID uint64
+	// DefaultPostID holds the default value on creation for the "post_id" field.
+	DefaultPostID uint64
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

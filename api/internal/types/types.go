@@ -337,6 +337,8 @@ type UserInfoResp struct {
 	Description string `json:"desc"`
 	// User's department id | 用户的部门ID
 	DepartmentId uint64 `json:"departmentId"`
+	// User's post id | 用户的职位ID
+	PostId uint64 `json:"postId"`
 }
 
 // The response data of user's basic information | 用户基本信息返回数据
@@ -446,6 +448,8 @@ type CreateOrUpdateUserReq struct {
 	HomePath string `json:"homePath,optional"`
 	// The description of user | 用户的描述信息
 	Description string `json:"desc,optional"`
+	// User's post id | 用户的职位ID
+	PostId uint64 `json:"postId"`
 }
 
 // Get user list request | 获取用户列表请求参数
@@ -475,6 +479,8 @@ type GetUserListReq struct {
 	RoleId uint64 `json:"roleId,optional" validate:"omitempty,number,max=1000"`
 	// The user's department ID | 用户所属部门ID
 	DepartmentId uint64 `json:"departmentId,optional"`
+	// User's post id | 用户的职位ID
+	PostId uint64 `json:"postId,optional"`
 }
 
 // The response data of menu information | 菜单返回数据
@@ -1261,4 +1267,64 @@ type DepartmentListReq struct {
 	Name string `json:"name,optional"`
 	// Leader
 	Leader string `json:"leader,optional"`
+}
+
+// The response data of post information | 职位信息
+// swagger:model PostInfo
+type PostInfo struct {
+	BaseInfo
+	// Name translation | 名称翻译
+	Trans string `json:"trans"`
+	// Status
+	Status uint32 `json:"status"`
+	// Sort
+	Sort uint32 `json:"sort"`
+	// Name
+	Name string `json:"name"`
+	// Code
+	Code string `json:"code"`
+	// Remark
+	Remark string `json:"remark"`
+}
+
+// Create or update post information request | 创建或更新职位信息
+// swagger:model CreateOrUpdatePostReq
+type CreateOrUpdatePostReq struct {
+	// ID
+	// Required: true
+	Id uint64 `json:"id"`
+	// Status
+	Status uint32 `json:"status"`
+	// Sort
+	Sort uint32 `json:"sort"`
+	// Name
+	Name string `json:"name"`
+	// Code
+	Code string `json:"code"`
+	// Remark
+	Remark string `json:"remark"`
+}
+
+// The response data of post list | 职位列表数据
+// swagger:model PostListResp
+type PostListResp struct {
+	BaseDataInfo
+	// Post list data | 职位 列表数据
+	Data PostListInfo `json:"data"`
+}
+
+// Post list data | 职位 列表数据
+// swagger:model PostListInfo
+type PostListInfo struct {
+	BaseListInfo
+	// The API list data | 职位 列表数据
+	Data []PostInfo `json:"data"`
+}
+
+// Get post list request params | 职位列表请求参数
+// swagger:model PostListReq
+type PostListReq struct {
+	PageInfo
+	// Name
+	Name string `json:"name,optional"`
 }
