@@ -29,7 +29,9 @@ service Core {
   // api management service
 
   // group: api
-  rpc createOrUpdateApi (ApiInfo) returns (BaseResp);
+  rpc createApi (ApiInfo) returns (BaseResp);
+  // group: api
+  rpc updateApi (ApiInfo) returns (BaseResp);
   // group: api
   rpc deleteApi (IDReq) returns (BaseResp);
   // group: api
