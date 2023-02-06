@@ -29,29 +29,23 @@ It can help you to develop a microservice back-end management core in a short ti
 - **Authority** Manage authority via Casbin, based on RBAC
 - **Other** builtin concurrency control, adaptive circuit breaker, adaptive load shedding, auto-trigger, auto recover
 
-## Current Progress
+## Support functions
 
-- [x] Login and Register
-- [x] Menu Management
-- [x] Role Management
-- [x] Role Authority
-- [x] User Management
-- [x] Operation log
-- [x] Service discovery
-- [x] Dictionary management
-- [x] Oauth management
-- [x] Fully support K8s
-- [x] Service Monitor
-- [x] Log collecting
-- [x] JWT blacklist
-- [x] Job Schedule
-- [x] Message queue
-- [x] Ent
-- [x] Backend CRUD generation
-- [x] Frontend CRUD code generation
-- [x] docker-compose script
-- [x] RPC logic group
-- [x] Proto files divide
+- User management: The user is the system operator, and this function mainly completes the system user configuration.
+- Department management: Configure the system organization (company, department, group), and the tree structure shows the support data permissions.
+- Position management: configure the positions that system users belong to.
+- Menu management: configure system menu, operation authority, button authority identification, interface authority, etc.
+- Role management: role menu permission assignment, role setting, data range permission division by organization.
+- Dictionary management: maintain some relatively fixed data frequently used in the system.
+- Operation log: system normal operation log record and query; system abnormal information log record and query.
+- Member management: manage registered member information
+- Interface documents: Automatically generate relevant API interface documents based on business codes.
+- Code generation: Generate corresponding additions, deletions, modifications, and queries based on the data table structure
+- Service monitoring: View some basic information about servers
+
+## Project Planning Progress
+
+[RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
 
 ## Preview
 
