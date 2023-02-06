@@ -40,9 +40,11 @@ type (
 	MemberInfo                 = core.MemberInfo
 	MemberListReq              = core.MemberListReq
 	MemberListResp             = core.MemberListResp
+	MemberLoginResp            = core.MemberLoginResp
 	MemberRankInfo             = core.MemberRankInfo
 	MemberRankListReq          = core.MemberRankListReq
 	MemberRankListResp         = core.MemberRankListResp
+	MemberRegisterReq          = core.MemberRegisterReq
 	MenuInfo                   = core.MenuInfo
 	MenuInfoList               = core.MenuInfoList
 	MenuParamListResp          = core.MenuParamListResp
@@ -98,6 +100,7 @@ type (
 		DeleteMember(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		BatchDeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		UpdateMemberStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		MemberLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*MemberLoginResp, error)
 		// MemberRank management
 		CreateOrUpdateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMemberRankList(ctx context.Context, in *MemberRankListReq, opts ...grpc.CallOption) (*MemberRankListResp, error)
@@ -264,6 +267,11 @@ func (m *defaultCore) BatchDeleteMember(ctx context.Context, in *UUIDsReq, opts 
 func (m *defaultCore) UpdateMemberStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.UpdateMemberStatus(ctx, in, opts...)
+}
+
+func (m *defaultCore) MemberLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*MemberLoginResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.MemberLogin(ctx, in, opts...)
 }
 
 // MemberRank management

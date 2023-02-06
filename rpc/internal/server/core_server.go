@@ -146,6 +146,11 @@ func (s *CoreServer) UpdateMemberStatus(ctx context.Context, in *core.StatusCode
 	return l.UpdateMemberStatus(in)
 }
 
+func (s *CoreServer) MemberLogin(ctx context.Context, in *core.LoginReq) (*core.MemberLoginResp, error) {
+	l := member.NewMemberLoginLogic(ctx, s.svcCtx)
+	return l.MemberLogin(in)
+}
+
 // MemberRank management
 func (s *CoreServer) CreateOrUpdateMemberRank(ctx context.Context, in *core.MemberRankInfo) (*core.BaseResp, error) {
 	l := memberrank.NewCreateOrUpdateMemberRankLogic(ctx, s.svcCtx)

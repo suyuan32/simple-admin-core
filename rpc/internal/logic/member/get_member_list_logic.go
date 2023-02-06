@@ -41,6 +41,9 @@ func (l *GetMemberListLogic) GetMemberList(in *core.MemberListReq) (*core.Member
 	if in.Email != "" {
 		predicates = append(predicates, member.EmailContains(in.Email))
 	}
+	if in.RankId != 0 {
+		predicates = append(predicates, member.RankIDEQ(in.RankId))
+	}
 
 	result, err := l.svcCtx.DB.Member.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {

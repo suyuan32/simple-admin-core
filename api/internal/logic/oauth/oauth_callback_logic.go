@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -37,12 +37,11 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 		State: l.r.FormValue("state"),
 		Code:  l.r.FormValue("code"),
 	})
-
 	if err != nil {
 		return nil, err
 	}
 
-	token, err := user.GetJwtToken(l.svcCtx.Config.Auth.AccessSecret, result.Id, time.Now().Unix(),
+	token, err := utils.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, result.Id, "roleId", time.Now().Unix(),
 		l.svcCtx.Config.Auth.AccessExpire, int64(result.RoleId))
 
 	// add token into database

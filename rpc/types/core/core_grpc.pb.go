@@ -68,6 +68,8 @@ type CoreClient interface {
 	BatchDeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: member
 	UpdateMemberStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: member
+	MemberLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*MemberLoginResp, error)
 	// MemberRank management
 	// group: memberrank
 	CreateOrUpdateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -354,6 +356,15 @@ func (c *coreClient) BatchDeleteMember(ctx context.Context, in *UUIDsReq, opts .
 func (c *coreClient) UpdateMemberStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.Core/updateMemberStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) MemberLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*MemberLoginResp, error) {
+	out := new(MemberLoginResp)
+	err := c.cc.Invoke(ctx, "/core.Core/memberLogin", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -779,6 +790,8 @@ type CoreServer interface {
 	BatchDeleteMember(context.Context, *UUIDsReq) (*BaseResp, error)
 	// group: member
 	UpdateMemberStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error)
+	// group: member
+	MemberLogin(context.Context, *LoginReq) (*MemberLoginResp, error)
 	// MemberRank management
 	// group: memberrank
 	CreateOrUpdateMemberRank(context.Context, *MemberRankInfo) (*BaseResp, error)
@@ -935,6 +948,9 @@ func (UnimplementedCoreServer) BatchDeleteMember(context.Context, *UUIDsReq) (*B
 }
 func (UnimplementedCoreServer) UpdateMemberStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMemberStatus not implemented")
+}
+func (UnimplementedCoreServer) MemberLogin(context.Context, *LoginReq) (*MemberLoginResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MemberLogin not implemented")
 }
 func (UnimplementedCoreServer) CreateOrUpdateMemberRank(context.Context, *MemberRankInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMemberRank not implemented")
@@ -1464,6 +1480,24 @@ func _Core_UpdateMemberStatus_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).UpdateMemberStatus(ctx, req.(*StatusCodeUUIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_MemberLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).MemberLogin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/memberLogin",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).MemberLogin(ctx, req.(*LoginReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2300,6 +2334,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "updateMemberStatus",
 			Handler:    _Core_UpdateMemberStatus_Handler,
+		},
+		{
+			MethodName: "memberLogin",
+			Handler:    _Core_MemberLogin_Handler,
 		},
 		{
 			MethodName: "createOrUpdateMemberRank",

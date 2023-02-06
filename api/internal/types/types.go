@@ -183,7 +183,7 @@ type StatusCodeUUIDReq struct {
 	Status uint32 `json:"status" validate:"number"`
 }
 
-// login request | 登录参数
+// Login request | 登录参数
 // swagger:model LoginReq
 type LoginReq struct {
 	// User Name | 用户名
@@ -1403,6 +1403,58 @@ type MemberListReq struct {
 	Mobile string `json:"mobile,optional"`
 	// Email
 	Email string `json:"email,optional"`
+	// Rank ID
+	RankId uint64 `json:"rankId,optional"`
+}
+
+// Login request | 登录参数
+// swagger:model MemberLoginReq
+type MemberLoginReq struct {
+	// User Name | 用户名
+	// Required: true
+	// Max length: 20
+	Username string `json:"username" validate:"alphanum,max=20"`
+	// Password | 密码
+	// Required: true
+	// Min length: 6
+	// Max length: 30
+	Password string `json:"password" validate:"max=30,min=6"`
+}
+
+// Login response data | 登陆返回信息
+// swagger:model MemberLoginRespInfo
+type MemberLoginRespInfo struct {
+	// ID
+	Id string `json:"id"`
+	// Avatar | 头像地址
+	Avatar string `json:"avatar"`
+	// Nick name | 昵称
+	Nickname string `json:"nickname"`
+	// Rank ID | 等级ID
+	RankId uint64 `json:"rankId"`
+	// Token for authorization | 验证身份的token
+	Token string `json:"token"`
+	// Expire timestamp | 过期时间戳
+	Expire uint64 `json:"expire"`
+}
+
+// Login response | 登陆信息返回体
+// swagger:model MemberLoginResp
+type MemberLoginResp struct {
+	BaseDataInfo
+	// Login response data | 登陆返回信息
+	Data MemberLoginRespInfo `json:"data"`
+}
+
+// Member register request | 会员注册请求
+// swagger:model MemberRegisterReq
+type MemberRegisterReq struct {
+	// Username | 用户名
+	Username string `json:"username"`
+	// Email | 邮箱
+	Email string `json:"email"`
+	// Password | 密码
+	Password string `json:"password"`
 }
 
 // The response data of member rank information | 会员等级信息

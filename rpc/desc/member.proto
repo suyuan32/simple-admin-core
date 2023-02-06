@@ -28,8 +28,21 @@ message MemberListReq {
   string nickname = 4;
   string mobile = 5;
   string email = 6;
+  uint64 rank_id = 7;
 }
 
+message MemberLoginResp {
+  string id = 1;
+  string nickname = 2;
+  string avatar = 3;
+  uint64 rank_id = 4;
+}
+
+message MemberRegisterReq {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+}
 
 service Core {
 
@@ -44,6 +57,7 @@ service Core {
   rpc batchDeleteMember (UUIDsReq) returns (BaseResp);
   // group: member
   rpc updateMemberStatus(StatusCodeUUIDReq) returns (BaseResp);
-
+  // group: member
+  rpc memberLogin(LoginReq) returns (MemberLoginResp);
 
 }

@@ -1099,11 +1099,20 @@ func (l *InitDatabaseLogic) insertPositionData() error {
 func (l *InitDatabaseLogic) insertMemberData() error {
 	var members []*ent.MemberCreate
 	members = append(members, l.svcCtx.DB.Member.Create().
-		SetUsername("test").
-		SetNickname("Test").
+		SetUsername("normalMember").
+		SetNickname("Normal Member").
 		SetEmail("simpleadmin@gmail.com").
 		SetMobile("18888888888").
 		SetRankID(1).
+		SetPassword(utils.BcryptEncrypt("simple-admin")),
+	)
+
+	members = append(members, l.svcCtx.DB.Member.Create().
+		SetUsername("VIPMember").
+		SetNickname("VIP Member").
+		SetEmail("vip@gmail.com").
+		SetMobile("18888888889").
+		SetRankID(2).
 		SetPassword(utils.BcryptEncrypt("simple-admin")),
 	)
 

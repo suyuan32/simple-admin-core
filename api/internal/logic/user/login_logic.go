@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/golang-jwt/jwt/v4"
 	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/captcha"
@@ -13,6 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-core/pkg/enum"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -45,7 +45,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			return nil, err
 		}
 
-		token, err := GetJwtToken(l.svcCtx.Config.Auth.AccessSecret, user.Id, time.Now().Unix(),
+		token, err := utils.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, user.Id, "roleId", time.Now().Unix(),
 			l.svcCtx.Config.Auth.AccessExpire, int64(user.RoleId))
 		if err != nil {
 			return nil, err
@@ -58,7 +58,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			CreatedAt: 0,
 			Uuid:      user.Id,
 			Token:     token,
-			Source:    "core",
+			Source:    "core_user",
 			Status:    1,
 			ExpiredAt: expiredAt,
 		})
@@ -83,15 +83,4 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 	} else {
 		return nil, errorx.NewCodeError(enum.InvalidArgument, "login.wrongCaptcha")
 	}
-}
-
-func GetJwtToken(secretKey, uuid string, iat, seconds, roleId int64) (string, error) {
-	claims := make(jwt.MapClaims)
-	claims["exp"] = iat + seconds
-	claims["iat"] = iat
-	claims["userId"] = uuid
-	claims["roleId"] = roleId
-	token := jwt.New(jwt.SigningMethodHS256)
-	token.Claims = claims
-	return token.SignedString([]byte(secretKey))
 }

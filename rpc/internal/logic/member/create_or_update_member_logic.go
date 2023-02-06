@@ -34,7 +34,7 @@ func (l *CreateOrUpdateMemberLogic) CreateOrUpdateMember(in *core.MemberInfo) (*
 		err := l.svcCtx.DB.Member.Create().
 			SetStatus(uint8(in.Status)).
 			SetUsername(in.Username).
-			SetPassword(in.Password).
+			SetPassword(utils.BcryptEncrypt(in.Password)).
 			SetNickname(in.Nickname).
 			SetRankID(in.RankId).
 			SetMobile(in.Mobile).

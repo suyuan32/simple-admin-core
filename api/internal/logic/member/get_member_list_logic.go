@@ -37,6 +37,7 @@ func (l *GetMemberListLogic) GetMemberList(req *types.MemberListReq) (resp *type
 			Nickname: req.Nickname,
 			Mobile:   req.Mobile,
 			Email:    req.Email,
+			RankId:   req.RankId,
 		})
 	if err != nil {
 		return nil, err

@@ -11,7 +11,7 @@ info(
 import "base.api"
 
 type (
-    // login request | 登录参数
+    // Login request | 登录参数
     LoginReq {
         // User Name | 用户名
         // Required: true
