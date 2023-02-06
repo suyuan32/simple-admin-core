@@ -34,12 +34,17 @@ func NewCoreServer(svcCtx *svc.ServiceContext) *CoreServer {
 	}
 }
 
-func (s *CoreServer) CreateOrUpdateApi(ctx context.Context, in *core.ApiInfo) (*core.BaseResp, error) {
-	l := api.NewCreateOrUpdateApiLogic(ctx, s.svcCtx)
-	return l.CreateOrUpdateApi(in)
+func (s *CoreServer) CreateApi(ctx context.Context, in *core.ApiInfo) (*core.BaseResp, error) {
+	l := api.NewCreateApiLogic(ctx, s.svcCtx)
+	return l.CreateApi(in)
 }
 
-func (s *CoreServer) DeleteApi(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+func (s *CoreServer) UpdateApi(ctx context.Context, in *core.ApiInfo) (*core.BaseResp, error) {
+	l := api.NewUpdateApiLogic(ctx, s.svcCtx)
+	return l.UpdateApi(in)
+}
+
+func (s *CoreServer) DeleteApi(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
 	l := api.NewDeleteApiLogic(ctx, s.svcCtx)
 	return l.DeleteApi(in)
 }
@@ -65,9 +70,14 @@ func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.Ba
 }
 
 // Department management
-func (s *CoreServer) CreateOrUpdateDepartment(ctx context.Context, in *core.DepartmentInfo) (*core.BaseResp, error) {
-	l := department.NewCreateOrUpdateDepartmentLogic(ctx, s.svcCtx)
-	return l.CreateOrUpdateDepartment(in)
+func (s *CoreServer) CreateDepartment(ctx context.Context, in *core.DepartmentInfo) (*core.BaseResp, error) {
+	l := department.NewCreateDepartmentLogic(ctx, s.svcCtx)
+	return l.CreateDepartment(in)
+}
+
+func (s *CoreServer) UpdateDepartment(ctx context.Context, in *core.DepartmentInfo) (*core.BaseResp, error) {
+	l := department.NewUpdateDepartmentLogic(ctx, s.svcCtx)
+	return l.UpdateDepartment(in)
 }
 
 func (s *CoreServer) GetDepartmentList(ctx context.Context, in *core.DepartmentListReq) (*core.DepartmentListResp, error) {
@@ -75,14 +85,9 @@ func (s *CoreServer) GetDepartmentList(ctx context.Context, in *core.DepartmentL
 	return l.GetDepartmentList(in)
 }
 
-func (s *CoreServer) DeleteDepartment(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+func (s *CoreServer) DeleteDepartment(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
 	l := department.NewDeleteDepartmentLogic(ctx, s.svcCtx)
 	return l.DeleteDepartment(in)
-}
-
-func (s *CoreServer) BatchDeleteDepartment(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
-	l := department.NewBatchDeleteDepartmentLogic(ctx, s.svcCtx)
-	return l.BatchDeleteDepartment(in)
 }
 
 func (s *CoreServer) UpdateDepartmentStatus(ctx context.Context, in *core.StatusCodeReq) (*core.BaseResp, error) {
@@ -90,12 +95,17 @@ func (s *CoreServer) UpdateDepartmentStatus(ctx context.Context, in *core.Status
 	return l.UpdateDepartmentStatus(in)
 }
 
-func (s *CoreServer) CreateOrUpdateDictionary(ctx context.Context, in *core.DictionaryInfo) (*core.BaseResp, error) {
-	l := dictionary.NewCreateOrUpdateDictionaryLogic(ctx, s.svcCtx)
-	return l.CreateOrUpdateDictionary(in)
+func (s *CoreServer) CreateDictionary(ctx context.Context, in *core.DictionaryInfo) (*core.BaseResp, error) {
+	l := dictionary.NewCreateDictionaryLogic(ctx, s.svcCtx)
+	return l.CreateDictionary(in)
 }
 
-func (s *CoreServer) DeleteDictionary(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+func (s *CoreServer) UpdateDictionary(ctx context.Context, in *core.DictionaryInfo) (*core.BaseResp, error) {
+	l := dictionary.NewUpdateDictionaryLogic(ctx, s.svcCtx)
+	return l.UpdateDictionary(in)
+}
+
+func (s *CoreServer) DeleteDictionary(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
 	l := dictionary.NewDeleteDictionaryLogic(ctx, s.svcCtx)
 	return l.DeleteDictionary(in)
 }
@@ -110,12 +120,17 @@ func (s *CoreServer) GetDetailByDictionaryName(ctx context.Context, in *core.Dic
 	return l.GetDetailByDictionaryName(in)
 }
 
-func (s *CoreServer) CreateOrUpdateDictionaryDetail(ctx context.Context, in *core.DictionaryDetail) (*core.BaseResp, error) {
-	l := dictionary.NewCreateOrUpdateDictionaryDetailLogic(ctx, s.svcCtx)
-	return l.CreateOrUpdateDictionaryDetail(in)
+func (s *CoreServer) CreateDictionaryDetail(ctx context.Context, in *core.DictionaryDetail) (*core.BaseResp, error) {
+	l := dictionary.NewCreateDictionaryDetailLogic(ctx, s.svcCtx)
+	return l.CreateDictionaryDetail(in)
 }
 
-func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+func (s *CoreServer) UpdateDictionaryDetail(ctx context.Context, in *core.DictionaryDetail) (*core.BaseResp, error) {
+	l := dictionary.NewUpdateDictionaryDetailLogic(ctx, s.svcCtx)
+	return l.UpdateDictionaryDetail(in)
+}
+
+func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
 	l := dictionary.NewDeleteDictionaryDetailLogic(ctx, s.svcCtx)
 	return l.DeleteDictionaryDetail(in)
 }

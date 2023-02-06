@@ -29,20 +29,21 @@ func NewDeleteDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	}
 }
 
-func (l *DeleteDictionaryLogic) DeleteDictionary(in *core.IDReq) (*core.BaseResp, error) {
+func (l *DeleteDictionaryLogic) DeleteDictionary(in *core.IDsReq) (*core.BaseResp, error) {
 	err := utils.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
-		_, err := tx.DictionaryDetail.Delete().Where(dictionarydetail.HasDictionaryWith(dictionary.IDEQ(in.Id))).Exec(l.ctx)
-		if err != nil {
-			return err
-		}
+		for _, id := range in.Ids {
+			_, err := tx.DictionaryDetail.Delete().Where(dictionarydetail.HasDictionaryWith(dictionary.IDEQ(id))).Exec(l.ctx)
+			if err != nil {
+				return err
+			}
 
-		err = tx.Dictionary.DeleteOneID(in.Id).Exec(l.ctx)
-		if err != nil {
-			return err
+			err = tx.Dictionary.DeleteOneID(id).Exec(l.ctx)
+			if err != nil {
+				return err
+			}
 		}
 		return nil
 	})
-
 	if err != nil {
 		logx.Errorf("delete dictionary failed, error : %s", err.Error())
 		return nil, statuserr.NewInternalError(i18n.DatabaseError)

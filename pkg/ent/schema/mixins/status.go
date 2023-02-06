@@ -17,6 +17,6 @@ func (StatusMixin) Fields() []ent.Field {
 		field.Uint8("status").
 			Default(1).
 			Optional().
-			Comment("status 1 normal 0 ban | 状态 1 正常 0 禁用"),
+			Comment("status 1 normal 2 ban | 状态 1 正常 2 禁用"),
 	}
 }

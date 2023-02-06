@@ -34,13 +34,13 @@ service Core {
 
   // Department management
   // group: department
-  rpc createOrUpdateDepartment (DepartmentInfo) returns (BaseResp);
+  rpc createDepartment (DepartmentInfo) returns (BaseResp);
+  // group: department
+  rpc updateDepartment (DepartmentInfo) returns (BaseResp);
   // group: department
   rpc getDepartmentList (DepartmentListReq) returns (DepartmentListResp);
   // group: department
-  rpc deleteDepartment (IDReq) returns (BaseResp);
-  // group: department
-  rpc batchDeleteDepartment (IDsReq) returns (BaseResp);
+  rpc deleteDepartment (IDsReq) returns (BaseResp);
   // group: department
   rpc updateDepartmentStatus(StatusCodeReq) returns (BaseResp);
 

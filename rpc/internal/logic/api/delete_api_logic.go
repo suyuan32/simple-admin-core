@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/api"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
@@ -27,9 +28,8 @@ func NewDeleteApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteA
 	}
 }
 
-func (l *DeleteApiLogic) DeleteApi(in *core.IDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.API.DeleteOneID(in.Id).Exec(l.ctx)
-
+func (l *DeleteApiLogic) DeleteApi(in *core.IDsReq) (*core.BaseResp, error) {
+	_, err := l.svcCtx.DB.API.Delete().Where(api.IDIn(in.Ids...)).Exec(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):

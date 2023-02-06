@@ -33,7 +33,7 @@ service Core {
   // group: api
   rpc updateApi (ApiInfo) returns (BaseResp);
   // group: api
-  rpc deleteApi (IDReq) returns (BaseResp);
+  rpc deleteApi (IDsReq) returns (BaseResp);
   // group: api
   rpc getApiList (ApiListReq) returns (ApiListResp);
 }

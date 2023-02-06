@@ -47,16 +47,20 @@ service Core {
   // dictionary management service
 
   // group: dictionary
-  rpc createOrUpdateDictionary (DictionaryInfo) returns (BaseResp);
+  rpc createDictionary (DictionaryInfo) returns (BaseResp);
   // group: dictionary
-  rpc deleteDictionary (IDReq) returns (BaseResp);
+  rpc updateDictionary (DictionaryInfo) returns (BaseResp);
+  // group: dictionary
+  rpc deleteDictionary (IDsReq) returns (BaseResp);
   // group: dictionary
   rpc getDictionaryList (DictionaryListReq) returns (DictionaryList);
   // group: dictionary
   rpc getDetailByDictionaryName (DictionaryDetailReq) returns (DictionaryDetailList);
   // group: dictionary
-  rpc createOrUpdateDictionaryDetail (DictionaryDetail) returns (BaseResp);
+  rpc createDictionaryDetail (DictionaryDetail) returns (BaseResp);
   // group: dictionary
-  rpc deleteDictionaryDetail (IDReq) returns (BaseResp);
+  rpc updateDictionaryDetail (DictionaryDetail) returns (BaseResp);
+  // group: dictionary
+  rpc deleteDictionaryDetail (IDsReq) returns (BaseResp);
 
 }

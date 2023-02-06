@@ -76,24 +76,27 @@ type (
 	UserListResp               = core.UserListResp
 
 	Core interface {
-		CreateOrUpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
-		DeleteApi(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		CreateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetApiList(ctx context.Context, in *ApiListReq, opts ...grpc.CallOption) (*ApiListResp, error)
 		GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
 		CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
 		InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
 		// Department management
-		CreateOrUpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		CreateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		GetDepartmentList(ctx context.Context, in *DepartmentListReq, opts ...grpc.CallOption) (*DepartmentListResp, error)
-		DeleteDepartment(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		BatchDeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		UpdateDepartmentStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
-		CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
-		DeleteDictionary(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		CreateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteDictionary(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetDictionaryList(ctx context.Context, in *DictionaryListReq, opts ...grpc.CallOption) (*DictionaryList, error)
 		GetDetailByDictionaryName(ctx context.Context, in *DictionaryDetailReq, opts ...grpc.CallOption) (*DictionaryDetailList, error)
-		CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error)
-		DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		CreateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// Member management
 		CreateOrUpdateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMemberList(ctx context.Context, in *MemberListReq, opts ...grpc.CallOption) (*MemberListResp, error)
@@ -157,12 +160,17 @@ func NewCore(cli zrpc.Client) Core {
 	}
 }
 
-func (m *defaultCore) CreateOrUpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) CreateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateApi(ctx, in, opts...)
+	return client.CreateApi(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteApi(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateApi(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteApi(ctx, in, opts...)
 }
@@ -188,9 +196,14 @@ func (m *defaultCore) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.
 }
 
 // Department management
-func (m *defaultCore) CreateOrUpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) CreateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateDepartment(ctx, in, opts...)
+	return client.CreateDepartment(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateDepartment(ctx, in, opts...)
 }
 
 func (m *defaultCore) GetDepartmentList(ctx context.Context, in *DepartmentListReq, opts ...grpc.CallOption) (*DepartmentListResp, error) {
@@ -198,14 +211,9 @@ func (m *defaultCore) GetDepartmentList(ctx context.Context, in *DepartmentListR
 	return client.GetDepartmentList(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteDepartment(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) DeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteDepartment(ctx, in, opts...)
-}
-
-func (m *defaultCore) BatchDeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.BatchDeleteDepartment(ctx, in, opts...)
 }
 
 func (m *defaultCore) UpdateDepartmentStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
@@ -213,12 +221,17 @@ func (m *defaultCore) UpdateDepartmentStatus(ctx context.Context, in *StatusCode
 	return client.UpdateDepartmentStatus(ctx, in, opts...)
 }
 
-func (m *defaultCore) CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) CreateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateDictionary(ctx, in, opts...)
+	return client.CreateDictionary(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteDictionary(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateDictionary(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteDictionary(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteDictionary(ctx, in, opts...)
 }
@@ -233,12 +246,17 @@ func (m *defaultCore) GetDetailByDictionaryName(ctx context.Context, in *Diction
 	return client.GetDetailByDictionaryName(ctx, in, opts...)
 }
 
-func (m *defaultCore) CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) CreateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateDictionaryDetail(ctx, in, opts...)
+	return client.CreateDictionaryDetail(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateDictionaryDetail(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteDictionaryDetail(ctx, in, opts...)
 }
