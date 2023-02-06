@@ -1,4 +1,79 @@
 
+<a name="v0.2.3"></a>
+## [v0.2.3](https://github.com/suyuan32/simple-admin-core/compare/v0.2.2...v0.2.3) (2023-02-06)
+
+### Chore
+
+* update tool version and readme
+
+### Feat
+
+* member log in and register
+* member rank management
+* member init codes  and fix menu create optional bug
+* member management
+* post management in rpc and api
+* post management for ent
+* department for users
+* home path for user
+* dept generating codes
+* ent department schema
+
+### Fix
+
+* department status bugs
+* menu authority bugs
+* status code generation bug
+
+### Refactor
+
+* rename post to position
+* rename orderNo to sort
+
+### Wip
+
+* dept generating codes
+
+### Pull Requests
+
+* Merge pull request [#66](https://github.com/suyuan32/simple-admin-core/issues/66) from suyuan32/feat-post
+* Merge pull request [#65](https://github.com/suyuan32/simple-admin-core/issues/65) from suyuan32/feat-dept
+
+
+<a name="v0.2.2"></a>
+## [v0.2.2](https://github.com/suyuan32/simple-admin-core/compare/v0.2.1...v0.2.2) (2023-01-29)
+
+### Chore
+
+* update tool version
+
+### Doc
+
+* update readme
+
+### Docs
+
+* update readme
+
+### Feat
+
+* split proto files
+
+### Fix
+
+* update makefile
+* repeated bug
+* repeated bug
+* repeated bug
+* DatabaseConf struct Type tag
+* update github setting
+
+### Pull Requests
+
+* Merge pull request [#61](https://github.com/suyuan32/simple-admin-core/issues/61) from suyuan32/feat-proto-split
+* Merge pull request [#58](https://github.com/suyuan32/simple-admin-core/issues/58) from ch3nnn/fix/config-database
+
+
 <a name="v0.2.1"></a>
 ## [v0.2.1](https://github.com/suyuan32/simple-admin-core/compare/v0.2.1-beta...v0.2.1) (2023-01-10)
 
@@ -74,7 +149,7 @@
 
 
 <a name="v0.1.9"></a>
-## [v0.1.9](https://github.com/suyuan32/simple-admin-core/compare/list...v0.1.9) (2022-12-15)
+## [v0.1.9](https://github.com/suyuan32/simple-admin-core/compare/v0.1.8...v0.1.9) (2022-12-15)
 
 ### Chore
 
@@ -104,12 +179,12 @@
 * Merge pull request [#49](https://github.com/suyuan32/simple-admin-core/issues/49) from suyuan32/group-logic
 
 
-<a name="list"></a>
-## [list](https://github.com/suyuan32/simple-admin-core/compare/v0.1.8...list) (2022-12-10)
-
-
 <a name="v0.1.8"></a>
-## [v0.1.8](https://github.com/suyuan32/simple-admin-core/compare/v0.1.7...v0.1.8) (2022-12-10)
+## [v0.1.8](https://github.com/suyuan32/simple-admin-core/compare/list...v0.1.8) (2022-12-10)
+
+
+<a name="list"></a>
+## [list](https://github.com/suyuan32/simple-admin-core/compare/v0.1.7...list) (2022-12-10)
 
 ### Docs
 
