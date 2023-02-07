@@ -52,6 +52,7 @@ func (l *GetMemberRankListLogic) GetMemberRankList(in *core.MemberRankListReq) (
 		resp.Data = append(resp.Data, &core.MemberRankInfo{
 			Id:          v.ID,
 			CreatedAt:   v.CreatedAt.UnixMilli(),
+			UpdatedAt:   v.UpdatedAt.UnixMilli(),
 			Name:        v.Name,
 			Description: v.Description,
 			Remark:      v.Remark,

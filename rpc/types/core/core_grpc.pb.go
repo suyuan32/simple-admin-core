@@ -22,31 +22,23 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CoreClient interface {
+	// API management
 	// group: api
 	CreateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: api
 	UpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: api
-	DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: api
 	GetApiList(ctx context.Context, in *ApiListReq, opts ...grpc.CallOption) (*ApiListResp, error)
+	// group: api
+	GetApiById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ApiInfo, error)
+	// group: api
+	DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: authority
 	GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
 	// group: authority
 	CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: base
 	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
-	// Department management
-	// group: department
-	CreateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: department
-	UpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: department
-	GetDepartmentList(ctx context.Context, in *DepartmentListReq, opts ...grpc.CallOption) (*DepartmentListResp, error)
-	// group: department
-	DeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: department
-	UpdateDepartmentStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: dictionary
 	CreateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: dictionary
@@ -65,28 +57,32 @@ type CoreClient interface {
 	DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// Member management
 	// group: member
-	CreateOrUpdateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	CreateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: member
+	UpdateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: member
 	GetMemberList(ctx context.Context, in *MemberListReq, opts ...grpc.CallOption) (*MemberListResp, error)
 	// group: member
-	DeleteMember(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	DeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: member
-	BatchDeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: member
-	UpdateMemberStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	GetMemberById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MemberInfo, error)
 	// group: member
 	MemberLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*MemberLoginResp, error)
 	// MemberRank management
 	// group: memberrank
-	CreateOrUpdateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	CreateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: memberrank
+	UpdateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: memberrank
 	GetMemberRankList(ctx context.Context, in *MemberRankListReq, opts ...grpc.CallOption) (*MemberRankListResp, error)
 	// group: memberrank
-	DeleteMemberRank(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	GetMemberRankById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MemberRankInfo, error)
 	// group: memberrank
-	BatchDeleteMemberRank(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	DeleteMemberRank(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
-	CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
+	CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: menu
+	UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
 	DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
@@ -94,9 +90,11 @@ type CoreClient interface {
 	// group: menu
 	GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 	// group: menu
-	CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
+	CreateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
-	DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+	UpdateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: menu
+	DeleteMenuParam(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
 	GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
 	// group: oauth
@@ -188,18 +186,27 @@ func (c *coreClient) UpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.Ca
 	return out, nil
 }
 
-func (c *coreClient) DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/deleteApi", in, out, opts...)
+func (c *coreClient) GetApiList(ctx context.Context, in *ApiListReq, opts ...grpc.CallOption) (*ApiListResp, error) {
+	out := new(ApiListResp)
+	err := c.cc.Invoke(ctx, "/core.Core/getApiList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *coreClient) GetApiList(ctx context.Context, in *ApiListReq, opts ...grpc.CallOption) (*ApiListResp, error) {
-	out := new(ApiListResp)
-	err := c.cc.Invoke(ctx, "/core.Core/getApiList", in, out, opts...)
+func (c *coreClient) GetApiById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ApiInfo, error) {
+	out := new(ApiInfo)
+	err := c.cc.Invoke(ctx, "/core.Core/getApiById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteApi", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -227,51 +234,6 @@ func (c *coreClient) CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMe
 func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.Core/initDatabase", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) CreateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/createDepartment", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) UpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/updateDepartment", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) GetDepartmentList(ctx context.Context, in *DepartmentListReq, opts ...grpc.CallOption) (*DepartmentListResp, error) {
-	out := new(DepartmentListResp)
-	err := c.cc.Invoke(ctx, "/core.Core/getDepartmentList", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) DeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/deleteDepartment", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) UpdateDepartmentStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/updateDepartmentStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -350,9 +312,18 @@ func (c *coreClient) DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opt
 	return out, nil
 }
 
-func (c *coreClient) CreateOrUpdateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) CreateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateMember", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/updateMember", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -368,7 +339,7 @@ func (c *coreClient) GetMemberList(ctx context.Context, in *MemberListReq, opts 
 	return out, nil
 }
 
-func (c *coreClient) DeleteMember(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) DeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.Core/deleteMember", in, out, opts...)
 	if err != nil {
@@ -377,18 +348,9 @@ func (c *coreClient) DeleteMember(ctx context.Context, in *UUIDReq, opts ...grpc
 	return out, nil
 }
 
-func (c *coreClient) BatchDeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/batchDeleteMember", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *coreClient) UpdateMemberStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/updateMemberStatus", in, out, opts...)
+func (c *coreClient) GetMemberById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MemberInfo, error) {
+	out := new(MemberInfo)
+	err := c.cc.Invoke(ctx, "/core.Core/getMemberById", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -404,9 +366,18 @@ func (c *coreClient) MemberLogin(ctx context.Context, in *LoginReq, opts ...grpc
 	return out, nil
 }
 
-func (c *coreClient) CreateOrUpdateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) CreateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateMemberRank", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createMemberRank", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/updateMemberRank", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -422,7 +393,16 @@ func (c *coreClient) GetMemberRankList(ctx context.Context, in *MemberRankListRe
 	return out, nil
 }
 
-func (c *coreClient) DeleteMemberRank(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) GetMemberRankById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MemberRankInfo, error) {
+	out := new(MemberRankInfo)
+	err := c.cc.Invoke(ctx, "/core.Core/getMemberRankById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteMemberRank(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.Core/deleteMemberRank", in, out, opts...)
 	if err != nil {
@@ -431,18 +411,18 @@ func (c *coreClient) DeleteMemberRank(ctx context.Context, in *IDReq, opts ...gr
 	return out, nil
 }
 
-func (c *coreClient) BatchDeleteMemberRank(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/batchDeleteMemberRank", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createMenu", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *coreClient) CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateMenu", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/updateMenu", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -476,16 +456,25 @@ func (c *coreClient) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...g
 	return out, nil
 }
 
-func (c *coreClient) CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) CreateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/createOrUpdateMenuParam", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/core.Core/createMenuParam", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *coreClient) DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (c *coreClient) UpdateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/updateMenuParam", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteMenuParam(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.Core/deleteMenuParam", in, out, opts...)
 	if err != nil {
@@ -777,31 +766,23 @@ func (c *coreClient) UpdateUserStatus(ctx context.Context, in *StatusCodeUUIDReq
 // All implementations must embed UnimplementedCoreServer
 // for forward compatibility
 type CoreServer interface {
+	// API management
 	// group: api
 	CreateApi(context.Context, *ApiInfo) (*BaseResp, error)
 	// group: api
 	UpdateApi(context.Context, *ApiInfo) (*BaseResp, error)
 	// group: api
-	DeleteApi(context.Context, *IDsReq) (*BaseResp, error)
-	// group: api
 	GetApiList(context.Context, *ApiListReq) (*ApiListResp, error)
+	// group: api
+	GetApiById(context.Context, *IDReq) (*ApiInfo, error)
+	// group: api
+	DeleteApi(context.Context, *IDsReq) (*BaseResp, error)
 	// group: authority
 	GetMenuAuthority(context.Context, *IDReq) (*RoleMenuAuthorityResp, error)
 	// group: authority
 	CreateOrUpdateMenuAuthority(context.Context, *RoleMenuAuthorityReq) (*BaseResp, error)
 	// group: base
 	InitDatabase(context.Context, *Empty) (*BaseResp, error)
-	// Department management
-	// group: department
-	CreateDepartment(context.Context, *DepartmentInfo) (*BaseResp, error)
-	// group: department
-	UpdateDepartment(context.Context, *DepartmentInfo) (*BaseResp, error)
-	// group: department
-	GetDepartmentList(context.Context, *DepartmentListReq) (*DepartmentListResp, error)
-	// group: department
-	DeleteDepartment(context.Context, *IDsReq) (*BaseResp, error)
-	// group: department
-	UpdateDepartmentStatus(context.Context, *StatusCodeReq) (*BaseResp, error)
 	// group: dictionary
 	CreateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error)
 	// group: dictionary
@@ -820,28 +801,32 @@ type CoreServer interface {
 	DeleteDictionaryDetail(context.Context, *IDsReq) (*BaseResp, error)
 	// Member management
 	// group: member
-	CreateOrUpdateMember(context.Context, *MemberInfo) (*BaseResp, error)
+	CreateMember(context.Context, *MemberInfo) (*BaseResp, error)
+	// group: member
+	UpdateMember(context.Context, *MemberInfo) (*BaseResp, error)
 	// group: member
 	GetMemberList(context.Context, *MemberListReq) (*MemberListResp, error)
 	// group: member
-	DeleteMember(context.Context, *UUIDReq) (*BaseResp, error)
+	DeleteMember(context.Context, *UUIDsReq) (*BaseResp, error)
 	// group: member
-	BatchDeleteMember(context.Context, *UUIDsReq) (*BaseResp, error)
-	// group: member
-	UpdateMemberStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error)
+	GetMemberById(context.Context, *UUIDReq) (*MemberInfo, error)
 	// group: member
 	MemberLogin(context.Context, *LoginReq) (*MemberLoginResp, error)
 	// MemberRank management
 	// group: memberrank
-	CreateOrUpdateMemberRank(context.Context, *MemberRankInfo) (*BaseResp, error)
+	CreateMemberRank(context.Context, *MemberRankInfo) (*BaseResp, error)
+	// group: memberrank
+	UpdateMemberRank(context.Context, *MemberRankInfo) (*BaseResp, error)
 	// group: memberrank
 	GetMemberRankList(context.Context, *MemberRankListReq) (*MemberRankListResp, error)
 	// group: memberrank
-	DeleteMemberRank(context.Context, *IDReq) (*BaseResp, error)
+	GetMemberRankById(context.Context, *IDReq) (*MemberRankInfo, error)
 	// group: memberrank
-	BatchDeleteMemberRank(context.Context, *IDsReq) (*BaseResp, error)
+	DeleteMemberRank(context.Context, *IDsReq) (*BaseResp, error)
 	// group: menu
-	CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error)
+	CreateMenu(context.Context, *MenuInfo) (*BaseResp, error)
+	// group: menu
+	UpdateMenu(context.Context, *MenuInfo) (*BaseResp, error)
 	// group: menu
 	DeleteMenu(context.Context, *IDReq) (*BaseResp, error)
 	// group: menu
@@ -849,9 +834,11 @@ type CoreServer interface {
 	// group: menu
 	GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error)
 	// group: menu
-	CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error)
+	CreateMenuParam(context.Context, *MenuParamInfo) (*BaseResp, error)
 	// group: menu
-	DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error)
+	UpdateMenuParam(context.Context, *MenuParamInfo) (*BaseResp, error)
+	// group: menu
+	DeleteMenuParam(context.Context, *IDsReq) (*BaseResp, error)
 	// group: menu
 	GetMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error)
 	// group: oauth
@@ -928,11 +915,14 @@ func (UnimplementedCoreServer) CreateApi(context.Context, *ApiInfo) (*BaseResp, 
 func (UnimplementedCoreServer) UpdateApi(context.Context, *ApiInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateApi not implemented")
 }
-func (UnimplementedCoreServer) DeleteApi(context.Context, *IDsReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteApi not implemented")
-}
 func (UnimplementedCoreServer) GetApiList(context.Context, *ApiListReq) (*ApiListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApiList not implemented")
+}
+func (UnimplementedCoreServer) GetApiById(context.Context, *IDReq) (*ApiInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetApiById not implemented")
+}
+func (UnimplementedCoreServer) DeleteApi(context.Context, *IDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteApi not implemented")
 }
 func (UnimplementedCoreServer) GetMenuAuthority(context.Context, *IDReq) (*RoleMenuAuthorityResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMenuAuthority not implemented")
@@ -942,21 +932,6 @@ func (UnimplementedCoreServer) CreateOrUpdateMenuAuthority(context.Context, *Rol
 }
 func (UnimplementedCoreServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
-}
-func (UnimplementedCoreServer) CreateDepartment(context.Context, *DepartmentInfo) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateDepartment not implemented")
-}
-func (UnimplementedCoreServer) UpdateDepartment(context.Context, *DepartmentInfo) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateDepartment not implemented")
-}
-func (UnimplementedCoreServer) GetDepartmentList(context.Context, *DepartmentListReq) (*DepartmentListResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDepartmentList not implemented")
-}
-func (UnimplementedCoreServer) DeleteDepartment(context.Context, *IDsReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteDepartment not implemented")
-}
-func (UnimplementedCoreServer) UpdateDepartmentStatus(context.Context, *StatusCodeReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateDepartmentStatus not implemented")
 }
 func (UnimplementedCoreServer) CreateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDictionary not implemented")
@@ -982,38 +957,44 @@ func (UnimplementedCoreServer) UpdateDictionaryDetail(context.Context, *Dictiona
 func (UnimplementedCoreServer) DeleteDictionaryDetail(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionaryDetail not implemented")
 }
-func (UnimplementedCoreServer) CreateOrUpdateMember(context.Context, *MemberInfo) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMember not implemented")
+func (UnimplementedCoreServer) CreateMember(context.Context, *MemberInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMember not implemented")
+}
+func (UnimplementedCoreServer) UpdateMember(context.Context, *MemberInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMember not implemented")
 }
 func (UnimplementedCoreServer) GetMemberList(context.Context, *MemberListReq) (*MemberListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMemberList not implemented")
 }
-func (UnimplementedCoreServer) DeleteMember(context.Context, *UUIDReq) (*BaseResp, error) {
+func (UnimplementedCoreServer) DeleteMember(context.Context, *UUIDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMember not implemented")
 }
-func (UnimplementedCoreServer) BatchDeleteMember(context.Context, *UUIDsReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteMember not implemented")
-}
-func (UnimplementedCoreServer) UpdateMemberStatus(context.Context, *StatusCodeUUIDReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateMemberStatus not implemented")
+func (UnimplementedCoreServer) GetMemberById(context.Context, *UUIDReq) (*MemberInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMemberById not implemented")
 }
 func (UnimplementedCoreServer) MemberLogin(context.Context, *LoginReq) (*MemberLoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MemberLogin not implemented")
 }
-func (UnimplementedCoreServer) CreateOrUpdateMemberRank(context.Context, *MemberRankInfo) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMemberRank not implemented")
+func (UnimplementedCoreServer) CreateMemberRank(context.Context, *MemberRankInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMemberRank not implemented")
+}
+func (UnimplementedCoreServer) UpdateMemberRank(context.Context, *MemberRankInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMemberRank not implemented")
 }
 func (UnimplementedCoreServer) GetMemberRankList(context.Context, *MemberRankListReq) (*MemberRankListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMemberRankList not implemented")
 }
-func (UnimplementedCoreServer) DeleteMemberRank(context.Context, *IDReq) (*BaseResp, error) {
+func (UnimplementedCoreServer) GetMemberRankById(context.Context, *IDReq) (*MemberRankInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMemberRankById not implemented")
+}
+func (UnimplementedCoreServer) DeleteMemberRank(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMemberRank not implemented")
 }
-func (UnimplementedCoreServer) BatchDeleteMemberRank(context.Context, *IDsReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BatchDeleteMemberRank not implemented")
+func (UnimplementedCoreServer) CreateMenu(context.Context, *MenuInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMenu not implemented")
 }
-func (UnimplementedCoreServer) CreateOrUpdateMenu(context.Context, *CreateOrUpdateMenuReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenu not implemented")
+func (UnimplementedCoreServer) UpdateMenu(context.Context, *MenuInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenu not implemented")
 }
 func (UnimplementedCoreServer) DeleteMenu(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
@@ -1024,10 +1005,13 @@ func (UnimplementedCoreServer) GetMenuListByRole(context.Context, *IDReq) (*Menu
 func (UnimplementedCoreServer) GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMenuList not implemented")
 }
-func (UnimplementedCoreServer) CreateOrUpdateMenuParam(context.Context, *CreateOrUpdateMenuParamReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateMenuParam not implemented")
+func (UnimplementedCoreServer) CreateMenuParam(context.Context, *MenuParamInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMenuParam not implemented")
 }
-func (UnimplementedCoreServer) DeleteMenuParam(context.Context, *IDReq) (*BaseResp, error) {
+func (UnimplementedCoreServer) UpdateMenuParam(context.Context, *MenuParamInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenuParam not implemented")
+}
+func (UnimplementedCoreServer) DeleteMenuParam(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenuParam not implemented")
 }
 func (UnimplementedCoreServer) GetMenuParamListByMenuId(context.Context, *IDReq) (*MenuParamListResp, error) {
@@ -1172,24 +1156,6 @@ func _Core_UpdateApi_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_DeleteApi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDsReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).DeleteApi(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.Core/deleteApi",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteApi(ctx, req.(*IDsReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Core_GetApiList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ApiListReq)
 	if err := dec(in); err != nil {
@@ -1204,6 +1170,42 @@ func _Core_GetApiList_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).GetApiList(ctx, req.(*ApiListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetApiById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetApiById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/getApiById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetApiById(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteApi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteApi(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/deleteApi",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteApi(ctx, req.(*IDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1258,96 +1260,6 @@ func _Core_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).InitDatabase(ctx, req.(*Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_CreateDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DepartmentInfo)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).CreateDepartment(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.Core/createDepartment",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).CreateDepartment(ctx, req.(*DepartmentInfo))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_UpdateDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DepartmentInfo)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).UpdateDepartment(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.Core/updateDepartment",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).UpdateDepartment(ctx, req.(*DepartmentInfo))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_GetDepartmentList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DepartmentListReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).GetDepartmentList(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.Core/getDepartmentList",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetDepartmentList(ctx, req.(*DepartmentListReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_DeleteDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDsReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).DeleteDepartment(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.Core/deleteDepartment",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteDepartment(ctx, req.(*IDsReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_UpdateDepartmentStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StatusCodeReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).UpdateDepartmentStatus(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.Core/updateDepartmentStatus",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).UpdateDepartmentStatus(ctx, req.(*StatusCodeReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1496,20 +1408,38 @@ func _Core_DeleteDictionaryDetail_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_CreateOrUpdateMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Core_CreateMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MemberInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).CreateOrUpdateMember(ctx, in)
+		return srv.(CoreServer).CreateMember(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.Core/createOrUpdateMember",
+		FullMethod: "/core.Core/createMember",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).CreateOrUpdateMember(ctx, req.(*MemberInfo))
+		return srv.(CoreServer).CreateMember(ctx, req.(*MemberInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/updateMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateMember(ctx, req.(*MemberInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1533,7 +1463,7 @@ func _Core_GetMemberList_Handler(srv interface{}, ctx context.Context, dec func(
 }
 
 func _Core_DeleteMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UUIDReq)
+	in := new(UUIDsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1545,43 +1475,25 @@ func _Core_DeleteMember_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: "/core.Core/deleteMember",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteMember(ctx, req.(*UUIDReq))
+		return srv.(CoreServer).DeleteMember(ctx, req.(*UUIDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_BatchDeleteMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UUIDsReq)
+func _Core_GetMemberById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UUIDReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).BatchDeleteMember(ctx, in)
+		return srv.(CoreServer).GetMemberById(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.Core/batchDeleteMember",
+		FullMethod: "/core.Core/getMemberById",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).BatchDeleteMember(ctx, req.(*UUIDsReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_UpdateMemberStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StatusCodeUUIDReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).UpdateMemberStatus(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.Core/updateMemberStatus",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).UpdateMemberStatus(ctx, req.(*StatusCodeUUIDReq))
+		return srv.(CoreServer).GetMemberById(ctx, req.(*UUIDReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1604,20 +1516,38 @@ func _Core_MemberLogin_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_CreateOrUpdateMemberRank_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Core_CreateMemberRank_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MemberRankInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).CreateOrUpdateMemberRank(ctx, in)
+		return srv.(CoreServer).CreateMemberRank(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.Core/createOrUpdateMemberRank",
+		FullMethod: "/core.Core/createMemberRank",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).CreateOrUpdateMemberRank(ctx, req.(*MemberRankInfo))
+		return srv.(CoreServer).CreateMemberRank(ctx, req.(*MemberRankInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateMemberRank_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MemberRankInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateMemberRank(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/updateMemberRank",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateMemberRank(ctx, req.(*MemberRankInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1640,8 +1570,26 @@ func _Core_GetMemberRankList_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_DeleteMemberRank_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Core_GetMemberRankById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetMemberRankById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/getMemberRankById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetMemberRankById(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteMemberRank_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1653,43 +1601,43 @@ func _Core_DeleteMemberRank_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: "/core.Core/deleteMemberRank",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteMemberRank(ctx, req.(*IDReq))
+		return srv.(CoreServer).DeleteMemberRank(ctx, req.(*IDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_BatchDeleteMemberRank_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDsReq)
+func _Core_CreateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MenuInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).BatchDeleteMemberRank(ctx, in)
+		return srv.(CoreServer).CreateMenu(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.Core/batchDeleteMemberRank",
+		FullMethod: "/core.Core/createMenu",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).BatchDeleteMemberRank(ctx, req.(*IDsReq))
+		return srv.(CoreServer).CreateMenu(ctx, req.(*MenuInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_CreateOrUpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateOrUpdateMenuReq)
+func _Core_UpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MenuInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).CreateOrUpdateMenu(ctx, in)
+		return srv.(CoreServer).UpdateMenu(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.Core/createOrUpdateMenu",
+		FullMethod: "/core.Core/updateMenu",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).CreateOrUpdateMenu(ctx, req.(*CreateOrUpdateMenuReq))
+		return srv.(CoreServer).UpdateMenu(ctx, req.(*MenuInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1748,26 +1696,44 @@ func _Core_GetMenuList_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_CreateOrUpdateMenuParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateOrUpdateMenuParamReq)
+func _Core_CreateMenuParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MenuParamInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).CreateOrUpdateMenuParam(ctx, in)
+		return srv.(CoreServer).CreateMenuParam(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.Core/createOrUpdateMenuParam",
+		FullMethod: "/core.Core/createMenuParam",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).CreateOrUpdateMenuParam(ctx, req.(*CreateOrUpdateMenuParamReq))
+		return srv.(CoreServer).CreateMenuParam(ctx, req.(*MenuParamInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateMenuParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MenuParamInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateMenuParam(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/updateMenuParam",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateMenuParam(ctx, req.(*MenuParamInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Core_DeleteMenuParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDReq)
+	in := new(IDsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1779,7 +1745,7 @@ func _Core_DeleteMenuParam_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: "/core.Core/deleteMenuParam",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).DeleteMenuParam(ctx, req.(*IDReq))
+		return srv.(CoreServer).DeleteMenuParam(ctx, req.(*IDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2358,12 +2324,16 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_UpdateApi_Handler,
 		},
 		{
-			MethodName: "deleteApi",
-			Handler:    _Core_DeleteApi_Handler,
-		},
-		{
 			MethodName: "getApiList",
 			Handler:    _Core_GetApiList_Handler,
+		},
+		{
+			MethodName: "getApiById",
+			Handler:    _Core_GetApiById_Handler,
+		},
+		{
+			MethodName: "deleteApi",
+			Handler:    _Core_DeleteApi_Handler,
 		},
 		{
 			MethodName: "getMenuAuthority",
@@ -2376,26 +2346,6 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "initDatabase",
 			Handler:    _Core_InitDatabase_Handler,
-		},
-		{
-			MethodName: "createDepartment",
-			Handler:    _Core_CreateDepartment_Handler,
-		},
-		{
-			MethodName: "updateDepartment",
-			Handler:    _Core_UpdateDepartment_Handler,
-		},
-		{
-			MethodName: "getDepartmentList",
-			Handler:    _Core_GetDepartmentList_Handler,
-		},
-		{
-			MethodName: "deleteDepartment",
-			Handler:    _Core_DeleteDepartment_Handler,
-		},
-		{
-			MethodName: "updateDepartmentStatus",
-			Handler:    _Core_UpdateDepartmentStatus_Handler,
 		},
 		{
 			MethodName: "createDictionary",
@@ -2430,8 +2380,12 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_DeleteDictionaryDetail_Handler,
 		},
 		{
-			MethodName: "createOrUpdateMember",
-			Handler:    _Core_CreateOrUpdateMember_Handler,
+			MethodName: "createMember",
+			Handler:    _Core_CreateMember_Handler,
+		},
+		{
+			MethodName: "updateMember",
+			Handler:    _Core_UpdateMember_Handler,
 		},
 		{
 			MethodName: "getMemberList",
@@ -2442,36 +2396,40 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_DeleteMember_Handler,
 		},
 		{
-			MethodName: "batchDeleteMember",
-			Handler:    _Core_BatchDeleteMember_Handler,
-		},
-		{
-			MethodName: "updateMemberStatus",
-			Handler:    _Core_UpdateMemberStatus_Handler,
+			MethodName: "getMemberById",
+			Handler:    _Core_GetMemberById_Handler,
 		},
 		{
 			MethodName: "memberLogin",
 			Handler:    _Core_MemberLogin_Handler,
 		},
 		{
-			MethodName: "createOrUpdateMemberRank",
-			Handler:    _Core_CreateOrUpdateMemberRank_Handler,
+			MethodName: "createMemberRank",
+			Handler:    _Core_CreateMemberRank_Handler,
+		},
+		{
+			MethodName: "updateMemberRank",
+			Handler:    _Core_UpdateMemberRank_Handler,
 		},
 		{
 			MethodName: "getMemberRankList",
 			Handler:    _Core_GetMemberRankList_Handler,
 		},
 		{
+			MethodName: "getMemberRankById",
+			Handler:    _Core_GetMemberRankById_Handler,
+		},
+		{
 			MethodName: "deleteMemberRank",
 			Handler:    _Core_DeleteMemberRank_Handler,
 		},
 		{
-			MethodName: "batchDeleteMemberRank",
-			Handler:    _Core_BatchDeleteMemberRank_Handler,
+			MethodName: "createMenu",
+			Handler:    _Core_CreateMenu_Handler,
 		},
 		{
-			MethodName: "createOrUpdateMenu",
-			Handler:    _Core_CreateOrUpdateMenu_Handler,
+			MethodName: "updateMenu",
+			Handler:    _Core_UpdateMenu_Handler,
 		},
 		{
 			MethodName: "deleteMenu",
@@ -2486,8 +2444,12 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_GetMenuList_Handler,
 		},
 		{
-			MethodName: "createOrUpdateMenuParam",
-			Handler:    _Core_CreateOrUpdateMenuParam_Handler,
+			MethodName: "createMenuParam",
+			Handler:    _Core_CreateMenuParam_Handler,
+		},
+		{
+			MethodName: "updateMenuParam",
+			Handler:    _Core_UpdateMenuParam_Handler,
 		},
 		{
 			MethodName: "deleteMenuParam",

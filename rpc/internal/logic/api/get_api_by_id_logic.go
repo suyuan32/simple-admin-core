@@ -1,4 +1,4 @@
-package department
+package api
 
 import (
 	"context"
@@ -13,32 +13,22 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type UpdateDepartmentLogic struct {
+type GetApiByIdLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewUpdateDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateDepartmentLogic {
-	return &UpdateDepartmentLogic{
+func NewGetApiByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetApiByIdLogic {
+	return &GetApiByIdLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *UpdateDepartmentLogic) UpdateDepartment(in *core.DepartmentInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Department.UpdateOneID(in.Id).
-		SetStatus(uint8(in.Status)).
-		SetNotEmptyName(in.Name).
-		SetNotEmptyAncestors(in.Ancestors).
-		SetNotEmptyLeader(in.Leader).
-		SetNotEmptyPhone(in.Phone).
-		SetNotEmptyEmail(in.Email).
-		SetNotEmptySort(in.Sort).
-		SetNotEmptyRemark(in.Remark).
-		SetNotEmptyParentID(in.ParentId).
-		Exec(l.ctx)
+func (l *GetApiByIdLogic) GetApiById(in *core.IDReq) (*core.ApiInfo, error) {
+	result, err := l.svcCtx.DB.API.Get(l.ctx, in.Id)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
@@ -53,5 +43,13 @@ func (l *UpdateDepartmentLogic) UpdateDepartment(in *core.DepartmentInfo) (*core
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
+	return &core.ApiInfo{
+		Id:          result.ID,
+		CreatedAt:   result.CreatedAt.UnixMilli(),
+		UpdatedAt:   result.CreatedAt.UnixMilli(),
+		Path:        result.Path,
+		Description: result.Description,
+		ApiGroup:    result.APIGroup,
+		Method:      result.Method,
+	}, nil
 }

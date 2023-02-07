@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
@@ -27,9 +28,8 @@ func NewDeleteMenuParamLogic(ctx context.Context, svcCtx *svc.ServiceContext) *D
 	}
 }
 
-func (l *DeleteMenuParamLogic) DeleteMenuParam(in *core.IDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.DictionaryDetail.DeleteOneID(in.Id).Exec(l.ctx)
-
+func (l *DeleteMenuParamLogic) DeleteMenuParam(in *core.IDsReq) (*core.BaseResp, error) {
+	_, err := l.svcCtx.DB.DictionaryDetail.Delete().Where(dictionarydetail.IDIn(in.Ids...)).Exec(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):

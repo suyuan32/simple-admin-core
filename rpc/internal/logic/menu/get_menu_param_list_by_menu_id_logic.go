@@ -30,7 +30,6 @@ func NewGetMenuParamListByMenuIdLogic(ctx context.Context, svcCtx *svc.ServiceCo
 
 func (l *GetMenuParamListByMenuIdLogic) GetMenuParamListByMenuId(in *core.IDReq) (*core.MenuParamListResp, error) {
 	params, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.Id)).QueryParams().All(l.ctx)
-
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
@@ -45,7 +44,7 @@ func (l *GetMenuParamListByMenuIdLogic) GetMenuParamListByMenuId(in *core.IDReq)
 	resp := &core.MenuParamListResp{}
 	resp.Total = uint64(len(params))
 	for _, v := range params {
-		resp.Data = append(resp.Data, &core.MenuParamResp{
+		resp.Data = append(resp.Data, &core.MenuParamInfo{
 			Id:        v.ID,
 			Type:      v.Type,
 			Key:       v.Key,

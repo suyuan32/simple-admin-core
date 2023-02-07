@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/member"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -16,32 +15,44 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 )
 
-type DeleteMemberLogic struct {
+type UpdateMemberLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewDeleteMemberLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteMemberLogic {
-	return &DeleteMemberLogic{
+func NewUpdateMemberLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateMemberLogic {
+	return &UpdateMemberLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *DeleteMemberLogic) DeleteMember(in *core.UUIDsReq) (*core.BaseResp, error) {
-	_, err := l.svcCtx.DB.Member.Delete().Where(member.IDIn(uuidx.ParseUUIDSlice(in.Ids)...)).Exec(l.ctx)
+func (l *UpdateMemberLogic) UpdateMember(in *core.MemberInfo) (*core.BaseResp, error) {
+	err := l.svcCtx.DB.Member.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
+		SetNotEmptyStatus(uint8(in.Status)).
+		SetNotEmptyUsername(in.Username).
+		SetNotEmptyPassword(in.Password).
+		SetNotEmptyNickname(in.Nickname).
+		SetNotEmptyRankID(in.RankId).
+		SetNotEmptyMobile(in.Mobile).
+		SetNotEmptyEmail(in.Email).
+		SetNotEmptyAvatar(in.Avatar).
+		Exec(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
 			logx.Errorw(err.Error(), logx.Field("detail", in))
 			return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
+		case ent.IsConstraintError(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(i18n.UpdateFailed)
 		default:
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(i18n.DatabaseError)
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil
+	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
 }

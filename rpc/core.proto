@@ -3,82 +3,6 @@ syntax = "proto3";
 package core;
 option go_package="./core";
 
-message DictionaryListReq {
-  string title = 1;
-  string name = 2;
-  uint64 page = 3;
-  uint64 page_size = 4;
-}
-
-message TokenListReq {
-  uint64 page = 1;
-  uint64 page_size = 2;
-  string username = 3;
-  string nickname = 4;
-  string email = 5;
-  string uuid = 6;
-}
-
-message StatusCodeReq {
-  uint64 id = 1;
-  uint32 status = 2;
-}
-
-message DepartmentListReq {
-  uint64 page = 1;
-  uint64 page_size = 2;
-  string name = 3;
-  string leader = 4;
-}
-
-message DepartmentListResp {
-  uint64 total = 1;
-  repeated DepartmentInfo data = 2;
-}
-
-message MemberLoginResp {
-  string id = 1;
-  string nickname = 2;
-  string avatar = 3;
-  uint64 rank_id = 4;
-}
-
-message RoleListResp {
-  uint64 total = 1;
-  repeated RoleInfo data = 2;
-}
-
-message LoginResp {
-  string id = 1;
-  string role_name = 2;
-  string role_value = 3;
-  uint64 role_id = 4;
-}
-
-message ApiListResp {
-  uint64 total = 1;
-  repeated ApiInfo data = 2;
-}
-
-message IDsReq {
-  repeated uint64 ids = 1;
-}
-
-//  menu messages
-message CreateOrUpdateMenuReq {
-  uint32 level = 1;
-  uint64 parent_id = 2;
-  string path = 3;
-  string name = 4;
-  string redirect = 5;
-  string component = 6;
-  uint32 sort = 7;
-  bool disabled = 8;
-  Meta meta = 9;
-  uint64 id = 10;
-  uint32 menu_type = 11;
-}
-
 message UpdateProfileReq {
   string id = 1;
   string nickname = 2;
@@ -88,76 +12,9 @@ message UpdateProfileReq {
   string description = 6;
 }
 
-message DictionaryDetailReq {
-  string name = 1;
-}
-
-message MemberRankListReq {
-  uint64 page = 1;
-  uint64 page_size = 2;
-  string name = 3;
-  string description = 4;
-  string remark = 5;
-}
-
-message MenuRoleListResp {
+message ApiListResp {
   uint64 total = 1;
-  repeated MenuRoleInfo data = 2;
-}
-
-message PositionListResp {
-  uint64 total = 1;
-  repeated PositionInfo data = 2;
-}
-
-message MemberInfo {
-  string id = 1;
-  int64 created_at = 2;
-  int64 updated_at = 3;
-  uint32 status = 4;
-  string username = 5;
-  string password = 6;
-  string nickname = 7;
-  uint64 rank_id = 8;
-  string mobile = 9;
-  string email = 10;
-  string avatar = 11;
-}
-
-message MemberListResp {
-  uint64 total = 1;
-  repeated MemberInfo data = 2;
-}
-
-message MenuInfo {
-  uint64 id = 1;
-  int64 created_at = 2;
-  int64 updated_at = 3;
-  uint32 level = 4;
-  uint64 parent_id = 5;
-  string path = 6;
-  string name = 7;
-  string redirect = 8;
-  string component = 9;
-  uint32 sort = 10;
-  bool disabled = 11;
-  Meta meta = 12;
-  uint32 menu_type = 13;
-}
-
-message ProviderInfo {
-  uint64 id = 1;
-  string name = 2;
-  string client_id = 3;
-  string client_secret = 4;
-  string redirect_url = 5;
-  string scopes = 6;
-  string auth_url = 7;
-  string token_url = 8;
-  uint64 auth_style = 9;
-  string info_url = 10;
-  int64 created_at = 11;
-  int64 updated_at = 12;
+  repeated ApiInfo data = 2;
 }
 
 message PositionListReq {
@@ -182,36 +39,110 @@ message CreateOrUpdateUserReq {
   uint64 position_id = 13;
 }
 
-//  api message
-message ApiInfo {
+message PositionListResp {
+  uint64 total = 1;
+  repeated PositionInfo data = 2;
+}
+
+//  role messages
+message RoleInfo {
+  uint64 id = 1;
+  string name = 2;
+  string value = 3;
+  string default_router = 4;
+  uint32 status = 5;
+  string remark = 6;
+  uint32 sort = 7;
+  int64 createdAt = 8;
+}
+
+message TokenListResp {
+  uint64 total = 1;
+  repeated TokenInfo data = 2;
+}
+
+message StatusCodeUUIDReq {
+  string id = 1;
+  uint32 status = 2;
+}
+
+message MemberRankListResp {
+  uint64 total = 1;
+  repeated MemberRankInfo data = 2;
+}
+
+message MemberRankListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string name = 3;
+  string description = 4;
+  string remark = 5;
+}
+
+message PositionInfo {
   uint64 id = 1;
   int64 created_at = 2;
   int64 updated_at = 3;
-  string path = 4;
-  string description = 5;
-  string group = 6;
-  string method = 7;
+  uint32 status = 4;
+  uint32 sort = 5;
+  string name = 6;
+  string code = 7;
+  string remark = 8;
 }
 
-message DictionaryList {
-  uint64 total = 1;
-  repeated DictionaryInfo data = 2;
+message ChangePasswordReq {
+  string id = 1;
+  string old_password = 2;
+  string new_password = 3;
 }
 
-message UUIDsReq {
-  repeated string ids = 1;
+message UUIDReq {
+  string id = 1;
 }
 
-message CreateOrUpdateMenuParamReq {
+message StatusCodeReq {
   uint64 id = 1;
-  uint64 menu_id = 2;
-  string type = 3;
-  string key = 4;
-  string value = 5;
+  uint32 status = 2;
 }
 
-message OauthRedirectResp {
-  string url = 1;
+message Meta {
+  string title = 1;
+  string icon = 2;
+  bool hide_menu = 3;
+  bool hide_breadcrumb = 4;
+  string current_active_menu = 5;
+  bool ignore_keep_alive = 6;
+  bool hide_tab = 7;
+  string frame_src = 8;
+  bool carry_param = 9;
+  bool hide_children_in_menu = 10;
+  bool affix = 11;
+  uint32 dynamic_level = 12;
+  string real_path = 13;
+}
+
+message DictionaryDetailReq {
+  string name = 1;
+}
+
+message MenuParamInfo {
+  uint64 id = 1;
+  string type = 2;
+  string key = 3;
+  string value = 4;
+  int64 created_at = 5;
+  int64 updated_at = 6;
+  uint64 menu_id = 7;
+}
+
+message ProviderListResp {
+  uint64 total = 1;
+  repeated ProviderInfo data = 2;
+}
+
+message RoleListResp {
+  uint64 total = 1;
+  repeated RoleInfo data = 2;
 }
 
 message MenuRoleInfo {
@@ -220,24 +151,13 @@ message MenuRoleInfo {
   uint64 role_id = 3;
 }
 
-message MenuParamResp {
-  uint64 id = 1;
-  string type = 2;
-  string key = 3;
-  string value = 4;
-  int64 created_at = 5;
-  int64 updated_at = 6;
+message MenuParamListResp {
+  uint64 total = 1;
+  repeated MenuParamInfo data = 2;
 }
 
-message TokenInfo {
-  string id = 1;
-  int64 created_at = 2;
-  int64 updated_at = 3;
-  string uuid = 4;
-  string token = 5;
-  string source = 6;
-  uint32 status = 7;
-  int64 expired_at = 8;
+message OauthRedirectResp {
+  string url = 1;
 }
 
 message UserListResp {
@@ -245,19 +165,184 @@ message UserListResp {
   repeated UserInfoResp data = 2;
 }
 
-message StatusCodeUUIDReq {
-  string id = 1;
-  uint32 status = 2;
+//  authorization message
+message RoleMenuAuthorityReq {
+  uint64 role_id = 1;
+  repeated uint64 menu_id = 2;
 }
 
-message MemberListReq {
+//  dictionary message
+message DictionaryInfo {
+  uint64 id = 1;
+  string title = 2;
+  string name = 3;
+  uint32 status = 4;
+  string desc = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+}
+
+message DictionaryListReq {
+  string title = 1;
+  string name = 2;
+  uint64 page = 3;
+  uint64 page_size = 4;
+}
+
+message ApiListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string path = 3;
+  string description = 4;
+  string api_group = 5;
+}
+
+message UUIDsReq {
+  repeated string ids = 1;
+}
+
+message MemberListResp {
+  uint64 total = 1;
+  repeated MemberInfo data = 2;
+}
+
+//  base message
+message Empty {}
+
+message MenuRoleListResp {
+  uint64 total = 1;
+  repeated MenuRoleInfo data = 2;
+}
+
+message LoginResp {
+  string id = 1;
+  string role_name = 2;
+  string role_value = 3;
+  uint64 role_id = 4;
+}
+
+message MemberRankInfo {
+  uint64 id = 1;
+  int64 created_at = 2;
+  int64 updated_at = 3;
+  string name = 4;
+  string description = 5;
+  string remark = 6;
+}
+
+//  oauth message
+message OauthLoginReq {
+  string state = 1;
+  string provider = 2;
+}
+
+message DictionaryList {
+  uint64 total = 1;
+  repeated DictionaryInfo data = 2;
+}
+
+message MemberLoginResp {
+  string id = 1;
+  string nickname = 2;
+  string avatar = 3;
+  uint64 rank_id = 4;
+}
+
+message MemberRegisterReq {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message DictionaryDetail {
+  uint64 id = 1;
+  string title = 2;
+  string key = 3;
+  string value = 4;
+  uint32 status = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+  uint64 dictionary_id = 8;
+}
+
+message DictionaryDetailList {
+  uint64 total = 1;
+  repeated DictionaryDetail data = 2;
+}
+
+message TokenListReq {
   uint64 page = 1;
   uint64 page_size = 2;
   string username = 3;
   string nickname = 4;
-  string mobile = 5;
-  string email = 6;
-  uint64 rank_id = 7;
+  string email = 5;
+  string uuid = 6;
+}
+
+message PageInfoReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+}
+
+message LoginReq {
+  string username = 1;
+  string password = 2;
+}
+
+message GetUserListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string username = 3;
+  string nickname = 4;
+  string email = 5;
+  string mobile = 6;
+  uint64 role_id = 7;
+  uint64 department_id = 8;
+  uint64 position_id = 9;
+}
+
+message IDsReq {
+  repeated uint64 ids = 1;
+}
+
+message MenuInfo {
+  uint64 id = 1;
+  int64 created_at = 2;
+  int64 updated_at = 3;
+  uint32 level = 4;
+  uint64 parent_id = 5;
+  string path = 6;
+  string name = 7;
+  string redirect = 8;
+  string component = 9;
+  uint32 sort = 10;
+  bool disabled = 11;
+  Meta meta = 12;
+  uint32 menu_type = 13;
+}
+
+message CallbackReq {
+  string state = 1;
+  string code = 2;
+}
+
+message MemberInfo {
+  string id = 1;
+  int64 created_at = 2;
+  int64 updated_at = 3;
+  uint32 status = 4;
+  string username = 5;
+  string password = 6;
+  string nickname = 7;
+  uint64 rank_id = 8;
+  string mobile = 9;
+  string email = 10;
+  string avatar = 11;
+}
+
+message MenuInfoList {
+  uint64 total = 1;
+  repeated MenuInfo data = 2;
 }
 
 message UserInfoResp {
@@ -279,227 +364,83 @@ message UserInfoResp {
   uint64 position_id = 16;
 }
 
-message BaseResp {
-  string msg = 1;
-}
-
-message PageInfoReq {
-  uint64 page = 1;
-  uint64 page_size = 2;
-}
-
-message Meta {
-  string title = 1;
-  string icon = 2;
-  bool hide_menu = 3;
-  bool hide_breadcrumb = 4;
-  string current_active_menu = 5;
-  bool ignore_keep_alive = 6;
-  bool hide_tab = 7;
-  string frame_src = 8;
-  bool carry_param = 9;
-  bool hide_children_in_menu = 10;
-  bool affix = 11;
-  uint32 dynamic_level = 12;
-  string real_path = 13;
-}
-
-message ChangePasswordReq {
-  string id = 1;
-  string old_password = 2;
-  string new_password = 3;
-}
-
-message GetUserListReq {
-  uint64 page = 1;
-  uint64 page_size = 2;
-  string username = 3;
-  string nickname = 4;
-  string email = 5;
-  string mobile = 6;
-  uint64 role_id = 7;
-  uint64 department_id = 8;
-  uint64 position_id = 9;
-}
-
-message ApiListReq {
-  uint64 page = 1;
-  uint64 page_size = 2;
-  string path = 3;
-  string description = 4;
-  string method = 5;
-  string group = 6;
-}
-
-message MemberRankListResp {
-  uint64 total = 1;
-  repeated MemberRankInfo data = 2;
-}
-
-message MemberRankInfo {
-  uint64 id = 1;
-  int64 created_at = 2;
-  int64 updated_at = 3;
-  string name = 4;
-  string description = 5;
-  string remark = 6;
-}
-
-message MenuParamListResp {
-  uint64 total = 1;
-  repeated MenuParamResp data = 2;
-}
-
-//  role messages
-message RoleInfo {
-  uint64 id = 1;
-  string name = 2;
-  string value = 3;
-  string default_router = 4;
-  uint32 status = 5;
-  string remark = 6;
-  uint32 sort = 7;
-  int64 createdAt = 8;
-}
-
-//  dictionary message
-message DictionaryInfo {
-  uint64 id = 1;
-  string title = 2;
-  string name = 3;
-  uint32 status = 4;
-  string desc = 5;
-  int64 created_at = 6;
-  int64 updated_at = 7;
-}
-
-message DictionaryDetailList {
-  uint64 total = 1;
-  repeated DictionaryDetail data = 2;
-}
-
-message MenuInfoList {
-  uint64 total = 1;
-  repeated MenuInfo data = 2;
-}
-
-message TokenListResp {
-  uint64 total = 1;
-  repeated TokenInfo data = 2;
-}
-
-//  base message
-message Empty {}
-
-message DepartmentInfo {
-  uint64 id = 1;
-  int64 created_at = 2;
-  int64 updated_at = 3;
-  uint32 status = 4;
-  string name = 5;
-  string ancestors = 6;
-  string leader = 7;
-  string phone = 8;
-  string email = 9;
-  uint32 sort = 10;
-  string remark = 11;
-  uint64 parent_id = 12;
-}
-
-//  authorization message
-message RoleMenuAuthorityReq {
-  uint64 role_id = 1;
-  repeated uint64 menu_id = 2;
-}
-
-message UUIDReq {
-  string id = 1;
-}
-
-message PositionInfo {
-  uint64 id = 1;
-  int64 created_at = 2;
-  int64 updated_at = 3;
-  uint32 status = 4;
-  uint32 sort = 5;
-  string name = 6;
-  string code = 7;
-  string remark = 8;
-}
-
-message LoginReq {
-  string username = 1;
-  string password = 2;
+//  return the role's authorization menu's ids
+message RoleMenuAuthorityResp {
+  repeated uint64 menu_id = 1;
 }
 
 message IDReq {
   uint64 id = 1;
 }
 
-message ProviderListResp {
-  uint64 total = 1;
-  repeated ProviderInfo data = 2;
+message MemberListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string username = 3;
+  string nickname = 4;
+  string mobile = 5;
+  string email = 6;
+  uint64 rank_id = 7;
 }
 
-message DictionaryDetail {
+message ProviderInfo {
   uint64 id = 1;
-  string title = 2;
-  string key = 3;
-  string value = 4;
-  uint32 status = 5;
-  int64 created_at = 6;
-  int64 updated_at = 7;
-  uint64 dictionary_id = 8;
+  string name = 2;
+  string client_id = 3;
+  string client_secret = 4;
+  string redirect_url = 5;
+  string scopes = 6;
+  string auth_url = 7;
+  string token_url = 8;
+  uint64 auth_style = 9;
+  string info_url = 10;
+  int64 created_at = 11;
+  int64 updated_at = 12;
 }
 
-message MemberRegisterReq {
-  string username = 1;
-  string email = 2;
-  string password = 3;
+message TokenInfo {
+  string id = 1;
+  int64 created_at = 2;
+  int64 updated_at = 3;
+  string uuid = 4;
+  string token = 5;
+  string source = 6;
+  uint32 status = 7;
+  int64 expired_at = 8;
 }
 
-message CallbackReq {
-  string state = 1;
-  string code = 2;
+message ApiInfo {
+  uint64 id = 1;
+  int64 created_at = 2;
+  int64 updated_at = 3;
+  string path = 4;
+  string description = 5;
+  string api_group = 6;
+  string method = 7;
 }
 
-//  return the role's authorization menu's ids
-message RoleMenuAuthorityResp {
-  repeated uint64 menu_id = 1;
-}
-
-//  oauth message
-message OauthLoginReq {
-  string state = 1;
-  string provider = 2;
+message BaseResp {
+  string msg = 1;
 }
 
 service Core {
+  //  API management
   //  group: api
   rpc createApi(ApiInfo) returns (BaseResp);
   //  group: api
   rpc updateApi(ApiInfo) returns (BaseResp);
   //  group: api
-  rpc deleteApi(IDsReq) returns (BaseResp);
-  //  group: api
   rpc getApiList(ApiListReq) returns (ApiListResp);
+  //  group: api
+  rpc getApiById(IDReq) returns (ApiInfo);
+  //  group: api
+  rpc deleteApi(IDsReq) returns (BaseResp);
   //  group: authority
   rpc getMenuAuthority(IDReq) returns (RoleMenuAuthorityResp);
   //  group: authority
   rpc createOrUpdateMenuAuthority(RoleMenuAuthorityReq) returns (BaseResp);
   //  group: base
   rpc initDatabase(Empty) returns (BaseResp);
-  //  Department management
-  //  group: department
-  rpc createDepartment(DepartmentInfo) returns (BaseResp);
-  //  group: department
-  rpc updateDepartment(DepartmentInfo) returns (BaseResp);
-  //  group: department
-  rpc getDepartmentList(DepartmentListReq) returns (DepartmentListResp);
-  //  group: department
-  rpc deleteDepartment(IDsReq) returns (BaseResp);
-  //  group: department
-  rpc updateDepartmentStatus(StatusCodeReq) returns (BaseResp);
   //  group: dictionary
   rpc createDictionary(DictionaryInfo) returns (BaseResp);
   //  group: dictionary
@@ -518,28 +459,32 @@ service Core {
   rpc deleteDictionaryDetail(IDsReq) returns (BaseResp);
   //  Member management
   //  group: member
-  rpc createOrUpdateMember(MemberInfo) returns (BaseResp);
+  rpc createMember(MemberInfo) returns (BaseResp);
+  //  group: member
+  rpc updateMember(MemberInfo) returns (BaseResp);
   //  group: member
   rpc getMemberList(MemberListReq) returns (MemberListResp);
   //  group: member
-  rpc deleteMember(UUIDReq) returns (BaseResp);
+  rpc deleteMember(UUIDsReq) returns (BaseResp);
   //  group: member
-  rpc batchDeleteMember(UUIDsReq) returns (BaseResp);
-  //  group: member
-  rpc updateMemberStatus(StatusCodeUUIDReq) returns (BaseResp);
+  rpc getMemberById(UUIDReq) returns (MemberInfo);
   //  group: member
   rpc memberLogin(LoginReq) returns (MemberLoginResp);
   //  MemberRank management
   //  group: memberrank
-  rpc createOrUpdateMemberRank(MemberRankInfo) returns (BaseResp);
+  rpc createMemberRank(MemberRankInfo) returns (BaseResp);
+  //  group: memberrank
+  rpc updateMemberRank(MemberRankInfo) returns (BaseResp);
   //  group: memberrank
   rpc getMemberRankList(MemberRankListReq) returns (MemberRankListResp);
   //  group: memberrank
-  rpc deleteMemberRank(IDReq) returns (BaseResp);
+  rpc getMemberRankById(IDReq) returns (MemberRankInfo);
   //  group: memberrank
-  rpc batchDeleteMemberRank(IDsReq) returns (BaseResp);
+  rpc deleteMemberRank(IDsReq) returns (BaseResp);
   //  group: menu
-  rpc createOrUpdateMenu(CreateOrUpdateMenuReq) returns (BaseResp);
+  rpc createMenu(MenuInfo) returns (BaseResp);
+  //  group: menu
+  rpc updateMenu(MenuInfo) returns (BaseResp);
   //  group: menu
   rpc deleteMenu(IDReq) returns (BaseResp);
   //  group: menu
@@ -547,9 +492,11 @@ service Core {
   //  group: menu
   rpc getMenuList(PageInfoReq) returns (MenuInfoList);
   //  group: menu
-  rpc createOrUpdateMenuParam(CreateOrUpdateMenuParamReq) returns (BaseResp);
+  rpc createMenuParam(MenuParamInfo) returns (BaseResp);
   //  group: menu
-  rpc deleteMenuParam(IDReq) returns (BaseResp);
+  rpc updateMenuParam(MenuParamInfo) returns (BaseResp);
+  //  group: menu
+  rpc deleteMenuParam(IDsReq) returns (BaseResp);
   //  group: menu
   rpc getMenuParamListByMenuId(IDReq) returns (MenuParamListResp);
   //  group: oauth

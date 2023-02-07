@@ -1,46 +1,50 @@
-package department
+package memberrank
 
 import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
-
-	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type DeleteDepartmentLogic struct {
+type CreateMemberRankLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewDeleteDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteDepartmentLogic {
-	return &DeleteDepartmentLogic{
+func NewCreateMemberRankLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateMemberRankLogic {
+	return &CreateMemberRankLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *DeleteDepartmentLogic) DeleteDepartment(in *core.IDsReq) (*core.BaseResp, error) {
-	_, err := l.svcCtx.DB.Department.Delete().Where(department.IDIn(in.Ids...)).Exec(l.ctx)
+func (l *CreateMemberRankLogic) CreateMemberRank(in *core.MemberRankInfo) (*core.BaseResp, error) {
+	err := l.svcCtx.DB.MemberRank.Create().
+		SetName(in.Name).
+		SetDescription(in.Description).
+		SetRemark(in.Remark).
+		Exec(l.ctx)
+
 	if err != nil {
 		switch {
-		case ent.IsNotFound(err):
+		case ent.IsConstraintError(err):
 			logx.Errorw(err.Error(), logx.Field("detail", in))
-			return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
+			return nil, statuserr.NewInvalidArgumentError(i18n.CreateFailed)
 		default:
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(i18n.DatabaseError)
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil
+	return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
 }

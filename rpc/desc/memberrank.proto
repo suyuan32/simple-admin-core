@@ -29,14 +29,15 @@ service Core {
 
   // MemberRank management
   // group: memberrank
-  rpc createOrUpdateMemberRank (MemberRankInfo) returns (BaseResp);
+  rpc createMemberRank (MemberRankInfo) returns (BaseResp);
+  // group: memberrank
+  rpc updateMemberRank (MemberRankInfo) returns (BaseResp);
   // group: memberrank
   rpc getMemberRankList (MemberRankListReq) returns (MemberRankListResp);
   // group: memberrank
-  rpc deleteMemberRank (IDReq) returns (BaseResp);
+  rpc getMemberRankById (IDReq) returns (MemberRankInfo);
   // group: memberrank
-  rpc batchDeleteMemberRank (IDsReq) returns (BaseResp);
-
+  rpc deleteMemberRank (IDsReq) returns (BaseResp);
 
 
 }

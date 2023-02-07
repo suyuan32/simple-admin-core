@@ -1,4 +1,4 @@
-package department
+package menu
 
 import (
 	"context"
@@ -13,32 +13,26 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type CreateDepartmentLogic struct {
+type CreateMenuParamLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewCreateDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateDepartmentLogic {
-	return &CreateDepartmentLogic{
+func NewCreateMenuParamLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateMenuParamLogic {
+	return &CreateMenuParamLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-// Department management
-func (l *CreateDepartmentLogic) CreateDepartment(in *core.DepartmentInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Department.Create().
-		SetStatus(uint8(in.Status)).
-		SetName(in.Name).
-		SetAncestors(in.Ancestors).
-		SetLeader(in.Leader).
-		SetPhone(in.Phone).
-		SetEmail(in.Email).
-		SetSort(in.Sort).
-		SetRemark(in.Remark).
-		SetParentID(in.ParentId).
+func (l *CreateMenuParamLogic) CreateMenuParam(in *core.MenuParamInfo) (*core.BaseResp, error) {
+	err := l.svcCtx.DB.MenuParam.Create().
+		SetType(in.Type).
+		SetKey(in.Key).
+		SetValue(in.Value).
+		SetMenusID(in.MenuId).
 		Exec(l.ctx)
 	if err != nil {
 		switch {

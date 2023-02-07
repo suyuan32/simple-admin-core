@@ -3,14 +3,15 @@ package member
 import (
 	"context"
 
-	"github.com/zeromicro/go-zero/core/logx"
-
 	"github.com/suyuan32/simple-admin-core/pkg/ent/member"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+
+	"github.com/zeromicro/go-zero/core/logx"
+
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 )
 
 type GetMemberListLogic struct {

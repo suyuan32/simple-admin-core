@@ -1,13 +1,14 @@
-syntax="proto3";
+syntax = "proto3";
 
-// api message
+// API message
+
 message ApiInfo {
   uint64 id = 1;
   int64 created_at = 2;
   int64 updated_at = 3;
   string path = 4;
   string description = 5;
-  string group = 6;
+  string api_group = 6;
   string method = 7;
 }
 
@@ -21,19 +22,23 @@ message ApiListReq {
   uint64 page_size = 2;
   string path = 3;
   string description = 4;
-  string method = 5;
-  string group = 6;
+  string api_group = 5;
 }
 
-service Core {
-  // api management service
 
+service Core {
+
+  // API management
   // group: api
   rpc createApi (ApiInfo) returns (BaseResp);
   // group: api
   rpc updateApi (ApiInfo) returns (BaseResp);
   // group: api
-  rpc deleteApi (IDsReq) returns (BaseResp);
-  // group: api
   rpc getApiList (ApiListReq) returns (ApiListResp);
+  // group: api
+  rpc getApiById (IDReq) returns (ApiInfo);
+  // group: api
+  rpc deleteApi (IDsReq) returns (BaseResp);
+
+
 }

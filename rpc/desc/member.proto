@@ -44,19 +44,20 @@ message MemberRegisterReq {
   string password = 3;
 }
 
+
 service Core {
 
   // Member management
   // group: member
-  rpc createOrUpdateMember (MemberInfo) returns (BaseResp);
+  rpc createMember (MemberInfo) returns (BaseResp);
+  // group: member
+  rpc updateMember (MemberInfo) returns (BaseResp);
   // group: member
   rpc getMemberList (MemberListReq) returns (MemberListResp);
   // group: member
-  rpc deleteMember (UUIDReq) returns (BaseResp);
+  rpc deleteMember (UUIDsReq) returns (BaseResp);
   // group: member
-  rpc batchDeleteMember (UUIDsReq) returns (BaseResp);
-  // group: member
-  rpc updateMemberStatus(StatusCodeUUIDReq) returns (BaseResp);
+  rpc getMemberById (UUIDReq) returns (MemberInfo);
   // group: member
   rpc memberLogin(LoginReq) returns (MemberLoginResp);
 
