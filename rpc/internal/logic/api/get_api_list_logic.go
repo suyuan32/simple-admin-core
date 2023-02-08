@@ -39,6 +39,9 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiListReq) (*core.ApiListResp, er
 	if in.ApiGroup != "" {
 		predicates = append(predicates, api.APIGroupContains(in.ApiGroup))
 	}
+	if in.Method != "" {
+		predicates = append(predicates, api.Method(in.Method))
+	}
 	result, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		logx.Error(err.Error())

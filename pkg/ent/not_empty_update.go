@@ -787,6 +787,22 @@ func (mp *MenuParamUpdateOne) SetNotEmptyValue(value string) *MenuParamUpdateOne
 }
 
 // set field if value is not empty. e.g. string does not equal to ""
+func (mp *MenuParamUpdate) SetNotEmptyMenuID(value uint64) *MenuParamUpdate {
+	if value != 0 {
+		return mp.SetMenuID(value)
+	}
+	return mp
+}
+
+// set field if value is not empty. e.g. string does not equal to ""
+func (mp *MenuParamUpdateOne) SetNotEmptyMenuID(value uint64) *MenuParamUpdateOne {
+	if value != 0 {
+		return mp.SetMenuID(value)
+	}
+	return mp
+}
+
+// set field if value is not empty. e.g. string does not equal to ""
 func (op *OauthProviderUpdate) SetNotEmptyName(value string) *OauthProviderUpdate {
 	if value != "" {
 		return op.SetName(value)

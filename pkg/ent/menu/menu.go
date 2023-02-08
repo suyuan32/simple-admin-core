@@ -88,7 +88,7 @@ const (
 	// It exists in this package in order to avoid circular dependency with the "menuparam" package.
 	ParamsInverseTable = "sys_menu_params"
 	// ParamsColumn is the table column denoting the params relation/edge.
-	ParamsColumn = "menu_params"
+	ParamsColumn = "menu_id"
 )
 
 // Columns holds all SQL columns for menu fields.
@@ -145,6 +145,8 @@ var (
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultSort holds the default value on creation for the "sort" field.
 	DefaultSort uint32
+	// DefaultParentID holds the default value on creation for the "parent_id" field.
+	DefaultParentID uint64
 	// DefaultPath holds the default value on creation for the "path" field.
 	DefaultPath string
 	// DefaultRedirect holds the default value on creation for the "redirect" field.

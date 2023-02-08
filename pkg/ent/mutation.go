@@ -7612,6 +7612,55 @@ func (m *MenuParamMutation) ResetValue() {
 	m.value = nil
 }
 
+// SetMenuID sets the "menu_id" field.
+func (m *MenuParamMutation) SetMenuID(u uint64) {
+	m.menus = &u
+}
+
+// MenuID returns the value of the "menu_id" field in the mutation.
+func (m *MenuParamMutation) MenuID() (r uint64, exists bool) {
+	v := m.menus
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMenuID returns the old "menu_id" field's value of the MenuParam entity.
+// If the MenuParam object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MenuParamMutation) OldMenuID(ctx context.Context) (v uint64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldMenuID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldMenuID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMenuID: %w", err)
+	}
+	return oldValue.MenuID, nil
+}
+
+// ClearMenuID clears the value of the "menu_id" field.
+func (m *MenuParamMutation) ClearMenuID() {
+	m.menus = nil
+	m.clearedFields[menuparam.FieldMenuID] = struct{}{}
+}
+
+// MenuIDCleared returns if the "menu_id" field was cleared in this mutation.
+func (m *MenuParamMutation) MenuIDCleared() bool {
+	_, ok := m.clearedFields[menuparam.FieldMenuID]
+	return ok
+}
+
+// ResetMenuID resets all changes to the "menu_id" field.
+func (m *MenuParamMutation) ResetMenuID() {
+	m.menus = nil
+	delete(m.clearedFields, menuparam.FieldMenuID)
+}
+
 // SetMenusID sets the "menus" edge to the Menu entity by id.
 func (m *MenuParamMutation) SetMenusID(id uint64) {
 	m.menus = &id
@@ -7624,7 +7673,7 @@ func (m *MenuParamMutation) ClearMenus() {
 
 // MenusCleared reports if the "menus" edge to the Menu entity was cleared.
 func (m *MenuParamMutation) MenusCleared() bool {
-	return m.clearedmenus
+	return m.MenuIDCleared() || m.clearedmenus
 }
 
 // MenusID returns the "menus" edge ID in the mutation.
@@ -7685,7 +7734,7 @@ func (m *MenuParamMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *MenuParamMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 6)
 	if m.created_at != nil {
 		fields = append(fields, menuparam.FieldCreatedAt)
 	}
@@ -7700,6 +7749,9 @@ func (m *MenuParamMutation) Fields() []string {
 	}
 	if m.value != nil {
 		fields = append(fields, menuparam.FieldValue)
+	}
+	if m.menus != nil {
+		fields = append(fields, menuparam.FieldMenuID)
 	}
 	return fields
 }
@@ -7719,6 +7771,8 @@ func (m *MenuParamMutation) Field(name string) (ent.Value, bool) {
 		return m.Key()
 	case menuparam.FieldValue:
 		return m.Value()
+	case menuparam.FieldMenuID:
+		return m.MenuID()
 	}
 	return nil, false
 }
@@ -7738,6 +7792,8 @@ func (m *MenuParamMutation) OldField(ctx context.Context, name string) (ent.Valu
 		return m.OldKey(ctx)
 	case menuparam.FieldValue:
 		return m.OldValue(ctx)
+	case menuparam.FieldMenuID:
+		return m.OldMenuID(ctx)
 	}
 	return nil, fmt.Errorf("unknown MenuParam field %s", name)
 }
@@ -7782,6 +7838,13 @@ func (m *MenuParamMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetValue(v)
 		return nil
+	case menuparam.FieldMenuID:
+		v, ok := value.(uint64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMenuID(v)
+		return nil
 	}
 	return fmt.Errorf("unknown MenuParam field %s", name)
 }
@@ -7789,13 +7852,16 @@ func (m *MenuParamMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *MenuParamMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *MenuParamMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	}
 	return nil, false
 }
 
@@ -7811,7 +7877,11 @@ func (m *MenuParamMutation) AddField(name string, value ent.Value) error {
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
 func (m *MenuParamMutation) ClearedFields() []string {
-	return nil
+	var fields []string
+	if m.FieldCleared(menuparam.FieldMenuID) {
+		fields = append(fields, menuparam.FieldMenuID)
+	}
+	return fields
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
@@ -7824,6 +7894,11 @@ func (m *MenuParamMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *MenuParamMutation) ClearField(name string) error {
+	switch name {
+	case menuparam.FieldMenuID:
+		m.ClearMenuID()
+		return nil
+	}
 	return fmt.Errorf("unknown MenuParam nullable field %s", name)
 }
 
@@ -7845,6 +7920,9 @@ func (m *MenuParamMutation) ResetField(name string) error {
 		return nil
 	case menuparam.FieldValue:
 		m.ResetValue()
+		return nil
+	case menuparam.FieldMenuID:
+		m.ResetMenuID()
 		return nil
 	}
 	return fmt.Errorf("unknown MenuParam field %s", name)

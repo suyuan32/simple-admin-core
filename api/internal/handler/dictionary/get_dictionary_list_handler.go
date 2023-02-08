@@ -3,17 +3,18 @@ package dictionary
 import (
 	"net/http"
 
+	"github.com/zeromicro/go-zero/rest/httpx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route post /dict/list dictionary GetDictionaryList
+// swagger:route post /dictionary/list dictionary GetDictionaryList
 //
-// Get dictionary list | 获取字典列表
+// Get dictionary list | 获取Dictionary列表
 //
-// Get dictionary list | 获取字典列表
+// Get dictionary list | 获取Dictionary列表
 //
 // Parameters:
 //  + name: body

@@ -421,6 +421,10 @@ func (mc *MenuCreate) defaults() {
 		v := menu.DefaultSort
 		mc.mutation.SetSort(v)
 	}
+	if _, ok := mc.mutation.ParentID(); !ok {
+		v := menu.DefaultParentID
+		mc.mutation.SetParentID(v)
+	}
 	if _, ok := mc.mutation.Path(); !ok {
 		v := menu.DefaultPath
 		mc.mutation.SetPath(v)

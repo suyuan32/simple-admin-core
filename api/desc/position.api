@@ -1,73 +1,65 @@
 import "base.api"
 
 type (
-    // The response data of position information | 职位信息
+    // The response data of position information | Position信息
     PositionInfo {
         BaseInfo
 
-        // Translated name | 翻译名称
-        Trans  string `json:"trans"`
+         // Translated Name
+        Trans string `json:"trans,optional"`
 
         // Status
-        Status  uint32 `json:"status"`
+        Status  uint32 `json:"status,optional"`
 
         // Sort
-        Sort  uint32 `json:"sort"`
+        Sort  uint32 `json:"sort,optional"`
 
         // Name
-        Name  string `json:"name"`
+        Name  string `json:"name,optional"`
 
         // Code
-        Code  string `json:"code"`
+        Code  string `json:"code,optional"`
 
         // Remark
-        Remark  string `json:"remark"`
+        Remark  string `json:"remark,optional"`
     }
 
-    // Create or update position information request | 创建或更新职位信息
-    CreateOrUpdatePositionReq {
-        // ID
-        // Required: true
-        Id    uint64    `json:"id"`
-
-        // Status
-        Status  uint32 `json:"status"`
-
-        // Sort
-        Sort  uint32 `json:"sort"`
-
-        // Name
-        Name  string `json:"name"`
-
-        // Code
-        Code  string `json:"code"`
-
-        // Remark
-        Remark  string `json:"remark"`
-    }
-
-    // The response data of position list | 职位列表数据
+    // The response data of position list | Position列表数据
     PositionListResp {
         BaseDataInfo
 
-        // Position list data | 职位 列表数据
+        // Position list data | Position列表数据
         Data PositionListInfo `json:"data"`
     }
 
-    // Position list data | 职位 列表数据
+    // Position list data | Position列表数据
     PositionListInfo {
         BaseListInfo
 
-        // The API list data | 职位 列表数据
+        // The API list data | Position列表数据
         Data  []PositionInfo  `json:"data"`
     }
 
-    // Get position list request params | 职位列表请求参数
+    // Get position list request params | Position列表请求参数
     PositionListReq {
         PageInfo
 
         // Name
         Name  string `json:"name,optional"`
+
+        // Code
+        Code  string `json:"code,optional"`
+
+        // Remark
+        Remark  string `json:"remark,optional"`
+    }
+
+    // Position information response | Position信息返回体
+    PositionInfoResp {
+        BaseDataInfo
+
+        // Position information | Position数据
+        Data PositionInfo `json:"data"`
     }
 )
 
@@ -78,24 +70,23 @@ type (
 )
 
 service core {
-    // Create or update position information | 创建或更新职位
-    @handler createOrUpdatePosition
-    post /position/create_or_update (CreateOrUpdatePositionReq) returns (BaseMsgResp)
+    // Create position information | 创建Position
+    @handler createPosition
+    post /position/create (PositionInfo) returns (BaseMsgResp)
 
-    // Delete position information | 删除职位信息
+    // Update position information | 更新Position
+    @handler updatePosition
+    post /position/update (PositionInfo) returns (BaseMsgResp)
+
+    // Delete position information | 删除Position信息
     @handler deletePosition
-    post /position/delete (IDReq) returns (BaseMsgResp)
+    post /position/delete (IDsReq) returns (BaseMsgResp)
 
-    // Get position list | 获取职位列表
+    // Get position list | 获取Position列表
     @handler getPositionList
     post /position/list (PositionListReq) returns (PositionListResp)
 
-    // Delete position information | 删除职位信息
-    @handler batchDeletePosition
-    post /position/batch_delete (IDsReq) returns (BaseMsgResp)
-
-    // Set position's status | 更新职位状态
-    @handler updatePositionStatus
-    post /position/status (StatusCodeReq) returns (BaseMsgResp)
-
+    // Get position by ID | 通过ID获取Position
+    @handler getPositionById
+    post /position (IDReq) returns (PositionInfoResp)
 }

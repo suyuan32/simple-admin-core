@@ -80,6 +80,11 @@ func Value(v string) predicate.MenuParam {
 	return predicate.MenuParam(sql.FieldEQ(FieldValue, v))
 }
 
+// MenuID applies equality check predicate on the "menu_id" field. It's identical to MenuIDEQ.
+func MenuID(v uint64) predicate.MenuParam {
+	return predicate.MenuParam(sql.FieldEQ(FieldMenuID, v))
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v time.Time) predicate.MenuParam {
 	return predicate.MenuParam(sql.FieldEQ(FieldCreatedAt, v))
@@ -353,6 +358,36 @@ func ValueEqualFold(v string) predicate.MenuParam {
 // ValueContainsFold applies the ContainsFold predicate on the "value" field.
 func ValueContainsFold(v string) predicate.MenuParam {
 	return predicate.MenuParam(sql.FieldContainsFold(FieldValue, v))
+}
+
+// MenuIDEQ applies the EQ predicate on the "menu_id" field.
+func MenuIDEQ(v uint64) predicate.MenuParam {
+	return predicate.MenuParam(sql.FieldEQ(FieldMenuID, v))
+}
+
+// MenuIDNEQ applies the NEQ predicate on the "menu_id" field.
+func MenuIDNEQ(v uint64) predicate.MenuParam {
+	return predicate.MenuParam(sql.FieldNEQ(FieldMenuID, v))
+}
+
+// MenuIDIn applies the In predicate on the "menu_id" field.
+func MenuIDIn(vs ...uint64) predicate.MenuParam {
+	return predicate.MenuParam(sql.FieldIn(FieldMenuID, vs...))
+}
+
+// MenuIDNotIn applies the NotIn predicate on the "menu_id" field.
+func MenuIDNotIn(vs ...uint64) predicate.MenuParam {
+	return predicate.MenuParam(sql.FieldNotIn(FieldMenuID, vs...))
+}
+
+// MenuIDIsNil applies the IsNil predicate on the "menu_id" field.
+func MenuIDIsNil() predicate.MenuParam {
+	return predicate.MenuParam(sql.FieldIsNull(FieldMenuID))
+}
+
+// MenuIDNotNil applies the NotNil predicate on the "menu_id" field.
+func MenuIDNotNil() predicate.MenuParam {
+	return predicate.MenuParam(sql.FieldNotNull(FieldMenuID))
 }
 
 // HasMenus applies the HasEdge predicate on the "menus" edge.

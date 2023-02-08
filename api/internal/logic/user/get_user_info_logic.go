@@ -30,7 +30,7 @@ func NewGetUserInfoLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetUserIn
 	}
 }
 
-func (l *GetUserInfoLogic) GetUserInfo() (resp *types.GetUserInfoResp, err error) {
+func (l *GetUserInfoLogic) GetUserInfo() (resp *types.UserBaseInfoResp, err error) {
 	if l.ctx.Value("userId").(string) == "" {
 		return nil, errorx.NewApiError(http.StatusUnauthorized, "Please log in")
 	}
@@ -40,7 +40,7 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.GetUserInfoResp, err error
 		return nil, err
 	}
 
-	return &types.GetUserInfoResp{
+	return &types.UserBaseInfoResp{
 		BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success)},
 		Data: types.UserBaseInfo{
 			UUID:        user.Id,
@@ -49,7 +49,7 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.GetUserInfoResp, err error
 			Avatar:      user.Avatar,
 			HomePath:    user.HomePath,
 			Description: user.Description,
-			Roles: types.GetUserRoleInfo{
+			Roles: types.UserRoleInfo{
 				RoleName: user.RoleName,
 				Value:    user.RoleValue,
 			},

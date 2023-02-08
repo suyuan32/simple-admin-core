@@ -27,9 +27,9 @@ func NewDeletePositionLogic(r *http.Request, svcCtx *svc.ServiceContext) *Delete
 	}
 }
 
-func (l *DeletePositionLogic) DeletePosition(req *types.IDReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.DeletePosition(l.ctx, &core.IDReq{
-		Id: req.Id,
+func (l *DeletePositionLogic) DeletePosition(req *types.IDsReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.DeletePosition(l.ctx, &core.IDsReq{
+		Ids: req.Ids,
 	})
 	if err != nil {
 		return nil, err

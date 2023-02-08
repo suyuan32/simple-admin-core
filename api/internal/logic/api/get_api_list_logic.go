@@ -36,7 +36,7 @@ func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiList
 			Path:        req.Path,
 			Description: req.Description,
 			Method:      req.Method,
-			Group:       req.Group,
+			ApiGroup:    req.Group,
 		})
 	if err != nil {
 		return nil, err
@@ -54,9 +54,9 @@ func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiList
 					UpdatedAt: v.UpdatedAt,
 				},
 				Path:        v.Path,
-				Title:       l.svcCtx.Trans.Trans(l.lang, v.Description),
+				Trans:       l.svcCtx.Trans.Trans(l.lang, v.Description),
 				Description: v.Description,
-				Group:       v.Group,
+				Group:       v.ApiGroup,
 				Method:      v.Method,
 			})
 	}

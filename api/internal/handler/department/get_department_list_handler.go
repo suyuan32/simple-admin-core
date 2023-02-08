@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /department/list department GetDepartmentList
 //
-// Get Department list | 获取Department列表
+// Get department list | 获取Department列表
 //
-// Get Department list | 获取Department列表
+// Get department list | 获取Department列表
 //
 // Parameters:
 //  + name: body

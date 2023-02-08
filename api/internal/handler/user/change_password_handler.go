@@ -3,13 +3,14 @@ package user
 import (
 	"net/http"
 
+	"github.com/zeromicro/go-zero/rest/httpx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-// swagger:route post /user/change-password user ChangePassword
+// swagger:route post /user/change_password user ChangePassword
 //
 // Change Password | 修改密码
 //

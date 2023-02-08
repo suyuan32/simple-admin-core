@@ -12,22 +12,22 @@ import (
 
 // swagger:route post /token/delete token DeleteToken
 //
-// Delete token information | 删除token信息
+// Delete token information | 删除Token信息
 //
-// Delete token information | 删除token信息
+// Delete token information | 删除Token信息
 //
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
-//    type: UUIDReq
+//    type: UUIDsReq
 //
 // Responses:
 //  200: BaseMsgResp
 
 func DeleteTokenHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.UUIDReq
+		var req types.UUIDsReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return

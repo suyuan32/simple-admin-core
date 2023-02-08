@@ -16,7 +16,7 @@ type Menu struct {
 
 func (Menu) Fields() []ent.Field {
 	return []ent.Field{
-		field.Uint64("parent_id").Optional().Comment("parent menu ID | 父菜单ID"),
+		field.Uint64("parent_id").Default(100000).Optional().Comment("parent menu ID | 父菜单ID"),
 		field.Uint32("menu_level").Comment("menu level | 菜单层级"),
 		field.Uint32("menu_type").Comment("menu type | 菜单类型 （菜单或目录）0 目录 1 菜单"),
 		field.String("path").Optional().Default("").Comment("index path | 菜单路由路径"),

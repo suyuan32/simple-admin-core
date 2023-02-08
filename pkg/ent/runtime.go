@@ -187,6 +187,10 @@ func init() {
 	menuDescSort := menuMixinFields1[0].Descriptor()
 	// menu.DefaultSort holds the default value on creation for the sort field.
 	menu.DefaultSort = menuDescSort.Default.(uint32)
+	// menuDescParentID is the schema descriptor for parent_id field.
+	menuDescParentID := menuFields[0].Descriptor()
+	// menu.DefaultParentID holds the default value on creation for the parent_id field.
+	menu.DefaultParentID = menuDescParentID.Default.(uint64)
 	// menuDescPath is the schema descriptor for path field.
 	menuDescPath := menuFields[3].Descriptor()
 	// menu.DefaultPath holds the default value on creation for the path field.

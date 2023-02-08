@@ -656,7 +656,6 @@ func (mq *MenuQuery) loadParams(ctx context.Context, query *MenuParamQuery, node
 			init(nodes[i])
 		}
 	}
-	query.withFKs = true
 	query.Where(predicate.MenuParam(func(s *sql.Selector) {
 		s.Where(sql.InValues(menu.ParamsColumn, fks...))
 	}))
@@ -665,13 +664,10 @@ func (mq *MenuQuery) loadParams(ctx context.Context, query *MenuParamQuery, node
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.menu_params
-		if fk == nil {
-			return fmt.Errorf(`foreign-key "menu_params" is nil for node %v`, n.ID)
-		}
-		node, ok := nodeids[*fk]
+		fk := n.MenuID
+		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "menu_params" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "menu_id" returned %v for node %v`, fk, n.ID)
 		}
 		assign(node, n)
 	}

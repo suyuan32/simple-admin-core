@@ -27,9 +27,9 @@ func NewDeleteApiLogic(r *http.Request, svcCtx *svc.ServiceContext) *DeleteApiLo
 	}
 }
 
-func (l *DeleteApiLogic) DeleteApi(req *types.IDReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.DeleteApi(l.ctx, &core.IDReq{
-		Id: req.Id,
+func (l *DeleteApiLogic) DeleteApi(req *types.IDsReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.DeleteApi(l.ctx, &core.IDsReq{
+		Ids: req.Ids,
 	})
 	if err != nil {
 		return nil, err

@@ -27,9 +27,9 @@ func NewDeleteMemberLogic(r *http.Request, svcCtx *svc.ServiceContext) *DeleteMe
 	}
 }
 
-func (l *DeleteMemberLogic) DeleteMember(req *types.UUIDReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.DeleteMember(l.ctx, &core.UUIDReq{
-		Id: req.Id,
+func (l *DeleteMemberLogic) DeleteMember(req *types.UUIDsReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.DeleteMember(l.ctx, &core.UUIDsReq{
+		Ids: req.Ids,
 	})
 	if err != nil {
 		return nil, err

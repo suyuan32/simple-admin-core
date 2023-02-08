@@ -6,6 +6,8 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -28,13 +30,22 @@ func NewChangePasswordLogic(r *http.Request, svcCtx *svc.ServiceContext) *Change
 }
 
 func (l *ChangePasswordLogic) ChangePassword(req *types.ChangePasswordReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.ChangePassword(l.ctx, &core.ChangePasswordReq{
-		Id:          l.ctx.Value("userId").(string),
-		OldPassword: req.OldPassword,
-		NewPassword: req.NewPassword,
-	})
+	userData, err := l.svcCtx.CoreRpc.GetUserById(l.ctx, &core.UUIDReq{Id: l.ctx.Value("userId").(string)})
 	if err != nil {
 		return nil, err
 	}
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
+
+	if utils.BcryptCheck(req.OldPassword, userData.Password) {
+		result, err := l.svcCtx.CoreRpc.UpdateUser(l.ctx, &core.UserInfo{
+			Id:       l.ctx.Value("userId").(string),
+			Password: utils.BcryptEncrypt(req.NewPassword),
+		})
+		if err != nil {
+			return nil, err
+		}
+
+		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
+	}
+
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Failed)}, nil
 }

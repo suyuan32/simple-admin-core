@@ -5,15 +5,15 @@ import (
 	"fmt"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
-	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
+
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 )
 
 type GetUserByIdLogic struct {
@@ -30,40 +30,43 @@ func NewGetUserByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 	}
 }
 
-func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfoResp, error) {
-	u, err := l.svcCtx.DB.User.Query().Where(user.IDEQ(uuidx.ParseUUIDString(in.Id))).First(l.ctx)
+func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfo, error) {
+	result, err := l.svcCtx.DB.User.Get(l.ctx, uuidx.ParseUUIDString(in.Id))
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
 			logx.Errorw(err.Error(), logx.Field("detail", in))
 			return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
+		case ent.IsConstraintError(err):
+			logx.Errorw(err.Error(), logx.Field("detail", in))
+			return nil, statuserr.NewInvalidArgumentError(i18n.UpdateFailed)
 		default:
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(i18n.DatabaseError)
 		}
 	}
 
-	roleName, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d", u.RoleID))
-	roleValue, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d_value", u.RoleID))
+	roleName, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d", result.RoleID))
+	roleValue, err := l.svcCtx.Redis.Hget("roleData", fmt.Sprintf("%d_value", result.RoleID))
 	if err != nil {
 		return nil, err
 	}
 
-	return &core.UserInfoResp{
-		Nickname:     u.Nickname,
-		Avatar:       u.Avatar,
-		RoleId:       u.RoleID,
+	return &core.UserInfo{
+		Nickname:     result.Nickname,
+		Avatar:       result.Avatar,
+		RoleId:       result.RoleID,
 		RoleName:     roleName,
 		RoleValue:    roleValue,
-		Mobile:       u.Mobile,
-		Email:        u.Email,
-		Status:       uint32(u.Status),
-		Id:           u.ID.String(),
-		Username:     u.Username,
-		HomePath:     u.HomePath,
-		Description:  u.Description,
-		DepartmentId: u.DepartmentID,
-		CreatedAt:    u.CreatedAt.Unix(),
-		UpdatedAt:    u.UpdatedAt.Unix(),
+		Mobile:       result.Mobile,
+		Email:        result.Email,
+		Status:       uint32(result.Status),
+		Id:           result.ID.String(),
+		Username:     result.Username,
+		HomePath:     result.HomePath,
+		Description:  result.Description,
+		DepartmentId: result.DepartmentID,
+		CreatedAt:    result.CreatedAt.Unix(),
+		UpdatedAt:    result.UpdatedAt.Unix(),
 	}, nil
 }

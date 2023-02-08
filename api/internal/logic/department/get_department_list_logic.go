@@ -54,12 +54,12 @@ func (l *GetDepartmentListLogic) GetDepartmentList(req *types.DepartmentListReq)
 				},
 				Trans:     l.svcCtx.Trans.Trans(l.lang, v.Name),
 				Status:    v.Status,
+				Sort:      v.Sort,
 				Name:      v.Name,
 				Ancestors: v.Ancestors,
 				Leader:    v.Leader,
 				Phone:     v.Phone,
 				Email:     v.Email,
-				Sort:      v.Sort,
 				Remark:    v.Remark,
 				ParentId:  v.ParentId,
 			})

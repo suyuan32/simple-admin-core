@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+// OauthProvider message
+
+message OauthProviderInfo {
+  uint64 id = 1;
+  int64 created_at = 2;
+  int64 updated_at = 3;
+  string name = 4;
+  string client_id = 5;
+  string client_secret = 6;
+  string redirect_url = 7;
+  string scopes = 8;
+  string auth_url = 9;
+  string token_url = 10;
+  uint64 auth_style = 11;
+  string info_url = 12;
+}
+
+message OauthProviderListResp {
+  uint64 total = 1;
+  repeated OauthProviderInfo data = 2;
+}
+
+message OauthProviderListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string name = 3;
+  string client_id = 4;
+  string client_secret = 5;
+}
+
+
+message CallbackReq {
+  string state = 1;
+  string code = 2;
+}
+
+message OauthLoginReq {
+  string state = 1;
+  string provider = 2;
+}
+
+message OauthRedirectResp {
+  string url = 1;
+}
+
+
+service Core {
+
+  // OauthProvider management
+  // group: oauthprovider
+  rpc createOauthProvider (OauthProviderInfo) returns (BaseResp);
+  // group: oauthprovider
+  rpc updateOauthProvider (OauthProviderInfo) returns (BaseResp);
+  // group: oauthprovider
+  rpc getOauthProviderList (OauthProviderListReq) returns (OauthProviderListResp);
+  // group: oauthprovider
+  rpc getOauthProviderById (IDReq) returns (OauthProviderInfo);
+  // group: oauthprovider
+  rpc deleteOauthProvider (IDsReq) returns (BaseResp);
+  // group: oauthprovider
+  rpc oauthLogin (OauthLoginReq) returns (OauthRedirectResp);
+  // group: oauthprovider
+  rpc oauthCallback (CallbackReq) returns (LoginResp);
+
+}

@@ -4,11 +4,12 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
+	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -29,16 +30,16 @@ func NewCreateDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 
 func (l *CreateDictionaryLogic) CreateDictionary(in *core.DictionaryInfo) (*core.BaseResp, error) {
 	err := l.svcCtx.DB.Dictionary.Create().
+		SetStatus(uint8(in.Status)).
 		SetTitle(in.Title).
 		SetName(in.Name).
-		SetStatus(uint8(in.Status)).
 		SetDesc(in.Desc).
 		Exec(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):
 			logx.Errorw(err.Error(), logx.Field("detail", in))
-			return nil, statuserr.NewInvalidArgumentError(i18n.UpdateFailed)
+			return nil, statuserr.NewInvalidArgumentError(i18n.CreateFailed)
 		default:
 			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 			return nil, statuserr.NewInternalError(i18n.DatabaseError)

@@ -48,21 +48,6 @@ message MenuRoleListResp {
   repeated MenuRoleInfo data = 2;
 }
 
-message MenuParamInfo {
-  uint64 id = 1;
-  string type = 3;
-  string key = 4;
-  string value = 5;
-  int64 created_at = 6;
-  int64 updated_at = 7;
-  uint64 menu_id = 8;
-}
-
-message MenuParamListResp {
-  uint64 total = 1;
-  repeated MenuParamInfo data = 2;
-}
-
 service Core {
   //menu management
 
@@ -76,12 +61,4 @@ service Core {
   rpc getMenuListByRole (IDReq) returns (MenuInfoList);
   // group: menu
   rpc getMenuList (PageInfoReq) returns (MenuInfoList);
-  // group: menu
-  rpc createMenuParam (MenuParamInfo) returns (BaseResp);
-  // group: menu
-  rpc updateMenuParam (MenuParamInfo) returns (BaseResp);
-  // group: menu
-  rpc deleteMenuParam (IDsReq) returns (BaseResp);
-  // group: menu
-  rpc getMenuParamListByMenuId (IDReq) returns (MenuParamListResp);
 }

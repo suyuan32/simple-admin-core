@@ -1,99 +1,65 @@
-syntax = "v1"
-
-info(
-    title: "Token management"
-    desc: "Token management is used to manage tokens"
-    author: "Ryan Su"
-    email: "yuansu.china.work@gmail.com"
-    version: "v1.0"
-)
-
 import "base.api"
 
 type (
-    // The response data of Token information | Token信息
+    // The response data of token information | Token信息
     TokenInfo {
         BaseUUIDInfo
 
-        // User's UUID | 用户的UUID
-        UUID          string `json:"UUID"`
+        // Status
+        Status  uint32 `json:"status,optional"`
 
-        // Token string | Token 字符串
-        Token   string `json:"token"`
+        // Uuid
+        Uuid  string `json:"uuid,optional"`
 
-        // Log in source such as github | Token 来源 （本地为core, 第三方如github等）
-        Source  string `json:"source"`
+        // Token
+        Token  string `json:"token,optional"`
 
-        // JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-        Status  uint32 `json:"status"`
+        // Source
+        Source  string `json:"source,optional"`
 
-        // Expire time | 过期时间
-        ExpiredAt int64 `json:"expiredAt"`
+        // ExpiredAt
+        ExpiredAt  int64 `json:"expiredAt,optional"`
     }
 
-    // Create or update token information request | 创建或更新token信息
-    CreateOrUpdateTokenReq {
-       // ID
-       // Required: true
-       Id            string `json:"ID"`
-
-       // User's UUID | 用户的UUID
-       // Required: true
-       // Max Length: 36
-       UUID          string `json:"UUID" validate:"len=36"`
-
-       // Token string | Token 字符串
-       // Required: true
-       Token   string `json:"token"`
-
-       // Log in source such as github | Token 来源 （本地为core, 第三方如github等）
-       // Required: true
-       // Max Length: 50
-       Source  string `json:"source" validate:"max=50"`
-
-       // JWT status 0 ban 1 active | JWT状态， 0 禁止 1 正常
-       // Required: true
-       Status  uint32 `json:"status" validate:"number"`
-
-       // Expire time | 过期时间
-       // Required: true
-       ExpiredAt int64 `json:"expiredAt" validate:"number"`
-    }
-
-    // The response data of Token list | Token列表返回数据
+    // The response data of token list | Token列表数据
     TokenListResp {
         BaseDataInfo
 
-        // The token list data | Token列表数据
-        Data  TokenListInfo  `json:"data"`
+        // Token list data | Token列表数据
+        Data TokenListInfo `json:"data"`
     }
 
-    // The  data of Token list | Token列表数据
+    // Token list data | Token列表数据
     TokenListInfo {
         BaseListInfo
 
-        // The token list data | Token列表数据
+        // The API list data | Token列表数据
         Data  []TokenInfo  `json:"data"`
     }
 
-    // Get token list request params | token列表请求参数
+    // Get token list request params | Token列表请求参数
     TokenListReq {
         PageInfo
-        // User's UUID | 用户的UUID
-        // Max Length: 36
-        UUID      string `json:"UUID,optional" validate:"omitempty,len=36"`
 
-        // user's nickname | 用户的昵称
-        // Max length: 10
-        Nickname  string  `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
+        // Username
+        Username  string `json:"username,optional"`
 
-        // User Name | 用户名
-        // Max length: 20
-        Username   string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
+        // Nickname
+        Nickname  string `json:"nickname,optional"`
 
-        // The user's email address | 用户的邮箱
-        // Max length: 100
-        Email     string `json:"email,optional" validate:"omitempty,email,max=100"`
+        // Email
+        Email  string `json:"email,optional"`
+
+        // Uuid
+        Uuid  string `json:"uuid,optional"`
+    }
+
+    // Token information response | Token信息返回体
+    TokenInfoResp {
+        BaseDataInfo
+
+        // Token information | Token数据
+        Data TokenInfo `json:"data"`
     }
 )
 
@@ -104,25 +70,25 @@ type (
 )
 
 service core {
-    // Create or update Token information | 创建或更新Token
-    @handler createOrUpdateToken
-    post /token/create_or_update (CreateOrUpdateTokenReq) returns (BaseMsgResp)
+    // Create token information | 创建Token
+    @handler createToken
+    post /token/create (TokenInfo) returns (BaseMsgResp)
 
-    // Delete token information | 删除token信息
+    // Update token information | 更新Token
+    @handler updateToken
+    post /token/update (TokenInfo) returns (BaseMsgResp)
+
+    // Delete token information | 删除Token信息
     @handler deleteToken
-    post /token/delete (UUIDReq) returns (BaseMsgResp)
+    post /token/delete (UUIDsReq) returns (BaseMsgResp)
 
-    // Batch delete token information | 批量删除token信息
-    @handler BatchDeleteToken
-    post /token/batch_delete (UUIDsReq) returns (BaseMsgResp)
-
-    // Get Token list | 获取token列表
+    // Get token list | 获取Token列表
     @handler getTokenList
     post /token/list (TokenListReq) returns (TokenListResp)
 
-    // Set token status | 设置token状态
-    @handler updateTokenStatus
-    post /token/status (StatusCodeUUIDReq) returns (BaseMsgResp)
+    // Get Token by ID | 通过ID获取Token
+    @handler getTokenById
+    post /token (UUIDReq) returns (TokenInfoResp)
 
     // Force logging out by user UUID | 根据UUID强制用户退出
     @handler logout

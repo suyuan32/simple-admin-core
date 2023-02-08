@@ -1,92 +1,58 @@
 import "base.api"
 
 type (
-    // The response data of Department information | Department信息
+    // The response data of department information | 部门信息
     DepartmentInfo {
         BaseInfo
 
         // Translated Name
-        Trans string `json:"trans"`
+        Trans string `json:"trans,optional"`
 
         // Status
-        Status  uint32 `json:"status"`
-
-        // Name
-        Name  string `json:"name"`
-
-        // Ancestors
-        Ancestors  string `json:"ancestors"`
-
-        // Leader
-        Leader  string `json:"leader"`
-
-        // Phone
-        Phone  string `json:"phone"`
-
-        // Email
-        Email  string `json:"email"`
+        Status  uint32 `json:"status,optional"`
 
         // Sort
-        Sort  uint32 `json:"sort"`
-
-        // Remark
-        Remark  string `json:"remark"`
-
-        // ParentId
-        ParentId  uint64 `json:"parentId"`
-    }
-
-    // Create or update Department information request | 创建或更新Department信息
-    CreateOrUpdateDepartmentReq {
-        // ID
-        // Required: true
-        Id    uint64    `json:"id"`
-
-        // Status
-        Status  uint32 `json:"status"`
+        Sort  uint32 `json:"sort,optional"`
 
         // Name
-        Name  string `json:"name"`
+        Name  string `json:"name,optional"`
 
         // Ancestors
         Ancestors  string `json:"ancestors,optional"`
 
         // Leader
-        Leader  string `json:"leader"`
+        Leader  string `json:"leader,optional"`
 
         // Phone
-        Phone  string `json:"phone"`
+        Phone  string `json:"phone,optional"`
 
         // Email
-        Email  string `json:"email"`
-
-        // Sort
-        Sort  uint32 `json:"sort"`
+        Email  string `json:"email,optional"`
 
         // Remark
-        Remark  string `json:"remark"`
+        Remark  string `json:"remark,optional"`
 
         // ParentId
-        ParentId  uint64 `json:"parentId"`
+        ParentId  uint64 `json:"parentId,optional"`
     }
 
-    // The response data of Department list | Department列表数据
+    // The response data of department list | 部门列表数据
     DepartmentListResp {
         BaseDataInfo
 
-        // Department list data | Department 列表数据
+        // Department list data | 部门列表数据
         Data DepartmentListInfo `json:"data"`
     }
 
-    // Department list data | Department 列表数据
+    // Department list data | 部门列表数据
     DepartmentListInfo {
         BaseListInfo
 
-        // The API list data | Department 列表数据
+        // The API list data | 部门列表数据
         Data  []DepartmentInfo  `json:"data"`
     }
 
-    // Get department list request params | Department列表请求参数
+    // Get department list request params | 部门列表请求参数
     DepartmentListReq {
         PageInfo
 
@@ -95,6 +61,14 @@ type (
 
         // Leader
         Leader  string `json:"leader,optional"`
+    }
+
+    // Department information response | 部门信息返回体
+    DepartmentInfoResp {
+        BaseDataInfo
+
+        // Department information | 部门数据
+        Data DepartmentInfo `json:"data"`
     }
 )
 
@@ -105,24 +79,23 @@ type (
 )
 
 service core {
-    // Create or update Department information | 创建或更新Department
-    @handler createOrUpdateDepartment
-    post /department/create_or_update (CreateOrUpdateDepartmentReq) returns (BaseMsgResp)
+    // Create department information | 创建部门
+    @handler createDepartment
+    post /department/create (DepartmentInfo) returns (BaseMsgResp)
 
-    // Delete Department information | 删除Department信息
+    // Update department information | 更新部门
+    @handler updateDepartment
+    post /department/update (DepartmentInfo) returns (BaseMsgResp)
+
+    // Delete department information | 删除部门信息
     @handler deleteDepartment
-    post /department/delete (IDReq) returns (BaseMsgResp)
+    post /department/delete (IDsReq) returns (BaseMsgResp)
 
-    // Get Department list | 获取Department列表
+    // Get department list | 获取部门列表
     @handler getDepartmentList
     post /department/list (DepartmentListReq) returns (DepartmentListResp)
 
-    // Delete Department information | 删除Department信息
-    @handler batchDeleteDepartment
-    post /department/batch_delete (IDsReq) returns (BaseMsgResp)
-
-    // Set department's status | 更新Department状态
-    @handler updateDepartmentStatus
-    post /department/status (StatusCodeReq) returns (BaseMsgResp)
-
+    // Get Department by ID | 通过ID获取部门
+    @handler getDepartmentById
+    post /department (IDReq) returns (DepartmentInfoResp)
 }

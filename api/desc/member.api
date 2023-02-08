@@ -6,59 +6,28 @@ type (
         BaseUUIDInfo
 
         // Status
-        Status  uint32 `json:"status"`
+        Status  uint32 `json:"status,optional"`
 
         // Username
-        Username  string `json:"username"`
+        Username  string `json:"username,optional"`
 
         // Password
-        Password  string `json:"password"`
+        Password  string `json:"password,optional"`
 
         // Nickname
-        Nickname  string `json:"nickname"`
+        Nickname  string `json:"nickname,optional"`
 
         // RankId
-        RankId  uint64 `json:"rankId"`
+        RankId  uint64 `json:"rankId,optional"`
 
         // Mobile
-        Mobile  string `json:"mobile"`
+        Mobile  string `json:"mobile,optional"`
 
         // Email
-        Email  string `json:"email"`
+        Email  string `json:"email,optional"`
 
         // Avatar
-        Avatar  string `json:"avatar"`
-    }
-
-    // Create or update member information request | 创建或更新会员信息
-    CreateOrUpdateMemberReq {
-        // ID
-        // Required: true
-        Id    string    `json:"id"`
-
-        // Status
-        Status  uint32 `json:"status"`
-
-        // Username
-        Username  string `json:"username"`
-
-        // Password
-        Password  string `json:"password"`
-
-        // Nickname
-        Nickname  string `json:"nickname"`
-
-        // RankId
-        RankId  uint64 `json:"rankId"`
-
-        // Mobile
-        Mobile  string `json:"mobile"`
-
-        // Email
-        Email  string `json:"email"`
-
-        // Avatar
-        Avatar  string `json:"avatar"`
+        Avatar  string `json:"avatar,optional"`
     }
 
     // The response data of member list | 会员列表数据
@@ -81,93 +50,30 @@ type (
     MemberListReq {
         PageInfo
 
-        // Username
-        Username  string `json:"username,optional"`
+       // Username
+       Username  string `json:"username,optional"`
 
-        // Nickname
-        Nickname  string `json:"nickname,optional"`
+       // Nickname
+       Nickname  string `json:"nickname,optional"`
 
-        // Mobile
-        Mobile  string `json:"mobile,optional"`
+       // Mobile
+       Mobile  string `json:"mobile,optional"`
 
-        // Email
-        Email  string `json:"email,optional"`
+       // Email
+       Email  string `json:"email,optional"`
 
-        // Rank ID
-        RankId  uint64 `json:"rankId,optional"`
+       // Rank ID
+       RankId  uint64 `json:"rankId,optional"`
     }
 
-    // Login request | 登录参数
-    MemberLoginReq {
-        // User Name | 用户名
-        // Required: true
-        // Max length: 20
-        Username   string `json:"username" validate:"alphanum,max=20"`
-
-        // Password | 密码
-        // Required: true
-        // Min length: 6
-        // Max length: 30
-        Password   string `json:"password" validate:"max=30,min=6"`
-    }
-
-
-    // Login response data | 登陆返回信息
-    MemberLoginRespInfo {
-        // ID
-        Id  string `json:"id"`
-
-        // Avatar | 头像地址
-        Avatar  string `json:"avatar"`
-
-        // Nick name | 昵称
-        Nickname string `json:"nickname"`
-
-        // Rank ID | 等级ID
-        RankId  uint64 `json:"rankId"`
-
-        // Token for authorization | 验证身份的token
-        Token        string          `json:"token"`
-
-        // Expire timestamp | 过期时间戳
-        Expire       uint64          `json:"expire"`
-    }
-
-    // Login response | 登陆信息返回体
-    MemberLoginResp {
+    // Member information response | 会员信息返回体
+    MemberInfoResp {
         BaseDataInfo
 
-        // Login response data | 登陆返回信息
-        Data MemberLoginRespInfo `json:"data"`
-    }
-
-    // Member register request | 会员注册请求
-    MemberRegisterReq {
-        // Username | 用户名
-        Username string `json:"username"`
-
-        // Email | 邮箱
-        Email  string `json:"email"`
-
-        // Password | 密码
-        Password  string `json:"password"`
+        // Member information | 会员数据
+        Data MemberInfo `json:"data"`
     }
 )
-
-@server(
-    group: member
-)
-
-service core {
-    // Member Log in | 会员登陆
-    @handler memberLogin
-    post /member/login (MemberLoginReq) returns (MemberLoginResp)
-
-    // Register | 注册
-    @handler memberRegister
-    post /member/register (MemberRegisterReq) returns (BaseMsgResp)
-}
-
 
 @server(
     jwt: Auth
@@ -176,23 +82,23 @@ service core {
 )
 
 service core {
-    // Create or update member information | 创建或更新会员
-    @handler createOrUpdateMember
-    post /member/create_or_update (CreateOrUpdateMemberReq) returns (BaseMsgResp)
+    // Create member information | 创建会员
+    @handler createMember
+    post /member/create (MemberInfo) returns (BaseMsgResp)
+
+    // Update member information | 更新会员
+    @handler updateMember
+    post /member/update (MemberInfo) returns (BaseMsgResp)
 
     // Delete member information | 删除会员信息
     @handler deleteMember
-    post /member/delete (UUIDReq) returns (BaseMsgResp)
+    post /member/delete (UUIDsReq) returns (BaseMsgResp)
 
     // Get member list | 获取会员列表
     @handler getMemberList
     post /member/list (MemberListReq) returns (MemberListResp)
 
-    // Delete member information | 删除会员信息
-    @handler batchDeleteMember
-    post /member/batch_delete (UUIDsReq) returns (BaseMsgResp)
-
-    // Set member's status | 更新会员状态
-    @handler updateMemberStatus
-    post /member/status (StatusCodeUUIDReq) returns (BaseMsgResp)
+    // Get member by ID | 通过ID获取会员
+    @handler getMemberById
+    post /member (UUIDReq) returns (MemberInfoResp)
 }

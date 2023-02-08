@@ -23,6 +23,7 @@ message ApiListReq {
   string path = 3;
   string description = 4;
   string api_group = 5;
+  string method = 6;
 }
 
 

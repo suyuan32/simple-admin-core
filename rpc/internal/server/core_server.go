@@ -9,11 +9,14 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/api"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/authority"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/base"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/member"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/memberrank"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauth"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menuparam"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/position"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/role"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
@@ -74,6 +77,33 @@ func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.Ba
 	return l.InitDatabase(in)
 }
 
+// Department management
+func (s *CoreServer) CreateDepartment(ctx context.Context, in *core.DepartmentInfo) (*core.BaseResp, error) {
+	l := department.NewCreateDepartmentLogic(ctx, s.svcCtx)
+	return l.CreateDepartment(in)
+}
+
+func (s *CoreServer) UpdateDepartment(ctx context.Context, in *core.DepartmentInfo) (*core.BaseResp, error) {
+	l := department.NewUpdateDepartmentLogic(ctx, s.svcCtx)
+	return l.UpdateDepartment(in)
+}
+
+func (s *CoreServer) GetDepartmentList(ctx context.Context, in *core.DepartmentListReq) (*core.DepartmentListResp, error) {
+	l := department.NewGetDepartmentListLogic(ctx, s.svcCtx)
+	return l.GetDepartmentList(in)
+}
+
+func (s *CoreServer) GetDepartmentById(ctx context.Context, in *core.IDReq) (*core.DepartmentInfo, error) {
+	l := department.NewGetDepartmentByIdLogic(ctx, s.svcCtx)
+	return l.GetDepartmentById(in)
+}
+
+func (s *CoreServer) DeleteDepartment(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := department.NewDeleteDepartmentLogic(ctx, s.svcCtx)
+	return l.DeleteDepartment(in)
+}
+
+// Dictionary management
 func (s *CoreServer) CreateDictionary(ctx context.Context, in *core.DictionaryInfo) (*core.BaseResp, error) {
 	l := dictionary.NewCreateDictionaryLogic(ctx, s.svcCtx)
 	return l.CreateDictionary(in)
@@ -84,33 +114,44 @@ func (s *CoreServer) UpdateDictionary(ctx context.Context, in *core.DictionaryIn
 	return l.UpdateDictionary(in)
 }
 
+func (s *CoreServer) GetDictionaryList(ctx context.Context, in *core.DictionaryListReq) (*core.DictionaryListResp, error) {
+	l := dictionary.NewGetDictionaryListLogic(ctx, s.svcCtx)
+	return l.GetDictionaryList(in)
+}
+
+func (s *CoreServer) GetDictionaryById(ctx context.Context, in *core.IDReq) (*core.DictionaryInfo, error) {
+	l := dictionary.NewGetDictionaryByIdLogic(ctx, s.svcCtx)
+	return l.GetDictionaryById(in)
+}
+
 func (s *CoreServer) DeleteDictionary(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
 	l := dictionary.NewDeleteDictionaryLogic(ctx, s.svcCtx)
 	return l.DeleteDictionary(in)
 }
 
-func (s *CoreServer) GetDictionaryList(ctx context.Context, in *core.DictionaryListReq) (*core.DictionaryList, error) {
-	l := dictionary.NewGetDictionaryListLogic(ctx, s.svcCtx)
-	return l.GetDictionaryList(in)
-}
-
-func (s *CoreServer) GetDetailByDictionaryName(ctx context.Context, in *core.DictionaryDetailReq) (*core.DictionaryDetailList, error) {
-	l := dictionary.NewGetDetailByDictionaryNameLogic(ctx, s.svcCtx)
-	return l.GetDetailByDictionaryName(in)
-}
-
-func (s *CoreServer) CreateDictionaryDetail(ctx context.Context, in *core.DictionaryDetail) (*core.BaseResp, error) {
-	l := dictionary.NewCreateDictionaryDetailLogic(ctx, s.svcCtx)
+// DictionaryDetail management
+func (s *CoreServer) CreateDictionaryDetail(ctx context.Context, in *core.DictionaryDetailInfo) (*core.BaseResp, error) {
+	l := dictionarydetail.NewCreateDictionaryDetailLogic(ctx, s.svcCtx)
 	return l.CreateDictionaryDetail(in)
 }
 
-func (s *CoreServer) UpdateDictionaryDetail(ctx context.Context, in *core.DictionaryDetail) (*core.BaseResp, error) {
-	l := dictionary.NewUpdateDictionaryDetailLogic(ctx, s.svcCtx)
+func (s *CoreServer) UpdateDictionaryDetail(ctx context.Context, in *core.DictionaryDetailInfo) (*core.BaseResp, error) {
+	l := dictionarydetail.NewUpdateDictionaryDetailLogic(ctx, s.svcCtx)
 	return l.UpdateDictionaryDetail(in)
 }
 
+func (s *CoreServer) GetDictionaryDetailList(ctx context.Context, in *core.DictionaryDetailListReq) (*core.DictionaryDetailListResp, error) {
+	l := dictionarydetail.NewGetDictionaryDetailListLogic(ctx, s.svcCtx)
+	return l.GetDictionaryDetailList(in)
+}
+
+func (s *CoreServer) GetDictionaryDetailById(ctx context.Context, in *core.IDReq) (*core.DictionaryDetailInfo, error) {
+	l := dictionarydetail.NewGetDictionaryDetailByIdLogic(ctx, s.svcCtx)
+	return l.GetDictionaryDetailById(in)
+}
+
 func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
-	l := dictionary.NewDeleteDictionaryDetailLogic(ctx, s.svcCtx)
+	l := dictionarydetail.NewDeleteDictionaryDetailLogic(ctx, s.svcCtx)
 	return l.DeleteDictionaryDetail(in)
 }
 
@@ -196,55 +237,77 @@ func (s *CoreServer) GetMenuList(ctx context.Context, in *core.PageInfoReq) (*co
 	return l.GetMenuList(in)
 }
 
+// MenuParam management
 func (s *CoreServer) CreateMenuParam(ctx context.Context, in *core.MenuParamInfo) (*core.BaseResp, error) {
-	l := menu.NewCreateMenuParamLogic(ctx, s.svcCtx)
+	l := menuparam.NewCreateMenuParamLogic(ctx, s.svcCtx)
 	return l.CreateMenuParam(in)
 }
 
 func (s *CoreServer) UpdateMenuParam(ctx context.Context, in *core.MenuParamInfo) (*core.BaseResp, error) {
-	l := menu.NewUpdateMenuParamLogic(ctx, s.svcCtx)
+	l := menuparam.NewUpdateMenuParamLogic(ctx, s.svcCtx)
 	return l.UpdateMenuParam(in)
 }
 
+func (s *CoreServer) GetMenuParamList(ctx context.Context, in *core.MenuParamListReq) (*core.MenuParamListResp, error) {
+	l := menuparam.NewGetMenuParamListLogic(ctx, s.svcCtx)
+	return l.GetMenuParamList(in)
+}
+
+func (s *CoreServer) GetMenuParamById(ctx context.Context, in *core.IDReq) (*core.MenuParamInfo, error) {
+	l := menuparam.NewGetMenuParamByIdLogic(ctx, s.svcCtx)
+	return l.GetMenuParamById(in)
+}
+
 func (s *CoreServer) DeleteMenuParam(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
-	l := menu.NewDeleteMenuParamLogic(ctx, s.svcCtx)
+	l := menuparam.NewDeleteMenuParamLogic(ctx, s.svcCtx)
 	return l.DeleteMenuParam(in)
 }
 
-func (s *CoreServer) GetMenuParamListByMenuId(ctx context.Context, in *core.IDReq) (*core.MenuParamListResp, error) {
-	l := menu.NewGetMenuParamListByMenuIdLogic(ctx, s.svcCtx)
-	return l.GetMenuParamListByMenuId(in)
+// OauthProvider management
+func (s *CoreServer) CreateOauthProvider(ctx context.Context, in *core.OauthProviderInfo) (*core.BaseResp, error) {
+	l := oauthprovider.NewCreateOauthProviderLogic(ctx, s.svcCtx)
+	return l.CreateOauthProvider(in)
 }
 
-func (s *CoreServer) CreateOrUpdateProvider(ctx context.Context, in *core.ProviderInfo) (*core.BaseResp, error) {
-	l := oauth.NewCreateOrUpdateProviderLogic(ctx, s.svcCtx)
-	return l.CreateOrUpdateProvider(in)
+func (s *CoreServer) UpdateOauthProvider(ctx context.Context, in *core.OauthProviderInfo) (*core.BaseResp, error) {
+	l := oauthprovider.NewUpdateOauthProviderLogic(ctx, s.svcCtx)
+	return l.UpdateOauthProvider(in)
 }
 
-func (s *CoreServer) DeleteProvider(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
-	l := oauth.NewDeleteProviderLogic(ctx, s.svcCtx)
-	return l.DeleteProvider(in)
+func (s *CoreServer) GetOauthProviderList(ctx context.Context, in *core.OauthProviderListReq) (*core.OauthProviderListResp, error) {
+	l := oauthprovider.NewGetOauthProviderListLogic(ctx, s.svcCtx)
+	return l.GetOauthProviderList(in)
 }
 
-func (s *CoreServer) GetProviderList(ctx context.Context, in *core.PageInfoReq) (*core.ProviderListResp, error) {
-	l := oauth.NewGetProviderListLogic(ctx, s.svcCtx)
-	return l.GetProviderList(in)
+func (s *CoreServer) GetOauthProviderById(ctx context.Context, in *core.IDReq) (*core.OauthProviderInfo, error) {
+	l := oauthprovider.NewGetOauthProviderByIdLogic(ctx, s.svcCtx)
+	return l.GetOauthProviderById(in)
+}
+
+func (s *CoreServer) DeleteOauthProvider(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := oauthprovider.NewDeleteOauthProviderLogic(ctx, s.svcCtx)
+	return l.DeleteOauthProvider(in)
 }
 
 func (s *CoreServer) OauthLogin(ctx context.Context, in *core.OauthLoginReq) (*core.OauthRedirectResp, error) {
-	l := oauth.NewOauthLoginLogic(ctx, s.svcCtx)
+	l := oauthprovider.NewOauthLoginLogic(ctx, s.svcCtx)
 	return l.OauthLogin(in)
 }
 
 func (s *CoreServer) OauthCallback(ctx context.Context, in *core.CallbackReq) (*core.LoginResp, error) {
-	l := oauth.NewOauthCallbackLogic(ctx, s.svcCtx)
+	l := oauthprovider.NewOauthCallbackLogic(ctx, s.svcCtx)
 	return l.OauthCallback(in)
 }
 
 // Position management
-func (s *CoreServer) CreateOrUpdatePosition(ctx context.Context, in *core.PositionInfo) (*core.BaseResp, error) {
-	l := position.NewCreateOrUpdatePositionLogic(ctx, s.svcCtx)
-	return l.CreateOrUpdatePosition(in)
+func (s *CoreServer) CreatePosition(ctx context.Context, in *core.PositionInfo) (*core.BaseResp, error) {
+	l := position.NewCreatePositionLogic(ctx, s.svcCtx)
+	return l.CreatePosition(in)
+}
+
+func (s *CoreServer) UpdatePosition(ctx context.Context, in *core.PositionInfo) (*core.BaseResp, error) {
+	l := position.NewUpdatePositionLogic(ctx, s.svcCtx)
+	return l.UpdatePosition(in)
 }
 
 func (s *CoreServer) GetPositionList(ctx context.Context, in *core.PositionListReq) (*core.PositionListResp, error) {
@@ -252,29 +315,30 @@ func (s *CoreServer) GetPositionList(ctx context.Context, in *core.PositionListR
 	return l.GetPositionList(in)
 }
 
-func (s *CoreServer) DeletePosition(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
+func (s *CoreServer) GetPositionById(ctx context.Context, in *core.IDReq) (*core.PositionInfo, error) {
+	l := position.NewGetPositionByIdLogic(ctx, s.svcCtx)
+	return l.GetPositionById(in)
+}
+
+func (s *CoreServer) DeletePosition(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
 	l := position.NewDeletePositionLogic(ctx, s.svcCtx)
 	return l.DeletePosition(in)
 }
 
-func (s *CoreServer) BatchDeletePosition(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
-	l := position.NewBatchDeletePositionLogic(ctx, s.svcCtx)
-	return l.BatchDeletePosition(in)
+// Role management
+func (s *CoreServer) CreateRole(ctx context.Context, in *core.RoleInfo) (*core.BaseResp, error) {
+	l := role.NewCreateRoleLogic(ctx, s.svcCtx)
+	return l.CreateRole(in)
 }
 
-func (s *CoreServer) UpdatePositionStatus(ctx context.Context, in *core.StatusCodeReq) (*core.BaseResp, error) {
-	l := position.NewUpdatePositionStatusLogic(ctx, s.svcCtx)
-	return l.UpdatePositionStatus(in)
+func (s *CoreServer) UpdateRole(ctx context.Context, in *core.RoleInfo) (*core.BaseResp, error) {
+	l := role.NewUpdateRoleLogic(ctx, s.svcCtx)
+	return l.UpdateRole(in)
 }
 
-func (s *CoreServer) CreateOrUpdateRole(ctx context.Context, in *core.RoleInfo) (*core.BaseResp, error) {
-	l := role.NewCreateOrUpdateRoleLogic(ctx, s.svcCtx)
-	return l.CreateOrUpdateRole(in)
-}
-
-func (s *CoreServer) DeleteRole(ctx context.Context, in *core.IDReq) (*core.BaseResp, error) {
-	l := role.NewDeleteRoleLogic(ctx, s.svcCtx)
-	return l.DeleteRole(in)
+func (s *CoreServer) GetRoleList(ctx context.Context, in *core.RoleListReq) (*core.RoleListResp, error) {
+	l := role.NewGetRoleListLogic(ctx, s.svcCtx)
+	return l.GetRoleList(in)
 }
 
 func (s *CoreServer) GetRoleById(ctx context.Context, in *core.IDReq) (*core.RoleInfo, error) {
@@ -282,29 +346,25 @@ func (s *CoreServer) GetRoleById(ctx context.Context, in *core.IDReq) (*core.Rol
 	return l.GetRoleById(in)
 }
 
-func (s *CoreServer) GetRoleList(ctx context.Context, in *core.PageInfoReq) (*core.RoleListResp, error) {
-	l := role.NewGetRoleListLogic(ctx, s.svcCtx)
-	return l.GetRoleList(in)
+func (s *CoreServer) DeleteRole(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := role.NewDeleteRoleLogic(ctx, s.svcCtx)
+	return l.DeleteRole(in)
 }
 
-func (s *CoreServer) UpdateRoleStatus(ctx context.Context, in *core.StatusCodeReq) (*core.BaseResp, error) {
-	l := role.NewUpdateRoleStatusLogic(ctx, s.svcCtx)
-	return l.UpdateRoleStatus(in)
+// Token management
+func (s *CoreServer) CreateToken(ctx context.Context, in *core.TokenInfo) (*core.BaseResp, error) {
+	l := token.NewCreateTokenLogic(ctx, s.svcCtx)
+	return l.CreateToken(in)
 }
 
-func (s *CoreServer) CreateOrUpdateToken(ctx context.Context, in *core.TokenInfo) (*core.BaseResp, error) {
-	l := token.NewCreateOrUpdateTokenLogic(ctx, s.svcCtx)
-	return l.CreateOrUpdateToken(in)
+func (s *CoreServer) UpdateToken(ctx context.Context, in *core.TokenInfo) (*core.BaseResp, error) {
+	l := token.NewUpdateTokenLogic(ctx, s.svcCtx)
+	return l.UpdateToken(in)
 }
 
-func (s *CoreServer) DeleteToken(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
+func (s *CoreServer) DeleteToken(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
 	l := token.NewDeleteTokenLogic(ctx, s.svcCtx)
 	return l.DeleteToken(in)
-}
-
-func (s *CoreServer) BatchDeleteToken(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
-	l := token.NewBatchDeleteTokenLogic(ctx, s.svcCtx)
-	return l.BatchDeleteToken(in)
 }
 
 func (s *CoreServer) GetTokenList(ctx context.Context, in *core.TokenListReq) (*core.TokenListResp, error) {
@@ -312,9 +372,9 @@ func (s *CoreServer) GetTokenList(ctx context.Context, in *core.TokenListReq) (*
 	return l.GetTokenList(in)
 }
 
-func (s *CoreServer) UpdateTokenStatus(ctx context.Context, in *core.StatusCodeUUIDReq) (*core.BaseResp, error) {
-	l := token.NewUpdateTokenStatusLogic(ctx, s.svcCtx)
-	return l.UpdateTokenStatus(in)
+func (s *CoreServer) GetTokenById(ctx context.Context, in *core.UUIDReq) (*core.TokenInfo, error) {
+	l := token.NewGetTokenByIdLogic(ctx, s.svcCtx)
+	return l.GetTokenById(in)
 }
 
 func (s *CoreServer) BlockUserAllToken(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
@@ -322,47 +382,33 @@ func (s *CoreServer) BlockUserAllToken(ctx context.Context, in *core.UUIDReq) (*
 	return l.BlockUserAllToken(in)
 }
 
-func (s *CoreServer) Login(ctx context.Context, in *core.LoginReq) (*core.LoginResp, error) {
-	l := user.NewLoginLogic(ctx, s.svcCtx)
-	return l.Login(in)
+// User management
+func (s *CoreServer) CreateUser(ctx context.Context, in *core.UserInfo) (*core.BaseResp, error) {
+	l := user.NewCreateUserLogic(ctx, s.svcCtx)
+	return l.CreateUser(in)
 }
 
-func (s *CoreServer) ChangePassword(ctx context.Context, in *core.ChangePasswordReq) (*core.BaseResp, error) {
-	l := user.NewChangePasswordLogic(ctx, s.svcCtx)
-	return l.ChangePassword(in)
+func (s *CoreServer) UpdateUser(ctx context.Context, in *core.UserInfo) (*core.BaseResp, error) {
+	l := user.NewUpdateUserLogic(ctx, s.svcCtx)
+	return l.UpdateUser(in)
 }
 
-func (s *CoreServer) CreateOrUpdateUser(ctx context.Context, in *core.CreateOrUpdateUserReq) (*core.BaseResp, error) {
-	l := user.NewCreateOrUpdateUserLogic(ctx, s.svcCtx)
-	return l.CreateOrUpdateUser(in)
-}
-
-func (s *CoreServer) GetUserById(ctx context.Context, in *core.UUIDReq) (*core.UserInfoResp, error) {
-	l := user.NewGetUserByIdLogic(ctx, s.svcCtx)
-	return l.GetUserById(in)
-}
-
-func (s *CoreServer) GetUserList(ctx context.Context, in *core.GetUserListReq) (*core.UserListResp, error) {
+func (s *CoreServer) GetUserList(ctx context.Context, in *core.UserListReq) (*core.UserListResp, error) {
 	l := user.NewGetUserListLogic(ctx, s.svcCtx)
 	return l.GetUserList(in)
 }
 
-func (s *CoreServer) DeleteUser(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
+func (s *CoreServer) GetUserById(ctx context.Context, in *core.UUIDReq) (*core.UserInfo, error) {
+	l := user.NewGetUserByIdLogic(ctx, s.svcCtx)
+	return l.GetUserById(in)
+}
+
+func (s *CoreServer) DeleteUser(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
 	l := user.NewDeleteUserLogic(ctx, s.svcCtx)
 	return l.DeleteUser(in)
 }
 
-func (s *CoreServer) BatchDeleteUser(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
-	l := user.NewBatchDeleteUserLogic(ctx, s.svcCtx)
-	return l.BatchDeleteUser(in)
-}
-
-func (s *CoreServer) UpdateProfile(ctx context.Context, in *core.UpdateProfileReq) (*core.BaseResp, error) {
-	l := user.NewUpdateProfileLogic(ctx, s.svcCtx)
-	return l.UpdateProfile(in)
-}
-
-func (s *CoreServer) UpdateUserStatus(ctx context.Context, in *core.StatusCodeUUIDReq) (*core.BaseResp, error) {
-	l := user.NewUpdateUserStatusLogic(ctx, s.svcCtx)
-	return l.UpdateUserStatus(in)
+func (s *CoreServer) Login(ctx context.Context, in *core.LoginReq) (*core.LoginResp, error) {
+	l := user.NewLoginLogic(ctx, s.svcCtx)
+	return l.Login(in)
 }

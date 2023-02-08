@@ -178,7 +178,7 @@ var (
 		{Name: "affix", Type: field.TypeBool, Nullable: true, Default: false},
 		{Name: "dynamic_level", Type: field.TypeUint32, Nullable: true, Default: 20},
 		{Name: "real_path", Type: field.TypeString, Nullable: true, Default: ""},
-		{Name: "parent_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "parent_id", Type: field.TypeUint64, Nullable: true, Default: 100000},
 	}
 	// SysMenusTable holds the schema information for the "sys_menus" table.
 	SysMenusTable = &schema.Table{
@@ -202,7 +202,7 @@ var (
 		{Name: "type", Type: field.TypeString},
 		{Name: "key", Type: field.TypeString},
 		{Name: "value", Type: field.TypeString},
-		{Name: "menu_params", Type: field.TypeUint64, Nullable: true},
+		{Name: "menu_id", Type: field.TypeUint64, Nullable: true},
 	}
 	// SysMenuParamsTable holds the schema information for the "sys_menu_params" table.
 	SysMenuParamsTable = &schema.Table{

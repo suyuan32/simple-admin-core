@@ -67,6 +67,20 @@ func (mpc *MenuParamCreate) SetValue(s string) *MenuParamCreate {
 	return mpc
 }
 
+// SetMenuID sets the "menu_id" field.
+func (mpc *MenuParamCreate) SetMenuID(u uint64) *MenuParamCreate {
+	mpc.mutation.SetMenuID(u)
+	return mpc
+}
+
+// SetNillableMenuID sets the "menu_id" field if the given value is not nil.
+func (mpc *MenuParamCreate) SetNillableMenuID(u *uint64) *MenuParamCreate {
+	if u != nil {
+		mpc.SetMenuID(*u)
+	}
+	return mpc
+}
+
 // SetID sets the "id" field.
 func (mpc *MenuParamCreate) SetID(u uint64) *MenuParamCreate {
 	mpc.mutation.SetID(u)
@@ -229,7 +243,7 @@ func (mpc *MenuParamCreate) createSpec() (*MenuParam, *sqlgraph.CreateSpec) {
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.menu_params = &nodes[0]
+		_node.MenuID = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

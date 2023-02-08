@@ -28,7 +28,7 @@ func NewGetMenuListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetMenuLi
 	}
 }
 
-func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuListResp, err error) {
+func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuPlainInfoListResp, err error) {
 	data, err := l.svcCtx.CoreRpc.GetMenuList(l.ctx, &core.PageInfoReq{
 		Page:     1,
 		PageSize: 100,
@@ -36,39 +36,33 @@ func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuListResp, err error) {
 	if err != nil {
 		return nil, err
 	}
-	resp = &types.MenuListResp{}
+	resp = &types.MenuPlainInfoListResp{}
 	resp.Data.Total = data.Total
 	for _, v := range data.Data {
-		resp.Data.Data = append(resp.Data.Data, &types.MenuInfo{
-			BaseInfo: types.BaseInfo{
-				Id:        v.Id,
-				CreatedAt: v.CreatedAt,
-				UpdatedAt: v.UpdatedAt,
-			},
-			Trans:     l.svcCtx.Trans.Trans(l.lang, v.Meta.Title),
-			MenuType:  v.MenuType,
-			MenuLevel: v.Level,
-			Path:      v.Path,
-			Name:      v.Name,
-			Redirect:  v.Redirect,
-			Component: v.Component,
-			Sort:      v.Sort,
-			ParentId:  v.ParentId,
-			Meta: types.Meta{
-				Title:              v.Meta.Title,
-				Icon:               v.Meta.Icon,
-				HideMenu:           v.Meta.HideMenu,
-				HideBreadcrumb:     v.Meta.HideBreadcrumb,
-				CurrentActiveMenu:  v.Meta.CurrentActiveMenu,
-				IgnoreKeepAlive:    v.Meta.IgnoreKeepAlive,
-				HideTab:            v.Meta.HideTab,
-				FrameSrc:           v.Meta.FrameSrc,
-				CarryParam:         v.Meta.CarryParam,
-				HideChildrenInMenu: v.Meta.HideChildrenInMenu,
-				Affix:              v.Meta.Affix,
-				DynamicLevel:       v.Meta.DynamicLevel,
-				RealPath:           v.Meta.RealPath,
-			},
+		resp.Data.Data = append(resp.Data.Data, types.MenuPlainInfo{
+			Id:                 v.Id,
+			Trans:              l.svcCtx.Trans.Trans(l.lang, v.Meta.Title),
+			MenuType:           v.MenuType,
+			Level:              v.Level,
+			Path:               v.Path,
+			Name:               v.Name,
+			Redirect:           v.Redirect,
+			Component:          v.Component,
+			Sort:               v.Sort,
+			ParentId:           v.ParentId,
+			Title:              v.Meta.Title,
+			Icon:               v.Meta.Icon,
+			HideMenu:           v.Meta.HideMenu,
+			HideBreadcrumb:     v.Meta.HideBreadcrumb,
+			CurrentActiveMenu:  v.Meta.CurrentActiveMenu,
+			IgnoreKeepAlive:    v.Meta.IgnoreKeepAlive,
+			HideTab:            v.Meta.HideTab,
+			FrameSrc:           v.Meta.FrameSrc,
+			CarryParam:         v.Meta.CarryParam,
+			HideChildrenInMenu: v.Meta.HideChildrenInMenu,
+			Affix:              v.Meta.Affix,
+			DynamicLevel:       v.Meta.DynamicLevel,
+			RealPath:           v.Meta.RealPath,
 		})
 	}
 	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)

@@ -1,113 +1,106 @@
-syntax = "v1"
-
-info(
-    title: "user management"
-    desc: "user management api"
-    author: "Ryan Su"
-    email: "yuansu.china.work@gmail.com"
-    version: "v1.0"
-)
-
 import "base.api"
 
 type (
-    // Login request | 登录参数
-    LoginReq {
+    // The response data of user information | User信息
+    UserInfo {
+        BaseUUIDInfo
+
+        // Status
+        Status  uint32 `json:"status,optional"`
+
+        // Username
+        Username  string `json:"username,optional"`
+
+        // Nickname
+        Nickname  string `json:"nickname,optional"`
+
+        // Password
+        Password  string `json:"password,optional"`
+
+        // Description
+        Description  string `json:"description,optional"`
+
+        // HomePath
+        HomePath  string `json:"homePath,optional"`
+
+        // RoleId
+        RoleId  uint64 `json:"roleId,optional"`
+
+        // Mobile
+        Mobile  string `json:"mobile,optional"`
+
+        // Email
+        Email  string `json:"email,optional"`
+
+        // Avatar
+        Avatar  string `json:"avatar,optional"`
+
+        // DepartmentId
+        DepartmentId  uint64 `json:"departmentId,optional"`
+
+        // PositionId
+        PositionId  uint64 `json:"positionId,optional"`
+
+        // RoleName
+        RoleName  string `json:"roleName,optional"`
+
+        // RoleValue
+        RoleValue  string `json:"roleValue,optional"`
+    }
+
+    // The response data of user list | User列表数据
+    UserListResp {
+        BaseDataInfo
+
+        // User list data | User列表数据
+        Data UserListInfo `json:"data"`
+    }
+
+    // User list data | User列表数据
+    UserListInfo {
+        BaseListInfo
+
+        // The API list data | User列表数据
+        Data  []UserInfo  `json:"data"`
+    }
+
+    // Get user list request params | User列表请求参数
+    UserListReq {
+        PageInfo
+
         // User Name | 用户名
-        // Required: true
         // Max length: 20
-        Username   string `json:"username" validate:"alphanum,max=20"`
+        Username string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
 
-        // Password | 密码
-        // Required: true
-        // Min length: 6
-        // Max length: 30
-        Password   string `json:"password" validate:"max=30,min=6"`
-
-        // Captcha ID which store in redis | 验证码编号, 存在redis中
-        // Required: true
-        // Max length: 20
-        CaptchaId  string `json:"captchaId"  validate:"len=20"`
-
-        // The Captcha which users input | 用户输入的验证码
-        // Required: true
-        // Max length: 5
-        Captcha    string `json:"captcha" validate:"len=5"`
-    }
-
-    // The log in response data | 登录返回数据
-    LoginResp {
-        BaseDataInfo
-
-        // The log in information | 登陆返回的数据信息
-        Data LoginInfo `json:"data"`
-    }
-
-    // The log in information | 登陆返回的数据信息
-    LoginInfo {
-        // User's UUID | 用户的UUID
-        UserId       string          `json:"userId"`
-
-        // User's role information| 用户的角色信息
-        // in: body
-        Role         RoleInfoSimple  `json:"role"`
-
-        // Token for authorization | 验证身份的token
-        Token        string          `json:"token"`
-
-        // Expire timestamp | 过期时间戳
-        Expire       uint64          `json:"expire"`
-    }
-
-    // The profile information | 个人信息
-    ProfileInfo {
-        // user's nickname | 用户的昵称
-        Nickname     string       `json:"nickname"`
-
-        // The user's avatar path | 用户的头像路径
-        Avatar       string       `json:"avatar"`
-
-        // User's mobile phone number | 用户的手机号码
-        Mobile       string       `json:"mobile"`
-
-        // The user's email address | 用户的邮箱
-        Email        string       `json:"email"`
-    }
-
-    // The profile response data | 个人信息返回数据
-    ProfileResp {
-        BaseDataInfo
-
-        // The profile information | 个人信息
-        Data ProfileInfo `json:"data"`
-    }
-
-    // The profile request data | 个人信息请求参数
-    ProfileReq {
-        // user's nickname | 用户的昵称
+        // User's nickname | 用户的昵称
         // Max length: 10
-        Nickname     string       `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
-
-        // The user's avatar path | 用户的头像路径
-        Avatar       string       `json:"avatar"`
+        Nickname string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
 
         // User's mobile phone number | 用户的手机号码
         // Max length: 18
-        Mobile       string       `json:"mobile" validate:"omitempty,numeric,max=18"`
+        Mobile string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
 
         // The user's email address | 用户的邮箱
         // Max length: 100
-        Email        string       `json:"email" validate:"omitempty,email,max=100"`
+        Email string  `json:"email,optional" validate:"omitempty,email,max=100"`
+
+        // User's role ID | 用户的角色ID
+        // Maximum: 1000
+        RoleId uint64 `json:"roleId,optional" validate:"omitempty,number,max=1000"`
+
+        // The user's department ID | 用户所属部门ID
+        DepartmentId  uint64 `json:"departmentId,optional"`
+
+        // User's position id | 用户的职位ID
+        PositionId       uint64       `json:"positionId,optional"`
     }
 
-    // The simple role data | 简单的角色数据
-    // swagger:model RoleInfoSimple
-    RoleInfoSimple {
-        // Role name | 角色名
-        RoleName   string `json:"roleName"`
+    // User information response | User信息返回体
+    UserInfoResp {
+        BaseDataInfo
 
-        // Role value | 角色值
-        Value      string `json:"value"`
+        // User information | User数据
+        Data UserInfo `json:"data"`
     }
 
     // register request | 注册参数
@@ -152,48 +145,34 @@ type (
         NewPassword string `json:"newPassword" validate:"max=30"`
     }
 
+    // The log in information | 登陆返回的数据信息
+    LoginInfo {
+        // User's UUID | 用户的UUID
+        UserId       string          `json:"userId"`
 
-    // The response data of user's information | 用户信息返回数据
-    UserInfoResp {
-        BaseUUIDInfo
+        // User's role information| 用户的角色信息
+        // in: body
+        Role         RoleInfoSimple  `json:"role"`
 
-        // User Name | 用户名
-        Username     string       `json:"username"`
+        // Token for authorization | 验证身份的token
+        Token        string          `json:"token"`
 
-        // User's nickname | 用户的昵称
-        Nickname     string       `json:"nickname"`
+        // Expire timestamp | 过期时间戳
+        Expire       uint64          `json:"expire"`
+    }
 
-        // User's mobile phone number | 用户的手机号码
-        Mobile       string       `json:"mobile"`
+    // The simple role data | 简单的角色数据
+    // swagger:model RoleInfoSimple
+    RoleInfoSimple {
+        // Role name | 角色名
+        RoleName   string `json:"roleName"`
 
-        // User's role id | 用户的角色ID
-        RoleId       uint64       `json:"roleId"`
-
-        // The user's email address | 用户的邮箱
-        Email        string       `json:"email"`
-
-        // The user's avatar path | 用户的头像路径
-        Avatar       string       `json:"avatar"`
-
-        // The user's status | 用户状态
-        // 1 normal, 2 ban | 1 正常 2 拉黑
-        Status        uint32       `json:"status"`
-
-        // The home page that the user enters after logging in | 用户登陆后进入的首页
-        HomePath   string  `json:"homePath"`
-
-        // The description of user | 用户的描述信息
-        Description string `json:"desc"`
-
-        // User's department id | 用户的部门ID
-        DepartmentId       uint64       `json:"departmentId"`
-
-        // User's position id | 用户的职位ID
-        PositionId       uint64       `json:"positionId"`
+        // Role value | 角色值
+        Value      string `json:"value"`
     }
 
     // The response data of user's basic information | 用户基本信息返回数据
-    GetUserInfoResp {
+    UserBaseInfoResp {
         BaseDataInfo
 
         // The  data of user's basic information | 用户基本信息
@@ -215,7 +194,7 @@ type (
         Avatar       string       `json:"avatar"`
 
         // User's role information| 用户的角色信息
-        Roles   GetUserRoleInfo `json:"roles"`
+        Roles   UserRoleInfo `json:"roles"`
 
         // The home page that the user enters after logging in | 用户登陆后进入的首页
         HomePath   string  `json:"homePath"`
@@ -225,28 +204,12 @@ type (
     }
 
     // The response data of user's basic role information | 用户角色信息数据
-    GetUserRoleInfo {
+    UserRoleInfo {
         // Role name | 角色名
         RoleName   string `json:"roleName"`
 
         // Role value for permission control | 角色值用于前端页面组件显示权限
         Value      string `json:"value"`
-    }
-
-    // The response data of user list | 用户列表返回数据
-    UserListResp {
-        BaseDataInfo
-
-        // The user list data | 用户列表数据
-        Data    UserListInfo  `json:"data"`
-    }
-
-    // The response data of user list | 用户列表数据
-    UserListInfo {
-        BaseListInfo
-
-        // The user list data | 用户列表数据
-        Data    []UserInfoResp  `json:"data"`
     }
 
     // The permission code for front end permission control | 权限码： 用于前端权限控制
@@ -257,104 +220,78 @@ type (
         Data []string `json:"data"`
     }
 
-    // Create or update user information request | 创建或更新用户信息
-    CreateOrUpdateUserReq {
-        // User's id | 用户ID
-        // Required: true
-        Id           string        `json:"id"`
 
+    // Login request | 登录参数
+    LoginReq {
         // User Name | 用户名
         // Required: true
-        // Max length: 30
-        Username     string       `json:"username" validate:"alphanum,max=30"`
-
-        // User's nickname | 用户的昵称
-        // Required: true
-        // Max length: 30
-        Nickname     string       `json:"nickname" validate:"alphanumunicode,max=30"`
+        // Max length: 20
+        Username   string `json:"username" validate:"alphanum,max=20"`
 
         // Password | 密码
         // Required: true
-        // Max length: 30
         // Min length: 6
-        Password     string       `json:"password" validate:"omitempty,max=30,min=6"`
+        // Max length: 30
+        Password   string `json:"password" validate:"max=30,min=6"`
 
-        // User's mobile phone number | 用户的手机号码
+        // Captcha ID which store in redis | 验证码编号, 存在redis中
         // Required: true
-        // Max length: 18
-        Mobile       string       `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
+        // Max length: 20
+        CaptchaId  string `json:"captchaId"  validate:"len=20"`
 
-        // User's role id | 用户的角色ID
+        // The Captcha which users input | 用户输入的验证码
         // Required: true
-        // Maximum: 1000
-        RoleId       uint64       `json:"roleId" validate:"number,max=1000"`
-
-        // The user's email address | 用户的邮箱
-        // Required: true
-        // Max length: 100
-        Email        string       `json:"email" validate:"email,max=100"`
-
-        // The user's avatar path | 用户的头像路径
-        // Required: true
-        // Example: https://localhost/static/1.png
-        Avatar       string       `json:"avatar"`
-
-        // The user's status | 用户状态
-        // 1 normal, 2 ban | 1 正常 2 拉黑
-        // Required: true
-        // Maximum: 20
-        Status       uint32      `json:"status" validate:"number,max=20"`
-
-        // User's department id | 用户的部门ID
-        // Required: true
-        DepartmentId       uint64       `json:"departmentId"`
-
-        // The home page that the user enters after logging in | 用户登陆后进入的首页
-        HomePath   string  `json:"homePath,optional"`
-
-        // The description of user | 用户的描述信息
-        Description string `json:"desc,optional"`
-
-        // User's position id | 用户的职位ID
-        PositionId       uint64       `json:"positionId"`
+        // Max length: 5
+        Captcha    string `json:"captcha" validate:"len=5"`
     }
 
-    // Get user list request | 获取用户列表请求参数
-    GetUserListReq {
-        // Page number | 第几页
-        // Required: true
-        Page uint64 `json:"page" validate:"number"`
+    // The log in response data | 登录返回数据
+    LoginResp {
+        BaseDataInfo
 
-        // Page size | 单页数据行数
-        // Required: true
-        // Maximum: 100000
-        PageSize uint64 `json:"pageSize" validate:"number,max=100000"`
+        // The log in information | 登陆返回的数据信息
+        Data LoginInfo `json:"data"`
+    }
 
-        // User Name | 用户名
-        // Max length: 20
-        Username string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
+    // The profile information | 个人信息
+    ProfileInfo {
+        // user's nickname | 用户的昵称
+        Nickname     string       `json:"nickname"`
 
-        // User's nickname | 用户的昵称
+        // The user's avatar path | 用户的头像路径
+        Avatar       string       `json:"avatar"`
+
+        // User's mobile phone number | 用户的手机号码
+        Mobile       string       `json:"mobile"`
+
+        // The user's email address | 用户的邮箱
+        Email        string       `json:"email"`
+    }
+
+    // The profile response data | 个人信息返回数据
+    ProfileResp {
+        BaseDataInfo
+
+        // The profile information | 个人信息
+        Data ProfileInfo `json:"data"`
+    }
+
+    // The profile request data | 个人信息请求参数
+    ProfileReq {
+        // user's nickname | 用户的昵称
         // Max length: 10
-        Nickname string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
+        Nickname     string       `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
+
+        // The user's avatar path | 用户的头像路径
+        Avatar       string       `json:"avatar"`
 
         // User's mobile phone number | 用户的手机号码
         // Max length: 18
-        Mobile string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
+        Mobile       string       `json:"mobile" validate:"omitempty,numeric,max=18"`
 
         // The user's email address | 用户的邮箱
         // Max length: 100
-        Email string  `json:"email,optional" validate:"omitempty,email,max=100"`
-
-        // User's role ID | 用户的角色ID
-        // Maximum: 1000
-        RoleId uint64 `json:"roleId,optional" validate:"omitempty,number,max=1000"`
-
-        // The user's department ID | 用户所属部门ID
-        DepartmentId  uint64 `json:"departmentId,optional"`
-
-        // User's position id | 用户的职位ID
-        PositionId       uint64       `json:"positionId,optional"`
+        Email        string       `json:"email" validate:"omitempty,email,max=100"`
     }
 )
 
@@ -373,35 +310,39 @@ service core {
 }
 
 @server(
-    group : user
-    jwt : Auth
+    jwt: Auth
+    group: user
     middleware: Authority
 )
 
 service core {
+    // Create user information | 创建User
+    @handler createUser
+    post /user/create (UserInfo) returns (BaseMsgResp)
+
+    // Update user information | 更新User
+    @handler updateUser
+    post /user/update (UserInfo) returns (BaseMsgResp)
+
+    // Delete user information | 删除User信息
+    @handler deleteUser
+    post /user/delete (UUIDsReq) returns (BaseMsgResp)
+
+    // Get user list | 获取User列表
+    @handler getUserList
+    post /user/list (UserListReq) returns (UserListResp)
+
+    // Get User by ID | 通过ID获取User
+    @handler getUserById
+    post /user (UUIDReq) returns (UserInfoResp)
+
     // Change Password | 修改密码
     @handler changePassword
-    post /user/change-password (ChangePasswordReq) returns (BaseMsgResp)
+    post /user/change_password (ChangePasswordReq) returns (BaseMsgResp)
 
     // Get user basic information | 获取用户基本信息
     @handler getUserInfo
-    get /user/info returns (GetUserInfoResp)
-
-    // Create or update user's information | 新增或更新用户
-    @handler createOrUpdateUser
-    post /user/create_or_update (CreateOrUpdateUserReq) returns (BaseMsgResp)
-
-    // Get user list | 获取用户列表
-    @handler getUserList
-    post /user/list (GetUserListReq) returns (UserListResp)
-
-    // Delete user information | 删除用户信息
-    @handler deleteUser
-    post /user/delete (UUIDReq) returns (BaseMsgResp)
-
-     // Batch delete user information | 批量删除用户信息
-    @handler batchDeleteUser
-    post /user/batch_delete (UUIDsReq) returns (BaseMsgResp)
+    get /user/info returns (UserBaseInfoResp)
 
     // Get user's permission code | 获取用户权限码
     @handler getUserPermCode
@@ -415,11 +356,7 @@ service core {
     @handler updateUserProfile
     post /user/profile (ProfileReq) returns (BaseMsgResp)
 
-    // Set user's status | 更新用户状态
-    @handler updateUserStatus
-    post /user/status (StatusCodeUUIDReq) returns (BaseMsgResp)
-
-    // Log out | 退出登陆
+     // Log out | 退出登陆
     @handler logout
     get /user/logout returns (BaseMsgResp)
 }

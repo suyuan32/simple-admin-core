@@ -27,12 +27,13 @@ func NewDeleteRoleLogic(r *http.Request, svcCtx *svc.ServiceContext) *DeleteRole
 	}
 }
 
-func (l *DeleteRoleLogic) DeleteRole(req *types.IDReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.DeleteRole(l.ctx, &core.IDReq{
-		Id: req.Id,
+func (l *DeleteRoleLogic) DeleteRole(req *types.IDsReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.DeleteRole(l.ctx, &core.IDsReq{
+		Ids: req.Ids,
 	})
 	if err != nil {
 		return nil, err
 	}
+
 	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
 }
