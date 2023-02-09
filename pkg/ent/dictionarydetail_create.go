@@ -63,6 +63,20 @@ func (ddc *DictionaryDetailCreate) SetNillableStatus(u *uint8) *DictionaryDetail
 	return ddc
 }
 
+// SetSort sets the "sort" field.
+func (ddc *DictionaryDetailCreate) SetSort(u uint32) *DictionaryDetailCreate {
+	ddc.mutation.SetSort(u)
+	return ddc
+}
+
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (ddc *DictionaryDetailCreate) SetNillableSort(u *uint32) *DictionaryDetailCreate {
+	if u != nil {
+		ddc.SetSort(*u)
+	}
+	return ddc
+}
+
 // SetTitle sets the "title" field.
 func (ddc *DictionaryDetailCreate) SetTitle(s string) *DictionaryDetailCreate {
 	ddc.mutation.SetTitle(s)
@@ -81,23 +95,23 @@ func (ddc *DictionaryDetailCreate) SetValue(s string) *DictionaryDetailCreate {
 	return ddc
 }
 
+// SetDictionaryID sets the "dictionary_id" field.
+func (ddc *DictionaryDetailCreate) SetDictionaryID(u uint64) *DictionaryDetailCreate {
+	ddc.mutation.SetDictionaryID(u)
+	return ddc
+}
+
+// SetNillableDictionaryID sets the "dictionary_id" field if the given value is not nil.
+func (ddc *DictionaryDetailCreate) SetNillableDictionaryID(u *uint64) *DictionaryDetailCreate {
+	if u != nil {
+		ddc.SetDictionaryID(*u)
+	}
+	return ddc
+}
+
 // SetID sets the "id" field.
 func (ddc *DictionaryDetailCreate) SetID(u uint64) *DictionaryDetailCreate {
 	ddc.mutation.SetID(u)
-	return ddc
-}
-
-// SetDictionaryID sets the "dictionary" edge to the Dictionary entity by ID.
-func (ddc *DictionaryDetailCreate) SetDictionaryID(id uint64) *DictionaryDetailCreate {
-	ddc.mutation.SetDictionaryID(id)
-	return ddc
-}
-
-// SetNillableDictionaryID sets the "dictionary" edge to the Dictionary entity by ID if the given value is not nil.
-func (ddc *DictionaryDetailCreate) SetNillableDictionaryID(id *uint64) *DictionaryDetailCreate {
-	if id != nil {
-		ddc = ddc.SetDictionaryID(*id)
-	}
 	return ddc
 }
 
@@ -153,6 +167,10 @@ func (ddc *DictionaryDetailCreate) defaults() {
 		v := dictionarydetail.DefaultStatus
 		ddc.mutation.SetStatus(v)
 	}
+	if _, ok := ddc.mutation.Sort(); !ok {
+		v := dictionarydetail.DefaultSort
+		ddc.mutation.SetSort(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -162,6 +180,9 @@ func (ddc *DictionaryDetailCreate) check() error {
 	}
 	if _, ok := ddc.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "DictionaryDetail.updated_at"`)}
+	}
+	if _, ok := ddc.mutation.Sort(); !ok {
+		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "DictionaryDetail.sort"`)}
 	}
 	if _, ok := ddc.mutation.Title(); !ok {
 		return &ValidationError{Name: "title", err: errors.New(`ent: missing required field "DictionaryDetail.title"`)}
@@ -222,6 +243,10 @@ func (ddc *DictionaryDetailCreate) createSpec() (*DictionaryDetail, *sqlgraph.Cr
 		_spec.SetField(dictionarydetail.FieldStatus, field.TypeUint8, value)
 		_node.Status = value
 	}
+	if value, ok := ddc.mutation.Sort(); ok {
+		_spec.SetField(dictionarydetail.FieldSort, field.TypeUint32, value)
+		_node.Sort = value
+	}
 	if value, ok := ddc.mutation.Title(); ok {
 		_spec.SetField(dictionarydetail.FieldTitle, field.TypeString, value)
 		_node.Title = value
@@ -251,7 +276,7 @@ func (ddc *DictionaryDetailCreate) createSpec() (*DictionaryDetail, *sqlgraph.Cr
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.dictionary_dictionary_details = &nodes[0]
+		_node.DictionaryID = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

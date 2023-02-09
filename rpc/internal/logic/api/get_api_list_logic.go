@@ -5,12 +5,13 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent/api"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
+
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 )
 
 type GetApiListLogic struct {
@@ -29,39 +30,34 @@ func NewGetApiListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetApi
 
 func (l *GetApiListLogic) GetApiList(in *core.ApiListReq) (*core.ApiListResp, error) {
 	var predicates []predicate.API
-
 	if in.Path != "" {
 		predicates = append(predicates, api.PathContains(in.Path))
 	}
-
 	if in.Description != "" {
 		predicates = append(predicates, api.DescriptionContains(in.Description))
 	}
-
+	if in.ApiGroup != "" {
+		predicates = append(predicates, api.APIGroupContains(in.ApiGroup))
+	}
 	if in.Method != "" {
-		predicates = append(predicates, api.MethodContains(in.Method))
+		predicates = append(predicates, api.Method(in.Method))
 	}
-
-	if in.Group != "" {
-		predicates = append(predicates, api.APIGroupContains(in.Group))
-	}
-
-	apis, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+	result, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		logx.Error(err.Error())
 		return nil, statuserr.NewInternalError(i18n.DatabaseError)
 	}
 
 	resp := &core.ApiListResp{}
-	resp.Total = apis.PageDetails.Total
+	resp.Total = result.PageDetails.Total
 
-	for _, v := range apis.List {
+	for _, v := range result.List {
 		resp.Data = append(resp.Data, &core.ApiInfo{
 			Id:          v.ID,
 			CreatedAt:   v.CreatedAt.UnixMilli(),
 			Path:        v.Path,
 			Description: v.Description,
-			Group:       v.APIGroup,
+			ApiGroup:    v.APIGroup,
 			Method:      v.Method,
 		})
 	}

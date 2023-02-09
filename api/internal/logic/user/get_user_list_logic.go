@@ -28,8 +28,8 @@ func NewGetUserListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetUserLi
 	}
 }
 
-func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.UserListResp, err error) {
-	data, err := l.svcCtx.CoreRpc.GetUserList(l.ctx, &core.GetUserListReq{
+func (l *GetUserListLogic) GetUserList(req *types.UserListReq) (resp *types.UserListResp, err error) {
+	data, err := l.svcCtx.CoreRpc.GetUserList(l.ctx, &core.UserListReq{
 		Page:         req.Page,
 		PageSize:     req.PageSize,
 		Username:     req.Username,
@@ -45,7 +45,7 @@ func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.U
 	}
 	resp = &types.UserListResp{}
 	for _, v := range data.Data {
-		resp.Data.Data = append(resp.Data.Data, types.UserInfoResp{
+		resp.Data.Data = append(resp.Data.Data, types.UserInfo{
 			BaseUUIDInfo: types.BaseUUIDInfo{
 				Id:        v.Id,
 				CreatedAt: v.CreatedAt,

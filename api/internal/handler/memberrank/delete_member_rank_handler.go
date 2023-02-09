@@ -12,22 +12,22 @@ import (
 
 // swagger:route post /member_rank/delete memberrank DeleteMemberRank
 //
-// Delete member rank information | 删除会员等级信息
+// Delete member rank information | 删除MemberRank信息
 //
-// Delete member rank information | 删除会员等级信息
+// Delete member rank information | 删除MemberRank信息
 //
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
-//    type: IDReq
+//    type: IDsReq
 //
 // Responses:
 //  200: BaseMsgResp
 
 func DeleteMemberRankHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.IDReq
+		var req types.IDsReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return

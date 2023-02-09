@@ -1,0 +1,162 @@
+import "base.api"
+
+type (
+    // The response data of oauth provider information | OauthProvider信息
+    OauthProviderInfo {
+        BaseInfo
+
+        // Name
+        Name  string `json:"name,optional"`
+
+        // ClientId
+        ClientId  string `json:"clientId,optional"`
+
+        // ClientSecret
+        ClientSecret  string `json:"clientSecret,optional"`
+
+        // RedirectUrl
+        RedirectUrl  string `json:"redirectUrl,optional"`
+
+        // Scopes
+        Scopes  string `json:"scopes,optional"`
+
+        // AuthUrl
+        AuthUrl  string `json:"authUrl,optional"`
+
+        // TokenUrl
+        TokenUrl  string `json:"tokenUrl,optional"`
+
+        // AuthStyle
+        AuthStyle  uint64 `json:"authStyle,optional"`
+
+        // InfoUrl
+        InfoUrl  string `json:"infoUrl,optional"`
+    }
+
+    // The response data of oauth provider list | OauthProvider列表数据
+    OauthProviderListResp {
+        BaseDataInfo
+
+        // OauthProvider list data | OauthProvider列表数据
+        Data OauthProviderListInfo `json:"data"`
+    }
+
+    // OauthProvider list data | OauthProvider列表数据
+    OauthProviderListInfo {
+        BaseListInfo
+
+        // The API list data | OauthProvider列表数据
+        Data  []OauthProviderInfo  `json:"data"`
+    }
+
+    // Get oauth provider list request params | OauthProvider列表请求参数
+    OauthProviderListReq {
+        PageInfo
+
+        // Name
+        Name  string `json:"name,optional"`
+
+        // ClientId
+        ClientId  string `json:"clientId,optional"`
+
+        // ClientSecret
+        ClientSecret  string `json:"clientSecret,optional"`
+    }
+
+    // OauthProvider information response | OauthProvider信息返回体
+    OauthProviderInfoResp {
+        BaseDataInfo
+
+        // OauthProvider information | OauthProvider数据
+        Data OauthProviderInfo `json:"data"`
+    }
+
+    // Oauth log in request | Oauth 登录请求
+    OauthLoginReq {
+        // State code to avoid hack | 状态码，请求前后相同避免安全问题
+        // Required: true
+        // Max Length: 30
+        State string `json:"state" validate:"max=30"`
+
+        // Provider name | 提供商名字
+        // Required: true
+        // Max Length: 40
+        // Example: google
+        Provider string `json:"provider" validate:"max=40"`
+    }
+
+    // Redirect response | 跳转网址返回信息
+    RedirectResp {
+        BaseDataInfo
+
+        // Redirect information | 跳转网址
+        Data  RedirectInfo `json:"data"`
+    }
+
+    // Redirect information | 跳转网址
+    RedirectInfo {
+        // Redirect URL | 跳转网址
+        URL string `json:"URL"`
+    }
+
+    // The oauth callback response data | Oauth回调数据
+    CallbackResp {
+        // User's UUID | 用户的UUID
+        UserId       string          `json:"userId"`
+
+        // User's role information| 用户的角色信息
+        // in: body
+        Role         RoleInfoSimple  `json:"role"`
+
+        // Token for authorization | 验证身份的token
+        Token        string          `json:"token"`
+
+        // Expire timestamp | 过期时间戳
+        Expire       uint64          `json:"expire"`
+    }
+)
+
+@server (
+    group: oauthprovider
+)
+
+service core {
+    // Oauth log in | Oauth 登录
+    @handler oauthLogin
+    post /oauth/login (OauthLoginReq) returns (RedirectResp)
+
+    // Oauth log in callback route | Oauth 登录返回调接口
+    @handler oauthCallback
+    get /oauth/login/callback returns (CallbackResp)
+}
+
+
+@server(
+    jwt: Auth
+    group: oauthprovider
+    middleware: Authority
+)
+
+service core {
+    // Create oauth provider information | 创建OauthProvider
+    @handler createOauthProvider
+    post /oauth_provider/create (OauthProviderInfo) returns (BaseMsgResp)
+
+    // Update oauth provider information | 更新OauthProvider
+    @handler updateOauthProvider
+    post /oauth_provider/update (OauthProviderInfo) returns (BaseMsgResp)
+
+    // Delete oauth provider information | 删除OauthProvider信息
+    @handler deleteOauthProvider
+    post /oauth_provider/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get oauth provider list | 获取OauthProvider列表
+    @handler getOauthProviderList
+    post /oauth_provider/list (OauthProviderListReq) returns (OauthProviderListResp)
+
+    // Get oauth provider by ID | 通过ID获取OauthProvider
+    @handler getOauthProviderById
+    post /oauth_provider (IDReq) returns (OauthProviderInfoResp)
+
+
+}

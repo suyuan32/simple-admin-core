@@ -35,6 +35,8 @@ func (l *GetPositionListLogic) GetPositionList(req *types.PositionListReq) (resp
 			Page:     req.Page,
 			PageSize: req.PageSize,
 			Name:     req.Name,
+			Code:     req.Code,
+			Remark:   req.Remark,
 		})
 	if err != nil {
 		return nil, err

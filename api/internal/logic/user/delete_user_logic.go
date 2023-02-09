@@ -27,9 +27,10 @@ func NewDeleteUserLogic(r *http.Request, svcCtx *svc.ServiceContext) *DeleteUser
 	}
 }
 
-func (l *DeleteUserLogic) DeleteUser(req *types.UUIDReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.DeleteUser(l.ctx, &core.UUIDReq{Id: req.Id})
-
+func (l *DeleteUserLogic) DeleteUser(req *types.UUIDsReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.DeleteUser(l.ctx, &core.UUIDsReq{
+		Ids: req.Ids,
+	})
 	if err != nil {
 		return nil, err
 	}

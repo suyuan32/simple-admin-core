@@ -21,16 +21,17 @@ type MenuParam struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
-	// pass parameters via params or query | 参数类型
+	// Pass parameters via params or query | 参数类型
 	Type string `json:"type,omitempty"`
-	// the key of parameters | 参数键
+	// The key of parameters | 参数键
 	Key string `json:"key,omitempty"`
-	// the value of parameters | 参数值
+	// The value of parameters | 参数值
 	Value string `json:"value,omitempty"`
+	// The parent menu ID | 父级菜单ID
+	MenuID uint64 `json:"menu_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the MenuParamQuery when eager-loading is set.
-	Edges       MenuParamEdges `json:"edges"`
-	menu_params *uint64
+	Edges MenuParamEdges `json:"edges"`
 }
 
 // MenuParamEdges holds the relations/edges for other nodes in the graph.
@@ -60,14 +61,12 @@ func (*MenuParam) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case menuparam.FieldID:
+		case menuparam.FieldID, menuparam.FieldMenuID:
 			values[i] = new(sql.NullInt64)
 		case menuparam.FieldType, menuparam.FieldKey, menuparam.FieldValue:
 			values[i] = new(sql.NullString)
 		case menuparam.FieldCreatedAt, menuparam.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
-		case menuparam.ForeignKeys[0]: // menu_params
-			values[i] = new(sql.NullInt64)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type MenuParam", columns[i])
 		}
@@ -119,12 +118,11 @@ func (mp *MenuParam) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				mp.Value = value.String
 			}
-		case menuparam.ForeignKeys[0]:
+		case menuparam.FieldMenuID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field menu_params", value)
+				return fmt.Errorf("unexpected type %T for field menu_id", values[i])
 			} else if value.Valid {
-				mp.menu_params = new(uint64)
-				*mp.menu_params = uint64(value.Int64)
+				mp.MenuID = uint64(value.Int64)
 			}
 		}
 	}
@@ -173,6 +171,9 @@ func (mp *MenuParam) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("value=")
 	builder.WriteString(mp.Value)
+	builder.WriteString(", ")
+	builder.WriteString("menu_id=")
+	builder.WriteString(fmt.Sprintf("%v", mp.MenuID))
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -27,9 +27,9 @@ func NewDeleteMemberRankLogic(r *http.Request, svcCtx *svc.ServiceContext) *Dele
 	}
 }
 
-func (l *DeleteMemberRankLogic) DeleteMemberRank(req *types.IDReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.DeleteMemberRank(l.ctx, &core.IDReq{
-		Id: req.Id,
+func (l *DeleteMemberRankLogic) DeleteMemberRank(req *types.IDsReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.DeleteMemberRank(l.ctx, &core.IDsReq{
+		Ids: req.Ids,
 	})
 	if err != nil {
 		return nil, err

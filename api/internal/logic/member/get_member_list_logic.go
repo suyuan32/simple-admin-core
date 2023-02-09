@@ -4,12 +4,13 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/zeromicro/go-zero/core/logx"
-
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+
+	"github.com/zeromicro/go-zero/core/logx"
+
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 )
 
 type GetMemberListLogic struct {
@@ -56,7 +57,7 @@ func (l *GetMemberListLogic) GetMemberList(req *types.MemberListReq) (resp *type
 				},
 				Status:   v.Status,
 				Username: v.Username,
-				Password: "",
+				Password: v.Password,
 				Nickname: v.Nickname,
 				RankId:   v.RankId,
 				Mobile:   v.Mobile,

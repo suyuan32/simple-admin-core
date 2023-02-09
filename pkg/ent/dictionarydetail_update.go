@@ -62,6 +62,27 @@ func (ddu *DictionaryDetailUpdate) ClearStatus() *DictionaryDetailUpdate {
 	return ddu
 }
 
+// SetSort sets the "sort" field.
+func (ddu *DictionaryDetailUpdate) SetSort(u uint32) *DictionaryDetailUpdate {
+	ddu.mutation.ResetSort()
+	ddu.mutation.SetSort(u)
+	return ddu
+}
+
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (ddu *DictionaryDetailUpdate) SetNillableSort(u *uint32) *DictionaryDetailUpdate {
+	if u != nil {
+		ddu.SetSort(*u)
+	}
+	return ddu
+}
+
+// AddSort adds u to the "sort" field.
+func (ddu *DictionaryDetailUpdate) AddSort(u int32) *DictionaryDetailUpdate {
+	ddu.mutation.AddSort(u)
+	return ddu
+}
+
 // SetTitle sets the "title" field.
 func (ddu *DictionaryDetailUpdate) SetTitle(s string) *DictionaryDetailUpdate {
 	ddu.mutation.SetTitle(s)
@@ -80,17 +101,23 @@ func (ddu *DictionaryDetailUpdate) SetValue(s string) *DictionaryDetailUpdate {
 	return ddu
 }
 
-// SetDictionaryID sets the "dictionary" edge to the Dictionary entity by ID.
-func (ddu *DictionaryDetailUpdate) SetDictionaryID(id uint64) *DictionaryDetailUpdate {
-	ddu.mutation.SetDictionaryID(id)
+// SetDictionaryID sets the "dictionary_id" field.
+func (ddu *DictionaryDetailUpdate) SetDictionaryID(u uint64) *DictionaryDetailUpdate {
+	ddu.mutation.SetDictionaryID(u)
 	return ddu
 }
 
-// SetNillableDictionaryID sets the "dictionary" edge to the Dictionary entity by ID if the given value is not nil.
-func (ddu *DictionaryDetailUpdate) SetNillableDictionaryID(id *uint64) *DictionaryDetailUpdate {
-	if id != nil {
-		ddu = ddu.SetDictionaryID(*id)
+// SetNillableDictionaryID sets the "dictionary_id" field if the given value is not nil.
+func (ddu *DictionaryDetailUpdate) SetNillableDictionaryID(u *uint64) *DictionaryDetailUpdate {
+	if u != nil {
+		ddu.SetDictionaryID(*u)
 	}
+	return ddu
+}
+
+// ClearDictionaryID clears the value of the "dictionary_id" field.
+func (ddu *DictionaryDetailUpdate) ClearDictionaryID() *DictionaryDetailUpdate {
+	ddu.mutation.ClearDictionaryID()
 	return ddu
 }
 
@@ -175,6 +202,12 @@ func (ddu *DictionaryDetailUpdate) sqlSave(ctx context.Context) (n int, err erro
 	}
 	if ddu.mutation.StatusCleared() {
 		_spec.ClearField(dictionarydetail.FieldStatus, field.TypeUint8)
+	}
+	if value, ok := ddu.mutation.Sort(); ok {
+		_spec.SetField(dictionarydetail.FieldSort, field.TypeUint32, value)
+	}
+	if value, ok := ddu.mutation.AddedSort(); ok {
+		_spec.AddField(dictionarydetail.FieldSort, field.TypeUint32, value)
 	}
 	if value, ok := ddu.mutation.Title(); ok {
 		_spec.SetField(dictionarydetail.FieldTitle, field.TypeString, value)
@@ -273,6 +306,27 @@ func (dduo *DictionaryDetailUpdateOne) ClearStatus() *DictionaryDetailUpdateOne 
 	return dduo
 }
 
+// SetSort sets the "sort" field.
+func (dduo *DictionaryDetailUpdateOne) SetSort(u uint32) *DictionaryDetailUpdateOne {
+	dduo.mutation.ResetSort()
+	dduo.mutation.SetSort(u)
+	return dduo
+}
+
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (dduo *DictionaryDetailUpdateOne) SetNillableSort(u *uint32) *DictionaryDetailUpdateOne {
+	if u != nil {
+		dduo.SetSort(*u)
+	}
+	return dduo
+}
+
+// AddSort adds u to the "sort" field.
+func (dduo *DictionaryDetailUpdateOne) AddSort(u int32) *DictionaryDetailUpdateOne {
+	dduo.mutation.AddSort(u)
+	return dduo
+}
+
 // SetTitle sets the "title" field.
 func (dduo *DictionaryDetailUpdateOne) SetTitle(s string) *DictionaryDetailUpdateOne {
 	dduo.mutation.SetTitle(s)
@@ -291,17 +345,23 @@ func (dduo *DictionaryDetailUpdateOne) SetValue(s string) *DictionaryDetailUpdat
 	return dduo
 }
 
-// SetDictionaryID sets the "dictionary" edge to the Dictionary entity by ID.
-func (dduo *DictionaryDetailUpdateOne) SetDictionaryID(id uint64) *DictionaryDetailUpdateOne {
-	dduo.mutation.SetDictionaryID(id)
+// SetDictionaryID sets the "dictionary_id" field.
+func (dduo *DictionaryDetailUpdateOne) SetDictionaryID(u uint64) *DictionaryDetailUpdateOne {
+	dduo.mutation.SetDictionaryID(u)
 	return dduo
 }
 
-// SetNillableDictionaryID sets the "dictionary" edge to the Dictionary entity by ID if the given value is not nil.
-func (dduo *DictionaryDetailUpdateOne) SetNillableDictionaryID(id *uint64) *DictionaryDetailUpdateOne {
-	if id != nil {
-		dduo = dduo.SetDictionaryID(*id)
+// SetNillableDictionaryID sets the "dictionary_id" field if the given value is not nil.
+func (dduo *DictionaryDetailUpdateOne) SetNillableDictionaryID(u *uint64) *DictionaryDetailUpdateOne {
+	if u != nil {
+		dduo.SetDictionaryID(*u)
 	}
+	return dduo
+}
+
+// ClearDictionaryID clears the value of the "dictionary_id" field.
+func (dduo *DictionaryDetailUpdateOne) ClearDictionaryID() *DictionaryDetailUpdateOne {
+	dduo.mutation.ClearDictionaryID()
 	return dduo
 }
 
@@ -410,6 +470,12 @@ func (dduo *DictionaryDetailUpdateOne) sqlSave(ctx context.Context) (_node *Dict
 	}
 	if dduo.mutation.StatusCleared() {
 		_spec.ClearField(dictionarydetail.FieldStatus, field.TypeUint8)
+	}
+	if value, ok := dduo.mutation.Sort(); ok {
+		_spec.SetField(dictionarydetail.FieldSort, field.TypeUint32, value)
+	}
+	if value, ok := dduo.mutation.AddedSort(); ok {
+		_spec.AddField(dictionarydetail.FieldSort, field.TypeUint32, value)
 	}
 	if value, ok := dduo.mutation.Title(); ok {
 		_spec.SetField(dictionarydetail.FieldTitle, field.TypeString, value)

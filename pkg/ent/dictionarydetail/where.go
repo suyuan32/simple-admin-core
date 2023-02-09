@@ -70,6 +70,11 @@ func Status(v uint8) predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(sql.FieldEQ(FieldStatus, v))
 }
 
+// Sort applies equality check predicate on the "sort" field. It's identical to SortEQ.
+func Sort(v uint32) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldEQ(FieldSort, v))
+}
+
 // Title applies equality check predicate on the "title" field. It's identical to TitleEQ.
 func Title(v string) predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(sql.FieldEQ(FieldTitle, v))
@@ -83,6 +88,11 @@ func Key(v string) predicate.DictionaryDetail {
 // Value applies equality check predicate on the "value" field. It's identical to ValueEQ.
 func Value(v string) predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(sql.FieldEQ(FieldValue, v))
+}
+
+// DictionaryID applies equality check predicate on the "dictionary_id" field. It's identical to DictionaryIDEQ.
+func DictionaryID(v uint64) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldEQ(FieldDictionaryID, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
@@ -213,6 +223,46 @@ func StatusIsNil() predicate.DictionaryDetail {
 // StatusNotNil applies the NotNil predicate on the "status" field.
 func StatusNotNil() predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(sql.FieldNotNull(FieldStatus))
+}
+
+// SortEQ applies the EQ predicate on the "sort" field.
+func SortEQ(v uint32) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldEQ(FieldSort, v))
+}
+
+// SortNEQ applies the NEQ predicate on the "sort" field.
+func SortNEQ(v uint32) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldNEQ(FieldSort, v))
+}
+
+// SortIn applies the In predicate on the "sort" field.
+func SortIn(vs ...uint32) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldIn(FieldSort, vs...))
+}
+
+// SortNotIn applies the NotIn predicate on the "sort" field.
+func SortNotIn(vs ...uint32) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldNotIn(FieldSort, vs...))
+}
+
+// SortGT applies the GT predicate on the "sort" field.
+func SortGT(v uint32) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldGT(FieldSort, v))
+}
+
+// SortGTE applies the GTE predicate on the "sort" field.
+func SortGTE(v uint32) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldGTE(FieldSort, v))
+}
+
+// SortLT applies the LT predicate on the "sort" field.
+func SortLT(v uint32) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldLT(FieldSort, v))
+}
+
+// SortLTE applies the LTE predicate on the "sort" field.
+func SortLTE(v uint32) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldLTE(FieldSort, v))
 }
 
 // TitleEQ applies the EQ predicate on the "title" field.
@@ -408,6 +458,36 @@ func ValueEqualFold(v string) predicate.DictionaryDetail {
 // ValueContainsFold applies the ContainsFold predicate on the "value" field.
 func ValueContainsFold(v string) predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(sql.FieldContainsFold(FieldValue, v))
+}
+
+// DictionaryIDEQ applies the EQ predicate on the "dictionary_id" field.
+func DictionaryIDEQ(v uint64) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldEQ(FieldDictionaryID, v))
+}
+
+// DictionaryIDNEQ applies the NEQ predicate on the "dictionary_id" field.
+func DictionaryIDNEQ(v uint64) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldNEQ(FieldDictionaryID, v))
+}
+
+// DictionaryIDIn applies the In predicate on the "dictionary_id" field.
+func DictionaryIDIn(vs ...uint64) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldIn(FieldDictionaryID, vs...))
+}
+
+// DictionaryIDNotIn applies the NotIn predicate on the "dictionary_id" field.
+func DictionaryIDNotIn(vs ...uint64) predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldNotIn(FieldDictionaryID, vs...))
+}
+
+// DictionaryIDIsNil applies the IsNil predicate on the "dictionary_id" field.
+func DictionaryIDIsNil() predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldIsNull(FieldDictionaryID))
+}
+
+// DictionaryIDNotNil applies the NotNil predicate on the "dictionary_id" field.
+func DictionaryIDNotNil() predicate.DictionaryDetail {
+	return predicate.DictionaryDetail(sql.FieldNotNull(FieldDictionaryID))
 }
 
 // HasDictionary applies the HasEdge predicate on the "dictionary" edge.

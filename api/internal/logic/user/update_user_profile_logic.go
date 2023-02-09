@@ -28,14 +28,13 @@ func NewUpdateUserProfileLogic(r *http.Request, svcCtx *svc.ServiceContext) *Upd
 }
 
 func (l *UpdateUserProfileLogic) UpdateUserProfile(req *types.ProfileReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.UpdateProfile(l.ctx, &core.UpdateProfileReq{
+	result, err := l.svcCtx.CoreRpc.UpdateUser(l.ctx, &core.UserInfo{
 		Id:       l.ctx.Value("userId").(string),
 		Nickname: req.Nickname,
 		Email:    req.Email,
 		Mobile:   req.Mobile,
 		Avatar:   req.Avatar,
 	})
-
 	if err != nil {
 		return nil, err
 	}

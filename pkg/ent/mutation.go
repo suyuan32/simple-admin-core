@@ -2623,6 +2623,8 @@ type DictionaryDetailMutation struct {
 	updated_at        *time.Time
 	status            *uint8
 	addstatus         *int8
+	sort              *uint32
+	addsort           *int32
 	title             *string
 	key               *string
 	value             *string
@@ -2880,6 +2882,62 @@ func (m *DictionaryDetailMutation) ResetStatus() {
 	delete(m.clearedFields, dictionarydetail.FieldStatus)
 }
 
+// SetSort sets the "sort" field.
+func (m *DictionaryDetailMutation) SetSort(u uint32) {
+	m.sort = &u
+	m.addsort = nil
+}
+
+// Sort returns the value of the "sort" field in the mutation.
+func (m *DictionaryDetailMutation) Sort() (r uint32, exists bool) {
+	v := m.sort
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSort returns the old "sort" field's value of the DictionaryDetail entity.
+// If the DictionaryDetail object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DictionaryDetailMutation) OldSort(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSort is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSort requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSort: %w", err)
+	}
+	return oldValue.Sort, nil
+}
+
+// AddSort adds u to the "sort" field.
+func (m *DictionaryDetailMutation) AddSort(u int32) {
+	if m.addsort != nil {
+		*m.addsort += u
+	} else {
+		m.addsort = &u
+	}
+}
+
+// AddedSort returns the value that was added to the "sort" field in this mutation.
+func (m *DictionaryDetailMutation) AddedSort() (r int32, exists bool) {
+	v := m.addsort
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetSort resets all changes to the "sort" field.
+func (m *DictionaryDetailMutation) ResetSort() {
+	m.sort = nil
+	m.addsort = nil
+}
+
 // SetTitle sets the "title" field.
 func (m *DictionaryDetailMutation) SetTitle(s string) {
 	m.title = &s
@@ -2988,9 +3046,53 @@ func (m *DictionaryDetailMutation) ResetValue() {
 	m.value = nil
 }
 
-// SetDictionaryID sets the "dictionary" edge to the Dictionary entity by id.
-func (m *DictionaryDetailMutation) SetDictionaryID(id uint64) {
-	m.dictionary = &id
+// SetDictionaryID sets the "dictionary_id" field.
+func (m *DictionaryDetailMutation) SetDictionaryID(u uint64) {
+	m.dictionary = &u
+}
+
+// DictionaryID returns the value of the "dictionary_id" field in the mutation.
+func (m *DictionaryDetailMutation) DictionaryID() (r uint64, exists bool) {
+	v := m.dictionary
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDictionaryID returns the old "dictionary_id" field's value of the DictionaryDetail entity.
+// If the DictionaryDetail object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DictionaryDetailMutation) OldDictionaryID(ctx context.Context) (v uint64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDictionaryID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDictionaryID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDictionaryID: %w", err)
+	}
+	return oldValue.DictionaryID, nil
+}
+
+// ClearDictionaryID clears the value of the "dictionary_id" field.
+func (m *DictionaryDetailMutation) ClearDictionaryID() {
+	m.dictionary = nil
+	m.clearedFields[dictionarydetail.FieldDictionaryID] = struct{}{}
+}
+
+// DictionaryIDCleared returns if the "dictionary_id" field was cleared in this mutation.
+func (m *DictionaryDetailMutation) DictionaryIDCleared() bool {
+	_, ok := m.clearedFields[dictionarydetail.FieldDictionaryID]
+	return ok
+}
+
+// ResetDictionaryID resets all changes to the "dictionary_id" field.
+func (m *DictionaryDetailMutation) ResetDictionaryID() {
+	m.dictionary = nil
+	delete(m.clearedFields, dictionarydetail.FieldDictionaryID)
 }
 
 // ClearDictionary clears the "dictionary" edge to the Dictionary entity.
@@ -3000,15 +3102,7 @@ func (m *DictionaryDetailMutation) ClearDictionary() {
 
 // DictionaryCleared reports if the "dictionary" edge to the Dictionary entity was cleared.
 func (m *DictionaryDetailMutation) DictionaryCleared() bool {
-	return m.cleareddictionary
-}
-
-// DictionaryID returns the "dictionary" edge ID in the mutation.
-func (m *DictionaryDetailMutation) DictionaryID() (id uint64, exists bool) {
-	if m.dictionary != nil {
-		return *m.dictionary, true
-	}
-	return
+	return m.DictionaryIDCleared() || m.cleareddictionary
 }
 
 // DictionaryIDs returns the "dictionary" edge IDs in the mutation.
@@ -3061,7 +3155,7 @@ func (m *DictionaryDetailMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *DictionaryDetailMutation) Fields() []string {
-	fields := make([]string, 0, 6)
+	fields := make([]string, 0, 8)
 	if m.created_at != nil {
 		fields = append(fields, dictionarydetail.FieldCreatedAt)
 	}
@@ -3071,6 +3165,9 @@ func (m *DictionaryDetailMutation) Fields() []string {
 	if m.status != nil {
 		fields = append(fields, dictionarydetail.FieldStatus)
 	}
+	if m.sort != nil {
+		fields = append(fields, dictionarydetail.FieldSort)
+	}
 	if m.title != nil {
 		fields = append(fields, dictionarydetail.FieldTitle)
 	}
@@ -3079,6 +3176,9 @@ func (m *DictionaryDetailMutation) Fields() []string {
 	}
 	if m.value != nil {
 		fields = append(fields, dictionarydetail.FieldValue)
+	}
+	if m.dictionary != nil {
+		fields = append(fields, dictionarydetail.FieldDictionaryID)
 	}
 	return fields
 }
@@ -3094,12 +3194,16 @@ func (m *DictionaryDetailMutation) Field(name string) (ent.Value, bool) {
 		return m.UpdatedAt()
 	case dictionarydetail.FieldStatus:
 		return m.Status()
+	case dictionarydetail.FieldSort:
+		return m.Sort()
 	case dictionarydetail.FieldTitle:
 		return m.Title()
 	case dictionarydetail.FieldKey:
 		return m.Key()
 	case dictionarydetail.FieldValue:
 		return m.Value()
+	case dictionarydetail.FieldDictionaryID:
+		return m.DictionaryID()
 	}
 	return nil, false
 }
@@ -3115,12 +3219,16 @@ func (m *DictionaryDetailMutation) OldField(ctx context.Context, name string) (e
 		return m.OldUpdatedAt(ctx)
 	case dictionarydetail.FieldStatus:
 		return m.OldStatus(ctx)
+	case dictionarydetail.FieldSort:
+		return m.OldSort(ctx)
 	case dictionarydetail.FieldTitle:
 		return m.OldTitle(ctx)
 	case dictionarydetail.FieldKey:
 		return m.OldKey(ctx)
 	case dictionarydetail.FieldValue:
 		return m.OldValue(ctx)
+	case dictionarydetail.FieldDictionaryID:
+		return m.OldDictionaryID(ctx)
 	}
 	return nil, fmt.Errorf("unknown DictionaryDetail field %s", name)
 }
@@ -3151,6 +3259,13 @@ func (m *DictionaryDetailMutation) SetField(name string, value ent.Value) error 
 		}
 		m.SetStatus(v)
 		return nil
+	case dictionarydetail.FieldSort:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSort(v)
+		return nil
 	case dictionarydetail.FieldTitle:
 		v, ok := value.(string)
 		if !ok {
@@ -3172,6 +3287,13 @@ func (m *DictionaryDetailMutation) SetField(name string, value ent.Value) error 
 		}
 		m.SetValue(v)
 		return nil
+	case dictionarydetail.FieldDictionaryID:
+		v, ok := value.(uint64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDictionaryID(v)
+		return nil
 	}
 	return fmt.Errorf("unknown DictionaryDetail field %s", name)
 }
@@ -3183,6 +3305,9 @@ func (m *DictionaryDetailMutation) AddedFields() []string {
 	if m.addstatus != nil {
 		fields = append(fields, dictionarydetail.FieldStatus)
 	}
+	if m.addsort != nil {
+		fields = append(fields, dictionarydetail.FieldSort)
+	}
 	return fields
 }
 
@@ -3193,6 +3318,8 @@ func (m *DictionaryDetailMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
 	case dictionarydetail.FieldStatus:
 		return m.AddedStatus()
+	case dictionarydetail.FieldSort:
+		return m.AddedSort()
 	}
 	return nil, false
 }
@@ -3209,6 +3336,13 @@ func (m *DictionaryDetailMutation) AddField(name string, value ent.Value) error 
 		}
 		m.AddStatus(v)
 		return nil
+	case dictionarydetail.FieldSort:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddSort(v)
+		return nil
 	}
 	return fmt.Errorf("unknown DictionaryDetail numeric field %s", name)
 }
@@ -3219,6 +3353,9 @@ func (m *DictionaryDetailMutation) ClearedFields() []string {
 	var fields []string
 	if m.FieldCleared(dictionarydetail.FieldStatus) {
 		fields = append(fields, dictionarydetail.FieldStatus)
+	}
+	if m.FieldCleared(dictionarydetail.FieldDictionaryID) {
+		fields = append(fields, dictionarydetail.FieldDictionaryID)
 	}
 	return fields
 }
@@ -3237,6 +3374,9 @@ func (m *DictionaryDetailMutation) ClearField(name string) error {
 	case dictionarydetail.FieldStatus:
 		m.ClearStatus()
 		return nil
+	case dictionarydetail.FieldDictionaryID:
+		m.ClearDictionaryID()
+		return nil
 	}
 	return fmt.Errorf("unknown DictionaryDetail nullable field %s", name)
 }
@@ -3254,6 +3394,9 @@ func (m *DictionaryDetailMutation) ResetField(name string) error {
 	case dictionarydetail.FieldStatus:
 		m.ResetStatus()
 		return nil
+	case dictionarydetail.FieldSort:
+		m.ResetSort()
+		return nil
 	case dictionarydetail.FieldTitle:
 		m.ResetTitle()
 		return nil
@@ -3262,6 +3405,9 @@ func (m *DictionaryDetailMutation) ResetField(name string) error {
 		return nil
 	case dictionarydetail.FieldValue:
 		m.ResetValue()
+		return nil
+	case dictionarydetail.FieldDictionaryID:
+		m.ResetDictionaryID()
 		return nil
 	}
 	return fmt.Errorf("unknown DictionaryDetail field %s", name)
@@ -7612,6 +7758,55 @@ func (m *MenuParamMutation) ResetValue() {
 	m.value = nil
 }
 
+// SetMenuID sets the "menu_id" field.
+func (m *MenuParamMutation) SetMenuID(u uint64) {
+	m.menus = &u
+}
+
+// MenuID returns the value of the "menu_id" field in the mutation.
+func (m *MenuParamMutation) MenuID() (r uint64, exists bool) {
+	v := m.menus
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMenuID returns the old "menu_id" field's value of the MenuParam entity.
+// If the MenuParam object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MenuParamMutation) OldMenuID(ctx context.Context) (v uint64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldMenuID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldMenuID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMenuID: %w", err)
+	}
+	return oldValue.MenuID, nil
+}
+
+// ClearMenuID clears the value of the "menu_id" field.
+func (m *MenuParamMutation) ClearMenuID() {
+	m.menus = nil
+	m.clearedFields[menuparam.FieldMenuID] = struct{}{}
+}
+
+// MenuIDCleared returns if the "menu_id" field was cleared in this mutation.
+func (m *MenuParamMutation) MenuIDCleared() bool {
+	_, ok := m.clearedFields[menuparam.FieldMenuID]
+	return ok
+}
+
+// ResetMenuID resets all changes to the "menu_id" field.
+func (m *MenuParamMutation) ResetMenuID() {
+	m.menus = nil
+	delete(m.clearedFields, menuparam.FieldMenuID)
+}
+
 // SetMenusID sets the "menus" edge to the Menu entity by id.
 func (m *MenuParamMutation) SetMenusID(id uint64) {
 	m.menus = &id
@@ -7624,7 +7819,7 @@ func (m *MenuParamMutation) ClearMenus() {
 
 // MenusCleared reports if the "menus" edge to the Menu entity was cleared.
 func (m *MenuParamMutation) MenusCleared() bool {
-	return m.clearedmenus
+	return m.MenuIDCleared() || m.clearedmenus
 }
 
 // MenusID returns the "menus" edge ID in the mutation.
@@ -7685,7 +7880,7 @@ func (m *MenuParamMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *MenuParamMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 6)
 	if m.created_at != nil {
 		fields = append(fields, menuparam.FieldCreatedAt)
 	}
@@ -7700,6 +7895,9 @@ func (m *MenuParamMutation) Fields() []string {
 	}
 	if m.value != nil {
 		fields = append(fields, menuparam.FieldValue)
+	}
+	if m.menus != nil {
+		fields = append(fields, menuparam.FieldMenuID)
 	}
 	return fields
 }
@@ -7719,6 +7917,8 @@ func (m *MenuParamMutation) Field(name string) (ent.Value, bool) {
 		return m.Key()
 	case menuparam.FieldValue:
 		return m.Value()
+	case menuparam.FieldMenuID:
+		return m.MenuID()
 	}
 	return nil, false
 }
@@ -7738,6 +7938,8 @@ func (m *MenuParamMutation) OldField(ctx context.Context, name string) (ent.Valu
 		return m.OldKey(ctx)
 	case menuparam.FieldValue:
 		return m.OldValue(ctx)
+	case menuparam.FieldMenuID:
+		return m.OldMenuID(ctx)
 	}
 	return nil, fmt.Errorf("unknown MenuParam field %s", name)
 }
@@ -7782,6 +7984,13 @@ func (m *MenuParamMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetValue(v)
 		return nil
+	case menuparam.FieldMenuID:
+		v, ok := value.(uint64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMenuID(v)
+		return nil
 	}
 	return fmt.Errorf("unknown MenuParam field %s", name)
 }
@@ -7789,13 +7998,16 @@ func (m *MenuParamMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *MenuParamMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *MenuParamMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	}
 	return nil, false
 }
 
@@ -7811,7 +8023,11 @@ func (m *MenuParamMutation) AddField(name string, value ent.Value) error {
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
 func (m *MenuParamMutation) ClearedFields() []string {
-	return nil
+	var fields []string
+	if m.FieldCleared(menuparam.FieldMenuID) {
+		fields = append(fields, menuparam.FieldMenuID)
+	}
+	return fields
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
@@ -7824,6 +8040,11 @@ func (m *MenuParamMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *MenuParamMutation) ClearField(name string) error {
+	switch name {
+	case menuparam.FieldMenuID:
+		m.ClearMenuID()
+		return nil
+	}
 	return fmt.Errorf("unknown MenuParam nullable field %s", name)
 }
 
@@ -7845,6 +8066,9 @@ func (m *MenuParamMutation) ResetField(name string) error {
 		return nil
 	case menuparam.FieldValue:
 		m.ResetValue()
+		return nil
+	case menuparam.FieldMenuID:
+		m.ResetMenuID()
 		return nil
 	}
 	return fmt.Errorf("unknown MenuParam field %s", name)

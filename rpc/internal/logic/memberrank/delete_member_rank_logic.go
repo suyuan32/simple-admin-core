@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/member"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/memberrank"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -29,24 +29,9 @@ func NewDeleteMemberRankLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	}
 }
 
-func (l *DeleteMemberRankLogic) DeleteMemberRank(in *core.IDReq) (*core.BaseResp, error) {
-	exist, err := l.svcCtx.DB.Member.Query().Where(member.RankID(in.Id)).Exist(l.ctx)
-	if err != nil {
-		switch {
-		case ent.IsNotFound(err):
-			logx.Errorw(err.Error(), logx.Field("detail", in))
-			return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
-		default:
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInternalError(i18n.DatabaseError)
-		}
-	}
+func (l *DeleteMemberRankLogic) DeleteMemberRank(in *core.IDsReq) (*core.BaseResp, error) {
+	_, err := l.svcCtx.DB.MemberRank.Delete().Where(memberrank.IDIn(in.Ids...)).Exec(l.ctx)
 
-	if exist {
-		return nil, statuserr.NewInvalidArgumentError("memberRank.memberExistError")
-	}
-
-	err = l.svcCtx.DB.MemberRank.DeleteOneID(in.Id).Exec(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):

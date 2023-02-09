@@ -21,6 +21,8 @@ const (
 	FieldKey = "key"
 	// FieldValue holds the string denoting the value field in the database.
 	FieldValue = "value"
+	// FieldMenuID holds the string denoting the menu_id field in the database.
+	FieldMenuID = "menu_id"
 	// EdgeMenus holds the string denoting the menus edge name in mutations.
 	EdgeMenus = "menus"
 	// Table holds the table name of the menuparam in the database.
@@ -31,7 +33,7 @@ const (
 	// It exists in this package in order to avoid circular dependency with the "menu" package.
 	MenusInverseTable = "sys_menus"
 	// MenusColumn is the table column denoting the menus relation/edge.
-	MenusColumn = "menu_params"
+	MenusColumn = "menu_id"
 )
 
 // Columns holds all SQL columns for menuparam fields.
@@ -42,23 +44,13 @@ var Columns = []string{
 	FieldType,
 	FieldKey,
 	FieldValue,
-}
-
-// ForeignKeys holds the SQL foreign-keys that are owned by the "sys_menu_params"
-// table and are not defined as standalone fields in the schema.
-var ForeignKeys = []string{
-	"menu_params",
+	FieldMenuID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
 func ValidColumn(column string) bool {
 	for i := range Columns {
 		if column == Columns[i] {
-			return true
-		}
-	}
-	for i := range ForeignKeys {
-		if column == ForeignKeys[i] {
 			return true
 		}
 	}

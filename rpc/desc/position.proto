@@ -22,6 +22,8 @@ message PositionListReq {
   uint64 page = 1;
   uint64 page_size = 2;
   string name = 3;
+  string code = 4;
+  string remark = 5;
 }
 
 
@@ -29,15 +31,15 @@ service Core {
 
   // Position management
   // group: position
-  rpc createOrUpdatePosition (PositionInfo) returns (BaseResp);
+  rpc createPosition (PositionInfo) returns (BaseResp);
+  // group: position
+  rpc updatePosition (PositionInfo) returns (BaseResp);
   // group: position
   rpc getPositionList (PositionListReq) returns (PositionListResp);
   // group: position
-  rpc deletePosition (IDReq) returns (BaseResp);
+  rpc getPositionById (IDReq) returns (PositionInfo);
   // group: position
-  rpc batchDeletePosition (IDsReq) returns (BaseResp);
-  // group: position
-  rpc updatePositionStatus(StatusCodeReq) returns (BaseResp);
+  rpc deletePosition (IDsReq) returns (BaseResp);
 
 
 }

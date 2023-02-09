@@ -1,56 +1,40 @@
 import "base.api"
 
 type (
-    // The response data of member rank information | 会员等级信息
+    // The response data of member rank information | MemberRank信息
     MemberRankInfo {
         BaseInfo
 
         // Translated Name
-        Trans string `json:"trans"`
+        Trans string `json:"trans,optional"`
 
         // Name
-        Name  string `json:"name"`
+        Name  string `json:"name,optional"`
 
         // Description
-        Description  string `json:"description"`
+        Description  string `json:"description,optional"`
 
         // Remark
-        Remark  string `json:"remark"`
+        Remark  string `json:"remark,optional"`
     }
 
-    // Create or update member rank information request | 创建或更新会员等级信息
-    CreateOrUpdateMemberRankReq {
-        // ID
-        // Required: true
-        Id    uint64    `json:"id"`
-
-        // Name
-        Name  string `json:"name"`
-
-        // Description
-        Description  string `json:"description"`
-
-        // Remark
-        Remark  string `json:"remark"`
-    }
-
-    // The response data of member rank list | 会员等级列表数据
+    // The response data of member rank list | MemberRank列表数据
     MemberRankListResp {
         BaseDataInfo
 
-        // MemberRank list data | 会员等级列表数据
+        // MemberRank list data | MemberRank列表数据
         Data MemberRankListInfo `json:"data"`
     }
 
-    // MemberRank list data | 会员等级列表数据
+    // MemberRank list data | MemberRank列表数据
     MemberRankListInfo {
         BaseListInfo
 
-        // The API list data | 会员等级列表数据
+        // The API list data | MemberRank列表数据
         Data  []MemberRankInfo  `json:"data"`
     }
 
-    // Get member rank list request params | 会员等级列表请求参数
+    // Get member rank list request params | MemberRank列表请求参数
     MemberRankListReq {
         PageInfo
 
@@ -63,6 +47,14 @@ type (
         // Remark
         Remark  string `json:"remark,optional"`
     }
+
+    // MemberRank information response | MemberRank信息返回体
+    MemberRankInfoResp {
+        BaseDataInfo
+
+        // MemberRank information | MemberRank数据
+        Data MemberRankInfo `json:"data"`
+    }
 )
 
 @server(
@@ -72,20 +64,23 @@ type (
 )
 
 service core {
-    // Create or update member rank information | 创建或更新会员等级
-    @handler createOrUpdateMemberRank
-    post /member_rank/create_or_update (CreateOrUpdateMemberRankReq) returns (BaseMsgResp)
+    // Create member rank information | 创建MemberRank
+    @handler createMemberRank
+    post /member_rank/create (MemberRankInfo) returns (BaseMsgResp)
 
-    // Delete member rank information | 删除会员等级信息
+    // Update member rank information | 更新MemberRank
+    @handler updateMemberRank
+    post /member_rank/update (MemberRankInfo) returns (BaseMsgResp)
+
+    // Delete member rank information | 删除MemberRank信息
     @handler deleteMemberRank
-    post /member_rank/delete (IDReq) returns (BaseMsgResp)
+    post /member_rank/delete (IDsReq) returns (BaseMsgResp)
 
-    // Get member rank list | 获取会员等级列表
+    // Get member rank list | 获取MemberRank列表
     @handler getMemberRankList
     post /member_rank/list (MemberRankListReq) returns (MemberRankListResp)
 
-    // Delete member rank information | 删除会员等级信息
-    @handler batchDeleteMemberRank
-    post /member_rank/batch_delete (IDsReq) returns (BaseMsgResp)
-
+    // Get member rank by ID | 通过ID获取MemberRank
+    @handler getMemberRankById
+    post /member_rank (IDReq) returns (MemberRankInfoResp)
 }

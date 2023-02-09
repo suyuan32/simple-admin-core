@@ -33,7 +33,7 @@ const (
 	// It exists in this package in order to avoid circular dependency with the "dictionarydetail" package.
 	DictionaryDetailsInverseTable = "sys_dictionary_details"
 	// DictionaryDetailsColumn is the table column denoting the dictionary_details relation/edge.
-	DictionaryDetailsColumn = "dictionary_dictionary_details"
+	DictionaryDetailsColumn = "dictionary_id"
 )
 
 // Columns holds all SQL columns for dictionary fields.

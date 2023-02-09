@@ -1,0 +1,80 @@
+import "base.api"
+
+type (
+    // The response data of menu param information | MenuParam信息
+    MenuParamInfo {
+        BaseInfo
+
+        // Type
+        Type  string `json:"type,optional"`
+
+        // Key
+        Key  string `json:"key,optional"`
+
+        // Value
+        Value  string `json:"value,optional"`
+
+        // Parent menu ID | 父级菜单ID
+        MenuId uint64  `json:"menuId,optional"`
+    }
+
+    // The response data of menu param list | MenuParam列表数据
+    MenuParamListResp {
+        BaseDataInfo
+
+        // MenuParam list data | MenuParam列表数据
+        Data MenuParamListInfo `json:"data"`
+    }
+
+    // MenuParam list data | MenuParam列表数据
+    MenuParamListInfo {
+        BaseListInfo
+
+        // The API list data | MenuParam列表数据
+        Data  []MenuParamInfo  `json:"data"`
+    }
+
+    // Get menu param list request params | MenuParam列表请求参数
+    MenuParamListReq {
+        PageInfo
+
+        // Menu ID | 菜单ID
+        MenuId  uint64 `json:"menuId"`
+    }
+
+    // MenuParam information response | MenuParam信息返回体
+    MenuParamInfoResp {
+        BaseDataInfo
+
+        // MenuParam information | MenuParam数据
+        Data MenuParamInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: menuparam
+    middleware: Authority
+)
+
+service core {
+    // Create menu param information | 创建MenuParam
+    @handler createMenuParam
+    post /menu_param/create (MenuParamInfo) returns (BaseMsgResp)
+
+    // Update menu param information | 更新MenuParam
+    @handler updateMenuParam
+    post /menu_param/update (MenuParamInfo) returns (BaseMsgResp)
+
+    // Delete menu param information | 删除MenuParam信息
+    @handler deleteMenuParam
+    post /menu_param/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get menu param list | 获取MenuParam列表
+    @handler getMenuParamList
+    post /menu_param/list (MenuParamListReq) returns (MenuParamListResp)
+
+    // Get menu param by ID | 通过ID获取MenuParam
+    @handler getMenuParamById
+    post /menu_param (IDReq) returns (MenuParamInfoResp)
+}

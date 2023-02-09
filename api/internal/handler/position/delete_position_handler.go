@@ -12,22 +12,22 @@ import (
 
 // swagger:route post /position/delete position DeletePosition
 //
-// Delete position information | 删除职位信息
+// Delete position information | 删除Position信息
 //
-// Delete position information | 删除职位信息
+// Delete position information | 删除Position信息
 //
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
-//    type: IDReq
+//    type: IDsReq
 //
 // Responses:
 //  200: BaseMsgResp
 
 func DeletePositionHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.IDReq
+		var req types.IDsReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return

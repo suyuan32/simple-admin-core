@@ -1,64 +1,33 @@
 syntax = "proto3";
 
-message LoginReq {
-  string username = 1;
-  string password = 2;
-}
+// User message
 
-message LoginResp {
+message UserInfo {
   string id = 1;
-  string role_name = 2;
-  string role_value = 3;
-  uint64 role_id = 4;
-}
-
-message ChangePasswordReq {
-  string id = 1;
-  string old_password = 2;
-  string new_password = 3;
-}
-
-message CreateOrUpdateUserReq {
-  string id = 1;
-  string avatar = 2;
-  uint64 role_id = 3;
-  string mobile = 4;
-  string email = 5;
-  uint32 status = 6;
-  string username = 7;
-  string nickname = 8;
-  string password = 9;
-  string home_path = 10;
-  string description = 11;
-  uint64 department_id = 12;
-  uint64 position_id = 13;
-}
-
-message UserInfoResp {
-  string id = 1;
-  string avatar = 2;
-  uint64 role_id = 3;
-  string mobile = 4;
-  string email = 5;
-  uint32 status = 6;
-  string username = 7;
-  string nickname = 8;
-  string roleName = 9;
-  int64 created_at = 10;
-  int64 updated_at = 11;
-  string roleValue = 12;
-  string home_path = 13;
-  string description = 14;
-  uint64 department_id = 15;
-  uint64 position_id = 16;
+  int64 created_at = 2;
+  int64 updated_at = 3;
+  uint32 status = 4;
+  string username = 5;
+  string password = 6;
+  string nickname = 7;
+  string description = 8;
+  string home_path = 9;
+  uint64 role_id = 10;
+  string mobile = 11;
+  string email = 12;
+  string avatar = 13;
+  uint64 department_id = 14;
+  uint64 position_id = 15;
+  string role_name = 16;
+  string role_value = 17;
 }
 
 message UserListResp {
   uint64 total = 1;
-  repeated UserInfoResp data = 2;
+  repeated UserInfo data = 2;
 }
 
-message GetUserListReq {
+message UserListReq {
   uint64 page = 1;
   uint64 page_size = 2;
   string username = 3;
@@ -79,26 +48,31 @@ message UpdateProfileReq {
   string description = 6;
 }
 
-// service
-service Core {
-  // user management
+message LoginReq {
+  string username = 1;
+  string password = 2;
+}
 
+message LoginResp {
+  string id = 1;
+  string role_name = 2;
+  string role_value = 3;
+  uint64 role_id = 4;
+}
+
+
+service Core {
+  // User management
+  // group: user
+  rpc createUser (UserInfo) returns (BaseResp);
+  // group: user
+  rpc updateUser (UserInfo) returns (BaseResp);
+  // group: user
+  rpc getUserList (UserListReq) returns (UserListResp);
+  // group: user
+  rpc getUserById (UUIDReq) returns (UserInfo);
+  // group: user
+  rpc deleteUser (UUIDsReq) returns (BaseResp);
   // group: user
   rpc login(LoginReq) returns (LoginResp);
-  // group: user
-  rpc changePassword (ChangePasswordReq) returns (BaseResp);
-  // group: user
-  rpc createOrUpdateUser (CreateOrUpdateUserReq) returns (BaseResp);
-  // group: user
-  rpc getUserById (UUIDReq) returns (UserInfoResp);
-  // group: user
-  rpc getUserList (GetUserListReq) returns (UserListResp);
-  // group: user
-  rpc deleteUser (UUIDReq) returns (BaseResp);
-  // group: user
-  rpc batchDeleteUser (UUIDsReq) returns (BaseResp);
-  // group: user
-  rpc updateProfile (UpdateProfileReq) returns (BaseResp);
-  // group: user
-  rpc updateUserStatus (StatusCodeUUIDReq) returns (BaseResp);
 }

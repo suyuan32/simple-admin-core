@@ -27,9 +27,9 @@ func NewDeleteDepartmentLogic(r *http.Request, svcCtx *svc.ServiceContext) *Dele
 	}
 }
 
-func (l *DeleteDepartmentLogic) DeleteDepartment(req *types.IDReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.DeleteDepartment(l.ctx, &core.IDReq{
-		Id: req.Id,
+func (l *DeleteDepartmentLogic) DeleteDepartment(req *types.IDsReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.DeleteDepartment(l.ctx, &core.IDsReq{
+		Ids: req.Ids,
 	})
 	if err != nil {
 		return nil, err

@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -28,8 +29,8 @@ func NewDeleteDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	}
 }
 
-func (l *DeleteDepartmentLogic) DeleteDepartment(in *core.IDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Department.DeleteOneID(in.Id).Exec(l.ctx)
+func (l *DeleteDepartmentLogic) DeleteDepartment(in *core.IDsReq) (*core.BaseResp, error) {
+	_, err := l.svcCtx.DB.Department.Delete().Where(department.IDIn(in.Ids...)).Exec(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):

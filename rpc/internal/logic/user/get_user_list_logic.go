@@ -27,7 +27,7 @@ func NewGetUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 	}
 }
 
-func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListResp, error) {
+func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp, error) {
 	var predicates []predicate.User
 
 	if in.Mobile != "" {
@@ -68,7 +68,7 @@ func (l *GetUserListLogic) GetUserList(in *core.GetUserListReq) (*core.UserListR
 	resp.Total = users.PageDetails.Total
 
 	for _, v := range users.List {
-		resp.Data = append(resp.Data, &core.UserInfoResp{
+		resp.Data = append(resp.Data, &core.UserInfo{
 			Id:           v.ID.String(),
 			Avatar:       v.Avatar,
 			RoleId:       v.RoleID,

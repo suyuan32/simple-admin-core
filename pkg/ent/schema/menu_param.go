@@ -16,9 +16,10 @@ type MenuParam struct {
 
 func (MenuParam) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("type").Comment("pass parameters via params or query | 参数类型"),
-		field.String("key").Comment("the key of parameters | 参数键"),
-		field.String("value").Comment("the value of parameters | 参数值"),
+		field.String("type").Comment("Pass parameters via params or query | 参数类型"),
+		field.String("key").Comment("The key of parameters | 参数键"),
+		field.String("value").Comment("The value of parameters | 参数值"),
+		field.Uint64("menu_id").Optional().Comment("The parent menu ID | 父级菜单ID"),
 	}
 }
 
@@ -30,7 +31,7 @@ func (MenuParam) Mixin() []ent.Mixin {
 
 func (MenuParam) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("menus", Menu.Type).
+		edge.From("menus", Menu.Type).Field("menu_id").
 			Ref("params").Unique(),
 	}
 }

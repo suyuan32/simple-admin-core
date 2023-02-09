@@ -1,8 +1,10 @@
 package enum
 
 const (
-	StatusBanned uint8 = iota
-	StatusNormal
+	StatusNormal uint8 = 1
+	StatusBanned uint8 = 2
 )
 
-const ()
+const (
+	DefaultParentId uint64 = 1000000
+)

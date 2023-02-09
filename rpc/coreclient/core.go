@@ -13,137 +13,153 @@ import (
 )
 
 type (
-	ApiInfo                    = core.ApiInfo
-	ApiListReq                 = core.ApiListReq
-	ApiListResp                = core.ApiListResp
-	BaseResp                   = core.BaseResp
-	CallbackReq                = core.CallbackReq
-	ChangePasswordReq          = core.ChangePasswordReq
-	CreateOrUpdateMenuParamReq = core.CreateOrUpdateMenuParamReq
-	CreateOrUpdateMenuReq      = core.CreateOrUpdateMenuReq
-	CreateOrUpdateUserReq      = core.CreateOrUpdateUserReq
-	DepartmentInfo             = core.DepartmentInfo
-	DepartmentListReq          = core.DepartmentListReq
-	DepartmentListResp         = core.DepartmentListResp
-	DictionaryDetail           = core.DictionaryDetail
-	DictionaryDetailList       = core.DictionaryDetailList
-	DictionaryDetailReq        = core.DictionaryDetailReq
-	DictionaryInfo             = core.DictionaryInfo
-	DictionaryList             = core.DictionaryList
-	DictionaryListReq          = core.DictionaryListReq
-	Empty                      = core.Empty
-	GetUserListReq             = core.GetUserListReq
-	IDReq                      = core.IDReq
-	IDsReq                     = core.IDsReq
-	LoginReq                   = core.LoginReq
-	LoginResp                  = core.LoginResp
-	MemberInfo                 = core.MemberInfo
-	MemberListReq              = core.MemberListReq
-	MemberListResp             = core.MemberListResp
-	MemberLoginResp            = core.MemberLoginResp
-	MemberRankInfo             = core.MemberRankInfo
-	MemberRankListReq          = core.MemberRankListReq
-	MemberRankListResp         = core.MemberRankListResp
-	MemberRegisterReq          = core.MemberRegisterReq
-	MenuInfo                   = core.MenuInfo
-	MenuInfoList               = core.MenuInfoList
-	MenuParamListResp          = core.MenuParamListResp
-	MenuParamResp              = core.MenuParamResp
-	MenuRoleInfo               = core.MenuRoleInfo
-	MenuRoleListResp           = core.MenuRoleListResp
-	Meta                       = core.Meta
-	OauthLoginReq              = core.OauthLoginReq
-	OauthRedirectResp          = core.OauthRedirectResp
-	PageInfoReq                = core.PageInfoReq
-	PositionInfo               = core.PositionInfo
-	PositionListReq            = core.PositionListReq
-	PositionListResp           = core.PositionListResp
-	ProviderInfo               = core.ProviderInfo
-	ProviderListResp           = core.ProviderListResp
-	RoleInfo                   = core.RoleInfo
-	RoleListResp               = core.RoleListResp
-	RoleMenuAuthorityReq       = core.RoleMenuAuthorityReq
-	RoleMenuAuthorityResp      = core.RoleMenuAuthorityResp
-	StatusCodeReq              = core.StatusCodeReq
-	StatusCodeUUIDReq          = core.StatusCodeUUIDReq
-	TokenInfo                  = core.TokenInfo
-	TokenListReq               = core.TokenListReq
-	TokenListResp              = core.TokenListResp
-	UUIDReq                    = core.UUIDReq
-	UUIDsReq                   = core.UUIDsReq
-	UpdateProfileReq           = core.UpdateProfileReq
-	UserInfoResp               = core.UserInfoResp
-	UserListResp               = core.UserListResp
+	ApiInfo                  = core.ApiInfo
+	ApiListReq               = core.ApiListReq
+	ApiListResp              = core.ApiListResp
+	BaseResp                 = core.BaseResp
+	CallbackReq              = core.CallbackReq
+	DepartmentInfo           = core.DepartmentInfo
+	DepartmentListReq        = core.DepartmentListReq
+	DepartmentListResp       = core.DepartmentListResp
+	DictionaryDetailInfo     = core.DictionaryDetailInfo
+	DictionaryDetailListReq  = core.DictionaryDetailListReq
+	DictionaryDetailListResp = core.DictionaryDetailListResp
+	DictionaryInfo           = core.DictionaryInfo
+	DictionaryListReq        = core.DictionaryListReq
+	DictionaryListResp       = core.DictionaryListResp
+	Empty                    = core.Empty
+	IDReq                    = core.IDReq
+	IDsReq                   = core.IDsReq
+	LoginReq                 = core.LoginReq
+	LoginResp                = core.LoginResp
+	MemberInfo               = core.MemberInfo
+	MemberListReq            = core.MemberListReq
+	MemberListResp           = core.MemberListResp
+	MemberLoginResp          = core.MemberLoginResp
+	MemberRankInfo           = core.MemberRankInfo
+	MemberRankListReq        = core.MemberRankListReq
+	MemberRankListResp       = core.MemberRankListResp
+	MemberRegisterReq        = core.MemberRegisterReq
+	MenuInfo                 = core.MenuInfo
+	MenuInfoList             = core.MenuInfoList
+	MenuParamInfo            = core.MenuParamInfo
+	MenuParamListReq         = core.MenuParamListReq
+	MenuParamListResp        = core.MenuParamListResp
+	MenuRoleInfo             = core.MenuRoleInfo
+	MenuRoleListResp         = core.MenuRoleListResp
+	Meta                     = core.Meta
+	OauthLoginReq            = core.OauthLoginReq
+	OauthProviderInfo        = core.OauthProviderInfo
+	OauthProviderListReq     = core.OauthProviderListReq
+	OauthProviderListResp    = core.OauthProviderListResp
+	OauthRedirectResp        = core.OauthRedirectResp
+	PageInfoReq              = core.PageInfoReq
+	PositionInfo             = core.PositionInfo
+	PositionListReq          = core.PositionListReq
+	PositionListResp         = core.PositionListResp
+	RoleInfo                 = core.RoleInfo
+	RoleListReq              = core.RoleListReq
+	RoleListResp             = core.RoleListResp
+	RoleMenuAuthorityReq     = core.RoleMenuAuthorityReq
+	RoleMenuAuthorityResp    = core.RoleMenuAuthorityResp
+	StatusCodeReq            = core.StatusCodeReq
+	StatusCodeUUIDReq        = core.StatusCodeUUIDReq
+	TokenInfo                = core.TokenInfo
+	TokenListReq             = core.TokenListReq
+	TokenListResp            = core.TokenListResp
+	UUIDReq                  = core.UUIDReq
+	UUIDsReq                 = core.UUIDsReq
+	UpdateProfileReq         = core.UpdateProfileReq
+	UserInfo                 = core.UserInfo
+	UserListReq              = core.UserListReq
+	UserListResp             = core.UserListResp
 
 	Core interface {
-		CreateOrUpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
-		DeleteApi(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// API management
+		CreateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		GetApiList(ctx context.Context, in *ApiListReq, opts ...grpc.CallOption) (*ApiListResp, error)
+		GetApiById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ApiInfo, error)
+		DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
 		CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
 		InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
 		// Department management
-		CreateOrUpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		CreateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		GetDepartmentList(ctx context.Context, in *DepartmentListReq, opts ...grpc.CallOption) (*DepartmentListResp, error)
-		DeleteDepartment(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		BatchDeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-		UpdateDepartmentStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
-		CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
-		DeleteDictionary(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		GetDictionaryList(ctx context.Context, in *DictionaryListReq, opts ...grpc.CallOption) (*DictionaryList, error)
-		GetDetailByDictionaryName(ctx context.Context, in *DictionaryDetailReq, opts ...grpc.CallOption) (*DictionaryDetailList, error)
-		CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error)
-		DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		GetDepartmentById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DepartmentInfo, error)
+		DeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// Dictionary management
+		CreateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetDictionaryList(ctx context.Context, in *DictionaryListReq, opts ...grpc.CallOption) (*DictionaryListResp, error)
+		GetDictionaryById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryInfo, error)
+		DeleteDictionary(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// DictionaryDetail management
+		CreateDictionaryDetail(ctx context.Context, in *DictionaryDetailInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateDictionaryDetail(ctx context.Context, in *DictionaryDetailInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetDictionaryDetailList(ctx context.Context, in *DictionaryDetailListReq, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
+		GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error)
+		DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// Member management
-		CreateOrUpdateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		CreateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMemberList(ctx context.Context, in *MemberListReq, opts ...grpc.CallOption) (*MemberListResp, error)
-		DeleteMember(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		BatchDeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-		UpdateMemberStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		GetMemberById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MemberInfo, error)
 		MemberLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*MemberLoginResp, error)
 		// MemberRank management
-		CreateOrUpdateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		CreateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMemberRankList(ctx context.Context, in *MemberRankListReq, opts ...grpc.CallOption) (*MemberRankListResp, error)
-		DeleteMemberRank(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		BatchDeleteMemberRank(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-		CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error)
+		GetMemberRankById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MemberRankInfo, error)
+		DeleteMemberRank(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 		GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
-		CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error)
-		DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
-		CreateOrUpdateProvider(ctx context.Context, in *ProviderInfo, opts ...grpc.CallOption) (*BaseResp, error)
-		DeleteProvider(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		GetProviderList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*ProviderListResp, error)
+		// MenuParam management
+		CreateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetMenuParamList(ctx context.Context, in *MenuParamListReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
+		GetMenuParamById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamInfo, error)
+		DeleteMenuParam(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// OauthProvider management
+		CreateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetOauthProviderList(ctx context.Context, in *OauthProviderListReq, opts ...grpc.CallOption) (*OauthProviderListResp, error)
+		GetOauthProviderById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*OauthProviderInfo, error)
+		DeleteOauthProvider(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
 		OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error)
 		// Position management
-		CreateOrUpdatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		CreatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		GetPositionList(ctx context.Context, in *PositionListReq, opts ...grpc.CallOption) (*PositionListResp, error)
-		DeletePosition(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		BatchDeletePosition(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-		UpdatePositionStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
-		CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
-		DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		GetPositionById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*PositionInfo, error)
+		DeletePosition(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// Role management
+		CreateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetRoleList(ctx context.Context, in *RoleListReq, opts ...grpc.CallOption) (*RoleListResp, error)
 		GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
-		GetRoleList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*RoleListResp, error)
-		UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error)
-		CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
-		DeleteToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		BatchDeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// Token management
+		CreateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
-		UpdateTokenStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		GetTokenById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*TokenInfo, error)
 		BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// User management
+		CreateUser(ctx context.Context, in *UserInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateUser(ctx context.Context, in *UserInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetUserList(ctx context.Context, in *UserListReq, opts ...grpc.CallOption) (*UserListResp, error)
+		GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfo, error)
+		DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
-		ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error)
-		CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateUserReq, opts ...grpc.CallOption) (*BaseResp, error)
-		GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error)
-		GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error)
-		DeleteUser(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		BatchDeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-		UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error)
-		UpdateUserStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	}
 
 	defaultCore struct {
@@ -157,19 +173,30 @@ func NewCore(cli zrpc.Client) Core {
 	}
 }
 
-func (m *defaultCore) CreateOrUpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+// API management
+func (m *defaultCore) CreateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateApi(ctx, in, opts...)
+	return client.CreateApi(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteApi(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.DeleteApi(ctx, in, opts...)
+	return client.UpdateApi(ctx, in, opts...)
 }
 
 func (m *defaultCore) GetApiList(ctx context.Context, in *ApiListReq, opts ...grpc.CallOption) (*ApiListResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.GetApiList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetApiById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ApiInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetApiById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteApi(ctx, in, opts...)
 }
 
 func (m *defaultCore) GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error) {
@@ -188,9 +215,14 @@ func (m *defaultCore) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.
 }
 
 // Department management
-func (m *defaultCore) CreateOrUpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) CreateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateDepartment(ctx, in, opts...)
+	return client.CreateDepartment(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateDepartment(ctx, in, opts...)
 }
 
 func (m *defaultCore) GetDepartmentList(ctx context.Context, in *DepartmentListReq, opts ...grpc.CallOption) (*DepartmentListResp, error) {
@@ -198,55 +230,77 @@ func (m *defaultCore) GetDepartmentList(ctx context.Context, in *DepartmentListR
 	return client.GetDepartmentList(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteDepartment(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) GetDepartmentById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DepartmentInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetDepartmentById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteDepartment(ctx, in, opts...)
 }
 
-func (m *defaultCore) BatchDeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+// Dictionary management
+func (m *defaultCore) CreateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.BatchDeleteDepartment(ctx, in, opts...)
+	return client.CreateDictionary(ctx, in, opts...)
 }
 
-func (m *defaultCore) UpdateDepartmentStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.UpdateDepartmentStatus(ctx, in, opts...)
+	return client.UpdateDictionary(ctx, in, opts...)
 }
 
-func (m *defaultCore) CreateOrUpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateDictionary(ctx, in, opts...)
-}
-
-func (m *defaultCore) DeleteDictionary(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.DeleteDictionary(ctx, in, opts...)
-}
-
-func (m *defaultCore) GetDictionaryList(ctx context.Context, in *DictionaryListReq, opts ...grpc.CallOption) (*DictionaryList, error) {
+func (m *defaultCore) GetDictionaryList(ctx context.Context, in *DictionaryListReq, opts ...grpc.CallOption) (*DictionaryListResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.GetDictionaryList(ctx, in, opts...)
 }
 
-func (m *defaultCore) GetDetailByDictionaryName(ctx context.Context, in *DictionaryDetailReq, opts ...grpc.CallOption) (*DictionaryDetailList, error) {
+func (m *defaultCore) GetDictionaryById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryInfo, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.GetDetailByDictionaryName(ctx, in, opts...)
+	return client.GetDictionaryById(ctx, in, opts...)
 }
 
-func (m *defaultCore) CreateOrUpdateDictionaryDetail(ctx context.Context, in *DictionaryDetail, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) DeleteDictionary(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateDictionaryDetail(ctx, in, opts...)
+	return client.DeleteDictionary(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteDictionaryDetail(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+// DictionaryDetail management
+func (m *defaultCore) CreateDictionaryDetail(ctx context.Context, in *DictionaryDetailInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateDictionaryDetail(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateDictionaryDetail(ctx context.Context, in *DictionaryDetailInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateDictionaryDetail(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetDictionaryDetailList(ctx context.Context, in *DictionaryDetailListReq, opts ...grpc.CallOption) (*DictionaryDetailListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetDictionaryDetailList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetDictionaryDetailById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteDictionaryDetail(ctx, in, opts...)
 }
 
 // Member management
-func (m *defaultCore) CreateOrUpdateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) CreateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateMember(ctx, in, opts...)
+	return client.CreateMember(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateMember(ctx context.Context, in *MemberInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateMember(ctx, in, opts...)
 }
 
 func (m *defaultCore) GetMemberList(ctx context.Context, in *MemberListReq, opts ...grpc.CallOption) (*MemberListResp, error) {
@@ -254,19 +308,14 @@ func (m *defaultCore) GetMemberList(ctx context.Context, in *MemberListReq, opts
 	return client.GetMemberList(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteMember(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) DeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteMember(ctx, in, opts...)
 }
 
-func (m *defaultCore) BatchDeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) GetMemberById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MemberInfo, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.BatchDeleteMember(ctx, in, opts...)
-}
-
-func (m *defaultCore) UpdateMemberStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.UpdateMemberStatus(ctx, in, opts...)
+	return client.GetMemberById(ctx, in, opts...)
 }
 
 func (m *defaultCore) MemberLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*MemberLoginResp, error) {
@@ -275,9 +324,14 @@ func (m *defaultCore) MemberLogin(ctx context.Context, in *LoginReq, opts ...grp
 }
 
 // MemberRank management
-func (m *defaultCore) CreateOrUpdateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) CreateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateMemberRank(ctx, in, opts...)
+	return client.CreateMemberRank(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateMemberRank(ctx, in, opts...)
 }
 
 func (m *defaultCore) GetMemberRankList(ctx context.Context, in *MemberRankListReq, opts ...grpc.CallOption) (*MemberRankListResp, error) {
@@ -285,19 +339,24 @@ func (m *defaultCore) GetMemberRankList(ctx context.Context, in *MemberRankListR
 	return client.GetMemberRankList(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteMemberRank(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) GetMemberRankById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MemberRankInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetMemberRankById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteMemberRank(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteMemberRank(ctx, in, opts...)
 }
 
-func (m *defaultCore) BatchDeleteMemberRank(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.BatchDeleteMemberRank(ctx, in, opts...)
+	return client.CreateMenu(ctx, in, opts...)
 }
 
-func (m *defaultCore) CreateOrUpdateMenu(ctx context.Context, in *CreateOrUpdateMenuReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateMenu(ctx, in, opts...)
+	return client.UpdateMenu(ctx, in, opts...)
 }
 
 func (m *defaultCore) DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
@@ -315,34 +374,56 @@ func (m *defaultCore) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...
 	return client.GetMenuList(ctx, in, opts...)
 }
 
-func (m *defaultCore) CreateOrUpdateMenuParam(ctx context.Context, in *CreateOrUpdateMenuParamReq, opts ...grpc.CallOption) (*BaseResp, error) {
+// MenuParam management
+func (m *defaultCore) CreateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateMenuParam(ctx, in, opts...)
+	return client.CreateMenuParam(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteMenuParam(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateMenuParam(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetMenuParamList(ctx context.Context, in *MenuParamListReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetMenuParamList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetMenuParamById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetMenuParamById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteMenuParam(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteMenuParam(ctx, in, opts...)
 }
 
-func (m *defaultCore) GetMenuParamListByMenuId(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
+// OauthProvider management
+func (m *defaultCore) CreateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.GetMenuParamListByMenuId(ctx, in, opts...)
+	return client.CreateOauthProvider(ctx, in, opts...)
 }
 
-func (m *defaultCore) CreateOrUpdateProvider(ctx context.Context, in *ProviderInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateProvider(ctx, in, opts...)
+	return client.UpdateOauthProvider(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteProvider(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) GetOauthProviderList(ctx context.Context, in *OauthProviderListReq, opts ...grpc.CallOption) (*OauthProviderListResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.DeleteProvider(ctx, in, opts...)
+	return client.GetOauthProviderList(ctx, in, opts...)
 }
 
-func (m *defaultCore) GetProviderList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*ProviderListResp, error) {
+func (m *defaultCore) GetOauthProviderById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*OauthProviderInfo, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.GetProviderList(ctx, in, opts...)
+	return client.GetOauthProviderById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteOauthProvider(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteOauthProvider(ctx, in, opts...)
 }
 
 func (m *defaultCore) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error) {
@@ -356,9 +437,14 @@ func (m *defaultCore) OauthCallback(ctx context.Context, in *CallbackReq, opts .
 }
 
 // Position management
-func (m *defaultCore) CreateOrUpdatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) CreatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdatePosition(ctx, in, opts...)
+	return client.CreatePosition(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdatePosition(ctx, in, opts...)
 }
 
 func (m *defaultCore) GetPositionList(ctx context.Context, in *PositionListReq, opts ...grpc.CallOption) (*PositionListResp, error) {
@@ -366,29 +452,30 @@ func (m *defaultCore) GetPositionList(ctx context.Context, in *PositionListReq, 
 	return client.GetPositionList(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeletePosition(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) GetPositionById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*PositionInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetPositionById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeletePosition(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeletePosition(ctx, in, opts...)
 }
 
-func (m *defaultCore) BatchDeletePosition(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+// Role management
+func (m *defaultCore) CreateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.BatchDeletePosition(ctx, in, opts...)
+	return client.CreateRole(ctx, in, opts...)
 }
 
-func (m *defaultCore) UpdatePositionStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.UpdatePositionStatus(ctx, in, opts...)
+	return client.UpdateRole(ctx, in, opts...)
 }
 
-func (m *defaultCore) CreateOrUpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) GetRoleList(ctx context.Context, in *RoleListReq, opts ...grpc.CallOption) (*RoleListResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateRole(ctx, in, opts...)
-}
-
-func (m *defaultCore) DeleteRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.DeleteRole(ctx, in, opts...)
+	return client.GetRoleList(ctx, in, opts...)
 }
 
 func (m *defaultCore) GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error) {
@@ -396,29 +483,25 @@ func (m *defaultCore) GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.C
 	return client.GetRoleById(ctx, in, opts...)
 }
 
-func (m *defaultCore) GetRoleList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*RoleListResp, error) {
+func (m *defaultCore) DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.GetRoleList(ctx, in, opts...)
+	return client.DeleteRole(ctx, in, opts...)
 }
 
-func (m *defaultCore) UpdateRoleStatus(ctx context.Context, in *StatusCodeReq, opts ...grpc.CallOption) (*BaseResp, error) {
+// Token management
+func (m *defaultCore) CreateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.UpdateRoleStatus(ctx, in, opts...)
+	return client.CreateToken(ctx, in, opts...)
 }
 
-func (m *defaultCore) CreateOrUpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateToken(ctx, in, opts...)
+	return client.UpdateToken(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) DeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteToken(ctx, in, opts...)
-}
-
-func (m *defaultCore) BatchDeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.BatchDeleteToken(ctx, in, opts...)
 }
 
 func (m *defaultCore) GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error) {
@@ -426,9 +509,9 @@ func (m *defaultCore) GetTokenList(ctx context.Context, in *TokenListReq, opts .
 	return client.GetTokenList(ctx, in, opts...)
 }
 
-func (m *defaultCore) UpdateTokenStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) GetTokenById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*TokenInfo, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.UpdateTokenStatus(ctx, in, opts...)
+	return client.GetTokenById(ctx, in, opts...)
 }
 
 func (m *defaultCore) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
@@ -436,47 +519,33 @@ func (m *defaultCore) BlockUserAllToken(ctx context.Context, in *UUIDReq, opts .
 	return client.BlockUserAllToken(ctx, in, opts...)
 }
 
-func (m *defaultCore) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
+// User management
+func (m *defaultCore) CreateUser(ctx context.Context, in *UserInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.Login(ctx, in, opts...)
+	return client.CreateUser(ctx, in, opts...)
 }
 
-func (m *defaultCore) ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) UpdateUser(ctx context.Context, in *UserInfo, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.ChangePassword(ctx, in, opts...)
+	return client.UpdateUser(ctx, in, opts...)
 }
 
-func (m *defaultCore) CreateOrUpdateUser(ctx context.Context, in *CreateOrUpdateUserReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateOrUpdateUser(ctx, in, opts...)
-}
-
-func (m *defaultCore) GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfoResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.GetUserById(ctx, in, opts...)
-}
-
-func (m *defaultCore) GetUserList(ctx context.Context, in *GetUserListReq, opts ...grpc.CallOption) (*UserListResp, error) {
+func (m *defaultCore) GetUserList(ctx context.Context, in *UserListReq, opts ...grpc.CallOption) (*UserListResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.GetUserList(ctx, in, opts...)
 }
 
-func (m *defaultCore) DeleteUser(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetUserById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteUser(ctx, in, opts...)
 }
 
-func (m *defaultCore) BatchDeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+func (m *defaultCore) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.BatchDeleteUser(ctx, in, opts...)
-}
-
-func (m *defaultCore) UpdateProfile(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.UpdateProfile(ctx, in, opts...)
-}
-
-func (m *defaultCore) UpdateUserStatus(ctx context.Context, in *StatusCodeUUIDReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.UpdateUserStatus(ctx, in, opts...)
+	return client.Login(ctx, in, opts...)
 }

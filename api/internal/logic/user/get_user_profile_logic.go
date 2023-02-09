@@ -29,21 +29,21 @@ func NewGetUserProfileLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetUse
 }
 
 func (l *GetUserProfileLogic) GetUserProfile() (resp *types.ProfileResp, err error) {
-	result, err := l.svcCtx.CoreRpc.GetUserById(l.ctx, &core.UUIDReq{
-		Id: l.ctx.Value("userId").(string),
-	})
+	data, err := l.svcCtx.CoreRpc.GetUserById(l.ctx, &core.UUIDReq{Id: l.ctx.Value("userId").(string)})
 	if err != nil {
 		return nil, err
 	}
 
-	resp = &types.ProfileResp{}
-	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
-	resp.Data = types.ProfileInfo{
-		Nickname: result.Nickname,
-		Avatar:   result.Avatar,
-		Mobile:   result.Mobile,
-		Email:    result.Email,
-	}
-
-	return resp, nil
+	return &types.ProfileResp{
+		BaseDataInfo: types.BaseDataInfo{
+			Code: 0,
+			Msg:  l.svcCtx.Trans.Trans(l.lang, i18n.Success),
+		},
+		Data: types.ProfileInfo{
+			Nickname: data.Nickname,
+			Avatar:   data.Avatar,
+			Mobile:   data.Mobile,
+			Email:    data.Email,
+		},
+	}, nil
 }

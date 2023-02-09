@@ -27,9 +27,10 @@ func NewDeleteDictionaryLogic(r *http.Request, svcCtx *svc.ServiceContext) *Dele
 	}
 }
 
-func (l *DeleteDictionaryLogic) DeleteDictionary(req *types.IDReq) (resp *types.BaseMsgResp, err error) {
-	result, err := l.svcCtx.CoreRpc.DeleteDictionary(l.ctx, &core.IDReq{Id: req.Id})
-
+func (l *DeleteDictionaryLogic) DeleteDictionary(req *types.IDsReq) (resp *types.BaseMsgResp, err error) {
+	result, err := l.svcCtx.CoreRpc.DeleteDictionary(l.ctx, &core.IDsReq{
+		Ids: req.Ids,
+	})
 	if err != nil {
 		return nil, err
 	}

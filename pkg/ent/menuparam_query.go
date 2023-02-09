@@ -23,7 +23,6 @@ type MenuParamQuery struct {
 	inters     []Interceptor
 	predicates []predicate.MenuParam
 	withMenus  *MenuQuery
-	withFKs    bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -367,18 +366,11 @@ func (mpq *MenuParamQuery) prepareQuery(ctx context.Context) error {
 func (mpq *MenuParamQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*MenuParam, error) {
 	var (
 		nodes       = []*MenuParam{}
-		withFKs     = mpq.withFKs
 		_spec       = mpq.querySpec()
 		loadedTypes = [1]bool{
 			mpq.withMenus != nil,
 		}
 	)
-	if mpq.withMenus != nil {
-		withFKs = true
-	}
-	if withFKs {
-		_spec.Node.Columns = append(_spec.Node.Columns, menuparam.ForeignKeys...)
-	}
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*MenuParam).scanValues(nil, columns)
 	}
@@ -410,10 +402,7 @@ func (mpq *MenuParamQuery) loadMenus(ctx context.Context, query *MenuQuery, node
 	ids := make([]uint64, 0, len(nodes))
 	nodeids := make(map[uint64][]*MenuParam)
 	for i := range nodes {
-		if nodes[i].menu_params == nil {
-			continue
-		}
-		fk := *nodes[i].menu_params
+		fk := nodes[i].MenuID
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -430,7 +419,7 @@ func (mpq *MenuParamQuery) loadMenus(ctx context.Context, query *MenuQuery, node
 	for _, n := range neighbors {
 		nodes, ok := nodeids[n.ID]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "menu_params" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "menu_id" returned %v`, n.ID)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)

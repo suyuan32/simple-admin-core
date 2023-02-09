@@ -1,16 +1,16 @@
-syntax="proto3";
+syntax = "proto3";
 
-// JWT message
+// Token message
 
 message TokenInfo {
   string id = 1;
   int64 created_at = 2;
   int64 updated_at = 3;
-  string uuid = 4;
-  string token = 5;
-  string source = 6;
-  uint32 status = 7;
-  int64 expired_at = 8;
+  uint32 status = 4;
+  string uuid = 5;
+  string token = 6;
+  string source = 7;
+  int64  expired_at = 8;
 }
 
 message TokenListResp {
@@ -27,19 +27,20 @@ message TokenListReq {
   string uuid = 6;
 }
 
-service Core {
-  // Token management
 
+service Core {
+
+  // Token management
   // group: token
-  rpc createOrUpdateToken (TokenInfo) returns (BaseResp);
+  rpc createToken (TokenInfo) returns (BaseResp);
   // group: token
-  rpc deleteToken (UUIDReq) returns (BaseResp);
+  rpc updateToken (TokenInfo) returns (BaseResp);
   // group: token
-  rpc batchDeleteToken (UUIDsReq) returns (BaseResp);
+  rpc deleteToken (UUIDsReq) returns (BaseResp);
   // group: token
   rpc getTokenList (TokenListReq) returns (TokenListResp);
   // group: token
-  rpc updateTokenStatus (StatusCodeUUIDReq) returns (BaseResp);
+  rpc getTokenById (UUIDReq) returns (TokenInfo);
   // group: token
   rpc blockUserAllToken (UUIDReq) returns (BaseResp);
 }

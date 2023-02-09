@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/member"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -29,8 +30,8 @@ func NewDeleteMemberLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Dele
 	}
 }
 
-func (l *DeleteMemberLogic) DeleteMember(in *core.UUIDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Member.DeleteOneID(uuidx.ParseUUIDString(in.Id)).Exec(l.ctx)
+func (l *DeleteMemberLogic) DeleteMember(in *core.UUIDsReq) (*core.BaseResp, error) {
+	_, err := l.svcCtx.DB.Member.Delete().Where(member.IDIn(uuidx.ParseUUIDSlice(in.Ids)...)).Exec(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):

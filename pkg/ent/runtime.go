@@ -102,6 +102,8 @@ func init() {
 	_ = dictionarydetailMixinFields0
 	dictionarydetailMixinFields1 := dictionarydetailMixin[1].Fields()
 	_ = dictionarydetailMixinFields1
+	dictionarydetailMixinFields2 := dictionarydetailMixin[2].Fields()
+	_ = dictionarydetailMixinFields2
 	dictionarydetailFields := schema.DictionaryDetail{}.Fields()
 	_ = dictionarydetailFields
 	// dictionarydetailDescCreatedAt is the schema descriptor for created_at field.
@@ -118,6 +120,10 @@ func init() {
 	dictionarydetailDescStatus := dictionarydetailMixinFields1[0].Descriptor()
 	// dictionarydetail.DefaultStatus holds the default value on creation for the status field.
 	dictionarydetail.DefaultStatus = dictionarydetailDescStatus.Default.(uint8)
+	// dictionarydetailDescSort is the schema descriptor for sort field.
+	dictionarydetailDescSort := dictionarydetailMixinFields2[0].Descriptor()
+	// dictionarydetail.DefaultSort holds the default value on creation for the sort field.
+	dictionarydetail.DefaultSort = dictionarydetailDescSort.Default.(uint32)
 	memberMixin := schema.Member{}.Mixin()
 	memberMixinFields0 := memberMixin[0].Fields()
 	_ = memberMixinFields0
@@ -187,6 +193,10 @@ func init() {
 	menuDescSort := menuMixinFields1[0].Descriptor()
 	// menu.DefaultSort holds the default value on creation for the sort field.
 	menu.DefaultSort = menuDescSort.Default.(uint32)
+	// menuDescParentID is the schema descriptor for parent_id field.
+	menuDescParentID := menuFields[0].Descriptor()
+	// menu.DefaultParentID holds the default value on creation for the parent_id field.
+	menu.DefaultParentID = menuDescParentID.Default.(uint64)
 	// menuDescPath is the schema descriptor for path field.
 	menuDescPath := menuFields[3].Descriptor()
 	// menu.DefaultPath holds the default value on creation for the path field.

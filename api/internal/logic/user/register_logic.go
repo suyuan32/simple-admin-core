@@ -33,16 +33,20 @@ func NewRegisterLogic(r *http.Request, svcCtx *svc.ServiceContext) *RegisterLogi
 
 func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseMsgResp, err error) {
 	if ok := captcha.Store.Verify(req.CaptchaId, req.Captcha, true); ok {
-		user, err := l.svcCtx.CoreRpc.CreateOrUpdateUser(l.ctx,
-			&core.CreateOrUpdateUserReq{
-				Id:       "",
-				Username: req.Username,
-				Password: req.Password,
-				Email:    req.Email,
-				Nickname: req.Username,
+		user, err := l.svcCtx.CoreRpc.CreateUser(l.ctx,
+			&core.UserInfo{
+				Id:           "",
+				Username:     req.Username,
+				Password:     req.Password,
+				Email:        req.Email,
+				Nickname:     req.Username,
+				Status:       1,
+				HomePath:     "/dashboard",
+				RoleId:       1,
+				DepartmentId: 1,
+				PositionId:   1,
 			})
 		if err != nil {
-			l.Logger.Error("register logic: create user err: ", err.Error())
 			return nil, err
 		}
 		resp = &types.BaseMsgResp{

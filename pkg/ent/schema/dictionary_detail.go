@@ -19,6 +19,7 @@ func (DictionaryDetail) Fields() []ent.Field {
 		field.String("title").Comment("the title shown in the ui | 展示名称 （建议配合i18n）"),
 		field.String("key").Comment("key | 键"),
 		field.String("value").Comment("value | 值"),
+		field.Uint64("dictionary_id").Optional().Comment("Dictionary ID | 字典ID"),
 	}
 }
 
@@ -26,12 +27,13 @@ func (DictionaryDetail) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		mixins.BaseMixin{},
 		mixins.StatusMixin{},
+		mixins.SortMixin{},
 	}
 }
 
 func (DictionaryDetail) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("dictionary", Dictionary.Type).Ref("dictionary_details").Unique(),
+		edge.From("dictionary", Dictionary.Type).Field("dictionary_id").Ref("dictionary_details").Unique(),
 	}
 }
 

@@ -1,52 +1,42 @@
-syntax = "v1"
-
-info(
-    title: "menu management"
-    desc: "menu management APIs"
-    author: "Ryan Su"
-    email: "yuansu.china.work@gmail.com"
-    version: "v1.0"
-)
-
 import "base.api"
 
 type (
-    // The response data of menu information | 菜单返回数据
+    // The response data of menu information | 菜单信息
     MenuInfo {
         BaseInfo
 
-        // Title translation | 标题翻译
-        trans  string `json:"trans,optional"`
+        // Translated Name
+        Trans string `json:"trans,optional"`
 
-        // Menu type: directory or menu | 菜单类型: 目录或菜单
-        // 0. directory group 1. menu | 0 目录 1 菜单
-        menuType     uint32      `json:"type"`
+        // Level
+        Level  uint32 `json:"level,optional"`
 
-        // Parent menu ID | 父级菜单ID
-        ParentId     uint64      `json:"parentId"`
+        // ParentId
+        ParentId  uint64 `json:"parentId,optional"`
 
-        // The menu level | 菜单等级
-        MenuLevel    uint32      `json:"level"`
+        // Path
+        Path  string `json:"path,optional"`
 
-        // The path to visit menu | 菜单访问路径
-        Path         string      `json:"path"`
+        // Name
+        Name  string `json:"name,optional"`
 
-        // Menu name | 菜单名
-        Name         string      `json:"name"`
+        // Redirect
+        Redirect  string `json:"redirect,optional"`
 
-        // Redirect path | 跳转路径
-        Redirect     string      `json:"redirect"`
+        // Component
+        Component  string `json:"component,optional"`
 
-        // The component path | 组件路径
-        Component    string      `json:"component"`
+        // Sort
+        Sort  uint32 `json:"sort,optional"`
 
-        // The sorting number | 排序编号
-        Sort      uint32      `json:"sort"`
+        // Disabled
+        Disabled  bool `json:"disabled,optional"`
 
-        // If disabled | 是否禁用菜单
-        Disabled     bool        `json:"disabled"`
+        // Meta
+        Meta  Meta `json:"meta"`
 
-        Meta
+        // MenuType
+        MenuType  uint32 `json:"menuType,optional"`
     }
 
     // The meta data of menu | 菜单的meta数据
@@ -99,185 +89,119 @@ type (
     MenuListResp {
         BaseDataInfo
 
-        // The menu list data | 菜单列表数据
+        // Menu list data | Menu列表数据
         Data MenuListInfo `json:"data"`
     }
 
-    // The  data of menu list | 菜单列表数据
+    // Menu list data | Menu列表数据
     MenuListInfo {
         BaseListInfo
 
         // The menu list data | 菜单列表数据
-        Data []*MenuInfo `json:"data"`
+        Data []MenuInfo `json:"data"`
     }
 
-    // The response data of role menu list data | 角色菜单列表数据
-    GetMenuListBase {
-        // ID
-        // Required: true
-        Id     uint64  `json:"id"`
-
-        // Menu type: directory or menu | 菜单类型: 目录或菜单
-        menuType     uint32      `json:"type"`
-
-        // Parent menu ID | 父级菜单ID
-        ParentId     uint64      `json:"parentId"`
-
-        // The menu level | 菜单等级
-        MenuLevel    uint32      `json:"level"`
-
-        // The path to visit menu | 菜单访问路径
-        Path         string      `json:"path"`
-
-        // Menu name | 菜单名
-        Name         string      `json:"name"`
-
-        // Redirect path | 跳转路径
-        Redirect     string      `json:"redirect"`
-
-         // The component path | 组件路径
-        Component    string      `json:"component"`
-
-        // The sorting number | 排序编号
-        Sort      uint32      `json:"sort"`
-
-        // If disabled | 是否禁用菜单
-        Disabled     bool        `json:"disabled"`
-
-        Meta         Meta        `json:"meta"`
-    }
-
-    // The response data of role menu list, show after user login | 角色菜单列表数据， 登录后自动获取
-    GetMenuListBaseResp {
+    // Menu information response | 菜单信息返回体
+    MenuInfoResp {
         BaseDataInfo
 
-        // The data of role menu list data | 角色菜单列表数据
-        Data GetMenuListBaseInfo `json:"data"`
+        // Menu information | Menu数据
+        Data MenuInfo `json:"data"`
     }
 
-    // The data of role menu list, show after user login | 角色菜单列表数据
-    GetMenuListBaseInfo {
-        BaseListInfo
+    // Menu information plain | 菜单信息无嵌套
+    MenuPlainInfo {
+        Id  uint64  `json:"id"`
 
-        // The response data of role menu list data | 角色菜单列表数据
-        Data []*GetMenuListBase `json:"data"`
-    }
+        // Translated Name
+        Trans string `json:"trans,optional"`
 
-    // Create or update menu information request params | 创建或更新菜单信息参数
-    CreateOrUpdateMenuReq {
-        // ID
-        // Required: true
-        Id            uint64     `json:"id" validate:"number"`
+        // Level
+        Level  uint32 `json:"level,optional"`
 
-        // Menu type: directory or menu | 菜单类型: 目录或菜单
-        // Required: true
-        // Maximum: 10
-        menuType     uint32      `json:"type" validate:"number,max=10"`
+        // ParentId
+        ParentId  uint64 `json:"parentId,optional"`
 
-        // Parent menu ID | 父级菜单ID
-        // Required: true
-        ParentId     uint64      `json:"parentId" validate:"number"`
+        // Path
+        Path  string `json:"path,optional"`
 
-        // The path to visit menu | 菜单访问路径
-        // Required: true
-        // Max length: 30
-        Path         string      `json:"path,optional" validate:"max=200"`
+        // Name
+        Name  string `json:"name,optional"`
 
-        // Menu name | 菜单名
-        // Required: true
+        // Redirect
+        Redirect  string `json:"redirect,optional"`
+
+        // Component
+        Component  string `json:"component,optional"`
+
+        // Sort
+        Sort  uint32 `json:"sort,optional"`
+
+        // Disabled
+        Disabled  bool `json:"disabled,optional"`
+
+        // MenuType
+        MenuType  uint32 `json:"menuType,optional"`
+
+
+
+        // Menu title show in page | 菜单显示名
         // Max length: 50
-        Name         string      `json:"name" validate:"max=50"`
+        Title     string         `json:"title" validate:"max=50"`
 
-        // Redirect path | 跳转路径
-        // Required: true
-        // Max length: 100
-        // Example: https://www.google.com
-        Redirect     string      `json:"redirect,optional" validate:"max=100"`
+        // Menu Icon | 菜单图标
+        // Max length: 50
+        Icon      string         `json:"icon" validate:"max=50"`
 
-        // The component path | 组件路径
-        // Required: true
-        // Max length: 100
-        // Example: /sys/menu/index
-        Component    string      `json:"component,optional" validate:"max=100"`
+        // Hide menu | 隐藏菜单
+        HideMenu  bool           `json:"hideMenu" validate:"boolean"`
 
-        // The sorting number | 排序编号
-        // Required: true
-        // Maximum: 1000
-        Sort      uint32      `json:"sort" validate:"number,max=1000"`
+        // If hide the breadcrumb | 隐藏面包屑
+        HideBreadcrumb bool      `json:"hideBreadcrumb,optional" validate:"boolean"`
 
-        // If disabled | 是否禁用菜单
-        // Required: true
-        Disabled     bool        `json:"disabled" validate:"boolean"`
+        // Current active menu, if not nil, it will active the tab | 当前激活的菜单
+        // Max length: 30
+        CurrentActiveMenu string `json:"currentActiveMenu,optional"`
 
-        Meta
+        // Do not keep alive the tab | 不缓存Tab
+        IgnoreKeepAlive  bool `json:"ignoreKeepAlive,optional" validate:"boolean"`
+
+        // Hide the tab header | 当前路由不在标签页显示
+        HideTab   bool `json:"hideTab,optional" validate:"boolean"`
+
+        // Iframe path | 内嵌iframe的地址
+        FrameSrc  string `json:"frameSrc,optional"`
+
+        // The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
+        CarryParam  bool `json:"carryParam,optional" validate:"boolean"`
+
+        // Hide children menu or not | 隐藏所有子菜单
+        HideChildrenInMenu  bool `json:"hideChildrenInMenu,optional" validate:"boolean"`
+
+        // Affix tab | 是否固定标签
+        Affix  bool `json:"affix,optional" validate:"boolean"`
+
+        // The maximum number of pages the router can open | 动态路由可打开Tab页数
+        DynamicLevel  uint32 `json:"dynamicLevel" validate:"number,lt=30"`
+
+        // The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
+        RealPath  string `json:"realPath,optional"`
     }
 
-
-    // Create or update menu extra parameters request params | 创建或更新菜单额外参数的请求参数
-    CreateOrUpdateMenuParamReq {
-        // ID
-        // Required: true
-        Id        uint64      `json:"id" validate:"number"`
-
-        // Menu ID | 菜单ID
-        // Required: true
-        MenuId    uint64      `json:"menuId" validate:"number"`
-
-        // Data Type | 数据类型
-        // Required: true
-        // Min length: 1
-        // Max length: 8
-        DataType  string      `json:"dataType" validate:"min=1,max=8"`
-
-        // Key | 键
-        // Required: true
-        // Min length: 1
-        // Max length: 20
-        Key       string      `json:"key" validate:"min=1,max=20"`
-
-        // Value | 值
-        // Required: true
-        // Min length: 1
-        // Max length: 100
-        Value     string      `json:"value" validate:"min=1,max=100"`
-    }
-
-    // The response data of menu parameters  | 菜单参数返回数据
-    MenuParamResp {
-        BaseDataInfo
-
-        // The information of menu parameter  | 菜单参数数据
-        Data MenuParamInfo `json:"data"`
-    }
-
-    // The information of menu parameter  | 菜单参数数据
-    MenuParamInfo {
-        BaseInfo
-
-        // Data Type | 数据类型
-        DataType  string      `json:"dataType"`
-
-        // Key | 键
-        Key       string      `json:"key"`
-
-        // Value | 值
-        Value     string      `json:"value"`
-    }
-
-    // The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
-    MenuParamListByMenuIdResp {
-        BaseDataInfo
-
-        // The menu list data | 菜单列表数据
-        Data MenuParamListByMenuIdInfo `json:"data"`
-    }
-
-    // The response data of menu parameters list which belong to some menu | 某个菜单的菜单参数列表数据
-    MenuParamListByMenuIdInfo {
+    // Menu list data | 菜单列表数据
+    MenuPlainInfoList {
         BaseListInfo
 
         // The menu list data | 菜单列表数据
-        Data []MenuParamInfo `json:"data"`
+        Data []MenuPlainInfo `json:"data"`
+    }
+
+    // Menu list data response | 菜单列表数据返回体
+    MenuPlainInfoListResp {
+        BaseDataInfo
+
+        // Menu list data | Menu列表数据
+        Data MenuPlainInfoList `json:"data"`
     }
 )
 
@@ -288,9 +212,13 @@ type (
 )
 
 service core {
-    // Create or update menu information | 创建或更新菜单
-    @handler createOrUpdateMenu
-    post /menu/create_or_update (CreateOrUpdateMenuReq) returns (BaseMsgResp)
+    // Create menu information | 创建菜单
+    @handler createMenu
+    post /menu/create (MenuPlainInfo) returns (BaseMsgResp)
+
+    // Update menu information | 更新菜单
+    @handler updateMenu
+    post /menu/update (MenuPlainInfo) returns (BaseMsgResp)
 
     // Delete menu information | 删除菜单信息
     @handler deleteMenu
@@ -298,21 +226,13 @@ service core {
 
     // Get menu list | 获取菜单列表
     @handler getMenuList
-    get /menu/list returns (MenuListResp)
+    get /menu/list returns (MenuPlainInfoListResp)
 
-    // Get role's menu list API | 获取角色菜单列表
-    @handler  getMenuByRole
-    get /menu/role returns (GetMenuListBase)
+    // Get menu list by role | 获取菜单列表
+    @handler getMenuListByRole
+    get /menu/role/list returns (MenuListResp)
 
-    // Create or update menu parameters | 创建或更新菜单参数
-    @handler createOrUpdateMenuParam
-    post /menu/param/create_or_update (CreateOrUpdateMenuParamReq) returns (BaseMsgResp)
-
-    // Get menu extra parameters by menu ID | 获取某个菜单的额外参数列表
-    @handler getMenuParamListByMenuId
-    post /menu/param/list (IDReq) returns (MenuParamListByMenuIdResp)
-
-    // Delete menu extra parameters | 删除菜单额外参数
-    @handler deleteMenuParam
-    post /menu/param/delete (IDReq) returns (BaseMsgResp)
+    // Get Menu by ID | 通过ID获取菜单
+    @handler getMenuById
+    post /menu (IDReq) returns (MenuInfoResp)
 }

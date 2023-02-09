@@ -53,6 +53,26 @@ func (mpu *MenuParamUpdate) SetValue(s string) *MenuParamUpdate {
 	return mpu
 }
 
+// SetMenuID sets the "menu_id" field.
+func (mpu *MenuParamUpdate) SetMenuID(u uint64) *MenuParamUpdate {
+	mpu.mutation.SetMenuID(u)
+	return mpu
+}
+
+// SetNillableMenuID sets the "menu_id" field if the given value is not nil.
+func (mpu *MenuParamUpdate) SetNillableMenuID(u *uint64) *MenuParamUpdate {
+	if u != nil {
+		mpu.SetMenuID(*u)
+	}
+	return mpu
+}
+
+// ClearMenuID clears the value of the "menu_id" field.
+func (mpu *MenuParamUpdate) ClearMenuID() *MenuParamUpdate {
+	mpu.mutation.ClearMenuID()
+	return mpu
+}
+
 // SetMenusID sets the "menus" edge to the Menu entity by ID.
 func (mpu *MenuParamUpdate) SetMenusID(id uint64) *MenuParamUpdate {
 	mpu.mutation.SetMenusID(id)
@@ -225,6 +245,26 @@ func (mpuo *MenuParamUpdateOne) SetKey(s string) *MenuParamUpdateOne {
 // SetValue sets the "value" field.
 func (mpuo *MenuParamUpdateOne) SetValue(s string) *MenuParamUpdateOne {
 	mpuo.mutation.SetValue(s)
+	return mpuo
+}
+
+// SetMenuID sets the "menu_id" field.
+func (mpuo *MenuParamUpdateOne) SetMenuID(u uint64) *MenuParamUpdateOne {
+	mpuo.mutation.SetMenuID(u)
+	return mpuo
+}
+
+// SetNillableMenuID sets the "menu_id" field if the given value is not nil.
+func (mpuo *MenuParamUpdateOne) SetNillableMenuID(u *uint64) *MenuParamUpdateOne {
+	if u != nil {
+		mpuo.SetMenuID(*u)
+	}
+	return mpuo
+}
+
+// ClearMenuID clears the value of the "menu_id" field.
+func (mpuo *MenuParamUpdateOne) ClearMenuID() *MenuParamUpdateOne {
+	mpuo.mutation.ClearMenuID()
 	return mpuo
 }
 

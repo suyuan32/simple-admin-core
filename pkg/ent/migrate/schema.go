@@ -83,10 +83,11 @@ var (
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "sort", Type: field.TypeUint32, Default: 1},
 		{Name: "title", Type: field.TypeString},
 		{Name: "key", Type: field.TypeString},
 		{Name: "value", Type: field.TypeString},
-		{Name: "dictionary_dictionary_details", Type: field.TypeUint64, Nullable: true},
+		{Name: "dictionary_id", Type: field.TypeUint64, Nullable: true},
 	}
 	// SysDictionaryDetailsTable holds the schema information for the "sys_dictionary_details" table.
 	SysDictionaryDetailsTable = &schema.Table{
@@ -96,7 +97,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "sys_dictionary_details_sys_dictionaries_dictionary_details",
-				Columns:    []*schema.Column{SysDictionaryDetailsColumns[7]},
+				Columns:    []*schema.Column{SysDictionaryDetailsColumns[8]},
 				RefColumns: []*schema.Column{SysDictionariesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -178,7 +179,7 @@ var (
 		{Name: "affix", Type: field.TypeBool, Nullable: true, Default: false},
 		{Name: "dynamic_level", Type: field.TypeUint32, Nullable: true, Default: 20},
 		{Name: "real_path", Type: field.TypeString, Nullable: true, Default: ""},
-		{Name: "parent_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "parent_id", Type: field.TypeUint64, Nullable: true, Default: 100000},
 	}
 	// SysMenusTable holds the schema information for the "sys_menus" table.
 	SysMenusTable = &schema.Table{
@@ -202,7 +203,7 @@ var (
 		{Name: "type", Type: field.TypeString},
 		{Name: "key", Type: field.TypeString},
 		{Name: "value", Type: field.TypeString},
-		{Name: "menu_params", Type: field.TypeUint64, Nullable: true},
+		{Name: "menu_id", Type: field.TypeUint64, Nullable: true},
 	}
 	// SysMenuParamsTable holds the schema information for the "sys_menu_params" table.
 	SysMenuParamsTable = &schema.Table{
