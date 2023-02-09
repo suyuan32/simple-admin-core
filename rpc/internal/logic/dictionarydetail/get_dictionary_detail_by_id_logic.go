@@ -45,12 +45,14 @@ func (l *GetDictionaryDetailByIdLogic) GetDictionaryDetailById(in *core.IDReq) (
 	}
 
 	return &core.DictionaryDetailInfo{
-		Id:        result.ID,
-		CreatedAt: result.CreatedAt.UnixMilli(),
-		UpdatedAt: result.UpdatedAt.UnixMilli(),
-		Status:    uint32(result.Status),
-		Title:     result.Title,
-		Key:       result.Key,
-		Value:     result.Value,
+		Id:           result.ID,
+		CreatedAt:    result.CreatedAt.UnixMilli(),
+		UpdatedAt:    result.UpdatedAt.UnixMilli(),
+		Status:       uint32(result.Status),
+		Title:        result.Title,
+		Key:          result.Key,
+		Value:        result.Value,
+		Sort:         result.Sort,
+		DictionaryId: result.DictionaryID,
 	}, nil
 }

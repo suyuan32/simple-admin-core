@@ -32,11 +32,10 @@ func NewGetDictionaryDetailListLogic(r *http.Request, svcCtx *svc.ServiceContext
 func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(req *types.DictionaryDetailListReq) (resp *types.DictionaryDetailListResp, err error) {
 	data, err := l.svcCtx.CoreRpc.GetDictionaryDetailList(l.ctx,
 		&core.DictionaryDetailListReq{
-			Page:     req.Page,
-			PageSize: req.PageSize,
-			Title:    req.Title,
-			Key:      req.Key,
-			Value:    req.Value,
+			Page:         req.Page,
+			PageSize:     req.PageSize,
+			DictionaryId: req.DictionaryId,
+			Key:          req.Key,
 		})
 	if err != nil {
 		return nil, err
@@ -53,10 +52,12 @@ func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(req *types.Dictio
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,
 				},
-				Status: v.Status,
-				Title:  v.Title,
-				Key:    v.Key,
-				Value:  v.Value,
+				Status:       v.Status,
+				Title:        v.Title,
+				Key:          v.Key,
+				Value:        v.Value,
+				DictionaryId: v.DictionaryId,
+				Sort:         v.Sort,
 			})
 	}
 	return resp, nil

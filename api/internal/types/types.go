@@ -1160,6 +1160,10 @@ type DictionaryDetailInfo struct {
 	Key string `json:"key,optional"`
 	// Value
 	Value string `json:"value,optional"`
+	// Dictionary ID
+	DictionaryId uint64 `json:"dictionaryId,optional"`
+	// Sort
+	Sort uint32 `json:"sort,optional"`
 }
 
 // The response data of dictionary detail list | 字典键值列表数据
@@ -1182,12 +1186,10 @@ type DictionaryDetailListInfo struct {
 // swagger:model DictionaryDetailListReq
 type DictionaryDetailListReq struct {
 	PageInfo
-	// Title
-	Title string `json:"title,optional"`
 	// Key
 	Key string `json:"key,optional"`
-	// Value
-	Value string `json:"value,optional"`
+	// Dictionary ID
+	DictionaryId uint64 `json:"dictionaryId,optional"`
 }
 
 // DictionaryDetail information response | 字典键值信息返回体

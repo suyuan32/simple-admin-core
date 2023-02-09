@@ -347,9 +347,9 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuLevel(2).
 		SetMenuType(1).
 		SetParentID(10).
-		SetPath("/dictionary/detail").
+		SetPath("/dictionary/detail/:dictionaryId").
 		SetName("Dictionary Detail").
-		SetComponent("/sys/dictionary/detail").
+		SetComponent("/sys/dictionaryDetail/index").
 		SetSort(1).
 		SetTitle("route.dictionaryDetailManagementTitle").
 		SetIcon("ant-design:align-left-outlined").

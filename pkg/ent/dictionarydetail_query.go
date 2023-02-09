@@ -23,7 +23,6 @@ type DictionaryDetailQuery struct {
 	inters         []Interceptor
 	predicates     []predicate.DictionaryDetail
 	withDictionary *DictionaryQuery
-	withFKs        bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -367,18 +366,11 @@ func (ddq *DictionaryDetailQuery) prepareQuery(ctx context.Context) error {
 func (ddq *DictionaryDetailQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*DictionaryDetail, error) {
 	var (
 		nodes       = []*DictionaryDetail{}
-		withFKs     = ddq.withFKs
 		_spec       = ddq.querySpec()
 		loadedTypes = [1]bool{
 			ddq.withDictionary != nil,
 		}
 	)
-	if ddq.withDictionary != nil {
-		withFKs = true
-	}
-	if withFKs {
-		_spec.Node.Columns = append(_spec.Node.Columns, dictionarydetail.ForeignKeys...)
-	}
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*DictionaryDetail).scanValues(nil, columns)
 	}
@@ -410,10 +402,7 @@ func (ddq *DictionaryDetailQuery) loadDictionary(ctx context.Context, query *Dic
 	ids := make([]uint64, 0, len(nodes))
 	nodeids := make(map[uint64][]*DictionaryDetail)
 	for i := range nodes {
-		if nodes[i].dictionary_dictionary_details == nil {
-			continue
-		}
-		fk := *nodes[i].dictionary_dictionary_details
+		fk := nodes[i].DictionaryID
 		if _, ok := nodeids[fk]; !ok {
 			ids = append(ids, fk)
 		}
@@ -430,7 +419,7 @@ func (ddq *DictionaryDetailQuery) loadDictionary(ctx context.Context, query *Dic
 	for _, n := range neighbors {
 		nodes, ok := nodeids[n.ID]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "dictionary_dictionary_details" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "dictionary_id" returned %v`, n.ID)
 		}
 		for i := range nodes {
 			assign(nodes[i], n)

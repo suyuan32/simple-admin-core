@@ -46,10 +46,12 @@ func (l *GetDictionaryDetailByIdLogic) GetDictionaryDetailById(req *types.IDReq)
 				CreatedAt: data.CreatedAt,
 				UpdatedAt: data.UpdatedAt,
 			},
-			Status: data.Status,
-			Title:  data.Title,
-			Key:    data.Key,
-			Value:  data.Value,
+			Status:       data.Status,
+			Title:        data.Title,
+			Key:          data.Key,
+			Value:        data.Value,
+			DictionaryId: data.DictionaryId,
+			Sort:         data.Sort,
 		},
 	}, nil
 }

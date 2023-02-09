@@ -33,6 +33,8 @@ func (l *UpdateDictionaryDetailLogic) UpdateDictionaryDetail(in *core.Dictionary
 		SetNotEmptyTitle(in.Title).
 		SetNotEmptyKey(in.Key).
 		SetNotEmptyValue(in.Value).
+		SetNotEmptySort(in.Sort).
+		SetNotEmptyDictionaryID(in.DictionaryId).
 		Exec(l.ctx)
 	if err != nil {
 		switch {

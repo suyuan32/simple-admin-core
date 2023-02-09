@@ -6,6 +6,8 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
+	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -27,7 +29,21 @@ func NewGetUserProfileLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetUse
 }
 
 func (l *GetUserProfileLogic) GetUserProfile() (resp *types.ProfileResp, err error) {
-	// todo: add your logic here and delete this line
+	data, err := l.svcCtx.CoreRpc.GetUserById(l.ctx, &core.UUIDReq{Id: l.ctx.Value("userId").(string)})
+	if err != nil {
+		return nil, err
+	}
 
-	return
+	return &types.ProfileResp{
+		BaseDataInfo: types.BaseDataInfo{
+			Code: 0,
+			Msg:  l.svcCtx.Trans.Trans(l.lang, i18n.Success),
+		},
+		Data: types.ProfileInfo{
+			Nickname: data.Nickname,
+			Avatar:   data.Avatar,
+			Mobile:   data.Mobile,
+			Email:    data.Email,
+		},
+	}, nil
 }

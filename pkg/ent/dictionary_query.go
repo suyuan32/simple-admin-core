@@ -412,7 +412,6 @@ func (dq *DictionaryQuery) loadDictionaryDetails(ctx context.Context, query *Dic
 			init(nodes[i])
 		}
 	}
-	query.withFKs = true
 	query.Where(predicate.DictionaryDetail(func(s *sql.Selector) {
 		s.Where(sql.InValues(dictionary.DictionaryDetailsColumn, fks...))
 	}))
@@ -421,13 +420,10 @@ func (dq *DictionaryQuery) loadDictionaryDetails(ctx context.Context, query *Dic
 		return err
 	}
 	for _, n := range neighbors {
-		fk := n.dictionary_dictionary_details
-		if fk == nil {
-			return fmt.Errorf(`foreign-key "dictionary_dictionary_details" is nil for node %v`, n.ID)
-		}
-		node, ok := nodeids[*fk]
+		fk := n.DictionaryID
+		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "dictionary_dictionary_details" returned %v for node %v`, *fk, n.ID)
+			return fmt.Errorf(`unexpected foreign-key "dictionary_id" returned %v for node %v`, fk, n.ID)
 		}
 		assign(node, n)
 	}

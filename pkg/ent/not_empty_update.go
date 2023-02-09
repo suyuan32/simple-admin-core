@@ -291,6 +291,22 @@ func (dd *DictionaryDetailUpdateOne) SetNotEmptyStatus(value uint8) *DictionaryD
 }
 
 // set field if value is not empty. e.g. string does not equal to ""
+func (dd *DictionaryDetailUpdate) SetNotEmptySort(value uint32) *DictionaryDetailUpdate {
+	if value != 0 {
+		return dd.SetSort(value)
+	}
+	return dd
+}
+
+// set field if value is not empty. e.g. string does not equal to ""
+func (dd *DictionaryDetailUpdateOne) SetNotEmptySort(value uint32) *DictionaryDetailUpdateOne {
+	if value != 0 {
+		return dd.SetSort(value)
+	}
+	return dd
+}
+
+// set field if value is not empty. e.g. string does not equal to ""
 func (dd *DictionaryDetailUpdate) SetNotEmptyTitle(value string) *DictionaryDetailUpdate {
 	if value != "" {
 		return dd.SetTitle(value)
@@ -334,6 +350,22 @@ func (dd *DictionaryDetailUpdate) SetNotEmptyValue(value string) *DictionaryDeta
 func (dd *DictionaryDetailUpdateOne) SetNotEmptyValue(value string) *DictionaryDetailUpdateOne {
 	if value != "" {
 		return dd.SetValue(value)
+	}
+	return dd
+}
+
+// set field if value is not empty. e.g. string does not equal to ""
+func (dd *DictionaryDetailUpdate) SetNotEmptyDictionaryID(value uint64) *DictionaryDetailUpdate {
+	if value != 0 {
+		return dd.SetDictionaryID(value)
+	}
+	return dd
+}
+
+// set field if value is not empty. e.g. string does not equal to ""
+func (dd *DictionaryDetailUpdateOne) SetNotEmptyDictionaryID(value uint64) *DictionaryDetailUpdateOne {
+	if value != 0 {
+		return dd.SetDictionaryID(value)
 	}
 	return dd
 }

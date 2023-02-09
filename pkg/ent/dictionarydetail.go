@@ -23,16 +23,19 @@ type DictionaryDetail struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// status 1 normal 2 ban | 状态 1 正常 2 禁用
 	Status uint8 `json:"status,omitempty"`
+	// Sort number | 排序编号
+	Sort uint32 `json:"sort,omitempty"`
 	// the title shown in the ui | 展示名称 （建议配合i18n）
 	Title string `json:"title,omitempty"`
 	// key | 键
 	Key string `json:"key,omitempty"`
 	// value | 值
 	Value string `json:"value,omitempty"`
+	// Dictionary ID | 字典ID
+	DictionaryID uint64 `json:"dictionary_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the DictionaryDetailQuery when eager-loading is set.
-	Edges                         DictionaryDetailEdges `json:"edges"`
-	dictionary_dictionary_details *uint64
+	Edges DictionaryDetailEdges `json:"edges"`
 }
 
 // DictionaryDetailEdges holds the relations/edges for other nodes in the graph.
@@ -62,14 +65,12 @@ func (*DictionaryDetail) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case dictionarydetail.FieldID, dictionarydetail.FieldStatus:
+		case dictionarydetail.FieldID, dictionarydetail.FieldStatus, dictionarydetail.FieldSort, dictionarydetail.FieldDictionaryID:
 			values[i] = new(sql.NullInt64)
 		case dictionarydetail.FieldTitle, dictionarydetail.FieldKey, dictionarydetail.FieldValue:
 			values[i] = new(sql.NullString)
 		case dictionarydetail.FieldCreatedAt, dictionarydetail.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
-		case dictionarydetail.ForeignKeys[0]: // dictionary_dictionary_details
-			values[i] = new(sql.NullInt64)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type DictionaryDetail", columns[i])
 		}
@@ -109,6 +110,12 @@ func (dd *DictionaryDetail) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				dd.Status = uint8(value.Int64)
 			}
+		case dictionarydetail.FieldSort:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field sort", values[i])
+			} else if value.Valid {
+				dd.Sort = uint32(value.Int64)
+			}
 		case dictionarydetail.FieldTitle:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field title", values[i])
@@ -127,12 +134,11 @@ func (dd *DictionaryDetail) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				dd.Value = value.String
 			}
-		case dictionarydetail.ForeignKeys[0]:
+		case dictionarydetail.FieldDictionaryID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field dictionary_dictionary_details", value)
+				return fmt.Errorf("unexpected type %T for field dictionary_id", values[i])
 			} else if value.Valid {
-				dd.dictionary_dictionary_details = new(uint64)
-				*dd.dictionary_dictionary_details = uint64(value.Int64)
+				dd.DictionaryID = uint64(value.Int64)
 			}
 		}
 	}
@@ -176,6 +182,9 @@ func (dd *DictionaryDetail) String() string {
 	builder.WriteString("status=")
 	builder.WriteString(fmt.Sprintf("%v", dd.Status))
 	builder.WriteString(", ")
+	builder.WriteString("sort=")
+	builder.WriteString(fmt.Sprintf("%v", dd.Sort))
+	builder.WriteString(", ")
 	builder.WriteString("title=")
 	builder.WriteString(dd.Title)
 	builder.WriteString(", ")
@@ -184,6 +193,9 @@ func (dd *DictionaryDetail) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("value=")
 	builder.WriteString(dd.Value)
+	builder.WriteString(", ")
+	builder.WriteString("dictionary_id=")
+	builder.WriteString(fmt.Sprintf("%v", dd.DictionaryID))
 	builder.WriteByte(')')
 	return builder.String()
 }

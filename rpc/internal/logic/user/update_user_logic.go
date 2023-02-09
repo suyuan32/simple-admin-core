@@ -32,19 +32,19 @@ func NewUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 
 func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) {
 	updateQuery := l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
-		SetUsername(in.Username).
-		SetNickname(in.Nickname).
-		SetEmail(in.Email).
-		SetMobile(in.Mobile).
-		SetAvatar(in.Avatar).
-		SetRoleID(in.RoleId).
-		SetHomePath(in.HomePath).
-		SetDescription(in.Description).
-		SetDepartmentID(in.DepartmentId).
-		SetPositionID(in.PositionId)
+		SetNotEmptyUsername(in.Username).
+		SetNotEmptyNickname(in.Nickname).
+		SetNotEmptyEmail(in.Email).
+		SetNotEmptyMobile(in.Mobile).
+		SetNotEmptyAvatar(in.Avatar).
+		SetNotEmptyRoleID(in.RoleId).
+		SetNotEmptyHomePath(in.HomePath).
+		SetNotEmptyDescription(in.Description).
+		SetNotEmptyDepartmentID(in.DepartmentId).
+		SetNotEmptyPositionID(in.PositionId)
 
 	if in.Password != "" {
-		updateQuery = updateQuery.SetPassword(utils.BcryptEncrypt(in.Password))
+		updateQuery = updateQuery.SetNotEmptyPassword(utils.BcryptEncrypt(in.Password))
 	}
 
 	err := updateQuery.Exec(l.ctx)

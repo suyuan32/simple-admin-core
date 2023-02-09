@@ -34,8 +34,9 @@ func (l *CreateDictionaryDetailLogic) CreateDictionaryDetail(in *core.Dictionary
 		SetTitle(in.Title).
 		SetKey(in.Key).
 		SetValue(in.Value).
+		SetSort(in.Sort).
+		SetDictionaryID(in.DictionaryId).
 		Exec(l.ctx)
-
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):

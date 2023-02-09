@@ -4,9 +4,10 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/zeromicro/go-zero/core/errorx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -47,5 +48,5 @@ func (l *ChangePasswordLogic) ChangePassword(req *types.ChangePasswordReq) (resp
 		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
 	}
 
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Failed)}, nil
+	return nil, errorx.NewCodeInvalidArgumentError("login.wrongPassword")
 }

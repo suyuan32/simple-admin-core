@@ -521,6 +521,11 @@ definitions:
                 format: int64
                 type: integer
                 x-go-name: CreatedAt
+            dictionaryId:
+                description: Dictionary ID
+                format: uint64
+                type: integer
+                x-go-name: DictionaryId
             id:
                 description: ID
                 format: uint64
@@ -530,6 +535,11 @@ definitions:
                 description: Key
                 type: string
                 x-go-name: Key
+            sort:
+                description: Sort
+                format: uint32
+                type: integer
+                x-go-name: Sort
             status:
                 description: Status
                 format: uint32
@@ -588,6 +598,11 @@ definitions:
     DictionaryDetailListReq:
         description: Get dictionary detail list request params | 字典键值列表请求参数
         properties:
+            dictionaryId:
+                description: Dictionary ID
+                format: uint64
+                type: integer
+                x-go-name: DictionaryId
             key:
                 description: Key
                 type: string
@@ -603,14 +618,6 @@ definitions:
                 maximum: 100000
                 type: integer
                 x-go-name: PageSize
-            title:
-                description: Title
-                type: string
-                x-go-name: Title
-            value:
-                description: Value
-                type: string
-                x-go-name: Value
         required:
             - page
             - pageSize

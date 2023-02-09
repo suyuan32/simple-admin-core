@@ -139,6 +139,7 @@
 		"signupUserExist": "Username or email address had been registered",
 		"userNotExist": "User does not register",
 		"wrongCaptcha": "Wrong captcha",
+		"wrongPassword": "Wrong Password",
 		"wrongUsernameOrPassword": "Wrong username or password",
 		"requireLogin": "Please log in again"
 	},

@@ -30,11 +30,13 @@ func NewCreateDictionaryDetailLogic(r *http.Request, svcCtx *svc.ServiceContext)
 func (l *CreateDictionaryDetailLogic) CreateDictionaryDetail(req *types.DictionaryDetailInfo) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateDictionaryDetail(l.ctx,
 		&core.DictionaryDetailInfo{
-			Id:     req.Id,
-			Status: req.Status,
-			Title:  req.Title,
-			Key:    req.Key,
-			Value:  req.Value,
+			Id:           req.Id,
+			Status:       req.Status,
+			Title:        req.Title,
+			Key:          req.Key,
+			Value:        req.Value,
+			DictionaryId: req.DictionaryId,
+			Sort:         req.Sort,
 		})
 	if err != nil {
 		return nil, err

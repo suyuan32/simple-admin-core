@@ -29,14 +29,11 @@ func NewGetDictionaryDetailListLogic(ctx context.Context, svcCtx *svc.ServiceCon
 
 func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(in *core.DictionaryDetailListReq) (*core.DictionaryDetailListResp, error) {
 	var predicates []predicate.DictionaryDetail
-	if in.Title != "" {
-		predicates = append(predicates, dictionarydetail.TitleContains(in.Title))
+	if in.DictionaryId != 0 {
+		predicates = append(predicates, dictionarydetail.DictionaryIDEQ(in.DictionaryId))
 	}
 	if in.Key != "" {
 		predicates = append(predicates, dictionarydetail.KeyContains(in.Key))
-	}
-	if in.Value != "" {
-		predicates = append(predicates, dictionarydetail.ValueContains(in.Value))
 	}
 	result, err := l.svcCtx.DB.DictionaryDetail.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
@@ -49,13 +46,15 @@ func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(in *core.Dictiona
 
 	for _, v := range result.List {
 		resp.Data = append(resp.Data, &core.DictionaryDetailInfo{
-			Id:        v.ID,
-			CreatedAt: v.CreatedAt.UnixMilli(),
-			UpdatedAt: v.UpdatedAt.UnixMilli(),
-			Status:    uint32(v.Status),
-			Title:     v.Title,
-			Key:       v.Key,
-			Value:     v.Value,
+			Id:           v.ID,
+			CreatedAt:    v.CreatedAt.UnixMilli(),
+			UpdatedAt:    v.UpdatedAt.UnixMilli(),
+			Status:       uint32(v.Status),
+			Title:        v.Title,
+			Key:          v.Key,
+			Value:        v.Value,
+			DictionaryId: v.DictionaryID,
+			Sort:         v.Sort,
 		})
 	}
 
