@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /position/delete position DeletePosition
 //
-// Delete position information | 删除Position信息
+// Delete position information | 删除职位信息
 //
-// Delete position information | 删除Position信息
+// Delete position information | 删除职位信息
 //
 // Parameters:
 //  + name: body

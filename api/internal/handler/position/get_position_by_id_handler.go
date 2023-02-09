@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /position position GetPositionById
 //
-// Get position by ID | 通过ID获取Position
+// Get position by ID | 通过ID获取职位
 //
-// Get position by ID | 通过ID获取Position
+// Get position by ID | 通过ID获取职位
 //
 // Parameters:
 //  + name: body

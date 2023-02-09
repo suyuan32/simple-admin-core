@@ -5,19 +5,19 @@ type (
     DictionaryInfo {
         BaseInfo
 
-        // Translated Name
+        // Translated Name | 字典多语言名称
         Trans string `json:"trans,optional"`
 
-        // Title
+        // Title | 字典多语言名称
         Title  string `json:"title,optional"`
 
-        // Name
+        // Name | 字典名称
         Name  string `json:"name,optional"`
 
-        // Status
+        // Status | 状态
         Status  uint32 `json:"status,optional"`
 
-        // Desc
+        // Description of dictionary | 字典描述
         Desc  string `json:"desc,optional"`
     }
 

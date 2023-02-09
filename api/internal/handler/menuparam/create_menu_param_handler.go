@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /menu_param/create menuparam CreateMenuParam
 //
-// Create menu param information | 创建MenuParam
+// Create menu param information | 创建菜单参数
 //
-// Create menu param information | 创建MenuParam
+// Create menu param information | 创建菜单参数
 //
 // Parameters:
 //  + name: body

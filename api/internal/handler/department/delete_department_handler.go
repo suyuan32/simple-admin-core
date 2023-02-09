@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /department/delete department DeleteDepartment
 //
-// Delete department information | 删除Department信息
+// Delete department information | 删除部门信息
 //
-// Delete department information | 删除Department信息
+// Delete department information | 删除部门信息
 //
 // Parameters:
 //  + name: body

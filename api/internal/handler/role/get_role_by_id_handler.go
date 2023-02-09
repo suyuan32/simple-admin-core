@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /role role GetRoleById
 //
-// Get Role by ID | 通过ID获取Role
+// Get Role by ID | 通过ID获取角色
 //
-// Get Role by ID | 通过ID获取Role
+// Get Role by ID | 通过ID获取角色
 //
 // Parameters:
 //  + name: body

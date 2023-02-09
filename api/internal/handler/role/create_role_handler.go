@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /role/create role CreateRole
 //
-// Create role information | 创建Role
+// Create role information | 创建角色
 //
-// Create role information | 创建Role
+// Create role information | 创建角色
 //
 // Parameters:
 //  + name: body

@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /oauth_provider/update oauthprovider UpdateOauthProvider
 //
-// Update oauth provider information | 更新OauthProvider
+// Update oauth provider information | 更新第三方
 //
-// Update oauth provider information | 更新OauthProvider
+// Update oauth provider information | 更新第三方
 //
 // Parameters:
 //  + name: body

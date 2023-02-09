@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /role/update role UpdateRole
 //
-// Update role information | 更新Role
+// Update role information | 更新角色
 //
-// Update role information | 更新Role
+// Update role information | 更新角色
 //
 // Parameters:
 //  + name: body

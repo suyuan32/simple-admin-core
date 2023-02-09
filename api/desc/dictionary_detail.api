@@ -5,22 +5,22 @@ type (
     DictionaryDetailInfo {
         BaseInfo
 
-        // Status
+        // Status | 状态
         Status  uint32 `json:"status,optional"`
 
-        // Title
+        // Title | 显示名称
         Title  string `json:"title,optional"`
 
-        // Key
+        // Key | 键
         Key  string `json:"key,optional"`
 
-        // Value
+        // Value | 值
         Value  string `json:"value,optional"`
 
-        // Dictionary ID
+        // Dictionary ID | 所属字典ID
         DictionaryId  uint64 `json:"dictionaryId,optional"`
 
-        // Sort
+        // Sort | 排序
         Sort uint32 `json:"sort,optional"`
     }
 
@@ -44,7 +44,7 @@ type (
     DictionaryDetailListReq {
         PageInfo
 
-        // Key
+        // Key | 键
         Key  string `json:"key,optional"`
 
         // Dictionary ID

@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /dictionary dictionary GetDictionaryById
 //
-// Get Dictionary by ID | 通过ID获取Dictionary
+// Get Dictionary by ID | 通过ID获取字典
 //
-// Get Dictionary by ID | 通过ID获取Dictionary
+// Get Dictionary by ID | 通过ID获取字典
 //
 // Parameters:
 //  + name: body

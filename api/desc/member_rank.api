@@ -5,16 +5,16 @@ type (
     MemberRankInfo {
         BaseInfo
 
-        // Translated Name
+        // Translated Name | 国际化翻译
         Trans string `json:"trans,optional"`
 
-        // Name
+        // Rank name | 等级名称
         Name  string `json:"name,optional"`
 
-        // Description
+        // Description | 等级描述
         Description  string `json:"description,optional"`
 
-        // Remark
+        // Remark | 备注
         Remark  string `json:"remark,optional"`
     }
 
@@ -38,13 +38,13 @@ type (
     MemberRankListReq {
         PageInfo
 
-        // Name
+        // Name | 等级名称
         Name  string `json:"name,optional"`
 
-        // Description
+        // Description | 描述
         Description  string `json:"description,optional"`
 
-        // Remark
+        // Remark | 备注
         Remark  string `json:"remark,optional"`
     }
 
@@ -64,23 +64,23 @@ type (
 )
 
 service core {
-    // Create member rank information | 创建MemberRank
+    // Create member rank information | 创建会员等级
     @handler createMemberRank
     post /member_rank/create (MemberRankInfo) returns (BaseMsgResp)
 
-    // Update member rank information | 更新MemberRank
+    // Update member rank information | 更新会员等级
     @handler updateMemberRank
     post /member_rank/update (MemberRankInfo) returns (BaseMsgResp)
 
-    // Delete member rank information | 删除MemberRank信息
+    // Delete member rank information | 删除会员等级信息
     @handler deleteMemberRank
     post /member_rank/delete (IDsReq) returns (BaseMsgResp)
 
-    // Get member rank list | 获取MemberRank列表
+    // Get member rank list | 获取会员等级列表
     @handler getMemberRankList
     post /member_rank/list (MemberRankListReq) returns (MemberRankListResp)
 
-    // Get member rank by ID | 通过ID获取MemberRank
+    // Get member rank by ID | 通过ID获取会员等级
     @handler getMemberRankById
     post /member_rank (IDReq) returns (MemberRankInfoResp)
 }

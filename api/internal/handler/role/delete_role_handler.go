@@ -20,7 +20,7 @@ import (
 //  + name: body
 //    require: true
 //    in: body
-//    type: IDReq
+//    type: IDsReq
 //
 // Responses:
 //  200: BaseMsgResp

@@ -8,16 +8,16 @@ type (
         // Status
         Status  uint32 `json:"status,optional"`
 
-        // Uuid
+        // User's UUID | 用户的UUID
         Uuid  string `json:"uuid,optional"`
 
-        // Token
+        // Token | 用户的Token
         Token  string `json:"token,optional"`
 
-        // Source
+        // Source | Token 来源
         Source  string `json:"source,optional"`
 
-        // ExpiredAt
+        // ExpiredAt | 过期时间
         ExpiredAt  int64 `json:"expiredAt,optional"`
     }
 

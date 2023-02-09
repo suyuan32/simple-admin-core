@@ -1,7 +1,7 @@
 import "base.api"
 
 type (
-    // The response data of position information | Position信息
+    // The response data of position information | 职位信息
     PositionInfo {
         BaseInfo
 
@@ -24,23 +24,23 @@ type (
         Remark  string `json:"remark,optional"`
     }
 
-    // The response data of position list | Position列表数据
+    // The response data of position list | 职位列表数据
     PositionListResp {
         BaseDataInfo
 
-        // Position list data | Position列表数据
+        // Position list data | 职位列表数据
         Data PositionListInfo `json:"data"`
     }
 
-    // Position list data | Position列表数据
+    // Position list data | 职位列表数据
     PositionListInfo {
         BaseListInfo
 
-        // The API list data | Position列表数据
+        // The API list data | 职位列表数据
         Data  []PositionInfo  `json:"data"`
     }
 
-    // Get position list request params | Position列表请求参数
+    // Get position list request params | 职位列表请求参数
     PositionListReq {
         PageInfo
 
@@ -54,11 +54,11 @@ type (
         Remark  string `json:"remark,optional"`
     }
 
-    // Position information response | Position信息返回体
+    // Position information response | 职位信息返回体
     PositionInfoResp {
         BaseDataInfo
 
-        // Position information | Position数据
+        // Position information | 职位数据
         Data PositionInfo `json:"data"`
     }
 )
@@ -70,23 +70,23 @@ type (
 )
 
 service core {
-    // Create position information | 创建Position
+    // Create position information | 创建职位
     @handler createPosition
     post /position/create (PositionInfo) returns (BaseMsgResp)
 
-    // Update position information | 更新Position
+    // Update position information | 更新职位
     @handler updatePosition
     post /position/update (PositionInfo) returns (BaseMsgResp)
 
-    // Delete position information | 删除Position信息
+    // Delete position information | 删除职位信息
     @handler deletePosition
     post /position/delete (IDsReq) returns (BaseMsgResp)
 
-    // Get position list | 获取Position列表
+    // Get position list | 获取职位列表
     @handler getPositionList
     post /position/list (PositionListReq) returns (PositionListResp)
 
-    // Get position by ID | 通过ID获取Position
+    // Get position by ID | 通过ID获取职位
     @handler getPositionById
     post /position (IDReq) returns (PositionInfoResp)
 }

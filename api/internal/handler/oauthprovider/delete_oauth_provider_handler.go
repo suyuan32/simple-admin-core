@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /oauth_provider/delete oauthprovider DeleteOauthProvider
 //
-// Delete oauth provider information | 删除OauthProvider信息
+// Delete oauth provider information | 删除第三方信息
 //
-// Delete oauth provider information | 删除OauthProvider信息
+// Delete oauth provider information | 删除第三方信息
 //
 // Parameters:
 //  + name: body

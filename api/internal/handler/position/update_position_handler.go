@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /position/update position UpdatePosition
 //
-// Update position information | 更新Position
+// Update position information | 更新职位
 //
-// Update position information | 更新Position
+// Update position information | 更新职位
 //
 // Parameters:
 //  + name: body

@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /member/update member UpdateMember
 //
-// Update member information | 更新Member
+// Update member information | 更新会员
 //
-// Update member information | 更新Member
+// Update member information | 更新会员
 //
 // Parameters:
 //  + name: body

@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /position/create position CreatePosition
 //
-// Create position information | 创建Position
+// Create position information | 创建职位
 //
-// Create position information | 创建Position
+// Create position information | 创建职位
 //
 // Parameters:
 //  + name: body

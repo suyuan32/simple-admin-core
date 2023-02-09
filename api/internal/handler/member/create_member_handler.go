@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /member/create member CreateMember
 //
-// Create member information | 创建Member
+// Create member information | 创建会员
 //
-// Create member information | 创建Member
+// Create member information | 创建会员
 //
 // Parameters:
 //  + name: body

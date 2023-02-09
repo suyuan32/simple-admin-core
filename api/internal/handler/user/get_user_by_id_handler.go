@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /user user GetUserById
 //
-// Get User by ID | 通过ID获取User
+// Get User by ID | 通过ID获取用户
 //
-// Get User by ID | 通过ID获取User
+// Get User by ID | 通过ID获取用户
 //
 // Parameters:
 //  + name: body

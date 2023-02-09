@@ -20,7 +20,7 @@ import (
 //  + name: body
 //    require: true
 //    in: body
-//    type: UUIDReq
+//    type: UUIDsReq
 //
 // Responses:
 //  200: BaseMsgResp

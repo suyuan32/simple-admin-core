@@ -373,7 +373,7 @@ definitions:
         description: The response data of department information | 部门信息
         properties:
             ancestors:
-                description: Ancestors
+                description: Ancestors | 父级部门列表
                 type: string
                 x-go-name: Ancestors
             createdAt:
@@ -382,7 +382,7 @@ definitions:
                 type: integer
                 x-go-name: CreatedAt
             email:
-                description: Email
+                description: Email | 邮箱
                 type: string
                 x-go-name: Email
             id:
@@ -391,33 +391,33 @@ definitions:
                 type: integer
                 x-go-name: Id
             leader:
-                description: Leader
+                description: Leader | 部门负责人
                 type: string
                 x-go-name: Leader
             name:
-                description: Name
+                description: Name | 部门名称
                 type: string
                 x-go-name: Name
             parentId:
-                description: ParentId
+                description: ParentId | 父级 ID
                 format: uint64
                 type: integer
                 x-go-name: ParentId
             phone:
-                description: Phone
+                description: Phone | 电话号码
                 type: string
                 x-go-name: Phone
             remark:
-                description: Remark
+                description: Remark | 备注
                 type: string
                 x-go-name: Remark
             sort:
-                description: Sort
+                description: Sort | 排序
                 format: uint32
                 type: integer
                 x-go-name: Sort
             status:
-                description: Status
+                description: Status | 状态
                 format: uint32
                 type: integer
                 x-go-name: Status
@@ -522,7 +522,7 @@ definitions:
                 type: integer
                 x-go-name: CreatedAt
             dictionaryId:
-                description: Dictionary ID
+                description: Dictionary ID | 所属字典ID
                 format: uint64
                 type: integer
                 x-go-name: DictionaryId
@@ -532,21 +532,21 @@ definitions:
                 type: integer
                 x-go-name: Id
             key:
-                description: Key
+                description: Key | 键
                 type: string
                 x-go-name: Key
             sort:
-                description: Sort
+                description: Sort | 排序
                 format: uint32
                 type: integer
                 x-go-name: Sort
             status:
-                description: Status
+                description: Status | 状态
                 format: uint32
                 type: integer
                 x-go-name: Status
             title:
-                description: Title
+                description: Title | 显示名称
                 type: string
                 x-go-name: Title
             updatedAt:
@@ -555,7 +555,7 @@ definitions:
                 type: integer
                 x-go-name: UpdatedAt
             value:
-                description: Value
+                description: Value | 值
                 type: string
                 x-go-name: Value
         type: object
@@ -604,7 +604,7 @@ definitions:
                 type: integer
                 x-go-name: DictionaryId
             key:
-                description: Key
+                description: Key | 键
                 type: string
                 x-go-name: Key
             page:
@@ -651,7 +651,7 @@ definitions:
                 type: integer
                 x-go-name: CreatedAt
             desc:
-                description: Desc
+                description: Description of dictionary | 字典描述
                 type: string
                 x-go-name: Desc
             id:
@@ -660,20 +660,20 @@ definitions:
                 type: integer
                 x-go-name: Id
             name:
-                description: Name
+                description: Name | 字典名称
                 type: string
                 x-go-name: Name
             status:
-                description: Status
+                description: Status | 状态
                 format: uint32
                 type: integer
                 x-go-name: Status
             title:
-                description: Title
+                description: Title | 字典多语言名称
                 type: string
                 x-go-name: Title
             trans:
-                description: Translated Name
+                description: Translated Name | 字典多语言名称
                 type: string
                 x-go-name: Trans
             updatedAt:
@@ -871,7 +871,7 @@ definitions:
         description: The response data of member information | 会员信息
         properties:
             avatar:
-                description: Avatar
+                description: Avatar | 头像地址
                 type: string
                 x-go-name: Avatar
             createdAt:
@@ -880,7 +880,7 @@ definitions:
                 type: integer
                 x-go-name: CreatedAt
             email:
-                description: Email
+                description: Email | 邮箱
                 type: string
                 x-go-name: Email
             id:
@@ -888,24 +888,24 @@ definitions:
                 type: string
                 x-go-name: Id
             mobile:
-                description: Mobile
+                description: Mobile | 手机
                 type: string
                 x-go-name: Mobile
             nickname:
-                description: Nickname
+                description: Nickname | 昵称
                 type: string
                 x-go-name: Nickname
             password:
-                description: Password
+                description: Password | 密码
                 type: string
                 x-go-name: Password
             rankId:
-                description: RankId
+                description: RankId | 等级ID
                 format: uint64
                 type: integer
                 x-go-name: RankId
             status:
-                description: Status
+                description: Status | 状态
                 format: uint32
                 type: integer
                 x-go-name: Status
@@ -915,7 +915,7 @@ definitions:
                 type: integer
                 x-go-name: UpdatedAt
             username:
-                description: Username
+                description: Username | 用户名
                 type: string
                 x-go-name: Username
         type: object
@@ -959,15 +959,15 @@ definitions:
         description: Get member list request params | 会员列表请求参数
         properties:
             email:
-                description: Email
+                description: Email | 邮箱
                 type: string
                 x-go-name: Email
             mobile:
-                description: Mobile
+                description: Mobile | 手机
                 type: string
                 x-go-name: Mobile
             nickname:
-                description: Nickname
+                description: Nickname | 昵称
                 type: string
                 x-go-name: Nickname
             page:
@@ -982,12 +982,12 @@ definitions:
                 type: integer
                 x-go-name: PageSize
             rankId:
-                description: Rank ID
+                description: Rank ID | 等级ID
                 format: uint64
                 type: integer
                 x-go-name: RankId
             username:
-                description: Username
+                description: Username | 用户名
                 type: string
                 x-go-name: Username
         required:
@@ -1023,7 +1023,7 @@ definitions:
                 type: integer
                 x-go-name: CreatedAt
             description:
-                description: Description
+                description: Description | 等级描述
                 type: string
                 x-go-name: Description
             id:
@@ -1032,15 +1032,15 @@ definitions:
                 type: integer
                 x-go-name: Id
             name:
-                description: Name
+                description: Rank name | 等级名称
                 type: string
                 x-go-name: Name
             remark:
-                description: Remark
+                description: Remark | 备注
                 type: string
                 x-go-name: Remark
             trans:
-                description: Translated Name
+                description: Translated Name | 国际化翻译
                 type: string
                 x-go-name: Trans
             updatedAt:
@@ -1089,11 +1089,11 @@ definitions:
         description: Get member rank list request params | MemberRank列表请求参数
         properties:
             description:
-                description: Description
+                description: Description | 描述
                 type: string
                 x-go-name: Description
             name:
-                description: Name
+                description: Name | 等级名称
                 type: string
                 x-go-name: Name
             page:
@@ -1108,7 +1108,7 @@ definitions:
                 type: integer
                 x-go-name: PageSize
             remark:
-                description: Remark
+                description: Remark | 备注
                 type: string
                 x-go-name: Remark
         required:
@@ -1179,7 +1179,7 @@ definitions:
         description: The response data of menu information | 菜单信息
         properties:
             component:
-                description: Component
+                description: Component | 组件地址
                 type: string
                 x-go-name: Component
             createdAt:
@@ -1188,7 +1188,7 @@ definitions:
                 type: integer
                 x-go-name: CreatedAt
             disabled:
-                description: Disabled
+                description: Disabled | 是否启用
                 type: boolean
                 x-go-name: Disabled
             id:
@@ -1197,41 +1197,41 @@ definitions:
                 type: integer
                 x-go-name: Id
             level:
-                description: Level
+                description: Level | 菜单层级
                 format: uint32
                 type: integer
                 x-go-name: Level
             menuType:
-                description: MenuType
+                description: MenuType | 菜单类型
                 format: uint32
                 type: integer
                 x-go-name: MenuType
             meta:
                 $ref: '#/definitions/Meta'
             name:
-                description: Name
+                description: Menu name | 菜单名称
                 type: string
                 x-go-name: Name
             parentId:
-                description: ParentId
+                description: ParentId | 父级菜单ID
                 format: uint64
                 type: integer
                 x-go-name: ParentId
             path:
-                description: Path
+                description: Path | 菜单访问路径
                 type: string
                 x-go-name: Path
             redirect:
-                description: Redirect
+                description: Redirect | 跳转地址
                 type: string
                 x-go-name: Redirect
             sort:
-                description: Sort
+                description: Sort | 排序
                 format: uint32
                 type: integer
                 x-go-name: Sort
             trans:
-                description: Translated Name
+                description: Translated Name | 国际化展示名称
                 type: string
                 x-go-name: Trans
             updatedAt:
@@ -1296,7 +1296,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuParamInfo:
-        description: The response data of menu param information | MenuParam信息
+        description: The response data of menu param information | 菜单参数信息
         properties:
             createdAt:
                 description: Create date | 创建日期
@@ -1309,7 +1309,7 @@ definitions:
                 type: integer
                 x-go-name: Id
             key:
-                description: Key
+                description: Key | 参数键
                 type: string
                 x-go-name: Key
             menuId:
@@ -1318,7 +1318,7 @@ definitions:
                 type: integer
                 x-go-name: MenuId
             type:
-                description: Type
+                description: Type | 参数类型
                 type: string
                 x-go-name: Type
             updatedAt:
@@ -1327,13 +1327,13 @@ definitions:
                 type: integer
                 x-go-name: UpdatedAt
             value:
-                description: Value
+                description: Value | 参数值
                 type: string
                 x-go-name: Value
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuParamInfoResp:
-        description: MenuParam information response | MenuParam信息返回体
+        description: MenuParam information response | 菜单参数信息返回体
         properties:
             code:
                 description: Error code | 错误代码
@@ -1352,10 +1352,10 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuParamListInfo:
-        description: MenuParam list data | MenuParam列表数据
+        description: MenuParam list data | 菜单参数列表数据
         properties:
             data:
-                description: The API list data | MenuParam列表数据
+                description: The API list data | 菜单参数列表数据
                 items:
                     $ref: '#/definitions/MenuParamInfo'
                 type: array
@@ -1368,7 +1368,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuParamListReq:
-        description: Get menu param list request params | MenuParam列表请求参数
+        description: Get menu param list request params | 菜单参数列表请求参数
         properties:
             menuId:
                 description: Menu ID | 菜单ID
@@ -1392,7 +1392,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuParamListResp:
-        description: The response data of menu param list | MenuParam列表数据
+        description: The response data of menu param list | 菜单参数列表数据
         properties:
             code:
                 description: Error code | 错误代码
@@ -1422,7 +1422,7 @@ definitions:
                 type: boolean
                 x-go-name: CarryParam
             component:
-                description: Component
+                description: Component | 组件地址
                 type: string
                 x-go-name: Component
             currentActiveMenu:
@@ -1431,7 +1431,7 @@ definitions:
                 type: string
                 x-go-name: CurrentActiveMenu
             disabled:
-                description: Disabled
+                description: Disabled | 是否启用
                 type: boolean
                 x-go-name: Disabled
             dynamicLevel:
@@ -1473,26 +1473,26 @@ definitions:
                 type: boolean
                 x-go-name: IgnoreKeepAlive
             level:
-                description: Level
+                description: Level | 菜单层级
                 format: uint32
                 type: integer
                 x-go-name: Level
             menuType:
-                description: MenuType
+                description: MenuType | 菜单类型
                 format: uint32
                 type: integer
                 x-go-name: MenuType
             name:
-                description: Name
+                description: Menu name | 菜单名称
                 type: string
                 x-go-name: Name
             parentId:
-                description: ParentId
+                description: ParentId | 父级菜单ID
                 format: uint64
                 type: integer
                 x-go-name: ParentId
             path:
-                description: Path
+                description: Path | 菜单访问路径
                 type: string
                 x-go-name: Path
             realPath:
@@ -1500,11 +1500,11 @@ definitions:
                 type: string
                 x-go-name: RealPath
             redirect:
-                description: Redirect
+                description: Redirect | 跳转地址
                 type: string
                 x-go-name: Redirect
             sort:
-                description: Sort
+                description: Sort | 排序
                 format: uint32
                 type: integer
                 x-go-name: Sort
@@ -1514,7 +1514,7 @@ definitions:
                 type: string
                 x-go-name: Title
             trans:
-                description: Translated Name
+                description: Translated Name | 国际化展示名称
                 type: string
                 x-go-name: Trans
         type: object
@@ -1635,23 +1635,23 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     OauthProviderInfo:
-        description: The response data of oauth provider information | OauthProvider信息
+        description: The response data of oauth provider information | 第三方信息
         properties:
             authStyle:
-                description: AuthStyle
+                description: The type of auth | 鉴权方式
                 format: uint64
                 type: integer
                 x-go-name: AuthStyle
             authUrl:
-                description: AuthUrl
+                description: Authority URL | 授权地址
                 type: string
                 x-go-name: AuthUrl
             clientId:
-                description: ClientId
+                description: ClientId | 客户端ID
                 type: string
                 x-go-name: ClientId
             clientSecret:
-                description: ClientSecret
+                description: ClientSecret | 客户端密钥
                 type: string
                 x-go-name: ClientSecret
             createdAt:
@@ -1665,23 +1665,23 @@ definitions:
                 type: integer
                 x-go-name: Id
             infoUrl:
-                description: InfoUrl
+                description: The URL to get user information | 获取信息地址
                 type: string
                 x-go-name: InfoUrl
             name:
-                description: Name
+                description: Provider name | 第三方提供商名称
                 type: string
                 x-go-name: Name
             redirectUrl:
-                description: RedirectUrl
+                description: Redirect URL| 跳转地址
                 type: string
                 x-go-name: RedirectUrl
             scopes:
-                description: Scopes
+                description: Scopes | 授权范围
                 type: string
                 x-go-name: Scopes
             tokenUrl:
-                description: TokenUrl
+                description: The URL to get token | 获取Token的地址
                 type: string
                 x-go-name: TokenUrl
             updatedAt:
@@ -1692,7 +1692,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     OauthProviderInfoResp:
-        description: OauthProvider information response | OauthProvider信息返回体
+        description: Oauth provider information response | 第三方信息返回体
         properties:
             code:
                 description: Error code | 错误代码
@@ -1711,10 +1711,10 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     OauthProviderListInfo:
-        description: OauthProvider list data | OauthProvider列表数据
+        description: OauthProvider list data | 第三方列表数据
         properties:
             data:
-                description: The API list data | OauthProvider列表数据
+                description: The API list data | 第三方列表数据
                 items:
                     $ref: '#/definitions/OauthProviderInfo'
                 type: array
@@ -1727,7 +1727,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     OauthProviderListReq:
-        description: Get oauth provider list request params | OauthProvider列表请求参数
+        description: Get oauth provider list request params | 第三方列表请求参数
         properties:
             clientId:
                 description: ClientId
@@ -1758,7 +1758,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     OauthProviderListResp:
-        description: The response data of oauth provider list | OauthProvider列表数据
+        description: The response data of oauth provider list | 第三方列表数据
         properties:
             code:
                 description: Error code | 错误代码
@@ -1816,7 +1816,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     PositionInfo:
-        description: The response data of position information | Position信息
+        description: The response data of position information | 职位信息
         properties:
             code:
                 description: Code
@@ -1862,7 +1862,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     PositionInfoResp:
-        description: Position information response | Position信息返回体
+        description: Position information response | 职位信息返回体
         properties:
             code:
                 description: Error code | 错误代码
@@ -1881,10 +1881,10 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     PositionListInfo:
-        description: Position list data | Position列表数据
+        description: Position list data | 职位列表数据
         properties:
             data:
-                description: The API list data | Position列表数据
+                description: The API list data | 职位列表数据
                 items:
                     $ref: '#/definitions/PositionInfo'
                 type: array
@@ -1897,7 +1897,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     PositionListReq:
-        description: Get position list request params | Position列表请求参数
+        description: Get position list request params | 职位列表请求参数
         properties:
             code:
                 description: Code
@@ -1928,7 +1928,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     PositionListResp:
-        description: The response data of position list | Position列表数据
+        description: The response data of position list | 职位列表数据
         properties:
             code:
                 description: Error code | 错误代码
@@ -2075,7 +2075,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleInfo:
-        description: The response data of role information | Role信息
+        description: The response data of role information | 角色信息
         properties:
             createdAt:
                 description: Create date | 创建日期
@@ -2083,7 +2083,7 @@ definitions:
                 type: integer
                 x-go-name: CreatedAt
             defaultRouter:
-                description: DefaultRouter
+                description: DefaultRouter | 默认首页
                 type: string
                 x-go-name: DefaultRouter
             id:
@@ -2092,25 +2092,25 @@ definitions:
                 type: integer
                 x-go-name: Id
             name:
-                description: Name
+                description: Name | 角色名称
                 type: string
                 x-go-name: Name
             remark:
-                description: Remark
+                description: Remark | 备注
                 type: string
                 x-go-name: Remark
             sort:
-                description: Sort
+                description: Sort | 排序
                 format: uint32
                 type: integer
                 x-go-name: Sort
             status:
-                description: Status
+                description: Status | 状态
                 format: uint32
                 type: integer
                 x-go-name: Status
             trans:
-                description: Translated Name
+                description: Translated Name | 展示名称
                 type: string
                 x-go-name: Trans
             updatedAt:
@@ -2119,13 +2119,13 @@ definitions:
                 type: integer
                 x-go-name: UpdatedAt
             value:
-                description: Value
+                description: Value | 角色值
                 type: string
                 x-go-name: Value
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleInfoResp:
-        description: Role information response | Role信息返回体
+        description: Role information response | 角色信息返回体
         properties:
             code:
                 description: Error code | 错误代码
@@ -2157,10 +2157,10 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleListInfo:
-        description: Role list data | Role列表数据
+        description: Role list data | 角色列表数据
         properties:
             data:
-                description: The API list data | Role列表数据
+                description: The API list data | 角色列表数据
                 items:
                     $ref: '#/definitions/RoleInfo'
                 type: array
@@ -2173,7 +2173,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleListReq:
-        description: Get role list request params | Role列表请求参数
+        description: Get role list request params | 角色列表请求参数
         properties:
             name:
                 description: Name
@@ -2196,7 +2196,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleListResp:
-        description: The response data of role list | Role列表数据
+        description: The response data of role list | 角色列表数据
         properties:
             code:
                 description: Error code | 错误代码
@@ -2223,7 +2223,7 @@ definitions:
                 type: integer
                 x-go-name: CreatedAt
             expiredAt:
-                description: ExpiredAt
+                description: ExpiredAt | 过期时间
                 format: int64
                 type: integer
                 x-go-name: ExpiredAt
@@ -2232,7 +2232,7 @@ definitions:
                 type: string
                 x-go-name: Id
             source:
-                description: Source
+                description: Source | Token 来源
                 type: string
                 x-go-name: Source
             status:
@@ -2241,7 +2241,7 @@ definitions:
                 type: integer
                 x-go-name: Status
             token:
-                description: Token
+                description: Token | 用户的Token
                 type: string
                 x-go-name: Token
             updatedAt:
@@ -2250,7 +2250,7 @@ definitions:
                 type: integer
                 x-go-name: UpdatedAt
             uuid:
-                description: Uuid
+                description: User's UUID | 用户的UUID
                 type: string
                 x-go-name: Uuid
         type: object
@@ -2420,10 +2420,10 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UserInfo:
-        description: The response data of user information | User信息
+        description: The response data of user information | 用户信息
         properties:
             avatar:
-                description: Avatar
+                description: Avatar | 头像地址
                 type: string
                 x-go-name: Avatar
             createdAt:
@@ -2432,20 +2432,20 @@ definitions:
                 type: integer
                 x-go-name: CreatedAt
             departmentId:
-                description: DepartmentId
+                description: Department ID | 部门ID
                 format: uint64
                 type: integer
                 x-go-name: DepartmentId
             description:
-                description: Description
+                description: Description | 描述
                 type: string
                 x-go-name: Description
             email:
-                description: Email
+                description: Email | 邮箱
                 type: string
                 x-go-name: Email
             homePath:
-                description: HomePath
+                description: HomePath | 首页
                 type: string
                 x-go-name: HomePath
             id:
@@ -2453,37 +2453,37 @@ definitions:
                 type: string
                 x-go-name: Id
             mobile:
-                description: Mobile
+                description: Mobile | 手机号
                 type: string
                 x-go-name: Mobile
             nickname:
-                description: Nickname
+                description: Nickname | 昵称
                 type: string
                 x-go-name: Nickname
             password:
-                description: Password
+                description: Password | 密码
                 type: string
                 x-go-name: Password
             positionId:
-                description: PositionId
+                description: Position ID | 职位ID
                 format: uint64
                 type: integer
                 x-go-name: PositionId
             roleId:
-                description: RoleId
+                description: RoleId | 角色ID
                 format: uint64
                 type: integer
                 x-go-name: RoleId
             roleName:
-                description: RoleName
+                description: RoleName | 角色名称
                 type: string
                 x-go-name: RoleName
             roleValue:
-                description: RoleValue
+                description: RoleValue | 角色值
                 type: string
                 x-go-name: RoleValue
             status:
-                description: Status
+                description: Status | 状态
                 format: uint32
                 type: integer
                 x-go-name: Status
@@ -2493,13 +2493,13 @@ definitions:
                 type: integer
                 x-go-name: UpdatedAt
             username:
-                description: Username
+                description: Username | 用户名
                 type: string
                 x-go-name: Username
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UserInfoResp:
-        description: User information response | User信息返回体
+        description: User information response | 用户信息返回体
         properties:
             code:
                 description: Error code | 错误代码
@@ -2518,7 +2518,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UserListInfo:
-        description: User list data | User列表数据
+        description: User list data | 用户列表数据
         properties:
             data:
                 description: The API list data | User列表数据
@@ -2534,7 +2534,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UserListReq:
-        description: Get user list request params | User列表请求参数
+        description: Get user list request params | 用户列表请求参数
         properties:
             departmentId:
                 description: The user's department ID | 用户所属部门ID
@@ -2589,7 +2589,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     UserListResp:
-        description: The response data of user list | User列表数据
+        description: The response data of user list | 用户列表数据
         properties:
             code:
                 description: Error code | 错误代码
@@ -2823,7 +2823,7 @@ paths:
                 - core
     /department:
         post:
-            description: Get Department by ID | 通过ID获取Department
+            description: Get Department by ID | 通过ID获取部门
             operationId: GetDepartmentById
             parameters:
                 - in: body
@@ -2836,12 +2836,12 @@ paths:
                     description: DepartmentInfoResp
                     schema:
                         $ref: '#/definitions/DepartmentInfoResp'
-            summary: Get Department by ID | 通过ID获取Department
+            summary: Get Department by ID | 通过ID获取部门
             tags:
                 - department
     /department/create:
         post:
-            description: Create department information | 创建Department
+            description: Create department information | 创建部门
             operationId: CreateDepartment
             parameters:
                 - in: body
@@ -2854,12 +2854,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Create department information | 创建Department
+            summary: Create department information | 创建部门
             tags:
                 - department
     /department/delete:
         post:
-            description: Delete department information | 删除Department信息
+            description: Delete department information | 删除部门信息
             operationId: DeleteDepartment
             parameters:
                 - in: body
@@ -2872,12 +2872,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Delete department information | 删除Department信息
+            summary: Delete department information | 删除部门信息
             tags:
                 - department
     /department/list:
         post:
-            description: Get department list | 获取Department列表
+            description: Get department list | 获取部门列表
             operationId: GetDepartmentList
             parameters:
                 - in: body
@@ -2890,12 +2890,12 @@ paths:
                     description: DepartmentListResp
                     schema:
                         $ref: '#/definitions/DepartmentListResp'
-            summary: Get department list | 获取Department列表
+            summary: Get department list | 获取部门列表
             tags:
                 - department
     /department/update:
         post:
-            description: Update department information | 更新Department
+            description: Update department information | 更新部门
             operationId: UpdateDepartment
             parameters:
                 - in: body
@@ -2908,12 +2908,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Update department information | 更新Department
+            summary: Update department information | 更新部门
             tags:
                 - department
     /dictionary:
         post:
-            description: Get Dictionary by ID | 通过ID获取Dictionary
+            description: Get Dictionary by ID | 通过ID获取字典
             operationId: GetDictionaryById
             parameters:
                 - in: body
@@ -2926,12 +2926,12 @@ paths:
                     description: DictionaryInfoResp
                     schema:
                         $ref: '#/definitions/DictionaryInfoResp'
-            summary: Get Dictionary by ID | 通过ID获取Dictionary
+            summary: Get Dictionary by ID | 通过ID获取字典
             tags:
                 - dictionary
     /dictionary/create:
         post:
-            description: Create dictionary information | 创建Dictionary
+            description: Create dictionary information | 创建字典
             operationId: CreateDictionary
             parameters:
                 - in: body
@@ -2944,12 +2944,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Create dictionary information | 创建Dictionary
+            summary: Create dictionary information | 创建字典
             tags:
                 - dictionary
     /dictionary/delete:
         post:
-            description: Delete dictionary information | 删除Dictionary信息
+            description: Delete dictionary information | 删除字典信息
             operationId: DeleteDictionary
             parameters:
                 - in: body
@@ -2962,12 +2962,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Delete dictionary information | 删除Dictionary信息
+            summary: Delete dictionary information | 删除字典信息
             tags:
                 - dictionary
     /dictionary/list:
         post:
-            description: Get dictionary list | 获取Dictionary列表
+            description: Get dictionary list | 获取字典列表
             operationId: GetDictionaryList
             parameters:
                 - in: body
@@ -2980,12 +2980,12 @@ paths:
                     description: DictionaryListResp
                     schema:
                         $ref: '#/definitions/DictionaryListResp'
-            summary: Get dictionary list | 获取Dictionary列表
+            summary: Get dictionary list | 获取字典列表
             tags:
                 - dictionary
     /dictionary/update:
         post:
-            description: Update dictionary information | 更新Dictionary
+            description: Update dictionary information | 更新字典
             operationId: UpdateDictionary
             parameters:
                 - in: body
@@ -2998,12 +2998,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Update dictionary information | 更新Dictionary
+            summary: Update dictionary information | 更新字典
             tags:
                 - dictionary
     /dictionary_detail:
         post:
-            description: Get DictionaryDetail by ID | 通过ID获取DictionaryDetail
+            description: Get DictionaryDetail by ID | 通过ID获取字典键值
             operationId: GetDictionaryDetailById
             parameters:
                 - in: body
@@ -3016,12 +3016,12 @@ paths:
                     description: DictionaryDetailInfoResp
                     schema:
                         $ref: '#/definitions/DictionaryDetailInfoResp'
-            summary: Get DictionaryDetail by ID | 通过ID获取DictionaryDetail
+            summary: Get DictionaryDetail by ID | 通过ID获取字典键值
             tags:
                 - dictionarydetail
     /dictionary_detail/create:
         post:
-            description: Create dictionary detail information | 创建DictionaryDetail
+            description: Create dictionary detail information | 创建字典键值
             operationId: CreateDictionaryDetail
             parameters:
                 - in: body
@@ -3034,12 +3034,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Create dictionary detail information | 创建DictionaryDetail
+            summary: Create dictionary detail information | 创建字典键值
             tags:
                 - dictionarydetail
     /dictionary_detail/delete:
         post:
-            description: Delete dictionary detail information | 删除DictionaryDetail信息
+            description: Delete dictionary detail information | 删除字典键值信息
             operationId: DeleteDictionaryDetail
             parameters:
                 - in: body
@@ -3052,12 +3052,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Delete dictionary detail information | 删除DictionaryDetail信息
+            summary: Delete dictionary detail information | 删除字典键值信息
             tags:
                 - dictionarydetail
     /dictionary_detail/list:
         post:
-            description: Get dictionary detail list | 获取DictionaryDetail列表
+            description: Get dictionary detail list | 获取字典键值列表
             operationId: GetDictionaryDetailList
             parameters:
                 - in: body
@@ -3070,12 +3070,12 @@ paths:
                     description: DictionaryDetailListResp
                     schema:
                         $ref: '#/definitions/DictionaryDetailListResp'
-            summary: Get dictionary detail list | 获取DictionaryDetail列表
+            summary: Get dictionary detail list | 获取字典键值列表
             tags:
                 - dictionarydetail
     /dictionary_detail/update:
         post:
-            description: Update dictionary detail information | 更新DictionaryDetail
+            description: Update dictionary detail information | 更新字典键值
             operationId: UpdateDictionaryDetail
             parameters:
                 - in: body
@@ -3088,12 +3088,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Update dictionary detail information | 更新DictionaryDetail
+            summary: Update dictionary detail information | 更新字典键值
             tags:
                 - dictionarydetail
     /member:
         post:
-            description: Get member by ID | 通过ID获取Member
+            description: Get member by ID | 通过ID获取会员
             operationId: GetMemberById
             parameters:
                 - in: body
@@ -3106,12 +3106,12 @@ paths:
                     description: MemberInfoResp
                     schema:
                         $ref: '#/definitions/MemberInfoResp'
-            summary: Get member by ID | 通过ID获取Member
+            summary: Get member by ID | 通过ID获取会员
             tags:
                 - member
     /member/create:
         post:
-            description: Create member information | 创建Member
+            description: Create member information | 创建会员
             operationId: CreateMember
             parameters:
                 - in: body
@@ -3124,12 +3124,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Create member information | 创建Member
+            summary: Create member information | 创建会员
             tags:
                 - member
     /member/delete:
         post:
-            description: Delete member information | 删除Member信息
+            description: Delete member information | 删除会员信息
             operationId: DeleteMember
             parameters:
                 - in: body
@@ -3142,12 +3142,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Delete member information | 删除Member信息
+            summary: Delete member information | 删除会员信息
             tags:
                 - member
     /member/list:
         post:
-            description: Get member list | 获取Member列表
+            description: Get member list | 获取会员列表
             operationId: GetMemberList
             parameters:
                 - in: body
@@ -3160,12 +3160,12 @@ paths:
                     description: MemberListResp
                     schema:
                         $ref: '#/definitions/MemberListResp'
-            summary: Get member list | 获取Member列表
+            summary: Get member list | 获取会员列表
             tags:
                 - member
     /member/update:
         post:
-            description: Update member information | 更新Member
+            description: Update member information | 更新会员
             operationId: UpdateMember
             parameters:
                 - in: body
@@ -3178,12 +3178,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Update member information | 更新Member
+            summary: Update member information | 更新会员
             tags:
                 - member
     /member_rank:
         post:
-            description: Get member rank by ID | 通过ID获取MemberRank
+            description: Get member rank by ID | 通过ID获取会员等级
             operationId: GetMemberRankById
             parameters:
                 - in: body
@@ -3196,12 +3196,12 @@ paths:
                     description: MemberRankInfoResp
                     schema:
                         $ref: '#/definitions/MemberRankInfoResp'
-            summary: Get member rank by ID | 通过ID获取MemberRank
+            summary: Get member rank by ID | 通过ID获取会员等级
             tags:
                 - memberrank
     /member_rank/create:
         post:
-            description: Create member rank information | 创建MemberRank
+            description: Create member rank information | 创建会员等级
             operationId: CreateMemberRank
             parameters:
                 - in: body
@@ -3214,12 +3214,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Create member rank information | 创建MemberRank
+            summary: Create member rank information | 创建会员等级
             tags:
                 - memberrank
     /member_rank/delete:
         post:
-            description: Delete member rank information | 删除MemberRank信息
+            description: Delete member rank information | 删除会员等级信息
             operationId: DeleteMemberRank
             parameters:
                 - in: body
@@ -3232,12 +3232,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Delete member rank information | 删除MemberRank信息
+            summary: Delete member rank information | 删除会员等级信息
             tags:
                 - memberrank
     /member_rank/list:
         post:
-            description: Get member rank list | 获取MemberRank列表
+            description: Get member rank list | 获取会员等级列表
             operationId: GetMemberRankList
             parameters:
                 - in: body
@@ -3250,12 +3250,12 @@ paths:
                     description: MemberRankListResp
                     schema:
                         $ref: '#/definitions/MemberRankListResp'
-            summary: Get member rank list | 获取MemberRank列表
+            summary: Get member rank list | 获取会员等级列表
             tags:
                 - memberrank
     /member_rank/update:
         post:
-            description: Update member rank information | 更新MemberRank
+            description: Update member rank information | 更新会员等级
             operationId: UpdateMemberRank
             parameters:
                 - in: body
@@ -3268,7 +3268,7 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Update member rank information | 更新MemberRank
+            summary: Update member rank information | 更新会员等级
             tags:
                 - memberrank
     /menu:
@@ -3369,7 +3369,7 @@ paths:
                 - menu
     /menu_param:
         post:
-            description: Get menu param by ID | 通过ID获取MenuParam
+            description: Get menu param by ID | 通过ID获取菜单参数
             operationId: GetMenuParamById
             parameters:
                 - in: body
@@ -3382,12 +3382,12 @@ paths:
                     description: MenuParamInfoResp
                     schema:
                         $ref: '#/definitions/MenuParamInfoResp'
-            summary: Get menu param by ID | 通过ID获取MenuParam
+            summary: Get menu param by ID | 通过ID获取菜单参数
             tags:
                 - menuparam
     /menu_param/create:
         post:
-            description: Create menu param information | 创建MenuParam
+            description: Create menu param information | 创建菜单参数
             operationId: CreateMenuParam
             parameters:
                 - in: body
@@ -3400,12 +3400,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Create menu param information | 创建MenuParam
+            summary: Create menu param information | 创建菜单参数
             tags:
                 - menuparam
     /menu_param/delete:
         post:
-            description: Delete menu param information | 删除MenuParam信息
+            description: Delete menu param information | 删除菜单参数信息
             operationId: DeleteMenuParam
             parameters:
                 - in: body
@@ -3418,12 +3418,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Delete menu param information | 删除MenuParam信息
+            summary: Delete menu param information | 删除菜单参数信息
             tags:
                 - menuparam
     /menu_param/list:
         post:
-            description: Get menu param list | 获取MenuParam列表
+            description: Get menu param list | 获取菜单参数列表
             operationId: GetMenuParamList
             parameters:
                 - in: body
@@ -3436,12 +3436,12 @@ paths:
                     description: MenuParamListResp
                     schema:
                         $ref: '#/definitions/MenuParamListResp'
-            summary: Get menu param list | 获取MenuParam列表
+            summary: Get menu param list | 获取菜单参数列表
             tags:
                 - menuparam
     /menu_param/update:
         post:
-            description: Update menu param information | 更新MenuParam
+            description: Update menu param information | 更新菜单参数
             operationId: UpdateMenuParam
             parameters:
                 - in: body
@@ -3454,7 +3454,7 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Update menu param information | 更新MenuParam
+            summary: Update menu param information | 更新菜单参数
             tags:
                 - menuparam
     /oauth/login:
@@ -3489,7 +3489,7 @@ paths:
                 - oauthprovider
     /oauth_provider:
         post:
-            description: Get oauth provider by ID | 通过ID获取OauthProvider
+            description: Get oauth provider by ID | 通过ID获取第三方
             operationId: GetOauthProviderById
             parameters:
                 - in: body
@@ -3502,12 +3502,12 @@ paths:
                     description: OauthProviderInfoResp
                     schema:
                         $ref: '#/definitions/OauthProviderInfoResp'
-            summary: Get oauth provider by ID | 通过ID获取OauthProvider
+            summary: Get oauth provider by ID | 通过ID获取第三方
             tags:
                 - oauthprovider
     /oauth_provider/create:
         post:
-            description: Create oauth provider information | 创建OauthProvider
+            description: Create oauth provider information | 创建第三方
             operationId: CreateOauthProvider
             parameters:
                 - in: body
@@ -3520,12 +3520,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Create oauth provider information | 创建OauthProvider
+            summary: Create oauth provider information | 创建第三方
             tags:
                 - oauthprovider
     /oauth_provider/delete:
         post:
-            description: Delete oauth provider information | 删除OauthProvider信息
+            description: Delete oauth provider information | 删除第三方信息
             operationId: DeleteOauthProvider
             parameters:
                 - in: body
@@ -3538,12 +3538,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Delete oauth provider information | 删除OauthProvider信息
+            summary: Delete oauth provider information | 删除第三方信息
             tags:
                 - oauthprovider
     /oauth_provider/list:
         post:
-            description: Get oauth provider list | 获取OauthProvider列表
+            description: Get oauth provider list | 获取第三方列表
             operationId: GetOauthProviderList
             parameters:
                 - in: body
@@ -3556,12 +3556,12 @@ paths:
                     description: OauthProviderListResp
                     schema:
                         $ref: '#/definitions/OauthProviderListResp'
-            summary: Get oauth provider list | 获取OauthProvider列表
+            summary: Get oauth provider list | 获取第三方列表
             tags:
                 - oauthprovider
     /oauth_provider/update:
         post:
-            description: Update oauth provider information | 更新OauthProvider
+            description: Update oauth provider information | 更新第三方
             operationId: UpdateOauthProvider
             parameters:
                 - in: body
@@ -3574,12 +3574,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Update oauth provider information | 更新OauthProvider
+            summary: Update oauth provider information | 更新第三方
             tags:
                 - oauthprovider
     /position:
         post:
-            description: Get position by ID | 通过ID获取Position
+            description: Get position by ID | 通过ID获取职位
             operationId: GetPositionById
             parameters:
                 - in: body
@@ -3592,12 +3592,12 @@ paths:
                     description: PositionInfoResp
                     schema:
                         $ref: '#/definitions/PositionInfoResp'
-            summary: Get position by ID | 通过ID获取Position
+            summary: Get position by ID | 通过ID获取职位
             tags:
                 - position
     /position/create:
         post:
-            description: Create position information | 创建Position
+            description: Create position information | 创建职位
             operationId: CreatePosition
             parameters:
                 - in: body
@@ -3610,12 +3610,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Create position information | 创建Position
+            summary: Create position information | 创建职位
             tags:
                 - position
     /position/delete:
         post:
-            description: Delete position information | 删除Position信息
+            description: Delete position information | 删除职位信息
             operationId: DeletePosition
             parameters:
                 - in: body
@@ -3628,12 +3628,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Delete position information | 删除Position信息
+            summary: Delete position information | 删除职位信息
             tags:
                 - position
     /position/list:
         post:
-            description: Get position list | 获取Position列表
+            description: Get position list | 获取职位列表
             operationId: GetPositionList
             parameters:
                 - in: body
@@ -3646,12 +3646,12 @@ paths:
                     description: PositionListResp
                     schema:
                         $ref: '#/definitions/PositionListResp'
-            summary: Get position list | 获取Position列表
+            summary: Get position list | 获取职位列表
             tags:
                 - position
     /position/update:
         post:
-            description: Update position information | 更新Position
+            description: Update position information | 更新职位
             operationId: UpdatePosition
             parameters:
                 - in: body
@@ -3664,12 +3664,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Update position information | 更新Position
+            summary: Update position information | 更新职位
             tags:
                 - position
     /role:
         post:
-            description: Get Role by ID | 通过ID获取Role
+            description: Get Role by ID | 通过ID获取角色
             operationId: GetRoleById
             parameters:
                 - in: body
@@ -3682,12 +3682,12 @@ paths:
                     description: RoleInfoResp
                     schema:
                         $ref: '#/definitions/RoleInfoResp'
-            summary: Get Role by ID | 通过ID获取Role
+            summary: Get Role by ID | 通过ID获取角色
             tags:
                 - role
     /role/create:
         post:
-            description: Create role information | 创建Role
+            description: Create role information | 创建角色
             operationId: CreateRole
             parameters:
                 - in: body
@@ -3700,7 +3700,7 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Create role information | 创建Role
+            summary: Create role information | 创建角色
             tags:
                 - role
     /role/delete:
@@ -3711,7 +3711,7 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/IDReq'
+                    $ref: '#/definitions/IDsReq'
                     type: object
             responses:
                 "200":
@@ -3741,7 +3741,7 @@ paths:
                 - role
     /role/update:
         post:
-            description: Update role information | 更新Role
+            description: Update role information | 更新角色
             operationId: UpdateRole
             parameters:
                 - in: body
@@ -3754,7 +3754,7 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Update role information | 更新Role
+            summary: Update role information | 更新角色
             tags:
                 - role
     /token:
@@ -3867,7 +3867,7 @@ paths:
                 - token
     /user:
         post:
-            description: Get User by ID | 通过ID获取User
+            description: Get User by ID | 通过ID获取用户
             operationId: GetUserById
             parameters:
                 - in: body
@@ -3880,7 +3880,7 @@ paths:
                     description: UserInfoResp
                     schema:
                         $ref: '#/definitions/UserInfoResp'
-            summary: Get User by ID | 通过ID获取User
+            summary: Get User by ID | 通过ID获取用户
             tags:
                 - user
     /user/change_password:
@@ -3903,7 +3903,7 @@ paths:
                 - user
     /user/create:
         post:
-            description: Create user information | 创建User
+            description: Create user information | 创建用户
             operationId: CreateUser
             parameters:
                 - in: body
@@ -3916,7 +3916,7 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Create user information | 创建User
+            summary: Create user information | 创建用户
             tags:
                 - user
     /user/delete:
@@ -3927,7 +3927,7 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/UUIDReq'
+                    $ref: '#/definitions/UUIDsReq'
                     type: object
             responses:
                 "200":
@@ -3943,7 +3943,9 @@ paths:
             operationId: GetUserInfo
             responses:
                 "200":
-                    $ref: '#/responses/GetUserInfoResp'
+                    description: UserBaseInfoResp
+                    schema:
+                        $ref: '#/definitions/UserBaseInfoResp'
             summary: Get user basic information | 获取用户基本信息
             tags:
                 - user
@@ -4056,7 +4058,7 @@ paths:
                 - user
     /user/update:
         post:
-            description: Update user information | 更新User
+            description: Update user information | 更新用户
             operationId: UpdateUser
             parameters:
                 - in: body
@@ -4069,7 +4071,7 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Update user information | 更新User
+            summary: Update user information | 更新用户
             tags:
                 - user
 produces:

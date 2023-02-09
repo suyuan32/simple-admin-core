@@ -1,49 +1,49 @@
 import "base.api"
 
 type (
-    // The response data of role information | Role信息
+    // The response data of role information | 角色信息
     RoleInfo {
         BaseInfo
 
-        // Translated Name
+        // Translated Name | 展示名称
         Trans  string `json:"trans,optional"`
 
-        // Status
+        // Status | 状态
         Status  uint32 `json:"status,optional"`
 
-        // Name
+        // Name | 角色名称
         Name  string `json:"name,optional"`
 
-        // Value
+        // Value | 角色值
         Value  string `json:"value,optional"`
 
-        // DefaultRouter
+        // DefaultRouter | 默认首页
         DefaultRouter  string `json:"defaultRouter,optional"`
 
-        // Remark
+        // Remark | 备注
         Remark  string `json:"remark,optional"`
 
-        // Sort
+        // Sort | 排序
         Sort  uint32 `json:"sort,optional"`
     }
 
-    // The response data of role list | Role列表数据
+    // The response data of role list | 角色列表数据
     RoleListResp {
         BaseDataInfo
 
-        // Role list data | Role列表数据
+        // Role list data | 角色列表数据
         Data RoleListInfo `json:"data"`
     }
 
-    // Role list data | Role列表数据
+    // Role list data | 角色列表数据
     RoleListInfo {
         BaseListInfo
 
-        // The API list data | Role列表数据
+        // The API list data | 角色列表数据
         Data  []RoleInfo  `json:"data"`
     }
 
-    // Get role list request params | Role列表请求参数
+    // Get role list request params | 角色列表请求参数
     RoleListReq {
         PageInfo
 
@@ -51,11 +51,11 @@ type (
         Name  string `json:"name,optional"`
     }
 
-    // Role information response | Role信息返回体
+    // Role information response | 角色信息返回体
     RoleInfoResp {
         BaseDataInfo
 
-        // Role information | Role数据
+        // Role information | 角色数据
         Data RoleInfo `json:"data"`
     }
 )
@@ -67,23 +67,23 @@ type (
 )
 
 service core {
-    // Create role information | 创建Role
+    // Create role information | 创建角色
     @handler createRole
     post /role/create (RoleInfo) returns (BaseMsgResp)
 
-    // Update role information | 更新Role
+    // Update role information | 更新角色
     @handler updateRole
     post /role/update (RoleInfo) returns (BaseMsgResp)
 
-    // Delete role information | 删除Role信息
+    // Delete role information | 删除角色信息
     @handler deleteRole
     post /role/delete (IDsReq) returns (BaseMsgResp)
 
-    // Get role list | 获取Role列表
+    // Get role list | 获取角色列表
     @handler getRoleList
     post /role/list (RoleListReq) returns (RoleListResp)
 
-    // Get Role by ID | 通过ID获取Role
+    // Get Role by ID | 通过ID获取角色
     @handler getRoleById
     post /role (IDReq) returns (RoleInfoResp)
 }

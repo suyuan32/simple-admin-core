@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /menu_param/delete menuparam DeleteMenuParam
 //
-// Delete menu param information | 删除MenuParam信息
+// Delete menu param information | 删除菜单参数信息
 //
-// Delete menu param information | 删除MenuParam信息
+// Delete menu param information | 删除菜单参数信息
 //
 // Parameters:
 //  + name: body

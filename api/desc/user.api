@@ -1,54 +1,54 @@
 import "base.api"
 
 type (
-    // The response data of user information | User信息
+    // The response data of user information | 用户信息
     UserInfo {
         BaseUUIDInfo
 
-        // Status
+        // Status | 状态
         Status  uint32 `json:"status,optional"`
 
-        // Username
+        // Username | 用户名
         Username  string `json:"username,optional"`
 
-        // Nickname
+        // Nickname | 昵称
         Nickname  string `json:"nickname,optional"`
 
-        // Password
+        // Password | 密码
         Password  string `json:"password,optional"`
 
-        // Description
+        // Description | 描述
         Description  string `json:"description,optional"`
 
-        // HomePath
+        // HomePath | 首页
         HomePath  string `json:"homePath,optional"`
 
-        // RoleId
+        // RoleId | 角色ID
         RoleId  uint64 `json:"roleId,optional"`
 
-        // Mobile
+        // Mobile | 手机号
         Mobile  string `json:"mobile,optional"`
 
-        // Email
+        // Email | 邮箱
         Email  string `json:"email,optional"`
 
-        // Avatar
+        // Avatar | 头像地址
         Avatar  string `json:"avatar,optional"`
 
-        // DepartmentId
+        // Department ID | 部门ID
         DepartmentId  uint64 `json:"departmentId,optional"`
 
-        // PositionId
+        // Position ID | 职位ID
         PositionId  uint64 `json:"positionId,optional"`
 
-        // RoleName
+        // RoleName | 角色名称
         RoleName  string `json:"roleName,optional"`
 
-        // RoleValue
+        // RoleValue | 角色值
         RoleValue  string `json:"roleValue,optional"`
     }
 
-    // The response data of user list | User列表数据
+    // The response data of user list | 用户列表数据
     UserListResp {
         BaseDataInfo
 
@@ -56,7 +56,7 @@ type (
         Data UserListInfo `json:"data"`
     }
 
-    // User list data | User列表数据
+    // User list data | 用户列表数据
     UserListInfo {
         BaseListInfo
 
@@ -64,7 +64,7 @@ type (
         Data  []UserInfo  `json:"data"`
     }
 
-    // Get user list request params | User列表请求参数
+    // Get user list request params | 用户列表请求参数
     UserListReq {
         PageInfo
 
@@ -95,7 +95,7 @@ type (
         PositionId       uint64       `json:"positionId,optional"`
     }
 
-    // User information response | User信息返回体
+    // User information response | 用户信息返回体
     UserInfoResp {
         BaseDataInfo
 
@@ -316,23 +316,23 @@ service core {
 )
 
 service core {
-    // Create user information | 创建User
+    // Create user information | 创建用户
     @handler createUser
     post /user/create (UserInfo) returns (BaseMsgResp)
 
-    // Update user information | 更新User
+    // Update user information | 更新用户
     @handler updateUser
     post /user/update (UserInfo) returns (BaseMsgResp)
 
-    // Delete user information | 删除User信息
+    // Delete user information | 删除用户信息
     @handler deleteUser
     post /user/delete (UUIDsReq) returns (BaseMsgResp)
 
-    // Get user list | 获取User列表
+    // Get user list | 获取用户列表
     @handler getUserList
     post /user/list (UserListReq) returns (UserListResp)
 
-    // Get User by ID | 通过ID获取User
+    // Get User by ID | 通过ID获取用户
     @handler getUserById
     post /user (UUIDReq) returns (UserInfoResp)
 

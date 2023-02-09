@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /member_rank/update memberrank UpdateMemberRank
 //
-// Update member rank information | 更新MemberRank
+// Update member rank information | 更新会员等级
 //
-// Update member rank information | 更新MemberRank
+// Update member rank information | 更新会员等级
 //
 // Parameters:
 //  + name: body

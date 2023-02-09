@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /menu_param menuparam GetMenuParamById
 //
-// Get menu param by ID | 通过ID获取MenuParam
+// Get menu param by ID | 通过ID获取菜单参数
 //
-// Get menu param by ID | 通过ID获取MenuParam
+// Get menu param by ID | 通过ID获取菜单参数
 //
 // Parameters:
 //  + name: body

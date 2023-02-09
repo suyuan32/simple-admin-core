@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /member_rank/delete memberrank DeleteMemberRank
 //
-// Delete member rank information | 删除MemberRank信息
+// Delete member rank information | 删除会员等级信息
 //
-// Delete member rank information | 删除MemberRank信息
+// Delete member rank information | 删除会员等级信息
 //
 // Parameters:
 //  + name: body

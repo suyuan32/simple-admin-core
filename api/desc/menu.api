@@ -5,37 +5,37 @@ type (
     MenuInfo {
         BaseInfo
 
-        // Translated Name
+        // Translated Name | 国际化展示名称
         Trans string `json:"trans,optional"`
 
-        // Level
+        // Level | 菜单层级
         Level  uint32 `json:"level,optional"`
 
-        // ParentId
+        // ParentId | 父级菜单ID
         ParentId  uint64 `json:"parentId,optional"`
 
-        // Path
+        // Path | 菜单访问路径
         Path  string `json:"path,optional"`
 
-        // Name
+        // Menu name | 菜单名称
         Name  string `json:"name,optional"`
 
-        // Redirect
+        // Redirect | 跳转地址
         Redirect  string `json:"redirect,optional"`
 
-        // Component
+        // Component | 组件地址
         Component  string `json:"component,optional"`
 
-        // Sort
+        // Sort | 排序
         Sort  uint32 `json:"sort,optional"`
 
-        // Disabled
+        // Disabled | 是否启用
         Disabled  bool `json:"disabled,optional"`
 
         // Meta
         Meta  Meta `json:"meta"`
 
-        // MenuType
+        // MenuType | 菜单类型
         MenuType  uint32 `json:"menuType,optional"`
     }
 
@@ -113,34 +113,34 @@ type (
     MenuPlainInfo {
         Id  uint64  `json:"id"`
 
-        // Translated Name
+        // Translated Name | 国际化展示名称
         Trans string `json:"trans,optional"`
 
-        // Level
+        // Level | 菜单层级
         Level  uint32 `json:"level,optional"`
 
-        // ParentId
+        // ParentId | 父级菜单ID
         ParentId  uint64 `json:"parentId,optional"`
 
-        // Path
+        // Path | 菜单访问路径
         Path  string `json:"path,optional"`
 
-        // Name
+        // Menu name | 菜单名称
         Name  string `json:"name,optional"`
 
-        // Redirect
+        // Redirect | 跳转地址
         Redirect  string `json:"redirect,optional"`
 
-        // Component
+        // Component | 组件地址
         Component  string `json:"component,optional"`
 
-        // Sort
+        // Sort | 排序
         Sort  uint32 `json:"sort,optional"`
 
-        // Disabled
+        // Disabled | 是否启用
         Disabled  bool `json:"disabled,optional"`
 
-        // MenuType
+        // MenuType | 菜单类型
         MenuType  uint32 `json:"menuType,optional"`
 
 

@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /member_rank/create memberrank CreateMemberRank
 //
-// Create member rank information | 创建MemberRank
+// Create member rank information | 创建会员等级
 //
-// Create member rank information | 创建MemberRank
+// Create member rank information | 创建会员等级
 //
 // Parameters:
 //  + name: body

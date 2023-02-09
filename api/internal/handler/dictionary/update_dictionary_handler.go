@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /dictionary/update dictionary UpdateDictionary
 //
-// Update dictionary information | 更新Dictionary
+// Update dictionary information | 更新字典
 //
-// Update dictionary information | 更新Dictionary
+// Update dictionary information | 更新字典
 //
 // Parameters:
 //  + name: body

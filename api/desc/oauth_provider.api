@@ -1,55 +1,55 @@
 import "base.api"
 
 type (
-    // The response data of oauth provider information | OauthProvider信息
+    // The response data of oauth provider information | 第三方信息
     OauthProviderInfo {
         BaseInfo
 
-        // Name
+        // Provider name | 第三方提供商名称
         Name  string `json:"name,optional"`
 
-        // ClientId
+        // ClientId | 客户端ID
         ClientId  string `json:"clientId,optional"`
 
-        // ClientSecret
+        // ClientSecret | 客户端密钥
         ClientSecret  string `json:"clientSecret,optional"`
 
-        // RedirectUrl
+        // Redirect URL| 跳转地址
         RedirectUrl  string `json:"redirectUrl,optional"`
 
-        // Scopes
+        // Scopes | 授权范围
         Scopes  string `json:"scopes,optional"`
 
-        // AuthUrl
+        // Authority URL | 授权地址
         AuthUrl  string `json:"authUrl,optional"`
 
-        // TokenUrl
+        // The URL to get token | 获取Token的地址
         TokenUrl  string `json:"tokenUrl,optional"`
 
-        // AuthStyle
+        // The type of auth | 鉴权方式
         AuthStyle  uint64 `json:"authStyle,optional"`
 
-        // InfoUrl
+        // The URL to get user information | 获取信息地址
         InfoUrl  string `json:"infoUrl,optional"`
     }
 
-    // The response data of oauth provider list | OauthProvider列表数据
+    // The response data of oauth provider list | 第三方列表数据
     OauthProviderListResp {
         BaseDataInfo
 
-        // OauthProvider list data | OauthProvider列表数据
+        // OauthProvider list data | 第三方列表数据
         Data OauthProviderListInfo `json:"data"`
     }
 
-    // OauthProvider list data | OauthProvider列表数据
+    // OauthProvider list data | 第三方列表数据
     OauthProviderListInfo {
         BaseListInfo
 
-        // The API list data | OauthProvider列表数据
+        // The API list data | 第三方列表数据
         Data  []OauthProviderInfo  `json:"data"`
     }
 
-    // Get oauth provider list request params | OauthProvider列表请求参数
+    // Get oauth provider list request params | 第三方列表请求参数
     OauthProviderListReq {
         PageInfo
 
@@ -63,11 +63,11 @@ type (
         ClientSecret  string `json:"clientSecret,optional"`
     }
 
-    // OauthProvider information response | OauthProvider信息返回体
+    // Oauth provider information response | 第三方信息返回体
     OauthProviderInfoResp {
         BaseDataInfo
 
-        // OauthProvider information | OauthProvider数据
+        // OauthProvider information | 第三方数据
         Data OauthProviderInfo `json:"data"`
     }
 
@@ -138,23 +138,23 @@ service core {
 )
 
 service core {
-    // Create oauth provider information | 创建OauthProvider
+    // Create oauth provider information | 创建第三方
     @handler createOauthProvider
     post /oauth_provider/create (OauthProviderInfo) returns (BaseMsgResp)
 
-    // Update oauth provider information | 更新OauthProvider
+    // Update oauth provider information | 更新第三方
     @handler updateOauthProvider
     post /oauth_provider/update (OauthProviderInfo) returns (BaseMsgResp)
 
-    // Delete oauth provider information | 删除OauthProvider信息
+    // Delete oauth provider information | 删除第三方信息
     @handler deleteOauthProvider
     post /oauth_provider/delete (IDsReq) returns (BaseMsgResp)
 
-    // Get oauth provider list | 获取OauthProvider列表
+    // Get oauth provider list | 获取第三方列表
     @handler getOauthProviderList
     post /oauth_provider/list (OauthProviderListReq) returns (OauthProviderListResp)
 
-    // Get oauth provider by ID | 通过ID获取OauthProvider
+    // Get oauth provider by ID | 通过ID获取第三方
     @handler getOauthProviderById
     post /oauth_provider (IDReq) returns (OauthProviderInfoResp)
 

@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /dictionary/delete dictionary DeleteDictionary
 //
-// Delete dictionary information | 删除Dictionary信息
+// Delete dictionary information | 删除字典信息
 //
-// Delete dictionary information | 删除Dictionary信息
+// Delete dictionary information | 删除字典信息
 //
 // Parameters:
 //  + name: body

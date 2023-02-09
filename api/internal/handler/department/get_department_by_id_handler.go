@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /department department GetDepartmentById
 //
-// Get Department by ID | 通过ID获取Department
+// Get Department by ID | 通过ID获取部门
 //
-// Get Department by ID | 通过ID获取Department
+// Get Department by ID | 通过ID获取部门
 //
 // Parameters:
 //  + name: body

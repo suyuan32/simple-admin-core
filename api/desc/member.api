@@ -5,28 +5,28 @@ type (
     MemberInfo {
         BaseUUIDInfo
 
-        // Status
+        // Status | 状态
         Status  uint32 `json:"status,optional"`
 
-        // Username
+        // Username | 用户名
         Username  string `json:"username,optional"`
 
-        // Password
+        // Password | 密码
         Password  string `json:"password,optional"`
 
-        // Nickname
+        // Nickname | 昵称
         Nickname  string `json:"nickname,optional"`
 
-        // RankId
+        // RankId | 等级ID
         RankId  uint64 `json:"rankId,optional"`
 
-        // Mobile
+        // Mobile | 手机
         Mobile  string `json:"mobile,optional"`
 
-        // Email
+        // Email | 邮箱
         Email  string `json:"email,optional"`
 
-        // Avatar
+        // Avatar | 头像地址
         Avatar  string `json:"avatar,optional"`
     }
 
@@ -50,19 +50,19 @@ type (
     MemberListReq {
         PageInfo
 
-       // Username
+       // Username | 用户名
        Username  string `json:"username,optional"`
 
-       // Nickname
+       // Nickname | 昵称
        Nickname  string `json:"nickname,optional"`
 
-       // Mobile
+       // Mobile | 手机
        Mobile  string `json:"mobile,optional"`
 
-       // Email
+       // Email | 邮箱
        Email  string `json:"email,optional"`
 
-       // Rank ID
+       // Rank ID | 等级ID
        RankId  uint64 `json:"rankId,optional"`
     }
 

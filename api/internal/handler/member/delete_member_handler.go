@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /member/delete member DeleteMember
 //
-// Delete member information | 删除Member信息
+// Delete member information | 删除会员信息
 //
-// Delete member information | 删除Member信息
+// Delete member information | 删除会员信息
 //
 // Parameters:
 //  + name: body

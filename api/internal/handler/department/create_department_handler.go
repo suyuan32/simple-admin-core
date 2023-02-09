@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /department/create department CreateDepartment
 //
-// Create department information | 创建Department
+// Create department information | 创建部门
 //
-// Create department information | 创建Department
+// Create department information | 创建部门
 //
 // Parameters:
 //  + name: body

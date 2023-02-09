@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /member member GetMemberById
 //
-// Get member by ID | 通过ID获取Member
+// Get member by ID | 通过ID获取会员
 //
-// Get member by ID | 通过ID获取Member
+// Get member by ID | 通过ID获取会员
 //
 // Parameters:
 //  + name: body

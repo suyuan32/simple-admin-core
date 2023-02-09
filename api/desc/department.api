@@ -8,31 +8,31 @@ type (
         // Translated Name
         Trans string `json:"trans,optional"`
 
-        // Status
+        // Status | 状态
         Status  uint32 `json:"status,optional"`
 
-        // Sort
+        // Sort | 排序
         Sort  uint32 `json:"sort,optional"`
 
-        // Name
+        // Name | 部门名称
         Name  string `json:"name,optional"`
 
-        // Ancestors
+        // Ancestors | 父级部门列表
         Ancestors  string `json:"ancestors,optional"`
 
-        // Leader
+        // Leader | 部门负责人
         Leader  string `json:"leader,optional"`
 
-        // Phone
+        // Phone | 电话号码
         Phone  string `json:"phone,optional"`
 
-        // Email
+        // Email | 邮箱
         Email  string `json:"email,optional"`
 
-        // Remark
+        // Remark | 备注
         Remark  string `json:"remark,optional"`
 
-        // ParentId
+        // ParentId | 父级 ID
         ParentId  uint64 `json:"parentId,optional"`
     }
 

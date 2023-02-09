@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /dictionary_detail/create dictionarydetail CreateDictionaryDetail
 //
-// Create dictionary detail information | 创建DictionaryDetail
+// Create dictionary detail information | 创建字典键值
 //
-// Create dictionary detail information | 创建DictionaryDetail
+// Create dictionary detail information | 创建字典键值
 //
 // Parameters:
 //  + name: body

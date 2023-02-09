@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /member_rank memberrank GetMemberRankById
 //
-// Get member rank by ID | 通过ID获取MemberRank
+// Get member rank by ID | 通过ID获取会员等级
 //
-// Get member rank by ID | 通过ID获取MemberRank
+// Get member rank by ID | 通过ID获取会员等级
 //
 // Parameters:
 //  + name: body

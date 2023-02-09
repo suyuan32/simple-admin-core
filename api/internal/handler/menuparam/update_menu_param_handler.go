@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /menu_param/update menuparam UpdateMenuParam
 //
-// Update menu param information | 更新MenuParam
+// Update menu param information | 更新菜单参数
 //
-// Update menu param information | 更新MenuParam
+// Update menu param information | 更新菜单参数
 //
 // Parameters:
 //  + name: body

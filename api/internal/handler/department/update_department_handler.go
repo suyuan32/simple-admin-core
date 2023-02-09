@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /department/update department UpdateDepartment
 //
-// Update department information | 更新Department
+// Update department information | 更新部门
 //
-// Update department information | 更新Department
+// Update department information | 更新部门
 //
 // Parameters:
 //  + name: body

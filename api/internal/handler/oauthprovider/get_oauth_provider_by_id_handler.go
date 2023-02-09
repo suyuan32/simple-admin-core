@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /oauth_provider oauthprovider GetOauthProviderById
 //
-// Get oauth provider by ID | 通过ID获取OauthProvider
+// Get oauth provider by ID | 通过ID获取第三方
 //
-// Get oauth provider by ID | 通过ID获取OauthProvider
+// Get oauth provider by ID | 通过ID获取第三方
 //
 // Parameters:
 //  + name: body
