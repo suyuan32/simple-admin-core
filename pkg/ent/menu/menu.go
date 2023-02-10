@@ -41,8 +41,6 @@ const (
 	FieldHideMenu = "hide_menu"
 	// FieldHideBreadcrumb holds the string denoting the hide_breadcrumb field in the database.
 	FieldHideBreadcrumb = "hide_breadcrumb"
-	// FieldCurrentActiveMenu holds the string denoting the current_active_menu field in the database.
-	FieldCurrentActiveMenu = "current_active_menu"
 	// FieldIgnoreKeepAlive holds the string denoting the ignore_keep_alive field in the database.
 	FieldIgnoreKeepAlive = "ignore_keep_alive"
 	// FieldHideTab holds the string denoting the hide_tab field in the database.
@@ -109,7 +107,6 @@ var Columns = []string{
 	FieldIcon,
 	FieldHideMenu,
 	FieldHideBreadcrumb,
-	FieldCurrentActiveMenu,
 	FieldIgnoreKeepAlive,
 	FieldHideTab,
 	FieldFrameSrc,
@@ -159,8 +156,6 @@ var (
 	DefaultHideMenu bool
 	// DefaultHideBreadcrumb holds the default value on creation for the "hide_breadcrumb" field.
 	DefaultHideBreadcrumb bool
-	// DefaultCurrentActiveMenu holds the default value on creation for the "current_active_menu" field.
-	DefaultCurrentActiveMenu string
 	// DefaultIgnoreKeepAlive holds the default value on creation for the "ignore_keep_alive" field.
 	DefaultIgnoreKeepAlive bool
 	// DefaultHideTab holds the default value on creation for the "hide_tab" field.

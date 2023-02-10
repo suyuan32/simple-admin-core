@@ -21,15 +21,14 @@ message Meta {
   string icon = 2;
   bool hide_menu = 3;
   bool hide_breadcrumb = 4;
-  string current_active_menu = 5;
-  bool ignore_keep_alive = 6;
-  bool hide_tab = 7;
-  string frame_src = 8;
-  bool carry_param = 9;
-  bool hide_children_in_menu = 10;
-  bool affix = 11;
-  uint32 dynamic_level = 12;
-  string real_path = 13;
+  bool ignore_keep_alive = 5;
+  bool hide_tab = 6;
+  string frame_src = 7;
+  bool carry_param = 8;
+  bool hide_children_in_menu = 9;
+  bool affix = 10;
+  uint32 dynamic_level = 11;
+  string real_path = 12;
 }
 
 message MenuInfoList {

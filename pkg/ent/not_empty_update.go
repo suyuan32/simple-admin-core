@@ -707,22 +707,6 @@ func (m *MenuUpdateOne) SetNotEmptyIcon(value string) *MenuUpdateOne {
 }
 
 // set field if value is not empty. e.g. string does not equal to ""
-func (m *MenuUpdate) SetNotEmptyCurrentActiveMenu(value string) *MenuUpdate {
-	if value != "" {
-		return m.SetCurrentActiveMenu(value)
-	}
-	return m
-}
-
-// set field if value is not empty. e.g. string does not equal to ""
-func (m *MenuUpdateOne) SetNotEmptyCurrentActiveMenu(value string) *MenuUpdateOne {
-	if value != "" {
-		return m.SetCurrentActiveMenu(value)
-	}
-	return m
-}
-
-// set field if value is not empty. e.g. string does not equal to ""
 func (m *MenuUpdate) SetNotEmptyFrameSrc(value string) *MenuUpdate {
 	if value != "" {
 		return m.SetFrameSrc(value)

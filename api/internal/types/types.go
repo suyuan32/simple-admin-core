@@ -461,9 +461,6 @@ type Meta struct {
 	HideMenu bool `json:"hideMenu" validate:"boolean"`
 	// If hide the breadcrumb | 隐藏面包屑
 	HideBreadcrumb bool `json:"hideBreadcrumb,optional" validate:"boolean"`
-	// Current active menu, if not nil, it will active the tab | 当前激活的菜单
-	// Max length: 30
-	CurrentActiveMenu string `json:"currentActiveMenu,optional"`
 	// Do not keep alive the tab | 不缓存Tab
 	IgnoreKeepAlive bool `json:"ignoreKeepAlive,optional" validate:"boolean"`
 	// Hide the tab header | 当前路由不在标签页显示
@@ -540,9 +537,6 @@ type MenuPlainInfo struct {
 	HideMenu bool `json:"hideMenu" validate:"boolean"`
 	// If hide the breadcrumb | 隐藏面包屑
 	HideBreadcrumb bool `json:"hideBreadcrumb,optional" validate:"boolean"`
-	// Current active menu, if not nil, it will active the tab | 当前激活的菜单
-	// Max length: 30
-	CurrentActiveMenu string `json:"currentActiveMenu,optional"`
 	// Do not keep alive the tab | 不缓存Tab
 	IgnoreKeepAlive bool `json:"ignoreKeepAlive,optional" validate:"boolean"`
 	// Hide the tab header | 当前路由不在标签页显示

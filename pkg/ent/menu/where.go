@@ -130,11 +130,6 @@ func HideBreadcrumb(v bool) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldHideBreadcrumb, v))
 }
 
-// CurrentActiveMenu applies equality check predicate on the "current_active_menu" field. It's identical to CurrentActiveMenuEQ.
-func CurrentActiveMenu(v string) predicate.Menu {
-	return predicate.Menu(sql.FieldEQ(FieldCurrentActiveMenu, v))
-}
-
 // IgnoreKeepAlive applies equality check predicate on the "ignore_keep_alive" field. It's identical to IgnoreKeepAliveEQ.
 func IgnoreKeepAlive(v bool) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldIgnoreKeepAlive, v))
@@ -883,81 +878,6 @@ func HideBreadcrumbIsNil() predicate.Menu {
 // HideBreadcrumbNotNil applies the NotNil predicate on the "hide_breadcrumb" field.
 func HideBreadcrumbNotNil() predicate.Menu {
 	return predicate.Menu(sql.FieldNotNull(FieldHideBreadcrumb))
-}
-
-// CurrentActiveMenuEQ applies the EQ predicate on the "current_active_menu" field.
-func CurrentActiveMenuEQ(v string) predicate.Menu {
-	return predicate.Menu(sql.FieldEQ(FieldCurrentActiveMenu, v))
-}
-
-// CurrentActiveMenuNEQ applies the NEQ predicate on the "current_active_menu" field.
-func CurrentActiveMenuNEQ(v string) predicate.Menu {
-	return predicate.Menu(sql.FieldNEQ(FieldCurrentActiveMenu, v))
-}
-
-// CurrentActiveMenuIn applies the In predicate on the "current_active_menu" field.
-func CurrentActiveMenuIn(vs ...string) predicate.Menu {
-	return predicate.Menu(sql.FieldIn(FieldCurrentActiveMenu, vs...))
-}
-
-// CurrentActiveMenuNotIn applies the NotIn predicate on the "current_active_menu" field.
-func CurrentActiveMenuNotIn(vs ...string) predicate.Menu {
-	return predicate.Menu(sql.FieldNotIn(FieldCurrentActiveMenu, vs...))
-}
-
-// CurrentActiveMenuGT applies the GT predicate on the "current_active_menu" field.
-func CurrentActiveMenuGT(v string) predicate.Menu {
-	return predicate.Menu(sql.FieldGT(FieldCurrentActiveMenu, v))
-}
-
-// CurrentActiveMenuGTE applies the GTE predicate on the "current_active_menu" field.
-func CurrentActiveMenuGTE(v string) predicate.Menu {
-	return predicate.Menu(sql.FieldGTE(FieldCurrentActiveMenu, v))
-}
-
-// CurrentActiveMenuLT applies the LT predicate on the "current_active_menu" field.
-func CurrentActiveMenuLT(v string) predicate.Menu {
-	return predicate.Menu(sql.FieldLT(FieldCurrentActiveMenu, v))
-}
-
-// CurrentActiveMenuLTE applies the LTE predicate on the "current_active_menu" field.
-func CurrentActiveMenuLTE(v string) predicate.Menu {
-	return predicate.Menu(sql.FieldLTE(FieldCurrentActiveMenu, v))
-}
-
-// CurrentActiveMenuContains applies the Contains predicate on the "current_active_menu" field.
-func CurrentActiveMenuContains(v string) predicate.Menu {
-	return predicate.Menu(sql.FieldContains(FieldCurrentActiveMenu, v))
-}
-
-// CurrentActiveMenuHasPrefix applies the HasPrefix predicate on the "current_active_menu" field.
-func CurrentActiveMenuHasPrefix(v string) predicate.Menu {
-	return predicate.Menu(sql.FieldHasPrefix(FieldCurrentActiveMenu, v))
-}
-
-// CurrentActiveMenuHasSuffix applies the HasSuffix predicate on the "current_active_menu" field.
-func CurrentActiveMenuHasSuffix(v string) predicate.Menu {
-	return predicate.Menu(sql.FieldHasSuffix(FieldCurrentActiveMenu, v))
-}
-
-// CurrentActiveMenuIsNil applies the IsNil predicate on the "current_active_menu" field.
-func CurrentActiveMenuIsNil() predicate.Menu {
-	return predicate.Menu(sql.FieldIsNull(FieldCurrentActiveMenu))
-}
-
-// CurrentActiveMenuNotNil applies the NotNil predicate on the "current_active_menu" field.
-func CurrentActiveMenuNotNil() predicate.Menu {
-	return predicate.Menu(sql.FieldNotNull(FieldCurrentActiveMenu))
-}
-
-// CurrentActiveMenuEqualFold applies the EqualFold predicate on the "current_active_menu" field.
-func CurrentActiveMenuEqualFold(v string) predicate.Menu {
-	return predicate.Menu(sql.FieldEqualFold(FieldCurrentActiveMenu, v))
-}
-
-// CurrentActiveMenuContainsFold applies the ContainsFold predicate on the "current_active_menu" field.
-func CurrentActiveMenuContainsFold(v string) predicate.Menu {
-	return predicate.Menu(sql.FieldContainsFold(FieldCurrentActiveMenu, v))
 }
 
 // IgnoreKeepAliveEQ applies the EQ predicate on the "ignore_keep_alive" field.

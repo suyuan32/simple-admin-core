@@ -241,26 +241,6 @@ func (mu *MenuUpdate) ClearHideBreadcrumb() *MenuUpdate {
 	return mu
 }
 
-// SetCurrentActiveMenu sets the "current_active_menu" field.
-func (mu *MenuUpdate) SetCurrentActiveMenu(s string) *MenuUpdate {
-	mu.mutation.SetCurrentActiveMenu(s)
-	return mu
-}
-
-// SetNillableCurrentActiveMenu sets the "current_active_menu" field if the given value is not nil.
-func (mu *MenuUpdate) SetNillableCurrentActiveMenu(s *string) *MenuUpdate {
-	if s != nil {
-		mu.SetCurrentActiveMenu(*s)
-	}
-	return mu
-}
-
-// ClearCurrentActiveMenu clears the value of the "current_active_menu" field.
-func (mu *MenuUpdate) ClearCurrentActiveMenu() *MenuUpdate {
-	mu.mutation.ClearCurrentActiveMenu()
-	return mu
-}
-
 // SetIgnoreKeepAlive sets the "ignore_keep_alive" field.
 func (mu *MenuUpdate) SetIgnoreKeepAlive(b bool) *MenuUpdate {
 	mu.mutation.SetIgnoreKeepAlive(b)
@@ -671,12 +651,6 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if mu.mutation.HideBreadcrumbCleared() {
 		_spec.ClearField(menu.FieldHideBreadcrumb, field.TypeBool)
-	}
-	if value, ok := mu.mutation.CurrentActiveMenu(); ok {
-		_spec.SetField(menu.FieldCurrentActiveMenu, field.TypeString, value)
-	}
-	if mu.mutation.CurrentActiveMenuCleared() {
-		_spec.ClearField(menu.FieldCurrentActiveMenu, field.TypeString)
 	}
 	if value, ok := mu.mutation.IgnoreKeepAlive(); ok {
 		_spec.SetField(menu.FieldIgnoreKeepAlive, field.TypeBool, value)
@@ -1157,26 +1131,6 @@ func (muo *MenuUpdateOne) ClearHideBreadcrumb() *MenuUpdateOne {
 	return muo
 }
 
-// SetCurrentActiveMenu sets the "current_active_menu" field.
-func (muo *MenuUpdateOne) SetCurrentActiveMenu(s string) *MenuUpdateOne {
-	muo.mutation.SetCurrentActiveMenu(s)
-	return muo
-}
-
-// SetNillableCurrentActiveMenu sets the "current_active_menu" field if the given value is not nil.
-func (muo *MenuUpdateOne) SetNillableCurrentActiveMenu(s *string) *MenuUpdateOne {
-	if s != nil {
-		muo.SetCurrentActiveMenu(*s)
-	}
-	return muo
-}
-
-// ClearCurrentActiveMenu clears the value of the "current_active_menu" field.
-func (muo *MenuUpdateOne) ClearCurrentActiveMenu() *MenuUpdateOne {
-	muo.mutation.ClearCurrentActiveMenu()
-	return muo
-}
-
 // SetIgnoreKeepAlive sets the "ignore_keep_alive" field.
 func (muo *MenuUpdateOne) SetIgnoreKeepAlive(b bool) *MenuUpdateOne {
 	muo.mutation.SetIgnoreKeepAlive(b)
@@ -1611,12 +1565,6 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	}
 	if muo.mutation.HideBreadcrumbCleared() {
 		_spec.ClearField(menu.FieldHideBreadcrumb, field.TypeBool)
-	}
-	if value, ok := muo.mutation.CurrentActiveMenu(); ok {
-		_spec.SetField(menu.FieldCurrentActiveMenu, field.TypeString, value)
-	}
-	if muo.mutation.CurrentActiveMenuCleared() {
-		_spec.ClearField(menu.FieldCurrentActiveMenu, field.TypeString)
 	}
 	if value, ok := muo.mutation.IgnoreKeepAlive(); ok {
 		_spec.SetField(menu.FieldIgnoreKeepAlive, field.TypeBool, value)

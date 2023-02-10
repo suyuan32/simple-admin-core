@@ -5157,7 +5157,6 @@ type MenuMutation struct {
 	icon                  *string
 	hide_menu             *bool
 	hide_breadcrumb       *bool
-	current_active_menu   *string
 	ignore_keep_alive     *bool
 	hide_tab              *bool
 	frame_src             *string
@@ -5979,55 +5978,6 @@ func (m *MenuMutation) ResetHideBreadcrumb() {
 	delete(m.clearedFields, menu.FieldHideBreadcrumb)
 }
 
-// SetCurrentActiveMenu sets the "current_active_menu" field.
-func (m *MenuMutation) SetCurrentActiveMenu(s string) {
-	m.current_active_menu = &s
-}
-
-// CurrentActiveMenu returns the value of the "current_active_menu" field in the mutation.
-func (m *MenuMutation) CurrentActiveMenu() (r string, exists bool) {
-	v := m.current_active_menu
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldCurrentActiveMenu returns the old "current_active_menu" field's value of the Menu entity.
-// If the Menu object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *MenuMutation) OldCurrentActiveMenu(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldCurrentActiveMenu is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldCurrentActiveMenu requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldCurrentActiveMenu: %w", err)
-	}
-	return oldValue.CurrentActiveMenu, nil
-}
-
-// ClearCurrentActiveMenu clears the value of the "current_active_menu" field.
-func (m *MenuMutation) ClearCurrentActiveMenu() {
-	m.current_active_menu = nil
-	m.clearedFields[menu.FieldCurrentActiveMenu] = struct{}{}
-}
-
-// CurrentActiveMenuCleared returns if the "current_active_menu" field was cleared in this mutation.
-func (m *MenuMutation) CurrentActiveMenuCleared() bool {
-	_, ok := m.clearedFields[menu.FieldCurrentActiveMenu]
-	return ok
-}
-
-// ResetCurrentActiveMenu resets all changes to the "current_active_menu" field.
-func (m *MenuMutation) ResetCurrentActiveMenu() {
-	m.current_active_menu = nil
-	delete(m.clearedFields, menu.FieldCurrentActiveMenu)
-}
-
 // SetIgnoreKeepAlive sets the "ignore_keep_alive" field.
 func (m *MenuMutation) SetIgnoreKeepAlive(b bool) {
 	m.ignore_keep_alive = &b
@@ -6663,7 +6613,7 @@ func (m *MenuMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *MenuMutation) Fields() []string {
-	fields := make([]string, 0, 24)
+	fields := make([]string, 0, 23)
 	if m.created_at != nil {
 		fields = append(fields, menu.FieldCreatedAt)
 	}
@@ -6708,9 +6658,6 @@ func (m *MenuMutation) Fields() []string {
 	}
 	if m.hide_breadcrumb != nil {
 		fields = append(fields, menu.FieldHideBreadcrumb)
-	}
-	if m.current_active_menu != nil {
-		fields = append(fields, menu.FieldCurrentActiveMenu)
 	}
 	if m.ignore_keep_alive != nil {
 		fields = append(fields, menu.FieldIgnoreKeepAlive)
@@ -6774,8 +6721,6 @@ func (m *MenuMutation) Field(name string) (ent.Value, bool) {
 		return m.HideMenu()
 	case menu.FieldHideBreadcrumb:
 		return m.HideBreadcrumb()
-	case menu.FieldCurrentActiveMenu:
-		return m.CurrentActiveMenu()
 	case menu.FieldIgnoreKeepAlive:
 		return m.IgnoreKeepAlive()
 	case menu.FieldHideTab:
@@ -6831,8 +6776,6 @@ func (m *MenuMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldHideMenu(ctx)
 	case menu.FieldHideBreadcrumb:
 		return m.OldHideBreadcrumb(ctx)
-	case menu.FieldCurrentActiveMenu:
-		return m.OldCurrentActiveMenu(ctx)
 	case menu.FieldIgnoreKeepAlive:
 		return m.OldIgnoreKeepAlive(ctx)
 	case menu.FieldHideTab:
@@ -6962,13 +6905,6 @@ func (m *MenuMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetHideBreadcrumb(v)
-		return nil
-	case menu.FieldCurrentActiveMenu:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetCurrentActiveMenu(v)
 		return nil
 	case menu.FieldIgnoreKeepAlive:
 		v, ok := value.(bool)
@@ -7128,9 +7064,6 @@ func (m *MenuMutation) ClearedFields() []string {
 	if m.FieldCleared(menu.FieldHideBreadcrumb) {
 		fields = append(fields, menu.FieldHideBreadcrumb)
 	}
-	if m.FieldCleared(menu.FieldCurrentActiveMenu) {
-		fields = append(fields, menu.FieldCurrentActiveMenu)
-	}
 	if m.FieldCleared(menu.FieldIgnoreKeepAlive) {
 		fields = append(fields, menu.FieldIgnoreKeepAlive)
 	}
@@ -7189,9 +7122,6 @@ func (m *MenuMutation) ClearField(name string) error {
 		return nil
 	case menu.FieldHideBreadcrumb:
 		m.ClearHideBreadcrumb()
-		return nil
-	case menu.FieldCurrentActiveMenu:
-		m.ClearCurrentActiveMenu()
 		return nil
 	case menu.FieldIgnoreKeepAlive:
 		m.ClearIgnoreKeepAlive()
@@ -7269,9 +7199,6 @@ func (m *MenuMutation) ResetField(name string) error {
 		return nil
 	case menu.FieldHideBreadcrumb:
 		m.ResetHideBreadcrumb()
-		return nil
-	case menu.FieldCurrentActiveMenu:
-		m.ResetCurrentActiveMenu()
 		return nil
 	case menu.FieldIgnoreKeepAlive:
 		m.ResetIgnoreKeepAlive()

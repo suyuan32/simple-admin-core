@@ -64,7 +64,6 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.IDReq) (*core.MenuIn
 				Icon:               v.Icon,
 				HideMenu:           v.HideMenu,
 				HideBreadcrumb:     v.HideBreadcrumb,
-				CurrentActiveMenu:  v.CurrentActiveMenu,
 				IgnoreKeepAlive:    v.IgnoreKeepAlive,
 				HideTab:            v.HideTab,
 				FrameSrc:           v.FrameSrc,

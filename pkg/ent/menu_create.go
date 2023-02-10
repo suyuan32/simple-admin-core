@@ -192,20 +192,6 @@ func (mc *MenuCreate) SetNillableHideBreadcrumb(b *bool) *MenuCreate {
 	return mc
 }
 
-// SetCurrentActiveMenu sets the "current_active_menu" field.
-func (mc *MenuCreate) SetCurrentActiveMenu(s string) *MenuCreate {
-	mc.mutation.SetCurrentActiveMenu(s)
-	return mc
-}
-
-// SetNillableCurrentActiveMenu sets the "current_active_menu" field if the given value is not nil.
-func (mc *MenuCreate) SetNillableCurrentActiveMenu(s *string) *MenuCreate {
-	if s != nil {
-		mc.SetCurrentActiveMenu(*s)
-	}
-	return mc
-}
-
 // SetIgnoreKeepAlive sets the "ignore_keep_alive" field.
 func (mc *MenuCreate) SetIgnoreKeepAlive(b bool) *MenuCreate {
 	mc.mutation.SetIgnoreKeepAlive(b)
@@ -449,10 +435,6 @@ func (mc *MenuCreate) defaults() {
 		v := menu.DefaultHideBreadcrumb
 		mc.mutation.SetHideBreadcrumb(v)
 	}
-	if _, ok := mc.mutation.CurrentActiveMenu(); !ok {
-		v := menu.DefaultCurrentActiveMenu
-		mc.mutation.SetCurrentActiveMenu(v)
-	}
 	if _, ok := mc.mutation.IgnoreKeepAlive(); !ok {
 		v := menu.DefaultIgnoreKeepAlive
 		mc.mutation.SetIgnoreKeepAlive(v)
@@ -606,10 +588,6 @@ func (mc *MenuCreate) createSpec() (*Menu, *sqlgraph.CreateSpec) {
 	if value, ok := mc.mutation.HideBreadcrumb(); ok {
 		_spec.SetField(menu.FieldHideBreadcrumb, field.TypeBool, value)
 		_node.HideBreadcrumb = value
-	}
-	if value, ok := mc.mutation.CurrentActiveMenu(); ok {
-		_spec.SetField(menu.FieldCurrentActiveMenu, field.TypeString, value)
-		_node.CurrentActiveMenu = value
 	}
 	if value, ok := mc.mutation.IgnoreKeepAlive(); ok {
 		_spec.SetField(menu.FieldIgnoreKeepAlive, field.TypeBool, value)

@@ -29,7 +29,6 @@ func (Menu) Fields() []ent.Field {
 		field.String("icon").Comment("menu icon | 菜单图标"),
 		field.Bool("hide_menu").Optional().Default(false).Comment("hide menu | 是否隐藏菜单"),
 		field.Bool("hide_breadcrumb").Optional().Default(false).Comment("hide the breadcrumb | 隐藏面包屑"),
-		field.String("current_active_menu").Optional().Default("").Comment("set the active menu | 激活菜单"),
 		field.Bool("ignore_keep_alive").Optional().Default(false).Comment("do not keep alive the tab | 取消页面缓存"),
 		field.Bool("hide_tab").Optional().Default(false).Comment("hide the tab header | 隐藏页头"),
 		field.String("frame_src").Optional().Default("").Comment("show iframe | 内嵌 iframe"),

@@ -170,7 +170,6 @@ var (
 		{Name: "icon", Type: field.TypeString},
 		{Name: "hide_menu", Type: field.TypeBool, Nullable: true, Default: false},
 		{Name: "hide_breadcrumb", Type: field.TypeBool, Nullable: true, Default: false},
-		{Name: "current_active_menu", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "ignore_keep_alive", Type: field.TypeBool, Nullable: true, Default: false},
 		{Name: "hide_tab", Type: field.TypeBool, Nullable: true, Default: false},
 		{Name: "frame_src", Type: field.TypeString, Nullable: true, Default: ""},
@@ -189,7 +188,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "sys_menus_sys_menus_children",
-				Columns:    []*schema.Column{SysMenusColumns[24]},
+				Columns:    []*schema.Column{SysMenusColumns[23]},
 				RefColumns: []*schema.Column{SysMenusColumns[0]},
 				OnDelete:   schema.SetNull,
 			},

@@ -65,7 +65,6 @@ func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseResp, error) 
 		SetIcon(in.Meta.Icon).
 		SetHideMenu(in.Meta.HideMenu).
 		SetHideBreadcrumb(in.Meta.HideBreadcrumb).
-		SetCurrentActiveMenu(in.Meta.CurrentActiveMenu).
 		SetIgnoreKeepAlive(in.Meta.IgnoreKeepAlive).
 		SetHideTab(in.Meta.HideTab).
 		SetFrameSrc(in.Meta.FrameSrc).

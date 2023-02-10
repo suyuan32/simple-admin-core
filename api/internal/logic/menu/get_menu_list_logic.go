@@ -54,7 +54,6 @@ func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuPlainInfoListResp, err
 			Icon:               v.Meta.Icon,
 			HideMenu:           v.Meta.HideMenu,
 			HideBreadcrumb:     v.Meta.HideBreadcrumb,
-			CurrentActiveMenu:  v.Meta.CurrentActiveMenu,
 			IgnoreKeepAlive:    v.Meta.IgnoreKeepAlive,
 			HideTab:            v.Meta.HideTab,
 			FrameSrc:           v.Meta.FrameSrc,

@@ -46,8 +46,6 @@ type Menu struct {
 	HideMenu bool `json:"hide_menu,omitempty"`
 	// hide the breadcrumb | 隐藏面包屑
 	HideBreadcrumb bool `json:"hide_breadcrumb,omitempty"`
-	// set the active menu | 激活菜单
-	CurrentActiveMenu string `json:"current_active_menu,omitempty"`
 	// do not keep alive the tab | 取消页面缓存
 	IgnoreKeepAlive bool `json:"ignore_keep_alive,omitempty"`
 	// hide the tab header | 隐藏页头
@@ -133,7 +131,7 @@ func (*Menu) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullBool)
 		case menu.FieldID, menu.FieldSort, menu.FieldParentID, menu.FieldMenuLevel, menu.FieldMenuType, menu.FieldDynamicLevel:
 			values[i] = new(sql.NullInt64)
-		case menu.FieldPath, menu.FieldName, menu.FieldRedirect, menu.FieldComponent, menu.FieldTitle, menu.FieldIcon, menu.FieldCurrentActiveMenu, menu.FieldFrameSrc, menu.FieldRealPath:
+		case menu.FieldPath, menu.FieldName, menu.FieldRedirect, menu.FieldComponent, menu.FieldTitle, menu.FieldIcon, menu.FieldFrameSrc, menu.FieldRealPath:
 			values[i] = new(sql.NullString)
 		case menu.FieldCreatedAt, menu.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -247,12 +245,6 @@ func (m *Menu) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field hide_breadcrumb", values[i])
 			} else if value.Valid {
 				m.HideBreadcrumb = value.Bool
-			}
-		case menu.FieldCurrentActiveMenu:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field current_active_menu", values[i])
-			} else if value.Valid {
-				m.CurrentActiveMenu = value.String
 			}
 		case menu.FieldIgnoreKeepAlive:
 			if value, ok := values[i].(*sql.NullBool); !ok {
@@ -394,9 +386,6 @@ func (m *Menu) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("hide_breadcrumb=")
 	builder.WriteString(fmt.Sprintf("%v", m.HideBreadcrumb))
-	builder.WriteString(", ")
-	builder.WriteString("current_active_menu=")
-	builder.WriteString(m.CurrentActiveMenu)
 	builder.WriteString(", ")
 	builder.WriteString("ignore_keep_alive=")
 	builder.WriteString(fmt.Sprintf("%v", m.IgnoreKeepAlive))

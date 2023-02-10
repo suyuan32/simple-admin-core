@@ -43,7 +43,6 @@ func (l *CreateMenuLogic) CreateMenu(req *types.MenuPlainInfo) (resp *types.Base
 			Icon:               req.Icon,
 			HideMenu:           req.HideMenu,
 			HideBreadcrumb:     req.HideBreadcrumb,
-			CurrentActiveMenu:  req.CurrentActiveMenu,
 			IgnoreKeepAlive:    req.IgnoreKeepAlive,
 			HideTab:            req.HideTab,
 			FrameSrc:           req.FrameSrc,
