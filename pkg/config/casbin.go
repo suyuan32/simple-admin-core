@@ -1,6 +1,8 @@
 package config
 
 import (
+	"log"
+
 	"github.com/casbin/casbin/v2"
 	"github.com/casbin/casbin/v2/model"
 	entadapter "github.com/casbin/ent-adapter"
@@ -47,4 +49,15 @@ func (l CasbinConf) NewCasbin(dbType, dsn string) (*casbin.Enforcer, error) {
 	logx.Must(err)
 
 	return enforcer, nil
+}
+
+func (l CasbinConf) MustNewCasbin(dbType, dsn string) *casbin.Enforcer {
+	csb, err := l.NewCasbin(dbType, dsn)
+	if err != nil {
+		logx.Errorw("initialize Casbin failed", logx.Field("detail", err.Error()))
+		log.Fatalf("initialize Casbin failed, error: %s", err.Error())
+		return nil
+	}
+
+	return csb
 }

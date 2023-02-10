@@ -231,7 +231,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(0).
 		SetParentID(0).
 		SetPath("").
-		SetName("System Management").
+		SetName("SystemManagement").
 		SetComponent("LAYOUT").
 		SetSort(999).
 		SetTitle("route.systemManagementTitle").
@@ -257,7 +257,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(1).
 		SetParentID(2).
 		SetPath("/role").
-		SetName("Role Management").
+		SetName("RoleManagement").
 		SetComponent("/sys/role/index").
 		SetSort(2).
 		SetTitle("route.roleManagementTitle").
@@ -270,7 +270,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(1).
 		SetParentID(2).
 		SetPath("/user").
-		SetName("User Management").
+		SetName("UserManagement").
 		SetComponent("/sys/user/index").
 		SetSort(3).
 		SetTitle("route.userManagementTitle").
@@ -283,7 +283,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(1).
 		SetParentID(2).
 		SetPath("/department").
-		SetName("Department Management").
+		SetName("DepartmentManagement").
 		SetComponent("/sys/department/index").
 		SetSort(4).
 		SetTitle("route.departmentManagement").
@@ -296,7 +296,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(1).
 		SetParentID(2).
 		SetPath("/api").
-		SetName("API Management").
+		SetName("APIManagement").
 		SetComponent("/sys/api/index").
 		SetSort(5).
 		SetTitle("route.apiManagementTitle").
@@ -309,7 +309,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(1).
 		SetParentID(enum.DefaultParentId).
 		SetPath("/file").
-		SetName("File Management").
+		SetName("FileManagement").
 		SetComponent("/file/index").
 		SetSort(3).
 		SetTitle("route.fileManagementTitle").
@@ -322,7 +322,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(1).
 		SetParentID(2).
 		SetPath("/dictionary").
-		SetName("Dictionary Management").
+		SetName("DictionaryManagement").
 		SetComponent("/sys/dictionary/index").
 		SetSort(6).
 		SetTitle("route.dictionaryManagementTitle").
@@ -335,7 +335,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(0).
 		SetParentID(enum.DefaultParentId).
 		SetPath("").
-		SetName("Other Pages").
+		SetName("OtherPages").
 		SetComponent("LAYOUT").
 		SetSort(1000).
 		SetTitle("route.otherPages").
@@ -348,7 +348,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(1).
 		SetParentID(10).
 		SetPath("/dictionary/detail/:dictionaryId").
-		SetName("Dictionary Detail").
+		SetName("DictionaryDetail").
 		SetComponent("/sys/dictionaryDetail/index").
 		SetSort(1).
 		SetTitle("route.dictionaryDetailManagementTitle").
@@ -374,7 +374,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(1).
 		SetParentID(2).
 		SetPath("/oauth").
-		SetName("Oauth Management").
+		SetName("OauthManagement").
 		SetComponent("/sys/oauth/index").
 		SetSort(6).
 		SetTitle("route.oauthManagement").
@@ -387,7 +387,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(1).
 		SetParentID(2).
 		SetPath("/token").
-		SetName("Token Management").
+		SetName("TokenManagement").
 		SetComponent("/sys/token/index").
 		SetSort(7).
 		SetTitle("route.tokenManagement").
@@ -400,7 +400,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(1).
 		SetParentID(2).
 		SetPath("/position").
-		SetName("Position Management").
+		SetName("PositionManagement").
 		SetComponent("/sys/position/index").
 		SetSort(8).
 		SetTitle("route.positionManagement").
@@ -413,7 +413,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(0).
 		SetParentID(enum.DefaultParentId).
 		SetPath("").
-		SetName("Member Management Directory").
+		SetName("MemberManagementDirectory").
 		SetComponent("LAYOUT").
 		SetSort(1).
 		SetTitle("route.memberManagement").
@@ -426,7 +426,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(1).
 		SetParentID(16).
 		SetPath("/member").
-		SetName("Member Management").
+		SetName("MemberManagement").
 		SetComponent("/sys/member/index").
 		SetSort(1).
 		SetTitle("route.memberManagement").
@@ -439,7 +439,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuType(1).
 		SetParentID(16).
 		SetPath("/member_rank").
-		SetName("Member Rank Management").
+		SetName("MemberRankManagement").
 		SetComponent("/sys/memberRank/index").
 		SetSort(2).
 		SetTitle("route.memberRankManagement").

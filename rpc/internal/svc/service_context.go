@@ -21,15 +21,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		ent.Debug(), // debug mode
 	)
 
-	rds := c.RedisConf.NewRedis()
-	if !rds.Ping() {
-		logx.Error("initialize redis failed")
-		return nil
-	}
-
 	return &ServiceContext{
 		Config: c,
 		DB:     db,
-		Redis:  rds,
+		Redis:  redis.MustNewRedis(c.RedisConf),
 	}
 }

@@ -6,8 +6,8 @@ import (
 
 	api "github.com/suyuan32/simple-admin-core/api/internal/handler/api"
 	authority "github.com/suyuan32/simple-admin-core/api/internal/handler/authority"
+	base "github.com/suyuan32/simple-admin-core/api/internal/handler/base"
 	captcha "github.com/suyuan32/simple-admin-core/api/internal/handler/captcha"
-	core "github.com/suyuan32/simple-admin-core/api/internal/handler/core"
 	department "github.com/suyuan32/simple-admin-core/api/internal/handler/department"
 	dictionary "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionary"
 	dictionarydetail "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionarydetail"
@@ -26,6 +26,16 @@ import (
 )
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/core/init/database",
+				Handler: base.InitDatabaseHandler(serverCtx),
+			},
+		},
+	)
+
 	server.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.Authority},
@@ -371,21 +381,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-	)
-
-	server.AddRoutes(
-		[]rest.Route{
-			{
-				Method:  http.MethodGet,
-				Path:    "/core/health",
-				Handler: core.HealthCheckHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodGet,
-				Path:    "/core/init/database",
-				Handler: core.InitDatabaseHandler(serverCtx),
-			},
-		},
 	)
 
 	server.AddRoutes(

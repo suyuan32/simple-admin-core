@@ -2802,13 +2802,6 @@ paths:
             summary: Get captcha | 获取验证码
             tags:
                 - captcha
-    /core/health:
-        get:
-            description: Check the system status | 检查系统状态
-            operationId: HealthCheck
-            summary: Check the system status | 检查系统状态
-            tags:
-                - core
     /core/init/database:
         get:
             description: Initialize database | 初始化数据库
@@ -2820,7 +2813,7 @@ paths:
                         $ref: '#/definitions/BaseMsgResp'
             summary: Initialize database | 初始化数据库
             tags:
-                - core
+                - base
     /department:
         post:
             description: Get Department by ID | 通过ID获取部门
