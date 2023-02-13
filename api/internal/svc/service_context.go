@@ -33,7 +33,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:    c,
 		Authority: middleware.NewAuthorityMiddleware(cbn, rds, trans).Handle,
-		CoreRpc:   coreclient.NewCore(zrpc.MustNewClient(c.CoreRpc)),
+		CoreRpc:   coreclient.NewCore(zrpc.NewClientIfEnable(c.CoreRpc)),
 		Redis:     rds,
 		Casbin:    cbn,
 		Trans:     trans,
