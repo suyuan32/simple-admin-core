@@ -37,7 +37,6 @@ func (l *GetUserListLogic) GetUserList(req *types.UserListReq) (resp *types.User
 		Email:        req.Email,
 		Mobile:       req.Mobile,
 		DepartmentId: req.DepartmentId,
-		PositionId:   req.PositionId,
 	})
 	if err != nil {
 		return nil, err
@@ -60,7 +59,7 @@ func (l *GetUserListLogic) GetUserList(req *types.UserListReq) (resp *types.User
 			Description:  v.Description,
 			HomePath:     v.HomePath,
 			DepartmentId: v.DepartmentId,
-			PositionId:   v.PositionId,
+			PositionIds:  v.PositionIds,
 		})
 	}
 	resp.Data.Total = data.Total

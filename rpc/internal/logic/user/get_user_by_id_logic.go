@@ -82,3 +82,11 @@ func GetRoleCodes(data []*ent.Role) []string {
 	}
 	return codes
 }
+
+func GetPositionIds(data []*ent.Position) []uint64 {
+	var ids []uint64
+	for _, v := range data {
+		ids = append(ids, v.ID)
+	}
+	return ids
+}

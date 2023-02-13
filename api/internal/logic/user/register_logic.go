@@ -44,7 +44,7 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseMsgRes
 				HomePath:     "/dashboard",
 				RoleIds:      []uint64{1},
 				DepartmentId: 1,
-				PositionId:   1,
+				PositionIds:  []uint64{1},
 			})
 		if err != nil {
 			return nil, err

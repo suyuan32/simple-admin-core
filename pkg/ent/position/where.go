@@ -460,7 +460,7 @@ func HasUsers() predicate.Position {
 	return predicate.Position(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, true, UsersTable, UsersColumn),
+			sqlgraph.Edge(sqlgraph.M2M, true, UsersTable, UsersPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
@@ -472,7 +472,7 @@ func HasUsersWith(preds ...predicate.User) predicate.Position {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(UsersInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, true, UsersTable, UsersColumn),
+			sqlgraph.Edge(sqlgraph.M2M, true, UsersTable, UsersPrimaryKey...),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

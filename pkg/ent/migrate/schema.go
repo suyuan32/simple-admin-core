@@ -256,6 +256,13 @@ var (
 		Name:       "sys_positions",
 		Columns:    SysPositionsColumns,
 		PrimaryKey: []*schema.Column{SysPositionsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "position_code",
+				Unique:  true,
+				Columns: []*schema.Column{SysPositionsColumns[6]},
+			},
+		},
 	}
 	// SysRolesColumns holds the columns for the "sys_roles" table.
 	SysRolesColumns = []*schema.Column{
@@ -274,6 +281,13 @@ var (
 		Name:       "sys_roles",
 		Columns:    SysRolesColumns,
 		PrimaryKey: []*schema.Column{SysRolesColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "role_code",
+				Unique:  true,
+				Columns: []*schema.Column{SysRolesColumns[5]},
+			},
+		},
 	}
 	// SysTokensColumns holds the columns for the "sys_tokens" table.
 	SysTokensColumns = []*schema.Column{
@@ -319,7 +333,6 @@ var (
 		{Name: "email", Type: field.TypeString, Nullable: true},
 		{Name: "avatar", Type: field.TypeString, Nullable: true, Default: "", SchemaType: map[string]string{"mysql": "varchar(512)"}},
 		{Name: "department_id", Type: field.TypeUint64, Nullable: true, Default: 1},
-		{Name: "position_id", Type: field.TypeUint64, Nullable: true, Default: 1},
 	}
 	// SysUsersTable holds the schema information for the "sys_users" table.
 	SysUsersTable = &schema.Table{
@@ -331,12 +344,6 @@ var (
 				Symbol:     "sys_users_sys_departments_departments",
 				Columns:    []*schema.Column{SysUsersColumns[12]},
 				RefColumns: []*schema.Column{SysDepartmentsColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-			{
-				Symbol:     "sys_users_sys_positions_positions",
-				Columns:    []*schema.Column{SysUsersColumns[13]},
-				RefColumns: []*schema.Column{SysPositionsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -369,6 +376,31 @@ var (
 				Symbol:     "role_menus_menu_id",
 				Columns:    []*schema.Column{RoleMenusColumns[1]},
 				RefColumns: []*schema.Column{SysMenusColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+		},
+	}
+	// UserPositionsColumns holds the columns for the "user_positions" table.
+	UserPositionsColumns = []*schema.Column{
+		{Name: "user_id", Type: field.TypeUUID},
+		{Name: "position_id", Type: field.TypeUint64},
+	}
+	// UserPositionsTable holds the schema information for the "user_positions" table.
+	UserPositionsTable = &schema.Table{
+		Name:       "user_positions",
+		Columns:    UserPositionsColumns,
+		PrimaryKey: []*schema.Column{UserPositionsColumns[0], UserPositionsColumns[1]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "user_positions_user_id",
+				Columns:    []*schema.Column{UserPositionsColumns[0]},
+				RefColumns: []*schema.Column{SysUsersColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+			{
+				Symbol:     "user_positions_position_id",
+				Columns:    []*schema.Column{UserPositionsColumns[1]},
+				RefColumns: []*schema.Column{SysPositionsColumns[0]},
 				OnDelete:   schema.Cascade,
 			},
 		},
@@ -414,6 +446,7 @@ var (
 		SysTokensTable,
 		SysUsersTable,
 		RoleMenusTable,
+		UserPositionsTable,
 		UserRolesTable,
 	}
 )
@@ -461,12 +494,13 @@ func init() {
 		Table: "sys_tokens",
 	}
 	SysUsersTable.ForeignKeys[0].RefTable = SysDepartmentsTable
-	SysUsersTable.ForeignKeys[1].RefTable = SysPositionsTable
 	SysUsersTable.Annotation = &entsql.Annotation{
 		Table: "sys_users",
 	}
 	RoleMenusTable.ForeignKeys[0].RefTable = SysRolesTable
 	RoleMenusTable.ForeignKeys[1].RefTable = SysMenusTable
+	UserPositionsTable.ForeignKeys[0].RefTable = SysUsersTable
+	UserPositionsTable.ForeignKeys[1].RefTable = SysPositionsTable
 	UserRolesTable.ForeignKeys[0].RefTable = SysUsersTable
 	UserRolesTable.ForeignKeys[1].RefTable = SysRolesTable
 }

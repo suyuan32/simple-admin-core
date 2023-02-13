@@ -116,11 +116,6 @@ func DepartmentID(v uint64) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldDepartmentID, v))
 }
 
-// PositionID applies equality check predicate on the "position_id" field. It's identical to PositionIDEQ.
-func PositionID(v uint64) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldPositionID, v))
-}
-
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v time.Time) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldCreatedAt, v))
@@ -841,36 +836,6 @@ func DepartmentIDNotNil() predicate.User {
 	return predicate.User(sql.FieldNotNull(FieldDepartmentID))
 }
 
-// PositionIDEQ applies the EQ predicate on the "position_id" field.
-func PositionIDEQ(v uint64) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldPositionID, v))
-}
-
-// PositionIDNEQ applies the NEQ predicate on the "position_id" field.
-func PositionIDNEQ(v uint64) predicate.User {
-	return predicate.User(sql.FieldNEQ(FieldPositionID, v))
-}
-
-// PositionIDIn applies the In predicate on the "position_id" field.
-func PositionIDIn(vs ...uint64) predicate.User {
-	return predicate.User(sql.FieldIn(FieldPositionID, vs...))
-}
-
-// PositionIDNotIn applies the NotIn predicate on the "position_id" field.
-func PositionIDNotIn(vs ...uint64) predicate.User {
-	return predicate.User(sql.FieldNotIn(FieldPositionID, vs...))
-}
-
-// PositionIDIsNil applies the IsNil predicate on the "position_id" field.
-func PositionIDIsNil() predicate.User {
-	return predicate.User(sql.FieldIsNull(FieldPositionID))
-}
-
-// PositionIDNotNil applies the NotNil predicate on the "position_id" field.
-func PositionIDNotNil() predicate.User {
-	return predicate.User(sql.FieldNotNull(FieldPositionID))
-}
-
 // HasDepartments applies the HasEdge predicate on the "departments" edge.
 func HasDepartments() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
@@ -903,7 +868,7 @@ func HasPositions() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, PositionsTable, PositionsColumn),
+			sqlgraph.Edge(sqlgraph.M2M, false, PositionsTable, PositionsPrimaryKey...),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
@@ -915,7 +880,7 @@ func HasPositionsWith(preds ...predicate.Position) predicate.User {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(PositionsInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, PositionsTable, PositionsColumn),
+			sqlgraph.Edge(sqlgraph.M2M, false, PositionsTable, PositionsPrimaryKey...),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

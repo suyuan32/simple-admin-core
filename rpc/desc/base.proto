@@ -32,6 +32,10 @@ message PageInfoReq {
   uint64 page_size = 2;
 }
 
+message BaseMsg {
+  string msg = 1;
+}
+
 service Core {
   // group: base
   rpc initDatabase (Empty) returns (BaseResp);

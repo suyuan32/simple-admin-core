@@ -103,7 +103,7 @@ type CoreClient interface {
 	// group: menu
 	DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
-	GetMenuListByRole(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
+	GetMenuListByRole(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*MenuInfoList, error)
 	// group: menu
 	GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 	// MenuParam management
@@ -523,7 +523,7 @@ func (c *coreClient) DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.Cal
 	return out, nil
 }
 
-func (c *coreClient) GetMenuListByRole(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
+func (c *coreClient) GetMenuListByRole(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*MenuInfoList, error) {
 	out := new(MenuInfoList)
 	err := c.cc.Invoke(ctx, "/core.Core/getMenuListByRole", in, out, opts...)
 	if err != nil {
@@ -932,7 +932,7 @@ type CoreServer interface {
 	// group: menu
 	DeleteMenu(context.Context, *IDReq) (*BaseResp, error)
 	// group: menu
-	GetMenuListByRole(context.Context, *UUIDReq) (*MenuInfoList, error)
+	GetMenuListByRole(context.Context, *BaseMsg) (*MenuInfoList, error)
 	// group: menu
 	GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error)
 	// MenuParam management
@@ -1127,7 +1127,7 @@ func (UnimplementedCoreServer) UpdateMenu(context.Context, *MenuInfo) (*BaseResp
 func (UnimplementedCoreServer) DeleteMenu(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
 }
-func (UnimplementedCoreServer) GetMenuListByRole(context.Context, *UUIDReq) (*MenuInfoList, error) {
+func (UnimplementedCoreServer) GetMenuListByRole(context.Context, *BaseMsg) (*MenuInfoList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMenuListByRole not implemented")
 }
 func (UnimplementedCoreServer) GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error) {
@@ -1915,7 +1915,7 @@ func _Core_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(int
 }
 
 func _Core_GetMenuListByRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UUIDReq)
+	in := new(BaseMsg)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1927,7 +1927,7 @@ func _Core_GetMenuListByRole_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: "/core.Core/getMenuListByRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetMenuListByRole(ctx, req.(*UUIDReq))
+		return srv.(CoreServer).GetMenuListByRole(ctx, req.(*BaseMsg))
 	}
 	return interceptor(ctx, in, info, handler)
 }

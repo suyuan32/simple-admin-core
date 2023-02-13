@@ -258,10 +258,10 @@ func (pc *PositionCreate) createSpec() (*Position, *sqlgraph.CreateSpec) {
 	}
 	if nodes := pc.mutation.UsersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.M2M,
 			Inverse: true,
 			Table:   position.UsersTable,
-			Columns: []string{position.UsersColumn},
+			Columns: position.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

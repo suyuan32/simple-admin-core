@@ -191,7 +191,7 @@ type UserInfo struct {
 	// Department ID | 部门ID
 	DepartmentId uint64 `json:"departmentId,optional"`
 	// Position ID | 职位ID
-	PositionId uint64 `json:"positionId,optional"`
+	PositionIds []uint64 `json:"positionId,optional"`
 }
 
 // The response data of user list | 用户列表数据

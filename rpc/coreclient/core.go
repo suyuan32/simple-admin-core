@@ -16,6 +16,7 @@ type (
 	ApiInfo                  = core.ApiInfo
 	ApiListReq               = core.ApiListReq
 	ApiListResp              = core.ApiListResp
+	BaseMsg                  = core.BaseMsg
 	BaseResp                 = core.BaseResp
 	CallbackReq              = core.CallbackReq
 	DepartmentInfo           = core.DepartmentInfo
@@ -114,7 +115,7 @@ type (
 		CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		GetMenuListByRole(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
+		GetMenuListByRole(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*MenuInfoList, error)
 		GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 		// MenuParam management
 		CreateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -360,7 +361,7 @@ func (m *defaultCore) DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.Ca
 	return client.DeleteMenu(ctx, in, opts...)
 }
 
-func (m *defaultCore) GetMenuListByRole(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
+func (m *defaultCore) GetMenuListByRole(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*MenuInfoList, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.GetMenuListByRole(ctx, in, opts...)
 }

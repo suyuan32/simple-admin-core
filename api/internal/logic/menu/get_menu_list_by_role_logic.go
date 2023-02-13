@@ -30,7 +30,7 @@ func NewGetMenuListByRoleLogic(r *http.Request, svcCtx *svc.ServiceContext) *Get
 
 func (l *GetMenuListByRoleLogic) GetMenuListByRole() (resp *types.MenuListResp, err error) {
 	roleId, _ := l.ctx.Value("roleId").(string)
-	data, err := l.svcCtx.CoreRpc.GetMenuListByRole(l.ctx, &core.UUIDReq{Id: roleId})
+	data, err := l.svcCtx.CoreRpc.GetMenuListByRole(l.ctx, &core.BaseMsg{Msg: roleId})
 	if err != nil {
 		return nil, err
 	}

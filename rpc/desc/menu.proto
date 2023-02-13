@@ -57,7 +57,7 @@ service Core {
   // group: menu
   rpc deleteMenu (IDReq) returns (BaseResp);
   // group: menu
-  rpc getMenuListByRole (UUIDReq) returns (MenuInfoList);
+  rpc getMenuListByRole (BaseMsg) returns (MenuInfoList);
   // group: menu
   rpc getMenuList (PageInfoReq) returns (MenuInfoList);
 }

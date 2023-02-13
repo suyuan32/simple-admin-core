@@ -227,7 +227,7 @@ func (s *CoreServer) DeleteMenu(ctx context.Context, in *core.IDReq) (*core.Base
 	return l.DeleteMenu(in)
 }
 
-func (s *CoreServer) GetMenuListByRole(ctx context.Context, in *core.UUIDReq) (*core.MenuInfoList, error) {
+func (s *CoreServer) GetMenuListByRole(ctx context.Context, in *core.BaseMsg) (*core.MenuInfoList, error) {
 	l := menu.NewGetMenuListByRoleLogic(ctx, s.svcCtx)
 	return l.GetMenuListByRole(in)
 }

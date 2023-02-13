@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
@@ -55,11 +56,11 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 		predicates = append(predicates, user.DepartmentIDEQ(in.DepartmentId))
 	}
 
-	if in.PositionId != 0 {
-		predicates = append(predicates, user.PositionIDEQ(in.PositionId))
+	if in.PositionIds != nil {
+		predicates = append(predicates, user.HasPositionsWith(position.IDIn(in.PositionIds...)))
 	}
 
-	users, err := l.svcCtx.DB.User.Query().Where(predicates...).WithRoles().Page(l.ctx, in.Page, in.PageSize)
+	users, err := l.svcCtx.DB.User.Query().Where(predicates...).WithRoles().WithPositions().Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		logx.Error(err.Error())
 		return nil, statuserr.NewInternalError(i18n.DatabaseError)
@@ -81,7 +82,7 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 			HomePath:     v.HomePath,
 			Description:  v.Description,
 			DepartmentId: v.DepartmentID,
-			PositionId:   v.PositionID,
+			PositionIds:  GetPositionIds(v.Edges.Positions),
 			CreatedAt:    v.CreatedAt.UnixMilli(),
 			UpdatedAt:    v.UpdatedAt.UnixMilli(),
 		})

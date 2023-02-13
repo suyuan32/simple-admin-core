@@ -226,10 +226,10 @@ func (pu *PositionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if pu.mutation.UsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.M2M,
 			Inverse: true,
 			Table:   position.UsersTable,
-			Columns: []string{position.UsersColumn},
+			Columns: position.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -242,10 +242,10 @@ func (pu *PositionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if nodes := pu.mutation.RemovedUsersIDs(); len(nodes) > 0 && !pu.mutation.UsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.M2M,
 			Inverse: true,
 			Table:   position.UsersTable,
-			Columns: []string{position.UsersColumn},
+			Columns: position.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -261,10 +261,10 @@ func (pu *PositionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if nodes := pu.mutation.UsersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.M2M,
 			Inverse: true,
 			Table:   position.UsersTable,
-			Columns: []string{position.UsersColumn},
+			Columns: position.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -518,10 +518,10 @@ func (puo *PositionUpdateOne) sqlSave(ctx context.Context) (_node *Position, err
 	}
 	if puo.mutation.UsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.M2M,
 			Inverse: true,
 			Table:   position.UsersTable,
-			Columns: []string{position.UsersColumn},
+			Columns: position.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -534,10 +534,10 @@ func (puo *PositionUpdateOne) sqlSave(ctx context.Context) (_node *Position, err
 	}
 	if nodes := puo.mutation.RemovedUsersIDs(); len(nodes) > 0 && !puo.mutation.UsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.M2M,
 			Inverse: true,
 			Table:   position.UsersTable,
-			Columns: []string{position.UsersColumn},
+			Columns: position.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -553,10 +553,10 @@ func (puo *PositionUpdateOne) sqlSave(ctx context.Context) (_node *Position, err
 	}
 	if nodes := puo.mutation.UsersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.M2M,
 			Inverse: true,
 			Table:   position.UsersTable,
-			Columns: []string{position.UsersColumn},
+			Columns: position.UsersPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

@@ -101,7 +101,7 @@ func (uq *UserQuery) QueryPositions() *PositionQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldID, selector),
 			sqlgraph.To(position.Table, position.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, user.PositionsTable, user.PositionsColumn),
+			sqlgraph.Edge(sqlgraph.M2M, false, user.PositionsTable, user.PositionsPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -472,8 +472,9 @@ func (uq *UserQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*User, e
 		}
 	}
 	if query := uq.withPositions; query != nil {
-		if err := uq.loadPositions(ctx, query, nodes, nil,
-			func(n *User, e *Position) { n.Edges.Positions = e }); err != nil {
+		if err := uq.loadPositions(ctx, query, nodes,
+			func(n *User) { n.Edges.Positions = []*Position{} },
+			func(n *User, e *Position) { n.Edges.Positions = append(n.Edges.Positions, e) }); err != nil {
 			return nil, err
 		}
 	}
@@ -517,30 +518,62 @@ func (uq *UserQuery) loadDepartments(ctx context.Context, query *DepartmentQuery
 	return nil
 }
 func (uq *UserQuery) loadPositions(ctx context.Context, query *PositionQuery, nodes []*User, init func(*User), assign func(*User, *Position)) error {
-	ids := make([]uint64, 0, len(nodes))
-	nodeids := make(map[uint64][]*User)
-	for i := range nodes {
-		fk := nodes[i].PositionID
-		if _, ok := nodeids[fk]; !ok {
-			ids = append(ids, fk)
+	edgeIDs := make([]driver.Value, len(nodes))
+	byID := make(map[uuid.UUID]*User)
+	nids := make(map[uint64]map[*User]struct{})
+	for i, node := range nodes {
+		edgeIDs[i] = node.ID
+		byID[node.ID] = node
+		if init != nil {
+			init(node)
 		}
-		nodeids[fk] = append(nodeids[fk], nodes[i])
 	}
-	if len(ids) == 0 {
-		return nil
+	query.Where(func(s *sql.Selector) {
+		joinT := sql.Table(user.PositionsTable)
+		s.Join(joinT).On(s.C(position.FieldID), joinT.C(user.PositionsPrimaryKey[1]))
+		s.Where(sql.InValues(joinT.C(user.PositionsPrimaryKey[0]), edgeIDs...))
+		columns := s.SelectedColumns()
+		s.Select(joinT.C(user.PositionsPrimaryKey[0]))
+		s.AppendSelect(columns...)
+		s.SetDistinct(false)
+	})
+	if err := query.prepareQuery(ctx); err != nil {
+		return err
 	}
-	query.Where(position.IDIn(ids...))
-	neighbors, err := query.All(ctx)
+	qr := QuerierFunc(func(ctx context.Context, q Query) (Value, error) {
+		return query.sqlAll(ctx, func(_ context.Context, spec *sqlgraph.QuerySpec) {
+			assign := spec.Assign
+			values := spec.ScanValues
+			spec.ScanValues = func(columns []string) ([]any, error) {
+				values, err := values(columns[1:])
+				if err != nil {
+					return nil, err
+				}
+				return append([]any{new(uuid.UUID)}, values...), nil
+			}
+			spec.Assign = func(columns []string, values []any) error {
+				outValue := *values[0].(*uuid.UUID)
+				inValue := uint64(values[1].(*sql.NullInt64).Int64)
+				if nids[inValue] == nil {
+					nids[inValue] = map[*User]struct{}{byID[outValue]: {}}
+					return assign(columns[1:], values[1:])
+				}
+				nids[inValue][byID[outValue]] = struct{}{}
+				return nil
+			}
+		})
+	})
+	neighbors, err := withInterceptors[[]*Position](ctx, query, qr, query.inters)
 	if err != nil {
 		return err
 	}
 	for _, n := range neighbors {
-		nodes, ok := nodeids[n.ID]
+		nodes, ok := nids[n.ID]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "position_id" returned %v`, n.ID)
+			return fmt.Errorf(`unexpected "positions" node returned %v`, n.ID)
 		}
-		for i := range nodes {
-			assign(nodes[i], n)
+		for kn := range nodes {
+			assign(kn, n)
 		}
 	}
 	return nil

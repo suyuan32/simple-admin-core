@@ -1361,19 +1361,3 @@ func (u *UserUpdateOne) SetNotEmptyDepartmentID(value uint64) *UserUpdateOne {
 	}
 	return u
 }
-
-// set field if value is not empty. e.g. string does not equal to ""
-func (u *UserUpdate) SetNotEmptyPositionID(value uint64) *UserUpdate {
-	if value != 0 {
-		return u.SetPositionID(value)
-	}
-	return u
-}
-
-// set field if value is not empty. e.g. string does not equal to ""
-func (u *UserUpdateOne) SetNotEmptyPositionID(value uint64) *UserUpdateOne {
-	if value != 0 {
-		return u.SetPositionID(value)
-	}
-	return u
-}

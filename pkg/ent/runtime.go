@@ -401,10 +401,6 @@ func init() {
 	userDescDepartmentID := userFields[8].Descriptor()
 	// user.DefaultDepartmentID holds the default value on creation for the department_id field.
 	user.DefaultDepartmentID = userDescDepartmentID.Default.(uint64)
-	// userDescPositionID is the schema descriptor for position_id field.
-	userDescPositionID := userFields[9].Descriptor()
-	// user.DefaultPositionID holds the default value on creation for the position_id field.
-	user.DefaultPositionID = userDescPositionID.Default.(uint64)
 	// userDescID is the schema descriptor for id field.
 	userDescID := userMixinFields0[0].Descriptor()
 	// user.DefaultID holds the default value on creation for the id field.

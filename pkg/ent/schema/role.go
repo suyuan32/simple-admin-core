@@ -6,6 +6,7 @@ import (
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
+	"entgo.io/ent/schema/index"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent/schema/mixins"
 )
@@ -35,6 +36,12 @@ func (Role) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("menus", Menu.Type),
 		edge.From("users", User.Type).Ref("roles"),
+	}
+}
+
+func (Role) Indexes() []ent.Index {
+	return []ent.Index{
+		index.Fields("code").Unique(),
 	}
 }
 

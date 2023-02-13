@@ -30,8 +30,8 @@ func NewGetMenuListByRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 	}
 }
 
-func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.UUIDReq) (*core.MenuInfoList, error) {
-	roles, err := l.svcCtx.DB.Role.Query().Where(role.CodeIn(strings.Split(in.Id, ",")...)).WithMenus(func(query *ent.MenuQuery) {
+func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.BaseMsg) (*core.MenuInfoList, error) {
+	roles, err := l.svcCtx.DB.Role.Query().Where(role.CodeIn(strings.Split(in.Msg, ",")...)).WithMenus(func(query *ent.MenuQuery) {
 		query.Order(ent.Asc(menu.FieldSort))
 	}).All(l.ctx)
 	if err != nil {

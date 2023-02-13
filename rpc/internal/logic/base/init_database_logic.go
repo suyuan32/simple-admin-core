@@ -168,7 +168,7 @@ func (l *InitDatabaseLogic) insertUserData() error {
 		SetEmail("simple_admin@gmail.com").
 		AddRoleIDs(1).
 		SetDepartmentID(1).
-		SetPositionID(1),
+		AddPositionIDs(1),
 	)
 
 	err := l.svcCtx.DB.User.CreateBulk(users...).Exec(l.ctx)

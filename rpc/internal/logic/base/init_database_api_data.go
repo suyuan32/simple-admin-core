@@ -413,7 +413,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
 		SetPath("/token/update").
-		SetDescription("apiDesc.UpdateToken").
+		SetDescription("apiDesc.updateToken").
 		SetAPIGroup("token").
 		SetMethod("POST"),
 	)

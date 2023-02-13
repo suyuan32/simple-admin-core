@@ -29,13 +29,11 @@ const (
 	EdgeUsers = "users"
 	// Table holds the table name of the position in the database.
 	Table = "sys_positions"
-	// UsersTable is the table that holds the users relation/edge.
-	UsersTable = "sys_users"
+	// UsersTable is the table that holds the users relation/edge. The primary key declared below.
+	UsersTable = "user_positions"
 	// UsersInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
 	UsersInverseTable = "sys_users"
-	// UsersColumn is the table column denoting the users relation/edge.
-	UsersColumn = "position_id"
 )
 
 // Columns holds all SQL columns for position fields.
@@ -49,6 +47,12 @@ var Columns = []string{
 	FieldCode,
 	FieldRemark,
 }
+
+var (
+	// UsersPrimaryKey and UsersColumn2 are the table columns denoting the
+	// primary key for the users relation (M2M).
+	UsersPrimaryKey = []string{"user_id", "position_id"}
+)
 
 // ValidColumn reports if the column name is valid (part of the table columns).
 func ValidColumn(column string) bool {

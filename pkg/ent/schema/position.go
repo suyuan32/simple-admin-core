@@ -6,6 +6,7 @@ import (
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
+	"entgo.io/ent/schema/index"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent/schema/mixins"
 )
@@ -37,7 +38,9 @@ func (Position) Edges() []ent.Edge {
 }
 
 func (Position) Indexes() []ent.Index {
-	return nil
+	return []ent.Index{
+		index.Fields("code").Unique(),
+	}
 }
 
 func (Position) Annotations() []schema.Annotation {

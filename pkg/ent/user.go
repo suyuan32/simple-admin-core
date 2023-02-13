@@ -10,7 +10,6 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/gofrs/uuid"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
@@ -44,8 +43,6 @@ type User struct {
 	Avatar string `json:"avatar,omitempty"`
 	// Department ID | 部门ID
 	DepartmentID uint64 `json:"department_id,omitempty"`
-	// Position ID | 职位ID
-	PositionID uint64 `json:"position_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the UserQuery when eager-loading is set.
 	Edges UserEdges `json:"edges"`
@@ -56,7 +53,7 @@ type UserEdges struct {
 	// Departments holds the value of the departments edge.
 	Departments *Department `json:"departments,omitempty"`
 	// Positions holds the value of the positions edge.
-	Positions *Position `json:"positions,omitempty"`
+	Positions []*Position `json:"positions,omitempty"`
 	// Roles holds the value of the roles edge.
 	Roles []*Role `json:"roles,omitempty"`
 	// loadedTypes holds the information for reporting if a
@@ -78,13 +75,9 @@ func (e UserEdges) DepartmentsOrErr() (*Department, error) {
 }
 
 // PositionsOrErr returns the Positions value or an error if the edge
-// was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) PositionsOrErr() (*Position, error) {
+// was not loaded in eager-loading.
+func (e UserEdges) PositionsOrErr() ([]*Position, error) {
 	if e.loadedTypes[1] {
-		if e.Positions == nil {
-			// Edge was loaded but was not found.
-			return nil, &NotFoundError{label: position.Label}
-		}
 		return e.Positions, nil
 	}
 	return nil, &NotLoadedError{edge: "positions"}
@@ -104,7 +97,7 @@ func (*User) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldStatus, user.FieldDepartmentID, user.FieldPositionID:
+		case user.FieldStatus, user.FieldDepartmentID:
 			values[i] = new(sql.NullInt64)
 		case user.FieldUsername, user.FieldPassword, user.FieldNickname, user.FieldDescription, user.FieldHomePath, user.FieldMobile, user.FieldEmail, user.FieldAvatar:
 			values[i] = new(sql.NullString)
@@ -205,12 +198,6 @@ func (u *User) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				u.DepartmentID = uint64(value.Int64)
 			}
-		case user.FieldPositionID:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field position_id", values[i])
-			} else if value.Valid {
-				u.PositionID = uint64(value.Int64)
-			}
 		}
 	}
 	return nil
@@ -289,9 +276,6 @@ func (u *User) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("department_id=")
 	builder.WriteString(fmt.Sprintf("%v", u.DepartmentID))
-	builder.WriteString(", ")
-	builder.WriteString("position_id=")
-	builder.WriteString(fmt.Sprintf("%v", u.PositionID))
 	builder.WriteByte(')')
 	return builder.String()
 }

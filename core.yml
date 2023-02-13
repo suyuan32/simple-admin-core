@@ -2452,9 +2452,11 @@ definitions:
                 x-go-name: Password
             positionId:
                 description: Position ID | 职位ID
-                format: uint64
-                type: integer
-                x-go-name: PositionId
+                items:
+                    format: uint64
+                    type: integer
+                type: array
+                x-go-name: PositionIds
             roleIds:
                 description: RoleId | 角色ID
                 items:

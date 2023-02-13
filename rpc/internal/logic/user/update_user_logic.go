@@ -40,8 +40,7 @@ func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) 
 			SetNotEmptyAvatar(in.Avatar).
 			SetNotEmptyHomePath(in.HomePath).
 			SetNotEmptyDescription(in.Description).
-			SetNotEmptyDepartmentID(in.DepartmentId).
-			SetNotEmptyPositionID(in.PositionId)
+			SetNotEmptyDepartmentID(in.DepartmentId)
 
 		if in.Password != "" {
 			updateQuery = updateQuery.SetNotEmptyPassword(utils.BcryptEncrypt(in.Password))
@@ -54,6 +53,15 @@ func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) 
 			}
 
 			updateQuery = updateQuery.AddRoleIDs(in.RoleIds...)
+		}
+
+		if in.PositionIds != nil {
+			err := l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).ClearPositions().Exec(l.ctx)
+			if err != nil {
+				return err
+			}
+
+			updateQuery = updateQuery.AddPositionIDs(in.PositionIds...)
 		}
 
 		return updateQuery.Exec(l.ctx)

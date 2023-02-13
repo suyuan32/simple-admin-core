@@ -41,7 +41,7 @@ func (l *CreateUserLogic) CreateUser(in *core.UserInfo) (*core.BaseResp, error) 
 		SetHomePath(in.HomePath).
 		SetDescription(in.Description).
 		SetDepartmentID(in.DepartmentId).
-		SetPositionID(in.PositionId).
+		AddPositionIDs(in.PositionIds...).
 		Exec(l.ctx)
 	if err != nil {
 		switch {

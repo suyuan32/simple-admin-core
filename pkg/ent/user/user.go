@@ -37,8 +37,6 @@ const (
 	FieldAvatar = "avatar"
 	// FieldDepartmentID holds the string denoting the department_id field in the database.
 	FieldDepartmentID = "department_id"
-	// FieldPositionID holds the string denoting the position_id field in the database.
-	FieldPositionID = "position_id"
 	// EdgeDepartments holds the string denoting the departments edge name in mutations.
 	EdgeDepartments = "departments"
 	// EdgePositions holds the string denoting the positions edge name in mutations.
@@ -54,13 +52,11 @@ const (
 	DepartmentsInverseTable = "sys_departments"
 	// DepartmentsColumn is the table column denoting the departments relation/edge.
 	DepartmentsColumn = "department_id"
-	// PositionsTable is the table that holds the positions relation/edge.
-	PositionsTable = "sys_users"
+	// PositionsTable is the table that holds the positions relation/edge. The primary key declared below.
+	PositionsTable = "user_positions"
 	// PositionsInverseTable is the table name for the Position entity.
 	// It exists in this package in order to avoid circular dependency with the "position" package.
 	PositionsInverseTable = "sys_positions"
-	// PositionsColumn is the table column denoting the positions relation/edge.
-	PositionsColumn = "position_id"
 	// RolesTable is the table that holds the roles relation/edge. The primary key declared below.
 	RolesTable = "user_roles"
 	// RolesInverseTable is the table name for the Role entity.
@@ -83,10 +79,12 @@ var Columns = []string{
 	FieldEmail,
 	FieldAvatar,
 	FieldDepartmentID,
-	FieldPositionID,
 }
 
 var (
+	// PositionsPrimaryKey and PositionsColumn2 are the table columns denoting the
+	// primary key for the positions relation (M2M).
+	PositionsPrimaryKey = []string{"user_id", "position_id"}
 	// RolesPrimaryKey and RolesColumn2 are the table columns denoting the
 	// primary key for the roles relation (M2M).
 	RolesPrimaryKey = []string{"user_id", "role_id"}
@@ -117,8 +115,6 @@ var (
 	DefaultAvatar string
 	// DefaultDepartmentID holds the default value on creation for the "department_id" field.
 	DefaultDepartmentID uint64
-	// DefaultPositionID holds the default value on creation for the "position_id" field.
-	DefaultPositionID uint64
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

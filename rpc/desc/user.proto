@@ -17,7 +17,7 @@ message UserInfo {
   string email = 12;
   string avatar = 13;
   uint64 department_id = 14;
-  uint64 position_id = 15;
+  repeated uint64 position_ids = 15;
   repeated string role_codes = 16;
 }
 
@@ -35,7 +35,7 @@ message UserListReq {
   string mobile = 6;
   repeated uint64 role_id = 7;
   uint64 department_id = 8;
-  uint64 position_id = 9;
+  repeated uint64 position_ids = 9;
 }
 
 message UsernameReq {
