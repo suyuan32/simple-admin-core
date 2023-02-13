@@ -37,7 +37,7 @@ func (l *CreateUserLogic) CreateUser(in *core.UserInfo) (*core.BaseResp, error) 
 		SetEmail(in.Email).
 		SetMobile(in.Mobile).
 		SetAvatar(in.Avatar).
-		SetRoleID(in.RoleId).
+		AddRoleIDs(in.RoleIds...).
 		SetHomePath(in.HomePath).
 		SetDescription(in.Description).
 		SetDepartmentID(in.DepartmentId).

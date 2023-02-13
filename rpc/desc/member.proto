@@ -59,6 +59,6 @@ service Core {
   // group: member
   rpc getMemberById (UUIDReq) returns (MemberInfo);
   // group: member
-  rpc memberLogin(LoginReq) returns (MemberLoginResp);
+  rpc getMemberByUsername (UsernameReq) returns (MemberInfo);
 
 }

@@ -13,6 +13,7 @@ import (
 	"github.com/gofrs/uuid"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
@@ -111,20 +112,6 @@ func (uc *UserCreate) SetNillableHomePath(s *string) *UserCreate {
 	return uc
 }
 
-// SetRoleID sets the "role_id" field.
-func (uc *UserCreate) SetRoleID(u uint64) *UserCreate {
-	uc.mutation.SetRoleID(u)
-	return uc
-}
-
-// SetNillableRoleID sets the "role_id" field if the given value is not nil.
-func (uc *UserCreate) SetNillableRoleID(u *uint64) *UserCreate {
-	if u != nil {
-		uc.SetRoleID(*u)
-	}
-	return uc
-}
-
 // SetMobile sets the "mobile" field.
 func (uc *UserCreate) SetMobile(s string) *UserCreate {
 	uc.mutation.SetMobile(s)
@@ -209,14 +196,57 @@ func (uc *UserCreate) SetNillableID(u *uuid.UUID) *UserCreate {
 	return uc
 }
 
-// SetDepartment sets the "department" edge to the Department entity.
-func (uc *UserCreate) SetDepartment(d *Department) *UserCreate {
-	return uc.SetDepartmentID(d.ID)
+// SetDepartmentsID sets the "departments" edge to the Department entity by ID.
+func (uc *UserCreate) SetDepartmentsID(id uint64) *UserCreate {
+	uc.mutation.SetDepartmentsID(id)
+	return uc
 }
 
-// SetPosition sets the "position" edge to the Position entity.
-func (uc *UserCreate) SetPosition(p *Position) *UserCreate {
-	return uc.SetPositionID(p.ID)
+// SetNillableDepartmentsID sets the "departments" edge to the Department entity by ID if the given value is not nil.
+func (uc *UserCreate) SetNillableDepartmentsID(id *uint64) *UserCreate {
+	if id != nil {
+		uc = uc.SetDepartmentsID(*id)
+	}
+	return uc
+}
+
+// SetDepartments sets the "departments" edge to the Department entity.
+func (uc *UserCreate) SetDepartments(d *Department) *UserCreate {
+	return uc.SetDepartmentsID(d.ID)
+}
+
+// SetPositionsID sets the "positions" edge to the Position entity by ID.
+func (uc *UserCreate) SetPositionsID(id uint64) *UserCreate {
+	uc.mutation.SetPositionsID(id)
+	return uc
+}
+
+// SetNillablePositionsID sets the "positions" edge to the Position entity by ID if the given value is not nil.
+func (uc *UserCreate) SetNillablePositionsID(id *uint64) *UserCreate {
+	if id != nil {
+		uc = uc.SetPositionsID(*id)
+	}
+	return uc
+}
+
+// SetPositions sets the "positions" edge to the Position entity.
+func (uc *UserCreate) SetPositions(p *Position) *UserCreate {
+	return uc.SetPositionsID(p.ID)
+}
+
+// AddRoleIDs adds the "roles" edge to the Role entity by IDs.
+func (uc *UserCreate) AddRoleIDs(ids ...uint64) *UserCreate {
+	uc.mutation.AddRoleIDs(ids...)
+	return uc
+}
+
+// AddRoles adds the "roles" edges to the Role entity.
+func (uc *UserCreate) AddRoles(r ...*Role) *UserCreate {
+	ids := make([]uint64, len(r))
+	for i := range r {
+		ids[i] = r[i].ID
+	}
+	return uc.AddRoleIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -269,10 +299,6 @@ func (uc *UserCreate) defaults() {
 	if _, ok := uc.mutation.HomePath(); !ok {
 		v := user.DefaultHomePath
 		uc.mutation.SetHomePath(v)
-	}
-	if _, ok := uc.mutation.RoleID(); !ok {
-		v := user.DefaultRoleID
-		uc.mutation.SetRoleID(v)
 	}
 	if _, ok := uc.mutation.Avatar(); !ok {
 		v := user.DefaultAvatar
@@ -385,10 +411,6 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_spec.SetField(user.FieldHomePath, field.TypeString, value)
 		_node.HomePath = value
 	}
-	if value, ok := uc.mutation.RoleID(); ok {
-		_spec.SetField(user.FieldRoleID, field.TypeUint64, value)
-		_node.RoleID = value
-	}
 	if value, ok := uc.mutation.Mobile(); ok {
 		_spec.SetField(user.FieldMobile, field.TypeString, value)
 		_node.Mobile = value
@@ -401,12 +423,12 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_spec.SetField(user.FieldAvatar, field.TypeString, value)
 		_node.Avatar = value
 	}
-	if nodes := uc.mutation.DepartmentIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.DepartmentsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.DepartmentTable,
-			Columns: []string{user.DepartmentColumn},
+			Table:   user.DepartmentsTable,
+			Columns: []string{user.DepartmentsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -421,12 +443,12 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_node.DepartmentID = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := uc.mutation.PositionIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.PositionsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.PositionTable,
-			Columns: []string{user.PositionColumn},
+			Table:   user.PositionsTable,
+			Columns: []string{user.PositionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -439,6 +461,25 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
 		_node.PositionID = nodes[0]
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := uc.mutation.RolesIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   user.RolesTable,
+			Columns: user.RolesPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: role.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec

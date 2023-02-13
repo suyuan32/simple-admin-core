@@ -490,24 +490,24 @@ func DictionaryIDNotNil() predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(sql.FieldNotNull(FieldDictionaryID))
 }
 
-// HasDictionary applies the HasEdge predicate on the "dictionary" edge.
-func HasDictionary() predicate.DictionaryDetail {
+// HasDictionaries applies the HasEdge predicate on the "dictionaries" edge.
+func HasDictionaries() predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, DictionaryTable, DictionaryColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, DictionariesTable, DictionariesColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasDictionaryWith applies the HasEdge predicate on the "dictionary" edge with a given conditions (other predicates).
-func HasDictionaryWith(preds ...predicate.Dictionary) predicate.DictionaryDetail {
+// HasDictionariesWith applies the HasEdge predicate on the "dictionaries" edge with a given conditions (other predicates).
+func HasDictionariesWith(preds ...predicate.Dictionary) predicate.DictionaryDetail {
 	return predicate.DictionaryDetail(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(DictionaryInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, DictionaryTable, DictionaryColumn),
+			sqlgraph.To(DictionariesInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, DictionariesTable, DictionariesColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

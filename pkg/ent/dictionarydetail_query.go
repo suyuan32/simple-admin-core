@@ -18,11 +18,11 @@ import (
 // DictionaryDetailQuery is the builder for querying DictionaryDetail entities.
 type DictionaryDetailQuery struct {
 	config
-	ctx            *QueryContext
-	order          []OrderFunc
-	inters         []Interceptor
-	predicates     []predicate.DictionaryDetail
-	withDictionary *DictionaryQuery
+	ctx              *QueryContext
+	order            []OrderFunc
+	inters           []Interceptor
+	predicates       []predicate.DictionaryDetail
+	withDictionaries *DictionaryQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -59,8 +59,8 @@ func (ddq *DictionaryDetailQuery) Order(o ...OrderFunc) *DictionaryDetailQuery {
 	return ddq
 }
 
-// QueryDictionary chains the current query on the "dictionary" edge.
-func (ddq *DictionaryDetailQuery) QueryDictionary() *DictionaryQuery {
+// QueryDictionaries chains the current query on the "dictionaries" edge.
+func (ddq *DictionaryDetailQuery) QueryDictionaries() *DictionaryQuery {
 	query := (&DictionaryClient{config: ddq.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := ddq.prepareQuery(ctx); err != nil {
@@ -73,7 +73,7 @@ func (ddq *DictionaryDetailQuery) QueryDictionary() *DictionaryQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(dictionarydetail.Table, dictionarydetail.FieldID, selector),
 			sqlgraph.To(dictionary.Table, dictionary.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, dictionarydetail.DictionaryTable, dictionarydetail.DictionaryColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, dictionarydetail.DictionariesTable, dictionarydetail.DictionariesColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(ddq.driver.Dialect(), step)
 		return fromU, nil
@@ -266,26 +266,26 @@ func (ddq *DictionaryDetailQuery) Clone() *DictionaryDetailQuery {
 		return nil
 	}
 	return &DictionaryDetailQuery{
-		config:         ddq.config,
-		ctx:            ddq.ctx.Clone(),
-		order:          append([]OrderFunc{}, ddq.order...),
-		inters:         append([]Interceptor{}, ddq.inters...),
-		predicates:     append([]predicate.DictionaryDetail{}, ddq.predicates...),
-		withDictionary: ddq.withDictionary.Clone(),
+		config:           ddq.config,
+		ctx:              ddq.ctx.Clone(),
+		order:            append([]OrderFunc{}, ddq.order...),
+		inters:           append([]Interceptor{}, ddq.inters...),
+		predicates:       append([]predicate.DictionaryDetail{}, ddq.predicates...),
+		withDictionaries: ddq.withDictionaries.Clone(),
 		// clone intermediate query.
 		sql:  ddq.sql.Clone(),
 		path: ddq.path,
 	}
 }
 
-// WithDictionary tells the query-builder to eager-load the nodes that are connected to
-// the "dictionary" edge. The optional arguments are used to configure the query builder of the edge.
-func (ddq *DictionaryDetailQuery) WithDictionary(opts ...func(*DictionaryQuery)) *DictionaryDetailQuery {
+// WithDictionaries tells the query-builder to eager-load the nodes that are connected to
+// the "dictionaries" edge. The optional arguments are used to configure the query builder of the edge.
+func (ddq *DictionaryDetailQuery) WithDictionaries(opts ...func(*DictionaryQuery)) *DictionaryDetailQuery {
 	query := (&DictionaryClient{config: ddq.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	ddq.withDictionary = query
+	ddq.withDictionaries = query
 	return ddq
 }
 
@@ -368,7 +368,7 @@ func (ddq *DictionaryDetailQuery) sqlAll(ctx context.Context, hooks ...queryHook
 		nodes       = []*DictionaryDetail{}
 		_spec       = ddq.querySpec()
 		loadedTypes = [1]bool{
-			ddq.withDictionary != nil,
+			ddq.withDictionaries != nil,
 		}
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
@@ -389,16 +389,16 @@ func (ddq *DictionaryDetailQuery) sqlAll(ctx context.Context, hooks ...queryHook
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := ddq.withDictionary; query != nil {
-		if err := ddq.loadDictionary(ctx, query, nodes, nil,
-			func(n *DictionaryDetail, e *Dictionary) { n.Edges.Dictionary = e }); err != nil {
+	if query := ddq.withDictionaries; query != nil {
+		if err := ddq.loadDictionaries(ctx, query, nodes, nil,
+			func(n *DictionaryDetail, e *Dictionary) { n.Edges.Dictionaries = e }); err != nil {
 			return nil, err
 		}
 	}
 	return nodes, nil
 }
 
-func (ddq *DictionaryDetailQuery) loadDictionary(ctx context.Context, query *DictionaryQuery, nodes []*DictionaryDetail, init func(*DictionaryDetail), assign func(*DictionaryDetail, *Dictionary)) error {
+func (ddq *DictionaryDetailQuery) loadDictionaries(ctx context.Context, query *DictionaryQuery, nodes []*DictionaryDetail, init func(*DictionaryDetail), assign func(*DictionaryDetail, *Dictionary)) error {
 	ids := make([]uint64, 0, len(nodes))
 	nodeids := make(map[uint64][]*DictionaryDetail)
 	for i := range nodes {

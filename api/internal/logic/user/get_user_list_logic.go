@@ -36,7 +36,6 @@ func (l *GetUserListLogic) GetUserList(req *types.UserListReq) (resp *types.User
 		Nickname:     req.Nickname,
 		Email:        req.Email,
 		Mobile:       req.Mobile,
-		RoleId:       req.RoleId,
 		DepartmentId: req.DepartmentId,
 		PositionId:   req.PositionId,
 	})
@@ -54,7 +53,7 @@ func (l *GetUserListLogic) GetUserList(req *types.UserListReq) (resp *types.User
 			Username:     v.Username,
 			Nickname:     v.Nickname,
 			Mobile:       v.Mobile,
-			RoleId:       v.RoleId,
+			RoleIds:      v.RoleIds,
 			Email:        v.Email,
 			Avatar:       v.Avatar,
 			Status:       v.Status,

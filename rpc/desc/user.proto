@@ -12,14 +12,13 @@ message UserInfo {
   string nickname = 7;
   string description = 8;
   string home_path = 9;
-  uint64 role_id = 10;
+  repeated uint64 role_ids = 10;
   string mobile = 11;
   string email = 12;
   string avatar = 13;
   uint64 department_id = 14;
   uint64 position_id = 15;
-  string role_name = 16;
-  string role_value = 17;
+  repeated string role_codes = 16;
 }
 
 message UserListResp {
@@ -34,32 +33,14 @@ message UserListReq {
   string nickname = 4;
   string email = 5;
   string mobile = 6;
-  uint64 role_id = 7;
+  repeated uint64 role_id = 7;
   uint64 department_id = 8;
   uint64 position_id = 9;
 }
 
-message UpdateProfileReq {
-  string id = 1;
-  string nickname = 2;
-  string email = 3;
-  string mobile = 4;
-  string avatar = 5;
-  string description = 6;
-}
-
-message LoginReq {
+message UsernameReq {
   string username = 1;
-  string password = 2;
 }
-
-message LoginResp {
-  string id = 1;
-  string role_name = 2;
-  string role_value = 3;
-  uint64 role_id = 4;
-}
-
 
 service Core {
   // User management
@@ -72,7 +53,7 @@ service Core {
   // group: user
   rpc getUserById (UUIDReq) returns (UserInfo);
   // group: user
-  rpc deleteUser (UUIDsReq) returns (BaseResp);
+  rpc getUserByUsername (UsernameReq) returns (UserInfo);
   // group: user
-  rpc login(LoginReq) returns (LoginResp);
+  rpc deleteUser (UUIDsReq) returns (BaseResp);
 }

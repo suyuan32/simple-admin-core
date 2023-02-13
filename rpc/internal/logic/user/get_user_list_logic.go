@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
@@ -46,8 +47,8 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 		predicates = append(predicates, user.NicknameContains(in.Nickname))
 	}
 
-	if in.RoleId != 0 {
-		predicates = append(predicates, user.RoleIDEQ(in.RoleId))
+	if in.RoleId != nil {
+		predicates = append(predicates, user.HasRolesWith(role.IDIn(in.RoleId...)))
 	}
 
 	if in.DepartmentId != 0 {
@@ -58,7 +59,7 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 		predicates = append(predicates, user.PositionIDEQ(in.PositionId))
 	}
 
-	users, err := l.svcCtx.DB.User.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+	users, err := l.svcCtx.DB.User.Query().Where(predicates...).WithRoles().Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		logx.Error(err.Error())
 		return nil, statuserr.NewInternalError(i18n.DatabaseError)
@@ -71,7 +72,7 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 		resp.Data = append(resp.Data, &core.UserInfo{
 			Id:           v.ID.String(),
 			Avatar:       v.Avatar,
-			RoleId:       v.RoleID,
+			RoleIds:      GetRoleIds(v.Edges.Roles),
 			Mobile:       v.Mobile,
 			Email:        v.Email,
 			Status:       uint32(v.Status),

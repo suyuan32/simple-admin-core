@@ -37,7 +37,7 @@ func (Department) Mixin() []ent.Mixin {
 func (Department) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("children", Department.Type).From("parent").Unique().Field("parent_id"),
-		edge.From("user", User.Type).Ref("department"),
+		edge.From("users", User.Type).Ref("departments"),
 	}
 }
 

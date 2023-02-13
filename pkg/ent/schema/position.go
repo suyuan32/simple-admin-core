@@ -32,7 +32,7 @@ func (Position) Mixin() []ent.Mixin {
 
 func (Position) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("user", User.Type).Ref("position"),
+		edge.From("users", User.Type).Ref("positions"),
 	}
 }
 

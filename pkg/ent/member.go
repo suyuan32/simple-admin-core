@@ -46,24 +46,24 @@ type Member struct {
 
 // MemberEdges holds the relations/edges for other nodes in the graph.
 type MemberEdges struct {
-	// Rank holds the value of the rank edge.
-	Rank *MemberRank `json:"rank,omitempty"`
+	// Ranks holds the value of the ranks edge.
+	Ranks *MemberRank `json:"ranks,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// RankOrErr returns the Rank value or an error if the edge
+// RanksOrErr returns the Ranks value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e MemberEdges) RankOrErr() (*MemberRank, error) {
+func (e MemberEdges) RanksOrErr() (*MemberRank, error) {
 	if e.loadedTypes[0] {
-		if e.Rank == nil {
+		if e.Ranks == nil {
 			// Edge was loaded but was not found.
 			return nil, &NotFoundError{label: memberrank.Label}
 		}
-		return e.Rank, nil
+		return e.Ranks, nil
 	}
-	return nil, &NotLoadedError{edge: "rank"}
+	return nil, &NotLoadedError{edge: "ranks"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -165,9 +165,9 @@ func (m *Member) assignValues(columns []string, values []any) error {
 	return nil
 }
 
-// QueryRank queries the "rank" edge of the Member entity.
-func (m *Member) QueryRank() *MemberRankQuery {
-	return NewMemberClient(m.config).QueryRank(m)
+// QueryRanks queries the "ranks" edge of the Member entity.
+func (m *Member) QueryRanks() *MemberRankQuery {
+	return NewMemberClient(m.config).QueryRanks(m)
 }
 
 // Update returns a builder for updating this Member.

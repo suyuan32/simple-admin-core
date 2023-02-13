@@ -23,7 +23,7 @@ type MemberQuery struct {
 	order      []OrderFunc
 	inters     []Interceptor
 	predicates []predicate.Member
-	withRank   *MemberRankQuery
+	withRanks  *MemberRankQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -60,8 +60,8 @@ func (mq *MemberQuery) Order(o ...OrderFunc) *MemberQuery {
 	return mq
 }
 
-// QueryRank chains the current query on the "rank" edge.
-func (mq *MemberQuery) QueryRank() *MemberRankQuery {
+// QueryRanks chains the current query on the "ranks" edge.
+func (mq *MemberQuery) QueryRanks() *MemberRankQuery {
 	query := (&MemberRankClient{config: mq.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := mq.prepareQuery(ctx); err != nil {
@@ -74,7 +74,7 @@ func (mq *MemberQuery) QueryRank() *MemberRankQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(member.Table, member.FieldID, selector),
 			sqlgraph.To(memberrank.Table, memberrank.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, member.RankTable, member.RankColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, member.RanksTable, member.RanksColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(mq.driver.Dialect(), step)
 		return fromU, nil
@@ -272,21 +272,21 @@ func (mq *MemberQuery) Clone() *MemberQuery {
 		order:      append([]OrderFunc{}, mq.order...),
 		inters:     append([]Interceptor{}, mq.inters...),
 		predicates: append([]predicate.Member{}, mq.predicates...),
-		withRank:   mq.withRank.Clone(),
+		withRanks:  mq.withRanks.Clone(),
 		// clone intermediate query.
 		sql:  mq.sql.Clone(),
 		path: mq.path,
 	}
 }
 
-// WithRank tells the query-builder to eager-load the nodes that are connected to
-// the "rank" edge. The optional arguments are used to configure the query builder of the edge.
-func (mq *MemberQuery) WithRank(opts ...func(*MemberRankQuery)) *MemberQuery {
+// WithRanks tells the query-builder to eager-load the nodes that are connected to
+// the "ranks" edge. The optional arguments are used to configure the query builder of the edge.
+func (mq *MemberQuery) WithRanks(opts ...func(*MemberRankQuery)) *MemberQuery {
 	query := (&MemberRankClient{config: mq.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	mq.withRank = query
+	mq.withRanks = query
 	return mq
 }
 
@@ -369,7 +369,7 @@ func (mq *MemberQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Membe
 		nodes       = []*Member{}
 		_spec       = mq.querySpec()
 		loadedTypes = [1]bool{
-			mq.withRank != nil,
+			mq.withRanks != nil,
 		}
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
@@ -390,16 +390,16 @@ func (mq *MemberQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Membe
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := mq.withRank; query != nil {
-		if err := mq.loadRank(ctx, query, nodes, nil,
-			func(n *Member, e *MemberRank) { n.Edges.Rank = e }); err != nil {
+	if query := mq.withRanks; query != nil {
+		if err := mq.loadRanks(ctx, query, nodes, nil,
+			func(n *Member, e *MemberRank) { n.Edges.Ranks = e }); err != nil {
 			return nil, err
 		}
 	}
 	return nodes, nil
 }
 
-func (mq *MemberQuery) loadRank(ctx context.Context, query *MemberRankQuery, nodes []*Member, init func(*Member), assign func(*Member, *MemberRank)) error {
+func (mq *MemberQuery) loadRanks(ctx context.Context, query *MemberRankQuery, nodes []*Member, init func(*Member), assign func(*Member, *MemberRank)) error {
 	ids := make([]uint64, 0, len(nodes))
 	nodeids := make(map[uint64][]*Member)
 	for i := range nodes {

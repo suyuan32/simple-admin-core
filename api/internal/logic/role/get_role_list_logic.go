@@ -54,7 +54,7 @@ func (l *GetRoleListLogic) GetRoleList(req *types.RoleListReq) (resp *types.Role
 				Trans:         l.svcCtx.Trans.Trans(l.lang, v.Name),
 				Status:        v.Status,
 				Name:          v.Name,
-				Value:         v.Value,
+				Code:          v.Code,
 				DefaultRouter: v.DefaultRouter,
 				Remark:        v.Remark,
 				Sort:          v.Sort,

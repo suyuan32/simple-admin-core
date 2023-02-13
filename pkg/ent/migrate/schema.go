@@ -124,7 +124,7 @@ var (
 		PrimaryKey: []*schema.Column{CoreMmsMembersColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "core_mms_members_core_mms_rank_rank",
+				Symbol:     "core_mms_members_core_mms_rank_ranks",
 				Columns:    []*schema.Column{CoreMmsMembersColumns[10]},
 				RefColumns: []*schema.Column{CoreMmsRankColumns[0]},
 				OnDelete:   schema.SetNull,
@@ -144,6 +144,7 @@ var (
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
 		{Name: "description", Type: field.TypeString},
 		{Name: "remark", Type: field.TypeString},
 	}
@@ -263,7 +264,7 @@ var (
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
 		{Name: "name", Type: field.TypeString},
-		{Name: "value", Type: field.TypeString, Unique: true},
+		{Name: "code", Type: field.TypeString, Unique: true},
 		{Name: "default_router", Type: field.TypeString, Default: "dashboard"},
 		{Name: "remark", Type: field.TypeString, Default: ""},
 		{Name: "sort", Type: field.TypeUint32, Default: 0},
@@ -314,7 +315,6 @@ var (
 		{Name: "nickname", Type: field.TypeString, Unique: true},
 		{Name: "description", Type: field.TypeString, Nullable: true},
 		{Name: "home_path", Type: field.TypeString, Default: "/dashboard"},
-		{Name: "role_id", Type: field.TypeUint64, Nullable: true, Default: 2},
 		{Name: "mobile", Type: field.TypeString, Nullable: true},
 		{Name: "email", Type: field.TypeString, Nullable: true},
 		{Name: "avatar", Type: field.TypeString, Nullable: true, Default: "", SchemaType: map[string]string{"mysql": "varchar(512)"}},
@@ -328,14 +328,14 @@ var (
 		PrimaryKey: []*schema.Column{SysUsersColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:     "sys_users_sys_departments_department",
-				Columns:    []*schema.Column{SysUsersColumns[13]},
+				Symbol:     "sys_users_sys_departments_departments",
+				Columns:    []*schema.Column{SysUsersColumns[12]},
 				RefColumns: []*schema.Column{SysDepartmentsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:     "sys_users_sys_positions_position",
-				Columns:    []*schema.Column{SysUsersColumns[14]},
+				Symbol:     "sys_users_sys_positions_positions",
+				Columns:    []*schema.Column{SysUsersColumns[13]},
 				RefColumns: []*schema.Column{SysPositionsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -344,7 +344,7 @@ var (
 			{
 				Name:    "user_username_email",
 				Unique:  true,
-				Columns: []*schema.Column{SysUsersColumns[4], SysUsersColumns[11]},
+				Columns: []*schema.Column{SysUsersColumns[4], SysUsersColumns[10]},
 			},
 		},
 	}
@@ -373,6 +373,31 @@ var (
 			},
 		},
 	}
+	// UserRolesColumns holds the columns for the "user_roles" table.
+	UserRolesColumns = []*schema.Column{
+		{Name: "user_id", Type: field.TypeUUID},
+		{Name: "role_id", Type: field.TypeUint64},
+	}
+	// UserRolesTable holds the schema information for the "user_roles" table.
+	UserRolesTable = &schema.Table{
+		Name:       "user_roles",
+		Columns:    UserRolesColumns,
+		PrimaryKey: []*schema.Column{UserRolesColumns[0], UserRolesColumns[1]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "user_roles_user_id",
+				Columns:    []*schema.Column{UserRolesColumns[0]},
+				RefColumns: []*schema.Column{SysUsersColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+			{
+				Symbol:     "user_roles_role_id",
+				Columns:    []*schema.Column{UserRolesColumns[1]},
+				RefColumns: []*schema.Column{SysRolesColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+		},
+	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		SysApisTable,
@@ -389,6 +414,7 @@ var (
 		SysTokensTable,
 		SysUsersTable,
 		RoleMenusTable,
+		UserRolesTable,
 	}
 )
 
@@ -441,4 +467,6 @@ func init() {
 	}
 	RoleMenusTable.ForeignKeys[0].RefTable = SysRolesTable
 	RoleMenusTable.ForeignKeys[1].RefTable = SysMenusTable
+	UserRolesTable.ForeignKeys[0].RefTable = SysUsersTable
+	UserRolesTable.ForeignKeys[1].RefTable = SysRolesTable
 }

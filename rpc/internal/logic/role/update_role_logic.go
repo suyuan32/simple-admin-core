@@ -32,7 +32,7 @@ func (l *UpdateRoleLogic) UpdateRole(in *core.RoleInfo) (*core.BaseResp, error) 
 	err := l.svcCtx.DB.Role.UpdateOneID(in.Id).
 		SetNotEmptyStatus(uint8(in.Status)).
 		SetNotEmptyName(in.Name).
-		SetNotEmptyValue(in.Value).
+		SetNotEmptyCode(in.Code).
 		SetNotEmptyDefaultRouter(in.DefaultRouter).
 		SetNotEmptyRemark(in.Remark).
 		SetNotEmptySort(in.Sort).

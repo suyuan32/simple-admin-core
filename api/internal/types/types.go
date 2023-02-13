@@ -122,8 +122,8 @@ type RoleInfo struct {
 	Status uint32 `json:"status,optional"`
 	// Name | 角色名称
 	Name string `json:"name,optional"`
-	// Value | 角色值
-	Value string `json:"value,optional"`
+	// Role code | 角色码
+	Code string `json:"code,optional"`
 	// DefaultRouter | 默认首页
 	DefaultRouter string `json:"defaultRouter,optional"`
 	// Remark | 备注
@@ -181,7 +181,7 @@ type UserInfo struct {
 	// HomePath | 首页
 	HomePath string `json:"homePath,optional"`
 	// RoleId | 角色ID
-	RoleId uint64 `json:"roleId,optional"`
+	RoleIds []uint64 `json:"roleIds,optional"`
 	// Mobile | 手机号
 	Mobile string `json:"mobile,optional"`
 	// Email | 邮箱
@@ -192,10 +192,6 @@ type UserInfo struct {
 	DepartmentId uint64 `json:"departmentId,optional"`
 	// Position ID | 职位ID
 	PositionId uint64 `json:"positionId,optional"`
-	// RoleName | 角色名称
-	RoleName string `json:"roleName,optional"`
-	// RoleValue | 角色值
-	RoleValue string `json:"roleValue,optional"`
 }
 
 // The response data of user list | 用户列表数据
@@ -291,9 +287,6 @@ type ChangePasswordReq struct {
 type LoginInfo struct {
 	// User's UUID | 用户的UUID
 	UserId string `json:"userId"`
-	// User's role information| 用户的角色信息
-	// in: body
-	Role RoleInfoSimple `json:"role"`
 	// Token for authorization | 验证身份的token
 	Token string `json:"token"`
 	// Expire timestamp | 过期时间戳
@@ -328,21 +321,10 @@ type UserBaseInfo struct {
 	Nickname string `json:"nickname"`
 	// The user's avatar path | 用户的头像路径
 	Avatar string `json:"avatar"`
-	// User's role information| 用户的角色信息
-	Roles UserRoleInfo `json:"roles"`
 	// The home page that the user enters after logging in | 用户登陆后进入的首页
 	HomePath string `json:"homePath"`
 	// The description of user | 用户的描述信息
 	Description string `json:"desc"`
-}
-
-// The response data of user's basic role information | 用户角色信息数据
-// swagger:model UserRoleInfo
-type UserRoleInfo struct {
-	// Role name | 角色名
-	RoleName string `json:"roleName"`
-	// Role value for permission control | 角色值用于前端页面组件显示权限
-	Value string `json:"value"`
 }
 
 // The permission code for front end permission control | 权限码： 用于前端权限控制

@@ -33,7 +33,7 @@ func (l *UpdateRoleLogic) UpdateRole(req *types.RoleInfo) (resp *types.BaseMsgRe
 			Id:            req.Id,
 			Status:        req.Status,
 			Name:          req.Name,
-			Value:         req.Value,
+			Code:          req.Code,
 			DefaultRouter: req.DefaultRouter,
 			Remark:        req.Remark,
 			Sort:          req.Sort,

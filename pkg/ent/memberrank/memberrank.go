@@ -17,21 +17,23 @@ const (
 	FieldUpdatedAt = "updated_at"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
+	// FieldCode holds the string denoting the code field in the database.
+	FieldCode = "code"
 	// FieldDescription holds the string denoting the description field in the database.
 	FieldDescription = "description"
 	// FieldRemark holds the string denoting the remark field in the database.
 	FieldRemark = "remark"
-	// EdgeMember holds the string denoting the member edge name in mutations.
-	EdgeMember = "member"
+	// EdgeMembers holds the string denoting the members edge name in mutations.
+	EdgeMembers = "members"
 	// Table holds the table name of the memberrank in the database.
 	Table = "core_mms_rank"
-	// MemberTable is the table that holds the member relation/edge.
-	MemberTable = "core_mms_members"
-	// MemberInverseTable is the table name for the Member entity.
+	// MembersTable is the table that holds the members relation/edge.
+	MembersTable = "core_mms_members"
+	// MembersInverseTable is the table name for the Member entity.
 	// It exists in this package in order to avoid circular dependency with the "member" package.
-	MemberInverseTable = "core_mms_members"
-	// MemberColumn is the table column denoting the member relation/edge.
-	MemberColumn = "rank_id"
+	MembersInverseTable = "core_mms_members"
+	// MembersColumn is the table column denoting the members relation/edge.
+	MembersColumn = "rank_id"
 )
 
 // Columns holds all SQL columns for memberrank fields.
@@ -40,6 +42,7 @@ var Columns = []string{
 	FieldCreatedAt,
 	FieldUpdatedAt,
 	FieldName,
+	FieldCode,
 	FieldDescription,
 	FieldRemark,
 }

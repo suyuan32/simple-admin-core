@@ -75,9 +75,9 @@ func Name(v string) predicate.Role {
 	return predicate.Role(sql.FieldEQ(FieldName, v))
 }
 
-// Value applies equality check predicate on the "value" field. It's identical to ValueEQ.
-func Value(v string) predicate.Role {
-	return predicate.Role(sql.FieldEQ(FieldValue, v))
+// Code applies equality check predicate on the "code" field. It's identical to CodeEQ.
+func Code(v string) predicate.Role {
+	return predicate.Role(sql.FieldEQ(FieldCode, v))
 }
 
 // DefaultRouter applies equality check predicate on the "default_router" field. It's identical to DefaultRouterEQ.
@@ -290,69 +290,69 @@ func NameContainsFold(v string) predicate.Role {
 	return predicate.Role(sql.FieldContainsFold(FieldName, v))
 }
 
-// ValueEQ applies the EQ predicate on the "value" field.
-func ValueEQ(v string) predicate.Role {
-	return predicate.Role(sql.FieldEQ(FieldValue, v))
+// CodeEQ applies the EQ predicate on the "code" field.
+func CodeEQ(v string) predicate.Role {
+	return predicate.Role(sql.FieldEQ(FieldCode, v))
 }
 
-// ValueNEQ applies the NEQ predicate on the "value" field.
-func ValueNEQ(v string) predicate.Role {
-	return predicate.Role(sql.FieldNEQ(FieldValue, v))
+// CodeNEQ applies the NEQ predicate on the "code" field.
+func CodeNEQ(v string) predicate.Role {
+	return predicate.Role(sql.FieldNEQ(FieldCode, v))
 }
 
-// ValueIn applies the In predicate on the "value" field.
-func ValueIn(vs ...string) predicate.Role {
-	return predicate.Role(sql.FieldIn(FieldValue, vs...))
+// CodeIn applies the In predicate on the "code" field.
+func CodeIn(vs ...string) predicate.Role {
+	return predicate.Role(sql.FieldIn(FieldCode, vs...))
 }
 
-// ValueNotIn applies the NotIn predicate on the "value" field.
-func ValueNotIn(vs ...string) predicate.Role {
-	return predicate.Role(sql.FieldNotIn(FieldValue, vs...))
+// CodeNotIn applies the NotIn predicate on the "code" field.
+func CodeNotIn(vs ...string) predicate.Role {
+	return predicate.Role(sql.FieldNotIn(FieldCode, vs...))
 }
 
-// ValueGT applies the GT predicate on the "value" field.
-func ValueGT(v string) predicate.Role {
-	return predicate.Role(sql.FieldGT(FieldValue, v))
+// CodeGT applies the GT predicate on the "code" field.
+func CodeGT(v string) predicate.Role {
+	return predicate.Role(sql.FieldGT(FieldCode, v))
 }
 
-// ValueGTE applies the GTE predicate on the "value" field.
-func ValueGTE(v string) predicate.Role {
-	return predicate.Role(sql.FieldGTE(FieldValue, v))
+// CodeGTE applies the GTE predicate on the "code" field.
+func CodeGTE(v string) predicate.Role {
+	return predicate.Role(sql.FieldGTE(FieldCode, v))
 }
 
-// ValueLT applies the LT predicate on the "value" field.
-func ValueLT(v string) predicate.Role {
-	return predicate.Role(sql.FieldLT(FieldValue, v))
+// CodeLT applies the LT predicate on the "code" field.
+func CodeLT(v string) predicate.Role {
+	return predicate.Role(sql.FieldLT(FieldCode, v))
 }
 
-// ValueLTE applies the LTE predicate on the "value" field.
-func ValueLTE(v string) predicate.Role {
-	return predicate.Role(sql.FieldLTE(FieldValue, v))
+// CodeLTE applies the LTE predicate on the "code" field.
+func CodeLTE(v string) predicate.Role {
+	return predicate.Role(sql.FieldLTE(FieldCode, v))
 }
 
-// ValueContains applies the Contains predicate on the "value" field.
-func ValueContains(v string) predicate.Role {
-	return predicate.Role(sql.FieldContains(FieldValue, v))
+// CodeContains applies the Contains predicate on the "code" field.
+func CodeContains(v string) predicate.Role {
+	return predicate.Role(sql.FieldContains(FieldCode, v))
 }
 
-// ValueHasPrefix applies the HasPrefix predicate on the "value" field.
-func ValueHasPrefix(v string) predicate.Role {
-	return predicate.Role(sql.FieldHasPrefix(FieldValue, v))
+// CodeHasPrefix applies the HasPrefix predicate on the "code" field.
+func CodeHasPrefix(v string) predicate.Role {
+	return predicate.Role(sql.FieldHasPrefix(FieldCode, v))
 }
 
-// ValueHasSuffix applies the HasSuffix predicate on the "value" field.
-func ValueHasSuffix(v string) predicate.Role {
-	return predicate.Role(sql.FieldHasSuffix(FieldValue, v))
+// CodeHasSuffix applies the HasSuffix predicate on the "code" field.
+func CodeHasSuffix(v string) predicate.Role {
+	return predicate.Role(sql.FieldHasSuffix(FieldCode, v))
 }
 
-// ValueEqualFold applies the EqualFold predicate on the "value" field.
-func ValueEqualFold(v string) predicate.Role {
-	return predicate.Role(sql.FieldEqualFold(FieldValue, v))
+// CodeEqualFold applies the EqualFold predicate on the "code" field.
+func CodeEqualFold(v string) predicate.Role {
+	return predicate.Role(sql.FieldEqualFold(FieldCode, v))
 }
 
-// ValueContainsFold applies the ContainsFold predicate on the "value" field.
-func ValueContainsFold(v string) predicate.Role {
-	return predicate.Role(sql.FieldContainsFold(FieldValue, v))
+// CodeContainsFold applies the ContainsFold predicate on the "code" field.
+func CodeContainsFold(v string) predicate.Role {
+	return predicate.Role(sql.FieldContainsFold(FieldCode, v))
 }
 
 // DefaultRouterEQ applies the EQ predicate on the "default_router" field.
@@ -543,6 +543,33 @@ func HasMenusWith(preds ...predicate.Menu) predicate.Role {
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(MenusInverseTable, FieldID),
 			sqlgraph.Edge(sqlgraph.M2M, false, MenusTable, MenusPrimaryKey...),
+		)
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
+}
+
+// HasUsers applies the HasEdge predicate on the "users" edge.
+func HasUsers() predicate.Role {
+	return predicate.Role(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.Edge(sqlgraph.M2M, true, UsersTable, UsersPrimaryKey...),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasUsersWith applies the HasEdge predicate on the "users" edge with a given conditions (other predicates).
+func HasUsersWith(preds ...predicate.User) predicate.Role {
+	return predicate.Role(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(UsersInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2M, true, UsersTable, UsersPrimaryKey...),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

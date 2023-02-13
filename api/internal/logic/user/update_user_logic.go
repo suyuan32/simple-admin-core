@@ -37,14 +37,12 @@ func (l *UpdateUserLogic) UpdateUser(req *types.UserInfo) (resp *types.BaseMsgRe
 			Nickname:     req.Nickname,
 			Description:  req.Description,
 			HomePath:     req.HomePath,
-			RoleId:       req.RoleId,
+			RoleIds:      req.RoleIds,
 			Mobile:       req.Mobile,
 			Email:        req.Email,
 			Avatar:       req.Avatar,
 			DepartmentId: req.DepartmentId,
 			PositionId:   req.PositionId,
-			RoleName:     req.RoleName,
-			RoleValue:    req.RoleValue,
 		})
 	if err != nil {
 		return nil, err

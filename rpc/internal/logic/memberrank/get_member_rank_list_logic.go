@@ -56,6 +56,7 @@ func (l *GetMemberRankListLogic) GetMemberRankList(in *core.MemberRankListReq) (
 			Name:        v.Name,
 			Description: v.Description,
 			Remark:      v.Remark,
+			Code:        v.Code,
 		})
 	}
 

@@ -805,8 +805,6 @@ definitions:
                 format: uint64
                 type: integer
                 x-go-name: Expire
-            role:
-                $ref: '#/definitions/RoleInfoSimple'
             token:
                 description: Token for authorization | 验证身份的token
                 type: string
@@ -2067,6 +2065,10 @@ definitions:
     RoleInfo:
         description: The response data of role information | 角色信息
         properties:
+            code:
+                description: Role code | 角色码
+                type: string
+                x-go-name: Code
             createdAt:
                 description: Create date | 创建日期
                 format: int64
@@ -2108,10 +2110,6 @@ definitions:
                 format: int64
                 type: integer
                 x-go-name: UpdatedAt
-            value:
-                description: Value | 角色值
-                type: string
-                x-go-name: Value
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     RoleInfoResp:
@@ -2378,8 +2376,6 @@ definitions:
                 description: User's nickname | 用户的昵称
                 type: string
                 x-go-name: Nickname
-            roles:
-                $ref: '#/definitions/UserRoleInfo'
             userId:
                 description: User's UUID | 用户的UUID
                 type: string
@@ -2459,19 +2455,13 @@ definitions:
                 format: uint64
                 type: integer
                 x-go-name: PositionId
-            roleId:
+            roleIds:
                 description: RoleId | 角色ID
-                format: uint64
-                type: integer
-                x-go-name: RoleId
-            roleName:
-                description: RoleName | 角色名称
-                type: string
-                x-go-name: RoleName
-            roleValue:
-                description: RoleValue | 角色值
-                type: string
-                x-go-name: RoleValue
+                items:
+                    format: uint64
+                    type: integer
+                type: array
+                x-go-name: RoleIds
             status:
                 description: Status | 状态
                 format: uint32
@@ -2595,19 +2585,6 @@ definitions:
                 description: Message | 提示信息
                 type: string
                 x-go-name: Msg
-        type: object
-        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-    UserRoleInfo:
-        description: The response data of user's basic role information | 用户角色信息数据
-        properties:
-            roleName:
-                description: Role name | 角色名
-                type: string
-                x-go-name: RoleName
-            value:
-                description: Role value for permission control | 角色值用于前端页面组件显示权限
-                type: string
-                x-go-name: Value
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
 host: localhost:9100

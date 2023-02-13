@@ -393,20 +393,16 @@ func init() {
 	userDescHomePath := userFields[4].Descriptor()
 	// user.DefaultHomePath holds the default value on creation for the home_path field.
 	user.DefaultHomePath = userDescHomePath.Default.(string)
-	// userDescRoleID is the schema descriptor for role_id field.
-	userDescRoleID := userFields[5].Descriptor()
-	// user.DefaultRoleID holds the default value on creation for the role_id field.
-	user.DefaultRoleID = userDescRoleID.Default.(uint64)
 	// userDescAvatar is the schema descriptor for avatar field.
-	userDescAvatar := userFields[8].Descriptor()
+	userDescAvatar := userFields[7].Descriptor()
 	// user.DefaultAvatar holds the default value on creation for the avatar field.
 	user.DefaultAvatar = userDescAvatar.Default.(string)
 	// userDescDepartmentID is the schema descriptor for department_id field.
-	userDescDepartmentID := userFields[9].Descriptor()
+	userDescDepartmentID := userFields[8].Descriptor()
 	// user.DefaultDepartmentID holds the default value on creation for the department_id field.
 	user.DefaultDepartmentID = userDescDepartmentID.Default.(uint64)
 	// userDescPositionID is the schema descriptor for position_id field.
-	userDescPositionID := userFields[10].Descriptor()
+	userDescPositionID := userFields[9].Descriptor()
 	// user.DefaultPositionID holds the default value on creation for the position_id field.
 	user.DefaultPositionID = userDescPositionID.Default.(uint64)
 	// userDescID is the schema descriptor for id field.

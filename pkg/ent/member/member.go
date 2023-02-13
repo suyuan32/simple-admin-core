@@ -33,17 +33,17 @@ const (
 	FieldEmail = "email"
 	// FieldAvatar holds the string denoting the avatar field in the database.
 	FieldAvatar = "avatar"
-	// EdgeRank holds the string denoting the rank edge name in mutations.
-	EdgeRank = "rank"
+	// EdgeRanks holds the string denoting the ranks edge name in mutations.
+	EdgeRanks = "ranks"
 	// Table holds the table name of the member in the database.
 	Table = "core_mms_members"
-	// RankTable is the table that holds the rank relation/edge.
-	RankTable = "core_mms_members"
-	// RankInverseTable is the table name for the MemberRank entity.
+	// RanksTable is the table that holds the ranks relation/edge.
+	RanksTable = "core_mms_members"
+	// RanksInverseTable is the table name for the MemberRank entity.
 	// It exists in this package in order to avoid circular dependency with the "memberrank" package.
-	RankInverseTable = "core_mms_rank"
-	// RankColumn is the table column denoting the rank relation/edge.
-	RankColumn = "rank_id"
+	RanksInverseTable = "core_mms_rank"
+	// RanksColumn is the table column denoting the ranks relation/edge.
+	RanksColumn = "rank_id"
 )
 
 // Columns holds all SQL columns for member fields.

@@ -22,6 +22,8 @@ type MemberRank struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// Rank name | 等级名称
 	Name string `json:"name,omitempty"`
+	// Rank code | 等级码
+	Code string `json:"code,omitempty"`
 	// Rank description | 等级描述
 	Description string `json:"description,omitempty"`
 	// Remark | 备注
@@ -33,20 +35,20 @@ type MemberRank struct {
 
 // MemberRankEdges holds the relations/edges for other nodes in the graph.
 type MemberRankEdges struct {
-	// Member holds the value of the member edge.
-	Member []*Member `json:"member,omitempty"`
+	// Members holds the value of the members edge.
+	Members []*Member `json:"members,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// MemberOrErr returns the Member value or an error if the edge
+// MembersOrErr returns the Members value or an error if the edge
 // was not loaded in eager-loading.
-func (e MemberRankEdges) MemberOrErr() ([]*Member, error) {
+func (e MemberRankEdges) MembersOrErr() ([]*Member, error) {
 	if e.loadedTypes[0] {
-		return e.Member, nil
+		return e.Members, nil
 	}
-	return nil, &NotLoadedError{edge: "member"}
+	return nil, &NotLoadedError{edge: "members"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -56,7 +58,7 @@ func (*MemberRank) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case memberrank.FieldID:
 			values[i] = new(sql.NullInt64)
-		case memberrank.FieldName, memberrank.FieldDescription, memberrank.FieldRemark:
+		case memberrank.FieldName, memberrank.FieldCode, memberrank.FieldDescription, memberrank.FieldRemark:
 			values[i] = new(sql.NullString)
 		case memberrank.FieldCreatedAt, memberrank.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -99,6 +101,12 @@ func (mr *MemberRank) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				mr.Name = value.String
 			}
+		case memberrank.FieldCode:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field code", values[i])
+			} else if value.Valid {
+				mr.Code = value.String
+			}
 		case memberrank.FieldDescription:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field description", values[i])
@@ -116,9 +124,9 @@ func (mr *MemberRank) assignValues(columns []string, values []any) error {
 	return nil
 }
 
-// QueryMember queries the "member" edge of the MemberRank entity.
-func (mr *MemberRank) QueryMember() *MemberQuery {
-	return NewMemberRankClient(mr.config).QueryMember(mr)
+// QueryMembers queries the "members" edge of the MemberRank entity.
+func (mr *MemberRank) QueryMembers() *MemberQuery {
+	return NewMemberRankClient(mr.config).QueryMembers(mr)
 }
 
 // Update returns a builder for updating this MemberRank.
@@ -152,6 +160,9 @@ func (mr *MemberRank) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("name=")
 	builder.WriteString(mr.Name)
+	builder.WriteString(", ")
+	builder.WriteString("code=")
+	builder.WriteString(mr.Code)
 	builder.WriteString(", ")
 	builder.WriteString("description=")
 	builder.WriteString(mr.Description)

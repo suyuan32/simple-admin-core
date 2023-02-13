@@ -160,9 +160,23 @@ func (mu *MemberUpdate) ClearAvatar() *MemberUpdate {
 	return mu
 }
 
-// SetRank sets the "rank" edge to the MemberRank entity.
-func (mu *MemberUpdate) SetRank(m *MemberRank) *MemberUpdate {
-	return mu.SetRankID(m.ID)
+// SetRanksID sets the "ranks" edge to the MemberRank entity by ID.
+func (mu *MemberUpdate) SetRanksID(id uint64) *MemberUpdate {
+	mu.mutation.SetRanksID(id)
+	return mu
+}
+
+// SetNillableRanksID sets the "ranks" edge to the MemberRank entity by ID if the given value is not nil.
+func (mu *MemberUpdate) SetNillableRanksID(id *uint64) *MemberUpdate {
+	if id != nil {
+		mu = mu.SetRanksID(*id)
+	}
+	return mu
+}
+
+// SetRanks sets the "ranks" edge to the MemberRank entity.
+func (mu *MemberUpdate) SetRanks(m *MemberRank) *MemberUpdate {
+	return mu.SetRanksID(m.ID)
 }
 
 // Mutation returns the MemberMutation object of the builder.
@@ -170,9 +184,9 @@ func (mu *MemberUpdate) Mutation() *MemberMutation {
 	return mu.mutation
 }
 
-// ClearRank clears the "rank" edge to the MemberRank entity.
-func (mu *MemberUpdate) ClearRank() *MemberUpdate {
-	mu.mutation.ClearRank()
+// ClearRanks clears the "ranks" edge to the MemberRank entity.
+func (mu *MemberUpdate) ClearRanks() *MemberUpdate {
+	mu.mutation.ClearRanks()
 	return mu
 }
 
@@ -269,12 +283,12 @@ func (mu *MemberUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if mu.mutation.AvatarCleared() {
 		_spec.ClearField(member.FieldAvatar, field.TypeString)
 	}
-	if mu.mutation.RankCleared() {
+	if mu.mutation.RanksCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   member.RankTable,
-			Columns: []string{member.RankColumn},
+			Table:   member.RanksTable,
+			Columns: []string{member.RanksColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -285,12 +299,12 @@ func (mu *MemberUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := mu.mutation.RankIDs(); len(nodes) > 0 {
+	if nodes := mu.mutation.RanksIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   member.RankTable,
-			Columns: []string{member.RankColumn},
+			Table:   member.RanksTable,
+			Columns: []string{member.RanksColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -455,9 +469,23 @@ func (muo *MemberUpdateOne) ClearAvatar() *MemberUpdateOne {
 	return muo
 }
 
-// SetRank sets the "rank" edge to the MemberRank entity.
-func (muo *MemberUpdateOne) SetRank(m *MemberRank) *MemberUpdateOne {
-	return muo.SetRankID(m.ID)
+// SetRanksID sets the "ranks" edge to the MemberRank entity by ID.
+func (muo *MemberUpdateOne) SetRanksID(id uint64) *MemberUpdateOne {
+	muo.mutation.SetRanksID(id)
+	return muo
+}
+
+// SetNillableRanksID sets the "ranks" edge to the MemberRank entity by ID if the given value is not nil.
+func (muo *MemberUpdateOne) SetNillableRanksID(id *uint64) *MemberUpdateOne {
+	if id != nil {
+		muo = muo.SetRanksID(*id)
+	}
+	return muo
+}
+
+// SetRanks sets the "ranks" edge to the MemberRank entity.
+func (muo *MemberUpdateOne) SetRanks(m *MemberRank) *MemberUpdateOne {
+	return muo.SetRanksID(m.ID)
 }
 
 // Mutation returns the MemberMutation object of the builder.
@@ -465,9 +493,9 @@ func (muo *MemberUpdateOne) Mutation() *MemberMutation {
 	return muo.mutation
 }
 
-// ClearRank clears the "rank" edge to the MemberRank entity.
-func (muo *MemberUpdateOne) ClearRank() *MemberUpdateOne {
-	muo.mutation.ClearRank()
+// ClearRanks clears the "ranks" edge to the MemberRank entity.
+func (muo *MemberUpdateOne) ClearRanks() *MemberUpdateOne {
+	muo.mutation.ClearRanks()
 	return muo
 }
 
@@ -588,12 +616,12 @@ func (muo *MemberUpdateOne) sqlSave(ctx context.Context) (_node *Member, err err
 	if muo.mutation.AvatarCleared() {
 		_spec.ClearField(member.FieldAvatar, field.TypeString)
 	}
-	if muo.mutation.RankCleared() {
+	if muo.mutation.RanksCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   member.RankTable,
-			Columns: []string{member.RankColumn},
+			Table:   member.RanksTable,
+			Columns: []string{member.RanksColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -604,12 +632,12 @@ func (muo *MemberUpdateOne) sqlSave(ctx context.Context) (_node *Member, err err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := muo.mutation.RankIDs(); len(nodes) > 0 {
+	if nodes := muo.mutation.RanksIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   member.RankTable,
-			Columns: []string{member.RankColumn},
+			Table:   member.RanksTable,
+			Columns: []string{member.RanksColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

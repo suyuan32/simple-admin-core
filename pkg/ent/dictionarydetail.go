@@ -40,24 +40,24 @@ type DictionaryDetail struct {
 
 // DictionaryDetailEdges holds the relations/edges for other nodes in the graph.
 type DictionaryDetailEdges struct {
-	// Dictionary holds the value of the dictionary edge.
-	Dictionary *Dictionary `json:"dictionary,omitempty"`
+	// Dictionaries holds the value of the dictionaries edge.
+	Dictionaries *Dictionary `json:"dictionaries,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// DictionaryOrErr returns the Dictionary value or an error if the edge
+// DictionariesOrErr returns the Dictionaries value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e DictionaryDetailEdges) DictionaryOrErr() (*Dictionary, error) {
+func (e DictionaryDetailEdges) DictionariesOrErr() (*Dictionary, error) {
 	if e.loadedTypes[0] {
-		if e.Dictionary == nil {
+		if e.Dictionaries == nil {
 			// Edge was loaded but was not found.
 			return nil, &NotFoundError{label: dictionary.Label}
 		}
-		return e.Dictionary, nil
+		return e.Dictionaries, nil
 	}
-	return nil, &NotLoadedError{edge: "dictionary"}
+	return nil, &NotLoadedError{edge: "dictionaries"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -145,9 +145,9 @@ func (dd *DictionaryDetail) assignValues(columns []string, values []any) error {
 	return nil
 }
 
-// QueryDictionary queries the "dictionary" edge of the DictionaryDetail entity.
-func (dd *DictionaryDetail) QueryDictionary() *DictionaryQuery {
-	return NewDictionaryDetailClient(dd.config).QueryDictionary(dd)
+// QueryDictionaries queries the "dictionaries" edge of the DictionaryDetail entity.
+func (dd *DictionaryDetail) QueryDictionaries() *DictionaryQuery {
+	return NewDictionaryDetailClient(dd.config).QueryDictionaries(dd)
 }
 
 // Update returns a builder for updating this DictionaryDetail.

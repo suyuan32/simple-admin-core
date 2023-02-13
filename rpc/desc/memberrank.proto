@@ -9,6 +9,7 @@ message MemberRankInfo {
   string name = 4;
   string description = 5;
   string remark = 6;
+  string code = 7;
 }
 
 message MemberRankListResp {

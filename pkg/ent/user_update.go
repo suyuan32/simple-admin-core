@@ -14,6 +14,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
@@ -112,33 +113,6 @@ func (uu *UserUpdate) SetNillableHomePath(s *string) *UserUpdate {
 	if s != nil {
 		uu.SetHomePath(*s)
 	}
-	return uu
-}
-
-// SetRoleID sets the "role_id" field.
-func (uu *UserUpdate) SetRoleID(u uint64) *UserUpdate {
-	uu.mutation.ResetRoleID()
-	uu.mutation.SetRoleID(u)
-	return uu
-}
-
-// SetNillableRoleID sets the "role_id" field if the given value is not nil.
-func (uu *UserUpdate) SetNillableRoleID(u *uint64) *UserUpdate {
-	if u != nil {
-		uu.SetRoleID(*u)
-	}
-	return uu
-}
-
-// AddRoleID adds u to the "role_id" field.
-func (uu *UserUpdate) AddRoleID(u int64) *UserUpdate {
-	uu.mutation.AddRoleID(u)
-	return uu
-}
-
-// ClearRoleID clears the value of the "role_id" field.
-func (uu *UserUpdate) ClearRoleID() *UserUpdate {
-	uu.mutation.ClearRoleID()
 	return uu
 }
 
@@ -242,14 +216,57 @@ func (uu *UserUpdate) ClearPositionID() *UserUpdate {
 	return uu
 }
 
-// SetDepartment sets the "department" edge to the Department entity.
-func (uu *UserUpdate) SetDepartment(d *Department) *UserUpdate {
-	return uu.SetDepartmentID(d.ID)
+// SetDepartmentsID sets the "departments" edge to the Department entity by ID.
+func (uu *UserUpdate) SetDepartmentsID(id uint64) *UserUpdate {
+	uu.mutation.SetDepartmentsID(id)
+	return uu
 }
 
-// SetPosition sets the "position" edge to the Position entity.
-func (uu *UserUpdate) SetPosition(p *Position) *UserUpdate {
-	return uu.SetPositionID(p.ID)
+// SetNillableDepartmentsID sets the "departments" edge to the Department entity by ID if the given value is not nil.
+func (uu *UserUpdate) SetNillableDepartmentsID(id *uint64) *UserUpdate {
+	if id != nil {
+		uu = uu.SetDepartmentsID(*id)
+	}
+	return uu
+}
+
+// SetDepartments sets the "departments" edge to the Department entity.
+func (uu *UserUpdate) SetDepartments(d *Department) *UserUpdate {
+	return uu.SetDepartmentsID(d.ID)
+}
+
+// SetPositionsID sets the "positions" edge to the Position entity by ID.
+func (uu *UserUpdate) SetPositionsID(id uint64) *UserUpdate {
+	uu.mutation.SetPositionsID(id)
+	return uu
+}
+
+// SetNillablePositionsID sets the "positions" edge to the Position entity by ID if the given value is not nil.
+func (uu *UserUpdate) SetNillablePositionsID(id *uint64) *UserUpdate {
+	if id != nil {
+		uu = uu.SetPositionsID(*id)
+	}
+	return uu
+}
+
+// SetPositions sets the "positions" edge to the Position entity.
+func (uu *UserUpdate) SetPositions(p *Position) *UserUpdate {
+	return uu.SetPositionsID(p.ID)
+}
+
+// AddRoleIDs adds the "roles" edge to the Role entity by IDs.
+func (uu *UserUpdate) AddRoleIDs(ids ...uint64) *UserUpdate {
+	uu.mutation.AddRoleIDs(ids...)
+	return uu
+}
+
+// AddRoles adds the "roles" edges to the Role entity.
+func (uu *UserUpdate) AddRoles(r ...*Role) *UserUpdate {
+	ids := make([]uint64, len(r))
+	for i := range r {
+		ids[i] = r[i].ID
+	}
+	return uu.AddRoleIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -257,16 +274,37 @@ func (uu *UserUpdate) Mutation() *UserMutation {
 	return uu.mutation
 }
 
-// ClearDepartment clears the "department" edge to the Department entity.
-func (uu *UserUpdate) ClearDepartment() *UserUpdate {
-	uu.mutation.ClearDepartment()
+// ClearDepartments clears the "departments" edge to the Department entity.
+func (uu *UserUpdate) ClearDepartments() *UserUpdate {
+	uu.mutation.ClearDepartments()
 	return uu
 }
 
-// ClearPosition clears the "position" edge to the Position entity.
-func (uu *UserUpdate) ClearPosition() *UserUpdate {
-	uu.mutation.ClearPosition()
+// ClearPositions clears the "positions" edge to the Position entity.
+func (uu *UserUpdate) ClearPositions() *UserUpdate {
+	uu.mutation.ClearPositions()
 	return uu
+}
+
+// ClearRoles clears all "roles" edges to the Role entity.
+func (uu *UserUpdate) ClearRoles() *UserUpdate {
+	uu.mutation.ClearRoles()
+	return uu
+}
+
+// RemoveRoleIDs removes the "roles" edge to Role entities by IDs.
+func (uu *UserUpdate) RemoveRoleIDs(ids ...uint64) *UserUpdate {
+	uu.mutation.RemoveRoleIDs(ids...)
+	return uu
+}
+
+// RemoveRoles removes "roles" edges to Role entities.
+func (uu *UserUpdate) RemoveRoles(r ...*Role) *UserUpdate {
+	ids := make([]uint64, len(r))
+	for i := range r {
+		ids[i] = r[i].ID
+	}
+	return uu.RemoveRoleIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -353,15 +391,6 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := uu.mutation.HomePath(); ok {
 		_spec.SetField(user.FieldHomePath, field.TypeString, value)
 	}
-	if value, ok := uu.mutation.RoleID(); ok {
-		_spec.SetField(user.FieldRoleID, field.TypeUint64, value)
-	}
-	if value, ok := uu.mutation.AddedRoleID(); ok {
-		_spec.AddField(user.FieldRoleID, field.TypeUint64, value)
-	}
-	if uu.mutation.RoleIDCleared() {
-		_spec.ClearField(user.FieldRoleID, field.TypeUint64)
-	}
 	if value, ok := uu.mutation.Mobile(); ok {
 		_spec.SetField(user.FieldMobile, field.TypeString, value)
 	}
@@ -380,12 +409,12 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if uu.mutation.AvatarCleared() {
 		_spec.ClearField(user.FieldAvatar, field.TypeString)
 	}
-	if uu.mutation.DepartmentCleared() {
+	if uu.mutation.DepartmentsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.DepartmentTable,
-			Columns: []string{user.DepartmentColumn},
+			Table:   user.DepartmentsTable,
+			Columns: []string{user.DepartmentsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -396,12 +425,12 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uu.mutation.DepartmentIDs(); len(nodes) > 0 {
+	if nodes := uu.mutation.DepartmentsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.DepartmentTable,
-			Columns: []string{user.DepartmentColumn},
+			Table:   user.DepartmentsTable,
+			Columns: []string{user.DepartmentsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -415,12 +444,12 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if uu.mutation.PositionCleared() {
+	if uu.mutation.PositionsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.PositionTable,
-			Columns: []string{user.PositionColumn},
+			Table:   user.PositionsTable,
+			Columns: []string{user.PositionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -431,17 +460,71 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uu.mutation.PositionIDs(); len(nodes) > 0 {
+	if nodes := uu.mutation.PositionsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.PositionTable,
-			Columns: []string{user.PositionColumn},
+			Table:   user.PositionsTable,
+			Columns: []string{user.PositionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeUint64,
 					Column: position.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if uu.mutation.RolesCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   user.RolesTable,
+			Columns: user.RolesPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: role.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uu.mutation.RemovedRolesIDs(); len(nodes) > 0 && !uu.mutation.RolesCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   user.RolesTable,
+			Columns: user.RolesPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: role.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uu.mutation.RolesIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   user.RolesTable,
+			Columns: user.RolesPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: role.FieldID,
 				},
 			},
 		}
@@ -555,33 +638,6 @@ func (uuo *UserUpdateOne) SetNillableHomePath(s *string) *UserUpdateOne {
 	return uuo
 }
 
-// SetRoleID sets the "role_id" field.
-func (uuo *UserUpdateOne) SetRoleID(u uint64) *UserUpdateOne {
-	uuo.mutation.ResetRoleID()
-	uuo.mutation.SetRoleID(u)
-	return uuo
-}
-
-// SetNillableRoleID sets the "role_id" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableRoleID(u *uint64) *UserUpdateOne {
-	if u != nil {
-		uuo.SetRoleID(*u)
-	}
-	return uuo
-}
-
-// AddRoleID adds u to the "role_id" field.
-func (uuo *UserUpdateOne) AddRoleID(u int64) *UserUpdateOne {
-	uuo.mutation.AddRoleID(u)
-	return uuo
-}
-
-// ClearRoleID clears the value of the "role_id" field.
-func (uuo *UserUpdateOne) ClearRoleID() *UserUpdateOne {
-	uuo.mutation.ClearRoleID()
-	return uuo
-}
-
 // SetMobile sets the "mobile" field.
 func (uuo *UserUpdateOne) SetMobile(s string) *UserUpdateOne {
 	uuo.mutation.SetMobile(s)
@@ -682,14 +738,57 @@ func (uuo *UserUpdateOne) ClearPositionID() *UserUpdateOne {
 	return uuo
 }
 
-// SetDepartment sets the "department" edge to the Department entity.
-func (uuo *UserUpdateOne) SetDepartment(d *Department) *UserUpdateOne {
-	return uuo.SetDepartmentID(d.ID)
+// SetDepartmentsID sets the "departments" edge to the Department entity by ID.
+func (uuo *UserUpdateOne) SetDepartmentsID(id uint64) *UserUpdateOne {
+	uuo.mutation.SetDepartmentsID(id)
+	return uuo
 }
 
-// SetPosition sets the "position" edge to the Position entity.
-func (uuo *UserUpdateOne) SetPosition(p *Position) *UserUpdateOne {
-	return uuo.SetPositionID(p.ID)
+// SetNillableDepartmentsID sets the "departments" edge to the Department entity by ID if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableDepartmentsID(id *uint64) *UserUpdateOne {
+	if id != nil {
+		uuo = uuo.SetDepartmentsID(*id)
+	}
+	return uuo
+}
+
+// SetDepartments sets the "departments" edge to the Department entity.
+func (uuo *UserUpdateOne) SetDepartments(d *Department) *UserUpdateOne {
+	return uuo.SetDepartmentsID(d.ID)
+}
+
+// SetPositionsID sets the "positions" edge to the Position entity by ID.
+func (uuo *UserUpdateOne) SetPositionsID(id uint64) *UserUpdateOne {
+	uuo.mutation.SetPositionsID(id)
+	return uuo
+}
+
+// SetNillablePositionsID sets the "positions" edge to the Position entity by ID if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillablePositionsID(id *uint64) *UserUpdateOne {
+	if id != nil {
+		uuo = uuo.SetPositionsID(*id)
+	}
+	return uuo
+}
+
+// SetPositions sets the "positions" edge to the Position entity.
+func (uuo *UserUpdateOne) SetPositions(p *Position) *UserUpdateOne {
+	return uuo.SetPositionsID(p.ID)
+}
+
+// AddRoleIDs adds the "roles" edge to the Role entity by IDs.
+func (uuo *UserUpdateOne) AddRoleIDs(ids ...uint64) *UserUpdateOne {
+	uuo.mutation.AddRoleIDs(ids...)
+	return uuo
+}
+
+// AddRoles adds the "roles" edges to the Role entity.
+func (uuo *UserUpdateOne) AddRoles(r ...*Role) *UserUpdateOne {
+	ids := make([]uint64, len(r))
+	for i := range r {
+		ids[i] = r[i].ID
+	}
+	return uuo.AddRoleIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -697,16 +796,37 @@ func (uuo *UserUpdateOne) Mutation() *UserMutation {
 	return uuo.mutation
 }
 
-// ClearDepartment clears the "department" edge to the Department entity.
-func (uuo *UserUpdateOne) ClearDepartment() *UserUpdateOne {
-	uuo.mutation.ClearDepartment()
+// ClearDepartments clears the "departments" edge to the Department entity.
+func (uuo *UserUpdateOne) ClearDepartments() *UserUpdateOne {
+	uuo.mutation.ClearDepartments()
 	return uuo
 }
 
-// ClearPosition clears the "position" edge to the Position entity.
-func (uuo *UserUpdateOne) ClearPosition() *UserUpdateOne {
-	uuo.mutation.ClearPosition()
+// ClearPositions clears the "positions" edge to the Position entity.
+func (uuo *UserUpdateOne) ClearPositions() *UserUpdateOne {
+	uuo.mutation.ClearPositions()
 	return uuo
+}
+
+// ClearRoles clears all "roles" edges to the Role entity.
+func (uuo *UserUpdateOne) ClearRoles() *UserUpdateOne {
+	uuo.mutation.ClearRoles()
+	return uuo
+}
+
+// RemoveRoleIDs removes the "roles" edge to Role entities by IDs.
+func (uuo *UserUpdateOne) RemoveRoleIDs(ids ...uint64) *UserUpdateOne {
+	uuo.mutation.RemoveRoleIDs(ids...)
+	return uuo
+}
+
+// RemoveRoles removes "roles" edges to Role entities.
+func (uuo *UserUpdateOne) RemoveRoles(r ...*Role) *UserUpdateOne {
+	ids := make([]uint64, len(r))
+	for i := range r {
+		ids[i] = r[i].ID
+	}
+	return uuo.RemoveRoleIDs(ids...)
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
@@ -817,15 +937,6 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	if value, ok := uuo.mutation.HomePath(); ok {
 		_spec.SetField(user.FieldHomePath, field.TypeString, value)
 	}
-	if value, ok := uuo.mutation.RoleID(); ok {
-		_spec.SetField(user.FieldRoleID, field.TypeUint64, value)
-	}
-	if value, ok := uuo.mutation.AddedRoleID(); ok {
-		_spec.AddField(user.FieldRoleID, field.TypeUint64, value)
-	}
-	if uuo.mutation.RoleIDCleared() {
-		_spec.ClearField(user.FieldRoleID, field.TypeUint64)
-	}
 	if value, ok := uuo.mutation.Mobile(); ok {
 		_spec.SetField(user.FieldMobile, field.TypeString, value)
 	}
@@ -844,12 +955,12 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	if uuo.mutation.AvatarCleared() {
 		_spec.ClearField(user.FieldAvatar, field.TypeString)
 	}
-	if uuo.mutation.DepartmentCleared() {
+	if uuo.mutation.DepartmentsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.DepartmentTable,
-			Columns: []string{user.DepartmentColumn},
+			Table:   user.DepartmentsTable,
+			Columns: []string{user.DepartmentsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -860,12 +971,12 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uuo.mutation.DepartmentIDs(); len(nodes) > 0 {
+	if nodes := uuo.mutation.DepartmentsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.DepartmentTable,
-			Columns: []string{user.DepartmentColumn},
+			Table:   user.DepartmentsTable,
+			Columns: []string{user.DepartmentsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -879,12 +990,12 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if uuo.mutation.PositionCleared() {
+	if uuo.mutation.PositionsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.PositionTable,
-			Columns: []string{user.PositionColumn},
+			Table:   user.PositionsTable,
+			Columns: []string{user.PositionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -895,17 +1006,71 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uuo.mutation.PositionIDs(); len(nodes) > 0 {
+	if nodes := uuo.mutation.PositionsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.PositionTable,
-			Columns: []string{user.PositionColumn},
+			Table:   user.PositionsTable,
+			Columns: []string{user.PositionsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeUint64,
 					Column: position.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if uuo.mutation.RolesCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   user.RolesTable,
+			Columns: user.RolesPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: role.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uuo.mutation.RemovedRolesIDs(); len(nodes) > 0 && !uuo.mutation.RolesCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   user.RolesTable,
+			Columns: user.RolesPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: role.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uuo.mutation.RolesIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: false,
+			Table:   user.RolesTable,
+			Columns: user.RolesPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUint64,
+					Column: role.FieldID,
 				},
 			},
 		}

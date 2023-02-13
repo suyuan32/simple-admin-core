@@ -181,9 +181,9 @@ func (s *CoreServer) GetMemberById(ctx context.Context, in *core.UUIDReq) (*core
 	return l.GetMemberById(in)
 }
 
-func (s *CoreServer) MemberLogin(ctx context.Context, in *core.LoginReq) (*core.MemberLoginResp, error) {
-	l := member.NewMemberLoginLogic(ctx, s.svcCtx)
-	return l.MemberLogin(in)
+func (s *CoreServer) GetMemberByUsername(ctx context.Context, in *core.UsernameReq) (*core.MemberInfo, error) {
+	l := member.NewGetMemberByUsernameLogic(ctx, s.svcCtx)
+	return l.GetMemberByUsername(in)
 }
 
 // MemberRank management
@@ -227,7 +227,7 @@ func (s *CoreServer) DeleteMenu(ctx context.Context, in *core.IDReq) (*core.Base
 	return l.DeleteMenu(in)
 }
 
-func (s *CoreServer) GetMenuListByRole(ctx context.Context, in *core.IDReq) (*core.MenuInfoList, error) {
+func (s *CoreServer) GetMenuListByRole(ctx context.Context, in *core.UUIDReq) (*core.MenuInfoList, error) {
 	l := menu.NewGetMenuListByRoleLogic(ctx, s.svcCtx)
 	return l.GetMenuListByRole(in)
 }
@@ -294,7 +294,7 @@ func (s *CoreServer) OauthLogin(ctx context.Context, in *core.OauthLoginReq) (*c
 	return l.OauthLogin(in)
 }
 
-func (s *CoreServer) OauthCallback(ctx context.Context, in *core.CallbackReq) (*core.LoginResp, error) {
+func (s *CoreServer) OauthCallback(ctx context.Context, in *core.CallbackReq) (*core.UserInfo, error) {
 	l := oauthprovider.NewOauthCallbackLogic(ctx, s.svcCtx)
 	return l.OauthCallback(in)
 }
@@ -403,12 +403,12 @@ func (s *CoreServer) GetUserById(ctx context.Context, in *core.UUIDReq) (*core.U
 	return l.GetUserById(in)
 }
 
+func (s *CoreServer) GetUserByUsername(ctx context.Context, in *core.UsernameReq) (*core.UserInfo, error) {
+	l := user.NewGetUserByUsernameLogic(ctx, s.svcCtx)
+	return l.GetUserByUsername(in)
+}
+
 func (s *CoreServer) DeleteUser(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
 	l := user.NewDeleteUserLogic(ctx, s.svcCtx)
 	return l.DeleteUser(in)
-}
-
-func (s *CoreServer) Login(ctx context.Context, in *core.LoginReq) (*core.LoginResp, error) {
-	l := user.NewLoginLogic(ctx, s.svcCtx)
-	return l.Login(in)
 }

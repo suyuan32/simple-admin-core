@@ -50,7 +50,7 @@ func (l *GetRoleByIdLogic) GetRoleById(in *core.IDReq) (*core.RoleInfo, error) {
 		UpdatedAt:     result.UpdatedAt.UnixMilli(),
 		Status:        uint32(result.Status),
 		Name:          result.Name,
-		Value:         result.Value,
+		Code:          result.Code,
 		DefaultRouter: result.DefaultRouter,
 		Remark:        result.Remark,
 		Sort:          result.Sort,

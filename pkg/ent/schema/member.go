@@ -41,7 +41,7 @@ func (Member) Mixin() []ent.Mixin {
 
 func (Member) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("rank", MemberRank.Type).Unique().Field("rank_id"),
+		edge.To("ranks", MemberRank.Type).Unique().Field("rank_id"),
 	}
 }
 

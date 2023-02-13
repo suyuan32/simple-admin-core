@@ -515,6 +515,22 @@ func (mr *MemberRankUpdateOne) SetNotEmptyName(value string) *MemberRankUpdateOn
 }
 
 // set field if value is not empty. e.g. string does not equal to ""
+func (mr *MemberRankUpdate) SetNotEmptyCode(value string) *MemberRankUpdate {
+	if value != "" {
+		return mr.SetCode(value)
+	}
+	return mr
+}
+
+// set field if value is not empty. e.g. string does not equal to ""
+func (mr *MemberRankUpdateOne) SetNotEmptyCode(value string) *MemberRankUpdateOne {
+	if value != "" {
+		return mr.SetCode(value)
+	}
+	return mr
+}
+
+// set field if value is not empty. e.g. string does not equal to ""
 func (mr *MemberRankUpdate) SetNotEmptyDescription(value string) *MemberRankUpdate {
 	if value != "" {
 		return mr.SetDescription(value)
@@ -1075,17 +1091,17 @@ func (r *RoleUpdateOne) SetNotEmptyName(value string) *RoleUpdateOne {
 }
 
 // set field if value is not empty. e.g. string does not equal to ""
-func (r *RoleUpdate) SetNotEmptyValue(value string) *RoleUpdate {
+func (r *RoleUpdate) SetNotEmptyCode(value string) *RoleUpdate {
 	if value != "" {
-		return r.SetValue(value)
+		return r.SetCode(value)
 	}
 	return r
 }
 
 // set field if value is not empty. e.g. string does not equal to ""
-func (r *RoleUpdateOne) SetNotEmptyValue(value string) *RoleUpdateOne {
+func (r *RoleUpdateOne) SetNotEmptyCode(value string) *RoleUpdateOne {
 	if value != "" {
-		return r.SetValue(value)
+		return r.SetCode(value)
 	}
 	return r
 }
@@ -1278,22 +1294,6 @@ func (u *UserUpdate) SetNotEmptyHomePath(value string) *UserUpdate {
 func (u *UserUpdateOne) SetNotEmptyHomePath(value string) *UserUpdateOne {
 	if value != "" {
 		return u.SetHomePath(value)
-	}
-	return u
-}
-
-// set field if value is not empty. e.g. string does not equal to ""
-func (u *UserUpdate) SetNotEmptyRoleID(value uint64) *UserUpdate {
-	if value != 0 {
-		return u.SetRoleID(value)
-	}
-	return u
-}
-
-// set field if value is not empty. e.g. string does not equal to ""
-func (u *UserUpdateOne) SetNotEmptyRoleID(value uint64) *UserUpdateOne {
-	if value != 0 {
-		return u.SetRoleID(value)
 	}
 	return u
 }

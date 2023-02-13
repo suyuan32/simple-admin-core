@@ -23,7 +23,7 @@ type PositionQuery struct {
 	order      []OrderFunc
 	inters     []Interceptor
 	predicates []predicate.Position
-	withUser   *UserQuery
+	withUsers  *UserQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -60,8 +60,8 @@ func (pq *PositionQuery) Order(o ...OrderFunc) *PositionQuery {
 	return pq
 }
 
-// QueryUser chains the current query on the "user" edge.
-func (pq *PositionQuery) QueryUser() *UserQuery {
+// QueryUsers chains the current query on the "users" edge.
+func (pq *PositionQuery) QueryUsers() *UserQuery {
 	query := (&UserClient{config: pq.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := pq.prepareQuery(ctx); err != nil {
@@ -74,7 +74,7 @@ func (pq *PositionQuery) QueryUser() *UserQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(position.Table, position.FieldID, selector),
 			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, true, position.UserTable, position.UserColumn),
+			sqlgraph.Edge(sqlgraph.O2M, true, position.UsersTable, position.UsersColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
 		return fromU, nil
@@ -272,21 +272,21 @@ func (pq *PositionQuery) Clone() *PositionQuery {
 		order:      append([]OrderFunc{}, pq.order...),
 		inters:     append([]Interceptor{}, pq.inters...),
 		predicates: append([]predicate.Position{}, pq.predicates...),
-		withUser:   pq.withUser.Clone(),
+		withUsers:  pq.withUsers.Clone(),
 		// clone intermediate query.
 		sql:  pq.sql.Clone(),
 		path: pq.path,
 	}
 }
 
-// WithUser tells the query-builder to eager-load the nodes that are connected to
-// the "user" edge. The optional arguments are used to configure the query builder of the edge.
-func (pq *PositionQuery) WithUser(opts ...func(*UserQuery)) *PositionQuery {
+// WithUsers tells the query-builder to eager-load the nodes that are connected to
+// the "users" edge. The optional arguments are used to configure the query builder of the edge.
+func (pq *PositionQuery) WithUsers(opts ...func(*UserQuery)) *PositionQuery {
 	query := (&UserClient{config: pq.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	pq.withUser = query
+	pq.withUsers = query
 	return pq
 }
 
@@ -369,7 +369,7 @@ func (pq *PositionQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Pos
 		nodes       = []*Position{}
 		_spec       = pq.querySpec()
 		loadedTypes = [1]bool{
-			pq.withUser != nil,
+			pq.withUsers != nil,
 		}
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
@@ -390,17 +390,17 @@ func (pq *PositionQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Pos
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := pq.withUser; query != nil {
-		if err := pq.loadUser(ctx, query, nodes,
-			func(n *Position) { n.Edges.User = []*User{} },
-			func(n *Position, e *User) { n.Edges.User = append(n.Edges.User, e) }); err != nil {
+	if query := pq.withUsers; query != nil {
+		if err := pq.loadUsers(ctx, query, nodes,
+			func(n *Position) { n.Edges.Users = []*User{} },
+			func(n *Position, e *User) { n.Edges.Users = append(n.Edges.Users, e) }); err != nil {
 			return nil, err
 		}
 	}
 	return nodes, nil
 }
 
-func (pq *PositionQuery) loadUser(ctx context.Context, query *UserQuery, nodes []*Position, init func(*Position), assign func(*Position, *User)) error {
+func (pq *PositionQuery) loadUsers(ctx context.Context, query *UserQuery, nodes []*Position, init func(*Position), assign func(*Position, *User)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[uint64]*Position)
 	for i := range nodes {
@@ -411,7 +411,7 @@ func (pq *PositionQuery) loadUser(ctx context.Context, query *UserQuery, nodes [
 		}
 	}
 	query.Where(predicate.User(func(s *sql.Selector) {
-		s.Where(sql.InValues(position.UserColumn, fks...))
+		s.Where(sql.InValues(position.UsersColumn, fks...))
 	}))
 	neighbors, err := query.All(ctx)
 	if err != nil {

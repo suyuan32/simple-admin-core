@@ -42,6 +42,12 @@ func (mru *MemberRankUpdate) SetName(s string) *MemberRankUpdate {
 	return mru
 }
 
+// SetCode sets the "code" field.
+func (mru *MemberRankUpdate) SetCode(s string) *MemberRankUpdate {
+	mru.mutation.SetCode(s)
+	return mru
+}
+
 // SetDescription sets the "description" field.
 func (mru *MemberRankUpdate) SetDescription(s string) *MemberRankUpdate {
 	mru.mutation.SetDescription(s)
@@ -54,14 +60,14 @@ func (mru *MemberRankUpdate) SetRemark(s string) *MemberRankUpdate {
 	return mru
 }
 
-// AddMemberIDs adds the "member" edge to the Member entity by IDs.
+// AddMemberIDs adds the "members" edge to the Member entity by IDs.
 func (mru *MemberRankUpdate) AddMemberIDs(ids ...uuid.UUID) *MemberRankUpdate {
 	mru.mutation.AddMemberIDs(ids...)
 	return mru
 }
 
-// AddMember adds the "member" edges to the Member entity.
-func (mru *MemberRankUpdate) AddMember(m ...*Member) *MemberRankUpdate {
+// AddMembers adds the "members" edges to the Member entity.
+func (mru *MemberRankUpdate) AddMembers(m ...*Member) *MemberRankUpdate {
 	ids := make([]uuid.UUID, len(m))
 	for i := range m {
 		ids[i] = m[i].ID
@@ -74,20 +80,20 @@ func (mru *MemberRankUpdate) Mutation() *MemberRankMutation {
 	return mru.mutation
 }
 
-// ClearMember clears all "member" edges to the Member entity.
-func (mru *MemberRankUpdate) ClearMember() *MemberRankUpdate {
-	mru.mutation.ClearMember()
+// ClearMembers clears all "members" edges to the Member entity.
+func (mru *MemberRankUpdate) ClearMembers() *MemberRankUpdate {
+	mru.mutation.ClearMembers()
 	return mru
 }
 
-// RemoveMemberIDs removes the "member" edge to Member entities by IDs.
+// RemoveMemberIDs removes the "members" edge to Member entities by IDs.
 func (mru *MemberRankUpdate) RemoveMemberIDs(ids ...uuid.UUID) *MemberRankUpdate {
 	mru.mutation.RemoveMemberIDs(ids...)
 	return mru
 }
 
-// RemoveMember removes "member" edges to Member entities.
-func (mru *MemberRankUpdate) RemoveMember(m ...*Member) *MemberRankUpdate {
+// RemoveMembers removes "members" edges to Member entities.
+func (mru *MemberRankUpdate) RemoveMembers(m ...*Member) *MemberRankUpdate {
 	ids := make([]uuid.UUID, len(m))
 	for i := range m {
 		ids[i] = m[i].ID
@@ -155,18 +161,21 @@ func (mru *MemberRankUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := mru.mutation.Name(); ok {
 		_spec.SetField(memberrank.FieldName, field.TypeString, value)
 	}
+	if value, ok := mru.mutation.Code(); ok {
+		_spec.SetField(memberrank.FieldCode, field.TypeString, value)
+	}
 	if value, ok := mru.mutation.Description(); ok {
 		_spec.SetField(memberrank.FieldDescription, field.TypeString, value)
 	}
 	if value, ok := mru.mutation.Remark(); ok {
 		_spec.SetField(memberrank.FieldRemark, field.TypeString, value)
 	}
-	if mru.mutation.MemberCleared() {
+	if mru.mutation.MembersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
-			Table:   memberrank.MemberTable,
-			Columns: []string{memberrank.MemberColumn},
+			Table:   memberrank.MembersTable,
+			Columns: []string{memberrank.MembersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -177,12 +186,12 @@ func (mru *MemberRankUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := mru.mutation.RemovedMemberIDs(); len(nodes) > 0 && !mru.mutation.MemberCleared() {
+	if nodes := mru.mutation.RemovedMembersIDs(); len(nodes) > 0 && !mru.mutation.MembersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
-			Table:   memberrank.MemberTable,
-			Columns: []string{memberrank.MemberColumn},
+			Table:   memberrank.MembersTable,
+			Columns: []string{memberrank.MembersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -196,12 +205,12 @@ func (mru *MemberRankUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := mru.mutation.MemberIDs(); len(nodes) > 0 {
+	if nodes := mru.mutation.MembersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
-			Table:   memberrank.MemberTable,
-			Columns: []string{memberrank.MemberColumn},
+			Table:   memberrank.MembersTable,
+			Columns: []string{memberrank.MembersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -247,6 +256,12 @@ func (mruo *MemberRankUpdateOne) SetName(s string) *MemberRankUpdateOne {
 	return mruo
 }
 
+// SetCode sets the "code" field.
+func (mruo *MemberRankUpdateOne) SetCode(s string) *MemberRankUpdateOne {
+	mruo.mutation.SetCode(s)
+	return mruo
+}
+
 // SetDescription sets the "description" field.
 func (mruo *MemberRankUpdateOne) SetDescription(s string) *MemberRankUpdateOne {
 	mruo.mutation.SetDescription(s)
@@ -259,14 +274,14 @@ func (mruo *MemberRankUpdateOne) SetRemark(s string) *MemberRankUpdateOne {
 	return mruo
 }
 
-// AddMemberIDs adds the "member" edge to the Member entity by IDs.
+// AddMemberIDs adds the "members" edge to the Member entity by IDs.
 func (mruo *MemberRankUpdateOne) AddMemberIDs(ids ...uuid.UUID) *MemberRankUpdateOne {
 	mruo.mutation.AddMemberIDs(ids...)
 	return mruo
 }
 
-// AddMember adds the "member" edges to the Member entity.
-func (mruo *MemberRankUpdateOne) AddMember(m ...*Member) *MemberRankUpdateOne {
+// AddMembers adds the "members" edges to the Member entity.
+func (mruo *MemberRankUpdateOne) AddMembers(m ...*Member) *MemberRankUpdateOne {
 	ids := make([]uuid.UUID, len(m))
 	for i := range m {
 		ids[i] = m[i].ID
@@ -279,20 +294,20 @@ func (mruo *MemberRankUpdateOne) Mutation() *MemberRankMutation {
 	return mruo.mutation
 }
 
-// ClearMember clears all "member" edges to the Member entity.
-func (mruo *MemberRankUpdateOne) ClearMember() *MemberRankUpdateOne {
-	mruo.mutation.ClearMember()
+// ClearMembers clears all "members" edges to the Member entity.
+func (mruo *MemberRankUpdateOne) ClearMembers() *MemberRankUpdateOne {
+	mruo.mutation.ClearMembers()
 	return mruo
 }
 
-// RemoveMemberIDs removes the "member" edge to Member entities by IDs.
+// RemoveMemberIDs removes the "members" edge to Member entities by IDs.
 func (mruo *MemberRankUpdateOne) RemoveMemberIDs(ids ...uuid.UUID) *MemberRankUpdateOne {
 	mruo.mutation.RemoveMemberIDs(ids...)
 	return mruo
 }
 
-// RemoveMember removes "member" edges to Member entities.
-func (mruo *MemberRankUpdateOne) RemoveMember(m ...*Member) *MemberRankUpdateOne {
+// RemoveMembers removes "members" edges to Member entities.
+func (mruo *MemberRankUpdateOne) RemoveMembers(m ...*Member) *MemberRankUpdateOne {
 	ids := make([]uuid.UUID, len(m))
 	for i := range m {
 		ids[i] = m[i].ID
@@ -384,18 +399,21 @@ func (mruo *MemberRankUpdateOne) sqlSave(ctx context.Context) (_node *MemberRank
 	if value, ok := mruo.mutation.Name(); ok {
 		_spec.SetField(memberrank.FieldName, field.TypeString, value)
 	}
+	if value, ok := mruo.mutation.Code(); ok {
+		_spec.SetField(memberrank.FieldCode, field.TypeString, value)
+	}
 	if value, ok := mruo.mutation.Description(); ok {
 		_spec.SetField(memberrank.FieldDescription, field.TypeString, value)
 	}
 	if value, ok := mruo.mutation.Remark(); ok {
 		_spec.SetField(memberrank.FieldRemark, field.TypeString, value)
 	}
-	if mruo.mutation.MemberCleared() {
+	if mruo.mutation.MembersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
-			Table:   memberrank.MemberTable,
-			Columns: []string{memberrank.MemberColumn},
+			Table:   memberrank.MembersTable,
+			Columns: []string{memberrank.MembersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -406,12 +424,12 @@ func (mruo *MemberRankUpdateOne) sqlSave(ctx context.Context) (_node *MemberRank
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := mruo.mutation.RemovedMemberIDs(); len(nodes) > 0 && !mruo.mutation.MemberCleared() {
+	if nodes := mruo.mutation.RemovedMembersIDs(); len(nodes) > 0 && !mruo.mutation.MembersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
-			Table:   memberrank.MemberTable,
-			Columns: []string{memberrank.MemberColumn},
+			Table:   memberrank.MembersTable,
+			Columns: []string{memberrank.MembersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -425,12 +443,12 @@ func (mruo *MemberRankUpdateOne) sqlSave(ctx context.Context) (_node *MemberRank
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := mruo.mutation.MemberIDs(); len(nodes) > 0 {
+	if nodes := mruo.mutation.MembersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
-			Table:   memberrank.MemberTable,
-			Columns: []string{memberrank.MemberColumn},
+			Table:   memberrank.MembersTable,
+			Columns: []string{memberrank.MembersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

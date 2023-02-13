@@ -12,7 +12,8 @@
 		"changeStatusFailed": "Change status failed",
 		"targetNotExist": "Target does not exist",
 		"databaseError": "Database error",
-		"redisError": "Redis error"
+		"redisError": "Redis error",
+		"permissionDeny": "User does not have permission to access this interface"
 	},
 	"apiDesc": {
 		"userLogin": "Log in (Required)",

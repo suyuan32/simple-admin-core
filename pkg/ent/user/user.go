@@ -29,8 +29,6 @@ const (
 	FieldDescription = "description"
 	// FieldHomePath holds the string denoting the home_path field in the database.
 	FieldHomePath = "home_path"
-	// FieldRoleID holds the string denoting the role_id field in the database.
-	FieldRoleID = "role_id"
 	// FieldMobile holds the string denoting the mobile field in the database.
 	FieldMobile = "mobile"
 	// FieldEmail holds the string denoting the email field in the database.
@@ -41,26 +39,33 @@ const (
 	FieldDepartmentID = "department_id"
 	// FieldPositionID holds the string denoting the position_id field in the database.
 	FieldPositionID = "position_id"
-	// EdgeDepartment holds the string denoting the department edge name in mutations.
-	EdgeDepartment = "department"
-	// EdgePosition holds the string denoting the position edge name in mutations.
-	EdgePosition = "position"
+	// EdgeDepartments holds the string denoting the departments edge name in mutations.
+	EdgeDepartments = "departments"
+	// EdgePositions holds the string denoting the positions edge name in mutations.
+	EdgePositions = "positions"
+	// EdgeRoles holds the string denoting the roles edge name in mutations.
+	EdgeRoles = "roles"
 	// Table holds the table name of the user in the database.
 	Table = "sys_users"
-	// DepartmentTable is the table that holds the department relation/edge.
-	DepartmentTable = "sys_users"
-	// DepartmentInverseTable is the table name for the Department entity.
+	// DepartmentsTable is the table that holds the departments relation/edge.
+	DepartmentsTable = "sys_users"
+	// DepartmentsInverseTable is the table name for the Department entity.
 	// It exists in this package in order to avoid circular dependency with the "department" package.
-	DepartmentInverseTable = "sys_departments"
-	// DepartmentColumn is the table column denoting the department relation/edge.
-	DepartmentColumn = "department_id"
-	// PositionTable is the table that holds the position relation/edge.
-	PositionTable = "sys_users"
-	// PositionInverseTable is the table name for the Position entity.
+	DepartmentsInverseTable = "sys_departments"
+	// DepartmentsColumn is the table column denoting the departments relation/edge.
+	DepartmentsColumn = "department_id"
+	// PositionsTable is the table that holds the positions relation/edge.
+	PositionsTable = "sys_users"
+	// PositionsInverseTable is the table name for the Position entity.
 	// It exists in this package in order to avoid circular dependency with the "position" package.
-	PositionInverseTable = "sys_positions"
-	// PositionColumn is the table column denoting the position relation/edge.
-	PositionColumn = "position_id"
+	PositionsInverseTable = "sys_positions"
+	// PositionsColumn is the table column denoting the positions relation/edge.
+	PositionsColumn = "position_id"
+	// RolesTable is the table that holds the roles relation/edge. The primary key declared below.
+	RolesTable = "user_roles"
+	// RolesInverseTable is the table name for the Role entity.
+	// It exists in this package in order to avoid circular dependency with the "role" package.
+	RolesInverseTable = "sys_roles"
 )
 
 // Columns holds all SQL columns for user fields.
@@ -74,13 +79,18 @@ var Columns = []string{
 	FieldNickname,
 	FieldDescription,
 	FieldHomePath,
-	FieldRoleID,
 	FieldMobile,
 	FieldEmail,
 	FieldAvatar,
 	FieldDepartmentID,
 	FieldPositionID,
 }
+
+var (
+	// RolesPrimaryKey and RolesColumn2 are the table columns denoting the
+	// primary key for the roles relation (M2M).
+	RolesPrimaryKey = []string{"user_id", "role_id"}
+)
 
 // ValidColumn reports if the column name is valid (part of the table columns).
 func ValidColumn(column string) bool {
@@ -103,8 +113,6 @@ var (
 	DefaultStatus uint8
 	// DefaultHomePath holds the default value on creation for the "home_path" field.
 	DefaultHomePath string
-	// DefaultRoleID holds the default value on creation for the "role_id" field.
-	DefaultRoleID uint64
 	// DefaultAvatar holds the default value on creation for the "avatar" field.
 	DefaultAvatar string
 	// DefaultDepartmentID holds the default value on creation for the "department_id" field.

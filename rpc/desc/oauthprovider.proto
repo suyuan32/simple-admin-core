@@ -62,6 +62,6 @@ service Core {
   // group: oauthprovider
   rpc oauthLogin (OauthLoginReq) returns (OauthRedirectResp);
   // group: oauthprovider
-  rpc oauthCallback (CallbackReq) returns (LoginResp);
+  rpc oauthCallback (CallbackReq) returns (UserInfo);
 
 }

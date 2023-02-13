@@ -45,7 +45,7 @@ func NewOauthCallbackLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Oau
 	}
 }
 
-func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginResp, error) {
+func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo, error) {
 	provider := strings.Split(in.State, "-")[1]
 	if _, ok := providerConfig[provider]; !ok {
 		p, err := l.svcCtx.DB.OauthProvider.Query().Where(oauthprovider.NameEQ(provider)).First(l.ctx)
@@ -90,7 +90,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 	}
 
 	if u.Email != "" {
-		targetUser, err := l.svcCtx.DB.User.Query().Where(user.EmailEQ(u.Email)).First(l.ctx)
+		result, err := l.svcCtx.DB.User.Query().Where(user.EmailEQ(u.Email)).WithRoles().First(l.ctx)
 		if err != nil {
 			switch {
 			case ent.IsNotFound(err):
@@ -102,16 +102,21 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.LoginRes
 			}
 		}
 
-		roleName, roleValue, err := user2.GetRoleInfo(targetUser.RoleID, l.svcCtx.Redis, l.svcCtx.DB, l.ctx)
-		if err != nil {
-			return nil, err
-		}
-
-		return &core.LoginResp{
-			Id:        targetUser.ID.String(),
-			RoleName:  roleName,
-			RoleValue: roleValue,
-			RoleId:    targetUser.RoleID,
+		return &core.UserInfo{
+			Nickname:     result.Nickname,
+			Avatar:       result.Avatar,
+			RoleIds:      user2.GetRoleIds(result.Edges.Roles),
+			RoleCodes:    user2.GetRoleCodes(result.Edges.Roles),
+			Mobile:       result.Mobile,
+			Email:        result.Email,
+			Status:       uint32(result.Status),
+			Id:           result.ID.String(),
+			Username:     result.Username,
+			HomePath:     result.HomePath,
+			Description:  result.Description,
+			DepartmentId: result.DepartmentID,
+			CreatedAt:    result.CreatedAt.Unix(),
+			UpdatedAt:    result.UpdatedAt.Unix(),
 		}, nil
 	}
 

@@ -30,8 +30,6 @@ type (
 	Empty                    = core.Empty
 	IDReq                    = core.IDReq
 	IDsReq                   = core.IDsReq
-	LoginReq                 = core.LoginReq
-	LoginResp                = core.LoginResp
 	MemberInfo               = core.MemberInfo
 	MemberListReq            = core.MemberListReq
 	MemberListResp           = core.MemberListResp
@@ -62,17 +60,15 @@ type (
 	RoleListResp             = core.RoleListResp
 	RoleMenuAuthorityReq     = core.RoleMenuAuthorityReq
 	RoleMenuAuthorityResp    = core.RoleMenuAuthorityResp
-	StatusCodeReq            = core.StatusCodeReq
-	StatusCodeUUIDReq        = core.StatusCodeUUIDReq
 	TokenInfo                = core.TokenInfo
 	TokenListReq             = core.TokenListReq
 	TokenListResp            = core.TokenListResp
 	UUIDReq                  = core.UUIDReq
 	UUIDsReq                 = core.UUIDsReq
-	UpdateProfileReq         = core.UpdateProfileReq
 	UserInfo                 = core.UserInfo
 	UserListReq              = core.UserListReq
 	UserListResp             = core.UserListResp
+	UsernameReq              = core.UsernameReq
 
 	Core interface {
 		// API management
@@ -108,7 +104,7 @@ type (
 		GetMemberList(ctx context.Context, in *MemberListReq, opts ...grpc.CallOption) (*MemberListResp, error)
 		DeleteMember(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMemberById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MemberInfo, error)
-		MemberLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*MemberLoginResp, error)
+		GetMemberByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*MemberInfo, error)
 		// MemberRank management
 		CreateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		UpdateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -118,7 +114,7 @@ type (
 		CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-		GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
+		GetMenuListByRole(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 		GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 		// MenuParam management
 		CreateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -133,7 +129,7 @@ type (
 		GetOauthProviderById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*OauthProviderInfo, error)
 		DeleteOauthProvider(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
-		OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error)
+		OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*UserInfo, error)
 		// Position management
 		CreatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		UpdatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -158,8 +154,8 @@ type (
 		UpdateUser(ctx context.Context, in *UserInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		GetUserList(ctx context.Context, in *UserListReq, opts ...grpc.CallOption) (*UserListResp, error)
 		GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfo, error)
+		GetUserByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*UserInfo, error)
 		DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-		Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 	}
 
 	defaultCore struct {
@@ -318,9 +314,9 @@ func (m *defaultCore) GetMemberById(ctx context.Context, in *UUIDReq, opts ...gr
 	return client.GetMemberById(ctx, in, opts...)
 }
 
-func (m *defaultCore) MemberLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*MemberLoginResp, error) {
+func (m *defaultCore) GetMemberByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*MemberInfo, error) {
 	client := core.NewCoreClient(m.cli.Conn())
-	return client.MemberLogin(ctx, in, opts...)
+	return client.GetMemberByUsername(ctx, in, opts...)
 }
 
 // MemberRank management
@@ -364,7 +360,7 @@ func (m *defaultCore) DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.Ca
 	return client.DeleteMenu(ctx, in, opts...)
 }
 
-func (m *defaultCore) GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
+func (m *defaultCore) GetMenuListByRole(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.GetMenuListByRole(ctx, in, opts...)
 }
@@ -431,7 +427,7 @@ func (m *defaultCore) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ..
 	return client.OauthLogin(ctx, in, opts...)
 }
 
-func (m *defaultCore) OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error) {
+func (m *defaultCore) OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*UserInfo, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.OauthCallback(ctx, in, opts...)
 }
@@ -540,12 +536,12 @@ func (m *defaultCore) GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc
 	return client.GetUserById(ctx, in, opts...)
 }
 
+func (m *defaultCore) GetUserByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*UserInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetUserByUsername(ctx, in, opts...)
+}
+
 func (m *defaultCore) DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteUser(ctx, in, opts...)
-}
-
-func (m *defaultCore) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.Login(ctx, in, opts...)
 }

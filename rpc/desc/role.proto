@@ -8,7 +8,7 @@ message RoleInfo {
   int64 updated_at = 3;
   uint32 status = 4;
   string name = 5;
-  string value = 6;
+  string code = 6;
   string default_router = 7;
   string remark = 8;
   uint32 sort = 9;
@@ -23,7 +23,7 @@ message RoleListReq {
   uint64 page = 1;
   uint64 page_size = 2;
   string name = 3;
-  string value = 4;
+  string code = 4;
   string default_router = 5;
 }
 

@@ -686,24 +686,24 @@ func AvatarContainsFold(v string) predicate.Member {
 	return predicate.Member(sql.FieldContainsFold(FieldAvatar, v))
 }
 
-// HasRank applies the HasEdge predicate on the "rank" edge.
-func HasRank() predicate.Member {
+// HasRanks applies the HasEdge predicate on the "ranks" edge.
+func HasRanks() predicate.Member {
 	return predicate.Member(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, RankTable, RankColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, RanksTable, RanksColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasRankWith applies the HasEdge predicate on the "rank" edge with a given conditions (other predicates).
-func HasRankWith(preds ...predicate.MemberRank) predicate.Member {
+// HasRanksWith applies the HasEdge predicate on the "ranks" edge with a given conditions (other predicates).
+func HasRanksWith(preds ...predicate.MemberRank) predicate.Member {
 	return predicate.Member(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(RankInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, RankTable, RankColumn),
+			sqlgraph.To(RanksInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, RanksTable, RanksColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

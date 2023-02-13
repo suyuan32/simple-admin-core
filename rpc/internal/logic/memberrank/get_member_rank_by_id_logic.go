@@ -51,5 +51,6 @@ func (l *GetMemberRankByIdLogic) GetMemberRankById(in *core.IDReq) (*core.Member
 		Name:        result.Name,
 		Description: result.Description,
 		Remark:      result.Remark,
+		Code:        result.Code,
 	}, nil
 }

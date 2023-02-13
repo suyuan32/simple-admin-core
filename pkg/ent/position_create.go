@@ -102,14 +102,14 @@ func (pc *PositionCreate) SetID(u uint64) *PositionCreate {
 	return pc
 }
 
-// AddUserIDs adds the "user" edge to the User entity by IDs.
+// AddUserIDs adds the "users" edge to the User entity by IDs.
 func (pc *PositionCreate) AddUserIDs(ids ...uuid.UUID) *PositionCreate {
 	pc.mutation.AddUserIDs(ids...)
 	return pc
 }
 
-// AddUser adds the "user" edges to the User entity.
-func (pc *PositionCreate) AddUser(u ...*User) *PositionCreate {
+// AddUsers adds the "users" edges to the User entity.
+func (pc *PositionCreate) AddUsers(u ...*User) *PositionCreate {
 	ids := make([]uuid.UUID, len(u))
 	for i := range u {
 		ids[i] = u[i].ID
@@ -256,12 +256,12 @@ func (pc *PositionCreate) createSpec() (*Position, *sqlgraph.CreateSpec) {
 		_spec.SetField(position.FieldRemark, field.TypeString, value)
 		_node.Remark = value
 	}
-	if nodes := pc.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := pc.mutation.UsersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
-			Table:   position.UserTable,
-			Columns: []string{position.UserColumn},
+			Table:   position.UsersTable,
+			Columns: []string{position.UsersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

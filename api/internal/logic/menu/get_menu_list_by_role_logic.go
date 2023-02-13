@@ -2,7 +2,6 @@ package menu
 
 import (
 	"context"
-	"encoding/json"
 	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -30,8 +29,8 @@ func NewGetMenuListByRoleLogic(r *http.Request, svcCtx *svc.ServiceContext) *Get
 }
 
 func (l *GetMenuListByRoleLogic) GetMenuListByRole() (resp *types.MenuListResp, err error) {
-	roleId, _ := l.ctx.Value("roleId").(json.Number).Int64()
-	data, err := l.svcCtx.CoreRpc.GetMenuListByRole(l.ctx, &core.IDReq{Id: uint64(roleId)})
+	roleId, _ := l.ctx.Value("roleId").(string)
+	data, err := l.svcCtx.CoreRpc.GetMenuListByRole(l.ctx, &core.UUIDReq{Id: roleId})
 	if err != nil {
 		return nil, err
 	}

@@ -24,8 +24,8 @@ type Role struct {
 	Status uint8 `json:"status,omitempty"`
 	// role name | 角色名
 	Name string `json:"name,omitempty"`
-	// role value for permission control in front end | 角色值，用于前端权限控制
-	Value string `json:"value,omitempty"`
+	// role code for permission control in front end | 角色码，用于前端权限控制
+	Code string `json:"code,omitempty"`
 	// default menu : dashboard | 默认登录页面
 	DefaultRouter string `json:"default_router,omitempty"`
 	// remark | 备注
@@ -41,9 +41,11 @@ type Role struct {
 type RoleEdges struct {
 	// Menus holds the value of the menus edge.
 	Menus []*Menu `json:"menus,omitempty"`
+	// Users holds the value of the users edge.
+	Users []*User `json:"users,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [1]bool
+	loadedTypes [2]bool
 }
 
 // MenusOrErr returns the Menus value or an error if the edge
@@ -55,6 +57,15 @@ func (e RoleEdges) MenusOrErr() ([]*Menu, error) {
 	return nil, &NotLoadedError{edge: "menus"}
 }
 
+// UsersOrErr returns the Users value or an error if the edge
+// was not loaded in eager-loading.
+func (e RoleEdges) UsersOrErr() ([]*User, error) {
+	if e.loadedTypes[1] {
+		return e.Users, nil
+	}
+	return nil, &NotLoadedError{edge: "users"}
+}
+
 // scanValues returns the types for scanning values from sql.Rows.
 func (*Role) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
@@ -62,7 +73,7 @@ func (*Role) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case role.FieldID, role.FieldStatus, role.FieldSort:
 			values[i] = new(sql.NullInt64)
-		case role.FieldName, role.FieldValue, role.FieldDefaultRouter, role.FieldRemark:
+		case role.FieldName, role.FieldCode, role.FieldDefaultRouter, role.FieldRemark:
 			values[i] = new(sql.NullString)
 		case role.FieldCreatedAt, role.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -111,11 +122,11 @@ func (r *Role) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				r.Name = value.String
 			}
-		case role.FieldValue:
+		case role.FieldCode:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field value", values[i])
+				return fmt.Errorf("unexpected type %T for field code", values[i])
 			} else if value.Valid {
-				r.Value = value.String
+				r.Code = value.String
 			}
 		case role.FieldDefaultRouter:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -143,6 +154,11 @@ func (r *Role) assignValues(columns []string, values []any) error {
 // QueryMenus queries the "menus" edge of the Role entity.
 func (r *Role) QueryMenus() *MenuQuery {
 	return NewRoleClient(r.config).QueryMenus(r)
+}
+
+// QueryUsers queries the "users" edge of the Role entity.
+func (r *Role) QueryUsers() *UserQuery {
+	return NewRoleClient(r.config).QueryUsers(r)
 }
 
 // Update returns a builder for updating this Role.
@@ -180,8 +196,8 @@ func (r *Role) String() string {
 	builder.WriteString("name=")
 	builder.WriteString(r.Name)
 	builder.WriteString(", ")
-	builder.WriteString("value=")
-	builder.WriteString(r.Value)
+	builder.WriteString("code=")
+	builder.WriteString(r.Code)
 	builder.WriteString(", ")
 	builder.WriteString("default_router=")
 	builder.WriteString(r.DefaultRouter)

@@ -14,8 +14,8 @@ type (
         // Name | 角色名称
         Name  string `json:"name,optional"`
 
-        // Value | 角色值
-        Value  string `json:"value,optional"`
+        // Role code | 角色码
+        Code  string `json:"code,optional"`
 
         // DefaultRouter | 默认首页
         DefaultRouter  string `json:"defaultRouter,optional"`

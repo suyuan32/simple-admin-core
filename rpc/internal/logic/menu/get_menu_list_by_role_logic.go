@@ -2,6 +2,7 @@ package menu
 
 import (
 	"context"
+	"strings"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
@@ -29,9 +30,10 @@ func NewGetMenuListByRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 	}
 }
 
-func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.IDReq) (*core.MenuInfoList, error) {
-	menus, err := l.svcCtx.DB.Role.Query().Where(role.ID(in.Id)).
-		QueryMenus().Where().Order(ent.Asc(menu.FieldSort)).All(l.ctx)
+func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.UUIDReq) (*core.MenuInfoList, error) {
+	roles, err := l.svcCtx.DB.Role.Query().Where(role.CodeIn(strings.Split(in.Id, ",")...)).WithMenus(func(query *ent.MenuQuery) {
+		query.Order(ent.Asc(menu.FieldSort))
+	}).All(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
@@ -44,37 +46,44 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.IDReq) (*core.MenuIn
 	}
 
 	resp := &core.MenuInfoList{}
-	resp.Total = uint64(len(menus))
 
-	for _, v := range menus {
-		resp.Data = append(resp.Data, &core.MenuInfo{
-			Id:        v.ID,
-			CreatedAt: v.CreatedAt.UnixMilli(),
-			UpdatedAt: v.UpdatedAt.UnixMilli(),
-			MenuType:  v.MenuType,
-			Level:     v.MenuLevel,
-			ParentId:  v.ParentID,
-			Path:      v.Path,
-			Name:      v.Name,
-			Redirect:  v.Redirect,
-			Component: v.Component,
-			Sort:      v.Sort,
-			Meta: &core.Meta{
-				Title:              v.Title,
-				Icon:               v.Icon,
-				HideMenu:           v.HideMenu,
-				HideBreadcrumb:     v.HideBreadcrumb,
-				IgnoreKeepAlive:    v.IgnoreKeepAlive,
-				HideTab:            v.HideTab,
-				FrameSrc:           v.FrameSrc,
-				CarryParam:         v.CarryParam,
-				HideChildrenInMenu: v.HideChildrenInMenu,
-				Affix:              v.Affix,
-				DynamicLevel:       v.DynamicLevel,
-				RealPath:           v.RealPath,
-			},
-		})
+	existMap := map[uint64]struct{}{}
+	for _, r := range roles {
+		for _, m := range r.Edges.Menus {
+			if _, ok := existMap[m.ID]; !ok {
+				resp.Data = append(resp.Data, &core.MenuInfo{
+					Id:        m.ID,
+					CreatedAt: m.CreatedAt.UnixMilli(),
+					UpdatedAt: m.UpdatedAt.UnixMilli(),
+					MenuType:  m.MenuType,
+					Level:     m.MenuLevel,
+					ParentId:  m.ParentID,
+					Path:      m.Path,
+					Name:      m.Name,
+					Redirect:  m.Redirect,
+					Component: m.Component,
+					Sort:      m.Sort,
+					Meta: &core.Meta{
+						Title:              m.Title,
+						Icon:               m.Icon,
+						HideMenu:           m.HideMenu,
+						HideBreadcrumb:     m.HideBreadcrumb,
+						IgnoreKeepAlive:    m.IgnoreKeepAlive,
+						HideTab:            m.HideTab,
+						FrameSrc:           m.FrameSrc,
+						CarryParam:         m.CarryParam,
+						HideChildrenInMenu: m.HideChildrenInMenu,
+						Affix:              m.Affix,
+						DynamicLevel:       m.DynamicLevel,
+						RealPath:           m.RealPath,
+					},
+				})
+				existMap[m.ID] = struct{}{}
+			}
+		}
 	}
+
+	resp.Total = uint64(len(resp.Data))
 
 	return resp, nil
 }

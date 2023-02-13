@@ -8,28 +8,27 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
-	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type MemberLoginLogic struct {
+type GetMemberByUsernameLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewMemberLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *MemberLoginLogic {
-	return &MemberLoginLogic{
+func NewGetMemberByUsernameLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMemberByUsernameLogic {
+	return &GetMemberByUsernameLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *MemberLoginLogic) MemberLogin(in *core.LoginReq) (*core.MemberLoginResp, error) {
+func (l *GetMemberByUsernameLogic) GetMemberByUsername(in *core.UsernameReq) (*core.MemberInfo, error) {
 	result, err := l.svcCtx.DB.Member.Query().Where(member.UsernameEQ(in.Username)).First(l.ctx)
 	if err != nil {
 		if ent.IsNotFound(err) {
@@ -40,15 +39,17 @@ func (l *MemberLoginLogic) MemberLogin(in *core.LoginReq) (*core.MemberLoginResp
 		return nil, statuserr.NewInternalError(i18n.DatabaseError)
 	}
 
-	if ok := utils.BcryptCheck(in.Password, result.Password); !ok {
-		logx.Errorw("wrong password", logx.Field("detail", in))
-		return nil, statuserr.NewInvalidArgumentError("login.wrongUsernameOrPassword")
-	}
-
-	return &core.MemberLoginResp{
-		Id:       result.ID.String(),
-		Nickname: result.Nickname,
-		Avatar:   result.Avatar,
-		RankId:   result.RankID,
+	return &core.MemberInfo{
+		Id:        result.ID.String(),
+		CreatedAt: result.CreatedAt.UnixMilli(),
+		UpdatedAt: result.UpdatedAt.UnixMilli(),
+		Status:    uint32(result.Status),
+		Username:  result.Username,
+		Password:  result.Password,
+		Nickname:  result.Nickname,
+		RankId:    result.RankID,
+		Mobile:    result.Mobile,
+		Email:     result.Email,
+		Avatar:    result.Avatar,
 	}, nil
 }

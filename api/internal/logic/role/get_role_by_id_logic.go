@@ -48,7 +48,7 @@ func (l *GetRoleByIdLogic) GetRoleById(req *types.IDReq) (resp *types.RoleInfoRe
 			},
 			Status:        data.Status,
 			Name:          data.Name,
-			Value:         data.Value,
+			Code:          data.Code,
 			DefaultRouter: data.DefaultRouter,
 			Remark:        data.Remark,
 			Sort:          data.Sort,

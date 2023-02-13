@@ -25,7 +25,7 @@ type DepartmentQuery struct {
 	predicates   []predicate.Department
 	withParent   *DepartmentQuery
 	withChildren *DepartmentQuery
-	withUser     *UserQuery
+	withUsers    *UserQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -106,8 +106,8 @@ func (dq *DepartmentQuery) QueryChildren() *DepartmentQuery {
 	return query
 }
 
-// QueryUser chains the current query on the "user" edge.
-func (dq *DepartmentQuery) QueryUser() *UserQuery {
+// QueryUsers chains the current query on the "users" edge.
+func (dq *DepartmentQuery) QueryUsers() *UserQuery {
 	query := (&UserClient{config: dq.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
@@ -120,7 +120,7 @@ func (dq *DepartmentQuery) QueryUser() *UserQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(department.Table, department.FieldID, selector),
 			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, true, department.UserTable, department.UserColumn),
+			sqlgraph.Edge(sqlgraph.O2M, true, department.UsersTable, department.UsersColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -320,7 +320,7 @@ func (dq *DepartmentQuery) Clone() *DepartmentQuery {
 		predicates:   append([]predicate.Department{}, dq.predicates...),
 		withParent:   dq.withParent.Clone(),
 		withChildren: dq.withChildren.Clone(),
-		withUser:     dq.withUser.Clone(),
+		withUsers:    dq.withUsers.Clone(),
 		// clone intermediate query.
 		sql:  dq.sql.Clone(),
 		path: dq.path,
@@ -349,14 +349,14 @@ func (dq *DepartmentQuery) WithChildren(opts ...func(*DepartmentQuery)) *Departm
 	return dq
 }
 
-// WithUser tells the query-builder to eager-load the nodes that are connected to
-// the "user" edge. The optional arguments are used to configure the query builder of the edge.
-func (dq *DepartmentQuery) WithUser(opts ...func(*UserQuery)) *DepartmentQuery {
+// WithUsers tells the query-builder to eager-load the nodes that are connected to
+// the "users" edge. The optional arguments are used to configure the query builder of the edge.
+func (dq *DepartmentQuery) WithUsers(opts ...func(*UserQuery)) *DepartmentQuery {
 	query := (&UserClient{config: dq.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withUser = query
+	dq.withUsers = query
 	return dq
 }
 
@@ -441,7 +441,7 @@ func (dq *DepartmentQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*D
 		loadedTypes = [3]bool{
 			dq.withParent != nil,
 			dq.withChildren != nil,
-			dq.withUser != nil,
+			dq.withUsers != nil,
 		}
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
@@ -475,10 +475,10 @@ func (dq *DepartmentQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*D
 			return nil, err
 		}
 	}
-	if query := dq.withUser; query != nil {
-		if err := dq.loadUser(ctx, query, nodes,
-			func(n *Department) { n.Edges.User = []*User{} },
-			func(n *Department, e *User) { n.Edges.User = append(n.Edges.User, e) }); err != nil {
+	if query := dq.withUsers; query != nil {
+		if err := dq.loadUsers(ctx, query, nodes,
+			func(n *Department) { n.Edges.Users = []*User{} },
+			func(n *Department, e *User) { n.Edges.Users = append(n.Edges.Users, e) }); err != nil {
 			return nil, err
 		}
 	}
@@ -541,7 +541,7 @@ func (dq *DepartmentQuery) loadChildren(ctx context.Context, query *DepartmentQu
 	}
 	return nil
 }
-func (dq *DepartmentQuery) loadUser(ctx context.Context, query *UserQuery, nodes []*Department, init func(*Department), assign func(*Department, *User)) error {
+func (dq *DepartmentQuery) loadUsers(ctx context.Context, query *UserQuery, nodes []*Department, init func(*Department), assign func(*Department, *User)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[uint64]*Department)
 	for i := range nodes {
@@ -552,7 +552,7 @@ func (dq *DepartmentQuery) loadUser(ctx context.Context, query *UserQuery, nodes
 		}
 	}
 	query.Where(predicate.User(func(s *sql.Selector) {
-		s.Where(sql.InValues(department.UserColumn, fks...))
+		s.Where(sql.InValues(department.UsersColumn, fks...))
 	}))
 	neighbors, err := query.All(ctx)
 	if err != nil {

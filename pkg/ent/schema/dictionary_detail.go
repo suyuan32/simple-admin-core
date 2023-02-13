@@ -33,7 +33,7 @@ func (DictionaryDetail) Mixin() []ent.Mixin {
 
 func (DictionaryDetail) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("dictionary", Dictionary.Type).Field("dictionary_id").Ref("dictionary_details").Unique(),
+		edge.From("dictionaries", Dictionary.Type).Field("dictionary_id").Ref("dictionary_details").Unique(),
 	}
 }
 

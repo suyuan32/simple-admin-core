@@ -84,7 +84,7 @@ type CoreClient interface {
 	// group: member
 	GetMemberById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MemberInfo, error)
 	// group: member
-	MemberLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*MemberLoginResp, error)
+	GetMemberByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*MemberInfo, error)
 	// MemberRank management
 	// group: memberrank
 	CreateMemberRank(ctx context.Context, in *MemberRankInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -103,7 +103,7 @@ type CoreClient interface {
 	// group: menu
 	DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: menu
-	GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
+	GetMenuListByRole(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 	// group: menu
 	GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
 	// MenuParam management
@@ -131,7 +131,7 @@ type CoreClient interface {
 	// group: oauthprovider
 	OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
 	// group: oauthprovider
-	OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error)
+	OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*UserInfo, error)
 	// Position management
 	// group: position
 	CreatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -177,9 +177,9 @@ type CoreClient interface {
 	// group: user
 	GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfo, error)
 	// group: user
-	DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	GetUserByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*UserInfo, error)
 	// group: user
-	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
+	DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 }
 
 type coreClient struct {
@@ -442,9 +442,9 @@ func (c *coreClient) GetMemberById(ctx context.Context, in *UUIDReq, opts ...grp
 	return out, nil
 }
 
-func (c *coreClient) MemberLogin(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*MemberLoginResp, error) {
-	out := new(MemberLoginResp)
-	err := c.cc.Invoke(ctx, "/core.Core/memberLogin", in, out, opts...)
+func (c *coreClient) GetMemberByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*MemberInfo, error) {
+	out := new(MemberInfo)
+	err := c.cc.Invoke(ctx, "/core.Core/getMemberByUsername", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -523,7 +523,7 @@ func (c *coreClient) DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.Cal
 	return out, nil
 }
 
-func (c *coreClient) GetMenuListByRole(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
+func (c *coreClient) GetMenuListByRole(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
 	out := new(MenuInfoList)
 	err := c.cc.Invoke(ctx, "/core.Core/getMenuListByRole", in, out, opts...)
 	if err != nil {
@@ -640,8 +640,8 @@ func (c *coreClient) OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...
 	return out, nil
 }
 
-func (c *coreClient) OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*LoginResp, error) {
-	out := new(LoginResp)
+func (c *coreClient) OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*UserInfo, error) {
+	out := new(UserInfo)
 	err := c.cc.Invoke(ctx, "/core.Core/oauthCallback", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -829,18 +829,18 @@ func (c *coreClient) GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.
 	return out, nil
 }
 
-func (c *coreClient) DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, "/core.Core/deleteUser", in, out, opts...)
+func (c *coreClient) GetUserByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*UserInfo, error) {
+	out := new(UserInfo)
+	err := c.cc.Invoke(ctx, "/core.Core/getUserByUsername", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *coreClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
-	out := new(LoginResp)
-	err := c.cc.Invoke(ctx, "/core.Core/login", in, out, opts...)
+func (c *coreClient) DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, "/core.Core/deleteUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -913,7 +913,7 @@ type CoreServer interface {
 	// group: member
 	GetMemberById(context.Context, *UUIDReq) (*MemberInfo, error)
 	// group: member
-	MemberLogin(context.Context, *LoginReq) (*MemberLoginResp, error)
+	GetMemberByUsername(context.Context, *UsernameReq) (*MemberInfo, error)
 	// MemberRank management
 	// group: memberrank
 	CreateMemberRank(context.Context, *MemberRankInfo) (*BaseResp, error)
@@ -932,7 +932,7 @@ type CoreServer interface {
 	// group: menu
 	DeleteMenu(context.Context, *IDReq) (*BaseResp, error)
 	// group: menu
-	GetMenuListByRole(context.Context, *IDReq) (*MenuInfoList, error)
+	GetMenuListByRole(context.Context, *UUIDReq) (*MenuInfoList, error)
 	// group: menu
 	GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error)
 	// MenuParam management
@@ -960,7 +960,7 @@ type CoreServer interface {
 	// group: oauthprovider
 	OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error)
 	// group: oauthprovider
-	OauthCallback(context.Context, *CallbackReq) (*LoginResp, error)
+	OauthCallback(context.Context, *CallbackReq) (*UserInfo, error)
 	// Position management
 	// group: position
 	CreatePosition(context.Context, *PositionInfo) (*BaseResp, error)
@@ -1006,9 +1006,9 @@ type CoreServer interface {
 	// group: user
 	GetUserById(context.Context, *UUIDReq) (*UserInfo, error)
 	// group: user
-	DeleteUser(context.Context, *UUIDsReq) (*BaseResp, error)
+	GetUserByUsername(context.Context, *UsernameReq) (*UserInfo, error)
 	// group: user
-	Login(context.Context, *LoginReq) (*LoginResp, error)
+	DeleteUser(context.Context, *UUIDsReq) (*BaseResp, error)
 	mustEmbedUnimplementedCoreServer()
 }
 
@@ -1100,8 +1100,8 @@ func (UnimplementedCoreServer) DeleteMember(context.Context, *UUIDsReq) (*BaseRe
 func (UnimplementedCoreServer) GetMemberById(context.Context, *UUIDReq) (*MemberInfo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMemberById not implemented")
 }
-func (UnimplementedCoreServer) MemberLogin(context.Context, *LoginReq) (*MemberLoginResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method MemberLogin not implemented")
+func (UnimplementedCoreServer) GetMemberByUsername(context.Context, *UsernameReq) (*MemberInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMemberByUsername not implemented")
 }
 func (UnimplementedCoreServer) CreateMemberRank(context.Context, *MemberRankInfo) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMemberRank not implemented")
@@ -1127,7 +1127,7 @@ func (UnimplementedCoreServer) UpdateMenu(context.Context, *MenuInfo) (*BaseResp
 func (UnimplementedCoreServer) DeleteMenu(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
 }
-func (UnimplementedCoreServer) GetMenuListByRole(context.Context, *IDReq) (*MenuInfoList, error) {
+func (UnimplementedCoreServer) GetMenuListByRole(context.Context, *UUIDReq) (*MenuInfoList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMenuListByRole not implemented")
 }
 func (UnimplementedCoreServer) GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error) {
@@ -1166,7 +1166,7 @@ func (UnimplementedCoreServer) DeleteOauthProvider(context.Context, *IDsReq) (*B
 func (UnimplementedCoreServer) OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OauthLogin not implemented")
 }
-func (UnimplementedCoreServer) OauthCallback(context.Context, *CallbackReq) (*LoginResp, error) {
+func (UnimplementedCoreServer) OauthCallback(context.Context, *CallbackReq) (*UserInfo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OauthCallback not implemented")
 }
 func (UnimplementedCoreServer) CreatePosition(context.Context, *PositionInfo) (*BaseResp, error) {
@@ -1229,11 +1229,11 @@ func (UnimplementedCoreServer) GetUserList(context.Context, *UserListReq) (*User
 func (UnimplementedCoreServer) GetUserById(context.Context, *UUIDReq) (*UserInfo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserById not implemented")
 }
+func (UnimplementedCoreServer) GetUserByUsername(context.Context, *UsernameReq) (*UserInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByUsername not implemented")
+}
 func (UnimplementedCoreServer) DeleteUser(context.Context, *UUIDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
-}
-func (UnimplementedCoreServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 func (UnimplementedCoreServer) mustEmbedUnimplementedCoreServer() {}
 
@@ -1752,20 +1752,20 @@ func _Core_GetMemberById_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Core_MemberLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LoginReq)
+func _Core_GetMemberByUsername_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UsernameReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CoreServer).MemberLogin(ctx, in)
+		return srv.(CoreServer).GetMemberByUsername(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.Core/memberLogin",
+		FullMethod: "/core.Core/getMemberByUsername",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).MemberLogin(ctx, req.(*LoginReq))
+		return srv.(CoreServer).GetMemberByUsername(ctx, req.(*UsernameReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1915,7 +1915,7 @@ func _Core_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(int
 }
 
 func _Core_GetMenuListByRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IDReq)
+	in := new(UUIDReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1927,7 +1927,7 @@ func _Core_GetMenuListByRole_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: "/core.Core/getMenuListByRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).GetMenuListByRole(ctx, req.(*IDReq))
+		return srv.(CoreServer).GetMenuListByRole(ctx, req.(*UUIDReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2526,6 +2526,24 @@ func _Core_GetUserById_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Core_GetUserByUsername_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UsernameReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetUserByUsername(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/getUserByUsername",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetUserByUsername(ctx, req.(*UsernameReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Core_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UUIDsReq)
 	if err := dec(in); err != nil {
@@ -2540,24 +2558,6 @@ func _Core_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteUser(ctx, req.(*UUIDsReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Core_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LoginReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CoreServer).Login(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.Core/login",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreServer).Login(ctx, req.(*LoginReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2682,8 +2682,8 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_GetMemberById_Handler,
 		},
 		{
-			MethodName: "memberLogin",
-			Handler:    _Core_MemberLogin_Handler,
+			MethodName: "getMemberByUsername",
+			Handler:    _Core_GetMemberByUsername_Handler,
 		},
 		{
 			MethodName: "createMemberRank",
@@ -2854,12 +2854,12 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_GetUserById_Handler,
 		},
 		{
-			MethodName: "deleteUser",
-			Handler:    _Core_DeleteUser_Handler,
+			MethodName: "getUserByUsername",
+			Handler:    _Core_GetUserByUsername_Handler,
 		},
 		{
-			MethodName: "login",
-			Handler:    _Core_Login_Handler,
+			MethodName: "deleteUser",
+			Handler:    _Core_DeleteUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

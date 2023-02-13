@@ -36,8 +36,6 @@ type User struct {
 	Description string `json:"description,omitempty"`
 	// The home page that the user enters after logging in | 用户登陆后进入的首页
 	HomePath string `json:"home_path,omitempty"`
-	// Role id | 角色ID
-	RoleID uint64 `json:"role_id,omitempty"`
 	// Mobile number | 手机号
 	Mobile string `json:"mobile,omitempty"`
 	// Email | 邮箱号
@@ -55,39 +53,50 @@ type User struct {
 
 // UserEdges holds the relations/edges for other nodes in the graph.
 type UserEdges struct {
-	// Department holds the value of the department edge.
-	Department *Department `json:"department,omitempty"`
-	// Position holds the value of the position edge.
-	Position *Position `json:"position,omitempty"`
+	// Departments holds the value of the departments edge.
+	Departments *Department `json:"departments,omitempty"`
+	// Positions holds the value of the positions edge.
+	Positions *Position `json:"positions,omitempty"`
+	// Roles holds the value of the roles edge.
+	Roles []*Role `json:"roles,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [2]bool
+	loadedTypes [3]bool
 }
 
-// DepartmentOrErr returns the Department value or an error if the edge
+// DepartmentsOrErr returns the Departments value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) DepartmentOrErr() (*Department, error) {
+func (e UserEdges) DepartmentsOrErr() (*Department, error) {
 	if e.loadedTypes[0] {
-		if e.Department == nil {
+		if e.Departments == nil {
 			// Edge was loaded but was not found.
 			return nil, &NotFoundError{label: department.Label}
 		}
-		return e.Department, nil
+		return e.Departments, nil
 	}
-	return nil, &NotLoadedError{edge: "department"}
+	return nil, &NotLoadedError{edge: "departments"}
 }
 
-// PositionOrErr returns the Position value or an error if the edge
+// PositionsOrErr returns the Positions value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) PositionOrErr() (*Position, error) {
+func (e UserEdges) PositionsOrErr() (*Position, error) {
 	if e.loadedTypes[1] {
-		if e.Position == nil {
+		if e.Positions == nil {
 			// Edge was loaded but was not found.
 			return nil, &NotFoundError{label: position.Label}
 		}
-		return e.Position, nil
+		return e.Positions, nil
 	}
-	return nil, &NotLoadedError{edge: "position"}
+	return nil, &NotLoadedError{edge: "positions"}
+}
+
+// RolesOrErr returns the Roles value or an error if the edge
+// was not loaded in eager-loading.
+func (e UserEdges) RolesOrErr() ([]*Role, error) {
+	if e.loadedTypes[2] {
+		return e.Roles, nil
+	}
+	return nil, &NotLoadedError{edge: "roles"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -95,7 +104,7 @@ func (*User) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldStatus, user.FieldRoleID, user.FieldDepartmentID, user.FieldPositionID:
+		case user.FieldStatus, user.FieldDepartmentID, user.FieldPositionID:
 			values[i] = new(sql.NullInt64)
 		case user.FieldUsername, user.FieldPassword, user.FieldNickname, user.FieldDescription, user.FieldHomePath, user.FieldMobile, user.FieldEmail, user.FieldAvatar:
 			values[i] = new(sql.NullString)
@@ -172,12 +181,6 @@ func (u *User) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				u.HomePath = value.String
 			}
-		case user.FieldRoleID:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field role_id", values[i])
-			} else if value.Valid {
-				u.RoleID = uint64(value.Int64)
-			}
 		case user.FieldMobile:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field mobile", values[i])
@@ -213,14 +216,19 @@ func (u *User) assignValues(columns []string, values []any) error {
 	return nil
 }
 
-// QueryDepartment queries the "department" edge of the User entity.
-func (u *User) QueryDepartment() *DepartmentQuery {
-	return NewUserClient(u.config).QueryDepartment(u)
+// QueryDepartments queries the "departments" edge of the User entity.
+func (u *User) QueryDepartments() *DepartmentQuery {
+	return NewUserClient(u.config).QueryDepartments(u)
 }
 
-// QueryPosition queries the "position" edge of the User entity.
-func (u *User) QueryPosition() *PositionQuery {
-	return NewUserClient(u.config).QueryPosition(u)
+// QueryPositions queries the "positions" edge of the User entity.
+func (u *User) QueryPositions() *PositionQuery {
+	return NewUserClient(u.config).QueryPositions(u)
+}
+
+// QueryRoles queries the "roles" edge of the User entity.
+func (u *User) QueryRoles() *RoleQuery {
+	return NewUserClient(u.config).QueryRoles(u)
 }
 
 // Update returns a builder for updating this User.
@@ -269,9 +277,6 @@ func (u *User) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("home_path=")
 	builder.WriteString(u.HomePath)
-	builder.WriteString(", ")
-	builder.WriteString("role_id=")
-	builder.WriteString(fmt.Sprintf("%v", u.RoleID))
 	builder.WriteString(", ")
 	builder.WriteString("mobile=")
 	builder.WriteString(u.Mobile)

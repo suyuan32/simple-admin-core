@@ -42,7 +42,7 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseMsgRes
 				Nickname:     req.Username,
 				Status:       1,
 				HomePath:     "/dashboard",
-				RoleId:       1,
+				RoleIds:      []uint64{1},
 				DepartmentId: 1,
 				PositionId:   1,
 			})

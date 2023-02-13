@@ -90,8 +90,8 @@ github.com/casbin/casbin/v2 v2.1.2/go.mod h1:YcPU1XXisHhLzuxH9coDNf2FbKpjGlbCg3n
 github.com/casbin/casbin/v2 v2.29.2/go.mod h1:vByNa/Fchek0KZUgG5wEsl7iFsiviAYKRtgrQfcJqHg=
 github.com/casbin/casbin/v2 v2.60.0 h1:ZmC0/t4wolfEsDpDxTEsu2z6dfbMNpc11F52ceLs2Eo=
 github.com/casbin/casbin/v2 v2.60.0/go.mod h1:vByNa/Fchek0KZUgG5wEsl7iFsiviAYKRtgrQfcJqHg=
-github.com/casbin/ent-adapter v0.2.2 h1:Qqkdnlx7+jFcBQYnG30404W3OEEmnn1AOZrEblSb+Aw=
-github.com/casbin/ent-adapter v0.2.2/go.mod h1:BkvuWf9Q4tmygliW+D3qOxsaRLOKVzccOHUo1zKuQRI=
+github.com/casbin/ent-adapter v0.2.3 h1:VGpIYdkxKVTCeaxBxhbhD8dIg1a1Unxkrj4jh0GhvFk=
+github.com/casbin/ent-adapter v0.2.3/go.mod h1:BkvuWf9Q4tmygliW+D3qOxsaRLOKVzccOHUo1zKuQRI=
 github.com/cenkalti/backoff v2.2.1+incompatible/go.mod h1:90ReRw6GdpyfrHakVjL/QHaoyV4aDUVVkXQJJJ3NXXM=
 github.com/cenkalti/backoff/v4 v4.2.0 h1:HN5dHm3WBOgndBH6E8V0q2jIYIR3s9yglV8k/+MN3u4=
 github.com/cenkalti/backoff/v4 v4.2.0/go.mod h1:Y3VNntkOUPxTVeUxJ/G5vcM//AlwfmyYozVcomhLiZE=

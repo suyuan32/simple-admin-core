@@ -51,14 +51,12 @@ func (l *GetUserByIdLogic) GetUserById(req *types.UUIDReq) (resp *types.UserInfo
 			Nickname:     data.Nickname,
 			Description:  data.Description,
 			HomePath:     data.HomePath,
-			RoleId:       data.RoleId,
+			RoleIds:      data.RoleIds,
 			Mobile:       data.Mobile,
 			Email:        data.Email,
 			Avatar:       data.Avatar,
 			DepartmentId: data.DepartmentId,
 			PositionId:   data.PositionId,
-			RoleName:     data.RoleName,
-			RoleValue:    data.RoleValue,
 		},
 	}, nil
 }

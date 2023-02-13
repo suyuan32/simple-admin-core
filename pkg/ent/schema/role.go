@@ -17,7 +17,7 @@ type Role struct {
 func (Role) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("name").Comment("role name | 角色名"),
-		field.String("value").Unique().Comment("role value for permission control in front end | 角色值，用于前端权限控制"),
+		field.String("code").Unique().Comment("role code for permission control in front end | 角色码，用于前端权限控制"),
 		field.String("default_router").Default("dashboard").Comment("default menu : dashboard | 默认登录页面"),
 		field.String("remark").Default("").Comment("remark | 备注"),
 		field.Uint32("sort").Default(0).Comment("order number | 排序编号"),
@@ -34,6 +34,7 @@ func (Role) Mixin() []ent.Mixin {
 func (Role) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("menus", Menu.Type),
+		edge.From("users", User.Type).Ref("roles"),
 	}
 }
 

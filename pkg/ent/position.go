@@ -37,20 +37,20 @@ type Position struct {
 
 // PositionEdges holds the relations/edges for other nodes in the graph.
 type PositionEdges struct {
-	// User holds the value of the user edge.
-	User []*User `json:"user,omitempty"`
+	// Users holds the value of the users edge.
+	Users []*User `json:"users,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// UserOrErr returns the User value or an error if the edge
+// UsersOrErr returns the Users value or an error if the edge
 // was not loaded in eager-loading.
-func (e PositionEdges) UserOrErr() ([]*User, error) {
+func (e PositionEdges) UsersOrErr() ([]*User, error) {
 	if e.loadedTypes[0] {
-		return e.User, nil
+		return e.Users, nil
 	}
-	return nil, &NotLoadedError{edge: "user"}
+	return nil, &NotLoadedError{edge: "users"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -132,9 +132,9 @@ func (po *Position) assignValues(columns []string, values []any) error {
 	return nil
 }
 
-// QueryUser queries the "user" edge of the Position entity.
-func (po *Position) QueryUser() *UserQuery {
-	return NewPositionClient(po.config).QueryUser(po)
+// QueryUsers queries the "users" edge of the Position entity.
+func (po *Position) QueryUsers() *UserQuery {
+	return NewPositionClient(po.config).QueryUsers(po)
 }
 
 // Update returns a builder for updating this Position.

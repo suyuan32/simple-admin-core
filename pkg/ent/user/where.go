@@ -96,11 +96,6 @@ func HomePath(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldHomePath, v))
 }
 
-// RoleID applies equality check predicate on the "role_id" field. It's identical to RoleIDEQ.
-func RoleID(v uint64) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldRoleID, v))
-}
-
 // Mobile applies equality check predicate on the "mobile" field. It's identical to MobileEQ.
 func Mobile(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldMobile, v))
@@ -591,56 +586,6 @@ func HomePathContainsFold(v string) predicate.User {
 	return predicate.User(sql.FieldContainsFold(FieldHomePath, v))
 }
 
-// RoleIDEQ applies the EQ predicate on the "role_id" field.
-func RoleIDEQ(v uint64) predicate.User {
-	return predicate.User(sql.FieldEQ(FieldRoleID, v))
-}
-
-// RoleIDNEQ applies the NEQ predicate on the "role_id" field.
-func RoleIDNEQ(v uint64) predicate.User {
-	return predicate.User(sql.FieldNEQ(FieldRoleID, v))
-}
-
-// RoleIDIn applies the In predicate on the "role_id" field.
-func RoleIDIn(vs ...uint64) predicate.User {
-	return predicate.User(sql.FieldIn(FieldRoleID, vs...))
-}
-
-// RoleIDNotIn applies the NotIn predicate on the "role_id" field.
-func RoleIDNotIn(vs ...uint64) predicate.User {
-	return predicate.User(sql.FieldNotIn(FieldRoleID, vs...))
-}
-
-// RoleIDGT applies the GT predicate on the "role_id" field.
-func RoleIDGT(v uint64) predicate.User {
-	return predicate.User(sql.FieldGT(FieldRoleID, v))
-}
-
-// RoleIDGTE applies the GTE predicate on the "role_id" field.
-func RoleIDGTE(v uint64) predicate.User {
-	return predicate.User(sql.FieldGTE(FieldRoleID, v))
-}
-
-// RoleIDLT applies the LT predicate on the "role_id" field.
-func RoleIDLT(v uint64) predicate.User {
-	return predicate.User(sql.FieldLT(FieldRoleID, v))
-}
-
-// RoleIDLTE applies the LTE predicate on the "role_id" field.
-func RoleIDLTE(v uint64) predicate.User {
-	return predicate.User(sql.FieldLTE(FieldRoleID, v))
-}
-
-// RoleIDIsNil applies the IsNil predicate on the "role_id" field.
-func RoleIDIsNil() predicate.User {
-	return predicate.User(sql.FieldIsNull(FieldRoleID))
-}
-
-// RoleIDNotNil applies the NotNil predicate on the "role_id" field.
-func RoleIDNotNil() predicate.User {
-	return predicate.User(sql.FieldNotNull(FieldRoleID))
-}
-
 // MobileEQ applies the EQ predicate on the "mobile" field.
 func MobileEQ(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldMobile, v))
@@ -926,24 +871,24 @@ func PositionIDNotNil() predicate.User {
 	return predicate.User(sql.FieldNotNull(FieldPositionID))
 }
 
-// HasDepartment applies the HasEdge predicate on the "department" edge.
-func HasDepartment() predicate.User {
+// HasDepartments applies the HasEdge predicate on the "departments" edge.
+func HasDepartments() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, DepartmentTable, DepartmentColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, DepartmentsTable, DepartmentsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasDepartmentWith applies the HasEdge predicate on the "department" edge with a given conditions (other predicates).
-func HasDepartmentWith(preds ...predicate.Department) predicate.User {
+// HasDepartmentsWith applies the HasEdge predicate on the "departments" edge with a given conditions (other predicates).
+func HasDepartmentsWith(preds ...predicate.Department) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(DepartmentInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, DepartmentTable, DepartmentColumn),
+			sqlgraph.To(DepartmentsInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, DepartmentsTable, DepartmentsColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
@@ -953,24 +898,51 @@ func HasDepartmentWith(preds ...predicate.Department) predicate.User {
 	})
 }
 
-// HasPosition applies the HasEdge predicate on the "position" edge.
-func HasPosition() predicate.User {
+// HasPositions applies the HasEdge predicate on the "positions" edge.
+func HasPositions() predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, PositionTable, PositionColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, PositionsTable, PositionsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasPositionWith applies the HasEdge predicate on the "position" edge with a given conditions (other predicates).
-func HasPositionWith(preds ...predicate.Position) predicate.User {
+// HasPositionsWith applies the HasEdge predicate on the "positions" edge with a given conditions (other predicates).
+func HasPositionsWith(preds ...predicate.Position) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(PositionInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, PositionTable, PositionColumn),
+			sqlgraph.To(PositionsInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, PositionsTable, PositionsColumn),
+		)
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
+}
+
+// HasRoles applies the HasEdge predicate on the "roles" edge.
+func HasRoles() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.Edge(sqlgraph.M2M, false, RolesTable, RolesPrimaryKey...),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasRolesWith applies the HasEdge predicate on the "roles" edge with a given conditions (other predicates).
+func HasRolesWith(preds ...predicate.Role) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(RolesInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2M, false, RolesTable, RolesPrimaryKey...),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

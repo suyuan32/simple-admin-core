@@ -10,8 +10,10 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/gofrs/uuid"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
 // RoleCreate is the builder for creating a Role entity.
@@ -69,9 +71,9 @@ func (rc *RoleCreate) SetName(s string) *RoleCreate {
 	return rc
 }
 
-// SetValue sets the "value" field.
-func (rc *RoleCreate) SetValue(s string) *RoleCreate {
-	rc.mutation.SetValue(s)
+// SetCode sets the "code" field.
+func (rc *RoleCreate) SetCode(s string) *RoleCreate {
+	rc.mutation.SetCode(s)
 	return rc
 }
 
@@ -136,6 +138,21 @@ func (rc *RoleCreate) AddMenus(m ...*Menu) *RoleCreate {
 		ids[i] = m[i].ID
 	}
 	return rc.AddMenuIDs(ids...)
+}
+
+// AddUserIDs adds the "users" edge to the User entity by IDs.
+func (rc *RoleCreate) AddUserIDs(ids ...uuid.UUID) *RoleCreate {
+	rc.mutation.AddUserIDs(ids...)
+	return rc
+}
+
+// AddUsers adds the "users" edges to the User entity.
+func (rc *RoleCreate) AddUsers(u ...*User) *RoleCreate {
+	ids := make([]uuid.UUID, len(u))
+	for i := range u {
+		ids[i] = u[i].ID
+	}
+	return rc.AddUserIDs(ids...)
 }
 
 // Mutation returns the RoleMutation object of the builder.
@@ -210,8 +227,8 @@ func (rc *RoleCreate) check() error {
 	if _, ok := rc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Role.name"`)}
 	}
-	if _, ok := rc.mutation.Value(); !ok {
-		return &ValidationError{Name: "value", err: errors.New(`ent: missing required field "Role.value"`)}
+	if _, ok := rc.mutation.Code(); !ok {
+		return &ValidationError{Name: "code", err: errors.New(`ent: missing required field "Role.code"`)}
 	}
 	if _, ok := rc.mutation.DefaultRouter(); !ok {
 		return &ValidationError{Name: "default_router", err: errors.New(`ent: missing required field "Role.default_router"`)}
@@ -276,9 +293,9 @@ func (rc *RoleCreate) createSpec() (*Role, *sqlgraph.CreateSpec) {
 		_spec.SetField(role.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := rc.mutation.Value(); ok {
-		_spec.SetField(role.FieldValue, field.TypeString, value)
-		_node.Value = value
+	if value, ok := rc.mutation.Code(); ok {
+		_spec.SetField(role.FieldCode, field.TypeString, value)
+		_node.Code = value
 	}
 	if value, ok := rc.mutation.DefaultRouter(); ok {
 		_spec.SetField(role.FieldDefaultRouter, field.TypeString, value)
@@ -303,6 +320,25 @@ func (rc *RoleCreate) createSpec() (*Role, *sqlgraph.CreateSpec) {
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeUint64,
 					Column: menu.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := rc.mutation.UsersIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2M,
+			Inverse: true,
+			Table:   role.UsersTable,
+			Columns: role.UsersPrimaryKey,
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: user.FieldID,
 				},
 			},
 		}

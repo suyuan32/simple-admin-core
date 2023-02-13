@@ -152,9 +152,23 @@ func (mc *MemberCreate) SetNillableID(u *uuid.UUID) *MemberCreate {
 	return mc
 }
 
-// SetRank sets the "rank" edge to the MemberRank entity.
-func (mc *MemberCreate) SetRank(m *MemberRank) *MemberCreate {
-	return mc.SetRankID(m.ID)
+// SetRanksID sets the "ranks" edge to the MemberRank entity by ID.
+func (mc *MemberCreate) SetRanksID(id uint64) *MemberCreate {
+	mc.mutation.SetRanksID(id)
+	return mc
+}
+
+// SetNillableRanksID sets the "ranks" edge to the MemberRank entity by ID if the given value is not nil.
+func (mc *MemberCreate) SetNillableRanksID(id *uint64) *MemberCreate {
+	if id != nil {
+		mc = mc.SetRanksID(*id)
+	}
+	return mc
+}
+
+// SetRanks sets the "ranks" edge to the MemberRank entity.
+func (mc *MemberCreate) SetRanks(m *MemberRank) *MemberCreate {
+	return mc.SetRanksID(m.ID)
 }
 
 // Mutation returns the MemberMutation object of the builder.
@@ -312,12 +326,12 @@ func (mc *MemberCreate) createSpec() (*Member, *sqlgraph.CreateSpec) {
 		_spec.SetField(member.FieldAvatar, field.TypeString, value)
 		_node.Avatar = value
 	}
-	if nodes := mc.mutation.RankIDs(); len(nodes) > 0 {
+	if nodes := mc.mutation.RanksIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   member.RankTable,
-			Columns: []string{member.RankColumn},
+			Table:   member.RanksTable,
+			Columns: []string{member.RanksColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

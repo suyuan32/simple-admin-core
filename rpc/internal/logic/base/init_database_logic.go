@@ -2,8 +2,10 @@ package base
 
 import (
 	"context"
+	"fmt"
 
 	"entgo.io/ent/dialect/sql/schema"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
@@ -78,18 +80,20 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	l.svcCtx.Redis.Setex("database_error_msg", "", 300)
 	l.svcCtx.Redis.Setex("database_init_state", "0", 300)
 
-	err = l.insertUserData()
-	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, statuserr.NewInternalError(err.Error())
-	}
 	err = l.insertRoleData()
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, statuserr.NewInternalError(err.Error())
 	}
+
+	err = l.insertUserData()
+	if err != nil {
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
+		return nil, statuserr.NewInternalError(err.Error())
+	}
+
 	err = l.insertMenuData()
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
@@ -162,7 +166,7 @@ func (l *InitDatabaseLogic) insertUserData() error {
 		SetNickname("admin").
 		SetPassword(utils.BcryptEncrypt("simple-admin")).
 		SetEmail("simple_admin@gmail.com").
-		SetRoleID(1).
+		AddRoleIDs(1).
 		SetDepartmentID(1).
 		SetPositionID(1),
 	)
@@ -181,23 +185,16 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 	var roles []*ent.RoleCreate
 	roles = append(roles, l.svcCtx.DB.Role.Create().
 		SetName("role.admin").
-		SetValue("admin").
+		SetCode("001").
 		SetRemark("超级管理员").
 		SetSort(1),
 	)
 
 	roles = append(roles, l.svcCtx.DB.Role.Create().
 		SetName("role.stuff").
-		SetValue("stuff").
+		SetCode("002").
 		SetRemark("普通员工").
 		SetSort(2),
-	)
-
-	roles = append(roles, l.svcCtx.DB.Role.Create().
-		SetName("role.member").
-		SetValue("member").
-		SetRemark("注册会员").
-		SetSort(3),
 	)
 
 	err := l.svcCtx.DB.Role.CreateBulk(roles...).Exec(l.ctx)
@@ -205,6 +202,23 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 		logx.Errorw(err.Error())
 		return statuserr.NewInternalError(err.Error())
 	} else {
+		_, err = l.svcCtx.Redis.Del("roleData")
+		if err != nil {
+			logx.Errorw(err.Error())
+			return statuserr.NewInternalError(err.Error())
+		}
+
+		l.svcCtx.Redis.Hset("roleData", "001", "role.admin")
+		l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%s_status", "001"), "1")
+
+		l.svcCtx.Redis.Hset("roleData", "002", "role.stuff")
+		l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%s_status", "002"), "1")
+
+		if err != nil {
+			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
+			return errorx.NewCodeInternalError(i18n.RedisError)
+		}
+
 		return nil
 	}
 }
@@ -493,7 +507,7 @@ func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 
 	var policies [][]string
 	for _, v := range apis {
-		policies = append(policies, []string{"1", v.Path, v.Method})
+		policies = append(policies, []string{"001", v.Path, v.Method})
 	}
 
 	csb, err := l.svcCtx.Config.CasbinConf.NewCasbin(l.svcCtx.Config.DatabaseConf.Type,
@@ -626,12 +640,14 @@ func (l *InitDatabaseLogic) insertMemberRankData() error {
 	var memberRanks []*ent.MemberRankCreate
 	memberRanks = append(memberRanks, l.svcCtx.DB.MemberRank.Create().
 		SetName("memberRank.normal").
+		SetCode("001").
 		SetDescription("普通会员 | Normal Member").
 		SetRemark("普通会员 | Normal Member"),
 	)
 
 	memberRanks = append(memberRanks, l.svcCtx.DB.MemberRank.Create().
 		SetName("memberRank.vip").
+		SetCode("002").
 		SetDescription("VIP").
 		SetRemark("VIP"),
 	)

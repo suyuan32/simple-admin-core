@@ -3,6 +3,7 @@ package role
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -33,13 +34,15 @@ func (l *GetRoleListLogic) GetRoleList(in *core.RoleListReq) (*core.RoleListResp
 	if in.Name != "" {
 		predicates = append(predicates, role.NameContains(in.Name))
 	}
-	if in.Value != "" {
-		predicates = append(predicates, role.ValueContains(in.Value))
+	if in.Code != "" {
+		predicates = append(predicates, role.CodeEQ(in.Code))
 	}
 	if in.DefaultRouter != "" {
 		predicates = append(predicates, role.DefaultRouterContains(in.DefaultRouter))
 	}
-	result, err := l.svcCtx.DB.Role.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+	result, err := l.svcCtx.DB.Role.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize, func(pager *ent.RolePager) {
+		pager.Order = ent.Asc(role.FieldSort)
+	})
 	if err != nil {
 		logx.Error(err.Error())
 		return nil, statuserr.NewInternalError(i18n.DatabaseError)
@@ -55,7 +58,7 @@ func (l *GetRoleListLogic) GetRoleList(in *core.RoleListReq) (*core.RoleListResp
 			UpdatedAt:     v.UpdatedAt.UnixMilli(),
 			Status:        uint32(v.Status),
 			Name:          v.Name,
-			Value:         v.Value,
+			Code:          v.Code,
 			DefaultRouter: v.DefaultRouter,
 			Remark:        v.Remark,
 			Sort:          v.Sort,

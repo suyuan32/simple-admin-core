@@ -154,14 +154,14 @@ func (dc *DepartmentCreate) AddChildren(d ...*Department) *DepartmentCreate {
 	return dc.AddChildIDs(ids...)
 }
 
-// AddUserIDs adds the "user" edge to the User entity by IDs.
+// AddUserIDs adds the "users" edge to the User entity by IDs.
 func (dc *DepartmentCreate) AddUserIDs(ids ...uuid.UUID) *DepartmentCreate {
 	dc.mutation.AddUserIDs(ids...)
 	return dc
 }
 
-// AddUser adds the "user" edges to the User entity.
-func (dc *DepartmentCreate) AddUser(u ...*User) *DepartmentCreate {
+// AddUsers adds the "users" edges to the User entity.
+func (dc *DepartmentCreate) AddUsers(u ...*User) *DepartmentCreate {
 	ids := make([]uuid.UUID, len(u))
 	for i := range u {
 		ids[i] = u[i].ID
@@ -372,12 +372,12 @@ func (dc *DepartmentCreate) createSpec() (*Department, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := dc.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.UsersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
-			Table:   department.UserTable,
-			Columns: []string{department.UserColumn},
+			Table:   department.UsersTable,
+			Columns: []string{department.UsersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

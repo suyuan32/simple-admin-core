@@ -4,8 +4,6 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/zeromicro/go-zero/core/errorx"
-
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
@@ -31,9 +29,6 @@ func NewGetUserInfoLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetUserIn
 }
 
 func (l *GetUserInfoLogic) GetUserInfo() (resp *types.UserBaseInfoResp, err error) {
-	if l.ctx.Value("userId").(string) == "" {
-		return nil, errorx.NewApiError(http.StatusUnauthorized, "Please log in")
-	}
 	user, err := l.svcCtx.CoreRpc.GetUserById(l.ctx,
 		&core.UUIDReq{Id: l.ctx.Value("userId").(string)})
 	if err != nil {
@@ -49,10 +44,6 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.UserBaseInfoResp, err erro
 			Avatar:      user.Avatar,
 			HomePath:    user.HomePath,
 			Description: user.Description,
-			Roles: types.UserRoleInfo{
-				RoleName: user.RoleName,
-				Value:    user.RoleValue,
-			},
 		},
 	}, nil
 }

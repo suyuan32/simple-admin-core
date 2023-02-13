@@ -5,33 +5,31 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/i18n"
+	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
+	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
-
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
-	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 )
 
-type GetUserByIdLogic struct {
+type GetUserByUsernameLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewGetUserByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUserByIdLogic {
-	return &GetUserByIdLogic{
+func NewGetUserByUsernameLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUserByUsernameLogic {
+	return &GetUserByUsernameLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfo, error) {
-	result, err := l.svcCtx.DB.User.Query().Where(user.IDEQ(uuidx.ParseUUIDString(in.Id))).WithRoles().First(l.ctx)
+func (l *GetUserByUsernameLogic) GetUserByUsername(in *core.UsernameReq) (*core.UserInfo, error) {
+	result, err := l.svcCtx.DB.User.Query().Where(user.UsernameEQ(in.Username)).WithRoles().First(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
@@ -53,7 +51,9 @@ func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfo, error)
 	return &core.UserInfo{
 		Nickname:     result.Nickname,
 		Avatar:       result.Avatar,
+		Password:     result.Password,
 		RoleIds:      GetRoleIds(result.Edges.Roles),
+		RoleCodes:    GetRoleCodes(result.Edges.Roles),
 		Mobile:       result.Mobile,
 		Email:        result.Email,
 		Status:       uint32(result.Status),
@@ -65,20 +65,4 @@ func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfo, error)
 		CreatedAt:    result.CreatedAt.Unix(),
 		UpdatedAt:    result.UpdatedAt.Unix(),
 	}, nil
-}
-
-func GetRoleIds(data []*ent.Role) []uint64 {
-	var ids []uint64
-	for _, v := range data {
-		ids = append(ids, v.ID)
-	}
-	return ids
-}
-
-func GetRoleCodes(data []*ent.Role) []string {
-	var codes []string
-	for _, v := range data {
-		codes = append(codes, v.Code)
-	}
-	return codes
 }

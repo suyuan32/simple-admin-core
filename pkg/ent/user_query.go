@@ -4,6 +4,7 @@ package ent
 
 import (
 	"context"
+	"database/sql/driver"
 	"fmt"
 	"math"
 
@@ -14,18 +15,20 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
 // UserQuery is the builder for querying User entities.
 type UserQuery struct {
 	config
-	ctx            *QueryContext
-	order          []OrderFunc
-	inters         []Interceptor
-	predicates     []predicate.User
-	withDepartment *DepartmentQuery
-	withPosition   *PositionQuery
+	ctx             *QueryContext
+	order           []OrderFunc
+	inters          []Interceptor
+	predicates      []predicate.User
+	withDepartments *DepartmentQuery
+	withPositions   *PositionQuery
+	withRoles       *RoleQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -62,8 +65,8 @@ func (uq *UserQuery) Order(o ...OrderFunc) *UserQuery {
 	return uq
 }
 
-// QueryDepartment chains the current query on the "department" edge.
-func (uq *UserQuery) QueryDepartment() *DepartmentQuery {
+// QueryDepartments chains the current query on the "departments" edge.
+func (uq *UserQuery) QueryDepartments() *DepartmentQuery {
 	query := (&DepartmentClient{config: uq.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := uq.prepareQuery(ctx); err != nil {
@@ -76,7 +79,7 @@ func (uq *UserQuery) QueryDepartment() *DepartmentQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldID, selector),
 			sqlgraph.To(department.Table, department.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, user.DepartmentTable, user.DepartmentColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, user.DepartmentsTable, user.DepartmentsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -84,8 +87,8 @@ func (uq *UserQuery) QueryDepartment() *DepartmentQuery {
 	return query
 }
 
-// QueryPosition chains the current query on the "position" edge.
-func (uq *UserQuery) QueryPosition() *PositionQuery {
+// QueryPositions chains the current query on the "positions" edge.
+func (uq *UserQuery) QueryPositions() *PositionQuery {
 	query := (&PositionClient{config: uq.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := uq.prepareQuery(ctx); err != nil {
@@ -98,7 +101,29 @@ func (uq *UserQuery) QueryPosition() *PositionQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldID, selector),
 			sqlgraph.To(position.Table, position.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, user.PositionTable, user.PositionColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, user.PositionsTable, user.PositionsColumn),
+		)
+		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
+// QueryRoles chains the current query on the "roles" edge.
+func (uq *UserQuery) QueryRoles() *RoleQuery {
+	query := (&RoleClient{config: uq.config}).Query()
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := uq.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		selector := uq.sqlQuery(ctx)
+		if err := selector.Err(); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(user.Table, user.FieldID, selector),
+			sqlgraph.To(role.Table, role.FieldID),
+			sqlgraph.Edge(sqlgraph.M2M, false, user.RolesTable, user.RolesPrimaryKey...),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -291,38 +316,50 @@ func (uq *UserQuery) Clone() *UserQuery {
 		return nil
 	}
 	return &UserQuery{
-		config:         uq.config,
-		ctx:            uq.ctx.Clone(),
-		order:          append([]OrderFunc{}, uq.order...),
-		inters:         append([]Interceptor{}, uq.inters...),
-		predicates:     append([]predicate.User{}, uq.predicates...),
-		withDepartment: uq.withDepartment.Clone(),
-		withPosition:   uq.withPosition.Clone(),
+		config:          uq.config,
+		ctx:             uq.ctx.Clone(),
+		order:           append([]OrderFunc{}, uq.order...),
+		inters:          append([]Interceptor{}, uq.inters...),
+		predicates:      append([]predicate.User{}, uq.predicates...),
+		withDepartments: uq.withDepartments.Clone(),
+		withPositions:   uq.withPositions.Clone(),
+		withRoles:       uq.withRoles.Clone(),
 		// clone intermediate query.
 		sql:  uq.sql.Clone(),
 		path: uq.path,
 	}
 }
 
-// WithDepartment tells the query-builder to eager-load the nodes that are connected to
-// the "department" edge. The optional arguments are used to configure the query builder of the edge.
-func (uq *UserQuery) WithDepartment(opts ...func(*DepartmentQuery)) *UserQuery {
+// WithDepartments tells the query-builder to eager-load the nodes that are connected to
+// the "departments" edge. The optional arguments are used to configure the query builder of the edge.
+func (uq *UserQuery) WithDepartments(opts ...func(*DepartmentQuery)) *UserQuery {
 	query := (&DepartmentClient{config: uq.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	uq.withDepartment = query
+	uq.withDepartments = query
 	return uq
 }
 
-// WithPosition tells the query-builder to eager-load the nodes that are connected to
-// the "position" edge. The optional arguments are used to configure the query builder of the edge.
-func (uq *UserQuery) WithPosition(opts ...func(*PositionQuery)) *UserQuery {
+// WithPositions tells the query-builder to eager-load the nodes that are connected to
+// the "positions" edge. The optional arguments are used to configure the query builder of the edge.
+func (uq *UserQuery) WithPositions(opts ...func(*PositionQuery)) *UserQuery {
 	query := (&PositionClient{config: uq.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	uq.withPosition = query
+	uq.withPositions = query
+	return uq
+}
+
+// WithRoles tells the query-builder to eager-load the nodes that are connected to
+// the "roles" edge. The optional arguments are used to configure the query builder of the edge.
+func (uq *UserQuery) WithRoles(opts ...func(*RoleQuery)) *UserQuery {
+	query := (&RoleClient{config: uq.config}).Query()
+	for _, opt := range opts {
+		opt(query)
+	}
+	uq.withRoles = query
 	return uq
 }
 
@@ -404,9 +441,10 @@ func (uq *UserQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*User, e
 	var (
 		nodes       = []*User{}
 		_spec       = uq.querySpec()
-		loadedTypes = [2]bool{
-			uq.withDepartment != nil,
-			uq.withPosition != nil,
+		loadedTypes = [3]bool{
+			uq.withDepartments != nil,
+			uq.withPositions != nil,
+			uq.withRoles != nil,
 		}
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
@@ -427,22 +465,29 @@ func (uq *UserQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*User, e
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := uq.withDepartment; query != nil {
-		if err := uq.loadDepartment(ctx, query, nodes, nil,
-			func(n *User, e *Department) { n.Edges.Department = e }); err != nil {
+	if query := uq.withDepartments; query != nil {
+		if err := uq.loadDepartments(ctx, query, nodes, nil,
+			func(n *User, e *Department) { n.Edges.Departments = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := uq.withPosition; query != nil {
-		if err := uq.loadPosition(ctx, query, nodes, nil,
-			func(n *User, e *Position) { n.Edges.Position = e }); err != nil {
+	if query := uq.withPositions; query != nil {
+		if err := uq.loadPositions(ctx, query, nodes, nil,
+			func(n *User, e *Position) { n.Edges.Positions = e }); err != nil {
+			return nil, err
+		}
+	}
+	if query := uq.withRoles; query != nil {
+		if err := uq.loadRoles(ctx, query, nodes,
+			func(n *User) { n.Edges.Roles = []*Role{} },
+			func(n *User, e *Role) { n.Edges.Roles = append(n.Edges.Roles, e) }); err != nil {
 			return nil, err
 		}
 	}
 	return nodes, nil
 }
 
-func (uq *UserQuery) loadDepartment(ctx context.Context, query *DepartmentQuery, nodes []*User, init func(*User), assign func(*User, *Department)) error {
+func (uq *UserQuery) loadDepartments(ctx context.Context, query *DepartmentQuery, nodes []*User, init func(*User), assign func(*User, *Department)) error {
 	ids := make([]uint64, 0, len(nodes))
 	nodeids := make(map[uint64][]*User)
 	for i := range nodes {
@@ -471,7 +516,7 @@ func (uq *UserQuery) loadDepartment(ctx context.Context, query *DepartmentQuery,
 	}
 	return nil
 }
-func (uq *UserQuery) loadPosition(ctx context.Context, query *PositionQuery, nodes []*User, init func(*User), assign func(*User, *Position)) error {
+func (uq *UserQuery) loadPositions(ctx context.Context, query *PositionQuery, nodes []*User, init func(*User), assign func(*User, *Position)) error {
 	ids := make([]uint64, 0, len(nodes))
 	nodeids := make(map[uint64][]*User)
 	for i := range nodes {
@@ -496,6 +541,67 @@ func (uq *UserQuery) loadPosition(ctx context.Context, query *PositionQuery, nod
 		}
 		for i := range nodes {
 			assign(nodes[i], n)
+		}
+	}
+	return nil
+}
+func (uq *UserQuery) loadRoles(ctx context.Context, query *RoleQuery, nodes []*User, init func(*User), assign func(*User, *Role)) error {
+	edgeIDs := make([]driver.Value, len(nodes))
+	byID := make(map[uuid.UUID]*User)
+	nids := make(map[uint64]map[*User]struct{})
+	for i, node := range nodes {
+		edgeIDs[i] = node.ID
+		byID[node.ID] = node
+		if init != nil {
+			init(node)
+		}
+	}
+	query.Where(func(s *sql.Selector) {
+		joinT := sql.Table(user.RolesTable)
+		s.Join(joinT).On(s.C(role.FieldID), joinT.C(user.RolesPrimaryKey[1]))
+		s.Where(sql.InValues(joinT.C(user.RolesPrimaryKey[0]), edgeIDs...))
+		columns := s.SelectedColumns()
+		s.Select(joinT.C(user.RolesPrimaryKey[0]))
+		s.AppendSelect(columns...)
+		s.SetDistinct(false)
+	})
+	if err := query.prepareQuery(ctx); err != nil {
+		return err
+	}
+	qr := QuerierFunc(func(ctx context.Context, q Query) (Value, error) {
+		return query.sqlAll(ctx, func(_ context.Context, spec *sqlgraph.QuerySpec) {
+			assign := spec.Assign
+			values := spec.ScanValues
+			spec.ScanValues = func(columns []string) ([]any, error) {
+				values, err := values(columns[1:])
+				if err != nil {
+					return nil, err
+				}
+				return append([]any{new(uuid.UUID)}, values...), nil
+			}
+			spec.Assign = func(columns []string, values []any) error {
+				outValue := *values[0].(*uuid.UUID)
+				inValue := uint64(values[1].(*sql.NullInt64).Int64)
+				if nids[inValue] == nil {
+					nids[inValue] = map[*User]struct{}{byID[outValue]: {}}
+					return assign(columns[1:], values[1:])
+				}
+				nids[inValue][byID[outValue]] = struct{}{}
+				return nil
+			}
+		})
+	})
+	neighbors, err := withInterceptors[[]*Role](ctx, query, qr, query.inters)
+	if err != nil {
+		return err
+	}
+	for _, n := range neighbors {
+		nodes, ok := nids[n.ID]
+		if !ok {
+			return fmt.Errorf(`unexpected "roles" node returned %v`, n.ID)
+		}
+		for kn := range nodes {
+			assign(kn, n)
 		}
 	}
 	return nil

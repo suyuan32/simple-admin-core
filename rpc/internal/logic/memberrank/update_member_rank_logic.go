@@ -33,6 +33,7 @@ func (l *UpdateMemberRankLogic) UpdateMemberRank(in *core.MemberRankInfo) (*core
 		SetNotEmptyName(in.Name).
 		SetNotEmptyDescription(in.Description).
 		SetNotEmptyRemark(in.Remark).
+		SetCode(in.Code).
 		Exec(l.ctx)
 	if err != nil {
 		switch {

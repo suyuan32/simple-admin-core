@@ -19,8 +19,8 @@ const (
 	FieldStatus = "status"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
-	// FieldValue holds the string denoting the value field in the database.
-	FieldValue = "value"
+	// FieldCode holds the string denoting the code field in the database.
+	FieldCode = "code"
 	// FieldDefaultRouter holds the string denoting the default_router field in the database.
 	FieldDefaultRouter = "default_router"
 	// FieldRemark holds the string denoting the remark field in the database.
@@ -29,6 +29,8 @@ const (
 	FieldSort = "sort"
 	// EdgeMenus holds the string denoting the menus edge name in mutations.
 	EdgeMenus = "menus"
+	// EdgeUsers holds the string denoting the users edge name in mutations.
+	EdgeUsers = "users"
 	// Table holds the table name of the role in the database.
 	Table = "sys_roles"
 	// MenusTable is the table that holds the menus relation/edge. The primary key declared below.
@@ -36,6 +38,11 @@ const (
 	// MenusInverseTable is the table name for the Menu entity.
 	// It exists in this package in order to avoid circular dependency with the "menu" package.
 	MenusInverseTable = "sys_menus"
+	// UsersTable is the table that holds the users relation/edge. The primary key declared below.
+	UsersTable = "user_roles"
+	// UsersInverseTable is the table name for the User entity.
+	// It exists in this package in order to avoid circular dependency with the "user" package.
+	UsersInverseTable = "sys_users"
 )
 
 // Columns holds all SQL columns for role fields.
@@ -45,7 +52,7 @@ var Columns = []string{
 	FieldUpdatedAt,
 	FieldStatus,
 	FieldName,
-	FieldValue,
+	FieldCode,
 	FieldDefaultRouter,
 	FieldRemark,
 	FieldSort,
@@ -55,6 +62,9 @@ var (
 	// MenusPrimaryKey and MenusColumn2 are the table columns denoting the
 	// primary key for the menus relation (M2M).
 	MenusPrimaryKey = []string{"role_id", "menu_id"}
+	// UsersPrimaryKey and UsersColumn2 are the table columns denoting the
+	// primary key for the users relation (M2M).
+	UsersPrimaryKey = []string{"user_id", "role_id"}
 )
 
 // ValidColumn reports if the column name is valid (part of the table columns).

@@ -19,11 +19,11 @@ import (
 // MemberRankQuery is the builder for querying MemberRank entities.
 type MemberRankQuery struct {
 	config
-	ctx        *QueryContext
-	order      []OrderFunc
-	inters     []Interceptor
-	predicates []predicate.MemberRank
-	withMember *MemberQuery
+	ctx         *QueryContext
+	order       []OrderFunc
+	inters      []Interceptor
+	predicates  []predicate.MemberRank
+	withMembers *MemberQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -60,8 +60,8 @@ func (mrq *MemberRankQuery) Order(o ...OrderFunc) *MemberRankQuery {
 	return mrq
 }
 
-// QueryMember chains the current query on the "member" edge.
-func (mrq *MemberRankQuery) QueryMember() *MemberQuery {
+// QueryMembers chains the current query on the "members" edge.
+func (mrq *MemberRankQuery) QueryMembers() *MemberQuery {
 	query := (&MemberClient{config: mrq.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := mrq.prepareQuery(ctx); err != nil {
@@ -74,7 +74,7 @@ func (mrq *MemberRankQuery) QueryMember() *MemberQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(memberrank.Table, memberrank.FieldID, selector),
 			sqlgraph.To(member.Table, member.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, true, memberrank.MemberTable, memberrank.MemberColumn),
+			sqlgraph.Edge(sqlgraph.O2M, true, memberrank.MembersTable, memberrank.MembersColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(mrq.driver.Dialect(), step)
 		return fromU, nil
@@ -267,26 +267,26 @@ func (mrq *MemberRankQuery) Clone() *MemberRankQuery {
 		return nil
 	}
 	return &MemberRankQuery{
-		config:     mrq.config,
-		ctx:        mrq.ctx.Clone(),
-		order:      append([]OrderFunc{}, mrq.order...),
-		inters:     append([]Interceptor{}, mrq.inters...),
-		predicates: append([]predicate.MemberRank{}, mrq.predicates...),
-		withMember: mrq.withMember.Clone(),
+		config:      mrq.config,
+		ctx:         mrq.ctx.Clone(),
+		order:       append([]OrderFunc{}, mrq.order...),
+		inters:      append([]Interceptor{}, mrq.inters...),
+		predicates:  append([]predicate.MemberRank{}, mrq.predicates...),
+		withMembers: mrq.withMembers.Clone(),
 		// clone intermediate query.
 		sql:  mrq.sql.Clone(),
 		path: mrq.path,
 	}
 }
 
-// WithMember tells the query-builder to eager-load the nodes that are connected to
-// the "member" edge. The optional arguments are used to configure the query builder of the edge.
-func (mrq *MemberRankQuery) WithMember(opts ...func(*MemberQuery)) *MemberRankQuery {
+// WithMembers tells the query-builder to eager-load the nodes that are connected to
+// the "members" edge. The optional arguments are used to configure the query builder of the edge.
+func (mrq *MemberRankQuery) WithMembers(opts ...func(*MemberQuery)) *MemberRankQuery {
 	query := (&MemberClient{config: mrq.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	mrq.withMember = query
+	mrq.withMembers = query
 	return mrq
 }
 
@@ -369,7 +369,7 @@ func (mrq *MemberRankQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 		nodes       = []*MemberRank{}
 		_spec       = mrq.querySpec()
 		loadedTypes = [1]bool{
-			mrq.withMember != nil,
+			mrq.withMembers != nil,
 		}
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
@@ -390,17 +390,17 @@ func (mrq *MemberRankQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := mrq.withMember; query != nil {
-		if err := mrq.loadMember(ctx, query, nodes,
-			func(n *MemberRank) { n.Edges.Member = []*Member{} },
-			func(n *MemberRank, e *Member) { n.Edges.Member = append(n.Edges.Member, e) }); err != nil {
+	if query := mrq.withMembers; query != nil {
+		if err := mrq.loadMembers(ctx, query, nodes,
+			func(n *MemberRank) { n.Edges.Members = []*Member{} },
+			func(n *MemberRank, e *Member) { n.Edges.Members = append(n.Edges.Members, e) }); err != nil {
 			return nil, err
 		}
 	}
 	return nodes, nil
 }
 
-func (mrq *MemberRankQuery) loadMember(ctx context.Context, query *MemberQuery, nodes []*MemberRank, init func(*MemberRank), assign func(*MemberRank, *Member)) error {
+func (mrq *MemberRankQuery) loadMembers(ctx context.Context, query *MemberQuery, nodes []*MemberRank, init func(*MemberRank), assign func(*MemberRank, *Member)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[uint64]*MemberRank)
 	for i := range nodes {
@@ -411,7 +411,7 @@ func (mrq *MemberRankQuery) loadMember(ctx context.Context, query *MemberQuery, 
 		}
 	}
 	query.Where(predicate.Member(func(s *sql.Selector) {
-		s.Where(sql.InValues(memberrank.MemberColumn, fks...))
+		s.Where(sql.InValues(memberrank.MembersColumn, fks...))
 	}))
 	neighbors, err := query.All(ctx)
 	if err != nil {

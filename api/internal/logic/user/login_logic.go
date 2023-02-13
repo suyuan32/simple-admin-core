@@ -36,17 +36,20 @@ func NewLoginLogic(r *http.Request, svcCtx *svc.ServiceContext) *LoginLogic {
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
 	if ok := captcha.Store.Verify(req.CaptchaId, req.Captcha, true); ok {
-		user, err := l.svcCtx.CoreRpc.Login(l.ctx,
-			&core.LoginReq{
+		user, err := l.svcCtx.CoreRpc.GetUserByUsername(l.ctx,
+			&core.UsernameReq{
 				Username: req.Username,
-				Password: req.Password,
 			})
 		if err != nil {
 			return nil, err
 		}
 
+		if !utils.BcryptCheck(req.Password, user.Password) {
+			return nil, errorx.NewCodeInvalidArgumentError("login.wrongUsernameOrPassword")
+		}
+
 		token, err := utils.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, user.Id, "roleId", time.Now().Unix(),
-			l.svcCtx.Config.Auth.AccessExpire, int64(user.RoleId))
+			l.svcCtx.Config.Auth.AccessExpire, user.RoleCodes)
 		if err != nil {
 			return nil, err
 		}
@@ -73,10 +76,6 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 				UserId: user.Id,
 				Token:  token,
 				Expire: uint64(expiredAt),
-				Role: types.RoleInfoSimple{
-					Value:    user.RoleValue,
-					RoleName: user.RoleName,
-				},
 			},
 		}
 		return resp, nil

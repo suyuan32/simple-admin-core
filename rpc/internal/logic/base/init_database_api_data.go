@@ -171,14 +171,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	apis = append(apis, l.svcCtx.DB.API.Create().
 		SetPath("/menu/role/list").
 		SetDescription("apiDesc.menuRoleList").
-		SetAPIGroup("menu").
-		SetMethod("GET"),
-	)
-
-	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetPath("/menu/role").
-		SetDescription("apiDesc.roleMenu").
-		SetAPIGroup("menu").
+		SetAPIGroup("authority").
 		SetMethod("GET"),
 	)
 

@@ -25,17 +25,17 @@ const (
 	FieldCode = "code"
 	// FieldRemark holds the string denoting the remark field in the database.
 	FieldRemark = "remark"
-	// EdgeUser holds the string denoting the user edge name in mutations.
-	EdgeUser = "user"
+	// EdgeUsers holds the string denoting the users edge name in mutations.
+	EdgeUsers = "users"
 	// Table holds the table name of the position in the database.
 	Table = "sys_positions"
-	// UserTable is the table that holds the user relation/edge.
-	UserTable = "sys_users"
-	// UserInverseTable is the table name for the User entity.
+	// UsersTable is the table that holds the users relation/edge.
+	UsersTable = "sys_users"
+	// UsersInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "sys_users"
-	// UserColumn is the table column denoting the user relation/edge.
-	UserColumn = "position_id"
+	UsersInverseTable = "sys_users"
+	// UsersColumn is the table column denoting the users relation/edge.
+	UsersColumn = "position_id"
 )
 
 // Columns holds all SQL columns for position fields.

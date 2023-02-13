@@ -17,6 +17,7 @@ type MemberRank struct {
 func (MemberRank) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("name").Comment("Rank name | 等级名称"),
+		field.String("code").Comment("Rank code | 等级码"),
 		field.String("description").Comment("Rank description | 等级描述"),
 		field.String("remark").Comment("Remark | 备注"),
 	}
@@ -30,7 +31,7 @@ func (MemberRank) Mixin() []ent.Mixin {
 
 func (MemberRank) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("member", Member.Type).Ref("rank"),
+		edge.From("members", Member.Type).Ref("ranks"),
 	}
 }
 

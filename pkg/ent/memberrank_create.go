@@ -56,6 +56,12 @@ func (mrc *MemberRankCreate) SetName(s string) *MemberRankCreate {
 	return mrc
 }
 
+// SetCode sets the "code" field.
+func (mrc *MemberRankCreate) SetCode(s string) *MemberRankCreate {
+	mrc.mutation.SetCode(s)
+	return mrc
+}
+
 // SetDescription sets the "description" field.
 func (mrc *MemberRankCreate) SetDescription(s string) *MemberRankCreate {
 	mrc.mutation.SetDescription(s)
@@ -74,14 +80,14 @@ func (mrc *MemberRankCreate) SetID(u uint64) *MemberRankCreate {
 	return mrc
 }
 
-// AddMemberIDs adds the "member" edge to the Member entity by IDs.
+// AddMemberIDs adds the "members" edge to the Member entity by IDs.
 func (mrc *MemberRankCreate) AddMemberIDs(ids ...uuid.UUID) *MemberRankCreate {
 	mrc.mutation.AddMemberIDs(ids...)
 	return mrc
 }
 
-// AddMember adds the "member" edges to the Member entity.
-func (mrc *MemberRankCreate) AddMember(m ...*Member) *MemberRankCreate {
+// AddMembers adds the "members" edges to the Member entity.
+func (mrc *MemberRankCreate) AddMembers(m ...*Member) *MemberRankCreate {
 	ids := make([]uuid.UUID, len(m))
 	for i := range m {
 		ids[i] = m[i].ID
@@ -145,6 +151,9 @@ func (mrc *MemberRankCreate) check() error {
 	if _, ok := mrc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "MemberRank.name"`)}
 	}
+	if _, ok := mrc.mutation.Code(); !ok {
+		return &ValidationError{Name: "code", err: errors.New(`ent: missing required field "MemberRank.code"`)}
+	}
 	if _, ok := mrc.mutation.Description(); !ok {
 		return &ValidationError{Name: "description", err: errors.New(`ent: missing required field "MemberRank.description"`)}
 	}
@@ -201,6 +210,10 @@ func (mrc *MemberRankCreate) createSpec() (*MemberRank, *sqlgraph.CreateSpec) {
 		_spec.SetField(memberrank.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
+	if value, ok := mrc.mutation.Code(); ok {
+		_spec.SetField(memberrank.FieldCode, field.TypeString, value)
+		_node.Code = value
+	}
 	if value, ok := mrc.mutation.Description(); ok {
 		_spec.SetField(memberrank.FieldDescription, field.TypeString, value)
 		_node.Description = value
@@ -209,12 +222,12 @@ func (mrc *MemberRankCreate) createSpec() (*MemberRank, *sqlgraph.CreateSpec) {
 		_spec.SetField(memberrank.FieldRemark, field.TypeString, value)
 		_node.Remark = value
 	}
-	if nodes := mrc.mutation.MemberIDs(); len(nodes) > 0 {
+	if nodes := mrc.mutation.MembersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: true,
-			Table:   memberrank.MemberTable,
-			Columns: []string{memberrank.MemberColumn},
+			Table:   memberrank.MembersTable,
+			Columns: []string{memberrank.MembersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

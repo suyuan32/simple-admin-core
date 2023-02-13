@@ -31,23 +31,33 @@ func NewUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 }
 
 func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) {
-	updateQuery := l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
-		SetNotEmptyUsername(in.Username).
-		SetNotEmptyNickname(in.Nickname).
-		SetNotEmptyEmail(in.Email).
-		SetNotEmptyMobile(in.Mobile).
-		SetNotEmptyAvatar(in.Avatar).
-		SetNotEmptyRoleID(in.RoleId).
-		SetNotEmptyHomePath(in.HomePath).
-		SetNotEmptyDescription(in.Description).
-		SetNotEmptyDepartmentID(in.DepartmentId).
-		SetNotEmptyPositionID(in.PositionId)
+	err := utils.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
+		updateQuery := tx.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
+			SetNotEmptyUsername(in.Username).
+			SetNotEmptyNickname(in.Nickname).
+			SetNotEmptyEmail(in.Email).
+			SetNotEmptyMobile(in.Mobile).
+			SetNotEmptyAvatar(in.Avatar).
+			SetNotEmptyHomePath(in.HomePath).
+			SetNotEmptyDescription(in.Description).
+			SetNotEmptyDepartmentID(in.DepartmentId).
+			SetNotEmptyPositionID(in.PositionId)
 
-	if in.Password != "" {
-		updateQuery = updateQuery.SetNotEmptyPassword(utils.BcryptEncrypt(in.Password))
-	}
+		if in.Password != "" {
+			updateQuery = updateQuery.SetNotEmptyPassword(utils.BcryptEncrypt(in.Password))
+		}
 
-	err := updateQuery.Exec(l.ctx)
+		if in.RoleIds != nil {
+			err := l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).ClearRoles().Exec(l.ctx)
+			if err != nil {
+				return err
+			}
+
+			updateQuery = updateQuery.AddRoleIDs(in.RoleIds...)
+		}
+
+		return updateQuery.Exec(l.ctx)
+	})
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):

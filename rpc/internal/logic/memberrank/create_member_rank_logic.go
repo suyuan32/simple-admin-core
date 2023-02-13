@@ -33,8 +33,8 @@ func (l *CreateMemberRankLogic) CreateMemberRank(in *core.MemberRankInfo) (*core
 		SetName(in.Name).
 		SetDescription(in.Description).
 		SetRemark(in.Remark).
+		SetCode(in.Code).
 		Exec(l.ctx)
-
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):

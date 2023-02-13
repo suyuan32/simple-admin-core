@@ -115,9 +115,23 @@ func (ddc *DictionaryDetailCreate) SetID(u uint64) *DictionaryDetailCreate {
 	return ddc
 }
 
-// SetDictionary sets the "dictionary" edge to the Dictionary entity.
-func (ddc *DictionaryDetailCreate) SetDictionary(d *Dictionary) *DictionaryDetailCreate {
-	return ddc.SetDictionaryID(d.ID)
+// SetDictionariesID sets the "dictionaries" edge to the Dictionary entity by ID.
+func (ddc *DictionaryDetailCreate) SetDictionariesID(id uint64) *DictionaryDetailCreate {
+	ddc.mutation.SetDictionariesID(id)
+	return ddc
+}
+
+// SetNillableDictionariesID sets the "dictionaries" edge to the Dictionary entity by ID if the given value is not nil.
+func (ddc *DictionaryDetailCreate) SetNillableDictionariesID(id *uint64) *DictionaryDetailCreate {
+	if id != nil {
+		ddc = ddc.SetDictionariesID(*id)
+	}
+	return ddc
+}
+
+// SetDictionaries sets the "dictionaries" edge to the Dictionary entity.
+func (ddc *DictionaryDetailCreate) SetDictionaries(d *Dictionary) *DictionaryDetailCreate {
+	return ddc.SetDictionariesID(d.ID)
 }
 
 // Mutation returns the DictionaryDetailMutation object of the builder.
@@ -259,12 +273,12 @@ func (ddc *DictionaryDetailCreate) createSpec() (*DictionaryDetail, *sqlgraph.Cr
 		_spec.SetField(dictionarydetail.FieldValue, field.TypeString, value)
 		_node.Value = value
 	}
-	if nodes := ddc.mutation.DictionaryIDs(); len(nodes) > 0 {
+	if nodes := ddc.mutation.DictionariesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   dictionarydetail.DictionaryTable,
-			Columns: []string{dictionarydetail.DictionaryColumn},
+			Table:   dictionarydetail.DictionariesTable,
+			Columns: []string{dictionarydetail.DictionariesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

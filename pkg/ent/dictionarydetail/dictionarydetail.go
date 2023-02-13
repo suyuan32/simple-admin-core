@@ -27,17 +27,17 @@ const (
 	FieldValue = "value"
 	// FieldDictionaryID holds the string denoting the dictionary_id field in the database.
 	FieldDictionaryID = "dictionary_id"
-	// EdgeDictionary holds the string denoting the dictionary edge name in mutations.
-	EdgeDictionary = "dictionary"
+	// EdgeDictionaries holds the string denoting the dictionaries edge name in mutations.
+	EdgeDictionaries = "dictionaries"
 	// Table holds the table name of the dictionarydetail in the database.
 	Table = "sys_dictionary_details"
-	// DictionaryTable is the table that holds the dictionary relation/edge.
-	DictionaryTable = "sys_dictionary_details"
-	// DictionaryInverseTable is the table name for the Dictionary entity.
+	// DictionariesTable is the table that holds the dictionaries relation/edge.
+	DictionariesTable = "sys_dictionary_details"
+	// DictionariesInverseTable is the table name for the Dictionary entity.
 	// It exists in this package in order to avoid circular dependency with the "dictionary" package.
-	DictionaryInverseTable = "sys_dictionaries"
-	// DictionaryColumn is the table column denoting the dictionary relation/edge.
-	DictionaryColumn = "dictionary_id"
+	DictionariesInverseTable = "sys_dictionaries"
+	// DictionariesColumn is the table column denoting the dictionaries relation/edge.
+	DictionariesColumn = "dictionary_id"
 )
 
 // Columns holds all SQL columns for dictionarydetail fields.

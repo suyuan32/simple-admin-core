@@ -121,9 +121,23 @@ func (ddu *DictionaryDetailUpdate) ClearDictionaryID() *DictionaryDetailUpdate {
 	return ddu
 }
 
-// SetDictionary sets the "dictionary" edge to the Dictionary entity.
-func (ddu *DictionaryDetailUpdate) SetDictionary(d *Dictionary) *DictionaryDetailUpdate {
-	return ddu.SetDictionaryID(d.ID)
+// SetDictionariesID sets the "dictionaries" edge to the Dictionary entity by ID.
+func (ddu *DictionaryDetailUpdate) SetDictionariesID(id uint64) *DictionaryDetailUpdate {
+	ddu.mutation.SetDictionariesID(id)
+	return ddu
+}
+
+// SetNillableDictionariesID sets the "dictionaries" edge to the Dictionary entity by ID if the given value is not nil.
+func (ddu *DictionaryDetailUpdate) SetNillableDictionariesID(id *uint64) *DictionaryDetailUpdate {
+	if id != nil {
+		ddu = ddu.SetDictionariesID(*id)
+	}
+	return ddu
+}
+
+// SetDictionaries sets the "dictionaries" edge to the Dictionary entity.
+func (ddu *DictionaryDetailUpdate) SetDictionaries(d *Dictionary) *DictionaryDetailUpdate {
+	return ddu.SetDictionariesID(d.ID)
 }
 
 // Mutation returns the DictionaryDetailMutation object of the builder.
@@ -131,9 +145,9 @@ func (ddu *DictionaryDetailUpdate) Mutation() *DictionaryDetailMutation {
 	return ddu.mutation
 }
 
-// ClearDictionary clears the "dictionary" edge to the Dictionary entity.
-func (ddu *DictionaryDetailUpdate) ClearDictionary() *DictionaryDetailUpdate {
-	ddu.mutation.ClearDictionary()
+// ClearDictionaries clears the "dictionaries" edge to the Dictionary entity.
+func (ddu *DictionaryDetailUpdate) ClearDictionaries() *DictionaryDetailUpdate {
+	ddu.mutation.ClearDictionaries()
 	return ddu
 }
 
@@ -218,12 +232,12 @@ func (ddu *DictionaryDetailUpdate) sqlSave(ctx context.Context) (n int, err erro
 	if value, ok := ddu.mutation.Value(); ok {
 		_spec.SetField(dictionarydetail.FieldValue, field.TypeString, value)
 	}
-	if ddu.mutation.DictionaryCleared() {
+	if ddu.mutation.DictionariesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   dictionarydetail.DictionaryTable,
-			Columns: []string{dictionarydetail.DictionaryColumn},
+			Table:   dictionarydetail.DictionariesTable,
+			Columns: []string{dictionarydetail.DictionariesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -234,12 +248,12 @@ func (ddu *DictionaryDetailUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ddu.mutation.DictionaryIDs(); len(nodes) > 0 {
+	if nodes := ddu.mutation.DictionariesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   dictionarydetail.DictionaryTable,
-			Columns: []string{dictionarydetail.DictionaryColumn},
+			Table:   dictionarydetail.DictionariesTable,
+			Columns: []string{dictionarydetail.DictionariesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -365,9 +379,23 @@ func (dduo *DictionaryDetailUpdateOne) ClearDictionaryID() *DictionaryDetailUpda
 	return dduo
 }
 
-// SetDictionary sets the "dictionary" edge to the Dictionary entity.
-func (dduo *DictionaryDetailUpdateOne) SetDictionary(d *Dictionary) *DictionaryDetailUpdateOne {
-	return dduo.SetDictionaryID(d.ID)
+// SetDictionariesID sets the "dictionaries" edge to the Dictionary entity by ID.
+func (dduo *DictionaryDetailUpdateOne) SetDictionariesID(id uint64) *DictionaryDetailUpdateOne {
+	dduo.mutation.SetDictionariesID(id)
+	return dduo
+}
+
+// SetNillableDictionariesID sets the "dictionaries" edge to the Dictionary entity by ID if the given value is not nil.
+func (dduo *DictionaryDetailUpdateOne) SetNillableDictionariesID(id *uint64) *DictionaryDetailUpdateOne {
+	if id != nil {
+		dduo = dduo.SetDictionariesID(*id)
+	}
+	return dduo
+}
+
+// SetDictionaries sets the "dictionaries" edge to the Dictionary entity.
+func (dduo *DictionaryDetailUpdateOne) SetDictionaries(d *Dictionary) *DictionaryDetailUpdateOne {
+	return dduo.SetDictionariesID(d.ID)
 }
 
 // Mutation returns the DictionaryDetailMutation object of the builder.
@@ -375,9 +403,9 @@ func (dduo *DictionaryDetailUpdateOne) Mutation() *DictionaryDetailMutation {
 	return dduo.mutation
 }
 
-// ClearDictionary clears the "dictionary" edge to the Dictionary entity.
-func (dduo *DictionaryDetailUpdateOne) ClearDictionary() *DictionaryDetailUpdateOne {
-	dduo.mutation.ClearDictionary()
+// ClearDictionaries clears the "dictionaries" edge to the Dictionary entity.
+func (dduo *DictionaryDetailUpdateOne) ClearDictionaries() *DictionaryDetailUpdateOne {
+	dduo.mutation.ClearDictionaries()
 	return dduo
 }
 
@@ -486,12 +514,12 @@ func (dduo *DictionaryDetailUpdateOne) sqlSave(ctx context.Context) (_node *Dict
 	if value, ok := dduo.mutation.Value(); ok {
 		_spec.SetField(dictionarydetail.FieldValue, field.TypeString, value)
 	}
-	if dduo.mutation.DictionaryCleared() {
+	if dduo.mutation.DictionariesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   dictionarydetail.DictionaryTable,
-			Columns: []string{dictionarydetail.DictionaryColumn},
+			Table:   dictionarydetail.DictionariesTable,
+			Columns: []string{dictionarydetail.DictionariesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -502,12 +530,12 @@ func (dduo *DictionaryDetailUpdateOne) sqlSave(ctx context.Context) (_node *Dict
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := dduo.mutation.DictionaryIDs(); len(nodes) > 0 {
+	if nodes := dduo.mutation.DictionariesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   dictionarydetail.DictionaryTable,
-			Columns: []string{dictionarydetail.DictionaryColumn},
+			Table:   dictionarydetail.DictionariesTable,
+			Columns: []string{dictionarydetail.DictionariesColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

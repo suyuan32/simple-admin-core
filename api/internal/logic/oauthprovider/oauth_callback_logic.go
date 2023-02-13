@@ -42,7 +42,7 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 	}
 
 	token, err := utils.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, result.Id, "roleId", time.Now().Unix(),
-		l.svcCtx.Config.Auth.AccessExpire, int64(result.RoleId))
+		l.svcCtx.Config.Auth.AccessExpire, result.RoleCodes)
 
 	// add token into database
 	expiredAt := time.Now().Add(time.Second * 259200).Unix()
@@ -60,10 +60,6 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 
 	return &types.CallbackResp{
 		UserId: result.Id,
-		Role: types.RoleInfoSimple{
-			RoleName: result.RoleName,
-			Value:    result.RoleValue,
-		},
 		Token:  token,
 		Expire: uint64(time.Now().Add(time.Second * 259200).Unix()),
 	}, nil

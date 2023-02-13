@@ -23,7 +23,6 @@ func (User) Fields() []ent.Field {
 		field.String("nickname").Unique().Comment("Nickname | 昵称"),
 		field.String("description").Optional().Comment("The description of user | 用户的描述信息"),
 		field.String("home_path").Default("/dashboard").Comment("The home page that the user enters after logging in | 用户登陆后进入的首页"),
-		field.Uint64("role_id").Optional().Default(2).Comment("Role id | 角色ID"),
 		field.String("mobile").Optional().Comment("Mobile number | 手机号"),
 		field.String("email").Optional().Comment("Email | 邮箱号"),
 		field.String("avatar").
@@ -45,8 +44,9 @@ func (User) Mixin() []ent.Mixin {
 
 func (User) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("department", Department.Type).Unique().Field("department_id"),
-		edge.To("position", Position.Type).Unique().Field("position_id"),
+		edge.To("departments", Department.Type).Unique().Field("department_id"),
+		edge.To("positions", Position.Type).Unique().Field("position_id"),
+		edge.To("roles", Role.Type),
 	}
 }
 

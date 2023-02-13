@@ -32,12 +32,11 @@ func (l *CreateRoleLogic) CreateRole(in *core.RoleInfo) (*core.BaseResp, error) 
 	err := l.svcCtx.DB.Role.Create().
 		SetStatus(uint8(in.Status)).
 		SetName(in.Name).
-		SetValue(in.Value).
+		SetCode(in.Code).
 		SetDefaultRouter(in.DefaultRouter).
 		SetRemark(in.Remark).
 		SetSort(in.Sort).
 		Exec(l.ctx)
-
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):

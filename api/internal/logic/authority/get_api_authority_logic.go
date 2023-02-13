@@ -3,11 +3,11 @@ package authority
 import (
 	"context"
 	"net/http"
-	"strconv"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
+	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -29,8 +29,12 @@ func NewGetApiAuthorityLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetAp
 }
 
 func (l *GetApiAuthorityLogic) GetApiAuthority(req *types.IDReq) (resp *types.ApiAuthorityListResp, err error) {
-	roleId := strconv.Itoa(int(req.Id))
-	data := l.svcCtx.Casbin.GetFilteredPolicy(0, roleId)
+	roleData, err := l.svcCtx.CoreRpc.GetRoleById(l.ctx, &core.IDReq{Id: req.Id})
+	if err != nil {
+		return nil, err
+	}
+
+	data := l.svcCtx.Casbin.GetFilteredPolicy(0, roleData.Code)
 	resp = &types.ApiAuthorityListResp{}
 	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
 	resp.Data.Total = uint64(len(data))
