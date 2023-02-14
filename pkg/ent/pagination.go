@@ -76,7 +76,7 @@ type APIPager struct {
 type APIPaginateOption func(*APIPager)
 
 // DefaultAPIOrder is the default ordering of API.
-var DefaultAPIOrder = Asc(api.FieldID)
+var DefaultAPIOrder = Desc(api.FieldID)
 
 func newAPIPager(opts []APIPaginateOption) (*APIPager, error) {
 	pager := &APIPager{}
@@ -155,7 +155,7 @@ type DepartmentPager struct {
 type DepartmentPaginateOption func(*DepartmentPager)
 
 // DefaultDepartmentOrder is the default ordering of Department.
-var DefaultDepartmentOrder = Asc(department.FieldID)
+var DefaultDepartmentOrder = Desc(department.FieldID)
 
 func newDepartmentPager(opts []DepartmentPaginateOption) (*DepartmentPager, error) {
 	pager := &DepartmentPager{}
@@ -234,7 +234,7 @@ type DictionaryPager struct {
 type DictionaryPaginateOption func(*DictionaryPager)
 
 // DefaultDictionaryOrder is the default ordering of Dictionary.
-var DefaultDictionaryOrder = Asc(dictionary.FieldID)
+var DefaultDictionaryOrder = Desc(dictionary.FieldID)
 
 func newDictionaryPager(opts []DictionaryPaginateOption) (*DictionaryPager, error) {
 	pager := &DictionaryPager{}
@@ -313,7 +313,7 @@ type DictionaryDetailPager struct {
 type DictionaryDetailPaginateOption func(*DictionaryDetailPager)
 
 // DefaultDictionaryDetailOrder is the default ordering of DictionaryDetail.
-var DefaultDictionaryDetailOrder = Asc(dictionarydetail.FieldID)
+var DefaultDictionaryDetailOrder = Desc(dictionarydetail.FieldID)
 
 func newDictionaryDetailPager(opts []DictionaryDetailPaginateOption) (*DictionaryDetailPager, error) {
 	pager := &DictionaryDetailPager{}
@@ -392,7 +392,7 @@ type MemberPager struct {
 type MemberPaginateOption func(*MemberPager)
 
 // DefaultMemberOrder is the default ordering of Member.
-var DefaultMemberOrder = Asc(member.FieldID)
+var DefaultMemberOrder = Desc(member.FieldID)
 
 func newMemberPager(opts []MemberPaginateOption) (*MemberPager, error) {
 	pager := &MemberPager{}
@@ -471,7 +471,7 @@ type MemberRankPager struct {
 type MemberRankPaginateOption func(*MemberRankPager)
 
 // DefaultMemberRankOrder is the default ordering of MemberRank.
-var DefaultMemberRankOrder = Asc(memberrank.FieldID)
+var DefaultMemberRankOrder = Desc(memberrank.FieldID)
 
 func newMemberRankPager(opts []MemberRankPaginateOption) (*MemberRankPager, error) {
 	pager := &MemberRankPager{}
@@ -550,7 +550,7 @@ type MenuPager struct {
 type MenuPaginateOption func(*MenuPager)
 
 // DefaultMenuOrder is the default ordering of Menu.
-var DefaultMenuOrder = Asc(menu.FieldID)
+var DefaultMenuOrder = Desc(menu.FieldID)
 
 func newMenuPager(opts []MenuPaginateOption) (*MenuPager, error) {
 	pager := &MenuPager{}
@@ -629,7 +629,7 @@ type MenuParamPager struct {
 type MenuParamPaginateOption func(*MenuParamPager)
 
 // DefaultMenuParamOrder is the default ordering of MenuParam.
-var DefaultMenuParamOrder = Asc(menuparam.FieldID)
+var DefaultMenuParamOrder = Desc(menuparam.FieldID)
 
 func newMenuParamPager(opts []MenuParamPaginateOption) (*MenuParamPager, error) {
 	pager := &MenuParamPager{}
@@ -708,7 +708,7 @@ type OauthProviderPager struct {
 type OauthProviderPaginateOption func(*OauthProviderPager)
 
 // DefaultOauthProviderOrder is the default ordering of OauthProvider.
-var DefaultOauthProviderOrder = Asc(oauthprovider.FieldID)
+var DefaultOauthProviderOrder = Desc(oauthprovider.FieldID)
 
 func newOauthProviderPager(opts []OauthProviderPaginateOption) (*OauthProviderPager, error) {
 	pager := &OauthProviderPager{}
@@ -787,7 +787,7 @@ type PositionPager struct {
 type PositionPaginateOption func(*PositionPager)
 
 // DefaultPositionOrder is the default ordering of Position.
-var DefaultPositionOrder = Asc(position.FieldID)
+var DefaultPositionOrder = Desc(position.FieldID)
 
 func newPositionPager(opts []PositionPaginateOption) (*PositionPager, error) {
 	pager := &PositionPager{}
@@ -866,7 +866,7 @@ type RolePager struct {
 type RolePaginateOption func(*RolePager)
 
 // DefaultRoleOrder is the default ordering of Role.
-var DefaultRoleOrder = Asc(role.FieldID)
+var DefaultRoleOrder = Desc(role.FieldID)
 
 func newRolePager(opts []RolePaginateOption) (*RolePager, error) {
 	pager := &RolePager{}
@@ -945,7 +945,7 @@ type TokenPager struct {
 type TokenPaginateOption func(*TokenPager)
 
 // DefaultTokenOrder is the default ordering of Token.
-var DefaultTokenOrder = Asc(token.FieldID)
+var DefaultTokenOrder = Desc(token.FieldID)
 
 func newTokenPager(opts []TokenPaginateOption) (*TokenPager, error) {
 	pager := &TokenPager{}
@@ -1024,7 +1024,7 @@ type UserPager struct {
 type UserPaginateOption func(*UserPager)
 
 // DefaultUserOrder is the default ordering of User.
-var DefaultUserOrder = Asc(user.FieldID)
+var DefaultUserOrder = Desc(user.FieldID)
 
 func newUserPager(opts []UserPaginateOption) (*UserPager, error) {
 	pager := &UserPager{}
