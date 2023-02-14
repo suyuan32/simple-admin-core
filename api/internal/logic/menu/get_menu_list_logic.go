@@ -41,6 +41,8 @@ func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuPlainInfoListResp, err
 	for _, v := range data.Data {
 		resp.Data.Data = append(resp.Data.Data, types.MenuPlainInfo{
 			Id:                 v.Id,
+			CreatedAt:          v.CreatedAt,
+			UpdatedAt:          v.UpdatedAt,
 			Trans:              l.svcCtx.Trans.Trans(l.lang, v.Meta.Title),
 			MenuType:           v.MenuType,
 			Level:              v.Level,

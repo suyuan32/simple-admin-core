@@ -80,7 +80,7 @@ type (
 
         // User's role ID | 用户的角色ID
         // Maximum: 1000
-        RoleId uint64 `json:"roleId,optional" validate:"omitempty,number,max=1000"`
+        RoleIds []uint64 `json:"roleIds,optional"`
 
         // The user's department ID | 用户所属部门ID
         DepartmentId  uint64 `json:"departmentId,optional"`

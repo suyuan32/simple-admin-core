@@ -48,8 +48,8 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 		predicates = append(predicates, user.NicknameContains(in.Nickname))
 	}
 
-	if in.RoleId != nil {
-		predicates = append(predicates, user.HasRolesWith(role.IDIn(in.RoleId...)))
+	if in.RoleIds != nil {
+		predicates = append(predicates, user.HasRolesWith(role.IDIn(in.RoleIds...)))
 	}
 
 	if in.DepartmentId != 0 {
@@ -60,7 +60,7 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 		predicates = append(predicates, user.HasPositionsWith(position.IDIn(in.PositionIds...)))
 	}
 
-	users, err := l.svcCtx.DB.User.Query().Where(predicates...).WithRoles().WithPositions().Page(l.ctx, in.Page, in.PageSize)
+	users, err := l.svcCtx.DB.Debug().User.Query().Where(predicates...).WithRoles().WithPositions().Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		logx.Error(err.Error())
 		return nil, statuserr.NewInternalError(i18n.DatabaseError)

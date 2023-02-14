@@ -228,7 +228,7 @@ type UserListReq struct {
 	Email string `json:"email,optional" validate:"omitempty,email,max=100"`
 	// User's role ID | 用户的角色ID
 	// Maximum: 1000
-	RoleId uint64 `json:"roleId,optional" validate:"omitempty,number,max=1000"`
+	RoleIds []uint64 `json:"roleIds,optional"`
 	// The user's department ID | 用户所属部门ID
 	DepartmentId uint64 `json:"departmentId,optional"`
 	// User's position id | 用户的职位ID
@@ -489,6 +489,10 @@ type MenuInfoResp struct {
 // swagger:model MenuPlainInfo
 type MenuPlainInfo struct {
 	Id uint64 `json:"id"`
+	// Create date | 创建日期
+	CreatedAt int64 `json:"createdAt,optional"`
+	// Update date | 更新日期
+	UpdatedAt int64 `json:"updatedAt,optional"`
 	// Translated Name | 国际化展示名称
 	Trans string `json:"trans,optional"`
 	// Level | 菜单层级

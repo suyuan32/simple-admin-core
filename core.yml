@@ -1423,6 +1423,11 @@ definitions:
                 description: Component | 组件地址
                 type: string
                 x-go-name: Component
+            createdAt:
+                description: Create date | 创建日期
+                format: int64
+                type: integer
+                x-go-name: CreatedAt
             disabled:
                 description: Disabled | 是否启用
                 type: boolean
@@ -1510,6 +1515,11 @@ definitions:
                 description: Translated Name | 国际化展示名称
                 type: string
                 x-go-name: Trans
+            updatedAt:
+                description: Update date | 更新日期
+                format: int64
+                type: integer
+                x-go-name: UpdatedAt
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     MenuPlainInfoList:
@@ -2554,12 +2564,14 @@ definitions:
                 format: uint64
                 type: integer
                 x-go-name: PositionId
-            roleId:
+            roleIds:
                 description: User's role ID | 用户的角色ID
-                format: uint64
+                items:
+                    format: uint64
+                    type: integer
                 maximum: 1000
-                type: integer
-                x-go-name: RoleId
+                type: array
+                x-go-name: RoleIds
             username:
                 description: User Name | 用户名
                 maxLength: 20

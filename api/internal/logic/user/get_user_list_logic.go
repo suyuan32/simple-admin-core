@@ -36,6 +36,7 @@ func (l *GetUserListLogic) GetUserList(req *types.UserListReq) (resp *types.User
 		Nickname:     req.Nickname,
 		Email:        req.Email,
 		Mobile:       req.Mobile,
+		RoleIds:      req.RoleIds,
 		DepartmentId: req.DepartmentId,
 	})
 	if err != nil {
