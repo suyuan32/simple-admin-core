@@ -58,3 +58,9 @@ CasbinConf:
     e = some(where (p.eft == allow))
     [matchers]
     m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
+
+Telemetry:
+  Name: core-api
+  Endpoint: http://127.0.0.1:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger
