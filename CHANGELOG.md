@@ -1,4 +1,50 @@
 
+<a name="v0.2.4"></a>
+## [v0.2.4](https://github.com/suyuan32/simple-admin-core/compare/v0.2.4-beta...v0.2.4) (2023-02-13)
+
+### Chore
+
+* update tool version to v0.2.0
+
+### Feat
+
+* multiple position support
+* add enabled support in rpc
+* multiple role supports
+
+### Fix
+
+* remove current active menu param
+* optimize casbin
+* optimize api comment
+
+
+<a name="v0.2.4-beta"></a>
+## [v0.2.4-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.2.3...v0.2.4-beta) (2023-02-09)
+
+### Docs
+
+* update CHANGELOG.md
+
+### Fix
+
+* optimize some bugs
+
+### Refactor
+
+* optimize interface
+
+### Wip
+
+* refactor create or update
+* refactor create or update
+* refactor create or update
+
+### Pull Requests
+
+* Merge pull request [#68](https://github.com/suyuan32/simple-admin-core/issues/68) from suyuan32/refator-createUpdate
+
+
 <a name="v0.2.3"></a>
 ## [v0.2.3](https://github.com/suyuan32/simple-admin-core/compare/v0.2.2...v0.2.3) (2023-02-06)
 
@@ -149,7 +195,7 @@
 
 
 <a name="v0.1.9"></a>
-## [v0.1.9](https://github.com/suyuan32/simple-admin-core/compare/v0.1.8...v0.1.9) (2022-12-15)
+## [v0.1.9](https://github.com/suyuan32/simple-admin-core/compare/list...v0.1.9) (2022-12-15)
 
 ### Chore
 
@@ -179,12 +225,12 @@
 * Merge pull request [#49](https://github.com/suyuan32/simple-admin-core/issues/49) from suyuan32/group-logic
 
 
-<a name="v0.1.8"></a>
-## [v0.1.8](https://github.com/suyuan32/simple-admin-core/compare/list...v0.1.8) (2022-12-10)
-
-
 <a name="list"></a>
-## [list](https://github.com/suyuan32/simple-admin-core/compare/v0.1.7...list) (2022-12-10)
+## [list](https://github.com/suyuan32/simple-admin-core/compare/v0.1.8...list) (2022-12-10)
+
+
+<a name="v0.1.8"></a>
+## [v0.1.8](https://github.com/suyuan32/simple-admin-core/compare/v0.1.7...v0.1.8) (2022-12-10)
 
 ### Docs
 
