@@ -541,7 +541,7 @@ func (l *InitDatabaseLogic) insertProviderData() error {
 		SetAuthURL("https://accounts.google.com/o/oauth2/auth").
 		SetTokenURL("https://oauth2.googleapis.com/token").
 		SetAuthStyle(1).
-		SetInfoURL("https://www.googleapis.com/oauth2/v2/userinfo?access_token="),
+		SetInfoURL("https://www.googleapis.com/oauth2/v2/userinfo?access_token=TOKEN"),
 	)
 
 	providers = append(providers, l.svcCtx.DB.OauthProvider.Create().

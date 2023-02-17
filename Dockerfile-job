@@ -9,7 +9,7 @@ RUN go env -w GO111MODULE=on \
     && go env \
     && go mod tidy \
     && cd job \
-    && go build -o /home/job/core_job core.go
+    && go build -ldflags="-s -w" -o /home/job/core_job core.go
 
 FROM alpine:latest
 

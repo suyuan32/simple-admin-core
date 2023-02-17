@@ -64,7 +64,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo
 			ClientID:     p.ClientID,
 			ClientSecret: p.ClientSecret,
 			Endpoint: oauth2.Endpoint{
-				AuthURL:   p.AuthURL,
+				AuthURL:   replaceKeywords(p.AuthURL, p),
 				TokenURL:  p.TokenURL,
 				AuthStyle: oauth2.AuthStyle(p.AuthStyle),
 			},
@@ -131,9 +131,9 @@ func getUserInfo(c oauth2.Config, infoURL string, code string) ([]byte, error) {
 
 	var response *http.Response
 	if c.Endpoint.AuthStyle == 1 {
-		response, err = http.Get(infoURL + token.AccessToken)
+		response, err = http.Get(strings.ReplaceAll(infoURL, "TOKEN", token.AccessToken))
 		if err != nil {
-			return nil, fmt.Errorf("failed getting user info: %s", err.Error())
+			return nil, fmt.Errorf("failed to get user's information: %s", err.Error())
 		}
 	} else if c.Endpoint.AuthStyle == 2 {
 		client := &http.Client{}
@@ -154,8 +154,15 @@ func getUserInfo(c oauth2.Config, infoURL string, code string) ([]byte, error) {
 	defer response.Body.Close()
 	contents, err := io.ReadAll(response.Body)
 	if err != nil {
-		return nil, fmt.Errorf("failed reading response body: %s", err.Error())
+		return nil, fmt.Errorf("failed to read response body: %s", err.Error())
 	}
 
 	return contents, nil
+}
+
+func replaceKeywords(urlData string, oauthData *ent.OauthProvider) (result string) {
+	result = strings.ReplaceAll(urlData, "CLIENT_ID", oauthData.ClientID)
+	result = strings.ReplaceAll(result, "SECRET", oauthData.ClientSecret)
+	result = strings.ReplaceAll(result, "REDIRECT_URL", oauthData.RedirectURL)
+	return result
 }

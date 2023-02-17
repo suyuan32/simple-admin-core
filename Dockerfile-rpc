@@ -9,7 +9,7 @@ RUN go env -w GO111MODULE=on \
     && go env \
     && go mod tidy \
     && cd rpc \
-    && go build -o /home/rpc/core_rpc core.go
+    && go build -ldflags="-s -w" -o /home/rpc/core_rpc core.go
 
 FROM alpine:latest
 
