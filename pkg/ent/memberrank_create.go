@@ -10,9 +10,10 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/gofrs/uuid"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/member"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/memberrank"
+
+	uuid "github.com/gofrs/uuid/v5"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/member"
 )
 
 // MemberRankCreate is the builder for creating a MemberRank entity.

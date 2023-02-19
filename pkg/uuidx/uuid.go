@@ -1,7 +1,7 @@
 package uuidx
 
 import (
-	"github.com/gofrs/uuid"
+	"github.com/gofrs/uuid/v5"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 

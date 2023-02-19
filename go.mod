@@ -11,7 +11,8 @@ require (
 	github.com/go-co-op/gocron v1.17.1
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-sql-driver/mysql v1.7.0
-	github.com/gofrs/uuid v4.3.2-0.20230107014446-9363593625d7+incompatible
+	github.com/gofrs/uuid v4.0.0+incompatible
+	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/lib/pq v1.10.7
 	github.com/mojocn/base64Captcha v1.3.5

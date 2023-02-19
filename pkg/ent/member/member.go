@@ -5,7 +5,7 @@ package member
 import (
 	"time"
 
-	"github.com/gofrs/uuid"
+	uuid "github.com/gofrs/uuid/v5"
 )
 
 const (

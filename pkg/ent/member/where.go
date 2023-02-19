@@ -7,7 +7,7 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/gofrs/uuid"
+	uuid "github.com/gofrs/uuid/v5"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 )
 

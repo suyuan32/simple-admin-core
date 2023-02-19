@@ -6,7 +6,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/mixin"
-	"github.com/gofrs/uuid"
+	uuid "github.com/gofrs/uuid/v5"
 
 	uuid2 "github.com/suyuan32/simple-admin-core/pkg/uuidx"
 )
