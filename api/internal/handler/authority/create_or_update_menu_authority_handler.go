@@ -3,10 +3,11 @@ package authority
 import (
 	"net/http"
 
+	"github.com/zeromicro/go-zero/rest/httpx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/authority"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 // swagger:route post /authority/menu/create_or_update authority CreateOrUpdateMenuAuthority
@@ -27,7 +28,7 @@ import (
 func CreateOrUpdateMenuAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.MenuAuthorityInfoReq
-		if err := httpx.Parse(r, &req); err != nil {
+		if err := httpx.Parse(r, &req, true); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}

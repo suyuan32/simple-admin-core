@@ -28,7 +28,7 @@ import (
 func UpdateMemberHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.MemberInfo
-		if err := httpx.Parse(r, &req); err != nil {
+		if err := httpx.Parse(r, &req, true); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
