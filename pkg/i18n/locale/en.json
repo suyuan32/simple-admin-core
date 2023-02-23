@@ -184,10 +184,5 @@
 	"position": {
 		"userExistError": "There are users under this position, it is forbidden to delete.",
 		"ceo": "CEO"
-	},
-	"memberRank": {
-		"normal": "Normal Member",
-		"vip": "VIP",
-		"memberExistError": "There are members under this rank, it is forbidden to delete."
 	}
 }

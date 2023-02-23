@@ -190,10 +190,5 @@
 	"position": {
 		"userExistError": "该职位下存在用户，禁止删除",
 		"ceo": "CEO"
-	},
-	"memberRank": {
-		"normal": "普通会员",
-		"vip": "VIP",
-		"memberExistError": "该等级下存在会员，禁止删除"
 	}
 }
