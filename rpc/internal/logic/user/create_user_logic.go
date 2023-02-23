@@ -29,8 +29,8 @@ func NewCreateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 	}
 }
 
-func (l *CreateUserLogic) CreateUser(in *core.UserInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.User.Create().
+func (l *CreateUserLogic) CreateUser(in *core.UserInfo) (*core.BaseUUIDResp, error) {
+	result, err := l.svcCtx.DB.User.Create().
 		SetUsername(in.Username).
 		SetPassword(utils.BcryptEncrypt(in.Password)).
 		SetNickname(in.Nickname).
@@ -42,7 +42,7 @@ func (l *CreateUserLogic) CreateUser(in *core.UserInfo) (*core.BaseResp, error) 
 		SetDescription(in.Description).
 		SetDepartmentID(in.DepartmentId).
 		AddPositionIDs(in.PositionIds...).
-		Exec(l.ctx)
+		Save(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):
@@ -54,5 +54,5 @@ func (l *CreateUserLogic) CreateUser(in *core.UserInfo) (*core.BaseResp, error) 
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.Success}, nil
+	return &core.BaseUUIDResp{Id: result.ID.String(), Msg: i18n.CreateSuccess}, nil
 }

@@ -36,6 +36,16 @@ message BaseMsg {
   string msg = 1;
 }
 
+message BaseIDResp {
+  uint64 id = 1;
+  string msg = 2;
+}
+
+message BaseUUIDResp {
+  string id = 1;
+  string msg = 2;
+}
+
 service Core {
   // group: base
   rpc initDatabase (Empty) returns (BaseResp);

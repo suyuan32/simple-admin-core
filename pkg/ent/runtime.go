@@ -10,8 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/member"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/memberrank"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
@@ -124,54 +122,6 @@ func init() {
 	dictionarydetailDescSort := dictionarydetailMixinFields2[0].Descriptor()
 	// dictionarydetail.DefaultSort holds the default value on creation for the sort field.
 	dictionarydetail.DefaultSort = dictionarydetailDescSort.Default.(uint32)
-	memberMixin := schema.Member{}.Mixin()
-	memberMixinFields0 := memberMixin[0].Fields()
-	_ = memberMixinFields0
-	memberMixinFields1 := memberMixin[1].Fields()
-	_ = memberMixinFields1
-	memberFields := schema.Member{}.Fields()
-	_ = memberFields
-	// memberDescCreatedAt is the schema descriptor for created_at field.
-	memberDescCreatedAt := memberMixinFields0[1].Descriptor()
-	// member.DefaultCreatedAt holds the default value on creation for the created_at field.
-	member.DefaultCreatedAt = memberDescCreatedAt.Default.(func() time.Time)
-	// memberDescUpdatedAt is the schema descriptor for updated_at field.
-	memberDescUpdatedAt := memberMixinFields0[2].Descriptor()
-	// member.DefaultUpdatedAt holds the default value on creation for the updated_at field.
-	member.DefaultUpdatedAt = memberDescUpdatedAt.Default.(func() time.Time)
-	// member.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
-	member.UpdateDefaultUpdatedAt = memberDescUpdatedAt.UpdateDefault.(func() time.Time)
-	// memberDescStatus is the schema descriptor for status field.
-	memberDescStatus := memberMixinFields1[0].Descriptor()
-	// member.DefaultStatus holds the default value on creation for the status field.
-	member.DefaultStatus = memberDescStatus.Default.(uint8)
-	// memberDescRankID is the schema descriptor for rank_id field.
-	memberDescRankID := memberFields[3].Descriptor()
-	// member.DefaultRankID holds the default value on creation for the rank_id field.
-	member.DefaultRankID = memberDescRankID.Default.(uint64)
-	// memberDescAvatar is the schema descriptor for avatar field.
-	memberDescAvatar := memberFields[6].Descriptor()
-	// member.DefaultAvatar holds the default value on creation for the avatar field.
-	member.DefaultAvatar = memberDescAvatar.Default.(string)
-	// memberDescID is the schema descriptor for id field.
-	memberDescID := memberMixinFields0[0].Descriptor()
-	// member.DefaultID holds the default value on creation for the id field.
-	member.DefaultID = memberDescID.Default.(func() uuid.UUID)
-	memberrankMixin := schema.MemberRank{}.Mixin()
-	memberrankMixinFields0 := memberrankMixin[0].Fields()
-	_ = memberrankMixinFields0
-	memberrankFields := schema.MemberRank{}.Fields()
-	_ = memberrankFields
-	// memberrankDescCreatedAt is the schema descriptor for created_at field.
-	memberrankDescCreatedAt := memberrankMixinFields0[1].Descriptor()
-	// memberrank.DefaultCreatedAt holds the default value on creation for the created_at field.
-	memberrank.DefaultCreatedAt = memberrankDescCreatedAt.Default.(func() time.Time)
-	// memberrankDescUpdatedAt is the schema descriptor for updated_at field.
-	memberrankDescUpdatedAt := memberrankMixinFields0[2].Descriptor()
-	// memberrank.DefaultUpdatedAt holds the default value on creation for the updated_at field.
-	memberrank.DefaultUpdatedAt = memberrankDescUpdatedAt.Default.(func() time.Time)
-	// memberrank.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
-	memberrank.UpdateDefaultUpdatedAt = memberrankDescUpdatedAt.UpdateDefault.(func() time.Time)
 	menuMixin := schema.Menu{}.Mixin()
 	menuMixinFields0 := menuMixin[0].Fields()
 	_ = menuMixinFields0

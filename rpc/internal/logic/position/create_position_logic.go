@@ -28,15 +28,14 @@ func NewCreatePositionLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Cr
 	}
 }
 
-func (l *CreatePositionLogic) CreatePosition(in *core.PositionInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Position.Create().
+func (l *CreatePositionLogic) CreatePosition(in *core.PositionInfo) (*core.BaseIDResp, error) {
+	result, err := l.svcCtx.DB.Position.Create().
 		SetStatus(uint8(in.Status)).
 		SetSort(in.Sort).
 		SetName(in.Name).
 		SetCode(in.Code).
 		SetRemark(in.Remark).
-		Exec(l.ctx)
-
+		Save(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):
@@ -48,5 +47,5 @@ func (l *CreatePositionLogic) CreatePosition(in *core.PositionInfo) (*core.BaseR
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
+	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil
 }

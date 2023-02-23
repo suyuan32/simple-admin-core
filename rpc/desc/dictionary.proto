@@ -28,7 +28,7 @@ service Core {
 
   // Dictionary management
   // group: dictionary
-  rpc createDictionary (DictionaryInfo) returns (BaseResp);
+  rpc createDictionary (DictionaryInfo) returns (BaseIDResp);
   // group: dictionary
   rpc updateDictionary (DictionaryInfo) returns (BaseResp);
   // group: dictionary

@@ -57,30 +57,6 @@ func (f DictionaryDetailFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.V
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DictionaryDetailMutation", m)
 }
 
-// The MemberFunc type is an adapter to allow the use of ordinary
-// function as Member mutator.
-type MemberFunc func(context.Context, *ent.MemberMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f MemberFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.MemberMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MemberMutation", m)
-}
-
-// The MemberRankFunc type is an adapter to allow the use of ordinary
-// function as MemberRank mutator.
-type MemberRankFunc func(context.Context, *ent.MemberRankMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f MemberRankFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.MemberRankMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MemberRankMutation", m)
-}
-
 // The MenuFunc type is an adapter to allow the use of ordinary
 // function as Menu mutator.
 type MenuFunc func(context.Context, *ent.MenuMutation) (ent.Value, error)

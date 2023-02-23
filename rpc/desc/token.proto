@@ -32,7 +32,7 @@ service Core {
 
   // Token management
   // group: token
-  rpc createToken (TokenInfo) returns (BaseResp);
+  rpc createToken (TokenInfo) returns (BaseUUIDResp);
   // group: token
   rpc updateToken (TokenInfo) returns (BaseResp);
   // group: token

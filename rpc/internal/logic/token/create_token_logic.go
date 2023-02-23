@@ -30,15 +30,14 @@ func NewCreateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Creat
 	}
 }
 
-func (l *CreateTokenLogic) CreateToken(in *core.TokenInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Token.Create().
+func (l *CreateTokenLogic) CreateToken(in *core.TokenInfo) (*core.BaseUUIDResp, error) {
+	result, err := l.svcCtx.DB.Token.Create().
 		SetStatus(uint8(in.Status)).
 		SetUUID(uuidx.ParseUUIDString(in.Uuid)).
 		SetToken(in.Token).
 		SetSource(in.Source).
 		SetExpiredAt(time.Unix(in.ExpiredAt, 0)).
-		Exec(l.ctx)
-
+		Save(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):
@@ -50,5 +49,5 @@ func (l *CreateTokenLogic) CreateToken(in *core.TokenInfo) (*core.BaseResp, erro
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
+	return &core.BaseUUIDResp{Id: result.ID.String(), Msg: i18n.CreateSuccess}, nil
 }

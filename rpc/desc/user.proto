@@ -45,7 +45,7 @@ message UsernameReq {
 service Core {
   // User management
   // group: user
-  rpc createUser (UserInfo) returns (BaseResp);
+  rpc createUser (UserInfo) returns (BaseUUIDResp);
   // group: user
   rpc updateUser (UserInfo) returns (BaseResp);
   // group: user

@@ -15,8 +15,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionarydetail"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/member"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/memberrank"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
@@ -55,8 +53,6 @@ func columnChecker(table string) func(string) error {
 		department.Table:       department.ValidColumn,
 		dictionary.Table:       dictionary.ValidColumn,
 		dictionarydetail.Table: dictionarydetail.ValidColumn,
-		member.Table:           member.ValidColumn,
-		memberrank.Table:       memberrank.ValidColumn,
 		menu.Table:             menu.ValidColumn,
 		menuparam.Table:        menuparam.ValidColumn,
 		oauthprovider.Table:    oauthprovider.ValidColumn,

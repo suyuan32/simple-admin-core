@@ -28,8 +28,8 @@ func NewCreateOauthProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext
 	}
 }
 
-func (l *CreateOauthProviderLogic) CreateOauthProvider(in *core.OauthProviderInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.OauthProvider.Create().
+func (l *CreateOauthProviderLogic) CreateOauthProvider(in *core.OauthProviderInfo) (*core.BaseIDResp, error) {
+	result, err := l.svcCtx.DB.OauthProvider.Create().
 		SetName(in.Name).
 		SetClientID(in.ClientId).
 		SetClientSecret(in.ClientSecret).
@@ -39,7 +39,7 @@ func (l *CreateOauthProviderLogic) CreateOauthProvider(in *core.OauthProviderInf
 		SetTokenURL(in.TokenUrl).
 		SetAuthStyle(in.AuthStyle).
 		SetInfoURL(in.InfoUrl).
-		Exec(l.ctx)
+		Save(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):
@@ -51,5 +51,5 @@ func (l *CreateOauthProviderLogic) CreateOauthProvider(in *core.OauthProviderInf
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
+	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil
 }

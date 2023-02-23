@@ -20,10 +20,6 @@ type Tx struct {
 	Dictionary *DictionaryClient
 	// DictionaryDetail is the client for interacting with the DictionaryDetail builders.
 	DictionaryDetail *DictionaryDetailClient
-	// Member is the client for interacting with the Member builders.
-	Member *MemberClient
-	// MemberRank is the client for interacting with the MemberRank builders.
-	MemberRank *MemberRankClient
 	// Menu is the client for interacting with the Menu builders.
 	Menu *MenuClient
 	// MenuParam is the client for interacting with the MenuParam builders.
@@ -173,8 +169,6 @@ func (tx *Tx) init() {
 	tx.Department = NewDepartmentClient(tx.config)
 	tx.Dictionary = NewDictionaryClient(tx.config)
 	tx.DictionaryDetail = NewDictionaryDetailClient(tx.config)
-	tx.Member = NewMemberClient(tx.config)
-	tx.MemberRank = NewMemberRankClient(tx.config)
 	tx.Menu = NewMenuClient(tx.config)
 	tx.MenuParam = NewMenuParamClient(tx.config)
 	tx.OauthProvider = NewOauthProviderClient(tx.config)

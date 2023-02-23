@@ -28,15 +28,15 @@ func NewCreateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 	}
 }
 
-func (l *CreateRoleLogic) CreateRole(in *core.RoleInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Role.Create().
+func (l *CreateRoleLogic) CreateRole(in *core.RoleInfo) (*core.BaseIDResp, error) {
+	result, err := l.svcCtx.DB.Role.Create().
 		SetStatus(uint8(in.Status)).
 		SetName(in.Name).
 		SetCode(in.Code).
 		SetDefaultRouter(in.DefaultRouter).
 		SetRemark(in.Remark).
 		SetSort(in.Sort).
-		Exec(l.ctx)
+		Save(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):
@@ -48,5 +48,5 @@ func (l *CreateRoleLogic) CreateRole(in *core.RoleInfo) (*core.BaseResp, error) 
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
+	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil
 }

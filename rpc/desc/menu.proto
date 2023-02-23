@@ -51,7 +51,7 @@ service Core {
   //menu management
 
   // group: menu
-  rpc createMenu (MenuInfo) returns (BaseResp);
+  rpc createMenu (MenuInfo) returns (BaseIDResp);
   // group: menu
   rpc updateMenu (MenuInfo) returns (BaseResp);
   // group: menu

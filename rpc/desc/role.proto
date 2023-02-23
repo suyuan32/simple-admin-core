@@ -32,7 +32,7 @@ service Core {
 
   // Role management
   // group: role
-  rpc createRole (RoleInfo) returns (BaseResp);
+  rpc createRole (RoleInfo) returns (BaseIDResp);
   // group: role
   rpc updateRole (RoleInfo) returns (BaseResp);
   // group: role

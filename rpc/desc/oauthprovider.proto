@@ -50,7 +50,7 @@ service Core {
 
   // OauthProvider management
   // group: oauthprovider
-  rpc createOauthProvider (OauthProviderInfo) returns (BaseResp);
+  rpc createOauthProvider (OauthProviderInfo) returns (BaseIDResp);
   // group: oauthprovider
   rpc updateOauthProvider (OauthProviderInfo) returns (BaseResp);
   // group: oauthprovider

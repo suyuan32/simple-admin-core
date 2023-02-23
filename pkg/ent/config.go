@@ -31,8 +31,6 @@ type (
 		Department       []ent.Hook
 		Dictionary       []ent.Hook
 		DictionaryDetail []ent.Hook
-		Member           []ent.Hook
-		MemberRank       []ent.Hook
 		Menu             []ent.Hook
 		MenuParam        []ent.Hook
 		OauthProvider    []ent.Hook
@@ -46,8 +44,6 @@ type (
 		Department       []ent.Interceptor
 		Dictionary       []ent.Interceptor
 		DictionaryDetail []ent.Interceptor
-		Member           []ent.Interceptor
-		MemberRank       []ent.Interceptor
 		Menu             []ent.Interceptor
 		MenuParam        []ent.Interceptor
 		OauthProvider    []ent.Interceptor

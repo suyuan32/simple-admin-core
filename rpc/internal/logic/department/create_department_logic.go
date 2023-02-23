@@ -28,8 +28,8 @@ func NewCreateDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	}
 }
 
-func (l *CreateDepartmentLogic) CreateDepartment(in *core.DepartmentInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Department.Create().
+func (l *CreateDepartmentLogic) CreateDepartment(in *core.DepartmentInfo) (*core.BaseIDResp, error) {
+	result, err := l.svcCtx.DB.Department.Create().
 		SetStatus(uint8(in.Status)).
 		SetSort(in.Sort).
 		SetName(in.Name).
@@ -39,7 +39,7 @@ func (l *CreateDepartmentLogic) CreateDepartment(in *core.DepartmentInfo) (*core
 		SetEmail(in.Email).
 		SetRemark(in.Remark).
 		SetParentID(in.ParentId).
-		Exec(l.ctx)
+		Save(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):
@@ -51,5 +51,5 @@ func (l *CreateDepartmentLogic) CreateDepartment(in *core.DepartmentInfo) (*core
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
+	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil
 }
