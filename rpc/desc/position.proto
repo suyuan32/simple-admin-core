@@ -31,7 +31,7 @@ service Core {
 
   // Position management
   // group: position
-  rpc createPosition (PositionInfo) returns (BaseResp);
+  rpc createPosition (PositionInfo) returns (BaseIDResp);
   // group: position
   rpc updatePosition (PositionInfo) returns (BaseResp);
   // group: position

@@ -140,20 +140,6 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		return nil, statuserr.NewInternalError(err.Error())
 	}
 
-	err = l.insertMemberData()
-	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, statuserr.NewInternalError(err.Error())
-	}
-
-	err = l.insertMemberRankData()
-	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, statuserr.NewInternalError(err.Error())
-	}
-
 	l.svcCtx.Redis.Setex("database_init_state", "1", 300)
 	return &core.BaseResp{Msg: i18n.Success}, nil
 }
@@ -597,62 +583,6 @@ func (l *InitDatabaseLogic) insertPositionData() error {
 	)
 
 	err := l.svcCtx.DB.Position.CreateBulk(posts...).Exec(l.ctx)
-	if err != nil {
-		logx.Errorw(err.Error())
-		return statuserr.NewInternalError(err.Error())
-	} else {
-		return nil
-	}
-}
-
-// insert init member data
-func (l *InitDatabaseLogic) insertMemberData() error {
-	var members []*ent.MemberCreate
-	members = append(members, l.svcCtx.DB.Member.Create().
-		SetUsername("normalMember").
-		SetNickname("Normal Member").
-		SetEmail("simpleadmin@gmail.com").
-		SetMobile("18888888888").
-		SetRankID(1).
-		SetPassword(utils.BcryptEncrypt("simple-admin")),
-	)
-
-	members = append(members, l.svcCtx.DB.Member.Create().
-		SetUsername("VIPMember").
-		SetNickname("VIP Member").
-		SetEmail("vip@gmail.com").
-		SetMobile("18888888889").
-		SetRankID(2).
-		SetPassword(utils.BcryptEncrypt("simple-admin")),
-	)
-
-	err := l.svcCtx.DB.Member.CreateBulk(members...).Exec(l.ctx)
-	if err != nil {
-		logx.Errorw(err.Error())
-		return statuserr.NewInternalError(err.Error())
-	} else {
-		return nil
-	}
-}
-
-// insert init member rank data
-func (l *InitDatabaseLogic) insertMemberRankData() error {
-	var memberRanks []*ent.MemberRankCreate
-	memberRanks = append(memberRanks, l.svcCtx.DB.MemberRank.Create().
-		SetName("memberRank.normal").
-		SetCode("001").
-		SetDescription("普通会员 | Normal Member").
-		SetRemark("普通会员 | Normal Member"),
-	)
-
-	memberRanks = append(memberRanks, l.svcCtx.DB.MemberRank.Create().
-		SetName("memberRank.vip").
-		SetCode("002").
-		SetDescription("VIP").
-		SetRemark("VIP"),
-	)
-
-	err := l.svcCtx.DB.MemberRank.CreateBulk(memberRanks...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
 		return statuserr.NewInternalError(err.Error())

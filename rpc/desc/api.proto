@@ -31,7 +31,7 @@ service Core {
 
   // API management
   // group: api
-  rpc createApi (ApiInfo) returns (BaseResp);
+  rpc createApi (ApiInfo) returns (BaseIDResp);
   // group: api
   rpc updateApi (ApiInfo) returns (BaseResp);
   // group: api

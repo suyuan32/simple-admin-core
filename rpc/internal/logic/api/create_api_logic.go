@@ -28,13 +28,13 @@ func NewCreateApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateA
 	}
 }
 
-func (l *CreateApiLogic) CreateApi(in *core.ApiInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.API.Create().
+func (l *CreateApiLogic) CreateApi(in *core.ApiInfo) (*core.BaseIDResp, error) {
+	result, err := l.svcCtx.DB.API.Create().
 		SetPath(in.Path).
 		SetDescription(in.Description).
 		SetAPIGroup(in.ApiGroup).
 		SetMethod(in.Method).
-		Exec(l.ctx)
+		Save(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):
@@ -46,5 +46,5 @@ func (l *CreateApiLogic) CreateApi(in *core.ApiInfo) (*core.BaseResp, error) {
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
+	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil
 }

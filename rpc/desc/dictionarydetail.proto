@@ -31,7 +31,7 @@ service Core {
 
   // DictionaryDetail management
   // group: dictionarydetail
-  rpc createDictionaryDetail (DictionaryDetailInfo) returns (BaseResp);
+  rpc createDictionaryDetail (DictionaryDetailInfo) returns (BaseIDResp);
   // group: dictionarydetail
   rpc updateDictionaryDetail (DictionaryDetailInfo) returns (BaseResp);
   // group: dictionarydetail

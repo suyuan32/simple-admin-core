@@ -28,13 +28,13 @@ func NewCreateDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	}
 }
 
-func (l *CreateDictionaryLogic) CreateDictionary(in *core.DictionaryInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Dictionary.Create().
+func (l *CreateDictionaryLogic) CreateDictionary(in *core.DictionaryInfo) (*core.BaseIDResp, error) {
+	result, err := l.svcCtx.DB.Dictionary.Create().
 		SetStatus(uint8(in.Status)).
 		SetTitle(in.Title).
 		SetName(in.Name).
 		SetDesc(in.Desc).
-		Exec(l.ctx)
+		Save(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):
@@ -46,5 +46,5 @@ func (l *CreateDictionaryLogic) CreateDictionary(in *core.DictionaryInfo) (*core
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
+	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil
 }

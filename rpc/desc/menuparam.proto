@@ -27,7 +27,7 @@ service Core {
 
   // MenuParam management
   // group: menuparam
-  rpc createMenuParam (MenuParamInfo) returns (BaseResp);
+  rpc createMenuParam (MenuParamInfo) returns (BaseIDResp);
   // group: menuparam
   rpc updateMenuParam (MenuParamInfo) returns (BaseResp);
   // group: menuparam

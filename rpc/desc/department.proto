@@ -34,7 +34,7 @@ service Core {
 
   // Department management
   // group: department
-  rpc createDepartment (DepartmentInfo) returns (BaseResp);
+  rpc createDepartment (DepartmentInfo) returns (BaseIDResp);
   // group: department
   rpc updateDepartment (DepartmentInfo) returns (BaseResp);
   // group: department

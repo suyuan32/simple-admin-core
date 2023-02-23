@@ -29,7 +29,7 @@ func NewCreateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 	}
 }
 
-func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseResp, error) {
+func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseIDResp, error) {
 	// get parent level
 	var menuLevel uint32
 	if in.ParentId != enum.DefaultParentId {
@@ -50,7 +50,7 @@ func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseResp, error) 
 		menuLevel = 1
 	}
 
-	err := l.svcCtx.DB.Menu.Create().
+	result, err := l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(menuLevel).
 		SetMenuType(in.MenuType).
 		SetParentID(in.ParentId).
@@ -73,7 +73,7 @@ func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseResp, error) 
 		SetAffix(in.Meta.Affix).
 		SetDynamicLevel(in.Meta.DynamicLevel).
 		SetRealPath(in.Meta.RealPath).
-		Exec(l.ctx)
+		Save(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsNotFound(err):
@@ -88,5 +88,5 @@ func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseResp, error) 
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
+	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil
 }

@@ -12,8 +12,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionarydetail"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/member"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/memberrank"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menuparam"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauthprovider"
@@ -37,7 +35,7 @@ func NewCoreServer(svcCtx *svc.ServiceContext) *CoreServer {
 }
 
 // API management
-func (s *CoreServer) CreateApi(ctx context.Context, in *core.ApiInfo) (*core.BaseResp, error) {
+func (s *CoreServer) CreateApi(ctx context.Context, in *core.ApiInfo) (*core.BaseIDResp, error) {
 	l := api.NewCreateApiLogic(ctx, s.svcCtx)
 	return l.CreateApi(in)
 }
@@ -78,7 +76,7 @@ func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.Ba
 }
 
 // Department management
-func (s *CoreServer) CreateDepartment(ctx context.Context, in *core.DepartmentInfo) (*core.BaseResp, error) {
+func (s *CoreServer) CreateDepartment(ctx context.Context, in *core.DepartmentInfo) (*core.BaseIDResp, error) {
 	l := department.NewCreateDepartmentLogic(ctx, s.svcCtx)
 	return l.CreateDepartment(in)
 }
@@ -104,7 +102,7 @@ func (s *CoreServer) DeleteDepartment(ctx context.Context, in *core.IDsReq) (*co
 }
 
 // Dictionary management
-func (s *CoreServer) CreateDictionary(ctx context.Context, in *core.DictionaryInfo) (*core.BaseResp, error) {
+func (s *CoreServer) CreateDictionary(ctx context.Context, in *core.DictionaryInfo) (*core.BaseIDResp, error) {
 	l := dictionary.NewCreateDictionaryLogic(ctx, s.svcCtx)
 	return l.CreateDictionary(in)
 }
@@ -130,7 +128,7 @@ func (s *CoreServer) DeleteDictionary(ctx context.Context, in *core.IDsReq) (*co
 }
 
 // DictionaryDetail management
-func (s *CoreServer) CreateDictionaryDetail(ctx context.Context, in *core.DictionaryDetailInfo) (*core.BaseResp, error) {
+func (s *CoreServer) CreateDictionaryDetail(ctx context.Context, in *core.DictionaryDetailInfo) (*core.BaseIDResp, error) {
 	l := dictionarydetail.NewCreateDictionaryDetailLogic(ctx, s.svcCtx)
 	return l.CreateDictionaryDetail(in)
 }
@@ -155,64 +153,7 @@ func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDsReq
 	return l.DeleteDictionaryDetail(in)
 }
 
-// Member management
-func (s *CoreServer) CreateMember(ctx context.Context, in *core.MemberInfo) (*core.BaseResp, error) {
-	l := member.NewCreateMemberLogic(ctx, s.svcCtx)
-	return l.CreateMember(in)
-}
-
-func (s *CoreServer) UpdateMember(ctx context.Context, in *core.MemberInfo) (*core.BaseResp, error) {
-	l := member.NewUpdateMemberLogic(ctx, s.svcCtx)
-	return l.UpdateMember(in)
-}
-
-func (s *CoreServer) GetMemberList(ctx context.Context, in *core.MemberListReq) (*core.MemberListResp, error) {
-	l := member.NewGetMemberListLogic(ctx, s.svcCtx)
-	return l.GetMemberList(in)
-}
-
-func (s *CoreServer) DeleteMember(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
-	l := member.NewDeleteMemberLogic(ctx, s.svcCtx)
-	return l.DeleteMember(in)
-}
-
-func (s *CoreServer) GetMemberById(ctx context.Context, in *core.UUIDReq) (*core.MemberInfo, error) {
-	l := member.NewGetMemberByIdLogic(ctx, s.svcCtx)
-	return l.GetMemberById(in)
-}
-
-func (s *CoreServer) GetMemberByUsername(ctx context.Context, in *core.UsernameReq) (*core.MemberInfo, error) {
-	l := member.NewGetMemberByUsernameLogic(ctx, s.svcCtx)
-	return l.GetMemberByUsername(in)
-}
-
-// MemberRank management
-func (s *CoreServer) CreateMemberRank(ctx context.Context, in *core.MemberRankInfo) (*core.BaseResp, error) {
-	l := memberrank.NewCreateMemberRankLogic(ctx, s.svcCtx)
-	return l.CreateMemberRank(in)
-}
-
-func (s *CoreServer) UpdateMemberRank(ctx context.Context, in *core.MemberRankInfo) (*core.BaseResp, error) {
-	l := memberrank.NewUpdateMemberRankLogic(ctx, s.svcCtx)
-	return l.UpdateMemberRank(in)
-}
-
-func (s *CoreServer) GetMemberRankList(ctx context.Context, in *core.MemberRankListReq) (*core.MemberRankListResp, error) {
-	l := memberrank.NewGetMemberRankListLogic(ctx, s.svcCtx)
-	return l.GetMemberRankList(in)
-}
-
-func (s *CoreServer) GetMemberRankById(ctx context.Context, in *core.IDReq) (*core.MemberRankInfo, error) {
-	l := memberrank.NewGetMemberRankByIdLogic(ctx, s.svcCtx)
-	return l.GetMemberRankById(in)
-}
-
-func (s *CoreServer) DeleteMemberRank(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
-	l := memberrank.NewDeleteMemberRankLogic(ctx, s.svcCtx)
-	return l.DeleteMemberRank(in)
-}
-
-func (s *CoreServer) CreateMenu(ctx context.Context, in *core.MenuInfo) (*core.BaseResp, error) {
+func (s *CoreServer) CreateMenu(ctx context.Context, in *core.MenuInfo) (*core.BaseIDResp, error) {
 	l := menu.NewCreateMenuLogic(ctx, s.svcCtx)
 	return l.CreateMenu(in)
 }
@@ -238,7 +179,7 @@ func (s *CoreServer) GetMenuList(ctx context.Context, in *core.PageInfoReq) (*co
 }
 
 // MenuParam management
-func (s *CoreServer) CreateMenuParam(ctx context.Context, in *core.MenuParamInfo) (*core.BaseResp, error) {
+func (s *CoreServer) CreateMenuParam(ctx context.Context, in *core.MenuParamInfo) (*core.BaseIDResp, error) {
 	l := menuparam.NewCreateMenuParamLogic(ctx, s.svcCtx)
 	return l.CreateMenuParam(in)
 }
@@ -264,7 +205,7 @@ func (s *CoreServer) DeleteMenuParam(ctx context.Context, in *core.IDsReq) (*cor
 }
 
 // OauthProvider management
-func (s *CoreServer) CreateOauthProvider(ctx context.Context, in *core.OauthProviderInfo) (*core.BaseResp, error) {
+func (s *CoreServer) CreateOauthProvider(ctx context.Context, in *core.OauthProviderInfo) (*core.BaseIDResp, error) {
 	l := oauthprovider.NewCreateOauthProviderLogic(ctx, s.svcCtx)
 	return l.CreateOauthProvider(in)
 }
@@ -300,7 +241,7 @@ func (s *CoreServer) OauthCallback(ctx context.Context, in *core.CallbackReq) (*
 }
 
 // Position management
-func (s *CoreServer) CreatePosition(ctx context.Context, in *core.PositionInfo) (*core.BaseResp, error) {
+func (s *CoreServer) CreatePosition(ctx context.Context, in *core.PositionInfo) (*core.BaseIDResp, error) {
 	l := position.NewCreatePositionLogic(ctx, s.svcCtx)
 	return l.CreatePosition(in)
 }
@@ -326,7 +267,7 @@ func (s *CoreServer) DeletePosition(ctx context.Context, in *core.IDsReq) (*core
 }
 
 // Role management
-func (s *CoreServer) CreateRole(ctx context.Context, in *core.RoleInfo) (*core.BaseResp, error) {
+func (s *CoreServer) CreateRole(ctx context.Context, in *core.RoleInfo) (*core.BaseIDResp, error) {
 	l := role.NewCreateRoleLogic(ctx, s.svcCtx)
 	return l.CreateRole(in)
 }
@@ -352,7 +293,7 @@ func (s *CoreServer) DeleteRole(ctx context.Context, in *core.IDsReq) (*core.Bas
 }
 
 // Token management
-func (s *CoreServer) CreateToken(ctx context.Context, in *core.TokenInfo) (*core.BaseResp, error) {
+func (s *CoreServer) CreateToken(ctx context.Context, in *core.TokenInfo) (*core.BaseUUIDResp, error) {
 	l := token.NewCreateTokenLogic(ctx, s.svcCtx)
 	return l.CreateToken(in)
 }
@@ -383,7 +324,7 @@ func (s *CoreServer) BlockUserAllToken(ctx context.Context, in *core.UUIDReq) (*
 }
 
 // User management
-func (s *CoreServer) CreateUser(ctx context.Context, in *core.UserInfo) (*core.BaseResp, error) {
+func (s *CoreServer) CreateUser(ctx context.Context, in *core.UserInfo) (*core.BaseUUIDResp, error) {
 	l := user.NewCreateUserLogic(ctx, s.svcCtx)
 	return l.CreateUser(in)
 }

@@ -28,13 +28,13 @@ func NewCreateMenuParamLogic(ctx context.Context, svcCtx *svc.ServiceContext) *C
 	}
 }
 
-func (l *CreateMenuParamLogic) CreateMenuParam(in *core.MenuParamInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.MenuParam.Create().
+func (l *CreateMenuParamLogic) CreateMenuParam(in *core.MenuParamInfo) (*core.BaseIDResp, error) {
+	result, err := l.svcCtx.DB.MenuParam.Create().
 		SetType(in.Type).
 		SetKey(in.Key).
 		SetValue(in.Value).
 		SetMenuID(in.MenuId).
-		Exec(l.ctx)
+		Save(l.ctx)
 	if err != nil {
 		switch {
 		case ent.IsConstraintError(err):
@@ -46,5 +46,5 @@ func (l *CreateMenuParamLogic) CreateMenuParam(in *core.MenuParamInfo) (*core.Ba
 		}
 	}
 
-	return &core.BaseResp{Msg: i18n.CreateSuccess}, nil
+	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil
 }
