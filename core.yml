@@ -2339,7 +2339,7 @@ info:
         email: yuansu.china.work@gmail.com
     description: This is simple admin api doc
     title: Simple Admin
-    version: 0.2.3
+    version: 0.2.5
 paths:
     /api:
         post:
