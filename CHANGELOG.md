@@ -1,4 +1,38 @@
 
+<a name="v0.2.5"></a>
+## [v0.2.5](https://github.com/suyuan32/simple-admin-core/compare/v0.2.4...v0.2.5) (2023-02-23)
+
+### Chore
+
+* update tool version
+* update uuid package version
+* update all in one docker compose
+
+### Docs
+
+* update change log
+
+### Feat
+
+* validator parameter in parse function
+* add ldflags to reduce the size of binary file
+* Tracing Analysis
+
+### Fix
+
+* remove member translation
+* change page default order to desc
+* user list roleIds request params
+
+### Refactor
+
+* remove member in core
+
+### Pull Requests
+
+* Merge pull request [#72](https://github.com/suyuan32/simple-admin-core/issues/72) from suyuan32/refator-split-member
+
+
 <a name="v0.2.4"></a>
 ## [v0.2.4](https://github.com/suyuan32/simple-admin-core/compare/v0.2.4-beta...v0.2.4) (2023-02-13)
 
