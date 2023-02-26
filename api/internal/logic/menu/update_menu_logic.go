@@ -28,6 +28,13 @@ func NewUpdateMenuLogic(r *http.Request, svcCtx *svc.ServiceContext) *UpdateMenu
 }
 
 func (l *UpdateMenuLogic) UpdateMenu(req *types.MenuPlainInfo) (resp *types.BaseMsgResp, err error) {
+	if req.MenuType == 0 {
+		req.Component = "LAYOUT"
+		req.Path = ""
+		req.Redirect = ""
+		req.FrameSrc = ""
+	}
+
 	result, err := l.svcCtx.CoreRpc.UpdateMenu(l.ctx, &core.MenuInfo{
 		Id:        req.Id,
 		MenuType:  req.MenuType,

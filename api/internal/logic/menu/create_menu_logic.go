@@ -28,6 +28,13 @@ func NewCreateMenuLogic(r *http.Request, svcCtx *svc.ServiceContext) *CreateMenu
 }
 
 func (l *CreateMenuLogic) CreateMenu(req *types.MenuPlainInfo) (resp *types.BaseMsgResp, err error) {
+	if req.MenuType == 0 {
+		req.Component = "LAYOUT"
+		req.Path = ""
+		req.Redirect = ""
+		req.FrameSrc = ""
+	}
+
 	result, err := l.svcCtx.CoreRpc.CreateMenu(l.ctx, &core.MenuInfo{
 		Id:        req.Id,
 		MenuType:  req.MenuType,
