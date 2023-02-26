@@ -408,45 +408,6 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetHideMenu(false),
 	)
 
-	menus = append(menus, l.svcCtx.DB.Menu.Create().
-		SetMenuLevel(1).
-		SetMenuType(0).
-		SetParentID(enum.DefaultParentId).
-		SetPath("").
-		SetName("MemberManagementDirectory").
-		SetComponent("LAYOUT").
-		SetSort(1).
-		SetTitle("route.memberManagement").
-		SetIcon("ic:round-person-outline").
-		SetHideMenu(false),
-	)
-
-	menus = append(menus, l.svcCtx.DB.Menu.Create().
-		SetMenuLevel(2).
-		SetMenuType(1).
-		SetParentID(16).
-		SetPath("/member").
-		SetName("MemberManagement").
-		SetComponent("/sys/member/index").
-		SetSort(1).
-		SetTitle("route.memberManagement").
-		SetIcon("ic:round-person-outline").
-		SetHideMenu(false),
-	)
-
-	menus = append(menus, l.svcCtx.DB.Menu.Create().
-		SetMenuLevel(2).
-		SetMenuType(1).
-		SetParentID(16).
-		SetPath("/member_rank").
-		SetName("MemberRankManagement").
-		SetComponent("/sys/memberRank/index").
-		SetSort(2).
-		SetTitle("route.memberRankManagement").
-		SetIcon("ic:round-person-outline").
-		SetHideMenu(false),
-	)
-
 	err := l.svcCtx.DB.Menu.CreateBulk(menus...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
