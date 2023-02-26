@@ -99,7 +99,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/user").
 		SetDescription("apiDesc.getUserById").
 		SetAPIGroup("user").
-		SetMethod("Post"),
+		SetMethod("POST"),
 	)
 
 	// ROLE
@@ -135,7 +135,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/role").
 		SetDescription("apiDesc.getRoleById").
 		SetAPIGroup("role").
-		SetMethod("Post"),
+		SetMethod("POST"),
 	)
 
 	// MENU
@@ -207,14 +207,14 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/menu_param").
 		SetDescription("apiDesc.getMenuParamById").
 		SetAPIGroup("menu").
-		SetMethod("Post"),
+		SetMethod("POST"),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
 		SetPath("/menu").
 		SetDescription("apiDesc.getMenuById").
 		SetAPIGroup("menu").
-		SetMethod("Post"),
+		SetMethod("POST"),
 	)
 
 	// CAPTCHA
@@ -290,7 +290,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/api").
 		SetDescription("apiDesc.getApiById").
 		SetAPIGroup("api").
-		SetMethod("Post"),
+		SetMethod("POST"),
 	)
 
 	// DICTIONARY
@@ -355,7 +355,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/dict").
 		SetDescription("apiDesc.getUserById").
 		SetAPIGroup("user").
-		SetMethod("Post"),
+		SetMethod("POST"),
 	)
 
 	// OAUTH
@@ -399,7 +399,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/oauth_provider").
 		SetDescription("apiDesc.getProviderById").
 		SetAPIGroup("oauth").
-		SetMethod("Post"),
+		SetMethod("POST"),
 	)
 
 	// TOKEN
@@ -443,7 +443,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/token").
 		SetDescription("apiDesc.getTokenById").
 		SetAPIGroup("token").
-		SetMethod("Post"),
+		SetMethod("POST"),
 	)
 
 	// DEPARTMENT
@@ -480,7 +480,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/department").
 		SetDescription("apiDesc.getDepartmentById").
 		SetAPIGroup("department").
-		SetMethod("Post"),
+		SetMethod("POST"),
 	)
 
 	// POSITION
@@ -517,7 +517,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/position").
 		SetDescription("apiDesc.getPositionById").
 		SetAPIGroup("position").
-		SetMethod("Post"),
+		SetMethod("POST"),
 	)
 
 	err := l.svcCtx.DB.API.CreateBulk(apis...).Exec(l.ctx)
