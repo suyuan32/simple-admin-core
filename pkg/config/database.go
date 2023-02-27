@@ -14,6 +14,7 @@ import (
 	redis2 "github.com/zeromicro/go-zero/core/stores/redis"
 )
 
+// DatabaseConf stores database configurations.
 type DatabaseConf struct {
 	Host         string
 	Port         int
@@ -27,6 +28,7 @@ type DatabaseConf struct {
 	CacheTime    int    `json:",optional,default=10"`
 }
 
+// NewCacheDriver returns a ent driver with cache.
 func (c DatabaseConf) NewCacheDriver(redisConf redis2.RedisConf) *entcache.Driver {
 	db, err := sql.Open(c.Type, c.GetDSN())
 	logx.Must(err)
@@ -48,6 +50,7 @@ func (c DatabaseConf) NewCacheDriver(redisConf redis2.RedisConf) *entcache.Drive
 	return cacheDrv
 }
 
+// NewNoCacheDriver returns a ent driver without cache.
 func (c DatabaseConf) NewNoCacheDriver() *entsql.Driver {
 	db, err := sql.Open(c.Type, c.GetDSN())
 	logx.Must(err)
@@ -58,14 +61,17 @@ func (c DatabaseConf) NewNoCacheDriver() *entsql.Driver {
 	return driver
 }
 
+// MysqlDSN returns mysql DSN.
 func (c DatabaseConf) MysqlDSN() string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=True", c.Username, c.Password, c.Host, c.Port, c.DBName)
 }
 
+// PostgresDSN returns Postgres DSN.
 func (c DatabaseConf) PostgresDSN() string {
 	return fmt.Sprintf("postgresql://%s:%s@%s:%d/%s?sslmode=%s", c.Username, c.Password, c.Host, c.Port, c.DBName, c.SSLMode)
 }
 
+// GetDSN returns DSN according to the database type.
 func (c DatabaseConf) GetDSN() string {
 	switch c.Type {
 	case "mysql":

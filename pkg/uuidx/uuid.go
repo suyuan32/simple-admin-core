@@ -5,6 +5,7 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
+// NewUUID returns a new UUID.
 func NewUUID() uuid.UUID {
 	id, err := uuid.NewV7()
 	if err != nil {
@@ -14,6 +15,7 @@ func NewUUID() uuid.UUID {
 	return id
 }
 
+// ParseUUIDSlice parses the UUID string slice to UUID slice.
 func ParseUUIDSlice(ids []string) []uuid.UUID {
 	var result []uuid.UUID
 	for _, v := range ids {
@@ -27,6 +29,7 @@ func ParseUUIDSlice(ids []string) []uuid.UUID {
 	return result
 }
 
+// ParseUUIDString parses UUID string to UUID type.
 func ParseUUIDString(id string) uuid.UUID {
 	result, err := uuid.FromString(id)
 	if err != nil {

@@ -7,6 +7,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 )
 
+// WithTx uses transaction in ent.
 func WithTx(ctx context.Context, client *ent.Client, fn func(tx *ent.Tx) error) error {
 	tx, err := client.Tx(ctx)
 	if err != nil {
