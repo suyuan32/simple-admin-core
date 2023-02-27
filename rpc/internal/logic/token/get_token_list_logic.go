@@ -7,15 +7,12 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
+	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
-
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 )
 
 type GetTokenListLogic struct {
@@ -39,8 +36,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 		tokens, err = l.svcCtx.DB.Token.Query().Page(l.ctx, in.Page, in.PageSize)
 
 		if err != nil {
-			logx.Error(err.Error())
-			return nil, statuserr.NewInternalError(i18n.DatabaseError)
+			return nil, errorhandler.DefaultEntError(err, in)
 		}
 	} else {
 		var predicates []predicate.User
@@ -63,21 +59,13 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 
 		u, err := l.svcCtx.DB.User.Query().Where(predicates...).First(l.ctx)
 		if err != nil {
-			switch {
-			case ent.IsNotFound(err):
-				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
-			default:
-				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-				return nil, statuserr.NewInternalError(i18n.DatabaseError)
-			}
+			return nil, errorhandler.DefaultEntError(err, in)
 		}
 
 		tokens, err = l.svcCtx.DB.Token.Query().Where(token.UUIDEQ(u.ID)).Page(l.ctx, in.Page, in.PageSize)
 
 		if err != nil {
-			logx.Error(err.Error())
-			return nil, statuserr.NewInternalError(i18n.DatabaseError)
+			return nil, errorhandler.DefaultEntError(err, in)
 		}
 	}
 

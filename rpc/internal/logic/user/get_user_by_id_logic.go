@@ -5,14 +5,12 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
+	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
 
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 )
 
@@ -33,17 +31,7 @@ func NewGetUserByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfo, error) {
 	result, err := l.svcCtx.DB.User.Query().Where(user.IDEQ(uuidx.ParseUUIDString(in.Id))).WithRoles().First(l.ctx)
 	if err != nil {
-		switch {
-		case ent.IsNotFound(err):
-			logx.Errorw(err.Error(), logx.Field("detail", in))
-			return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
-		case ent.IsConstraintError(err):
-			logx.Errorw(err.Error(), logx.Field("detail", in))
-			return nil, statuserr.NewInvalidArgumentError(i18n.UpdateFailed)
-		default:
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInternalError(i18n.DatabaseError)
-		}
+		return nil, errorhandler.DefaultEntError(err, in)
 	}
 
 	if err != nil {

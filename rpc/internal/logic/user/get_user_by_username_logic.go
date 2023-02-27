@@ -3,11 +3,8 @@ package user
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -31,21 +28,7 @@ func NewGetUserByUsernameLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 func (l *GetUserByUsernameLogic) GetUserByUsername(in *core.UsernameReq) (*core.UserInfo, error) {
 	result, err := l.svcCtx.DB.User.Query().Where(user.UsernameEQ(in.Username)).WithRoles().First(l.ctx)
 	if err != nil {
-		switch {
-		case ent.IsNotFound(err):
-			logx.Errorw(err.Error(), logx.Field("detail", in))
-			return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
-		case ent.IsConstraintError(err):
-			logx.Errorw(err.Error(), logx.Field("detail", in))
-			return nil, statuserr.NewInvalidArgumentError(i18n.UpdateFailed)
-		default:
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return nil, statuserr.NewInternalError(i18n.DatabaseError)
-		}
-	}
-
-	if err != nil {
-		return nil, err
+		return nil, errorhandler.DefaultEntError(err, in)
 	}
 
 	return &core.UserInfo{
