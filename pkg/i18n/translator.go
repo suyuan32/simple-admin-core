@@ -19,12 +19,14 @@ import (
 //go:embed locale/*.json
 var LocaleFS embed.FS
 
+// Translator is a struct storing translating data.
 type Translator struct {
 	bundle       *i18n.Bundle
 	localizer    map[language.Tag]*i18n.Localizer
 	supportLangs []language.Tag
 }
 
+// NewBundle returns a bundle from FS.
 func (l *Translator) NewBundle(file embed.FS) {
 	bundle := i18n.NewBundle(language.Chinese)
 	bundle.RegisterUnmarshalFunc("json", json.Unmarshal)
@@ -36,6 +38,7 @@ func (l *Translator) NewBundle(file embed.FS) {
 	l.bundle = bundle
 }
 
+// NewTranslator sets localize for translator.
 func (l *Translator) NewTranslator() {
 	l.supportLangs = append(l.supportLangs, language.Chinese)
 	l.supportLangs = append(l.supportLangs, language.English)
@@ -44,6 +47,7 @@ func (l *Translator) NewTranslator() {
 	l.localizer[language.English] = i18n.NewLocalizer(l.bundle, language.English.String())
 }
 
+// Trans used to translate any i18n string.
 func (l *Translator) Trans(lang string, msgId string) string {
 	message, err := l.MatchLocalizer(lang).LocalizeMessage(&i18n.Message{ID: msgId})
 	if err != nil {
@@ -57,6 +61,7 @@ func (l *Translator) Trans(lang string, msgId string) string {
 	return message
 }
 
+// TransError translates the error message
 func (l *Translator) TransError(lang string, err error) error {
 	if errcode.IsGrpcError(err) {
 		message, e := l.MatchLocalizer(lang).LocalizeMessage(&i18n.Message{ID: strings.Split(err.Error(), "desc = ")[1]})
@@ -81,6 +86,7 @@ func (l *Translator) TransError(lang string, err error) error {
 	}
 }
 
+// MatchLocalizer used to matcher the localizer in map
 func (l *Translator) MatchLocalizer(lang string) *i18n.Localizer {
 	tags := utils.ParseTags(lang)
 	for _, v := range tags {
@@ -90,4 +96,12 @@ func (l *Translator) MatchLocalizer(lang string) *i18n.Localizer {
 	}
 
 	return l.localizer[language.Chinese]
+}
+
+// NewTranslator returns a translator by FS.
+func NewTranslator(file embed.FS) *Translator {
+	trans := &Translator{}
+	trans.NewBundle(file)
+	trans.NewTranslator()
+	return trans
 }

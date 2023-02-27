@@ -8,6 +8,7 @@ require (
 	github.com/apache/rocketmq-client-go/v2 v2.1.1
 	github.com/casbin/casbin/v2 v2.63.0
 	github.com/casbin/ent-adapter v0.2.3
+	github.com/casbin/redis-watcher/v2 v2.3.0
 	github.com/go-co-op/gocron v1.18.0
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-sql-driver/mysql v1.7.0

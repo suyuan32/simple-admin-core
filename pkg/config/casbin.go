@@ -5,14 +5,19 @@ import (
 
 	"github.com/casbin/casbin/v2"
 	"github.com/casbin/casbin/v2/model"
+	"github.com/casbin/casbin/v2/persist"
 	entadapter "github.com/casbin/ent-adapter"
+	rediswatcher "github.com/casbin/redis-watcher/v2"
+	redis2 "github.com/go-redis/redis/v8"
 	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/stores/redis"
 )
 
 type CasbinConf struct {
 	ModelText string `json:"ModelText,optional"`
 }
 
+// NewCasbin returns Casbin enforcer.
 func (l CasbinConf) NewCasbin(dbType, dsn string) (*casbin.Enforcer, error) {
 	adapter, err := entadapter.NewAdapter(dbType, dsn)
 	logx.Must(err)
@@ -51,6 +56,7 @@ func (l CasbinConf) NewCasbin(dbType, dsn string) (*casbin.Enforcer, error) {
 	return enforcer, nil
 }
 
+// MustNewCasbin returns Casbin enforcer. If there are errors, it will exist.
 func (l CasbinConf) MustNewCasbin(dbType, dsn string) *casbin.Enforcer {
 	csb, err := l.NewCasbin(dbType, dsn)
 	if err != nil {
@@ -60,4 +66,36 @@ func (l CasbinConf) MustNewCasbin(dbType, dsn string) *casbin.Enforcer {
 	}
 
 	return csb
+}
+
+// MustNewRedisWatcher returns redis watcher. If there are errors, it will exist.
+// f function will be called if the policies are updated.
+func (l CasbinConf) MustNewRedisWatcher(c redis.RedisConf, f func(string2 string)) persist.Watcher {
+	w, err := rediswatcher.NewWatcher(c.Host, rediswatcher.WatcherOptions{
+		Options: redis2.Options{
+			Network:  "tcp",
+			Password: c.Pass,
+		},
+		Channel:    "/casbin",
+		IgnoreSelf: false,
+	})
+	logx.Must(err)
+
+	err = w.SetUpdateCallback(f)
+	logx.Must(err)
+
+	return w
+}
+
+// MustNewCasbinWithRedisWatcher returns Casbin Enforcer with Redis watcher.
+func (l CasbinConf) MustNewCasbinWithRedisWatcher(dbType, dsn string, c redis.RedisConf) *casbin.Enforcer {
+	cbn := l.MustNewCasbin(dbType, dsn)
+	w := l.MustNewRedisWatcher(c, func(data string) {
+		rediswatcher.DefaultUpdateCallback(cbn)(data)
+	})
+	err := cbn.SetWatcher(w)
+	logx.Must(err)
+	err = cbn.SavePolicy()
+	logx.Must(err)
+	return cbn
 }
