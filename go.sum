@@ -91,6 +91,8 @@ github.com/casbin/casbin/v2 v2.63.0 h1:+xd5gRceCk+IGzIJgUSZQtypZuOzZDHgHvU0FlmBC
 github.com/casbin/casbin/v2 v2.63.0/go.mod h1:vByNa/Fchek0KZUgG5wEsl7iFsiviAYKRtgrQfcJqHg=
 github.com/casbin/ent-adapter v0.2.3 h1:VGpIYdkxKVTCeaxBxhbhD8dIg1a1Unxkrj4jh0GhvFk=
 github.com/casbin/ent-adapter v0.2.3/go.mod h1:BkvuWf9Q4tmygliW+D3qOxsaRLOKVzccOHUo1zKuQRI=
+github.com/casbin/redis-watcher/v2 v2.3.0 h1:Mq7Q6Xy981u0UT2cWl8aMTocLwSm/lA5VBScx+Cz2/0=
+github.com/casbin/redis-watcher/v2 v2.3.0/go.mod h1:yQCatt1TxdoLFMHsCylGi4o0lw66texTDGtGwecOnNI=
 github.com/cenkalti/backoff v2.2.1+incompatible/go.mod h1:90ReRw6GdpyfrHakVjL/QHaoyV4aDUVVkXQJJJ3NXXM=
 github.com/cenkalti/backoff/v4 v4.2.0 h1:HN5dHm3WBOgndBH6E8V0q2jIYIR3s9yglV8k/+MN3u4=
 github.com/cenkalti/backoff/v4 v4.2.0/go.mod h1:Y3VNntkOUPxTVeUxJ/G5vcM//AlwfmyYozVcomhLiZE=

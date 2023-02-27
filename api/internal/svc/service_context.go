@@ -1,6 +1,10 @@
 package svc
 
 import (
+	"fmt"
+
+	"github.com/zeromicro/go-zero/core/logx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
 	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
@@ -25,6 +29,11 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	rds := redis.MustNewRedis(c.RedisConf)
 
 	cbn := c.CasbinConf.MustNewCasbin(c.DatabaseConf.Type, c.DatabaseConf.GetDSN())
+	err := cbn.SetWatcher(c.CasbinConf.MustNewRedisWatcher(c.RedisConf, func(data string) {
+		fmt.Println(data)
+	}))
+	cbn.SavePolicy()
+	logx.Must(err)
 
 	trans := &i18n.Translator{}
 	trans.NewBundle(i18n.LocaleFS)
