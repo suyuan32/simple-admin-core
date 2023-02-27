@@ -86,3 +86,14 @@ func (l CasbinConf) MustNewRedisWatcher(c redis.RedisConf, f func(string2 string
 
 	return w
 }
+
+// MustNewCasbinWithRedisWatcher returns Casbin Enforcer with Redis watcher.
+func (l CasbinConf) MustNewCasbinWithRedisWatcher(dbType, dsn string, c redis.RedisConf) *casbin.Enforcer {
+	cbn := l.MustNewCasbin(dbType, dsn)
+	l.MustNewRedisWatcher(c, func(data string) {
+		rediswatcher.DefaultUpdateCallback(cbn)(data)
+	})
+	err := cbn.SavePolicy()
+	logx.Must(err)
+	return cbn
+}
