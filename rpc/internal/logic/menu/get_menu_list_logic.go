@@ -5,8 +5,7 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -32,8 +31,7 @@ func (l *GetMenuListLogic) GetMenuList(in *core.PageInfoReq) (resp *core.MenuInf
 		pager.Order = ent.Asc(menu.FieldSort)
 	})
 	if err != nil {
-		logx.Error(err.Error())
-		return nil, statuserr.NewInternalError(i18n.DatabaseError)
+		return nil, errorhandler.DefaultEntError(err, in)
 	}
 
 	resp = &core.MenuInfoList{}

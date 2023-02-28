@@ -6,13 +6,11 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
+	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
-
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 )
 
 type GetRoleListLogic struct {
@@ -44,8 +42,7 @@ func (l *GetRoleListLogic) GetRoleList(in *core.RoleListReq) (*core.RoleListResp
 		pager.Order = ent.Asc(role.FieldSort)
 	})
 	if err != nil {
-		logx.Error(err.Error())
-		return nil, statuserr.NewInternalError(i18n.DatabaseError)
+		return nil, errorhandler.DefaultEntError(err, in)
 	}
 
 	resp := &core.RoleListResp{}

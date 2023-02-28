@@ -13,7 +13,10 @@
 		"targetNotExist": "Target does not exist",
 		"databaseError": "Database error",
 		"redisError": "Redis error",
-		"permissionDeny": "User does not have permission to access this interface"
+		"permissionDeny": "User does not have permission to access this interface",
+		"constraintError": "Operation failed: Data conflict",
+		"validationError": "Operation failed: Validation failed",
+		"notSingularError": "Operation failed: Data not unique"
 	},
 	"apiDesc": {
 		"userLogin": "Log in (Required)",

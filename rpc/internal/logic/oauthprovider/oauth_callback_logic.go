@@ -18,6 +18,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	user2 "github.com/suyuan32/simple-admin-core/rpc/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -50,14 +51,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo
 	if _, ok := providerConfig[provider]; !ok {
 		p, err := l.svcCtx.DB.OauthProvider.Query().Where(oauthprovider.NameEQ(provider)).First(l.ctx)
 		if err != nil {
-			switch {
-			case ent.IsNotFound(err):
-				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError(i18n.TargetNotFound)
-			default:
-				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-				return nil, statuserr.NewInternalError(i18n.DatabaseError)
-			}
+			return nil, errorhandler.DefaultEntError(err, in)
 		}
 
 		providerConfig[provider] = oauth2.Config{

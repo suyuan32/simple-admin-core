@@ -5,13 +5,11 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
-
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 )
 
 type GetOauthProviderListLogic struct {
@@ -41,8 +39,7 @@ func (l *GetOauthProviderListLogic) GetOauthProviderList(in *core.OauthProviderL
 	}
 	result, err := l.svcCtx.DB.OauthProvider.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
-		logx.Error(err.Error())
-		return nil, statuserr.NewInternalError(i18n.DatabaseError)
+		return nil, errorhandler.DefaultEntError(err, in)
 	}
 
 	resp := &core.OauthProviderListResp{}
