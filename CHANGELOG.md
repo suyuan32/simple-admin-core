@@ -1,3 +1,34 @@
+<a name="v0.2.6"></a>
+## [v0.2.6](https://github.com/suyuan32/simple-admin-core/compare/v0.2.5...v0.2.6) (2023-02-28)
+
+### Docs
+
+* update readme
+* update functions doc
+* update change log
+
+### Feat
+
+* error handling
+* casbin redis watcher
+* casbin redis watcher
+
+### Fix
+
+* optimize ent transactions
+* menu directory bugs
+* remove member menu init data in core
+* post upper case
+
+### Refactor
+
+* optimize translator.
+
+### Pull Requests
+
+* Merge pull request [#78](https://github.com/suyuan32/simple-admin-core/issues/78) from suyuan32/feat-error-handling
+* Merge pull request [#77](https://github.com/suyuan32/simple-admin-core/issues/77) from suyuan32/feat-redis-watcher
+
 
 <a name="v0.2.5"></a>
 ## [v0.2.5](https://github.com/suyuan32/simple-admin-core/compare/v0.2.4...v0.2.5) (2023-02-23)
