@@ -6,7 +6,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
 	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
 	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
@@ -46,22 +45,20 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 		err = l.svcCtx.DB.Menu.Update().ClearParams().Exec(l.ctx)
 
 		if err != nil {
-			logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return statuserr.NewInternalError(i18n.DatabaseError)
+			return err
 		}
 
 		err = l.svcCtx.DB.Menu.DeleteOneID(in.Id).Exec(l.ctx)
 
 		if err != nil {
-			return errorhandler.DefaultEntError(err, in)
+			return err
 		}
 
 		return nil
 	})
 
 	if err != nil {
-		logx.Errorf("delete dictionary failed, error : %s", err.Error())
-		return nil, err
+		return nil, errorhandler.DefaultEntError(err, in)
 	}
 
 	return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil
