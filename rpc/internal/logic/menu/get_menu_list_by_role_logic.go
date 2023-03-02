@@ -33,7 +33,7 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.BaseMsg) (*core.Menu
 		query.Order(ent.Asc(menu.FieldSort))
 	}).All(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	resp := &core.MenuInfoList{}

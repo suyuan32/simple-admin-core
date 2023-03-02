@@ -28,7 +28,7 @@ func NewGetUserByUsernameLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 func (l *GetUserByUsernameLogic) GetUserByUsername(in *core.UsernameReq) (*core.UserInfo, error) {
 	result, err := l.svcCtx.DB.User.Query().Where(user.UsernameEQ(in.Username)).WithRoles().First(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.UserInfo{

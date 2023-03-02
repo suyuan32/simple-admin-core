@@ -36,7 +36,7 @@ func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(in *core.Dictiona
 	}
 	result, err := l.svcCtx.DB.DictionaryDetail.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	resp := &core.DictionaryDetailListResp{}

@@ -27,7 +27,7 @@ func NewGetOauthProviderByIdLogic(ctx context.Context, svcCtx *svc.ServiceContex
 func (l *GetOauthProviderByIdLogic) GetOauthProviderById(in *core.IDReq) (*core.OauthProviderInfo, error) {
 	result, err := l.svcCtx.DB.OauthProvider.Get(l.ctx, in.Id)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.OauthProviderInfo{

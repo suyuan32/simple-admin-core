@@ -27,7 +27,7 @@ func NewGetMenuParamByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 func (l *GetMenuParamByIdLogic) GetMenuParamById(in *core.IDReq) (*core.MenuParamInfo, error) {
 	result, err := l.svcCtx.DB.MenuParam.Get(l.ctx, in.Id)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.MenuParamInfo{

@@ -27,7 +27,7 @@ func NewGetPositionByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 func (l *GetPositionByIdLogic) GetPositionById(in *core.IDReq) (*core.PositionInfo, error) {
 	result, err := l.svcCtx.DB.Position.Get(l.ctx, in.Id)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.PositionInfo{

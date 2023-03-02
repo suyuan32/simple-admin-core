@@ -61,7 +61,7 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 
 	users, err := l.svcCtx.DB.Debug().User.Query().Where(predicates...).WithRoles().WithPositions().Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	resp := &core.UserListResp{}

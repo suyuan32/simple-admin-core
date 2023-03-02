@@ -28,7 +28,7 @@ func NewGetMenuAuthorityLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 func (l *GetMenuAuthorityLogic) GetMenuAuthority(in *core.IDReq) (*core.RoleMenuAuthorityResp, error) {
 	menus, err := l.svcCtx.DB.Role.Query().Where(role.ID(in.Id)).QueryMenus().IDs(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.RoleMenuAuthorityResp{MenuId: menus}, nil

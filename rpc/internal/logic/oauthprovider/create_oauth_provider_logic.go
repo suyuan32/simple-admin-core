@@ -39,7 +39,7 @@ func (l *CreateOauthProviderLogic) CreateOauthProvider(in *core.OauthProviderInf
 		SetInfoURL(in.InfoUrl).
 		Save(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil

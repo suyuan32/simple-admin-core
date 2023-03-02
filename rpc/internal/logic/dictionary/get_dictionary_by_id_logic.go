@@ -27,7 +27,7 @@ func NewGetDictionaryByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 func (l *GetDictionaryByIdLogic) GetDictionaryById(in *core.IDReq) (*core.DictionaryInfo, error) {
 	result, err := l.svcCtx.DB.Dictionary.Get(l.ctx, in.Id)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.DictionaryInfo{

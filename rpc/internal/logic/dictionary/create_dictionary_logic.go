@@ -34,7 +34,7 @@ func (l *CreateDictionaryLogic) CreateDictionary(in *core.DictionaryInfo) (*core
 		SetDesc(in.Desc).
 		Save(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil

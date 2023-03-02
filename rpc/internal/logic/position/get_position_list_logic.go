@@ -39,7 +39,7 @@ func (l *GetPositionListLogic) GetPositionList(in *core.PositionListReq) (*core.
 	}
 	result, err := l.svcCtx.DB.Position.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	resp := &core.PositionListResp{}

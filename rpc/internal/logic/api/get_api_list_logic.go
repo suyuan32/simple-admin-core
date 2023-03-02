@@ -42,7 +42,7 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiListReq) (*core.ApiListResp, er
 	}
 	result, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	resp := &core.ApiListResp{}

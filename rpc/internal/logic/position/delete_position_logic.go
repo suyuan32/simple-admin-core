@@ -32,7 +32,7 @@ func NewDeletePositionLogic(ctx context.Context, svcCtx *svc.ServiceContext) *De
 func (l *DeletePositionLogic) DeletePosition(in *core.IDsReq) (*core.BaseResp, error) {
 	count, err := l.svcCtx.DB.User.Query().Where(user.HasPositionsWith(position.IDIn(in.Ids...))).Count(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	if count != 0 {
@@ -41,7 +41,7 @@ func (l *DeletePositionLogic) DeletePosition(in *core.IDsReq) (*core.BaseResp, e
 
 	_, err = l.svcCtx.DB.Position.Delete().Where(position.IDIn(in.Ids...)).Exec(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil

@@ -39,7 +39,7 @@ func (l *UpdateOauthProviderLogic) UpdateOauthProvider(in *core.OauthProviderInf
 		SetNotEmptyInfoURL(in.InfoUrl).
 		Exec(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil

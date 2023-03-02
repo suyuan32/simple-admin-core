@@ -30,7 +30,7 @@ func NewDeleteOauthProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext
 func (l *DeleteOauthProviderLogic) DeleteOauthProvider(in *core.IDsReq) (*core.BaseResp, error) {
 	_, err := l.svcCtx.DB.OauthProvider.Delete().Where(oauthprovider.IDIn(in.Ids...)).Exec(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil

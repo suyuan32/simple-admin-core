@@ -27,7 +27,7 @@ func NewGetApiByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetApi
 func (l *GetApiByIdLogic) GetApiById(in *core.IDReq) (*core.ApiInfo, error) {
 	result, err := l.svcCtx.DB.API.Get(l.ctx, in.Id)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.ApiInfo{

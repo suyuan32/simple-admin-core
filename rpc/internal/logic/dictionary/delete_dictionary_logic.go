@@ -45,7 +45,7 @@ func (l *DeleteDictionaryLogic) DeleteDictionary(in *core.IDsReq) (*core.BaseRes
 		return nil
 	})
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil

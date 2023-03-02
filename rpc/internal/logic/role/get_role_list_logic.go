@@ -42,7 +42,7 @@ func (l *GetRoleListLogic) GetRoleList(in *core.RoleListReq) (*core.RoleListResp
 		pager.Order = ent.Asc(role.FieldSort)
 	})
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	resp := &core.RoleListResp{}

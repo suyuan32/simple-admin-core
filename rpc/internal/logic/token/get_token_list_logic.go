@@ -36,7 +36,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 		tokens, err = l.svcCtx.DB.Token.Query().Page(l.ctx, in.Page, in.PageSize)
 
 		if err != nil {
-			return nil, errorhandler.DefaultEntError(err, in)
+			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 		}
 	} else {
 		var predicates []predicate.User
@@ -59,13 +59,13 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 
 		u, err := l.svcCtx.DB.User.Query().Where(predicates...).First(l.ctx)
 		if err != nil {
-			return nil, errorhandler.DefaultEntError(err, in)
+			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 		}
 
 		tokens, err = l.svcCtx.DB.Token.Query().Where(token.UUIDEQ(u.ID)).Page(l.ctx, in.Page, in.PageSize)
 
 		if err != nil {
-			return nil, errorhandler.DefaultEntError(err, in)
+			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 		}
 	}
 

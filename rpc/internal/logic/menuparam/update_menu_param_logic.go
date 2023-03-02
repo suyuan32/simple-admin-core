@@ -34,7 +34,7 @@ func (l *UpdateMenuParamLogic) UpdateMenuParam(in *core.MenuParamInfo) (*core.Ba
 		SetNotEmptyMenuID(in.MenuId).
 		Exec(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil

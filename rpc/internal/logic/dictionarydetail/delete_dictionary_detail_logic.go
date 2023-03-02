@@ -30,7 +30,7 @@ func NewDeleteDictionaryDetailLogic(ctx context.Context, svcCtx *svc.ServiceCont
 func (l *DeleteDictionaryDetailLogic) DeleteDictionaryDetail(in *core.IDsReq) (*core.BaseResp, error) {
 	_, err := l.svcCtx.DB.DictionaryDetail.Delete().Where(dictionarydetail.IDIn(in.Ids...)).Exec(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil

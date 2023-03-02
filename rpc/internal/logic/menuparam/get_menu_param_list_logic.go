@@ -33,7 +33,7 @@ func (l *GetMenuParamListLogic) GetMenuParamList(in *core.MenuParamListReq) (*co
 	}
 	result, err := l.svcCtx.DB.MenuParam.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	resp := &core.MenuParamListResp{}

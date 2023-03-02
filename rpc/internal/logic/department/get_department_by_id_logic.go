@@ -27,7 +27,7 @@ func NewGetDepartmentByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 func (l *GetDepartmentByIdLogic) GetDepartmentById(in *core.IDReq) (*core.DepartmentInfo, error) {
 	result, err := l.svcCtx.DB.Department.Get(l.ctx, in.Id)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.DepartmentInfo{

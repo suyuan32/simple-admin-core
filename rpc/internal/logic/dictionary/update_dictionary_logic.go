@@ -34,7 +34,7 @@ func (l *UpdateDictionaryLogic) UpdateDictionary(in *core.DictionaryInfo) (*core
 		SetNotEmptyDesc(in.Desc).
 		Exec(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil

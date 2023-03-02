@@ -33,7 +33,7 @@ func NewBlockUserAllTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.BaseResp, error) {
 	err := l.svcCtx.DB.Token.Update().Where(token.UUIDEQ(uuidx.ParseUUIDString(in.Id))).SetStatus(0).Exec(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	tokenData, err := l.svcCtx.DB.Token.Query().
@@ -42,7 +42,7 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 		Where(token.ExpiredAtGT(time.Now())).
 		All(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	for _, v := range tokenData {

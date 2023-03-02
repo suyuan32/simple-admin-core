@@ -51,7 +51,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo
 	if _, ok := providerConfig[provider]; !ok {
 		p, err := l.svcCtx.DB.OauthProvider.Query().Where(oauthprovider.NameEQ(provider)).First(l.ctx)
 		if err != nil {
-			return nil, errorhandler.DefaultEntError(err, in)
+			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 		}
 
 		providerConfig[provider] = oauth2.Config{

@@ -27,7 +27,7 @@ func NewGetRoleByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRo
 func (l *GetRoleByIdLogic) GetRoleById(in *core.IDReq) (*core.RoleInfo, error) {
 	result, err := l.svcCtx.DB.Role.Get(l.ctx, in.Id)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.RoleInfo{

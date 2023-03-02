@@ -66,7 +66,7 @@ func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) 
 		return updateQuery.Exec(l.ctx)
 	})
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseResp{

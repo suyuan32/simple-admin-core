@@ -33,7 +33,7 @@ func (l *UpdateMenuLogic) UpdateMenu(in *core.MenuInfo) (*core.BaseResp, error) 
 	if in.ParentId != enum.DefaultParentId {
 		m, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.ParentId)).First(l.ctx)
 		if err != nil {
-			return nil, errorhandler.DefaultEntError(err, in)
+			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 		}
 
 		menuLevel = m.MenuLevel + 1
@@ -66,7 +66,7 @@ func (l *UpdateMenuLogic) UpdateMenu(in *core.MenuInfo) (*core.BaseResp, error) 
 		SetRealPath(in.Meta.RealPath).
 		Exec(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(err, in)
+		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
