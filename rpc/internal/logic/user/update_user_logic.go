@@ -5,6 +5,7 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -56,6 +57,11 @@ func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) 
 
 		if in.PositionIds != nil {
 			err := l.svcCtx.DB.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).ClearPositions().Exec(l.ctx)
+			if err != nil {
+				return err
+			}
+
+			_, err = token.NewBlockUserAllTokenLogic(l.ctx, l.svcCtx).BlockUserAllToken(&core.UUIDReq{Id: in.Id})
 			if err != nil {
 				return err
 			}
