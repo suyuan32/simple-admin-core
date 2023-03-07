@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -14,7 +15,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/captcha"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/pkg/enum"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -82,6 +82,6 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		}
 		return resp, nil
 	} else {
-		return nil, errorx.NewCodeError(enum.InvalidArgument, "login.wrongCaptcha")
+		return nil, errorx.NewCodeError(errorcode.InvalidArgument, "login.wrongCaptcha")
 	}
 }

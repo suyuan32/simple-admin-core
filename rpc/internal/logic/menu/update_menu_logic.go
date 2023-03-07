@@ -3,10 +3,10 @@ package menu
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/enum/common"
 	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
-	"github.com/suyuan32/simple-admin-core/pkg/enum"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -31,7 +31,7 @@ func NewUpdateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 func (l *UpdateMenuLogic) UpdateMenu(in *core.MenuInfo) (*core.BaseResp, error) {
 	// get parent level
 	var menuLevel uint32
-	if in.ParentId != enum.DefaultParentId {
+	if in.ParentId != common.DefaultParentId {
 		m, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.ParentId)).First(l.ctx)
 		if err != nil {
 			return nil, errorhandler.DefaultEntError(l.Logger, err, in)

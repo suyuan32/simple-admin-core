@@ -25,9 +25,8 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	)
 
 	return &ServiceContext{
-		Config:     c,
-		DB:         db,
-		Redis:      redis.MustNewRedis(c.RedisConf),
-		MQProducer: c.AsynqConf.WithRedisConf(c.RedisConf).NewClient(),
+		Config: c,
+		DB:     db,
+		Redis:  redis.MustNewRedis(c.RedisConf),
 	}
 }

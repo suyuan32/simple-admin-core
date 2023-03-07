@@ -2,7 +2,6 @@ package config
 
 import (
 	"github.com/suyuan32/simple-admin-common/plugins/casbin"
-	"github.com/suyuan32/simple-admin-common/plugins/mq/asynq"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/zrpc"
 
@@ -14,5 +13,4 @@ type Config struct {
 	DatabaseConf config.DatabaseConf
 	CasbinConf   casbin.CasbinConf
 	RedisConf    redis.RedisConf
-	AsynqConf    asynq.AsynqConf
 }

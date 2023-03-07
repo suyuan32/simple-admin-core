@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/mojocn/base64Captcha"
+	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/suyuan32/simple-admin-common/utils/captcha"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 
@@ -13,7 +14,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/pkg/enum"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -47,7 +47,7 @@ func (l *GetCaptchaLogic) GetCaptcha() (resp *types.CaptchaResp, err error) {
 	if id, b64s, err := gen.Generate(); err != nil {
 		logx.Errorw("fail to generate captcha", logx.Field("detail", err.Error()))
 		return &types.CaptchaResp{
-			BaseDataInfo: types.BaseDataInfo{Code: enum.Internal, Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Failed)},
+			BaseDataInfo: types.BaseDataInfo{Code: errorcode.Internal, Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Failed)},
 			Data:         types.CaptchaInfo{},
 		}, nil
 	} else {

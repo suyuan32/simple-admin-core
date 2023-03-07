@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -14,7 +15,6 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/pkg/enum"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -46,20 +46,20 @@ func (l *InitDatabaseLogic) InitDatabase() (resp *types.BaseMsgResp, err error) 
 			time.Sleep(time.Second * 5)
 			if initState, err := l.svcCtx.Redis.Get("database_init_state"); err == nil {
 				if initState == "1" {
-					return nil, errorx.NewCodeError(enum.InvalidArgument,
+					return nil, errorx.NewCodeError(errorcode.InvalidArgument,
 						l.svcCtx.Trans.Trans(l.lang, i18n.AlreadyInit))
 				}
 			} else {
-				return nil, errorx.NewCodeError(enum.Internal,
+				return nil, errorx.NewCodeError(errorcode.Internal,
 					l.svcCtx.Trans.Trans(l.lang, i18n.RedisError))
 			}
 
 			if errMsg, err := l.svcCtx.Redis.Get("database_error_msg"); err == nil {
 				if errMsg != "" {
-					return nil, errorx.NewCodeError(enum.Internal, errMsg)
+					return nil, errorx.NewCodeError(errorcode.Internal, errMsg)
 				}
 			} else {
-				return nil, errorx.NewCodeError(enum.Internal,
+				return nil, errorx.NewCodeError(errorcode.Internal,
 					l.svcCtx.Trans.Trans(l.lang, i18n.RedisError))
 			}
 		}

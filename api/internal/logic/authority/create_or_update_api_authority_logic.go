@@ -4,11 +4,11 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/pkg/enum"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -43,13 +43,13 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 		removeResult, err := l.svcCtx.Casbin.RemoveFilteredPolicy(0, data.Code)
 		if err != nil {
 			return &types.BaseMsgResp{
-				Code: enum.Internal,
+				Code: errorcode.Internal,
 				Msg:  err.Error(),
 			}, nil
 		}
 		if !removeResult {
 			return &types.BaseMsgResp{
-				Code: enum.Internal,
+				Code: errorcode.Internal,
 				Msg:  l.svcCtx.Trans.Trans(l.lang, "casbin.removeFailed"),
 			}, nil
 		}
@@ -62,7 +62,7 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	addResult, err := l.svcCtx.Casbin.AddPolicies(policies)
 	if err != nil {
 		return &types.BaseMsgResp{
-			Code: enum.Internal,
+			Code: errorcode.Internal,
 			Msg:  l.svcCtx.Trans.Trans(l.lang, "casbin.addFailed"),
 		}, nil
 	}

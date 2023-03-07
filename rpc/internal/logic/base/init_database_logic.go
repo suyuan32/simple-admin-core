@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"entgo.io/ent/dialect/sql/schema"
+	"github.com/suyuan32/simple-admin-common/enum/common"
 	"github.com/suyuan32/simple-admin-common/msg/logmsg"
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -13,7 +14,6 @@ import (
 	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
-	"github.com/suyuan32/simple-admin-core/pkg/enum"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -216,7 +216,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(1).
-		SetParentID(enum.DefaultParentId).
+		SetParentID(common.DefaultParentId).
 		SetPath("/dashboard").
 		SetName("Dashboard").
 		SetComponent("/dashboard/workbench/index").
@@ -307,7 +307,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(1).
-		SetParentID(enum.DefaultParentId).
+		SetParentID(common.DefaultParentId).
 		SetPath("/file").
 		SetName("FileManagement").
 		SetComponent("/file/index").
@@ -333,7 +333,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(0).
-		SetParentID(enum.DefaultParentId).
+		SetParentID(common.DefaultParentId).
 		SetPath("").
 		SetName("OtherPages").
 		SetComponent("LAYOUT").
