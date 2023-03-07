@@ -61,5 +61,5 @@ func (l *InitDatabaseLogic) InitDatabase() (resp *types.BaseMsgResp, err error) 
 			}
 		}
 	}
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, l.svcCtx.Trans.Trans(l.ctx, result.Msg))}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, result.Msg)}, nil
 }
