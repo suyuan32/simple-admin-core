@@ -20,10 +20,10 @@ import (
 
 func InitDatabaseHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := base.NewInitDatabaseLogic(r, svcCtx)
+		l := base.NewInitDatabaseLogic(r.Context(), svcCtx)
 		resp, err := l.InitDatabase()
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

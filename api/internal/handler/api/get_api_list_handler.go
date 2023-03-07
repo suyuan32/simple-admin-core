@@ -33,10 +33,10 @@ func GetApiListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := api.NewGetApiListLogic(r, svcCtx)
+		l := api.NewGetApiListLogic(r.Context(), svcCtx)
 		resp, err := l.GetApiList(&req)
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

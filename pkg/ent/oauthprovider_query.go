@@ -177,10 +177,12 @@ func (opq *OauthProviderQuery) AllX(ctx context.Context) []*OauthProvider {
 }
 
 // IDs executes the query and returns a list of OauthProvider IDs.
-func (opq *OauthProviderQuery) IDs(ctx context.Context) ([]uint64, error) {
-	var ids []uint64
+func (opq *OauthProviderQuery) IDs(ctx context.Context) (ids []uint64, err error) {
+	if opq.ctx.Unique == nil && opq.path != nil {
+		opq.Unique(true)
+	}
 	ctx = setContextOp(ctx, opq.ctx, "IDs")
-	if err := opq.Select(oauthprovider.FieldID).Scan(ctx, &ids); err != nil {
+	if err = opq.Select(oauthprovider.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
@@ -362,20 +364,12 @@ func (opq *OauthProviderQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (opq *OauthProviderQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := &sqlgraph.QuerySpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   oauthprovider.Table,
-			Columns: oauthprovider.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: oauthprovider.FieldID,
-			},
-		},
-		From:   opq.sql,
-		Unique: true,
-	}
+	_spec := sqlgraph.NewQuerySpec(oauthprovider.Table, oauthprovider.Columns, sqlgraph.NewFieldSpec(oauthprovider.FieldID, field.TypeUint64))
+	_spec.From = opq.sql
 	if unique := opq.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
+	} else if opq.path != nil {
+		_spec.Unique = true
 	}
 	if fields := opq.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))

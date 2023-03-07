@@ -202,9 +202,3 @@ func (dd *DictionaryDetail) String() string {
 
 // DictionaryDetails is a parsable slice of DictionaryDetail.
 type DictionaryDetails []*DictionaryDetail
-
-func (dd DictionaryDetails) config(cfg config) {
-	for _i := range dd {
-		dd[_i].config = cfg
-	}
-}

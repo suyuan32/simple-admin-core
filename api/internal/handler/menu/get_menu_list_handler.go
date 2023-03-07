@@ -20,10 +20,10 @@ import (
 
 func GetMenuListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := menu.NewGetMenuListLogic(r, svcCtx)
+		l := menu.NewGetMenuListLogic(r.Context(), svcCtx)
 		resp, err := l.GetMenuList()
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

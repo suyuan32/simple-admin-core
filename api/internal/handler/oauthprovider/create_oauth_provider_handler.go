@@ -33,10 +33,10 @@ func CreateOauthProviderHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := oauthprovider.NewCreateOauthProviderLogic(r, svcCtx)
+		l := oauthprovider.NewCreateOauthProviderLogic(r.Context(), svcCtx)
 		resp, err := l.CreateOauthProvider(&req)
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

@@ -265,16 +265,7 @@ func (du *DepartmentUpdate) defaults() {
 }
 
 func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   department.Table,
-			Columns: department.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: department.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(department.Table, department.Columns, sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64))
 	if ps := du.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -679,6 +670,12 @@ func (duo *DepartmentUpdateOne) RemoveUsers(u ...*User) *DepartmentUpdateOne {
 	return duo.RemoveUserIDs(ids...)
 }
 
+// Where appends a list predicates to the DepartmentUpdate builder.
+func (duo *DepartmentUpdateOne) Where(ps ...predicate.Department) *DepartmentUpdateOne {
+	duo.mutation.Where(ps...)
+	return duo
+}
+
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
 func (duo *DepartmentUpdateOne) Select(field string, fields ...string) *DepartmentUpdateOne {
@@ -723,16 +720,7 @@ func (duo *DepartmentUpdateOne) defaults() {
 }
 
 func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   department.Table,
-			Columns: department.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: department.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(department.Table, department.Columns, sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64))
 	id, ok := duo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Department.id" for update`)}

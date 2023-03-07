@@ -33,10 +33,10 @@ func GetMenuParamByIdHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := menuparam.NewGetMenuParamByIdLogic(r, svcCtx)
+		l := menuparam.NewGetMenuParamByIdLogic(r.Context(), svcCtx)
 		resp, err := l.GetMenuParamById(&req)
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

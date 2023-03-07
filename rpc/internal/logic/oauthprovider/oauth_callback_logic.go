@@ -8,16 +8,17 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/suyuan32/simple-admin-common/msg/logmsg"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"golang.org/x/oauth2"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
+	"github.com/suyuan32/simple-admin-common/i18n"
+
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	user2 "github.com/suyuan32/simple-admin-core/rpc/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -73,14 +74,14 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo
 	// get user information
 	content, err := getUserInfo(providerConfig[provider], userInfoURL[provider], in.Code)
 	if err != nil {
-		return nil, statuserr.NewInvalidArgumentError(err.Error())
+		return nil, errorx.NewInvalidArgumentError(err.Error())
 	}
 
 	// find or register user
 	var u userInfo
 	err = json.Unmarshal(content, &u)
 	if err != nil {
-		return nil, statuserr.NewInternalError(err.Error())
+		return nil, errorx.NewInternalError(err.Error())
 	}
 
 	if u.Email != "" {
@@ -89,10 +90,10 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo
 			switch {
 			case ent.IsNotFound(err):
 				logx.Errorw(err.Error(), logx.Field("detail", in))
-				return nil, statuserr.NewInvalidArgumentError("login.userNotExist")
+				return nil, errorx.NewInvalidArgumentError("login.userNotExist")
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-				return nil, statuserr.NewInternalError(i18n.DatabaseError)
+				return nil, errorx.NewInternalError(i18n.DatabaseError)
 			}
 		}
 

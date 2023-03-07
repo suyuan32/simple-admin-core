@@ -2,7 +2,6 @@ package dictionary
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/zeromicro/go-zero/core/logx"
 
@@ -15,15 +14,13 @@ type CreateDictionaryLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewCreateDictionaryLogic(r *http.Request, svcCtx *svc.ServiceContext) *CreateDictionaryLogic {
+func NewCreateDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateDictionaryLogic {
 	return &CreateDictionaryLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -39,5 +36,5 @@ func (l *CreateDictionaryLogic) CreateDictionary(req *types.DictionaryInfo) (res
 	if err != nil {
 		return nil, err
 	}
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, data.Msg)}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, data.Msg)}, nil
 }

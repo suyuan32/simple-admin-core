@@ -33,10 +33,10 @@ func DeleteDictionaryHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := dictionary.NewDeleteDictionaryLogic(r, svcCtx)
+		l := dictionary.NewDeleteDictionaryLogic(r.Context(), svcCtx)
 		resp, err := l.DeleteDictionary(&req)
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

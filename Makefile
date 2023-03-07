@@ -8,14 +8,12 @@ CYAN  = "\e[36;1m"
 docker:
 	docker build -f Dockerfile-api -t ${DOCKER_USERNAME}/core-api:${VERSION} .
 	docker build -f Dockerfile-rpc -t ${DOCKER_USERNAME}/core-rpc:${VERSION} .
-	# docker build -f Dockerfile-job -t ${DOCKER_USERNAME}/core-job:${VERSION} .
 	@printf $(GREEN)"[SUCCESS] build docker successfully"
 
 publish-docker:
 	echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin https://${REPO}
 	docker push ${DOCKER_USERNAME}/core-rpc:${VERSION}
 	docker push ${DOCKER_USERNAME}/core-api:${VERSION}
-	# docker push ${DOCKER_USERNAME}/core-job:${VERSION}
 	@printf $(GREEN)"[SUCCESS] publish docker successfully"
 
 gen-api:

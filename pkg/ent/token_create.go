@@ -203,13 +203,7 @@ func (tc *TokenCreate) sqlSave(ctx context.Context) (*Token, error) {
 func (tc *TokenCreate) createSpec() (*Token, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Token{config: tc.config}
-		_spec = &sqlgraph.CreateSpec{
-			Table: token.Table,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUUID,
-				Column: token.FieldID,
-			},
-		}
+		_spec = sqlgraph.NewCreateSpec(token.Table, sqlgraph.NewFieldSpec(token.FieldID, field.TypeUUID))
 	)
 	if id, ok := tc.mutation.ID(); ok {
 		_node.ID = id

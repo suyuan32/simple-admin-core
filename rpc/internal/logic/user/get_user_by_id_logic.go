@@ -3,6 +3,8 @@ package user
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/uuidx"
+
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
@@ -10,8 +12,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
-
-	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 )
 
 type GetUserByIdLogic struct {

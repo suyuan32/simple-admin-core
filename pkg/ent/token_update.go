@@ -128,16 +128,7 @@ func (tu *TokenUpdate) defaults() {
 }
 
 func (tu *TokenUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   token.Table,
-			Columns: token.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUUID,
-				Column: token.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(token.Table, token.Columns, sqlgraph.NewFieldSpec(token.FieldID, field.TypeUUID))
 	if ps := tu.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -251,6 +242,12 @@ func (tuo *TokenUpdateOne) Mutation() *TokenMutation {
 	return tuo.mutation
 }
 
+// Where appends a list predicates to the TokenUpdate builder.
+func (tuo *TokenUpdateOne) Where(ps ...predicate.Token) *TokenUpdateOne {
+	tuo.mutation.Where(ps...)
+	return tuo
+}
+
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
 func (tuo *TokenUpdateOne) Select(field string, fields ...string) *TokenUpdateOne {
@@ -295,16 +292,7 @@ func (tuo *TokenUpdateOne) defaults() {
 }
 
 func (tuo *TokenUpdateOne) sqlSave(ctx context.Context) (_node *Token, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   token.Table,
-			Columns: token.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUUID,
-				Column: token.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(token.Table, token.Columns, sqlgraph.NewFieldSpec(token.FieldID, field.TypeUUID))
 	id, ok := tuo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Token.id" for update`)}

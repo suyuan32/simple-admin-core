@@ -233,13 +233,7 @@ func (ddc *DictionaryDetailCreate) sqlSave(ctx context.Context) (*DictionaryDeta
 func (ddc *DictionaryDetailCreate) createSpec() (*DictionaryDetail, *sqlgraph.CreateSpec) {
 	var (
 		_node = &DictionaryDetail{config: ddc.config}
-		_spec = &sqlgraph.CreateSpec{
-			Table: dictionarydetail.Table,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: dictionarydetail.FieldID,
-			},
-		}
+		_spec = sqlgraph.NewCreateSpec(dictionarydetail.Table, sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64))
 	)
 	if id, ok := ddc.mutation.ID(); ok {
 		_node.ID = id

@@ -569,16 +569,7 @@ func (mu *MenuUpdate) defaults() {
 }
 
 func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   menu.Table,
-			Columns: menu.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: menu.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(menu.Table, menu.Columns, sqlgraph.NewFieldSpec(menu.FieldID, field.TypeUint64))
 	if ps := mu.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -1422,6 +1413,12 @@ func (muo *MenuUpdateOne) RemoveParams(m ...*MenuParam) *MenuUpdateOne {
 	return muo.RemoveParamIDs(ids...)
 }
 
+// Where appends a list predicates to the MenuUpdate builder.
+func (muo *MenuUpdateOne) Where(ps ...predicate.Menu) *MenuUpdateOne {
+	muo.mutation.Where(ps...)
+	return muo
+}
+
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
 func (muo *MenuUpdateOne) Select(field string, fields ...string) *MenuUpdateOne {
@@ -1466,16 +1463,7 @@ func (muo *MenuUpdateOne) defaults() {
 }
 
 func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   menu.Table,
-			Columns: menu.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: menu.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(menu.Table, menu.Columns, sqlgraph.NewFieldSpec(menu.FieldID, field.TypeUint64))
 	id, ok := muo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Menu.id" for update`)}

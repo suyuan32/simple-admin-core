@@ -33,10 +33,10 @@ func GetMenuAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := authority.NewGetMenuAuthorityLogic(r, svcCtx)
+		l := authority.NewGetMenuAuthorityLogic(r.Context(), svcCtx)
 		resp, err := l.GetMenuAuthority(&req)
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

@@ -214,13 +214,7 @@ func (opc *OauthProviderCreate) sqlSave(ctx context.Context) (*OauthProvider, er
 func (opc *OauthProviderCreate) createSpec() (*OauthProvider, *sqlgraph.CreateSpec) {
 	var (
 		_node = &OauthProvider{config: opc.config}
-		_spec = &sqlgraph.CreateSpec{
-			Table: oauthprovider.Table,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: oauthprovider.FieldID,
-			},
-		}
+		_spec = sqlgraph.NewCreateSpec(oauthprovider.Table, sqlgraph.NewFieldSpec(oauthprovider.FieldID, field.TypeUint64))
 	)
 	if id, ok := opc.mutation.ID(); ok {
 		_node.ID = id

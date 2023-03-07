@@ -158,16 +158,7 @@ func (du *DictionaryUpdate) defaults() {
 }
 
 func (du *DictionaryUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   dictionary.Table,
-			Columns: dictionary.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: dictionary.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(dictionary.Table, dictionary.Columns, sqlgraph.NewFieldSpec(dictionary.FieldID, field.TypeUint64))
 	if ps := du.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -362,6 +353,12 @@ func (duo *DictionaryUpdateOne) RemoveDictionaryDetails(d ...*DictionaryDetail) 
 	return duo.RemoveDictionaryDetailIDs(ids...)
 }
 
+// Where appends a list predicates to the DictionaryUpdate builder.
+func (duo *DictionaryUpdateOne) Where(ps ...predicate.Dictionary) *DictionaryUpdateOne {
+	duo.mutation.Where(ps...)
+	return duo
+}
+
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
 func (duo *DictionaryUpdateOne) Select(field string, fields ...string) *DictionaryUpdateOne {
@@ -406,16 +403,7 @@ func (duo *DictionaryUpdateOne) defaults() {
 }
 
 func (duo *DictionaryUpdateOne) sqlSave(ctx context.Context) (_node *Dictionary, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   dictionary.Table,
-			Columns: dictionary.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: dictionary.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(dictionary.Table, dictionary.Columns, sqlgraph.NewFieldSpec(dictionary.FieldID, field.TypeUint64))
 	id, ok := duo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Dictionary.id" for update`)}

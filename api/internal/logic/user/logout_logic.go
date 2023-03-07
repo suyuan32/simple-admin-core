@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -15,25 +14,22 @@ type LogoutLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewLogoutLogic(r *http.Request, svcCtx *svc.ServiceContext) *LogoutLogic {
+func NewLogoutLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LogoutLogic {
 	return &LogoutLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
 func (l *LogoutLogic) Logout() (resp *types.BaseMsgResp, err error) {
 	result, err := l.svcCtx.CoreRpc.BlockUserAllToken(l.ctx,
 		&core.UUIDReq{Id: l.ctx.Value("userId").(string)})
-
 	if err != nil {
 		return nil, err
 	}
 
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, result.Msg)}, nil
 }

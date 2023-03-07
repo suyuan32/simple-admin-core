@@ -1,9 +1,12 @@
 package svc
 
 import (
+	"github.com/suyuan32/simple-admin-common/i18n"
+
+	i18n2 "github.com/suyuan32/simple-admin-core/pkg/i18n"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
 	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
 
 	"github.com/casbin/casbin/v2"
@@ -26,7 +29,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 	cbn := c.CasbinConf.MustNewCasbinWithRedisWatcher(c.DatabaseConf.Type, c.DatabaseConf.GetDSN(), c.RedisConf)
 
-	trans := i18n.NewTranslator(i18n.LocaleFS)
+	trans := i18n.NewTranslator(i18n2.LocaleFS)
 
 	return &ServiceContext{
 		Config:    c,

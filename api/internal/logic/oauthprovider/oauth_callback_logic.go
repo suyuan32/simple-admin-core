@@ -6,9 +6,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/suyuan32/simple-admin-common/utils/jwt"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -18,7 +19,6 @@ type OauthCallbackLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 	r      *http.Request
 }
 
@@ -27,7 +27,6 @@ func NewOauthCallbackLogic(r *http.Request, svcCtx *svc.ServiceContext) *OauthCa
 		Logger: logx.WithContext(r.Context()),
 		ctx:    r.Context(),
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 		r:      r,
 	}
 }
@@ -41,7 +40,7 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 		return nil, err
 	}
 
-	token, err := utils.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, result.Id, "roleId", time.Now().Unix(),
+	token, err := jwt.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, result.Id, "roleId", time.Now().Unix(),
 		l.svcCtx.Config.Auth.AccessExpire, result.RoleCodes)
 
 	// add token into database

@@ -180,9 +180,3 @@ func (mp *MenuParam) String() string {
 
 // MenuParams is a parsable slice of MenuParam.
 type MenuParams []*MenuParam
-
-func (mp MenuParams) config(cfg config) {
-	for _i := range mp {
-		mp[_i].config = cfg
-	}
-}

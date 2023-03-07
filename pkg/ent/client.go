@@ -11,6 +11,10 @@ import (
 	uuid "github.com/gofrs/uuid/v5"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/migrate"
 
+	"entgo.io/ent"
+	"entgo.io/ent/dialect"
+	"entgo.io/ent/dialect/sql"
+	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/api"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/department"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/dictionary"
@@ -22,10 +26,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
-
-	"entgo.io/ent/dialect"
-	"entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/sqlgraph"
 )
 
 // Client is the client that holds all ent builders.
@@ -79,6 +79,55 @@ func (c *Client) init() {
 	c.Role = NewRoleClient(c.config)
 	c.Token = NewTokenClient(c.config)
 	c.User = NewUserClient(c.config)
+}
+
+type (
+	// config is the configuration for the client and its builder.
+	config struct {
+		// driver used for executing database requests.
+		driver dialect.Driver
+		// debug enable a debug logging.
+		debug bool
+		// log used for logging on debug mode.
+		log func(...any)
+		// hooks to execute on mutations.
+		hooks *hooks
+		// interceptors to execute on queries.
+		inters *inters
+	}
+	// Option function to configure the client.
+	Option func(*config)
+)
+
+// options applies the options on the config object.
+func (c *config) options(opts ...Option) {
+	for _, opt := range opts {
+		opt(c)
+	}
+	if c.debug {
+		c.driver = dialect.Debug(c.driver, c.log)
+	}
+}
+
+// Debug enables debug logging on the ent.Driver.
+func Debug() Option {
+	return func(c *config) {
+		c.debug = true
+	}
+}
+
+// Log sets the logging function for debug mode.
+func Log(fn func(...any)) Option {
+	return func(c *config) {
+		c.log = fn
+	}
+}
+
+// Driver configures the client driver.
+func Driver(driver dialect.Driver) Option {
+	return func(c *config) {
+		c.driver = driver
+	}
 }
 
 // Open opens a database/sql.DB specified by the driver name and
@@ -181,33 +230,23 @@ func (c *Client) Close() error {
 // Use adds the mutation hooks to all the entity clients.
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
-	c.API.Use(hooks...)
-	c.Department.Use(hooks...)
-	c.Dictionary.Use(hooks...)
-	c.DictionaryDetail.Use(hooks...)
-	c.Menu.Use(hooks...)
-	c.MenuParam.Use(hooks...)
-	c.OauthProvider.Use(hooks...)
-	c.Position.Use(hooks...)
-	c.Role.Use(hooks...)
-	c.Token.Use(hooks...)
-	c.User.Use(hooks...)
+	for _, n := range []interface{ Use(...Hook) }{
+		c.API, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu, c.MenuParam,
+		c.OauthProvider, c.Position, c.Role, c.Token, c.User,
+	} {
+		n.Use(hooks...)
+	}
 }
 
 // Intercept adds the query interceptors to all the entity clients.
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
-	c.API.Intercept(interceptors...)
-	c.Department.Intercept(interceptors...)
-	c.Dictionary.Intercept(interceptors...)
-	c.DictionaryDetail.Intercept(interceptors...)
-	c.Menu.Intercept(interceptors...)
-	c.MenuParam.Intercept(interceptors...)
-	c.OauthProvider.Intercept(interceptors...)
-	c.Position.Intercept(interceptors...)
-	c.Role.Intercept(interceptors...)
-	c.Token.Intercept(interceptors...)
-	c.User.Intercept(interceptors...)
+	for _, n := range []interface{ Intercept(...Interceptor) }{
+		c.API, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu, c.MenuParam,
+		c.OauthProvider, c.Position, c.Role, c.Token, c.User,
+	} {
+		n.Intercept(interceptors...)
+	}
 }
 
 // Mutate implements the ent.Mutator interface.
@@ -256,7 +295,7 @@ func (c *APIClient) Use(hooks ...Hook) {
 	c.hooks.API = append(c.hooks.API, hooks...)
 }
 
-// Use adds a list of query interceptors to the interceptors stack.
+// Intercept adds a list of query interceptors to the interceptors stack.
 // A call to `Intercept(f, g, h)` equals to `api.Intercept(f(g(h())))`.
 func (c *APIClient) Intercept(interceptors ...Interceptor) {
 	c.inters.API = append(c.inters.API, interceptors...)
@@ -374,7 +413,7 @@ func (c *DepartmentClient) Use(hooks ...Hook) {
 	c.hooks.Department = append(c.hooks.Department, hooks...)
 }
 
-// Use adds a list of query interceptors to the interceptors stack.
+// Intercept adds a list of query interceptors to the interceptors stack.
 // A call to `Intercept(f, g, h)` equals to `department.Intercept(f(g(h())))`.
 func (c *DepartmentClient) Intercept(interceptors ...Interceptor) {
 	c.inters.Department = append(c.inters.Department, interceptors...)
@@ -540,7 +579,7 @@ func (c *DictionaryClient) Use(hooks ...Hook) {
 	c.hooks.Dictionary = append(c.hooks.Dictionary, hooks...)
 }
 
-// Use adds a list of query interceptors to the interceptors stack.
+// Intercept adds a list of query interceptors to the interceptors stack.
 // A call to `Intercept(f, g, h)` equals to `dictionary.Intercept(f(g(h())))`.
 func (c *DictionaryClient) Intercept(interceptors ...Interceptor) {
 	c.inters.Dictionary = append(c.inters.Dictionary, interceptors...)
@@ -674,7 +713,7 @@ func (c *DictionaryDetailClient) Use(hooks ...Hook) {
 	c.hooks.DictionaryDetail = append(c.hooks.DictionaryDetail, hooks...)
 }
 
-// Use adds a list of query interceptors to the interceptors stack.
+// Intercept adds a list of query interceptors to the interceptors stack.
 // A call to `Intercept(f, g, h)` equals to `dictionarydetail.Intercept(f(g(h())))`.
 func (c *DictionaryDetailClient) Intercept(interceptors ...Interceptor) {
 	c.inters.DictionaryDetail = append(c.inters.DictionaryDetail, interceptors...)
@@ -808,7 +847,7 @@ func (c *MenuClient) Use(hooks ...Hook) {
 	c.hooks.Menu = append(c.hooks.Menu, hooks...)
 }
 
-// Use adds a list of query interceptors to the interceptors stack.
+// Intercept adds a list of query interceptors to the interceptors stack.
 // A call to `Intercept(f, g, h)` equals to `menu.Intercept(f(g(h())))`.
 func (c *MenuClient) Intercept(interceptors ...Interceptor) {
 	c.inters.Menu = append(c.inters.Menu, interceptors...)
@@ -990,7 +1029,7 @@ func (c *MenuParamClient) Use(hooks ...Hook) {
 	c.hooks.MenuParam = append(c.hooks.MenuParam, hooks...)
 }
 
-// Use adds a list of query interceptors to the interceptors stack.
+// Intercept adds a list of query interceptors to the interceptors stack.
 // A call to `Intercept(f, g, h)` equals to `menuparam.Intercept(f(g(h())))`.
 func (c *MenuParamClient) Intercept(interceptors ...Interceptor) {
 	c.inters.MenuParam = append(c.inters.MenuParam, interceptors...)
@@ -1124,7 +1163,7 @@ func (c *OauthProviderClient) Use(hooks ...Hook) {
 	c.hooks.OauthProvider = append(c.hooks.OauthProvider, hooks...)
 }
 
-// Use adds a list of query interceptors to the interceptors stack.
+// Intercept adds a list of query interceptors to the interceptors stack.
 // A call to `Intercept(f, g, h)` equals to `oauthprovider.Intercept(f(g(h())))`.
 func (c *OauthProviderClient) Intercept(interceptors ...Interceptor) {
 	c.inters.OauthProvider = append(c.inters.OauthProvider, interceptors...)
@@ -1242,7 +1281,7 @@ func (c *PositionClient) Use(hooks ...Hook) {
 	c.hooks.Position = append(c.hooks.Position, hooks...)
 }
 
-// Use adds a list of query interceptors to the interceptors stack.
+// Intercept adds a list of query interceptors to the interceptors stack.
 // A call to `Intercept(f, g, h)` equals to `position.Intercept(f(g(h())))`.
 func (c *PositionClient) Intercept(interceptors ...Interceptor) {
 	c.inters.Position = append(c.inters.Position, interceptors...)
@@ -1376,7 +1415,7 @@ func (c *RoleClient) Use(hooks ...Hook) {
 	c.hooks.Role = append(c.hooks.Role, hooks...)
 }
 
-// Use adds a list of query interceptors to the interceptors stack.
+// Intercept adds a list of query interceptors to the interceptors stack.
 // A call to `Intercept(f, g, h)` equals to `role.Intercept(f(g(h())))`.
 func (c *RoleClient) Intercept(interceptors ...Interceptor) {
 	c.inters.Role = append(c.inters.Role, interceptors...)
@@ -1526,7 +1565,7 @@ func (c *TokenClient) Use(hooks ...Hook) {
 	c.hooks.Token = append(c.hooks.Token, hooks...)
 }
 
-// Use adds a list of query interceptors to the interceptors stack.
+// Intercept adds a list of query interceptors to the interceptors stack.
 // A call to `Intercept(f, g, h)` equals to `token.Intercept(f(g(h())))`.
 func (c *TokenClient) Intercept(interceptors ...Interceptor) {
 	c.inters.Token = append(c.inters.Token, interceptors...)
@@ -1644,7 +1683,7 @@ func (c *UserClient) Use(hooks ...Hook) {
 	c.hooks.User = append(c.hooks.User, hooks...)
 }
 
-// Use adds a list of query interceptors to the interceptors stack.
+// Intercept adds a list of query interceptors to the interceptors stack.
 // A call to `Intercept(f, g, h)` equals to `user.Intercept(f(g(h())))`.
 func (c *UserClient) Intercept(interceptors ...Interceptor) {
 	c.inters.User = append(c.inters.User, interceptors...)
@@ -1793,3 +1832,15 @@ func (c *UserClient) mutate(ctx context.Context, m *UserMutation) (Value, error)
 		return nil, fmt.Errorf("ent: unknown User mutation op: %q", m.Op())
 	}
 }
+
+// hooks and interceptors per client, for fast access.
+type (
+	hooks struct {
+		API, Department, Dictionary, DictionaryDetail, Menu, MenuParam, OauthProvider,
+		Position, Role, Token, User []ent.Hook
+	}
+	inters struct {
+		API, Department, Dictionary, DictionaryDetail, Menu, MenuParam, OauthProvider,
+		Position, Role, Token, User []ent.Interceptor
+	}
+)

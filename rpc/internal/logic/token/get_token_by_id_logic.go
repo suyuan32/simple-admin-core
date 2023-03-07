@@ -3,13 +3,13 @@ package token
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/uuidx"
+
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
-
-	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 )
 
 type GetTokenByIdLogic struct {

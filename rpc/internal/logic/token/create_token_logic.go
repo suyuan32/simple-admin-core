@@ -4,12 +4,13 @@ import (
 	"context"
 	"time"
 
+	"github.com/suyuan32/simple-admin-common/utils/uuidx"
+
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
+	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

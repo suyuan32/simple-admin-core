@@ -10,9 +10,8 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
-
 	uuid "github.com/gofrs/uuid/v5"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
@@ -217,13 +216,7 @@ func (pc *PositionCreate) sqlSave(ctx context.Context) (*Position, error) {
 func (pc *PositionCreate) createSpec() (*Position, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Position{config: pc.config}
-		_spec = &sqlgraph.CreateSpec{
-			Table: position.Table,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: position.FieldID,
-			},
-		}
+		_spec = sqlgraph.NewCreateSpec(position.Table, sqlgraph.NewFieldSpec(position.FieldID, field.TypeUint64))
 	)
 	if id, ok := pc.mutation.ID(); ok {
 		_node.ID = id

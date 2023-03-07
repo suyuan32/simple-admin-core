@@ -2,12 +2,12 @@ package authority
 
 import (
 	"context"
-	"net/http"
+
+	"github.com/suyuan32/simple-admin-common/enum/errorcode"
+	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/pkg/enum"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -17,15 +17,13 @@ type CreateOrUpdateApiAuthorityLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewCreateOrUpdateApiAuthorityLogic(r *http.Request, svcCtx *svc.ServiceContext) *CreateOrUpdateApiAuthorityLogic {
+func NewCreateOrUpdateApiAuthorityLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOrUpdateApiAuthorityLogic {
 	return &CreateOrUpdateApiAuthorityLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -42,14 +40,14 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 		removeResult, err := l.svcCtx.Casbin.RemoveFilteredPolicy(0, data.Code)
 		if err != nil {
 			return &types.BaseMsgResp{
-				Code: enum.Internal,
+				Code: errorcode.Internal,
 				Msg:  err.Error(),
 			}, nil
 		}
 		if !removeResult {
 			return &types.BaseMsgResp{
-				Code: enum.Internal,
-				Msg:  l.svcCtx.Trans.Trans(l.lang, "casbin.removeFailed"),
+				Code: errorcode.Internal,
+				Msg:  l.svcCtx.Trans.Trans(l.ctx, "casbin.removeFailed"),
 			}, nil
 		}
 	}
@@ -61,13 +59,13 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	addResult, err := l.svcCtx.Casbin.AddPolicies(policies)
 	if err != nil {
 		return &types.BaseMsgResp{
-			Code: enum.Internal,
-			Msg:  l.svcCtx.Trans.Trans(l.lang, "casbin.addFailed"),
+			Code: errorcode.Internal,
+			Msg:  l.svcCtx.Trans.Trans(l.ctx, "casbin.addFailed"),
 		}, nil
 	}
 	if addResult {
-		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.UpdateSuccess)}, nil
+		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.UpdateSuccess)}, nil
 	} else {
-		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.UpdateFailed)}, nil
+		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.UpdateFailed)}, nil
 	}
 }

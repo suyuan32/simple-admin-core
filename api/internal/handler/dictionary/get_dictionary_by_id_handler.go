@@ -33,10 +33,10 @@ func GetDictionaryByIdHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := dictionary.NewGetDictionaryByIdLogic(r, svcCtx)
+		l := dictionary.NewGetDictionaryByIdLogic(r.Context(), svcCtx)
 		resp, err := l.GetDictionaryById(&req)
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

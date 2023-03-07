@@ -7,7 +7,7 @@ import (
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
 
-	"github.com/suyuan32/simple-admin-core/pkg/ent/schema/mixins"
+	"github.com/suyuan32/simple-admin-common/orm/ent/mixins"
 )
 
 type Menu struct {

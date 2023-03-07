@@ -2,13 +2,12 @@ package user
 
 import (
 	"context"
-	"net/http"
 
+	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -18,15 +17,13 @@ type ChangePasswordLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewChangePasswordLogic(r *http.Request, svcCtx *svc.ServiceContext) *ChangePasswordLogic {
+func NewChangePasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ChangePasswordLogic {
 	return &ChangePasswordLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -36,16 +33,16 @@ func (l *ChangePasswordLogic) ChangePassword(req *types.ChangePasswordReq) (resp
 		return nil, err
 	}
 
-	if utils.BcryptCheck(req.OldPassword, userData.Password) {
+	if encrypt.BcryptCheck(req.OldPassword, userData.Password) {
 		result, err := l.svcCtx.CoreRpc.UpdateUser(l.ctx, &core.UserInfo{
 			Id:       l.ctx.Value("userId").(string),
-			Password: utils.BcryptEncrypt(req.NewPassword),
+			Password: encrypt.BcryptEncrypt(req.NewPassword),
 		})
 		if err != nil {
 			return nil, err
 		}
 
-		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
+		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, result.Msg)}, nil
 	}
 
 	return nil, errorx.NewCodeInvalidArgumentError("login.wrongPassword")

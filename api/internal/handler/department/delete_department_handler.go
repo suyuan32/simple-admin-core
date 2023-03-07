@@ -33,10 +33,10 @@ func DeleteDepartmentHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := department.NewDeleteDepartmentLogic(r, svcCtx)
+		l := department.NewDeleteDepartmentLogic(r.Context(), svcCtx)
 		resp, err := l.DeleteDepartment(&req)
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

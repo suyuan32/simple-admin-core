@@ -33,10 +33,10 @@ func DeleteOauthProviderHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := oauthprovider.NewDeleteOauthProviderLogic(r, svcCtx)
+		l := oauthprovider.NewDeleteOauthProviderLogic(r.Context(), svcCtx)
 		resp, err := l.DeleteOauthProvider(&req)
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

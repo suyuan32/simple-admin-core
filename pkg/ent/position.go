@@ -186,9 +186,3 @@ func (po *Position) String() string {
 
 // Positions is a parsable slice of Position.
 type Positions []*Position
-
-func (po Positions) config(cfg config) {
-	for _i := range po {
-		po[_i].config = cfg
-	}
-}
