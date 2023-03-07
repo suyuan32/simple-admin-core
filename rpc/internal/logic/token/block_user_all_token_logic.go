@@ -4,12 +4,14 @@ import (
 	"context"
 	"time"
 
+	"github.com/suyuan32/simple-admin-common/msg/logmsg"
+	"github.com/suyuan32/simple-admin-common/utils/uuidx"
+	"github.com/zeromicro/go-zero/core/errorx"
+
+	"github.com/suyuan32/simple-admin-common/i18n"
+
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/msg/logmsg"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
-	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
@@ -51,7 +53,7 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 			err = l.svcCtx.Redis.Setex("token_"+v.Token, "1", expiredTime)
 			if err != nil {
 				logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
-				return nil, statuserr.NewInternalError(i18n.RedisError)
+				return nil, errorx.NewInternalError(i18n.RedisError)
 			}
 		}
 	}

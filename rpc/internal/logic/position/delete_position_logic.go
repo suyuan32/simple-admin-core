@@ -3,6 +3,8 @@ package position
 import (
 	"context"
 
+	"github.com/zeromicro/go-zero/core/errorx"
+
 	"github.com/suyuan32/simple-admin-core/pkg/ent/position"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
@@ -11,8 +13,7 @@ import (
 
 	"github.com/zeromicro/go-zero/core/logx"
 
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-common/i18n"
 )
 
 type DeletePositionLogic struct {
@@ -36,7 +37,7 @@ func (l *DeletePositionLogic) DeletePosition(in *core.IDsReq) (*core.BaseResp, e
 	}
 
 	if count != 0 {
-		return nil, statuserr.NewInvalidArgumentError("position.userExistError")
+		return nil, errorx.NewInvalidArgumentError("position.userExistError")
 	}
 
 	_, err = l.svcCtx.DB.Position.Delete().Where(position.IDIn(in.Ids...)).Exec(l.ctx)

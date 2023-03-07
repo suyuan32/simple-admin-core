@@ -266,9 +266,3 @@ func (d *Department) String() string {
 
 // Departments is a parsable slice of Department.
 type Departments []*Department
-
-func (d Departments) config(cfg config) {
-	for _i := range d {
-		d[_i].config = cfg
-	}
-}

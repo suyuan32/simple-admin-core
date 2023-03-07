@@ -1,6 +1,8 @@
 package svc
 
 import (
+	"github.com/hibiken/asynq"
+
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/config"
 
@@ -9,9 +11,10 @@ import (
 )
 
 type ServiceContext struct {
-	Config config.Config
-	DB     *ent.Client
-	Redis  *redis.Redis
+	Config     config.Config
+	DB         *ent.Client
+	Redis      *redis.Redis
+	MQProducer *asynq.Client
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -22,8 +25,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	)
 
 	return &ServiceContext{
-		Config: c,
-		DB:     db,
-		Redis:  redis.MustNewRedis(c.RedisConf),
+		Config:     c,
+		DB:         db,
+		Redis:      redis.MustNewRedis(c.RedisConf),
+		MQProducer: c.AsynqConf.WithRedisConf(c.RedisConf).NewClient(),
 	}
 }

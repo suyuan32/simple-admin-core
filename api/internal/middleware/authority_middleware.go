@@ -10,8 +10,9 @@ import (
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/rest/httpx"
 
+	"github.com/suyuan32/simple-admin-common/i18n"
+
 	"github.com/suyuan32/simple-admin-core/pkg/enum"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
 )
 
 type AuthorityMiddleware struct {
@@ -50,7 +51,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 
-		result := batchCheck(m.Cbn, roleIds, act, obj, w, m.Rds)
+		result := batchCheck(m.Cbn, roleIds, act, obj)
 
 		if result {
 			logx.Infow("HTTP/HTTPS Request", logx.Field("UUID", r.Context().Value("userId").(string)),
@@ -67,7 +68,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func batchCheck(cbn *casbin.Enforcer, roleIds, act, obj string, w http.ResponseWriter, rds *redis.Redis) bool {
+func batchCheck(cbn *casbin.Enforcer, roleIds, act, obj string) bool {
 	var checkReq [][]any
 	for _, v := range strings.Split(roleIds, ",") {
 		checkReq = append(checkReq, []any{v, obj, act})

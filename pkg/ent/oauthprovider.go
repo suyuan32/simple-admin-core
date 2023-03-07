@@ -204,9 +204,3 @@ func (op *OauthProvider) String() string {
 
 // OauthProviders is a parsable slice of OauthProvider.
 type OauthProviders []*OauthProvider
-
-func (op OauthProviders) config(cfg config) {
-	for _i := range op {
-		op[_i].config = cfg
-	}
-}

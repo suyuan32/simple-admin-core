@@ -108,16 +108,7 @@ func (au *APIUpdate) defaults() {
 }
 
 func (au *APIUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   api.Table,
-			Columns: api.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: api.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(api.Table, api.Columns, sqlgraph.NewFieldSpec(api.FieldID, field.TypeUint64))
 	if ps := au.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -203,6 +194,12 @@ func (auo *APIUpdateOne) Mutation() *APIMutation {
 	return auo.mutation
 }
 
+// Where appends a list predicates to the APIUpdate builder.
+func (auo *APIUpdateOne) Where(ps ...predicate.API) *APIUpdateOne {
+	auo.mutation.Where(ps...)
+	return auo
+}
+
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
 func (auo *APIUpdateOne) Select(field string, fields ...string) *APIUpdateOne {
@@ -247,16 +244,7 @@ func (auo *APIUpdateOne) defaults() {
 }
 
 func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *API, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   api.Table,
-			Columns: api.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: api.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(api.Table, api.Columns, sqlgraph.NewFieldSpec(api.FieldID, field.TypeUint64))
 	id, ok := auo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "API.id" for update`)}

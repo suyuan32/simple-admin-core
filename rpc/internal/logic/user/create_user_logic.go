@@ -3,12 +3,13 @@ package user
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/encrypt"
+
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/utils"
+	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -30,7 +31,7 @@ func NewCreateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 func (l *CreateUserLogic) CreateUser(in *core.UserInfo) (*core.BaseUUIDResp, error) {
 	result, err := l.svcCtx.DB.User.Create().
 		SetUsername(in.Username).
-		SetPassword(utils.BcryptEncrypt(in.Password)).
+		SetPassword(encrypt.BcryptEncrypt(in.Password)).
 		SetNickname(in.Nickname).
 		SetEmail(in.Email).
 		SetMobile(in.Mobile).

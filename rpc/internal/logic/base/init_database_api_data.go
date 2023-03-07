@@ -1,10 +1,10 @@
 package base
 
 import (
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
 )
 
 // insert init api data
@@ -523,7 +523,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	err := l.svcCtx.DB.API.CreateBulk(apis...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
-		return statuserr.NewInternalError(err.Error())
+		return errorx.NewInternalError(err.Error())
 	} else {
 		return nil
 	}

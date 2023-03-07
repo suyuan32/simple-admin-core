@@ -4,11 +4,11 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -36,10 +36,10 @@ func (l *ChangePasswordLogic) ChangePassword(req *types.ChangePasswordReq) (resp
 		return nil, err
 	}
 
-	if utils.BcryptCheck(req.OldPassword, userData.Password) {
+	if encrypt.BcryptCheck(req.OldPassword, userData.Password) {
 		result, err := l.svcCtx.CoreRpc.UpdateUser(l.ctx, &core.UserInfo{
 			Id:       l.ctx.Value("userId").(string),
-			Password: utils.BcryptEncrypt(req.NewPassword),
+			Password: encrypt.BcryptEncrypt(req.NewPassword),
 		})
 		if err != nil {
 			return nil, err

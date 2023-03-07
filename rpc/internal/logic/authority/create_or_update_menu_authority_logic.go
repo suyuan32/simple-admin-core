@@ -3,9 +3,10 @@ package authority
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/i18n"
+
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/utils"
+	"github.com/suyuan32/simple-admin-core/pkg/utils/entx"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -28,7 +29,7 @@ func NewCreateOrUpdateMenuAuthorityLogic(ctx context.Context, svcCtx *svc.Servic
 }
 
 func (l *CreateOrUpdateMenuAuthorityLogic) CreateOrUpdateMenuAuthority(in *core.RoleMenuAuthorityReq) (*core.BaseResp, error) {
-	err := utils.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
+	err := entx.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
 		err := tx.Role.UpdateOneID(in.RoleId).ClearMenus().Exec(l.ctx)
 		if err != nil {
 			return err

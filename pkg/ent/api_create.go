@@ -181,13 +181,7 @@ func (ac *APICreate) sqlSave(ctx context.Context) (*API, error) {
 func (ac *APICreate) createSpec() (*API, *sqlgraph.CreateSpec) {
 	var (
 		_node = &API{config: ac.config}
-		_spec = &sqlgraph.CreateSpec{
-			Table: api.Table,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: api.FieldID,
-			},
-		}
+		_spec = sqlgraph.NewCreateSpec(api.Table, sqlgraph.NewFieldSpec(api.FieldID, field.TypeUint64))
 	)
 	if id, ok := ac.mutation.ID(); ok {
 		_node.ID = id

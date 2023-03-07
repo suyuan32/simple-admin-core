@@ -137,16 +137,7 @@ func (opu *OauthProviderUpdate) defaults() {
 }
 
 func (opu *OauthProviderUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   oauthprovider.Table,
-			Columns: oauthprovider.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: oauthprovider.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(oauthprovider.Table, oauthprovider.Columns, sqlgraph.NewFieldSpec(oauthprovider.FieldID, field.TypeUint64))
 	if ps := opu.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -279,6 +270,12 @@ func (opuo *OauthProviderUpdateOne) Mutation() *OauthProviderMutation {
 	return opuo.mutation
 }
 
+// Where appends a list predicates to the OauthProviderUpdate builder.
+func (opuo *OauthProviderUpdateOne) Where(ps ...predicate.OauthProvider) *OauthProviderUpdateOne {
+	opuo.mutation.Where(ps...)
+	return opuo
+}
+
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
 func (opuo *OauthProviderUpdateOne) Select(field string, fields ...string) *OauthProviderUpdateOne {
@@ -323,16 +320,7 @@ func (opuo *OauthProviderUpdateOne) defaults() {
 }
 
 func (opuo *OauthProviderUpdateOne) sqlSave(ctx context.Context) (_node *OauthProvider, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   oauthprovider.Table,
-			Columns: oauthprovider.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: oauthprovider.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(oauthprovider.Table, oauthprovider.Columns, sqlgraph.NewFieldSpec(oauthprovider.FieldID, field.TypeUint64))
 	id, ok := opuo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "OauthProvider.id" for update`)}

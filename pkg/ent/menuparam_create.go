@@ -194,13 +194,7 @@ func (mpc *MenuParamCreate) sqlSave(ctx context.Context) (*MenuParam, error) {
 func (mpc *MenuParamCreate) createSpec() (*MenuParam, *sqlgraph.CreateSpec) {
 	var (
 		_node = &MenuParam{config: mpc.config}
-		_spec = &sqlgraph.CreateSpec{
-			Table: menuparam.Table,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: menuparam.FieldID,
-			},
-		}
+		_spec = sqlgraph.NewCreateSpec(menuparam.Table, sqlgraph.NewFieldSpec(menuparam.FieldID, field.TypeUint64))
 	)
 	if id, ok := mpc.mutation.ID(); ok {
 		_node.ID = id

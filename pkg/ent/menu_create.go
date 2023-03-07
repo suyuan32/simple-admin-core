@@ -521,13 +521,7 @@ func (mc *MenuCreate) sqlSave(ctx context.Context) (*Menu, error) {
 func (mc *MenuCreate) createSpec() (*Menu, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Menu{config: mc.config}
-		_spec = &sqlgraph.CreateSpec{
-			Table: menu.Table,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: menu.FieldID,
-			},
-		}
+		_spec = sqlgraph.NewCreateSpec(menu.Table, sqlgraph.NewFieldSpec(menu.FieldID, field.TypeUint64))
 	)
 	if id, ok := mc.mutation.ID(); ok {
 		_node.ID = id

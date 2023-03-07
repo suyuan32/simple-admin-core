@@ -272,10 +272,12 @@ func (mq *MenuQuery) AllX(ctx context.Context) []*Menu {
 }
 
 // IDs executes the query and returns a list of Menu IDs.
-func (mq *MenuQuery) IDs(ctx context.Context) ([]uint64, error) {
-	var ids []uint64
+func (mq *MenuQuery) IDs(ctx context.Context) (ids []uint64, err error) {
+	if mq.ctx.Unique == nil && mq.path != nil {
+		mq.Unique(true)
+	}
 	ctx = setContextOp(ctx, mq.ctx, "IDs")
-	if err := mq.Select(menu.FieldID).Scan(ctx, &ids); err != nil {
+	if err = mq.Select(menu.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
@@ -684,20 +686,12 @@ func (mq *MenuQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (mq *MenuQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := &sqlgraph.QuerySpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   menu.Table,
-			Columns: menu.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: menu.FieldID,
-			},
-		},
-		From:   mq.sql,
-		Unique: true,
-	}
+	_spec := sqlgraph.NewQuerySpec(menu.Table, menu.Columns, sqlgraph.NewFieldSpec(menu.FieldID, field.TypeUint64))
+	_spec.From = mq.sql
 	if unique := mq.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
+	} else if mq.path != nil {
+		_spec.Unique = true
 	}
 	if fields := mq.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))

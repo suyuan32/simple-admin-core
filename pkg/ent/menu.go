@@ -416,9 +416,3 @@ func (m *Menu) String() string {
 
 // Menus is a parsable slice of Menu.
 type Menus []*Menu
-
-func (m Menus) config(cfg config) {
-	for _i := range m {
-		m[_i].config = cfg
-	}
-}

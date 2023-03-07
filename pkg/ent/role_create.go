@@ -10,10 +10,9 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
-
 	uuid "github.com/gofrs/uuid/v5"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/menu"
+	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 )
 
@@ -266,13 +265,7 @@ func (rc *RoleCreate) sqlSave(ctx context.Context) (*Role, error) {
 func (rc *RoleCreate) createSpec() (*Role, *sqlgraph.CreateSpec) {
 	var (
 		_node = &Role{config: rc.config}
-		_spec = &sqlgraph.CreateSpec{
-			Table: role.Table,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: role.FieldID,
-			},
-		}
+		_spec = sqlgraph.NewCreateSpec(role.Table, sqlgraph.NewFieldSpec(role.FieldID, field.TypeUint64))
 	)
 	if id, ok := rc.mutation.ID(); ok {
 		_node.ID = id

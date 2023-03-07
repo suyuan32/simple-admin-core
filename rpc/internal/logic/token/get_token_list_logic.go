@@ -3,12 +3,13 @@ package token
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/uuidx"
+
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/token"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
-	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 

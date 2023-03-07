@@ -40,15 +40,7 @@ func (opd *OauthProviderDelete) ExecX(ctx context.Context) int {
 }
 
 func (opd *OauthProviderDelete) sqlExec(ctx context.Context) (int, error) {
-	_spec := &sqlgraph.DeleteSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table: oauthprovider.Table,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: oauthprovider.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewDeleteSpec(oauthprovider.Table, sqlgraph.NewFieldSpec(oauthprovider.FieldID, field.TypeUint64))
 	if ps := opd.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {

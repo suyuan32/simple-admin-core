@@ -239,16 +239,7 @@ func (ru *RoleUpdate) defaults() {
 }
 
 func (ru *RoleUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   role.Table,
-			Columns: role.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: role.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(role.Table, role.Columns, sqlgraph.NewFieldSpec(role.FieldID, field.TypeUint64))
 	if ps := ru.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -585,6 +576,12 @@ func (ruo *RoleUpdateOne) RemoveUsers(u ...*User) *RoleUpdateOne {
 	return ruo.RemoveUserIDs(ids...)
 }
 
+// Where appends a list predicates to the RoleUpdate builder.
+func (ruo *RoleUpdateOne) Where(ps ...predicate.Role) *RoleUpdateOne {
+	ruo.mutation.Where(ps...)
+	return ruo
+}
+
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
 func (ruo *RoleUpdateOne) Select(field string, fields ...string) *RoleUpdateOne {
@@ -629,16 +626,7 @@ func (ruo *RoleUpdateOne) defaults() {
 }
 
 func (ruo *RoleUpdateOne) sqlSave(ctx context.Context) (_node *Role, err error) {
-	_spec := &sqlgraph.UpdateSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   role.Table,
-			Columns: role.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: role.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewUpdateSpec(role.Table, role.Columns, sqlgraph.NewFieldSpec(role.FieldID, field.TypeUint64))
 	id, ok := ruo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Role.id" for update`)}

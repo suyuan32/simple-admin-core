@@ -201,10 +201,12 @@ func (ddq *DictionaryDetailQuery) AllX(ctx context.Context) []*DictionaryDetail 
 }
 
 // IDs executes the query and returns a list of DictionaryDetail IDs.
-func (ddq *DictionaryDetailQuery) IDs(ctx context.Context) ([]uint64, error) {
-	var ids []uint64
+func (ddq *DictionaryDetailQuery) IDs(ctx context.Context) (ids []uint64, err error) {
+	if ddq.ctx.Unique == nil && ddq.path != nil {
+		ddq.Unique(true)
+	}
 	ctx = setContextOp(ctx, ddq.ctx, "IDs")
-	if err := ddq.Select(dictionarydetail.FieldID).Scan(ctx, &ids); err != nil {
+	if err = ddq.Select(dictionarydetail.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
@@ -438,20 +440,12 @@ func (ddq *DictionaryDetailQuery) sqlCount(ctx context.Context) (int, error) {
 }
 
 func (ddq *DictionaryDetailQuery) querySpec() *sqlgraph.QuerySpec {
-	_spec := &sqlgraph.QuerySpec{
-		Node: &sqlgraph.NodeSpec{
-			Table:   dictionarydetail.Table,
-			Columns: dictionarydetail.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: dictionarydetail.FieldID,
-			},
-		},
-		From:   ddq.sql,
-		Unique: true,
-	}
+	_spec := sqlgraph.NewQuerySpec(dictionarydetail.Table, dictionarydetail.Columns, sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64))
+	_spec.From = ddq.sql
 	if unique := ddq.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
+	} else if ddq.path != nil {
+		_spec.Unique = true
 	}
 	if fields := ddq.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))

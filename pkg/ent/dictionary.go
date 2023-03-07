@@ -175,9 +175,3 @@ func (d *Dictionary) String() string {
 
 // Dictionaries is a parsable slice of Dictionary.
 type Dictionaries []*Dictionary
-
-func (d Dictionaries) config(cfg config) {
-	for _i := range d {
-		d[_i].config = cfg
-	}
-}

@@ -3,7 +3,11 @@ package user
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/encrypt"
+	"github.com/suyuan32/simple-admin-common/utils/uuidx"
+
 	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/pkg/utils/entx"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -11,9 +15,7 @@ import (
 
 	"github.com/zeromicro/go-zero/core/logx"
 
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/utils"
-	"github.com/suyuan32/simple-admin-core/pkg/uuidx"
+	"github.com/suyuan32/simple-admin-common/i18n"
 )
 
 type UpdateUserLogic struct {
@@ -31,7 +33,7 @@ func NewUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 }
 
 func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) {
-	err := utils.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
+	err := entx.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
 		updateQuery := tx.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
 			SetNotEmptyUsername(in.Username).
 			SetNotEmptyNickname(in.Nickname).
@@ -43,7 +45,7 @@ func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) 
 			SetNotEmptyDepartmentID(in.DepartmentId)
 
 		if in.Password != "" {
-			updateQuery = updateQuery.SetNotEmptyPassword(utils.BcryptEncrypt(in.Password))
+			updateQuery = updateQuery.SetNotEmptyPassword(encrypt.BcryptEncrypt(in.Password))
 		}
 
 		if in.RoleIds != nil {

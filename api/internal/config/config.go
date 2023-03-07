@@ -1,11 +1,11 @@
 package config
 
 import (
+	"github.com/suyuan32/simple-admin-common/config"
+	"github.com/suyuan32/simple-admin-common/plugins/casbin"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/rest"
 	"github.com/zeromicro/go-zero/zrpc"
-
-	"github.com/suyuan32/simple-admin-core/pkg/config"
 )
 
 type Config struct {
@@ -15,7 +15,7 @@ type Config struct {
 	CoreRpc      zrpc.RpcClientConf
 	Captcha      Captcha
 	DatabaseConf config.DatabaseConf
-	CasbinConf   config.CasbinConf
+	CasbinConf   casbin.CasbinConf
 }
 
 type Captcha struct {

@@ -3,6 +3,8 @@ package role
 import (
 	"context"
 
+	"github.com/zeromicro/go-zero/core/errorx"
+
 	"github.com/suyuan32/simple-admin-core/pkg/ent/role"
 	"github.com/suyuan32/simple-admin-core/pkg/ent/user"
 	"github.com/suyuan32/simple-admin-core/pkg/utils/errorhandler"
@@ -11,8 +13,7 @@ import (
 
 	"github.com/zeromicro/go-zero/core/logx"
 
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/statuserr"
+	"github.com/suyuan32/simple-admin-common/i18n"
 )
 
 type DeleteRoleLogic struct {
@@ -36,7 +37,7 @@ func (l *DeleteRoleLogic) DeleteRole(in *core.IDsReq) (*core.BaseResp, error) {
 	}
 
 	if count != 0 {
-		return nil, statuserr.NewInvalidArgumentError("role.userExists")
+		return nil, errorx.NewInvalidArgumentError("role.userExists")
 	}
 
 	_, err = l.svcCtx.DB.Role.Delete().Where(role.IDIn(in.Ids...)).Exec(l.ctx)

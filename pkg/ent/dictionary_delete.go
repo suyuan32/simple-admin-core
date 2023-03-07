@@ -40,15 +40,7 @@ func (dd *DictionaryDelete) ExecX(ctx context.Context) int {
 }
 
 func (dd *DictionaryDelete) sqlExec(ctx context.Context) (int, error) {
-	_spec := &sqlgraph.DeleteSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table: dictionary.Table,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: dictionary.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewDeleteSpec(dictionary.Table, sqlgraph.NewFieldSpec(dictionary.FieldID, field.TypeUint64))
 	if ps := dd.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {

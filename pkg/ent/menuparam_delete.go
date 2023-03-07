@@ -40,15 +40,7 @@ func (mpd *MenuParamDelete) ExecX(ctx context.Context) int {
 }
 
 func (mpd *MenuParamDelete) sqlExec(ctx context.Context) (int, error) {
-	_spec := &sqlgraph.DeleteSpec{
-		Node: &sqlgraph.NodeSpec{
-			Table: menuparam.Table,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUint64,
-				Column: menuparam.FieldID,
-			},
-		},
-	}
+	_spec := sqlgraph.NewDeleteSpec(menuparam.Table, sqlgraph.NewFieldSpec(menuparam.FieldID, field.TypeUint64))
 	if ps := mpd.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {

@@ -1,4 +1,4 @@
-package utils
+package entx
 
 import (
 	"context"
@@ -18,7 +18,7 @@ func WithTx(ctx context.Context, client *ent.Client, fn func(tx *ent.Tx) error) 
 	}
 	defer func() {
 		if v := recover(); v != nil {
-			tx.Rollback()
+			_ = tx.Rollback()
 			panic(v)
 		}
 	}()

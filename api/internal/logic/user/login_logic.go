@@ -5,14 +5,16 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/suyuan32/simple-admin-common/utils/encrypt"
+	"github.com/suyuan32/simple-admin-common/utils/jwt"
 	"github.com/zeromicro/go-zero/core/errorx"
+
+	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/logic/captcha"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-core/pkg/enum"
-	"github.com/suyuan32/simple-admin-core/pkg/i18n"
-	"github.com/suyuan32/simple-admin-core/pkg/utils"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -44,11 +46,11 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			return nil, err
 		}
 
-		if !utils.BcryptCheck(req.Password, user.Password) {
+		if !encrypt.BcryptCheck(req.Password, user.Password) {
 			return nil, errorx.NewCodeInvalidArgumentError("login.wrongUsernameOrPassword")
 		}
 
-		token, err := utils.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, user.Id, "roleId", time.Now().Unix(),
+		token, err := jwt.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, user.Id, "roleId", time.Now().Unix(),
 			l.svcCtx.Config.Auth.AccessExpire, user.RoleCodes)
 		if err != nil {
 			return nil, err
