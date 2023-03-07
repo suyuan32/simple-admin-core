@@ -33,10 +33,10 @@ func UpdatePositionHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := position.NewUpdatePositionLogic(r, svcCtx)
+		l := position.NewUpdatePositionLogic(r.Context(), svcCtx)
 		resp, err := l.UpdatePosition(&req)
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

@@ -2,7 +2,6 @@ package api
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
 
@@ -17,15 +16,13 @@ type GetApiListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewGetApiListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetApiListLogic {
+func NewGetApiListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetApiListLogic {
 	return &GetApiListLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -43,7 +40,7 @@ func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiList
 		return nil, err
 	}
 	resp = &types.ApiListResp{}
-	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)
 	resp.Data.Total = data.GetTotal()
 
 	for _, v := range data.Data {
@@ -55,7 +52,7 @@ func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiList
 					UpdatedAt: v.UpdatedAt,
 				},
 				Path:        v.Path,
-				Trans:       l.svcCtx.Trans.Trans(l.lang, v.Description),
+				Trans:       l.svcCtx.Trans.Trans(l.ctx, v.Description),
 				Description: v.Description,
 				Group:       v.ApiGroup,
 				Method:      v.Method,

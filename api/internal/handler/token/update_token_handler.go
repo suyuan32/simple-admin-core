@@ -33,10 +33,10 @@ func UpdateTokenHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := token.NewUpdateTokenLogic(r, svcCtx)
+		l := token.NewUpdateTokenLogic(r.Context(), svcCtx)
 		resp, err := l.UpdateToken(&req)
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

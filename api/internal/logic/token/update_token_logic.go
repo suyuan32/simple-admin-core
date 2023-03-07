@@ -2,7 +2,6 @@ package token
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -15,15 +14,13 @@ type UpdateTokenLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewUpdateTokenLogic(r *http.Request, svcCtx *svc.ServiceContext) *UpdateTokenLogic {
+func NewUpdateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateTokenLogic {
 	return &UpdateTokenLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -40,5 +37,5 @@ func (l *UpdateTokenLogic) UpdateToken(req *types.TokenInfo) (resp *types.BaseMs
 	if err != nil {
 		return nil, err
 	}
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, data.Msg)}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, data.Msg)}, nil
 }

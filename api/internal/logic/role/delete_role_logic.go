@@ -2,7 +2,6 @@ package role
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -15,15 +14,13 @@ type DeleteRoleLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewDeleteRoleLogic(r *http.Request, svcCtx *svc.ServiceContext) *DeleteRoleLogic {
+func NewDeleteRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteRoleLogic {
 	return &DeleteRoleLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -35,5 +32,5 @@ func (l *DeleteRoleLogic) DeleteRole(req *types.IDsReq) (resp *types.BaseMsgResp
 		return nil, err
 	}
 
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, result.Msg)}, nil
 }

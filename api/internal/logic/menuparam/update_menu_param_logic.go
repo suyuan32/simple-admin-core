@@ -2,7 +2,6 @@ package menuparam
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -15,15 +14,13 @@ type UpdateMenuParamLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewUpdateMenuParamLogic(r *http.Request, svcCtx *svc.ServiceContext) *UpdateMenuParamLogic {
+func NewUpdateMenuParamLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateMenuParamLogic {
 	return &UpdateMenuParamLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -38,5 +35,5 @@ func (l *UpdateMenuParamLogic) UpdateMenuParam(req *types.MenuParamInfo) (resp *
 	if err != nil {
 		return nil, err
 	}
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, data.Msg)}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, data.Msg)}, nil
 }

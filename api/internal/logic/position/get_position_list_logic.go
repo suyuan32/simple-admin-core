@@ -2,7 +2,6 @@ package position
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -17,15 +16,13 @@ type GetPositionListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewGetPositionListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetPositionListLogic {
+func NewGetPositionListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetPositionListLogic {
 	return &GetPositionListLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -42,7 +39,7 @@ func (l *GetPositionListLogic) GetPositionList(req *types.PositionListReq) (resp
 		return nil, err
 	}
 	resp = &types.PositionListResp{}
-	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)
 	resp.Data.Total = data.GetTotal()
 
 	for _, v := range data.Data {
@@ -53,7 +50,7 @@ func (l *GetPositionListLogic) GetPositionList(req *types.PositionListReq) (resp
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,
 				},
-				Trans:  l.svcCtx.Trans.Trans(l.lang, v.Name),
+				Trans:  l.svcCtx.Trans.Trans(l.ctx, v.Name),
 				Status: v.Status,
 				Sort:   v.Sort,
 				Name:   v.Name,

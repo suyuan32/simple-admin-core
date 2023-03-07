@@ -33,10 +33,10 @@ func CreateRoleHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := role.NewCreateRoleLogic(r, svcCtx)
+		l := role.NewCreateRoleLogic(r.Context(), svcCtx)
 		resp, err := l.CreateRole(&req)
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

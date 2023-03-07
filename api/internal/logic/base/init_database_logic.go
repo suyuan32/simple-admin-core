@@ -3,7 +3,6 @@ package base
 import (
 	"context"
 	"errors"
-	"net/http"
 	"time"
 
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"
@@ -24,15 +23,13 @@ type InitDatabaseLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewInitDatabaseLogic(r *http.Request, svcCtx *svc.ServiceContext) *InitDatabaseLogic {
+func NewInitDatabaseLogic(ctx context.Context, svcCtx *svc.ServiceContext) *InitDatabaseLogic {
 	return &InitDatabaseLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -47,11 +44,11 @@ func (l *InitDatabaseLogic) InitDatabase() (resp *types.BaseMsgResp, err error) 
 			if initState, err := l.svcCtx.Redis.Get("database_init_state"); err == nil {
 				if initState == "1" {
 					return nil, errorx.NewCodeError(errorcode.InvalidArgument,
-						l.svcCtx.Trans.Trans(l.lang, i18n.AlreadyInit))
+						l.svcCtx.Trans.Trans(l.ctx, i18n.AlreadyInit))
 				}
 			} else {
 				return nil, errorx.NewCodeError(errorcode.Internal,
-					l.svcCtx.Trans.Trans(l.lang, i18n.RedisError))
+					l.svcCtx.Trans.Trans(l.ctx, i18n.RedisError))
 			}
 
 			if errMsg, err := l.svcCtx.Redis.Get("database_error_msg"); err == nil {
@@ -60,9 +57,9 @@ func (l *InitDatabaseLogic) InitDatabase() (resp *types.BaseMsgResp, err error) 
 				}
 			} else {
 				return nil, errorx.NewCodeError(errorcode.Internal,
-					l.svcCtx.Trans.Trans(l.lang, i18n.RedisError))
+					l.svcCtx.Trans.Trans(l.ctx, i18n.RedisError))
 			}
 		}
 	}
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, l.svcCtx.Trans.Trans(l.lang, result.Msg))}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, l.svcCtx.Trans.Trans(l.ctx, result.Msg))}, nil
 }

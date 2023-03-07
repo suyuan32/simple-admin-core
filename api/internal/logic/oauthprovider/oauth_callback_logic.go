@@ -19,7 +19,6 @@ type OauthCallbackLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 	r      *http.Request
 }
 
@@ -28,7 +27,6 @@ func NewOauthCallbackLogic(r *http.Request, svcCtx *svc.ServiceContext) *OauthCa
 		Logger: logx.WithContext(r.Context()),
 		ctx:    r.Context(),
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 		r:      r,
 	}
 }

@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"net/http"
 	"time"
 
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"
@@ -24,15 +23,13 @@ type LoginLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewLoginLogic(r *http.Request, svcCtx *svc.ServiceContext) *LoginLogic {
+func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic {
 	return &LoginLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -73,7 +70,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		}
 
 		resp = &types.LoginResp{
-			BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success)},
+			BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.Success)},
 			Data: types.LoginInfo{
 				UserId: user.Id,
 				Token:  token,

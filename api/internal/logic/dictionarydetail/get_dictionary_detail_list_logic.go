@@ -2,7 +2,6 @@ package dictionarydetail
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -17,15 +16,13 @@ type GetDictionaryDetailListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewGetDictionaryDetailListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetDictionaryDetailListLogic {
+func NewGetDictionaryDetailListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetDictionaryDetailListLogic {
 	return &GetDictionaryDetailListLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -41,7 +38,7 @@ func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(req *types.Dictio
 		return nil, err
 	}
 	resp = &types.DictionaryDetailListResp{}
-	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)
 	resp.Data.Total = data.GetTotal()
 
 	for _, v := range data.Data {

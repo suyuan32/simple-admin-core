@@ -2,7 +2,6 @@ package authority
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
 
@@ -17,15 +16,13 @@ type GetMenuAuthorityLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewGetMenuAuthorityLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetMenuAuthorityLogic {
+func NewGetMenuAuthorityLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMenuAuthorityLogic {
 	return &GetMenuAuthorityLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -39,7 +36,7 @@ func (l *GetMenuAuthorityLogic) GetMenuAuthority(req *types.IDReq) (resp *types.
 
 	resp = &types.MenuAuthorityInfoResp{
 		BaseDataInfo: types.BaseDataInfo{
-			Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success),
+			Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.Success),
 		},
 		Data: types.MenuAuthorityInfoReq{
 			RoleId:  req.Id,

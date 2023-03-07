@@ -20,10 +20,10 @@ import (
 
 func GetUserProfileHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := user.NewGetUserProfileLogic(r, svcCtx)
+		l := user.NewGetUserProfileLogic(r.Context(), svcCtx)
 		resp, err := l.GetUserProfile()
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

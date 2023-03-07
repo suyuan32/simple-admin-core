@@ -2,7 +2,6 @@ package captcha
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/mojocn/base64Captcha"
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"
@@ -27,15 +26,13 @@ type GetCaptchaLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewGetCaptchaLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetCaptchaLogic {
+func NewGetCaptchaLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetCaptchaLogic {
 	return &GetCaptchaLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -47,12 +44,12 @@ func (l *GetCaptchaLogic) GetCaptcha() (resp *types.CaptchaResp, err error) {
 	if id, b64s, err := gen.Generate(); err != nil {
 		logx.Errorw("fail to generate captcha", logx.Field("detail", err.Error()))
 		return &types.CaptchaResp{
-			BaseDataInfo: types.BaseDataInfo{Code: errorcode.Internal, Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Failed)},
+			BaseDataInfo: types.BaseDataInfo{Code: errorcode.Internal, Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.Failed)},
 			Data:         types.CaptchaInfo{},
 		}, nil
 	} else {
 		resp = &types.CaptchaResp{
-			BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success)},
+			BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.Success)},
 			Data: types.CaptchaInfo{
 				CaptchaId: id,
 				ImgPath:   b64s,

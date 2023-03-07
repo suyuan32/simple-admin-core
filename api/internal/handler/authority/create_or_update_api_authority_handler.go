@@ -33,10 +33,10 @@ func CreateOrUpdateApiAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerF
 			return
 		}
 
-		l := authority.NewCreateOrUpdateApiAuthorityLogic(r, svcCtx)
+		l := authority.NewCreateOrUpdateApiAuthorityLogic(r.Context(), svcCtx)
 		resp, err := l.CreateOrUpdateApiAuthority(&req)
 		if err != nil {
-			err = svcCtx.Trans.TransError(r.Header.Get("Accept-Language"), err)
+			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, resp)

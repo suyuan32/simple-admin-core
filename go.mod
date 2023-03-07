@@ -8,14 +8,14 @@ require (
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/hibiken/asynq v0.24.0
 	github.com/mojocn/base64Captcha v1.3.5
-	github.com/suyuan32/simple-admin-common v0.0.0-20230307104409-9f172378dc61
+	github.com/suyuan32/simple-admin-common v0.0.0-20230307144510-14a50926c816
 	github.com/zeromicro/go-zero v1.4.4
 	golang.org/x/oauth2 v0.5.0
 	google.golang.org/grpc v1.53.0
 	google.golang.org/protobuf v1.28.1
 )
 
-replace github.com/zeromicro/go-zero v1.4.4 => github.com/suyuan32/simple-admin-tools v0.2.3-beta
+replace github.com/zeromicro/go-zero v1.4.4 => github.com/suyuan32/simple-admin-tools v0.2.3-beta.0.20230307141434-a90c2e0a865c
 
 require (
 	ariga.io/atlas v0.9.1 // indirect

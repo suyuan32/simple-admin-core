@@ -664,8 +664,12 @@ github.com/stretchr/testify v1.8.2 h1:+h33VjcLVPDHtOdpUCuF+7gSuG3yGIftsP1YvFihtJ
 github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
 github.com/suyuan32/simple-admin-common v0.0.0-20230307104409-9f172378dc61 h1:c5kdhh8aP4LI9sNOP2V3+loUevsvVoW1i8ddQS3KFlU=
 github.com/suyuan32/simple-admin-common v0.0.0-20230307104409-9f172378dc61/go.mod h1:4LIyqFvrLj+Sm6SvOs5iAJ05IVVPWqMnbsZ5mt5X1RE=
-github.com/suyuan32/simple-admin-tools v0.2.3-beta h1:m8VZm4GMvBWHXC/vFOMxmf774nv2/HmLKZwiHLhC5Nc=
-github.com/suyuan32/simple-admin-tools v0.2.3-beta/go.mod h1:i4GR8KdSkp7eFOcNt57bI6Rht+wlHCyg/+0hOqSXTNo=
+github.com/suyuan32/simple-admin-common v0.0.0-20230307142537-5e103b1f5c7e h1:ne20VlNIgJPEnLLHluRIYdBOwT1LGsatH1eTc2U5ZPc=
+github.com/suyuan32/simple-admin-common v0.0.0-20230307142537-5e103b1f5c7e/go.mod h1:4LIyqFvrLj+Sm6SvOs5iAJ05IVVPWqMnbsZ5mt5X1RE=
+github.com/suyuan32/simple-admin-common v0.0.0-20230307144510-14a50926c816 h1:LR3/yY72288j6PRUZa1JMmJK0zcH7T0oQFXlwNHL/ts=
+github.com/suyuan32/simple-admin-common v0.0.0-20230307144510-14a50926c816/go.mod h1:4LIyqFvrLj+Sm6SvOs5iAJ05IVVPWqMnbsZ5mt5X1RE=
+github.com/suyuan32/simple-admin-tools v0.2.3-beta.0.20230307141434-a90c2e0a865c h1:8n7ZiHDD2uXjkIUJ29wT1NDQvznTCaDwzYIKLQmMvDY=
+github.com/suyuan32/simple-admin-tools v0.2.3-beta.0.20230307141434-a90c2e0a865c/go.mod h1:uukuX6o3U4PpQyT8HxRFzu/IOPuvbOSb4xYXdY3izTg=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20170815181823-89b8d40f7ca8/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/urfave/cli v1.20.0/go.mod h1:70zkFmudgCuE/ngEzBv17Jvp/497gISqfk5gWijbERA=

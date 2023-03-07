@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -18,15 +17,13 @@ type ChangePasswordLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewChangePasswordLogic(r *http.Request, svcCtx *svc.ServiceContext) *ChangePasswordLogic {
+func NewChangePasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ChangePasswordLogic {
 	return &ChangePasswordLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -45,7 +42,7 @@ func (l *ChangePasswordLogic) ChangePassword(req *types.ChangePasswordReq) (resp
 			return nil, err
 		}
 
-		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, result.Msg)}, nil
+		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, result.Msg)}, nil
 	}
 
 	return nil, errorx.NewCodeInvalidArgumentError("login.wrongPassword")

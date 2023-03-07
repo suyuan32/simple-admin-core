@@ -24,15 +24,13 @@ type GetUserPermCodeLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewGetUserPermCodeLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetUserPermCodeLogic {
+func NewGetUserPermCodeLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUserPermCodeLogic {
 	return &GetUserPermCodeLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -46,7 +44,7 @@ func (l *GetUserPermCodeLogic) GetUserPermCode() (resp *types.PermCodeResp, err 
 	}
 
 	return &types.PermCodeResp{
-		BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success)},
+		BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.Success)},
 		Data:         strings.Split(roleId, ","),
 	}, nil
 }

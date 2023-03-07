@@ -2,7 +2,6 @@ package authority
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/suyuan32/simple-admin-common/i18n"
@@ -18,15 +17,13 @@ type CreateOrUpdateApiAuthorityLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewCreateOrUpdateApiAuthorityLogic(r *http.Request, svcCtx *svc.ServiceContext) *CreateOrUpdateApiAuthorityLogic {
+func NewCreateOrUpdateApiAuthorityLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOrUpdateApiAuthorityLogic {
 	return &CreateOrUpdateApiAuthorityLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -50,7 +47,7 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 		if !removeResult {
 			return &types.BaseMsgResp{
 				Code: errorcode.Internal,
-				Msg:  l.svcCtx.Trans.Trans(l.lang, "casbin.removeFailed"),
+				Msg:  l.svcCtx.Trans.Trans(l.ctx, "casbin.removeFailed"),
 			}, nil
 		}
 	}
@@ -63,12 +60,12 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	if err != nil {
 		return &types.BaseMsgResp{
 			Code: errorcode.Internal,
-			Msg:  l.svcCtx.Trans.Trans(l.lang, "casbin.addFailed"),
+			Msg:  l.svcCtx.Trans.Trans(l.ctx, "casbin.addFailed"),
 		}, nil
 	}
 	if addResult {
-		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.UpdateSuccess)}, nil
+		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.UpdateSuccess)}, nil
 	} else {
-		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.UpdateFailed)}, nil
+		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.UpdateFailed)}, nil
 	}
 }

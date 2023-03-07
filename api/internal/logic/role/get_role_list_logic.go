@@ -2,7 +2,6 @@ package role
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -17,15 +16,13 @@ type GetRoleListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewGetRoleListLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetRoleListLogic {
+func NewGetRoleListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRoleListLogic {
 	return &GetRoleListLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -40,7 +37,7 @@ func (l *GetRoleListLogic) GetRoleList(req *types.RoleListReq) (resp *types.Role
 		return nil, err
 	}
 	resp = &types.RoleListResp{}
-	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)
 	resp.Data.Total = data.GetTotal()
 
 	for _, v := range data.Data {
@@ -51,7 +48,7 @@ func (l *GetRoleListLogic) GetRoleList(req *types.RoleListReq) (resp *types.Role
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,
 				},
-				Trans:         l.svcCtx.Trans.Trans(l.lang, v.Name),
+				Trans:         l.svcCtx.Trans.Trans(l.ctx, v.Name),
 				Status:        v.Status,
 				Name:          v.Name,
 				Code:          v.Code,

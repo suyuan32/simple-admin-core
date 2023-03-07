@@ -2,7 +2,6 @@ package menu
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
 
@@ -17,15 +16,13 @@ type GetMenuListByRoleLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewGetMenuListByRoleLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetMenuListByRoleLogic {
+func NewGetMenuListByRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetMenuListByRoleLogic {
 	return &GetMenuListByRoleLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -53,7 +50,7 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole() (resp *types.MenuListResp, 
 			Sort:      v.Sort,
 			ParentId:  v.ParentId,
 			Meta: types.Meta{
-				Title:              l.svcCtx.Trans.Trans(l.lang, v.Meta.Title),
+				Title:              l.svcCtx.Trans.Trans(l.ctx, v.Meta.Title),
 				Icon:               v.Meta.Icon,
 				HideMenu:           v.Meta.HideMenu,
 				HideBreadcrumb:     v.Meta.HideBreadcrumb,
@@ -68,6 +65,6 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole() (resp *types.MenuListResp, 
 			},
 		})
 	}
-	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)
 	return resp, nil
 }

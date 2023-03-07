@@ -2,7 +2,6 @@ package role
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -17,15 +16,13 @@ type GetRoleByIdLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewGetRoleByIdLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetRoleByIdLogic {
+func NewGetRoleByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRoleByIdLogic {
 	return &GetRoleByIdLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -38,7 +35,7 @@ func (l *GetRoleByIdLogic) GetRoleById(req *types.IDReq) (resp *types.RoleInfoRe
 	return &types.RoleInfoResp{
 		BaseDataInfo: types.BaseDataInfo{
 			Code: 0,
-			Msg:  l.svcCtx.Trans.Trans(l.lang, i18n.Success),
+			Msg:  l.svcCtx.Trans.Trans(l.ctx, i18n.Success),
 		},
 		Data: types.RoleInfo{
 			BaseInfo: types.BaseInfo{

@@ -2,7 +2,6 @@ package oauthprovider
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
 
@@ -17,15 +16,13 @@ type OauthLoginLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewOauthLoginLogic(r *http.Request, svcCtx *svc.ServiceContext) *OauthLoginLogic {
+func NewOauthLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *OauthLoginLogic {
 	return &OauthLoginLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -39,7 +36,7 @@ func (l *OauthLoginLogic) OauthLogin(req *types.OauthLoginReq) (resp *types.Redi
 	}
 
 	return &types.RedirectResp{
-		BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.lang, i18n.Success)},
+		BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.Success)},
 		Data:         types.RedirectInfo{URL: result.Url},
 	}, nil
 }

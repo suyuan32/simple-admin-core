@@ -2,7 +2,6 @@ package authority
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
 
@@ -17,15 +16,13 @@ type GetApiAuthorityLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewGetApiAuthorityLogic(r *http.Request, svcCtx *svc.ServiceContext) *GetApiAuthorityLogic {
+func NewGetApiAuthorityLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetApiAuthorityLogic {
 	return &GetApiAuthorityLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -37,7 +34,7 @@ func (l *GetApiAuthorityLogic) GetApiAuthority(req *types.IDReq) (resp *types.Ap
 
 	data := l.svcCtx.Casbin.GetFilteredPolicy(0, roleData.Code)
 	resp = &types.ApiAuthorityListResp{}
-	resp.Msg = l.svcCtx.Trans.Trans(l.lang, i18n.Success)
+	resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)
 	resp.Data.Total = uint64(len(data))
 	for _, v := range data {
 		resp.Data.Data = append(resp.Data.Data, types.ApiAuthorityInfo{

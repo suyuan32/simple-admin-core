@@ -2,7 +2,6 @@ package dictionarydetail
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -15,15 +14,13 @@ type UpdateDictionaryDetailLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	lang   string
 }
 
-func NewUpdateDictionaryDetailLogic(r *http.Request, svcCtx *svc.ServiceContext) *UpdateDictionaryDetailLogic {
+func NewUpdateDictionaryDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateDictionaryDetailLogic {
 	return &UpdateDictionaryDetailLogic{
-		Logger: logx.WithContext(r.Context()),
-		ctx:    r.Context(),
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
 		svcCtx: svcCtx,
-		lang:   r.Header.Get("Accept-Language"),
 	}
 }
 
@@ -41,5 +38,5 @@ func (l *UpdateDictionaryDetailLogic) UpdateDictionaryDetail(req *types.Dictiona
 	if err != nil {
 		return nil, err
 	}
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.lang, data.Msg)}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, data.Msg)}, nil
 }
