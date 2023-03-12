@@ -666,8 +666,8 @@ github.com/suyuan32/simple-admin-common v0.2.7 h1:egx6bnbPCEOadWQUEtzAGMOEi96xrp
 github.com/suyuan32/simple-admin-common v0.2.7/go.mod h1:PrToClcinOnCwiB5QW2rXQX+i4/RdVCIN0rVLDi+Z3w=
 github.com/suyuan32/simple-admin-job v0.2.7 h1:234zVF3D2NjK3ppbYpUuAonPLerAS+awJU6fOnmLe8o=
 github.com/suyuan32/simple-admin-job v0.2.7/go.mod h1:wLSv/LUTfcv+DMV/7sp/V8rmCxC8l0aeboBYArAyATc=
-github.com/suyuan32/simple-admin-tools v0.2.3 h1:rrKvdkthnFQizMtH5BVSoSi7rtn2xPsEjkx9jyKvn0k=
-github.com/suyuan32/simple-admin-tools v0.2.3/go.mod h1:uukuX6o3U4PpQyT8HxRFzu/IOPuvbOSb4xYXdY3izTg=
+github.com/suyuan32/simple-admin-tools v0.2.7 h1:t65w/EA+Fba4gFVIars83yDp8O3Q3Fz56HyLWEaxx40=
+github.com/suyuan32/simple-admin-tools v0.2.7/go.mod h1:wmcRBoV+sZ0S98hdgnszwfmbjvySkA+MvU/l9RZhPdg=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20170815181823-89b8d40f7ca8/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/urfave/cli v1.20.0/go.mod h1:70zkFmudgCuE/ngEzBv17Jvp/497gISqfk5gWijbERA=
