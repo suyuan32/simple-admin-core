@@ -16,6 +16,7 @@ import (
 	oauthprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/oauthprovider"
 	position "github.com/suyuan32/simple-admin-core/api/internal/handler/position"
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
+	task "github.com/suyuan32/simple-admin-core/api/internal/handler/task"
 	token "github.com/suyuan32/simple-admin-core/api/internal/handler/token"
 	user "github.com/suyuan32/simple-admin-core/api/internal/handler/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -30,6 +31,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodGet,
 				Path:    "/core/init/database",
 				Handler: base.InitDatabaseHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/core/init/job_database",
+				Handler: base.InitJobDatabaseHandler(serverCtx),
 			},
 		},
 	)
@@ -511,6 +517,40 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/menu_param",
 					Handler: menuparam.GetMenuParamByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/task/create",
+					Handler: task.CreateTaskHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/task/update",
+					Handler: task.UpdateTaskHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/task/delete",
+					Handler: task.DeleteTaskHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/task/list",
+					Handler: task.GetTaskListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/task",
+					Handler: task.GetTaskByIdHandler(serverCtx),
 				},
 			}...,
 		),

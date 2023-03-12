@@ -13,6 +13,7 @@ type Config struct {
 	Auth         rest.AuthConf
 	RedisConf    redis.RedisConf
 	CoreRpc      zrpc.RpcClientConf
+	JobRpc       zrpc.RpcClientConf
 	Captcha      Captcha
 	DatabaseConf config.DatabaseConf
 	CasbinConf   casbin.CasbinConf

@@ -116,7 +116,12 @@
 		"getDepartmentById": "Get department information by ID",
 		"getPositionById": "Get position information by ID",
 		"getProviderById": "Get 3rd party provider information by ID",
-		"getTokenById": "Get token information by ID"
+		"getTokenById": "Get token information by ID",
+		"createTask": "Create a task",
+		"updateTask": "Update the task",
+		"deleteTask": "Delete tasks",
+		"getTaskList": "Get task list",
+		"getTaskById": "Get task by ID"
 	},
 	"route": {
 		"dashboard": "Dashboard",
@@ -135,7 +140,8 @@
 		"departmentManagement": "Department",
 		"positionManagement": "Position",
 		"memberManagement": "Member",
-		"memberRankManagement": "Member Rank"
+		"memberRankManagement": "Member Rank",
+		"taskManagement": "Scheduled Task"
 	},
 	"login": {
 		"loginSuccessTitle": "Login successful",

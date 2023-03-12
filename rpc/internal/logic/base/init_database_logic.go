@@ -408,6 +408,19 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetHideMenu(false),
 	)
 
+	menus = append(menus, l.svcCtx.DB.Menu.Create().
+		SetMenuLevel(2).
+		SetMenuType(1).
+		SetParentID(common.DefaultParentId).
+		SetPath("/task").
+		SetName("TaskManagement").
+		SetComponent("/sys/task/index").
+		SetSort(8).
+		SetTitle("route.taskManagement").
+		SetIcon("ic:baseline-access-alarm").
+		SetHideMenu(true),
+	)
+
 	err := l.svcCtx.DB.Menu.CreateBulk(menus...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())

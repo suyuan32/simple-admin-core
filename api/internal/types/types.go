@@ -1113,3 +1113,55 @@ type MenuParamInfoResp struct {
 	// MenuParam information | MenuParam数据
 	Data MenuParamInfo `json:"data"`
 }
+
+// The response data of task information | Task信息
+// swagger:model TaskInfo
+type TaskInfo struct {
+	BaseInfo
+	// Status
+	Status uint32 `json:"status,optional"`
+	// Name
+	Name string `json:"name,optional"`
+	// TaskGroup
+	TaskGroup string `json:"taskGroup,optional"`
+	// CronExpression
+	CronExpression string `json:"cronExpression,optional"`
+	// Pattern
+	Pattern string `json:"pattern,optional"`
+	// Payload
+	Payload string `json:"payload,optional"`
+}
+
+// The response data of task list | Task列表数据
+// swagger:model TaskListResp
+type TaskListResp struct {
+	BaseDataInfo
+	// Task list data | Task列表数据
+	Data TaskListInfo `json:"data"`
+}
+
+// Task list data | Task列表数据
+// swagger:model TaskListInfo
+type TaskListInfo struct {
+	BaseListInfo
+	// The API list data | Task列表数据
+	Data []TaskInfo `json:"data"`
+}
+
+// Get task list request params | Task列表请求参数
+// swagger:model TaskListReq
+type TaskListReq struct {
+	PageInfo
+	// Name
+	Name string `json:"name,optional"`
+	// TaskGroup
+	TaskGroup string `json:"taskGroup,optional"`
+}
+
+// Task information response | Task信息返回体
+// swagger:model TaskInfoResp
+type TaskInfoResp struct {
+	BaseDataInfo
+	// Task information | Task数据
+	Data TaskInfo `json:"data"`
+}

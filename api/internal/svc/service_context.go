@@ -5,6 +5,8 @@ import (
 
 	i18n2 "github.com/suyuan32/simple-admin-core/pkg/i18n"
 
+	"github.com/suyuan32/simple-admin-job/jobclient"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
 	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
 	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
@@ -19,6 +21,7 @@ type ServiceContext struct {
 	Config    config.Config
 	Authority rest.Middleware
 	CoreRpc   coreclient.Core
+	JobRpc    jobclient.Job
 	Redis     *redis.Redis
 	Casbin    *casbin.Enforcer
 	Trans     *i18n.Translator
@@ -35,6 +38,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config:    c,
 		Authority: middleware.NewAuthorityMiddleware(cbn, rds, trans).Handle,
 		CoreRpc:   coreclient.NewCore(zrpc.NewClientIfEnable(c.CoreRpc)),
+		JobRpc:    jobclient.NewJob(zrpc.NewClientIfEnable(c.JobRpc)),
 		Redis:     rds,
 		Casbin:    cbn,
 		Trans:     trans,

@@ -1944,6 +1944,132 @@ definitions:
                 x-go-name: Msg
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TaskInfo:
+        description: The response data of task information | Task信息
+        properties:
+            createdAt:
+                description: Create date | 创建日期
+                format: int64
+                type: integer
+                x-go-name: CreatedAt
+            cronExpression:
+                description: CronExpression
+                type: string
+                x-go-name: CronExpression
+            id:
+                description: ID
+                format: uint64
+                type: integer
+                x-go-name: Id
+            name:
+                description: Name
+                type: string
+                x-go-name: Name
+            pattern:
+                description: Pattern
+                type: string
+                x-go-name: Pattern
+            payload:
+                description: Payload
+                type: string
+                x-go-name: Payload
+            status:
+                description: Status
+                format: uint32
+                type: integer
+                x-go-name: Status
+            taskGroup:
+                description: TaskGroup
+                type: string
+                x-go-name: TaskGroup
+            updatedAt:
+                description: Update date | 更新日期
+                format: int64
+                type: integer
+                x-go-name: UpdatedAt
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TaskInfoResp:
+        description: Task information response | Task信息返回体
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/TaskInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TaskListInfo:
+        description: Task list data | Task列表数据
+        properties:
+            data:
+                description: The API list data | Task列表数据
+                items:
+                    $ref: '#/definitions/TaskInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TaskListReq:
+        description: Get task list request params | Task列表请求参数
+        properties:
+            name:
+                description: Name
+                type: string
+                x-go-name: Name
+            page:
+                description: Page number | 第几页
+                format: uint64
+                type: integer
+                x-go-name: Page
+            pageSize:
+                description: Page size | 单页数据行数
+                format: uint64
+                maximum: 100000
+                type: integer
+                x-go-name: PageSize
+            taskGroup:
+                description: TaskGroup
+                type: string
+                x-go-name: TaskGroup
+        required:
+            - page
+            - pageSize
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TaskListResp:
+        description: The response data of task list | Task列表数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/TaskListInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TokenInfo:
         description: The response data of token information | Token信息
         properties:
@@ -2525,6 +2651,18 @@ paths:
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
             summary: Initialize database | 初始化数据库
+            tags:
+                - base
+    /core/init/job_database:
+        get:
+            description: Initialize job database | 初始化定时任务数据库
+            operationId: InitJobDatabase
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Initialize job database | 初始化定时任务数据库
             tags:
                 - base
     /department:
@@ -3283,6 +3421,96 @@ paths:
             summary: Update role information | 更新角色
             tags:
                 - role
+    /task:
+        post:
+            description: Get task by ID | 通过ID获取Task
+            operationId: GetTaskById
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    description: TaskInfoResp
+                    schema:
+                        $ref: '#/definitions/TaskInfoResp'
+            summary: Get task by ID | 通过ID获取Task
+            tags:
+                - task
+    /task/create:
+        post:
+            description: Create task information | 创建Task
+            operationId: CreateTask
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/TaskInfo'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Create task information | 创建Task
+            tags:
+                - task
+    /task/delete:
+        post:
+            description: Delete task information | 删除Task信息
+            operationId: DeleteTask
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDsReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete task information | 删除Task信息
+            tags:
+                - task
+    /task/list:
+        post:
+            description: Get task list | 获取Task列表
+            operationId: GetTaskList
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/TaskListReq'
+                    type: object
+            responses:
+                "200":
+                    description: TaskListResp
+                    schema:
+                        $ref: '#/definitions/TaskListResp'
+            summary: Get task list | 获取Task列表
+            tags:
+                - task
+    /task/update:
+        post:
+            description: Update task information | 更新Task
+            operationId: UpdateTask
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/TaskInfo'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Update task information | 更新Task
+            tags:
+                - task
     /token:
         post:
             description: Get Token by ID | 通过ID获取Token

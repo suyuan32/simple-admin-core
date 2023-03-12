@@ -1,0 +1,89 @@
+import "base.api"
+
+type (
+    // The response data of task information | 定时任务信息
+    TaskInfo {
+        BaseInfo
+
+        // Status
+        Status  uint32 `json:"status,optional"`
+
+        // Name
+        Name  string `json:"name,optional"`
+
+        // TaskGroup
+        TaskGroup  string `json:"taskGroup,optional"`
+
+        // CronExpression
+        CronExpression  string `json:"cronExpression,optional"`
+
+        // Pattern
+        Pattern  string `json:"pattern,optional"`
+
+        // Payload
+        Payload  string `json:"payload,optional"`
+    }
+
+    // The response data of task list | 定时任务列表数据
+    TaskListResp {
+        BaseDataInfo
+
+        // Task list data | 定时任务列表数据
+        Data TaskListInfo `json:"data"`
+    }
+
+    // Task list data | 定时任务列表数据
+    TaskListInfo {
+        BaseListInfo
+
+        // The API list data | 定时任务列表数据
+        Data  []TaskInfo  `json:"data"`
+    }
+
+    // Get task list request params | 定时任务列表请求参数
+    TaskListReq {
+        PageInfo
+
+        // Name
+        Name  string `json:"name,optional"`
+
+        // TaskGroup
+        TaskGroup  string `json:"taskGroup,optional"`
+    }
+
+    // Task information response | 定时任务信息返回体
+    TaskInfoResp {
+        BaseDataInfo
+
+        // Task information | 定时任务数据
+        Data TaskInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: task
+    middleware: Authority
+)
+
+service core {
+    // Create task information | 创建定时任务
+    @handler createTask
+    post /task/create (TaskInfo) returns (BaseMsgResp)
+
+    // Update task information | 更新定时任务
+    @handler updateTask
+    post /task/update (TaskInfo) returns (BaseMsgResp)
+
+    // Delete task information | 删除定时任务信息
+    @handler deleteTask
+    post /task/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get task list | 获取定时任务列表
+    @handler getTaskList
+    post /task/list (TaskListReq) returns (TaskListResp)
+
+    // Get task by ID | 通过ID获取定时任务
+    @handler getTaskById
+    post /task (IDReq) returns (TaskInfoResp)
+}
