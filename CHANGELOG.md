@@ -1,3 +1,56 @@
+
+<a name="v0.2.7"></a>
+## [v0.2.7](https://github.com/suyuan32/simple-admin-core/compare/v0.2.7-beta...v0.2.7) (2023-03-12)
+
+### Chore
+
+* update tool version to v0.2.7
+* update job service version
+
+### Feat
+
+* scheduled job management
+
+
+<a name="v0.2.7-beta"></a>
+## [v0.2.7-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.2.5-beta...v0.2.7-beta) (2023-03-08)
+
+### Chore
+
+* update tool version to v0.2.3
+* update common version to v0.2.6
+
+### Docs
+
+* update readme
+* update change log
+
+### Feat
+
+* block all token when update user's role
+
+### Fix
+
+* bugs in trans
+* delete dictionary with its details
+
+### Refactor
+
+* use context in trans
+* remove job in core, use simple-admin-job instead.
+* use enum in common
+* move pkg to simple admin common
+* optimize error handling
+
+### Pull Requests
+
+* Merge pull request [#79](https://github.com/suyuan32/simple-admin-core/issues/79) from suyuan32/refator-split-pkg
+
+
+<a name="v0.2.5-beta"></a>
+## [v0.2.5-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.2.6...v0.2.5-beta) (2023-02-28)
+
+
 <a name="v0.2.6"></a>
 ## [v0.2.6](https://github.com/suyuan32/simple-admin-core/compare/v0.2.5...v0.2.6) (2023-02-28)
 
