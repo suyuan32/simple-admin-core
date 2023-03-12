@@ -19,8 +19,6 @@
 Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基于go-zero开发，提供丰富的功能如服务发现，权限管理等。
 该框架可以帮助您快速开发具有RPC服务的后台管理系统。
 
-#### 注意： 在 v1.0.0 出来之前， 接口和 API 不稳定，可能会有变动
-
 #### [Ent 中文文档](https://suyuan32.github.io/ent-chinese-doc/#/zh-cn/getting-started)
 
 ## 特性
