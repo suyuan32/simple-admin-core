@@ -3,7 +3,7 @@ package svc
 import (
 	"github.com/hibiken/asynq"
 
-	"github.com/suyuan32/simple-admin-core/pkg/ent"
+	"github.com/suyuan32/simple-admin-core/rpc/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/config"
 
 	"github.com/zeromicro/go-zero/core/logx"

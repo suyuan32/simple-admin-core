@@ -3,7 +3,7 @@ package svc
 import (
 	"github.com/suyuan32/simple-admin-common/i18n"
 
-	i18n2 "github.com/suyuan32/simple-admin-core/pkg/i18n"
+	i18n2 "github.com/suyuan32/simple-admin-core/api/internal/i18n"
 
 	"github.com/suyuan32/simple-admin-job/jobclient"
 

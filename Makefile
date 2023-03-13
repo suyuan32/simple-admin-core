@@ -26,11 +26,11 @@ gen-rpc:
 	@printf $(GREEN)"[SUCCESS] generate rpc successfully"
 
 gen-ent:
-	go run -mod=mod entgo.io/ent/cmd/ent generate --template glob="./pkg/ent/template/*.tmpl" ./pkg/ent/schema
+	go run -mod=mod entgo.io/ent/cmd/ent generate --template glob="./rpc/ent/template/*.tmpl" ./rpc/ent/schema
 	@printf $(GREEN)"[SUCCESS] generate ent successfully"
 
 gen-rpc-ent-logic:
-	goctls rpc ent --schema=./pkg/ent/schema --service_name=core --project_name=core --o=./rpc --model=$(model) --group=$(group) --proto_out=./rpc/desc/$(shell echo $(model) | tr A-Z a-z).proto
+	goctls rpc ent --schema=./rpc/ent/schema --service_name=core --project_name=core --o=./rpc --model=$(model) --group=$(group) --proto_out=./rpc/desc/$(shell echo $(model) | tr A-Z a-z).proto
 	@printf $(GREEN)"[SUCCESS] generate ent logic codes successfully"
 
 gen-swagger:
