@@ -25,7 +25,7 @@ CoreRpc:
   Enable: true
 
 JobRpc:
-  Target: k8s://default/core-rpc-svc:9101
+  Target: k8s://default/job-rpc-svc:9105
   Enable: false
 
 Captcha:
