@@ -5,19 +5,19 @@
 
 **中文** | [English](./README.En.md) 
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.4.3-brightgreen.svg)](https://go-zero.dev/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.5.0-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.8.0-yellow.svg)](https://vvbin.cn/doc-next/)
-[![Ent](https://img.shields.io/badge/Ent-v0.11.0-blue.svg)](https://entgo.io/)
+[![Ent](https://img.shields.io/badge/Ent-v0.11.9-blue.svg)](https://entgo.io/)
 [![Casbin](https://img.shields.io/badge/Casbin-v2.52.1-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v0.2.1-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Release](https://img.shields.io/badge/Release-v0.2.7-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
 ![QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-801043319-blue)
 
 ## 简介
 
-Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基于go-zero开发，提供丰富的功能如服务发现，权限管理等。
-该框架可以帮助您快速开发具有RPC服务的后台管理系统。
+Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基于go-zero开发，为开发中大型后台提供了丰富的功能，支持三端代码生成。
+官方自带多种扩展，助力中小企业快速上云，快速迭代。适合用于微服务学习和商用，开源免费。
 
 #### [Ent 中文文档](https://suyuan32.github.io/ent-chinese-doc/#/zh-cn/getting-started)
 
@@ -29,6 +29,8 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 - **国际化**：内置完善的国际化方案
 - **服务注册发现**: 完善的服务注册发现机制，原生支持K8s
 - **权限**: 内置完善的动态路由权限生成方案, 集成RBAC权限控制
+- **代码生成**: 内置三端 Web, API, RPC 代码生成
+- **多种扩展**: 提供多种扩展，同时具有非常简单的接入功能
 - **其他**: 流量控制， ES服务
 
 ## 支持功能
@@ -93,7 +95,9 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 
 ## 可选组件
 
-- [Simple Admin 文件管理](https://github.com/suyuan32/simple-admin-file)
+- [文件管理](https://github.com/suyuan32/simple-admin-file)
+- [定时任务](https://github.com/suyuan32/simple-admin-job)
+- [会员管理](https://github.com/suyuan32/simple-admin-member-api)
 
 ## 如何贡献
 

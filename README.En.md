@@ -5,18 +5,17 @@
 
 **English** | [中文](./README.md) 
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.4.3-brightgreen.svg)](https://go-zero.dev/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.5.0-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.8.0-yellow.svg)](https://vvbin.cn/doc-next/)
-[![Ent](https://img.shields.io/badge/Ent-v0.11.0-blue.svg)](https://entgo.io/)
+[![Ent](https://img.shields.io/badge/Ent-v0.11.9-blue.svg)](https://entgo.io/)
 [![Casbin](https://img.shields.io/badge/Casbin-v2.52.1-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v0.2.1-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Release](https://img.shields.io/badge/Release-v0.2.7-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
 ## Introduction
 
-Simple Admin is a powerful microservice framework for basic management. 
-It is based on go-zero and supports several advanced features. 
-It can help you to develop a microservice back-end management core in a short time.
+Simple Admin is an out-of-the-box distributed microservice back-end management system developed based on go-zero, which provides rich functions for the development of medium and large back-ends, supports three-terminal code generation.
+The official comes with a variety of extensions to help small and medium-sized enterprises quickly go to the cloud and iterate quickly. Suitable for microservice learning and commercial use, open source and free.
 
 ## Feature
 
@@ -26,6 +25,8 @@ It can help you to develop a microservice back-end management core in a short ti
 - **International**：support different languages show in the front-end via put locale path in the message 
 - **Service Discover**: use k8s endpoints to do service discovery and load-balance
 - **Authority** Manage authority via Casbin, based on RBAC
+- **Code Generation**: Built-in three-terminal Web, API, RPC code generation
+- **Multiple extensions**: Provides a variety of extensions and has a very simple access function
 - **Other** builtin concurrency control, adaptive circuit breaker, adaptive load shedding, auto-trigger, auto recover
 
 ## Support functions
@@ -88,7 +89,9 @@ Password:  simple-admin
 
 ## Optional Components
 
-- [Simple Admin File Manager](https://github.com/suyuan32/simple-admin-file)
+- [File Management](https://github.com/suyuan32/simple-admin-file)
+- [Scheduled Task](https://github.com/suyuan32/simple-admin-job)
+- [Member Management](https://github.com/suyuan32/simple-admin-member-api)
 
 
 ## How to contribute
