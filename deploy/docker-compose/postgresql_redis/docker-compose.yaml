@@ -1,7 +1,7 @@
 version: '3'
 
 volumes:
-  mysql:
+  postgresql:
   redis:
 
 networks:
@@ -9,22 +9,21 @@ networks:
     driver: bridge
 
 services:
-  mysql:
-    image: mysql:8.0.21
-    container_name: mysql
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  postgresql:
+    image: bitnami/postgresql:latest
+    container_name: postgresql
     restart: always
     ports:
-      - '3306:3306'
+      - '5432:5432'
     environment:
       MYSQL_DATABASE: 'simple_admin'
-      MYSQL_ROOT_PASSWORD: '123456'
+      POSTGRESQL_PASSWORD: '123456'
     volumes:
-      - mysql:/var/lib/mysql
+      - 'postgresql:/bitnami/postgresql'
     networks:
       simple-admin:
         aliases:
-          - mysqlserver
+          - postgresqlserver
     deploy:
       resources:
         limits:
