@@ -127,7 +127,12 @@
 		"updateTask": "更新任务",
 		"deleteTask": "删除一个任务",
         "getTaskList": "获取任务列表",
-      	"getTaskById": "通过ID获取任务信息"
+      	"getTaskById": "通过ID获取任务信息",
+		"createTaskLog": "创建任务日志",
+		"updateTaskLog": "更新任务日志",
+		"deleteTaskLog": "删除任务日志",
+		"getTaskListLog": "获取任务日志列表",
+		"getTaskByIdLog": "通过ID获取任务日志"
 	},
 	"route": {
 		"dashboard": "控制台",

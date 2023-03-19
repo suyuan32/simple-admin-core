@@ -17,6 +17,7 @@ import (
 	position "github.com/suyuan32/simple-admin-core/api/internal/handler/position"
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
 	task "github.com/suyuan32/simple-admin-core/api/internal/handler/task"
+	tasklog "github.com/suyuan32/simple-admin-core/api/internal/handler/tasklog"
 	token "github.com/suyuan32/simple-admin-core/api/internal/handler/token"
 	user "github.com/suyuan32/simple-admin-core/api/internal/handler/user"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -551,6 +552,40 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/task",
 					Handler: task.GetTaskByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/task_log/create",
+					Handler: tasklog.CreateTaskLogHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/task_log/update",
+					Handler: tasklog.UpdateTaskLogHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/task_log/delete",
+					Handler: tasklog.DeleteTaskLogHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/task_log/list",
+					Handler: tasklog.GetTaskLogListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/task_log",
+					Handler: tasklog.GetTaskLogByIdHandler(serverCtx),
 				},
 			}...,
 		),

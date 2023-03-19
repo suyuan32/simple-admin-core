@@ -121,7 +121,12 @@
 		"updateTask": "Update the task",
 		"deleteTask": "Delete tasks",
 		"getTaskList": "Get task list",
-		"getTaskById": "Get task by ID"
+		"getTaskById": "Get task by ID",
+		"createTaskLog": "Create a task log",
+		"updateTaskLog": "Update the task log",
+		"deleteTaskLog": "Delete task logs",
+		"getTaskListLog": "Get task log list",
+		"getTaskByIdLog": "Get task log by ID"
 	},
 	"route": {
 		"dashboard": "Dashboard",
