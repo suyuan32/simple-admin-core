@@ -556,6 +556,42 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetMethod("POST"),
 	)
 
+	// TASK LOG
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/task_log/create").
+		SetDescription("apiDesc.createTaskLog").
+		SetAPIGroup("tasklog").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/task_log/update").
+		SetDescription("apiDesc.updateTaskLog").
+		SetAPIGroup("tasklog").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/task_log/delete").
+		SetDescription("apiDesc.deleteTaskLog").
+		SetAPIGroup("tasklog").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/task_log/list").
+		SetDescription("apiDesc.getTaskLogList").
+		SetAPIGroup("tasklog").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetPath("/task_log").
+		SetDescription("apiDesc.getTaskLogById").
+		SetAPIGroup("tasklog").
+		SetMethod("POST"),
+	)
+
 	err := l.svcCtx.DB.API.CreateBulk(apis...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())

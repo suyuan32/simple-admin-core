@@ -1945,7 +1945,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TaskInfo:
-        description: The response data of task information | Task信息
+        description: The response data of task information | 定时任务信息
         properties:
             createdAt:
                 description: Create date | 创建日期
@@ -1990,7 +1990,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TaskInfoResp:
-        description: Task information response | Task信息返回体
+        description: Task information response | 定时任务信息返回体
         properties:
             code:
                 description: Error code | 错误代码
@@ -2009,10 +2009,10 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TaskListInfo:
-        description: Task list data | Task列表数据
+        description: Task list data | 定时任务列表数据
         properties:
             data:
-                description: The API list data | Task列表数据
+                description: The API list data | 定时任务列表数据
                 items:
                     $ref: '#/definitions/TaskInfo'
                 type: array
@@ -2025,7 +2025,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TaskListReq:
-        description: Get task list request params | Task列表请求参数
+        description: Get task list request params | 定时任务列表请求参数
         properties:
             name:
                 description: Name
@@ -2052,7 +2052,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TaskListResp:
-        description: The response data of task list | Task列表数据
+        description: The response data of task list | 定时任务列表数据
         properties:
             code:
                 description: Error code | 错误代码
@@ -2061,6 +2061,112 @@ definitions:
                 x-go-name: Code
             data:
                 $ref: '#/definitions/TaskListInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TaskLogInfo:
+        description: The response data of task log information | TaskLog信息
+        properties:
+            finishedAt:
+                description: FinishedAt
+                format: int64
+                type: integer
+                x-go-name: FinishedAt
+            id:
+                description: ID
+                format: uint64
+                type: integer
+                x-go-name: Id
+            result:
+                description: Result
+                format: uint32
+                type: integer
+                x-go-name: Result
+            startedAt:
+                description: StartedAt
+                format: int64
+                type: integer
+                x-go-name: StartedAt
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TaskLogInfoResp:
+        description: TaskLog information response | TaskLog信息返回体
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/TaskLogInfo'
+                description: Data | 数据
+                type: string
+                x-go-name: Data
+            msg:
+                description: Message | 提示信息
+                type: string
+                x-go-name: Msg
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TaskLogListInfo:
+        description: TaskLog list data | TaskLog列表数据
+        properties:
+            data:
+                description: The API list data | TaskLog列表数据
+                items:
+                    $ref: '#/definitions/TaskLogInfo'
+                type: array
+                x-go-name: Data
+            total:
+                description: The total number of data | 数据总数
+                format: uint64
+                type: integer
+                x-go-name: Total
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TaskLogListReq:
+        description: Get task log list request params | TaskLog列表请求参数
+        properties:
+            page:
+                description: Page number | 第几页
+                format: uint64
+                type: integer
+                x-go-name: Page
+            pageSize:
+                description: Page size | 单页数据行数
+                format: uint64
+                maximum: 100000
+                type: integer
+                x-go-name: PageSize
+            result:
+                format: uint32
+                type: integer
+                x-go-name: Result
+            taskId:
+                format: uint64
+                type: integer
+                x-go-name: TaskId
+        required:
+            - page
+            - pageSize
+        type: object
+        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
+    TaskLogListResp:
+        description: The response data of task log list | TaskLog列表数据
+        properties:
+            code:
+                description: Error code | 错误代码
+                format: int64
+                type: integer
+                x-go-name: Code
+            data:
+                $ref: '#/definitions/TaskLogListInfo'
                 description: Data | 数据
                 type: string
                 x-go-name: Data
@@ -3511,6 +3617,96 @@ paths:
             summary: Update task information | 更新Task
             tags:
                 - task
+    /task_log:
+        post:
+            description: Get task log by ID | 通过ID获取TaskLog
+            operationId: GetTaskLogById
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDReq'
+                    type: object
+            responses:
+                "200":
+                    description: TaskLogInfoResp
+                    schema:
+                        $ref: '#/definitions/TaskLogInfoResp'
+            summary: Get task log by ID | 通过ID获取TaskLog
+            tags:
+                - tasklog
+    /task_log/create:
+        post:
+            description: Create task log information | 创建TaskLog
+            operationId: CreateTaskLog
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/TaskLogInfo'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Create task log information | 创建TaskLog
+            tags:
+                - tasklog
+    /task_log/delete:
+        post:
+            description: Delete task log information | 删除TaskLog信息
+            operationId: DeleteTaskLog
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/IDsReq'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Delete task log information | 删除TaskLog信息
+            tags:
+                - tasklog
+    /task_log/list:
+        post:
+            description: Get task log list | 获取TaskLog列表
+            operationId: GetTaskLogList
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/TaskLogListReq'
+                    type: object
+            responses:
+                "200":
+                    description: TaskLogListResp
+                    schema:
+                        $ref: '#/definitions/TaskLogListResp'
+            summary: Get task log list | 获取TaskLog列表
+            tags:
+                - tasklog
+    /task_log/update:
+        post:
+            description: Update task log information | 更新TaskLog
+            operationId: UpdateTaskLog
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                    $ref: '#/definitions/TaskLogInfo'
+                    type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Update task log information | 更新TaskLog
+            tags:
+                - tasklog
     /token:
         post:
             description: Get Token by ID | 通过ID获取Token

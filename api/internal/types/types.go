@@ -1114,7 +1114,7 @@ type MenuParamInfoResp struct {
 	Data MenuParamInfo `json:"data"`
 }
 
-// The response data of task information | Task信息
+// The response data of task information | 定时任务信息
 // swagger:model TaskInfo
 type TaskInfo struct {
 	BaseInfo
@@ -1132,23 +1132,23 @@ type TaskInfo struct {
 	Payload string `json:"payload,optional"`
 }
 
-// The response data of task list | Task列表数据
+// The response data of task list | 定时任务列表数据
 // swagger:model TaskListResp
 type TaskListResp struct {
 	BaseDataInfo
-	// Task list data | Task列表数据
+	// Task list data | 定时任务列表数据
 	Data TaskListInfo `json:"data"`
 }
 
-// Task list data | Task列表数据
+// Task list data | 定时任务列表数据
 // swagger:model TaskListInfo
 type TaskListInfo struct {
 	BaseListInfo
-	// The API list data | Task列表数据
+	// The API list data | 定时任务列表数据
 	Data []TaskInfo `json:"data"`
 }
 
-// Get task list request params | Task列表请求参数
+// Get task list request params | 定时任务列表请求参数
 // swagger:model TaskListReq
 type TaskListReq struct {
 	PageInfo
@@ -1158,10 +1158,55 @@ type TaskListReq struct {
 	TaskGroup string `json:"taskGroup,optional"`
 }
 
-// Task information response | Task信息返回体
+// Task information response | 定时任务信息返回体
 // swagger:model TaskInfoResp
 type TaskInfoResp struct {
 	BaseDataInfo
-	// Task information | Task数据
+	// Task information | 定时任务数据
 	Data TaskInfo `json:"data"`
+}
+
+// The response data of task log information | TaskLog信息
+// swagger:model TaskLogInfo
+type TaskLogInfo struct {
+	// ID
+	Id uint64 `json:"id"`
+	// StartedAt
+	StartedAt int64 `json:"startedAt,optional"`
+	// FinishedAt
+	FinishedAt int64 `json:"finishedAt,optional"`
+	// Result
+	Result uint32 `json:"result,optional"`
+}
+
+// The response data of task log list | TaskLog列表数据
+// swagger:model TaskLogListResp
+type TaskLogListResp struct {
+	BaseDataInfo
+	// TaskLog list data | TaskLog列表数据
+	Data TaskLogListInfo `json:"data"`
+}
+
+// TaskLog list data | TaskLog列表数据
+// swagger:model TaskLogListInfo
+type TaskLogListInfo struct {
+	BaseListInfo
+	// The API list data | TaskLog列表数据
+	Data []TaskLogInfo `json:"data"`
+}
+
+// Get task log list request params | TaskLog列表请求参数
+// swagger:model TaskLogListReq
+type TaskLogListReq struct {
+	PageInfo
+	TaskId uint64 `json:"taskId"`
+	Result uint32 `json:"result"`
+}
+
+// TaskLog information response | TaskLog信息返回体
+// swagger:model TaskLogInfoResp
+type TaskLogInfoResp struct {
+	BaseDataInfo
+	// TaskLog information | TaskLog数据
+	Data TaskLogInfo `json:"data"`
 }
