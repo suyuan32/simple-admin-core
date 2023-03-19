@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /task_log/create tasklog CreateTaskLog
 //
-// Create task log information | 创建TaskLog
+// Create task log information | 创建任务日志
 //
-// Create task log information | 创建TaskLog
+// Create task log information | 创建任务日志
 //
 // Parameters:
 //  + name: body

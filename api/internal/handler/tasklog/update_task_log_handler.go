@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /task_log/update tasklog UpdateTaskLog
 //
-// Update task log information | 更新TaskLog
+// Update task log information | 更新任务日志
 //
-// Update task log information | 更新TaskLog
+// Update task log information | 更新任务日志
 //
 // Parameters:
 //  + name: body

@@ -2071,7 +2071,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TaskLogInfo:
-        description: The response data of task log information | TaskLog信息
+        description: The response data of task log information | 任务日志信息
         properties:
             finishedAt:
                 description: FinishedAt
@@ -2096,7 +2096,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TaskLogInfoResp:
-        description: TaskLog information response | TaskLog信息返回体
+        description: TaskLog information response | 任务日志信息返回体
         properties:
             code:
                 description: Error code | 错误代码
@@ -2115,10 +2115,10 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TaskLogListInfo:
-        description: TaskLog list data | TaskLog列表数据
+        description: TaskLog list data | 任务日志列表数据
         properties:
             data:
-                description: The API list data | TaskLog列表数据
+                description: The API list data | 任务日志列表数据
                 items:
                     $ref: '#/definitions/TaskLogInfo'
                 type: array
@@ -2131,7 +2131,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TaskLogListReq:
-        description: Get task log list request params | TaskLog列表请求参数
+        description: Get task log list request params | 任务日志列表请求参数
         properties:
             page:
                 description: Page number | 第几页
@@ -2158,7 +2158,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     TaskLogListResp:
-        description: The response data of task log list | TaskLog列表数据
+        description: The response data of task log list | 任务日志列表数据
         properties:
             code:
                 description: Error code | 错误代码
@@ -2571,7 +2571,7 @@ info:
         email: yuansu.china.work@gmail.com
     description: This is simple admin api doc
     title: Simple Admin
-    version: 0.2.5
+    version: 0.2.8
 paths:
     /api:
         post:
@@ -3619,7 +3619,7 @@ paths:
                 - task
     /task_log:
         post:
-            description: Get task log by ID | 通过ID获取TaskLog
+            description: Get task log by ID | 通过ID获取任务日志
             operationId: GetTaskLogById
             parameters:
                 - in: body
@@ -3632,12 +3632,12 @@ paths:
                     description: TaskLogInfoResp
                     schema:
                         $ref: '#/definitions/TaskLogInfoResp'
-            summary: Get task log by ID | 通过ID获取TaskLog
+            summary: Get task log by ID | 通过ID获取任务日志
             tags:
                 - tasklog
     /task_log/create:
         post:
-            description: Create task log information | 创建TaskLog
+            description: Create task log information | 创建任务日志
             operationId: CreateTaskLog
             parameters:
                 - in: body
@@ -3650,12 +3650,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Create task log information | 创建TaskLog
+            summary: Create task log information | 创建任务日志
             tags:
                 - tasklog
     /task_log/delete:
         post:
-            description: Delete task log information | 删除TaskLog信息
+            description: Delete task log information | 删除任务日志信息
             operationId: DeleteTaskLog
             parameters:
                 - in: body
@@ -3668,12 +3668,12 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Delete task log information | 删除TaskLog信息
+            summary: Delete task log information | 删除任务日志信息
             tags:
                 - tasklog
     /task_log/list:
         post:
-            description: Get task log list | 获取TaskLog列表
+            description: Get task log list | 获取任务日志列表
             operationId: GetTaskLogList
             parameters:
                 - in: body
@@ -3686,12 +3686,12 @@ paths:
                     description: TaskLogListResp
                     schema:
                         $ref: '#/definitions/TaskLogListResp'
-            summary: Get task log list | 获取TaskLog列表
+            summary: Get task log list | 获取任务日志列表
             tags:
                 - tasklog
     /task_log/update:
         post:
-            description: Update task log information | 更新TaskLog
+            description: Update task log information | 更新任务日志
             operationId: UpdateTaskLog
             parameters:
                 - in: body
@@ -3704,7 +3704,7 @@ paths:
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Update task log information | 更新TaskLog
+            summary: Update task log information | 更新任务日志
             tags:
                 - tasklog
     /token:

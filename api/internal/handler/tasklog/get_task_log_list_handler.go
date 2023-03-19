@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /task_log/list tasklog GetTaskLogList
 //
-// Get task log list | 获取TaskLog列表
+// Get task log list | 获取任务日志列表
 //
-// Get task log list | 获取TaskLog列表
+// Get task log list | 获取任务日志列表
 //
 // Parameters:
 //  + name: body

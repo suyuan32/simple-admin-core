@@ -1166,7 +1166,7 @@ type TaskInfoResp struct {
 	Data TaskInfo `json:"data"`
 }
 
-// The response data of task log information | TaskLog信息
+// The response data of task log information | 任务日志信息
 // swagger:model TaskLogInfo
 type TaskLogInfo struct {
 	// ID
@@ -1179,23 +1179,23 @@ type TaskLogInfo struct {
 	Result uint32 `json:"result,optional"`
 }
 
-// The response data of task log list | TaskLog列表数据
+// The response data of task log list | 任务日志列表数据
 // swagger:model TaskLogListResp
 type TaskLogListResp struct {
 	BaseDataInfo
-	// TaskLog list data | TaskLog列表数据
+	// TaskLog list data | 任务日志列表数据
 	Data TaskLogListInfo `json:"data"`
 }
 
-// TaskLog list data | TaskLog列表数据
+// TaskLog list data | 任务日志列表数据
 // swagger:model TaskLogListInfo
 type TaskLogListInfo struct {
 	BaseListInfo
-	// The API list data | TaskLog列表数据
+	// The API list data | 任务日志列表数据
 	Data []TaskLogInfo `json:"data"`
 }
 
-// Get task log list request params | TaskLog列表请求参数
+// Get task log list request params | 任务日志列表请求参数
 // swagger:model TaskLogListReq
 type TaskLogListReq struct {
 	PageInfo
@@ -1203,10 +1203,10 @@ type TaskLogListReq struct {
 	Result uint32 `json:"result"`
 }
 
-// TaskLog information response | TaskLog信息返回体
+// TaskLog information response | 任务日志信息返回体
 // swagger:model TaskLogInfoResp
 type TaskLogInfoResp struct {
 	BaseDataInfo
-	// TaskLog information | TaskLog数据
+	// TaskLog information | 任务日志数据
 	Data TaskLogInfo `json:"data"`
 }
