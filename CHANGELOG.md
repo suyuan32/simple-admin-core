@@ -1,4 +1,37 @@
 
+<a name="v0.2.8"></a>
+## [v0.2.8](https://github.com/suyuan32/simple-admin-core/compare/v0.2.7...v0.2.8) (2023-03-19)
+
+### Chore
+
+* update job version to v0.2.8
+
+### Docs
+
+* update readme
+* update change log
+
+### Feat
+
+* add task log
+* add postgres docker-compose.yaml
+
+### Fix
+
+* optimize comments in task log
+* config file bug
+
+### Refactor
+
+* split menu initial data
+* remove pkg directory
+
+### Pull Requests
+
+* Merge pull request [#84](https://github.com/suyuan32/simple-admin-core/issues/84) from suyuan32/feat-task-log
+* Merge pull request [#83](https://github.com/suyuan32/simple-admin-core/issues/83) from suyuan32/feat-postgres-docker
+
+
 <a name="v0.2.7"></a>
 ## [v0.2.7](https://github.com/suyuan32/simple-admin-core/compare/v0.2.7-beta...v0.2.7) (2023-03-12)
 
@@ -313,7 +346,7 @@
 
 
 <a name="v0.1.9"></a>
-## [v0.1.9](https://github.com/suyuan32/simple-admin-core/compare/list...v0.1.9) (2022-12-15)
+## [v0.1.9](https://github.com/suyuan32/simple-admin-core/compare/v0.1.8...v0.1.9) (2022-12-15)
 
 ### Chore
 
@@ -341,10 +374,6 @@
 ### Pull Requests
 
 * Merge pull request [#49](https://github.com/suyuan32/simple-admin-core/issues/49) from suyuan32/group-logic
-
-
-<a name="list"></a>
-## [list](https://github.com/suyuan32/simple-admin-core/compare/v0.1.8...list) (2022-12-10)
 
 
 <a name="v0.1.8"></a>
