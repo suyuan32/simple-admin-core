@@ -42,5 +42,9 @@ func (l *UpdateOauthProviderLogic) UpdateOauthProvider(in *core.OauthProviderInf
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
+	if _, ok := providerConfig[in.Name]; ok {
+		delete(providerConfig, in.Name)
+	}
+
 	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
 }

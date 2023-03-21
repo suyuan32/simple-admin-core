@@ -160,5 +160,6 @@ func replaceKeywords(urlData string, oauthData *ent.OauthProvider) (result strin
 	result = strings.ReplaceAll(urlData, "CLIENT_ID", oauthData.ClientID)
 	result = strings.ReplaceAll(result, "SECRET", oauthData.ClientSecret)
 	result = strings.ReplaceAll(result, "REDIRECT_URL", oauthData.RedirectURL)
+	result = strings.ReplaceAll(result, "SCOPE", oauthData.Scopes)
 	return result
 }
