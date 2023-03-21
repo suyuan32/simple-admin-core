@@ -22,11 +22,11 @@ RedisConf:
 
 CoreRpc:
   Target: k8s://default/core-rpc-svc:9101
-  Enable: true
+  Enabled: true
 
 JobRpc:
   Target: k8s://default/job-rpc-svc:9105
-  Enable: false
+  Enabled: false
 
 Captcha:
   KeyLong: 5
