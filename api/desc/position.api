@@ -5,22 +5,22 @@ type (
     PositionInfo {
         BaseInfo
 
-         // Translated Name
+         // Translated Name | 展示名称
         Trans string `json:"trans,optional"`
 
-        // Status
+        // Status | 状态
         Status  uint32 `json:"status,optional"`
 
-        // Sort
+        // Sort | 排序
         Sort  uint32 `json:"sort,optional"`
 
-        // Name
+        // Name | 职位名称
         Name  string `json:"name,optional"`
 
-        // Code
+        // Code | 职位代码
         Code  string `json:"code,optional"`
 
-        // Remark
+        // Remark | 备注
         Remark  string `json:"remark,optional"`
     }
 
@@ -44,13 +44,13 @@ type (
     PositionListReq {
         PageInfo
 
-        // Name
+        // Name | 职位名称
         Name  string `json:"name,optional"`
 
-        // Code
+        // Code | 职位代码
         Code  string `json:"code,optional"`
 
-        // Remark
+        // Remark | 备注
         Remark  string `json:"remark,optional"`
     }
 

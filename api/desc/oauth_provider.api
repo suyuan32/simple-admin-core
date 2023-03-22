@@ -1,4 +1,7 @@
-import "base.api"
+import(
+    "base.api"
+    "user.api"
+)
 
 type (
     // The response data of oauth provider information | 第三方信息
@@ -53,13 +56,13 @@ type (
     OauthProviderListReq {
         PageInfo
 
-        // Name
+        // Name | 第三方提供商名称
         Name  string `json:"name,optional"`
 
-        // ClientId
+        // ClientId | 第三方客户端ID
         ClientId  string `json:"clientId,optional"`
 
-        // ClientSecret
+        // ClientSecret  | 第三方客户端密钥
         ClientSecret  string `json:"clientSecret,optional"`
     }
 

@@ -5,22 +5,22 @@ type (
     TaskInfo {
         BaseInfo
 
-        // Status
+        // Status | 状态
         Status  uint32 `json:"status,optional"`
 
-        // Name
+        // Name | 任务名称
         Name  string `json:"name,optional"`
 
-        // TaskGroup
+        // TaskGroup | 任务分组
         TaskGroup  string `json:"taskGroup,optional"`
 
-        // CronExpression
+        // CronExpression | 定时任务 Cron 表达式
         CronExpression  string `json:"cronExpression,optional"`
 
-        // Pattern
+        // Pattern | 任务的模式(用于区分和确定要执行的任务)
         Pattern  string `json:"pattern,optional"`
 
-        // Payload
+        // Payload | 任务需要数据(JSON 字符串)
         Payload  string `json:"payload,optional"`
     }
 
@@ -44,10 +44,10 @@ type (
     TaskListReq {
         PageInfo
 
-        // Name
+        // Name | 任务名称
         Name  string `json:"name,optional"`
 
-        // TaskGroup
+        // TaskGroup | 任务分组
         TaskGroup  string `json:"taskGroup,optional"`
     }
 

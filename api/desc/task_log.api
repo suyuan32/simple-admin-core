@@ -6,13 +6,13 @@ type (
         // ID
         Id        uint64    `json:"id"`
 
-        // StartedAt
+        // StartedAt | 任务开始时间
         StartedAt  int64 `json:"startedAt,optional"`
 
-        // FinishedAt
+        // FinishedAt | 任务完成时间
         FinishedAt  int64 `json:"finishedAt,optional"`
 
-        // Result
+        // Result | 任务结果
         Result  uint32 `json:"result,optional"`
     }
 
@@ -36,8 +36,10 @@ type (
     TaskLogListReq {
         PageInfo
 
+        // TaskId | 任务ID
         TaskId  uint64 `json:"taskId"`
 
+        // Result | 任务结果
         Result  uint32 `json:"result"`
     }
 
