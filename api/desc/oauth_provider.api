@@ -1,6 +1,5 @@
 import(
     "base.api"
-    "user.api"
 )
 
 type (

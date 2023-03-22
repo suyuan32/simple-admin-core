@@ -152,7 +152,7 @@ type RoleListInfo struct {
 // swagger:model RoleListReq
 type RoleListReq struct {
 	PageInfo
-	// Name
+	// Name | 角色名称
 	Name string `json:"name,optional"`
 }
 
@@ -424,7 +424,7 @@ type MenuInfo struct {
 	Sort uint32 `json:"sort,optional"`
 	// Disabled | 是否启用
 	Disabled bool `json:"disabled,optional"`
-	// Meta
+	// Meta | 菜单meta数据
 	Meta Meta `json:"meta"`
 	// MenuType | 菜单类型
 	MenuType uint32 `json:"menuType,optional"`
@@ -733,7 +733,7 @@ type DictionaryListInfo struct {
 // swagger:model DictionaryListReq
 type DictionaryListReq struct {
 	PageInfo
-	// Name
+	// Name | 字典名称
 	Name string `json:"name,optional"`
 }
 
@@ -789,11 +789,11 @@ type OauthProviderListInfo struct {
 // swagger:model OauthProviderListReq
 type OauthProviderListReq struct {
 	PageInfo
-	// Name
+	// Name | 第三方提供商名称
 	Name string `json:"name,optional"`
-	// ClientId
+	// ClientId | 第三方客户端ID
 	ClientId string `json:"clientId,optional"`
-	// ClientSecret
+	// ClientSecret  | 第三方客户端密钥
 	ClientSecret string `json:"clientSecret,optional"`
 }
 
@@ -852,7 +852,7 @@ type CallbackResp struct {
 // swagger:model TokenInfo
 type TokenInfo struct {
 	BaseUUIDInfo
-	// Status
+	// Status | 状态
 	Status uint32 `json:"status,optional"`
 	// User's UUID | 用户的UUID
 	Uuid string `json:"uuid,optional"`
@@ -906,7 +906,7 @@ type TokenInfoResp struct {
 // swagger:model DepartmentInfo
 type DepartmentInfo struct {
 	BaseInfo
-	// Translated Name
+	// Translated Name | 展示名称
 	Trans string `json:"trans,optional"`
 	// Status | 状态
 	Status uint32 `json:"status,optional"`
@@ -948,9 +948,9 @@ type DepartmentListInfo struct {
 // swagger:model DepartmentListReq
 type DepartmentListReq struct {
 	PageInfo
-	// Name
+	// Name | 部门名称
 	Name string `json:"name,optional"`
-	// Leader
+	// Leader | 部门负责人
 	Leader string `json:"leader,optional"`
 }
 
@@ -966,17 +966,17 @@ type DepartmentInfoResp struct {
 // swagger:model PositionInfo
 type PositionInfo struct {
 	BaseInfo
-	// Translated Name
+	// Translated Name | 展示名称
 	Trans string `json:"trans,optional"`
-	// Status
+	// Status | 状态
 	Status uint32 `json:"status,optional"`
-	// Sort
+	// Sort | 排序
 	Sort uint32 `json:"sort,optional"`
-	// Name
+	// Name | 职位名称
 	Name string `json:"name,optional"`
-	// Code
+	// Code | 职位代码
 	Code string `json:"code,optional"`
-	// Remark
+	// Remark | 备注
 	Remark string `json:"remark,optional"`
 }
 
@@ -1000,11 +1000,11 @@ type PositionListInfo struct {
 // swagger:model PositionListReq
 type PositionListReq struct {
 	PageInfo
-	// Name
+	// Name | 职位名称
 	Name string `json:"name,optional"`
-	// Code
+	// Code | 职位代码
 	Code string `json:"code,optional"`
-	// Remark
+	// Remark | 备注
 	Remark string `json:"remark,optional"`
 }
 
@@ -1056,7 +1056,7 @@ type DictionaryDetailListReq struct {
 	PageInfo
 	// Key | 键
 	Key string `json:"key,optional"`
-	// Dictionary ID
+	// Dictionary ID | 所属字典ID
 	DictionaryId uint64 `json:"dictionaryId,optional"`
 }
 
@@ -1118,17 +1118,17 @@ type MenuParamInfoResp struct {
 // swagger:model TaskInfo
 type TaskInfo struct {
 	BaseInfo
-	// Status
+	// Status | 状态
 	Status uint32 `json:"status,optional"`
-	// Name
+	// Name | 任务名称
 	Name string `json:"name,optional"`
-	// TaskGroup
+	// TaskGroup | 任务分组
 	TaskGroup string `json:"taskGroup,optional"`
-	// CronExpression
+	// CronExpression | 定时任务 Cron 表达式
 	CronExpression string `json:"cronExpression,optional"`
-	// Pattern
+	// Pattern | 任务的模式(用于区分和确定要执行的任务)
 	Pattern string `json:"pattern,optional"`
-	// Payload
+	// Payload | 任务需要数据(JSON 字符串)
 	Payload string `json:"payload,optional"`
 }
 
@@ -1152,9 +1152,9 @@ type TaskListInfo struct {
 // swagger:model TaskListReq
 type TaskListReq struct {
 	PageInfo
-	// Name
+	// Name | 任务名称
 	Name string `json:"name,optional"`
-	// TaskGroup
+	// TaskGroup | 任务分组
 	TaskGroup string `json:"taskGroup,optional"`
 }
 
@@ -1171,11 +1171,11 @@ type TaskInfoResp struct {
 type TaskLogInfo struct {
 	// ID
 	Id uint64 `json:"id"`
-	// StartedAt
+	// StartedAt | 任务开始时间
 	StartedAt int64 `json:"startedAt,optional"`
-	// FinishedAt
+	// FinishedAt | 任务完成时间
 	FinishedAt int64 `json:"finishedAt,optional"`
-	// Result
+	// Result | 任务结果
 	Result uint32 `json:"result,optional"`
 }
 
@@ -1199,7 +1199,9 @@ type TaskLogListInfo struct {
 // swagger:model TaskLogListReq
 type TaskLogListReq struct {
 	PageInfo
+	// TaskId | 任务ID
 	TaskId uint64 `json:"taskId"`
+	// Result | 任务结果
 	Result uint32 `json:"result"`
 }
 

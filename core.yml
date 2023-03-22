@@ -422,7 +422,7 @@ definitions:
                 type: integer
                 x-go-name: Status
             trans:
-                description: Translated Name
+                description: Translated Name | 展示名称
                 type: string
                 x-go-name: Trans
             updatedAt:
@@ -471,11 +471,11 @@ definitions:
         description: Get department list request params | 部门列表请求参数
         properties:
             leader:
-                description: Leader
+                description: Leader | 部门负责人
                 type: string
                 x-go-name: Leader
             name:
-                description: Name
+                description: Name | 部门名称
                 type: string
                 x-go-name: Name
             page:
@@ -599,7 +599,7 @@ definitions:
         description: Get dictionary detail list request params | 字典键值列表请求参数
         properties:
             dictionaryId:
-                description: Dictionary ID
+                description: Dictionary ID | 所属字典ID
                 format: uint64
                 type: integer
                 x-go-name: DictionaryId
@@ -722,7 +722,7 @@ definitions:
         description: Get dictionary list request params | 字典列表请求参数
         properties:
             name:
-                description: Name
+                description: Name | 字典名称
                 type: string
                 x-go-name: Name
             page:
@@ -1460,15 +1460,15 @@ definitions:
         description: Get oauth provider list request params | 第三方列表请求参数
         properties:
             clientId:
-                description: ClientId
+                description: ClientId | 第三方客户端ID
                 type: string
                 x-go-name: ClientId
             clientSecret:
-                description: ClientSecret
+                description: ClientSecret  | 第三方客户端密钥
                 type: string
                 x-go-name: ClientSecret
             name:
-                description: Name
+                description: Name | 第三方提供商名称
                 type: string
                 x-go-name: Name
             page:
@@ -1549,7 +1549,7 @@ definitions:
         description: The response data of position information | 职位信息
         properties:
             code:
-                description: Code
+                description: Code | 职位代码
                 type: string
                 x-go-name: Code
             createdAt:
@@ -1563,25 +1563,25 @@ definitions:
                 type: integer
                 x-go-name: Id
             name:
-                description: Name
+                description: Name | 职位名称
                 type: string
                 x-go-name: Name
             remark:
-                description: Remark
+                description: Remark | 备注
                 type: string
                 x-go-name: Remark
             sort:
-                description: Sort
+                description: Sort | 排序
                 format: uint32
                 type: integer
                 x-go-name: Sort
             status:
-                description: Status
+                description: Status | 状态
                 format: uint32
                 type: integer
                 x-go-name: Status
             trans:
-                description: Translated Name
+                description: Translated Name | 展示名称
                 type: string
                 x-go-name: Trans
             updatedAt:
@@ -1630,11 +1630,11 @@ definitions:
         description: Get position list request params | 职位列表请求参数
         properties:
             code:
-                description: Code
+                description: Code | 职位代码
                 type: string
                 x-go-name: Code
             name:
-                description: Name
+                description: Name | 职位名称
                 type: string
                 x-go-name: Name
             page:
@@ -1649,7 +1649,7 @@ definitions:
                 type: integer
                 x-go-name: PageSize
             remark:
-                description: Remark
+                description: Remark | 备注
                 type: string
                 x-go-name: Remark
         required:
@@ -1906,7 +1906,7 @@ definitions:
         description: Get role list request params | 角色列表请求参数
         properties:
             name:
-                description: Name
+                description: Name | 角色名称
                 type: string
                 x-go-name: Name
             page:
@@ -1953,7 +1953,7 @@ definitions:
                 type: integer
                 x-go-name: CreatedAt
             cronExpression:
-                description: CronExpression
+                description: CronExpression | 定时任务 Cron 表达式
                 type: string
                 x-go-name: CronExpression
             id:
@@ -1962,24 +1962,24 @@ definitions:
                 type: integer
                 x-go-name: Id
             name:
-                description: Name
+                description: Name | 任务名称
                 type: string
                 x-go-name: Name
             pattern:
-                description: Pattern
+                description: Pattern | 任务的模式(用于区分和确定要执行的任务)
                 type: string
                 x-go-name: Pattern
             payload:
-                description: Payload
+                description: Payload | 任务需要数据(JSON 字符串)
                 type: string
                 x-go-name: Payload
             status:
-                description: Status
+                description: Status | 状态
                 format: uint32
                 type: integer
                 x-go-name: Status
             taskGroup:
-                description: TaskGroup
+                description: TaskGroup | 任务分组
                 type: string
                 x-go-name: TaskGroup
             updatedAt:
@@ -2028,7 +2028,7 @@ definitions:
         description: Get task list request params | 定时任务列表请求参数
         properties:
             name:
-                description: Name
+                description: Name | 任务名称
                 type: string
                 x-go-name: Name
             page:
@@ -2043,7 +2043,7 @@ definitions:
                 type: integer
                 x-go-name: PageSize
             taskGroup:
-                description: TaskGroup
+                description: TaskGroup | 任务分组
                 type: string
                 x-go-name: TaskGroup
         required:
@@ -2074,7 +2074,7 @@ definitions:
         description: The response data of task log information | 任务日志信息
         properties:
             finishedAt:
-                description: FinishedAt
+                description: FinishedAt | 任务完成时间
                 format: int64
                 type: integer
                 x-go-name: FinishedAt
@@ -2084,12 +2084,12 @@ definitions:
                 type: integer
                 x-go-name: Id
             result:
-                description: Result
+                description: Result | 任务结果
                 format: uint32
                 type: integer
                 x-go-name: Result
             startedAt:
-                description: StartedAt
+                description: StartedAt | 任务开始时间
                 format: int64
                 type: integer
                 x-go-name: StartedAt
@@ -2145,10 +2145,12 @@ definitions:
                 type: integer
                 x-go-name: PageSize
             result:
+                description: Result | 任务结果
                 format: uint32
                 type: integer
                 x-go-name: Result
             taskId:
+                description: TaskId | 任务ID
                 format: uint64
                 type: integer
                 x-go-name: TaskId
@@ -2198,7 +2200,7 @@ definitions:
                 type: string
                 x-go-name: Source
             status:
-                description: Status
+                description: Status | 状态
                 format: uint32
                 type: integer
                 x-go-name: Status
