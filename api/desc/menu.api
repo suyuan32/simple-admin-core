@@ -32,7 +32,7 @@ type (
         // Disabled | 是否启用
         Disabled  bool `json:"disabled,optional"`
 
-        // Meta
+        // Meta | 菜单meta数据
         Meta  Meta `json:"meta"`
 
         // MenuType | 菜单类型

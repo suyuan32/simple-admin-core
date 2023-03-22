@@ -5,7 +5,7 @@ type (
     TokenInfo {
         BaseUUIDInfo
 
-        // Status
+        // Status | 状态
         Status  uint32 `json:"status,optional"`
 
         // User's UUID | 用户的UUID

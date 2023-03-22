@@ -47,7 +47,7 @@ type (
     RoleListReq {
         PageInfo
 
-        // Name
+        // Name | 角色名称
         Name  string `json:"name,optional"`
     }
 

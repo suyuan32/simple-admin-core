@@ -47,7 +47,7 @@ type (
         // Key | 键
         Key  string `json:"key,optional"`
 
-        // Dictionary ID
+        // Dictionary ID | 所属字典ID
         DictionaryId  uint64 `json:"dictionaryId,optional"`
     }
 

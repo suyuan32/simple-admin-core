@@ -41,7 +41,7 @@ type (
     DictionaryListReq {
         PageInfo
 
-        // Name
+        // Name | 字典名称
         Name  string `json:"name,optional"`
     }
 
