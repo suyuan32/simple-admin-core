@@ -1,4 +1,7 @@
-import "base.api"
+import(
+    "base.api"
+    "user.api"
+)
 
 type (
     // The response data of oauth provider information | 第三方信息
