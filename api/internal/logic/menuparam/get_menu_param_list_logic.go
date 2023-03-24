@@ -43,7 +43,7 @@ func (l *GetMenuParamListLogic) GetMenuParamList(req *types.MenuParamListReq) (r
 	for _, v := range data.Data {
 		resp.Data.Data = append(resp.Data.Data,
 			types.MenuParamInfo{
-				BaseInfo: types.BaseInfo{
+				BaseIDInfo: types.BaseIDInfo{
 					Id:        v.Id,
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,

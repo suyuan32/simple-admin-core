@@ -3,7 +3,7 @@ import "base.api"
 type (
     // The response data of position information | 职位信息
     PositionInfo {
-        BaseInfo
+        BaseIDInfo
 
          // Translated Name | 展示名称
         Trans string `json:"trans,optional"`

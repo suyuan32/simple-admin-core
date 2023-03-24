@@ -90,9 +90,9 @@ type UUIDsReq struct {
 	Ids []string `json:"ids"`
 }
 
-// The base response data | 基础信息
-// swagger:model BaseInfo
-type BaseInfo struct {
+// The base ID response data | 基础ID信息
+// swagger:model BaseIDInfo
+type BaseIDInfo struct {
 	// ID
 	Id uint64 `json:"id"`
 	// Create date | 创建日期
@@ -101,7 +101,7 @@ type BaseInfo struct {
 	UpdatedAt int64 `json:"updatedAt,optional"`
 }
 
-// The base UUID response data | 基础信息
+// The base UUID response data | 基础UUID信息
 // swagger:model BaseUUIDInfo
 type BaseUUIDInfo struct {
 	// ID
@@ -115,7 +115,7 @@ type BaseUUIDInfo struct {
 // The response data of role information | 角色信息
 // swagger:model RoleInfo
 type RoleInfo struct {
-	BaseInfo
+	BaseIDInfo
 	// Translated Name | 展示名称
 	Trans string `json:"trans,optional"`
 	// Status | 状态
@@ -303,16 +303,16 @@ type RoleInfoSimple struct {
 }
 
 // The response data of user's basic information | 用户基本信息返回数据
-// swagger:model UserBaseInfoResp
-type UserBaseInfoResp struct {
+// swagger:model UserBaseIDInfoResp
+type UserBaseIDInfoResp struct {
 	BaseDataInfo
 	// The  data of user's basic information | 用户基本信息
-	Data UserBaseInfo `json:"data"`
+	Data UserBaseIDInfo `json:"data"`
 }
 
 // The  data of user's basic information | 用户基本信息
-// swagger:model UserBaseInfo
-type UserBaseInfo struct {
+// swagger:model UserBaseIDInfo
+type UserBaseIDInfo struct {
 	// User's UUID | 用户的UUID
 	UUID string `json:"userId"`
 	// User's name | 用户名
@@ -405,7 +405,7 @@ type ProfileReq struct {
 // The response data of menu information | 菜单信息
 // swagger:model MenuInfo
 type MenuInfo struct {
-	BaseInfo
+	BaseIDInfo
 	// Translated Name | 国际化展示名称
 	Trans string `json:"trans,optional"`
 	// Level | 菜单层级
@@ -574,7 +574,7 @@ type CaptchaResp struct {
 // The API information | API信息
 // swagger:model ApiInfo
 type ApiInfo struct {
-	BaseInfo
+	BaseIDInfo
 	// Translated Name | 多语言名称
 	Trans string `json:"trans,optional"`
 	// API path | API路径
@@ -700,7 +700,7 @@ type MenuAuthorityInfoResp struct {
 // The response data of dictionary information | 字典信息
 // swagger:model DictionaryInfo
 type DictionaryInfo struct {
-	BaseInfo
+	BaseIDInfo
 	// Translated Name | 字典多语言名称
 	Trans string `json:"trans,optional"`
 	// Title | 字典多语言名称
@@ -748,7 +748,7 @@ type DictionaryInfoResp struct {
 // The response data of oauth provider information | 第三方信息
 // swagger:model OauthProviderInfo
 type OauthProviderInfo struct {
-	BaseInfo
+	BaseIDInfo
 	// Provider name | 第三方提供商名称
 	Name string `json:"name,optional"`
 	// ClientId | 客户端ID
@@ -905,7 +905,7 @@ type TokenInfoResp struct {
 // The response data of department information | 部门信息
 // swagger:model DepartmentInfo
 type DepartmentInfo struct {
-	BaseInfo
+	BaseIDInfo
 	// Translated Name | 展示名称
 	Trans string `json:"trans,optional"`
 	// Status | 状态
@@ -965,7 +965,7 @@ type DepartmentInfoResp struct {
 // The response data of position information | 职位信息
 // swagger:model PositionInfo
 type PositionInfo struct {
-	BaseInfo
+	BaseIDInfo
 	// Translated Name | 展示名称
 	Trans string `json:"trans,optional"`
 	// Status | 状态
@@ -1019,7 +1019,7 @@ type PositionInfoResp struct {
 // The response data of dictionary detail information | 字典键值信息
 // swagger:model DictionaryDetailInfo
 type DictionaryDetailInfo struct {
-	BaseInfo
+	BaseIDInfo
 	// Status | 状态
 	Status uint32 `json:"status,optional"`
 	// Title | 显示名称
@@ -1071,7 +1071,7 @@ type DictionaryDetailInfoResp struct {
 // The response data of menu param information | 菜单参数信息
 // swagger:model MenuParamInfo
 type MenuParamInfo struct {
-	BaseInfo
+	BaseIDInfo
 	// Type | 参数类型
 	Type string `json:"type,optional"`
 	// Key | 参数键
@@ -1117,7 +1117,7 @@ type MenuParamInfoResp struct {
 // The response data of task information | 定时任务信息
 // swagger:model TaskInfo
 type TaskInfo struct {
-	BaseInfo
+	BaseIDInfo
 	// Status | 状态
 	Status uint32 `json:"status,optional"`
 	// Name | 任务名称

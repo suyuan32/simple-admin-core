@@ -16,7 +16,7 @@ import (
 // Get user basic information | 获取用户基本信息
 //
 // Responses:
-//  200: UserBaseInfoResp
+//  200: UserBaseIDInfoResp
 
 func GetUserInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

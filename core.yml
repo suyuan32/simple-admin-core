@@ -214,8 +214,8 @@ definitions:
                 x-go-name: Msg
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-    BaseInfo:
-        description: The base response data | 基础信息
+    BaseIDInfo:
+        description: The base ID response data | 基础ID信息
         properties:
             createdAt:
                 description: Create date | 创建日期
@@ -263,7 +263,7 @@ definitions:
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     BaseUUIDInfo:
-        description: The base UUID response data | 基础信息
+        description: The base UUID response data | 基础UUID信息
         properties:
             createdAt:
                 description: Create date | 创建日期
@@ -2333,7 +2333,7 @@ definitions:
             - ids
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-    UserBaseInfo:
+    UserBaseIDInfo:
         description: The  data of user's basic information | 用户基本信息
         properties:
             avatar:
@@ -2362,7 +2362,7 @@ definitions:
                 x-go-name: Username
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-    UserBaseInfoResp:
+    UserBaseIDInfoResp:
         description: The response data of user's basic information | 用户基本信息返回数据
         properties:
             code:
@@ -2371,7 +2371,7 @@ definitions:
                 type: integer
                 x-go-name: Code
             data:
-                $ref: '#/definitions/UserBaseInfo'
+                $ref: '#/definitions/UserBaseIDInfo'
                 description: Data | 数据
                 type: string
                 x-go-name: Data
@@ -3895,9 +3895,9 @@ paths:
             operationId: GetUserInfo
             responses:
                 "200":
-                    description: UserBaseInfoResp
+                    description: UserBaseIDInfoResp
                     schema:
-                        $ref: '#/definitions/UserBaseInfoResp'
+                        $ref: '#/definitions/UserBaseIDInfoResp'
             summary: Get user basic information | 获取用户基本信息
             tags:
                 - user

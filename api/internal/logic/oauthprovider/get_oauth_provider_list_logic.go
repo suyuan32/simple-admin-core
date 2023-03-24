@@ -45,7 +45,7 @@ func (l *GetOauthProviderListLogic) GetOauthProviderList(req *types.OauthProvide
 	for _, v := range data.Data {
 		resp.Data.Data = append(resp.Data.Data,
 			types.OauthProviderInfo{
-				BaseInfo: types.BaseInfo{
+				BaseIDInfo: types.BaseIDInfo{
 					Id:        v.Id,
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,

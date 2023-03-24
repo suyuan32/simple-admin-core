@@ -3,7 +3,7 @@ import "base.api"
 type (
     // The response data of dictionary information | 字典信息
     DictionaryInfo {
-        BaseInfo
+        BaseIDInfo
 
         // Translated Name | 字典多语言名称
         Trans string `json:"trans,optional"`

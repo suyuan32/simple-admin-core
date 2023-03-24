@@ -16,7 +16,7 @@ require (
 	google.golang.org/protobuf v1.30.0
 )
 
-replace github.com/zeromicro/go-zero v1.5.0 => github.com/suyuan32/simple-admin-tools v0.2.8
+replace github.com/zeromicro/go-zero v1.5.0 => github.com/suyuan32/simple-admin-tools v0.2.9-beta
 
 require (
 	ariga.io/atlas v0.10.0 // indirect

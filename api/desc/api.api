@@ -13,7 +13,7 @@ import "base.api"
 type (
     // The API information | API信息
     ApiInfo {
-        BaseInfo
+        BaseIDInfo
 
         // Translated Name | 多语言名称
         Trans string `json:"trans,optional"`

@@ -44,7 +44,7 @@ func (l *GetDepartmentListLogic) GetDepartmentList(req *types.DepartmentListReq)
 	for _, v := range data.Data {
 		resp.Data.Data = append(resp.Data.Data,
 			types.DepartmentInfo{
-				BaseInfo: types.BaseInfo{
+				BaseIDInfo: types.BaseIDInfo{
 					Id:        v.Id,
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,

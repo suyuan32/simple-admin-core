@@ -3,7 +3,7 @@ import "base.api"
 type (
     // The response data of menu param information | 菜单参数信息
     MenuParamInfo {
-        BaseInfo
+        BaseIDInfo
 
         // Type | 参数类型
         Type  string `json:"type,optional"`

@@ -3,7 +3,7 @@ import "base.api"
 type (
     // The response data of dictionary detail information | 字典键值信息
     DictionaryDetailInfo {
-        BaseInfo
+        BaseIDInfo
 
         // Status | 状态
         Status  uint32 `json:"status,optional"`

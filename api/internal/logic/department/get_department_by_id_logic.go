@@ -38,7 +38,7 @@ func (l *GetDepartmentByIdLogic) GetDepartmentById(req *types.IDReq) (resp *type
 			Msg:  l.svcCtx.Trans.Trans(l.ctx, i18n.Success),
 		},
 		Data: types.DepartmentInfo{
-			BaseInfo: types.BaseInfo{
+			BaseIDInfo: types.BaseIDInfo{
 				Id:        data.Id,
 				CreatedAt: data.CreatedAt,
 				UpdatedAt: data.UpdatedAt,

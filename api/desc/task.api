@@ -3,7 +3,7 @@ import "base.api"
 type (
     // The response data of task information | 定时任务信息
     TaskInfo {
-        BaseInfo
+        BaseIDInfo
 
         // Status | 状态
         Status  uint32 `json:"status,optional"`

@@ -38,7 +38,7 @@ func (l *GetOauthProviderByIdLogic) GetOauthProviderById(req *types.IDReq) (resp
 			Msg:  l.svcCtx.Trans.Trans(l.ctx, i18n.Success),
 		},
 		Data: types.OauthProviderInfo{
-			BaseInfo: types.BaseInfo{
+			BaseIDInfo: types.BaseIDInfo{
 				Id:        data.Id,
 				CreatedAt: data.CreatedAt,
 				UpdatedAt: data.UpdatedAt,

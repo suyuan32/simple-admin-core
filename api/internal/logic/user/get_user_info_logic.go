@@ -26,16 +26,16 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 	}
 }
 
-func (l *GetUserInfoLogic) GetUserInfo() (resp *types.UserBaseInfoResp, err error) {
+func (l *GetUserInfoLogic) GetUserInfo() (resp *types.UserBaseIDInfoResp, err error) {
 	user, err := l.svcCtx.CoreRpc.GetUserById(l.ctx,
 		&core.UUIDReq{Id: l.ctx.Value("userId").(string)})
 	if err != nil {
 		return nil, err
 	}
 
-	return &types.UserBaseInfoResp{
+	return &types.UserBaseIDInfoResp{
 		BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.Success)},
-		Data: types.UserBaseInfo{
+		Data: types.UserBaseIDInfo{
 			UUID:        user.Id,
 			Username:    user.Username,
 			Nickname:    user.Nickname,

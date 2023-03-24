@@ -45,7 +45,7 @@ func (l *GetPositionListLogic) GetPositionList(req *types.PositionListReq) (resp
 	for _, v := range data.Data {
 		resp.Data.Data = append(resp.Data.Data,
 			types.PositionInfo{
-				BaseInfo: types.BaseInfo{
+				BaseIDInfo: types.BaseIDInfo{
 					Id:        v.Id,
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,

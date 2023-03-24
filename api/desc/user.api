@@ -162,15 +162,15 @@ type (
     }
 
     // The response data of user's basic information | 用户基本信息返回数据
-    UserBaseInfoResp {
+    UserBaseIDInfoResp {
         BaseDataInfo
 
         // The  data of user's basic information | 用户基本信息
-        Data UserBaseInfo `json:"data"`
+        Data UserBaseIDInfo `json:"data"`
     }
 
     // The  data of user's basic information | 用户基本信息
-    UserBaseInfo {
+    UserBaseIDInfo {
         // User's UUID | 用户的UUID
         UUID         string       `json:"userId"`
 
@@ -320,7 +320,7 @@ service core {
 
     // Get user basic information | 获取用户基本信息
     @handler getUserInfo
-    get /user/info returns (UserBaseInfoResp)
+    get /user/info returns (UserBaseIDInfoResp)
 
     // Get user's permission code | 获取用户权限码
     @handler getUserPermCode

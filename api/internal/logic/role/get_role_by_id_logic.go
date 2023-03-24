@@ -38,7 +38,7 @@ func (l *GetRoleByIdLogic) GetRoleById(req *types.IDReq) (resp *types.RoleInfoRe
 			Msg:  l.svcCtx.Trans.Trans(l.ctx, i18n.Success),
 		},
 		Data: types.RoleInfo{
-			BaseInfo: types.BaseInfo{
+			BaseIDInfo: types.BaseIDInfo{
 				Id:        data.Id,
 				CreatedAt: data.CreatedAt,
 				UpdatedAt: data.UpdatedAt,

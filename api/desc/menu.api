@@ -3,7 +3,7 @@ import "base.api"
 type (
     // The response data of menu information | 菜单信息
     MenuInfo {
-        BaseInfo
+        BaseIDInfo
 
         // Translated Name | 国际化展示名称
         Trans string `json:"trans,optional"`

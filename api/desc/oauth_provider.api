@@ -5,7 +5,7 @@ import(
 type (
     // The response data of oauth provider information | 第三方信息
     OauthProviderInfo {
-        BaseInfo
+        BaseIDInfo
 
         // Provider name | 第三方提供商名称
         Name  string `json:"name,optional"`

@@ -38,7 +38,7 @@ func (l *GetApiByIdLogic) GetApiById(req *types.IDReq) (resp *types.ApiInfoResp,
 			Msg:  l.svcCtx.Trans.Trans(l.ctx, i18n.Success),
 		},
 		Data: types.ApiInfo{
-			BaseInfo:    types.BaseInfo{Id: data.Id, CreatedAt: data.CreatedAt, UpdatedAt: data.UpdatedAt},
+			BaseIDInfo:  types.BaseIDInfo{Id: data.Id, CreatedAt: data.CreatedAt, UpdatedAt: data.UpdatedAt},
 			Trans:       l.svcCtx.Trans.Trans(l.ctx, data.Description),
 			Path:        data.Path,
 			Description: data.Description,

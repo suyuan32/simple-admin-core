@@ -43,7 +43,7 @@ func (l *GetDictionaryListLogic) GetDictionaryList(req *types.DictionaryListReq)
 	for _, v := range data.Data {
 		resp.Data.Data = append(resp.Data.Data,
 			types.DictionaryInfo{
-				BaseInfo: types.BaseInfo{
+				BaseIDInfo: types.BaseIDInfo{
 					Id:        v.Id,
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,

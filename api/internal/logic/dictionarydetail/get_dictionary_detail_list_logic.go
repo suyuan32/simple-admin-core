@@ -44,7 +44,7 @@ func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(req *types.Dictio
 	for _, v := range data.Data {
 		resp.Data.Data = append(resp.Data.Data,
 			types.DictionaryDetailInfo{
-				BaseInfo: types.BaseInfo{
+				BaseIDInfo: types.BaseIDInfo{
 					Id:        v.Id,
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,
