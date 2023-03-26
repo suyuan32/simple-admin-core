@@ -24,7 +24,7 @@ func (API) Fields() []ent.Field {
 
 func (API) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		mixins.BaseMixin{},
+		mixins.BaseIDMixin{},
 	}
 }
 

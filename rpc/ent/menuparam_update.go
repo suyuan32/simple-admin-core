@@ -168,10 +168,7 @@ func (mpu *MenuParamUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{menuparam.MenusColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: menu.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(menu.FieldID, field.TypeUint64),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -184,10 +181,7 @@ func (mpu *MenuParamUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{menuparam.MenusColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: menu.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(menu.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -384,10 +378,7 @@ func (mpuo *MenuParamUpdateOne) sqlSave(ctx context.Context) (_node *MenuParam, 
 			Columns: []string{menuparam.MenusColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: menu.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(menu.FieldID, field.TypeUint64),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -400,10 +391,7 @@ func (mpuo *MenuParamUpdateOne) sqlSave(ctx context.Context) (_node *MenuParam, 
 			Columns: []string{menuparam.MenusColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: menu.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(menu.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {

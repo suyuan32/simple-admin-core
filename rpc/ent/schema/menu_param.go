@@ -25,7 +25,7 @@ func (MenuParam) Fields() []ent.Field {
 
 func (MenuParam) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		mixins.BaseMixin{},
+		mixins.BaseIDMixin{},
 	}
 }
 

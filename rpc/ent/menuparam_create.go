@@ -228,10 +228,7 @@ func (mpc *MenuParamCreate) createSpec() (*MenuParam, *sqlgraph.CreateSpec) {
 			Columns: []string{menuparam.MenusColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: menu.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(menu.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {

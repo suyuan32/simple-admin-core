@@ -195,10 +195,7 @@ func (du *DictionaryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: dictionarydetail.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -211,10 +208,7 @@ func (du *DictionaryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: dictionarydetail.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -230,10 +224,7 @@ func (du *DictionaryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: dictionarydetail.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -457,10 +448,7 @@ func (duo *DictionaryUpdateOne) sqlSave(ctx context.Context) (_node *Dictionary,
 			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: dictionarydetail.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -473,10 +461,7 @@ func (duo *DictionaryUpdateOne) sqlSave(ctx context.Context) (_node *Dictionary,
 			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: dictionarydetail.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -492,10 +477,7 @@ func (duo *DictionaryUpdateOne) sqlSave(ctx context.Context) (_node *Dictionary,
 			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: dictionarydetail.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {

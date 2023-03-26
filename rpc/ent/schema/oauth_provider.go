@@ -29,7 +29,7 @@ func (OauthProvider) Fields() []ent.Field {
 
 func (OauthProvider) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		mixins.BaseMixin{},
+		mixins.BaseIDMixin{},
 	}
 }
 

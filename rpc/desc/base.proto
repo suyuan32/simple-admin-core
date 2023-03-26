@@ -49,7 +49,4 @@ message BaseUUIDResp {
 service Core {
   // group: base
   rpc initDatabase (Empty) returns (BaseResp);
-
-  // group: base
-  rpc initJobDatabase (Empty) returns (BaseResp);
 }

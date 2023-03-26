@@ -403,10 +403,7 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: []string{user.DepartmentsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: department.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -423,10 +420,7 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.PositionsPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: position.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(position.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -442,10 +436,7 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Columns: user.RolesPrimaryKey,
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: role.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(role.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {

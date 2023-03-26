@@ -232,10 +232,7 @@ func (dc *DictionaryCreate) createSpec() (*Dictionary, *sqlgraph.CreateSpec) {
 			Columns: []string{dictionary.DictionaryDetailsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: dictionarydetail.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {

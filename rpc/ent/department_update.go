@@ -317,10 +317,7 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{department.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: department.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -333,10 +330,7 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{department.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: department.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -352,10 +346,7 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{department.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: department.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -368,10 +359,7 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{department.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: department.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -387,10 +375,7 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{department.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: department.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -406,10 +391,7 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{department.UsersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUUID,
-					Column: user.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -422,10 +404,7 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{department.UsersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUUID,
-					Column: user.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID),
 			},
 		}
 		for _, k := range nodes {
@@ -441,10 +420,7 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{department.UsersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUUID,
-					Column: user.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID),
 			},
 		}
 		for _, k := range nodes {
@@ -789,10 +765,7 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 			Columns: []string{department.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: department.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -805,10 +778,7 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 			Columns: []string{department.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: department.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -824,10 +794,7 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 			Columns: []string{department.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: department.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -840,10 +807,7 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 			Columns: []string{department.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: department.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -859,10 +823,7 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 			Columns: []string{department.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUint64,
-					Column: department.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {
@@ -878,10 +839,7 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 			Columns: []string{department.UsersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUUID,
-					Column: user.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -894,10 +852,7 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 			Columns: []string{department.UsersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUUID,
-					Column: user.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID),
 			},
 		}
 		for _, k := range nodes {
@@ -913,10 +868,7 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 			Columns: []string{department.UsersColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeUUID,
-					Column: user.FieldID,
-				},
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID),
 			},
 		}
 		for _, k := range nodes {

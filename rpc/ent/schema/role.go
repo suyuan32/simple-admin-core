@@ -27,7 +27,7 @@ func (Role) Fields() []ent.Field {
 
 func (Role) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		mixins.BaseMixin{},
+		mixins.BaseIDMixin{},
 		mixins.StatusMixin{},
 	}
 }
