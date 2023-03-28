@@ -32,4 +32,4 @@ COPY --from=builder /home/rpc/${PROJECT}_rpc ./
 COPY --from=builder /home/rpc/etc/${CONFIG_FILE} ./etc/
 
 EXPOSE 9100
-ENTRYPOINT ./core_rpc -f etc/${CONFIG_FILE}
+ENTRYPOINT ./${PROJECT}_rpc -f etc/${CONFIG_FILE}

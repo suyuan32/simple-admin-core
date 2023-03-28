@@ -32,4 +32,4 @@ COPY --from=builder /home/api/${PROJECT}_api ./
 COPY --from=builder /home/api/etc/${CONFIG_FILE} ./etc/
 
 EXPOSE 9100
-ENTRYPOINT ./core_api -f etc/${CONFIG_FILE}
+ENTRYPOINT ./${PROJECT}_api -f etc/${CONFIG_FILE}
