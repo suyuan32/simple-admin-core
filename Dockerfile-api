@@ -26,6 +26,7 @@ ARG AUTHOR=RyanSU@yuansu.china.work@gmail.com
 LABEL MAINTAINER=${AUTHOR}
 
 WORKDIR /home
+ENV PROJECT=${PROJECT}
 ENV CONFIG_FILE=${CONFIG_FILE}
 
 COPY --from=builder /home/api/${PROJECT}_api ./
