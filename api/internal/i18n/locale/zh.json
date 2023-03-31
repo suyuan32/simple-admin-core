@@ -131,8 +131,8 @@
 		"createTaskLog": "创建任务日志",
 		"updateTaskLog": "更新任务日志",
 		"deleteTaskLog": "删除任务日志",
-		"getTaskListLog": "获取任务日志列表",
-		"getTaskByIdLog": "通过ID获取任务日志"
+		"getTaskLogList": "获取任务日志列表",
+		"getTaskLogById": "通过ID获取任务日志"
 	},
 	"route": {
 		"dashboard": "控制台",
