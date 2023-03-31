@@ -1068,52 +1068,6 @@ type DictionaryDetailInfoResp struct {
 	Data DictionaryDetailInfo `json:"data"`
 }
 
-// The response data of menu param information | 菜单参数信息
-// swagger:model MenuParamInfo
-type MenuParamInfo struct {
-	BaseIDInfo
-	// Type | 参数类型
-	Type string `json:"type,optional"`
-	// Key | 参数键
-	Key string `json:"key,optional"`
-	// Value | 参数值
-	Value string `json:"value,optional"`
-	// Parent menu ID | 父级菜单ID
-	MenuId uint64 `json:"menuId,optional"`
-}
-
-// The response data of menu param list | 菜单参数列表数据
-// swagger:model MenuParamListResp
-type MenuParamListResp struct {
-	BaseDataInfo
-	// MenuParam list data | 菜单参数列表数据
-	Data MenuParamListInfo `json:"data"`
-}
-
-// MenuParam list data | 菜单参数列表数据
-// swagger:model MenuParamListInfo
-type MenuParamListInfo struct {
-	BaseListInfo
-	// The API list data | 菜单参数列表数据
-	Data []MenuParamInfo `json:"data"`
-}
-
-// Get menu param list request params | 菜单参数列表请求参数
-// swagger:model MenuParamListReq
-type MenuParamListReq struct {
-	PageInfo
-	// Menu ID | 菜单ID
-	MenuId uint64 `json:"menuId"`
-}
-
-// MenuParam information response | 菜单参数信息返回体
-// swagger:model MenuParamInfoResp
-type MenuParamInfoResp struct {
-	BaseDataInfo
-	// MenuParam information | MenuParam数据
-	Data MenuParamInfo `json:"data"`
-}
-
 // The response data of task information | 定时任务信息
 // swagger:model TaskInfo
 type TaskInfo struct {

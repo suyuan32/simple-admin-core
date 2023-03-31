@@ -1261,33 +1261,6 @@ func HasChildrenWith(preds ...predicate.Menu) predicate.Menu {
 	})
 }
 
-// HasParams applies the HasEdge predicate on the "params" edge.
-func HasParams() predicate.Menu {
-	return predicate.Menu(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, ParamsTable, ParamsColumn),
-		)
-		sqlgraph.HasNeighbors(s, step)
-	})
-}
-
-// HasParamsWith applies the HasEdge predicate on the "params" edge with a given conditions (other predicates).
-func HasParamsWith(preds ...predicate.MenuParam) predicate.Menu {
-	return predicate.Menu(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(ParamsInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, ParamsTable, ParamsColumn),
-		)
-		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
-			for _, p := range preds {
-				p(s)
-			}
-		})
-	})
-}
-
 // And groups predicates with the AND operator between them.
 func And(predicates ...predicate.Menu) predicate.Menu {
 	return predicate.Menu(func(s *sql.Selector) {

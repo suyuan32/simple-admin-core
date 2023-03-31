@@ -144,30 +144,6 @@ var (
 			},
 		},
 	}
-	// SysMenuParamsColumns holds the columns for the "sys_menu_params" table.
-	SysMenuParamsColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUint64, Increment: true},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "type", Type: field.TypeString},
-		{Name: "key", Type: field.TypeString},
-		{Name: "value", Type: field.TypeString},
-		{Name: "menu_id", Type: field.TypeUint64, Nullable: true},
-	}
-	// SysMenuParamsTable holds the schema information for the "sys_menu_params" table.
-	SysMenuParamsTable = &schema.Table{
-		Name:       "sys_menu_params",
-		Columns:    SysMenuParamsColumns,
-		PrimaryKey: []*schema.Column{SysMenuParamsColumns[0]},
-		ForeignKeys: []*schema.ForeignKey{
-			{
-				Symbol:     "sys_menu_params_sys_menus_params",
-				Columns:    []*schema.Column{SysMenuParamsColumns[6]},
-				RefColumns: []*schema.Column{SysMenusColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-		},
-	}
 	// SysOauthProvidersColumns holds the columns for the "sys_oauth_providers" table.
 	SysOauthProvidersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -386,7 +362,6 @@ var (
 		SysDictionariesTable,
 		SysDictionaryDetailsTable,
 		SysMenusTable,
-		SysMenuParamsTable,
 		SysOauthProvidersTable,
 		SysPositionsTable,
 		SysRolesTable,
@@ -416,10 +391,6 @@ func init() {
 	SysMenusTable.ForeignKeys[0].RefTable = SysMenusTable
 	SysMenusTable.Annotation = &entsql.Annotation{
 		Table: "sys_menus",
-	}
-	SysMenuParamsTable.ForeignKeys[0].RefTable = SysMenusTable
-	SysMenuParamsTable.Annotation = &entsql.Annotation{
-		Table: "sys_menu_params",
 	}
 	SysOauthProvidersTable.Annotation = &entsql.Annotation{
 		Table: "sys_oauth_providers",

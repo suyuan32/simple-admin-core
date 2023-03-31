@@ -63,8 +63,6 @@ const (
 	EdgeParent = "parent"
 	// EdgeChildren holds the string denoting the children edge name in mutations.
 	EdgeChildren = "children"
-	// EdgeParams holds the string denoting the params edge name in mutations.
-	EdgeParams = "params"
 	// Table holds the table name of the menu in the database.
 	Table = "sys_menus"
 	// RolesTable is the table that holds the roles relation/edge. The primary key declared below.
@@ -80,13 +78,6 @@ const (
 	ChildrenTable = "sys_menus"
 	// ChildrenColumn is the table column denoting the children relation/edge.
 	ChildrenColumn = "parent_id"
-	// ParamsTable is the table that holds the params relation/edge.
-	ParamsTable = "sys_menu_params"
-	// ParamsInverseTable is the table name for the MenuParam entity.
-	// It exists in this package in order to avoid circular dependency with the "menuparam" package.
-	ParamsInverseTable = "sys_menu_params"
-	// ParamsColumn is the table column denoting the params relation/edge.
-	ParamsColumn = "menu_id"
 )
 
 // Columns holds all SQL columns for menu fields.

@@ -69,18 +69,6 @@ func (f MenuFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MenuMutation", m)
 }
 
-// The MenuParamFunc type is an adapter to allow the use of ordinary
-// function as MenuParam mutator.
-type MenuParamFunc func(context.Context, *ent.MenuParamMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f MenuParamFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.MenuParamMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MenuParamMutation", m)
-}
-
 // The OauthProviderFunc type is an adapter to allow the use of ordinary
 // function as OauthProvider mutator.
 type OauthProviderFunc func(context.Context, *ent.OauthProviderMutation) (ent.Value, error)

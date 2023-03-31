@@ -7,9 +7,6 @@ import (
 
 	"github.com/suyuan32/simple-admin-common/i18n"
 
-	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/entx"
-
-	"github.com/suyuan32/simple-admin-core/rpc/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -45,21 +42,7 @@ func (l *DeleteMenuLogic) DeleteMenu(in *core.IDReq) (*core.BaseResp, error) {
 		return nil, errorx.NewInvalidArgumentError("menu.deleteChildrenDesc")
 	}
 
-	err = entx.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
-		err = l.svcCtx.DB.Menu.Update().ClearParams().Exec(l.ctx)
-
-		if err != nil {
-			return err
-		}
-
-		err = l.svcCtx.DB.Menu.DeleteOneID(in.Id).Exec(l.ctx)
-
-		if err != nil {
-			return err
-		}
-
-		return nil
-	})
+	err = l.svcCtx.DB.Menu.DeleteOneID(in.Id).Exec(l.ctx)
 
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)

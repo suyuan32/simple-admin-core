@@ -11,7 +11,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
@@ -452,85 +451,6 @@ func (m *MenuQuery) Page(
 
 	m = m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
 	list, err := m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type MenuParamPager struct {
-	Order  OrderFunc
-	Filter func(*MenuParamQuery) (*MenuParamQuery, error)
-}
-
-// MenuParamPaginateOption enables pagination customization.
-type MenuParamPaginateOption func(*MenuParamPager)
-
-// DefaultMenuParamOrder is the default ordering of MenuParam.
-var DefaultMenuParamOrder = Desc(menuparam.FieldID)
-
-func newMenuParamPager(opts []MenuParamPaginateOption) (*MenuParamPager, error) {
-	pager := &MenuParamPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultMenuParamOrder
-	}
-	return pager, nil
-}
-
-func (p *MenuParamPager) ApplyFilter(query *MenuParamQuery) (*MenuParamQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// MenuParamPageList is MenuParam PageList result.
-type MenuParamPageList struct {
-	List        []*MenuParam `json:"list"`
-	PageDetails *PageDetails `json:"pageDetails"`
-}
-
-func (mp *MenuParamQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...MenuParamPaginateOption,
-) (*MenuParamPageList, error) {
-
-	pager, err := newMenuParamPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if mp, err = pager.ApplyFilter(mp); err != nil {
-		return nil, err
-	}
-
-	ret := &MenuParamPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	count, err := mp.Clone().Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		mp = mp.Order(pager.Order)
-	} else {
-		mp = mp.Order(DefaultMenuParamOrder)
-	}
-
-	mp = mp.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := mp.All(ctx)
 	if err != nil {
 		return nil, err
 	}

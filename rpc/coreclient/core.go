@@ -35,9 +35,6 @@ type (
 	IDsReq                   = core.IDsReq
 	MenuInfo                 = core.MenuInfo
 	MenuInfoList             = core.MenuInfoList
-	MenuParamInfo            = core.MenuParamInfo
-	MenuParamListReq         = core.MenuParamListReq
-	MenuParamListResp        = core.MenuParamListResp
 	MenuRoleInfo             = core.MenuRoleInfo
 	MenuRoleListResp         = core.MenuRoleListResp
 	Meta                     = core.Meta
@@ -98,12 +95,6 @@ type (
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetMenuListByRole(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*MenuInfoList, error)
 		GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
-		// MenuParam management
-		CreateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
-		UpdateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseResp, error)
-		GetMenuParamList(ctx context.Context, in *MenuParamListReq, opts ...grpc.CallOption) (*MenuParamListResp, error)
-		GetMenuParamById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamInfo, error)
-		DeleteMenuParam(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// OauthProvider management
 		CreateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -293,32 +284,6 @@ func (m *defaultCore) GetMenuListByRole(ctx context.Context, in *BaseMsg, opts .
 func (m *defaultCore) GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.GetMenuList(ctx, in, opts...)
-}
-
-// MenuParam management
-func (m *defaultCore) CreateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.CreateMenuParam(ctx, in, opts...)
-}
-
-func (m *defaultCore) UpdateMenuParam(ctx context.Context, in *MenuParamInfo, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.UpdateMenuParam(ctx, in, opts...)
-}
-
-func (m *defaultCore) GetMenuParamList(ctx context.Context, in *MenuParamListReq, opts ...grpc.CallOption) (*MenuParamListResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.GetMenuParamList(ctx, in, opts...)
-}
-
-func (m *defaultCore) GetMenuParamById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*MenuParamInfo, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.GetMenuParamById(ctx, in, opts...)
-}
-
-func (m *defaultCore) DeleteMenuParam(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	client := core.NewCoreClient(m.cli.Conn())
-	return client.DeleteMenuParam(ctx, in, opts...)
 }
 
 // OauthProvider management

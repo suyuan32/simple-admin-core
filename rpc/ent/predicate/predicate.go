@@ -21,9 +21,6 @@ type DictionaryDetail func(*sql.Selector)
 // Menu is the predicate function for menu builders.
 type Menu func(*sql.Selector)
 
-// MenuParam is the predicate function for menuparam builders.
-type MenuParam func(*sql.Selector)
-
 // OauthProvider is the predicate function for oauthprovider builders.
 type OauthProvider func(*sql.Selector)
 

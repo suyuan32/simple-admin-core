@@ -20,7 +20,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
@@ -43,8 +42,6 @@ type Client struct {
 	DictionaryDetail *DictionaryDetailClient
 	// Menu is the client for interacting with the Menu builders.
 	Menu *MenuClient
-	// MenuParam is the client for interacting with the MenuParam builders.
-	MenuParam *MenuParamClient
 	// OauthProvider is the client for interacting with the OauthProvider builders.
 	OauthProvider *OauthProviderClient
 	// Position is the client for interacting with the Position builders.
@@ -73,7 +70,6 @@ func (c *Client) init() {
 	c.Dictionary = NewDictionaryClient(c.config)
 	c.DictionaryDetail = NewDictionaryDetailClient(c.config)
 	c.Menu = NewMenuClient(c.config)
-	c.MenuParam = NewMenuParamClient(c.config)
 	c.OauthProvider = NewOauthProviderClient(c.config)
 	c.Position = NewPositionClient(c.config)
 	c.Role = NewRoleClient(c.config)
@@ -166,7 +162,6 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Dictionary:       NewDictionaryClient(cfg),
 		DictionaryDetail: NewDictionaryDetailClient(cfg),
 		Menu:             NewMenuClient(cfg),
-		MenuParam:        NewMenuParamClient(cfg),
 		OauthProvider:    NewOauthProviderClient(cfg),
 		Position:         NewPositionClient(cfg),
 		Role:             NewRoleClient(cfg),
@@ -196,7 +191,6 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Dictionary:       NewDictionaryClient(cfg),
 		DictionaryDetail: NewDictionaryDetailClient(cfg),
 		Menu:             NewMenuClient(cfg),
-		MenuParam:        NewMenuParamClient(cfg),
 		OauthProvider:    NewOauthProviderClient(cfg),
 		Position:         NewPositionClient(cfg),
 		Role:             NewRoleClient(cfg),
@@ -231,8 +225,8 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
-		c.API, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu, c.MenuParam,
-		c.OauthProvider, c.Position, c.Role, c.Token, c.User,
+		c.API, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu, c.OauthProvider,
+		c.Position, c.Role, c.Token, c.User,
 	} {
 		n.Use(hooks...)
 	}
@@ -242,8 +236,8 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.API, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu, c.MenuParam,
-		c.OauthProvider, c.Position, c.Role, c.Token, c.User,
+		c.API, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu, c.OauthProvider,
+		c.Position, c.Role, c.Token, c.User,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -262,8 +256,6 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.DictionaryDetail.mutate(ctx, m)
 	case *MenuMutation:
 		return c.Menu.mutate(ctx, m)
-	case *MenuParamMutation:
-		return c.MenuParam.mutate(ctx, m)
 	case *OauthProviderMutation:
 		return c.OauthProvider.mutate(ctx, m)
 	case *PositionMutation:
@@ -972,22 +964,6 @@ func (c *MenuClient) QueryChildren(m *Menu) *MenuQuery {
 	return query
 }
 
-// QueryParams queries the params edge of a Menu.
-func (c *MenuClient) QueryParams(m *Menu) *MenuParamQuery {
-	query := (&MenuParamClient{config: c.config}).Query()
-	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := m.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(menu.Table, menu.FieldID, id),
-			sqlgraph.To(menuparam.Table, menuparam.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, menu.ParamsTable, menu.ParamsColumn),
-		)
-		fromV = sqlgraph.Neighbors(m.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
 // Hooks returns the client hooks.
 func (c *MenuClient) Hooks() []Hook {
 	return c.hooks.Menu
@@ -1010,140 +986,6 @@ func (c *MenuClient) mutate(ctx context.Context, m *MenuMutation) (Value, error)
 		return (&MenuDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
 		return nil, fmt.Errorf("ent: unknown Menu mutation op: %q", m.Op())
-	}
-}
-
-// MenuParamClient is a client for the MenuParam schema.
-type MenuParamClient struct {
-	config
-}
-
-// NewMenuParamClient returns a client for the MenuParam from the given config.
-func NewMenuParamClient(c config) *MenuParamClient {
-	return &MenuParamClient{config: c}
-}
-
-// Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `menuparam.Hooks(f(g(h())))`.
-func (c *MenuParamClient) Use(hooks ...Hook) {
-	c.hooks.MenuParam = append(c.hooks.MenuParam, hooks...)
-}
-
-// Intercept adds a list of query interceptors to the interceptors stack.
-// A call to `Intercept(f, g, h)` equals to `menuparam.Intercept(f(g(h())))`.
-func (c *MenuParamClient) Intercept(interceptors ...Interceptor) {
-	c.inters.MenuParam = append(c.inters.MenuParam, interceptors...)
-}
-
-// Create returns a builder for creating a MenuParam entity.
-func (c *MenuParamClient) Create() *MenuParamCreate {
-	mutation := newMenuParamMutation(c.config, OpCreate)
-	return &MenuParamCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// CreateBulk returns a builder for creating a bulk of MenuParam entities.
-func (c *MenuParamClient) CreateBulk(builders ...*MenuParamCreate) *MenuParamCreateBulk {
-	return &MenuParamCreateBulk{config: c.config, builders: builders}
-}
-
-// Update returns an update builder for MenuParam.
-func (c *MenuParamClient) Update() *MenuParamUpdate {
-	mutation := newMenuParamMutation(c.config, OpUpdate)
-	return &MenuParamUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOne returns an update builder for the given entity.
-func (c *MenuParamClient) UpdateOne(mp *MenuParam) *MenuParamUpdateOne {
-	mutation := newMenuParamMutation(c.config, OpUpdateOne, withMenuParam(mp))
-	return &MenuParamUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOneID returns an update builder for the given id.
-func (c *MenuParamClient) UpdateOneID(id uint64) *MenuParamUpdateOne {
-	mutation := newMenuParamMutation(c.config, OpUpdateOne, withMenuParamID(id))
-	return &MenuParamUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// Delete returns a delete builder for MenuParam.
-func (c *MenuParamClient) Delete() *MenuParamDelete {
-	mutation := newMenuParamMutation(c.config, OpDelete)
-	return &MenuParamDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// DeleteOne returns a builder for deleting the given entity.
-func (c *MenuParamClient) DeleteOne(mp *MenuParam) *MenuParamDeleteOne {
-	return c.DeleteOneID(mp.ID)
-}
-
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *MenuParamClient) DeleteOneID(id uint64) *MenuParamDeleteOne {
-	builder := c.Delete().Where(menuparam.ID(id))
-	builder.mutation.id = &id
-	builder.mutation.op = OpDeleteOne
-	return &MenuParamDeleteOne{builder}
-}
-
-// Query returns a query builder for MenuParam.
-func (c *MenuParamClient) Query() *MenuParamQuery {
-	return &MenuParamQuery{
-		config: c.config,
-		ctx:    &QueryContext{Type: TypeMenuParam},
-		inters: c.Interceptors(),
-	}
-}
-
-// Get returns a MenuParam entity by its id.
-func (c *MenuParamClient) Get(ctx context.Context, id uint64) (*MenuParam, error) {
-	return c.Query().Where(menuparam.ID(id)).Only(ctx)
-}
-
-// GetX is like Get, but panics if an error occurs.
-func (c *MenuParamClient) GetX(ctx context.Context, id uint64) *MenuParam {
-	obj, err := c.Get(ctx, id)
-	if err != nil {
-		panic(err)
-	}
-	return obj
-}
-
-// QueryMenus queries the menus edge of a MenuParam.
-func (c *MenuParamClient) QueryMenus(mp *MenuParam) *MenuQuery {
-	query := (&MenuClient{config: c.config}).Query()
-	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := mp.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(menuparam.Table, menuparam.FieldID, id),
-			sqlgraph.To(menu.Table, menu.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, menuparam.MenusTable, menuparam.MenusColumn),
-		)
-		fromV = sqlgraph.Neighbors(mp.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
-// Hooks returns the client hooks.
-func (c *MenuParamClient) Hooks() []Hook {
-	return c.hooks.MenuParam
-}
-
-// Interceptors returns the client interceptors.
-func (c *MenuParamClient) Interceptors() []Interceptor {
-	return c.inters.MenuParam
-}
-
-func (c *MenuParamClient) mutate(ctx context.Context, m *MenuParamMutation) (Value, error) {
-	switch m.Op() {
-	case OpCreate:
-		return (&MenuParamCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpUpdate:
-		return (&MenuParamUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpUpdateOne:
-		return (&MenuParamUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpDelete, OpDeleteOne:
-		return (&MenuParamDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
-	default:
-		return nil, fmt.Errorf("ent: unknown MenuParam mutation op: %q", m.Op())
 	}
 }
 
@@ -1836,11 +1678,11 @@ func (c *UserClient) mutate(ctx context.Context, m *UserMutation) (Value, error)
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		API, Department, Dictionary, DictionaryDetail, Menu, MenuParam, OauthProvider,
-		Position, Role, Token, User []ent.Hook
+		API, Department, Dictionary, DictionaryDetail, Menu, OauthProvider, Position,
+		Role, Token, User []ent.Hook
 	}
 	inters struct {
-		API, Department, Dictionary, DictionaryDetail, Menu, MenuParam, OauthProvider,
-		Position, Role, Token, User []ent.Interceptor
+		API, Department, Dictionary, DictionaryDetail, Menu, OauthProvider, Position,
+		Role, Token, User []ent.Interceptor
 	}
 )

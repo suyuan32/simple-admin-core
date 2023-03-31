@@ -17,7 +17,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
@@ -40,7 +39,6 @@ const (
 	TypeDictionary       = "Dictionary"
 	TypeDictionaryDetail = "DictionaryDetail"
 	TypeMenu             = "Menu"
-	TypeMenuParam        = "MenuParam"
 	TypeOauthProvider    = "OauthProvider"
 	TypePosition         = "Position"
 	TypeRole             = "Role"
@@ -3536,9 +3534,6 @@ type MenuMutation struct {
 	children              map[uint64]struct{}
 	removedchildren       map[uint64]struct{}
 	clearedchildren       bool
-	params                map[uint64]struct{}
-	removedparams         map[uint64]struct{}
-	clearedparams         bool
 	done                  bool
 	oldValue              func(context.Context) (*Menu, error)
 	predicates            []predicate.Menu
@@ -4886,60 +4881,6 @@ func (m *MenuMutation) ResetChildren() {
 	m.removedchildren = nil
 }
 
-// AddParamIDs adds the "params" edge to the MenuParam entity by ids.
-func (m *MenuMutation) AddParamIDs(ids ...uint64) {
-	if m.params == nil {
-		m.params = make(map[uint64]struct{})
-	}
-	for i := range ids {
-		m.params[ids[i]] = struct{}{}
-	}
-}
-
-// ClearParams clears the "params" edge to the MenuParam entity.
-func (m *MenuMutation) ClearParams() {
-	m.clearedparams = true
-}
-
-// ParamsCleared reports if the "params" edge to the MenuParam entity was cleared.
-func (m *MenuMutation) ParamsCleared() bool {
-	return m.clearedparams
-}
-
-// RemoveParamIDs removes the "params" edge to the MenuParam entity by IDs.
-func (m *MenuMutation) RemoveParamIDs(ids ...uint64) {
-	if m.removedparams == nil {
-		m.removedparams = make(map[uint64]struct{})
-	}
-	for i := range ids {
-		delete(m.params, ids[i])
-		m.removedparams[ids[i]] = struct{}{}
-	}
-}
-
-// RemovedParams returns the removed IDs of the "params" edge to the MenuParam entity.
-func (m *MenuMutation) RemovedParamsIDs() (ids []uint64) {
-	for id := range m.removedparams {
-		ids = append(ids, id)
-	}
-	return
-}
-
-// ParamsIDs returns the "params" edge IDs in the mutation.
-func (m *MenuMutation) ParamsIDs() (ids []uint64) {
-	for id := range m.params {
-		ids = append(ids, id)
-	}
-	return
-}
-
-// ResetParams resets all changes to the "params" edge.
-func (m *MenuMutation) ResetParams() {
-	m.params = nil
-	m.clearedparams = false
-	m.removedparams = nil
-}
-
 // Where appends a list predicates to the MenuMutation builder.
 func (m *MenuMutation) Where(ps ...predicate.Menu) {
 	m.predicates = append(m.predicates, ps...)
@@ -5591,7 +5532,7 @@ func (m *MenuMutation) ResetField(name string) error {
 
 // AddedEdges returns all edge names that were set/added in this mutation.
 func (m *MenuMutation) AddedEdges() []string {
-	edges := make([]string, 0, 4)
+	edges := make([]string, 0, 3)
 	if m.roles != nil {
 		edges = append(edges, menu.EdgeRoles)
 	}
@@ -5600,9 +5541,6 @@ func (m *MenuMutation) AddedEdges() []string {
 	}
 	if m.children != nil {
 		edges = append(edges, menu.EdgeChildren)
-	}
-	if m.params != nil {
-		edges = append(edges, menu.EdgeParams)
 	}
 	return edges
 }
@@ -5627,27 +5565,18 @@ func (m *MenuMutation) AddedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
-	case menu.EdgeParams:
-		ids := make([]ent.Value, 0, len(m.params))
-		for id := range m.params {
-			ids = append(ids, id)
-		}
-		return ids
 	}
 	return nil
 }
 
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *MenuMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 4)
+	edges := make([]string, 0, 3)
 	if m.removedroles != nil {
 		edges = append(edges, menu.EdgeRoles)
 	}
 	if m.removedchildren != nil {
 		edges = append(edges, menu.EdgeChildren)
-	}
-	if m.removedparams != nil {
-		edges = append(edges, menu.EdgeParams)
 	}
 	return edges
 }
@@ -5668,19 +5597,13 @@ func (m *MenuMutation) RemovedIDs(name string) []ent.Value {
 			ids = append(ids, id)
 		}
 		return ids
-	case menu.EdgeParams:
-		ids := make([]ent.Value, 0, len(m.removedparams))
-		for id := range m.removedparams {
-			ids = append(ids, id)
-		}
-		return ids
 	}
 	return nil
 }
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
 func (m *MenuMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 4)
+	edges := make([]string, 0, 3)
 	if m.clearedroles {
 		edges = append(edges, menu.EdgeRoles)
 	}
@@ -5689,9 +5612,6 @@ func (m *MenuMutation) ClearedEdges() []string {
 	}
 	if m.clearedchildren {
 		edges = append(edges, menu.EdgeChildren)
-	}
-	if m.clearedparams {
-		edges = append(edges, menu.EdgeParams)
 	}
 	return edges
 }
@@ -5706,8 +5626,6 @@ func (m *MenuMutation) EdgeCleared(name string) bool {
 		return m.clearedparent
 	case menu.EdgeChildren:
 		return m.clearedchildren
-	case menu.EdgeParams:
-		return m.clearedparams
 	}
 	return false
 }
@@ -5736,704 +5654,8 @@ func (m *MenuMutation) ResetEdge(name string) error {
 	case menu.EdgeChildren:
 		m.ResetChildren()
 		return nil
-	case menu.EdgeParams:
-		m.ResetParams()
-		return nil
 	}
 	return fmt.Errorf("unknown Menu edge %s", name)
-}
-
-// MenuParamMutation represents an operation that mutates the MenuParam nodes in the graph.
-type MenuParamMutation struct {
-	config
-	op            Op
-	typ           string
-	id            *uint64
-	created_at    *time.Time
-	updated_at    *time.Time
-	_type         *string
-	key           *string
-	value         *string
-	clearedFields map[string]struct{}
-	menus         *uint64
-	clearedmenus  bool
-	done          bool
-	oldValue      func(context.Context) (*MenuParam, error)
-	predicates    []predicate.MenuParam
-}
-
-var _ ent.Mutation = (*MenuParamMutation)(nil)
-
-// menuparamOption allows management of the mutation configuration using functional options.
-type menuparamOption func(*MenuParamMutation)
-
-// newMenuParamMutation creates new mutation for the MenuParam entity.
-func newMenuParamMutation(c config, op Op, opts ...menuparamOption) *MenuParamMutation {
-	m := &MenuParamMutation{
-		config:        c,
-		op:            op,
-		typ:           TypeMenuParam,
-		clearedFields: make(map[string]struct{}),
-	}
-	for _, opt := range opts {
-		opt(m)
-	}
-	return m
-}
-
-// withMenuParamID sets the ID field of the mutation.
-func withMenuParamID(id uint64) menuparamOption {
-	return func(m *MenuParamMutation) {
-		var (
-			err   error
-			once  sync.Once
-			value *MenuParam
-		)
-		m.oldValue = func(ctx context.Context) (*MenuParam, error) {
-			once.Do(func() {
-				if m.done {
-					err = errors.New("querying old values post mutation is not allowed")
-				} else {
-					value, err = m.Client().MenuParam.Get(ctx, id)
-				}
-			})
-			return value, err
-		}
-		m.id = &id
-	}
-}
-
-// withMenuParam sets the old MenuParam of the mutation.
-func withMenuParam(node *MenuParam) menuparamOption {
-	return func(m *MenuParamMutation) {
-		m.oldValue = func(context.Context) (*MenuParam, error) {
-			return node, nil
-		}
-		m.id = &node.ID
-	}
-}
-
-// Client returns a new `ent.Client` from the mutation. If the mutation was
-// executed in a transaction (ent.Tx), a transactional client is returned.
-func (m MenuParamMutation) Client() *Client {
-	client := &Client{config: m.config}
-	client.init()
-	return client
-}
-
-// Tx returns an `ent.Tx` for mutations that were executed in transactions;
-// it returns an error otherwise.
-func (m MenuParamMutation) Tx() (*Tx, error) {
-	if _, ok := m.driver.(*txDriver); !ok {
-		return nil, errors.New("ent: mutation is not running in a transaction")
-	}
-	tx := &Tx{config: m.config}
-	tx.init()
-	return tx, nil
-}
-
-// SetID sets the value of the id field. Note that this
-// operation is only accepted on creation of MenuParam entities.
-func (m *MenuParamMutation) SetID(id uint64) {
-	m.id = &id
-}
-
-// ID returns the ID value in the mutation. Note that the ID is only available
-// if it was provided to the builder or after it was returned from the database.
-func (m *MenuParamMutation) ID() (id uint64, exists bool) {
-	if m.id == nil {
-		return
-	}
-	return *m.id, true
-}
-
-// IDs queries the database and returns the entity ids that match the mutation's predicate.
-// That means, if the mutation is applied within a transaction with an isolation level such
-// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
-// or updated by the mutation.
-func (m *MenuParamMutation) IDs(ctx context.Context) ([]uint64, error) {
-	switch {
-	case m.op.Is(OpUpdateOne | OpDeleteOne):
-		id, exists := m.ID()
-		if exists {
-			return []uint64{id}, nil
-		}
-		fallthrough
-	case m.op.Is(OpUpdate | OpDelete):
-		return m.Client().MenuParam.Query().Where(m.predicates...).IDs(ctx)
-	default:
-		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
-	}
-}
-
-// SetCreatedAt sets the "created_at" field.
-func (m *MenuParamMutation) SetCreatedAt(t time.Time) {
-	m.created_at = &t
-}
-
-// CreatedAt returns the value of the "created_at" field in the mutation.
-func (m *MenuParamMutation) CreatedAt() (r time.Time, exists bool) {
-	v := m.created_at
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldCreatedAt returns the old "created_at" field's value of the MenuParam entity.
-// If the MenuParam object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *MenuParamMutation) OldCreatedAt(ctx context.Context) (v time.Time, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
-	}
-	return oldValue.CreatedAt, nil
-}
-
-// ResetCreatedAt resets all changes to the "created_at" field.
-func (m *MenuParamMutation) ResetCreatedAt() {
-	m.created_at = nil
-}
-
-// SetUpdatedAt sets the "updated_at" field.
-func (m *MenuParamMutation) SetUpdatedAt(t time.Time) {
-	m.updated_at = &t
-}
-
-// UpdatedAt returns the value of the "updated_at" field in the mutation.
-func (m *MenuParamMutation) UpdatedAt() (r time.Time, exists bool) {
-	v := m.updated_at
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldUpdatedAt returns the old "updated_at" field's value of the MenuParam entity.
-// If the MenuParam object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *MenuParamMutation) OldUpdatedAt(ctx context.Context) (v time.Time, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
-	}
-	return oldValue.UpdatedAt, nil
-}
-
-// ResetUpdatedAt resets all changes to the "updated_at" field.
-func (m *MenuParamMutation) ResetUpdatedAt() {
-	m.updated_at = nil
-}
-
-// SetType sets the "type" field.
-func (m *MenuParamMutation) SetType(s string) {
-	m._type = &s
-}
-
-// GetType returns the value of the "type" field in the mutation.
-func (m *MenuParamMutation) GetType() (r string, exists bool) {
-	v := m._type
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldType returns the old "type" field's value of the MenuParam entity.
-// If the MenuParam object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *MenuParamMutation) OldType(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldType is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldType requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldType: %w", err)
-	}
-	return oldValue.Type, nil
-}
-
-// ResetType resets all changes to the "type" field.
-func (m *MenuParamMutation) ResetType() {
-	m._type = nil
-}
-
-// SetKey sets the "key" field.
-func (m *MenuParamMutation) SetKey(s string) {
-	m.key = &s
-}
-
-// Key returns the value of the "key" field in the mutation.
-func (m *MenuParamMutation) Key() (r string, exists bool) {
-	v := m.key
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldKey returns the old "key" field's value of the MenuParam entity.
-// If the MenuParam object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *MenuParamMutation) OldKey(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldKey is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldKey requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldKey: %w", err)
-	}
-	return oldValue.Key, nil
-}
-
-// ResetKey resets all changes to the "key" field.
-func (m *MenuParamMutation) ResetKey() {
-	m.key = nil
-}
-
-// SetValue sets the "value" field.
-func (m *MenuParamMutation) SetValue(s string) {
-	m.value = &s
-}
-
-// Value returns the value of the "value" field in the mutation.
-func (m *MenuParamMutation) Value() (r string, exists bool) {
-	v := m.value
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldValue returns the old "value" field's value of the MenuParam entity.
-// If the MenuParam object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *MenuParamMutation) OldValue(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldValue is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldValue requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldValue: %w", err)
-	}
-	return oldValue.Value, nil
-}
-
-// ResetValue resets all changes to the "value" field.
-func (m *MenuParamMutation) ResetValue() {
-	m.value = nil
-}
-
-// SetMenuID sets the "menu_id" field.
-func (m *MenuParamMutation) SetMenuID(u uint64) {
-	m.menus = &u
-}
-
-// MenuID returns the value of the "menu_id" field in the mutation.
-func (m *MenuParamMutation) MenuID() (r uint64, exists bool) {
-	v := m.menus
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldMenuID returns the old "menu_id" field's value of the MenuParam entity.
-// If the MenuParam object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *MenuParamMutation) OldMenuID(ctx context.Context) (v uint64, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldMenuID is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldMenuID requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldMenuID: %w", err)
-	}
-	return oldValue.MenuID, nil
-}
-
-// ClearMenuID clears the value of the "menu_id" field.
-func (m *MenuParamMutation) ClearMenuID() {
-	m.menus = nil
-	m.clearedFields[menuparam.FieldMenuID] = struct{}{}
-}
-
-// MenuIDCleared returns if the "menu_id" field was cleared in this mutation.
-func (m *MenuParamMutation) MenuIDCleared() bool {
-	_, ok := m.clearedFields[menuparam.FieldMenuID]
-	return ok
-}
-
-// ResetMenuID resets all changes to the "menu_id" field.
-func (m *MenuParamMutation) ResetMenuID() {
-	m.menus = nil
-	delete(m.clearedFields, menuparam.FieldMenuID)
-}
-
-// SetMenusID sets the "menus" edge to the Menu entity by id.
-func (m *MenuParamMutation) SetMenusID(id uint64) {
-	m.menus = &id
-}
-
-// ClearMenus clears the "menus" edge to the Menu entity.
-func (m *MenuParamMutation) ClearMenus() {
-	m.clearedmenus = true
-}
-
-// MenusCleared reports if the "menus" edge to the Menu entity was cleared.
-func (m *MenuParamMutation) MenusCleared() bool {
-	return m.MenuIDCleared() || m.clearedmenus
-}
-
-// MenusID returns the "menus" edge ID in the mutation.
-func (m *MenuParamMutation) MenusID() (id uint64, exists bool) {
-	if m.menus != nil {
-		return *m.menus, true
-	}
-	return
-}
-
-// MenusIDs returns the "menus" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// MenusID instead. It exists only for internal usage by the builders.
-func (m *MenuParamMutation) MenusIDs() (ids []uint64) {
-	if id := m.menus; id != nil {
-		ids = append(ids, *id)
-	}
-	return
-}
-
-// ResetMenus resets all changes to the "menus" edge.
-func (m *MenuParamMutation) ResetMenus() {
-	m.menus = nil
-	m.clearedmenus = false
-}
-
-// Where appends a list predicates to the MenuParamMutation builder.
-func (m *MenuParamMutation) Where(ps ...predicate.MenuParam) {
-	m.predicates = append(m.predicates, ps...)
-}
-
-// WhereP appends storage-level predicates to the MenuParamMutation builder. Using this method,
-// users can use type-assertion to append predicates that do not depend on any generated package.
-func (m *MenuParamMutation) WhereP(ps ...func(*sql.Selector)) {
-	p := make([]predicate.MenuParam, len(ps))
-	for i := range ps {
-		p[i] = ps[i]
-	}
-	m.Where(p...)
-}
-
-// Op returns the operation name.
-func (m *MenuParamMutation) Op() Op {
-	return m.op
-}
-
-// SetOp allows setting the mutation operation.
-func (m *MenuParamMutation) SetOp(op Op) {
-	m.op = op
-}
-
-// Type returns the node type of this mutation (MenuParam).
-func (m *MenuParamMutation) Type() string {
-	return m.typ
-}
-
-// Fields returns all fields that were changed during this mutation. Note that in
-// order to get all numeric fields that were incremented/decremented, call
-// AddedFields().
-func (m *MenuParamMutation) Fields() []string {
-	fields := make([]string, 0, 6)
-	if m.created_at != nil {
-		fields = append(fields, menuparam.FieldCreatedAt)
-	}
-	if m.updated_at != nil {
-		fields = append(fields, menuparam.FieldUpdatedAt)
-	}
-	if m._type != nil {
-		fields = append(fields, menuparam.FieldType)
-	}
-	if m.key != nil {
-		fields = append(fields, menuparam.FieldKey)
-	}
-	if m.value != nil {
-		fields = append(fields, menuparam.FieldValue)
-	}
-	if m.menus != nil {
-		fields = append(fields, menuparam.FieldMenuID)
-	}
-	return fields
-}
-
-// Field returns the value of a field with the given name. The second boolean
-// return value indicates that this field was not set, or was not defined in the
-// schema.
-func (m *MenuParamMutation) Field(name string) (ent.Value, bool) {
-	switch name {
-	case menuparam.FieldCreatedAt:
-		return m.CreatedAt()
-	case menuparam.FieldUpdatedAt:
-		return m.UpdatedAt()
-	case menuparam.FieldType:
-		return m.GetType()
-	case menuparam.FieldKey:
-		return m.Key()
-	case menuparam.FieldValue:
-		return m.Value()
-	case menuparam.FieldMenuID:
-		return m.MenuID()
-	}
-	return nil, false
-}
-
-// OldField returns the old value of the field from the database. An error is
-// returned if the mutation operation is not UpdateOne, or the query to the
-// database failed.
-func (m *MenuParamMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
-	switch name {
-	case menuparam.FieldCreatedAt:
-		return m.OldCreatedAt(ctx)
-	case menuparam.FieldUpdatedAt:
-		return m.OldUpdatedAt(ctx)
-	case menuparam.FieldType:
-		return m.OldType(ctx)
-	case menuparam.FieldKey:
-		return m.OldKey(ctx)
-	case menuparam.FieldValue:
-		return m.OldValue(ctx)
-	case menuparam.FieldMenuID:
-		return m.OldMenuID(ctx)
-	}
-	return nil, fmt.Errorf("unknown MenuParam field %s", name)
-}
-
-// SetField sets the value of a field with the given name. It returns an error if
-// the field is not defined in the schema, or if the type mismatched the field
-// type.
-func (m *MenuParamMutation) SetField(name string, value ent.Value) error {
-	switch name {
-	case menuparam.FieldCreatedAt:
-		v, ok := value.(time.Time)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetCreatedAt(v)
-		return nil
-	case menuparam.FieldUpdatedAt:
-		v, ok := value.(time.Time)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetUpdatedAt(v)
-		return nil
-	case menuparam.FieldType:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetType(v)
-		return nil
-	case menuparam.FieldKey:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetKey(v)
-		return nil
-	case menuparam.FieldValue:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetValue(v)
-		return nil
-	case menuparam.FieldMenuID:
-		v, ok := value.(uint64)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetMenuID(v)
-		return nil
-	}
-	return fmt.Errorf("unknown MenuParam field %s", name)
-}
-
-// AddedFields returns all numeric fields that were incremented/decremented during
-// this mutation.
-func (m *MenuParamMutation) AddedFields() []string {
-	var fields []string
-	return fields
-}
-
-// AddedField returns the numeric value that was incremented/decremented on a field
-// with the given name. The second boolean return value indicates that this field
-// was not set, or was not defined in the schema.
-func (m *MenuParamMutation) AddedField(name string) (ent.Value, bool) {
-	switch name {
-	}
-	return nil, false
-}
-
-// AddField adds the value to the field with the given name. It returns an error if
-// the field is not defined in the schema, or if the type mismatched the field
-// type.
-func (m *MenuParamMutation) AddField(name string, value ent.Value) error {
-	switch name {
-	}
-	return fmt.Errorf("unknown MenuParam numeric field %s", name)
-}
-
-// ClearedFields returns all nullable fields that were cleared during this
-// mutation.
-func (m *MenuParamMutation) ClearedFields() []string {
-	var fields []string
-	if m.FieldCleared(menuparam.FieldMenuID) {
-		fields = append(fields, menuparam.FieldMenuID)
-	}
-	return fields
-}
-
-// FieldCleared returns a boolean indicating if a field with the given name was
-// cleared in this mutation.
-func (m *MenuParamMutation) FieldCleared(name string) bool {
-	_, ok := m.clearedFields[name]
-	return ok
-}
-
-// ClearField clears the value of the field with the given name. It returns an
-// error if the field is not defined in the schema.
-func (m *MenuParamMutation) ClearField(name string) error {
-	switch name {
-	case menuparam.FieldMenuID:
-		m.ClearMenuID()
-		return nil
-	}
-	return fmt.Errorf("unknown MenuParam nullable field %s", name)
-}
-
-// ResetField resets all changes in the mutation for the field with the given name.
-// It returns an error if the field is not defined in the schema.
-func (m *MenuParamMutation) ResetField(name string) error {
-	switch name {
-	case menuparam.FieldCreatedAt:
-		m.ResetCreatedAt()
-		return nil
-	case menuparam.FieldUpdatedAt:
-		m.ResetUpdatedAt()
-		return nil
-	case menuparam.FieldType:
-		m.ResetType()
-		return nil
-	case menuparam.FieldKey:
-		m.ResetKey()
-		return nil
-	case menuparam.FieldValue:
-		m.ResetValue()
-		return nil
-	case menuparam.FieldMenuID:
-		m.ResetMenuID()
-		return nil
-	}
-	return fmt.Errorf("unknown MenuParam field %s", name)
-}
-
-// AddedEdges returns all edge names that were set/added in this mutation.
-func (m *MenuParamMutation) AddedEdges() []string {
-	edges := make([]string, 0, 1)
-	if m.menus != nil {
-		edges = append(edges, menuparam.EdgeMenus)
-	}
-	return edges
-}
-
-// AddedIDs returns all IDs (to other nodes) that were added for the given edge
-// name in this mutation.
-func (m *MenuParamMutation) AddedIDs(name string) []ent.Value {
-	switch name {
-	case menuparam.EdgeMenus:
-		if id := m.menus; id != nil {
-			return []ent.Value{*id}
-		}
-	}
-	return nil
-}
-
-// RemovedEdges returns all edge names that were removed in this mutation.
-func (m *MenuParamMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 1)
-	return edges
-}
-
-// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
-// the given name in this mutation.
-func (m *MenuParamMutation) RemovedIDs(name string) []ent.Value {
-	return nil
-}
-
-// ClearedEdges returns all edge names that were cleared in this mutation.
-func (m *MenuParamMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 1)
-	if m.clearedmenus {
-		edges = append(edges, menuparam.EdgeMenus)
-	}
-	return edges
-}
-
-// EdgeCleared returns a boolean which indicates if the edge with the given name
-// was cleared in this mutation.
-func (m *MenuParamMutation) EdgeCleared(name string) bool {
-	switch name {
-	case menuparam.EdgeMenus:
-		return m.clearedmenus
-	}
-	return false
-}
-
-// ClearEdge clears the value of the edge with the given name. It returns an error
-// if that edge is not defined in the schema.
-func (m *MenuParamMutation) ClearEdge(name string) error {
-	switch name {
-	case menuparam.EdgeMenus:
-		m.ClearMenus()
-		return nil
-	}
-	return fmt.Errorf("unknown MenuParam unique edge %s", name)
-}
-
-// ResetEdge resets all changes to the edge with the given name in this mutation.
-// It returns an error if the edge is not defined in the schema.
-func (m *MenuParamMutation) ResetEdge(name string) error {
-	switch name {
-	case menuparam.EdgeMenus:
-		m.ResetMenus()
-		return nil
-	}
-	return fmt.Errorf("unknown MenuParam edge %s", name)
 }
 
 // OauthProviderMutation represents an operation that mutates the OauthProvider nodes in the graph.

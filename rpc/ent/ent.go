@@ -16,7 +16,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
@@ -80,7 +79,6 @@ func columnChecker(table string) func(string) error {
 		dictionary.Table:       dictionary.ValidColumn,
 		dictionarydetail.Table: dictionarydetail.ValidColumn,
 		menu.Table:             menu.ValidColumn,
-		menuparam.Table:        menuparam.ValidColumn,
 		oauthprovider.Table:    oauthprovider.ValidColumn,
 		position.Table:         position.ValidColumn,
 		role.Table:             role.ValidColumn,

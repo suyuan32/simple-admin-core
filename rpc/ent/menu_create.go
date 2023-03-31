@@ -11,7 +11,6 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/menuparam"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 )
 
@@ -345,21 +344,6 @@ func (mc *MenuCreate) AddChildren(m ...*Menu) *MenuCreate {
 	return mc.AddChildIDs(ids...)
 }
 
-// AddParamIDs adds the "params" edge to the MenuParam entity by IDs.
-func (mc *MenuCreate) AddParamIDs(ids ...uint64) *MenuCreate {
-	mc.mutation.AddParamIDs(ids...)
-	return mc
-}
-
-// AddParams adds the "params" edges to the MenuParam entity.
-func (mc *MenuCreate) AddParams(m ...*MenuParam) *MenuCreate {
-	ids := make([]uint64, len(m))
-	for i := range m {
-		ids[i] = m[i].ID
-	}
-	return mc.AddParamIDs(ids...)
-}
-
 // Mutation returns the MenuMutation object of the builder.
 func (mc *MenuCreate) Mutation() *MenuMutation {
 	return mc.mutation
@@ -657,22 +641,6 @@ func (mc *MenuCreate) createSpec() (*Menu, *sqlgraph.CreateSpec) {
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(menu.FieldID, field.TypeUint64),
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges = append(_spec.Edges, edge)
-	}
-	if nodes := mc.mutation.ParamsIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
-			Inverse: false,
-			Table:   menu.ParamsTable,
-			Columns: []string{menu.ParamsColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(menuparam.FieldID, field.TypeUint64),
 			},
 		}
 		for _, k := range nodes {

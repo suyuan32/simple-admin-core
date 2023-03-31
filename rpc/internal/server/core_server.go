@@ -13,7 +13,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menuparam"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/position"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/role"
@@ -176,32 +175,6 @@ func (s *CoreServer) GetMenuListByRole(ctx context.Context, in *core.BaseMsg) (*
 func (s *CoreServer) GetMenuList(ctx context.Context, in *core.PageInfoReq) (*core.MenuInfoList, error) {
 	l := menu.NewGetMenuListLogic(ctx, s.svcCtx)
 	return l.GetMenuList(in)
-}
-
-// MenuParam management
-func (s *CoreServer) CreateMenuParam(ctx context.Context, in *core.MenuParamInfo) (*core.BaseIDResp, error) {
-	l := menuparam.NewCreateMenuParamLogic(ctx, s.svcCtx)
-	return l.CreateMenuParam(in)
-}
-
-func (s *CoreServer) UpdateMenuParam(ctx context.Context, in *core.MenuParamInfo) (*core.BaseResp, error) {
-	l := menuparam.NewUpdateMenuParamLogic(ctx, s.svcCtx)
-	return l.UpdateMenuParam(in)
-}
-
-func (s *CoreServer) GetMenuParamList(ctx context.Context, in *core.MenuParamListReq) (*core.MenuParamListResp, error) {
-	l := menuparam.NewGetMenuParamListLogic(ctx, s.svcCtx)
-	return l.GetMenuParamList(in)
-}
-
-func (s *CoreServer) GetMenuParamById(ctx context.Context, in *core.IDReq) (*core.MenuParamInfo, error) {
-	l := menuparam.NewGetMenuParamByIdLogic(ctx, s.svcCtx)
-	return l.GetMenuParamById(in)
-}
-
-func (s *CoreServer) DeleteMenuParam(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
-	l := menuparam.NewDeleteMenuParamLogic(ctx, s.svcCtx)
-	return l.DeleteMenuParam(in)
 }
 
 // OauthProvider management
