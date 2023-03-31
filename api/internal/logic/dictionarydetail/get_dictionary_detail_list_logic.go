@@ -2,6 +2,10 @@ package dictionarydetail
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
+
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -27,6 +31,17 @@ func NewGetDictionaryDetailListLogic(ctx context.Context, svcCtx *svc.ServiceCon
 }
 
 func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(req *types.DictionaryDetailListReq) (resp *types.DictionaryDetailListResp, err error) {
+	if val, err := l.svcCtx.Redis.GetCtx(l.ctx, fmt.Sprintf("dict_%d", req.DictionaryId)); err == nil && val != "" {
+		resp = &types.DictionaryDetailListResp{}
+		err = json.Unmarshal([]byte(val), resp)
+		if err != nil {
+			logx.Errorw("failed to unmarshal the dictionary data from redis",
+				logx.Field("detail", err), logx.Field("dictionaryId", req.DictionaryId))
+			return nil, errorx.NewCodeInternalError(i18n.Failed)
+		}
+		return resp, nil
+	}
+
 	data, err := l.svcCtx.CoreRpc.GetDictionaryDetailList(l.ctx,
 		&core.DictionaryDetailListReq{
 			Page:         req.Page,
@@ -57,5 +72,13 @@ func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(req *types.Dictio
 				Sort:         v.Sort,
 			})
 	}
+
+	storeData, err := json.Marshal(&resp)
+	err = l.svcCtx.Redis.SetCtx(l.ctx, fmt.Sprintf("dict_%d", req.DictionaryId), string(storeData))
+	if err != nil {
+		logx.Errorw("failed to set dictionary detail data to redis", logx.Field("detail", err))
+		return nil, errorx.NewCodeInternalError(i18n.RedisError)
+	}
+
 	return resp, nil
 }

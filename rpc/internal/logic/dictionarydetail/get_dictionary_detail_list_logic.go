@@ -5,6 +5,7 @@ import (
 
 	"github.com/zeromicro/go-zero/core/logx"
 
+	"github.com/suyuan32/simple-admin-core/rpc/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 
@@ -35,7 +36,9 @@ func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(in *core.Dictiona
 	if in.Key != "" {
 		predicates = append(predicates, dictionarydetail.KeyContains(in.Key))
 	}
-	result, err := l.svcCtx.DB.DictionaryDetail.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+	result, err := l.svcCtx.DB.DictionaryDetail.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize, func(pager *ent.DictionaryDetailPager) {
+		pager.Order = ent.Asc(dictionarydetail.FieldSort)
+	})
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}

@@ -2,6 +2,10 @@ package dictionarydetail
 
 import (
 	"context"
+	"fmt"
+
+	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -38,5 +42,11 @@ func (l *UpdateDictionaryDetailLogic) UpdateDictionaryDetail(req *types.Dictiona
 	if err != nil {
 		return nil, err
 	}
+
+	if _, err := l.svcCtx.Redis.DelCtx(l.ctx, fmt.Sprintf("dict_%d", req.DictionaryId)); err != nil {
+		logx.Errorw("failed to delete dictionary data in redis", logx.Field("detail", err))
+		return nil, errorx.NewCodeInternalError(i18n.RedisError)
+	}
+
 	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, data.Msg)}, nil
 }
