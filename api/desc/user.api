@@ -100,43 +100,28 @@ type (
     // register request | 注册参数
     RegisterReq {
         // User Name | 用户名
-        // Required: true
-        // Max length: 20
-        Username  string `json:"username" validate:"alphanum,max=20"`
+        Username  string `json:"username" validate:"required,alphanum,max=20"`
 
         // Password | 密码
-        // Required: true
-        // Min length: 6
-        // Max length: 30
-        Password  string `json:"password" validate:"max=30,min=6"`
+        Password  string `json:"password" validate:"required,max=30,min=6"`
 
         // Captcha ID which store in redis | 验证码编号, 存在redis中
-        // Required: true
-        // Max length: 20
-        CaptchaId string `json:"captchaId" validate:"len=20"`
+        CaptchaId string `json:"captchaId" validate:"required,len=20"`
 
         // The Captcha which users input | 用户输入的验证码
-        // Required: true
-        // Max length: 5
-        Captcha   string `json:"captcha" validate:"len=5"`
+        Captcha   string `json:"captcha" validate:"required,len=5"`
 
         // The user's email address | 用户的邮箱
-        // Required: true
-        // Max length: 100
-        Email     string `json:"email" validate:"email,max=100"`
+        Email     string `json:"email" validate:"required,email,max=100"`
     }
 
     // change user's password request | 修改密码请求参数
     ChangePasswordReq {
         // User's old password | 用户旧密码
-        // Required: true
-        // Max length: 30
-        OldPassword string `json:"oldPassword" validate:"max=30"`
+        OldPassword string `json:"oldPassword" validate:"required,max=30"`
 
         // User's new password | 用户新密码
-        // Required: true
-        // Max length: 30
-        NewPassword string `json:"newPassword" validate:"max=30"`
+        NewPassword string `json:"newPassword" validate:"required,max=30"`
     }
 
     // The log in information | 登陆返回的数据信息
@@ -202,25 +187,23 @@ type (
     // Login request | 登录参数
     LoginReq {
         // User Name | 用户名
-        // Required: true
-        // Max length: 20
-        Username   string `json:"username" validate:"alphanum,max=20"`
+        Username   string `json:"username" validate:"required,alphanum,max=20"`
 
         // Password | 密码
         // Required: true
         // Min length: 6
         // Max length: 30
-        Password   string `json:"password" validate:"max=30,min=6"`
+        Password   string `json:"password" validate:"required,max=30,min=6"`
 
         // Captcha ID which store in redis | 验证码编号, 存在redis中
         // Required: true
         // Max length: 20
-        CaptchaId  string `json:"captchaId"  validate:"len=20"`
+        CaptchaId  string `json:"captchaId"  validate:"required,len=20"`
 
         // The Captcha which users input | 用户输入的验证码
         // Required: true
         // Max length: 5
-        Captcha    string `json:"captcha" validate:"len=5"`
+        Captcha    string `json:"captcha" validate:"required,len=5"`
     }
 
     // The log in response data | 登录返回数据
@@ -234,16 +217,16 @@ type (
     // The profile information | 个人信息
     ProfileInfo {
         // user's nickname | 用户的昵称
-        Nickname     string       `json:"nickname"`
+        Nickname     string       `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
 
         // The user's avatar path | 用户的头像路径
-        Avatar       string       `json:"avatar"`
+        Avatar       string       `json:"avatar" validate:"omitempty,max=300"`
 
         // User's mobile phone number | 用户的手机号码
-        Mobile       string       `json:"mobile"`
+        Mobile       string       `json:"mobile" validate:"omitempty,numeric,max=18"`
 
         // The user's email address | 用户的邮箱
-        Email        string       `json:"email"`
+        Email        string       `json:"email" validate:"omitempty,email,max=100"`
     }
 
     // The profile response data | 个人信息返回数据
@@ -254,23 +237,6 @@ type (
         Data ProfileInfo `json:"data"`
     }
 
-    // The profile request data | 个人信息请求参数
-    ProfileReq {
-        // user's nickname | 用户的昵称
-        // Max length: 10
-        Nickname     string       `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
-
-        // The user's avatar path | 用户的头像路径
-        Avatar       string       `json:"avatar"`
-
-        // User's mobile phone number | 用户的手机号码
-        // Max length: 18
-        Mobile       string       `json:"mobile" validate:"omitempty,numeric,max=18"`
-
-        // The user's email address | 用户的邮箱
-        // Max length: 100
-        Email        string       `json:"email" validate:"omitempty,email,max=100"`
-    }
 )
 
 @server(
@@ -332,7 +298,7 @@ service core {
 
     // Update user's profile | 更新用户个人信息
     @handler updateUserProfile
-    post /user/profile (ProfileReq) returns (BaseMsgResp)
+    post /user/profile (ProfileInfo) returns (BaseMsgResp)
 
      // Log out | 退出登陆
     @handler logout

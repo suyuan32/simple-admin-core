@@ -119,41 +119,39 @@ type (
         Trans string `json:"trans,optional"`
 
         // Level | 菜单层级
-        Level  uint32 `json:"level,optional"`
+        Level  uint32 `json:"level,optional" validate:"omitempty,lt=20"`
 
         // ParentId | 父级菜单ID
         ParentId  uint64 `json:"parentId,optional"`
 
         // Path | 菜单访问路径
-        Path  string `json:"path,optional"`
+        Path  string `json:"path,optional" validate:"omitempty,max=200"`
 
         // Menu name | 菜单名称
-        Name  string `json:"name,optional"`
+        Name  string `json:"name,optional" validate:"omitempty,max=50"`
 
         // Redirect | 跳转地址
-        Redirect  string `json:"redirect,optional"`
+        Redirect  string `json:"redirect,optional" validate:"omitempty,max=300"`
 
         // Component | 组件地址
-        Component  string `json:"component,optional"`
+        Component  string `json:"component,optional" validate:"omitempty,max=80"`
 
         // Sort | 排序
-        Sort  uint32 `json:"sort,optional"`
+        Sort  uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
 
         // Disabled | 是否启用
         Disabled  bool `json:"disabled,optional"`
 
         // MenuType | 菜单类型
-        MenuType  uint32 `json:"menuType,optional"`
+        MenuType  uint32 `json:"menuType,optional" validate:"omitempty,lt=10"`
 
 
 
         // Menu title show in page | 菜单显示名
-        // Max length: 50
-        Title     string         `json:"title" validate:"max=50"`
+        Title     string         `json:"title" validate:"omitempty,max=50"`
 
         // Menu Icon | 菜单图标
-        // Max length: 50
-        Icon      string         `json:"icon" validate:"max=50"`
+        Icon      string         `json:"icon" validate:"omitempty,max=50"`
 
         // Hide menu | 隐藏菜单
         HideMenu  bool           `json:"hideMenu" validate:"boolean"`
@@ -168,7 +166,7 @@ type (
         HideTab   bool `json:"hideTab,optional" validate:"boolean"`
 
         // Iframe path | 内嵌iframe的地址
-        FrameSrc  string `json:"frameSrc,optional"`
+        FrameSrc  string `json:"frameSrc,optional" validate:"omitempty,max=300"`
 
         // The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
         CarryParam  bool `json:"carryParam,optional" validate:"boolean"`

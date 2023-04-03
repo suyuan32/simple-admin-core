@@ -6,19 +6,19 @@ type (
         BaseIDInfo
 
         // Status | 状态
-        Status  uint32 `json:"status,optional"`
+        Status  uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 
         // Name | 任务名称
-        Name  string `json:"name,optional"`
+        Name  string `json:"name,optional" validate:"omitempty,max=50"`
 
         // TaskGroup | 任务分组
-        TaskGroup  string `json:"taskGroup,optional"`
+        TaskGroup  string `json:"taskGroup,optional" validate:"omitempty,max=40"`
 
         // CronExpression | 定时任务 Cron 表达式
-        CronExpression  string `json:"cronExpression,optional"`
+        CronExpression  string `json:"cronExpression,optional" validate:"omitempty,max=80"`
 
-        // Pattern | 任务的模式(用于区分和确定要执行的任务)
-        Pattern  string `json:"pattern,optional"`
+        // Pattern | 任务的标识 (用于区分和确定要执行的任务)
+        Pattern  string `json:"pattern,optional" validate:"omitempty,max=100"`
 
         // Payload | 任务需要数据(JSON 字符串)
         Payload  string `json:"payload,optional"`

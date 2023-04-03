@@ -9,22 +9,22 @@ type (
         Trans  string `json:"trans,optional"`
 
         // Status | 状态
-        Status  uint32 `json:"status,optional"`
+        Status  uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 
         // Name | 角色名称
-        Name  string `json:"name,optional"`
+        Name  string `json:"name,optional" validate:"omitempty,max=30"`
 
         // Role code | 角色码
-        Code  string `json:"code,optional"`
+        Code  string `json:"code,optional" validate:"omitempty,max=20"`
 
         // DefaultRouter | 默认首页
-        DefaultRouter  string `json:"defaultRouter,optional"`
+        DefaultRouter  string `json:"defaultRouter,optional" validate:"omitempty,max=80"`
 
         // Remark | 备注
-        Remark  string `json:"remark,optional"`
+        Remark  string `json:"remark,optional" validate:"omitempty,max=200"`
 
         // Sort | 排序
-        Sort  uint32 `json:"sort,optional"`
+        Sort  uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
     }
 
     // The response data of role list | 角色列表数据

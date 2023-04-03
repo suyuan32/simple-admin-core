@@ -24,7 +24,7 @@ func NewUpdateUserProfileLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 	}
 }
 
-func (l *UpdateUserProfileLogic) UpdateUserProfile(req *types.ProfileReq) (resp *types.BaseMsgResp, err error) {
+func (l *UpdateUserProfileLogic) UpdateUserProfile(req *types.ProfileInfo) (resp *types.BaseMsgResp, err error) {
 	result, err := l.svcCtx.CoreRpc.UpdateUser(l.ctx, &core.UserInfo{
 		Id:       l.ctx.Value("userId").(string),
 		Nickname: req.Nickname,

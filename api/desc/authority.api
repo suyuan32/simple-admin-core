@@ -14,19 +14,17 @@ type (
     // The response data of api authorization | API授权数据
     ApiAuthorityInfo {
         // API path | API 路径
-        Path string   `json:"path"`
+        Path string   `json:"path" validate="required,max=80"`
 
         // API method | API请求方法
-        Method string `json:"method"`
+        Method string `json:"method" validate="required,min=3,max=4"`
     }
 
 
     // Create or update api authorization information request | 创建或更新API授权信息
     CreateOrUpdateApiAuthorityReq {
         // Role ID | 角色ID
-        // Required: true
-        // Maximum: 1000
-        RoleId  uint64            `json:"roleId" validate:"number,max=1000"`
+        RoleId  uint64            `json:"roleId" validate:"required,lt=1000"`
 
         // API authorization list | API授权列表数据
         // Required: true
@@ -52,13 +50,10 @@ type (
     // Create or update menu authorization information request params | 创建或更新菜单授权信息参数
     MenuAuthorityInfoReq {
         // role ID | 角色ID
-        // Required: true
-        // Maximum: 1000
-        RoleId  uint64   `json:"roleId" validate:"number,max=1000"`
+        RoleId  uint64   `json:"roleId" validate:"required,lt=1000"`
 
         // menu ID array | 菜单ID数组
-        // Required: true
-        MenuIds []uint64 `json:"menuIds"`
+        MenuIds []uint64 `json:"menuIds" validate:"required"`
     }
 
     // Menu authorization response data | 菜单授权信息数据

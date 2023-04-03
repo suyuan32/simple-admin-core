@@ -7,12 +7,18 @@ definitions:
         properties:
             method:
                 description: API method | API请求方法
+                maxLength: 4
+                minLength: 3
                 type: string
                 x-go-name: Method
             path:
                 description: API path | API 路径
+                maxLength: 80
                 type: string
                 x-go-name: Path
+        required:
+            - path
+            - method
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ApiAuthorityListInfo:
@@ -60,14 +66,12 @@ definitions:
                 x-go-name: CreatedAt
             description:
                 description: API Description | API 描述
-                maxLength: 50
+                maxLength: 100
                 type: string
                 x-go-name: Description
             group:
-                description: |-
-                    API group | API分组
-                    Require: true
-                maxLength: 10
+                description: API group | API分组
+                maxLength: 20
                 minLength: 1
                 type: string
                 x-go-name: Group
@@ -84,7 +88,7 @@ definitions:
                 x-go-name: Method
             path:
                 description: API path | API路径
-                maxLength: 50
+                maxLength: 80
                 minLength: 1
                 type: string
                 x-go-name: Path
@@ -97,10 +101,6 @@ definitions:
                 format: int64
                 type: integer
                 x-go-name: UpdatedAt
-        required:
-            - path
-            - description
-            - method
         type: object
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
     ApiInfoResp:
@@ -143,7 +143,7 @@ definitions:
         properties:
             description:
                 description: API Description | API 描述
-                maxLength: 50
+                maxLength: 100
                 type: string
                 x-go-name: Description
             group:
@@ -154,6 +154,7 @@ definitions:
             method:
                 description: API request method e.g. POST | API请求类型 如POST
                 maxLength: 4
+                minLength: 3
                 type: string
                 x-go-name: Method
             page:
@@ -169,7 +170,7 @@ definitions:
                 x-go-name: PageSize
             path:
                 description: API path | API路径
-                maxLength: 100
+                maxLength: 80
                 type: string
                 x-go-name: Path
         required:
@@ -374,6 +375,7 @@ definitions:
         properties:
             ancestors:
                 description: Ancestors | 父级部门列表
+                maxLength: 200
                 type: string
                 x-go-name: Ancestors
             createdAt:
@@ -383,6 +385,8 @@ definitions:
                 x-go-name: CreatedAt
             email:
                 description: Email | 邮箱
+                maxLength: 70
+                minLength: 5
                 type: string
                 x-go-name: Email
             id:
@@ -392,33 +396,41 @@ definitions:
                 x-go-name: Id
             leader:
                 description: Leader | 部门负责人
+                maxLength: 20
                 type: string
                 x-go-name: Leader
             name:
                 description: Name | 部门名称
+                maxLength: 50
+                minLength: 1
                 type: string
                 x-go-name: Name
             parentId:
                 description: ParentId | 父级 ID
                 format: uint64
+                maximum: 1000
                 type: integer
                 x-go-name: ParentId
             phone:
                 description: Phone | 电话号码
+                minLength: 20
                 type: string
                 x-go-name: Phone
             remark:
                 description: Remark | 备注
+                minLength: 200
                 type: string
                 x-go-name: Remark
             sort:
                 description: Sort | 排序
                 format: uint32
+                maximum: 10000
                 type: integer
                 x-go-name: Sort
             status:
                 description: Status | 状态
                 format: uint32
+                maximum: 20
                 type: integer
                 x-go-name: Status
             trans:
@@ -533,20 +545,24 @@ definitions:
                 x-go-name: Id
             key:
                 description: Key | 键
+                maxLength: 80
                 type: string
                 x-go-name: Key
             sort:
                 description: Sort | 排序
                 format: uint32
+                maximum: 10000
                 type: integer
                 x-go-name: Sort
             status:
                 description: Status | 状态
                 format: uint32
+                maximum: 20
                 type: integer
                 x-go-name: Status
             title:
                 description: Title | 显示名称
+                maxLength: 50
                 type: string
                 x-go-name: Title
             updatedAt:
@@ -556,6 +572,7 @@ definitions:
                 x-go-name: UpdatedAt
             value:
                 description: Value | 值
+                maxLength: 100
                 type: string
                 x-go-name: Value
         type: object
@@ -652,6 +669,7 @@ definitions:
                 x-go-name: CreatedAt
             desc:
                 description: Description of dictionary | 字典描述
+                maxLength: 200
                 type: string
                 x-go-name: Desc
             id:
@@ -661,15 +679,20 @@ definitions:
                 x-go-name: Id
             name:
                 description: Name | 字典名称
+                maxLength: 50
+                minLength: 1
                 type: string
                 x-go-name: Name
             status:
                 description: Status | 状态
                 format: uint32
+                maximum: 20
                 type: integer
                 x-go-name: Status
             title:
                 description: Title | 字典多语言名称
+                maxLength: 50
+                minLength: 1
                 type: string
                 x-go-name: Title
             trans:
@@ -1038,6 +1061,7 @@ definitions:
                 x-go-name: CarryParam
             component:
                 description: Component | 组件地址
+                maxLength: 80
                 type: string
                 x-go-name: Component
             createdAt:
@@ -1056,6 +1080,7 @@ definitions:
                 x-go-name: DynamicLevel
             frameSrc:
                 description: Iframe path | 内嵌iframe的地址
+                maxLength: 300
                 type: string
                 x-go-name: FrameSrc
             hideBreadcrumb:
@@ -1090,15 +1115,18 @@ definitions:
             level:
                 description: Level | 菜单层级
                 format: uint32
+                maximum: 20
                 type: integer
                 x-go-name: Level
             menuType:
                 description: MenuType | 菜单类型
                 format: uint32
+                maximum: 10
                 type: integer
                 x-go-name: MenuType
             name:
                 description: Menu name | 菜单名称
+                maxLength: 50
                 type: string
                 x-go-name: Name
             parentId:
@@ -1108,6 +1136,7 @@ definitions:
                 x-go-name: ParentId
             path:
                 description: Path | 菜单访问路径
+                maxLength: 200
                 type: string
                 x-go-name: Path
             realPath:
@@ -1116,11 +1145,13 @@ definitions:
                 x-go-name: RealPath
             redirect:
                 description: Redirect | 跳转地址
+                maxLength: 300
                 type: string
                 x-go-name: Redirect
             sort:
                 description: Sort | 排序
                 format: uint32
+                maximum: 10000
                 type: integer
                 x-go-name: Sort
             title:
@@ -1255,18 +1286,22 @@ definitions:
             authStyle:
                 description: The type of auth | 鉴权方式
                 format: uint64
+                maximum: 20
                 type: integer
                 x-go-name: AuthStyle
             authUrl:
                 description: Authority URL | 授权地址
+                maxLength: 300
                 type: string
                 x-go-name: AuthUrl
             clientId:
                 description: ClientId | 客户端ID
+                maxLength: 80
                 type: string
                 x-go-name: ClientId
             clientSecret:
                 description: ClientSecret | 客户端密钥
+                maxLength: 100
                 type: string
                 x-go-name: ClientSecret
             createdAt:
@@ -1281,22 +1316,27 @@ definitions:
                 x-go-name: Id
             infoUrl:
                 description: The URL to get user information | 获取信息地址
+                maxLength: 300
                 type: string
                 x-go-name: InfoUrl
             name:
                 description: Provider name | 第三方提供商名称
+                maxLength: 30
                 type: string
                 x-go-name: Name
             redirectUrl:
                 description: Redirect URL| 跳转地址
+                maxLength: 300
                 type: string
                 x-go-name: RedirectUrl
             scopes:
                 description: Scopes | 授权范围
+                maxLength: 50
                 type: string
                 x-go-name: Scopes
             tokenUrl:
                 description: The URL to get token | 获取Token的地址
+                maxLength: 300
                 type: string
                 x-go-name: TokenUrl
             updatedAt:
@@ -1435,6 +1475,7 @@ definitions:
         properties:
             code:
                 description: Code | 职位代码
+                maxLength: 20
                 type: string
                 x-go-name: Code
             createdAt:
@@ -1449,20 +1490,24 @@ definitions:
                 x-go-name: Id
             name:
                 description: Name | 职位名称
+                maxLength: 50
                 type: string
                 x-go-name: Name
             remark:
                 description: Remark | 备注
+                maxLength: 200
                 type: string
                 x-go-name: Remark
             sort:
                 description: Sort | 排序
                 format: uint32
+                maximum: 10000
                 type: integer
                 x-go-name: Sort
             status:
                 description: Status | 状态
                 format: uint32
+                maximum: 20
                 type: integer
                 x-go-name: Status
             trans:
@@ -1566,27 +1611,7 @@ definitions:
         properties:
             avatar:
                 description: The user's avatar path | 用户的头像路径
-                type: string
-                x-go-name: Avatar
-            email:
-                description: The user's email address | 用户的邮箱
-                type: string
-                x-go-name: Email
-            mobile:
-                description: User's mobile phone number | 用户的手机号码
-                type: string
-                x-go-name: Mobile
-            nickname:
-                description: user's nickname | 用户的昵称
-                type: string
-                x-go-name: Nickname
-        type: object
-        x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
-    ProfileReq:
-        description: The profile request data | 个人信息请求参数
-        properties:
-            avatar:
-                description: The user's avatar path | 用户的头像路径
+                maxLength: 300
                 type: string
                 x-go-name: Avatar
             email:
@@ -1658,11 +1683,13 @@ definitions:
             captcha:
                 description: The Captcha which users input | 用户输入的验证码
                 maxLength: 5
+                minLength: 5
                 type: string
                 x-go-name: Captcha
             captchaId:
                 description: Captcha ID which store in redis | 验证码编号, 存在redis中
                 maxLength: 20
+                minLength: 20
                 type: string
                 x-go-name: CaptchaId
             email:
@@ -1694,6 +1721,7 @@ definitions:
         properties:
             code:
                 description: Role code | 角色码
+                maxLength: 20
                 type: string
                 x-go-name: Code
             createdAt:
@@ -1703,6 +1731,7 @@ definitions:
                 x-go-name: CreatedAt
             defaultRouter:
                 description: DefaultRouter | 默认首页
+                maxLength: 80
                 type: string
                 x-go-name: DefaultRouter
             id:
@@ -1712,20 +1741,24 @@ definitions:
                 x-go-name: Id
             name:
                 description: Name | 角色名称
+                maxLength: 30
                 type: string
                 x-go-name: Name
             remark:
                 description: Remark | 备注
+                maxLength: 200
                 type: string
                 x-go-name: Remark
             sort:
                 description: Sort | 排序
                 format: uint32
+                maximum: 10000
                 type: integer
                 x-go-name: Sort
             status:
                 description: Status | 状态
                 format: uint32
+                maximum: 20
                 type: integer
                 x-go-name: Status
             trans:
@@ -1839,6 +1872,7 @@ definitions:
                 x-go-name: CreatedAt
             cronExpression:
                 description: CronExpression | 定时任务 Cron 表达式
+                maxLength: 80
                 type: string
                 x-go-name: CronExpression
             id:
@@ -1848,10 +1882,12 @@ definitions:
                 x-go-name: Id
             name:
                 description: Name | 任务名称
+                maxLength: 50
                 type: string
                 x-go-name: Name
             pattern:
-                description: Pattern | 任务的模式(用于区分和确定要执行的任务)
+                description: Pattern | 任务的标识 (用于区分和确定要执行的任务)
+                maxLength: 100
                 type: string
                 x-go-name: Pattern
             payload:
@@ -1861,10 +1897,12 @@ definitions:
             status:
                 description: Status | 状态
                 format: uint32
+                maximum: 20
                 type: integer
                 x-go-name: Status
             taskGroup:
                 description: TaskGroup | 任务分组
+                maxLength: 40
                 type: string
                 x-go-name: TaskGroup
             updatedAt:
