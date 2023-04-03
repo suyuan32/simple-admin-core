@@ -546,8 +546,8 @@ github.com/suyuan32/simple-admin-common v0.3.0 h1:zAZOjL33dF//xfKCZ9iL/LYa0XI0Ip
 github.com/suyuan32/simple-admin-common v0.3.0/go.mod h1:OV0t1VfTgGTyB8Kyv/yf0MoUhyL1m+KB0lafz7Q0bXc=
 github.com/suyuan32/simple-admin-job v0.3.0 h1:WMIshN5CdPeggyxAWzPZMUy5XQnQVSah9Ng03hAYhx8=
 github.com/suyuan32/simple-admin-job v0.3.0/go.mod h1:Apm4W19DVSQIJ+T9XlpBYfd1HQ0yX/CpYCNIHRa6BNI=
-github.com/suyuan32/simple-admin-tools v0.3.0 h1:uUqjNBUanWj3/FiPD/OgqMKrq4jCaXFu8kVZ1y6ubwo=
-github.com/suyuan32/simple-admin-tools v0.3.0/go.mod h1:kuY5NKKOe9YDJWHuKq0oWdWYFO7eFOJCAt1Jm3YkVko=
+github.com/suyuan32/simple-admin-tools v0.3.1 h1:pPbIt/W7vISTL7nkL/3i07QQ9Kk8xANqckZ58khfKdg=
+github.com/suyuan32/simple-admin-tools v0.3.1/go.mod h1:kuY5NKKOe9YDJWHuKq0oWdWYFO7eFOJCAt1Jm3YkVko=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/xeipuuv/gojsonpointer v0.0.0-20180127040702-4e3ac2762d5f/go.mod h1:N2zxlSyiKSe5eX1tZViRH5QA0qijqEDrYZiPEAiq3wU=
 github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415/go.mod h1:GwrjFmJcFw6At/Gs6z4yjiIwzuJ1/+UwLxMQDVQXShQ=
