@@ -24,7 +24,7 @@ type (
         Leader  string `json:"leader,optional" validate:"omitempty,max=20"`
 
         // Phone | 电话号码
-        Phone  string `json:"phone,optional" validate:"omitempty,min=20"`
+        Phone  string `json:"phone,optional" validate:"omitempty,min=18"`
 
         // Email | 邮箱
         Email  string `json:"email,optional" validate:"omitempty,min=5,max=70"`
@@ -33,7 +33,7 @@ type (
         Remark  string `json:"remark,optional" validate:"omitempty,min=200"`
 
         // ParentId | 父级 ID
-        ParentId  uint64 `json:"parentId,optional" validate:"omitempty,lt=1000"`
+        ParentId  uint64 `json:"parentId,optional"`
     }
 
     // The response data of department list | 部门列表数据
@@ -57,10 +57,10 @@ type (
         PageInfo
 
         // Name | 部门名称
-        Name  string `json:"name,optional"`
+        Name  string `json:"name,optional" validate:"omitempty,min=1,max=50"`
 
         // Leader | 部门负责人
-        Leader  string `json:"leader,optional"`
+        Leader  string `json:"leader,optional" validate:"omitempty,max=20"`
     }
 
     // Department information response | 部门信息返回体

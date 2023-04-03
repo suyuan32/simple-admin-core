@@ -170,7 +170,7 @@ definitions:
                 x-go-name: PageSize
             path:
                 description: API path | API路径
-                maxLength: 80
+                maxLength: 200
                 type: string
                 x-go-name: Path
         required:
@@ -408,12 +408,11 @@ definitions:
             parentId:
                 description: ParentId | 父级 ID
                 format: uint64
-                maximum: 1000
                 type: integer
                 x-go-name: ParentId
             phone:
                 description: Phone | 电话号码
-                minLength: 20
+                minLength: 18
                 type: string
                 x-go-name: Phone
             remark:
@@ -484,10 +483,13 @@ definitions:
         properties:
             leader:
                 description: Leader | 部门负责人
+                maxLength: 20
                 type: string
                 x-go-name: Leader
             name:
                 description: Name | 部门名称
+                maxLength: 50
+                minLength: 1
                 type: string
                 x-go-name: Name
             page:
@@ -622,6 +624,7 @@ definitions:
                 x-go-name: DictionaryId
             key:
                 description: Key | 键
+                maxLength: 80
                 type: string
                 x-go-name: Key
             page:
@@ -746,6 +749,7 @@ definitions:
         properties:
             name:
                 description: Name | 字典名称
+                maxLength: 50
                 type: string
                 x-go-name: Name
             page:
@@ -1384,16 +1388,9 @@ definitions:
     OauthProviderListReq:
         description: Get oauth provider list request params | 第三方列表请求参数
         properties:
-            clientId:
-                description: ClientId | 第三方客户端ID
-                type: string
-                x-go-name: ClientId
-            clientSecret:
-                description: ClientSecret  | 第三方客户端密钥
-                type: string
-                x-go-name: ClientSecret
             name:
                 description: Name | 第三方提供商名称
+                maxLength: 30
                 type: string
                 x-go-name: Name
             page:
@@ -1561,10 +1558,13 @@ definitions:
         properties:
             code:
                 description: Code | 职位代码
+                maxLength: 20
                 type: string
                 x-go-name: Code
             name:
                 description: Name | 职位名称
+                maxLength: 50
+                minLength: 50
                 type: string
                 x-go-name: Name
             page:
@@ -1580,6 +1580,7 @@ definitions:
                 x-go-name: PageSize
             remark:
                 description: Remark | 备注
+                maxLength: 200
                 type: string
                 x-go-name: Remark
         required:
@@ -2309,6 +2310,7 @@ definitions:
         properties:
             avatar:
                 description: Avatar | 头像地址
+                maxLength: 300
                 type: string
                 x-go-name: Avatar
             createdAt:
@@ -2323,14 +2325,17 @@ definitions:
                 x-go-name: DepartmentId
             description:
                 description: Description | 描述
+                maxLength: 100
                 type: string
                 x-go-name: Description
             email:
                 description: Email | 邮箱
+                maxLength: 80
                 type: string
                 x-go-name: Email
             homePath:
                 description: HomePath | 首页
+                maxLength: 70
                 type: string
                 x-go-name: HomePath
             id:
@@ -2339,14 +2344,17 @@ definitions:
                 x-go-name: Id
             mobile:
                 description: Mobile | 手机号
+                maxLength: 18
                 type: string
                 x-go-name: Mobile
             nickname:
                 description: Nickname | 昵称
+                maxLength: 40
                 type: string
                 x-go-name: Nickname
             password:
                 description: Password | 密码
+                minLength: 6
                 type: string
                 x-go-name: Password
             positionId:
@@ -2366,6 +2374,7 @@ definitions:
             status:
                 description: Status | 状态
                 format: uint32
+                maximum: 20
                 type: integer
                 x-go-name: Status
             updatedAt:
@@ -2375,6 +2384,7 @@ definitions:
                 x-go-name: UpdatedAt
             username:
                 description: Username | 用户名
+                maxLength: 50
                 type: string
                 x-go-name: Username
         type: object
@@ -2458,7 +2468,6 @@ definitions:
                 items:
                     format: uint64
                     type: integer
-                maximum: 1000
                 type: array
                 x-go-name: RoleIds
             username:

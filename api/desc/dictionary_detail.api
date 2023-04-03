@@ -45,7 +45,7 @@ type (
         PageInfo
 
         // Key | 键
-        Key  string `json:"key,optional"`
+        Key  string `json:"key,optional" validate:"omitempty,max=80"`
 
         // Dictionary ID | 所属字典ID
         DictionaryId  uint64 `json:"dictionaryId,optional"`

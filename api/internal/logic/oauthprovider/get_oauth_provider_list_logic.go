@@ -29,11 +29,9 @@ func NewGetOauthProviderListLogic(ctx context.Context, svcCtx *svc.ServiceContex
 func (l *GetOauthProviderListLogic) GetOauthProviderList(req *types.OauthProviderListReq) (resp *types.OauthProviderListResp, err error) {
 	data, err := l.svcCtx.CoreRpc.GetOauthProviderList(l.ctx,
 		&core.OauthProviderListReq{
-			Page:         req.Page,
-			PageSize:     req.PageSize,
-			Name:         req.Name,
-			ClientId:     req.ClientId,
-			ClientSecret: req.ClientSecret,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+			Name:     req.Name,
 		})
 	if err != nil {
 		return nil, err

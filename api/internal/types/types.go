@@ -175,25 +175,34 @@ type RoleInfoResp struct {
 type UserInfo struct {
 	BaseUUIDInfo
 	// Status | 状态
-	Status uint32 `json:"status,optional"`
+	// max : 20
+	Status uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 	// Username | 用户名
-	Username string `json:"username,optional"`
+	// max length : 50
+	Username string `json:"username,optional" validate:"omitempty,max=50"`
 	// Nickname | 昵称
-	Nickname string `json:"nickname,optional"`
+	// max length : 40
+	Nickname string `json:"nickname,optional" validate:"omitempty,max=40"`
 	// Password | 密码
-	Password string `json:"password,optional"`
+	// min length : 6
+	Password string `json:"password,optional" validate:"omitempty,min=6"`
 	// Description | 描述
-	Description string `json:"description,optional"`
+	// max length : 100
+	Description string `json:"description,optional" validate:"omitempty,max=100"`
 	// HomePath | 首页
-	HomePath string `json:"homePath,optional"`
+	// max length : 70
+	HomePath string `json:"homePath,optional" validate:"omitempty,max=70"`
 	// RoleId | 角色ID
 	RoleIds []uint64 `json:"roleIds,optional"`
 	// Mobile | 手机号
-	Mobile string `json:"mobile,optional"`
+	// max length : 18
+	Mobile string `json:"mobile,optional" validate:"omitempty,max=18"`
 	// Email | 邮箱
-	Email string `json:"email,optional"`
+	// max length : 80
+	Email string `json:"email,optional" validate:"omitempty,max=80"`
 	// Avatar | 头像地址
-	Avatar string `json:"avatar,optional"`
+	// max length : 300
+	Avatar string `json:"avatar,optional" validate:"omitempty,max=300"`
 	// Department ID | 部门ID
 	DepartmentId uint64 `json:"departmentId,optional"`
 	// Position ID | 职位ID
@@ -221,19 +230,18 @@ type UserListInfo struct {
 type UserListReq struct {
 	PageInfo
 	// User Name | 用户名
-	// Max length: 20
+	// max length : 20
 	Username string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
 	// User's nickname | 用户的昵称
-	// Max length: 10
+	// max length : 10
 	Nickname string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
 	// User's mobile phone number | 用户的手机号码
-	// Max length: 18
+	// max length : 18
 	Mobile string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
 	// The user's email address | 用户的邮箱
-	// Max length: 100
+	// max length : 100
 	Email string `json:"email,optional" validate:"omitempty,email,max=100"`
 	// User's role ID | 用户的角色ID
-	// Maximum: 1000
 	RoleIds []uint64 `json:"roleIds,optional"`
 	// The user's department ID | 用户所属部门ID
 	DepartmentId uint64 `json:"departmentId,optional"`
@@ -619,8 +627,8 @@ type ApiListInfo struct {
 type ApiListReq struct {
 	PageInfo
 	// API path | API路径
-	// max length : 80
-	Path string `json:"path,optional" validate:"omitempty,max=80"`
+	// max length : 200
+	Path string `json:"path,optional" validate:"omitempty,max=200"`
 	// API Description | API 描述
 	// max length : 100
 	Description string `json:"description,optional" validate:"omitempty,max=100"`
@@ -746,7 +754,8 @@ type DictionaryListInfo struct {
 type DictionaryListReq struct {
 	PageInfo
 	// Name | 字典名称
-	Name string `json:"name,optional"`
+	// max length : 50
+	Name string `json:"name,optional" validate:"omitempty,max=50"`
 }
 
 // Dictionary information response | 字典信息返回体
@@ -811,11 +820,8 @@ type OauthProviderListInfo struct {
 type OauthProviderListReq struct {
 	PageInfo
 	// Name | 第三方提供商名称
-	Name string `json:"name,optional"`
-	// ClientId | 第三方客户端ID
-	ClientId string `json:"clientId,optional"`
-	// ClientSecret  | 第三方客户端密钥
-	ClientSecret string `json:"clientSecret,optional"`
+	// max length : 30
+	Name string `json:"name,optional" validate:"omitempty,max=30"`
 }
 
 // Oauth provider information response | 第三方信息返回体
@@ -946,8 +952,8 @@ type DepartmentInfo struct {
 	// max length : 20
 	Leader string `json:"leader,optional" validate:"omitempty,max=20"`
 	// Phone | 电话号码
-	// min length : 20
-	Phone string `json:"phone,optional" validate:"omitempty,min=20"`
+	// min length : 18
+	Phone string `json:"phone,optional" validate:"omitempty,min=18"`
 	// Email | 邮箱
 	// min length : 5
 	// max length : 70
@@ -956,8 +962,7 @@ type DepartmentInfo struct {
 	// min length : 200
 	Remark string `json:"remark,optional" validate:"omitempty,min=200"`
 	// ParentId | 父级 ID
-	// max : 1000
-	ParentId uint64 `json:"parentId,optional" validate:"omitempty,lt=1000"`
+	ParentId uint64 `json:"parentId,optional"`
 }
 
 // The response data of department list | 部门列表数据
@@ -981,9 +986,12 @@ type DepartmentListInfo struct {
 type DepartmentListReq struct {
 	PageInfo
 	// Name | 部门名称
-	Name string `json:"name,optional"`
+	// min length : 1
+	// max length : 50
+	Name string `json:"name,optional" validate:"omitempty,min=1,max=50"`
 	// Leader | 部门负责人
-	Leader string `json:"leader,optional"`
+	// max length : 20
+	Leader string `json:"leader,optional" validate:"omitempty,max=20"`
 }
 
 // Department information response | 部门信息返回体
@@ -1038,11 +1046,15 @@ type PositionListInfo struct {
 type PositionListReq struct {
 	PageInfo
 	// Name | 职位名称
-	Name string `json:"name,optional"`
+	// max length : 50
+	// min length : 50
+	Name string `json:"name,optional" validate:"omitempty,len=50"`
 	// Code | 职位代码
-	Code string `json:"code,optional"`
+	// max length : 20
+	Code string `json:"code,optional" validate:"omitempty,max=20"`
 	// Remark | 备注
-	Remark string `json:"remark,optional"`
+	// max length : 200
+	Remark string `json:"remark,optional" validate:"omitempty,max=200"`
 }
 
 // Position information response | 职位信息返回体
@@ -1097,7 +1109,8 @@ type DictionaryDetailListInfo struct {
 type DictionaryDetailListReq struct {
 	PageInfo
 	// Key | 键
-	Key string `json:"key,optional"`
+	// max length : 80
+	Key string `json:"key,optional" validate:"omitempty,max=80"`
 	// Dictionary ID | 所属字典ID
 	DictionaryId uint64 `json:"dictionaryId,optional"`
 }

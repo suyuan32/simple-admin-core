@@ -32,12 +32,6 @@ func (l *GetOauthProviderListLogic) GetOauthProviderList(in *core.OauthProviderL
 	if in.Name != "" {
 		predicates = append(predicates, oauthprovider.NameContains(in.Name))
 	}
-	if in.ClientId != "" {
-		predicates = append(predicates, oauthprovider.ClientIDContains(in.ClientId))
-	}
-	if in.ClientSecret != "" {
-		predicates = append(predicates, oauthprovider.ClientSecretContains(in.ClientSecret))
-	}
 	result, err := l.svcCtx.DB.OauthProvider.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
