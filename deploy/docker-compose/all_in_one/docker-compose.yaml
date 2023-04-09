@@ -61,7 +61,7 @@ services:
           cpus: '0.05'
           memory: 200M
   core-rpc:
-    image: ryanpower/core-rpc:0.2.4
+    image: ryanpower/core-rpc-docker:v0.3.2
     container_name: core-rpc
     restart: always
     ports:
@@ -80,8 +80,28 @@ services:
           cpus: '0.05'
           memory: 200M
 
+  job-rpc:
+    image: ryanpower/job-rpc-docker:v0.3.2
+    container_name: job-rpc
+    restart: always
+    ports:
+      - '9105:9105'
+    networks:
+      simple-admin:
+        aliases:
+          - job-rpc
+        ipv4_address: 10.5.0.7
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 500M
+        reservations:
+          cpus: '0.05'
+          memory: 200M
+
   core-api:
-    image: ryanpower/core-api:0.2.4
+    image: ryanpower/core-api-docker:v0.3.2
     container_name: core-api
     restart: always
     ports:
@@ -101,7 +121,7 @@ services:
           memory: 200M
 
   backend-ui:
-    image: ryanpower/backend-ui-demo:0.2.0
+    image: ryanpower/backend-ui-docker:v0.3.2
     container_name: backend-ui
     restart: always
     ports:

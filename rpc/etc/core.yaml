@@ -3,13 +3,13 @@ ListenOn: 0.0.0.0:9101
 
 DatabaseConf:
   Type: mysql
-  Host: 127.0.0.1
+  Host: 10.5.0.2
   Port: 3306
   DBName: simple_admin
-  Username: # set your username
-  Password: # set your password
+  Username: root # set your username
+  Password: simple-admin. # set your password
   MaxOpenConn: 100
-  SSLMode: disable # disable or require
+  SSLMode: disable
   CacheTime: 5
 
 Log:
@@ -23,7 +23,7 @@ Log:
   StackCoolDownMillis: 100
 
 RedisConf:
-  Host: 127.0.0.1:6379
+  Host: 10.5.0.3:6379
   Type: node
 
 Prometheus:
@@ -43,11 +43,3 @@ CasbinConf:
     e = some(where (p.eft == allow))
     [matchers]
     m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
-
-# Tracing Analysis
-
-#Telemetry:
-#  Name: core-rpc
-#  Endpoint: http://127.0.0.1:14268/api/traces
-#  Sampler: 1.0
-#  Batcher: jaeger

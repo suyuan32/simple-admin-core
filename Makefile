@@ -3,7 +3,7 @@ GO ?= go
 GOFMT ?= gofmt "-s"
 GOFILES := $(shell find . -name "*.go")
 LDFLAGS := -s -w
-VERSION=$(shell git describe --tags --always)
+VERSION=v0.3.2
 
 .PHONY: test
 test: # Run test for the project | 运行项目测试
@@ -23,15 +23,15 @@ tools: # Install the necessary tools | 安装必要的工具
 
 .PHONY: docker
 docker: # Build the docker image | 构建 docker 镜像
-	docker build -f Dockerfile-api -t ${DOCKER_USERNAME}/$(PROJECT)-api:${VERSION} .
-	docker build -f Dockerfile-rpc -t ${DOCKER_USERNAME}/$(PROJECT)-rpc:${VERSION} .
+	docker build -f Dockerfile-api -t ${DOCKER_USERNAME}/$(PROJECT)-api-docker:${VERSION} .
+	docker build -f Dockerfile-rpc -t ${DOCKER_USERNAME}/$(PROJECT)-rpc-docker:${VERSION} .
 	@echo "Build docker successfully"
 
 .PHONY: publish-docker
 publish-docker: # Publish docker image | 发布 docker 镜像
 	echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin https://${REPO}
-	docker push ${DOCKER_USERNAME}/$(PROJECT)-rpc:${VERSION}
-	docker push ${DOCKER_USERNAME}/$(PROJECT)-api:${VERSION}
+	docker push ${DOCKER_USERNAME}/$(PROJECT)-rpc-docker:${VERSION}
+	docker push ${DOCKER_USERNAME}/$(PROJECT)-api-docker:${VERSION}
 	@echo "Publish docker successfully"
 
 .PHONY: gen-api
