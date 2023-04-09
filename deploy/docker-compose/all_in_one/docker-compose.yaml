@@ -79,6 +79,7 @@ services:
         reservations:
           cpus: '0.05'
           memory: 200M
+
   job-rpc:
     image: ryanpower/job-rpc-docker:v0.3.2
     container_name: job-rpc
