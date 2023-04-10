@@ -7,7 +7,8 @@ VERSION=$(shell git describe --tags --always)
 
 .PHONY: test
 test: # Run test for the project | 运行项目测试
-	go test -v --cover ./internal/..
+	go test -v --cover ./api/internal/..
+	go test -v --cover ./rpc/internal/..
 
 .PHONY: fmt
 fmt: # Format the codes | 格式化代码
