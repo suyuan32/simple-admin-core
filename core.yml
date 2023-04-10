@@ -2975,24 +2975,6 @@ paths:
             summary: Update dictionary detail information | 更新字典键值
             tags:
                 - dictionarydetail
-    /menu:
-        post:
-            description: Get Menu by ID | 通过ID获取菜单
-            operationId: GetMenuById
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/IDReq'
-                    type: object
-            responses:
-                "200":
-                    description: MenuInfoResp
-                    schema:
-                        $ref: '#/definitions/MenuInfoResp'
-            summary: Get Menu by ID | 通过ID获取菜单
-            tags:
-                - menu
     /menu/create:
         post:
             description: Create menu information | 创建菜单
@@ -3639,24 +3621,6 @@ paths:
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
             summary: Force logging out by user UUID | 根据UUID强制用户退出
-            tags:
-                - token
-    /token/update:
-        post:
-            description: Update token information | 更新Token
-            operationId: UpdateToken
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/TokenInfo'
-                    type: object
-            responses:
-                "200":
-                    description: BaseMsgResp
-                    schema:
-                        $ref: '#/definitions/BaseMsgResp'
-            summary: Update token information | 更新Token
             tags:
                 - token
     /user:

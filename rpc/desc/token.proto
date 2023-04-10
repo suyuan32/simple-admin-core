@@ -34,8 +34,6 @@ service Core {
   // group: token
   rpc createToken (TokenInfo) returns (BaseUUIDResp);
   // group: token
-  rpc updateToken (TokenInfo) returns (BaseResp);
-  // group: token
   rpc deleteToken (UUIDsReq) returns (BaseResp);
   // group: token
   rpc getTokenList (TokenListReq) returns (TokenListResp);

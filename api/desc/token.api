@@ -74,10 +74,6 @@ service core {
     @handler createToken
     post /token/create (TokenInfo) returns (BaseMsgResp)
 
-    // Update token information | 更新Token
-    @handler updateToken
-    post /token/update (TokenInfo) returns (BaseMsgResp)
-
     // Delete token information | 删除Token信息
     @handler deleteToken
     post /token/delete (UUIDsReq) returns (BaseMsgResp)
