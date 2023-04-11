@@ -20,7 +20,7 @@ import (
 type DepartmentQuery struct {
 	config
 	ctx          *QueryContext
-	order        []OrderFunc
+	order        []department.Order
 	inters       []Interceptor
 	predicates   []predicate.Department
 	withParent   *DepartmentQuery
@@ -57,7 +57,7 @@ func (dq *DepartmentQuery) Unique(unique bool) *DepartmentQuery {
 }
 
 // Order specifies how the records should be ordered.
-func (dq *DepartmentQuery) Order(o ...OrderFunc) *DepartmentQuery {
+func (dq *DepartmentQuery) Order(o ...department.Order) *DepartmentQuery {
 	dq.order = append(dq.order, o...)
 	return dq
 }
@@ -317,7 +317,7 @@ func (dq *DepartmentQuery) Clone() *DepartmentQuery {
 	return &DepartmentQuery{
 		config:       dq.config,
 		ctx:          dq.ctx.Clone(),
-		order:        append([]OrderFunc{}, dq.order...),
+		order:        append([]department.Order{}, dq.order...),
 		inters:       append([]Interceptor{}, dq.inters...),
 		predicates:   append([]predicate.Department{}, dq.predicates...),
 		withParent:   dq.withParent.Clone(),
@@ -595,6 +595,9 @@ func (dq *DepartmentQuery) querySpec() *sqlgraph.QuerySpec {
 			if fields[i] != department.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
+		}
+		if dq.withParent != nil {
+			_spec.Node.AddColumnOnce(department.FieldParentID)
 		}
 	}
 	if ps := dq.predicates; len(ps) > 0 {

@@ -20,7 +20,7 @@ import (
 type DictionaryQuery struct {
 	config
 	ctx                   *QueryContext
-	order                 []OrderFunc
+	order                 []dictionary.Order
 	inters                []Interceptor
 	predicates            []predicate.Dictionary
 	withDictionaryDetails *DictionaryDetailQuery
@@ -55,7 +55,7 @@ func (dq *DictionaryQuery) Unique(unique bool) *DictionaryQuery {
 }
 
 // Order specifies how the records should be ordered.
-func (dq *DictionaryQuery) Order(o ...OrderFunc) *DictionaryQuery {
+func (dq *DictionaryQuery) Order(o ...dictionary.Order) *DictionaryQuery {
 	dq.order = append(dq.order, o...)
 	return dq
 }
@@ -271,7 +271,7 @@ func (dq *DictionaryQuery) Clone() *DictionaryQuery {
 	return &DictionaryQuery{
 		config:                dq.config,
 		ctx:                   dq.ctx.Clone(),
-		order:                 append([]OrderFunc{}, dq.order...),
+		order:                 append([]dictionary.Order{}, dq.order...),
 		inters:                append([]Interceptor{}, dq.inters...),
 		predicates:            append([]predicate.Dictionary{}, dq.predicates...),
 		withDictionaryDetails: dq.withDictionaryDetails.Clone(),

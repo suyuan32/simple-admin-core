@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
@@ -35,7 +36,8 @@ type DictionaryDetail struct {
 	DictionaryID uint64 `json:"dictionary_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the DictionaryDetailQuery when eager-loading is set.
-	Edges DictionaryDetailEdges `json:"edges"`
+	Edges        DictionaryDetailEdges `json:"edges"`
+	selectValues sql.SelectValues
 }
 
 // DictionaryDetailEdges holds the relations/edges for other nodes in the graph.
@@ -72,7 +74,7 @@ func (*DictionaryDetail) scanValues(columns []string) ([]any, error) {
 		case dictionarydetail.FieldCreatedAt, dictionarydetail.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
 		default:
-			return nil, fmt.Errorf("unexpected column %q for type DictionaryDetail", columns[i])
+			values[i] = new(sql.UnknownType)
 		}
 	}
 	return values, nil
@@ -140,9 +142,17 @@ func (dd *DictionaryDetail) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				dd.DictionaryID = uint64(value.Int64)
 			}
+		default:
+			dd.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
+}
+
+// GetValue returns the ent.Value that was dynamically selected and assigned to the DictionaryDetail.
+// This includes values selected through modifiers, order, etc.
+func (dd *DictionaryDetail) GetValue(name string) (ent.Value, error) {
+	return dd.selectValues.Get(name)
 }
 
 // QueryDictionaries queries the "dictionaries" edge of the DictionaryDetail entity.

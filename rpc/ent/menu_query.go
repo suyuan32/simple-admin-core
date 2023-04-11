@@ -20,7 +20,7 @@ import (
 type MenuQuery struct {
 	config
 	ctx          *QueryContext
-	order        []OrderFunc
+	order        []menu.Order
 	inters       []Interceptor
 	predicates   []predicate.Menu
 	withRoles    *RoleQuery
@@ -57,7 +57,7 @@ func (mq *MenuQuery) Unique(unique bool) *MenuQuery {
 }
 
 // Order specifies how the records should be ordered.
-func (mq *MenuQuery) Order(o ...OrderFunc) *MenuQuery {
+func (mq *MenuQuery) Order(o ...menu.Order) *MenuQuery {
 	mq.order = append(mq.order, o...)
 	return mq
 }
@@ -317,7 +317,7 @@ func (mq *MenuQuery) Clone() *MenuQuery {
 	return &MenuQuery{
 		config:       mq.config,
 		ctx:          mq.ctx.Clone(),
-		order:        append([]OrderFunc{}, mq.order...),
+		order:        append([]menu.Order{}, mq.order...),
 		inters:       append([]Interceptor{}, mq.inters...),
 		predicates:   append([]predicate.Menu{}, mq.predicates...),
 		withRoles:    mq.withRoles.Clone(),
@@ -629,6 +629,9 @@ func (mq *MenuQuery) querySpec() *sqlgraph.QuerySpec {
 			if fields[i] != menu.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
+		}
+		if mq.withParent != nil {
+			_spec.Node.AddColumnOnce(menu.FieldParentID)
 		}
 	}
 	if ps := mq.predicates; len(ps) > 0 {

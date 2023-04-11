@@ -4,6 +4,8 @@ package oauthprovider
 
 import (
 	"time"
+
+	"entgo.io/ent/dialect/sql"
 )
 
 const (
@@ -71,3 +73,66 @@ var (
 	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
 	UpdateDefaultUpdatedAt func() time.Time
 )
+
+// Order defines the ordering method for the OauthProvider queries.
+type Order func(*sql.Selector)
+
+// ByID orders the results by the id field.
+func ByID(opts ...sql.OrderTermOption) Order {
+	return sql.OrderByField(FieldID, opts...).ToFunc()
+}
+
+// ByCreatedAt orders the results by the created_at field.
+func ByCreatedAt(opts ...sql.OrderTermOption) Order {
+	return sql.OrderByField(FieldCreatedAt, opts...).ToFunc()
+}
+
+// ByUpdatedAt orders the results by the updated_at field.
+func ByUpdatedAt(opts ...sql.OrderTermOption) Order {
+	return sql.OrderByField(FieldUpdatedAt, opts...).ToFunc()
+}
+
+// ByName orders the results by the name field.
+func ByName(opts ...sql.OrderTermOption) Order {
+	return sql.OrderByField(FieldName, opts...).ToFunc()
+}
+
+// ByClientID orders the results by the client_id field.
+func ByClientID(opts ...sql.OrderTermOption) Order {
+	return sql.OrderByField(FieldClientID, opts...).ToFunc()
+}
+
+// ByClientSecret orders the results by the client_secret field.
+func ByClientSecret(opts ...sql.OrderTermOption) Order {
+	return sql.OrderByField(FieldClientSecret, opts...).ToFunc()
+}
+
+// ByRedirectURL orders the results by the redirect_url field.
+func ByRedirectURL(opts ...sql.OrderTermOption) Order {
+	return sql.OrderByField(FieldRedirectURL, opts...).ToFunc()
+}
+
+// ByScopes orders the results by the scopes field.
+func ByScopes(opts ...sql.OrderTermOption) Order {
+	return sql.OrderByField(FieldScopes, opts...).ToFunc()
+}
+
+// ByAuthURL orders the results by the auth_url field.
+func ByAuthURL(opts ...sql.OrderTermOption) Order {
+	return sql.OrderByField(FieldAuthURL, opts...).ToFunc()
+}
+
+// ByTokenURL orders the results by the token_url field.
+func ByTokenURL(opts ...sql.OrderTermOption) Order {
+	return sql.OrderByField(FieldTokenURL, opts...).ToFunc()
+}
+
+// ByAuthStyle orders the results by the auth_style field.
+func ByAuthStyle(opts ...sql.OrderTermOption) Order {
+	return sql.OrderByField(FieldAuthStyle, opts...).ToFunc()
+}
+
+// ByInfoURL orders the results by the info_url field.
+func ByInfoURL(opts ...sql.OrderTermOption) Order {
+	return sql.OrderByField(FieldInfoURL, opts...).ToFunc()
+}

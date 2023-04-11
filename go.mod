@@ -3,7 +3,7 @@ module github.com/suyuan32/simple-admin-core
 go 1.20
 
 require (
-	entgo.io/ent v0.11.10
+	entgo.io/ent v0.12.0
 	github.com/casbin/casbin/v2 v2.66.0
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/hibiken/asynq v0.24.0

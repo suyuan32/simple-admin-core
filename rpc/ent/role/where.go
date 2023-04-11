@@ -539,11 +539,7 @@ func HasMenus() predicate.Role {
 // HasMenusWith applies the HasEdge predicate on the "menus" edge with a given conditions (other predicates).
 func HasMenusWith(preds ...predicate.Menu) predicate.Role {
 	return predicate.Role(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(MenusInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, false, MenusTable, MenusPrimaryKey...),
-		)
+		step := newMenusStep()
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
 				p(s)
@@ -566,11 +562,7 @@ func HasUsers() predicate.Role {
 // HasUsersWith applies the HasEdge predicate on the "users" edge with a given conditions (other predicates).
 func HasUsersWith(preds ...predicate.User) predicate.Role {
 	return predicate.Role(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(UsersInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2M, true, UsersTable, UsersPrimaryKey...),
-		)
+		step := newUsersStep()
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
 				p(s)

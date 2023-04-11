@@ -424,11 +424,7 @@ func HasDictionaryDetails() predicate.Dictionary {
 // HasDictionaryDetailsWith applies the HasEdge predicate on the "dictionary_details" edge with a given conditions (other predicates).
 func HasDictionaryDetailsWith(preds ...predicate.DictionaryDetail) predicate.Dictionary {
 	return predicate.Dictionary(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(DictionaryDetailsInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, DictionaryDetailsTable, DictionaryDetailsColumn),
-		)
+		step := newDictionaryDetailsStep()
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
 				p(s)

@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 )
@@ -37,7 +38,8 @@ type OauthProvider struct {
 	// the auth style, 0: auto detect 1: third party log in 2: log in with username and password
 	AuthStyle uint64 `json:"auth_style,omitempty"`
 	// the URL to request user information by token | 用户信息请求地址
-	InfoURL string `json:"info_url,omitempty"`
+	InfoURL      string `json:"info_url,omitempty"`
+	selectValues sql.SelectValues
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -52,7 +54,7 @@ func (*OauthProvider) scanValues(columns []string) ([]any, error) {
 		case oauthprovider.FieldCreatedAt, oauthprovider.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
 		default:
-			return nil, fmt.Errorf("unexpected column %q for type OauthProvider", columns[i])
+			values[i] = new(sql.UnknownType)
 		}
 	}
 	return values, nil
@@ -138,9 +140,17 @@ func (op *OauthProvider) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				op.InfoURL = value.String
 			}
+		default:
+			op.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
+}
+
+// Value returns the ent.Value that was dynamically selected and assigned to the OauthProvider.
+// This includes values selected through modifiers, order, etc.
+func (op *OauthProvider) Value(name string) (ent.Value, error) {
+	return op.selectValues.Get(name)
 }
 
 // Update returns a builder for updating this OauthProvider.
