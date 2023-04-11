@@ -2505,7 +2505,7 @@ info:
         email: yuansu.china.work@gmail.com
     description: This is simple admin api doc
     title: Simple Admin
-    version: 0.2.8
+    version: 0.3.2
 paths:
     /api:
         post:
@@ -3786,7 +3786,7 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/ProfileReq'
+                    $ref: '#/definitions/ProfileInfo'
                     type: object
             responses:
                 "200":
