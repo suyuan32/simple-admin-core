@@ -27,7 +27,6 @@ func NewCreateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Creat
 func (l *CreateTokenLogic) CreateToken(req *types.TokenInfo) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateToken(l.ctx,
 		&core.TokenInfo{
-			Id:        req.Id,
 			Status:    req.Status,
 			Uuid:      req.Uuid,
 			Token:     req.Token,

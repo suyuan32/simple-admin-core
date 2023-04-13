@@ -27,7 +27,6 @@ func NewCreateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 func (l *CreateRoleLogic) CreateRole(req *types.RoleInfo) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateRole(l.ctx,
 		&core.RoleInfo{
-			Id:            req.Id,
 			Status:        req.Status,
 			Name:          req.Name,
 			Code:          req.Code,

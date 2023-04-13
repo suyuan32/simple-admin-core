@@ -27,7 +27,6 @@ func NewCreateApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateA
 func (l *CreateApiLogic) CreateApi(req *types.ApiInfo) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateApi(l.ctx,
 		&core.ApiInfo{
-			Id:          req.Id,
 			Path:        req.Path,
 			Description: req.Description,
 			ApiGroup:    req.Group,

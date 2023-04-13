@@ -27,7 +27,6 @@ func NewCreateDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 func (l *CreateDictionaryLogic) CreateDictionary(req *types.DictionaryInfo) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateDictionary(l.ctx,
 		&core.DictionaryInfo{
-			Id:     req.Id,
 			Title:  req.Title,
 			Name:   req.Name,
 			Status: req.Status,

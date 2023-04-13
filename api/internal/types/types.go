@@ -94,7 +94,7 @@ type UUIDsReq struct {
 // swagger:model BaseIDInfo
 type BaseIDInfo struct {
 	// ID
-	Id uint64 `json:"id"`
+	Id uint64 `json:"id,optional"`
 	// Create date | 创建日期
 	CreatedAt int64 `json:"createdAt,optional"`
 	// Update date | 更新日期
@@ -105,7 +105,7 @@ type BaseIDInfo struct {
 // swagger:model BaseUUIDInfo
 type BaseUUIDInfo struct {
 	// ID
-	Id string `json:"id"`
+	Id string `json:"id,optional"`
 	// Create date | 创建日期
 	CreatedAt int64 `json:"createdAt,optional"`
 	// Update date | 更新日期
