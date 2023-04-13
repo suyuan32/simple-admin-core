@@ -40,7 +40,8 @@ func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) 
 			SetNotEmptyAvatar(in.Avatar).
 			SetNotEmptyHomePath(in.HomePath).
 			SetNotEmptyDescription(in.Description).
-			SetNotEmptyDepartmentID(in.DepartmentId)
+			SetNotEmptyDepartmentID(in.DepartmentId).
+			SetStatus(uint8(in.Status))
 
 		if in.Password != "" {
 			updateQuery = updateQuery.SetNotEmptyPassword(utils.BcryptEncrypt(in.Password))
