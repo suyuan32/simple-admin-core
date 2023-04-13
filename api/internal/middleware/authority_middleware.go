@@ -3,7 +3,7 @@ package middleware
 import (
 	"bytes"
 	"github.com/duke-git/lancet/slice"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -98,8 +98,8 @@ func batchCheck(cbn *casbin.Enforcer, roleIds, act, obj string, w http.ResponseW
 // waring：this rule must limit .api route,do not include 'create' without insert!
 func createIntercepter(path string, r *http.Request) *http.Request {
 	if slice.LastIndexOf(strings.Split(path, "/"), "create") == 1 {
-		buffer, _ := ioutil.ReadAll(r.Body)
-		r.Body = ioutil.NopCloser(bytes.NewBuffer(buffer))
+		buffer, _ := io.ReadAll(r.Body)
+		r.Body = io.NopCloser(bytes.NewBuffer(buffer))
 		defer r.Body.Close()
 		formValues := url.Values{}
 		// fill the rpc must in field "id"
@@ -108,7 +108,7 @@ func createIntercepter(path string, r *http.Request) *http.Request {
 		formDataBytes := []byte(formDataStr)
 		buffer = append(buffer, formDataBytes...)
 		r.ContentLength = int64(len(buffer))
-		r.Body = ioutil.NopCloser(bytes.NewBuffer(buffer))
+		r.Body = io.NopCloser(bytes.NewBuffer(buffer))
 	}
 	return r
 }
