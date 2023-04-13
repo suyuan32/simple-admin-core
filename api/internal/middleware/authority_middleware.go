@@ -1,7 +1,11 @@
 package middleware
 
 import (
+	"bytes"
+	"github.com/duke-git/lancet/slice"
+	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/casbin/casbin/v2"
@@ -55,6 +59,8 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		if result {
 			logx.Infow("HTTP/HTTPS Request", logx.Field("UUID", r.Context().Value("userId").(string)),
 				logx.Field("path", obj), logx.Field("method", act))
+			// create intercepter，target：fill the "id" in r.Body
+			createIntercepter(obj, r)
 			next(w, r)
 			return
 		} else {
@@ -86,4 +92,23 @@ func batchCheck(cbn *casbin.Enforcer, roleIds, act, obj string, w http.ResponseW
 	}
 
 	return false
+}
+
+// check create operator
+// waring：this rule must limit .api route,do not include 'create' without insert!
+func createIntercepter(path string, r *http.Request) *http.Request {
+	if slice.LastIndexOf(strings.Split(path, "/"), "create") == 1 {
+		buffer, _ := ioutil.ReadAll(r.Body)
+		r.Body = ioutil.NopCloser(bytes.NewBuffer(buffer))
+		defer r.Body.Close()
+		formValues := url.Values{}
+		// fill the rpc must in field "id"
+		formValues.Set("id", "0")
+		formDataStr := formValues.Encode()
+		formDataBytes := []byte(formDataStr)
+		buffer = append(buffer, formDataBytes...)
+		r.ContentLength = int64(len(buffer))
+		r.Body = ioutil.NopCloser(bytes.NewBuffer(buffer))
+	}
+	return r
 }
