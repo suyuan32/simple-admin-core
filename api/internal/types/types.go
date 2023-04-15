@@ -599,7 +599,7 @@ type ApiInfo struct {
 	// API group | API分组
 	// min length : 1
 	// max length : 20
-	Group string `json:"group,optional" validate:"omitempty,alphanum,min=1,max=20"`
+	Group string `json:"group,optional" validate:"omitempty,min=1,max=20"`
 	// API request method e.g. POST | API请求类型 如POST
 	// min length : 3
 	// max length : 4
@@ -1121,6 +1121,12 @@ type DictionaryDetailInfoResp struct {
 	BaseDataInfo
 	// DictionaryDetail information | 字典键值数据
 	Data DictionaryDetailInfo `json:"data"`
+}
+
+// Dictionary name request | 字典名称请求
+// swagger:parameters GetDictionaryDetailByDictionaryName
+type DictionaryNameReq struct {
+	Name string `json:"name,optional" path:"name"`
 }
 
 // The response data of task information | 定时任务信息
