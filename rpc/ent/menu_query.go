@@ -20,7 +20,7 @@ import (
 type MenuQuery struct {
 	config
 	ctx          *QueryContext
-	order        []menu.Order
+	order        []menu.OrderOption
 	inters       []Interceptor
 	predicates   []predicate.Menu
 	withRoles    *RoleQuery
@@ -57,7 +57,7 @@ func (mq *MenuQuery) Unique(unique bool) *MenuQuery {
 }
 
 // Order specifies how the records should be ordered.
-func (mq *MenuQuery) Order(o ...menu.Order) *MenuQuery {
+func (mq *MenuQuery) Order(o ...menu.OrderOption) *MenuQuery {
 	mq.order = append(mq.order, o...)
 	return mq
 }
@@ -317,7 +317,7 @@ func (mq *MenuQuery) Clone() *MenuQuery {
 	return &MenuQuery{
 		config:       mq.config,
 		ctx:          mq.ctx.Clone(),
-		order:        append([]menu.Order{}, mq.order...),
+		order:        append([]menu.OrderOption{}, mq.order...),
 		inters:       append([]Interceptor{}, mq.inters...),
 		predicates:   append([]predicate.Menu{}, mq.predicates...),
 		withRoles:    mq.withRoles.Clone(),
@@ -588,7 +588,7 @@ func (mq *MenuQuery) loadChildren(ctx context.Context, query *MenuQuery, nodes [
 		}
 	}
 	query.Where(predicate.Menu(func(s *sql.Selector) {
-		s.Where(sql.InValues(menu.ChildrenColumn, fks...))
+		s.Where(sql.InValues(s.C(menu.ChildrenColumn), fks...))
 	}))
 	neighbors, err := query.All(ctx)
 	if err != nil {

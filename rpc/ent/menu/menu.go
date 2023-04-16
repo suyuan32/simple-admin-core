@@ -168,159 +168,159 @@ var (
 	DefaultRealPath string
 )
 
-// Order defines the ordering method for the Menu queries.
-type Order func(*sql.Selector)
+// OrderOption defines the ordering options for the Menu queries.
+type OrderOption func(*sql.Selector)
 
 // ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) Order {
+func ByID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldID, opts...).ToFunc()
 }
 
 // ByCreatedAt orders the results by the created_at field.
-func ByCreatedAt(opts ...sql.OrderTermOption) Order {
+func ByCreatedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCreatedAt, opts...).ToFunc()
 }
 
 // ByUpdatedAt orders the results by the updated_at field.
-func ByUpdatedAt(opts ...sql.OrderTermOption) Order {
+func ByUpdatedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUpdatedAt, opts...).ToFunc()
 }
 
 // BySort orders the results by the sort field.
-func BySort(opts ...sql.OrderTermOption) Order {
+func BySort(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldSort, opts...).ToFunc()
 }
 
 // ByParentID orders the results by the parent_id field.
-func ByParentID(opts ...sql.OrderTermOption) Order {
+func ByParentID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldParentID, opts...).ToFunc()
 }
 
 // ByMenuLevel orders the results by the menu_level field.
-func ByMenuLevel(opts ...sql.OrderTermOption) Order {
+func ByMenuLevel(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldMenuLevel, opts...).ToFunc()
 }
 
 // ByMenuType orders the results by the menu_type field.
-func ByMenuType(opts ...sql.OrderTermOption) Order {
+func ByMenuType(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldMenuType, opts...).ToFunc()
 }
 
 // ByPath orders the results by the path field.
-func ByPath(opts ...sql.OrderTermOption) Order {
+func ByPath(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldPath, opts...).ToFunc()
 }
 
 // ByName orders the results by the name field.
-func ByName(opts ...sql.OrderTermOption) Order {
+func ByName(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldName, opts...).ToFunc()
 }
 
 // ByRedirect orders the results by the redirect field.
-func ByRedirect(opts ...sql.OrderTermOption) Order {
+func ByRedirect(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldRedirect, opts...).ToFunc()
 }
 
 // ByComponent orders the results by the component field.
-func ByComponent(opts ...sql.OrderTermOption) Order {
+func ByComponent(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldComponent, opts...).ToFunc()
 }
 
 // ByDisabled orders the results by the disabled field.
-func ByDisabled(opts ...sql.OrderTermOption) Order {
+func ByDisabled(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDisabled, opts...).ToFunc()
 }
 
 // ByTitle orders the results by the title field.
-func ByTitle(opts ...sql.OrderTermOption) Order {
+func ByTitle(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldTitle, opts...).ToFunc()
 }
 
 // ByIcon orders the results by the icon field.
-func ByIcon(opts ...sql.OrderTermOption) Order {
+func ByIcon(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldIcon, opts...).ToFunc()
 }
 
 // ByHideMenu orders the results by the hide_menu field.
-func ByHideMenu(opts ...sql.OrderTermOption) Order {
+func ByHideMenu(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldHideMenu, opts...).ToFunc()
 }
 
 // ByHideBreadcrumb orders the results by the hide_breadcrumb field.
-func ByHideBreadcrumb(opts ...sql.OrderTermOption) Order {
+func ByHideBreadcrumb(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldHideBreadcrumb, opts...).ToFunc()
 }
 
 // ByIgnoreKeepAlive orders the results by the ignore_keep_alive field.
-func ByIgnoreKeepAlive(opts ...sql.OrderTermOption) Order {
+func ByIgnoreKeepAlive(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldIgnoreKeepAlive, opts...).ToFunc()
 }
 
 // ByHideTab orders the results by the hide_tab field.
-func ByHideTab(opts ...sql.OrderTermOption) Order {
+func ByHideTab(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldHideTab, opts...).ToFunc()
 }
 
 // ByFrameSrc orders the results by the frame_src field.
-func ByFrameSrc(opts ...sql.OrderTermOption) Order {
+func ByFrameSrc(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldFrameSrc, opts...).ToFunc()
 }
 
 // ByCarryParam orders the results by the carry_param field.
-func ByCarryParam(opts ...sql.OrderTermOption) Order {
+func ByCarryParam(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCarryParam, opts...).ToFunc()
 }
 
 // ByHideChildrenInMenu orders the results by the hide_children_in_menu field.
-func ByHideChildrenInMenu(opts ...sql.OrderTermOption) Order {
+func ByHideChildrenInMenu(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldHideChildrenInMenu, opts...).ToFunc()
 }
 
 // ByAffix orders the results by the affix field.
-func ByAffix(opts ...sql.OrderTermOption) Order {
+func ByAffix(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAffix, opts...).ToFunc()
 }
 
 // ByDynamicLevel orders the results by the dynamic_level field.
-func ByDynamicLevel(opts ...sql.OrderTermOption) Order {
+func ByDynamicLevel(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDynamicLevel, opts...).ToFunc()
 }
 
 // ByRealPath orders the results by the real_path field.
-func ByRealPath(opts ...sql.OrderTermOption) Order {
+func ByRealPath(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldRealPath, opts...).ToFunc()
 }
 
 // ByRolesCount orders the results by roles count.
-func ByRolesCount(opts ...sql.OrderTermOption) Order {
+func ByRolesCount(opts ...sql.OrderTermOption) OrderOption {
 	return func(s *sql.Selector) {
 		sqlgraph.OrderByNeighborsCount(s, newRolesStep(), opts...)
 	}
 }
 
 // ByRoles orders the results by roles terms.
-func ByRoles(term sql.OrderTerm, terms ...sql.OrderTerm) Order {
+func ByRoles(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 	return func(s *sql.Selector) {
 		sqlgraph.OrderByNeighborTerms(s, newRolesStep(), append([]sql.OrderTerm{term}, terms...)...)
 	}
 }
 
 // ByParentField orders the results by parent field.
-func ByParentField(field string, opts ...sql.OrderTermOption) Order {
+func ByParentField(field string, opts ...sql.OrderTermOption) OrderOption {
 	return func(s *sql.Selector) {
 		sqlgraph.OrderByNeighborTerms(s, newParentStep(), sql.OrderByField(field, opts...))
 	}
 }
 
 // ByChildrenCount orders the results by children count.
-func ByChildrenCount(opts ...sql.OrderTermOption) Order {
+func ByChildrenCount(opts ...sql.OrderTermOption) OrderOption {
 	return func(s *sql.Selector) {
 		sqlgraph.OrderByNeighborsCount(s, newChildrenStep(), opts...)
 	}
 }
 
 // ByChildren orders the results by children terms.
-func ByChildren(term sql.OrderTerm, terms ...sql.OrderTerm) Order {
+func ByChildren(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 	return func(s *sql.Selector) {
 		sqlgraph.OrderByNeighborTerms(s, newChildrenStep(), append([]sql.OrderTerm{term}, terms...)...)
 	}

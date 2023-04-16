@@ -79,56 +79,56 @@ var (
 	DefaultSort uint32
 )
 
-// Order defines the ordering method for the DictionaryDetail queries.
-type Order func(*sql.Selector)
+// OrderOption defines the ordering options for the DictionaryDetail queries.
+type OrderOption func(*sql.Selector)
 
 // ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) Order {
+func ByID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldID, opts...).ToFunc()
 }
 
 // ByCreatedAt orders the results by the created_at field.
-func ByCreatedAt(opts ...sql.OrderTermOption) Order {
+func ByCreatedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCreatedAt, opts...).ToFunc()
 }
 
 // ByUpdatedAt orders the results by the updated_at field.
-func ByUpdatedAt(opts ...sql.OrderTermOption) Order {
+func ByUpdatedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUpdatedAt, opts...).ToFunc()
 }
 
 // ByStatus orders the results by the status field.
-func ByStatus(opts ...sql.OrderTermOption) Order {
+func ByStatus(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldStatus, opts...).ToFunc()
 }
 
 // BySort orders the results by the sort field.
-func BySort(opts ...sql.OrderTermOption) Order {
+func BySort(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldSort, opts...).ToFunc()
 }
 
 // ByTitle orders the results by the title field.
-func ByTitle(opts ...sql.OrderTermOption) Order {
+func ByTitle(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldTitle, opts...).ToFunc()
 }
 
 // ByKey orders the results by the key field.
-func ByKey(opts ...sql.OrderTermOption) Order {
+func ByKey(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldKey, opts...).ToFunc()
 }
 
 // ByValue orders the results by the value field.
-func ByValue(opts ...sql.OrderTermOption) Order {
+func ByValue(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldValue, opts...).ToFunc()
 }
 
 // ByDictionaryID orders the results by the dictionary_id field.
-func ByDictionaryID(opts ...sql.OrderTermOption) Order {
+func ByDictionaryID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDictionaryID, opts...).ToFunc()
 }
 
 // ByDictionariesField orders the results by dictionaries field.
-func ByDictionariesField(field string, opts ...sql.OrderTermOption) Order {
+func ByDictionariesField(field string, opts ...sql.OrderTermOption) OrderOption {
 	return func(s *sql.Selector) {
 		sqlgraph.OrderByNeighborTerms(s, newDictionariesStep(), sql.OrderByField(field, opts...))
 	}

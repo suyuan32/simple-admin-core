@@ -61,40 +61,40 @@ var (
 	DefaultMethod string
 )
 
-// Order defines the ordering method for the API queries.
-type Order func(*sql.Selector)
+// OrderOption defines the ordering options for the API queries.
+type OrderOption func(*sql.Selector)
 
 // ByID orders the results by the id field.
-func ByID(opts ...sql.OrderTermOption) Order {
+func ByID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldID, opts...).ToFunc()
 }
 
 // ByCreatedAt orders the results by the created_at field.
-func ByCreatedAt(opts ...sql.OrderTermOption) Order {
+func ByCreatedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCreatedAt, opts...).ToFunc()
 }
 
 // ByUpdatedAt orders the results by the updated_at field.
-func ByUpdatedAt(opts ...sql.OrderTermOption) Order {
+func ByUpdatedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUpdatedAt, opts...).ToFunc()
 }
 
 // ByPath orders the results by the path field.
-func ByPath(opts ...sql.OrderTermOption) Order {
+func ByPath(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldPath, opts...).ToFunc()
 }
 
 // ByDescription orders the results by the description field.
-func ByDescription(opts ...sql.OrderTermOption) Order {
+func ByDescription(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDescription, opts...).ToFunc()
 }
 
 // ByAPIGroup orders the results by the api_group field.
-func ByAPIGroup(opts ...sql.OrderTermOption) Order {
+func ByAPIGroup(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAPIGroup, opts...).ToFunc()
 }
 
 // ByMethod orders the results by the method field.
-func ByMethod(opts ...sql.OrderTermOption) Order {
+func ByMethod(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldMethod, opts...).ToFunc()
 }
