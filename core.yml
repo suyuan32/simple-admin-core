@@ -412,7 +412,7 @@ definitions:
                 x-go-name: ParentId
             phone:
                 description: Phone | 电话号码
-                minLength: 18
+                maxLength: 18
                 type: string
                 x-go-name: Phone
             remark:

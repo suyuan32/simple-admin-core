@@ -952,8 +952,8 @@ type DepartmentInfo struct {
 	// max length : 20
 	Leader string `json:"leader,optional" validate:"omitempty,max=20"`
 	// Phone | 电话号码
-	// min length : 18
-	Phone string `json:"phone,optional" validate:"omitempty,min=18"`
+	// max length : 18
+	Phone string `json:"phone,optional" validate:"omitempty,max=18"`
 	// Email | 邮箱
 	// min length : 5
 	// max length : 70
