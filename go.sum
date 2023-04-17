@@ -546,8 +546,8 @@ github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o
 github.com/stretchr/testify v1.8.2 h1:+h33VjcLVPDHtOdpUCuF+7gSuG3yGIftsP1YvFihtJ8=
 github.com/stretchr/testify v1.8.2/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
-github.com/suyuan32/simple-admin-common v1.0.1-beta.1 h1:1UCBU0mwyP7V04lwLqIdaXAQIfLbxjfi33ehLMG9GOk=
-github.com/suyuan32/simple-admin-common v1.0.1-beta.1/go.mod h1:SiGrEMiLG6c9zvGASoRN94o3RfiGTKrHB4IRTSLv2J0=
+github.com/suyuan32/simple-admin-common v1.0.1 h1:PYZN/X3T1ayHVEl1unUoDN4TQyErUmAlQvU4E+qUvZ4=
+github.com/suyuan32/simple-admin-common v1.0.1/go.mod h1:SiGrEMiLG6c9zvGASoRN94o3RfiGTKrHB4IRTSLv2J0=
 github.com/suyuan32/simple-admin-job v1.0.0 h1:Y8qqki1uN65X5ekt1ItF6sjkqTmhQfjQsOyj3WRkR1c=
 github.com/suyuan32/simple-admin-job v1.0.0/go.mod h1:1SARogcSGYFacT+JDo6Delu1pCCn+xKnIo90JdVjytA=
 github.com/suyuan32/simple-admin-tools v1.5.2 h1:od3XbWXFxQX/RByvC4W7ydijDjhDPtqSi+Teu5REJ+s=
