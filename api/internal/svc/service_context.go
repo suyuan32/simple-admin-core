@@ -1,7 +1,9 @@
 package svc
 
 import (
+	"github.com/mojocn/base64Captcha"
 	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/suyuan32/simple-admin-common/utils/captcha"
 
 	i18n2 "github.com/suyuan32/simple-admin-core/api/internal/i18n"
 
@@ -25,6 +27,7 @@ type ServiceContext struct {
 	Redis     *redis.Redis
 	Casbin    *casbin.Enforcer
 	Trans     *i18n.Translator
+	Captcha   *base64Captcha.Captcha
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -39,6 +42,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Authority: middleware.NewAuthorityMiddleware(cbn, rds, trans).Handle,
 		CoreRpc:   coreclient.NewCore(zrpc.NewClientIfEnable(c.CoreRpc)),
 		JobRpc:    jobclient.NewJob(zrpc.NewClientIfEnable(c.JobRpc)),
+		Captcha:   captcha.MustNewRedisCaptcha(c.Captcha, rds),
 		Redis:     rds,
 		Casbin:    cbn,
 		Trans:     trans,

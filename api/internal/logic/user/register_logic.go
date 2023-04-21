@@ -6,7 +6,6 @@ import (
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/zeromicro/go-zero/core/errorx"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/logic/captcha"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -29,7 +28,7 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 }
 
 func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseMsgResp, err error) {
-	if ok := captcha.Store.Verify(req.CaptchaId, req.Captcha, true); ok {
+	if ok := l.svcCtx.Captcha.Verify("CAPTCHA_"+req.CaptchaId, req.Captcha, true); ok {
 		user, err := l.svcCtx.CoreRpc.CreateUser(l.ctx,
 			&core.UserInfo{
 				Id:           "",

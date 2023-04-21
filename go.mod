@@ -4,11 +4,11 @@ go 1.20
 
 require (
 	entgo.io/ent v0.12.1
-	github.com/casbin/casbin/v2 v2.66.1
+	github.com/casbin/casbin/v2 v2.68.0
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/hibiken/asynq v0.24.0
 	github.com/mojocn/base64Captcha v1.3.5
-	github.com/suyuan32/simple-admin-common v1.0.1
+	github.com/suyuan32/simple-admin-common v1.0.2-0.20230421122504-8f03f60f863b
 	github.com/suyuan32/simple-admin-job v1.0.0
 	github.com/zeromicro/go-zero v1.5.1
 	golang.org/x/oauth2 v0.6.0
@@ -72,7 +72,7 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/leodido/go-urn v1.2.2 // indirect
-	github.com/lib/pq v1.10.7 // indirect
+	github.com/lib/pq v1.10.8 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.18 // indirect
