@@ -11,6 +11,7 @@ DatabaseConf:
   MaxOpenConn: 100
   SSLMode: disable # disable or require
   CacheTime: 5
+  MysqlConfig: '&charset=utf8&loc=Asia/Shanghai'
 
 Log:
   ServiceName: coreRpcLogger
