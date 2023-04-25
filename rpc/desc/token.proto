@@ -41,4 +41,6 @@ service Core {
   rpc getTokenById (UUIDReq) returns (TokenInfo);
   // group: token
   rpc blockUserAllToken (UUIDReq) returns (BaseResp);
+  // group: token
+  rpc updateToken (TokenInfo) returns (BaseResp);
 }

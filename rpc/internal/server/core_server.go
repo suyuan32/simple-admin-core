@@ -291,6 +291,11 @@ func (s *CoreServer) BlockUserAllToken(ctx context.Context, in *core.UUIDReq) (*
 	return l.BlockUserAllToken(in)
 }
 
+func (s *CoreServer) UpdateToken(ctx context.Context, in *core.TokenInfo) (*core.BaseResp, error) {
+	l := token.NewUpdateTokenLogic(ctx, s.svcCtx)
+	return l.UpdateToken(in)
+}
+
 // User management
 func (s *CoreServer) CreateUser(ctx context.Context, in *core.UserInfo) (*core.BaseUUIDResp, error) {
 	l := user.NewCreateUserLogic(ctx, s.svcCtx)

@@ -354,6 +354,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				},
 				{
 					Method:  http.MethodPost,
+					Path:    "/token/update",
+					Handler: token.UpdateTokenHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
 					Path:    "/token/delete",
 					Handler: token.DeleteTokenHandler(serverCtx),
 				},

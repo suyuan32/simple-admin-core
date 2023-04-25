@@ -2515,8 +2515,8 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/IDReq'
-                    type: object
+                      $ref: '#/definitions/IDReq'
+                      type: object
             responses:
                 "200":
                     description: ApiInfoResp
@@ -2785,8 +2785,8 @@ paths:
                 - in: body
                   name: body
                   schema:
-                      $ref: '#/definitions/DepartmentInfo'
-                      type: object
+                    $ref: '#/definitions/DepartmentInfo'
+                    type: object
             responses:
                 "200":
                     description: BaseMsgResp
@@ -2820,8 +2820,8 @@ paths:
                 - in: body
                   name: body
                   schema:
-                      $ref: '#/definitions/IDReq'
-                      type: object
+                    $ref: '#/definitions/IDReq'
+                    type: object
             responses:
                 "200":
                     description: DictionaryInfoResp
@@ -3630,14 +3630,32 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/UUIDReq'
-                    type: object
+                      $ref: '#/definitions/UUIDReq'
+                      type: object
             responses:
                 "200":
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
             summary: Force logging out by user UUID | 根据UUID强制用户退出
+            tags:
+                - token
+    /token/update:
+        post:
+            description: Update token information | 更新 Token
+            operationId: UpdateToken
+            parameters:
+                - in: body
+                  name: body
+                  schema:
+                      $ref: '#/definitions/TokenInfo'
+                      type: object
+            responses:
+                "200":
+                    description: BaseMsgResp
+                    schema:
+                        $ref: '#/definitions/BaseMsgResp'
+            summary: Update token information | 更新 Token
             tags:
                 - token
     /user:
@@ -3648,8 +3666,8 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/UUIDReq'
-                    type: object
+                      $ref: '#/definitions/UUIDReq'
+                      type: object
             responses:
                 "200":
                     description: UserInfoResp
