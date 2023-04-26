@@ -417,7 +417,7 @@ definitions:
                 x-go-name: Phone
             remark:
                 description: Remark | 备注
-                minLength: 200
+                maxLength: 200
                 type: string
                 x-go-name: Remark
             sort:

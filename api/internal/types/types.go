@@ -959,8 +959,8 @@ type DepartmentInfo struct {
 	// max length : 70
 	Email string `json:"email,optional" validate:"omitempty,min=5,max=70"`
 	// Remark | 备注
-	// min length : 200
-	Remark string `json:"remark,optional" validate:"omitempty,min=200"`
+	// max length : 200
+	Remark string `json:"remark,optional" validate:"omitempty,max=200"`
 	// ParentId | 父级 ID
 	ParentId uint64 `json:"parentId,optional"`
 }
