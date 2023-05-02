@@ -61,7 +61,7 @@ services:
           cpus: '0.05'
           memory: 200M
   core-rpc:
-    image: ryanpower/core-rpc-docker:v0.3.2
+    image: ryanpower/core-rpc-docker:v1.0.3
     container_name: core-rpc
     restart: always
     ports:
@@ -81,7 +81,7 @@ services:
           memory: 200M
 
   job-rpc:
-    image: ryanpower/job-rpc-docker:v0.3.2
+    image: ryanpower/job-rpc-docker:v1.0.3
     container_name: job-rpc
     restart: always
     ports:
@@ -101,7 +101,7 @@ services:
           memory: 200M
 
   core-api:
-    image: ryanpower/core-api-docker:v0.3.2
+    image: ryanpower/core-api-docker:v1.0.3
     container_name: core-api
     restart: always
     ports:
@@ -121,7 +121,7 @@ services:
           memory: 200M
 
   backend-ui:
-    image: ryanpower/backend-ui-docker:v0.3.2
+    image: ryanpower/backend-ui-docker:v1.0.3
     container_name: backend-ui
     restart: always
     ports:

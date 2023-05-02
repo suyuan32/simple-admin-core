@@ -3,7 +3,7 @@ FROM golang:1.20.2-alpine3.17 as builder
 # Define the project name | 定义项目名称
 ARG PROJECT=core
 
-WORKDIR /home
+WORKDIR /app
 COPY . .
 
 RUN go env -w GO111MODULE=on \
@@ -12,7 +12,7 @@ RUN go env -w GO111MODULE=on \
     && go env \
     && go mod tidy \
     && cd rpc \
-    && go build -ldflags="-s -w" -o /home/rpc/${PROJECT}_rpc ${PROJECT}.go
+    && go build -ldflags="-s -w" -o /app/rpc/${PROJECT}_rpc ${PROJECT}.go
 
 FROM alpine:latest
 
@@ -25,12 +25,12 @@ ARG AUTHOR=RyanSU@yuansu.china.work@gmail.com
 
 LABEL MAINTAINER=${AUTHOR}
 
-WORKDIR /home
+WORKDIR /app
 ENV PROJECT=${PROJECT}
 ENV CONFIG_FILE=${CONFIG_FILE}
 
-COPY --from=builder /home/rpc/${PROJECT}_rpc ./
-COPY --from=builder /home/rpc/etc/${CONFIG_FILE} ./etc/
+COPY --from=builder /app/rpc/${PROJECT}_rpc ./
+COPY --from=builder /app/rpc/etc/${CONFIG_FILE} ./etc/
 
 EXPOSE 9101
 ENTRYPOINT ./${PROJECT}_rpc -f etc/${CONFIG_FILE}
