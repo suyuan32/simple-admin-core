@@ -65,7 +65,7 @@ func (o OrderDirection) reverse() OrderDirection {
 const errInvalidPagination = "INVALID_PAGINATION"
 
 type APIPager struct {
-	Order  OrderFunc
+	Order  api.OrderOption
 	Filter func(*APIQuery) (*APIQuery, error)
 }
 
@@ -144,7 +144,7 @@ func (a *APIQuery) Page(
 }
 
 type DepartmentPager struct {
-	Order  OrderFunc
+	Order  department.OrderOption
 	Filter func(*DepartmentQuery) (*DepartmentQuery, error)
 }
 
@@ -223,7 +223,7 @@ func (d *DepartmentQuery) Page(
 }
 
 type DictionaryPager struct {
-	Order  OrderFunc
+	Order  dictionary.OrderOption
 	Filter func(*DictionaryQuery) (*DictionaryQuery, error)
 }
 
@@ -302,7 +302,7 @@ func (d *DictionaryQuery) Page(
 }
 
 type DictionaryDetailPager struct {
-	Order  OrderFunc
+	Order  dictionarydetail.OrderOption
 	Filter func(*DictionaryDetailQuery) (*DictionaryDetailQuery, error)
 }
 
@@ -381,7 +381,7 @@ func (dd *DictionaryDetailQuery) Page(
 }
 
 type MenuPager struct {
-	Order  OrderFunc
+	Order  menu.OrderOption
 	Filter func(*MenuQuery) (*MenuQuery, error)
 }
 
@@ -460,7 +460,7 @@ func (m *MenuQuery) Page(
 }
 
 type OauthProviderPager struct {
-	Order  OrderFunc
+	Order  oauthprovider.OrderOption
 	Filter func(*OauthProviderQuery) (*OauthProviderQuery, error)
 }
 
@@ -539,7 +539,7 @@ func (op *OauthProviderQuery) Page(
 }
 
 type PositionPager struct {
-	Order  OrderFunc
+	Order  position.OrderOption
 	Filter func(*PositionQuery) (*PositionQuery, error)
 }
 
@@ -618,7 +618,7 @@ func (po *PositionQuery) Page(
 }
 
 type RolePager struct {
-	Order  OrderFunc
+	Order  role.OrderOption
 	Filter func(*RoleQuery) (*RoleQuery, error)
 }
 
@@ -697,7 +697,7 @@ func (r *RoleQuery) Page(
 }
 
 type TokenPager struct {
-	Order  OrderFunc
+	Order  token.OrderOption
 	Filter func(*TokenQuery) (*TokenQuery, error)
 }
 
@@ -776,7 +776,7 @@ func (t *TokenQuery) Page(
 }
 
 type UserPager struct {
-	Order  OrderFunc
+	Order  user.OrderOption
 	Filter func(*UserQuery) (*UserQuery, error)
 }
 

@@ -34,6 +34,7 @@ Captcha:
   KeyLong: 5
   ImgWidth: 240
   ImgHeight: 80
+  Driver: digit
 
 DatabaseConf:
   Type: mysql

@@ -21,7 +21,7 @@ import (
 type PositionQuery struct {
 	config
 	ctx        *QueryContext
-	order      []OrderFunc
+	order      []position.OrderOption
 	inters     []Interceptor
 	predicates []predicate.Position
 	withUsers  *UserQuery
@@ -56,7 +56,7 @@ func (pq *PositionQuery) Unique(unique bool) *PositionQuery {
 }
 
 // Order specifies how the records should be ordered.
-func (pq *PositionQuery) Order(o ...OrderFunc) *PositionQuery {
+func (pq *PositionQuery) Order(o ...position.OrderOption) *PositionQuery {
 	pq.order = append(pq.order, o...)
 	return pq
 }
@@ -272,7 +272,7 @@ func (pq *PositionQuery) Clone() *PositionQuery {
 	return &PositionQuery{
 		config:     pq.config,
 		ctx:        pq.ctx.Clone(),
-		order:      append([]OrderFunc{}, pq.order...),
+		order:      append([]position.OrderOption{}, pq.order...),
 		inters:     append([]Interceptor{}, pq.inters...),
 		predicates: append([]predicate.Position{}, pq.predicates...),
 		withUsers:  pq.withUsers.Clone(),

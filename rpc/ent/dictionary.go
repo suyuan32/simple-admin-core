@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 )
@@ -30,7 +31,8 @@ type Dictionary struct {
 	Desc string `json:"desc,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the DictionaryQuery when eager-loading is set.
-	Edges DictionaryEdges `json:"edges"`
+	Edges        DictionaryEdges `json:"edges"`
+	selectValues sql.SelectValues
 }
 
 // DictionaryEdges holds the relations/edges for other nodes in the graph.
@@ -63,7 +65,7 @@ func (*Dictionary) scanValues(columns []string) ([]any, error) {
 		case dictionary.FieldCreatedAt, dictionary.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
 		default:
-			return nil, fmt.Errorf("unexpected column %q for type Dictionary", columns[i])
+			values[i] = new(sql.UnknownType)
 		}
 	}
 	return values, nil
@@ -119,9 +121,17 @@ func (d *Dictionary) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				d.Desc = value.String
 			}
+		default:
+			d.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
+}
+
+// Value returns the ent.Value that was dynamically selected and assigned to the Dictionary.
+// This includes values selected through modifiers, order, etc.
+func (d *Dictionary) Value(name string) (ent.Value, error) {
+	return d.selectValues.Get(name)
 }
 
 // QueryDictionaryDetails queries the "dictionary_details" edge of the Dictionary entity.

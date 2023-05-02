@@ -109,7 +109,7 @@ func (tc *TokenCreate) Mutation() *TokenMutation {
 // Save creates the Token in the database.
 func (tc *TokenCreate) Save(ctx context.Context) (*Token, error) {
 	tc.defaults()
-	return withHooks[*Token, TokenMutation](ctx, tc.sqlSave, tc.mutation, tc.hooks)
+	return withHooks(ctx, tc.sqlSave, tc.mutation, tc.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
@@ -264,8 +264,8 @@ func (tcb *TokenCreateBulk) Save(ctx context.Context) ([]*Token, error) {
 					return nil, err
 				}
 				builder.mutation = mutation
-				nodes[i], specs[i] = builder.createSpec()
 				var err error
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, tcb.builders[i+1].mutation)
 				} else {

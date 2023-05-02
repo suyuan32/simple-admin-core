@@ -23,7 +23,7 @@ import (
 type UserQuery struct {
 	config
 	ctx             *QueryContext
-	order           []OrderFunc
+	order           []user.OrderOption
 	inters          []Interceptor
 	predicates      []predicate.User
 	withDepartments *DepartmentQuery
@@ -60,7 +60,7 @@ func (uq *UserQuery) Unique(unique bool) *UserQuery {
 }
 
 // Order specifies how the records should be ordered.
-func (uq *UserQuery) Order(o ...OrderFunc) *UserQuery {
+func (uq *UserQuery) Order(o ...user.OrderOption) *UserQuery {
 	uq.order = append(uq.order, o...)
 	return uq
 }
@@ -320,7 +320,7 @@ func (uq *UserQuery) Clone() *UserQuery {
 	return &UserQuery{
 		config:          uq.config,
 		ctx:             uq.ctx.Clone(),
-		order:           append([]OrderFunc{}, uq.order...),
+		order:           append([]user.OrderOption{}, uq.order...),
 		inters:          append([]Interceptor{}, uq.inters...),
 		predicates:      append([]predicate.User{}, uq.predicates...),
 		withDepartments: uq.withDepartments.Clone(),
@@ -666,6 +666,9 @@ func (uq *UserQuery) querySpec() *sqlgraph.QuerySpec {
 			if fields[i] != user.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
+		}
+		if uq.withDepartments != nil {
+			_spec.Node.AddColumnOnce(user.FieldDepartmentID)
 		}
 	}
 	if ps := uq.predicates; len(ps) > 0 {

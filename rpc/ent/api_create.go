@@ -94,7 +94,7 @@ func (ac *APICreate) Mutation() *APIMutation {
 // Save creates the API in the database.
 func (ac *APICreate) Save(ctx context.Context) (*API, error) {
 	ac.defaults()
-	return withHooks[*API, APIMutation](ctx, ac.sqlSave, ac.mutation, ac.hooks)
+	return withHooks(ctx, ac.sqlSave, ac.mutation, ac.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
@@ -238,8 +238,8 @@ func (acb *APICreateBulk) Save(ctx context.Context) ([]*API, error) {
 					return nil, err
 				}
 				builder.mutation = mutation
-				nodes[i], specs[i] = builder.createSpec()
 				var err error
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, acb.builders[i+1].mutation)
 				} else {

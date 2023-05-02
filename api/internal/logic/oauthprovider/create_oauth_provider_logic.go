@@ -27,7 +27,6 @@ func NewCreateOauthProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext
 func (l *CreateOauthProviderLogic) CreateOauthProvider(req *types.OauthProviderInfo) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateOauthProvider(l.ctx,
 		&core.OauthProviderInfo{
-			Id:           req.Id,
 			Name:         req.Name,
 			ClientId:     req.ClientId,
 			ClientSecret: req.ClientSecret,

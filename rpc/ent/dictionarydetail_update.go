@@ -154,7 +154,7 @@ func (ddu *DictionaryDetailUpdate) ClearDictionaries() *DictionaryDetailUpdate {
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (ddu *DictionaryDetailUpdate) Save(ctx context.Context) (int, error) {
 	ddu.defaults()
-	return withHooks[int, DictionaryDetailMutation](ctx, ddu.sqlSave, ddu.mutation, ddu.hooks)
+	return withHooks(ctx, ddu.sqlSave, ddu.mutation, ddu.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -410,7 +410,7 @@ func (dduo *DictionaryDetailUpdateOne) Select(field string, fields ...string) *D
 // Save executes the query and returns the updated DictionaryDetail entity.
 func (dduo *DictionaryDetailUpdateOne) Save(ctx context.Context) (*DictionaryDetail, error) {
 	dduo.defaults()
-	return withHooks[*DictionaryDetail, DictionaryDetailMutation](ctx, dduo.sqlSave, dduo.mutation, dduo.hooks)
+	return withHooks(ctx, dduo.sqlSave, dduo.mutation, dduo.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.

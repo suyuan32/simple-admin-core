@@ -271,11 +271,6 @@ func (s *CoreServer) CreateToken(ctx context.Context, in *core.TokenInfo) (*core
 	return l.CreateToken(in)
 }
 
-func (s *CoreServer) UpdateToken(ctx context.Context, in *core.TokenInfo) (*core.BaseResp, error) {
-	l := token.NewUpdateTokenLogic(ctx, s.svcCtx)
-	return l.UpdateToken(in)
-}
-
 func (s *CoreServer) DeleteToken(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
 	l := token.NewDeleteTokenLogic(ctx, s.svcCtx)
 	return l.DeleteToken(in)
@@ -294,6 +289,11 @@ func (s *CoreServer) GetTokenById(ctx context.Context, in *core.UUIDReq) (*core.
 func (s *CoreServer) BlockUserAllToken(ctx context.Context, in *core.UUIDReq) (*core.BaseResp, error) {
 	l := token.NewBlockUserAllTokenLogic(ctx, s.svcCtx)
 	return l.BlockUserAllToken(in)
+}
+
+func (s *CoreServer) UpdateToken(ctx context.Context, in *core.TokenInfo) (*core.BaseResp, error) {
+	l := token.NewUpdateTokenLogic(ctx, s.svcCtx)
+	return l.UpdateToken(in)
 }
 
 // User management

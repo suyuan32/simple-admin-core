@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
 )
@@ -27,7 +28,8 @@ type API struct {
 	// API group | API 分组
 	APIGroup string `json:"api_group,omitempty"`
 	// HTTP method | HTTP 请求类型
-	Method string `json:"method,omitempty"`
+	Method       string `json:"method,omitempty"`
+	selectValues sql.SelectValues
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -42,7 +44,7 @@ func (*API) scanValues(columns []string) ([]any, error) {
 		case api.FieldCreatedAt, api.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
 		default:
-			return nil, fmt.Errorf("unexpected column %q for type API", columns[i])
+			values[i] = new(sql.UnknownType)
 		}
 	}
 	return values, nil
@@ -98,9 +100,17 @@ func (a *API) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				a.Method = value.String
 			}
+		default:
+			a.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
+}
+
+// Value returns the ent.Value that was dynamically selected and assigned to the API.
+// This includes values selected through modifiers, order, etc.
+func (a *API) Value(name string) (ent.Value, error) {
+	return a.selectValues.Get(name)
 }
 
 // Update returns a builder for updating this API.

@@ -31,7 +31,6 @@ func NewCreateDictionaryDetailLogic(ctx context.Context, svcCtx *svc.ServiceCont
 func (l *CreateDictionaryDetailLogic) CreateDictionaryDetail(req *types.DictionaryDetailInfo) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateDictionaryDetail(l.ctx,
 		&core.DictionaryDetailInfo{
-			Id:           req.Id,
 			Status:       req.Status,
 			Title:        req.Title,
 			Key:          req.Key,

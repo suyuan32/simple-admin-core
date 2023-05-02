@@ -20,7 +20,7 @@ import (
 //  + name: body
 //    require: true
 //    in: body
-//    type: ProfileReq
+//    type: ProfileInfo
 //
 // Responses:
 //  200: BaseMsgResp

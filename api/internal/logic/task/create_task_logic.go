@@ -28,7 +28,6 @@ func NewCreateTaskLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 func (l *CreateTaskLogic) CreateTask(req *types.TaskInfo) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.JobRpc.CreateTask(l.ctx,
 		&job.TaskInfo{
-			Id:             req.Id,
 			Status:         req.Status,
 			Name:           req.Name,
 			TaskGroup:      req.TaskGroup,

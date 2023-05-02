@@ -25,17 +25,11 @@ func NewUpdateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Updat
 }
 
 func (l *UpdateTokenLogic) UpdateToken(req *types.TokenInfo) (resp *types.BaseMsgResp, err error) {
-	data, err := l.svcCtx.CoreRpc.UpdateToken(l.ctx,
-		&core.TokenInfo{
-			Id:        req.Id,
-			Status:    req.Status,
-			Uuid:      req.Uuid,
-			Token:     req.Token,
-			Source:    req.Source,
-			ExpiredAt: req.ExpiredAt,
-		})
+	data, err := l.svcCtx.CoreRpc.UpdateToken(l.ctx, &core.TokenInfo{Id: req.Id, Source: req.Source, Status: req.Status})
+
 	if err != nil {
 		return nil, err
 	}
-	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, data.Msg)}, nil
+
+	return &types.BaseMsgResp{Msg: data.Msg}, nil
 }

@@ -22,7 +22,7 @@ import (
 type RoleQuery struct {
 	config
 	ctx        *QueryContext
-	order      []OrderFunc
+	order      []role.OrderOption
 	inters     []Interceptor
 	predicates []predicate.Role
 	withMenus  *MenuQuery
@@ -58,7 +58,7 @@ func (rq *RoleQuery) Unique(unique bool) *RoleQuery {
 }
 
 // Order specifies how the records should be ordered.
-func (rq *RoleQuery) Order(o ...OrderFunc) *RoleQuery {
+func (rq *RoleQuery) Order(o ...role.OrderOption) *RoleQuery {
 	rq.order = append(rq.order, o...)
 	return rq
 }
@@ -296,7 +296,7 @@ func (rq *RoleQuery) Clone() *RoleQuery {
 	return &RoleQuery{
 		config:     rq.config,
 		ctx:        rq.ctx.Clone(),
-		order:      append([]OrderFunc{}, rq.order...),
+		order:      append([]role.OrderOption{}, rq.order...),
 		inters:     append([]Interceptor{}, rq.inters...),
 		predicates: append([]predicate.Role{}, rq.predicates...),
 		withMenus:  rq.withMenus.Clone(),

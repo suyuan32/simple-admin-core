@@ -412,12 +412,12 @@ definitions:
                 x-go-name: ParentId
             phone:
                 description: Phone | 电话号码
-                minLength: 18
+                maxLength: 18
                 type: string
                 x-go-name: Phone
             remark:
                 description: Remark | 备注
-                minLength: 200
+                maxLength: 200
                 type: string
                 x-go-name: Remark
             sort:
@@ -2505,7 +2505,7 @@ info:
         email: yuansu.china.work@gmail.com
     description: This is simple admin api doc
     title: Simple Admin
-    version: 0.2.8
+    version: 1.0.3
 paths:
     /api:
         post:
@@ -2515,8 +2515,8 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/IDReq'
-                    type: object
+                      $ref: '#/definitions/IDReq'
+                      type: object
             responses:
                 "200":
                     description: ApiInfoResp
@@ -2795,6 +2795,23 @@ paths:
             summary: Update department information | 更新部门
             tags:
                 - department
+    /dict/{name}:
+        get:
+            description: Get dictionary detail by dictionary name | 通过字典名称获取字典内容
+            operationId: GetDictionaryDetailByDictionaryName
+            parameters:
+                - in: query
+                  name: name
+                  type: string
+                  x-go-name: Name
+            responses:
+                "200":
+                    description: DictionaryDetailListResp
+                    schema:
+                        $ref: '#/definitions/DictionaryDetailListResp'
+            summary: Get dictionary detail by dictionary name | 通过字典名称获取字典内容
+            tags:
+                - dictionarydetail
     /dictionary:
         post:
             description: Get Dictionary by ID | 通过ID获取字典
@@ -2975,24 +2992,6 @@ paths:
             summary: Update dictionary detail information | 更新字典键值
             tags:
                 - dictionarydetail
-    /menu:
-        post:
-            description: Get Menu by ID | 通过ID获取菜单
-            operationId: GetMenuById
-            parameters:
-                - in: body
-                  name: body
-                  schema:
-                    $ref: '#/definitions/IDReq'
-                    type: object
-            responses:
-                "200":
-                    description: MenuInfoResp
-                    schema:
-                        $ref: '#/definitions/MenuInfoResp'
-            summary: Get Menu by ID | 通过ID获取菜单
-            tags:
-                - menu
     /menu/create:
         post:
             description: Create menu information | 创建菜单
@@ -3631,8 +3630,8 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/UUIDReq'
-                    type: object
+                      $ref: '#/definitions/UUIDReq'
+                      type: object
             responses:
                 "200":
                     description: BaseMsgResp
@@ -3643,20 +3642,20 @@ paths:
                 - token
     /token/update:
         post:
-            description: Update token information | 更新Token
+            description: Update token information | 更新 Token
             operationId: UpdateToken
             parameters:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/TokenInfo'
-                    type: object
+                      $ref: '#/definitions/TokenInfo'
+                      type: object
             responses:
                 "200":
                     description: BaseMsgResp
                     schema:
                         $ref: '#/definitions/BaseMsgResp'
-            summary: Update token information | 更新Token
+            summary: Update token information | 更新 Token
             tags:
                 - token
     /user:
@@ -3667,8 +3666,8 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/UUIDReq'
-                    type: object
+                      $ref: '#/definitions/UUIDReq'
+                      type: object
             responses:
                 "200":
                     description: UserInfoResp
@@ -3822,7 +3821,7 @@ paths:
                 - in: body
                   name: body
                   schema:
-                    $ref: '#/definitions/ProfileReq'
+                    $ref: '#/definitions/ProfileInfo'
                     type: object
             responses:
                 "200":

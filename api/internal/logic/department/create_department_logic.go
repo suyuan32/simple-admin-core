@@ -27,7 +27,6 @@ func NewCreateDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 func (l *CreateDepartmentLogic) CreateDepartment(req *types.DepartmentInfo) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateDepartment(l.ctx,
 		&core.DepartmentInfo{
-			Id:        req.Id,
 			Status:    req.Status,
 			Sort:      req.Sort,
 			Name:      req.Name,

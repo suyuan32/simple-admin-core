@@ -116,7 +116,7 @@ func (opc *OauthProviderCreate) Mutation() *OauthProviderMutation {
 // Save creates the OauthProvider in the database.
 func (opc *OauthProviderCreate) Save(ctx context.Context) (*OauthProvider, error) {
 	opc.defaults()
-	return withHooks[*OauthProvider, OauthProviderMutation](ctx, opc.sqlSave, opc.mutation, opc.hooks)
+	return withHooks(ctx, opc.sqlSave, opc.mutation, opc.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
@@ -291,8 +291,8 @@ func (opcb *OauthProviderCreateBulk) Save(ctx context.Context) ([]*OauthProvider
 					return nil, err
 				}
 				builder.mutation = mutation
-				nodes[i], specs[i] = builder.createSpec()
 				var err error
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, opcb.builders[i+1].mutation)
 				} else {

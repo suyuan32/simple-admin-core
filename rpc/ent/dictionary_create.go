@@ -110,7 +110,7 @@ func (dc *DictionaryCreate) Mutation() *DictionaryMutation {
 // Save creates the Dictionary in the database.
 func (dc *DictionaryCreate) Save(ctx context.Context) (*Dictionary, error) {
 	dc.defaults()
-	return withHooks[*Dictionary, DictionaryMutation](ctx, dc.sqlSave, dc.mutation, dc.hooks)
+	return withHooks(ctx, dc.sqlSave, dc.mutation, dc.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
@@ -267,8 +267,8 @@ func (dcb *DictionaryCreateBulk) Save(ctx context.Context) ([]*Dictionary, error
 					return nil, err
 				}
 				builder.mutation = mutation
-				nodes[i], specs[i] = builder.createSpec()
 				var err error
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, dcb.builders[i+1].mutation)
 				} else {

@@ -182,11 +182,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/menu/role/list",
 					Handler: menu.GetMenuListByRoleHandler(serverCtx),
 				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/menu",
-					Handler: menu.GetMenuByIdHandler(serverCtx),
-				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
@@ -483,6 +478,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/dictionary_detail",
 					Handler: dictionarydetail.GetDictionaryDetailByIdHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/dict/:name",
+					Handler: dictionarydetail.GetDictionaryDetailByDictionaryNameHandler(serverCtx),
 				},
 			}...,
 		),

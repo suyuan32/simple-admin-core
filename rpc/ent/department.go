@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 )
@@ -40,7 +41,8 @@ type Department struct {
 	ParentID uint64 `json:"parent_id,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the DepartmentQuery when eager-loading is set.
-	Edges DepartmentEdges `json:"edges"`
+	Edges        DepartmentEdges `json:"edges"`
+	selectValues sql.SelectValues
 }
 
 // DepartmentEdges holds the relations/edges for other nodes in the graph.
@@ -99,7 +101,7 @@ func (*Department) scanValues(columns []string) ([]any, error) {
 		case department.FieldCreatedAt, department.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
 		default:
-			return nil, fmt.Errorf("unexpected column %q for type Department", columns[i])
+			values[i] = new(sql.UnknownType)
 		}
 	}
 	return values, nil
@@ -185,9 +187,17 @@ func (d *Department) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				d.ParentID = uint64(value.Int64)
 			}
+		default:
+			d.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
+}
+
+// Value returns the ent.Value that was dynamically selected and assigned to the Department.
+// This includes values selected through modifiers, order, etc.
+func (d *Department) Value(name string) (ent.Value, error) {
+	return d.selectValues.Get(name)
 }
 
 // QueryParent queries the "parent" edge of the Department entity.

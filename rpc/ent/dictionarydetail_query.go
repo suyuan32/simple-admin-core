@@ -19,7 +19,7 @@ import (
 type DictionaryDetailQuery struct {
 	config
 	ctx              *QueryContext
-	order            []OrderFunc
+	order            []dictionarydetail.OrderOption
 	inters           []Interceptor
 	predicates       []predicate.DictionaryDetail
 	withDictionaries *DictionaryQuery
@@ -54,7 +54,7 @@ func (ddq *DictionaryDetailQuery) Unique(unique bool) *DictionaryDetailQuery {
 }
 
 // Order specifies how the records should be ordered.
-func (ddq *DictionaryDetailQuery) Order(o ...OrderFunc) *DictionaryDetailQuery {
+func (ddq *DictionaryDetailQuery) Order(o ...dictionarydetail.OrderOption) *DictionaryDetailQuery {
 	ddq.order = append(ddq.order, o...)
 	return ddq
 }
@@ -270,7 +270,7 @@ func (ddq *DictionaryDetailQuery) Clone() *DictionaryDetailQuery {
 	return &DictionaryDetailQuery{
 		config:           ddq.config,
 		ctx:              ddq.ctx.Clone(),
-		order:            append([]OrderFunc{}, ddq.order...),
+		order:            append([]dictionarydetail.OrderOption{}, ddq.order...),
 		inters:           append([]Interceptor{}, ddq.inters...),
 		predicates:       append([]predicate.DictionaryDetail{}, ddq.predicates...),
 		withDictionaries: ddq.withDictionaries.Clone(),
@@ -454,6 +454,9 @@ func (ddq *DictionaryDetailQuery) querySpec() *sqlgraph.QuerySpec {
 			if fields[i] != dictionarydetail.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
+		}
+		if ddq.withDictionaries != nil {
+			_spec.Node.AddColumnOnce(dictionarydetail.FieldDictionaryID)
 		}
 	}
 	if ps := ddq.predicates; len(ps) > 0 {

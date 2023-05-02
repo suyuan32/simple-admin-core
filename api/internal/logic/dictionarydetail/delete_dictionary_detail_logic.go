@@ -30,7 +30,6 @@ func NewDeleteDictionaryDetailLogic(ctx context.Context, svcCtx *svc.ServiceCont
 
 func (l *DeleteDictionaryDetailLogic) DeleteDictionaryDetail(req *types.IDsReq) (resp *types.BaseMsgResp, err error) {
 	detailData, err := l.svcCtx.CoreRpc.GetDictionaryDetailById(l.ctx, &core.IDReq{Id: req.Ids[0]})
-
 	if err != nil {
 		return nil, err
 	}

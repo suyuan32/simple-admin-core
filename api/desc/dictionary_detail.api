@@ -48,15 +48,21 @@ type (
         Key  string `json:"key,optional" validate:"omitempty,max=80"`
 
         // Dictionary ID | 所属字典ID
-        DictionaryId  uint64 `json:"dictionaryId,optional"`
+        DictionaryId uint64 `json:"dictionaryId,optional"`
     }
 
-    // DictionaryDetail information response | 字典键值信息返回体
+        // DictionaryDetail information response | 字典键值信息返回体
     DictionaryDetailInfoResp {
         BaseDataInfo
 
         // DictionaryDetail information | 字典键值数据
         Data DictionaryDetailInfo `json:"data"`
+    }
+
+        // Dictionary name request | 字典名称请求
+        // swagger:parameters GetDictionaryDetailByDictionaryName
+    DictionaryNameReq {
+        Name string `json:"name,optional" path:"name"`
     }
 )
 
@@ -83,7 +89,11 @@ service core {
     @handler getDictionaryDetailList
     post /dictionary_detail/list (DictionaryDetailListReq) returns (DictionaryDetailListResp)
 
-    // Get DictionaryDetail by ID | 通过ID获取字典键值
+    // Get dictionary detail by ID | 通过ID获取字典键值
     @handler getDictionaryDetailById
     post /dictionary_detail (IDReq) returns (DictionaryDetailInfoResp)
+
+    // Get dictionary detail by dictionary name | 通过字典名称获取字典内容
+    @handler getDictionaryDetailByDictionaryName
+    get /dict/:name (DictionaryNameReq) returns (DictionaryDetailListResp)
 }

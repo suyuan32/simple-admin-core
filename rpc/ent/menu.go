@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 )
@@ -64,7 +65,8 @@ type Menu struct {
 	RealPath string `json:"real_path,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the MenuQuery when eager-loading is set.
-	Edges MenuEdges `json:"edges"`
+	Edges        MenuEdges `json:"edges"`
+	selectValues sql.SelectValues
 }
 
 // MenuEdges holds the relations/edges for other nodes in the graph.
@@ -125,7 +127,7 @@ func (*Menu) scanValues(columns []string) ([]any, error) {
 		case menu.FieldCreatedAt, menu.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
 		default:
-			return nil, fmt.Errorf("unexpected column %q for type Menu", columns[i])
+			values[i] = new(sql.UnknownType)
 		}
 	}
 	return values, nil
@@ -283,9 +285,17 @@ func (m *Menu) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				m.RealPath = value.String
 			}
+		default:
+			m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
+}
+
+// Value returns the ent.Value that was dynamically selected and assigned to the Menu.
+// This includes values selected through modifiers, order, etc.
+func (m *Menu) Value(name string) (ent.Value, error) {
+	return m.selectValues.Get(name)
 }
 
 // QueryRoles queries the "roles" edge of the Menu entity.

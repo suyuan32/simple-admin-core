@@ -94,7 +94,7 @@ type UUIDsReq struct {
 // swagger:model BaseIDInfo
 type BaseIDInfo struct {
 	// ID
-	Id uint64 `json:"id"`
+	Id uint64 `json:"id,optional"`
 	// Create date | 创建日期
 	CreatedAt int64 `json:"createdAt,optional"`
 	// Update date | 更新日期
@@ -105,7 +105,7 @@ type BaseIDInfo struct {
 // swagger:model BaseUUIDInfo
 type BaseUUIDInfo struct {
 	// ID
-	Id string `json:"id"`
+	Id string `json:"id,optional"`
 	// Create date | 创建日期
 	CreatedAt int64 `json:"createdAt,optional"`
 	// Update date | 更新日期
@@ -599,7 +599,7 @@ type ApiInfo struct {
 	// API group | API分组
 	// min length : 1
 	// max length : 20
-	Group string `json:"group,optional" validate:"omitempty,alphanum,min=1,max=20"`
+	Group string `json:"group,optional" validate:"omitempty,min=1,max=20"`
 	// API request method e.g. POST | API请求类型 如POST
 	// min length : 3
 	// max length : 4
@@ -952,15 +952,15 @@ type DepartmentInfo struct {
 	// max length : 20
 	Leader string `json:"leader,optional" validate:"omitempty,max=20"`
 	// Phone | 电话号码
-	// min length : 18
-	Phone string `json:"phone,optional" validate:"omitempty,min=18"`
+	// max length : 18
+	Phone string `json:"phone,optional" validate:"omitempty,max=18"`
 	// Email | 邮箱
 	// min length : 5
 	// max length : 70
 	Email string `json:"email,optional" validate:"omitempty,min=5,max=70"`
 	// Remark | 备注
-	// min length : 200
-	Remark string `json:"remark,optional" validate:"omitempty,min=200"`
+	// max length : 200
+	Remark string `json:"remark,optional" validate:"omitempty,max=200"`
 	// ParentId | 父级 ID
 	ParentId uint64 `json:"parentId,optional"`
 }
@@ -1121,6 +1121,12 @@ type DictionaryDetailInfoResp struct {
 	BaseDataInfo
 	// DictionaryDetail information | 字典键值数据
 	Data DictionaryDetailInfo `json:"data"`
+}
+
+// Dictionary name request | 字典名称请求
+// swagger:parameters GetDictionaryDetailByDictionaryName
+type DictionaryNameReq struct {
+	Name string `json:"name,optional" path:"name"`
 }
 
 // The response data of task information | 定时任务信息

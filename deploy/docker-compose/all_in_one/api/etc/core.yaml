@@ -23,6 +23,12 @@ RedisConf:
 CoreRpc:
   Endpoints:
     - 10.5.0.4:9101
+  Enabled: true
+
+JobRpc:
+  Endpoints:
+    - 10.5.0.7:9105
+  Enabled: true
 
 Captcha:
   KeyLong: 5

@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 )
@@ -32,7 +33,8 @@ type Position struct {
 	Remark string `json:"remark,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the PositionQuery when eager-loading is set.
-	Edges PositionEdges `json:"edges"`
+	Edges        PositionEdges `json:"edges"`
+	selectValues sql.SelectValues
 }
 
 // PositionEdges holds the relations/edges for other nodes in the graph.
@@ -65,7 +67,7 @@ func (*Position) scanValues(columns []string) ([]any, error) {
 		case position.FieldCreatedAt, position.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
 		default:
-			return nil, fmt.Errorf("unexpected column %q for type Position", columns[i])
+			values[i] = new(sql.UnknownType)
 		}
 	}
 	return values, nil
@@ -127,9 +129,17 @@ func (po *Position) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				po.Remark = value.String
 			}
+		default:
+			po.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
+}
+
+// Value returns the ent.Value that was dynamically selected and assigned to the Position.
+// This includes values selected through modifiers, order, etc.
+func (po *Position) Value(name string) (ent.Value, error) {
+	return po.selectValues.Get(name)
 }
 
 // QueryUsers queries the "users" edge of the Position entity.

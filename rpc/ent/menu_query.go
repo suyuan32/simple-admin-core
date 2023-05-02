@@ -20,7 +20,7 @@ import (
 type MenuQuery struct {
 	config
 	ctx          *QueryContext
-	order        []OrderFunc
+	order        []menu.OrderOption
 	inters       []Interceptor
 	predicates   []predicate.Menu
 	withRoles    *RoleQuery
@@ -57,7 +57,7 @@ func (mq *MenuQuery) Unique(unique bool) *MenuQuery {
 }
 
 // Order specifies how the records should be ordered.
-func (mq *MenuQuery) Order(o ...OrderFunc) *MenuQuery {
+func (mq *MenuQuery) Order(o ...menu.OrderOption) *MenuQuery {
 	mq.order = append(mq.order, o...)
 	return mq
 }
@@ -317,7 +317,7 @@ func (mq *MenuQuery) Clone() *MenuQuery {
 	return &MenuQuery{
 		config:       mq.config,
 		ctx:          mq.ctx.Clone(),
-		order:        append([]OrderFunc{}, mq.order...),
+		order:        append([]menu.OrderOption{}, mq.order...),
 		inters:       append([]Interceptor{}, mq.inters...),
 		predicates:   append([]predicate.Menu{}, mq.predicates...),
 		withRoles:    mq.withRoles.Clone(),
@@ -587,8 +587,11 @@ func (mq *MenuQuery) loadChildren(ctx context.Context, query *MenuQuery, nodes [
 			init(nodes[i])
 		}
 	}
+	if len(query.ctx.Fields) > 0 {
+		query.ctx.AppendFieldOnce(menu.FieldParentID)
+	}
 	query.Where(predicate.Menu(func(s *sql.Selector) {
-		s.Where(sql.InValues(menu.ChildrenColumn, fks...))
+		s.Where(sql.InValues(s.C(menu.ChildrenColumn), fks...))
 	}))
 	neighbors, err := query.All(ctx)
 	if err != nil {
@@ -598,7 +601,7 @@ func (mq *MenuQuery) loadChildren(ctx context.Context, query *MenuQuery, nodes [
 		fk := n.ParentID
 		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "parent_id" returned %v for node %v`, fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "parent_id" returned %v for node %v`, fk, n.ID)
 		}
 		assign(node, n)
 	}
@@ -629,6 +632,9 @@ func (mq *MenuQuery) querySpec() *sqlgraph.QuerySpec {
 			if fields[i] != menu.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
+		}
+		if mq.withParent != nil {
+			_spec.Node.AddColumnOnce(menu.FieldParentID)
 		}
 	}
 	if ps := mq.predicates; len(ps) > 0 {

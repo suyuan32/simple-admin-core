@@ -125,7 +125,7 @@ func (pc *PositionCreate) Mutation() *PositionMutation {
 // Save creates the Position in the database.
 func (pc *PositionCreate) Save(ctx context.Context) (*Position, error) {
 	pc.defaults()
-	return withHooks[*Position, PositionMutation](ctx, pc.sqlSave, pc.mutation, pc.hooks)
+	return withHooks(ctx, pc.sqlSave, pc.mutation, pc.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
@@ -293,8 +293,8 @@ func (pcb *PositionCreateBulk) Save(ctx context.Context) ([]*Position, error) {
 					return nil, err
 				}
 				builder.mutation = mutation
-				nodes[i], specs[i] = builder.createSpec()
 				var err error
+				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
 					_, err = mutators[i+1].Mutate(root, pcb.builders[i+1].mutation)
 				} else {

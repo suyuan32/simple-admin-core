@@ -18,7 +18,7 @@ import (
 type OauthProviderQuery struct {
 	config
 	ctx        *QueryContext
-	order      []OrderFunc
+	order      []oauthprovider.OrderOption
 	inters     []Interceptor
 	predicates []predicate.OauthProvider
 	// intermediate query (i.e. traversal path).
@@ -52,7 +52,7 @@ func (opq *OauthProviderQuery) Unique(unique bool) *OauthProviderQuery {
 }
 
 // Order specifies how the records should be ordered.
-func (opq *OauthProviderQuery) Order(o ...OrderFunc) *OauthProviderQuery {
+func (opq *OauthProviderQuery) Order(o ...oauthprovider.OrderOption) *OauthProviderQuery {
 	opq.order = append(opq.order, o...)
 	return opq
 }
@@ -246,7 +246,7 @@ func (opq *OauthProviderQuery) Clone() *OauthProviderQuery {
 	return &OauthProviderQuery{
 		config:     opq.config,
 		ctx:        opq.ctx.Clone(),
-		order:      append([]OrderFunc{}, opq.order...),
+		order:      append([]oauthprovider.OrderOption{}, opq.order...),
 		inters:     append([]Interceptor{}, opq.inters...),
 		predicates: append([]predicate.OauthProvider{}, opq.predicates...),
 		// clone intermediate query.

@@ -33,7 +33,6 @@ func (l *CreateMenuLogic) CreateMenu(req *types.MenuPlainInfo) (resp *types.Base
 	}
 
 	result, err := l.svcCtx.CoreRpc.CreateMenu(l.ctx, &core.MenuInfo{
-		Id:        req.Id,
 		MenuType:  req.MenuType,
 		ParentId:  req.ParentId,
 		Path:      req.Path,

@@ -5,7 +5,7 @@ type (
     PositionInfo {
         BaseIDInfo
 
-         // Translated Name | 展示名称
+        // Translated Name | 展示名称
         Trans string `json:"trans,optional"`
 
         // Status | 状态

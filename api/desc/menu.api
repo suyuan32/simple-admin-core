@@ -227,8 +227,4 @@ service core {
     // Get menu list by role | 获取菜单列表
     @handler getMenuListByRole
     get /menu/role/list returns (MenuListResp)
-
-    // Get Menu by ID | 通过ID获取菜单
-    @handler getMenuById
-    post /menu (IDReq) returns (MenuInfoResp)
 }

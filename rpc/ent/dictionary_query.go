@@ -20,7 +20,7 @@ import (
 type DictionaryQuery struct {
 	config
 	ctx                   *QueryContext
-	order                 []OrderFunc
+	order                 []dictionary.OrderOption
 	inters                []Interceptor
 	predicates            []predicate.Dictionary
 	withDictionaryDetails *DictionaryDetailQuery
@@ -55,7 +55,7 @@ func (dq *DictionaryQuery) Unique(unique bool) *DictionaryQuery {
 }
 
 // Order specifies how the records should be ordered.
-func (dq *DictionaryQuery) Order(o ...OrderFunc) *DictionaryQuery {
+func (dq *DictionaryQuery) Order(o ...dictionary.OrderOption) *DictionaryQuery {
 	dq.order = append(dq.order, o...)
 	return dq
 }
@@ -271,7 +271,7 @@ func (dq *DictionaryQuery) Clone() *DictionaryQuery {
 	return &DictionaryQuery{
 		config:                dq.config,
 		ctx:                   dq.ctx.Clone(),
-		order:                 append([]OrderFunc{}, dq.order...),
+		order:                 append([]dictionary.OrderOption{}, dq.order...),
 		inters:                append([]Interceptor{}, dq.inters...),
 		predicates:            append([]predicate.Dictionary{}, dq.predicates...),
 		withDictionaryDetails: dq.withDictionaryDetails.Clone(),
@@ -414,8 +414,11 @@ func (dq *DictionaryQuery) loadDictionaryDetails(ctx context.Context, query *Dic
 			init(nodes[i])
 		}
 	}
+	if len(query.ctx.Fields) > 0 {
+		query.ctx.AppendFieldOnce(dictionarydetail.FieldDictionaryID)
+	}
 	query.Where(predicate.DictionaryDetail(func(s *sql.Selector) {
-		s.Where(sql.InValues(dictionary.DictionaryDetailsColumn, fks...))
+		s.Where(sql.InValues(s.C(dictionary.DictionaryDetailsColumn), fks...))
 	}))
 	neighbors, err := query.All(ctx)
 	if err != nil {
@@ -425,7 +428,7 @@ func (dq *DictionaryQuery) loadDictionaryDetails(ctx context.Context, query *Dic
 		fk := n.DictionaryID
 		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "dictionary_id" returned %v for node %v`, fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "dictionary_id" returned %v for node %v`, fk, n.ID)
 		}
 		assign(node, n)
 	}

@@ -18,7 +18,7 @@ import (
 type APIQuery struct {
 	config
 	ctx        *QueryContext
-	order      []OrderFunc
+	order      []api.OrderOption
 	inters     []Interceptor
 	predicates []predicate.API
 	// intermediate query (i.e. traversal path).
@@ -52,7 +52,7 @@ func (aq *APIQuery) Unique(unique bool) *APIQuery {
 }
 
 // Order specifies how the records should be ordered.
-func (aq *APIQuery) Order(o ...OrderFunc) *APIQuery {
+func (aq *APIQuery) Order(o ...api.OrderOption) *APIQuery {
 	aq.order = append(aq.order, o...)
 	return aq
 }
@@ -246,7 +246,7 @@ func (aq *APIQuery) Clone() *APIQuery {
 	return &APIQuery{
 		config:     aq.config,
 		ctx:        aq.ctx.Clone(),
-		order:      append([]OrderFunc{}, aq.order...),
+		order:      append([]api.OrderOption{}, aq.order...),
 		inters:     append([]Interceptor{}, aq.inters...),
 		predicates: append([]predicate.API{}, aq.predicates...),
 		// clone intermediate query.

@@ -12,9 +12,9 @@ import (
 
 // swagger:route post /token/update token UpdateToken
 //
-// Update token information | 更新Token
+// Update token information | 更新 Token
 //
-// Update token information | 更新Token
+// Update token information | 更新 Token
 //
 // Parameters:
 //  + name: body
