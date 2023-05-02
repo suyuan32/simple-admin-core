@@ -526,6 +526,9 @@ func (dq *DepartmentQuery) loadChildren(ctx context.Context, query *DepartmentQu
 			init(nodes[i])
 		}
 	}
+	if len(query.ctx.Fields) > 0 {
+		query.ctx.AppendFieldOnce(department.FieldParentID)
+	}
 	query.Where(predicate.Department(func(s *sql.Selector) {
 		s.Where(sql.InValues(s.C(department.ChildrenColumn), fks...))
 	}))
@@ -537,7 +540,7 @@ func (dq *DepartmentQuery) loadChildren(ctx context.Context, query *DepartmentQu
 		fk := n.ParentID
 		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "parent_id" returned %v for node %v`, fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "parent_id" returned %v for node %v`, fk, n.ID)
 		}
 		assign(node, n)
 	}
@@ -553,6 +556,9 @@ func (dq *DepartmentQuery) loadUsers(ctx context.Context, query *UserQuery, node
 			init(nodes[i])
 		}
 	}
+	if len(query.ctx.Fields) > 0 {
+		query.ctx.AppendFieldOnce(user.FieldDepartmentID)
+	}
 	query.Where(predicate.User(func(s *sql.Selector) {
 		s.Where(sql.InValues(s.C(department.UsersColumn), fks...))
 	}))
@@ -564,7 +570,7 @@ func (dq *DepartmentQuery) loadUsers(ctx context.Context, query *UserQuery, node
 		fk := n.DepartmentID
 		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "department_id" returned %v for node %v`, fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "department_id" returned %v for node %v`, fk, n.ID)
 		}
 		assign(node, n)
 	}

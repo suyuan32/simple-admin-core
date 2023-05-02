@@ -177,7 +177,7 @@ func (dc *DepartmentCreate) Mutation() *DepartmentMutation {
 // Save creates the Department in the database.
 func (dc *DepartmentCreate) Save(ctx context.Context) (*Department, error) {
 	dc.defaults()
-	return withHooks[*Department, DepartmentMutation](ctx, dc.sqlSave, dc.mutation, dc.hooks)
+	return withHooks(ctx, dc.sqlSave, dc.mutation, dc.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.

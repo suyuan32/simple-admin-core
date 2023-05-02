@@ -146,7 +146,7 @@ func (pu *PositionUpdate) RemoveUsers(u ...*User) *PositionUpdate {
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (pu *PositionUpdate) Save(ctx context.Context) (int, error) {
 	pu.defaults()
-	return withHooks[int, PositionMutation](ctx, pu.sqlSave, pu.mutation, pu.hooks)
+	return withHooks(ctx, pu.sqlSave, pu.mutation, pu.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -409,7 +409,7 @@ func (puo *PositionUpdateOne) Select(field string, fields ...string) *PositionUp
 // Save executes the query and returns the updated Position entity.
 func (puo *PositionUpdateOne) Save(ctx context.Context) (*Position, error) {
 	puo.defaults()
-	return withHooks[*Position, PositionMutation](ctx, puo.sqlSave, puo.mutation, puo.hooks)
+	return withHooks(ctx, puo.sqlSave, puo.mutation, puo.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.

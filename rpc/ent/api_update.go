@@ -74,7 +74,7 @@ func (au *APIUpdate) Mutation() *APIMutation {
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (au *APIUpdate) Save(ctx context.Context) (int, error) {
 	au.defaults()
-	return withHooks[int, APIMutation](ctx, au.sqlSave, au.mutation, au.hooks)
+	return withHooks(ctx, au.sqlSave, au.mutation, au.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -210,7 +210,7 @@ func (auo *APIUpdateOne) Select(field string, fields ...string) *APIUpdateOne {
 // Save executes the query and returns the updated API entity.
 func (auo *APIUpdateOne) Save(ctx context.Context) (*API, error) {
 	auo.defaults()
-	return withHooks[*API, APIMutation](ctx, auo.sqlSave, auo.mutation, auo.hooks)
+	return withHooks(ctx, auo.sqlSave, auo.mutation, auo.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.

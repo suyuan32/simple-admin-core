@@ -27,7 +27,7 @@ func (ddd *DictionaryDetailDelete) Where(ps ...predicate.DictionaryDetail) *Dict
 
 // Exec executes the deletion query and returns how many vertices were deleted.
 func (ddd *DictionaryDetailDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks[int, DictionaryDetailMutation](ctx, ddd.sqlExec, ddd.mutation, ddd.hooks)
+	return withHooks(ctx, ddd.sqlExec, ddd.mutation, ddd.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.

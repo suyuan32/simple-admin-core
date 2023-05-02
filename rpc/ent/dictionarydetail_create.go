@@ -142,7 +142,7 @@ func (ddc *DictionaryDetailCreate) Mutation() *DictionaryDetailMutation {
 // Save creates the DictionaryDetail in the database.
 func (ddc *DictionaryDetailCreate) Save(ctx context.Context) (*DictionaryDetail, error) {
 	ddc.defaults()
-	return withHooks[*DictionaryDetail, DictionaryDetailMutation](ctx, ddc.sqlSave, ddc.mutation, ddc.hooks)
+	return withHooks(ctx, ddc.sqlSave, ddc.mutation, ddc.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.

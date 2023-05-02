@@ -103,7 +103,7 @@ func (opu *OauthProviderUpdate) Mutation() *OauthProviderMutation {
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (opu *OauthProviderUpdate) Save(ctx context.Context) (int, error) {
 	opu.defaults()
-	return withHooks[int, OauthProviderMutation](ctx, opu.sqlSave, opu.mutation, opu.hooks)
+	return withHooks(ctx, opu.sqlSave, opu.mutation, opu.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -286,7 +286,7 @@ func (opuo *OauthProviderUpdateOne) Select(field string, fields ...string) *Oaut
 // Save executes the query and returns the updated OauthProvider entity.
 func (opuo *OauthProviderUpdateOne) Save(ctx context.Context) (*OauthProvider, error) {
 	opuo.defaults()
-	return withHooks[*OauthProvider, OauthProviderMutation](ctx, opuo.sqlSave, opuo.mutation, opuo.hooks)
+	return withHooks(ctx, opuo.sqlSave, opuo.mutation, opuo.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.

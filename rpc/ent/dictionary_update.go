@@ -124,7 +124,7 @@ func (du *DictionaryUpdate) RemoveDictionaryDetails(d ...*DictionaryDetail) *Dic
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (du *DictionaryUpdate) Save(ctx context.Context) (int, error) {
 	du.defaults()
-	return withHooks[int, DictionaryMutation](ctx, du.sqlSave, du.mutation, du.hooks)
+	return withHooks(ctx, du.sqlSave, du.mutation, du.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -360,7 +360,7 @@ func (duo *DictionaryUpdateOne) Select(field string, fields ...string) *Dictiona
 // Save executes the query and returns the updated Dictionary entity.
 func (duo *DictionaryUpdateOne) Save(ctx context.Context) (*Dictionary, error) {
 	duo.defaults()
-	return withHooks[*Dictionary, DictionaryMutation](ctx, duo.sqlSave, duo.mutation, duo.hooks)
+	return withHooks(ctx, duo.sqlSave, duo.mutation, duo.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.

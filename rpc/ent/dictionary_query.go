@@ -414,6 +414,9 @@ func (dq *DictionaryQuery) loadDictionaryDetails(ctx context.Context, query *Dic
 			init(nodes[i])
 		}
 	}
+	if len(query.ctx.Fields) > 0 {
+		query.ctx.AppendFieldOnce(dictionarydetail.FieldDictionaryID)
+	}
 	query.Where(predicate.DictionaryDetail(func(s *sql.Selector) {
 		s.Where(sql.InValues(s.C(dictionary.DictionaryDetailsColumn), fks...))
 	}))
@@ -425,7 +428,7 @@ func (dq *DictionaryQuery) loadDictionaryDetails(ctx context.Context, query *Dic
 		fk := n.DictionaryID
 		node, ok := nodeids[fk]
 		if !ok {
-			return fmt.Errorf(`unexpected foreign-key "dictionary_id" returned %v for node %v`, fk, n.ID)
+			return fmt.Errorf(`unexpected referenced foreign-key "dictionary_id" returned %v for node %v`, fk, n.ID)
 		}
 		assign(node, n)
 	}

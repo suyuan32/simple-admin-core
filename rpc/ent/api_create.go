@@ -94,7 +94,7 @@ func (ac *APICreate) Mutation() *APIMutation {
 // Save creates the API in the database.
 func (ac *APICreate) Save(ctx context.Context) (*API, error) {
 	ac.defaults()
-	return withHooks[*API, APIMutation](ctx, ac.sqlSave, ac.mutation, ac.hooks)
+	return withHooks(ctx, ac.sqlSave, ac.mutation, ac.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.

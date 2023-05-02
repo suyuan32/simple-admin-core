@@ -110,7 +110,7 @@ func (dc *DictionaryCreate) Mutation() *DictionaryMutation {
 // Save creates the Dictionary in the database.
 func (dc *DictionaryCreate) Save(ctx context.Context) (*Dictionary, error) {
 	dc.defaults()
-	return withHooks[*Dictionary, DictionaryMutation](ctx, dc.sqlSave, dc.mutation, dc.hooks)
+	return withHooks(ctx, dc.sqlSave, dc.mutation, dc.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.

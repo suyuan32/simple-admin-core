@@ -231,7 +231,7 @@ func (du *DepartmentUpdate) RemoveUsers(u ...*User) *DepartmentUpdate {
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (du *DepartmentUpdate) Save(ctx context.Context) (int, error) {
 	du.defaults()
-	return withHooks[int, DepartmentMutation](ctx, du.sqlSave, du.mutation, du.hooks)
+	return withHooks(ctx, du.sqlSave, du.mutation, du.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
@@ -662,7 +662,7 @@ func (duo *DepartmentUpdateOne) Select(field string, fields ...string) *Departme
 // Save executes the query and returns the updated Department entity.
 func (duo *DepartmentUpdateOne) Save(ctx context.Context) (*Department, error) {
 	duo.defaults()
-	return withHooks[*Department, DepartmentMutation](ctx, duo.sqlSave, duo.mutation, duo.hooks)
+	return withHooks(ctx, duo.sqlSave, duo.mutation, duo.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
