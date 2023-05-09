@@ -3,19 +3,23 @@
 <h1>Simple Admin</h1>
 </div>
 
-**English** | [中文](./README.md) 
+**English** | [中文](./README.md)
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.5.0-brightgreen.svg)](https://go-zero.dev/)
-[![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.8.0-yellow.svg)](https://vvbin.cn/doc-next/)
-[![Ent](https://img.shields.io/badge/Ent-v0.11.9-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.52.1-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v0.2.7-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.5.2-brightgreen.svg)](https://go-zero.dev/)
+[![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.10.0-yellow.svg)](https://vvbin.cn/doc-next/)
+[![Ent](https://img.shields.io/badge/Ent-v0.12.3-blue.svg)](https://entgo.io/)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.69.0-orange.svg)](https://github.com/casbin/casbin)
+[![Release](https://img.shields.io/badge/Release-v1.0.4-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
+![QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-801043319-blue)
+
 ## Introduction
 
-Simple Admin is an out-of-the-box distributed microservice back-end management system developed based on go-zero, which provides rich functions for the development of medium and large back-ends, supports three-terminal code generation.
-The official comes with a variety of extensions to help small and medium-sized enterprises quickly go to the cloud and iterate quickly. Suitable for microservice learning and commercial use, open source and free.
+Simple Admin is an out-of-the-box distributed microservice back-end management system developed based on go-zero, which
+provides rich functions for the development of medium and large back-ends, supports three-terminal code generation.
+The official comes with a variety of extensions to help small and medium-sized enterprises quickly go to the cloud and
+iterate quickly. Suitable for microservice learning and commercial use, open source and free.
 
 ## Feature
 

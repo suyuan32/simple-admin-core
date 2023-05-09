@@ -7,11 +7,11 @@ import (
 
 	i18n2 "github.com/suyuan32/simple-admin-core/api/internal/i18n"
 
-	"github.com/suyuan32/simple-admin-job/jobclient"
+	"github.com/suyuan32/simple-admin-job/job_client"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
 	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
-	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
+	"github.com/suyuan32/simple-admin-core/rpc/core_client"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/zeromicro/go-zero/core/stores/redis"
@@ -22,8 +22,8 @@ import (
 type ServiceContext struct {
 	Config    config.Config
 	Authority rest.Middleware
-	CoreRpc   coreclient.Core
-	JobRpc    jobclient.Job
+	CoreRpc   core_client.Core
+	JobRpc    job_client.Job
 	Redis     *redis.Redis
 	Casbin    *casbin.Enforcer
 	Trans     *i18n.Translator
@@ -40,8 +40,8 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:    c,
 		Authority: middleware.NewAuthorityMiddleware(cbn, rds, trans).Handle,
-		CoreRpc:   coreclient.NewCore(zrpc.NewClientIfEnable(c.CoreRpc)),
-		JobRpc:    jobclient.NewJob(zrpc.NewClientIfEnable(c.JobRpc)),
+		CoreRpc:   core_client.NewCore(zrpc.NewClientIfEnable(c.CoreRpc)),
+		JobRpc:    job_client.NewJob(zrpc.NewClientIfEnable(c.JobRpc)),
 		Captcha:   captcha.MustNewRedisCaptcha(c.Captcha, rds),
 		Redis:     rds,
 		Casbin:    cbn,
