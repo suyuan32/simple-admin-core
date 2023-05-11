@@ -23,11 +23,11 @@ type Dictionary struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// status 1 normal 2 ban | 状态 1 正常 2 禁用
 	Status uint8 `json:"status,omitempty"`
-	// the title shown in the ui | 展示名称 （建议配合i18n）
+	// The title shown in the ui | 展示名称 （建议配合i18n）
 	Title string `json:"title,omitempty"`
-	// the name of dictionary for search | 字典搜索名称
+	// The name of dictionary for search | 字典搜索名称
 	Name string `json:"name,omitempty"`
-	// the status of dictionary (true enable | false disable) | 字典状态
+	// The status of dictionary (true enable | false disable) | 字典状态
 	Desc string `json:"desc,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the DictionaryQuery when eager-loading is set.

@@ -16,7 +16,7 @@ type DictionaryDetail struct {
 func (DictionaryDetail) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("title").
-			Comment("the title shown in the ui | 展示名称 （建议配合i18n）").
+			Comment("The title shown in the ui | 展示名称 （建议配合i18n）").
 			Annotations(entsql.WithComments(true)),
 		field.String("key").
 			Comment("key | 键").

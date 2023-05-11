@@ -23,15 +23,15 @@ type Role struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// status 1 normal 2 ban | 状态 1 正常 2 禁用
 	Status uint8 `json:"status,omitempty"`
-	// role name | 角色名
+	// Role name | 角色名
 	Name string `json:"name,omitempty"`
-	// role code for permission control in front end | 角色码，用于前端权限控制
+	// Role code for permission control in front end | 角色码，用于前端权限控制
 	Code string `json:"code,omitempty"`
-	// default menu : dashboard | 默认登录页面
+	// Default menu : dashboard | 默认登录页面
 	DefaultRouter string `json:"default_router,omitempty"`
-	// remark | 备注
+	// Remark | 备注
 	Remark string `json:"remark,omitempty"`
-	// order number | 排序编号
+	// Order number | 排序编号
 	Sort uint32 `json:"sort,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the RoleQuery when eager-loading is set.

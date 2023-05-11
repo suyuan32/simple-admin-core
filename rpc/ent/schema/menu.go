@@ -17,65 +17,65 @@ type Menu struct {
 func (Menu) Fields() []ent.Field {
 	return []ent.Field{
 		field.Uint64("parent_id").Default(100000).Optional().
-			Comment("parent menu ID | 父菜单ID").
+			Comment("Parent menu ID | 父菜单ID").
 			Annotations(entsql.WithComments(true)),
 		field.Uint32("menu_level").
-			Comment("menu level | 菜单层级").
+			Comment("Menu level | 菜单层级").
 			Annotations(entsql.WithComments(true)),
 		field.Uint32("menu_type").
-			Comment("menu type | 菜单类型 （菜单或目录）0 目录 1 菜单").
+			Comment("Menu type | 菜单类型 （菜单或目录）0 目录 1 菜单").
 			Annotations(entsql.WithComments(true)),
 		field.String("path").Optional().Default("").
-			Comment("index path | 菜单路由路径").
+			Comment("Index path | 菜单路由路径").
 			Annotations(entsql.WithComments(true)),
 		field.String("name").
-			Comment("index name | 菜单名称").
+			Comment("Index name | 菜单名称").
 			Annotations(entsql.WithComments(true)),
 		field.String("redirect").Optional().Default("").
-			Comment("redirect path | 跳转路径 （外链）").
+			Comment("Redirect path | 跳转路径 （外链）").
 			Annotations(entsql.WithComments(true)),
 		field.String("component").Optional().Default("").
-			Comment("the path of vue file | 组件路径").
+			Comment("The path of vue file | 组件路径").
 			Annotations(entsql.WithComments(true)),
 		field.Bool("disabled").Optional().Default(false).
-			Comment("disable status | 是否停用").
+			Comment("Disable status | 是否停用").
 			Annotations(entsql.WithComments(true)),
 		// meta
 		field.String("title").
-			Comment("menu name | 菜单显示标题").
+			Comment("Menu name | 菜单显示标题").
 			Annotations(entsql.WithComments(true)),
 		field.String("icon").
-			Comment("menu icon | 菜单图标").
+			Comment("Menu icon | 菜单图标").
 			Annotations(entsql.WithComments(true)),
 		field.Bool("hide_menu").Optional().Default(false).
-			Comment("hide menu | 是否隐藏菜单").
+			Comment("Hide menu | 是否隐藏菜单").
 			Annotations(entsql.WithComments(true)),
 		field.Bool("hide_breadcrumb").Optional().Default(false).
-			Comment("hide the breadcrumb | 隐藏面包屑").
+			Comment("Hide the breadcrumb | 隐藏面包屑").
 			Annotations(entsql.WithComments(true)),
 		field.Bool("ignore_keep_alive").Optional().Default(false).
-			Comment("do not keep alive the tab | 取消页面缓存").
+			Comment("Do not keep alive the tab | 取消页面缓存").
 			Annotations(entsql.WithComments(true)),
 		field.Bool("hide_tab").Optional().Default(false).
-			Comment("hide the tab header | 隐藏页头").
+			Comment("Hide the tab header | 隐藏页头").
 			Annotations(entsql.WithComments(true)),
 		field.String("frame_src").Optional().Default("").
-			Comment("show iframe | 内嵌 iframe").
+			Comment("Show iframe | 内嵌 iframe").
 			Annotations(entsql.WithComments(true)),
 		field.Bool("carry_param").Optional().Default(false).
-			Comment("the route carries parameters or not | 携带参数").
+			Comment("The route carries parameters or not | 携带参数").
 			Annotations(entsql.WithComments(true)),
 		field.Bool("hide_children_in_menu").Optional().Default(false).
-			Comment("hide children menu or not | 隐藏所有子菜单").
+			Comment("Hide children menu or not | 隐藏所有子菜单").
 			Annotations(entsql.WithComments(true)),
 		field.Bool("affix").Optional().Default(false).
-			Comment("affix tab | Tab 固定").
+			Comment("Affix tab | Tab 固定").
 			Annotations(entsql.WithComments(true)),
 		field.Uint32("dynamic_level").Optional().Default(20).
-			Comment("the maximum number of pages the router can open | 能打开的子TAB数").
+			Comment("The maximum number of pages the router can open | 能打开的子TAB数").
 			Annotations(entsql.WithComments(true)),
 		field.String("real_path").Optional().Default("").
-			Comment("the real path of the route without dynamic part | 菜单路由不包含参数部分").
+			Comment("The real path of the route without dynamic part | 菜单路由不包含参数部分").
 			Annotations(entsql.WithComments(true)),
 	}
 }
