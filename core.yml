@@ -1564,7 +1564,6 @@ definitions:
             name:
                 description: Name | 职位名称
                 maxLength: 50
-                minLength: 50
                 type: string
                 x-go-name: Name
             page:
@@ -2515,8 +2514,8 @@ paths:
                 - in: body
                   name: body
                   schema:
-                      $ref: '#/definitions/IDReq'
-                      type: object
+                    $ref: '#/definitions/IDReq'
+                    type: object
             responses:
                 "200":
                     description: ApiInfoResp
@@ -3630,8 +3629,8 @@ paths:
                 - in: body
                   name: body
                   schema:
-                      $ref: '#/definitions/UUIDReq'
-                      type: object
+                    $ref: '#/definitions/UUIDReq'
+                    type: object
             responses:
                 "200":
                     description: BaseMsgResp
@@ -3648,8 +3647,8 @@ paths:
                 - in: body
                   name: body
                   schema:
-                      $ref: '#/definitions/TokenInfo'
-                      type: object
+                    $ref: '#/definitions/TokenInfo'
+                    type: object
             responses:
                 "200":
                     description: BaseMsgResp
@@ -3666,8 +3665,8 @@ paths:
                 - in: body
                   name: body
                   schema:
-                      $ref: '#/definitions/UUIDReq'
-                      type: object
+                    $ref: '#/definitions/UUIDReq'
+                    type: object
             responses:
                 "200":
                     description: UserInfoResp
