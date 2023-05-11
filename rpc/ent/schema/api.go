@@ -15,10 +15,18 @@ type API struct {
 
 func (API) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("path").Comment("API path | API 路径"),
-		field.String("description").Comment("API description | API 描述"),
-		field.String("api_group").Comment("API group | API 分组"),
-		field.String("method").Default("POST").Comment("HTTP method | HTTP 请求类型"),
+		field.String("path").
+			Comment("API path | API 路径").
+			Annotations(entsql.WithComments(true)),
+		field.String("description").
+			Comment("API description | API 描述").
+			Annotations(entsql.WithComments(true)),
+		field.String("api_group").
+			Comment("API group | API 分组").
+			Annotations(entsql.WithComments(true)),
+		field.String("method").Default("POST").
+			Comment("HTTP method | HTTP 请求类型").
+			Annotations(entsql.WithComments(true)),
 	}
 }
 
