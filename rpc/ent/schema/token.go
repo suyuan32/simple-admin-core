@@ -17,10 +17,18 @@ type Token struct {
 
 func (Token) Fields() []ent.Field {
 	return []ent.Field{
-		field.UUID("uuid", uuid.UUID{}).Comment(" User's UUID | 用户的UUID"),
-		field.String("token").Comment("Token string | Token 字符串"),
-		field.String("source").Comment("Log in source such as GitHub | Token 来源 （本地为core, 第三方如github等）"),
-		field.Time("expired_at").Comment(" Expire time | 过期时间"),
+		field.UUID("uuid", uuid.UUID{}).
+			Comment(" User's UUID | 用户的UUID").
+			Annotations(entsql.WithComments(true)),
+		field.String("token").
+			Comment("Token string | Token 字符串").
+			Annotations(entsql.WithComments(true)),
+		field.String("source").
+			Comment("Log in source such as GitHub | Token 来源 （本地为core, 第三方如github等）").
+			Annotations(entsql.WithComments(true)),
+		field.Time("expired_at").
+			Comment(" Expire time | 过期时间").
+			Annotations(entsql.WithComments(true)),
 	}
 }
 
