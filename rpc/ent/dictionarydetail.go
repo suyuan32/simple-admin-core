@@ -26,7 +26,7 @@ type DictionaryDetail struct {
 	Status uint8 `json:"status,omitempty"`
 	// Sort number | 排序编号
 	Sort uint32 `json:"sort,omitempty"`
-	// the title shown in the ui | 展示名称 （建议配合i18n）
+	// The title shown in the ui | 展示名称 （建议配合i18n）
 	Title string `json:"title,omitempty"`
 	// key | 键
 	Key string `json:"key,omitempty"`

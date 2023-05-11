@@ -16,13 +16,13 @@ type Dictionary struct {
 func (Dictionary) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("title").
-			Comment("the title shown in the ui | 展示名称 （建议配合i18n）").
+			Comment("The title shown in the ui | 展示名称 （建议配合i18n）").
 			Annotations(entsql.WithComments(true)),
 		field.String("name").Unique().
-			Comment("the name of dictionary for search | 字典搜索名称").
+			Comment("The name of dictionary for search | 字典搜索名称").
 			Annotations(entsql.WithComments(true)),
 		field.String("desc").
-			Comment("the status of dictionary (true enable | false disable) | 字典状态").
+			Comment("The status of dictionary (true enable | false disable) | 字典状态").
 			Annotations(entsql.WithComments(true)),
 	}
 }
