@@ -15,10 +15,18 @@ type DictionaryDetail struct {
 
 func (DictionaryDetail) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("title").Comment("the title shown in the ui | 展示名称 （建议配合i18n）"),
-		field.String("key").Comment("key | 键"),
-		field.String("value").Comment("value | 值"),
-		field.Uint64("dictionary_id").Optional().Comment("Dictionary ID | 字典ID"),
+		field.String("title").
+			Comment("The title shown in the ui | 展示名称 （建议配合i18n）").
+			Annotations(entsql.WithComments(true)),
+		field.String("key").
+			Comment("key | 键").
+			Annotations(entsql.WithComments(true)),
+		field.String("value").
+			Comment("value | 值").
+			Annotations(entsql.WithComments(true)),
+		field.Uint64("dictionary_id").Optional().
+			Comment("Dictionary ID | 字典ID").
+			Annotations(entsql.WithComments(true)),
 	}
 }
 

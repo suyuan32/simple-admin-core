@@ -1047,8 +1047,7 @@ type PositionListReq struct {
 	PageInfo
 	// Name | 职位名称
 	// max length : 50
-	// min length : 50
-	Name string `json:"name,optional" validate:"omitempty,len=50"`
+	Name string `json:"name,optional" validate:"omitempty,max=50"`
 	// Code | 职位代码
 	// max length : 20
 	Code string `json:"code,optional" validate:"omitempty,max=20"`

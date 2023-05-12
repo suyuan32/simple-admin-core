@@ -17,9 +17,15 @@ type Position struct {
 
 func (Position) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("name").Comment("Position Name | 职位名称"),
-		field.String("code").Comment("The code of position | 职位编码"),
-		field.String("remark").Comment("Remark | 备注"),
+		field.String("name").
+			Comment("Position Name | 职位名称").
+			Annotations(entsql.WithComments(true)),
+		field.String("code").
+			Comment("The code of position | 职位编码").
+			Annotations(entsql.WithComments(true)),
+		field.String("remark").
+			Comment("Remark | 备注").
+			Annotations(entsql.WithComments(true)),
 	}
 }
 

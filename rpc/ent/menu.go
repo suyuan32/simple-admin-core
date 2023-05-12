@@ -23,45 +23,45 @@ type Menu struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// Sort number | 排序编号
 	Sort uint32 `json:"sort,omitempty"`
-	// parent menu ID | 父菜单ID
+	// Parent menu ID | 父菜单ID
 	ParentID uint64 `json:"parent_id,omitempty"`
-	// menu level | 菜单层级
+	// Menu level | 菜单层级
 	MenuLevel uint32 `json:"menu_level,omitempty"`
-	// menu type | 菜单类型 （菜单或目录）0 目录 1 菜单
+	// Menu type | 菜单类型 （菜单或目录）0 目录 1 菜单
 	MenuType uint32 `json:"menu_type,omitempty"`
-	// index path | 菜单路由路径
+	// Index path | 菜单路由路径
 	Path string `json:"path,omitempty"`
-	// index name | 菜单名称
+	// Index name | 菜单名称
 	Name string `json:"name,omitempty"`
-	// redirect path | 跳转路径 （外链）
+	// Redirect path | 跳转路径 （外链）
 	Redirect string `json:"redirect,omitempty"`
-	// the path of vue file | 组件路径
+	// The path of vue file | 组件路径
 	Component string `json:"component,omitempty"`
-	// disable status | 是否停用
+	// Disable status | 是否停用
 	Disabled bool `json:"disabled,omitempty"`
-	// menu name | 菜单显示标题
+	// Menu name | 菜单显示标题
 	Title string `json:"title,omitempty"`
-	// menu icon | 菜单图标
+	// Menu icon | 菜单图标
 	Icon string `json:"icon,omitempty"`
-	// hide menu | 是否隐藏菜单
+	// Hide menu | 是否隐藏菜单
 	HideMenu bool `json:"hide_menu,omitempty"`
-	// hide the breadcrumb | 隐藏面包屑
+	// Hide the breadcrumb | 隐藏面包屑
 	HideBreadcrumb bool `json:"hide_breadcrumb,omitempty"`
-	// do not keep alive the tab | 取消页面缓存
+	// Do not keep alive the tab | 取消页面缓存
 	IgnoreKeepAlive bool `json:"ignore_keep_alive,omitempty"`
-	// hide the tab header | 隐藏页头
+	// Hide the tab header | 隐藏页头
 	HideTab bool `json:"hide_tab,omitempty"`
-	// show iframe | 内嵌 iframe
+	// Show iframe | 内嵌 iframe
 	FrameSrc string `json:"frame_src,omitempty"`
-	// the route carries parameters or not | 携带参数
+	// The route carries parameters or not | 携带参数
 	CarryParam bool `json:"carry_param,omitempty"`
-	// hide children menu or not | 隐藏所有子菜单
+	// Hide children menu or not | 隐藏所有子菜单
 	HideChildrenInMenu bool `json:"hide_children_in_menu,omitempty"`
-	// affix tab | Tab 固定
+	// Affix tab | Tab 固定
 	Affix bool `json:"affix,omitempty"`
-	// the maximum number of pages the router can open | 能打开的子TAB数
+	// The maximum number of pages the router can open | 能打开的子TAB数
 	DynamicLevel uint32 `json:"dynamic_level,omitempty"`
-	// the real path of the route without dynamic part | 菜单路由不包含参数部分
+	// The real path of the route without dynamic part | 菜单路由不包含参数部分
 	RealPath string `json:"real_path,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the MenuQuery when eager-loading is set.

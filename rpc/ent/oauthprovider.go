@@ -21,23 +21,23 @@ type OauthProvider struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
-	// the provider's name | 提供商名称
+	// The provider's name | 提供商名称
 	Name string `json:"name,omitempty"`
-	// the client id | 客户端 id
+	// The client id | 客户端 id
 	ClientID string `json:"client_id,omitempty"`
-	// the client secret | 客户端密钥
+	// The client secret | 客户端密钥
 	ClientSecret string `json:"client_secret,omitempty"`
-	// the redirect url | 跳转地址
+	// The redirect url | 跳转地址
 	RedirectURL string `json:"redirect_url,omitempty"`
-	// the scopes | 权限范围
+	// The scopes | 权限范围
 	Scopes string `json:"scopes,omitempty"`
-	// the auth url of the provider | 认证地址
+	// The auth url of the provider | 认证地址
 	AuthURL string `json:"auth_url,omitempty"`
-	// the token url of the provider | 获取 token地址
+	// The token url of the provider | 获取 token地址
 	TokenURL string `json:"token_url,omitempty"`
-	// the auth style, 0: auto detect 1: third party log in 2: log in with username and password
+	// The auth style, 0: auto detect 1: third party log in 2: log in with username and password
 	AuthStyle uint64 `json:"auth_style,omitempty"`
-	// the URL to request user information by token | 用户信息请求地址
+	// The URL to request user information by token | 用户信息请求地址
 	InfoURL      string `json:"info_url,omitempty"`
 	selectValues sql.SelectValues
 }
