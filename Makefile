@@ -10,11 +10,17 @@ SERVICE_SNAKE=core
 # Service name in snake format | 项目名称短杠格式
 SERVICE_DASH=core
 
-# Swagger type, support yml,json | Swagger 文件类型，支持yml,json
-SWAGGER_TYPE := yml
-
 # The project version, if you don't use git, you should set it manually | 项目版本，如果不使用git请手动设置
 VERSION=$(shell git describe --tags --always)
+
+# The project file name style | 项目文件命名风格
+PROJECT_STYLE=go_zero
+
+# Whether to use i18n | 是否启用 i18n
+PROJECT_I18N=true
+
+# Swagger type, support yml,json | Swagger 文件类型，支持yml,json
+SWAGGER_TYPE := yml
 
 # ---- You may not need to modify the codes below | 下面的代码大概率不需要更改 ----
 
@@ -56,13 +62,13 @@ publish-docker: # Publish docker image | 发布 docker 镜像
 
 .PHONY: gen-api
 gen-api: # Generate API files | 生成 API 的代码
-	goctls api go --api ./api/desc/all.api --dir ./api --trans_err=true
+	goctls api go --api ./api/desc/all.api --dir ./api --trans_err=true --style=$(PROJECT_STYLE)
 	swagger generate spec --output=./$(SERVICE_STYLE).$(SWAGGER_TYPE) --scan-models
 	@echo "Generate API files successfully"
 
 .PHONY: gen-rpc
 gen-rpc: # Generate RPC files from proto | 生成 RPC 的代码
-	goctls rpc protoc ./rpc/$(SERVICE_STYLE).proto --go_out=./rpc/types --go-grpc_out=./rpc/types --zrpc_out=./rpc
+	goctls rpc protoc ./rpc/$(SERVICE_STYLE).proto --style=$(PROJECT_STYLE) --go_out=./rpc/types --go-grpc_out=./rpc/types --zrpc_out=./rpc --style=$(PROJECT_STYLE)
 	@echo "Generate RPC files successfully"
 
 .PHONY: gen-ent
@@ -72,7 +78,7 @@ gen-ent: # Generate Ent codes | 生成 Ent 的代码
 
 .PHONY: gen-rpc-ent-logic
 gen-rpc-ent-logic: # Generate logic code from Ent, need model and group params | 根据 Ent 生成逻辑代码, 需要设置 model 和 group
-	goctls rpc ent --schema=./rpc/ent/schema --service_name=$(SERVICE) --project_name=$(SERVICE_STYLE) --o=./rpc --model=$(model) --group=$(group) --proto_out=./rpc/desc/$(shell echo $(model) | tr A-Z a-z).proto
+	goctls rpc ent --schema=./rpc/ent/schema --style=$(PROJECT_STYLE) --service_name=$(SERVICE) --project_name=$(SERVICE_STYLE) --o=./rpc --model=$(model) --group=$(group) --i18n=$(PROJECT_I18N) --proto_out=./rpc/desc/$(shell echo $(model) | tr A-Z a-z).proto
 	@echo "Generate logic codes from Ent successfully"
 
 .PHONY: build-win-rpc
