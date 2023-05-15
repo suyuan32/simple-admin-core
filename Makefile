@@ -14,7 +14,7 @@ SERVICE_DASH=core
 SWAGGER_TYPE := yml
 
 # The project version, if you don't use git, you should set it manually | 项目版本，如果不使用git请手动设置
-VERSION=v1.0.3
+VERSION=v1.0.5
 
 # ---- You may not need to modify the codes below | 下面的代码大概率不需要更改 ----
 
