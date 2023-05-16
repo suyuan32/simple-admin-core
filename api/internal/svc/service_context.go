@@ -11,7 +11,7 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/api/internal/config"
 	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
-	"github.com/suyuan32/simple-admin-core/rpc/core_client"
+	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/zeromicro/go-zero/core/stores/redis"
@@ -22,7 +22,7 @@ import (
 type ServiceContext struct {
 	Config    config.Config
 	Authority rest.Middleware
-	CoreRpc   core_client.Core
+	CoreRpc   coreclient.Core
 	JobRpc    jobclient.Job
 	Redis     *redis.Redis
 	Casbin    *casbin.Enforcer
@@ -40,7 +40,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:    c,
 		Authority: middleware.NewAuthorityMiddleware(cbn, rds, trans).Handle,
-		CoreRpc:   core_client.NewCore(zrpc.NewClientIfEnable(c.CoreRpc)),
+		CoreRpc:   coreclient.NewCore(zrpc.NewClientIfEnable(c.CoreRpc)),
 		JobRpc:    jobclient.NewJob(zrpc.NewClientIfEnable(c.JobRpc)),
 		Captcha:   captcha.MustNewRedisCaptcha(c.Captcha, rds),
 		Redis:     rds,
