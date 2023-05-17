@@ -2500,7 +2500,7 @@ definitions:
         x-go-package: github.com/suyuan32/simple-admin-core/api/internal/types
 host: localhost:9100
 info:
-  contact:
+    contact:
         email: yuansu.china.work@gmail.com
     description: This is simple admin api doc
     title: Simple Admin
