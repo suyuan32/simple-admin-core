@@ -29,7 +29,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuLevel(1).
 		SetMenuType(0).
 		SetParentID(0).
-		SetPath("").
+		SetPath("/system").
 		SetName("SystemManagement").
 		SetComponent("LAYOUT").
 		SetSort(999).
@@ -124,6 +124,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("DictionaryManagement").
 		SetComponent("/sys/dictionary/index").
 		SetSort(6).
+		SetHideChildrenInMenu(true).
 		SetTitle("route.dictionaryManagementTitle").
 		SetIcon("ant-design:book-outlined").
 		SetHideMenu(false),
@@ -133,7 +134,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetMenuLevel(1).
 		SetMenuType(0).
 		SetParentID(common.DefaultParentId).
-		SetPath("").
+		SetPath("/other").
 		SetName("OtherPages").
 		SetComponent("LAYOUT").
 		SetSort(1000).
@@ -145,7 +146,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(10).
+		SetParentID(9).
 		SetPath("/dictionary/detail/:dictionaryId").
 		SetName("DictionaryDetail").
 		SetComponent("/sys/dictionaryDetail/index").
