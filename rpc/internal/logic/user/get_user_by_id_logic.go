@@ -49,6 +49,7 @@ func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfo, error)
 		Id:           result.ID.String(),
 		Username:     result.Username,
 		HomePath:     result.HomePath,
+		Password:     result.Password,
 		Description:  result.Description,
 		DepartmentId: result.DepartmentID,
 		CreatedAt:    result.CreatedAt.Unix(),

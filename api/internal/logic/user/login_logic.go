@@ -55,7 +55,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		}
 
 		// add token into database
-		expiredAt := time.Now().Add(time.Second * 259200).Unix()
+		expiredAt := time.Now().Add(time.Second * time.Duration(l.svcCtx.Config.Auth.AccessExpire)).Unix()
 		_, err = l.svcCtx.CoreRpc.CreateToken(l.ctx, &core.TokenInfo{
 			Id:        "",
 			CreatedAt: 0,
