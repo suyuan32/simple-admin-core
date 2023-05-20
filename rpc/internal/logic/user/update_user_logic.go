@@ -6,11 +6,11 @@ import (
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/suyuan32/simple-admin-common/utils/uuidx"
 
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/entx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
 
-	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -66,12 +66,14 @@ func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) 
 				return err
 			}
 
-			_, err = token.NewBlockUserAllTokenLogic(l.ctx, l.svcCtx).BlockUserAllToken(&core.UUIDReq{Id: in.Id})
+			updateQuery = updateQuery.AddPositionIDs(in.PositionIds...)
+		}
+
+		if in.Password != "" || in.RoleIds != nil || in.PositionIds != nil {
+			_, err := token.NewBlockUserAllTokenLogic(l.ctx, l.svcCtx).BlockUserAllToken(&core.UUIDReq{Id: in.Id})
 			if err != nil {
 				return err
 			}
-
-			updateQuery = updateQuery.AddPositionIDs(in.PositionIds...)
 		}
 
 		return updateQuery.Exec(l.ctx)
