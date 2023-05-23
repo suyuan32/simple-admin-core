@@ -1125,6 +1125,7 @@ type DictionaryDetailInfoResp struct {
 // Dictionary name request | 字典名称请求
 // swagger:parameters GetDictionaryDetailByDictionaryName
 type DictionaryNameReq struct {
+	// in:path
 	Name string `json:"name,optional" path:"name"`
 }
 

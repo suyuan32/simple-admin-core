@@ -78,7 +78,7 @@ gen-ent: # Generate Ent codes | 生成 Ent 的代码
 
 .PHONY: gen-rpc-ent-logic
 gen-rpc-ent-logic: # Generate logic code from Ent, need model and group params | 根据 Ent 生成逻辑代码, 需要设置 model 和 group
-	goctls rpc ent --schema=./rpc/ent/schema --style=$(PROJECT_STYLE) --service_name=$(SERVICE) --project_name=$(SERVICE_STYLE) --o=./rpc --model=$(model) --group=$(group) --i18n=$(PROJECT_I18N) --proto_out=./rpc/desc/$(shell echo $(model) | tr A-Z a-z).proto
+	goctls rpc ent --schema=./rpc/ent/schema --style=$(PROJECT_STYLE) --import_prefix=/rpc --service_name=$(SERVICE) --project_name=$(SERVICE_STYLE) -o=./rpc --model=$(model) --group=$(group) --i18n=$(PROJECT_I18N) --proto_out=./rpc/desc/$(shell echo $(model) | tr A-Z a-z).proto --overwrite=true
 	@echo "Generate logic codes from Ent successfully"
 
 .PHONY: build-win-rpc

@@ -36,7 +36,7 @@ func (l *ChangePasswordLogic) ChangePassword(req *types.ChangePasswordReq) (resp
 	if encrypt.BcryptCheck(req.OldPassword, userData.Password) {
 		result, err := l.svcCtx.CoreRpc.UpdateUser(l.ctx, &core.UserInfo{
 			Id:       l.ctx.Value("userId").(string),
-			Password: encrypt.BcryptEncrypt(req.NewPassword),
+			Password: req.NewPassword,
 		})
 		if err != nil {
 			return nil, err

@@ -7,6 +7,7 @@ import (
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/zeromicro/go-zero/core/errorx"
 
+	"github.com/suyuan32/simple-admin-core/api/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -34,7 +35,12 @@ func (l *DeleteDictionaryDetailLogic) DeleteDictionaryDetail(req *types.IDsReq) 
 		return nil, err
 	}
 
-	if _, err := l.svcCtx.Redis.DelCtx(l.ctx, fmt.Sprintf("dict_%d", detailData.DictionaryId)); err != nil {
+	dict, err := dictionary.NewGetDictionaryByIdLogic(l.ctx, l.svcCtx).GetDictionaryById(&types.IDReq{Id: detailData.DictionaryId})
+	if err != nil {
+		return nil, err
+	}
+
+	if _, err := l.svcCtx.Redis.DelCtx(l.ctx, fmt.Sprintf("dict_%d", dict.Data.Name)); err != nil {
 		logx.Errorw("failed to delete dictionary data in redis", logx.Field("detail", err))
 		return nil, errorx.NewCodeInternalError(i18n.RedisError)
 	}
