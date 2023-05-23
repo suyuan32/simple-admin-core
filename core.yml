@@ -2504,7 +2504,7 @@ info:
         email: yuansu.china.work@gmail.com
     description: This is simple admin api doc
     title: Simple Admin
-    version: 1.0.5
+    version: 1.0.6
 paths:
     /api:
         post:
@@ -2799,11 +2799,11 @@ paths:
             description: Get dictionary detail by dictionary name | 通过字典名称获取字典内容
             operationId: GetDictionaryDetailByDictionaryName
             parameters:
-              - in: path
-                name: name
-                required: true
-                type: string
-                x-go-name: Name
+                - in: path
+                  name: name
+                  required: true
+                  type: string
+                  x-go-name: Name
             responses:
                 "200":
                     description: DictionaryDetailListResp
