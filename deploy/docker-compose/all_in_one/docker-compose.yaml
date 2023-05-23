@@ -106,6 +106,8 @@ services:
     image: ryanpower/core-api-docker:v1.0.6
     container_name: core-api
     restart: always
+    #    environment:
+    #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
     ports:
       - '9100:9100'
     networks:
@@ -146,6 +148,9 @@ services:
     image: ryanpower/fms-api-docker:v1.0.6
     container_name: fms-api
     restart: always
+    #    environment:
+    #      SERVER_URL: 'http://localhost:81'
+    #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
     ports:
       - '9102:9102'
       - '81:80'
