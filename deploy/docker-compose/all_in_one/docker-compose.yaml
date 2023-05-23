@@ -3,6 +3,7 @@ version: '3'
 volumes:
   mysql:
   redis:
+  fms:
 
 networks:
   simple-admin:
@@ -132,6 +133,29 @@ services:
         aliases:
           - backend-ui
         ipv4_address: 10.5.0.6
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 500M
+        reservations:
+          cpus: '0.05'
+          memory: 200M
+
+  fms-api:
+    image: ryanpower/file-api:v1.0.5-beta-6
+    container_name: fms-api
+    restart: always
+    ports:
+      - '9102:9102'
+      - '81:80'
+    volumes:
+      - fms:/home/data
+    networks:
+      simple-admin:
+        aliases:
+          - fms-api
+        ipv4_address: 10.5.0.8
     deploy:
       resources:
         limits:
