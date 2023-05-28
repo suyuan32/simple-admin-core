@@ -8,9 +8,9 @@ import (
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/zeromicro/go-zero/core/errorx"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -42,38 +42,38 @@ func (l *GetDictionaryDetailByDictionaryNameLogic) GetDictionaryDetailByDictiona
 		return resp, nil
 	}
 
-	dict, err := dictionary.NewGetDictionaryListLogic(l.ctx, l.svcCtx).GetDictionaryList(&types.DictionaryListReq{
-		PageInfo: types.PageInfo{
-			Page:     1,
-			PageSize: 1,
-		},
-		Name: req.Name,
-	})
-
+	data, err := l.svcCtx.CoreRpc.GetDictionaryDetailByDictionaryName(l.ctx, &core.BaseMsg{Msg: req.Name})
 	if err != nil {
 		return nil, err
 	}
 
-	if dict.Data.Total == 0 {
-		return nil, errorx.NewCodeInvalidArgumentError(i18n.TargetNotFound)
+	resp = &types.DictionaryDetailListResp{}
+	resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)
+	resp.Data.Total = data.GetTotal()
+
+	for _, v := range data.Data {
+		resp.Data.Data = append(resp.Data.Data,
+			types.DictionaryDetailInfo{
+				BaseIDInfo: types.BaseIDInfo{
+					Id:        v.Id,
+					CreatedAt: v.CreatedAt,
+					UpdatedAt: v.UpdatedAt,
+				},
+				Status:       v.Status,
+				Title:        v.Title,
+				Key:          v.Key,
+				Value:        v.Value,
+				DictionaryId: v.DictionaryId,
+				Sort:         v.Sort,
+			})
 	}
 
-	dictDetails, err := NewGetDictionaryDetailListLogic(l.ctx, l.svcCtx).
-		GetDictionaryDetailList(&types.DictionaryDetailListReq{
-			PageInfo: types.PageInfo{
-				Page:     1,
-				PageSize: 500,
-			},
-			Key:          "",
-			DictionaryId: dict.Data.Data[0].Id,
-		})
-
-	storeData, err := json.Marshal(&dictDetails.Data)
+	storeData, err := json.Marshal(&resp.Data)
 	err = l.svcCtx.Redis.SetexCtx(l.ctx, fmt.Sprintf("dict_%d", req.Name), string(storeData), 3600)
 	if err != nil {
 		logx.Errorw("failed to set dictionary detail data to redis", logx.Field("detail", err))
 		return nil, errorx.NewCodeInternalError(i18n.RedisError)
 	}
 
-	return dictDetails, nil
+	return resp, nil
 }

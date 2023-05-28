@@ -152,6 +152,11 @@ func (s *CoreServer) DeleteDictionaryDetail(ctx context.Context, in *core.IDsReq
 	return l.DeleteDictionaryDetail(in)
 }
 
+func (s *CoreServer) GetDictionaryDetailByDictionaryName(ctx context.Context, in *core.BaseMsg) (*core.DictionaryDetailListResp, error) {
+	l := dictionarydetail.NewGetDictionaryDetailByDictionaryNameLogic(ctx, s.svcCtx)
+	return l.GetDictionaryDetailByDictionaryName(in)
+}
+
 func (s *CoreServer) CreateMenu(ctx context.Context, in *core.MenuInfo) (*core.BaseIDResp, error) {
 	l := menu.NewCreateMenuLogic(ctx, s.svcCtx)
 	return l.CreateMenu(in)

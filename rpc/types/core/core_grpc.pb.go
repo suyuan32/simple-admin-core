@@ -72,6 +72,8 @@ type CoreClient interface {
 	GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error)
 	// group: dictionarydetail
 	DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: dictionarydetail
+	GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
 	// group: menu
 	CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 	// group: menu
@@ -356,6 +358,15 @@ func (c *coreClient) GetDictionaryDetailById(ctx context.Context, in *IDReq, opt
 func (c *coreClient) DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, "/core.Core/deleteDictionaryDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error) {
+	out := new(DictionaryDetailListResp)
+	err := c.cc.Invoke(ctx, "/core.Core/getDictionaryDetailByDictionaryName", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -722,6 +733,8 @@ type CoreServer interface {
 	GetDictionaryDetailById(context.Context, *IDReq) (*DictionaryDetailInfo, error)
 	// group: dictionarydetail
 	DeleteDictionaryDetail(context.Context, *IDsReq) (*BaseResp, error)
+	// group: dictionarydetail
+	GetDictionaryDetailByDictionaryName(context.Context, *BaseMsg) (*DictionaryDetailListResp, error)
 	// group: menu
 	CreateMenu(context.Context, *MenuInfo) (*BaseIDResp, error)
 	// group: menu
@@ -870,6 +883,9 @@ func (UnimplementedCoreServer) GetDictionaryDetailById(context.Context, *IDReq) 
 }
 func (UnimplementedCoreServer) DeleteDictionaryDetail(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictionaryDetail not implemented")
+}
+func (UnimplementedCoreServer) GetDictionaryDetailByDictionaryName(context.Context, *BaseMsg) (*DictionaryDetailListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDictionaryDetailByDictionaryName not implemented")
 }
 func (UnimplementedCoreServer) CreateMenu(context.Context, *MenuInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMenu not implemented")
@@ -1396,6 +1412,24 @@ func _Core_DeleteDictionaryDetail_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).DeleteDictionaryDetail(ctx, req.(*IDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetDictionaryDetailByDictionaryName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BaseMsg)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetDictionaryDetailByDictionaryName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.Core/getDictionaryDetailByDictionaryName",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetDictionaryDetailByDictionaryName(ctx, req.(*BaseMsg))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2110,6 +2144,10 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteDictionaryDetail",
 			Handler:    _Core_DeleteDictionaryDetail_Handler,
+		},
+		{
+			MethodName: "getDictionaryDetailByDictionaryName",
+			Handler:    _Core_GetDictionaryDetailByDictionaryName_Handler,
 		},
 		{
 			MethodName: "createMenu",
