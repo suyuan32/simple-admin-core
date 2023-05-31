@@ -2504,7 +2504,7 @@ info:
         email: yuansu.china.work@gmail.com
     description: This is simple admin api doc
     title: Simple Admin
-    version: 1.0.6
+    version: 1.0.7
 paths:
     /api:
         post:

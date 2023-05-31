@@ -63,6 +63,8 @@ CasbinConf:
     [matchers]
     m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
 
+I18nConf:
+  Dir: # set the path of locale if you need to load files
 
 # Tracing Analysis
 
