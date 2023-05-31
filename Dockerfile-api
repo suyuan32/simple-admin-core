@@ -31,6 +31,7 @@ ENV CONFIG_FILE=${CONFIG_FILE}
 
 COPY --from=builder /build/api/${PROJECT}_api ./
 COPY --from=builder /build/api/etc/${CONFIG_FILE} ./etc/
+COPY --from=builder /build/api/internal/i18n/locale/ ./etc/locale/
 
 EXPOSE 9100
 ENTRYPOINT ./${PROJECT}_api -f etc/${CONFIG_FILE}
