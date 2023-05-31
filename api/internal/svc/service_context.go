@@ -35,7 +35,12 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 	cbn := c.CasbinConf.MustNewCasbinWithRedisWatcher(c.DatabaseConf.Type, c.DatabaseConf.GetDSN(), c.RedisConf)
 
-	trans := i18n.NewTranslator(i18n2.LocaleFS)
+	var trans *i18n.Translator
+	if c.I18nConf.Dir != "" {
+		trans = i18n.NewTranslatorFromFile(c.I18nConf)
+	} else {
+		trans = i18n.NewTranslator(i18n2.LocaleFS)
+	}
 
 	return &ServiceContext{
 		Config:    c,

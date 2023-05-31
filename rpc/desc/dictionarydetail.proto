@@ -40,6 +40,7 @@ service Core {
   rpc getDictionaryDetailById (IDReq) returns (DictionaryDetailInfo);
   // group: dictionarydetail
   rpc deleteDictionaryDetail (IDsReq) returns (BaseResp);
-
+  // group: dictionarydetail
+  rpc getDictionaryDetailByDictionaryName (BaseMsg)  returns (DictionaryDetailListResp);
 
 }
