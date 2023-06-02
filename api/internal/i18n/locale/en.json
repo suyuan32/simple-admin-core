@@ -194,7 +194,8 @@
 		"addFailed": "Fail to add new policies"
 	},
 	"department": {
-		"managementDepartment": "Management Department"
+		"managementDepartment": "Management Department",
+		"deleteDepartmentChildrenFirst": "The department has sub-departments, please delete the sub-departments first"
 	},
 	"position": {
 		"userExistError": "There are users under this position, it is forbidden to delete.",
