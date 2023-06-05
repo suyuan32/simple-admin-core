@@ -80,7 +80,7 @@
 		"createProvider": "Create a provider information",
 		"updateProvider": "Update the provider information",
 		"deleteProvider": "Delete provider information",
-		"geProviderList": "Get provider list",
+		"getProviderList": "Get provider list",
 		"oauthLogin": "Third-party log in",
 		"createToken": "Create a token",
 		"updateToken": "Update the token",

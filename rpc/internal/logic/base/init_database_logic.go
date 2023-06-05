@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"entgo.io/ent/dialect/sql/schema"
+	"github.com/suyuan32/simple-admin-common/enum/common"
 	"github.com/suyuan32/simple-admin-common/msg/logmsg"
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -314,7 +315,7 @@ func (l *InitDatabaseLogic) insertDepartmentData() error {
 		SetPhone("18888888888").
 		SetRemark("Super Administrator").
 		SetSort(1).
-		SetParentID(0),
+		SetParentID(common.DefaultParentId),
 	)
 
 	err := l.svcCtx.DB.Department.CreateBulk(departments...).Exec(l.ctx)
