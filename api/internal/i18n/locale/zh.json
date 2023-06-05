@@ -81,7 +81,7 @@
 		"createProvider": "创建登录提供商",
 		"updateProvider": "更新登录提供商",
 		"deleteProvider": "删除登录提供商",
-		"geProviderList": "获取提供商列表",
+		"getProviderList": "获取提供商列表",
 		"oauthLogin": "第三方登录",
 		"createToken": "创建Token",
 		"updateToken": "更新Token",
