@@ -160,6 +160,7 @@ definitions:
             page:
                 description: Page number | 第几页
                 format: uint64
+                minimum: 0
                 type: integer
                 x-go-name: Page
             pageSize:
@@ -495,6 +496,7 @@ definitions:
             page:
                 description: Page number | 第几页
                 format: uint64
+                minimum: 0
                 type: integer
                 x-go-name: Page
             pageSize:
@@ -630,6 +632,7 @@ definitions:
             page:
                 description: Page number | 第几页
                 format: uint64
+                minimum: 0
                 type: integer
                 x-go-name: Page
             pageSize:
@@ -755,6 +758,7 @@ definitions:
             page:
                 description: Page number | 第几页
                 format: uint64
+                minimum: 0
                 type: integer
                 x-go-name: Page
             pageSize:
@@ -1396,6 +1400,7 @@ definitions:
             page:
                 description: Page number | 第几页
                 format: uint64
+                minimum: 0
                 type: integer
                 x-go-name: Page
             pageSize:
@@ -1434,6 +1439,7 @@ definitions:
             page:
                 description: Page number | 第几页
                 format: uint64
+                minimum: 0
                 type: integer
                 x-go-name: Page
             pageSize:
@@ -1569,6 +1575,7 @@ definitions:
             page:
                 description: Page number | 第几页
                 format: uint64
+                minimum: 0
                 type: integer
                 x-go-name: Page
             pageSize:
@@ -1830,6 +1837,7 @@ definitions:
             page:
                 description: Page number | 第几页
                 format: uint64
+                minimum: 0
                 type: integer
                 x-go-name: Page
             pageSize:
@@ -1957,6 +1965,7 @@ definitions:
             page:
                 description: Page number | 第几页
                 format: uint64
+                minimum: 0
                 type: integer
                 x-go-name: Page
             pageSize:
@@ -2059,6 +2068,7 @@ definitions:
             page:
                 description: Page number | 第几页
                 format: uint64
+                minimum: 0
                 type: integer
                 x-go-name: Page
             pageSize:
@@ -2191,6 +2201,7 @@ definitions:
             page:
                 description: Page number | 第几页
                 format: uint64
+                minimum: 0
                 type: integer
                 x-go-name: Page
             pageSize:
@@ -2449,6 +2460,7 @@ definitions:
             page:
                 description: Page number | 第几页
                 format: uint64
+                minimum: 0
                 type: integer
                 x-go-name: Page
             pageSize:
