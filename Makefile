@@ -116,7 +116,7 @@ build-linux-api: # Build API project for Linux | 构建Linux下的API可执行�
 
 .PHONY: gen-swagger
 gen-swagger: # Generate swagger file | 生成 swagger 文件
-	swagger generate spec --output=./$(SERVICE_STYLE).yml --scan-models
+	swagger generate spec --output=./$(SERVICE_STYLE).$(SWAGGER_TYPE) --scan-models
 	@echo "Generate swagger successfully"
 
 .PHONY: serve-swagger
