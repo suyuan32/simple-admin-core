@@ -8,6 +8,8 @@ import (
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
+
+	_ "github.com/suyuan32/simple-admin-core/rpc/ent/runtime"
 )
 
 type ServiceContext struct {

@@ -10,6 +10,8 @@ import (
 	"entgo.io/ent/schema/index"
 
 	"github.com/suyuan32/simple-admin-common/orm/ent/mixins"
+
+	mixins2 "github.com/suyuan32/simple-admin-core/rpc/ent/schema/mixins"
 )
 
 type User struct {
@@ -55,6 +57,7 @@ func (User) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		mixins.UUIDMixin{},
 		mixins.StatusMixin{},
+		mixins2.SoftDeleteMixin{},
 	}
 }
 
