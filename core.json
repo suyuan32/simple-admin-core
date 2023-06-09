@@ -1,0 +1,5304 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "This is simple admin api doc",
+    "title": "Simple Admin",
+    "contact": {
+      "email": "yuansu.china.work@gmail.com"
+    },
+    "version": "1.0.7"
+  },
+  "host": "localhost:9100",
+  "basePath": "/",
+  "paths": {
+    "/api": {
+      "post": {
+        "description": "Get API by ID | 通过ID获取API",
+        "tags": [
+          "api"
+        ],
+        "summary": "Get API by ID | 通过ID获取API",
+        "operationId": "GetApiById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ApiInfoResp",
+            "schema": {
+              "$ref": "#/definitions/ApiInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/create": {
+      "post": {
+        "description": "Create API information | 创建API",
+        "tags": [
+          "api"
+        ],
+        "summary": "Create API information | 创建API",
+        "operationId": "CreateApi",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ApiInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/delete": {
+      "post": {
+        "description": "Delete API information | 删除API信息",
+        "tags": [
+          "api"
+        ],
+        "summary": "Delete API information | 删除API信息",
+        "operationId": "DeleteApi",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/list": {
+      "post": {
+        "description": "Get API list | 获取API列表",
+        "tags": [
+          "api"
+        ],
+        "summary": "Get API list | 获取API列表",
+        "operationId": "GetApiList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ApiListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ApiListResp",
+            "schema": {
+              "$ref": "#/definitions/ApiListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/update": {
+      "post": {
+        "description": "Update API information | 创建API",
+        "tags": [
+          "api"
+        ],
+        "summary": "Update API information | 创建API",
+        "operationId": "UpdateApi",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ApiInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/authority/api/create_or_update": {
+      "post": {
+        "description": "Create or update API authorization information | 创建或更新API权限",
+        "tags": [
+          "authority"
+        ],
+        "summary": "Create or update API authorization information | 创建或更新API权限",
+        "operationId": "CreateOrUpdateApiAuthority",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/CreateOrUpdateApiAuthorityReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/authority/api/role": {
+      "post": {
+        "description": "Get role's API authorization list | 获取角色api权限列表",
+        "tags": [
+          "authority"
+        ],
+        "summary": "Get role's API authorization list | 获取角色api权限列表",
+        "operationId": "GetApiAuthority",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ApiAuthorityListResp",
+            "schema": {
+              "$ref": "#/definitions/ApiAuthorityListResp"
+            }
+          }
+        }
+      }
+    },
+    "/authority/menu/create_or_update": {
+      "post": {
+        "description": "Create or update menu authorization information | 创建或更新菜单权限",
+        "tags": [
+          "authority"
+        ],
+        "summary": "Create or update menu authorization information | 创建或更新菜单权限",
+        "operationId": "CreateOrUpdateMenuAuthority",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/MenuAuthorityInfoReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/authority/menu/role": {
+      "post": {
+        "description": "Get role's menu authorization list | 获取角色菜单权限列表",
+        "tags": [
+          "authority"
+        ],
+        "summary": "Get role's menu authorization list | 获取角色菜单权限列表",
+        "operationId": "GetMenuAuthority",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "MenuAuthorityInfoResp",
+            "schema": {
+              "$ref": "#/definitions/MenuAuthorityInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/captcha": {
+      "get": {
+        "description": "Get captcha | 获取验证码",
+        "tags": [
+          "captcha"
+        ],
+        "summary": "Get captcha | 获取验证码",
+        "operationId": "GetCaptcha",
+        "responses": {
+          "200": {
+            "description": "CaptchaResp",
+            "schema": {
+              "$ref": "#/definitions/CaptchaResp"
+            }
+          }
+        }
+      }
+    },
+    "/core/init/database": {
+      "get": {
+        "description": "Initialize database | 初始化数据库",
+        "tags": [
+          "base"
+        ],
+        "summary": "Initialize database | 初始化数据库",
+        "operationId": "InitDatabase",
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/core/init/job_database": {
+      "get": {
+        "description": "Initialize job database | 初始化定时任务数据库",
+        "tags": [
+          "base"
+        ],
+        "summary": "Initialize job database | 初始化定时任务数据库",
+        "operationId": "InitJobDatabase",
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/department": {
+      "post": {
+        "description": "Get Department by ID | 通过ID获取部门",
+        "tags": [
+          "department"
+        ],
+        "summary": "Get Department by ID | 通过ID获取部门",
+        "operationId": "GetDepartmentById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DepartmentInfoResp",
+            "schema": {
+              "$ref": "#/definitions/DepartmentInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/department/create": {
+      "post": {
+        "description": "Create department information | 创建部门",
+        "tags": [
+          "department"
+        ],
+        "summary": "Create department information | 创建部门",
+        "operationId": "CreateDepartment",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DepartmentInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/department/delete": {
+      "post": {
+        "description": "Delete department information | 删除部门信息",
+        "tags": [
+          "department"
+        ],
+        "summary": "Delete department information | 删除部门信息",
+        "operationId": "DeleteDepartment",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/department/list": {
+      "post": {
+        "description": "Get department list | 获取部门列表",
+        "tags": [
+          "department"
+        ],
+        "summary": "Get department list | 获取部门列表",
+        "operationId": "GetDepartmentList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DepartmentListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DepartmentListResp",
+            "schema": {
+              "$ref": "#/definitions/DepartmentListResp"
+            }
+          }
+        }
+      }
+    },
+    "/department/update": {
+      "post": {
+        "description": "Update department information | 更新部门",
+        "tags": [
+          "department"
+        ],
+        "summary": "Update department information | 更新部门",
+        "operationId": "UpdateDepartment",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DepartmentInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/dict/{name}": {
+      "get": {
+        "description": "Get dictionary detail by dictionary name | 通过字典名称获取字典内容",
+        "tags": [
+          "dictionarydetail"
+        ],
+        "summary": "Get dictionary detail by dictionary name | 通过字典名称获取字典内容",
+        "operationId": "GetDictionaryDetailByDictionaryName",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DictionaryDetailListResp",
+            "schema": {
+              "$ref": "#/definitions/DictionaryDetailListResp"
+            }
+          }
+        }
+      }
+    },
+    "/dictionary": {
+      "post": {
+        "description": "Get Dictionary by ID | 通过ID获取字典",
+        "tags": [
+          "dictionary"
+        ],
+        "summary": "Get Dictionary by ID | 通过ID获取字典",
+        "operationId": "GetDictionaryById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DictionaryInfoResp",
+            "schema": {
+              "$ref": "#/definitions/DictionaryInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/dictionary/create": {
+      "post": {
+        "description": "Create dictionary information | 创建字典",
+        "tags": [
+          "dictionary"
+        ],
+        "summary": "Create dictionary information | 创建字典",
+        "operationId": "CreateDictionary",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DictionaryInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/dictionary/delete": {
+      "post": {
+        "description": "Delete dictionary information | 删除字典信息",
+        "tags": [
+          "dictionary"
+        ],
+        "summary": "Delete dictionary information | 删除字典信息",
+        "operationId": "DeleteDictionary",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/dictionary/list": {
+      "post": {
+        "description": "Get dictionary list | 获取字典列表",
+        "tags": [
+          "dictionary"
+        ],
+        "summary": "Get dictionary list | 获取字典列表",
+        "operationId": "GetDictionaryList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DictionaryListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DictionaryListResp",
+            "schema": {
+              "$ref": "#/definitions/DictionaryListResp"
+            }
+          }
+        }
+      }
+    },
+    "/dictionary/update": {
+      "post": {
+        "description": "Update dictionary information | 更新字典",
+        "tags": [
+          "dictionary"
+        ],
+        "summary": "Update dictionary information | 更新字典",
+        "operationId": "UpdateDictionary",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DictionaryInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/dictionary_detail": {
+      "post": {
+        "description": "Get DictionaryDetail by ID | 通过ID获取字典键值",
+        "tags": [
+          "dictionarydetail"
+        ],
+        "summary": "Get DictionaryDetail by ID | 通过ID获取字典键值",
+        "operationId": "GetDictionaryDetailById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DictionaryDetailInfoResp",
+            "schema": {
+              "$ref": "#/definitions/DictionaryDetailInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/dictionary_detail/create": {
+      "post": {
+        "description": "Create dictionary detail information | 创建字典键值",
+        "tags": [
+          "dictionarydetail"
+        ],
+        "summary": "Create dictionary detail information | 创建字典键值",
+        "operationId": "CreateDictionaryDetail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DictionaryDetailInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/dictionary_detail/delete": {
+      "post": {
+        "description": "Delete dictionary detail information | 删除字典键值信息",
+        "tags": [
+          "dictionarydetail"
+        ],
+        "summary": "Delete dictionary detail information | 删除字典键值信息",
+        "operationId": "DeleteDictionaryDetail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/dictionary_detail/list": {
+      "post": {
+        "description": "Get dictionary detail list | 获取字典键值列表",
+        "tags": [
+          "dictionarydetail"
+        ],
+        "summary": "Get dictionary detail list | 获取字典键值列表",
+        "operationId": "GetDictionaryDetailList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DictionaryDetailListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DictionaryDetailListResp",
+            "schema": {
+              "$ref": "#/definitions/DictionaryDetailListResp"
+            }
+          }
+        }
+      }
+    },
+    "/dictionary_detail/update": {
+      "post": {
+        "description": "Update dictionary detail information | 更新字典键值",
+        "tags": [
+          "dictionarydetail"
+        ],
+        "summary": "Update dictionary detail information | 更新字典键值",
+        "operationId": "UpdateDictionaryDetail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DictionaryDetailInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/menu/create": {
+      "post": {
+        "description": "Create menu information | 创建菜单",
+        "tags": [
+          "menu"
+        ],
+        "summary": "Create menu information | 创建菜单",
+        "operationId": "CreateMenu",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/MenuPlainInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/menu/delete": {
+      "post": {
+        "description": "Delete menu information | 删除菜单信息",
+        "tags": [
+          "menu"
+        ],
+        "summary": "Delete menu information | 删除菜单信息",
+        "operationId": "DeleteMenu",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/menu/list": {
+      "get": {
+        "description": "Get menu list | 获取菜单列表",
+        "tags": [
+          "menu"
+        ],
+        "summary": "Get menu list | 获取菜单列表",
+        "operationId": "GetMenuList",
+        "responses": {
+          "200": {
+            "description": "MenuPlainInfoListResp",
+            "schema": {
+              "$ref": "#/definitions/MenuPlainInfoListResp"
+            }
+          }
+        }
+      }
+    },
+    "/menu/role/list": {
+      "get": {
+        "description": "Get menu list by role | 获取菜单列表",
+        "tags": [
+          "menu"
+        ],
+        "summary": "Get menu list by role | 获取菜单列表",
+        "operationId": "GetMenuListByRole",
+        "responses": {
+          "200": {
+            "description": "MenuListResp",
+            "schema": {
+              "$ref": "#/definitions/MenuListResp"
+            }
+          }
+        }
+      }
+    },
+    "/menu/update": {
+      "post": {
+        "description": "Update menu information | 更新菜单",
+        "tags": [
+          "menu"
+        ],
+        "summary": "Update menu information | 更新菜单",
+        "operationId": "UpdateMenu",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/MenuPlainInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/oauth/login": {
+      "post": {
+        "description": "Oauth log in | Oauth 登录",
+        "tags": [
+          "oauthprovider"
+        ],
+        "summary": "Oauth log in | Oauth 登录",
+        "operationId": "OauthLogin",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/OauthLoginReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "RedirectResp",
+            "schema": {
+              "$ref": "#/definitions/RedirectResp"
+            }
+          }
+        }
+      }
+    },
+    "/oauth/login/callback": {
+      "get": {
+        "description": "Oauth log in callback route | Oauth 登录返回调接口",
+        "tags": [
+          "oauthprovider"
+        ],
+        "summary": "Oauth log in callback route | Oauth 登录返回调接口",
+        "operationId": "OauthCallback",
+        "responses": {
+          "200": {
+            "description": "CallbackResp",
+            "schema": {
+              "$ref": "#/definitions/CallbackResp"
+            }
+          }
+        }
+      }
+    },
+    "/oauth_provider": {
+      "post": {
+        "description": "Get oauth provider by ID | 通过ID获取第三方",
+        "tags": [
+          "oauthprovider"
+        ],
+        "summary": "Get oauth provider by ID | 通过ID获取第三方",
+        "operationId": "GetOauthProviderById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OauthProviderInfoResp",
+            "schema": {
+              "$ref": "#/definitions/OauthProviderInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/oauth_provider/create": {
+      "post": {
+        "description": "Create oauth provider information | 创建第三方",
+        "tags": [
+          "oauthprovider"
+        ],
+        "summary": "Create oauth provider information | 创建第三方",
+        "operationId": "CreateOauthProvider",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/OauthProviderInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/oauth_provider/delete": {
+      "post": {
+        "description": "Delete oauth provider information | 删除第三方信息",
+        "tags": [
+          "oauthprovider"
+        ],
+        "summary": "Delete oauth provider information | 删除第三方信息",
+        "operationId": "DeleteOauthProvider",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/oauth_provider/list": {
+      "post": {
+        "description": "Get oauth provider list | 获取第三方列表",
+        "tags": [
+          "oauthprovider"
+        ],
+        "summary": "Get oauth provider list | 获取第三方列表",
+        "operationId": "GetOauthProviderList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/OauthProviderListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OauthProviderListResp",
+            "schema": {
+              "$ref": "#/definitions/OauthProviderListResp"
+            }
+          }
+        }
+      }
+    },
+    "/oauth_provider/update": {
+      "post": {
+        "description": "Update oauth provider information | 更新第三方",
+        "tags": [
+          "oauthprovider"
+        ],
+        "summary": "Update oauth provider information | 更新第三方",
+        "operationId": "UpdateOauthProvider",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/OauthProviderInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/position": {
+      "post": {
+        "description": "Get position by ID | 通过ID获取职位",
+        "tags": [
+          "position"
+        ],
+        "summary": "Get position by ID | 通过ID获取职位",
+        "operationId": "GetPositionById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PositionInfoResp",
+            "schema": {
+              "$ref": "#/definitions/PositionInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/position/create": {
+      "post": {
+        "description": "Create position information | 创建职位",
+        "tags": [
+          "position"
+        ],
+        "summary": "Create position information | 创建职位",
+        "operationId": "CreatePosition",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/PositionInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/position/delete": {
+      "post": {
+        "description": "Delete position information | 删除职位信息",
+        "tags": [
+          "position"
+        ],
+        "summary": "Delete position information | 删除职位信息",
+        "operationId": "DeletePosition",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/position/list": {
+      "post": {
+        "description": "Get position list | 获取职位列表",
+        "tags": [
+          "position"
+        ],
+        "summary": "Get position list | 获取职位列表",
+        "operationId": "GetPositionList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/PositionListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PositionListResp",
+            "schema": {
+              "$ref": "#/definitions/PositionListResp"
+            }
+          }
+        }
+      }
+    },
+    "/position/update": {
+      "post": {
+        "description": "Update position information | 更新职位",
+        "tags": [
+          "position"
+        ],
+        "summary": "Update position information | 更新职位",
+        "operationId": "UpdatePosition",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/PositionInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/role": {
+      "post": {
+        "description": "Get Role by ID | 通过ID获取角色",
+        "tags": [
+          "role"
+        ],
+        "summary": "Get Role by ID | 通过ID获取角色",
+        "operationId": "GetRoleById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "RoleInfoResp",
+            "schema": {
+              "$ref": "#/definitions/RoleInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/role/create": {
+      "post": {
+        "description": "Create role information | 创建角色",
+        "tags": [
+          "role"
+        ],
+        "summary": "Create role information | 创建角色",
+        "operationId": "CreateRole",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/RoleInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/role/delete": {
+      "post": {
+        "description": "Delete role information | 删除角色信息",
+        "tags": [
+          "role"
+        ],
+        "summary": "Delete role information | 删除角色信息",
+        "operationId": "DeleteRole",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/role/list": {
+      "post": {
+        "description": "Get role list | 获取角色列表",
+        "tags": [
+          "role"
+        ],
+        "summary": "Get role list | 获取角色列表",
+        "operationId": "GetRoleList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/RoleListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "RoleListResp",
+            "schema": {
+              "$ref": "#/definitions/RoleListResp"
+            }
+          }
+        }
+      }
+    },
+    "/role/update": {
+      "post": {
+        "description": "Update role information | 更新角色",
+        "tags": [
+          "role"
+        ],
+        "summary": "Update role information | 更新角色",
+        "operationId": "UpdateRole",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/RoleInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/task": {
+      "post": {
+        "description": "Get task by ID | 通过ID获取Task",
+        "tags": [
+          "task"
+        ],
+        "summary": "Get task by ID | 通过ID获取Task",
+        "operationId": "GetTaskById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "TaskInfoResp",
+            "schema": {
+              "$ref": "#/definitions/TaskInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/task/create": {
+      "post": {
+        "description": "Create task information | 创建Task",
+        "tags": [
+          "task"
+        ],
+        "summary": "Create task information | 创建Task",
+        "operationId": "CreateTask",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/TaskInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/task/delete": {
+      "post": {
+        "description": "Delete task information | 删除Task信息",
+        "tags": [
+          "task"
+        ],
+        "summary": "Delete task information | 删除Task信息",
+        "operationId": "DeleteTask",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/task/list": {
+      "post": {
+        "description": "Get task list | 获取Task列表",
+        "tags": [
+          "task"
+        ],
+        "summary": "Get task list | 获取Task列表",
+        "operationId": "GetTaskList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/TaskListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "TaskListResp",
+            "schema": {
+              "$ref": "#/definitions/TaskListResp"
+            }
+          }
+        }
+      }
+    },
+    "/task/update": {
+      "post": {
+        "description": "Update task information | 更新Task",
+        "tags": [
+          "task"
+        ],
+        "summary": "Update task information | 更新Task",
+        "operationId": "UpdateTask",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/TaskInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/task_log": {
+      "post": {
+        "description": "Get task log by ID | 通过ID获取任务日志",
+        "tags": [
+          "tasklog"
+        ],
+        "summary": "Get task log by ID | 通过ID获取任务日志",
+        "operationId": "GetTaskLogById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "TaskLogInfoResp",
+            "schema": {
+              "$ref": "#/definitions/TaskLogInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/task_log/create": {
+      "post": {
+        "description": "Create task log information | 创建任务日志",
+        "tags": [
+          "tasklog"
+        ],
+        "summary": "Create task log information | 创建任务日志",
+        "operationId": "CreateTaskLog",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/TaskLogInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/task_log/delete": {
+      "post": {
+        "description": "Delete task log information | 删除任务日志信息",
+        "tags": [
+          "tasklog"
+        ],
+        "summary": "Delete task log information | 删除任务日志信息",
+        "operationId": "DeleteTaskLog",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/task_log/list": {
+      "post": {
+        "description": "Get task log list | 获取任务日志列表",
+        "tags": [
+          "tasklog"
+        ],
+        "summary": "Get task log list | 获取任务日志列表",
+        "operationId": "GetTaskLogList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/TaskLogListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "TaskLogListResp",
+            "schema": {
+              "$ref": "#/definitions/TaskLogListResp"
+            }
+          }
+        }
+      }
+    },
+    "/task_log/update": {
+      "post": {
+        "description": "Update task log information | 更新任务日志",
+        "tags": [
+          "tasklog"
+        ],
+        "summary": "Update task log information | 更新任务日志",
+        "operationId": "UpdateTaskLog",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/TaskLogInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/token": {
+      "post": {
+        "description": "Get Token by ID | 通过ID获取Token",
+        "tags": [
+          "token"
+        ],
+        "summary": "Get Token by ID | 通过ID获取Token",
+        "operationId": "GetTokenById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "TokenInfoResp",
+            "schema": {
+              "$ref": "#/definitions/TokenInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/token/create": {
+      "post": {
+        "description": "Create token information | 创建Token",
+        "tags": [
+          "token"
+        ],
+        "summary": "Create token information | 创建Token",
+        "operationId": "CreateToken",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/TokenInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/token/delete": {
+      "post": {
+        "description": "Delete token information | 删除Token信息",
+        "tags": [
+          "token"
+        ],
+        "summary": "Delete token information | 删除Token信息",
+        "operationId": "DeleteToken",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/token/list": {
+      "post": {
+        "description": "Get token list | 获取Token列表",
+        "tags": [
+          "token"
+        ],
+        "summary": "Get token list | 获取Token列表",
+        "operationId": "GetTokenList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/TokenListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "TokenListResp",
+            "schema": {
+              "$ref": "#/definitions/TokenListResp"
+            }
+          }
+        }
+      }
+    },
+    "/token/logout": {
+      "post": {
+        "description": "Force logging out by user UUID | 根据UUID强制用户退出",
+        "tags": [
+          "token"
+        ],
+        "summary": "Force logging out by user UUID | 根据UUID强制用户退出",
+        "operationId": "Logout",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/token/update": {
+      "post": {
+        "description": "Update token information | 更新 Token",
+        "tags": [
+          "token"
+        ],
+        "summary": "Update token information | 更新 Token",
+        "operationId": "UpdateToken",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/TokenInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "description": "Get User by ID | 通过ID获取用户",
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User by ID | 通过ID获取用户",
+        "operationId": "GetUserById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "UserInfoResp",
+            "schema": {
+              "$ref": "#/definitions/UserInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/change_password": {
+      "post": {
+        "description": "Change Password | 修改密码",
+        "tags": [
+          "user"
+        ],
+        "summary": "Change Password | 修改密码",
+        "operationId": "ChangePassword",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ChangePasswordReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/create": {
+      "post": {
+        "description": "Create user information | 创建用户",
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user information | 创建用户",
+        "operationId": "CreateUser",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UserInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/delete": {
+      "post": {
+        "description": "Delete user information | 删除用户信息",
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user information | 删除用户信息",
+        "operationId": "DeleteUser",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/info": {
+      "get": {
+        "description": "Get user basic information | 获取用户基本信息",
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user basic information | 获取用户基本信息",
+        "operationId": "GetUserInfo",
+        "responses": {
+          "200": {
+            "description": "UserBaseIDInfoResp",
+            "schema": {
+              "$ref": "#/definitions/UserBaseIDInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/list": {
+      "post": {
+        "description": "Get user list | 获取用户列表",
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user list | 获取用户列表",
+        "operationId": "GetUserList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UserListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "UserListResp",
+            "schema": {
+              "$ref": "#/definitions/UserListResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "description": "Log in | 登录",
+        "tags": [
+          "user"
+        ],
+        "summary": "Log in | 登录",
+        "operationId": "Login",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "LoginResp",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "description": "Log out | 退出登陆",
+        "tags": [
+          "user"
+        ],
+        "summary": "Log out | 退出登陆",
+        "operationId": "Logout",
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/perm": {
+      "get": {
+        "description": "Get user's permission code | 获取用户权限码",
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user's permission code | 获取用户权限码",
+        "operationId": "GetUserPermCode",
+        "responses": {
+          "200": {
+            "description": "PermCodeResp",
+            "schema": {
+              "$ref": "#/definitions/PermCodeResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/profile": {
+      "get": {
+        "description": "Get user's profile | 获取用户个人信息",
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user's profile | 获取用户个人信息",
+        "operationId": "GetUserProfile",
+        "responses": {
+          "200": {
+            "description": "ProfileResp",
+            "schema": {
+              "$ref": "#/definitions/ProfileResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Update user's profile | 更新用户个人信息",
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user's profile | 更新用户个人信息",
+        "operationId": "UpdateUserProfile",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ProfileInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/register": {
+      "post": {
+        "description": "Register | 注册",
+        "tags": [
+          "user"
+        ],
+        "summary": "Register | 注册",
+        "operationId": "Register",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/RegisterReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/update": {
+      "post": {
+        "description": "Update user information | 更新用户",
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user information | 更新用户",
+        "operationId": "UpdateUser",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UserInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ApiAuthorityInfo": {
+      "description": "The response data of api authorization | API授权数据",
+      "type": "object",
+      "required": [
+        "path",
+        "method"
+      ],
+      "properties": {
+        "method": {
+          "description": "API method | API请求方法",
+          "type": "string",
+          "maxLength": 4,
+          "minLength": 3,
+          "x-go-name": "Method"
+        },
+        "path": {
+          "description": "API path | API 路径",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "Path"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ApiAuthorityListInfo": {
+      "description": "The  data of api authorization list | API授权列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The api authorization list data | API授权列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApiAuthorityInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ApiAuthorityListResp": {
+      "description": "The response data of api authorization list | API授权列表返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/ApiAuthorityListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ApiInfo": {
+      "description": "The API information | API信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "description": {
+          "description": "API Description | API 描述",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Description"
+        },
+        "group": {
+          "description": "API group | API分组",
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 1,
+          "x-go-name": "Group"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "method": {
+          "description": "API request method e.g. POST | API请求类型 如POST",
+          "type": "string",
+          "maxLength": 4,
+          "minLength": 3,
+          "x-go-name": "Method"
+        },
+        "path": {
+          "description": "API path | API路径",
+          "type": "string",
+          "maxLength": 80,
+          "minLength": 1,
+          "x-go-name": "Path"
+        },
+        "trans": {
+          "description": "Translated Name | 多语言名称",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ApiInfoResp": {
+      "description": "API information response | API信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/ApiInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ApiListInfo": {
+      "description": "API list data | API 列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | API列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApiInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ApiListReq": {
+      "description": "Get API list request params | API列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "description": {
+          "description": "API Description | API 描述",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Description"
+        },
+        "group": {
+          "description": "API group | API分组",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Group"
+        },
+        "method": {
+          "description": "API request method e.g. POST | API请求类型 如POST",
+          "type": "string",
+          "maxLength": 4,
+          "minLength": 3,
+          "x-go-name": "Method"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "path": {
+          "description": "API path | API路径",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Path"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ApiListResp": {
+      "description": "The response data of API list | API列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/ApiListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "BaseDataInfo": {
+      "description": "The basic response with data | 基础带数据信息",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "BaseIDInfo": {
+      "description": "The base ID response data | 基础ID信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "BaseListInfo": {
+      "description": "The basic response with data | 基础带数据信息",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "BaseMsgResp": {
+      "description": "The basic response without data | 基础不带数据信息",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "BaseUUIDInfo": {
+      "description": "The base UUID response data | 基础UUID信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "string",
+          "x-go-name": "Id"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "CallbackResp": {
+      "description": "The oauth callback response data | Oauth回调数据",
+      "type": "object",
+      "properties": {
+        "expire": {
+          "description": "Expire timestamp | 过期时间戳",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Expire"
+        },
+        "role": {
+          "$ref": "#/definitions/RoleInfoSimple"
+        },
+        "token": {
+          "description": "Token for authorization | 验证身份的token",
+          "type": "string",
+          "x-go-name": "Token"
+        },
+        "userId": {
+          "description": "User's UUID | 用户的UUID",
+          "type": "string",
+          "x-go-name": "UserId"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "CaptchaInfo": {
+      "description": "The information of captcha | 验证码数据",
+      "type": "object",
+      "properties": {
+        "captchaId": {
+          "type": "string",
+          "x-go-name": "CaptchaId"
+        },
+        "imgPath": {
+          "type": "string",
+          "x-go-name": "ImgPath"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "CaptchaResp": {
+      "description": "The response data of captcha | 验证码返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/CaptchaInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ChangePasswordReq": {
+      "description": "change user's password request | 修改密码请求参数",
+      "type": "object",
+      "required": [
+        "oldPassword",
+        "newPassword"
+      ],
+      "properties": {
+        "newPassword": {
+          "description": "User's new password | 用户新密码",
+          "type": "string",
+          "maxLength": 30,
+          "x-go-name": "NewPassword"
+        },
+        "oldPassword": {
+          "description": "User's old password | 用户旧密码",
+          "type": "string",
+          "maxLength": 30,
+          "x-go-name": "OldPassword"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "CreateOrUpdateApiAuthorityReq": {
+      "description": "Create or update api authorization information request | 创建或更新API授权信息",
+      "type": "object",
+      "required": [
+        "roleId",
+        "data"
+      ],
+      "properties": {
+        "data": {
+          "description": "API authorization list | API授权列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApiAuthorityInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "roleId": {
+          "description": "Role ID | 角色ID",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 1000,
+          "x-go-name": "RoleId"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DepartmentInfo": {
+      "description": "The response data of department information | 部门信息",
+      "type": "object",
+      "properties": {
+        "ancestors": {
+          "description": "Ancestors | 父级部门列表",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Ancestors"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "email": {
+          "description": "Email | 邮箱",
+          "type": "string",
+          "maxLength": 70,
+          "minLength": 5,
+          "x-go-name": "Email"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "leader": {
+          "description": "Leader | 部门负责人",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Leader"
+        },
+        "name": {
+          "description": "Name | 部门名称",
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1,
+          "x-go-name": "Name"
+        },
+        "parentId": {
+          "description": "ParentId | 父级 ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ParentId"
+        },
+        "phone": {
+          "description": "Phone | 电话号码",
+          "type": "string",
+          "maxLength": 18,
+          "x-go-name": "Phone"
+        },
+        "remark": {
+          "description": "Remark | 备注",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Remark"
+        },
+        "sort": {
+          "description": "Sort | 排序",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 10000,
+          "x-go-name": "Sort"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Status"
+        },
+        "trans": {
+          "description": "Translated Name | 展示名称",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DepartmentInfoResp": {
+      "description": "Department information response | 部门信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/DepartmentInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DepartmentListInfo": {
+      "description": "Department list data | 部门列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 部门列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DepartmentInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DepartmentListReq": {
+      "description": "Get department list request params | 部门列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "leader": {
+          "description": "Leader | 部门负责人",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Leader"
+        },
+        "name": {
+          "description": "Name | 部门名称",
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1,
+          "x-go-name": "Name"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DepartmentListResp": {
+      "description": "The response data of department list | 部门列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/DepartmentListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DictionaryDetailInfo": {
+      "description": "The response data of dictionary detail information | 字典键值信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "dictionaryId": {
+          "description": "Dictionary ID | 所属字典ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "DictionaryId"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "key": {
+          "description": "Key | 键",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "Key"
+        },
+        "sort": {
+          "description": "Sort | 排序",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 10000,
+          "x-go-name": "Sort"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Status"
+        },
+        "title": {
+          "description": "Title | 显示名称",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Title"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        },
+        "value": {
+          "description": "Value | 值",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Value"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DictionaryDetailInfoResp": {
+      "description": "DictionaryDetail information response | 字典键值信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/DictionaryDetailInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DictionaryDetailListInfo": {
+      "description": "DictionaryDetail list data | 字典键值列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 字典键值列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DictionaryDetailInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DictionaryDetailListReq": {
+      "description": "Get dictionary detail list request params | 字典键值列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "dictionaryId": {
+          "description": "Dictionary ID | 所属字典ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "DictionaryId"
+        },
+        "key": {
+          "description": "Key | 键",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "Key"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DictionaryDetailListResp": {
+      "description": "The response data of dictionary detail list | 字典键值列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/DictionaryDetailListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DictionaryInfo": {
+      "description": "The response data of dictionary information | 字典信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "desc": {
+          "description": "Description of dictionary | 字典描述",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Desc"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "name": {
+          "description": "Name | 字典名称",
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1,
+          "x-go-name": "Name"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Status"
+        },
+        "title": {
+          "description": "Title | 字典多语言名称",
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1,
+          "x-go-name": "Title"
+        },
+        "trans": {
+          "description": "Translated Name | 字典多语言名称",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DictionaryInfoResp": {
+      "description": "Dictionary information response | 字典信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/DictionaryInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DictionaryListInfo": {
+      "description": "Dictionary list data | 字典列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 字典列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DictionaryInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DictionaryListReq": {
+      "description": "Get dictionary list request params | 字典列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "name": {
+          "description": "Name | 字典名称",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Name"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "DictionaryListResp": {
+      "description": "The response data of dictionary list | 字典列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/DictionaryListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "IDPathReq": {
+      "description": "Basic ID request | 基础ID地址参数请求",
+      "type": "object",
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "IDReq": {
+      "description": "Basic ID request | 基础ID参数请求",
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "IDsReq": {
+      "description": "Basic IDs request | 基础ID数组参数请求",
+      "type": "object",
+      "required": [
+        "ids"
+      ],
+      "properties": {
+        "ids": {
+          "description": "IDs",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "x-go-name": "Ids"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "LoginInfo": {
+      "description": "The log in information | 登陆返回的数据信息",
+      "type": "object",
+      "properties": {
+        "expire": {
+          "description": "Expire timestamp | 过期时间戳",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Expire"
+        },
+        "token": {
+          "description": "Token for authorization | 验证身份的token",
+          "type": "string",
+          "x-go-name": "Token"
+        },
+        "userId": {
+          "description": "User's UUID | 用户的UUID",
+          "type": "string",
+          "x-go-name": "UserId"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "LoginReq": {
+      "description": "Login request | 登录参数",
+      "type": "object",
+      "required": [
+        "username",
+        "password",
+        "captchaId",
+        "captcha"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "captchaId": {
+          "description": "Captcha ID which store in redis | 验证码编号, 存在redis中",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "CaptchaId"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "LoginResp": {
+      "description": "The log in response data | 登录返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/LoginInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MenuAuthorityInfoReq": {
+      "description": "Create or update menu authorization information request params | 创建或更新菜单授权信息参数",
+      "type": "object",
+      "required": [
+        "roleId",
+        "menuIds"
+      ],
+      "properties": {
+        "menuIds": {
+          "description": "menu ID array | 菜单ID数组",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "x-go-name": "MenuIds"
+        },
+        "roleId": {
+          "description": "role ID | 角色ID",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 1000,
+          "x-go-name": "RoleId"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MenuAuthorityInfoResp": {
+      "description": "Menu authorization response data | 菜单授权信息数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/MenuAuthorityInfoReq"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MenuInfo": {
+      "description": "The response data of menu information | 菜单信息",
+      "type": "object",
+      "properties": {
+        "component": {
+          "description": "Component | 组件地址",
+          "type": "string",
+          "x-go-name": "Component"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "disabled": {
+          "description": "Disabled | 是否启用",
+          "type": "boolean",
+          "x-go-name": "Disabled"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "level": {
+          "description": "Level | 菜单层级",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Level"
+        },
+        "menuType": {
+          "description": "MenuType | 菜单类型",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "MenuType"
+        },
+        "meta": {
+          "$ref": "#/definitions/Meta"
+        },
+        "name": {
+          "description": "Menu name | 菜单名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "parentId": {
+          "description": "ParentId | 父级菜单ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ParentId"
+        },
+        "path": {
+          "description": "Path | 菜单访问路径",
+          "type": "string",
+          "x-go-name": "Path"
+        },
+        "redirect": {
+          "description": "Redirect | 跳转地址",
+          "type": "string",
+          "x-go-name": "Redirect"
+        },
+        "sort": {
+          "description": "Sort | 排序",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Sort"
+        },
+        "trans": {
+          "description": "Translated Name | 国际化展示名称",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MenuInfoResp": {
+      "description": "Menu information response | 菜单信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/MenuInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MenuListInfo": {
+      "description": "Menu list data | Menu列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The menu list data | 菜单列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MenuInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MenuListResp": {
+      "description": "The response data of menu list | 菜单列表返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/MenuListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MenuPlainInfo": {
+      "description": "Menu information plain | 菜单信息无嵌套",
+      "type": "object",
+      "properties": {
+        "affix": {
+          "description": "Affix tab | 是否固定标签",
+          "type": "boolean",
+          "x-go-name": "Affix"
+        },
+        "carryParam": {
+          "description": "The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true",
+          "type": "boolean",
+          "x-go-name": "CarryParam"
+        },
+        "component": {
+          "description": "Component | 组件地址",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "Component"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "disabled": {
+          "description": "Disabled | 是否启用",
+          "type": "boolean",
+          "x-go-name": "Disabled"
+        },
+        "dynamicLevel": {
+          "description": "The maximum number of pages the router can open | 动态路由可打开Tab页数",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "DynamicLevel"
+        },
+        "frameSrc": {
+          "description": "Iframe path | 内嵌iframe的地址",
+          "type": "string",
+          "maxLength": 300,
+          "x-go-name": "FrameSrc"
+        },
+        "hideBreadcrumb": {
+          "description": "If hide the breadcrumb | 隐藏面包屑",
+          "type": "boolean",
+          "x-go-name": "HideBreadcrumb"
+        },
+        "hideChildrenInMenu": {
+          "description": "Hide children menu or not | 隐藏所有子菜单",
+          "type": "boolean",
+          "x-go-name": "HideChildrenInMenu"
+        },
+        "hideMenu": {
+          "description": "Hide menu | 隐藏菜单",
+          "type": "boolean",
+          "x-go-name": "HideMenu"
+        },
+        "hideTab": {
+          "description": "Hide the tab header | 当前路由不在标签页显示",
+          "type": "boolean",
+          "x-go-name": "HideTab"
+        },
+        "icon": {
+          "description": "Menu Icon | 菜单图标",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Icon"
+        },
+        "id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "ignoreKeepAlive": {
+          "description": "Do not keep alive the tab | 不缓存Tab",
+          "type": "boolean",
+          "x-go-name": "IgnoreKeepAlive"
+        },
+        "level": {
+          "description": "Level | 菜单层级",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Level"
+        },
+        "menuType": {
+          "description": "MenuType | 菜单类型",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 10,
+          "x-go-name": "MenuType"
+        },
+        "name": {
+          "description": "Menu name | 菜单名称",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Name"
+        },
+        "parentId": {
+          "description": "ParentId | 父级菜单ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ParentId"
+        },
+        "path": {
+          "description": "Path | 菜单访问路径",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Path"
+        },
+        "realPath": {
+          "description": "The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分",
+          "type": "string",
+          "x-go-name": "RealPath"
+        },
+        "redirect": {
+          "description": "Redirect | 跳转地址",
+          "type": "string",
+          "maxLength": 300,
+          "x-go-name": "Redirect"
+        },
+        "sort": {
+          "description": "Sort | 排序",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 10000,
+          "x-go-name": "Sort"
+        },
+        "title": {
+          "description": "Menu title show in page | 菜单显示名",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Title"
+        },
+        "trans": {
+          "description": "Translated Name | 国际化展示名称",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MenuPlainInfoList": {
+      "description": "Menu list data | 菜单列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The menu list data | 菜单列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MenuPlainInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "MenuPlainInfoListResp": {
+      "description": "Menu list data response | 菜单列表数据返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/MenuPlainInfoList"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "Meta": {
+      "description": "The meta data of menu | 菜单的meta数据",
+      "type": "object",
+      "properties": {
+        "affix": {
+          "description": "Affix tab | 是否固定标签",
+          "type": "boolean",
+          "x-go-name": "Affix"
+        },
+        "carryParam": {
+          "description": "The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true",
+          "type": "boolean",
+          "x-go-name": "CarryParam"
+        },
+        "dynamicLevel": {
+          "description": "The maximum number of pages the router can open | 动态路由可打开Tab页数",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "DynamicLevel"
+        },
+        "frameSrc": {
+          "description": "Iframe path | 内嵌iframe的地址",
+          "type": "string",
+          "x-go-name": "FrameSrc"
+        },
+        "hideBreadcrumb": {
+          "description": "If hide the breadcrumb | 隐藏面包屑",
+          "type": "boolean",
+          "x-go-name": "HideBreadcrumb"
+        },
+        "hideChildrenInMenu": {
+          "description": "Hide children menu or not | 隐藏所有子菜单",
+          "type": "boolean",
+          "x-go-name": "HideChildrenInMenu"
+        },
+        "hideMenu": {
+          "description": "Hide menu | 隐藏菜单",
+          "type": "boolean",
+          "x-go-name": "HideMenu"
+        },
+        "hideTab": {
+          "description": "Hide the tab header | 当前路由不在标签页显示",
+          "type": "boolean",
+          "x-go-name": "HideTab"
+        },
+        "icon": {
+          "description": "Menu Icon | 菜单图标",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Icon"
+        },
+        "ignoreKeepAlive": {
+          "description": "Do not keep alive the tab | 不缓存Tab",
+          "type": "boolean",
+          "x-go-name": "IgnoreKeepAlive"
+        },
+        "realPath": {
+          "description": "The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分",
+          "type": "string",
+          "x-go-name": "RealPath"
+        },
+        "title": {
+          "description": "Menu title show in page | 菜单显示名",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Title"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "OauthLoginReq": {
+      "description": "Oauth log in request | Oauth 登录请求",
+      "type": "object",
+      "required": [
+        "state",
+        "provider"
+      ],
+      "properties": {
+        "provider": {
+          "description": "Provider name | 提供商名字",
+          "type": "string",
+          "maxLength": 40,
+          "x-go-name": "Provider",
+          "example": "google"
+        },
+        "state": {
+          "description": "State code to avoid hack | 状态码，请求前后相同避免安全问题",
+          "type": "string",
+          "maxLength": 30,
+          "x-go-name": "State"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "OauthProviderInfo": {
+      "description": "The response data of oauth provider information | 第三方信息",
+      "type": "object",
+      "properties": {
+        "authStyle": {
+          "description": "The type of auth | 鉴权方式",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 20,
+          "x-go-name": "AuthStyle"
+        },
+        "authUrl": {
+          "description": "Authority URL | 授权地址",
+          "type": "string",
+          "maxLength": 300,
+          "x-go-name": "AuthUrl"
+        },
+        "clientId": {
+          "description": "ClientId | 客户端ID",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "ClientId"
+        },
+        "clientSecret": {
+          "description": "ClientSecret | 客户端密钥",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "ClientSecret"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "infoUrl": {
+          "description": "The URL to get user information | 获取信息地址",
+          "type": "string",
+          "maxLength": 300,
+          "x-go-name": "InfoUrl"
+        },
+        "name": {
+          "description": "Provider name | 第三方提供商名称",
+          "type": "string",
+          "maxLength": 30,
+          "x-go-name": "Name"
+        },
+        "redirectUrl": {
+          "description": "Redirect URL| 跳转地址",
+          "type": "string",
+          "maxLength": 300,
+          "x-go-name": "RedirectUrl"
+        },
+        "scopes": {
+          "description": "Scopes | 授权范围",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Scopes"
+        },
+        "tokenUrl": {
+          "description": "The URL to get token | 获取Token的地址",
+          "type": "string",
+          "maxLength": 300,
+          "x-go-name": "TokenUrl"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "OauthProviderInfoResp": {
+      "description": "Oauth provider information response | 第三方信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/OauthProviderInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "OauthProviderListInfo": {
+      "description": "OauthProvider list data | 第三方列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 第三方列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OauthProviderInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "OauthProviderListReq": {
+      "description": "Get oauth provider list request params | 第三方列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "name": {
+          "description": "Name | 第三方提供商名称",
+          "type": "string",
+          "maxLength": 30,
+          "x-go-name": "Name"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "OauthProviderListResp": {
+      "description": "The response data of oauth provider list | 第三方列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/OauthProviderListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "PageInfo": {
+      "description": "The page request parameters | 列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "PermCodeResp": {
+      "description": "The permission code for front end permission control | 权限码： 用于前端权限控制",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Permission code data | 权限码数据",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Data"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "PositionInfo": {
+      "description": "The response data of position information | 职位信息",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Code | 职位代码",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Code"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "name": {
+          "description": "Name | 职位名称",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Name"
+        },
+        "remark": {
+          "description": "Remark | 备注",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Remark"
+        },
+        "sort": {
+          "description": "Sort | 排序",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 10000,
+          "x-go-name": "Sort"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Status"
+        },
+        "trans": {
+          "description": "Translated Name | 展示名称",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "PositionInfoResp": {
+      "description": "Position information response | 职位信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/PositionInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "PositionListInfo": {
+      "description": "Position list data | 职位列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 职位列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PositionInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "PositionListReq": {
+      "description": "Get position list request params | 职位列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "code": {
+          "description": "Code | 职位代码",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Code"
+        },
+        "name": {
+          "description": "Name | 职位名称",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Name"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "remark": {
+          "description": "Remark | 备注",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Remark"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "PositionListResp": {
+      "description": "The response data of position list | 职位列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/PositionListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ProfileInfo": {
+      "description": "The profile information | 个人信息",
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "description": "The user's avatar path | 用户的头像路径",
+          "type": "string",
+          "maxLength": 300,
+          "x-go-name": "Avatar"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        },
+        "mobile": {
+          "description": "User's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 18,
+          "x-go-name": "Mobile"
+        },
+        "nickname": {
+          "description": "user's nickname | 用户的昵称",
+          "type": "string",
+          "maxLength": 10,
+          "x-go-name": "Nickname"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ProfileResp": {
+      "description": "The profile response data | 个人信息返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/ProfileInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "RedirectInfo": {
+      "description": "Redirect information | 跳转网址",
+      "type": "object",
+      "properties": {
+        "URL": {
+          "description": "Redirect URL | 跳转网址",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "RedirectResp": {
+      "description": "Redirect response | 跳转网址返回信息",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/RedirectInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "RegisterReq": {
+      "description": "register request | 注册参数",
+      "type": "object",
+      "required": [
+        "username",
+        "password",
+        "captchaId",
+        "captcha",
+        "email"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "captchaId": {
+          "description": "Captcha ID which store in redis | 验证码编号, 存在redis中",
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 20,
+          "x-go-name": "CaptchaId"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "RoleInfo": {
+      "description": "The response data of role information | 角色信息",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Role code | 角色码",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Code"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "defaultRouter": {
+          "description": "DefaultRouter | 默认首页",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "DefaultRouter"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "name": {
+          "description": "Name | 角色名称",
+          "type": "string",
+          "maxLength": 30,
+          "x-go-name": "Name"
+        },
+        "remark": {
+          "description": "Remark | 备注",
+          "type": "string",
+          "maxLength": 200,
+          "x-go-name": "Remark"
+        },
+        "sort": {
+          "description": "Sort | 排序",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 10000,
+          "x-go-name": "Sort"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Status"
+        },
+        "trans": {
+          "description": "Translated Name | 展示名称",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "RoleInfoResp": {
+      "description": "Role information response | 角色信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/RoleInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "RoleInfoSimple": {
+      "description": "The simple role data | 简单的角色数据",
+      "type": "object",
+      "properties": {
+        "roleName": {
+          "description": "Role name | 角色名",
+          "type": "string",
+          "x-go-name": "RoleName"
+        },
+        "value": {
+          "description": "Role value | 角色值",
+          "type": "string",
+          "x-go-name": "Value"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "RoleListInfo": {
+      "description": "Role list data | 角色列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 角色列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoleInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "RoleListReq": {
+      "description": "Get role list request params | 角色列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "name": {
+          "description": "Name | 角色名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "RoleListResp": {
+      "description": "The response data of role list | 角色列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/RoleListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TaskInfo": {
+      "description": "The response data of task information | 定时任务信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "cronExpression": {
+          "description": "CronExpression | 定时任务 Cron 表达式",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "CronExpression"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "name": {
+          "description": "Name | 任务名称",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Name"
+        },
+        "pattern": {
+          "description": "Pattern | 任务的标识 (用于区分和确定要执行的任务)",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Pattern"
+        },
+        "payload": {
+          "description": "Payload | 任务需要数据(JSON 字符串)",
+          "type": "string",
+          "x-go-name": "Payload"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Status"
+        },
+        "taskGroup": {
+          "description": "TaskGroup | 任务分组",
+          "type": "string",
+          "maxLength": 40,
+          "x-go-name": "TaskGroup"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TaskInfoResp": {
+      "description": "Task information response | 定时任务信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/TaskInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TaskListInfo": {
+      "description": "Task list data | 定时任务列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 定时任务列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TaskInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TaskListReq": {
+      "description": "Get task list request params | 定时任务列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "name": {
+          "description": "Name | 任务名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "taskGroup": {
+          "description": "TaskGroup | 任务分组",
+          "type": "string",
+          "x-go-name": "TaskGroup"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TaskListResp": {
+      "description": "The response data of task list | 定时任务列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/TaskListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TaskLogInfo": {
+      "description": "The response data of task log information | 任务日志信息",
+      "type": "object",
+      "properties": {
+        "finishedAt": {
+          "description": "FinishedAt | 任务完成时间",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "FinishedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "result": {
+          "description": "Result | 任务结果",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Result"
+        },
+        "startedAt": {
+          "description": "StartedAt | 任务开始时间",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "StartedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TaskLogInfoResp": {
+      "description": "TaskLog information response | 任务日志信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/TaskLogInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TaskLogListInfo": {
+      "description": "TaskLog list data | 任务日志列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 任务日志列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TaskLogInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TaskLogListReq": {
+      "description": "Get task log list request params | 任务日志列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "result": {
+          "description": "Result | 任务结果",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Result"
+        },
+        "taskId": {
+          "description": "TaskId | 任务ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "TaskId"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TaskLogListResp": {
+      "description": "The response data of task log list | 任务日志列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/TaskLogListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TokenInfo": {
+      "description": "The response data of token information | Token信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "expiredAt": {
+          "description": "ExpiredAt | 过期时间",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpiredAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "string",
+          "x-go-name": "Id"
+        },
+        "source": {
+          "description": "Source | Token 来源",
+          "type": "string",
+          "x-go-name": "Source"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Status"
+        },
+        "token": {
+          "description": "Token | 用户的Token",
+          "type": "string",
+          "x-go-name": "Token"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        },
+        "uuid": {
+          "description": "User's UUID | 用户的UUID",
+          "type": "string",
+          "x-go-name": "Uuid"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TokenInfoResp": {
+      "description": "Token information response | Token信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/TokenInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TokenListInfo": {
+      "description": "Token list data | Token列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | Token列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TokenInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TokenListReq": {
+      "description": "Get token list request params | Token列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "email": {
+          "description": "Email",
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "nickname": {
+          "description": "Nickname",
+          "type": "string",
+          "x-go-name": "Nickname"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "username": {
+          "description": "Username",
+          "type": "string",
+          "x-go-name": "Username"
+        },
+        "uuid": {
+          "description": "Uuid",
+          "type": "string",
+          "x-go-name": "Uuid"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "TokenListResp": {
+      "description": "The response data of token list | Token列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/TokenListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "UUIDReq": {
+      "description": "Basic UUID request | 基础UUID参数请求",
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "description": "ID",
+          "type": "string",
+          "maxLength": 36,
+          "x-go-name": "Id"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "UUIDsReq": {
+      "description": "Basic UUID array request | 基础UUID数组参数请求",
+      "type": "object",
+      "required": [
+        "ids"
+      ],
+      "properties": {
+        "ids": {
+          "description": "Ids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Ids"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "UserBaseIDInfo": {
+      "description": "The  data of user's basic information | 用户基本信息",
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "description": "The user's avatar path | 用户的头像路径",
+          "type": "string",
+          "x-go-name": "Avatar"
+        },
+        "desc": {
+          "description": "The description of user | 用户的描述信息",
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "homePath": {
+          "description": "The home page that the user enters after logging in | 用户登陆后进入的首页",
+          "type": "string",
+          "x-go-name": "HomePath"
+        },
+        "nickname": {
+          "description": "User's nickname | 用户的昵称",
+          "type": "string",
+          "x-go-name": "Nickname"
+        },
+        "userId": {
+          "description": "User's UUID | 用户的UUID",
+          "type": "string",
+          "x-go-name": "UUID"
+        },
+        "username": {
+          "description": "User's name | 用户名",
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "UserBaseIDInfoResp": {
+      "description": "The response data of user's basic information | 用户基本信息返回数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/UserBaseIDInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "UserInfo": {
+      "description": "The response data of user information | 用户信息",
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "description": "Avatar | 头像地址",
+          "type": "string",
+          "maxLength": 300,
+          "x-go-name": "Avatar"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "departmentId": {
+          "description": "Department ID | 部门ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "DepartmentId"
+        },
+        "description": {
+          "description": "Description | 描述",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Description"
+        },
+        "email": {
+          "description": "Email | 邮箱",
+          "type": "string",
+          "maxLength": 80,
+          "x-go-name": "Email"
+        },
+        "homePath": {
+          "description": "HomePath | 首页",
+          "type": "string",
+          "maxLength": 70,
+          "x-go-name": "HomePath"
+        },
+        "id": {
+          "description": "ID",
+          "type": "string",
+          "x-go-name": "Id"
+        },
+        "mobile": {
+          "description": "Mobile | 手机号",
+          "type": "string",
+          "maxLength": 18,
+          "x-go-name": "Mobile"
+        },
+        "nickname": {
+          "description": "Nickname | 昵称",
+          "type": "string",
+          "maxLength": 40,
+          "x-go-name": "Nickname"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "positionId": {
+          "description": "Position ID | 职位ID",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "x-go-name": "PositionIds"
+        },
+        "roleIds": {
+          "description": "RoleId | 角色ID",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "x-go-name": "RoleIds"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Status"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        },
+        "username": {
+          "description": "Username | 用户名",
+          "type": "string",
+          "maxLength": 50,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "UserInfoResp": {
+      "description": "User information response | 用户信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/UserInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "UserListInfo": {
+      "description": "User list data | 用户列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | User列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "UserListReq": {
+      "description": "Get user list request params | 用户列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "departmentId": {
+          "description": "The user's department ID | 用户所属部门ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "DepartmentId"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        },
+        "mobile": {
+          "description": "User's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 18,
+          "x-go-name": "Mobile"
+        },
+        "nickname": {
+          "description": "User's nickname | 用户的昵称",
+          "type": "string",
+          "maxLength": 10,
+          "x-go-name": "Nickname"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "positionId": {
+          "description": "User's position id | 用户的职位ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "PositionId"
+        },
+        "roleIds": {
+          "description": "User's role ID | 用户的角色ID",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "x-go-name": "RoleIds"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "UserListResp": {
+      "description": "The response data of user list | 用户列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/UserListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    }
+  },
+  "responses": {
+    "SimpleMsg": {
+      "description": "The simplest message | 最简单的信息",
+      "headers": {
+        "msg": {
+          "type": "string",
+          "description": "Message | 信息"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Token": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "Token": [
+        "[]"
+      ]
+    }
+  ]
+}
