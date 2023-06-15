@@ -44,28 +44,28 @@ func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseIDResp, error
 	}
 
 	result, err := l.svcCtx.DB.Menu.Create().
-		SetMenuLevel(menuLevel).
-		SetMenuType(in.MenuType).
-		SetParentID(in.ParentId).
-		SetPath(in.Path).
-		SetName(in.Name).
-		SetRedirect(in.Redirect).
-		SetComponent(in.Component).
-		SetSort(in.Sort).
-		SetDisabled(in.Disabled).
+		SetNotNilMenuLevel(menuLevel).
+		SetNotNilMenuType(in.MenuType).
+		SetNotNilParentID(in.ParentId).
+		SetNotNilPath(in.Path).
+		SetNotNilName(in.Name).
+		SetNotNilRedirect(in.Redirect).
+		SetNotNilComponent(in.Component).
+		SetNotNilSort(in.Sort).
+		SetNotNilDisabled(in.Disabled).
 		// meta
-		SetTitle(in.Meta.Title).
-		SetIcon(in.Meta.Icon).
-		SetHideMenu(in.Meta.HideMenu).
-		SetHideBreadcrumb(in.Meta.HideBreadcrumb).
-		SetIgnoreKeepAlive(in.Meta.IgnoreKeepAlive).
-		SetHideTab(in.Meta.HideTab).
-		SetFrameSrc(in.Meta.FrameSrc).
-		SetCarryParam(in.Meta.CarryParam).
-		SetHideChildrenInMenu(in.Meta.HideChildrenInMenu).
-		SetAffix(in.Meta.Affix).
-		SetDynamicLevel(in.Meta.DynamicLevel).
-		SetRealPath(in.Meta.RealPath).
+		SetNotNilTitle(in.Meta.Title).
+		SetNotNilIcon(in.Meta.Icon).
+		SetNotNilHideMenu(in.Meta.HideMenu).
+		SetNotNilHideBreadcrumb(in.Meta.HideBreadcrumb).
+		SetNotNilIgnoreKeepAlive(in.Meta.IgnoreKeepAlive).
+		SetNotNilHideTab(in.Meta.HideTab).
+		SetNotNilFrameSrc(in.Meta.FrameSrc).
+		SetNotNilCarryParam(in.Meta.CarryParam).
+		SetNotNilHideChildrenInMenu(in.Meta.HideChildrenInMenu).
+		SetNotNilAffix(in.Meta.Affix).
+		SetNotNilDynamicLevel(in.Meta.DynamicLevel).
+		SetNotNilRealPath(in.Meta.RealPath).
 		Save(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)

@@ -29,16 +29,16 @@ func NewGetPositionListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 
 func (l *GetPositionListLogic) GetPositionList(in *core.PositionListReq) (*core.PositionListResp, error) {
 	var predicates []predicate.Position
-	if in.Name != "" {
-		predicates = append(predicates, position.NameContains(in.Name))
+	if in.Name != nil {
+		predicates = append(predicates, position.NameContains(*in.Name))
 	}
-	if in.Code != "" {
-		predicates = append(predicates, position.CodeContains(in.Code))
+	if in.Code != nil {
+		predicates = append(predicates, position.CodeContains(*in.Code))
 	}
-	if in.Remark != "" {
-		predicates = append(predicates, position.RemarkContains(in.Remark))
+	if in.Remark != nil {
+		predicates = append(predicates, position.RemarkContains(*in.Remark))
 	}
-	result, err := l.svcCtx.DB.Position.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+	result, err := l.svcCtx.DB.Position.Query().Where(predicates...).Page(l.ctx, *in.Page, *in.PageSize)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}

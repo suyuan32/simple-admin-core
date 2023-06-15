@@ -30,16 +30,16 @@ func NewGetRoleListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRo
 
 func (l *GetRoleListLogic) GetRoleList(in *core.RoleListReq) (*core.RoleListResp, error) {
 	var predicates []predicate.Role
-	if in.Name != "" {
-		predicates = append(predicates, role.NameContains(in.Name))
+	if in.Name != nil {
+		predicates = append(predicates, role.NameContains(*in.Name))
 	}
-	if in.Code != "" {
+	if in.Code != nil {
 		predicates = append(predicates, role.CodeEQ(in.Code))
 	}
-	if in.DefaultRouter != "" {
-		predicates = append(predicates, role.DefaultRouterContains(in.DefaultRouter))
+	if in.DefaultRouter != nil {
+		predicates = append(predicates, role.DefaultRouterContains(*in.DefaultRouter))
 	}
-	result, err := l.svcCtx.DB.Role.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize, func(pager *ent.RolePager) {
+	result, err := l.svcCtx.DB.Role.Query().Where(predicates...).Page(l.ctx, *in.Page, *in.PageSize, func(pager *ent.RolePager) {
 		pager.Order = ent.Asc(role.FieldSort)
 	})
 	if err != nil {

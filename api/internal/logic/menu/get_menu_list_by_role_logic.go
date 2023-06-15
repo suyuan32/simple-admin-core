@@ -37,9 +37,7 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole() (resp *types.MenuListResp, 
 	for _, v := range data.Data {
 		resp.Data.Data = append(resp.Data.Data, types.MenuInfo{
 			BaseIDInfo: types.BaseIDInfo{
-				Id:        v.Id,
-				CreatedAt: 0,
-				UpdatedAt: 0,
+				Id: &v.Id,
 			},
 			MenuType:  v.MenuType,
 			Level:     v.Level,

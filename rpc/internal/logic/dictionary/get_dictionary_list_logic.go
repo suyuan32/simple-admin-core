@@ -29,10 +29,10 @@ func NewGetDictionaryListLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryListReq) (*core.DictionaryListResp, error) {
 	var predicates []predicate.Dictionary
-	if in.Name != "" {
-		predicates = append(predicates, dictionary.NameContains(in.Name))
+	if in.Name != nil {
+		predicates = append(predicates, dictionary.NameContains(*in.Name))
 	}
-	result, err := l.svcCtx.DB.Dictionary.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+	result, err := l.svcCtx.DB.Dictionary.Query().Where(predicates...).Page(l.ctx, *in.Page, *in.PageSize)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}

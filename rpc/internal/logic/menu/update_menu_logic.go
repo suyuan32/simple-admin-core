@@ -43,7 +43,7 @@ func (l *UpdateMenuLogic) UpdateMenu(in *core.MenuInfo) (*core.BaseResp, error) 
 		menuLevel = 1
 	}
 
-	err := l.svcCtx.DB.Menu.UpdateOneID(in.Id).
+	err := l.svcCtx.DB.Menu.UpdateOneID(*in.Id).
 		SetMenuLevel(menuLevel).
 		SetMenuType(in.MenuType).
 		SetParentID(in.ParentId).

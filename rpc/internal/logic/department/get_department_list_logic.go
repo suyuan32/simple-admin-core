@@ -29,13 +29,13 @@ func NewGetDepartmentListLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *GetDepartmentListLogic) GetDepartmentList(in *core.DepartmentListReq) (*core.DepartmentListResp, error) {
 	var predicates []predicate.Department
-	if in.Name != "" {
-		predicates = append(predicates, department.NameContains(in.Name))
+	if in.Name != nil {
+		predicates = append(predicates, department.NameContains(*in.Name))
 	}
-	if in.Leader != "" {
-		predicates = append(predicates, department.LeaderContains(in.Leader))
+	if in.Leader != nil {
+		predicates = append(predicates, department.LeaderContains(*in.Leader))
 	}
-	result, err := l.svcCtx.DB.Department.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+	result, err := l.svcCtx.DB.Department.Query().Where(predicates...).Page(l.ctx, *in.Page, *in.PageSize)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}

@@ -32,20 +32,20 @@ func NewGetUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp, error) {
 	var predicates []predicate.User
 
-	if in.Mobile != "" {
+	if in.Mobile != nil {
 		predicates = append(predicates, user.MobileEQ(in.Mobile))
 	}
 
-	if in.Username != "" {
-		predicates = append(predicates, user.UsernameContains(in.Username))
+	if in.Username != nil {
+		predicates = append(predicates, user.UsernameContains(*in.Username))
 	}
 
-	if in.Email != "" {
+	if in.Email != nil {
 		predicates = append(predicates, user.EmailEQ(in.Email))
 	}
 
-	if in.Nickname != "" {
-		predicates = append(predicates, user.NicknameContains(in.Nickname))
+	if in.Nickname != nil {
+		predicates = append(predicates, user.NicknameContains(*in.Nickname))
 	}
 
 	if in.RoleIds != nil {
@@ -60,7 +60,7 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 		predicates = append(predicates, user.HasPositionsWith(position.IDIn(in.PositionIds...)))
 	}
 
-	users, err := l.svcCtx.DB.User.Query().Where(predicates...).WithRoles().WithPositions().Page(l.ctx, in.Page, in.PageSize)
+	users, err := l.svcCtx.DB.User.Query().Where(predicates...).WithRoles().WithPositions().Page(l.ctx, *in.Page, *in.PageSize)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}

@@ -33,10 +33,10 @@ func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(in *core.Dictiona
 	if in.DictionaryId != 0 {
 		predicates = append(predicates, dictionarydetail.DictionaryIDEQ(in.DictionaryId))
 	}
-	if in.Key != "" {
-		predicates = append(predicates, dictionarydetail.KeyContains(in.Key))
+	if in.Key != nil {
+		predicates = append(predicates, dictionarydetail.KeyContains(*in.Key))
 	}
-	result, err := l.svcCtx.DB.DictionaryDetail.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize, func(pager *ent.DictionaryDetailPager) {
+	result, err := l.svcCtx.DB.DictionaryDetail.Query().Where(predicates...).Page(l.ctx, *in.Page, *in.PageSize, func(pager *ent.DictionaryDetailPager) {
 		pager.Order = ent.Asc(dictionarydetail.FieldSort)
 	})
 	if err != nil {

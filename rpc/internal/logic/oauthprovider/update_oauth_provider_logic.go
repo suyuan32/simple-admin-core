@@ -19,7 +19,7 @@ type UpdateOauthProviderLogic struct {
 }
 
 func NewUpdateOauthProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateOauthProviderLogic {
-	return &UpdateOauthProviderLogic{
+	return &result.UpdateOauthProviderLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
@@ -27,16 +27,16 @@ func NewUpdateOauthProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *UpdateOauthProviderLogic) UpdateOauthProvider(in *core.OauthProviderInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.OauthProvider.UpdateOneID(in.Id).
-		SetNotEmptyName(in.Name).
-		SetNotEmptyClientID(in.ClientId).
-		SetNotEmptyClientSecret(in.ClientSecret).
-		SetNotEmptyRedirectURL(in.RedirectUrl).
-		SetNotEmptyScopes(in.Scopes).
-		SetNotEmptyAuthURL(in.AuthUrl).
-		SetNotEmptyTokenURL(in.TokenUrl).
-		SetNotEmptyAuthStyle(in.AuthStyle).
-		SetNotEmptyInfoURL(in.InfoUrl).
+	err := l.svcCtx.DB.OauthProvider.UpdateOneID(*in.Id).
+		SetNotNilName(in.Name).
+		SetNotNilClientID(in.ClientId).
+		SetNotNilClientSecret(in.ClientSecret).
+		SetNotNilRedirectURL(in.RedirectUrl).
+		SetNotNilScopes(in.Scopes).
+		SetNotNilAuthURL(in.AuthUrl).
+		SetNotNilTokenURL(in.TokenUrl).
+		SetNotNilAuthStyle(in.AuthStyle).
+		SetNotNilInfoURL(in.InfoUrl).
 		Exec(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
@@ -46,5 +46,9 @@ func (l *UpdateOauthProviderLogic) UpdateOauthProvider(in *core.OauthProviderInf
 		delete(providerConfig, in.Name)
 	}
 
-	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
+	return &result.core.BaseResp
+	{
+	Msg:
+		i18n.UpdateSuccess
+	}, nil
 }

@@ -3,6 +3,8 @@ package dictionary
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -31,12 +33,12 @@ func (l *GetDictionaryByIdLogic) GetDictionaryById(in *core.IDReq) (*core.Dictio
 	}
 
 	return &core.DictionaryInfo{
-		Id:        result.ID,
-		CreatedAt: result.CreatedAt.UnixMilli(),
-		UpdatedAt: result.UpdatedAt.UnixMilli(),
-		Status:    uint32(result.Status),
-		Title:     result.Title,
-		Name:      result.Name,
-		Desc:      result.Desc,
+		Id:        &result.ID,
+		CreatedAt: pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt: pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		Status:    pointy.GetPointer(uint32(result.Status)),
+		Title:     &result.Title,
+		Name:      &result.Name,
+		Desc:      &result.Desc,
 	}, nil
 }

@@ -19,7 +19,7 @@ type CreateOauthProviderLogic struct {
 }
 
 func NewCreateOauthProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOauthProviderLogic {
-	return &CreateOauthProviderLogic{
+	return &result.CreateOauthProviderLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
@@ -28,19 +28,23 @@ func NewCreateOauthProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext
 
 func (l *CreateOauthProviderLogic) CreateOauthProvider(in *core.OauthProviderInfo) (*core.BaseIDResp, error) {
 	result, err := l.svcCtx.DB.OauthProvider.Create().
-		SetName(in.Name).
-		SetClientID(in.ClientId).
-		SetClientSecret(in.ClientSecret).
-		SetRedirectURL(in.RedirectUrl).
-		SetScopes(in.Scopes).
-		SetAuthURL(in.AuthUrl).
-		SetTokenURL(in.TokenUrl).
-		SetAuthStyle(in.AuthStyle).
-		SetInfoURL(in.InfoUrl).
+		SetNotNilName(in.Name).
+		SetNotNilClientID(in.ClientId).
+		SetNotNilClientSecret(in.ClientSecret).
+		SetNotNilRedirectURL(in.RedirectUrl).
+		SetNotNilScopes(in.Scopes).
+		SetNotNilAuthURL(in.AuthUrl).
+		SetNotNilTokenURL(in.TokenUrl).
+		SetNotNilAuthStyle(in.AuthStyle).
+		SetNotNilInfoURL(in.InfoUrl).
 		Save(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil
+	return &result.core.BaseIDResp
+	{
+	Id:
+		&result.ID, Msg: i18n.CreateSuccess
+	}, nil
 }

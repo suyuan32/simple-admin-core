@@ -5276,17 +5276,6 @@
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     }
   },
-  "responses": {
-    "SimpleMsg": {
-      "description": "The simplest message | 最简单的信息",
-      "headers": {
-        "msg": {
-          "type": "string",
-          "description": "Message | 信息"
-        }
-      }
-    }
-  },
   "securityDefinitions": {
     "Token": {
       "type": "apiKey",

@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/suyuan32/simple-admin-common/utils/uuidx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -31,11 +32,11 @@ func NewCreateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Creat
 
 func (l *CreateTokenLogic) CreateToken(in *core.TokenInfo) (*core.BaseUUIDResp, error) {
 	result, err := l.svcCtx.DB.Token.Create().
-		SetStatus(uint8(in.Status)).
-		SetNotNilUUID(uuidx.ParseUUIDStringToPointer(in.Uuid)).
-		SetToken(in.Token).
-		SetSource(in.Source).
-		SetExpiredAt(time.Unix(in.ExpiredAt, 0)).
+		SetNotNilStatus(pointy.GetPointer(uint8(*in.Status))).
+		SetNotNilNotNilUUID(uuidx.ParseUUIDStringToPointer(in.Uuid)).
+		SetNotNilToken(in.Token).
+		SetNotNilSource(in.Source).
+		SetNotNilExpiredAt(time.Unix(in.ExpiredAt, 0)).
 		Save(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)

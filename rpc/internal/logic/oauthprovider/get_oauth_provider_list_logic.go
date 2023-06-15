@@ -20,7 +20,7 @@ type GetOauthProviderListLogic struct {
 }
 
 func NewGetOauthProviderListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetOauthProviderListLogic {
-	return &GetOauthProviderListLogic{
+	return &result.GetOauthProviderListLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
@@ -29,21 +29,25 @@ func NewGetOauthProviderListLogic(ctx context.Context, svcCtx *svc.ServiceContex
 
 func (l *GetOauthProviderListLogic) GetOauthProviderList(in *core.OauthProviderListReq) (*core.OauthProviderListResp, error) {
 	var predicates []predicate.OauthProvider
-	if in.Name != "" {
-		predicates = append(predicates, oauthprovider.NameContains(in.Name))
+	if in.Name != nil {
+		predicates = append(predicates, oauthprovider.NameContains(*in.Name))
 	}
-	result, err := l.svcCtx.DB.OauthProvider.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+	result, err := l.svcCtx.DB.OauthProvider.Query().Where(predicates...).Page(l.ctx, *in.Page, *in.PageSize)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	resp := &core.OauthProviderListResp{}
-	resp.Total = result.PageDetails.Total
+	resp := &result.core.OauthProviderListResp
+	{
+	}
+	resp.Total = &result.PageDetails.Total
 
-	for _, v := range result.List {
-		resp.Data = append(resp.Data, &core.OauthProviderInfo{
-			Id:           v.ID,
-			CreatedAt:    v.CreatedAt.UnixMilli(),
+	for _, v := range &result.List {
+		resp.Data = append(resp.Data, &result.core.OauthProviderInfo
+		{
+		Id:
+			v.ID,
+				CreatedAt:    v.CreatedAt.UnixMilli(),
 			UpdatedAt:    v.UpdatedAt.UnixMilli(),
 			Name:         v.Name,
 			ClientId:     v.ClientID,

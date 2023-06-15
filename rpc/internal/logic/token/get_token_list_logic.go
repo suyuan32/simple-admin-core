@@ -35,7 +35,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 	var tokens *ent.TokenPageList
 	var err error
 	if in.Username == "" && in.Uuid == "" && in.Nickname == "" && in.Email == "" {
-		tokens, err = l.svcCtx.DB.Token.Query().Page(l.ctx, in.Page, in.PageSize)
+		tokens, err = l.svcCtx.DB.Token.Query().Page(l.ctx, *in.Page, *in.PageSize)
 
 		if err != nil {
 			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
@@ -43,19 +43,19 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 	} else {
 		var predicates []predicate.User
 
-		if in.Uuid != "" {
+		if in.Uuid != nil {
 			predicates = append(predicates, user.IDEQ(uuidx.ParseUUIDString(in.Uuid)))
 		}
 
-		if in.Username != "" {
+		if in.Username != nil {
 			predicates = append(predicates, user.Username(in.Username))
 		}
 
-		if in.Email != "" {
+		if in.Email != nil {
 			predicates = append(predicates, user.EmailEQ(in.Email))
 		}
 
-		if in.Nickname != "" {
+		if in.Nickname != nil {
 			predicates = append(predicates, user.NicknameEQ(in.Nickname))
 		}
 
@@ -64,7 +64,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 		}
 
-		tokens, err = l.svcCtx.DB.Token.Query().Where(token.UUIDEQ(u.ID)).Page(l.ctx, in.Page, in.PageSize)
+		tokens, err = l.svcCtx.DB.Token.Query().Where(token.UUIDEQ(u.ID)).Page(l.ctx, *in.Page, *in.PageSize)
 
 		if err != nil {
 			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
