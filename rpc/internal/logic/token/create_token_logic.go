@@ -32,7 +32,7 @@ func NewCreateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Creat
 func (l *CreateTokenLogic) CreateToken(in *core.TokenInfo) (*core.BaseUUIDResp, error) {
 	result, err := l.svcCtx.DB.Token.Create().
 		SetStatus(uint8(in.Status)).
-		SetUUID(uuidx.ParseUUIDString(in.Uuid)).
+		SetNotNilUUID(uuidx.ParseUUIDStringToPointer(in.Uuid)).
 		SetToken(in.Token).
 		SetSource(in.Source).
 		SetExpiredAt(time.Unix(in.ExpiredAt, 0)).

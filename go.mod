@@ -8,7 +8,7 @@ require (
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/hibiken/asynq v0.24.1
 	github.com/mojocn/base64Captcha v1.3.5
-	github.com/suyuan32/simple-admin-common v1.0.7
+	github.com/suyuan32/simple-admin-common v1.0.8-0.20230615113508-1ee6eb3c4870
 	github.com/suyuan32/simple-admin-job v1.0.7
 	github.com/zeromicro/go-zero v1.5.2
 	golang.org/x/oauth2 v0.6.0
@@ -75,7 +75,7 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.18 // indirect
-	github.com/mattn/go-sqlite3 v1.14.16 // indirect
+	github.com/mattn/go-sqlite3 v1.14.17 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/mitchellh/hashstructure/v2 v2.0.2 // indirect
