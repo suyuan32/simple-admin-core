@@ -48,7 +48,7 @@ type (
         PageInfo
 
         // Name | 角色名称
-        Name  string `json:"name,optional"`
+        Name *string `json:"name,optional"`
     }
 
     // Role information response | 角色信息返回体

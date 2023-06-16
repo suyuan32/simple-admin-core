@@ -12,7 +12,7 @@
         {{ range $f := $n.MutableFields }}
             {{ $set := print "Set" $f.StructField }}
 
-            {{ range $updater := list $n.UpdateName $n.UpdateOneName $n.CreateName $n.CreateBulkName }}
+            {{ range $updater := list $n.UpdateName $n.UpdateOneName $n.CreateName}}
                 // set field if value's pointer is not nil.
                 func ({{ $n.Receiver }} *{{ $updater }}) SetNotNil{{ $f.StructField }}(value *{{ $f.Type }}) *{{ $updater }} {
                 if value != nil  {

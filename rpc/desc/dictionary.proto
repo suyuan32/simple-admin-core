@@ -18,8 +18,8 @@ message DictionaryListResp {
 }
 
 message DictionaryListReq {
-  optional uint64 page = 1;
-  optional uint64 page_size = 2;
+  uint64 page = 1;
+  uint64 page_size = 2;
   optional string name = 3;
 }
 

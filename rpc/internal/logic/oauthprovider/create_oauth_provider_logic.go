@@ -3,13 +3,13 @@ package oauthprovider
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/i18n"
+
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
-
-	"github.com/suyuan32/simple-admin-common/i18n"
 )
 
 type CreateOauthProviderLogic struct {
@@ -19,7 +19,7 @@ type CreateOauthProviderLogic struct {
 }
 
 func NewCreateOauthProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateOauthProviderLogic {
-	return &result.CreateOauthProviderLogic{
+	return &CreateOauthProviderLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
@@ -38,13 +38,10 @@ func (l *CreateOauthProviderLogic) CreateOauthProvider(in *core.OauthProviderInf
 		SetNotNilAuthStyle(in.AuthStyle).
 		SetNotNilInfoURL(in.InfoUrl).
 		Save(l.ctx)
+
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	return &result.core.BaseIDResp
-	{
-	Id:
-		&result.ID, Msg: i18n.CreateSuccess
-	}, nil
+	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil
 }

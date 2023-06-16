@@ -21,7 +21,7 @@ type DeleteOauthProviderLogic struct {
 }
 
 func NewDeleteOauthProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext) *DeleteOauthProviderLogic {
-	return &result.DeleteOauthProviderLogic{
+	return &DeleteOauthProviderLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
@@ -34,9 +34,5 @@ func (l *DeleteOauthProviderLogic) DeleteOauthProvider(in *core.IDsReq) (*core.B
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	return &result.core.BaseResp
-	{
-	Msg:
-		i18n.DeleteSuccess
-	}, nil
+	return &core.BaseResp{Msg: i18n.DeleteSuccess}, nil
 }

@@ -3,6 +3,7 @@ package token
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/suyuan32/simple-admin-common/utils/uuidx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
@@ -34,8 +35,8 @@ func NewGetTokenListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetT
 func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenListResp, error) {
 	var tokens *ent.TokenPageList
 	var err error
-	if in.Username == "" && in.Uuid == "" && in.Nickname == "" && in.Email == "" {
-		tokens, err = l.svcCtx.DB.Token.Query().Page(l.ctx, *in.Page, *in.PageSize)
+	if in.Username == nil && in.Uuid == nil && in.Nickname == nil && in.Email == nil {
+		tokens, err = l.svcCtx.DB.Token.Query().Page(l.ctx, in.Page, in.PageSize)
 
 		if err != nil {
 			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
@@ -44,19 +45,19 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 		var predicates []predicate.User
 
 		if in.Uuid != nil {
-			predicates = append(predicates, user.IDEQ(uuidx.ParseUUIDString(in.Uuid)))
+			predicates = append(predicates, user.IDEQ(uuidx.ParseUUIDString(*in.Uuid)))
 		}
 
 		if in.Username != nil {
-			predicates = append(predicates, user.Username(in.Username))
+			predicates = append(predicates, user.Username(*in.Username))
 		}
 
 		if in.Email != nil {
-			predicates = append(predicates, user.EmailEQ(in.Email))
+			predicates = append(predicates, user.EmailEQ(*in.Email))
 		}
 
 		if in.Nickname != nil {
-			predicates = append(predicates, user.NicknameEQ(in.Nickname))
+			predicates = append(predicates, user.NicknameEQ(*in.Nickname))
 		}
 
 		u, err := l.svcCtx.DB.User.Query().Where(predicates...).First(l.ctx)
@@ -64,7 +65,7 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 		}
 
-		tokens, err = l.svcCtx.DB.Token.Query().Where(token.UUIDEQ(u.ID)).Page(l.ctx, *in.Page, *in.PageSize)
+		tokens, err = l.svcCtx.DB.Token.Query().Where(token.UUIDEQ(u.ID)).Page(l.ctx, in.Page, in.PageSize)
 
 		if err != nil {
 			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
@@ -76,13 +77,13 @@ func (l *GetTokenListLogic) GetTokenList(in *core.TokenListReq) (*core.TokenList
 
 	for _, v := range tokens.List {
 		resp.Data = append(resp.Data, &core.TokenInfo{
-			Id:        v.ID.String(),
-			Uuid:      v.UUID.String(),
-			Token:     v.Token,
-			Status:    uint32(v.Status),
-			Source:    v.Source,
-			ExpiredAt: v.ExpiredAt.UnixMilli(),
-			CreatedAt: v.CreatedAt.UnixMilli(),
+			Id:        pointy.GetPointer(v.ID.String()),
+			Uuid:      pointy.GetPointer(v.UUID.String()),
+			Token:     &v.Token,
+			Status:    pointy.GetPointer(uint32(v.Status)),
+			Source:    &v.Source,
+			ExpiredAt: pointy.GetPointer(v.ExpiredAt.UnixMilli()),
+			CreatedAt: pointy.GetPointer(v.CreatedAt.UnixMilli()),
 		})
 	}
 

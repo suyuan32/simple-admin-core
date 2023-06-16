@@ -56,7 +56,7 @@ type (
         PageInfo
 
         // Name | 第三方提供商名称
-        Name  string `json:"name,optional" validate:"omitempty,max=30"`
+        Name *string `json:"name,optional" validate:"omitempty,max=30"`
     }
 
     // Oauth provider information response | 第三方信息返回体

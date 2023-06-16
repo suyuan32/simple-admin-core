@@ -32,8 +32,8 @@ func NewCreateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseIDResp, error) {
 	// get parent level
 	var menuLevel uint32
-	if in.ParentId != common.DefaultParentId {
-		m, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.ParentId)).First(l.ctx)
+	if *in.ParentId != common.DefaultParentId {
+		m, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(*in.ParentId)).First(l.ctx)
 		if err != nil {
 			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 		}
@@ -44,7 +44,7 @@ func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseIDResp, error
 	}
 
 	result, err := l.svcCtx.DB.Menu.Create().
-		SetNotNilMenuLevel(menuLevel).
+		SetNotNilMenuLevel(&menuLevel).
 		SetNotNilMenuType(in.MenuType).
 		SetNotNilParentID(in.ParentId).
 		SetNotNilPath(in.Path).

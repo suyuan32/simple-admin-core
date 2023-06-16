@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -33,10 +34,10 @@ func (l *ChangePasswordLogic) ChangePassword(req *types.ChangePasswordReq) (resp
 		return nil, err
 	}
 
-	if encrypt.BcryptCheck(req.OldPassword, userData.Password) {
+	if encrypt.BcryptCheck(req.OldPassword, *userData.Password) {
 		result, err := l.svcCtx.CoreRpc.UpdateUser(l.ctx, &core.UserInfo{
-			Id:       l.ctx.Value("userId").(string),
-			Password: req.NewPassword,
+			Id:       pointy.GetPointer(l.ctx.Value("userId").(string)),
+			Password: pointy.GetPointer(req.NewPassword),
 		})
 		if err != nil {
 			return nil, err

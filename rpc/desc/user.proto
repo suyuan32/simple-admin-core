@@ -27,8 +27,8 @@ message UserListResp {
 }
 
 message UserListReq {
-  optional uint64 page = 1;
-  optional uint64 page_size = 2;
+  uint64 page = 1;
+  uint64 page_size = 2;
   optional string username = 3;
   optional string nickname = 4;
   optional string email = 5;

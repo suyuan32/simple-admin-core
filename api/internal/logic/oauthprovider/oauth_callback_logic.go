@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -48,10 +49,10 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 	expiredAt := time.Now().Add(time.Second * 259200).Unix()
 	_, err = l.svcCtx.CoreRpc.CreateToken(l.ctx, &core.TokenInfo{
 		Uuid:      result.Id,
-		Token:     token,
-		Source:    strings.Split(l.r.FormValue("state"), "-")[1],
-		Status:    1,
-		ExpiredAt: expiredAt,
+		Token:     pointy.GetPointer(token),
+		Source:    pointy.GetPointer(strings.Split(l.r.FormValue("state"), "-")[1]),
+		Status:    pointy.GetPointer(uint32(1)),
+		ExpiredAt: pointy.GetPointer(expiredAt),
 	})
 
 	if err != nil {
@@ -59,7 +60,7 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 	}
 
 	return &types.CallbackResp{
-		UserId: result.Id,
+		UserId: *result.Id,
 		Token:  token,
 		Expire: uint64(time.Now().Add(time.Second * 259200).Unix()),
 	}, nil

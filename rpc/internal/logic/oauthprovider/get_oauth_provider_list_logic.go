@@ -3,6 +3,8 @@ package oauthprovider
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 
@@ -20,7 +22,7 @@ type GetOauthProviderListLogic struct {
 }
 
 func NewGetOauthProviderListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetOauthProviderListLogic {
-	return &result.GetOauthProviderListLogic{
+	return &GetOauthProviderListLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
@@ -32,32 +34,28 @@ func (l *GetOauthProviderListLogic) GetOauthProviderList(in *core.OauthProviderL
 	if in.Name != nil {
 		predicates = append(predicates, oauthprovider.NameContains(*in.Name))
 	}
-	result, err := l.svcCtx.DB.OauthProvider.Query().Where(predicates...).Page(l.ctx, *in.Page, *in.PageSize)
+	result, err := l.svcCtx.DB.OauthProvider.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	resp := &result.core.OauthProviderListResp
-	{
-	}
-	resp.Total = &result.PageDetails.Total
+	resp := &core.OauthProviderListResp{}
+	resp.Total = result.PageDetails.Total
 
-	for _, v := range &result.List {
-		resp.Data = append(resp.Data, &result.core.OauthProviderInfo
-		{
-		Id:
-			v.ID,
-				CreatedAt:    v.CreatedAt.UnixMilli(),
-			UpdatedAt:    v.UpdatedAt.UnixMilli(),
-			Name:         v.Name,
-			ClientId:     v.ClientID,
-			ClientSecret: v.ClientSecret,
-			RedirectUrl:  v.RedirectURL,
-			Scopes:       v.Scopes,
-			AuthUrl:      v.AuthURL,
-			TokenUrl:     v.TokenURL,
-			AuthStyle:    v.AuthStyle,
-			InfoUrl:      v.InfoURL,
+	for _, v := range result.List {
+		resp.Data = append(resp.Data, &core.OauthProviderInfo{
+			Id:           &v.ID,
+			CreatedAt:    pointy.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt:    pointy.GetPointer(v.UpdatedAt.UnixMilli()),
+			Name:         &v.Name,
+			ClientId:     &v.ClientID,
+			ClientSecret: &v.ClientSecret,
+			RedirectUrl:  &v.RedirectURL,
+			Scopes:       &v.Scopes,
+			AuthUrl:      &v.AuthURL,
+			TokenUrl:     &v.TokenURL,
+			AuthStyle:    &v.AuthStyle,
+			InfoUrl:      &v.InfoURL,
 		})
 	}
 

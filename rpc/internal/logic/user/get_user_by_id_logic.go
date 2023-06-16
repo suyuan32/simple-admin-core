@@ -23,7 +23,7 @@ type GetUserByIdLogic struct {
 }
 
 func NewGetUserByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUserByIdLogic {
-	return &result.GetUserByIdLogic{
+	return &GetUserByIdLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
@@ -36,27 +36,21 @@ func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfo, error)
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	if err != nil {
-		return nil, err
-	}
-
-	return &result.core.UserInfo
-	{
-	Nickname:
-		&result.Nickname,
-			Avatar:       &result.Avatar,
+	return &core.UserInfo{
+		Nickname:     &result.Nickname,
+		Avatar:       &result.Avatar,
 		RoleIds:      GetRoleIds(result.Edges.Roles),
 		Mobile:       &result.Mobile,
 		Email:        &result.Email,
 		Status:       pointy.GetPointer(uint32(result.Status)),
-		Id:           &result.ID.String(),
+		Id:           pointy.GetPointer(result.ID.String()),
 		Username:     &result.Username,
 		HomePath:     &result.HomePath,
 		Password:     &result.Password,
 		Description:  &result.Description,
 		DepartmentId: &result.DepartmentID,
-		CreatedAt:    &result.CreatedAt.Unix(),
-		UpdatedAt:    &result.UpdatedAt.Unix(),
+		CreatedAt:    pointy.GetPointer(result.CreatedAt.Unix()),
+		UpdatedAt:    pointy.GetPointer(result.UpdatedAt.Unix()),
 	}, nil
 }
 

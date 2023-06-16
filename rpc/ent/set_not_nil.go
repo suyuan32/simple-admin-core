@@ -33,14 +33,6 @@ func (a *APICreate) SetNotNilUpdatedAt(value *time.Time) *APICreate {
 }
 
 // set field if value's pointer is not nil.
-func (a *APICreateBulk) SetNotNilUpdatedAt(value *time.Time) *APICreateBulk {
-	if value != nil {
-		return a.SetUpdatedAt(*value)
-	}
-	return a
-}
-
-// set field if value's pointer is not nil.
 func (a *APIUpdate) SetNotNilPath(value *string) *APIUpdate {
 	if value != nil {
 		return a.SetPath(*value)
@@ -58,14 +50,6 @@ func (a *APIUpdateOne) SetNotNilPath(value *string) *APIUpdateOne {
 
 // set field if value's pointer is not nil.
 func (a *APICreate) SetNotNilPath(value *string) *APICreate {
-	if value != nil {
-		return a.SetPath(*value)
-	}
-	return a
-}
-
-// set field if value's pointer is not nil.
-func (a *APICreateBulk) SetNotNilPath(value *string) *APICreateBulk {
 	if value != nil {
 		return a.SetPath(*value)
 	}
@@ -97,14 +81,6 @@ func (a *APICreate) SetNotNilDescription(value *string) *APICreate {
 }
 
 // set field if value's pointer is not nil.
-func (a *APICreateBulk) SetNotNilDescription(value *string) *APICreateBulk {
-	if value != nil {
-		return a.SetDescription(*value)
-	}
-	return a
-}
-
-// set field if value's pointer is not nil.
 func (a *APIUpdate) SetNotNilAPIGroup(value *string) *APIUpdate {
 	if value != nil {
 		return a.SetAPIGroup(*value)
@@ -122,14 +98,6 @@ func (a *APIUpdateOne) SetNotNilAPIGroup(value *string) *APIUpdateOne {
 
 // set field if value's pointer is not nil.
 func (a *APICreate) SetNotNilAPIGroup(value *string) *APICreate {
-	if value != nil {
-		return a.SetAPIGroup(*value)
-	}
-	return a
-}
-
-// set field if value's pointer is not nil.
-func (a *APICreateBulk) SetNotNilAPIGroup(value *string) *APICreateBulk {
 	if value != nil {
 		return a.SetAPIGroup(*value)
 	}
@@ -161,14 +129,6 @@ func (a *APICreate) SetNotNilMethod(value *string) *APICreate {
 }
 
 // set field if value's pointer is not nil.
-func (a *APICreateBulk) SetNotNilMethod(value *string) *APICreateBulk {
-	if value != nil {
-		return a.SetMethod(*value)
-	}
-	return a
-}
-
-// set field if value's pointer is not nil.
 func (d *DepartmentUpdate) SetNotNilUpdatedAt(value *time.Time) *DepartmentUpdate {
 	if value != nil {
 		return d.SetUpdatedAt(*value)
@@ -186,14 +146,6 @@ func (d *DepartmentUpdateOne) SetNotNilUpdatedAt(value *time.Time) *DepartmentUp
 
 // set field if value's pointer is not nil.
 func (d *DepartmentCreate) SetNotNilUpdatedAt(value *time.Time) *DepartmentCreate {
-	if value != nil {
-		return d.SetUpdatedAt(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
-func (d *DepartmentCreateBulk) SetNotNilUpdatedAt(value *time.Time) *DepartmentCreateBulk {
 	if value != nil {
 		return d.SetUpdatedAt(*value)
 	}
@@ -225,14 +177,6 @@ func (d *DepartmentCreate) SetNotNilStatus(value *uint8) *DepartmentCreate {
 }
 
 // set field if value's pointer is not nil.
-func (d *DepartmentCreateBulk) SetNotNilStatus(value *uint8) *DepartmentCreateBulk {
-	if value != nil {
-		return d.SetStatus(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
 func (d *DepartmentUpdate) SetNotNilSort(value *uint32) *DepartmentUpdate {
 	if value != nil {
 		return d.SetSort(*value)
@@ -250,14 +194,6 @@ func (d *DepartmentUpdateOne) SetNotNilSort(value *uint32) *DepartmentUpdateOne 
 
 // set field if value's pointer is not nil.
 func (d *DepartmentCreate) SetNotNilSort(value *uint32) *DepartmentCreate {
-	if value != nil {
-		return d.SetSort(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
-func (d *DepartmentCreateBulk) SetNotNilSort(value *uint32) *DepartmentCreateBulk {
 	if value != nil {
 		return d.SetSort(*value)
 	}
@@ -289,14 +225,6 @@ func (d *DepartmentCreate) SetNotNilName(value *string) *DepartmentCreate {
 }
 
 // set field if value's pointer is not nil.
-func (d *DepartmentCreateBulk) SetNotNilName(value *string) *DepartmentCreateBulk {
-	if value != nil {
-		return d.SetName(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
 func (d *DepartmentUpdate) SetNotNilAncestors(value *string) *DepartmentUpdate {
 	if value != nil {
 		return d.SetAncestors(*value)
@@ -314,14 +242,6 @@ func (d *DepartmentUpdateOne) SetNotNilAncestors(value *string) *DepartmentUpdat
 
 // set field if value's pointer is not nil.
 func (d *DepartmentCreate) SetNotNilAncestors(value *string) *DepartmentCreate {
-	if value != nil {
-		return d.SetAncestors(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
-func (d *DepartmentCreateBulk) SetNotNilAncestors(value *string) *DepartmentCreateBulk {
 	if value != nil {
 		return d.SetAncestors(*value)
 	}
@@ -353,14 +273,6 @@ func (d *DepartmentCreate) SetNotNilLeader(value *string) *DepartmentCreate {
 }
 
 // set field if value's pointer is not nil.
-func (d *DepartmentCreateBulk) SetNotNilLeader(value *string) *DepartmentCreateBulk {
-	if value != nil {
-		return d.SetLeader(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
 func (d *DepartmentUpdate) SetNotNilPhone(value *string) *DepartmentUpdate {
 	if value != nil {
 		return d.SetPhone(*value)
@@ -378,14 +290,6 @@ func (d *DepartmentUpdateOne) SetNotNilPhone(value *string) *DepartmentUpdateOne
 
 // set field if value's pointer is not nil.
 func (d *DepartmentCreate) SetNotNilPhone(value *string) *DepartmentCreate {
-	if value != nil {
-		return d.SetPhone(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
-func (d *DepartmentCreateBulk) SetNotNilPhone(value *string) *DepartmentCreateBulk {
 	if value != nil {
 		return d.SetPhone(*value)
 	}
@@ -417,14 +321,6 @@ func (d *DepartmentCreate) SetNotNilEmail(value *string) *DepartmentCreate {
 }
 
 // set field if value's pointer is not nil.
-func (d *DepartmentCreateBulk) SetNotNilEmail(value *string) *DepartmentCreateBulk {
-	if value != nil {
-		return d.SetEmail(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
 func (d *DepartmentUpdate) SetNotNilRemark(value *string) *DepartmentUpdate {
 	if value != nil {
 		return d.SetRemark(*value)
@@ -442,14 +338,6 @@ func (d *DepartmentUpdateOne) SetNotNilRemark(value *string) *DepartmentUpdateOn
 
 // set field if value's pointer is not nil.
 func (d *DepartmentCreate) SetNotNilRemark(value *string) *DepartmentCreate {
-	if value != nil {
-		return d.SetRemark(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
-func (d *DepartmentCreateBulk) SetNotNilRemark(value *string) *DepartmentCreateBulk {
 	if value != nil {
 		return d.SetRemark(*value)
 	}
@@ -481,14 +369,6 @@ func (d *DepartmentCreate) SetNotNilParentID(value *uint64) *DepartmentCreate {
 }
 
 // set field if value's pointer is not nil.
-func (d *DepartmentCreateBulk) SetNotNilParentID(value *uint64) *DepartmentCreateBulk {
-	if value != nil {
-		return d.SetParentID(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
 func (d *DictionaryUpdate) SetNotNilUpdatedAt(value *time.Time) *DictionaryUpdate {
 	if value != nil {
 		return d.SetUpdatedAt(*value)
@@ -506,14 +386,6 @@ func (d *DictionaryUpdateOne) SetNotNilUpdatedAt(value *time.Time) *DictionaryUp
 
 // set field if value's pointer is not nil.
 func (d *DictionaryCreate) SetNotNilUpdatedAt(value *time.Time) *DictionaryCreate {
-	if value != nil {
-		return d.SetUpdatedAt(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
-func (d *DictionaryCreateBulk) SetNotNilUpdatedAt(value *time.Time) *DictionaryCreateBulk {
 	if value != nil {
 		return d.SetUpdatedAt(*value)
 	}
@@ -545,14 +417,6 @@ func (d *DictionaryCreate) SetNotNilStatus(value *uint8) *DictionaryCreate {
 }
 
 // set field if value's pointer is not nil.
-func (d *DictionaryCreateBulk) SetNotNilStatus(value *uint8) *DictionaryCreateBulk {
-	if value != nil {
-		return d.SetStatus(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
 func (d *DictionaryUpdate) SetNotNilTitle(value *string) *DictionaryUpdate {
 	if value != nil {
 		return d.SetTitle(*value)
@@ -570,14 +434,6 @@ func (d *DictionaryUpdateOne) SetNotNilTitle(value *string) *DictionaryUpdateOne
 
 // set field if value's pointer is not nil.
 func (d *DictionaryCreate) SetNotNilTitle(value *string) *DictionaryCreate {
-	if value != nil {
-		return d.SetTitle(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
-func (d *DictionaryCreateBulk) SetNotNilTitle(value *string) *DictionaryCreateBulk {
 	if value != nil {
 		return d.SetTitle(*value)
 	}
@@ -609,14 +465,6 @@ func (d *DictionaryCreate) SetNotNilName(value *string) *DictionaryCreate {
 }
 
 // set field if value's pointer is not nil.
-func (d *DictionaryCreateBulk) SetNotNilName(value *string) *DictionaryCreateBulk {
-	if value != nil {
-		return d.SetName(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
 func (d *DictionaryUpdate) SetNotNilDesc(value *string) *DictionaryUpdate {
 	if value != nil {
 		return d.SetDesc(*value)
@@ -634,14 +482,6 @@ func (d *DictionaryUpdateOne) SetNotNilDesc(value *string) *DictionaryUpdateOne 
 
 // set field if value's pointer is not nil.
 func (d *DictionaryCreate) SetNotNilDesc(value *string) *DictionaryCreate {
-	if value != nil {
-		return d.SetDesc(*value)
-	}
-	return d
-}
-
-// set field if value's pointer is not nil.
-func (d *DictionaryCreateBulk) SetNotNilDesc(value *string) *DictionaryCreateBulk {
 	if value != nil {
 		return d.SetDesc(*value)
 	}
@@ -673,14 +513,6 @@ func (dd *DictionaryDetailCreate) SetNotNilUpdatedAt(value *time.Time) *Dictiona
 }
 
 // set field if value's pointer is not nil.
-func (dd *DictionaryDetailCreateBulk) SetNotNilUpdatedAt(value *time.Time) *DictionaryDetailCreateBulk {
-	if value != nil {
-		return dd.SetUpdatedAt(*value)
-	}
-	return dd
-}
-
-// set field if value's pointer is not nil.
 func (dd *DictionaryDetailUpdate) SetNotNilStatus(value *uint8) *DictionaryDetailUpdate {
 	if value != nil {
 		return dd.SetStatus(*value)
@@ -698,14 +530,6 @@ func (dd *DictionaryDetailUpdateOne) SetNotNilStatus(value *uint8) *DictionaryDe
 
 // set field if value's pointer is not nil.
 func (dd *DictionaryDetailCreate) SetNotNilStatus(value *uint8) *DictionaryDetailCreate {
-	if value != nil {
-		return dd.SetStatus(*value)
-	}
-	return dd
-}
-
-// set field if value's pointer is not nil.
-func (dd *DictionaryDetailCreateBulk) SetNotNilStatus(value *uint8) *DictionaryDetailCreateBulk {
 	if value != nil {
 		return dd.SetStatus(*value)
 	}
@@ -737,14 +561,6 @@ func (dd *DictionaryDetailCreate) SetNotNilSort(value *uint32) *DictionaryDetail
 }
 
 // set field if value's pointer is not nil.
-func (dd *DictionaryDetailCreateBulk) SetNotNilSort(value *uint32) *DictionaryDetailCreateBulk {
-	if value != nil {
-		return dd.SetSort(*value)
-	}
-	return dd
-}
-
-// set field if value's pointer is not nil.
 func (dd *DictionaryDetailUpdate) SetNotNilTitle(value *string) *DictionaryDetailUpdate {
 	if value != nil {
 		return dd.SetTitle(*value)
@@ -762,14 +578,6 @@ func (dd *DictionaryDetailUpdateOne) SetNotNilTitle(value *string) *DictionaryDe
 
 // set field if value's pointer is not nil.
 func (dd *DictionaryDetailCreate) SetNotNilTitle(value *string) *DictionaryDetailCreate {
-	if value != nil {
-		return dd.SetTitle(*value)
-	}
-	return dd
-}
-
-// set field if value's pointer is not nil.
-func (dd *DictionaryDetailCreateBulk) SetNotNilTitle(value *string) *DictionaryDetailCreateBulk {
 	if value != nil {
 		return dd.SetTitle(*value)
 	}
@@ -801,14 +609,6 @@ func (dd *DictionaryDetailCreate) SetNotNilKey(value *string) *DictionaryDetailC
 }
 
 // set field if value's pointer is not nil.
-func (dd *DictionaryDetailCreateBulk) SetNotNilKey(value *string) *DictionaryDetailCreateBulk {
-	if value != nil {
-		return dd.SetKey(*value)
-	}
-	return dd
-}
-
-// set field if value's pointer is not nil.
 func (dd *DictionaryDetailUpdate) SetNotNilValue(value *string) *DictionaryDetailUpdate {
 	if value != nil {
 		return dd.SetValue(*value)
@@ -826,14 +626,6 @@ func (dd *DictionaryDetailUpdateOne) SetNotNilValue(value *string) *DictionaryDe
 
 // set field if value's pointer is not nil.
 func (dd *DictionaryDetailCreate) SetNotNilValue(value *string) *DictionaryDetailCreate {
-	if value != nil {
-		return dd.SetValue(*value)
-	}
-	return dd
-}
-
-// set field if value's pointer is not nil.
-func (dd *DictionaryDetailCreateBulk) SetNotNilValue(value *string) *DictionaryDetailCreateBulk {
 	if value != nil {
 		return dd.SetValue(*value)
 	}
@@ -865,14 +657,6 @@ func (dd *DictionaryDetailCreate) SetNotNilDictionaryID(value *uint64) *Dictiona
 }
 
 // set field if value's pointer is not nil.
-func (dd *DictionaryDetailCreateBulk) SetNotNilDictionaryID(value *uint64) *DictionaryDetailCreateBulk {
-	if value != nil {
-		return dd.SetDictionaryID(*value)
-	}
-	return dd
-}
-
-// set field if value's pointer is not nil.
 func (m *MenuUpdate) SetNotNilUpdatedAt(value *time.Time) *MenuUpdate {
 	if value != nil {
 		return m.SetUpdatedAt(*value)
@@ -890,14 +674,6 @@ func (m *MenuUpdateOne) SetNotNilUpdatedAt(value *time.Time) *MenuUpdateOne {
 
 // set field if value's pointer is not nil.
 func (m *MenuCreate) SetNotNilUpdatedAt(value *time.Time) *MenuCreate {
-	if value != nil {
-		return m.SetUpdatedAt(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilUpdatedAt(value *time.Time) *MenuCreateBulk {
 	if value != nil {
 		return m.SetUpdatedAt(*value)
 	}
@@ -929,14 +705,6 @@ func (m *MenuCreate) SetNotNilSort(value *uint32) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilSort(value *uint32) *MenuCreateBulk {
-	if value != nil {
-		return m.SetSort(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
 func (m *MenuUpdate) SetNotNilParentID(value *uint64) *MenuUpdate {
 	if value != nil {
 		return m.SetParentID(*value)
@@ -954,14 +722,6 @@ func (m *MenuUpdateOne) SetNotNilParentID(value *uint64) *MenuUpdateOne {
 
 // set field if value's pointer is not nil.
 func (m *MenuCreate) SetNotNilParentID(value *uint64) *MenuCreate {
-	if value != nil {
-		return m.SetParentID(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilParentID(value *uint64) *MenuCreateBulk {
 	if value != nil {
 		return m.SetParentID(*value)
 	}
@@ -993,14 +753,6 @@ func (m *MenuCreate) SetNotNilMenuLevel(value *uint32) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilMenuLevel(value *uint32) *MenuCreateBulk {
-	if value != nil {
-		return m.SetMenuLevel(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
 func (m *MenuUpdate) SetNotNilMenuType(value *uint32) *MenuUpdate {
 	if value != nil {
 		return m.SetMenuType(*value)
@@ -1018,14 +770,6 @@ func (m *MenuUpdateOne) SetNotNilMenuType(value *uint32) *MenuUpdateOne {
 
 // set field if value's pointer is not nil.
 func (m *MenuCreate) SetNotNilMenuType(value *uint32) *MenuCreate {
-	if value != nil {
-		return m.SetMenuType(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilMenuType(value *uint32) *MenuCreateBulk {
 	if value != nil {
 		return m.SetMenuType(*value)
 	}
@@ -1057,14 +801,6 @@ func (m *MenuCreate) SetNotNilPath(value *string) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilPath(value *string) *MenuCreateBulk {
-	if value != nil {
-		return m.SetPath(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
 func (m *MenuUpdate) SetNotNilName(value *string) *MenuUpdate {
 	if value != nil {
 		return m.SetName(*value)
@@ -1082,14 +818,6 @@ func (m *MenuUpdateOne) SetNotNilName(value *string) *MenuUpdateOne {
 
 // set field if value's pointer is not nil.
 func (m *MenuCreate) SetNotNilName(value *string) *MenuCreate {
-	if value != nil {
-		return m.SetName(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilName(value *string) *MenuCreateBulk {
 	if value != nil {
 		return m.SetName(*value)
 	}
@@ -1121,14 +849,6 @@ func (m *MenuCreate) SetNotNilRedirect(value *string) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilRedirect(value *string) *MenuCreateBulk {
-	if value != nil {
-		return m.SetRedirect(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
 func (m *MenuUpdate) SetNotNilComponent(value *string) *MenuUpdate {
 	if value != nil {
 		return m.SetComponent(*value)
@@ -1146,14 +866,6 @@ func (m *MenuUpdateOne) SetNotNilComponent(value *string) *MenuUpdateOne {
 
 // set field if value's pointer is not nil.
 func (m *MenuCreate) SetNotNilComponent(value *string) *MenuCreate {
-	if value != nil {
-		return m.SetComponent(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilComponent(value *string) *MenuCreateBulk {
 	if value != nil {
 		return m.SetComponent(*value)
 	}
@@ -1185,14 +897,6 @@ func (m *MenuCreate) SetNotNilDisabled(value *bool) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilDisabled(value *bool) *MenuCreateBulk {
-	if value != nil {
-		return m.SetDisabled(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
 func (m *MenuUpdate) SetNotNilTitle(value *string) *MenuUpdate {
 	if value != nil {
 		return m.SetTitle(*value)
@@ -1210,14 +914,6 @@ func (m *MenuUpdateOne) SetNotNilTitle(value *string) *MenuUpdateOne {
 
 // set field if value's pointer is not nil.
 func (m *MenuCreate) SetNotNilTitle(value *string) *MenuCreate {
-	if value != nil {
-		return m.SetTitle(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilTitle(value *string) *MenuCreateBulk {
 	if value != nil {
 		return m.SetTitle(*value)
 	}
@@ -1249,14 +945,6 @@ func (m *MenuCreate) SetNotNilIcon(value *string) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilIcon(value *string) *MenuCreateBulk {
-	if value != nil {
-		return m.SetIcon(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
 func (m *MenuUpdate) SetNotNilHideMenu(value *bool) *MenuUpdate {
 	if value != nil {
 		return m.SetHideMenu(*value)
@@ -1274,14 +962,6 @@ func (m *MenuUpdateOne) SetNotNilHideMenu(value *bool) *MenuUpdateOne {
 
 // set field if value's pointer is not nil.
 func (m *MenuCreate) SetNotNilHideMenu(value *bool) *MenuCreate {
-	if value != nil {
-		return m.SetHideMenu(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilHideMenu(value *bool) *MenuCreateBulk {
 	if value != nil {
 		return m.SetHideMenu(*value)
 	}
@@ -1313,14 +993,6 @@ func (m *MenuCreate) SetNotNilHideBreadcrumb(value *bool) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilHideBreadcrumb(value *bool) *MenuCreateBulk {
-	if value != nil {
-		return m.SetHideBreadcrumb(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
 func (m *MenuUpdate) SetNotNilIgnoreKeepAlive(value *bool) *MenuUpdate {
 	if value != nil {
 		return m.SetIgnoreKeepAlive(*value)
@@ -1338,14 +1010,6 @@ func (m *MenuUpdateOne) SetNotNilIgnoreKeepAlive(value *bool) *MenuUpdateOne {
 
 // set field if value's pointer is not nil.
 func (m *MenuCreate) SetNotNilIgnoreKeepAlive(value *bool) *MenuCreate {
-	if value != nil {
-		return m.SetIgnoreKeepAlive(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilIgnoreKeepAlive(value *bool) *MenuCreateBulk {
 	if value != nil {
 		return m.SetIgnoreKeepAlive(*value)
 	}
@@ -1377,14 +1041,6 @@ func (m *MenuCreate) SetNotNilHideTab(value *bool) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilHideTab(value *bool) *MenuCreateBulk {
-	if value != nil {
-		return m.SetHideTab(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
 func (m *MenuUpdate) SetNotNilFrameSrc(value *string) *MenuUpdate {
 	if value != nil {
 		return m.SetFrameSrc(*value)
@@ -1402,14 +1058,6 @@ func (m *MenuUpdateOne) SetNotNilFrameSrc(value *string) *MenuUpdateOne {
 
 // set field if value's pointer is not nil.
 func (m *MenuCreate) SetNotNilFrameSrc(value *string) *MenuCreate {
-	if value != nil {
-		return m.SetFrameSrc(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilFrameSrc(value *string) *MenuCreateBulk {
 	if value != nil {
 		return m.SetFrameSrc(*value)
 	}
@@ -1441,14 +1089,6 @@ func (m *MenuCreate) SetNotNilCarryParam(value *bool) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilCarryParam(value *bool) *MenuCreateBulk {
-	if value != nil {
-		return m.SetCarryParam(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
 func (m *MenuUpdate) SetNotNilHideChildrenInMenu(value *bool) *MenuUpdate {
 	if value != nil {
 		return m.SetHideChildrenInMenu(*value)
@@ -1466,14 +1106,6 @@ func (m *MenuUpdateOne) SetNotNilHideChildrenInMenu(value *bool) *MenuUpdateOne 
 
 // set field if value's pointer is not nil.
 func (m *MenuCreate) SetNotNilHideChildrenInMenu(value *bool) *MenuCreate {
-	if value != nil {
-		return m.SetHideChildrenInMenu(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilHideChildrenInMenu(value *bool) *MenuCreateBulk {
 	if value != nil {
 		return m.SetHideChildrenInMenu(*value)
 	}
@@ -1505,14 +1137,6 @@ func (m *MenuCreate) SetNotNilAffix(value *bool) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilAffix(value *bool) *MenuCreateBulk {
-	if value != nil {
-		return m.SetAffix(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
 func (m *MenuUpdate) SetNotNilDynamicLevel(value *uint32) *MenuUpdate {
 	if value != nil {
 		return m.SetDynamicLevel(*value)
@@ -1530,14 +1154,6 @@ func (m *MenuUpdateOne) SetNotNilDynamicLevel(value *uint32) *MenuUpdateOne {
 
 // set field if value's pointer is not nil.
 func (m *MenuCreate) SetNotNilDynamicLevel(value *uint32) *MenuCreate {
-	if value != nil {
-		return m.SetDynamicLevel(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilDynamicLevel(value *uint32) *MenuCreateBulk {
 	if value != nil {
 		return m.SetDynamicLevel(*value)
 	}
@@ -1569,14 +1185,6 @@ func (m *MenuCreate) SetNotNilRealPath(value *string) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
-func (m *MenuCreateBulk) SetNotNilRealPath(value *string) *MenuCreateBulk {
-	if value != nil {
-		return m.SetRealPath(*value)
-	}
-	return m
-}
-
-// set field if value's pointer is not nil.
 func (op *OauthProviderUpdate) SetNotNilUpdatedAt(value *time.Time) *OauthProviderUpdate {
 	if value != nil {
 		return op.SetUpdatedAt(*value)
@@ -1594,14 +1202,6 @@ func (op *OauthProviderUpdateOne) SetNotNilUpdatedAt(value *time.Time) *OauthPro
 
 // set field if value's pointer is not nil.
 func (op *OauthProviderCreate) SetNotNilUpdatedAt(value *time.Time) *OauthProviderCreate {
-	if value != nil {
-		return op.SetUpdatedAt(*value)
-	}
-	return op
-}
-
-// set field if value's pointer is not nil.
-func (op *OauthProviderCreateBulk) SetNotNilUpdatedAt(value *time.Time) *OauthProviderCreateBulk {
 	if value != nil {
 		return op.SetUpdatedAt(*value)
 	}
@@ -1633,14 +1233,6 @@ func (op *OauthProviderCreate) SetNotNilName(value *string) *OauthProviderCreate
 }
 
 // set field if value's pointer is not nil.
-func (op *OauthProviderCreateBulk) SetNotNilName(value *string) *OauthProviderCreateBulk {
-	if value != nil {
-		return op.SetName(*value)
-	}
-	return op
-}
-
-// set field if value's pointer is not nil.
 func (op *OauthProviderUpdate) SetNotNilClientID(value *string) *OauthProviderUpdate {
 	if value != nil {
 		return op.SetClientID(*value)
@@ -1658,14 +1250,6 @@ func (op *OauthProviderUpdateOne) SetNotNilClientID(value *string) *OauthProvide
 
 // set field if value's pointer is not nil.
 func (op *OauthProviderCreate) SetNotNilClientID(value *string) *OauthProviderCreate {
-	if value != nil {
-		return op.SetClientID(*value)
-	}
-	return op
-}
-
-// set field if value's pointer is not nil.
-func (op *OauthProviderCreateBulk) SetNotNilClientID(value *string) *OauthProviderCreateBulk {
 	if value != nil {
 		return op.SetClientID(*value)
 	}
@@ -1697,14 +1281,6 @@ func (op *OauthProviderCreate) SetNotNilClientSecret(value *string) *OauthProvid
 }
 
 // set field if value's pointer is not nil.
-func (op *OauthProviderCreateBulk) SetNotNilClientSecret(value *string) *OauthProviderCreateBulk {
-	if value != nil {
-		return op.SetClientSecret(*value)
-	}
-	return op
-}
-
-// set field if value's pointer is not nil.
 func (op *OauthProviderUpdate) SetNotNilRedirectURL(value *string) *OauthProviderUpdate {
 	if value != nil {
 		return op.SetRedirectURL(*value)
@@ -1722,14 +1298,6 @@ func (op *OauthProviderUpdateOne) SetNotNilRedirectURL(value *string) *OauthProv
 
 // set field if value's pointer is not nil.
 func (op *OauthProviderCreate) SetNotNilRedirectURL(value *string) *OauthProviderCreate {
-	if value != nil {
-		return op.SetRedirectURL(*value)
-	}
-	return op
-}
-
-// set field if value's pointer is not nil.
-func (op *OauthProviderCreateBulk) SetNotNilRedirectURL(value *string) *OauthProviderCreateBulk {
 	if value != nil {
 		return op.SetRedirectURL(*value)
 	}
@@ -1761,14 +1329,6 @@ func (op *OauthProviderCreate) SetNotNilScopes(value *string) *OauthProviderCrea
 }
 
 // set field if value's pointer is not nil.
-func (op *OauthProviderCreateBulk) SetNotNilScopes(value *string) *OauthProviderCreateBulk {
-	if value != nil {
-		return op.SetScopes(*value)
-	}
-	return op
-}
-
-// set field if value's pointer is not nil.
 func (op *OauthProviderUpdate) SetNotNilAuthURL(value *string) *OauthProviderUpdate {
 	if value != nil {
 		return op.SetAuthURL(*value)
@@ -1786,14 +1346,6 @@ func (op *OauthProviderUpdateOne) SetNotNilAuthURL(value *string) *OauthProvider
 
 // set field if value's pointer is not nil.
 func (op *OauthProviderCreate) SetNotNilAuthURL(value *string) *OauthProviderCreate {
-	if value != nil {
-		return op.SetAuthURL(*value)
-	}
-	return op
-}
-
-// set field if value's pointer is not nil.
-func (op *OauthProviderCreateBulk) SetNotNilAuthURL(value *string) *OauthProviderCreateBulk {
 	if value != nil {
 		return op.SetAuthURL(*value)
 	}
@@ -1825,14 +1377,6 @@ func (op *OauthProviderCreate) SetNotNilTokenURL(value *string) *OauthProviderCr
 }
 
 // set field if value's pointer is not nil.
-func (op *OauthProviderCreateBulk) SetNotNilTokenURL(value *string) *OauthProviderCreateBulk {
-	if value != nil {
-		return op.SetTokenURL(*value)
-	}
-	return op
-}
-
-// set field if value's pointer is not nil.
 func (op *OauthProviderUpdate) SetNotNilAuthStyle(value *uint64) *OauthProviderUpdate {
 	if value != nil {
 		return op.SetAuthStyle(*value)
@@ -1850,14 +1394,6 @@ func (op *OauthProviderUpdateOne) SetNotNilAuthStyle(value *uint64) *OauthProvid
 
 // set field if value's pointer is not nil.
 func (op *OauthProviderCreate) SetNotNilAuthStyle(value *uint64) *OauthProviderCreate {
-	if value != nil {
-		return op.SetAuthStyle(*value)
-	}
-	return op
-}
-
-// set field if value's pointer is not nil.
-func (op *OauthProviderCreateBulk) SetNotNilAuthStyle(value *uint64) *OauthProviderCreateBulk {
 	if value != nil {
 		return op.SetAuthStyle(*value)
 	}
@@ -1889,14 +1425,6 @@ func (op *OauthProviderCreate) SetNotNilInfoURL(value *string) *OauthProviderCre
 }
 
 // set field if value's pointer is not nil.
-func (op *OauthProviderCreateBulk) SetNotNilInfoURL(value *string) *OauthProviderCreateBulk {
-	if value != nil {
-		return op.SetInfoURL(*value)
-	}
-	return op
-}
-
-// set field if value's pointer is not nil.
 func (po *PositionUpdate) SetNotNilUpdatedAt(value *time.Time) *PositionUpdate {
 	if value != nil {
 		return po.SetUpdatedAt(*value)
@@ -1914,14 +1442,6 @@ func (po *PositionUpdateOne) SetNotNilUpdatedAt(value *time.Time) *PositionUpdat
 
 // set field if value's pointer is not nil.
 func (po *PositionCreate) SetNotNilUpdatedAt(value *time.Time) *PositionCreate {
-	if value != nil {
-		return po.SetUpdatedAt(*value)
-	}
-	return po
-}
-
-// set field if value's pointer is not nil.
-func (po *PositionCreateBulk) SetNotNilUpdatedAt(value *time.Time) *PositionCreateBulk {
 	if value != nil {
 		return po.SetUpdatedAt(*value)
 	}
@@ -1953,14 +1473,6 @@ func (po *PositionCreate) SetNotNilStatus(value *uint8) *PositionCreate {
 }
 
 // set field if value's pointer is not nil.
-func (po *PositionCreateBulk) SetNotNilStatus(value *uint8) *PositionCreateBulk {
-	if value != nil {
-		return po.SetStatus(*value)
-	}
-	return po
-}
-
-// set field if value's pointer is not nil.
 func (po *PositionUpdate) SetNotNilSort(value *uint32) *PositionUpdate {
 	if value != nil {
 		return po.SetSort(*value)
@@ -1978,14 +1490,6 @@ func (po *PositionUpdateOne) SetNotNilSort(value *uint32) *PositionUpdateOne {
 
 // set field if value's pointer is not nil.
 func (po *PositionCreate) SetNotNilSort(value *uint32) *PositionCreate {
-	if value != nil {
-		return po.SetSort(*value)
-	}
-	return po
-}
-
-// set field if value's pointer is not nil.
-func (po *PositionCreateBulk) SetNotNilSort(value *uint32) *PositionCreateBulk {
 	if value != nil {
 		return po.SetSort(*value)
 	}
@@ -2017,14 +1521,6 @@ func (po *PositionCreate) SetNotNilName(value *string) *PositionCreate {
 }
 
 // set field if value's pointer is not nil.
-func (po *PositionCreateBulk) SetNotNilName(value *string) *PositionCreateBulk {
-	if value != nil {
-		return po.SetName(*value)
-	}
-	return po
-}
-
-// set field if value's pointer is not nil.
 func (po *PositionUpdate) SetNotNilCode(value *string) *PositionUpdate {
 	if value != nil {
 		return po.SetCode(*value)
@@ -2042,14 +1538,6 @@ func (po *PositionUpdateOne) SetNotNilCode(value *string) *PositionUpdateOne {
 
 // set field if value's pointer is not nil.
 func (po *PositionCreate) SetNotNilCode(value *string) *PositionCreate {
-	if value != nil {
-		return po.SetCode(*value)
-	}
-	return po
-}
-
-// set field if value's pointer is not nil.
-func (po *PositionCreateBulk) SetNotNilCode(value *string) *PositionCreateBulk {
 	if value != nil {
 		return po.SetCode(*value)
 	}
@@ -2081,14 +1569,6 @@ func (po *PositionCreate) SetNotNilRemark(value *string) *PositionCreate {
 }
 
 // set field if value's pointer is not nil.
-func (po *PositionCreateBulk) SetNotNilRemark(value *string) *PositionCreateBulk {
-	if value != nil {
-		return po.SetRemark(*value)
-	}
-	return po
-}
-
-// set field if value's pointer is not nil.
 func (r *RoleUpdate) SetNotNilUpdatedAt(value *time.Time) *RoleUpdate {
 	if value != nil {
 		return r.SetUpdatedAt(*value)
@@ -2106,14 +1586,6 @@ func (r *RoleUpdateOne) SetNotNilUpdatedAt(value *time.Time) *RoleUpdateOne {
 
 // set field if value's pointer is not nil.
 func (r *RoleCreate) SetNotNilUpdatedAt(value *time.Time) *RoleCreate {
-	if value != nil {
-		return r.SetUpdatedAt(*value)
-	}
-	return r
-}
-
-// set field if value's pointer is not nil.
-func (r *RoleCreateBulk) SetNotNilUpdatedAt(value *time.Time) *RoleCreateBulk {
 	if value != nil {
 		return r.SetUpdatedAt(*value)
 	}
@@ -2145,14 +1617,6 @@ func (r *RoleCreate) SetNotNilStatus(value *uint8) *RoleCreate {
 }
 
 // set field if value's pointer is not nil.
-func (r *RoleCreateBulk) SetNotNilStatus(value *uint8) *RoleCreateBulk {
-	if value != nil {
-		return r.SetStatus(*value)
-	}
-	return r
-}
-
-// set field if value's pointer is not nil.
 func (r *RoleUpdate) SetNotNilName(value *string) *RoleUpdate {
 	if value != nil {
 		return r.SetName(*value)
@@ -2170,14 +1634,6 @@ func (r *RoleUpdateOne) SetNotNilName(value *string) *RoleUpdateOne {
 
 // set field if value's pointer is not nil.
 func (r *RoleCreate) SetNotNilName(value *string) *RoleCreate {
-	if value != nil {
-		return r.SetName(*value)
-	}
-	return r
-}
-
-// set field if value's pointer is not nil.
-func (r *RoleCreateBulk) SetNotNilName(value *string) *RoleCreateBulk {
 	if value != nil {
 		return r.SetName(*value)
 	}
@@ -2209,14 +1665,6 @@ func (r *RoleCreate) SetNotNilCode(value *string) *RoleCreate {
 }
 
 // set field if value's pointer is not nil.
-func (r *RoleCreateBulk) SetNotNilCode(value *string) *RoleCreateBulk {
-	if value != nil {
-		return r.SetCode(*value)
-	}
-	return r
-}
-
-// set field if value's pointer is not nil.
 func (r *RoleUpdate) SetNotNilDefaultRouter(value *string) *RoleUpdate {
 	if value != nil {
 		return r.SetDefaultRouter(*value)
@@ -2234,14 +1682,6 @@ func (r *RoleUpdateOne) SetNotNilDefaultRouter(value *string) *RoleUpdateOne {
 
 // set field if value's pointer is not nil.
 func (r *RoleCreate) SetNotNilDefaultRouter(value *string) *RoleCreate {
-	if value != nil {
-		return r.SetDefaultRouter(*value)
-	}
-	return r
-}
-
-// set field if value's pointer is not nil.
-func (r *RoleCreateBulk) SetNotNilDefaultRouter(value *string) *RoleCreateBulk {
 	if value != nil {
 		return r.SetDefaultRouter(*value)
 	}
@@ -2273,14 +1713,6 @@ func (r *RoleCreate) SetNotNilRemark(value *string) *RoleCreate {
 }
 
 // set field if value's pointer is not nil.
-func (r *RoleCreateBulk) SetNotNilRemark(value *string) *RoleCreateBulk {
-	if value != nil {
-		return r.SetRemark(*value)
-	}
-	return r
-}
-
-// set field if value's pointer is not nil.
 func (r *RoleUpdate) SetNotNilSort(value *uint32) *RoleUpdate {
 	if value != nil {
 		return r.SetSort(*value)
@@ -2298,14 +1730,6 @@ func (r *RoleUpdateOne) SetNotNilSort(value *uint32) *RoleUpdateOne {
 
 // set field if value's pointer is not nil.
 func (r *RoleCreate) SetNotNilSort(value *uint32) *RoleCreate {
-	if value != nil {
-		return r.SetSort(*value)
-	}
-	return r
-}
-
-// set field if value's pointer is not nil.
-func (r *RoleCreateBulk) SetNotNilSort(value *uint32) *RoleCreateBulk {
 	if value != nil {
 		return r.SetSort(*value)
 	}
@@ -2337,14 +1761,6 @@ func (t *TokenCreate) SetNotNilUpdatedAt(value *time.Time) *TokenCreate {
 }
 
 // set field if value's pointer is not nil.
-func (t *TokenCreateBulk) SetNotNilUpdatedAt(value *time.Time) *TokenCreateBulk {
-	if value != nil {
-		return t.SetUpdatedAt(*value)
-	}
-	return t
-}
-
-// set field if value's pointer is not nil.
 func (t *TokenUpdate) SetNotNilStatus(value *uint8) *TokenUpdate {
 	if value != nil {
 		return t.SetStatus(*value)
@@ -2362,14 +1778,6 @@ func (t *TokenUpdateOne) SetNotNilStatus(value *uint8) *TokenUpdateOne {
 
 // set field if value's pointer is not nil.
 func (t *TokenCreate) SetNotNilStatus(value *uint8) *TokenCreate {
-	if value != nil {
-		return t.SetStatus(*value)
-	}
-	return t
-}
-
-// set field if value's pointer is not nil.
-func (t *TokenCreateBulk) SetNotNilStatus(value *uint8) *TokenCreateBulk {
 	if value != nil {
 		return t.SetStatus(*value)
 	}
@@ -2401,14 +1809,6 @@ func (t *TokenCreate) SetNotNilUUID(value *uuid.UUID) *TokenCreate {
 }
 
 // set field if value's pointer is not nil.
-func (t *TokenCreateBulk) SetNotNilUUID(value *uuid.UUID) *TokenCreateBulk {
-	if value != nil {
-		return t.SetUUID(*value)
-	}
-	return t
-}
-
-// set field if value's pointer is not nil.
 func (t *TokenUpdate) SetNotNilToken(value *string) *TokenUpdate {
 	if value != nil {
 		return t.SetToken(*value)
@@ -2426,14 +1826,6 @@ func (t *TokenUpdateOne) SetNotNilToken(value *string) *TokenUpdateOne {
 
 // set field if value's pointer is not nil.
 func (t *TokenCreate) SetNotNilToken(value *string) *TokenCreate {
-	if value != nil {
-		return t.SetToken(*value)
-	}
-	return t
-}
-
-// set field if value's pointer is not nil.
-func (t *TokenCreateBulk) SetNotNilToken(value *string) *TokenCreateBulk {
 	if value != nil {
 		return t.SetToken(*value)
 	}
@@ -2465,14 +1857,6 @@ func (t *TokenCreate) SetNotNilSource(value *string) *TokenCreate {
 }
 
 // set field if value's pointer is not nil.
-func (t *TokenCreateBulk) SetNotNilSource(value *string) *TokenCreateBulk {
-	if value != nil {
-		return t.SetSource(*value)
-	}
-	return t
-}
-
-// set field if value's pointer is not nil.
 func (t *TokenUpdate) SetNotNilExpiredAt(value *time.Time) *TokenUpdate {
 	if value != nil {
 		return t.SetExpiredAt(*value)
@@ -2490,14 +1874,6 @@ func (t *TokenUpdateOne) SetNotNilExpiredAt(value *time.Time) *TokenUpdateOne {
 
 // set field if value's pointer is not nil.
 func (t *TokenCreate) SetNotNilExpiredAt(value *time.Time) *TokenCreate {
-	if value != nil {
-		return t.SetExpiredAt(*value)
-	}
-	return t
-}
-
-// set field if value's pointer is not nil.
-func (t *TokenCreateBulk) SetNotNilExpiredAt(value *time.Time) *TokenCreateBulk {
 	if value != nil {
 		return t.SetExpiredAt(*value)
 	}
@@ -2529,14 +1905,6 @@ func (u *UserCreate) SetNotNilUpdatedAt(value *time.Time) *UserCreate {
 }
 
 // set field if value's pointer is not nil.
-func (u *UserCreateBulk) SetNotNilUpdatedAt(value *time.Time) *UserCreateBulk {
-	if value != nil {
-		return u.SetUpdatedAt(*value)
-	}
-	return u
-}
-
-// set field if value's pointer is not nil.
 func (u *UserUpdate) SetNotNilStatus(value *uint8) *UserUpdate {
 	if value != nil {
 		return u.SetStatus(*value)
@@ -2554,14 +1922,6 @@ func (u *UserUpdateOne) SetNotNilStatus(value *uint8) *UserUpdateOne {
 
 // set field if value's pointer is not nil.
 func (u *UserCreate) SetNotNilStatus(value *uint8) *UserCreate {
-	if value != nil {
-		return u.SetStatus(*value)
-	}
-	return u
-}
-
-// set field if value's pointer is not nil.
-func (u *UserCreateBulk) SetNotNilStatus(value *uint8) *UserCreateBulk {
 	if value != nil {
 		return u.SetStatus(*value)
 	}
@@ -2593,14 +1953,6 @@ func (u *UserCreate) SetNotNilDeletedAt(value *time.Time) *UserCreate {
 }
 
 // set field if value's pointer is not nil.
-func (u *UserCreateBulk) SetNotNilDeletedAt(value *time.Time) *UserCreateBulk {
-	if value != nil {
-		return u.SetDeletedAt(*value)
-	}
-	return u
-}
-
-// set field if value's pointer is not nil.
 func (u *UserUpdate) SetNotNilUsername(value *string) *UserUpdate {
 	if value != nil {
 		return u.SetUsername(*value)
@@ -2618,14 +1970,6 @@ func (u *UserUpdateOne) SetNotNilUsername(value *string) *UserUpdateOne {
 
 // set field if value's pointer is not nil.
 func (u *UserCreate) SetNotNilUsername(value *string) *UserCreate {
-	if value != nil {
-		return u.SetUsername(*value)
-	}
-	return u
-}
-
-// set field if value's pointer is not nil.
-func (u *UserCreateBulk) SetNotNilUsername(value *string) *UserCreateBulk {
 	if value != nil {
 		return u.SetUsername(*value)
 	}
@@ -2657,14 +2001,6 @@ func (u *UserCreate) SetNotNilPassword(value *string) *UserCreate {
 }
 
 // set field if value's pointer is not nil.
-func (u *UserCreateBulk) SetNotNilPassword(value *string) *UserCreateBulk {
-	if value != nil {
-		return u.SetPassword(*value)
-	}
-	return u
-}
-
-// set field if value's pointer is not nil.
 func (u *UserUpdate) SetNotNilNickname(value *string) *UserUpdate {
 	if value != nil {
 		return u.SetNickname(*value)
@@ -2682,14 +2018,6 @@ func (u *UserUpdateOne) SetNotNilNickname(value *string) *UserUpdateOne {
 
 // set field if value's pointer is not nil.
 func (u *UserCreate) SetNotNilNickname(value *string) *UserCreate {
-	if value != nil {
-		return u.SetNickname(*value)
-	}
-	return u
-}
-
-// set field if value's pointer is not nil.
-func (u *UserCreateBulk) SetNotNilNickname(value *string) *UserCreateBulk {
 	if value != nil {
 		return u.SetNickname(*value)
 	}
@@ -2721,14 +2049,6 @@ func (u *UserCreate) SetNotNilDescription(value *string) *UserCreate {
 }
 
 // set field if value's pointer is not nil.
-func (u *UserCreateBulk) SetNotNilDescription(value *string) *UserCreateBulk {
-	if value != nil {
-		return u.SetDescription(*value)
-	}
-	return u
-}
-
-// set field if value's pointer is not nil.
 func (u *UserUpdate) SetNotNilHomePath(value *string) *UserUpdate {
 	if value != nil {
 		return u.SetHomePath(*value)
@@ -2746,14 +2066,6 @@ func (u *UserUpdateOne) SetNotNilHomePath(value *string) *UserUpdateOne {
 
 // set field if value's pointer is not nil.
 func (u *UserCreate) SetNotNilHomePath(value *string) *UserCreate {
-	if value != nil {
-		return u.SetHomePath(*value)
-	}
-	return u
-}
-
-// set field if value's pointer is not nil.
-func (u *UserCreateBulk) SetNotNilHomePath(value *string) *UserCreateBulk {
 	if value != nil {
 		return u.SetHomePath(*value)
 	}
@@ -2785,14 +2097,6 @@ func (u *UserCreate) SetNotNilMobile(value *string) *UserCreate {
 }
 
 // set field if value's pointer is not nil.
-func (u *UserCreateBulk) SetNotNilMobile(value *string) *UserCreateBulk {
-	if value != nil {
-		return u.SetMobile(*value)
-	}
-	return u
-}
-
-// set field if value's pointer is not nil.
 func (u *UserUpdate) SetNotNilEmail(value *string) *UserUpdate {
 	if value != nil {
 		return u.SetEmail(*value)
@@ -2810,14 +2114,6 @@ func (u *UserUpdateOne) SetNotNilEmail(value *string) *UserUpdateOne {
 
 // set field if value's pointer is not nil.
 func (u *UserCreate) SetNotNilEmail(value *string) *UserCreate {
-	if value != nil {
-		return u.SetEmail(*value)
-	}
-	return u
-}
-
-// set field if value's pointer is not nil.
-func (u *UserCreateBulk) SetNotNilEmail(value *string) *UserCreateBulk {
 	if value != nil {
 		return u.SetEmail(*value)
 	}
@@ -2849,14 +2145,6 @@ func (u *UserCreate) SetNotNilAvatar(value *string) *UserCreate {
 }
 
 // set field if value's pointer is not nil.
-func (u *UserCreateBulk) SetNotNilAvatar(value *string) *UserCreateBulk {
-	if value != nil {
-		return u.SetAvatar(*value)
-	}
-	return u
-}
-
-// set field if value's pointer is not nil.
 func (u *UserUpdate) SetNotNilDepartmentID(value *uint64) *UserUpdate {
 	if value != nil {
 		return u.SetDepartmentID(*value)
@@ -2874,14 +2162,6 @@ func (u *UserUpdateOne) SetNotNilDepartmentID(value *uint64) *UserUpdateOne {
 
 // set field if value's pointer is not nil.
 func (u *UserCreate) SetNotNilDepartmentID(value *uint64) *UserCreate {
-	if value != nil {
-		return u.SetDepartmentID(*value)
-	}
-	return u
-}
-
-// set field if value's pointer is not nil.
-func (u *UserCreateBulk) SetNotNilDepartmentID(value *uint64) *UserCreateBulk {
 	if value != nil {
 		return u.SetDepartmentID(*value)
 	}

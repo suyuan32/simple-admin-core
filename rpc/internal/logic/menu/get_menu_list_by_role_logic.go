@@ -4,6 +4,8 @@ import (
 	"context"
 	"strings"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
@@ -44,30 +46,30 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.BaseMsg) (*core.Menu
 		for _, m := range r.Edges.Menus {
 			if _, ok := existMap[m.ID]; !ok {
 				resp.Data = append(resp.Data, &core.MenuInfo{
-					Id:        m.ID,
-					CreatedAt: m.CreatedAt.UnixMilli(),
-					UpdatedAt: m.UpdatedAt.UnixMilli(),
-					MenuType:  m.MenuType,
-					Level:     m.MenuLevel,
-					ParentId:  m.ParentID,
-					Path:      m.Path,
-					Name:      m.Name,
-					Redirect:  m.Redirect,
-					Component: m.Component,
-					Sort:      m.Sort,
+					Id:        &m.ID,
+					CreatedAt: pointy.GetPointer(m.CreatedAt.UnixMilli()),
+					UpdatedAt: pointy.GetPointer(m.UpdatedAt.UnixMilli()),
+					MenuType:  &m.MenuType,
+					Level:     &m.MenuLevel,
+					ParentId:  &m.ParentID,
+					Path:      &m.Path,
+					Name:      &m.Name,
+					Redirect:  &m.Redirect,
+					Component: &m.Component,
+					Sort:      &m.Sort,
 					Meta: &core.Meta{
-						Title:              m.Title,
-						Icon:               m.Icon,
-						HideMenu:           m.HideMenu,
-						HideBreadcrumb:     m.HideBreadcrumb,
-						IgnoreKeepAlive:    m.IgnoreKeepAlive,
-						HideTab:            m.HideTab,
-						FrameSrc:           m.FrameSrc,
-						CarryParam:         m.CarryParam,
-						HideChildrenInMenu: m.HideChildrenInMenu,
-						Affix:              m.Affix,
-						DynamicLevel:       m.DynamicLevel,
-						RealPath:           m.RealPath,
+						Title:              &m.Title,
+						Icon:               &m.Icon,
+						HideMenu:           &m.HideMenu,
+						HideBreadcrumb:     &m.HideBreadcrumb,
+						IgnoreKeepAlive:    &m.IgnoreKeepAlive,
+						HideTab:            &m.HideTab,
+						FrameSrc:           &m.FrameSrc,
+						CarryParam:         &m.CarryParam,
+						HideChildrenInMenu: &m.HideChildrenInMenu,
+						Affix:              &m.Affix,
+						DynamicLevel:       &m.DynamicLevel,
+						RealPath:           &m.RealPath,
 					},
 				})
 				existMap[m.ID] = struct{}{}

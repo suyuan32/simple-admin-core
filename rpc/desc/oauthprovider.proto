@@ -23,8 +23,8 @@ message OauthProviderListResp {
 }
 
 message OauthProviderListReq {
-  optional uint64 page = 1;
-  optional uint64 page_size = 2;
+  uint64 page = 1;
+  uint64 page_size = 2;
   optional string name = 3;
 }
 

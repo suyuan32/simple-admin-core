@@ -19,8 +19,8 @@ message PositionListResp {
 }
 
 message PositionListReq {
-  optional uint64 page = 1;
-  optional uint64 page_size = 2;
+  uint64 page = 1;
+  uint64 page_size = 2;
   optional string name = 3;
   optional string code = 4;
   optional string remark = 5;

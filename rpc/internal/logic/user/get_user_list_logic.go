@@ -3,6 +3,8 @@ package user
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
@@ -33,7 +35,7 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 	var predicates []predicate.User
 
 	if in.Mobile != nil {
-		predicates = append(predicates, user.MobileEQ(in.Mobile))
+		predicates = append(predicates, user.MobileEQ(*in.Mobile))
 	}
 
 	if in.Username != nil {
@@ -41,7 +43,7 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 	}
 
 	if in.Email != nil {
-		predicates = append(predicates, user.EmailEQ(in.Email))
+		predicates = append(predicates, user.EmailEQ(*in.Email))
 	}
 
 	if in.Nickname != nil {
@@ -52,15 +54,15 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 		predicates = append(predicates, user.HasRolesWith(role.IDIn(in.RoleIds...)))
 	}
 
-	if in.DepartmentId != 0 {
-		predicates = append(predicates, user.DepartmentIDEQ(in.DepartmentId))
+	if in.DepartmentId != nil {
+		predicates = append(predicates, user.DepartmentIDEQ(*in.DepartmentId))
 	}
 
 	if in.PositionIds != nil {
 		predicates = append(predicates, user.HasPositionsWith(position.IDIn(in.PositionIds...)))
 	}
 
-	users, err := l.svcCtx.DB.User.Query().Where(predicates...).WithRoles().WithPositions().Page(l.ctx, *in.Page, *in.PageSize)
+	users, err := l.svcCtx.DB.User.Query().Where(predicates...).WithRoles().WithPositions().Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
@@ -70,20 +72,20 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 
 	for _, v := range users.List {
 		resp.Data = append(resp.Data, &core.UserInfo{
-			Id:           v.ID.String(),
-			Avatar:       v.Avatar,
+			Id:           pointy.GetPointer(v.ID.String()),
+			Avatar:       &v.Avatar,
 			RoleIds:      GetRoleIds(v.Edges.Roles),
-			Mobile:       v.Mobile,
-			Email:        v.Email,
-			Status:       uint32(v.Status),
-			Username:     v.Username,
-			Nickname:     v.Nickname,
-			HomePath:     v.HomePath,
-			Description:  v.Description,
-			DepartmentId: v.DepartmentID,
+			Mobile:       &v.Mobile,
+			Email:        &v.Email,
+			Status:       pointy.GetPointer(uint32(v.Status)),
+			Username:     &v.Username,
+			Nickname:     &v.Nickname,
+			HomePath:     &v.HomePath,
+			Description:  &v.Description,
+			DepartmentId: &v.DepartmentID,
 			PositionIds:  GetPositionIds(v.Edges.Positions),
-			CreatedAt:    v.CreatedAt.UnixMilli(),
-			UpdatedAt:    v.UpdatedAt.UnixMilli(),
+			CreatedAt:    pointy.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt:    pointy.GetPointer(v.UpdatedAt.UnixMilli()),
 		})
 	}
 

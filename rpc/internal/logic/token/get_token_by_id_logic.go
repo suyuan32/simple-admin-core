@@ -34,13 +34,13 @@ func (l *GetTokenByIdLogic) GetTokenById(in *core.UUIDReq) (*core.TokenInfo, err
 	}
 
 	return &core.TokenInfo{
-		Id:        &result.ID.String(),
+		Id:        pointy.GetPointer(result.ID.String()),
 		CreatedAt: pointy.GetPointer(result.CreatedAt.UnixMilli()),
 		UpdatedAt: pointy.GetPointer(result.UpdatedAt.UnixMilli()),
 		Status:    pointy.GetPointer(uint32(result.Status)),
-		Uuid:      &result.UUID.String(),
+		Uuid:      pointy.GetPointer(result.UUID.String()),
 		Token:     &result.Token,
 		Source:    &result.Source,
-		ExpiredAt: &result.ExpiredAt.UnixMilli(),
+		ExpiredAt: pointy.GetPointer(result.ExpiredAt.UnixMilli()),
 	}, nil
 }

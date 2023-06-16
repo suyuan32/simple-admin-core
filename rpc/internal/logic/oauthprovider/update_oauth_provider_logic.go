@@ -19,7 +19,7 @@ type UpdateOauthProviderLogic struct {
 }
 
 func NewUpdateOauthProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateOauthProviderLogic {
-	return &result.UpdateOauthProviderLogic{
+	return &UpdateOauthProviderLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
@@ -42,13 +42,9 @@ func (l *UpdateOauthProviderLogic) UpdateOauthProvider(in *core.OauthProviderInf
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	if _, ok := providerConfig[in.Name]; ok {
-		delete(providerConfig, in.Name)
+	if _, ok := providerConfig[*in.Name]; ok {
+		delete(providerConfig, *in.Name)
 	}
 
-	return &result.core.BaseResp
-	{
-	Msg:
-		i18n.UpdateSuccess
-	}, nil
+	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
 }

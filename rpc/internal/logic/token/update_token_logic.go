@@ -33,7 +33,7 @@ func NewUpdateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Updat
 }
 
 func (l *UpdateTokenLogic) UpdateToken(in *core.TokenInfo) (*core.BaseResp, error) {
-	token, err := l.svcCtx.DB.Token.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
+	token, err := l.svcCtx.DB.Token.UpdateOneID(uuidx.ParseUUIDString(*in.Id)).
 		SetNotNilStatus(pointy.GetPointer(uint8(*in.Status))).
 		SetNotNilSource(in.Source).
 		Save(l.ctx)
@@ -41,7 +41,7 @@ func (l *UpdateTokenLogic) UpdateToken(in *core.TokenInfo) (*core.BaseResp, erro
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	if pointy.GetPointer(uint8(*in.Status)) == common.StatusBanned {
+	if uint8(*in.Status) == common.StatusBanned {
 		expiredTime := int(token.ExpiredAt.Unix() - time.Now().Unix())
 		if expiredTime > 0 {
 			err = l.svcCtx.Redis.Setex("token_"+token.Token, "1", expiredTime)
@@ -50,7 +50,7 @@ func (l *UpdateTokenLogic) UpdateToken(in *core.TokenInfo) (*core.BaseResp, erro
 				return nil, errorx.NewInternalError(i18n.RedisError)
 			}
 		}
-	} else if pointy.GetPointer(uint8(*in.Status)) == common.StatusNormal {
+	} else if uint8(*in.Status) == common.StatusNormal {
 		_, err := l.svcCtx.Redis.Del("token_" + token.Token)
 		if err != nil {
 			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))

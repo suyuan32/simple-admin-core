@@ -37,7 +37,7 @@ func NewUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 
 func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) {
 	err := entx.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
-		updateQuery := tx.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
+		updateQuery := tx.User.UpdateOneID(uuidx.ParseUUIDString(*in.Id)).
 			SetNotNilUsername(in.Username).
 			SetNotNilNickname(in.Nickname).
 			SetNotNilEmail(in.Email).
@@ -48,12 +48,12 @@ func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) 
 			SetNotNilDepartmentID(in.DepartmentId).
 			SetNotNilStatus(pointy.GetPointer(uint8(*in.Status)))
 
-		if in.Password != "" {
-			updateQuery = updateQuery.SetNotNilPassword(encrypt.BcryptEncrypt(in.Password))
+		if in.Password != nil {
+			updateQuery = updateQuery.SetNotNilPassword(pointy.GetPointer(encrypt.BcryptEncrypt(*in.Password)))
 		}
 
 		if in.RoleIds != nil {
-			err := tx.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).ClearRoles().Exec(l.ctx)
+			err := tx.User.UpdateOneID(uuidx.ParseUUIDString(*in.Id)).ClearRoles().Exec(l.ctx)
 			if err != nil {
 				return err
 			}
@@ -62,7 +62,7 @@ func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) 
 		}
 
 		if in.PositionIds != nil {
-			err := tx.User.UpdateOneID(uuidx.ParseUUIDString(in.Id)).ClearPositions().Exec(l.ctx)
+			err := tx.User.UpdateOneID(uuidx.ParseUUIDString(*in.Id)).ClearPositions().Exec(l.ctx)
 			if err != nil {
 				return err
 			}
@@ -70,8 +70,8 @@ func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) 
 			updateQuery = updateQuery.AddPositionIDs(in.PositionIds...)
 		}
 
-		if in.Password != "" || in.RoleIds != nil || in.PositionIds != nil {
-			_, err := token.NewBlockUserAllTokenLogic(l.ctx, l.svcCtx).BlockUserAllToken(&core.UUIDReq{Id: in.Id})
+		if in.Password != nil || in.RoleIds != nil || in.PositionIds != nil {
+			_, err := token.NewBlockUserAllTokenLogic(l.ctx, l.svcCtx).BlockUserAllToken(&core.UUIDReq{Id: *in.Id})
 			if err != nil {
 				return err
 			}

@@ -35,9 +35,9 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 
 	// clear old policies
 	var oldPolicies [][]string
-	oldPolicies = l.svcCtx.Casbin.GetFilteredPolicy(0, data.Code)
+	oldPolicies = l.svcCtx.Casbin.GetFilteredPolicy(0, *data.Code)
 	if len(oldPolicies) != 0 {
-		removeResult, err := l.svcCtx.Casbin.RemoveFilteredPolicy(0, data.Code)
+		removeResult, err := l.svcCtx.Casbin.RemoveFilteredPolicy(0, *data.Code)
 		if err != nil {
 			return &types.BaseMsgResp{
 				Code: errorcode.Internal,
@@ -54,7 +54,7 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	// add new policies
 	var policies [][]string
 	for _, v := range req.Data {
-		policies = append(policies, []string{data.Code, v.Path, v.Method})
+		policies = append(policies, []string{*data.Code, v.Path, v.Method})
 	}
 	addResult, err := l.svcCtx.Casbin.AddPolicies(policies)
 	if err != nil {

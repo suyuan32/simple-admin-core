@@ -3,6 +3,8 @@ package menu
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -25,11 +27,11 @@ func NewCreateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 }
 
 func (l *CreateMenuLogic) CreateMenu(req *types.MenuPlainInfo) (resp *types.BaseMsgResp, err error) {
-	if req.MenuType == 0 {
-		req.Component = "LAYOUT"
-		req.Path = ""
-		req.Redirect = ""
-		req.FrameSrc = ""
+	if *req.MenuType == 0 {
+		req.Component = pointy.GetPointer("LAYOUT")
+		req.Path = pointy.GetPointer("")
+		req.Redirect = pointy.GetPointer("")
+		req.FrameSrc = pointy.GetPointer("")
 	}
 
 	result, err := l.svcCtx.CoreRpc.CreateMenu(l.ctx, &core.MenuInfo{

@@ -36,11 +36,11 @@ type PageInfo struct {
 	// Page number | 第几页
 	// required : true
 	// min : 0
-	Page *uint64 `json:"page" validate:"required,number,gt=0"`
+	Page uint64 `json:"page" validate:"required,number,gt=0"`
 	// Page size | 单页数据行数
 	// required : true
 	// max : 100000
-	PageSize *uint64 `json:"pageSize" validate:"required,number,lt=100000"`
+	PageSize uint64 `json:"pageSize" validate:"required,number,lt=100000"`
 }
 
 // Basic ID request | 基础ID参数请求
@@ -48,7 +48,7 @@ type PageInfo struct {
 type IDReq struct {
 	// ID
 	// Required: true
-	Id *uint64 `json:"id" validate:"number"`
+	Id uint64 `json:"id" validate:"number"`
 }
 
 // Basic IDs request | 基础ID数组参数请求
@@ -56,7 +56,7 @@ type IDReq struct {
 type IDsReq struct {
 	// IDs
 	// Required: true
-	Ids []*uint64 `json:"ids"`
+	Ids []uint64 `json:"ids"`
 }
 
 // Basic ID request | 基础ID地址参数请求
@@ -64,7 +64,7 @@ type IDsReq struct {
 type IDPathReq struct {
 	// ID
 	// Required: true
-	Id *uint64 `path:"id"`
+	Id uint64 `path:"id"`
 }
 
 // Basic UUID request | 基础UUID参数请求
@@ -73,7 +73,7 @@ type UUIDReq struct {
 	// ID
 	// Required: true
 	// Max length: 36
-	Id *string `json:"id" validate:"len=36"`
+	Id string `json:"id" validate:"len=36"`
 }
 
 // Basic UUID array request | 基础UUID数组参数请求
@@ -81,7 +81,7 @@ type UUIDReq struct {
 type UUIDsReq struct {
 	// Ids
 	// Required: true
-	Ids []*string `json:"ids"`
+	Ids []string `json:"ids"`
 }
 
 // The base ID response data | 基础ID信息
@@ -153,7 +153,7 @@ type RoleListInfo struct {
 type RoleListReq struct {
 	PageInfo
 	// Name | 角色名称
-	Name string `json:"name,optional"`
+	Name *string `json:"name,optional"`
 }
 
 // Role information response | 角色信息返回体
@@ -187,7 +187,7 @@ type UserInfo struct {
 	// max length : 70
 	HomePath *string `json:"homePath,optional" validate:"omitempty,max=70"`
 	// RoleId | 角色ID
-	RoleIds []*uint64 `json:"roleIds,optional"`
+	RoleIds []uint64 `json:"roleIds,optional"`
 	// Mobile | 手机号
 	// max length : 18
 	Mobile *string `json:"mobile,optional" validate:"omitempty,max=18"`
@@ -200,7 +200,7 @@ type UserInfo struct {
 	// Department ID | 部门ID
 	DepartmentId *uint64 `json:"departmentId,optional"`
 	// Position ID | 职位ID
-	PositionIds []*uint64 `json:"positionId,optional"`
+	PositionIds []uint64 `json:"positionId,optional"`
 }
 
 // The response data of user list | 用户列表数据
@@ -236,7 +236,7 @@ type UserListReq struct {
 	// max length : 100
 	Email *string `json:"email,optional" validate:"omitempty,email,max=100"`
 	// User's role ID | 用户的角色ID
-	RoleIds []*uint64 `json:"roleIds,optional"`
+	RoleIds []uint64 `json:"roleIds,optional"`
 	// The user's department ID | 用户所属部门ID
 	DepartmentId *uint64 `json:"departmentId,optional"`
 	// User's position id | 用户的职位ID
@@ -324,17 +324,17 @@ type UserBaseIDInfoResp struct {
 // swagger:model UserBaseIDInfo
 type UserBaseIDInfo struct {
 	// User's UUID | 用户的UUID
-	UUID string `json:"userId"`
+	UUID *string `json:"userId"`
 	// User's name | 用户名
-	Username string `json:"username"`
+	Username *string `json:"username"`
 	// User's nickname | 用户的昵称
-	Nickname string `json:"nickname"`
+	Nickname *string `json:"nickname"`
 	// The user's avatar path | 用户的头像路径
-	Avatar string `json:"avatar"`
+	Avatar *string `json:"avatar"`
 	// The home page that the user enters after logging in | 用户登陆后进入的首页
-	HomePath string `json:"homePath"`
+	HomePath *string `json:"homePath"`
 	// The description of user | 用户的描述信息
-	Description string `json:"desc"`
+	Description *string `json:"desc"`
 }
 
 // The permission code for front end permission control | 权限码： 用于前端权限控制
@@ -380,16 +380,16 @@ type LoginResp struct {
 type ProfileInfo struct {
 	// user's nickname | 用户的昵称
 	// max length : 10
-	Nickname string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
+	Nickname *string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
 	// The user's avatar path | 用户的头像路径
 	// max length : 300
-	Avatar string `json:"avatar" validate:"omitempty,max=300"`
+	Avatar *string `json:"avatar" validate:"omitempty,max=300"`
 	// User's mobile phone number | 用户的手机号码
 	// max length : 18
-	Mobile string `json:"mobile" validate:"omitempty,numeric,max=18"`
+	Mobile *string `json:"mobile" validate:"omitempty,numeric,max=18"`
 	// The user's email address | 用户的邮箱
 	// max length : 100
-	Email string `json:"email" validate:"omitempty,email,max=100"`
+	Email *string `json:"email" validate:"omitempty,email,max=100"`
 }
 
 // The profile response data | 个人信息返回数据
@@ -407,25 +407,25 @@ type MenuInfo struct {
 	// Translated Name | 国际化展示名称
 	Trans string `json:"trans,optional"`
 	// Level | 菜单层级
-	Level uint32 `json:"level,optional"`
+	Level *uint32 `json:"level,optional"`
 	// ParentId | 父级菜单ID
-	ParentId uint64 `json:"parentId,optional"`
+	ParentId *uint64 `json:"parentId,optional"`
 	// Path | 菜单访问路径
-	Path string `json:"path,optional"`
+	Path *string `json:"path,optional"`
 	// Menu name | 菜单名称
-	Name string `json:"name,optional"`
+	Name *string `json:"name,optional"`
 	// Redirect | 跳转地址
-	Redirect string `json:"redirect,optional"`
+	Redirect *string `json:"redirect,optional"`
 	// Component | 组件地址
-	Component string `json:"component,optional"`
+	Component *string `json:"component,optional"`
 	// Sort | 排序
-	Sort uint32 `json:"sort,optional"`
+	Sort *uint32 `json:"sort,optional"`
 	// Disabled | 是否启用
-	Disabled bool `json:"disabled,optional"`
+	Disabled *bool `json:"disabled,optional"`
 	// Meta | 菜单meta数据
 	Meta Meta `json:"meta"`
 	// MenuType | 菜单类型
-	MenuType uint32 `json:"menuType,optional"`
+	MenuType *uint32 `json:"menuType,optional"`
 }
 
 // The meta data of menu | 菜单的meta数据
@@ -433,30 +433,30 @@ type MenuInfo struct {
 type Meta struct {
 	// Menu title show in page | 菜单显示名
 	// Max length: 50
-	Title string `json:"title" validate:"max=50"`
+	Title *string `json:"title" validate:"max=50"`
 	// Menu Icon | 菜单图标
 	// Max length: 50
-	Icon string `json:"icon" validate:"max=50"`
+	Icon *string `json:"icon" validate:"max=50"`
 	// Hide menu | 隐藏菜单
-	HideMenu bool `json:"hideMenu" validate:"boolean"`
+	HideMenu *bool `json:"hideMenu" validate:"boolean"`
 	// If hide the breadcrumb | 隐藏面包屑
-	HideBreadcrumb bool `json:"hideBreadcrumb,optional" validate:"boolean"`
+	HideBreadcrumb *bool `json:"hideBreadcrumb,optional" validate:"boolean"`
 	// Do not keep alive the tab | 不缓存Tab
-	IgnoreKeepAlive bool `json:"ignoreKeepAlive,optional" validate:"boolean"`
+	IgnoreKeepAlive *bool `json:"ignoreKeepAlive,optional" validate:"boolean"`
 	// Hide the tab header | 当前路由不在标签页显示
-	HideTab bool `json:"hideTab,optional" validate:"boolean"`
+	HideTab *bool `json:"hideTab,optional" validate:"boolean"`
 	// Iframe path | 内嵌iframe的地址
-	FrameSrc string `json:"frameSrc,optional"`
+	FrameSrc *string `json:"frameSrc,optional"`
 	// The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
-	CarryParam bool `json:"carryParam,optional" validate:"boolean"`
+	CarryParam *bool `json:"carryParam,optional" validate:"boolean"`
 	// Hide children menu or not | 隐藏所有子菜单
-	HideChildrenInMenu bool `json:"hideChildrenInMenu,optional" validate:"boolean"`
+	HideChildrenInMenu *bool `json:"hideChildrenInMenu,optional" validate:"boolean"`
 	// Affix tab | 是否固定标签
-	Affix bool `json:"affix,optional" validate:"boolean"`
+	Affix *bool `json:"affix,optional" validate:"boolean"`
 	// The maximum number of pages the router can open | 动态路由可打开Tab页数
-	DynamicLevel uint32 `json:"dynamicLevel" validate:"number,lt=30"`
+	DynamicLevel *uint32 `json:"dynamicLevel" validate:"number,lt=30"`
 	// The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
-	RealPath string `json:"realPath,optional"`
+	RealPath *string `json:"realPath,optional"`
 }
 
 // The response data of menu list | 菜单列表返回数据
@@ -815,7 +815,7 @@ type OauthProviderListReq struct {
 	PageInfo
 	// Name | 第三方提供商名称
 	// max length : 30
-	Name string `json:"name,optional" validate:"omitempty,max=30"`
+	Name *string `json:"name,optional" validate:"omitempty,max=30"`
 }
 
 // Oauth provider information response | 第三方信息返回体
@@ -980,12 +980,11 @@ type DepartmentListInfo struct {
 type DepartmentListReq struct {
 	PageInfo
 	// Name | 部门名称
-	// min length : 1
 	// max length : 50
-	Name string `json:"name,optional" validate:"omitempty,min=1,max=50"`
+	Name *string `json:"name,optional" validate:"omitempty,max=50"`
 	// Leader | 部门负责人
 	// max length : 20
-	Leader string `json:"leader,optional" validate:"omitempty,max=20"`
+	Leader *string `json:"leader,optional" validate:"omitempty,max=20"`
 }
 
 // Department information response | 部门信息返回体
@@ -1184,13 +1183,13 @@ type TaskInfoResp struct {
 // swagger:model TaskLogInfo
 type TaskLogInfo struct {
 	// ID
-	Id uint64 `json:"id"`
+	Id *uint64 `json:"id"`
 	// StartedAt | 任务开始时间
-	StartedAt int64 `json:"startedAt,optional"`
+	StartedAt *int64 `json:"startedAt,optional"`
 	// FinishedAt | 任务完成时间
-	FinishedAt int64 `json:"finishedAt,optional"`
+	FinishedAt *int64 `json:"finishedAt,optional"`
 	// Result | 任务结果
-	Result uint32 `json:"result,optional"`
+	Result *uint32 `json:"result,optional"`
 }
 
 // The response data of task log list | 任务日志列表数据
@@ -1214,9 +1213,9 @@ type TaskLogListInfo struct {
 type TaskLogListReq struct {
 	PageInfo
 	// TaskId | 任务ID
-	TaskId uint64 `json:"taskId"`
+	TaskId *uint64 `json:"taskId"`
 	// Result | 任务结果
-	Result uint32 `json:"result"`
+	Result *uint32 `json:"result"`
 }
 
 // TaskLog information response | 任务日志信息返回体

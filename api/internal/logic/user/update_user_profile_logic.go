@@ -3,6 +3,8 @@ package user
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -26,7 +28,7 @@ func NewUpdateUserProfileLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *UpdateUserProfileLogic) UpdateUserProfile(req *types.ProfileInfo) (resp *types.BaseMsgResp, err error) {
 	result, err := l.svcCtx.CoreRpc.UpdateUser(l.ctx, &core.UserInfo{
-		Id:       l.ctx.Value("userId").(string),
+		Id:       pointy.GetPointer(l.ctx.Value("userId").(string)),
 		Nickname: req.Nickname,
 		Email:    req.Email,
 		Mobile:   req.Mobile,
