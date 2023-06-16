@@ -34,7 +34,7 @@ func NewUpdateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Updat
 
 func (l *UpdateTokenLogic) UpdateToken(in *core.TokenInfo) (*core.BaseResp, error) {
 	token, err := l.svcCtx.DB.Token.UpdateOneID(uuidx.ParseUUIDString(*in.Id)).
-		SetNotNilStatus(pointy.GetPointer(uint8(*in.Status))).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilSource(in.Source).
 		Save(l.ctx)
 	if err != nil {

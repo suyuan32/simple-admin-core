@@ -30,7 +30,7 @@ func NewCreatePositionLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Cr
 
 func (l *CreatePositionLogic) CreatePosition(in *core.PositionInfo) (*core.BaseIDResp, error) {
 	result, err := l.svcCtx.DB.Position.Create().
-		SetNotNilStatus(pointy.GetPointer(uint8(*in.Status))).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilSort(in.Sort).
 		SetNotNilName(in.Name).
 		SetNotNilCode(in.Code).

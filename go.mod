@@ -8,8 +8,8 @@ require (
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/hibiken/asynq v0.24.1
 	github.com/mojocn/base64Captcha v1.3.5
-	github.com/suyuan32/simple-admin-common v1.0.8
-	github.com/suyuan32/simple-admin-job v1.0.8-beta
+	github.com/suyuan32/simple-admin-common v1.0.9
+	github.com/suyuan32/simple-admin-job v1.0.9
 	github.com/zeromicro/go-zero v1.5.3
 	golang.org/x/oauth2 v0.6.0
 	google.golang.org/grpc v1.55.0

@@ -46,7 +46,7 @@ func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) 
 			SetNotNilHomePath(in.HomePath).
 			SetNotNilDescription(in.Description).
 			SetNotNilDepartmentID(in.DepartmentId).
-			SetNotNilStatus(pointy.GetPointer(uint8(*in.Status)))
+			SetNotNilStatus(pointy.GetStatusPointer(in.Status))
 
 		if in.Password != nil {
 			updateQuery = updateQuery.SetNotNilPassword(pointy.GetPointer(encrypt.BcryptEncrypt(*in.Password)))

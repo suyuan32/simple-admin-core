@@ -30,7 +30,7 @@ func NewUpdateDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 
 func (l *UpdateDepartmentLogic) UpdateDepartment(in *core.DepartmentInfo) (*core.BaseResp, error) {
 	err := l.svcCtx.DB.Department.UpdateOneID(*in.Id).
-		SetNotNilStatus(pointy.GetPointer(uint8(*in.Status))).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilSort(in.Sort).
 		SetNotNilName(in.Name).
 		SetNotNilAncestors(in.Ancestors).

@@ -29,7 +29,7 @@ func NewUpdateDictionaryDetailLogic(ctx context.Context, svcCtx *svc.ServiceCont
 
 func (l *UpdateDictionaryDetailLogic) UpdateDictionaryDetail(in *core.DictionaryDetailInfo) (*core.BaseResp, error) {
 	err := l.svcCtx.DB.DictionaryDetail.UpdateOneID(*in.Id).
-		SetNotNilStatus(pointy.GetPointer(uint8(*in.Status))).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilTitle(in.Title).
 		SetNotNilKey(in.Key).
 		SetNotNilValue(in.Value).

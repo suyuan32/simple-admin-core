@@ -30,7 +30,7 @@ func NewCreateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 
 func (l *CreateRoleLogic) CreateRole(in *core.RoleInfo) (*core.BaseIDResp, error) {
 	result, err := l.svcCtx.DB.Role.Create().
-		SetNotNilStatus(pointy.GetPointer(uint8(*in.Status))).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilName(in.Name).
 		SetNotNilCode(in.Code).
 		SetNotNilDefaultRouter(in.DefaultRouter).

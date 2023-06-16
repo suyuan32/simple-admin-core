@@ -30,7 +30,7 @@ func NewUpdatePositionLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Up
 
 func (l *UpdatePositionLogic) UpdatePosition(in *core.PositionInfo) (*core.BaseResp, error) {
 	err := l.svcCtx.DB.Position.UpdateOneID(*in.Id).
-		SetNotNilStatus(pointy.GetPointer(uint8(*in.Status))).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilSort(in.Sort).
 		SetNotNilName(in.Name).
 		SetNotNilCode(in.Code).

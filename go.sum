@@ -537,10 +537,10 @@ github.com/stretchr/testify v1.8.2/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o
 github.com/stretchr/testify v1.8.3/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
 github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
-github.com/suyuan32/simple-admin-common v1.0.8 h1:Ynj1EylRtE4Mr43jGj8NZ0YVUd9ZpOQgqJesfhZqojM=
-github.com/suyuan32/simple-admin-common v1.0.8/go.mod h1:RGR+M7SDftfqS58lCJIDnjjErwJwSKbNOU376TZwl3I=
-github.com/suyuan32/simple-admin-job v1.0.8-beta h1:jklM1+E3Yx8OzYnc18dlN0nNKod5bWTyAKAR+Ulsmvo=
-github.com/suyuan32/simple-admin-job v1.0.8-beta/go.mod h1:TVvRFtD5tI/nfGrAlhSImcNK/WZL6ZZecbOKuoyux1w=
+github.com/suyuan32/simple-admin-common v1.0.9 h1:67avr3v1Ki2nEAnEwZuZa1veyhiCm3gAd/7aILS0nSA=
+github.com/suyuan32/simple-admin-common v1.0.9/go.mod h1:w0hqEXf/887pzOsHCC2/hH9maHzf60zY6RnjL4U8Gu8=
+github.com/suyuan32/simple-admin-job v1.0.9 h1:RVqWxcpU0SRff4t7uoUJqjbgIR6R538CCMUNLaXygAk=
+github.com/suyuan32/simple-admin-job v1.0.9/go.mod h1:8/XNamGOMcglZkbbI7vRbwZzU9nmCeBP6sf2xeflarI=
 github.com/suyuan32/simple-admin-tools v1.5.9 h1:j0Ts4a8XNlNDW78QH+LP4byr2L2tSr/tg2tId3pAF9U=
 github.com/suyuan32/simple-admin-tools v1.5.9/go.mod h1:iIozHaAIeKn/FviHZYjUNdEb17Ue00u5s1yjoxOGmJY=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=

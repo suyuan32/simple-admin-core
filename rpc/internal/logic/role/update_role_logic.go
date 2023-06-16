@@ -30,7 +30,7 @@ func NewUpdateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 
 func (l *UpdateRoleLogic) UpdateRole(in *core.RoleInfo) (*core.BaseResp, error) {
 	err := l.svcCtx.DB.Role.UpdateOneID(*in.Id).
-		SetNotNilStatus(pointy.GetPointer(uint8(*in.Status))).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilName(in.Name).
 		SetNotNilCode(in.Code).
 		SetNotNilDefaultRouter(in.DefaultRouter).

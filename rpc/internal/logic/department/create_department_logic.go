@@ -30,7 +30,7 @@ func NewCreateDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 
 func (l *CreateDepartmentLogic) CreateDepartment(in *core.DepartmentInfo) (*core.BaseIDResp, error) {
 	result, err := l.svcCtx.DB.Department.Create().
-		SetNotNilStatus(pointy.GetPointer(uint8(*in.Status))).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilSort(in.Sort).
 		SetNotNilName(in.Name).
 		SetNotNilAncestors(in.Ancestors).

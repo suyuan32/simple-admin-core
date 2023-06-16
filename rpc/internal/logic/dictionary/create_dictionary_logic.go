@@ -30,7 +30,7 @@ func NewCreateDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 
 func (l *CreateDictionaryLogic) CreateDictionary(in *core.DictionaryInfo) (*core.BaseIDResp, error) {
 	result, err := l.svcCtx.DB.Dictionary.Create().
-		SetNotNilStatus(pointy.GetPointer(uint8(*in.Status))).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilTitle(in.Title).
 		SetNotNilName(in.Name).
 		SetNotNilDesc(in.Desc).
