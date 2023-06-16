@@ -3,6 +3,8 @@ package api
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -31,12 +33,12 @@ func (l *GetApiByIdLogic) GetApiById(in *core.IDReq) (*core.ApiInfo, error) {
 	}
 
 	return &core.ApiInfo{
-		Id:          result.ID,
-		CreatedAt:   result.CreatedAt.UnixMilli(),
-		UpdatedAt:   result.CreatedAt.UnixMilli(),
-		Path:        result.Path,
-		Description: result.Description,
-		ApiGroup:    result.APIGroup,
-		Method:      result.Method,
+		Id:          &result.ID,
+		CreatedAt:   pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt:   pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		Path:        &result.Path,
+		Description: &result.Description,
+		ApiGroup:    &result.APIGroup,
+		Method:      &result.Method,
 	}, nil
 }

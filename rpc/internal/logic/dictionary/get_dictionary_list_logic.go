@@ -3,6 +3,7 @@ package dictionary
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
@@ -29,8 +30,8 @@ func NewGetDictionaryListLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryListReq) (*core.DictionaryListResp, error) {
 	var predicates []predicate.Dictionary
-	if in.Name != "" {
-		predicates = append(predicates, dictionary.NameContains(in.Name))
+	if in.Name != nil {
+		predicates = append(predicates, dictionary.NameContains(*in.Name))
 	}
 	result, err := l.svcCtx.DB.Dictionary.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
@@ -42,13 +43,13 @@ func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryListReq) (
 
 	for _, v := range result.List {
 		resp.Data = append(resp.Data, &core.DictionaryInfo{
-			Id:        v.ID,
-			CreatedAt: v.CreatedAt.UnixMilli(),
-			UpdatedAt: v.UpdatedAt.UnixMilli(),
-			Status:    uint32(v.Status),
-			Title:     v.Title,
-			Name:      v.Name,
-			Desc:      v.Desc,
+			Id:        &v.ID,
+			CreatedAt: pointy.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt: pointy.GetPointer(v.UpdatedAt.UnixMilli()),
+			Status:    pointy.GetPointer(uint32(v.Status)),
+			Title:     &v.Title,
+			Name:      &v.Name,
+			Desc:      &v.Desc,
 		})
 	}
 

@@ -3,6 +3,7 @@ package dictionarydetail
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/logx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
@@ -30,11 +31,11 @@ func NewGetDictionaryDetailListLogic(ctx context.Context, svcCtx *svc.ServiceCon
 
 func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(in *core.DictionaryDetailListReq) (*core.DictionaryDetailListResp, error) {
 	var predicates []predicate.DictionaryDetail
-	if in.DictionaryId != 0 {
-		predicates = append(predicates, dictionarydetail.DictionaryIDEQ(in.DictionaryId))
+	if in.DictionaryId != nil {
+		predicates = append(predicates, dictionarydetail.DictionaryIDEQ(*in.DictionaryId))
 	}
-	if in.Key != "" {
-		predicates = append(predicates, dictionarydetail.KeyContains(in.Key))
+	if in.Key != nil {
+		predicates = append(predicates, dictionarydetail.KeyContains(*in.Key))
 	}
 	result, err := l.svcCtx.DB.DictionaryDetail.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize, func(pager *ent.DictionaryDetailPager) {
 		pager.Order = ent.Asc(dictionarydetail.FieldSort)
@@ -48,15 +49,15 @@ func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(in *core.Dictiona
 
 	for _, v := range result.List {
 		resp.Data = append(resp.Data, &core.DictionaryDetailInfo{
-			Id:           v.ID,
-			CreatedAt:    v.CreatedAt.UnixMilli(),
-			UpdatedAt:    v.UpdatedAt.UnixMilli(),
-			Status:       uint32(v.Status),
-			Title:        v.Title,
-			Key:          v.Key,
-			Value:        v.Value,
-			DictionaryId: v.DictionaryID,
-			Sort:         v.Sort,
+			Id:           &v.ID,
+			CreatedAt:    pointy.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt:    pointy.GetPointer(v.UpdatedAt.UnixMilli()),
+			Status:       pointy.GetPointer(uint32(v.Status)),
+			Title:        &v.Title,
+			Key:          &v.Key,
+			Value:        &v.Value,
+			DictionaryId: &v.DictionaryID,
+			Sort:         &v.Sort,
 		})
 	}
 

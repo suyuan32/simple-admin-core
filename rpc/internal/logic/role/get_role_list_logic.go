@@ -3,6 +3,8 @@ package role
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
@@ -30,14 +32,14 @@ func NewGetRoleListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRo
 
 func (l *GetRoleListLogic) GetRoleList(in *core.RoleListReq) (*core.RoleListResp, error) {
 	var predicates []predicate.Role
-	if in.Name != "" {
-		predicates = append(predicates, role.NameContains(in.Name))
+	if in.Name != nil {
+		predicates = append(predicates, role.NameContains(*in.Name))
 	}
-	if in.Code != "" {
-		predicates = append(predicates, role.CodeEQ(in.Code))
+	if in.Code != nil {
+		predicates = append(predicates, role.CodeEQ(*in.Code))
 	}
-	if in.DefaultRouter != "" {
-		predicates = append(predicates, role.DefaultRouterContains(in.DefaultRouter))
+	if in.DefaultRouter != nil {
+		predicates = append(predicates, role.DefaultRouterContains(*in.DefaultRouter))
 	}
 	result, err := l.svcCtx.DB.Role.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize, func(pager *ent.RolePager) {
 		pager.Order = ent.Asc(role.FieldSort)
@@ -51,15 +53,15 @@ func (l *GetRoleListLogic) GetRoleList(in *core.RoleListReq) (*core.RoleListResp
 
 	for _, v := range result.List {
 		resp.Data = append(resp.Data, &core.RoleInfo{
-			Id:            v.ID,
-			CreatedAt:     v.CreatedAt.UnixMilli(),
-			UpdatedAt:     v.UpdatedAt.UnixMilli(),
-			Status:        uint32(v.Status),
-			Name:          v.Name,
-			Code:          v.Code,
-			DefaultRouter: v.DefaultRouter,
-			Remark:        v.Remark,
-			Sort:          v.Sort,
+			Id:            &v.ID,
+			CreatedAt:     pointy.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt:     pointy.GetPointer(v.UpdatedAt.UnixMilli()),
+			Status:        pointy.GetPointer(uint32(v.Status)),
+			Name:          &v.Name,
+			Code:          &v.Code,
+			DefaultRouter: &v.DefaultRouter,
+			Remark:        &v.Remark,
+			Sort:          &v.Sort,
 		})
 	}
 

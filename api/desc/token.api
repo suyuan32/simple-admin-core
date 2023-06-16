@@ -6,19 +6,19 @@ type (
         BaseUUIDInfo
 
         // Status | 状态
-        Status  uint32 `json:"status,optional"`
+        Status *uint32 `json:"status,optional"`
 
         // User's UUID | 用户的UUID
-        Uuid  string `json:"uuid,optional"`
+        Uuid *string `json:"uuid,optional"`
 
         // Token | 用户的Token
-        Token  string `json:"token,optional"`
+        Token *string `json:"token,optional"`
 
         // Source | Token 来源
-        Source  string `json:"source,optional"`
+        Source *string `json:"source,optional"`
 
         // ExpiredAt | 过期时间
-        ExpiredAt  int64 `json:"expiredAt,optional"`
+        ExpiredAt *int64 `json:"expiredAt,optional"`
     }
 
     // The response data of token list | Token列表数据
@@ -42,16 +42,16 @@ type (
         PageInfo
 
         // Username
-        Username  string `json:"username,optional"`
+        Username *string `json:"username,optional"`
 
         // Nickname
-        Nickname  string `json:"nickname,optional"`
+        Nickname *string `json:"nickname,optional"`
 
         // Email
-        Email  string `json:"email,optional"`
+        Email *string `json:"email,optional"`
 
         // Uuid
-        Uuid  string `json:"uuid,optional"`
+        Uuid *string `json:"uuid,optional"`
     }
 
     // Token information response | Token信息返回体

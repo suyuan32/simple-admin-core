@@ -45,6 +45,11 @@ DatabaseConf:
   SSLMode: disable
   CacheTime: 5
 
+ProjectConf:
+  DefaultRole: 1
+  DefaultDepartment: 1
+  DefaultPosition: 1
+
 Prometheus:
   Host: 0.0.0.0
   Port: 4000

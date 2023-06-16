@@ -6,40 +6,40 @@ type (
         BaseUUIDInfo
 
         // Status | 状态
-        Status  uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+        Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 
         // Username | 用户名
-        Username  string `json:"username,optional" validate:"omitempty,max=50"`
+        Username *string `json:"username,optional" validate:"omitempty,max=50"`
 
         // Nickname | 昵称
-        Nickname  string `json:"nickname,optional" validate:"omitempty,max=40"`
+        Nickname *string `json:"nickname,optional" validate:"omitempty,max=40"`
 
         // Password | 密码
-        Password  string `json:"password,optional" validate:"omitempty,min=6"`
+        Password *string `json:"password,optional" validate:"omitempty,min=6"`
 
         // Description | 描述
-        Description  string `json:"description,optional" validate:"omitempty,max=100"`
+        Description *string `json:"description,optional" validate:"omitempty,max=100"`
 
         // HomePath | 首页
-        HomePath  string `json:"homePath,optional" validate:"omitempty,max=70"`
+        HomePath *string `json:"homePath,optional" validate:"omitempty,max=70"`
 
         // RoleId | 角色ID
-        RoleIds  []uint64 `json:"roleIds,optional"`
+        RoleIds []uint64 `json:"roleIds,optional"`
 
         // Mobile | 手机号
-        Mobile  string `json:"mobile,optional" validate:"omitempty,max=18"`
+        Mobile *string `json:"mobile,optional" validate:"omitempty,max=18"`
 
         // Email | 邮箱
-        Email  string `json:"email,optional" validate:"omitempty,max=80"`
+        Email *string `json:"email,optional" validate:"omitempty,max=80"`
 
         // Avatar | 头像地址
-        Avatar  string `json:"avatar,optional" validate:"omitempty,max=300"`
+        Avatar *string `json:"avatar,optional" validate:"omitempty,max=300"`
 
         // Department ID | 部门ID
-        DepartmentId  uint64 `json:"departmentId,optional"`
+        DepartmentId *uint64 `json:"departmentId,optional"`
 
         // Position ID | 职位ID
-        PositionIds  []uint64 `json:"positionId,optional"`
+        PositionIds []uint64 `json:"positionId,optional"`
     }
 
     // The response data of user list | 用户列表数据
@@ -63,25 +63,25 @@ type (
         PageInfo
 
         // User Name | 用户名
-        Username string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
+        Username *string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
 
         // User's nickname | 用户的昵称
-        Nickname string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
+        Nickname *string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
 
         // User's mobile phone number | 用户的手机号码
-        Mobile string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
+        Mobile *string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
 
         // The user's email address | 用户的邮箱
-        Email string  `json:"email,optional" validate:"omitempty,email,max=100"`
+        Email *string `json:"email,optional" validate:"omitempty,email,max=100"`
 
         // User's role ID | 用户的角色ID
         RoleIds []uint64 `json:"roleIds,optional"`
 
         // The user's department ID | 用户所属部门ID
-        DepartmentId  uint64 `json:"departmentId,optional"`
+        DepartmentId *uint64 `json:"departmentId,optional"`
 
         // User's position id | 用户的职位ID
-        PositionId       uint64       `json:"positionId,optional"`
+        PositionId *uint64 `json:"positionId,optional"`
     }
 
     // User information response | 用户信息返回体
@@ -152,22 +152,22 @@ type (
     // The  data of user's basic information | 用户基本信息
     UserBaseIDInfo {
         // User's UUID | 用户的UUID
-        UUID         string       `json:"userId"`
+        UUID *string `json:"userId"`
 
         // User's name | 用户名
-        Username     string       `json:"username"`
+        Username *string `json:"username"`
 
         // User's nickname | 用户的昵称
-        Nickname     string       `json:"nickname"`
+        Nickname *string `json:"nickname"`
 
         // The user's avatar path | 用户的头像路径
-        Avatar       string       `json:"avatar"`
+        Avatar *string `json:"avatar"`
 
         // The home page that the user enters after logging in | 用户登陆后进入的首页
-        HomePath   string  `json:"homePath"`
+        HomePath *string `json:"homePath"`
 
         // The description of user | 用户的描述信息
-        Description string `json:"desc"`
+        Description *string `json:"desc"`
     }
 
     // The permission code for front end permission control | 权限码： 用于前端权限控制
@@ -212,16 +212,16 @@ type (
     // The profile information | 个人信息
     ProfileInfo {
         // user's nickname | 用户的昵称
-        Nickname     string       `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
+        Nickname *string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
 
         // The user's avatar path | 用户的头像路径
-        Avatar       string       `json:"avatar" validate:"omitempty,max=300"`
+        Avatar *string `json:"avatar" validate:"omitempty,max=300"`
 
         // User's mobile phone number | 用户的手机号码
-        Mobile       string       `json:"mobile" validate:"omitempty,numeric,max=18"`
+        Mobile *string `json:"mobile" validate:"omitempty,numeric,max=18"`
 
         // The user's email address | 用户的邮箱
-        Email        string       `json:"email" validate:"omitempty,email,max=100"`
+        Email *string `json:"email" validate:"omitempty,email,max=100"`
     }
 
     // The profile response data | 个人信息返回数据

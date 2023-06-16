@@ -35,7 +35,7 @@ func (l *DeleteDictionaryDetailLogic) DeleteDictionaryDetail(req *types.IDsReq) 
 		return nil, err
 	}
 
-	dict, err := dictionary.NewGetDictionaryByIdLogic(l.ctx, l.svcCtx).GetDictionaryById(&types.IDReq{Id: detailData.DictionaryId})
+	dict, err := dictionary.NewGetDictionaryByIdLogic(l.ctx, l.svcCtx).GetDictionaryById(&types.IDReq{Id: *detailData.DictionaryId})
 	if err != nil {
 		return nil, err
 	}

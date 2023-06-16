@@ -3,18 +3,18 @@ syntax = "proto3";
 // Department message
 
 message DepartmentInfo {
-  uint64 id = 1;
-  int64 created_at = 2;
-  int64 updated_at = 3;
-  uint32 status = 4;
-  uint32 sort = 5;
-  string name = 6;
-  string ancestors = 7;
-  string leader = 8;
-  string phone = 9;
-  string email = 10;
-  string remark = 11;
-  uint64 parent_id = 12;
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  optional uint32 status = 4;
+  optional uint32 sort = 5;
+  optional string name = 6;
+  optional string ancestors = 7;
+  optional string leader = 8;
+  optional string phone = 9;
+  optional string email = 10;
+  optional string remark = 11;
+  optional uint64 parent_id = 12;
 }
 
 message DepartmentListResp {
@@ -25,8 +25,8 @@ message DepartmentListResp {
 message DepartmentListReq {
   uint64 page = 1;
   uint64 page_size = 2;
-  string name = 3;
-  string leader = 4;
+  optional string name = 3;
+  optional string leader = 4;
 }
 
 

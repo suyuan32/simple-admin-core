@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.0.7"
+    "version": "1.0.9"
   },
   "host": "localhost:9100",
   "basePath": "/",
@@ -2750,7 +2750,6 @@
           "description": "Name | 部门名称",
           "type": "string",
           "maxLength": 50,
-          "minLength": 1,
           "x-go-name": "Name"
         },
         "page": {
@@ -5274,17 +5273,6 @@
         }
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
-    }
-  },
-  "responses": {
-    "SimpleMsg": {
-      "description": "The simplest message | 最简单的信息",
-      "headers": {
-        "msg": {
-          "type": "string",
-          "description": "Message | 信息"
-        }
-      }
     }
   },
   "securityDefinitions": {

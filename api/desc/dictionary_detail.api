@@ -6,22 +6,22 @@ type (
         BaseIDInfo
 
         // Status | 状态
-        Status  uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+        Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 
         // Title | 显示名称
-        Title  string `json:"title,optional" validate:"omitempty,max=50"`
+        Title *string `json:"title,optional" validate:"omitempty,max=50"`
 
         // Key | 键
-        Key  string `json:"key,optional" validate:"omitempty,max=80"`
+        Key *string `json:"key,optional" validate:"omitempty,max=80"`
 
         // Value | 值
-        Value  string `json:"value,optional" validate:"omitempty,max=100"`
+        Value *string `json:"value,optional" validate:"omitempty,max=100"`
 
         // Dictionary ID | 所属字典ID
-        DictionaryId  uint64 `json:"dictionaryId,optional"`
+        DictionaryId *uint64 `json:"dictionaryId,optional"`
 
         // Sort | 排序
-        Sort uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+        Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
     }
 
     // The response data of dictionary detail list | 字典键值列表数据
@@ -45,10 +45,10 @@ type (
         PageInfo
 
         // Key | 键
-        Key  string `json:"key,optional" validate:"omitempty,max=80"`
+        Key *string `json:"key,optional" validate:"omitempty,max=80"`
 
         // Dictionary ID | 所属字典ID
-        DictionaryId uint64 `json:"dictionaryId,optional"`
+        DictionaryId *uint64 `json:"dictionaryId,optional"`
     }
 
         // DictionaryDetail information response | 字典键值信息返回体
@@ -63,7 +63,7 @@ type (
         // swagger:parameters GetDictionaryDetailByDictionaryName
     DictionaryNameReq {
         // in:path
-        Name string `json:"name,optional" path:"name"`
+        Name *string `json:"name,optional" path:"name"`
     }
 )
 

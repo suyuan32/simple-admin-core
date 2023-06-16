@@ -27,11 +27,11 @@ func NewUpdateApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateA
 }
 
 func (l *UpdateApiLogic) UpdateApi(in *core.ApiInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.API.UpdateOneID(in.Id).
-		SetNotEmptyPath(in.Path).
-		SetNotEmptyDescription(in.Description).
-		SetNotEmptyAPIGroup(in.ApiGroup).
-		SetNotEmptyMethod(in.Method).
+	err := l.svcCtx.DB.API.UpdateOneID(*in.Id).
+		SetNotNilPath(in.Path).
+		SetNotNilDescription(in.Description).
+		SetNotNilAPIGroup(in.ApiGroup).
+		SetNotNilMethod(in.Method).
 		Exec(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)

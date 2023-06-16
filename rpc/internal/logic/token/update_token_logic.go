@@ -7,6 +7,7 @@ import (
 	"github.com/suyuan32/simple-admin-common/enum/common"
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-common/msg/logmsg"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/suyuan32/simple-admin-common/utils/uuidx"
 	"github.com/zeromicro/go-zero/core/errorx"
 
@@ -32,15 +33,15 @@ func NewUpdateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Updat
 }
 
 func (l *UpdateTokenLogic) UpdateToken(in *core.TokenInfo) (*core.BaseResp, error) {
-	token, err := l.svcCtx.DB.Token.UpdateOneID(uuidx.ParseUUIDString(in.Id)).
-		SetNotEmptyStatus(uint8(in.Status)).
-		SetNotEmptySource(in.Source).
+	token, err := l.svcCtx.DB.Token.UpdateOneID(uuidx.ParseUUIDString(*in.Id)).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
+		SetNotNilSource(in.Source).
 		Save(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	if uint8(in.Status) == common.StatusBanned {
+	if uint8(*in.Status) == common.StatusBanned {
 		expiredTime := int(token.ExpiredAt.Unix() - time.Now().Unix())
 		if expiredTime > 0 {
 			err = l.svcCtx.Redis.Setex("token_"+token.Token, "1", expiredTime)
@@ -49,7 +50,7 @@ func (l *UpdateTokenLogic) UpdateToken(in *core.TokenInfo) (*core.BaseResp, erro
 				return nil, errorx.NewInternalError(i18n.RedisError)
 			}
 		}
-	} else if uint8(in.Status) == common.StatusNormal {
+	} else if uint8(*in.Status) == common.StatusNormal {
 		_, err := l.svcCtx.Redis.Del("token_" + token.Token)
 		if err != nil {
 			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))

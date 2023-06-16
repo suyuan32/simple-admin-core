@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/suyuan32/simple-admin-common/msg/logmsg"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"golang.org/x/oauth2"
 	"google.golang.org/grpc/codes"
@@ -99,20 +100,20 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo
 		}
 
 		return &core.UserInfo{
-			Nickname:     result.Nickname,
-			Avatar:       result.Avatar,
+			Nickname:     &result.Nickname,
+			Avatar:       &result.Avatar,
 			RoleIds:      user2.GetRoleIds(result.Edges.Roles),
 			RoleCodes:    user2.GetRoleCodes(result.Edges.Roles),
-			Mobile:       result.Mobile,
-			Email:        result.Email,
-			Status:       uint32(result.Status),
-			Id:           result.ID.String(),
-			Username:     result.Username,
-			HomePath:     result.HomePath,
-			Description:  result.Description,
-			DepartmentId: result.DepartmentID,
-			CreatedAt:    result.CreatedAt.Unix(),
-			UpdatedAt:    result.UpdatedAt.Unix(),
+			Mobile:       &result.Mobile,
+			Email:        &result.Email,
+			Status:       pointy.GetPointer(uint32(result.Status)),
+			Id:           pointy.GetPointer(result.ID.String()),
+			Username:     &result.Username,
+			HomePath:     &result.HomePath,
+			Description:  &result.Description,
+			DepartmentId: &result.DepartmentID,
+			CreatedAt:    pointy.GetPointer(result.CreatedAt.UnixMilli()),
+			UpdatedAt:    pointy.GetPointer(result.UpdatedAt.UnixMilli()),
 		}, nil
 	}
 

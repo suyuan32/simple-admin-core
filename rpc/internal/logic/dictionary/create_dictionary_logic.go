@@ -3,6 +3,8 @@ package dictionary
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -28,10 +30,10 @@ func NewCreateDictionaryLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 
 func (l *CreateDictionaryLogic) CreateDictionary(in *core.DictionaryInfo) (*core.BaseIDResp, error) {
 	result, err := l.svcCtx.DB.Dictionary.Create().
-		SetStatus(uint8(in.Status)).
-		SetTitle(in.Title).
-		SetName(in.Name).
-		SetDesc(in.Desc).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
+		SetNotNilTitle(in.Title).
+		SetNotNilName(in.Name).
+		SetNotNilDesc(in.Desc).
 		Save(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)

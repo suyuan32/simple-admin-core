@@ -48,7 +48,7 @@ func (l *GetDictionaryListLogic) GetDictionaryList(req *types.DictionaryListReq)
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,
 				},
-				Trans:  l.svcCtx.Trans.Trans(l.ctx, v.Title),
+				Trans:  l.svcCtx.Trans.Trans(l.ctx, *v.Title),
 				Title:  v.Title,
 				Name:   v.Name,
 				Status: v.Status,

@@ -3,6 +3,8 @@ package dictionarydetail
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
@@ -45,15 +47,15 @@ func (l *GetDictionaryDetailByDictionaryNameLogic) GetDictionaryDetailByDictiona
 
 	for _, v := range result.List {
 		resp.Data = append(resp.Data, &core.DictionaryDetailInfo{
-			Id:           v.ID,
-			CreatedAt:    v.CreatedAt.UnixMilli(),
-			UpdatedAt:    v.UpdatedAt.UnixMilli(),
-			Status:       uint32(v.Status),
-			Title:        v.Title,
-			Key:          v.Key,
-			Value:        v.Value,
-			DictionaryId: v.DictionaryID,
-			Sort:         v.Sort,
+			Id:           &v.ID,
+			CreatedAt:    pointy.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt:    pointy.GetPointer(v.UpdatedAt.UnixMilli()),
+			Status:       pointy.GetPointer(uint32(v.Status)),
+			Title:        &v.Title,
+			Key:          &v.Key,
+			Value:        &v.Value,
+			DictionaryId: &v.DictionaryID,
+			Sort:         &v.Sort,
 		})
 	}
 

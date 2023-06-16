@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
@@ -27,13 +28,13 @@ func NewUpdateDictionaryDetailLogic(ctx context.Context, svcCtx *svc.ServiceCont
 }
 
 func (l *UpdateDictionaryDetailLogic) UpdateDictionaryDetail(in *core.DictionaryDetailInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.DictionaryDetail.UpdateOneID(in.Id).
-		SetNotEmptyStatus(uint8(in.Status)).
-		SetNotEmptyTitle(in.Title).
-		SetNotEmptyKey(in.Key).
-		SetNotEmptyValue(in.Value).
-		SetNotEmptySort(in.Sort).
-		SetNotEmptyDictionaryID(in.DictionaryId).
+	err := l.svcCtx.DB.DictionaryDetail.UpdateOneID(*in.Id).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
+		SetNotNilTitle(in.Title).
+		SetNotNilKey(in.Key).
+		SetNotNilValue(in.Value).
+		SetNotNilSort(in.Sort).
+		SetNotNilDictionaryID(in.DictionaryId).
 		Exec(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)

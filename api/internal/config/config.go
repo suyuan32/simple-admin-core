@@ -20,4 +20,11 @@ type Config struct {
 	DatabaseConf config.DatabaseConf
 	CasbinConf   casbin.CasbinConf
 	I18nConf     i18n.Conf
+	ProjectConf  ProjectConf
+}
+
+type ProjectConf struct {
+	DefaultRole       uint64 `json:",default=1"`
+	DefaultDepartment uint64 `json:",default=1"`
+	DefaultPosition   uint64 `json:",default=1"`
 }

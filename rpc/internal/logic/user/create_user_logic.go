@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
@@ -30,16 +31,16 @@ func NewCreateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 
 func (l *CreateUserLogic) CreateUser(in *core.UserInfo) (*core.BaseUUIDResp, error) {
 	result, err := l.svcCtx.DB.User.Create().
-		SetUsername(in.Username).
-		SetPassword(encrypt.BcryptEncrypt(in.Password)).
-		SetNickname(in.Nickname).
-		SetEmail(in.Email).
-		SetMobile(in.Mobile).
-		SetAvatar(in.Avatar).
+		SetNotNilUsername(in.Username).
+		SetNotNilPassword(pointy.GetPointer(encrypt.BcryptEncrypt(*in.Password))).
+		SetNotNilNickname(in.Nickname).
+		SetNotNilEmail(in.Email).
+		SetNotNilMobile(in.Mobile).
+		SetNotNilAvatar(in.Avatar).
 		AddRoleIDs(in.RoleIds...).
-		SetHomePath(in.HomePath).
-		SetDescription(in.Description).
-		SetDepartmentID(in.DepartmentId).
+		SetNotNilHomePath(in.HomePath).
+		SetNotNilDescription(in.Description).
+		SetNotNilDepartmentID(in.DepartmentId).
 		AddPositionIDs(in.PositionIds...).
 		Save(l.ctx)
 	if err != nil {

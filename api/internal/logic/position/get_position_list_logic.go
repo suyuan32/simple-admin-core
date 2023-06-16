@@ -50,7 +50,7 @@ func (l *GetPositionListLogic) GetPositionList(req *types.PositionListReq) (resp
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,
 				},
-				Trans:  l.svcCtx.Trans.Trans(l.ctx, v.Name),
+				Trans:  l.svcCtx.Trans.Trans(l.ctx, *v.Name),
 				Status: v.Status,
 				Sort:   v.Sort,
 				Name:   v.Name,

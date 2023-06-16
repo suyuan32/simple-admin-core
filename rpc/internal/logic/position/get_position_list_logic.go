@@ -3,6 +3,8 @@ package position
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 
@@ -29,14 +31,14 @@ func NewGetPositionListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 
 func (l *GetPositionListLogic) GetPositionList(in *core.PositionListReq) (*core.PositionListResp, error) {
 	var predicates []predicate.Position
-	if in.Name != "" {
-		predicates = append(predicates, position.NameContains(in.Name))
+	if in.Name != nil {
+		predicates = append(predicates, position.NameContains(*in.Name))
 	}
-	if in.Code != "" {
-		predicates = append(predicates, position.CodeContains(in.Code))
+	if in.Code != nil {
+		predicates = append(predicates, position.CodeContains(*in.Code))
 	}
-	if in.Remark != "" {
-		predicates = append(predicates, position.RemarkContains(in.Remark))
+	if in.Remark != nil {
+		predicates = append(predicates, position.RemarkContains(*in.Remark))
 	}
 	result, err := l.svcCtx.DB.Position.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
@@ -48,14 +50,14 @@ func (l *GetPositionListLogic) GetPositionList(in *core.PositionListReq) (*core.
 
 	for _, v := range result.List {
 		resp.Data = append(resp.Data, &core.PositionInfo{
-			Id:        v.ID,
-			CreatedAt: v.CreatedAt.UnixMilli(),
-			UpdatedAt: v.UpdatedAt.UnixMilli(),
-			Status:    uint32(v.Status),
-			Sort:      v.Sort,
-			Name:      v.Name,
-			Code:      v.Code,
-			Remark:    v.Remark,
+			Id:        &v.ID,
+			CreatedAt: pointy.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt: pointy.GetPointer(v.UpdatedAt.UnixMilli()),
+			Status:    pointy.GetPointer(uint32(v.Status)),
+			Sort:      &v.Sort,
+			Name:      &v.Name,
+			Code:      &v.Code,
+			Remark:    &v.Remark,
 		})
 	}
 

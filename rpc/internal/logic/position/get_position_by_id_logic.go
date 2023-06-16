@@ -3,6 +3,8 @@ package position
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -31,13 +33,13 @@ func (l *GetPositionByIdLogic) GetPositionById(in *core.IDReq) (*core.PositionIn
 	}
 
 	return &core.PositionInfo{
-		Id:        result.ID,
-		CreatedAt: result.CreatedAt.UnixMilli(),
-		UpdatedAt: result.UpdatedAt.UnixMilli(),
-		Status:    uint32(result.Status),
-		Sort:      result.Sort,
-		Name:      result.Name,
-		Code:      result.Code,
-		Remark:    result.Remark,
+		Id:        &result.ID,
+		CreatedAt: pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt: pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		Status:    pointy.GetPointer(uint32(result.Status)),
+		Sort:      &result.Sort,
+		Name:      &result.Name,
+		Code:      &result.Code,
+		Remark:    &result.Remark,
 	}, nil
 }
