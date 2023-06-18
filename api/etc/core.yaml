@@ -46,9 +46,9 @@ DatabaseConf:
   CacheTime: 5
 
 ProjectConf:
-  DefaultRole: 1
-  DefaultDepartment: 1
-  DefaultPosition: 1
+  DefaultRole: 1  # default role id when register
+  DefaultDepartment: 1  # default department id when register
+  DefaultPosition: 1 # default position id when register
 
 Prometheus:
   Host: 0.0.0.0
