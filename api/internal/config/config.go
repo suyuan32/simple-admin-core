@@ -21,6 +21,7 @@ type Config struct {
 	CasbinConf   casbin.CasbinConf
 	I18nConf     i18n.Conf
 	ProjectConf  ProjectConf
+	CROSConf     config.CROSConf
 }
 
 type ProjectConf struct {
