@@ -2223,9 +2223,22 @@ func (m *DictionaryMutation) OldDesc(ctx context.Context) (v string, err error) 
 	return oldValue.Desc, nil
 }
 
+// ClearDesc clears the value of the "desc" field.
+func (m *DictionaryMutation) ClearDesc() {
+	m.desc = nil
+	m.clearedFields[dictionary.FieldDesc] = struct{}{}
+}
+
+// DescCleared returns if the "desc" field was cleared in this mutation.
+func (m *DictionaryMutation) DescCleared() bool {
+	_, ok := m.clearedFields[dictionary.FieldDesc]
+	return ok
+}
+
 // ResetDesc resets all changes to the "desc" field.
 func (m *DictionaryMutation) ResetDesc() {
 	m.desc = nil
+	delete(m.clearedFields, dictionary.FieldDesc)
 }
 
 // AddDictionaryDetailIDs adds the "dictionary_details" edge to the DictionaryDetail entity by ids.
@@ -2475,6 +2488,9 @@ func (m *DictionaryMutation) ClearedFields() []string {
 	if m.FieldCleared(dictionary.FieldStatus) {
 		fields = append(fields, dictionary.FieldStatus)
 	}
+	if m.FieldCleared(dictionary.FieldDesc) {
+		fields = append(fields, dictionary.FieldDesc)
+	}
 	return fields
 }
 
@@ -2491,6 +2507,9 @@ func (m *DictionaryMutation) ClearField(name string) error {
 	switch name {
 	case dictionary.FieldStatus:
 		m.ClearStatus()
+		return nil
+	case dictionary.FieldDesc:
+		m.ClearDesc()
 		return nil
 	}
 	return fmt.Errorf("unknown Dictionary nullable field %s", name)

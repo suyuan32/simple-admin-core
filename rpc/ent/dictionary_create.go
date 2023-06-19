@@ -81,6 +81,14 @@ func (dc *DictionaryCreate) SetDesc(s string) *DictionaryCreate {
 	return dc
 }
 
+// SetNillableDesc sets the "desc" field if the given value is not nil.
+func (dc *DictionaryCreate) SetNillableDesc(s *string) *DictionaryCreate {
+	if s != nil {
+		dc.SetDesc(*s)
+	}
+	return dc
+}
+
 // SetID sets the "id" field.
 func (dc *DictionaryCreate) SetID(u uint64) *DictionaryCreate {
 	dc.mutation.SetID(u)
@@ -164,9 +172,6 @@ func (dc *DictionaryCreate) check() error {
 	}
 	if _, ok := dc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Dictionary.name"`)}
-	}
-	if _, ok := dc.mutation.Desc(); !ok {
-		return &ValidationError{Name: "desc", err: errors.New(`ent: missing required field "Dictionary.desc"`)}
 	}
 	return nil
 }
