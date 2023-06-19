@@ -23,6 +23,7 @@ func (Dictionary) Fields() []ent.Field {
 			Annotations(entsql.WithComments(true)),
 		field.String("desc").
 			Comment("The status of dictionary (true enable | false disable) | 字典状态").
+			Optional().
 			Annotations(entsql.WithComments(true)),
 	}
 }

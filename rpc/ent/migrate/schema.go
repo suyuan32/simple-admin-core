@@ -69,7 +69,7 @@ var (
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
 		{Name: "title", Type: field.TypeString, Comment: "The title shown in the ui | 展示名称 （建议配合i18n）"},
 		{Name: "name", Type: field.TypeString, Unique: true, Comment: "The name of dictionary for search | 字典搜索名称"},
-		{Name: "desc", Type: field.TypeString, Comment: "The status of dictionary (true enable | false disable) | 字典状态"},
+		{Name: "desc", Type: field.TypeString, Nullable: true, Comment: "The status of dictionary (true enable | false disable) | 字典状态"},
 	}
 	// SysDictionariesTable holds the schema information for the "sys_dictionaries" table.
 	SysDictionariesTable = &schema.Table{
