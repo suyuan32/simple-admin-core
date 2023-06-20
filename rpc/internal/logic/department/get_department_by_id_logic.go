@@ -3,6 +3,8 @@ package department
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -31,17 +33,17 @@ func (l *GetDepartmentByIdLogic) GetDepartmentById(in *core.IDReq) (*core.Depart
 	}
 
 	return &core.DepartmentInfo{
-		Id:        result.ID,
-		CreatedAt: result.CreatedAt.UnixMilli(),
-		UpdatedAt: result.UpdatedAt.UnixMilli(),
-		Status:    uint32(result.Status),
-		Sort:      result.Sort,
-		Name:      result.Name,
-		Ancestors: result.Ancestors,
-		Leader:    result.Leader,
-		Phone:     result.Phone,
-		Email:     result.Email,
-		Remark:    result.Remark,
-		ParentId:  result.ParentID,
+		Id:        &result.ID,
+		CreatedAt: pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt: pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		Status:    pointy.GetPointer(uint32(result.Status)),
+		Sort:      &result.Sort,
+		Name:      &result.Name,
+		Ancestors: &result.Ancestors,
+		Leader:    &result.Leader,
+		Phone:     &result.Phone,
+		Email:     &result.Email,
+		Remark:    &result.Remark,
+		ParentId:  &result.ParentID,
 	}, nil
 }

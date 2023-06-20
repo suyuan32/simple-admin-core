@@ -3,6 +3,8 @@ package role
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -31,14 +33,14 @@ func (l *GetRoleByIdLogic) GetRoleById(in *core.IDReq) (*core.RoleInfo, error) {
 	}
 
 	return &core.RoleInfo{
-		Id:            result.ID,
-		CreatedAt:     result.CreatedAt.UnixMilli(),
-		UpdatedAt:     result.UpdatedAt.UnixMilli(),
-		Status:        uint32(result.Status),
-		Name:          result.Name,
-		Code:          result.Code,
-		DefaultRouter: result.DefaultRouter,
-		Remark:        result.Remark,
-		Sort:          result.Sort,
+		Id:            &result.ID,
+		CreatedAt:     pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt:     pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		Status:        pointy.GetPointer(uint32(result.Status)),
+		Name:          &result.Name,
+		Code:          &result.Code,
+		DefaultRouter: &result.DefaultRouter,
+		Remark:        &result.Remark,
+		Sort:          &result.Sort,
 	}, nil
 }

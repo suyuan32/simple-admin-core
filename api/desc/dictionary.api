@@ -9,16 +9,16 @@ type (
         Trans string `json:"trans,optional"`
 
         // Title | 字典多语言名称
-        Title  string `json:"title,optional" validate:"omitempty,min=1,max=50"`
+        Title *string `json:"title,optional" validate:"omitempty,min=1,max=50"`
 
         // Name | 字典名称
-        Name  string `json:"name,optional" validate:"omitempty,min=1,max=50"`
+        Name *string `json:"name,optional" validate:"omitempty,min=1,max=50"`
 
         // Status | 状态
-        Status  uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+        Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 
         // Description of dictionary | 字典描述
-        Desc  string `json:"desc,optional" validate:"omitempty,max=200"`
+        Desc *string `json:"desc,optional" validate:"omitempty,max=200"`
     }
 
     // The response data of dictionary list | 字典列表数据
@@ -42,7 +42,7 @@ type (
         PageInfo
 
         // Name | 字典名称
-        Name  string `json:"name,optional" validate:"omitempty,max=50"`
+        Name *string `json:"name,optional" validate:"omitempty,max=50"`
     }
 
     // Dictionary information response | 字典信息返回体

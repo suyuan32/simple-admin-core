@@ -4,16 +4,16 @@ type (
     // The response data of task log information | 任务日志信息
     TaskLogInfo {
         // ID
-        Id        uint64    `json:"id"`
+        Id *uint64 `json:"id"`
 
         // StartedAt | 任务开始时间
-        StartedAt  int64 `json:"startedAt,optional"`
+        StartedAt *int64 `json:"startedAt,optional"`
 
         // FinishedAt | 任务完成时间
-        FinishedAt  int64 `json:"finishedAt,optional"`
+        FinishedAt *int64 `json:"finishedAt,optional"`
 
         // Result | 任务结果
-        Result  uint32 `json:"result,optional"`
+        Result *uint32 `json:"result,optional"`
     }
 
     // The response data of task log list | 任务日志列表数据
@@ -37,10 +37,10 @@ type (
         PageInfo
 
         // TaskId | 任务ID
-        TaskId  uint64 `json:"taskId"`
+        TaskId *uint64 `json:"taskId"`
 
         // Result | 任务结果
-        Result  uint32 `json:"result"`
+        Result *uint32 `json:"result"`
     }
 
     // TaskLog information response | 任务日志信息返回体

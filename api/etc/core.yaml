@@ -16,20 +16,6 @@ Log:
   KeepDays: 7
   StackCoolDownMillis: 100
 
-RedisConf:
-  Host: 10.5.0.3:6379
-  Type: node
-
-CoreRpc:
-  Endpoints:
-    - 10.5.0.4:9101
-  Enabled: true
-
-JobRpc:
-  Endpoints:
-    - 10.5.0.7:9105
-  Enabled: true
-
 Captcha:
   KeyLong: 5
   ImgWidth: 240
@@ -46,6 +32,11 @@ DatabaseConf:
   MaxOpenConn: 100
   SSLMode: disable
   CacheTime: 5
+
+ProjectConf:
+  DefaultRole: 1  # default role id when register
+  DefaultDepartment: 1  # default department id when register
+  DefaultPosition: 1 # default position id when register
 
 Prometheus:
   Host: 0.0.0.0
@@ -67,6 +58,21 @@ CasbinConf:
 
 I18nConf:
   Dir: # set the path of locale if you need to load files
+
+CROSConf:
+  Address: '*'    # if it is *, allow all ip and address. e.g. http://example.com
+
+RedisConf:
+  Host: 127.0.0.1:6379
+  Type: node
+
+CoreRpc:
+  Target: k8s://default/core-rpc-svc:9101
+  Enabled: true
+
+JobRpc:
+  Target: k8s://default/job-rpc-svc:9105
+  Enabled: false
 
 # Tracing Analysis
 

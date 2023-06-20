@@ -3,6 +3,7 @@ package token
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/suyuan32/simple-admin-common/utils/uuidx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -33,13 +34,13 @@ func (l *GetTokenByIdLogic) GetTokenById(in *core.UUIDReq) (*core.TokenInfo, err
 	}
 
 	return &core.TokenInfo{
-		Id:        result.ID.String(),
-		CreatedAt: result.CreatedAt.UnixMilli(),
-		UpdatedAt: result.UpdatedAt.UnixMilli(),
-		Status:    uint32(result.Status),
-		Uuid:      result.UUID.String(),
-		Token:     result.Token,
-		Source:    result.Source,
-		ExpiredAt: result.ExpiredAt.UnixMilli(),
+		Id:        pointy.GetPointer(result.ID.String()),
+		CreatedAt: pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt: pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		Status:    pointy.GetPointer(uint32(result.Status)),
+		Uuid:      pointy.GetPointer(result.UUID.String()),
+		Token:     &result.Token,
+		Source:    &result.Source,
+		ExpiredAt: pointy.GetPointer(result.ExpiredAt.UnixMilli()),
 	}, nil
 }

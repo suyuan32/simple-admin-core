@@ -3,20 +3,20 @@ syntax = "proto3";
 // User message
 
 message UserInfo {
-  string id = 1;
-  int64 created_at = 2;
-  int64 updated_at = 3;
-  uint32 status = 4;
-  string username = 5;
-  string password = 6;
-  string nickname = 7;
-  string description = 8;
-  string home_path = 9;
+  optional string id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  optional uint32 status = 4;
+  optional string username = 5;
+  optional string password = 6;
+  optional string nickname = 7;
+  optional string description = 8;
+  optional string home_path = 9;
   repeated uint64 role_ids = 10;
-  string mobile = 11;
-  string email = 12;
-  string avatar = 13;
-  uint64 department_id = 14;
+  optional string mobile = 11;
+  optional string email = 12;
+  optional string avatar = 13;
+  optional uint64 department_id = 14;
   repeated uint64 position_ids = 15;
   repeated string role_codes = 16;
 }
@@ -29,12 +29,12 @@ message UserListResp {
 message UserListReq {
   uint64 page = 1;
   uint64 page_size = 2;
-  string username = 3;
-  string nickname = 4;
-  string email = 5;
-  string mobile = 6;
+  optional string username = 3;
+  optional string nickname = 4;
+  optional string email = 5;
+  optional string mobile = 6;
   repeated uint64 role_ids = 7;
-  uint64 department_id = 8;
+  optional uint64 department_id = 8;
   repeated uint64 position_ids = 9;
 }
 

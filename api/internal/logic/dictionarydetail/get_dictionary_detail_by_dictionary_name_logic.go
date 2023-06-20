@@ -42,7 +42,7 @@ func (l *GetDictionaryDetailByDictionaryNameLogic) GetDictionaryDetailByDictiona
 		return resp, nil
 	}
 
-	data, err := l.svcCtx.CoreRpc.GetDictionaryDetailByDictionaryName(l.ctx, &core.BaseMsg{Msg: req.Name})
+	data, err := l.svcCtx.CoreRpc.GetDictionaryDetailByDictionaryName(l.ctx, &core.BaseMsg{Msg: *req.Name})
 	if err != nil {
 		return nil, err
 	}

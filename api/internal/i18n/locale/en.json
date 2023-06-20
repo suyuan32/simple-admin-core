@@ -80,7 +80,7 @@
 		"createProvider": "Create a provider information",
 		"updateProvider": "Update the provider information",
 		"deleteProvider": "Delete provider information",
-		"geProviderList": "Get provider list",
+		"getProviderList": "Get provider list",
 		"oauthLogin": "Third-party log in",
 		"createToken": "Create a token",
 		"updateToken": "Update the token",
@@ -194,7 +194,8 @@
 		"addFailed": "Fail to add new policies"
 	},
 	"department": {
-		"managementDepartment": "Management Department"
+		"managementDepartment": "Management Department",
+		"deleteDepartmentChildrenFirst": "The department has sub-departments, please delete the sub-departments first"
 	},
 	"position": {
 		"userExistError": "There are users under this position, it is forbidden to delete.",

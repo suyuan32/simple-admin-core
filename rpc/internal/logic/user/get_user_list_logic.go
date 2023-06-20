@@ -3,6 +3,8 @@ package user
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
@@ -32,28 +34,28 @@ func NewGetUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp, error) {
 	var predicates []predicate.User
 
-	if in.Mobile != "" {
-		predicates = append(predicates, user.MobileEQ(in.Mobile))
+	if in.Mobile != nil {
+		predicates = append(predicates, user.MobileEQ(*in.Mobile))
 	}
 
-	if in.Username != "" {
-		predicates = append(predicates, user.UsernameContains(in.Username))
+	if in.Username != nil {
+		predicates = append(predicates, user.UsernameContains(*in.Username))
 	}
 
-	if in.Email != "" {
-		predicates = append(predicates, user.EmailEQ(in.Email))
+	if in.Email != nil {
+		predicates = append(predicates, user.EmailEQ(*in.Email))
 	}
 
-	if in.Nickname != "" {
-		predicates = append(predicates, user.NicknameContains(in.Nickname))
+	if in.Nickname != nil {
+		predicates = append(predicates, user.NicknameContains(*in.Nickname))
 	}
 
 	if in.RoleIds != nil {
 		predicates = append(predicates, user.HasRolesWith(role.IDIn(in.RoleIds...)))
 	}
 
-	if in.DepartmentId != 0 {
-		predicates = append(predicates, user.DepartmentIDEQ(in.DepartmentId))
+	if in.DepartmentId != nil {
+		predicates = append(predicates, user.DepartmentIDEQ(*in.DepartmentId))
 	}
 
 	if in.PositionIds != nil {
@@ -70,20 +72,20 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 
 	for _, v := range users.List {
 		resp.Data = append(resp.Data, &core.UserInfo{
-			Id:           v.ID.String(),
-			Avatar:       v.Avatar,
+			Id:           pointy.GetPointer(v.ID.String()),
+			Avatar:       &v.Avatar,
 			RoleIds:      GetRoleIds(v.Edges.Roles),
-			Mobile:       v.Mobile,
-			Email:        v.Email,
-			Status:       uint32(v.Status),
-			Username:     v.Username,
-			Nickname:     v.Nickname,
-			HomePath:     v.HomePath,
-			Description:  v.Description,
-			DepartmentId: v.DepartmentID,
+			Mobile:       &v.Mobile,
+			Email:        &v.Email,
+			Status:       pointy.GetPointer(uint32(v.Status)),
+			Username:     &v.Username,
+			Nickname:     &v.Nickname,
+			HomePath:     &v.HomePath,
+			Description:  &v.Description,
+			DepartmentId: &v.DepartmentID,
 			PositionIds:  GetPositionIds(v.Edges.Positions),
-			CreatedAt:    v.CreatedAt.UnixMilli(),
-			UpdatedAt:    v.UpdatedAt.UnixMilli(),
+			CreatedAt:    pointy.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt:    pointy.GetPointer(v.UpdatedAt.UnixMilli()),
 		})
 	}
 

@@ -52,7 +52,7 @@ func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiList
 					UpdatedAt: v.UpdatedAt,
 				},
 				Path:        v.Path,
-				Trans:       l.svcCtx.Trans.Trans(l.ctx, v.Description),
+				Trans:       l.svcCtx.Trans.Trans(l.ctx, *v.Description),
 				Description: v.Description,
 				Group:       v.ApiGroup,
 				Method:      v.Method,

@@ -81,7 +81,7 @@
 		"createProvider": "创建登录提供商",
 		"updateProvider": "更新登录提供商",
 		"deleteProvider": "删除登录提供商",
-		"geProviderList": "获取提供商列表",
+		"getProviderList": "获取提供商列表",
 		"oauthLogin": "第三方登录",
 		"createToken": "创建Token",
 		"updateToken": "更新Token",
@@ -200,7 +200,8 @@
 		"addFailed": "无法添加新规则"
 	},
 	"department": {
-		"managementDepartment": "核心管理部门"
+		"managementDepartment": "核心管理部门",
+		"deleteDepartmentChildrenFirst": "部门存在子部门，请先删除子部门"
 	},
 	"position": {
 		"userExistError": "该职位下存在用户，禁止删除",

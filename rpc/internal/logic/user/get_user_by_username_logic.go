@@ -3,6 +3,8 @@ package user
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -33,20 +35,20 @@ func (l *GetUserByUsernameLogic) GetUserByUsername(in *core.UsernameReq) (*core.
 	}
 
 	return &core.UserInfo{
-		Nickname:     result.Nickname,
-		Avatar:       result.Avatar,
-		Password:     result.Password,
+		Nickname:     &result.Nickname,
+		Avatar:       &result.Avatar,
+		Password:     &result.Password,
 		RoleIds:      GetRoleIds(result.Edges.Roles),
 		RoleCodes:    GetRoleCodes(result.Edges.Roles),
-		Mobile:       result.Mobile,
-		Email:        result.Email,
-		Status:       uint32(result.Status),
-		Id:           result.ID.String(),
-		Username:     result.Username,
-		HomePath:     result.HomePath,
-		Description:  result.Description,
-		DepartmentId: result.DepartmentID,
-		CreatedAt:    result.CreatedAt.Unix(),
-		UpdatedAt:    result.UpdatedAt.Unix(),
+		Mobile:       &result.Mobile,
+		Email:        &result.Email,
+		Status:       pointy.GetPointer(uint32(result.Status)),
+		Id:           pointy.GetPointer(result.ID.String()),
+		Username:     &result.Username,
+		HomePath:     &result.HomePath,
+		Description:  &result.Description,
+		DepartmentId: &result.DepartmentID,
+		CreatedAt:    pointy.GetPointer(result.CreatedAt.Unix()),
+		UpdatedAt:    pointy.GetPointer(result.UpdatedAt.Unix()),
 	}, nil
 }

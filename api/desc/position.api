@@ -9,19 +9,19 @@ type (
         Trans string `json:"trans,optional"`
 
         // Status | 状态
-        Status  uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+        Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 
         // Sort | 排序
-        Sort  uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+        Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
 
         // Name | 职位名称
-        Name  string `json:"name,optional" validate:"omitempty,max=50"`
+        Name *string `json:"name,optional" validate:"omitempty,max=50"`
 
         // Code | 职位代码
-        Code  string `json:"code,optional" validate:"omitempty,max=20"`
+        Code *string `json:"code,optional" validate:"omitempty,max=20"`
 
         // Remark | 备注
-        Remark  string `json:"remark,optional" validate:"omitempty,max=200"`
+        Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
     }
 
     // The response data of position list | 职位列表数据
@@ -45,13 +45,13 @@ type (
         PageInfo
 
         // Name | 职位名称
-        Name string `json:"name,optional" validate:"omitempty,max=50"`
+        Name *string `json:"name,optional" validate:"omitempty,max=50"`
 
         // Code | 职位代码
-        Code  string `json:"code,optional" validate:"omitempty,max=20"`
+        Code *string `json:"code,optional" validate:"omitempty,max=20"`
 
         // Remark | 备注
-        Remark  string `json:"remark,optional" validate:"omitempty,max=200"`
+        Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
     }
 
     // Position information response | 职位信息返回体

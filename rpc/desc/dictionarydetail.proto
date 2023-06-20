@@ -3,15 +3,15 @@ syntax = "proto3";
 // DictionaryDetail message
 
 message DictionaryDetailInfo {
-  uint64 id = 1;
-  int64 created_at = 2;
-  int64 updated_at = 3;
-  uint32 status = 4;
-  string title = 5;
-  string key = 6;
-  string value = 7;
-  uint64 dictionary_id = 8;
-  uint32 sort = 9;
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  optional uint32 status = 4;
+  optional string title = 5;
+  optional string key = 6;
+  optional string value = 7;
+  optional uint64 dictionary_id = 8;
+  optional uint32 sort = 9;
 }
 
 message DictionaryDetailListResp {
@@ -22,8 +22,8 @@ message DictionaryDetailListResp {
 message DictionaryDetailListReq {
   uint64 page = 1;
   uint64 page_size = 2;
-  uint64 dictionary_id = 3;
-  string key = 4;
+  optional uint64 dictionary_id = 3;
+  optional string key = 4;
 }
 
 

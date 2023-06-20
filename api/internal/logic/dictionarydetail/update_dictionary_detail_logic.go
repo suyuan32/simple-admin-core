@@ -44,7 +44,7 @@ func (l *UpdateDictionaryDetailLogic) UpdateDictionaryDetail(req *types.Dictiona
 		return nil, err
 	}
 
-	dict, err := dictionary.NewGetDictionaryByIdLogic(l.ctx, l.svcCtx).GetDictionaryById(&types.IDReq{Id: req.DictionaryId})
+	dict, err := dictionary.NewGetDictionaryByIdLogic(l.ctx, l.svcCtx).GetDictionaryById(&types.IDReq{Id: *req.DictionaryId})
 	if err != nil {
 		return nil, err
 	}

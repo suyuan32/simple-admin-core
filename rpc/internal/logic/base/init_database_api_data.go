@@ -397,7 +397,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
 		SetPath("/oauth_provider/list").
-		SetDescription("apiDesc.geProviderList").
+		SetDescription("apiDesc.getProviderList").
 		SetAPIGroup("oauth").
 		SetMethod("POST"),
 	)

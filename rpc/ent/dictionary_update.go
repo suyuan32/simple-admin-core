@@ -80,6 +80,20 @@ func (du *DictionaryUpdate) SetDesc(s string) *DictionaryUpdate {
 	return du
 }
 
+// SetNillableDesc sets the "desc" field if the given value is not nil.
+func (du *DictionaryUpdate) SetNillableDesc(s *string) *DictionaryUpdate {
+	if s != nil {
+		du.SetDesc(*s)
+	}
+	return du
+}
+
+// ClearDesc clears the value of the "desc" field.
+func (du *DictionaryUpdate) ClearDesc() *DictionaryUpdate {
+	du.mutation.ClearDesc()
+	return du
+}
+
 // AddDictionaryDetailIDs adds the "dictionary_details" edge to the DictionaryDetail entity by IDs.
 func (du *DictionaryUpdate) AddDictionaryDetailIDs(ids ...uint64) *DictionaryUpdate {
 	du.mutation.AddDictionaryDetailIDs(ids...)
@@ -186,6 +200,9 @@ func (du *DictionaryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := du.mutation.Desc(); ok {
 		_spec.SetField(dictionary.FieldDesc, field.TypeString, value)
+	}
+	if du.mutation.DescCleared() {
+		_spec.ClearField(dictionary.FieldDesc, field.TypeString)
 	}
 	if du.mutation.DictionaryDetailsCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -300,6 +317,20 @@ func (duo *DictionaryUpdateOne) SetName(s string) *DictionaryUpdateOne {
 // SetDesc sets the "desc" field.
 func (duo *DictionaryUpdateOne) SetDesc(s string) *DictionaryUpdateOne {
 	duo.mutation.SetDesc(s)
+	return duo
+}
+
+// SetNillableDesc sets the "desc" field if the given value is not nil.
+func (duo *DictionaryUpdateOne) SetNillableDesc(s *string) *DictionaryUpdateOne {
+	if s != nil {
+		duo.SetDesc(*s)
+	}
+	return duo
+}
+
+// ClearDesc clears the value of the "desc" field.
+func (duo *DictionaryUpdateOne) ClearDesc() *DictionaryUpdateOne {
+	duo.mutation.ClearDesc()
 	return duo
 }
 
@@ -439,6 +470,9 @@ func (duo *DictionaryUpdateOne) sqlSave(ctx context.Context) (_node *Dictionary,
 	}
 	if value, ok := duo.mutation.Desc(); ok {
 		_spec.SetField(dictionary.FieldDesc, field.TypeString, value)
+	}
+	if duo.mutation.DescCleared() {
+		_spec.ClearField(dictionary.FieldDesc, field.TypeString)
 	}
 	if duo.mutation.DictionaryDetailsCleared() {
 		edge := &sqlgraph.EdgeSpec{

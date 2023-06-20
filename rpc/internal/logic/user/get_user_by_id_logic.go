@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/suyuan32/simple-admin-common/utils/uuidx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
@@ -35,25 +36,21 @@ func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfo, error)
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	if err != nil {
-		return nil, err
-	}
-
 	return &core.UserInfo{
-		Nickname:     result.Nickname,
-		Avatar:       result.Avatar,
+		Nickname:     &result.Nickname,
+		Avatar:       &result.Avatar,
 		RoleIds:      GetRoleIds(result.Edges.Roles),
-		Mobile:       result.Mobile,
-		Email:        result.Email,
-		Status:       uint32(result.Status),
-		Id:           result.ID.String(),
-		Username:     result.Username,
-		HomePath:     result.HomePath,
-		Password:     result.Password,
-		Description:  result.Description,
-		DepartmentId: result.DepartmentID,
-		CreatedAt:    result.CreatedAt.Unix(),
-		UpdatedAt:    result.UpdatedAt.Unix(),
+		Mobile:       &result.Mobile,
+		Email:        &result.Email,
+		Status:       pointy.GetPointer(uint32(result.Status)),
+		Id:           pointy.GetPointer(result.ID.String()),
+		Username:     &result.Username,
+		HomePath:     &result.HomePath,
+		Password:     &result.Password,
+		Description:  &result.Description,
+		DepartmentId: &result.DepartmentID,
+		CreatedAt:    pointy.GetPointer(result.CreatedAt.Unix()),
+		UpdatedAt:    pointy.GetPointer(result.UpdatedAt.Unix()),
 	}, nil
 }
 

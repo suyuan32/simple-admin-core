@@ -3,13 +3,13 @@ syntax = "proto3";
 // API message
 
 message ApiInfo {
-  uint64 id = 1;
-  int64 created_at = 2;
-  int64 updated_at = 3;
-  string path = 4;
-  string description = 5;
-  string api_group = 6;
-  string method = 7;
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  optional string path = 4;
+  optional string description = 5;
+  optional string api_group = 6;
+  optional string method = 7;
 }
 
 message ApiListResp {
@@ -20,10 +20,10 @@ message ApiListResp {
 message ApiListReq {
   uint64 page = 1;
   uint64 page_size = 2;
-  string path = 3;
-  string description = 4;
-  string api_group = 5;
-  string method = 6;
+  optional string path = 3;
+  optional string description = 4;
+  optional string api_group = 5;
+  optional string method = 6;
 }
 
 

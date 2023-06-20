@@ -3,18 +3,18 @@ syntax = "proto3";
 // OauthProvider message
 
 message OauthProviderInfo {
-  uint64 id = 1;
-  int64 created_at = 2;
-  int64 updated_at = 3;
-  string name = 4;
-  string client_id = 5;
-  string client_secret = 6;
-  string redirect_url = 7;
-  string scopes = 8;
-  string auth_url = 9;
-  string token_url = 10;
-  uint64 auth_style = 11;
-  string info_url = 12;
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  optional string name = 4;
+  optional string client_id = 5;
+  optional string client_secret = 6;
+  optional string redirect_url = 7;
+  optional string scopes = 8;
+  optional string auth_url = 9;
+  optional string token_url = 10;
+  optional uint64 auth_style = 11;
+  optional string info_url = 12;
 }
 
 message OauthProviderListResp {
@@ -25,7 +25,7 @@ message OauthProviderListResp {
 message OauthProviderListReq {
   uint64 page = 1;
   uint64 page_size = 2;
-  string name = 3;
+  optional string name = 3;
 }
 
 message CallbackReq {

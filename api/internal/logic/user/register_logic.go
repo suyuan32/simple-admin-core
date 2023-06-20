@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -29,24 +30,23 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 
 func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseMsgResp, err error) {
 	if ok := l.svcCtx.Captcha.Verify("CAPTCHA_"+req.CaptchaId, req.Captcha, true); ok {
-		user, err := l.svcCtx.CoreRpc.CreateUser(l.ctx,
+		_, err := l.svcCtx.CoreRpc.CreateUser(l.ctx,
 			&core.UserInfo{
-				Id:           "",
-				Username:     req.Username,
-				Password:     req.Password,
-				Email:        req.Email,
-				Nickname:     req.Username,
-				Status:       1,
-				HomePath:     "/dashboard",
-				RoleIds:      []uint64{1},
-				DepartmentId: 1,
-				PositionIds:  []uint64{1},
+				Username:     &req.Username,
+				Password:     &req.Password,
+				Email:        &req.Email,
+				Nickname:     &req.Username,
+				Status:       pointy.GetPointer(uint32(1)),
+				HomePath:     pointy.GetPointer("/dashboard"),
+				RoleIds:      []uint64{l.svcCtx.Config.ProjectConf.DefaultRole},
+				DepartmentId: pointy.GetPointer(l.svcCtx.Config.ProjectConf.DefaultDepartment),
+				PositionIds:  []uint64{l.svcCtx.Config.ProjectConf.DefaultPosition},
 			})
 		if err != nil {
 			return nil, err
 		}
 		resp = &types.BaseMsgResp{
-			Msg: l.svcCtx.Trans.Trans(l.ctx, user.Msg),
+			Msg: l.svcCtx.Trans.Trans(l.ctx, "login.signupSuccessTitle"),
 		}
 		return resp, nil
 	} else {

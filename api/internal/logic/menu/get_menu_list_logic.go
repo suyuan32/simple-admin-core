@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -41,7 +42,7 @@ func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuPlainInfoListResp, err
 			Id:                 v.Id,
 			CreatedAt:          v.CreatedAt,
 			UpdatedAt:          v.UpdatedAt,
-			Trans:              l.svcCtx.Trans.Trans(l.ctx, v.Meta.Title),
+			Trans:              pointy.GetPointer(l.svcCtx.Trans.Trans(l.ctx, *v.Meta.Title)),
 			MenuType:           v.MenuType,
 			Level:              v.Level,
 			Path:               v.Path,

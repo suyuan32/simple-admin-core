@@ -69,7 +69,7 @@ var (
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
 		{Name: "title", Type: field.TypeString, Comment: "The title shown in the ui | 展示名称 （建议配合i18n）"},
 		{Name: "name", Type: field.TypeString, Unique: true, Comment: "The name of dictionary for search | 字典搜索名称"},
-		{Name: "desc", Type: field.TypeString, Comment: "The status of dictionary (true enable | false disable) | 字典状态"},
+		{Name: "desc", Type: field.TypeString, Nullable: true, Comment: "The status of dictionary (true enable | false disable) | 字典状态"},
 	}
 	// SysDictionariesTable holds the schema information for the "sys_dictionaries" table.
 	SysDictionariesTable = &schema.Table{
@@ -249,6 +249,7 @@ var (
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "deleted_at", Type: field.TypeTime, Nullable: true},
 		{Name: "username", Type: field.TypeString, Unique: true, Comment: "User's login name | 登录名"},
 		{Name: "password", Type: field.TypeString, Comment: "Password | 密码"},
 		{Name: "nickname", Type: field.TypeString, Unique: true, Comment: "Nickname | 昵称"},
@@ -267,7 +268,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "sys_users_sys_departments_departments",
-				Columns:    []*schema.Column{SysUsersColumns[12]},
+				Columns:    []*schema.Column{SysUsersColumns[13]},
 				RefColumns: []*schema.Column{SysDepartmentsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -276,7 +277,7 @@ var (
 			{
 				Name:    "user_username_email",
 				Unique:  true,
-				Columns: []*schema.Column{SysUsersColumns[4], SysUsersColumns[10]},
+				Columns: []*schema.Column{SysUsersColumns[5], SysUsersColumns[11]},
 			},
 		},
 	}

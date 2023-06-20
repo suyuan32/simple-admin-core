@@ -32,7 +32,7 @@ func (l *GetApiAuthorityLogic) GetApiAuthority(req *types.IDReq) (resp *types.Ap
 		return nil, err
 	}
 
-	data := l.svcCtx.Casbin.GetFilteredPolicy(0, roleData.Code)
+	data := l.svcCtx.Casbin.GetFilteredPolicy(0, *roleData.Code)
 	resp = &types.ApiAuthorityListResp{}
 	resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)
 	resp.Data.Total = uint64(len(data))

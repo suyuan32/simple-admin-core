@@ -8,31 +8,31 @@ type (
         BaseIDInfo
 
         // Provider name | 第三方提供商名称
-        Name  string `json:"name,optional" validate:"omitempty,max=30"`
+        Name *string `json:"name,optional" validate:"omitempty,max=30"`
 
         // ClientId | 客户端ID
-        ClientId  string `json:"clientId,optional" validate:"omitempty,max=80"`
+        ClientId *string `json:"clientId,optional" validate:"omitempty,max=80"`
 
         // ClientSecret | 客户端密钥
-        ClientSecret  string `json:"clientSecret,optional" validate:"omitempty,max=100"`
+        ClientSecret *string `json:"clientSecret,optional" validate:"omitempty,max=100"`
 
         // Redirect URL| 跳转地址
-        RedirectUrl  string `json:"redirectUrl,optional" validate:"omitempty,max=300"`
+        RedirectUrl *string `json:"redirectUrl,optional" validate:"omitempty,max=300"`
 
         // Scopes | 授权范围
-        Scopes  string `json:"scopes,optional" validate:"omitempty,max=50"`
+        Scopes *string `json:"scopes,optional" validate:"omitempty,max=50"`
 
         // Authority URL | 授权地址
-        AuthUrl  string `json:"authUrl,optional" validate:"omitempty,max=300"`
+        AuthUrl *string `json:"authUrl,optional" validate:"omitempty,max=300"`
 
         // The URL to get token | 获取Token的地址
-        TokenUrl  string `json:"tokenUrl,optional" validate:"omitempty,max=300"`
+        TokenUrl *string `json:"tokenUrl,optional" validate:"omitempty,max=300"`
 
         // The type of auth | 鉴权方式
-        AuthStyle  uint64 `json:"authStyle,optional" validate:"omitempty,lt=20"`
+        AuthStyle *uint64 `json:"authStyle,optional" validate:"omitempty,lt=20"`
 
         // The URL to get user information | 获取信息地址
-        InfoUrl  string `json:"infoUrl,optional" validate:"omitempty,max=300"`
+        InfoUrl *string `json:"infoUrl,optional" validate:"omitempty,max=300"`
     }
 
     // The response data of oauth provider list | 第三方列表数据
@@ -56,7 +56,7 @@ type (
         PageInfo
 
         // Name | 第三方提供商名称
-        Name  string `json:"name,optional" validate:"omitempty,max=30"`
+        Name *string `json:"name,optional" validate:"omitempty,max=30"`
     }
 
     // Oauth provider information response | 第三方信息返回体

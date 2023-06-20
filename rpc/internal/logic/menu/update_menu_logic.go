@@ -32,8 +32,8 @@ func NewUpdateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 func (l *UpdateMenuLogic) UpdateMenu(in *core.MenuInfo) (*core.BaseResp, error) {
 	// get parent level
 	var menuLevel uint32
-	if in.ParentId != common.DefaultParentId {
-		m, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(in.ParentId)).First(l.ctx)
+	if *in.ParentId != common.DefaultParentId {
+		m, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(*in.ParentId)).First(l.ctx)
 		if err != nil {
 			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 		}
@@ -43,29 +43,29 @@ func (l *UpdateMenuLogic) UpdateMenu(in *core.MenuInfo) (*core.BaseResp, error) 
 		menuLevel = 1
 	}
 
-	err := l.svcCtx.DB.Menu.UpdateOneID(in.Id).
-		SetMenuLevel(menuLevel).
-		SetMenuType(in.MenuType).
-		SetParentID(in.ParentId).
-		SetPath(in.Path).
-		SetName(in.Name).
-		SetRedirect(in.Redirect).
-		SetComponent(in.Component).
-		SetSort(in.Sort).
-		SetDisabled(in.Disabled).
+	err := l.svcCtx.DB.Menu.UpdateOneID(*in.Id).
+		SetNotNilMenuLevel(&menuLevel).
+		SetNotNilMenuType(in.MenuType).
+		SetNotNilParentID(in.ParentId).
+		SetNotNilPath(in.Path).
+		SetNotNilName(in.Name).
+		SetNotNilRedirect(in.Redirect).
+		SetNotNilComponent(in.Component).
+		SetNotNilSort(in.Sort).
+		SetNotNilDisabled(in.Disabled).
 		// meta
-		SetTitle(in.Meta.Title).
-		SetIcon(in.Meta.Icon).
-		SetHideMenu(in.Meta.HideMenu).
-		SetHideBreadcrumb(in.Meta.HideBreadcrumb).
-		SetIgnoreKeepAlive(in.Meta.IgnoreKeepAlive).
-		SetHideTab(in.Meta.HideTab).
-		SetFrameSrc(in.Meta.FrameSrc).
-		SetCarryParam(in.Meta.CarryParam).
-		SetHideChildrenInMenu(in.Meta.HideChildrenInMenu).
-		SetAffix(in.Meta.Affix).
-		SetDynamicLevel(in.Meta.DynamicLevel).
-		SetRealPath(in.Meta.RealPath).
+		SetNotNilTitle(in.Meta.Title).
+		SetNotNilIcon(in.Meta.Icon).
+		SetNotNilHideMenu(in.Meta.HideMenu).
+		SetNotNilHideBreadcrumb(in.Meta.HideBreadcrumb).
+		SetNotNilIgnoreKeepAlive(in.Meta.IgnoreKeepAlive).
+		SetNotNilHideTab(in.Meta.HideTab).
+		SetNotNilFrameSrc(in.Meta.FrameSrc).
+		SetNotNilCarryParam(in.Meta.CarryParam).
+		SetNotNilHideChildrenInMenu(in.Meta.HideChildrenInMenu).
+		SetNotNilAffix(in.Meta.Affix).
+		SetNotNilDynamicLevel(in.Meta.DynamicLevel).
+		SetNotNilRealPath(in.Meta.RealPath).
 		Exec(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)

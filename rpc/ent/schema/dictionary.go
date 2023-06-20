@@ -23,13 +23,14 @@ func (Dictionary) Fields() []ent.Field {
 			Annotations(entsql.WithComments(true)),
 		field.String("desc").
 			Comment("The status of dictionary (true enable | false disable) | 字典状态").
+			Optional().
 			Annotations(entsql.WithComments(true)),
 	}
 }
 
 func (Dictionary) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		mixins.BaseIDMixin{},
+		mixins.IDMixin{},
 		mixins.StatusMixin{},
 	}
 }

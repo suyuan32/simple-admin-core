@@ -82,7 +82,7 @@ func (Menu) Fields() []ent.Field {
 
 func (Menu) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		mixins.BaseIDMixin{},
+		mixins.IDMixin{},
 		mixins.SortMixin{},
 	}
 }

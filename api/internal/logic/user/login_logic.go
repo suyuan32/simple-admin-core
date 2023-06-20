@@ -8,9 +8,8 @@ import (
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/errorx"
-
-	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -43,7 +42,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			return nil, err
 		}
 
-		if !encrypt.BcryptCheck(req.Password, user.Password) {
+		if !encrypt.BcryptCheck(req.Password, *user.Password) {
 			return nil, errorx.NewCodeInvalidArgumentError("login.wrongUsernameOrPassword")
 		}
 
@@ -57,13 +56,11 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		// add token into database
 		expiredAt := time.Now().Add(time.Second * time.Duration(l.svcCtx.Config.Auth.AccessExpire)).Unix()
 		_, err = l.svcCtx.CoreRpc.CreateToken(l.ctx, &core.TokenInfo{
-			Id:        "",
-			CreatedAt: 0,
 			Uuid:      user.Id,
-			Token:     token,
-			Source:    "core_user",
-			Status:    1,
-			ExpiredAt: expiredAt,
+			Token:     pointy.GetPointer(token),
+			Source:    pointy.GetPointer("core_user"),
+			Status:    pointy.GetPointer(uint32(1)),
+			ExpiredAt: pointy.GetPointer(expiredAt),
 		})
 
 		if err != nil {
@@ -71,9 +68,9 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		}
 
 		resp = &types.LoginResp{
-			BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.Success)},
+			BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.ctx, "login.loginSuccessTitle")},
 			Data: types.LoginInfo{
-				UserId: user.Id,
+				UserId: *user.Id,
 				Token:  token,
 				Expire: uint64(expiredAt),
 			},

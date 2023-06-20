@@ -3,6 +3,8 @@ package position
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -27,12 +29,12 @@ func NewUpdatePositionLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Up
 }
 
 func (l *UpdatePositionLogic) UpdatePosition(in *core.PositionInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Position.UpdateOneID(in.Id).
-		SetNotEmptyStatus(uint8(in.Status)).
-		SetNotEmptySort(in.Sort).
-		SetNotEmptyName(in.Name).
-		SetNotEmptyCode(in.Code).
-		SetNotEmptyRemark(in.Remark).
+	err := l.svcCtx.DB.Position.UpdateOneID(*in.Id).
+		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
+		SetNotNilSort(in.Sort).
+		SetNotNilName(in.Name).
+		SetNotNilCode(in.Code).
+		SetNotNilRemark(in.Remark).
 		Exec(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)

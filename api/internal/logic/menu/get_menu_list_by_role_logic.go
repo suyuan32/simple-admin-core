@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -37,9 +38,7 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole() (resp *types.MenuListResp, 
 	for _, v := range data.Data {
 		resp.Data.Data = append(resp.Data.Data, types.MenuInfo{
 			BaseIDInfo: types.BaseIDInfo{
-				Id:        v.Id,
-				CreatedAt: 0,
-				UpdatedAt: 0,
+				Id: v.Id,
 			},
 			MenuType:  v.MenuType,
 			Level:     v.Level,
@@ -50,7 +49,7 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole() (resp *types.MenuListResp, 
 			Sort:      v.Sort,
 			ParentId:  v.ParentId,
 			Meta: types.Meta{
-				Title:              l.svcCtx.Trans.Trans(l.ctx, v.Meta.Title),
+				Title:              pointy.GetPointer(l.svcCtx.Trans.Trans(l.ctx, *v.Meta.Title)),
 				Icon:               v.Meta.Icon,
 				HideMenu:           v.Meta.HideMenu,
 				HideBreadcrumb:     v.Meta.HideBreadcrumb,

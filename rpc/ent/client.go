@@ -25,6 +25,8 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
+
+	stdsql "database/sql"
 )
 
 // Client is the client that holds all ent builders.
@@ -1652,12 +1654,14 @@ func (c *UserClient) QueryRoles(u *User) *RoleQuery {
 
 // Hooks returns the client hooks.
 func (c *UserClient) Hooks() []Hook {
-	return c.hooks.User
+	hooks := c.hooks.User
+	return append(hooks[:len(hooks):len(hooks)], user.Hooks[:]...)
 }
 
 // Interceptors returns the client interceptors.
 func (c *UserClient) Interceptors() []Interceptor {
-	return c.inters.User
+	inters := c.inters.User
+	return append(inters[:len(inters):len(inters)], user.Interceptors[:]...)
 }
 
 func (c *UserClient) mutate(ctx context.Context, m *UserMutation) (Value, error) {
@@ -1686,3 +1690,27 @@ type (
 		Role, Token, User []ent.Interceptor
 	}
 )
+
+// ExecContext allows calling the underlying ExecContext method of the driver if it is supported by it.
+// See, database/sql#DB.ExecContext for more information.
+func (c *config) ExecContext(ctx context.Context, query string, args ...any) (stdsql.Result, error) {
+	ex, ok := c.driver.(interface {
+		ExecContext(context.Context, string, ...any) (stdsql.Result, error)
+	})
+	if !ok {
+		return nil, fmt.Errorf("Driver.ExecContext is not supported")
+	}
+	return ex.ExecContext(ctx, query, args...)
+}
+
+// QueryContext allows calling the underlying QueryContext method of the driver if it is supported by it.
+// See, database/sql#DB.QueryContext for more information.
+func (c *config) QueryContext(ctx context.Context, query string, args ...any) (*stdsql.Rows, error) {
+	q, ok := c.driver.(interface {
+		QueryContext(context.Context, string, ...any) (*stdsql.Rows, error)
+	})
+	if !ok {
+		return nil, fmt.Errorf("Driver.QueryContext is not supported")
+	}
+	return q.QueryContext(ctx, query, args...)
+}

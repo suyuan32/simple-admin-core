@@ -3,6 +3,8 @@ package department
 import (
 	"context"
 
+	"github.com/zeromicro/go-zero/core/errorx"
+
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -29,7 +31,14 @@ func NewDeleteDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *DeleteDepartmentLogic) DeleteDepartment(in *core.IDsReq) (*core.BaseResp, error) {
-	_, err := l.svcCtx.DB.Department.Delete().Where(department.IDIn(in.Ids...)).Exec(l.ctx)
+	exist, err := l.svcCtx.DB.Department.Query().Where(department.ParentIDIn(in.Ids...)).Exist(l.ctx)
+	if exist {
+		logx.Errorw("delete department failed, please check its children had been deleted",
+			logx.Field("departmentId", in.Ids))
+		return nil, errorx.NewInvalidArgumentError("department.deleteDepartmentChildrenFirst")
+	}
+
+	_, err = l.svcCtx.DB.Department.Delete().Where(department.IDIn(in.Ids...)).Exec(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}

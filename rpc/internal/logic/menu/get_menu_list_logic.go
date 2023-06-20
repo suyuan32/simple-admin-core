@@ -3,6 +3,8 @@ package menu
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-common/utils/pointy"
+
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 
@@ -38,30 +40,30 @@ func (l *GetMenuListLogic) GetMenuList(in *core.PageInfoReq) (resp *core.MenuInf
 	resp = &core.MenuInfoList{}
 	for _, v := range menus.List {
 		resp.Data = append(resp.Data, &core.MenuInfo{
-			Id:        v.ID,
-			CreatedAt: v.CreatedAt.UnixMilli(),
-			UpdatedAt: v.UpdatedAt.UnixMilli(),
-			MenuType:  v.MenuType,
-			Level:     v.MenuLevel,
-			ParentId:  v.ParentID,
-			Path:      v.Path,
-			Name:      v.Name,
-			Redirect:  v.Redirect,
-			Component: v.Component,
-			Sort:      v.Sort,
+			Id:        &v.ID,
+			CreatedAt: pointy.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt: pointy.GetPointer(v.UpdatedAt.UnixMilli()),
+			MenuType:  &v.MenuType,
+			Level:     &v.MenuLevel,
+			ParentId:  &v.ParentID,
+			Path:      &v.Path,
+			Name:      &v.Name,
+			Redirect:  &v.Redirect,
+			Component: &v.Component,
+			Sort:      &v.Sort,
 			Meta: &core.Meta{
-				Title:              v.Title,
-				Icon:               v.Icon,
-				HideMenu:           v.HideMenu,
-				HideBreadcrumb:     v.HideBreadcrumb,
-				IgnoreKeepAlive:    v.IgnoreKeepAlive,
-				HideTab:            v.HideTab,
-				FrameSrc:           v.FrameSrc,
-				CarryParam:         v.CarryParam,
-				HideChildrenInMenu: v.HideChildrenInMenu,
-				Affix:              v.Affix,
-				DynamicLevel:       v.DynamicLevel,
-				RealPath:           v.RealPath,
+				Title:              &v.Title,
+				Icon:               &v.Icon,
+				HideMenu:           &v.HideMenu,
+				HideBreadcrumb:     &v.HideBreadcrumb,
+				IgnoreKeepAlive:    &v.IgnoreKeepAlive,
+				HideTab:            &v.HideTab,
+				FrameSrc:           &v.FrameSrc,
+				CarryParam:         &v.CarryParam,
+				HideChildrenInMenu: &v.HideChildrenInMenu,
+				Affix:              &v.Affix,
+				DynamicLevel:       &v.DynamicLevel,
+				RealPath:           &v.RealPath,
 			},
 		})
 	}

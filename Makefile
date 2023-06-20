@@ -20,7 +20,10 @@ PROJECT_STYLE=go_zero
 PROJECT_I18N=true
 
 # Swagger type, support yml,json | Swagger 文件类型，支持yml,json
-SWAGGER_TYPE := yml
+SWAGGER_TYPE := json
+
+# Ent enabled features | Ent 启用的官方特性
+ENT_FEATURE := sql/execquery,intercept
 
 # ---- You may not need to modify the codes below | 下面的代码大概率不需要更改 ----
 
@@ -73,7 +76,7 @@ gen-rpc: # Generate RPC files from proto | 生成 RPC 的代码
 
 .PHONY: gen-ent
 gen-ent: # Generate Ent codes | 生成 Ent 的代码
-	go run -mod=mod entgo.io/ent/cmd/ent generate --template glob="./rpc/ent/template/*.tmpl" ./rpc/ent/schema
+	go run -mod=mod entgo.io/ent/cmd/ent generate --template glob="./rpc/ent/template/*.tmpl" ./rpc/ent/schema --feature $(ENT_FEATURE)
 	@echo "Generate Ent files successfully"
 
 .PHONY: gen-rpc-ent-logic
@@ -113,7 +116,7 @@ build-linux-api: # Build API project for Linux | 构建Linux下的API可执行�
 
 .PHONY: gen-swagger
 gen-swagger: # Generate swagger file | 生成 swagger 文件
-	swagger generate spec --output=./$(SERVICE_STYLE).yml --scan-models
+	swagger generate spec --output=./$(SERVICE_STYLE).$(SWAGGER_TYPE) --scan-models
 	@echo "Generate swagger successfully"
 
 .PHONY: serve-swagger
