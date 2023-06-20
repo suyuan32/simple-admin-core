@@ -63,16 +63,18 @@ CROSConf:
   Address: '*'    # if it is *, allow all ip and address. e.g. http://example.com
 
 RedisConf:
-  Host: 127.0.0.1:6379
+  Host: 10.5.0.3:6379
   Type: node
 
 CoreRpc:
-  Target: k8s://default/core-rpc-svc:9101
+  Endpoints:
+    - 10.5.0.4:9101
   Enabled: true
 
 JobRpc:
-  Target: k8s://default/job-rpc-svc:9105
-  Enabled: false
+  Endpoints:
+    - 10.5.0.7:9105
+  Enabled: true
 
 # Tracing Analysis
 
