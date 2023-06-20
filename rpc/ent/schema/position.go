@@ -31,7 +31,7 @@ func (Position) Fields() []ent.Field {
 
 func (Position) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		mixins.BaseIDMixin{},
+		mixins.IDMixin{},
 		mixins.StatusMixin{},
 		mixins.SortMixin{},
 	}
