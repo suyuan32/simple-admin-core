@@ -631,8 +631,8 @@ type ApiListReq struct {
 	Group *string `json:"group,optional" validate:"omitempty,max=20"`
 	// API request method e.g. POST | API请求类型 如POST
 	// min length : 3
-	// max length : 4
-	Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=4"`
+	// max length : 6
+	Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=6"`
 }
 
 // API information response | API信息返回体

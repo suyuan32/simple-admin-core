@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.0.10"
+    "version": "1.0.11"
   },
   "host": "localhost:9100",
   "basePath": "/",
@@ -2326,7 +2326,7 @@
         "method": {
           "description": "API request method e.g. POST | API请求类型 如POST",
           "type": "string",
-          "maxLength": 4,
+          "maxLength": 6,
           "minLength": 3,
           "x-go-name": "Method"
         },
