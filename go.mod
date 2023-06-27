@@ -12,8 +12,8 @@ require (
 	github.com/suyuan32/simple-admin-job v1.0.11
 	github.com/zeromicro/go-zero v1.5.3
 	golang.org/x/oauth2 v0.7.0
-	google.golang.org/grpc v1.56.0
-	google.golang.org/protobuf v1.30.0
+	google.golang.org/grpc v1.56.1
+	google.golang.org/protobuf v1.31.0
 )
 
 replace github.com/zeromicro/go-zero v1.5.3 => github.com/suyuan32/simple-admin-tools v1.5.10
