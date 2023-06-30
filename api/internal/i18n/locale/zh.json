@@ -87,7 +87,6 @@
 		"updateToken": "更新Token",
 		"deleteToken": "删除Token",
 		"getTokenList": "获取Token列表",
-		"setTokenStatus": "设置Token状态",
 		"batchDeleteToken": "批量删除Token",
 		"forceLoggingOut": "强制登出",
 		"createDepartment": "创建部门信息",
