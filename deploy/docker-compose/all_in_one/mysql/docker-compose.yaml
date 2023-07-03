@@ -1,7 +1,7 @@
 version: '3'
 
 volumes:
-  postgresql:
+  mysql:
   redis:
   fms:
 
@@ -14,21 +14,22 @@ networks:
         - subnet: 10.5.0.0/16
 
 services:
-  postgresql:
-    image: bitnami/postgresql:latest
-    container_name: postgresql
+  mysql:
+    image: mysql:8.0.21
+    container_name: mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always
     ports:
-      - '5432:5432'
+      - '3306:3306'
     environment:
-      POSTGRESQL_DATABASE: 'simple_admin'
-      POSTGRESQL_PASSWORD: 'simple-admin.'
+      MYSQL_DATABASE: 'simple_admin'
+      MYSQL_ROOT_PASSWORD: 'simple-admin.'
     volumes:
-      - postgresql:/bitnami/postgresql
+      - mysql:/var/lib/mysql
     networks:
       simple-admin:
         aliases:
-          - postgresql-server
+          - mysql-server
         ipv4_address: 10.5.0.2
     deploy:
       resources:
@@ -67,6 +68,10 @@ services:
     restart: always
     ports:
       - '9101:9101'
+    environment:
+      DATABASE_TYPE: 'mysql'
+      DATABASE_USERNAME: 'root'
+      DATABASE_PASSWORD: 'simple-admin.'
     networks:
       simple-admin:
         aliases:
@@ -87,6 +92,10 @@ services:
     restart: always
     ports:
       - '9105:9105'
+    environment:
+      DATABASE_TYPE: 'mysql'
+      DATABASE_USERNAME: 'root'
+      DATABASE_PASSWORD: 'simple-admin.'
     networks:
       simple-admin:
         aliases:
@@ -107,6 +116,9 @@ services:
     restart: always
     environment:
       I18N_DIR: '/app/etc/'
+      DATABASE_TYPE: 'mysql'
+      DATABASE_USERNAME: 'root'
+      DATABASE_PASSWORD: 'simple-admin.'
     #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
     ports:
       - '9100:9100'
@@ -151,6 +163,10 @@ services:
     #    environment:
     #      SERVER_URL: 'http://localhost:81'
     #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
+    environment:
+      DATABASE_TYPE: 'mysql'
+      DATABASE_USERNAME: 'root'
+      DATABASE_PASSWORD: 'simple-admin.'
     ports:
       - '9102:9102'
       - '81:80'
