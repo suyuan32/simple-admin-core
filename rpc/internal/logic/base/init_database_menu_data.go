@@ -104,19 +104,6 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
-		SetMenuLevel(1).
-		SetMenuType(1).
-		SetParentID(common.DefaultParentId).
-		SetPath("/file").
-		SetName("FileManagement").
-		SetComponent("/file/index").
-		SetSort(3).
-		SetTitle("route.fileManagementTitle").
-		SetIcon("ant-design:folder-open-outlined").
-		SetHideMenu(true),
-	)
-
-	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
 		SetParentID(2).
@@ -146,7 +133,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(9).
+		SetParentID(8).
 		SetPath("/dictionary/detail/:dictionaryId").
 		SetName("DictionaryDetail").
 		SetComponent("/sys/dictionaryDetail/index").
@@ -159,7 +146,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(1).
-		SetParentID(10).
+		SetParentID(9).
 		SetPath("/profile").
 		SetName("Profile").
 		SetComponent("/sys/profile/index").
