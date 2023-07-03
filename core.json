@@ -2233,7 +2233,7 @@
         "method": {
           "description": "API request method e.g. POST | API请求类型 如POST",
           "type": "string",
-          "maxLength": 4,
+          "maxLength": 7,
           "minLength": 3,
           "x-go-name": "Method"
         },
@@ -2326,7 +2326,7 @@
         "method": {
           "description": "API request method e.g. POST | API请求类型 如POST",
           "type": "string",
-          "maxLength": 6,
+          "maxLength": 7,
           "minLength": 3,
           "x-go-name": "Method"
         },
