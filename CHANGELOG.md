@@ -1,3 +1,230 @@
+<a name="v1.0.12"></a>
+
+## [v1.0.12](https://github.com/suyuan32/simple-admin-core/compare/v1.0.11...v1.0.12) (2023-07-03)
+
+### Chore
+
+* update swagger version
+* upgrade dependencies
+* update the image version in all in one
+
+### Fix
+
+* api method len
+* remove file menu init code
+* remove unused i18n trans
+
+### Pull Requests
+
+* Merge pull request [#143](https://github.com/suyuan32/simple-admin-core/issues/143) from suyuan32/dev
+* Merge pull request [#142](https://github.com/suyuan32/simple-admin-core/issues/142) from suyuan32/dev
+* Merge pull request [#140](https://github.com/suyuan32/simple-admin-core/issues/140) from suyuan32/dev
+* Merge pull request [#139](https://github.com/suyuan32/simple-admin-core/issues/139) from suyuan32/dev
+
+<a name="v1.0.11"></a>
+
+## [v1.0.11](https://github.com/suyuan32/simple-admin-core/compare/v1.0.10...v1.0.11) (2023-06-20)
+
+### Docs
+
+* update readme
+
+### Fix
+
+* update docker image
+* upgrade dependencies
+* allow max 6 len for api method
+
+### Pull Requests
+
+* Merge pull request [#138](https://github.com/suyuan32/simple-admin-core/issues/138) from suyuan32/dev
+* Merge pull request [#137](https://github.com/suyuan32/simple-admin-core/issues/137) from suyuan32/dev
+
+<a name="v1.0.10"></a>
+
+## [v1.0.10](https://github.com/suyuan32/simple-admin-core/compare/v1.0.9...v1.0.10) (2023-06-19)
+
+### Chore
+
+* update swagger version
+* upgrade dependencies
+
+### Feat
+
+* add cros config
+
+### Fix
+
+* login msg and optional desc for dict on create
+* add omitempty for menu params
+
+### Pull Requests
+
+* Merge pull request [#136](https://github.com/suyuan32/simple-admin-core/issues/136) from suyuan32/dev
+* Merge pull request [#135](https://github.com/suyuan32/simple-admin-core/issues/135) from suyuan32/dev
+* Merge pull request [#134](https://github.com/suyuan32/simple-admin-core/issues/134) from suyuan32/dev
+* Merge pull request [#133](https://github.com/suyuan32/simple-admin-core/issues/133) from suyuan32/dev
+* Merge pull request [#132](https://github.com/suyuan32/simple-admin-core/issues/132) from suyuan32/dev
+
+<a name="v1.0.9"></a>
+
+## [v1.0.9](https://github.com/suyuan32/simple-admin-core/compare/v1.0.7...v1.0.9) (2023-06-16)
+
+### Feat
+
+* add soft delete
+
+### Fix
+
+* use getStatusPointer to get data
+* optimize makefile
+* use json format swagger file
+* optimize page info struct in api
+* wrong i18n variable name
+* set department default parent id
+* check children when delete department
+
+### Refactor
+
+* adjust for set not nil
+
+### Wip
+
+* add set not nil
+* add set not nil to api
+
+### Pull Requests
+
+* Merge pull request [#129](https://github.com/suyuan32/simple-admin-core/issues/129) from suyuan32/dev
+* Merge pull request [#127](https://github.com/suyuan32/simple-admin-core/issues/127) from suyuan32/dev
+* Merge pull request [#126](https://github.com/suyuan32/simple-admin-core/issues/126) from suyuan32/dev
+* Merge pull request [#123](https://github.com/suyuan32/simple-admin-core/issues/123) from suyuan32/dev
+
+<a name="v1.0.7"></a>
+
+## [v1.0.7](https://github.com/suyuan32/simple-admin-core/compare/v1.0.6...v1.0.7) (2023-05-31)
+
+### Chore
+
+* update dependencies
+
+### Feat
+
+* i18n config
+* use accuracy match for dictionary detail
+* add env example to docker-compose.yaml
+
+### Fix
+
+* add i18n files in dockerfile
+* update images in all-in-one
+
+### Pull Requests
+
+* Merge pull request [#122](https://github.com/suyuan32/simple-admin-core/issues/122) from suyuan32/dev
+* Merge pull request [#112](https://github.com/suyuan32/simple-admin-core/issues/112) from suyuan32/dev
+* Merge pull request [#110](https://github.com/suyuan32/simple-admin-core/issues/110) from suyuan32/dev
+
+<a name="v1.0.6"></a>
+
+## [v1.0.6](https://github.com/suyuan32/simple-admin-core/compare/v1.0.5...v1.0.6) (2023-05-23)
+
+### Chore
+
+* images version in all in one docker-compose.yaml
+* update dependencies
+* update images in all in one
+
+### Fix
+
+* wrong cache logic of dictionary details
+* double encrypt when change password
+* change password bug
+* update makefile
+* change dictionary detail menu parent to dictionary
+
+### Pull Requests
+
+* Merge pull request [#109](https://github.com/suyuan32/simple-admin-core/issues/109) from suyuan32/dev
+* Merge pull request [#108](https://github.com/suyuan32/simple-admin-core/issues/108) from suyuan32/dev
+* Merge pull request [#106](https://github.com/suyuan32/simple-admin-core/issues/106) from suyuan32/dev
+* Merge pull request [#105](https://github.com/suyuan32/simple-admin-core/issues/105) from suyuan32/dev
+* Merge pull request [#103](https://github.com/suyuan32/simple-admin-core/issues/103) from suyuan32/dev
+
+<a name="v1.0.5"></a>
+
+## [v1.0.5](https://github.com/suyuan32/simple-admin-core/compare/v1.0.4...v1.0.5) (2023-05-15)
+
+### Chore
+
+* update dependencies and makefie
+* update deps
+
+### Fix
+
+* optimize field comments of database
+* add comments to database when init database
+* wrong validate in position list request
+
+### Pull Requests
+
+* Merge pull request [#102](https://github.com/suyuan32/simple-admin-core/issues/102) from suyuan32/dev
+* Merge pull request [#101](https://github.com/suyuan32/simple-admin-core/issues/101) from suyuan32/dev
+* Merge pull request [#100](https://github.com/suyuan32/simple-admin-core/issues/100) from suyuan32/dev
+* Merge pull request [#99](https://github.com/suyuan32/simple-admin-core/issues/99) from suyuan32/dev
+
+<a name="v1.0.4"></a>
+
+## [v1.0.4](https://github.com/suyuan32/simple-admin-core/compare/v1.0.3...v1.0.4) (2023-05-09)
+
+### Chore
+
+* update dependencies and all in one deploy
+
+### Docs
+
+* update readme
+
+### Fix
+
+* optimize dockerfile and all in one deploy file
+
+### Pull Requests
+
+* Merge pull request [#98](https://github.com/suyuan32/simple-admin-core/issues/98) from suyuan32/dev
+
+<a name="v1.0.3"></a>
+
+## [v1.0.3](https://github.com/suyuan32/simple-admin-core/compare/v1.0.2...v1.0.3) (2023-05-02)
+
+### Chore
+
+* update dependencies and version
+
+### Fix
+
+* optimize comments in api files
+* wrong validation for remark in department
+* add update token api
+* remove default MysqlConfig
+
+<a name="v1.0.2"></a>
+
+## [v1.0.2](https://github.com/suyuan32/simple-admin-core/compare/v1.0.0...v1.0.2) (2023-04-22)
+
+### Docs
+
+* update version in swagger doc
+* update common package version to v1.0.1
+* update changelog
+
+### Fix
+
+* optimize new jwt token function
+* optimize captcha
+* the department's phone validation bug
+* only use redis cache when dictionary detail key is empty
+
 <a name="v1.0.0"></a>
 
 ## [v1.0.0](https://github.com/suyuan32/simple-admin-core/compare/v0.3.2...v1.0.0) (2023-04-17)
@@ -27,7 +254,6 @@
 * update docker compose
 
 <a name="v0.3.2"></a>
-
 ## [v0.3.2](https://github.com/suyuan32/simple-admin-core/compare/v0.3.2-beta...v0.3.2) (2023-04-09)
 
 ### Chore
@@ -35,11 +261,9 @@
 * update tool version and docker-compose.yaml
 
 <a name="v0.3.2-beta"></a>
-
 ## [v0.3.2-beta](https://github.com/suyuan32/simple-admin-core/compare/list...v0.3.2-beta) (2023-04-09)
 
 <a name="list"></a>
-
 ## [list](https://github.com/suyuan32/simple-admin-core/compare/v0.3.1...list) (2023-04-09)
 
 ### Fix
@@ -51,7 +275,6 @@
 * optimize api group to snake format
 
 <a name="v0.3.1"></a>
-
 ## [v0.3.1](https://github.com/suyuan32/simple-admin-core/compare/v0.3.0...v0.3.1) (2023-04-03)
 
 ### Chore
@@ -74,7 +297,6 @@
 * remove menu params
 
 <a name="v0.3.0"></a>
-
 ## [v0.3.0](https://github.com/suyuan32/simple-admin-core/compare/v0.2.9...v0.3.0) (2023-03-30)
 
 ### Chore
@@ -98,7 +320,6 @@
 * new makefile
 
 <a name="v0.2.9"></a>
-
 ## [v0.2.9](https://github.com/suyuan32/simple-admin-core/compare/v0.2.9-beta...v0.2.9) (2023-03-26)
 
 ### Refactor
@@ -106,7 +327,6 @@
 * optimize the import of the job service v0.2.9
 
 <a name="v0.2.9-beta"></a>
-
 ## [v0.2.9-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.2.8...v0.2.9-beta) (2023-03-24)
 
 ### Docs
@@ -130,7 +350,6 @@
 * Merge pull request [#86](https://github.com/suyuan32/simple-admin-core/issues/86) from ch3nnn/fix/optimeze-api-comment
 
 <a name="v0.2.8"></a>
-
 ## [v0.2.8](https://github.com/suyuan32/simple-admin-core/compare/v0.2.7...v0.2.8) (2023-03-19)
 
 ### Chore
