@@ -29,7 +29,7 @@ services:
     networks:
       simple-admin:
         aliases:
-          - mysqlserver
+          - mysql-server
         ipv4_address: 10.5.0.2
     deploy:
       resources:
@@ -51,7 +51,7 @@ services:
     networks:
       simple-admin:
         aliases:
-          - redisserver
+          - redis-server
         ipv4_address: 10.5.0.3
     deploy:
       resources:
@@ -63,11 +63,15 @@ services:
           memory: 200M
 
   core-rpc:
-    image: ryanpower/core-rpc-docker:v1.0.11
+    image: ryanpower/core-rpc-docker:v1.0.12
     container_name: core-rpc
     restart: always
     ports:
       - '9101:9101'
+    environment:
+      DATABASE_TYPE: 'mysql'
+      DATABASE_USERNAME: 'root'
+      DATABASE_PASSWORD: 'simple-admin.'
     networks:
       simple-admin:
         aliases:
@@ -83,11 +87,15 @@ services:
           memory: 200M
 
   job-rpc:
-    image: ryanpower/job-rpc-docker:v1.0.11
+    image: ryanpower/job-rpc-docker:v1.0.12
     container_name: job-rpc
     restart: always
     ports:
       - '9105:9105'
+    environment:
+      DATABASE_TYPE: 'mysql'
+      DATABASE_USERNAME: 'root'
+      DATABASE_PASSWORD: 'simple-admin.'
     networks:
       simple-admin:
         aliases:
@@ -103,11 +111,14 @@ services:
           memory: 200M
 
   core-api:
-    image: ryanpower/core-api-docker:v1.0.11
+    image: ryanpower/core-api-docker:v1.0.12
     container_name: core-api
     restart: always
     environment:
       I18N_DIR: '/app/etc/'
+      DATABASE_TYPE: 'mysql'
+      DATABASE_USERNAME: 'root'
+      DATABASE_PASSWORD: 'simple-admin.'
     #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
     ports:
       - '9100:9100'
@@ -126,7 +137,7 @@ services:
           memory: 200M
 
   backend-ui:
-    image: ryanpower/backend-ui-docker:v1.0.11
+    image: ryanpower/backend-ui-docker:v1.0.12
     container_name: backend-ui
     restart: always
     ports:
@@ -146,12 +157,16 @@ services:
           memory: 200M
 
   fms-api:
-    image: ryanpower/fms-api-docker:v1.0.11
+    image: ryanpower/fms-api-docker:v1.0.12
     container_name: fms-api
     restart: always
     #    environment:
     #      SERVER_URL: 'http://localhost:81'
     #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
+    environment:
+      DATABASE_TYPE: 'mysql'
+      DATABASE_USERNAME: 'root'
+      DATABASE_PASSWORD: 'simple-admin.'
     ports:
       - '9102:9102'
       - '81:80'
