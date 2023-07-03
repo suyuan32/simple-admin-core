@@ -19,6 +19,11 @@
 		"notSingularError": "操作失败: 数据不唯一"
 	},
 	"apiDesc": {
+		"createTag": "创建文件标签",
+		"updateTag": "更新文件标签",
+		"deleteTag": "删除文件标签",
+		"getTagList": "获取文件标签列表",
+		"getTagById": "通过ID获取文件标签",
 		"userLogin": "用户登录（必须）",
 		"userRegister": "用户注册（必须）",
 		"userChangePassword": "用户修改密码",
@@ -141,7 +146,8 @@
 		"roleManagementTitle": "角色管理",
 		"apiManagementTitle": "API管理",
 		"userManagementTitle": "用户管理",
-		"fileManagementTitle": "文件管理",
+		"fileManagement": "文件管理",
+		"fileTagManagement": "文件标签管理",
 		"userProfileTitle": "用户个人信息",
 		"dictionaryManagementTitle": "字典管理",
 		"dictionaryDetailManagementTitle": "键值管理",

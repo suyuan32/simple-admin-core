@@ -19,6 +19,11 @@
 		"notSingularError": "Operation failed: Data not unique"
 	},
 	"apiDesc": {
+		"createTag": "Create a tag",
+		"updateTag": "Update the tag",
+		"deleteTag": "Delete tags",
+		"getTagList": "Get tag list",
+		"getTagById": "Get tag by ID",
 		"userLogin": "Log in (Required)",
 		"userRegister": "Sign up (Required)",
 		"userChangePassword": "Change user's password",
@@ -136,7 +141,8 @@
 		"roleManagementTitle": "Role",
 		"apiManagementTitle": "API",
 		"userManagementTitle": "User",
-		"fileManagementTitle": "File",
+		"fileManagement": "File",
+		"fileTagManagement": "File Tag",
 		"userProfileTitle": "Profile",
 		"dictionaryManagementTitle": "Dictionary",
 		"dictionaryDetailManagementTitle": "Key/Value Management",
@@ -190,8 +196,8 @@
 		"createAccount": "Please register an account with this email or bind the email to an account"
 	},
 	"casbin": {
-		"removeFailed": "Fail to remove old policies",
-		"addFailed": "Fail to add new policies"
+		"removeFailed": "Failed to remove old policies",
+		"addFailed": "Failed to add new policies"
 	},
 	"department": {
 		"managementDepartment": "Management Department",
