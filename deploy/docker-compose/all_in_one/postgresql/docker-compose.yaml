@@ -1,7 +1,7 @@
 version: '3'
 
 volumes:
-  mysql:
+  postgresql:
   redis:
   fms:
 
@@ -14,22 +14,21 @@ networks:
         - subnet: 10.5.0.0/16
 
 services:
-  mysql:
-    image: mysql:8.0.21
-    container_name: mysql
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  postgresql:
+    image: bitnami/postgresql:latest
+    container_name: postgresql
     restart: always
     ports:
-      - '3306:3306'
+      - '5432:5432'
     environment:
-      MYSQL_DATABASE: 'simple_admin'
-      MYSQL_ROOT_PASSWORD: 'simple-admin.'
+      POSTGRESQL_DATABASE: 'simple_admin'
+      POSTGRESQL_PASSWORD=: 'simple-admin.'
     volumes:
-      - mysql:/var/lib/mysql
+      - postgresql:/bitnami/postgresql
     networks:
       simple-admin:
         aliases:
-          - mysqlserver
+          - postgresql-server
         ipv4_address: 10.5.0.2
     deploy:
       resources:
@@ -51,7 +50,7 @@ services:
     networks:
       simple-admin:
         aliases:
-          - redisserver
+          - redis-server
         ipv4_address: 10.5.0.3
     deploy:
       resources:
@@ -63,7 +62,7 @@ services:
           memory: 200M
 
   core-rpc:
-    image: ryanpower/core-rpc-docker:v1.0.7
+    image: ryanpower/core-rpc-docker:v1.0.11
     container_name: core-rpc
     restart: always
     ports:
@@ -83,7 +82,7 @@ services:
           memory: 200M
 
   job-rpc:
-    image: ryanpower/job-rpc-docker:v1.0.7
+    image: ryanpower/job-rpc-docker:v1.0.11
     container_name: job-rpc
     restart: always
     ports:
@@ -103,7 +102,7 @@ services:
           memory: 200M
 
   core-api:
-    image: ryanpower/core-api-docker:v1.0.7
+    image: ryanpower/core-api-docker:v1.0.11
     container_name: core-api
     restart: always
     environment:
@@ -126,7 +125,7 @@ services:
           memory: 200M
 
   backend-ui:
-    image: ryanpower/backend-ui-docker:v1.0.7
+    image: ryanpower/backend-ui-docker:v1.0.11
     container_name: backend-ui
     restart: always
     ports:
@@ -146,7 +145,7 @@ services:
           memory: 200M
 
   fms-api:
-    image: ryanpower/fms-api-docker:v1.0.7
+    image: ryanpower/fms-api-docker:v1.0.11
     container_name: fms-api
     restart: always
     #    environment:
