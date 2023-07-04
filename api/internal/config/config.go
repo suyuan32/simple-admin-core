@@ -25,7 +25,7 @@ type Config struct {
 }
 
 type ProjectConf struct {
-	DefaultRole       uint64 `json:",default=1"`
-	DefaultDepartment uint64 `json:",default=1"`
-	DefaultPosition   uint64 `json:",default=1"`
+	DefaultRoleId       uint64 `json:",default=1"`
+	DefaultDepartmentId uint64 `json:",default=1"`
+	DefaultPositionId   uint64 `json:",default=1"`
 }
