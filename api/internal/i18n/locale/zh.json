@@ -18,6 +18,25 @@
 		"validationError": "操作失败: 校验失败",
 		"notSingularError": "操作失败: 数据不唯一"
 	},
+	"apiGroup":{
+		"member_rank": "等级管理",
+		"member": "会员管理",
+		"tag": "标签管理",
+		"file": "文件管理",
+		"task_log": "任务日志",
+		"task": "任务管理",
+		"position": "职位管理",
+		"department": "部门管理",
+		"token": "令牌管理",
+		"oauth": "认证管理",
+		"dictionary": "字典管理",
+		"api": "接口管理",
+		"authority": "授权管理",
+		"captcha": "验证代码",
+		"menu": "菜单管理",
+		"role": "角色管理",
+		"user": "用户管理"
+	},
 	"apiDesc": {
 		"createTag": "创建文件标签",
 		"updateTag": "更新文件标签",
