@@ -649,12 +649,12 @@ type ApiAuthorityInfo struct {
 	// API path | API 路径
 	// required : true
 	// max length : 80
-	Path string `json:"path" validate="required,max=80"`
+	Path string `json:"path" validate:"required,max=80"`
 	// API method | API请求方法
 	// required : true
 	// min length : 3
 	// max length : 4
-	Method string `json:"method" validate="required,min=3,max=4"`
+	Method string `json:"method" validate:"required,min=3,max=4"`
 }
 
 // Create or update api authorization information request | 创建或更新API授权信息
