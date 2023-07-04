@@ -18,6 +18,25 @@
 		"validationError": "Operation failed: Validation failed",
 		"notSingularError": "Operation failed: Data not unique"
 	},
+	"apiGroup":{
+		"member_rank": "Member Rank",
+		"member": "Member",
+		"tag": "Tag",
+		"file": "File",
+		"task_log": "Task Log",
+		"task": "Task",
+		"position": "Position",
+		"department": "Department",
+		"token": "Token",
+		"oauth": "Oauth",
+		"dictionary": "Dictionary",
+		"api": "API",
+		"authority": "Authority",
+		"captcha": "Captcha",
+		"menu": "Menu",
+		"role": "Role",
+		"user": "User"
+	},
 	"apiDesc": {
 		"createTag": "Create a tag",
 		"updateTag": "Update the tag",
