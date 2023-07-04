@@ -21,12 +21,18 @@ provides rich functions for the development of medium and large back-ends, suppo
 The official comes with a variety of extensions to help small and medium-sized enterprises quickly go to the cloud and
 iterate quickly. Suitable for microservice learning and commercial use, open source and free.
 
+## [Simple Admin Tools](https://github.com/suyuan32/simple-admin-tools)
+
+Based on the enhanced version of go zero, it provides a lot of optimizations for simple admin, has a lot of additional
+code generation functions,
+fully supports ent, and easily realizes three-terminal code generation, making development easier.
+
 ## Feature
 
 - **State of The Art Development**：Use latest back-end technology development such as ent, go-zero, casbin
 - **Fully support go-swagger**: Write comment in api file and generate swagger doc easily
 - **Error handling**: Handle error messages via one module
-- **International**：support different languages show in the front-end via put locale path in the message 
+- **International**：support different languages show in the front-end via put locale path in the message
 - **Service Discover**: use k8s endpoints to do service discovery and load-balance
 - **Authority** Manage authority via Casbin, based on RBAC
 - **Code Generation**: Built-in three-terminal Web, API, RPC code generation
