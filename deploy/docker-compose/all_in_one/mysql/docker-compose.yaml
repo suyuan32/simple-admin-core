@@ -72,6 +72,7 @@ services:
       DATABASE_TYPE: 'mysql'
       DATABASE_USERNAME: 'root'
       DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_PORT: 3306
     networks:
       simple-admin:
         aliases:
@@ -96,6 +97,7 @@ services:
       DATABASE_TYPE: 'mysql'
       DATABASE_USERNAME: 'root'
       DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_PORT: 3306
     networks:
       simple-admin:
         aliases:
@@ -119,6 +121,7 @@ services:
       DATABASE_TYPE: 'mysql'
       DATABASE_USERNAME: 'root'
       DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_PORT: 3306
     #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
     ports:
       - '9100:9100'
@@ -167,6 +170,7 @@ services:
       DATABASE_TYPE: 'mysql'
       DATABASE_USERNAME: 'root'
       DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_PORT: 3306
     ports:
       - '9102:9102'
       - '81:80'
