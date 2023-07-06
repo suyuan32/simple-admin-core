@@ -67,7 +67,7 @@
 		"updateMenu": "更新菜单",
 		"menuInfo": "获取菜单信息",
 		"menuList": "获取菜单列表",
-		"menuRoleList": "获取角色菜单列表",
+		"menuRoleList": "获取角色菜单列表(必须)",
 		"deleteMenu": "删除菜单",
 		"roleMenu": "获取角色菜单（必须）",
 		"createMenuParam": "创建菜单参数",

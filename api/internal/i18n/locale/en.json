@@ -66,7 +66,7 @@
 		"updateMenu": "Update menu information",
 		"menuInfo": "Get the menu information",
 		"menuList": "Get menu list",
-		"menuRoleList": "Get role's menu list",
+		"menuRoleList": "Get role's menu list (Required)",
 		"deleteMenu": "Delete menu information",
 		"roleMenu": "Get role's Menu List (Required)",
 		"createMenuParam": "Create menu parameters",
