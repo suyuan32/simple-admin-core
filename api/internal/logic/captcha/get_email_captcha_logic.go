@@ -8,6 +8,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-message-center/types/mcms"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"strconv"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -39,7 +40,8 @@ func (l *GetEmailCaptchaLogic) GetEmailCaptcha(req *types.EmailCaptchaReq) (resp
 
 	err = l.svcCtx.Redis.Setex("CAPTCHA_"+req.Email, strconv.Itoa(captcha), l.svcCtx.Config.ProjectConf.EmailCaptchaExpiredTime)
 	if err != nil {
-		return nil, err
+		logx.Errorw("failed to write email captcha to redis", logx.Field("detail", err))
+		return nil, errorx.NewCodeInternalError(i18n.RedisError)
 	}
 
 	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.Success)}, nil
