@@ -225,5 +225,11 @@
 	"position": {
 		"userExistError": "There are users under this position, it is forbidden to delete.",
 		"ceo": "CEO"
+	},
+	"mcms": {
+		"email": {
+			"subject": "Verification Code for 【Simple Admin】",
+			"content": "Your verification code is: "
+		}
 	}
 }

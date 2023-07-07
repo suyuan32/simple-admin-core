@@ -230,5 +230,11 @@
 	"position": {
 		"userExistError": "该职位下存在用户，禁止删除",
 		"ceo": "CEO"
+	},
+	"mcms": {
+		"email": {
+			"subject": "【Simple Admin】 的验证码",
+			"content": "您的验证码为： "
+		}
 	}
 }
