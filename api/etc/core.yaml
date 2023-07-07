@@ -74,6 +74,10 @@ JobRpc:
   Target: k8s://default/job-rpc-svc:9105
   Enabled: false
 
+McmsRpc:
+  Target: k8s://default/mcms-rpc-svc:9106
+  Enabled: false
+
 # Tracing Analysis
 
 #Telemetry:

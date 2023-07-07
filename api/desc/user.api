@@ -185,19 +185,12 @@ type (
         Username   string `json:"username" validate:"required,alphanum,max=20"`
 
         // Password | 密码
-        // Required: true
-        // Min length: 6
-        // Max length: 30
         Password   string `json:"password" validate:"required,max=30,min=6"`
 
         // Captcha ID which store in redis | 验证码编号, 存在redis中
-        // Required: true
-        // Max length: 20
         CaptchaId  string `json:"captchaId"  validate:"required,len=20"`
 
         // The Captcha which users input | 用户输入的验证码
-        // Required: true
-        // Max length: 5
         Captcha    string `json:"captcha" validate:"required,len=5"`
     }
 

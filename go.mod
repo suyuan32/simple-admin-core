@@ -8,7 +8,7 @@ require (
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/hibiken/asynq v0.24.1
 	github.com/mojocn/base64Captcha v1.3.5
-	github.com/suyuan32/simple-admin-common v1.0.12
+	github.com/suyuan32/simple-admin-common v1.0.13-beta
 	github.com/suyuan32/simple-admin-job v1.0.12
 	github.com/zeromicro/go-zero v1.5.3
 	golang.org/x/oauth2 v0.7.0
@@ -29,8 +29,9 @@ require (
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/coreos/go-semver v0.3.1 // indirect
 	github.com/coreos/go-systemd/v22 v22.5.0 // indirect
-	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
+	github.com/duke-git/lancet/v2 v2.2.3 // indirect
 	github.com/emicklei/go-restful/v3 v3.10.2 // indirect
 	github.com/fatih/color v1.15.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
@@ -91,6 +92,9 @@ require (
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
+	github.com/suyuan32/simple-admin-message-center v1.0.12 // indirect
+	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.695 // indirect
+	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/sms v1.0.695 // indirect
 	github.com/zclconf/go-cty v1.13.1 // indirect
 	go.etcd.io/etcd/api/v3 v3.5.9 // indirect
 	go.etcd.io/etcd/client/pkg/v3 v3.5.9 // indirect

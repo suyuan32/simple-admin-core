@@ -198,6 +198,21 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	)
 
 	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/captcha/email",
+				Handler: captcha.GetEmailCaptchaHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/captcha/sms",
+				Handler: captcha.GetSmsCaptchaHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.Authority},
 			[]rest.Route{

@@ -291,6 +291,62 @@
         }
       }
     },
+    "/captcha/email": {
+      "post": {
+        "description": "Get Email Captcha | 获取邮箱验证码",
+        "tags": [
+          "captcha"
+        ],
+        "summary": "Get Email Captcha | 获取邮箱验证码",
+        "operationId": "GetEmailCaptcha",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/EmailCaptchaReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/captcha/sms": {
+      "post": {
+        "description": "Get SMS Captcha | 获取短信验证码",
+        "tags": [
+          "captcha"
+        ],
+        "summary": "Get SMS Captcha | 获取短信验证码",
+        "operationId": "GetSmsCaptcha",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SmsCaptchaReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/core/init/database": {
       "get": {
         "description": "Initialize database | 初始化数据库",
@@ -3119,6 +3175,18 @@
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
+    "EmailCaptchaReq": {
+      "description": "The email captcha request | 邮箱验证码请求参数",
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "The email address | 邮箱地址",
+          "type": "string",
+          "x-go-name": "Email"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
     "IDPathReq": {
       "description": "Basic ID request | 基础ID地址参数请求",
       "type": "object",
@@ -3206,12 +3274,14 @@
           "description": "The Captcha which users input | 用户输入的验证码",
           "type": "string",
           "maxLength": 5,
+          "minLength": 5,
           "x-go-name": "Captcha"
         },
         "captchaId": {
           "description": "Captcha ID which store in redis | 验证码编号, 存在redis中",
           "type": "string",
           "maxLength": 20,
+          "minLength": 20,
           "x-go-name": "CaptchaId"
         },
         "password": {
@@ -4466,6 +4536,18 @@
           "description": "Message | 提示信息",
           "type": "string",
           "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SmsCaptchaReq": {
+      "description": "The sms captcha request | 短信验证码请求参数",
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "description": "The phone number | 电话号码",
+          "type": "string",
+          "x-go-name": "PhoneNumber"
         }
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
