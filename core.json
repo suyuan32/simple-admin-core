@@ -4442,7 +4442,7 @@
           "type": "string",
           "x-go-name": "Password"
         },
-        "phone_number": {
+        "phoneNumber": {
           "type": "string",
           "x-go-name": "PhoneNumber"
         }

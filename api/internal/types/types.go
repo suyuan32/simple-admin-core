@@ -412,7 +412,7 @@ type ResetPasswordByEmailReq struct {
 
 // swagger:model ResetPasswordBySmsReq
 type ResetPasswordBySmsReq struct {
-	PhoneNumber string `json:"phone_number"`
+	PhoneNumber string `json:"phoneNumber"`
 	Captcha     string `json:"captcha"`
 	Password    string `json:"password"`
 }

@@ -1,7 +1,7 @@
 Name: core.api
 Host: 0.0.0.0
 Port: 9100
-Timeout: 30000
+Timeout: 6000
 
 Auth:
   AccessSecret: jS6VKDtsJf3z1n2VKDtsJf3z1n2
@@ -37,6 +37,10 @@ ProjectConf:
   DefaultRoleId: 1  # default role id when register
   DefaultDepartmentId: 1  # default department id when register
   DefaultPositionId: 1 # default position id when register
+  EmailCaptchaExpiredTime: 600 # the expired time for email captcha
+  SmsTemplateId: xxx  # The template id for sms
+  SmsAppId: xxx  # the app id for sms
+  SmsSignName: xxx  # the signature name of sms
 
 Prometheus:
   Host: 0.0.0.0
@@ -77,6 +81,7 @@ JobRpc:
 McmsRpc:
   Target: k8s://default/mcms-rpc-svc:9106
   Enabled: false
+  Timeout: 5000
 
 # Tracing Analysis
 
