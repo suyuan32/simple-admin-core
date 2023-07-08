@@ -86,6 +86,16 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/user/register",
 				Handler: user.RegisterHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/reset_password_by_email",
+				Handler: user.ResetPasswordByEmailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/reset_password_by_sms",
+				Handler: user.ResetPasswordBySmsHandler(serverCtx),
+			},
 		},
 	)
 

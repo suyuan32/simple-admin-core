@@ -225,6 +225,18 @@ type (
         Data ProfileInfo `json:"data"`
     }
 
+    // Reset password by email request | 通过邮箱重置密码请求
+    ResetPasswordByEmailReq {
+        Email     string  `json:"email" validate:"email"`
+        Captcha   string  `json:"captcha"`
+        Password  string  `json:"password"`
+    }
+
+    ResetPasswordBySmsReq {
+        PhoneNumber     string  `json:"phone_number"`
+        Captcha         string  `json:"captcha"`
+        Password        string  `json:"password"`
+    }
 )
 
 @server(
@@ -239,6 +251,14 @@ service core {
     // Register | 注册
     @handler register
     post /user/register (RegisterReq) returns (BaseMsgResp)
+
+    // Reset password by Email | 通过邮箱重置密码
+    @handler resetPasswordByEmail
+    post /user/reset_password_by_email (ResetPasswordByEmailReq) returns (BaseMsgResp)
+
+    // Reset password by Sms | 通过短信重置密码
+    @handler resetPasswordBySms
+    post /user/reset_password_by_sms (ResetPasswordBySmsReq) returns (BaseMsgResp)
 }
 
 @server(
@@ -288,7 +308,7 @@ service core {
     @handler updateUserProfile
     post /user/profile (ProfileInfo) returns (BaseMsgResp)
 
-     // Log out | 退出登陆
+    // Log out | 退出登陆
     @handler logout
     get /user/logout returns (BaseMsgResp)
 }

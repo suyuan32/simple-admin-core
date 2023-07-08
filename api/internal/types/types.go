@@ -402,6 +402,21 @@ type ProfileResp struct {
 	Data ProfileInfo `json:"data"`
 }
 
+// Reset password by email request | 通过邮箱重置密码请求
+// swagger:model ResetPasswordByEmailReq
+type ResetPasswordByEmailReq struct {
+	Email    string `json:"email" validate:"email"`
+	Captcha  string `json:"captcha"`
+	Password string `json:"password"`
+}
+
+// swagger:model ResetPasswordBySmsReq
+type ResetPasswordBySmsReq struct {
+	PhoneNumber string `json:"phone_number"`
+	Captcha     string `json:"captcha"`
+	Password    string `json:"password"`
+}
+
 // The response data of menu information | 菜单信息
 // swagger:model MenuInfo
 type MenuInfo struct {
