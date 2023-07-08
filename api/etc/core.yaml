@@ -1,7 +1,7 @@
 Name: core.api
 Host: 0.0.0.0
 Port: 9100
-Timeout: 30000
+Timeout: 6000
 
 Auth:
   AccessSecret: jS6VKDtsJf3z1n2VKDtsJf3z1n2
@@ -77,6 +77,7 @@ JobRpc:
 McmsRpc:
   Target: k8s://default/mcms-rpc-svc:9106
   Enabled: false
+  Timeout: 5000
 
 # Tracing Analysis
 
