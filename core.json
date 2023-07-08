@@ -2158,6 +2158,62 @@
         }
       }
     },
+    "/user/reset_password_by_email": {
+      "post": {
+        "description": "Reset password by Email | 通过邮箱重置密码",
+        "tags": [
+          "user"
+        ],
+        "summary": "Reset password by Email | 通过邮箱重置密码",
+        "operationId": "ResetPasswordByEmail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ResetPasswordByEmailReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/reset_password_by_sms": {
+      "post": {
+        "description": "Reset password by Sms | 通过短信重置密码",
+        "tags": [
+          "user"
+        ],
+        "summary": "Reset password by Sms | 通过短信重置密码",
+        "operationId": "ResetPasswordBySms",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ResetPasswordBySmsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/user/update": {
       "post": {
         "description": "Update user information | 更新用户",
@@ -4352,6 +4408,43 @@
           "type": "string",
           "maxLength": 20,
           "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ResetPasswordByEmailReq": {
+      "description": "Reset password by email request | 通过邮箱重置密码请求",
+      "type": "object",
+      "properties": {
+        "captcha": {
+          "type": "string",
+          "x-go-name": "Captcha"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ResetPasswordBySmsReq": {
+      "type": "object",
+      "properties": {
+        "captcha": {
+          "type": "string",
+          "x-go-name": "Captcha"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "phone_number": {
+          "type": "string",
+          "x-go-name": "PhoneNumber"
         }
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
