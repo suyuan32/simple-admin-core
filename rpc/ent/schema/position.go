@@ -23,7 +23,7 @@ func (Position) Fields() []ent.Field {
 		field.String("code").
 			Comment("The code of position | 职位编码").
 			Annotations(entsql.WithComments(true)),
-		field.String("remark").
+		field.String("remark").Optional().
 			Comment("Remark | 备注").
 			Annotations(entsql.WithComments(true)),
 	}

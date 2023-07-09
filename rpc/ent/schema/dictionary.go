@@ -22,7 +22,7 @@ func (Dictionary) Fields() []ent.Field {
 			Comment("The name of dictionary for search | 字典搜索名称").
 			Annotations(entsql.WithComments(true)),
 		field.String("desc").
-			Comment("The status of dictionary (true enable | false disable) | 字典状态").
+			Comment("The description of dictionary | 字典的描述").
 			Optional().
 			Annotations(entsql.WithComments(true)),
 	}

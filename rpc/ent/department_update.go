@@ -96,6 +96,20 @@ func (du *DepartmentUpdate) SetAncestors(s string) *DepartmentUpdate {
 	return du
 }
 
+// SetNillableAncestors sets the "ancestors" field if the given value is not nil.
+func (du *DepartmentUpdate) SetNillableAncestors(s *string) *DepartmentUpdate {
+	if s != nil {
+		du.SetAncestors(*s)
+	}
+	return du
+}
+
+// ClearAncestors clears the value of the "ancestors" field.
+func (du *DepartmentUpdate) ClearAncestors() *DepartmentUpdate {
+	du.mutation.ClearAncestors()
+	return du
+}
+
 // SetLeader sets the "leader" field.
 func (du *DepartmentUpdate) SetLeader(s string) *DepartmentUpdate {
 	du.mutation.SetLeader(s)
@@ -117,6 +131,20 @@ func (du *DepartmentUpdate) SetEmail(s string) *DepartmentUpdate {
 // SetRemark sets the "remark" field.
 func (du *DepartmentUpdate) SetRemark(s string) *DepartmentUpdate {
 	du.mutation.SetRemark(s)
+	return du
+}
+
+// SetNillableRemark sets the "remark" field if the given value is not nil.
+func (du *DepartmentUpdate) SetNillableRemark(s *string) *DepartmentUpdate {
+	if s != nil {
+		du.SetRemark(*s)
+	}
+	return du
+}
+
+// ClearRemark clears the value of the "remark" field.
+func (du *DepartmentUpdate) ClearRemark() *DepartmentUpdate {
+	du.mutation.ClearRemark()
 	return du
 }
 
@@ -297,6 +325,9 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := du.mutation.Ancestors(); ok {
 		_spec.SetField(department.FieldAncestors, field.TypeString, value)
 	}
+	if du.mutation.AncestorsCleared() {
+		_spec.ClearField(department.FieldAncestors, field.TypeString)
+	}
 	if value, ok := du.mutation.Leader(); ok {
 		_spec.SetField(department.FieldLeader, field.TypeString, value)
 	}
@@ -308,6 +339,9 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := du.mutation.Remark(); ok {
 		_spec.SetField(department.FieldRemark, field.TypeString, value)
+	}
+	if du.mutation.RemarkCleared() {
+		_spec.ClearField(department.FieldRemark, field.TypeString)
 	}
 	if du.mutation.ParentCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -514,6 +548,20 @@ func (duo *DepartmentUpdateOne) SetAncestors(s string) *DepartmentUpdateOne {
 	return duo
 }
 
+// SetNillableAncestors sets the "ancestors" field if the given value is not nil.
+func (duo *DepartmentUpdateOne) SetNillableAncestors(s *string) *DepartmentUpdateOne {
+	if s != nil {
+		duo.SetAncestors(*s)
+	}
+	return duo
+}
+
+// ClearAncestors clears the value of the "ancestors" field.
+func (duo *DepartmentUpdateOne) ClearAncestors() *DepartmentUpdateOne {
+	duo.mutation.ClearAncestors()
+	return duo
+}
+
 // SetLeader sets the "leader" field.
 func (duo *DepartmentUpdateOne) SetLeader(s string) *DepartmentUpdateOne {
 	duo.mutation.SetLeader(s)
@@ -535,6 +583,20 @@ func (duo *DepartmentUpdateOne) SetEmail(s string) *DepartmentUpdateOne {
 // SetRemark sets the "remark" field.
 func (duo *DepartmentUpdateOne) SetRemark(s string) *DepartmentUpdateOne {
 	duo.mutation.SetRemark(s)
+	return duo
+}
+
+// SetNillableRemark sets the "remark" field if the given value is not nil.
+func (duo *DepartmentUpdateOne) SetNillableRemark(s *string) *DepartmentUpdateOne {
+	if s != nil {
+		duo.SetRemark(*s)
+	}
+	return duo
+}
+
+// ClearRemark clears the value of the "remark" field.
+func (duo *DepartmentUpdateOne) ClearRemark() *DepartmentUpdateOne {
+	duo.mutation.ClearRemark()
 	return duo
 }
 
@@ -745,6 +807,9 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 	if value, ok := duo.mutation.Ancestors(); ok {
 		_spec.SetField(department.FieldAncestors, field.TypeString, value)
 	}
+	if duo.mutation.AncestorsCleared() {
+		_spec.ClearField(department.FieldAncestors, field.TypeString)
+	}
 	if value, ok := duo.mutation.Leader(); ok {
 		_spec.SetField(department.FieldLeader, field.TypeString, value)
 	}
@@ -756,6 +821,9 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 	}
 	if value, ok := duo.mutation.Remark(); ok {
 		_spec.SetField(department.FieldRemark, field.TypeString, value)
+	}
+	if duo.mutation.RemarkCleared() {
+		_spec.ClearField(department.FieldRemark, field.TypeString)
 	}
 	if duo.mutation.ParentCleared() {
 		edge := &sqlgraph.EdgeSpec{

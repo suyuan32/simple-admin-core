@@ -18,7 +18,7 @@ func (Department) Fields() []ent.Field {
 		field.String("name").
 			Comment("Department name | 部门名称").
 			Annotations(entsql.WithComments(true)),
-		field.String("ancestors").
+		field.String("ancestors").Optional().
 			Comment("Parents' IDs | 父级列表").
 			Annotations(entsql.WithComments(true)),
 		field.String("leader").
@@ -30,7 +30,7 @@ func (Department) Fields() []ent.Field {
 		field.String("email").
 			Comment("Leader's email | 部门负责人电子邮箱").
 			Annotations(entsql.WithComments(true)),
-		field.String("remark").
+		field.String("remark").Optional().
 			Comment("Remark | 备注").
 			Annotations(entsql.WithComments(true)),
 		field.Uint64("parent_id").Optional().Default(0).
