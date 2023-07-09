@@ -81,8 +81,8 @@ JobRpc:
   Enabled: true
 
 McmsRpc:
-  Target: k8s://default/mcms-rpc-svc:9106
-  Enabled: false
+  Target: 10.5.0.9:9106
+  Enabled: true
   Timeout: 5000
 
 # Tracing Analysis
