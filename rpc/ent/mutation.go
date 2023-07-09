@@ -1049,9 +1049,22 @@ func (m *DepartmentMutation) OldAncestors(ctx context.Context) (v string, err er
 	return oldValue.Ancestors, nil
 }
 
+// ClearAncestors clears the value of the "ancestors" field.
+func (m *DepartmentMutation) ClearAncestors() {
+	m.ancestors = nil
+	m.clearedFields[department.FieldAncestors] = struct{}{}
+}
+
+// AncestorsCleared returns if the "ancestors" field was cleared in this mutation.
+func (m *DepartmentMutation) AncestorsCleared() bool {
+	_, ok := m.clearedFields[department.FieldAncestors]
+	return ok
+}
+
 // ResetAncestors resets all changes to the "ancestors" field.
 func (m *DepartmentMutation) ResetAncestors() {
 	m.ancestors = nil
+	delete(m.clearedFields, department.FieldAncestors)
 }
 
 // SetLeader sets the "leader" field.
@@ -1193,9 +1206,22 @@ func (m *DepartmentMutation) OldRemark(ctx context.Context) (v string, err error
 	return oldValue.Remark, nil
 }
 
+// ClearRemark clears the value of the "remark" field.
+func (m *DepartmentMutation) ClearRemark() {
+	m.remark = nil
+	m.clearedFields[department.FieldRemark] = struct{}{}
+}
+
+// RemarkCleared returns if the "remark" field was cleared in this mutation.
+func (m *DepartmentMutation) RemarkCleared() bool {
+	_, ok := m.clearedFields[department.FieldRemark]
+	return ok
+}
+
 // ResetRemark resets all changes to the "remark" field.
 func (m *DepartmentMutation) ResetRemark() {
 	m.remark = nil
+	delete(m.clearedFields, department.FieldRemark)
 }
 
 // SetParentID sets the "parent_id" field.
@@ -1656,6 +1682,12 @@ func (m *DepartmentMutation) ClearedFields() []string {
 	if m.FieldCleared(department.FieldStatus) {
 		fields = append(fields, department.FieldStatus)
 	}
+	if m.FieldCleared(department.FieldAncestors) {
+		fields = append(fields, department.FieldAncestors)
+	}
+	if m.FieldCleared(department.FieldRemark) {
+		fields = append(fields, department.FieldRemark)
+	}
 	if m.FieldCleared(department.FieldParentID) {
 		fields = append(fields, department.FieldParentID)
 	}
@@ -1675,6 +1707,12 @@ func (m *DepartmentMutation) ClearField(name string) error {
 	switch name {
 	case department.FieldStatus:
 		m.ClearStatus()
+		return nil
+	case department.FieldAncestors:
+		m.ClearAncestors()
+		return nil
+	case department.FieldRemark:
+		m.ClearRemark()
 		return nil
 	case department.FieldParentID:
 		m.ClearParentID()
@@ -7014,9 +7052,22 @@ func (m *PositionMutation) OldRemark(ctx context.Context) (v string, err error) 
 	return oldValue.Remark, nil
 }
 
+// ClearRemark clears the value of the "remark" field.
+func (m *PositionMutation) ClearRemark() {
+	m.remark = nil
+	m.clearedFields[position.FieldRemark] = struct{}{}
+}
+
+// RemarkCleared returns if the "remark" field was cleared in this mutation.
+func (m *PositionMutation) RemarkCleared() bool {
+	_, ok := m.clearedFields[position.FieldRemark]
+	return ok
+}
+
 // ResetRemark resets all changes to the "remark" field.
 func (m *PositionMutation) ResetRemark() {
 	m.remark = nil
+	delete(m.clearedFields, position.FieldRemark)
 }
 
 // AddUserIDs adds the "users" edge to the User entity by ids.
@@ -7292,6 +7343,9 @@ func (m *PositionMutation) ClearedFields() []string {
 	if m.FieldCleared(position.FieldStatus) {
 		fields = append(fields, position.FieldStatus)
 	}
+	if m.FieldCleared(position.FieldRemark) {
+		fields = append(fields, position.FieldRemark)
+	}
 	return fields
 }
 
@@ -7308,6 +7362,9 @@ func (m *PositionMutation) ClearField(name string) error {
 	switch name {
 	case position.FieldStatus:
 		m.ClearStatus()
+		return nil
+	case position.FieldRemark:
+		m.ClearRemark()
 		return nil
 	}
 	return fmt.Errorf("unknown Position nullable field %s", name)

@@ -27,7 +27,7 @@ type Dictionary struct {
 	Title string `json:"title,omitempty"`
 	// The name of dictionary for search | 字典搜索名称
 	Name string `json:"name,omitempty"`
-	// The status of dictionary (true enable | false disable) | 字典状态
+	// The description of dictionary | 字典的描述
 	Desc string `json:"desc,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the DictionaryQuery when eager-loading is set.

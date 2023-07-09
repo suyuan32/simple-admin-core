@@ -40,11 +40,11 @@ var (
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
 		{Name: "sort", Type: field.TypeUint32, Default: 1},
 		{Name: "name", Type: field.TypeString, Comment: "Department name | 部门名称"},
-		{Name: "ancestors", Type: field.TypeString, Comment: "Parents' IDs | 父级列表"},
+		{Name: "ancestors", Type: field.TypeString, Nullable: true, Comment: "Parents' IDs | 父级列表"},
 		{Name: "leader", Type: field.TypeString, Comment: "Department leader | 部门负责人"},
 		{Name: "phone", Type: field.TypeString, Comment: "Leader's phone number | 负责人电话"},
 		{Name: "email", Type: field.TypeString, Comment: "Leader's email | 部门负责人电子邮箱"},
-		{Name: "remark", Type: field.TypeString, Comment: "Remark | 备注"},
+		{Name: "remark", Type: field.TypeString, Nullable: true, Comment: "Remark | 备注"},
 		{Name: "parent_id", Type: field.TypeUint64, Nullable: true, Comment: "Parent department ID | 父级部门ID", Default: 0},
 	}
 	// SysDepartmentsTable holds the schema information for the "sys_departments" table.
@@ -69,7 +69,7 @@ var (
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
 		{Name: "title", Type: field.TypeString, Comment: "The title shown in the ui | 展示名称 （建议配合i18n）"},
 		{Name: "name", Type: field.TypeString, Unique: true, Comment: "The name of dictionary for search | 字典搜索名称"},
-		{Name: "desc", Type: field.TypeString, Nullable: true, Comment: "The status of dictionary (true enable | false disable) | 字典状态"},
+		{Name: "desc", Type: field.TypeString, Nullable: true, Comment: "The description of dictionary | 字典的描述"},
 	}
 	// SysDictionariesTable holds the schema information for the "sys_dictionaries" table.
 	SysDictionariesTable = &schema.Table{
@@ -156,7 +156,7 @@ var (
 		{Name: "scopes", Type: field.TypeString, Comment: "The scopes | 权限范围"},
 		{Name: "auth_url", Type: field.TypeString, Comment: "The auth url of the provider | 认证地址"},
 		{Name: "token_url", Type: field.TypeString, Comment: "The token url of the provider | 获取 token地址"},
-		{Name: "auth_style", Type: field.TypeUint64, Comment: "The auth style, 0: auto detect 1: third party log in 2: log in with username and password"},
+		{Name: "auth_style", Type: field.TypeUint64, Comment: "The auth style, 0: auto detect 1: third party log in 2: log in with username and password | 鉴权方式 0 自动 1 第三方登录 2 使用用户名密码"},
 		{Name: "info_url", Type: field.TypeString, Comment: "The URL to request user information by token | 用户信息请求地址"},
 	}
 	// SysOauthProvidersTable holds the schema information for the "sys_oauth_providers" table.
@@ -174,7 +174,7 @@ var (
 		{Name: "sort", Type: field.TypeUint32, Default: 1},
 		{Name: "name", Type: field.TypeString, Comment: "Position Name | 职位名称"},
 		{Name: "code", Type: field.TypeString, Comment: "The code of position | 职位编码"},
-		{Name: "remark", Type: field.TypeString, Comment: "Remark | 备注"},
+		{Name: "remark", Type: field.TypeString, Nullable: true, Comment: "Remark | 备注"},
 	}
 	// SysPositionsTable holds the schema information for the "sys_positions" table.
 	SysPositionsTable = &schema.Table{

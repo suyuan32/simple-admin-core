@@ -102,6 +102,20 @@ func (pu *PositionUpdate) SetRemark(s string) *PositionUpdate {
 	return pu
 }
 
+// SetNillableRemark sets the "remark" field if the given value is not nil.
+func (pu *PositionUpdate) SetNillableRemark(s *string) *PositionUpdate {
+	if s != nil {
+		pu.SetRemark(*s)
+	}
+	return pu
+}
+
+// ClearRemark clears the value of the "remark" field.
+func (pu *PositionUpdate) ClearRemark() *PositionUpdate {
+	pu.mutation.ClearRemark()
+	return pu
+}
+
 // AddUserIDs adds the "users" edge to the User entity by IDs.
 func (pu *PositionUpdate) AddUserIDs(ids ...uuid.UUID) *PositionUpdate {
 	pu.mutation.AddUserIDs(ids...)
@@ -214,6 +228,9 @@ func (pu *PositionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := pu.mutation.Remark(); ok {
 		_spec.SetField(position.FieldRemark, field.TypeString, value)
+	}
+	if pu.mutation.RemarkCleared() {
+		_spec.ClearField(position.FieldRemark, field.TypeString)
 	}
 	if pu.mutation.UsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -349,6 +366,20 @@ func (puo *PositionUpdateOne) SetCode(s string) *PositionUpdateOne {
 // SetRemark sets the "remark" field.
 func (puo *PositionUpdateOne) SetRemark(s string) *PositionUpdateOne {
 	puo.mutation.SetRemark(s)
+	return puo
+}
+
+// SetNillableRemark sets the "remark" field if the given value is not nil.
+func (puo *PositionUpdateOne) SetNillableRemark(s *string) *PositionUpdateOne {
+	if s != nil {
+		puo.SetRemark(*s)
+	}
+	return puo
+}
+
+// ClearRemark clears the value of the "remark" field.
+func (puo *PositionUpdateOne) ClearRemark() *PositionUpdateOne {
+	puo.mutation.ClearRemark()
 	return puo
 }
 
@@ -494,6 +525,9 @@ func (puo *PositionUpdateOne) sqlSave(ctx context.Context) (_node *Position, err
 	}
 	if value, ok := puo.mutation.Remark(); ok {
 		_spec.SetField(position.FieldRemark, field.TypeString, value)
+	}
+	if puo.mutation.RemarkCleared() {
+		_spec.ClearField(position.FieldRemark, field.TypeString)
 	}
 	if puo.mutation.UsersCleared() {
 		edge := &sqlgraph.EdgeSpec{

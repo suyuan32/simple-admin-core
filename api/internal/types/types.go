@@ -353,17 +353,19 @@ type LoginReq struct {
 	// max length : 20
 	Username string `json:"username" validate:"required,alphanum,max=20"`
 	// Password | 密码
-	// Required: true
-	// Min length: 6
-	// Max length: 30
+	// required : true
+	// max length : 30
+	// min length : 6
 	Password string `json:"password" validate:"required,max=30,min=6"`
 	// Captcha ID which store in redis | 验证码编号, 存在redis中
-	// Required: true
-	// Max length: 20
+	// required : true
+	// max length : 20
+	// min length : 20
 	CaptchaId string `json:"captchaId"  validate:"required,len=20"`
 	// The Captcha which users input | 用户输入的验证码
-	// Required: true
-	// Max length: 5
+	// required : true
+	// max length : 5
+	// min length : 5
 	Captcha string `json:"captcha" validate:"required,len=5"`
 }
 
@@ -398,6 +400,21 @@ type ProfileResp struct {
 	BaseDataInfo
 	// The profile information | 个人信息
 	Data ProfileInfo `json:"data"`
+}
+
+// Reset password by email request | 通过邮箱重置密码请求
+// swagger:model ResetPasswordByEmailReq
+type ResetPasswordByEmailReq struct {
+	Email    string `json:"email" validate:"email"`
+	Captcha  string `json:"captcha"`
+	Password string `json:"password"`
+}
+
+// swagger:model ResetPasswordBySmsReq
+type ResetPasswordBySmsReq struct {
+	PhoneNumber string `json:"phoneNumber"`
+	Captcha     string `json:"captcha"`
+	Password    string `json:"password"`
 }
 
 // The response data of menu information | 菜单信息
@@ -575,6 +592,20 @@ type CaptchaResp struct {
 	BaseDataInfo
 	// The menu authorization data | 菜单授权信息数据
 	Data CaptchaInfo `json:"data"`
+}
+
+// The email captcha request | 邮箱验证码请求参数
+// swagger:model EmailCaptchaReq
+type EmailCaptchaReq struct {
+	// The email address | 邮箱地址
+	Email string `json:"email"`
+}
+
+// The sms captcha request | 短信验证码请求参数
+// swagger:model SmsCaptchaReq
+type SmsCaptchaReq struct {
+	// The phone number | 电话号码
+	PhoneNumber string `json:"phoneNumber"`
 }
 
 // The API information | API信息

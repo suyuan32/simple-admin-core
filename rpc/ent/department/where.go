@@ -400,6 +400,16 @@ func AncestorsHasSuffix(v string) predicate.Department {
 	return predicate.Department(sql.FieldHasSuffix(FieldAncestors, v))
 }
 
+// AncestorsIsNil applies the IsNil predicate on the "ancestors" field.
+func AncestorsIsNil() predicate.Department {
+	return predicate.Department(sql.FieldIsNull(FieldAncestors))
+}
+
+// AncestorsNotNil applies the NotNil predicate on the "ancestors" field.
+func AncestorsNotNil() predicate.Department {
+	return predicate.Department(sql.FieldNotNull(FieldAncestors))
+}
+
 // AncestorsEqualFold applies the EqualFold predicate on the "ancestors" field.
 func AncestorsEqualFold(v string) predicate.Department {
 	return predicate.Department(sql.FieldEqualFold(FieldAncestors, v))
@@ -658,6 +668,16 @@ func RemarkHasPrefix(v string) predicate.Department {
 // RemarkHasSuffix applies the HasSuffix predicate on the "remark" field.
 func RemarkHasSuffix(v string) predicate.Department {
 	return predicate.Department(sql.FieldHasSuffix(FieldRemark, v))
+}
+
+// RemarkIsNil applies the IsNil predicate on the "remark" field.
+func RemarkIsNil() predicate.Department {
+	return predicate.Department(sql.FieldIsNull(FieldRemark))
+}
+
+// RemarkNotNil applies the NotNil predicate on the "remark" field.
+func RemarkNotNil() predicate.Department {
+	return predicate.Department(sql.FieldNotNull(FieldRemark))
 }
 
 // RemarkEqualFold applies the EqualFold predicate on the "remark" field.

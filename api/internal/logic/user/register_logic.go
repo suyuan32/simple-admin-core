@@ -38,9 +38,9 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseMsgRes
 				Nickname:     &req.Username,
 				Status:       pointy.GetPointer(uint32(1)),
 				HomePath:     pointy.GetPointer("/dashboard"),
-				RoleIds:      []uint64{l.svcCtx.Config.ProjectConf.DefaultRole},
-				DepartmentId: pointy.GetPointer(l.svcCtx.Config.ProjectConf.DefaultDepartment),
-				PositionIds:  []uint64{l.svcCtx.Config.ProjectConf.DefaultPosition},
+				RoleIds:      []uint64{l.svcCtx.Config.ProjectConf.DefaultRoleId},
+				DepartmentId: pointy.GetPointer(l.svcCtx.Config.ProjectConf.DefaultDepartmentId),
+				PositionIds:  []uint64{l.svcCtx.Config.ProjectConf.DefaultPositionId},
 			})
 		if err != nil {
 			return nil, err

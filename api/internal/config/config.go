@@ -16,6 +16,7 @@ type Config struct {
 	RedisConf    redis.RedisConf
 	CoreRpc      zrpc.RpcClientConf
 	JobRpc       zrpc.RpcClientConf
+	McmsRpc      zrpc.RpcClientConf
 	Captcha      captcha.Conf
 	DatabaseConf config.DatabaseConf
 	CasbinConf   casbin.CasbinConf
@@ -25,7 +26,11 @@ type Config struct {
 }
 
 type ProjectConf struct {
-	DefaultRole       uint64 `json:",default=1"`
-	DefaultDepartment uint64 `json:",default=1"`
-	DefaultPosition   uint64 `json:",default=1"`
+	DefaultRoleId           uint64 `json:",default=1"`
+	DefaultDepartmentId     uint64 `json:",default=1"`
+	DefaultPositionId       uint64 `json:",default=1"`
+	EmailCaptchaExpiredTime int    `json:",default=600"`
+	SmsTemplateId           string `json:",optional"`
+	SmsAppId                string `json:",optional"`
+	SmsSignName             string `json:",optional"`
 }

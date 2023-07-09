@@ -86,6 +86,16 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/user/register",
 				Handler: user.RegisterHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/reset_password_by_email",
+				Handler: user.ResetPasswordByEmailHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/reset_password_by_sms",
+				Handler: user.ResetPasswordBySmsHandler(serverCtx),
+			},
 		},
 	)
 
@@ -193,6 +203,21 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodGet,
 				Path:    "/captcha",
 				Handler: captcha.GetCaptchaHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/captcha/email",
+				Handler: captcha.GetEmailCaptchaHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/captcha/sms",
+				Handler: captcha.GetSmsCaptchaHandler(serverCtx),
 			},
 		},
 	)

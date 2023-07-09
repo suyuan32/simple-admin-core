@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.0.12"
+    "version": "1.0.13"
   },
   "host": "localhost:9100",
   "basePath": "/",
@@ -286,6 +286,62 @@
             "description": "CaptchaResp",
             "schema": {
               "$ref": "#/definitions/CaptchaResp"
+            }
+          }
+        }
+      }
+    },
+    "/captcha/email": {
+      "post": {
+        "description": "Get Email Captcha | 获取邮箱验证码",
+        "tags": [
+          "captcha"
+        ],
+        "summary": "Get Email Captcha | 获取邮箱验证码",
+        "operationId": "GetEmailCaptcha",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/EmailCaptchaReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/captcha/sms": {
+      "post": {
+        "description": "Get SMS Captcha | 获取短信验证码",
+        "tags": [
+          "captcha"
+        ],
+        "summary": "Get SMS Captcha | 获取短信验证码",
+        "operationId": "GetSmsCaptcha",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SmsCaptchaReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
             }
           }
         }
@@ -2102,6 +2158,62 @@
         }
       }
     },
+    "/user/reset_password_by_email": {
+      "post": {
+        "description": "Reset password by Email | 通过邮箱重置密码",
+        "tags": [
+          "user"
+        ],
+        "summary": "Reset password by Email | 通过邮箱重置密码",
+        "operationId": "ResetPasswordByEmail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ResetPasswordByEmailReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/reset_password_by_sms": {
+      "post": {
+        "description": "Reset password by Sms | 通过短信重置密码",
+        "tags": [
+          "user"
+        ],
+        "summary": "Reset password by Sms | 通过短信重置密码",
+        "operationId": "ResetPasswordBySms",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ResetPasswordBySmsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/user/update": {
       "post": {
         "description": "Update user information | 更新用户",
@@ -3119,6 +3231,18 @@
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
+    "EmailCaptchaReq": {
+      "description": "The email captcha request | 邮箱验证码请求参数",
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "The email address | 邮箱地址",
+          "type": "string",
+          "x-go-name": "Email"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
     "IDPathReq": {
       "description": "Basic ID request | 基础ID地址参数请求",
       "type": "object",
@@ -3206,12 +3330,14 @@
           "description": "The Captcha which users input | 用户输入的验证码",
           "type": "string",
           "maxLength": 5,
+          "minLength": 5,
           "x-go-name": "Captcha"
         },
         "captchaId": {
           "description": "Captcha ID which store in redis | 验证码编号, 存在redis中",
           "type": "string",
           "maxLength": 20,
+          "minLength": 20,
           "x-go-name": "CaptchaId"
         },
         "password": {
@@ -4286,6 +4412,43 @@
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
+    "ResetPasswordByEmailReq": {
+      "description": "Reset password by email request | 通过邮箱重置密码请求",
+      "type": "object",
+      "properties": {
+        "captcha": {
+          "type": "string",
+          "x-go-name": "Captcha"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ResetPasswordBySmsReq": {
+      "type": "object",
+      "properties": {
+        "captcha": {
+          "type": "string",
+          "x-go-name": "Captcha"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "x-go-name": "PhoneNumber"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
     "RoleInfo": {
       "description": "The response data of role information | 角色信息",
       "type": "object",
@@ -4466,6 +4629,18 @@
           "description": "Message | 提示信息",
           "type": "string",
           "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SmsCaptchaReq": {
+      "description": "The sms captcha request | 短信验证码请求参数",
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "description": "The phone number | 电话号码",
+          "type": "string",
+          "x-go-name": "PhoneNumber"
         }
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"

@@ -43,7 +43,16 @@ func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiList
 	resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)
 	resp.Data.Total = data.GetTotal()
 
+	// Translate api group
+	var group = make(map[string]string)
 	for _, v := range data.Data {
+		// If page size is over 1000, use api group i18n translation. Mainly use in authority list.
+		if req.PageSize > 1000 {
+			if _, exist := group[*v.ApiGroup]; !exist {
+				group[*v.ApiGroup] = l.svcCtx.Trans.Trans(l.ctx, "apiGroup."+*v.ApiGroup)
+			}
+			*v.ApiGroup = group[*v.ApiGroup]
+		}
 		resp.Data.Data = append(resp.Data.Data,
 			types.ApiInfo{
 				BaseIDInfo: types.BaseIDInfo{
