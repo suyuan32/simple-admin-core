@@ -96,6 +96,14 @@ func (pc *PositionCreate) SetRemark(s string) *PositionCreate {
 	return pc
 }
 
+// SetNillableRemark sets the "remark" field if the given value is not nil.
+func (pc *PositionCreate) SetNillableRemark(s *string) *PositionCreate {
+	if s != nil {
+		pc.SetRemark(*s)
+	}
+	return pc
+}
+
 // SetID sets the "id" field.
 func (pc *PositionCreate) SetID(u uint64) *PositionCreate {
 	pc.mutation.SetID(u)
@@ -186,9 +194,6 @@ func (pc *PositionCreate) check() error {
 	}
 	if _, ok := pc.mutation.Code(); !ok {
 		return &ValidationError{Name: "code", err: errors.New(`ent: missing required field "Position.code"`)}
-	}
-	if _, ok := pc.mutation.Remark(); !ok {
-		return &ValidationError{Name: "remark", err: errors.New(`ent: missing required field "Position.remark"`)}
 	}
 	return nil
 }

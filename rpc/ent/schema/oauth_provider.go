@@ -37,7 +37,8 @@ func (OauthProvider) Fields() []ent.Field {
 			Comment("The token url of the provider | 获取 token地址").
 			Annotations(entsql.WithComments(true)),
 		field.Uint64("auth_style").
-			Comment("The auth style, 0: auto detect 1: third party log in 2: log in with username and password").
+			Comment("The auth style, 0: auto detect 1: third party log in 2: log in with username and password | 鉴权方式" +
+				" 0 自动 1 第三方登录 2 使用用户名密码").
 			Annotations(entsql.WithComments(true)),
 		field.String("info_url").
 			Comment("The URL to request user information by token | 用户信息请求地址").

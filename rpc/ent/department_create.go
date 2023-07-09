@@ -90,6 +90,14 @@ func (dc *DepartmentCreate) SetAncestors(s string) *DepartmentCreate {
 	return dc
 }
 
+// SetNillableAncestors sets the "ancestors" field if the given value is not nil.
+func (dc *DepartmentCreate) SetNillableAncestors(s *string) *DepartmentCreate {
+	if s != nil {
+		dc.SetAncestors(*s)
+	}
+	return dc
+}
+
 // SetLeader sets the "leader" field.
 func (dc *DepartmentCreate) SetLeader(s string) *DepartmentCreate {
 	dc.mutation.SetLeader(s)
@@ -111,6 +119,14 @@ func (dc *DepartmentCreate) SetEmail(s string) *DepartmentCreate {
 // SetRemark sets the "remark" field.
 func (dc *DepartmentCreate) SetRemark(s string) *DepartmentCreate {
 	dc.mutation.SetRemark(s)
+	return dc
+}
+
+// SetNillableRemark sets the "remark" field if the given value is not nil.
+func (dc *DepartmentCreate) SetNillableRemark(s *string) *DepartmentCreate {
+	if s != nil {
+		dc.SetRemark(*s)
+	}
 	return dc
 }
 
@@ -240,9 +256,6 @@ func (dc *DepartmentCreate) check() error {
 	if _, ok := dc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Department.name"`)}
 	}
-	if _, ok := dc.mutation.Ancestors(); !ok {
-		return &ValidationError{Name: "ancestors", err: errors.New(`ent: missing required field "Department.ancestors"`)}
-	}
 	if _, ok := dc.mutation.Leader(); !ok {
 		return &ValidationError{Name: "leader", err: errors.New(`ent: missing required field "Department.leader"`)}
 	}
@@ -251,9 +264,6 @@ func (dc *DepartmentCreate) check() error {
 	}
 	if _, ok := dc.mutation.Email(); !ok {
 		return &ValidationError{Name: "email", err: errors.New(`ent: missing required field "Department.email"`)}
-	}
-	if _, ok := dc.mutation.Remark(); !ok {
-		return &ValidationError{Name: "remark", err: errors.New(`ent: missing required field "Department.remark"`)}
 	}
 	return nil
 }
