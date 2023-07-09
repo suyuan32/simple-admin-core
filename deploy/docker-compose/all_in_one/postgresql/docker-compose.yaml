@@ -65,8 +65,8 @@ services:
     image: ryanpower/core-rpc-docker:v1.0.13
     container_name: core-rpc
     restart: always
-    ports:
-      - '9101:9101'
+    #    ports:
+    #      - '9101:9101'
     networks:
       simple-admin:
         aliases:
@@ -85,8 +85,8 @@ services:
     image: ryanpower/job-rpc-docker:v1.0.13
     container_name: job-rpc
     restart: always
-    ports:
-      - '9105:9105'
+    #    ports:
+    #      - '9105:9105'
     networks:
       simple-admin:
         aliases:
@@ -108,8 +108,8 @@ services:
     environment:
       I18N_DIR: '/app/etc/'
     #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
-    ports:
-      - '9100:9100'
+    #    ports:
+    #      - '9100:9100'
     networks:
       simple-admin:
         aliases:
@@ -152,7 +152,7 @@ services:
     #      SERVER_URL: 'http://localhost:81'
     #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
     ports:
-      - '9102:9102'
+      #      - '9102:9102'
       - '81:80'
     volumes:
       - fms:/home/data
@@ -161,6 +161,26 @@ services:
         aliases:
           - fms-api
         ipv4_address: 10.5.0.8
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 500M
+        reservations:
+          cpus: '0.05'
+          memory: 200M
+
+  mcms-rpc:
+    image: ryanpower/mcms-rpc-docker:v1.0.13
+    container_name: mcms-rpc
+    restart: always
+    #    ports:
+    #      - '9106:9106'
+    networks:
+      simple-admin:
+        aliases:
+          - mcms-rpc
+        ipv4_address: 10.5.0.9
     deploy:
       resources:
         limits:
