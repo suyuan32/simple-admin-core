@@ -58,7 +58,7 @@ type (
     middleware: Authority
 )
 
-service core {
+service Core {
     // Create task log information | 创建任务日志
     @handler createTaskLog
     post /task_log/create (TaskLogInfo) returns (BaseMsgResp)

@@ -69,7 +69,7 @@ type (
     middleware: Authority
 )
 
-service core {
+service Core {
     // Create token information | 创建Token
     @handler createToken
     post /token/create (TokenInfo) returns (BaseMsgResp)

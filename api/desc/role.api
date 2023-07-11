@@ -66,7 +66,7 @@ type (
     middleware: Authority
 )
 
-service core {
+service Core {
     // Create role information | 创建角色
     @handler createRole
     post /role/create (RoleInfo) returns (BaseMsgResp)

@@ -1256,3 +1256,213 @@ type TaskLogInfoResp struct {
 	// TaskLog information | 任务日志数据
 	Data TaskLogInfo `json:"data"`
 }
+
+// The response data of email log information | 电子邮件日志信息
+// swagger:model EmailLogInfo
+type EmailLogInfo struct {
+	BaseUUIDInfo
+	// Target
+	Target *string `json:"target,optional"`
+	// Subject
+	Subject *string `json:"subject,optional"`
+	// Content
+	Content *string `json:"content,optional"`
+	// SendStatus
+	SendStatus *uint32 `json:"sendStatus,optional"`
+	// Provider
+	Provider *string `json:"provider,optional"`
+}
+
+// The response data of email log list | 电子邮件日志列表数据
+// swagger:model EmailLogListResp
+type EmailLogListResp struct {
+	BaseDataInfo
+	// EmailLog list data | 电子邮件日志列表数据
+	Data EmailLogListInfo `json:"data"`
+}
+
+// EmailLog list data | 电子邮件日志列表数据
+// swagger:model EmailLogListInfo
+type EmailLogListInfo struct {
+	BaseListInfo
+	// The API list data | 电子邮件日志列表数据
+	Data []EmailLogInfo `json:"data"`
+}
+
+// Get email log list request params | 电子邮件日志列表请求参数
+// swagger:model EmailLogListReq
+type EmailLogListReq struct {
+	PageInfo
+	// Target
+	Target *string `json:"target,optional"`
+	// Subject
+	Subject *string `json:"subject,optional"`
+	// Provider
+	Provider *string `json:"provider,optional"`
+}
+
+// EmailLog information response | 电子邮件日志信息返回体
+// swagger:model EmailLogInfoResp
+type EmailLogInfoResp struct {
+	BaseDataInfo
+	// EmailLog information | 电子邮件日志数据
+	Data EmailLogInfo `json:"data"`
+}
+
+// The response data of sms log information | 短信日志信息
+// swagger:model SmsLogInfo
+type SmsLogInfo struct {
+	BaseUUIDInfo
+	// PhoneNumber
+	PhoneNumber *string `json:"phoneNumber,optional"`
+	// Content
+	Content *string `json:"content,optional"`
+	// SendStatus
+	SendStatus *uint32 `json:"sendStatus,optional"`
+	// Provider
+	Provider *string `json:"provider,optional"`
+}
+
+// The response data of sms log list | 短信日志列表数据
+// swagger:model SmsLogListResp
+type SmsLogListResp struct {
+	BaseDataInfo
+	// SmsLog list data | 短信日志列表数据
+	Data SmsLogListInfo `json:"data"`
+}
+
+// SmsLog list data | 短信日志列表数据
+// swagger:model SmsLogListInfo
+type SmsLogListInfo struct {
+	BaseListInfo
+	// The API list data | 短信日志列表数据
+	Data []SmsLogInfo `json:"data"`
+}
+
+// Get sms log list request params | 短信日志列表请求参数
+// swagger:model SmsLogListReq
+type SmsLogListReq struct {
+	PageInfo
+	// PhoneNumber
+	PhoneNumber *string `json:"phoneNumber,optional"`
+	// Content
+	Content *string `json:"content,optional"`
+	// Provider
+	Provider *string `json:"provider,optional"`
+}
+
+// SmsLog information response | 短信日志信息返回体
+// swagger:model SmsLogInfoResp
+type SmsLogInfoResp struct {
+	BaseDataInfo
+	// SmsLog information | 短信日志数据
+	Data SmsLogInfo `json:"data"`
+}
+
+// The response data of sms provider information | 短信配置信息
+// swagger:model SmsProviderInfo
+type SmsProviderInfo struct {
+	BaseIDInfo
+	// Name
+	Name *string `json:"name,optional"`
+	// SecretId
+	SecretId *string `json:"secretId,optional"`
+	// SecretKey
+	SecretKey *string `json:"secretKey,optional"`
+	// Region
+	Region *string `json:"region,optional"`
+	// IsDefault
+	IsDefault *bool `json:"isDefault,optional"`
+}
+
+// The response data of sms provider list | 短信配置列表数据
+// swagger:model SmsProviderListResp
+type SmsProviderListResp struct {
+	BaseDataInfo
+	// SmsProvider list data | 短信配置列表数据
+	Data SmsProviderListInfo `json:"data"`
+}
+
+// SmsProvider list data | 短信配置列表数据
+// swagger:model SmsProviderListInfo
+type SmsProviderListInfo struct {
+	BaseListInfo
+	// The API list data | 短信配置列表数据
+	Data []SmsProviderInfo `json:"data"`
+}
+
+// Get sms provider list request params | 短信配置列表请求参数
+// swagger:model SmsProviderListReq
+type SmsProviderListReq struct {
+	PageInfo
+	// Name
+	Name *string `json:"name,optional"`
+}
+
+// SmsProvider information response | 短信配置信息返回体
+// swagger:model SmsProviderInfoResp
+type SmsProviderInfoResp struct {
+	BaseDataInfo
+	// SmsProvider information | 短信配置数据
+	Data SmsProviderInfo `json:"data"`
+}
+
+// The response data of email provider information | 邮箱服务配置信息
+// swagger:model EmailProviderInfo
+type EmailProviderInfo struct {
+	BaseIDInfo
+	// Name
+	Name *string `json:"name,optional"`
+	// AuthType
+	AuthType *uint32 `json:"authType,optional"`
+	// EmailAddr
+	EmailAddr *string `json:"emailAddr,optional"`
+	// Password
+	Password *string `json:"password,optional"`
+	// HostName
+	HostName *string `json:"hostName,optional"`
+	// Identify
+	Identify *string `json:"identify,optional"`
+	// Secret
+	Secret *string `json:"secret,optional"`
+	// Port
+	Port *uint32 `json:"port,optional"`
+	// Tls
+	Tls *bool `json:"tls,optional"`
+	// IsDefault
+	IsDefault *bool `json:"isDefault,optional"`
+}
+
+// The response data of email provider list | 邮箱服务配置列表数据
+// swagger:model EmailProviderListResp
+type EmailProviderListResp struct {
+	BaseDataInfo
+	// EmailProvider list data | 邮箱服务配置列表数据
+	Data EmailProviderListInfo `json:"data"`
+}
+
+// EmailProvider list data | 邮箱服务配置列表数据
+// swagger:model EmailProviderListInfo
+type EmailProviderListInfo struct {
+	BaseListInfo
+	// The API list data | 邮箱服务配置列表数据
+	Data []EmailProviderInfo `json:"data"`
+}
+
+// Get email provider list request params | 邮箱服务配置列表请求参数
+// swagger:model EmailProviderListReq
+type EmailProviderListReq struct {
+	PageInfo
+	// Name
+	Name *string `json:"name,optional"`
+	// EmailAddr
+	EmailAddr *string `json:"emailAddr,optional"`
+}
+
+// EmailProvider information response | 邮箱服务配置信息返回体
+// swagger:model EmailProviderInfoResp
+type EmailProviderInfoResp struct {
+	BaseDataInfo
+	// EmailProvider information | 邮箱服务配置数据
+	Data EmailProviderInfo `json:"data"`
+}

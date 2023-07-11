@@ -383,6 +383,24 @@
         }
       }
     },
+    "/core/init/mcms_database": {
+      "get": {
+        "description": "Initialize Message Center database | 初始化消息中心数据库",
+        "tags": [
+          "base"
+        ],
+        "summary": "Initialize Message Center database | 初始化消息中心数据库",
+        "operationId": "InitMcmsDatabase",
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/department": {
       "post": {
         "description": "Get Department by ID | 通过ID获取部门",
@@ -817,6 +835,286 @@
             "schema": {
               "type": "object",
               "$ref": "#/definitions/DictionaryDetailInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/email_log": {
+      "post": {
+        "description": "Get email log by ID | 通过ID获取电子邮件日志",
+        "tags": [
+          "emaillog"
+        ],
+        "summary": "Get email log by ID | 通过ID获取电子邮件日志",
+        "operationId": "GetEmailLogById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EmailLogInfoResp",
+            "schema": {
+              "$ref": "#/definitions/EmailLogInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/email_log/create": {
+      "post": {
+        "description": "Create email log information | 创建电子邮件日志",
+        "tags": [
+          "emaillog"
+        ],
+        "summary": "Create email log information | 创建电子邮件日志",
+        "operationId": "CreateEmailLog",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/EmailLogInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/email_log/delete": {
+      "post": {
+        "description": "Delete email log information | 删除电子邮件日志信息",
+        "tags": [
+          "emaillog"
+        ],
+        "summary": "Delete email log information | 删除电子邮件日志信息",
+        "operationId": "DeleteEmailLog",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/email_log/list": {
+      "post": {
+        "description": "Get email log list | 获取电子邮件日志列表",
+        "tags": [
+          "emaillog"
+        ],
+        "summary": "Get email log list | 获取电子邮件日志列表",
+        "operationId": "GetEmailLogList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/EmailLogListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EmailLogListResp",
+            "schema": {
+              "$ref": "#/definitions/EmailLogListResp"
+            }
+          }
+        }
+      }
+    },
+    "/email_log/update": {
+      "post": {
+        "description": "Update email log information | 更新电子邮件日志",
+        "tags": [
+          "emaillog"
+        ],
+        "summary": "Update email log information | 更新电子邮件日志",
+        "operationId": "UpdateEmailLog",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/EmailLogInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/email_provider": {
+      "post": {
+        "description": "Get email provider by ID | 通过ID获取邮箱服务配置",
+        "tags": [
+          "emailprovider"
+        ],
+        "summary": "Get email provider by ID | 通过ID获取邮箱服务配置",
+        "operationId": "GetEmailProviderById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EmailProviderInfoResp",
+            "schema": {
+              "$ref": "#/definitions/EmailProviderInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/email_provider/create": {
+      "post": {
+        "description": "Create email provider information | 创建邮箱服务配置",
+        "tags": [
+          "emailprovider"
+        ],
+        "summary": "Create email provider information | 创建邮箱服务配置",
+        "operationId": "CreateEmailProvider",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/EmailProviderInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/email_provider/delete": {
+      "post": {
+        "description": "Delete email provider information | 删除邮箱服务配置信息",
+        "tags": [
+          "emailprovider"
+        ],
+        "summary": "Delete email provider information | 删除邮箱服务配置信息",
+        "operationId": "DeleteEmailProvider",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/email_provider/list": {
+      "post": {
+        "description": "Get email provider list | 获取邮箱服务配置列表",
+        "tags": [
+          "emailprovider"
+        ],
+        "summary": "Get email provider list | 获取邮箱服务配置列表",
+        "operationId": "GetEmailProviderList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/EmailProviderListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EmailProviderListResp",
+            "schema": {
+              "$ref": "#/definitions/EmailProviderListResp"
+            }
+          }
+        }
+      }
+    },
+    "/email_provider/update": {
+      "post": {
+        "description": "Update email provider information | 更新邮箱服务配置",
+        "tags": [
+          "emailprovider"
+        ],
+        "summary": "Update email provider information | 更新邮箱服务配置",
+        "operationId": "UpdateEmailProvider",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/EmailProviderInfo"
             }
           }
         ],
@@ -1403,6 +1701,286 @@
             "schema": {
               "type": "object",
               "$ref": "#/definitions/RoleInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/sms_log": {
+      "post": {
+        "description": "Get sms log by ID | 通过ID获取短信日志",
+        "tags": [
+          "smslog"
+        ],
+        "summary": "Get sms log by ID | 通过ID获取短信日志",
+        "operationId": "GetSmsLogById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SmsLogInfoResp",
+            "schema": {
+              "$ref": "#/definitions/SmsLogInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/sms_log/create": {
+      "post": {
+        "description": "Create sms log information | 创建短信日志",
+        "tags": [
+          "smslog"
+        ],
+        "summary": "Create sms log information | 创建短信日志",
+        "operationId": "CreateSmsLog",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SmsLogInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/sms_log/delete": {
+      "post": {
+        "description": "Delete sms log information | 删除短信日志信息",
+        "tags": [
+          "smslog"
+        ],
+        "summary": "Delete sms log information | 删除短信日志信息",
+        "operationId": "DeleteSmsLog",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UUIDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/sms_log/list": {
+      "post": {
+        "description": "Get sms log list | 获取短信日志列表",
+        "tags": [
+          "smslog"
+        ],
+        "summary": "Get sms log list | 获取短信日志列表",
+        "operationId": "GetSmsLogList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SmsLogListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SmsLogListResp",
+            "schema": {
+              "$ref": "#/definitions/SmsLogListResp"
+            }
+          }
+        }
+      }
+    },
+    "/sms_log/update": {
+      "post": {
+        "description": "Update sms log information | 更新短信日志",
+        "tags": [
+          "smslog"
+        ],
+        "summary": "Update sms log information | 更新短信日志",
+        "operationId": "UpdateSmsLog",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SmsLogInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/sms_provider": {
+      "post": {
+        "description": "Get sms provider by ID | 通过ID获取短信配置",
+        "tags": [
+          "smsprovider"
+        ],
+        "summary": "Get sms provider by ID | 通过ID获取短信配置",
+        "operationId": "GetSmsProviderById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SmsProviderInfoResp",
+            "schema": {
+              "$ref": "#/definitions/SmsProviderInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/sms_provider/create": {
+      "post": {
+        "description": "Create sms provider information | 创建短信配置",
+        "tags": [
+          "smsprovider"
+        ],
+        "summary": "Create sms provider information | 创建短信配置",
+        "operationId": "CreateSmsProvider",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SmsProviderInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/sms_provider/delete": {
+      "post": {
+        "description": "Delete sms provider information | 删除短信配置信息",
+        "tags": [
+          "smsprovider"
+        ],
+        "summary": "Delete sms provider information | 删除短信配置信息",
+        "operationId": "DeleteSmsProvider",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/sms_provider/list": {
+      "post": {
+        "description": "Get sms provider list | 获取短信配置列表",
+        "tags": [
+          "smsprovider"
+        ],
+        "summary": "Get sms provider list | 获取短信配置列表",
+        "operationId": "GetSmsProviderList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SmsProviderListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SmsProviderListResp",
+            "schema": {
+              "$ref": "#/definitions/SmsProviderListResp"
+            }
+          }
+        }
+      }
+    },
+    "/sms_provider/update": {
+      "post": {
+        "description": "Update sms provider information | 更新短信配置",
+        "tags": [
+          "smsprovider"
+        ],
+        "summary": "Update sms provider information | 更新短信配置",
+        "operationId": "UpdateSmsProvider",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SmsProviderInfo"
             }
           }
         ],
@@ -3243,6 +3821,346 @@
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
+    "EmailLogInfo": {
+      "description": "The response data of email log information | 电子邮件日志信息",
+      "type": "object",
+      "properties": {
+        "content": {
+          "description": "Content",
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "string",
+          "x-go-name": "Id"
+        },
+        "provider": {
+          "description": "Provider",
+          "type": "string",
+          "x-go-name": "Provider"
+        },
+        "sendStatus": {
+          "description": "SendStatus",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "SendStatus"
+        },
+        "subject": {
+          "description": "Subject",
+          "type": "string",
+          "x-go-name": "Subject"
+        },
+        "target": {
+          "description": "Target",
+          "type": "string",
+          "x-go-name": "Target"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "EmailLogInfoResp": {
+      "description": "EmailLog information response | 电子邮件日志信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/EmailLogInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "EmailLogListInfo": {
+      "description": "EmailLog list data | 电子邮件日志列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 电子邮件日志列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailLogInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "EmailLogListReq": {
+      "description": "Get email log list request params | 电子邮件日志列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "provider": {
+          "description": "Provider",
+          "type": "string",
+          "x-go-name": "Provider"
+        },
+        "subject": {
+          "description": "Subject",
+          "type": "string",
+          "x-go-name": "Subject"
+        },
+        "target": {
+          "description": "Target",
+          "type": "string",
+          "x-go-name": "Target"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "EmailLogListResp": {
+      "description": "The response data of email log list | 电子邮件日志列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/EmailLogListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "EmailProviderInfo": {
+      "description": "The response data of email provider information | 邮箱服务配置信息",
+      "type": "object",
+      "properties": {
+        "authType": {
+          "description": "AuthType",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "AuthType"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "emailAddr": {
+          "description": "EmailAddr",
+          "type": "string",
+          "x-go-name": "EmailAddr"
+        },
+        "hostName": {
+          "description": "HostName",
+          "type": "string",
+          "x-go-name": "HostName"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "identify": {
+          "description": "Identify",
+          "type": "string",
+          "x-go-name": "Identify"
+        },
+        "isDefault": {
+          "description": "IsDefault",
+          "type": "boolean",
+          "x-go-name": "IsDefault"
+        },
+        "name": {
+          "description": "Name",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "password": {
+          "description": "Password",
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "port": {
+          "description": "Port",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Port"
+        },
+        "secret": {
+          "description": "Secret",
+          "type": "string",
+          "x-go-name": "Secret"
+        },
+        "tls": {
+          "description": "Tls",
+          "type": "boolean",
+          "x-go-name": "Tls"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "EmailProviderInfoResp": {
+      "description": "EmailProvider information response | 邮箱服务配置信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/EmailProviderInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "EmailProviderListInfo": {
+      "description": "EmailProvider list data | 邮箱服务配置列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 邮箱服务配置列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailProviderInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "EmailProviderListReq": {
+      "description": "Get email provider list request params | 邮箱服务配置列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "emailAddr": {
+          "description": "EmailAddr",
+          "type": "string",
+          "x-go-name": "EmailAddr"
+        },
+        "name": {
+          "description": "Name",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "EmailProviderListResp": {
+      "description": "The response data of email provider list | 邮箱服务配置列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/EmailProviderListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
     "IDPathReq": {
       "description": "Basic ID request | 基础ID地址参数请求",
       "type": "object",
@@ -4641,6 +5559,309 @@
           "description": "The phone number | 电话号码",
           "type": "string",
           "x-go-name": "PhoneNumber"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SmsLogInfo": {
+      "description": "The response data of sms log information | 短信日志信息",
+      "type": "object",
+      "properties": {
+        "content": {
+          "description": "Content",
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "string",
+          "x-go-name": "Id"
+        },
+        "phoneNumber": {
+          "description": "PhoneNumber",
+          "type": "string",
+          "x-go-name": "PhoneNumber"
+        },
+        "provider": {
+          "description": "Provider",
+          "type": "string",
+          "x-go-name": "Provider"
+        },
+        "sendStatus": {
+          "description": "SendStatus",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "SendStatus"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SmsLogInfoResp": {
+      "description": "SmsLog information response | 短信日志信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/SmsLogInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SmsLogListInfo": {
+      "description": "SmsLog list data | 短信日志列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 短信日志列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SmsLogInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SmsLogListReq": {
+      "description": "Get sms log list request params | 短信日志列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "content": {
+          "description": "Content",
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        },
+        "phoneNumber": {
+          "description": "PhoneNumber",
+          "type": "string",
+          "x-go-name": "PhoneNumber"
+        },
+        "provider": {
+          "description": "Provider",
+          "type": "string",
+          "x-go-name": "Provider"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SmsLogListResp": {
+      "description": "The response data of sms log list | 短信日志列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/SmsLogListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SmsProviderInfo": {
+      "description": "The response data of sms provider information | 短信配置信息",
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "isDefault": {
+          "description": "IsDefault",
+          "type": "boolean",
+          "x-go-name": "IsDefault"
+        },
+        "name": {
+          "description": "Name",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "region": {
+          "description": "Region",
+          "type": "string",
+          "x-go-name": "Region"
+        },
+        "secretId": {
+          "description": "SecretId",
+          "type": "string",
+          "x-go-name": "SecretId"
+        },
+        "secretKey": {
+          "description": "SecretKey",
+          "type": "string",
+          "x-go-name": "SecretKey"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SmsProviderInfoResp": {
+      "description": "SmsProvider information response | 短信配置信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/SmsProviderInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SmsProviderListInfo": {
+      "description": "SmsProvider list data | 短信配置列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | 短信配置列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SmsProviderInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SmsProviderListReq": {
+      "description": "Get sms provider list request params | 短信配置列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "name": {
+          "description": "Name",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SmsProviderListResp": {
+      "description": "The response data of sms provider list | 短信配置列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/SmsProviderListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
         }
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"

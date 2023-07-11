@@ -60,7 +60,7 @@ type (
     middleware: Authority
 )
 
-service core {
+service Core {
     // Create dictionary information | 创建字典
     @handler createDictionary
     post /dictionary/create (DictionaryInfo) returns (BaseMsgResp)

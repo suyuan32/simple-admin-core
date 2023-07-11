@@ -243,7 +243,7 @@ type (
     group: user
 )
 
-service core {
+service Core {
     // Log in | 登录
     @handler login
     post /user/login (LoginReq) returns (LoginResp)
@@ -267,7 +267,7 @@ service core {
     middleware: Authority
 )
 
-service core {
+service Core {
     // Create user information | 创建用户
     @handler createUser
     post /user/create (UserInfo) returns (BaseMsgResp)

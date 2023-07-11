@@ -69,7 +69,7 @@ type (
     middleware: Authority
 )
 
-service core {
+service Core {
     // Create position information | 创建职位
     @handler createPosition
     post /position/create (PositionInfo) returns (BaseMsgResp)

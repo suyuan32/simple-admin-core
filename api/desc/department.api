@@ -78,7 +78,7 @@ type (
     middleware: Authority
 )
 
-service core {
+service Core {
     // Create department information | 创建部门
     @handler createDepartment
     post /department/create (DepartmentInfo) returns (BaseMsgResp)

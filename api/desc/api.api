@@ -79,7 +79,7 @@ type (
     middleware: Authority
 )
 
-service core {
+service Core {
     // Create API information | 创建API
     @handler createApi
     post /api/create(ApiInfo) returns (BaseMsgResp)

@@ -40,7 +40,7 @@ type SmsCaptchaReq {
 	group: captcha
 )
 
-service core {
+service Core {
 	// Get captcha | 获取验证码
 	@handler getCaptcha
 	get /captcha returns (CaptchaResp)
@@ -50,7 +50,7 @@ service core {
     group: captcha
 )
 
-service core {
+service Core {
     // Get Email Captcha | 获取邮箱验证码
     @handler getEmailCaptcha
     post /captcha/email (EmailCaptchaReq) returns (BaseMsgResp)

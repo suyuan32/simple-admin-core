@@ -207,7 +207,7 @@ type (
     middleware: Authority
 )
 
-service core {
+service Core {
     // Create menu information | 创建菜单
     @handler createMenu
     post /menu/create (MenuPlainInfo) returns (BaseMsgResp)

@@ -11,10 +11,14 @@ import (
 	department "github.com/suyuan32/simple-admin-core/api/internal/handler/department"
 	dictionary "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionary"
 	dictionarydetail "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionarydetail"
+	emaillog "github.com/suyuan32/simple-admin-core/api/internal/handler/emaillog"
+	emailprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/emailprovider"
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
 	oauthprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/oauthprovider"
 	position "github.com/suyuan32/simple-admin-core/api/internal/handler/position"
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
+	smslog "github.com/suyuan32/simple-admin-core/api/internal/handler/smslog"
+	smsprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/smsprovider"
 	task "github.com/suyuan32/simple-admin-core/api/internal/handler/task"
 	tasklog "github.com/suyuan32/simple-admin-core/api/internal/handler/tasklog"
 	token "github.com/suyuan32/simple-admin-core/api/internal/handler/token"
@@ -36,6 +40,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodGet,
 				Path:    "/core/init/job_database",
 				Handler: base.InitJobDatabaseHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/core/init/mcms_database",
+				Handler: base.InitMcmsDatabaseHandler(serverCtx),
 			},
 		},
 	)
@@ -576,6 +585,142 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/task_log",
 					Handler: tasklog.GetTaskLogByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/email_log/create",
+					Handler: emaillog.CreateEmailLogHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/email_log/update",
+					Handler: emaillog.UpdateEmailLogHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/email_log/delete",
+					Handler: emaillog.DeleteEmailLogHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/email_log/list",
+					Handler: emaillog.GetEmailLogListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/email_log",
+					Handler: emaillog.GetEmailLogByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/sms_log/create",
+					Handler: smslog.CreateSmsLogHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/sms_log/update",
+					Handler: smslog.UpdateSmsLogHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/sms_log/delete",
+					Handler: smslog.DeleteSmsLogHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/sms_log/list",
+					Handler: smslog.GetSmsLogListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/sms_log",
+					Handler: smslog.GetSmsLogByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/sms_provider/create",
+					Handler: smsprovider.CreateSmsProviderHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/sms_provider/update",
+					Handler: smsprovider.UpdateSmsProviderHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/sms_provider/delete",
+					Handler: smsprovider.DeleteSmsProviderHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/sms_provider/list",
+					Handler: smsprovider.GetSmsProviderListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/sms_provider",
+					Handler: smsprovider.GetSmsProviderByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/email_provider/create",
+					Handler: emailprovider.CreateEmailProviderHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/email_provider/update",
+					Handler: emailprovider.UpdateEmailProviderHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/email_provider/delete",
+					Handler: emailprovider.DeleteEmailProviderHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/email_provider/list",
+					Handler: emailprovider.GetEmailProviderListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/email_provider",
+					Handler: emailprovider.GetEmailProviderByIdHandler(serverCtx),
 				},
 			}...,
 		),

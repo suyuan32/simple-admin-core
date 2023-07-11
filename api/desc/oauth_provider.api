@@ -112,7 +112,7 @@ type (
     group: oauthprovider
 )
 
-service core {
+service Core {
     // Oauth log in | Oauth 登录
     @handler oauthLogin
     post /oauth/login (OauthLoginReq) returns (RedirectResp)
@@ -129,7 +129,7 @@ service core {
     middleware: Authority
 )
 
-service core {
+service Core {
     // Create oauth provider information | 创建第三方
     @handler createOauthProvider
     post /oauth_provider/create (OauthProviderInfo) returns (BaseMsgResp)
