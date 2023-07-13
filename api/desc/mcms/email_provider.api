@@ -1,4 +1,4 @@
-import "base.api"
+import "../base.api"
 
 type (
     // The response data of email provider information | 邮箱服务配置信息

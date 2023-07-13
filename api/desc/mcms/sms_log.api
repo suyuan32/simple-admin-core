@@ -1,4 +1,4 @@
-import "base.api"
+import "../base.api"
 
 type (
     // The response data of sms log information | 短信日志信息

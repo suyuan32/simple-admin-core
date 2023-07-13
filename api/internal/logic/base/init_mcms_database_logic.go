@@ -25,7 +25,8 @@ func NewInitMcmsDatabaseLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	return &InitMcmsDatabaseLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
-		svcCtx: svcCtx}
+		svcCtx: svcCtx,
+	}
 }
 
 func (l *InitMcmsDatabaseLogic) InitMcmsDatabase() (resp *types.BaseMsgResp, err error) {
@@ -44,6 +45,11 @@ func (l *InitMcmsDatabaseLogic) InitMcmsDatabase() (resp *types.BaseMsgResp, err
 
 	// insert api and menu data
 	err = l.InsertApiData()
+	if err != nil {
+		return nil, err
+	}
+
+	err = l.InsertMenuData()
 	if err != nil {
 		return nil, err
 	}
@@ -325,10 +331,10 @@ func (l *InitMcmsDatabaseLogic) InsertMenuData() error {
 		Path:      pointy.GetPointer("/mcms_sms_provider"),
 		Name:      pointy.GetPointer("SmsProviderManagement"),
 		Component: pointy.GetPointer("/mcms/smsProvider/index"),
-		Sort:      pointy.GetPointer(uint32(1)),
+		Sort:      pointy.GetPointer(uint32(2)),
 		Meta: &core.Meta{
 			Title: pointy.GetPointer("route.smsProviderManagement"),
-			Icon:  pointy.GetPointer("ant-design:home-outlined"),
+			Icon:  pointy.GetPointer("clarity:mobile-line"),
 		},
 		MenuType: pointy.GetPointer(uint32(2)),
 	})

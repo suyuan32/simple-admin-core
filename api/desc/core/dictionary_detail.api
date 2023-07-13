@@ -1,4 +1,4 @@
-import "base.api"
+import "../base.api"
 
 type (
     // The response data of dictionary detail information | 字典键值信息

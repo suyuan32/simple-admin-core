@@ -8,7 +8,7 @@ info(
 	version: "v1.0"
 )
 
-import "base.api"
+import "../base.api"
 
 // The information of captcha | 验证码数据
 type CaptchaInfo {

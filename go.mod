@@ -11,7 +11,7 @@ require (
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/suyuan32/simple-admin-common v1.0.13
 	github.com/suyuan32/simple-admin-job v1.0.13
-	github.com/suyuan32/simple-admin-message-center v1.0.13-beta
+	github.com/suyuan32/simple-admin-message-center v1.0.14-0.20230713034354-b0241c46330a
 	github.com/zeromicro/go-zero v1.5.3
 	golang.org/x/oauth2 v0.7.0
 	google.golang.org/grpc v1.56.2

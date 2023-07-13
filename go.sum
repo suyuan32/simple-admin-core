@@ -543,8 +543,8 @@ github.com/suyuan32/simple-admin-common v1.0.13 h1:/X1cZuZc7T0xVKiKQslVcvolOuLpb
 github.com/suyuan32/simple-admin-common v1.0.13/go.mod h1:iAB9UN37mgmBhmkJrK52bZ0/EJ8PnoB0I8YBn4iMdxc=
 github.com/suyuan32/simple-admin-job v1.0.13 h1:4WMtbNf6Jrbxy7IMdC4uKGPqcmEVWe/FRi0V4JuZXEQ=
 github.com/suyuan32/simple-admin-job v1.0.13/go.mod h1:oIUOD00Ry0wWQhtH/AQAwjrDsTWA90AUWnM0I6GLs/I=
-github.com/suyuan32/simple-admin-message-center v1.0.13-beta h1:sHT9fnyJl9GfWktXAMgWQvmiwQtoWlhQrfi6rB6tqCU=
-github.com/suyuan32/simple-admin-message-center v1.0.13-beta/go.mod h1:5gpxezYa/lofsb//6IpaZPTGcFB/2DmIpZvALJQXLa4=
+github.com/suyuan32/simple-admin-message-center v1.0.14-0.20230713034354-b0241c46330a h1:Ov4bp+GHe/WUDFHSb/fWwoA8dlUvqYL7Dzqgm8jaas4=
+github.com/suyuan32/simple-admin-message-center v1.0.14-0.20230713034354-b0241c46330a/go.mod h1:5gpxezYa/lofsb//6IpaZPTGcFB/2DmIpZvALJQXLa4=
 github.com/suyuan32/simple-admin-tools v1.5.12 h1:lTR1eXfhivGs9qmoBqpC9Q2TbEih7X8/98LPy+e3/M8=
 github.com/suyuan32/simple-admin-tools v1.5.12/go.mod h1:Z77AWRcji26zjB2kGS6ZVMvkwW2/6y8oSQ+4Igmr/9c=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=

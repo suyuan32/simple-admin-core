@@ -8,7 +8,7 @@ info(
     version: "v1.0"
 )
 
-import "base.api"
+import "../base.api"
 
 type (
     // The API information | API信息
