@@ -848,6 +848,34 @@
         }
       }
     },
+    "/email/send": {
+      "post": {
+        "description": "Send email message | 发送电子邮件",
+        "tags": [
+          "messagesender"
+        ],
+        "summary": "Send email message | 发送电子邮件",
+        "operationId": "SendEmail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SendEmailReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/email_log": {
       "post": {
         "description": "Get email log by ID | 通过ID获取电子邮件日志",
@@ -1701,6 +1729,34 @@
             "schema": {
               "type": "object",
               "$ref": "#/definitions/RoleInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/sms/send": {
+      "post": {
+        "description": "Send sms message | 发送短信",
+        "tags": [
+          "messagesender"
+        ],
+        "summary": "Send sms message | 发送短信",
+        "operationId": "SendSms",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SendSmsReq"
             }
           }
         ],
@@ -5553,6 +5609,68 @@
           "description": "Message | 提示信息",
           "type": "string",
           "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SendEmailReq": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "description": "The email content | 邮件内容",
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "provider": {
+          "description": "The email provider | 邮件服务提供商",
+          "type": "string",
+          "x-go-name": "Provider"
+        },
+        "subject": {
+          "description": "The email subject | 邮件标题",
+          "type": "string",
+          "x-go-name": "Subject"
+        },
+        "target": {
+          "description": "Target email address | 目标邮箱地址",
+          "type": "string",
+          "x-go-name": "Target"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "SendSmsReq": {
+      "type": "object",
+      "properties": {
+        "appId": {
+          "description": "The app ID | App ID",
+          "type": "string",
+          "x-go-name": "AppId"
+        },
+        "params": {
+          "description": "The parameters | 参数",
+          "type": "string",
+          "x-go-name": "Params"
+        },
+        "phoneNumber": {
+          "description": "Phone number | 电话号码",
+          "type": "string",
+          "x-go-name": "PhoneNumber"
+        },
+        "provider": {
+          "description": "The email provider | 邮件服务提供商",
+          "type": "string",
+          "x-go-name": "Provider"
+        },
+        "signName": {
+          "description": "The signuture name | 签名名称",
+          "type": "string",
+          "x-go-name": "SignName"
+        },
+        "templateId": {
+          "description": "The template ID  | 模板 ID",
+          "type": "string",
+          "x-go-name": "TemplateId"
         }
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"

@@ -39,9 +39,12 @@
 		"email_provider": "Email Provider",
 		"email_log": "Email Log",
 		"sms_provider": "SMS Provider",
-		"sms_log": "SMS Log"
+		"sms_log": "SMS Log",
+		"message_sender": "Send Message"
 	},
 	"apiDesc": {
+		"sendEmail": "Send Email",
+		"sendSms": "Send SMS",
 		"createEmailLog": "Create a email log",
 		"updateEmailLog": "Update the email log",
 		"deleteEmailLog": "Delete email logs",

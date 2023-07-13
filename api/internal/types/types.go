@@ -1470,3 +1470,31 @@ type EmailProviderInfoResp struct {
 	// EmailProvider information | 邮箱服务配置数据
 	Data EmailProviderInfo `json:"data"`
 }
+
+// swagger:model SendSmsReq
+type SendSmsReq struct {
+	// Phone number | 电话号码
+	PhoneNumber string `json:"phoneNumber"`
+	// The parameters | 参数
+	Params string `json:"params"`
+	// The template ID  | 模板 ID
+	TemplateId *string `json:"templateId,optional"`
+	// The app ID | App ID
+	AppId *string `json:"appId,optional"`
+	// The signuture name | 签名名称
+	SignName *string `json:"signName,optional"`
+	// The email provider | 邮件服务提供商
+	Provider *string `json:"provider,optional"`
+}
+
+// swagger:model SendEmailReq
+type SendEmailReq struct {
+	// Target email address | 目标邮箱地址
+	Target string `json:"target"`
+	// The email subject | 邮件标题
+	Subject string `json:"subject"`
+	// The email content | 邮件内容
+	Content string `json:"content"`
+	// The email provider | 邮件服务提供商
+	Provider *string `json:"provider,optional"`
+}

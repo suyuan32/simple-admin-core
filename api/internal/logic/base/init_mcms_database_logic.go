@@ -112,7 +112,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 		Path:        pointy.GetPointer("/email_log"),
 		Description: pointy.GetPointer("apiDesc.getEmailLogById"),
 		ApiGroup:    pointy.GetPointer("email_log"),
-		Method:      pointy.GetPointer("Post"),
+		Method:      pointy.GetPointer("POST"),
 	})
 
 	if err != nil {
@@ -168,7 +168,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 		Path:        pointy.GetPointer("/email_provider"),
 		Description: pointy.GetPointer("apiDesc.getEmailProviderById"),
 		ApiGroup:    pointy.GetPointer("email_provider"),
-		Method:      pointy.GetPointer("Post"),
+		Method:      pointy.GetPointer("POST"),
 	})
 
 	if err != nil {
@@ -224,7 +224,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 		Path:        pointy.GetPointer("/sms_log"),
 		Description: pointy.GetPointer("apiDesc.getSmsLogById"),
 		ApiGroup:    pointy.GetPointer("sms_log"),
-		Method:      pointy.GetPointer("Post"),
+		Method:      pointy.GetPointer("POST"),
 	})
 
 	if err != nil {
@@ -280,7 +280,29 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 		Path:        pointy.GetPointer("/sms_provider"),
 		Description: pointy.GetPointer("apiDesc.getSmsProviderById"),
 		ApiGroup:    pointy.GetPointer("sms_provider"),
-		Method:      pointy.GetPointer("Post"),
+		Method:      pointy.GetPointer("POST"),
+	})
+
+	if err != nil {
+		return err
+	}
+
+	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
+		Path:        pointy.GetPointer("/sms/send"),
+		Description: pointy.GetPointer("apiDesc.sendSms"),
+		ApiGroup:    pointy.GetPointer("message_sender"),
+		Method:      pointy.GetPointer("POST"),
+	})
+
+	if err != nil {
+		return err
+	}
+
+	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
+		Path:        pointy.GetPointer("/email/send"),
+		Description: pointy.GetPointer("apiDesc.sendEmail"),
+		ApiGroup:    pointy.GetPointer("message_sender"),
+		Method:      pointy.GetPointer("POST"),
 	})
 
 	if err != nil {

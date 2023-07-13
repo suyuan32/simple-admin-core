@@ -14,6 +14,7 @@ import (
 	emaillog "github.com/suyuan32/simple-admin-core/api/internal/handler/emaillog"
 	emailprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/emailprovider"
 	menu "github.com/suyuan32/simple-admin-core/api/internal/handler/menu"
+	messagesender "github.com/suyuan32/simple-admin-core/api/internal/handler/messagesender"
 	oauthprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/oauthprovider"
 	position "github.com/suyuan32/simple-admin-core/api/internal/handler/position"
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
@@ -721,6 +722,34 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodPost,
 					Path:    "/email_provider",
 					Handler: emailprovider.GetEmailProviderByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/sms/send",
+					Handler: messagesender.SendSmsHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/email/send",
+					Handler: messagesender.SendEmailHandler(serverCtx),
 				},
 			}...,
 		),

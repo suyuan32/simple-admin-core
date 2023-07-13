@@ -1,0 +1,37 @@
+syntax = "v1"
+
+import "../base.api"
+
+type (
+    SendSmsReq {
+        // Phone number | 电话号码
+        PhoneNumber string `json:"phoneNumber"`
+
+        // The parameters | 参数
+        Params string `json:"params"`
+
+        // The template ID  | 模板 ID
+        TemplateId *string `json:"templateId,optional"`
+
+        // The app ID | App ID
+        AppId *string `json:"appId,optional"`
+
+        // The signuture name | 签名名称
+        SignName *string `json:"signName,optional"`
+
+        // The email provider | 邮件服务提供商
+        Provider *string `json:"provider,optional"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: messagesender
+    middleware: Authority
+)
+
+service Core {
+    // Send sms message | 发送短信
+    @handler sendSms
+    post /sms/send (SendSmsReq) returns (BaseMsgResp)
+}

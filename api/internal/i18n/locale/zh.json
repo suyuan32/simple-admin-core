@@ -39,9 +39,12 @@
 		"email_provider": "电子邮件服务配置",
 		"email_log": "电子邮件发送日志",
 		"sms_provider": "短信服务配置",
-		"sms_log": "短信发送日志"
+		"sms_log": "短信发送日志",
+		"message_sender": "消息发送"
 	},
 	"apiDesc": {
+		"sendEmail": "发送电子邮件",
+		"sendSms": "发送短信",
 		"createEmailLog": "创建邮件发送日志",
 		"updateEmailLog": "更新邮件发送日志",
 		"deleteEmailLog": "删除邮件发送日志",
