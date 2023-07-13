@@ -629,6 +629,8 @@ type ApiInfo struct {
 	// min length : 3
 	// max length : 7
 	Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=7"`
+	// Whether is required | 是否是必须的 api
+	IsRequired *bool `json:"isRequired,optional"`
 }
 
 // The response data of API list | API列表数据
@@ -664,6 +666,8 @@ type ApiListReq struct {
 	// min length : 3
 	// max length : 7
 	Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=7"`
+	// Whether is required | 是否是必须的 api
+	IsRequired *bool `json:"isRequired,optional"`
 }
 
 // API information response | API信息返回体

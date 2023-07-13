@@ -25,6 +25,8 @@ const (
 	FieldAPIGroup = "api_group"
 	// FieldMethod holds the string denoting the method field in the database.
 	FieldMethod = "method"
+	// FieldIsRequired holds the string denoting the is_required field in the database.
+	FieldIsRequired = "is_required"
 	// Table holds the table name of the api in the database.
 	Table = "sys_apis"
 )
@@ -38,6 +40,7 @@ var Columns = []string{
 	FieldDescription,
 	FieldAPIGroup,
 	FieldMethod,
+	FieldIsRequired,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -59,6 +62,8 @@ var (
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultMethod holds the default value on creation for the "method" field.
 	DefaultMethod string
+	// DefaultIsRequired holds the default value on creation for the "is_required" field.
+	DefaultIsRequired bool
 )
 
 // OrderOption defines the ordering options for the API queries.
@@ -97,4 +102,9 @@ func ByAPIGroup(opts ...sql.OrderTermOption) OrderOption {
 // ByMethod orders the results by the method field.
 func ByMethod(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldMethod, opts...).ToFunc()
+}
+
+// ByIsRequired orders the results by the is_required field.
+func ByIsRequired(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldIsRequired, opts...).ToFunc()
 }

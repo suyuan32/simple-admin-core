@@ -2976,6 +2976,11 @@
           "format": "uint64",
           "x-go-name": "Id"
         },
+        "isRequired": {
+          "description": "Whether is required | 是否是必须的 api",
+          "type": "boolean",
+          "x-go-name": "IsRequired"
+        },
         "method": {
           "description": "API request method e.g. POST | API请求类型 如POST",
           "type": "string",
@@ -3068,6 +3073,11 @@
           "type": "string",
           "maxLength": 20,
           "x-go-name": "Group"
+        },
+        "isRequired": {
+          "description": "Whether is required | 是否是必须的 api",
+          "type": "boolean",
+          "x-go-name": "IsRequired"
         },
         "method": {
           "description": "API request method e.g. POST | API请求类型 如POST",

@@ -29,6 +29,9 @@ type (
 
         // API request method e.g. POST | API请求类型 如POST
         Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=7"`
+
+        // Whether is required | 是否是必须的 api
+        IsRequired *bool `json:"isRequired,optional"`
     }
 
     // The response data of API list | API列表数据
@@ -62,6 +65,9 @@ type (
 
         // API request method e.g. POST | API请求类型 如POST
         Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=7"`
+
+        // Whether is required | 是否是必须的 api
+        IsRequired *bool `json:"isRequired,optional"`
     }
 
     // API information response | API信息返回体

@@ -27,6 +27,9 @@ func (API) Fields() []ent.Field {
 		field.String("method").Default("POST").
 			Comment("HTTP method | HTTP 请求类型").
 			Annotations(entsql.WithComments(true)),
+		field.Bool("is_required").Default(false).
+			Comment("Whether is required | 是否必选").
+			Annotations(entsql.WithComments(true)),
 	}
 }
 
