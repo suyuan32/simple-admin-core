@@ -80,6 +80,20 @@ func (ac *APICreate) SetNillableMethod(s *string) *APICreate {
 	return ac
 }
 
+// SetIsRequired sets the "is_required" field.
+func (ac *APICreate) SetIsRequired(b bool) *APICreate {
+	ac.mutation.SetIsRequired(b)
+	return ac
+}
+
+// SetNillableIsRequired sets the "is_required" field if the given value is not nil.
+func (ac *APICreate) SetNillableIsRequired(b *bool) *APICreate {
+	if b != nil {
+		ac.SetIsRequired(*b)
+	}
+	return ac
+}
+
 // SetID sets the "id" field.
 func (ac *APICreate) SetID(u uint64) *APICreate {
 	ac.mutation.SetID(u)
@@ -133,6 +147,10 @@ func (ac *APICreate) defaults() {
 		v := api.DefaultMethod
 		ac.mutation.SetMethod(v)
 	}
+	if _, ok := ac.mutation.IsRequired(); !ok {
+		v := api.DefaultIsRequired
+		ac.mutation.SetIsRequired(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -154,6 +172,9 @@ func (ac *APICreate) check() error {
 	}
 	if _, ok := ac.mutation.Method(); !ok {
 		return &ValidationError{Name: "method", err: errors.New(`ent: missing required field "API.method"`)}
+	}
+	if _, ok := ac.mutation.IsRequired(); !ok {
+		return &ValidationError{Name: "is_required", err: errors.New(`ent: missing required field "API.is_required"`)}
 	}
 	return nil
 }
@@ -210,6 +231,10 @@ func (ac *APICreate) createSpec() (*API, *sqlgraph.CreateSpec) {
 	if value, ok := ac.mutation.Method(); ok {
 		_spec.SetField(api.FieldMethod, field.TypeString, value)
 		_node.Method = value
+	}
+	if value, ok := ac.mutation.IsRequired(); ok {
+		_spec.SetField(api.FieldIsRequired, field.TypeBool, value)
+		_node.IsRequired = value
 	}
 	return _node, _spec
 }

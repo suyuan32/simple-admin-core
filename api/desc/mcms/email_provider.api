@@ -1,0 +1,101 @@
+import "../base.api"
+
+type (
+    // The response data of email provider information | 邮箱服务配置信息
+    EmailProviderInfo {
+        BaseIDInfo
+
+        // Name
+        Name  *string `json:"name,optional"`
+
+        // AuthType
+        AuthType  *uint32 `json:"authType,optional"`
+
+        // EmailAddr
+        EmailAddr  *string `json:"emailAddr,optional"`
+
+        // Password
+        Password  *string `json:"password,optional"`
+
+        // HostName
+        HostName  *string `json:"hostName,optional"`
+
+        // Identify
+        Identify  *string `json:"identify,optional"`
+
+        // Secret
+        Secret  *string `json:"secret,optional"`
+
+        // Port
+        Port  *uint32 `json:"port,optional"`
+
+        // Tls
+        Tls  *bool `json:"tls,optional"`
+
+        // IsDefault
+        IsDefault  *bool `json:"isDefault,optional"`
+    }
+
+    // The response data of email provider list | 邮箱服务配置列表数据
+    EmailProviderListResp {
+        BaseDataInfo
+
+        // EmailProvider list data | 邮箱服务配置列表数据
+        Data EmailProviderListInfo `json:"data"`
+    }
+
+    // EmailProvider list data | 邮箱服务配置列表数据
+    EmailProviderListInfo {
+        BaseListInfo
+
+        // The API list data | 邮箱服务配置列表数据
+        Data  []EmailProviderInfo  `json:"data"`
+    }
+
+    // Get email provider list request params | 邮箱服务配置列表请求参数
+    EmailProviderListReq {
+        PageInfo
+
+        // Name
+        Name  *string `json:"name,optional"`
+
+        // EmailAddr
+        EmailAddr  *string `json:"emailAddr,optional"`
+    }
+
+    // EmailProvider information response | 邮箱服务配置信息返回体
+    EmailProviderInfoResp {
+        BaseDataInfo
+
+        // EmailProvider information | 邮箱服务配置数据
+        Data EmailProviderInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: emailprovider
+    middleware: Authority
+)
+
+service Core {
+    // Create email provider information | 创建邮箱服务配置
+    @handler createEmailProvider
+    post /email_provider/create (EmailProviderInfo) returns (BaseMsgResp)
+
+    // Update email provider information | 更新邮箱服务配置
+    @handler updateEmailProvider
+    post /email_provider/update (EmailProviderInfo) returns (BaseMsgResp)
+
+    // Delete email provider information | 删除邮箱服务配置信息
+    @handler deleteEmailProvider
+    post /email_provider/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get email provider list | 获取邮箱服务配置列表
+    @handler getEmailProviderList
+    post /email_provider/list (EmailProviderListReq) returns (EmailProviderListResp)
+
+    // Get email provider by ID | 通过ID获取邮箱服务配置
+    @handler getEmailProviderById
+    post /email_provider (IDReq) returns (EmailProviderInfoResp)
+}

@@ -1,0 +1,31 @@
+syntax = "v1"
+
+import "../base.api"
+
+type (
+    SendEmailReq {
+        // Target email address | 目标邮箱地址
+        Target string `json:"target"`
+
+        // The email subject | 邮件标题
+        Subject string `json:"subject"`
+
+        // The email content | 邮件内容
+        Content string `json:"content"`
+
+        // The email provider | 邮件服务提供商
+        Provider *string `json:"provider,optional"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: messagesender
+    middleware: Authority
+)
+
+service Core {
+    // Send email message | 发送电子邮件
+    @handler sendEmail
+    post /email/send (SendEmailReq) returns (BaseMsgResp)
+}

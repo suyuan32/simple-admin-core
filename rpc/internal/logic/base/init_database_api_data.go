@@ -15,14 +15,16 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/user/login").
 		SetDescription("apiDesc.userLogin").
 		SetAPIGroup("user").
-		SetMethod("POST"),
+		SetMethod("POST").
+		SetIsRequired(true),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
 		SetPath("/user/register").
 		SetDescription("apiDesc.userRegister").
 		SetAPIGroup("user").
-		SetMethod("POST"),
+		SetMethod("POST").
+		SetIsRequired(true),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
@@ -43,14 +45,16 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/user/change_password").
 		SetDescription("apiDesc.userChangePassword").
 		SetAPIGroup("user").
-		SetMethod("POST"),
+		SetMethod("POST").
+		SetIsRequired(true),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
 		SetPath("/user/info").
 		SetDescription("apiDesc.userInfo").
 		SetAPIGroup("user").
-		SetMethod("GET"),
+		SetMethod("GET").
+		SetIsRequired(true),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
@@ -71,28 +75,32 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/user/perm").
 		SetDescription("apiDesc.userPermissions").
 		SetAPIGroup("user").
-		SetMethod("GET"),
+		SetMethod("GET").
+		SetIsRequired(true),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
 		SetPath("/user/profile").
 		SetDescription("apiDesc.userProfile").
 		SetAPIGroup("user").
-		SetMethod("GET"),
+		SetMethod("GET").
+		SetIsRequired(true),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
 		SetPath("/user/profile").
 		SetDescription("apiDesc.updateProfile").
 		SetAPIGroup("user").
-		SetMethod("POST"),
+		SetMethod("POST").
+		SetIsRequired(true),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
 		SetPath("/user/logout").
 		SetDescription("apiDesc.logout").
 		SetAPIGroup("user").
-		SetMethod("GET"),
+		SetMethod("GET").
+		SetIsRequired(true),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
@@ -172,7 +180,8 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/menu/role/list").
 		SetDescription("apiDesc.menuRoleList").
 		SetAPIGroup("authority").
-		SetMethod("GET"),
+		SetMethod("GET").
+		SetIsRequired(true),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
@@ -223,7 +232,8 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/captcha").
 		SetDescription("apiDesc.captcha").
 		SetAPIGroup("captcha").
-		SetMethod("GET"),
+		SetMethod("GET").
+		SetIsRequired(true),
 	)
 
 	// AUTHORIZATION
@@ -406,7 +416,8 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/oauth/login").
 		SetDescription("apiDesc.oauthLogin").
 		SetAPIGroup("oauth").
-		SetMethod("POST"),
+		SetMethod("POST").
+		SetIsRequired(true),
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().

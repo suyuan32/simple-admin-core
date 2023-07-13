@@ -129,6 +129,30 @@ func (a *APICreate) SetNotNilMethod(value *string) *APICreate {
 }
 
 // set field if value's pointer is not nil.
+func (a *APIUpdate) SetNotNilIsRequired(value *bool) *APIUpdate {
+	if value != nil {
+		return a.SetIsRequired(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *APIUpdateOne) SetNotNilIsRequired(value *bool) *APIUpdateOne {
+	if value != nil {
+		return a.SetIsRequired(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *APICreate) SetNotNilIsRequired(value *bool) *APICreate {
+	if value != nil {
+		return a.SetIsRequired(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
 func (d *DepartmentUpdate) SetNotNilUpdatedAt(value *time.Time) *DepartmentUpdate {
 	if value != nil {
 		return d.SetUpdatedAt(*value)

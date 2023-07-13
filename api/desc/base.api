@@ -113,7 +113,7 @@ type BaseUUIDInfo {
 	group: base
 )
 
-service core {
+service Core {
 	// Initialize database | 初始化数据库
 	@handler initDatabase
 	get /core/init/database returns (BaseMsgResp)
@@ -121,4 +121,8 @@ service core {
 	// Initialize job database | 初始化定时任务数据库
     @handler initJobDatabase
     get /core/init/job_database returns (BaseMsgResp)
+
+    // Initialize Message Center database | 初始化消息中心数据库
+    @handler initMcmsDatabase
+    get /core/init/mcms_database returns (BaseMsgResp)
 }

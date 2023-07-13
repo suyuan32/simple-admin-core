@@ -84,6 +84,11 @@ func Method(v string) predicate.API {
 	return predicate.API(sql.FieldEQ(FieldMethod, v))
 }
 
+// IsRequired applies equality check predicate on the "is_required" field. It's identical to IsRequiredEQ.
+func IsRequired(v bool) predicate.API {
+	return predicate.API(sql.FieldEQ(FieldIsRequired, v))
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v time.Time) predicate.API {
 	return predicate.API(sql.FieldEQ(FieldCreatedAt, v))
@@ -422,6 +427,16 @@ func MethodEqualFold(v string) predicate.API {
 // MethodContainsFold applies the ContainsFold predicate on the "method" field.
 func MethodContainsFold(v string) predicate.API {
 	return predicate.API(sql.FieldContainsFold(FieldMethod, v))
+}
+
+// IsRequiredEQ applies the EQ predicate on the "is_required" field.
+func IsRequiredEQ(v bool) predicate.API {
+	return predicate.API(sql.FieldEQ(FieldIsRequired, v))
+}
+
+// IsRequiredNEQ applies the NEQ predicate on the "is_required" field.
+func IsRequiredNEQ(v bool) predicate.API {
+	return predicate.API(sql.FieldNEQ(FieldIsRequired, v))
 }
 
 // And groups predicates with the AND operator between them.

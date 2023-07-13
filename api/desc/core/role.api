@@ -1,0 +1,89 @@
+import "../base.api"
+
+type (
+    // The response data of role information | 角色信息
+    RoleInfo {
+        BaseIDInfo
+
+        // Translated Name | 展示名称
+        Trans  string `json:"trans,optional"`
+
+        // Status | 状态
+        Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+
+        // Name | 角色名称
+        Name *string `json:"name,optional" validate:"omitempty,max=30"`
+
+        // Role code | 角色码
+        Code *string `json:"code,optional" validate:"omitempty,max=20"`
+
+        // DefaultRouter | 默认首页
+        DefaultRouter *string `json:"defaultRouter,optional" validate:"omitempty,max=80"`
+
+        // Remark | 备注
+        Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
+
+        // Sort | 排序
+        Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+    }
+
+    // The response data of role list | 角色列表数据
+    RoleListResp {
+        BaseDataInfo
+
+        // Role list data | 角色列表数据
+        Data RoleListInfo `json:"data"`
+    }
+
+    // Role list data | 角色列表数据
+    RoleListInfo {
+        BaseListInfo
+
+        // The API list data | 角色列表数据
+        Data  []RoleInfo  `json:"data"`
+    }
+
+    // Get role list request params | 角色列表请求参数
+    RoleListReq {
+        PageInfo
+
+        // Name | 角色名称
+        Name *string `json:"name,optional"`
+    }
+
+    // Role information response | 角色信息返回体
+    RoleInfoResp {
+        BaseDataInfo
+
+        // Role information | 角色数据
+        Data RoleInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: role
+    middleware: Authority
+)
+
+service Core {
+    // Create role information | 创建角色
+    @handler createRole
+    post /role/create (RoleInfo) returns (BaseMsgResp)
+
+    // Update role information | 更新角色
+    @handler updateRole
+    post /role/update (RoleInfo) returns (BaseMsgResp)
+
+    // Delete role information | 删除角色信息
+    @handler deleteRole
+    post /role/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get role list | 获取角色列表
+    @handler getRoleList
+    post /role/list (RoleListReq) returns (RoleListResp)
+
+    // Get Role by ID | 通过ID获取角色
+    @handler getRoleById
+    post /role (IDReq) returns (RoleInfoResp)
+}

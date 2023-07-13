@@ -1,0 +1,89 @@
+import "../base.api"
+
+type (
+    // The response data of sms log information | 短信日志信息
+    SmsLogInfo {
+        BaseUUIDInfo
+
+        // PhoneNumber
+        PhoneNumber  *string `json:"phoneNumber,optional"`
+
+        // Content
+        Content  *string `json:"content,optional"`
+
+        // SendStatus
+        SendStatus  *uint32 `json:"sendStatus,optional"`
+
+        // Provider
+        Provider  *string `json:"provider,optional"`
+    }
+
+    // The response data of sms log list | 短信日志列表数据
+    SmsLogListResp {
+        BaseDataInfo
+
+        // SmsLog list data | 短信日志列表数据
+        Data SmsLogListInfo `json:"data"`
+    }
+
+    // SmsLog list data | 短信日志列表数据
+    SmsLogListInfo {
+        BaseListInfo
+
+        // The API list data | 短信日志列表数据
+        Data  []SmsLogInfo  `json:"data"`
+    }
+
+    // Get sms log list request params | 短信日志列表请求参数
+    SmsLogListReq {
+        PageInfo
+
+        // PhoneNumber
+        PhoneNumber *string `json:"phoneNumber,optional"`
+
+        // Content
+        Content *string `json:"content,optional"`
+
+        // Provider
+        Provider *string `json:"provider,optional"`
+
+        // Send Status | 发送状态
+        SendStatus *uint32 `json:"sendStatus,optional"`
+    }
+
+    // SmsLog information response | 短信日志信息返回体
+    SmsLogInfoResp {
+        BaseDataInfo
+
+        // SmsLog information | 短信日志数据
+        Data SmsLogInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: smslog
+    middleware: Authority
+)
+
+service Core {
+    // Create sms log information | 创建短信日志
+    @handler createSmsLog
+    post /sms_log/create (SmsLogInfo) returns (BaseMsgResp)
+
+    // Update sms log information | 更新短信日志
+    @handler updateSmsLog
+    post /sms_log/update (SmsLogInfo) returns (BaseMsgResp)
+
+    // Delete sms log information | 删除短信日志信息
+    @handler deleteSmsLog
+    post /sms_log/delete (UUIDsReq) returns (BaseMsgResp)
+
+    // Get sms log list | 获取短信日志列表
+    @handler getSmsLogList
+    post /sms_log/list (SmsLogListReq) returns (SmsLogListResp)
+
+    // Get sms log by ID | 通过ID获取短信日志
+    @handler getSmsLogById
+    post /sms_log (UUIDReq) returns (SmsLogInfoResp)
+}

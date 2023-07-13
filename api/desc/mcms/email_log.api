@@ -1,0 +1,92 @@
+import "../base.api"
+
+type (
+    // The response data of email log information | 电子邮件日志信息
+    EmailLogInfo {
+        BaseUUIDInfo
+
+        // Target
+        Target  *string `json:"target,optional"`
+
+        // Subject
+        Subject  *string `json:"subject,optional"`
+
+        // Content
+        Content  *string `json:"content,optional"`
+
+        // SendStatus
+        SendStatus  *uint32 `json:"sendStatus,optional"`
+
+        // Provider
+        Provider  *string `json:"provider,optional"`
+    }
+
+    // The response data of email log list | 电子邮件日志列表数据
+    EmailLogListResp {
+        BaseDataInfo
+
+        // EmailLog list data | 电子邮件日志列表数据
+        Data EmailLogListInfo `json:"data"`
+    }
+
+    // EmailLog list data | 电子邮件日志列表数据
+    EmailLogListInfo {
+        BaseListInfo
+
+        // The API list data | 电子邮件日志列表数据
+        Data  []EmailLogInfo  `json:"data"`
+    }
+
+    // Get email log list request params | 电子邮件日志列表请求参数
+    EmailLogListReq {
+        PageInfo
+
+        // Target
+        Target *string `json:"target,optional"`
+
+        // Subject
+        Subject *string `json:"subject,optional"`
+
+        // Provider
+        Provider *string `json:"provider,optional"`
+
+        // Send Status | 发送状态
+        SendStatus *uint32 `json:"sendStatus,optional"`
+    }
+
+    // EmailLog information response | 电子邮件日志信息返回体
+    EmailLogInfoResp {
+        BaseDataInfo
+
+        // EmailLog information | 电子邮件日志数据
+        Data EmailLogInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: emaillog
+    middleware: Authority
+)
+
+service Core {
+    // Create email log information | 创建电子邮件日志
+    @handler createEmailLog
+    post /email_log/create (EmailLogInfo) returns (BaseMsgResp)
+
+    // Update email log information | 更新电子邮件日志
+    @handler updateEmailLog
+    post /email_log/update (EmailLogInfo) returns (BaseMsgResp)
+
+    // Delete email log information | 删除电子邮件日志信息
+    @handler deleteEmailLog
+    post /email_log/delete (UUIDsReq) returns (BaseMsgResp)
+
+    // Get email log list | 获取电子邮件日志列表
+    @handler getEmailLogList
+    post /email_log/list (EmailLogListReq) returns (EmailLogListResp)
+
+    // Get email log by ID | 通过ID获取电子邮件日志
+    @handler getEmailLogById
+    post /email_log (UUIDReq) returns (EmailLogInfoResp)
+}

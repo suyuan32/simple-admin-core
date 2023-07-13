@@ -18,6 +18,7 @@ var (
 		{Name: "description", Type: field.TypeString, Comment: "API description | API 描述"},
 		{Name: "api_group", Type: field.TypeString, Comment: "API group | API 分组"},
 		{Name: "method", Type: field.TypeString, Comment: "HTTP method | HTTP 请求类型", Default: "POST"},
+		{Name: "is_required", Type: field.TypeBool, Comment: "Whether is required | 是否必选", Default: false},
 	}
 	// SysApisTable holds the schema information for the "sys_apis" table.
 	SysApisTable = &schema.Table{

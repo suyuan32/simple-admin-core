@@ -58,6 +58,7 @@ type APIMutation struct {
 	description   *string
 	api_group     *string
 	method        *string
+	is_required   *bool
 	clearedFields map[string]struct{}
 	done          bool
 	oldValue      func(context.Context) (*API, error)
@@ -384,6 +385,42 @@ func (m *APIMutation) ResetMethod() {
 	m.method = nil
 }
 
+// SetIsRequired sets the "is_required" field.
+func (m *APIMutation) SetIsRequired(b bool) {
+	m.is_required = &b
+}
+
+// IsRequired returns the value of the "is_required" field in the mutation.
+func (m *APIMutation) IsRequired() (r bool, exists bool) {
+	v := m.is_required
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIsRequired returns the old "is_required" field's value of the API entity.
+// If the API object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *APIMutation) OldIsRequired(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldIsRequired is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldIsRequired requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIsRequired: %w", err)
+	}
+	return oldValue.IsRequired, nil
+}
+
+// ResetIsRequired resets all changes to the "is_required" field.
+func (m *APIMutation) ResetIsRequired() {
+	m.is_required = nil
+}
+
 // Where appends a list predicates to the APIMutation builder.
 func (m *APIMutation) Where(ps ...predicate.API) {
 	m.predicates = append(m.predicates, ps...)
@@ -418,7 +455,7 @@ func (m *APIMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *APIMutation) Fields() []string {
-	fields := make([]string, 0, 6)
+	fields := make([]string, 0, 7)
 	if m.created_at != nil {
 		fields = append(fields, api.FieldCreatedAt)
 	}
@@ -436,6 +473,9 @@ func (m *APIMutation) Fields() []string {
 	}
 	if m.method != nil {
 		fields = append(fields, api.FieldMethod)
+	}
+	if m.is_required != nil {
+		fields = append(fields, api.FieldIsRequired)
 	}
 	return fields
 }
@@ -457,6 +497,8 @@ func (m *APIMutation) Field(name string) (ent.Value, bool) {
 		return m.APIGroup()
 	case api.FieldMethod:
 		return m.Method()
+	case api.FieldIsRequired:
+		return m.IsRequired()
 	}
 	return nil, false
 }
@@ -478,6 +520,8 @@ func (m *APIMutation) OldField(ctx context.Context, name string) (ent.Value, err
 		return m.OldAPIGroup(ctx)
 	case api.FieldMethod:
 		return m.OldMethod(ctx)
+	case api.FieldIsRequired:
+		return m.OldIsRequired(ctx)
 	}
 	return nil, fmt.Errorf("unknown API field %s", name)
 }
@@ -528,6 +572,13 @@ func (m *APIMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetMethod(v)
+		return nil
+	case api.FieldIsRequired:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIsRequired(v)
 		return nil
 	}
 	return fmt.Errorf("unknown API field %s", name)
@@ -595,6 +646,9 @@ func (m *APIMutation) ResetField(name string) error {
 		return nil
 	case api.FieldMethod:
 		m.ResetMethod()
+		return nil
+	case api.FieldIsRequired:
+		m.ResetIsRequired()
 		return nil
 	}
 	return fmt.Errorf("unknown API field %s", name)
