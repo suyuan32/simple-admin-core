@@ -27,11 +27,12 @@ func NewGetEmailLogListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 func (l *GetEmailLogListLogic) GetEmailLogList(req *types.EmailLogListReq) (resp *types.EmailLogListResp, err error) {
 	data, err := l.svcCtx.McmsRpc.GetEmailLogList(l.ctx,
 		&mcms.EmailLogListReq{
-			Page:     req.Page,
-			PageSize: req.PageSize,
-			Target:   req.Target,
-			Subject:  req.Subject,
-			Provider: req.Provider,
+			Page:       req.Page,
+			PageSize:   req.PageSize,
+			Target:     req.Target,
+			Subject:    req.Subject,
+			Provider:   req.Provider,
+			SendStatus: req.SendStatus,
 		})
 	if err != nil {
 		return nil, err

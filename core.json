@@ -3943,6 +3943,12 @@
           "type": "string",
           "x-go-name": "Provider"
         },
+        "sendStatus": {
+          "description": "Send Status | 发送状态",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "SendStatus"
+        },
         "subject": {
           "description": "Subject",
           "type": "string",
@@ -5689,6 +5695,12 @@
           "description": "Provider",
           "type": "string",
           "x-go-name": "Provider"
+        },
+        "sendStatus": {
+          "description": "Send Status | 发送状态",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "SendStatus"
         }
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"

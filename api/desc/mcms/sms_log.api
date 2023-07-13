@@ -39,13 +39,16 @@ type (
         PageInfo
 
         // PhoneNumber
-        PhoneNumber  *string `json:"phoneNumber,optional"`
+        PhoneNumber *string `json:"phoneNumber,optional"`
 
         // Content
-        Content  *string `json:"content,optional"`
+        Content *string `json:"content,optional"`
 
         // Provider
-        Provider  *string `json:"provider,optional"`
+        Provider *string `json:"provider,optional"`
+
+        // Send Status | 发送状态
+        SendStatus *uint32 `json:"sendStatus,optional"`
     }
 
     // SmsLog information response | 短信日志信息返回体

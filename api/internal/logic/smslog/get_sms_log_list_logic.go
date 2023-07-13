@@ -32,6 +32,7 @@ func (l *GetSmsLogListLogic) GetSmsLogList(req *types.SmsLogListReq) (resp *type
 			PhoneNumber: req.PhoneNumber,
 			Content:     req.Content,
 			Provider:    req.Provider,
+			SendStatus:  req.SendStatus,
 		})
 	if err != nil {
 		return nil, err

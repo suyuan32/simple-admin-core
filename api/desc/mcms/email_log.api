@@ -42,13 +42,16 @@ type (
         PageInfo
 
         // Target
-        Target  *string `json:"target,optional"`
+        Target *string `json:"target,optional"`
 
         // Subject
-        Subject  *string `json:"subject,optional"`
+        Subject *string `json:"subject,optional"`
 
         // Provider
-        Provider  *string `json:"provider,optional"`
+        Provider *string `json:"provider,optional"`
+
+        // Send Status | 发送状态
+        SendStatus *uint32 `json:"sendStatus,optional"`
     }
 
     // EmailLog information response | 电子邮件日志信息返回体

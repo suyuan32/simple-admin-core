@@ -1299,6 +1299,8 @@ type EmailLogListReq struct {
 	Subject *string `json:"subject,optional"`
 	// Provider
 	Provider *string `json:"provider,optional"`
+	// Send Status | 发送状态
+	SendStatus *uint32 `json:"sendStatus,optional"`
 }
 
 // EmailLog information response | 电子邮件日志信息返回体
@@ -1349,6 +1351,8 @@ type SmsLogListReq struct {
 	Content *string `json:"content,optional"`
 	// Provider
 	Provider *string `json:"provider,optional"`
+	// Send Status | 发送状态
+	SendStatus *uint32 `json:"sendStatus,optional"`
 }
 
 // SmsLog information response | 短信日志信息返回体
