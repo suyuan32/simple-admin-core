@@ -66,6 +66,20 @@ func (au *APIUpdate) SetNillableMethod(s *string) *APIUpdate {
 	return au
 }
 
+// SetIsRequired sets the "is_required" field.
+func (au *APIUpdate) SetIsRequired(b bool) *APIUpdate {
+	au.mutation.SetIsRequired(b)
+	return au
+}
+
+// SetNillableIsRequired sets the "is_required" field if the given value is not nil.
+func (au *APIUpdate) SetNillableIsRequired(b *bool) *APIUpdate {
+	if b != nil {
+		au.SetIsRequired(*b)
+	}
+	return au
+}
+
 // Mutation returns the APIMutation object of the builder.
 func (au *APIUpdate) Mutation() *APIMutation {
 	return au.mutation
@@ -131,6 +145,9 @@ func (au *APIUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := au.mutation.Method(); ok {
 		_spec.SetField(api.FieldMethod, field.TypeString, value)
 	}
+	if value, ok := au.mutation.IsRequired(); ok {
+		_spec.SetField(api.FieldIsRequired, field.TypeBool, value)
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, au.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{api.Label}
@@ -185,6 +202,20 @@ func (auo *APIUpdateOne) SetMethod(s string) *APIUpdateOne {
 func (auo *APIUpdateOne) SetNillableMethod(s *string) *APIUpdateOne {
 	if s != nil {
 		auo.SetMethod(*s)
+	}
+	return auo
+}
+
+// SetIsRequired sets the "is_required" field.
+func (auo *APIUpdateOne) SetIsRequired(b bool) *APIUpdateOne {
+	auo.mutation.SetIsRequired(b)
+	return auo
+}
+
+// SetNillableIsRequired sets the "is_required" field if the given value is not nil.
+func (auo *APIUpdateOne) SetNillableIsRequired(b *bool) *APIUpdateOne {
+	if b != nil {
+		auo.SetIsRequired(*b)
 	}
 	return auo
 }
@@ -283,6 +314,9 @@ func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *API, err error) {
 	}
 	if value, ok := auo.mutation.Method(); ok {
 		_spec.SetField(api.FieldMethod, field.TypeString, value)
+	}
+	if value, ok := auo.mutation.IsRequired(); ok {
+		_spec.SetField(api.FieldIsRequired, field.TypeBool, value)
 	}
 	_node = &API{config: auo.config}
 	_spec.Assign = _node.assignValues

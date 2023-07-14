@@ -189,3 +189,29 @@ services:
         reservations:
           cpus: '0.05'
           memory: 200M
+
+  mcms-rpc:
+    image: ryanpower/mcms-rpc-docker:v1.0.13
+    container_name: mcms-rpc
+    restart: always
+    environment:
+      DATABASE_TYPE: 'mysql'
+      DATABASE_USERNAME: 'root'
+      DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_PORT: 3306
+    #      EMAIL_ADDR: xxx@gamil.com
+    #    ports:
+    #      - '9106:9106'
+    networks:
+      simple-admin:
+        aliases:
+          - mcms-rpc
+        ipv4_address: 10.5.0.9
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 500M
+        reservations:
+          cpus: '0.05'
+          memory: 200M

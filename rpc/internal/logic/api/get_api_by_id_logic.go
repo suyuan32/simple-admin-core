@@ -40,5 +40,6 @@ func (l *GetApiByIdLogic) GetApiById(in *core.IDReq) (*core.ApiInfo, error) {
 		Description: &result.Description,
 		ApiGroup:    &result.APIGroup,
 		Method:      &result.Method,
+		IsRequired:  &result.IsRequired,
 	}, nil
 }

@@ -1,0 +1,96 @@
+import "../base.api"
+
+type (
+    // The response data of token information | Token信息
+    TokenInfo {
+        BaseUUIDInfo
+
+        // Status | 状态
+        Status *uint32 `json:"status,optional"`
+
+        // User's UUID | 用户的UUID
+        Uuid *string `json:"uuid,optional"`
+
+        // Token | 用户的Token
+        Token *string `json:"token,optional"`
+
+        // Source | Token 来源
+        Source *string `json:"source,optional"`
+
+        // ExpiredAt | 过期时间
+        ExpiredAt *int64 `json:"expiredAt,optional"`
+    }
+
+    // The response data of token list | Token列表数据
+    TokenListResp {
+        BaseDataInfo
+
+        // Token list data | Token列表数据
+        Data TokenListInfo `json:"data"`
+    }
+
+    // Token list data | Token列表数据
+    TokenListInfo {
+        BaseListInfo
+
+        // The API list data | Token列表数据
+        Data  []TokenInfo  `json:"data"`
+    }
+
+    // Get token list request params | Token列表请求参数
+    TokenListReq {
+        PageInfo
+
+        // Username
+        Username *string `json:"username,optional"`
+
+        // Nickname
+        Nickname *string `json:"nickname,optional"`
+
+        // Email
+        Email *string `json:"email,optional"`
+
+        // Uuid
+        Uuid *string `json:"uuid,optional"`
+    }
+
+    // Token information response | Token信息返回体
+    TokenInfoResp {
+        BaseDataInfo
+
+        // Token information | Token数据
+        Data TokenInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: token
+    middleware: Authority
+)
+
+service Core {
+    // Create token information | 创建Token
+    @handler createToken
+    post /token/create (TokenInfo) returns (BaseMsgResp)
+
+    // Update token information | 更新 Token
+    @handler updateToken
+    post /token/update (TokenInfo) returns (BaseMsgResp)
+
+    // Delete token information | 删除Token信息
+    @handler deleteToken
+    post /token/delete (UUIDsReq) returns (BaseMsgResp)
+
+    // Get token list | 获取Token列表
+    @handler getTokenList
+    post /token/list (TokenListReq) returns (TokenListResp)
+
+    // Get Token by ID | 通过ID获取Token
+    @handler getTokenById
+    post /token (UUIDReq) returns (TokenInfoResp)
+
+    // Force logging out by user UUID | 根据UUID强制用户退出
+    @handler logout
+    post /token/logout (UUIDReq) returns (BaseMsgResp)
+}

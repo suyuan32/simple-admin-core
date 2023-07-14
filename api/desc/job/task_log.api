@@ -1,0 +1,81 @@
+import "../base.api"
+
+type (
+    // The response data of task log information | 任务日志信息
+    TaskLogInfo {
+        // ID
+        Id *uint64 `json:"id"`
+
+        // StartedAt | 任务开始时间
+        StartedAt *int64 `json:"startedAt,optional"`
+
+        // FinishedAt | 任务完成时间
+        FinishedAt *int64 `json:"finishedAt,optional"`
+
+        // Result | 任务结果
+        Result *uint32 `json:"result,optional"`
+    }
+
+    // The response data of task log list | 任务日志列表数据
+    TaskLogListResp {
+        BaseDataInfo
+
+        // TaskLog list data | 任务日志列表数据
+        Data TaskLogListInfo `json:"data"`
+    }
+
+    // TaskLog list data | 任务日志列表数据
+    TaskLogListInfo {
+        BaseListInfo
+
+        // The API list data | 任务日志列表数据
+        Data  []TaskLogInfo  `json:"data"`
+    }
+
+    // Get task log list request params | 任务日志列表请求参数
+    TaskLogListReq {
+        PageInfo
+
+        // TaskId | 任务ID
+        TaskId *uint64 `json:"taskId"`
+
+        // Result | 任务结果
+        Result *uint32 `json:"result"`
+    }
+
+    // TaskLog information response | 任务日志信息返回体
+    TaskLogInfoResp {
+        BaseDataInfo
+
+        // TaskLog information | 任务日志数据
+        Data TaskLogInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: tasklog
+    middleware: Authority
+)
+
+service Core {
+    // Create task log information | 创建任务日志
+    @handler createTaskLog
+    post /task_log/create (TaskLogInfo) returns (BaseMsgResp)
+
+    // Update task log information | 更新任务日志
+    @handler updateTaskLog
+    post /task_log/update (TaskLogInfo) returns (BaseMsgResp)
+
+    // Delete task log information | 删除任务日志信息
+    @handler deleteTaskLog
+    post /task_log/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get task log list | 获取任务日志列表
+    @handler getTaskLogList
+    post /task_log/list (TaskLogListReq) returns (TaskLogListResp)
+
+    // Get task log by ID | 通过ID获取任务日志
+    @handler getTaskLogById
+    post /task_log (IDReq) returns (TaskLogInfoResp)
+}

@@ -1,0 +1,83 @@
+import "../base.api"
+
+type (
+    // The response data of sms provider information | 短信配置信息
+    SmsProviderInfo {
+        BaseIDInfo
+
+        // Name
+        Name  *string `json:"name,optional"`
+
+        // SecretId
+        SecretId  *string `json:"secretId,optional"`
+
+        // SecretKey
+        SecretKey  *string `json:"secretKey,optional"`
+
+        // Region
+        Region  *string `json:"region,optional"`
+
+        // IsDefault
+        IsDefault  *bool `json:"isDefault,optional"`
+    }
+
+    // The response data of sms provider list | 短信配置列表数据
+    SmsProviderListResp {
+        BaseDataInfo
+
+        // SmsProvider list data | 短信配置列表数据
+        Data SmsProviderListInfo `json:"data"`
+    }
+
+    // SmsProvider list data | 短信配置列表数据
+    SmsProviderListInfo {
+        BaseListInfo
+
+        // The API list data | 短信配置列表数据
+        Data  []SmsProviderInfo  `json:"data"`
+    }
+
+    // Get sms provider list request params | 短信配置列表请求参数
+    SmsProviderListReq {
+        PageInfo
+
+        // Name
+        Name  *string `json:"name,optional"`
+    }
+
+    // SmsProvider information response | 短信配置信息返回体
+    SmsProviderInfoResp {
+        BaseDataInfo
+
+        // SmsProvider information | 短信配置数据
+        Data SmsProviderInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: smsprovider
+    middleware: Authority
+)
+
+service Core {
+    // Create sms provider information | 创建短信配置
+    @handler createSmsProvider
+    post /sms_provider/create (SmsProviderInfo) returns (BaseMsgResp)
+
+    // Update sms provider information | 更新短信配置
+    @handler updateSmsProvider
+    post /sms_provider/update (SmsProviderInfo) returns (BaseMsgResp)
+
+    // Delete sms provider information | 删除短信配置信息
+    @handler deleteSmsProvider
+    post /sms_provider/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get sms provider list | 获取短信配置列表
+    @handler getSmsProviderList
+    post /sms_provider/list (SmsProviderListReq) returns (SmsProviderListResp)
+
+    // Get sms provider by ID | 通过ID获取短信配置
+    @handler getSmsProviderById
+    post /sms_provider (IDReq) returns (SmsProviderInfoResp)
+}

@@ -1,0 +1,100 @@
+import "../base.api"
+
+type (
+    // The response data of dictionary detail information | 字典键值信息
+    DictionaryDetailInfo {
+        BaseIDInfo
+
+        // Status | 状态
+        Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+
+        // Title | 显示名称
+        Title *string `json:"title,optional" validate:"omitempty,max=50"`
+
+        // Key | 键
+        Key *string `json:"key,optional" validate:"omitempty,max=80"`
+
+        // Value | 值
+        Value *string `json:"value,optional" validate:"omitempty,max=100"`
+
+        // Dictionary ID | 所属字典ID
+        DictionaryId *uint64 `json:"dictionaryId,optional"`
+
+        // Sort | 排序
+        Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+    }
+
+    // The response data of dictionary detail list | 字典键值列表数据
+    DictionaryDetailListResp {
+        BaseDataInfo
+
+        // DictionaryDetail list data | 字典键值列表数据
+        Data DictionaryDetailListInfo `json:"data"`
+    }
+
+    // DictionaryDetail list data | 字典键值列表数据
+    DictionaryDetailListInfo {
+        BaseListInfo
+
+        // The API list data | 字典键值列表数据
+        Data  []DictionaryDetailInfo  `json:"data"`
+    }
+
+    // Get dictionary detail list request params | 字典键值列表请求参数
+    DictionaryDetailListReq {
+        PageInfo
+
+        // Key | 键
+        Key *string `json:"key,optional" validate:"omitempty,max=80"`
+
+        // Dictionary ID | 所属字典ID
+        DictionaryId *uint64 `json:"dictionaryId,optional"`
+    }
+
+        // DictionaryDetail information response | 字典键值信息返回体
+    DictionaryDetailInfoResp {
+        BaseDataInfo
+
+        // DictionaryDetail information | 字典键值数据
+        Data DictionaryDetailInfo `json:"data"`
+    }
+
+        // Dictionary name request | 字典名称请求
+        // swagger:parameters GetDictionaryDetailByDictionaryName
+    DictionaryNameReq {
+        // in:path
+        Name *string `json:"name,optional" path:"name"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: dictionarydetail
+    middleware: Authority
+)
+
+service Core {
+    // Create dictionary detail information | 创建字典键值
+    @handler createDictionaryDetail
+    post /dictionary_detail/create (DictionaryDetailInfo) returns (BaseMsgResp)
+
+    // Update dictionary detail information | 更新字典键值
+    @handler updateDictionaryDetail
+    post /dictionary_detail/update (DictionaryDetailInfo) returns (BaseMsgResp)
+
+    // Delete dictionary detail information | 删除字典键值信息
+    @handler deleteDictionaryDetail
+    post /dictionary_detail/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get dictionary detail list | 获取字典键值列表
+    @handler getDictionaryDetailList
+    post /dictionary_detail/list (DictionaryDetailListReq) returns (DictionaryDetailListResp)
+
+    // Get dictionary detail by ID | 通过ID获取字典键值
+    @handler getDictionaryDetailById
+    post /dictionary_detail (IDReq) returns (DictionaryDetailInfoResp)
+
+    // Get dictionary detail by dictionary name | 通过字典名称获取字典内容
+    @handler getDictionaryDetailByDictionaryName
+    get /dict/:name (DictionaryNameReq) returns (DictionaryDetailListResp)
+}

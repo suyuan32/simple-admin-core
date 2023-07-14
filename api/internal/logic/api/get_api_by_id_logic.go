@@ -44,6 +44,7 @@ func (l *GetApiByIdLogic) GetApiById(req *types.IDReq) (resp *types.ApiInfoResp,
 			Description: data.Description,
 			Group:       data.ApiGroup,
 			Method:      data.Method,
+			IsRequired:  data.IsRequired,
 		},
 	}, nil
 }

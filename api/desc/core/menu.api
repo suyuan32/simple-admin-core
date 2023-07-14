@@ -1,0 +1,230 @@
+import "../base.api"
+
+type (
+    // The response data of menu information | 菜单信息
+    MenuInfo {
+        BaseIDInfo
+
+        // Translated Name | 国际化展示名称
+        Trans string `json:"trans,optional"`
+
+        // Level | 菜单层级
+        Level *uint32 `json:"level,optional"`
+
+        // ParentId | 父级菜单ID
+        ParentId *uint64 `json:"parentId,optional"`
+
+        // Path | 菜单访问路径
+        Path *string `json:"path,optional"`
+
+        // Menu name | 菜单名称
+        Name *string `json:"name,optional"`
+
+        // Redirect | 跳转地址
+        Redirect *string `json:"redirect,optional"`
+
+        // Component | 组件地址
+        Component *string `json:"component,optional"`
+
+        // Sort | 排序
+        Sort *uint32 `json:"sort,optional"`
+
+        // Disabled | 是否启用
+        Disabled *bool `json:"disabled,optional"`
+
+        // Meta | 菜单meta数据
+        Meta  Meta `json:"meta"`
+
+        // MenuType | 菜单类型
+        MenuType *uint32 `json:"menuType,optional"`
+    }
+
+    // The meta data of menu | 菜单的meta数据
+    // swagger:model Meta
+    Meta {
+        // Menu title show in page | 菜单显示名
+        // Max length: 50
+        Title *string `json:"title" validate:"max=50"`
+
+        // Menu Icon | 菜单图标
+        // Max length: 50
+        Icon *string `json:"icon" validate:"max=50"`
+
+        // Hide menu | 隐藏菜单
+        HideMenu *bool `json:"hideMenu" validate:"omitempty,boolean"`
+
+        // If hide the breadcrumb | 隐藏面包屑
+        HideBreadcrumb *bool `json:"hideBreadcrumb,optional" validate:"omitempty,boolean"`
+
+        // Do not keep alive the tab | 不缓存Tab
+        IgnoreKeepAlive *bool `json:"ignoreKeepAlive,optional" validate:"omitempty,boolean"`
+
+        // Hide the tab header | 当前路由不在标签页显示
+        HideTab *bool `json:"hideTab,optional" validate:"omitempty,boolean"`
+
+        // Iframe path | 内嵌iframe的地址
+        FrameSrc *string `json:"frameSrc,optional"`
+
+        // The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
+        CarryParam *bool `json:"carryParam,optional" validate:"omitempty,boolean"`
+
+        // Hide children menu or not | 隐藏所有子菜单
+        HideChildrenInMenu *bool `json:"hideChildrenInMenu,optional" validate:"omitempty,boolean"`
+
+        // Affix tab | 是否固定标签
+        Affix *bool `json:"affix,optional" validate:"omitempty,boolean"`
+
+        // The maximum number of pages the router can open | 动态路由可打开Tab页数
+        DynamicLevel *uint32 `json:"dynamicLevel" validate:"number,lt=30"`
+
+        // The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
+        RealPath *string `json:"realPath,optional"`
+    }
+
+    // The response data of menu list | 菜单列表返回数据
+    MenuListResp {
+        BaseDataInfo
+
+        // Menu list data | Menu列表数据
+        Data MenuListInfo `json:"data"`
+    }
+
+    // Menu list data | Menu列表数据
+    MenuListInfo {
+        BaseListInfo
+
+        // The menu list data | 菜单列表数据
+        Data []MenuInfo `json:"data"`
+    }
+
+    // Menu information response | 菜单信息返回体
+    MenuInfoResp {
+        BaseDataInfo
+
+        // Menu information | Menu数据
+        Data MenuInfo `json:"data"`
+    }
+
+    // Menu information plain | 菜单信息无嵌套
+    MenuPlainInfo {
+        Id *uint64 `json:"id"`
+
+        // Create date | 创建日期
+        CreatedAt *int64 `json:"createdAt,optional"`
+
+        // Update date | 更新日期
+        UpdatedAt *int64 `json:"updatedAt,optional"`
+
+        // Translated Name | 国际化展示名称
+        Trans *string `json:"trans,optional"`
+
+        // Level | 菜单层级
+        Level *uint32 `json:"level,optional" validate:"omitempty,lt=20"`
+
+        // ParentId | 父级菜单ID
+        ParentId *uint64 `json:"parentId,optional"`
+
+        // Path | 菜单访问路径
+        Path *string `json:"path,optional" validate:"omitempty,max=200"`
+
+        // Menu name | 菜单名称
+        Name *string `json:"name,optional" validate:"omitempty,max=50"`
+
+        // Redirect | 跳转地址
+        Redirect *string `json:"redirect,optional" validate:"omitempty,max=300"`
+
+        // Component | 组件地址
+        Component *string `json:"component,optional" validate:"omitempty,max=80"`
+
+        // Sort | 排序
+        Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+
+        // Disabled | 是否启用
+        Disabled *bool `json:"disabled,optional"`
+
+        // MenuType | 菜单类型
+        MenuType *uint32 `json:"menuType,optional" validate:"omitempty,lt=10"`
+
+
+
+        // Menu title show in page | 菜单显示名
+        Title *string `json:"title" validate:"omitempty,max=50"`
+
+        // Menu Icon | 菜单图标
+        Icon *string `json:"icon" validate:"omitempty,max=50"`
+
+        // Hide menu | 隐藏菜单
+        HideMenu *bool `json:"hideMenu" validate:"omitempty,boolean"`
+
+        // If hide the breadcrumb | 隐藏面包屑
+        HideBreadcrumb *bool `json:"hideBreadcrumb,optional" validate:"omitempty,boolean"`
+
+        // Do not keep alive the tab | 不缓存Tab
+        IgnoreKeepAlive *bool `json:"ignoreKeepAlive,optional" validate:"omitempty,boolean"`
+
+        // Hide the tab header | 当前路由不在标签页显示
+        HideTab *bool `json:"hideTab,optional" validate:"omitempty,boolean"`
+
+        // Iframe path | 内嵌iframe的地址
+        FrameSrc *string `json:"frameSrc,optional" validate:"omitempty,max=300"`
+
+        // The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
+        CarryParam *bool `json:"carryParam,optional" validate:"omitempty,boolean"`
+
+        // Hide children menu or not | 隐藏所有子菜单
+        HideChildrenInMenu *bool `json:"hideChildrenInMenu,optional" validate:"omitempty,boolean"`
+
+        // Affix tab | 是否固定标签
+        Affix *bool `json:"affix,optional" validate:"omitempty,boolean"`
+
+        // The maximum number of pages the router can open | 动态路由可打开Tab页数
+        DynamicLevel *uint32 `json:"dynamicLevel" validate:"number,lt=30"`
+
+        // The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
+        RealPath *string `json:"realPath,optional"`
+    }
+
+    // Menu list data | 菜单列表数据
+    MenuPlainInfoList {
+        BaseListInfo
+
+        // The menu list data | 菜单列表数据
+        Data []MenuPlainInfo `json:"data"`
+    }
+
+    // Menu list data response | 菜单列表数据返回体
+    MenuPlainInfoListResp {
+        BaseDataInfo
+
+        // Menu list data | Menu列表数据
+        Data MenuPlainInfoList `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: menu
+    middleware: Authority
+)
+
+service Core {
+    // Create menu information | 创建菜单
+    @handler createMenu
+    post /menu/create (MenuPlainInfo) returns (BaseMsgResp)
+
+    // Update menu information | 更新菜单
+    @handler updateMenu
+    post /menu/update (MenuPlainInfo) returns (BaseMsgResp)
+
+    // Delete menu information | 删除菜单信息
+    @handler deleteMenu
+    post /menu/delete (IDReq) returns (BaseMsgResp)
+
+    // Get menu list | 获取菜单列表
+    @handler getMenuList
+    get /menu/list returns (MenuPlainInfoListResp)
+
+    // Get menu list by role | 获取菜单列表
+    @handler getMenuListByRole
+    get /menu/role/list returns (MenuListResp)
+}

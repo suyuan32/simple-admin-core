@@ -1,0 +1,92 @@
+import "../base.api"
+
+type (
+    // The response data of position information | 职位信息
+    PositionInfo {
+        BaseIDInfo
+
+        // Translated Name | 展示名称
+        Trans string `json:"trans,optional"`
+
+        // Status | 状态
+        Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+
+        // Sort | 排序
+        Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+
+        // Name | 职位名称
+        Name *string `json:"name,optional" validate:"omitempty,max=50"`
+
+        // Code | 职位代码
+        Code *string `json:"code,optional" validate:"omitempty,max=20"`
+
+        // Remark | 备注
+        Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
+    }
+
+    // The response data of position list | 职位列表数据
+    PositionListResp {
+        BaseDataInfo
+
+        // Position list data | 职位列表数据
+        Data PositionListInfo `json:"data"`
+    }
+
+    // Position list data | 职位列表数据
+    PositionListInfo {
+        BaseListInfo
+
+        // The API list data | 职位列表数据
+        Data  []PositionInfo  `json:"data"`
+    }
+
+    // Get position list request params | 职位列表请求参数
+    PositionListReq {
+        PageInfo
+
+        // Name | 职位名称
+        Name *string `json:"name,optional" validate:"omitempty,max=50"`
+
+        // Code | 职位代码
+        Code *string `json:"code,optional" validate:"omitempty,max=20"`
+
+        // Remark | 备注
+        Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
+    }
+
+    // Position information response | 职位信息返回体
+    PositionInfoResp {
+        BaseDataInfo
+
+        // Position information | 职位数据
+        Data PositionInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: position
+    middleware: Authority
+)
+
+service Core {
+    // Create position information | 创建职位
+    @handler createPosition
+    post /position/create (PositionInfo) returns (BaseMsgResp)
+
+    // Update position information | 更新职位
+    @handler updatePosition
+    post /position/update (PositionInfo) returns (BaseMsgResp)
+
+    // Delete position information | 删除职位信息
+    @handler deletePosition
+    post /position/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get position list | 获取职位列表
+    @handler getPositionList
+    post /position/list (PositionListReq) returns (PositionListResp)
+
+    // Get position by ID | 通过ID获取职位
+    @handler getPositionById
+    post /position (IDReq) returns (PositionInfoResp)
+}

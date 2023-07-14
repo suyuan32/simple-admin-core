@@ -42,6 +42,10 @@ func init() {
 	apiDescMethod := apiFields[3].Descriptor()
 	// api.DefaultMethod holds the default value on creation for the method field.
 	api.DefaultMethod = apiDescMethod.Default.(string)
+	// apiDescIsRequired is the schema descriptor for is_required field.
+	apiDescIsRequired := apiFields[4].Descriptor()
+	// api.DefaultIsRequired holds the default value on creation for the is_required field.
+	api.DefaultIsRequired = apiDescIsRequired.Default.(bool)
 	departmentMixin := schema.Department{}.Mixin()
 	departmentMixinFields0 := departmentMixin[0].Fields()
 	_ = departmentMixinFields0

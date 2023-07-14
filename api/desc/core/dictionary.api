@@ -1,0 +1,83 @@
+import "../base.api"
+
+type (
+    // The response data of dictionary information | 字典信息
+    DictionaryInfo {
+        BaseIDInfo
+
+        // Translated Name | 字典多语言名称
+        Trans string `json:"trans,optional"`
+
+        // Title | 字典多语言名称
+        Title *string `json:"title,optional" validate:"omitempty,min=1,max=50"`
+
+        // Name | 字典名称
+        Name *string `json:"name,optional" validate:"omitempty,min=1,max=50"`
+
+        // Status | 状态
+        Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+
+        // Description of dictionary | 字典描述
+        Desc *string `json:"desc,optional" validate:"omitempty,max=200"`
+    }
+
+    // The response data of dictionary list | 字典列表数据
+    DictionaryListResp {
+        BaseDataInfo
+
+        // Dictionary list data | 字典列表数据
+        Data DictionaryListInfo `json:"data"`
+    }
+
+    // Dictionary list data | 字典列表数据
+    DictionaryListInfo {
+        BaseListInfo
+
+        // The API list data | 字典列表数据
+        Data  []DictionaryInfo  `json:"data"`
+    }
+
+    // Get dictionary list request params | 字典列表请求参数
+    DictionaryListReq {
+        PageInfo
+
+        // Name | 字典名称
+        Name *string `json:"name,optional" validate:"omitempty,max=50"`
+    }
+
+    // Dictionary information response | 字典信息返回体
+    DictionaryInfoResp {
+        BaseDataInfo
+
+        // Dictionary information | 字典数据
+        Data DictionaryInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: dictionary
+    middleware: Authority
+)
+
+service Core {
+    // Create dictionary information | 创建字典
+    @handler createDictionary
+    post /dictionary/create (DictionaryInfo) returns (BaseMsgResp)
+
+    // Update dictionary information | 更新字典
+    @handler updateDictionary
+    post /dictionary/update (DictionaryInfo) returns (BaseMsgResp)
+
+    // Delete dictionary information | 删除字典信息
+    @handler deleteDictionary
+    post /dictionary/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get dictionary list | 获取字典列表
+    @handler getDictionaryList
+    post /dictionary/list (DictionaryListReq) returns (DictionaryListResp)
+
+    // Get Dictionary by ID | 通过ID获取字典
+    @handler getDictionaryById
+    post /dictionary (IDReq) returns (DictionaryInfoResp)
+}

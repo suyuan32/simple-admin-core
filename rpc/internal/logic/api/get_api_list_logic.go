@@ -60,6 +60,7 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiListReq) (*core.ApiListResp, er
 			Description: &v.Description,
 			ApiGroup:    &v.APIGroup,
 			Method:      &v.Method,
+			IsRequired:  &v.IsRequired,
 		})
 	}
 

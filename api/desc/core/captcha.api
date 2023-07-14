@@ -1,0 +1,61 @@
+syntax = "v1"
+
+info(
+	title: "captcha api"
+	desc: "captcha api"
+	author: "Ryan Su"
+	email: "yuansu.china.work@gmail.com"
+	version: "v1.0"
+)
+
+import "../base.api"
+
+// The information of captcha | 验证码数据
+type CaptchaInfo {
+	CaptchaId string `json:"captchaId"`
+	ImgPath   string `json:"imgPath"`
+}
+
+// The response data of captcha | 验证码返回数据
+type CaptchaResp {
+    BaseDataInfo
+
+    // The menu authorization data | 菜单授权信息数据
+    Data CaptchaInfo `json:"data"`
+}
+
+// The email captcha request | 邮箱验证码请求参数
+type EmailCaptchaReq {
+    // The email address | 邮箱地址
+    Email string `json:"email"`
+}
+
+// The sms captcha request | 短信验证码请求参数
+type SmsCaptchaReq {
+    // The phone number | 电话号码
+    PhoneNumber string `json:"phoneNumber"`
+}
+
+@server(
+	group: captcha
+)
+
+service Core {
+	// Get captcha | 获取验证码
+	@handler getCaptcha
+	get /captcha returns (CaptchaResp)
+}
+
+@server(
+    group: captcha
+)
+
+service Core {
+    // Get Email Captcha | 获取邮箱验证码
+    @handler getEmailCaptcha
+    post /captcha/email (EmailCaptchaReq) returns (BaseMsgResp)
+
+    // Get SMS Captcha | 获取短信验证码
+    @handler getSmsCaptcha
+    post /captcha/sms (SmsCaptchaReq) returns (BaseMsgResp)
+}

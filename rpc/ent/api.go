@@ -28,7 +28,9 @@ type API struct {
 	// API group | API 分组
 	APIGroup string `json:"api_group,omitempty"`
 	// HTTP method | HTTP 请求类型
-	Method       string `json:"method,omitempty"`
+	Method string `json:"method,omitempty"`
+	// Whether is required | 是否必选
+	IsRequired   bool `json:"is_required,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -37,6 +39,8 @@ func (*API) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case api.FieldIsRequired:
+			values[i] = new(sql.NullBool)
 		case api.FieldID:
 			values[i] = new(sql.NullInt64)
 		case api.FieldPath, api.FieldDescription, api.FieldAPIGroup, api.FieldMethod:
@@ -100,6 +104,12 @@ func (a *API) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				a.Method = value.String
 			}
+		case api.FieldIsRequired:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field is_required", values[i])
+			} else if value.Valid {
+				a.IsRequired = value.Bool
+			}
 		default:
 			a.selectValues.Set(columns[i], values[i])
 		}
@@ -153,6 +163,9 @@ func (a *API) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("method=")
 	builder.WriteString(a.Method)
+	builder.WriteString(", ")
+	builder.WriteString("is_required=")
+	builder.WriteString(fmt.Sprintf("%v", a.IsRequired))
 	builder.WriteByte(')')
 	return builder.String()
 }

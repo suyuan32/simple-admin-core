@@ -1,0 +1,101 @@
+import "../base.api"
+
+type (
+    // The response data of department information | 部门信息
+    DepartmentInfo {
+        BaseIDInfo
+
+        // Translated Name | 展示名称
+        Trans string `json:"trans,optional"`
+
+        // Status | 状态
+        Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
+
+        // Sort | 排序
+        Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+
+        // Name | 部门名称
+        Name *string `json:"name,optional" validate:"omitempty,min=1,max=50"`
+
+        // Ancestors | 父级部门列表
+        Ancestors *string `json:"ancestors,optional" validate:"omitempty,max=200"`
+
+        // Leader | 部门负责人
+        Leader *string `json:"leader,optional" validate:"omitempty,max=20"`
+
+        // Phone | 电话号码
+        Phone *string `json:"phone,optional" validate:"omitempty,max=18"`
+
+        // Email | 邮箱
+        Email *string `json:"email,optional" validate:"omitempty,min=5,max=70"`
+
+        // Remark | 备注
+        Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
+
+        // ParentId | 父级 ID
+        ParentId *uint64 `json:"parentId,optional"`
+    }
+
+    // The response data of department list | 部门列表数据
+    DepartmentListResp {
+        BaseDataInfo
+
+        // Department list data | 部门列表数据
+        Data DepartmentListInfo `json:"data"`
+    }
+
+    // Department list data | 部门列表数据
+    DepartmentListInfo {
+        BaseListInfo
+
+        // The API list data | 部门列表数据
+        Data  []DepartmentInfo  `json:"data"`
+    }
+
+    // Get department list request params | 部门列表请求参数
+    DepartmentListReq {
+        PageInfo
+
+        // Name | 部门名称
+        Name *string `json:"name,optional" validate:"omitempty,max=50"`
+
+        // Leader | 部门负责人
+        Leader *string `json:"leader,optional" validate:"omitempty,max=20"`
+    }
+
+    // Department information response | 部门信息返回体
+    DepartmentInfoResp {
+        BaseDataInfo
+
+        // Department information | 部门数据
+        Data DepartmentInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: department
+    middleware: Authority
+)
+
+service Core {
+    // Create department information | 创建部门
+    @handler createDepartment
+    post /department/create (DepartmentInfo) returns (BaseMsgResp)
+
+    // Update department information | 更新部门
+    @handler updateDepartment
+    post /department/update (DepartmentInfo) returns (BaseMsgResp)
+
+    // Delete department information | 删除部门信息
+    @handler deleteDepartment
+    post /department/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get department list | 获取部门列表
+    @handler getDepartmentList
+    post /department/list (DepartmentListReq) returns (DepartmentListResp)
+
+    // Get Department by ID | 通过ID获取部门
+    @handler getDepartmentById
+    post /department (IDReq) returns (DepartmentInfoResp)
+}
