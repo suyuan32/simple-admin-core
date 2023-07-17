@@ -102,6 +102,7 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 - [文件管理](https://github.com/suyuan32/simple-admin-file)
 - [定时任务](https://github.com/suyuan32/simple-admin-job)
 - [会员管理](https://github.com/suyuan32/simple-admin-member-api)
+- [消息中心模块](https://github.com/suyuan32/simple-admin-message-center)
 
 ## 如何贡献
 
