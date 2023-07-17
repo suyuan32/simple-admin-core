@@ -102,6 +102,7 @@ Password:  simple-admin
 - [File Management](https://github.com/suyuan32/simple-admin-file)
 - [Scheduled Task](https://github.com/suyuan32/simple-admin-job)
 - [Member Management](https://github.com/suyuan32/simple-admin-member-api)
+- [Message Center](https://github.com/suyuan32/simple-admin-message-center)
 
 
 ## How to contribute
