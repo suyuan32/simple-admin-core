@@ -12,13 +12,13 @@ require (
 	github.com/suyuan32/simple-admin-common v1.0.14
 	github.com/suyuan32/simple-admin-job v1.0.14
 	github.com/suyuan32/simple-admin-message-center v1.0.14
-	github.com/zeromicro/go-zero v1.5.3
+	github.com/zeromicro/go-zero v1.5.4
 	golang.org/x/oauth2 v0.7.0
 	google.golang.org/grpc v1.56.2
 	google.golang.org/protobuf v1.31.0
 )
 
-replace github.com/zeromicro/go-zero v1.5.3 => github.com/suyuan32/simple-admin-tools v1.5.13
+replace github.com/zeromicro/go-zero v1.5.4 => github.com/suyuan32/simple-admin-tools v1.5.13
 
 require (
 	ariga.io/atlas v0.10.2-0.20230427182402-87a07dfb83bf // indirect
