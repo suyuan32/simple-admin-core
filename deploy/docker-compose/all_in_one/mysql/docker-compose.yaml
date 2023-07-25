@@ -160,7 +160,7 @@ services:
           memory: 200M
 
   fms-api:
-    image: ryanpower/fms-api-docker:v1.0.14
+    image: ryanpower/fms-api-docker:v1.1.0
     container_name: fms-api
     restart: always
     #    environment:
