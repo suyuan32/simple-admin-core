@@ -4,14 +4,14 @@ go 1.20
 
 require (
 	entgo.io/ent v0.12.3
-	github.com/casbin/casbin/v2 v2.71.1
+	github.com/casbin/casbin/v2 v2.72.1
 	github.com/duke-git/lancet/v2 v2.2.3
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/hibiken/asynq v0.24.1
 	github.com/mojocn/base64Captcha v1.3.5
-	github.com/suyuan32/simple-admin-common v1.0.14
-	github.com/suyuan32/simple-admin-job v1.0.14
-	github.com/suyuan32/simple-admin-message-center v1.0.14
+	github.com/suyuan32/simple-admin-common v1.1.0
+	github.com/suyuan32/simple-admin-job v1.1.0
+	github.com/suyuan32/simple-admin-message-center v1.1.0
 	github.com/zeromicro/go-zero v1.5.4
 	golang.org/x/oauth2 v0.7.0
 	google.golang.org/grpc v1.56.2
@@ -95,6 +95,9 @@ require (
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
+	github.com/tidwall/gjson v1.14.4 // indirect
+	github.com/tidwall/match v1.1.1 // indirect
+	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/zclconf/go-cty v1.13.1 // indirect
 	go.etcd.io/etcd/api/v3 v3.5.9 // indirect
 	go.etcd.io/etcd/client/pkg/v3 v3.5.9 // indirect
