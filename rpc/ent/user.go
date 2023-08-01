@@ -26,7 +26,7 @@ type User struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// status 1 normal 2 ban | 状态 1 正常 2 禁用
 	Status uint8 `json:"status,omitempty"`
-	// DeletedAt holds the value of the "deleted_at" field.
+	// Delete Time | 删除日期
 	DeletedAt time.Time `json:"deleted_at,omitempty"`
 	// User's login name | 登录名
 	Username string `json:"username,omitempty"`
