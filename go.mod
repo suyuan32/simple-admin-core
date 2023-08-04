@@ -4,21 +4,21 @@ go 1.20
 
 require (
 	entgo.io/ent v0.12.3
-	github.com/casbin/casbin/v2 v2.72.1
+	github.com/casbin/casbin/v2 v2.73.0
 	github.com/duke-git/lancet/v2 v2.2.3
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/hibiken/asynq v0.24.1
 	github.com/mojocn/base64Captcha v1.3.5
-	github.com/suyuan32/simple-admin-common v1.1.0
-	github.com/suyuan32/simple-admin-job v1.1.0
-	github.com/suyuan32/simple-admin-message-center v1.1.0
+	github.com/suyuan32/simple-admin-common v1.1.1
+	github.com/suyuan32/simple-admin-job v1.1.1
+	github.com/suyuan32/simple-admin-message-center v1.1.1
 	github.com/zeromicro/go-zero v1.5.4
 	golang.org/x/oauth2 v0.7.0
-	google.golang.org/grpc v1.56.2
+	google.golang.org/grpc v1.57.0
 	google.golang.org/protobuf v1.31.0
 )
 
-replace github.com/zeromicro/go-zero v1.5.4 => github.com/suyuan32/simple-admin-tools v1.5.13
+replace github.com/zeromicro/go-zero v1.5.4 => github.com/suyuan32/simple-admin-tools v1.5.14
 
 require (
 	ariga.io/atlas v0.10.2-0.20230427182402-87a07dfb83bf // indirect
@@ -85,12 +85,12 @@ require (
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/nicksnyder/go-i18n/v2 v2.2.1 // indirect
 	github.com/openzipkin/zipkin-go v0.4.1 // indirect
-	github.com/pelletier/go-toml/v2 v2.0.8 // indirect
+	github.com/pelletier/go-toml/v2 v2.0.9 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/prometheus/client_golang v1.15.1 // indirect
+	github.com/prometheus/client_golang v1.16.0 // indirect
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.42.0 // indirect
-	github.com/prometheus/procfs v0.9.0 // indirect
+	github.com/prometheus/procfs v0.10.1 // indirect
 	github.com/redis/go-redis/v9 v9.0.5 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
@@ -127,7 +127,9 @@ require (
 	golang.org/x/text v0.11.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
+	google.golang.org/genproto v0.0.0-20230526161137-0005af68ea54 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20230525234035-dd9d682886f9 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20230525234030-28d5490b6b19 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

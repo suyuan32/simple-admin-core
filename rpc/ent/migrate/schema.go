@@ -12,8 +12,8 @@ var (
 	// SysApisColumns holds the columns for the "sys_apis" table.
 	SysApisColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
 		{Name: "path", Type: field.TypeString, Comment: "API path | API 路径"},
 		{Name: "description", Type: field.TypeString, Comment: "API description | API 描述"},
 		{Name: "api_group", Type: field.TypeString, Comment: "API group | API 分组"},
@@ -36,10 +36,10 @@ var (
 	// SysDepartmentsColumns holds the columns for the "sys_departments" table.
 	SysDepartmentsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
-		{Name: "sort", Type: field.TypeUint32, Default: 1},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "status 1 normal 2 ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "sort", Type: field.TypeUint32, Comment: "Sort Number | 排序编号", Default: 1},
 		{Name: "name", Type: field.TypeString, Comment: "Department name | 部门名称"},
 		{Name: "ancestors", Type: field.TypeString, Nullable: true, Comment: "Parents' IDs | 父级列表"},
 		{Name: "leader", Type: field.TypeString, Comment: "Department leader | 部门负责人"},
@@ -65,9 +65,9 @@ var (
 	// SysDictionariesColumns holds the columns for the "sys_dictionaries" table.
 	SysDictionariesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "status 1 normal 2 ban | 状态 1 正常 2 禁用", Default: 1},
 		{Name: "title", Type: field.TypeString, Comment: "The title shown in the ui | 展示名称 （建议配合i18n）"},
 		{Name: "name", Type: field.TypeString, Unique: true, Comment: "The name of dictionary for search | 字典搜索名称"},
 		{Name: "desc", Type: field.TypeString, Nullable: true, Comment: "The description of dictionary | 字典的描述"},
@@ -81,10 +81,10 @@ var (
 	// SysDictionaryDetailsColumns holds the columns for the "sys_dictionary_details" table.
 	SysDictionaryDetailsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
-		{Name: "sort", Type: field.TypeUint32, Default: 1},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "status 1 normal 2 ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "sort", Type: field.TypeUint32, Comment: "Sort Number | 排序编号", Default: 1},
 		{Name: "title", Type: field.TypeString, Comment: "The title shown in the ui | 展示名称 （建议配合i18n）"},
 		{Name: "key", Type: field.TypeString, Comment: "key | 键"},
 		{Name: "value", Type: field.TypeString, Comment: "value | 值"},
@@ -107,9 +107,9 @@ var (
 	// SysMenusColumns holds the columns for the "sys_menus" table.
 	SysMenusColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "sort", Type: field.TypeUint32, Default: 1},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "sort", Type: field.TypeUint32, Comment: "Sort Number | 排序编号", Default: 1},
 		{Name: "menu_level", Type: field.TypeUint32, Comment: "Menu level | 菜单层级"},
 		{Name: "menu_type", Type: field.TypeUint32, Comment: "Menu type | 菜单类型 （菜单或目录）0 目录 1 菜单"},
 		{Name: "path", Type: field.TypeString, Nullable: true, Comment: "Index path | 菜单路由路径", Default: ""},
@@ -148,8 +148,8 @@ var (
 	// SysOauthProvidersColumns holds the columns for the "sys_oauth_providers" table.
 	SysOauthProvidersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
 		{Name: "name", Type: field.TypeString, Unique: true, Comment: "The provider's name | 提供商名称"},
 		{Name: "client_id", Type: field.TypeString, Comment: "The client id | 客户端 id"},
 		{Name: "client_secret", Type: field.TypeString, Comment: "The client secret | 客户端密钥"},
@@ -169,10 +169,10 @@ var (
 	// SysPositionsColumns holds the columns for the "sys_positions" table.
 	SysPositionsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
-		{Name: "sort", Type: field.TypeUint32, Default: 1},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "status 1 normal 2 ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "sort", Type: field.TypeUint32, Comment: "Sort Number | 排序编号", Default: 1},
 		{Name: "name", Type: field.TypeString, Comment: "Position Name | 职位名称"},
 		{Name: "code", Type: field.TypeString, Comment: "The code of position | 职位编码"},
 		{Name: "remark", Type: field.TypeString, Nullable: true, Comment: "Remark | 备注"},
@@ -193,9 +193,9 @@ var (
 	// SysRolesColumns holds the columns for the "sys_roles" table.
 	SysRolesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "status 1 normal 2 ban | 状态 1 正常 2 禁用", Default: 1},
 		{Name: "name", Type: field.TypeString, Comment: "Role name | 角色名"},
 		{Name: "code", Type: field.TypeString, Unique: true, Comment: "Role code for permission control in front end | 角色码，用于前端权限控制"},
 		{Name: "default_router", Type: field.TypeString, Comment: "Default menu : dashboard | 默认登录页面", Default: "dashboard"},
@@ -218,9 +218,9 @@ var (
 	// SysTokensColumns holds the columns for the "sys_tokens" table.
 	SysTokensColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "status 1 normal 2 ban | 状态 1 正常 2 禁用", Default: 1},
 		{Name: "uuid", Type: field.TypeUUID, Comment: " User's UUID | 用户的UUID"},
 		{Name: "token", Type: field.TypeString, Comment: "Token string | Token 字符串"},
 		{Name: "source", Type: field.TypeString, Comment: "Log in source such as GitHub | Token 来源 （本地为core, 第三方如github等）"},
@@ -247,9 +247,9 @@ var (
 	// SysUsersColumns holds the columns for the "sys_users" table.
 	SysUsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "status 1 normal 2 ban | 状态 1 正常 2 禁用", Default: 1},
 		{Name: "deleted_at", Type: field.TypeTime, Nullable: true, Comment: "Delete Time | 删除日期"},
 		{Name: "username", Type: field.TypeString, Unique: true, Comment: "User's login name | 登录名"},
 		{Name: "password", Type: field.TypeString, Comment: "Password | 密码"},
