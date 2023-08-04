@@ -19,9 +19,14 @@
 Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基于go-zero开发，为开发中大型后台提供了丰富的功能，支持三端代码生成。
 官方自带多种扩展，助力中小企业快速上云，快速迭代。适合用于微服务学习和商用，开源免费。
 
-## [Simple Admin Tools](https://github.com/suyuan32/simple-admin-tools)
+## [Goctls](https://github.com/suyuan32/goctls)
 
 基于 go zero 的加强版工具，针对 simple admin 提供了大量优化，具有大量额外的代码生成功能，全面支持ent，轻松实现三端代码生成，使开发变得简单。
+
+## 相关教程
+
+> [Bilibili 视频教程](https://space.bilibili.com/9872669/channel/series) \
+> 关注微信公众号 - 几颗酥 获取更多教程
 
 #### [Ent 中文文档](https://suyuan32.github.io/ent-chinese-doc/#/zh-cn/getting-started)
 

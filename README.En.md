@@ -21,7 +21,7 @@ provides rich functions for the development of medium and large back-ends, suppo
 The official comes with a variety of extensions to help small and medium-sized enterprises quickly go to the cloud and
 iterate quickly. Suitable for microservice learning and commercial use, open source and free.
 
-## [Simple Admin Tools](https://github.com/suyuan32/simple-admin-tools)
+## [Goctls](https://github.com/suyuan32/goctls)
 
 Based on the enhanced version of go zero, it provides a lot of optimizations for simple admin, has a lot of additional
 code generation functions,
