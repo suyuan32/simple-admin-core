@@ -20,10 +20,10 @@ PROJECT_STYLE=go_zero
 PROJECT_I18N=true
 
 # Swagger type, support yml,json | Swagger 文件类型，支持yml,json
-SWAGGER_TYPE := json
+SWAGGER_TYPE=json
 
 # Ent enabled features | Ent 启用的官方特性
-ENT_FEATURE := sql/execquery,intercept
+ENT_FEATURE=sql/execquery,intercept
 
 # ---- You may not need to modify the codes below | 下面的代码大概率不需要更改 ----
 
