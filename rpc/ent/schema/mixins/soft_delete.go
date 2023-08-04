@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"entgo.io/ent"
+	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/mixin"
@@ -24,7 +25,9 @@ type SoftDeleteMixin struct {
 func (SoftDeleteMixin) Fields() []ent.Field {
 	return []ent.Field{
 		field.Time("deleted_at").
-			Optional(),
+			Optional().
+			Comment("Delete Time | 删除日期").
+			Annotations(entsql.WithComments(true)),
 	}
 }
 

@@ -17,13 +17,13 @@ type Position struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID uint64 `json:"id,omitempty"`
-	// CreatedAt holds the value of the "created_at" field.
+	// Create Time | 创建日期
 	CreatedAt time.Time `json:"created_at,omitempty"`
-	// UpdatedAt holds the value of the "updated_at" field.
+	// Update Time | 修改日期
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// status 1 normal 2 ban | 状态 1 正常 2 禁用
 	Status uint8 `json:"status,omitempty"`
-	// Sort number | 排序编号
+	// Sort Number | 排序编号
 	Sort uint32 `json:"sort,omitempty"`
 	// Position Name | 职位名称
 	Name string `json:"name,omitempty"`
