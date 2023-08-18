@@ -1,8 +1,6 @@
 package svc
 
 import (
-	"github.com/hibiken/asynq"
-
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/config"
 
@@ -13,10 +11,9 @@ import (
 )
 
 type ServiceContext struct {
-	Config     config.Config
-	DB         *ent.Client
-	Redis      *redis.Redis
-	MQProducer *asynq.Client
+	Config config.Config
+	DB     *ent.Client
+	Redis  *redis.Redis
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {

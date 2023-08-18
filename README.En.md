@@ -5,11 +5,11 @@
 
 **English** | [中文](./README.md)
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.5.3-brightgreen.svg)](https://go-zero.dev/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.5.4-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.10.0-yellow.svg)](https://vvbin.cn/doc-next/)
 [![Ent](https://img.shields.io/badge/Ent-v0.12.3-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.71.1-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.0.11-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.73.0-orange.svg)](https://github.com/casbin/casbin)
+[![Release](https://img.shields.io/badge/Release-v1.1.0-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
 ![QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-801043319-blue)
@@ -21,7 +21,11 @@ provides rich functions for the development of medium and large back-ends, suppo
 The official comes with a variety of extensions to help small and medium-sized enterprises quickly go to the cloud and
 iterate quickly. Suitable for microservice learning and commercial use, open source and free.
 
-## [Simple Admin Tools](https://github.com/suyuan32/simple-admin-tools)
+## Official Tutorial
+
+### [Simple Admin](https://www.youtube.com/@yuansu5197)
+
+## [Goctls](https://github.com/suyuan32/goctls)
 
 Based on the enhanced version of go zero, it provides a lot of optimizations for simple admin, has a lot of additional
 code generation functions,
