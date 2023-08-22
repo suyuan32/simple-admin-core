@@ -108,8 +108,8 @@ services:
     environment:
       I18N_DIR: '/app/etc/'
     #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
-    #    ports:
-    #      - '9100:9100'
+    ports:
+      - '9100:9100'
     networks:
       simple-admin:
         aliases:
