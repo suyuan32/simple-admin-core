@@ -141,7 +141,8 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
     - `wip` 开发中
 
 ## 交流群
->[Discord](https://discord.gg/NDED5p2hJk)
+
+> [Discord](https://discord.gg/NDED5p2hJk)
 
 > [论坛](https://github.com/suyuan32/simple-admin-core/discussions)
 
