@@ -12,8 +12,8 @@
 [![Release](https://img.shields.io/badge/Release-v1.1.0-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
-![QQ群](https://img.shields.io/badge/QQ%E7%BE%A4-801043319-blue)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
+![注意](https://img.shields.io/badge/%E6%B3%A8%E6%84%8F-%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A0%E5%85%A5%E5%BE%AE%E4%BF%A1%E7%BE%A4-blue)
 
 ## 简介
 
@@ -141,17 +141,12 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
     - `wip` 开发中
 
 ## 交流群
-> QQ 801043319 
 
->[Discord](https://discord.gg/NDED5p2hJk)
+> [Discord](https://discord.gg/NDED5p2hJk)
 
 > [论坛](https://github.com/suyuan32/simple-admin-core/discussions)
 
-> 微信群
-
-<div align="center">
-<img src="https://doc.ryansu.pro/assets/contact.png" width="250px" height="320px"/>
-</div>
+> 关注公众号 《几颗酥》 加入微信群
 
 ## Stars
 
