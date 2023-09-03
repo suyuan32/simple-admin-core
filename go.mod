@@ -5,19 +5,19 @@ go 1.20
 require (
 	entgo.io/ent v0.12.3
 	github.com/casbin/casbin/v2 v2.75.0
-	github.com/duke-git/lancet/v2 v2.2.4
+	github.com/duke-git/lancet/v2 v2.2.5
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/suyuan32/simple-admin-common v1.1.2
 	github.com/suyuan32/simple-admin-job v1.1.2
 	github.com/suyuan32/simple-admin-message-center v1.1.2
-	github.com/zeromicro/go-zero v1.5.4
+	github.com/zeromicro/go-zero v1.5.5
 	golang.org/x/oauth2 v0.11.0
 	google.golang.org/grpc v1.57.0
 	google.golang.org/protobuf v1.31.0
 )
 
-replace github.com/zeromicro/go-zero v1.5.4 => github.com/suyuan32/simple-admin-tools v1.5.15
+replace github.com/zeromicro/go-zero v1.5.5 => github.com/suyuan32/simple-admin-tools v1.5.15
 
 require (
 	ariga.io/atlas v0.10.2-0.20230427182402-87a07dfb83bf // indirect
