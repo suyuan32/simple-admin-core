@@ -125,7 +125,7 @@ services:
           memory: 200M
 
   backend-ui:
-    image: ryanpower/backend-ui-docker:v1.1.3
+    image: ryanpower/backend-ui-docker:v1.1.4-beta.1
     container_name: backend-ui
     restart: always
     ports:
@@ -145,7 +145,7 @@ services:
           memory: 200M
 
   fms-api:
-    image: ryanpower/fms-api-docker:v1.1.3
+    image: ryanpower/fms-api-docker:v1.1.4
     container_name: fms-api
     restart: always
     #    environment:
