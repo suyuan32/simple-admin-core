@@ -232,6 +232,7 @@ type (
         Password  string  `json:"password"`
     }
 
+    // Reset password by SMS request | 通过短信重置密码请求
     ResetPasswordBySmsReq {
         PhoneNumber     string  `json:"phoneNumber"`
         Captcha         string  `json:"captcha"`
