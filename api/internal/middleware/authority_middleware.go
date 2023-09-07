@@ -13,6 +13,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/suyuan32/simple-admin-common/utils/jwt"
 )
 
 type AuthorityMiddleware struct {
@@ -39,7 +40,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		roleIds := r.Context().Value("roleId").(string)
 
 		// check jwt blacklist
-		jwtResult, err := m.Rds.Get("token_" + r.Header.Get("Authorization"))
+		jwtResult, err := m.Rds.Get("token_" + jwt.StripBearerPrefixFromToken(r.Header.Get("Authorization")))
 		if err != nil {
 			logx.Errorw("redis error in jwt", logx.Field("detail", err.Error()))
 			httpx.Error(w, errorx.NewApiError(http.StatusInternalServerError, err.Error()))
