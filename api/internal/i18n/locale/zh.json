@@ -288,5 +288,8 @@
 			"subject": "【Simple Admin】 的验证码",
 			"content": "您的验证码为： "
 		}
+	},
+	"captcha": {
+		"mcmsNotEnabled": "MCMS 服务未启动，请确认 MCMS 服务已将 Enabled 配置为 true"
 	}
 }

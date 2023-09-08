@@ -28,6 +28,10 @@ func NewGetSmsCaptchaLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Get
 }
 
 func (l *GetSmsCaptchaLogic) GetSmsCaptcha(req *types.SmsCaptchaReq) (resp *types.BaseMsgResp, err error) {
+	if !l.svcCtx.Config.McmsRpc.Enabled {
+		return nil, errorx.NewCodeInvalidArgumentError("captcha.mcmsNotEnabled")
+	}
+
 	captcha := random.RandInt(10000, 99999)
 	_, err = l.svcCtx.McmsRpc.SendSms(l.ctx, &mcms.SmsInfo{
 		PhoneNumber: []string{req.PhoneNumber},

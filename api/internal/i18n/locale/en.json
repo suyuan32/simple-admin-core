@@ -283,5 +283,8 @@
 			"subject": "Verification Code for 【Simple Admin】",
 			"content": "Your verification code is: "
 		}
+	},
+	"captcha": {
+		"mcmsNotEnabled": "MCMS service is not running，make sure that MCMS service's \"Enabled\" configuration is set to \"true\""
 	}
 }
