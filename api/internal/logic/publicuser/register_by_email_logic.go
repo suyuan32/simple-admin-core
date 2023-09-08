@@ -55,6 +55,12 @@ func (l *RegisterByEmailLogic) RegisterByEmail(req *types.RegisterByEmailReq) (r
 		if err != nil {
 			return nil, err
 		}
+
+		_, err = l.svcCtx.Redis.Del("CAPTCHA_" + req.Email)
+		if err != nil {
+			logx.Errorw("failed to delete captcha in redis", logx.Field("detail", err))
+		}
+
 		resp = &types.BaseMsgResp{
 			Msg: l.svcCtx.Trans.Trans(l.ctx, "login.signupSuccessTitle"),
 		}

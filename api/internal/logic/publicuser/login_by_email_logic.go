@@ -77,6 +77,11 @@ func (l *LoginByEmailLogic) LoginByEmail(req *types.LoginByEmailReq) (resp *type
 			return nil, err
 		}
 
+		_, err = l.svcCtx.Redis.Del("CAPTCHA_" + req.Email)
+		if err != nil {
+			logx.Errorw("failed to delete captcha in redis", logx.Field("detail", err))
+		}
+
 		resp = &types.LoginResp{
 			BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.ctx, "login.loginSuccessTitle")},
 			Data: types.LoginInfo{

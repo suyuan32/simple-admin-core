@@ -71,6 +71,11 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			return nil, err
 		}
 
+		_, err = l.svcCtx.Redis.Del("CAPTCHA_" + req.CaptchaId)
+		if err != nil {
+			logx.Errorw("failed to delete captcha in redis", logx.Field("detail", err))
+		}
+
 		resp = &types.LoginResp{
 			BaseDataInfo: types.BaseDataInfo{Msg: l.svcCtx.Trans.Trans(l.ctx, "login.loginSuccessTitle")},
 			Data: types.LoginInfo{

@@ -75,6 +75,7 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 			Id:           pointy.GetPointer(v.ID.String()),
 			Avatar:       &v.Avatar,
 			RoleIds:      GetRoleIds(v.Edges.Roles),
+			RoleCodes:    GetRoleCodes(v.Edges.Roles),
 			Mobile:       &v.Mobile,
 			Email:        &v.Email,
 			Status:       pointy.GetPointer(uint32(v.Status)),
