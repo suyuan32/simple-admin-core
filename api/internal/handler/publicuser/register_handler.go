@@ -1,40 +1,40 @@
-package user
+package publicuser
 
 import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/logic/user"
+	"github.com/suyuan32/simple-admin-core/api/internal/logic/publicuser"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /user/login user Login
+// swagger:route post /user/register publicuser Register
 //
-// Log in | 登录
+// Register | 注册
 //
-// Log in | 登录
+// Register | 注册
 //
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
-//    type: LoginReq
+//    type: RegisterReq
 //
 // Responses:
-//  200: LoginResp
+//  200: BaseMsgResp
 
-func LoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func RegisterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.LoginReq
+		var req types.RegisterReq
 		if err := httpx.Parse(r, &req, true); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := user.NewLoginLogic(r.Context(), svcCtx)
-		resp, err := l.Login(&req)
+		l := publicuser.NewRegisterLogic(r.Context(), svcCtx)
+		resp, err := l.Register(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)

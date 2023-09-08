@@ -279,6 +279,52 @@ type RegisterReq struct {
 	Email string `json:"email" validate:"required,email,max=100"`
 }
 
+// Register by email request | 邮箱注册参数
+// swagger:model RegisterByEmailReq
+type RegisterByEmailReq struct {
+	// User Name | 用户名
+	// required : true
+	// max length : 20
+	Username string `json:"username" validate:"required,alphanum,max=20"`
+	// Password | 密码
+	// required : true
+	// max length : 30
+	// min length : 6
+	Password string `json:"password" validate:"required,max=30,min=6"`
+	// The Captcha which users input | 用户输入的验证码
+	// required : true
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha" validate:"required,len=5"`
+	// The user's email address | 用户的邮箱
+	// required : true
+	// max length : 100
+	Email string `json:"email" validate:"required,email,max=100"`
+}
+
+// Register by SMS request | 短信注册参数
+// swagger:model RegisterBySmsReq
+type RegisterBySmsReq struct {
+	// User Name | 用户名
+	// required : true
+	// max length : 20
+	Username string `json:"username" validate:"required,alphanum,max=20"`
+	// Password | 密码
+	// required : true
+	// max length : 30
+	// min length : 6
+	Password string `json:"password" validate:"required,max=30,min=6"`
+	// The Captcha which users input | 用户输入的验证码
+	// required : true
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha" validate:"required,len=5"`
+	// The user's mobile phone number | 用户的手机号码
+	// required : true
+	// max length : 20
+	PhoneNumber string `json:"phoneNumber"  validate:"required,numeric,max=20"`
+}
+
 // change user's password request | 修改密码请求参数
 // swagger:model ChangePasswordReq
 type ChangePasswordReq struct {
@@ -369,6 +415,32 @@ type LoginReq struct {
 	Captcha string `json:"captcha" validate:"required,len=5"`
 }
 
+// Log in by email request | 邮箱登录参数
+// swagger:model LoginByEmailReq
+type LoginByEmailReq struct {
+	// The user's email address | 用户的邮箱
+	// required : true
+	// max length : 100
+	Email string `json:"email" validate:"required,email,max=100"`
+	// The Captcha which users input | 用户输入的验证码
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha,optional" validate:"omitempty,len=5"`
+}
+
+// Log in by SMS request | 短信登录参数
+// swagger:model LoginBySmsReq
+type LoginBySmsReq struct {
+	// The user's mobile phone number | 用户的手机号码
+	// required : true
+	// max length : 20
+	PhoneNumber string `json:"phoneNumber"  validate:"required,numeric,max=20"`
+	// The Captcha which users input | 用户输入的验证码
+	// max length : 5
+	// min length : 5
+	Captcha string `json:"captcha,optional" validate:"omitempty,len=5"`
+}
+
 // The log in response data | 登录返回数据
 // swagger:model LoginResp
 type LoginResp struct {
@@ -410,6 +482,7 @@ type ResetPasswordByEmailReq struct {
 	Password string `json:"password"`
 }
 
+// Reset password by SMS request | 通过短信重置密码请求
 // swagger:model ResetPasswordBySmsReq
 type ResetPasswordBySmsReq struct {
 	PhoneNumber string `json:"phoneNumber"`
