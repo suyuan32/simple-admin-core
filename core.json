@@ -2660,7 +2660,7 @@
       "post": {
         "description": "Log in | 登录",
         "tags": [
-          "user"
+          "publicuser"
         ],
         "summary": "Log in | 登录",
         "operationId": "Login",
@@ -2671,6 +2671,62 @@
             "schema": {
               "type": "object",
               "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "LoginResp",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/login_by_email": {
+      "post": {
+        "description": "Log in by email | 邮箱登录",
+        "tags": [
+          "publicuser"
+        ],
+        "summary": "Log in by email | 邮箱登录",
+        "operationId": "LoginByEmail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/LoginByEmailReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "LoginResp",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/login_by_sms": {
+      "post": {
+        "description": "Log in by SMS | 短信登录",
+        "tags": [
+          "publicuser"
+        ],
+        "summary": "Log in by SMS | 短信登录",
+        "operationId": "LoginBySms",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/LoginBySmsReq"
             }
           }
         ],
@@ -2768,7 +2824,7 @@
       "post": {
         "description": "Register | 注册",
         "tags": [
-          "user"
+          "publicuser"
         ],
         "summary": "Register | 注册",
         "operationId": "Register",
@@ -2792,11 +2848,67 @@
         }
       }
     },
+    "/user/register_by_email": {
+      "post": {
+        "description": "Register by Email | 邮箱注册",
+        "tags": [
+          "publicuser"
+        ],
+        "summary": "Register by Email | 邮箱注册",
+        "operationId": "RegisterByEmail",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/RegisterByEmailReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/register_by_sms": {
+      "post": {
+        "description": "Register by SMS | 短信注册",
+        "tags": [
+          "publicuser"
+        ],
+        "summary": "Register by SMS | 短信注册",
+        "operationId": "RegisterBySms",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/RegisterBySmsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
     "/user/reset_password_by_email": {
       "post": {
         "description": "Reset password by Email | 通过邮箱重置密码",
         "tags": [
-          "user"
+          "publicuser"
         ],
         "summary": "Reset password by Email | 通过邮箱重置密码",
         "operationId": "ResetPasswordByEmail",
@@ -2824,7 +2936,7 @@
       "post": {
         "description": "Reset password by Sms | 通过短信重置密码",
         "tags": [
-          "user"
+          "publicuser"
         ],
         "summary": "Reset password by Sms | 通过短信重置密码",
         "operationId": "ResetPasswordBySms",
@@ -4283,6 +4395,52 @@
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
+    "LoginByEmailReq": {
+      "description": "Log in by email request | 邮箱登录参数",
+      "type": "object",
+      "required": [
+        "email"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "LoginBySmsReq": {
+      "description": "Log in by SMS request | 短信登录参数",
+      "type": "object",
+      "required": [
+        "phoneNumber"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "phoneNumber": {
+          "description": "The user's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "PhoneNumber"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
     "LoginInfo": {
       "description": "The log in information | 登陆返回的数据信息",
       "type": "object",
@@ -5355,6 +5513,84 @@
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
+    "RegisterByEmailReq": {
+      "description": "Register by email request | 邮箱注册参数",
+      "type": "object",
+      "required": [
+        "username",
+        "password",
+        "captcha",
+        "email"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "email": {
+          "description": "The user's email address | 用户的邮箱",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Email"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "RegisterBySmsReq": {
+      "description": "Register by SMS request | 短信注册参数",
+      "type": "object",
+      "required": [
+        "username",
+        "password",
+        "captcha",
+        "phoneNumber"
+      ],
+      "properties": {
+        "captcha": {
+          "description": "The Captcha which users input | 用户输入的验证码",
+          "type": "string",
+          "maxLength": 5,
+          "minLength": 5,
+          "x-go-name": "Captcha"
+        },
+        "password": {
+          "description": "Password | 密码",
+          "type": "string",
+          "maxLength": 30,
+          "minLength": 6,
+          "x-go-name": "Password"
+        },
+        "phoneNumber": {
+          "description": "The user's mobile phone number | 用户的手机号码",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "PhoneNumber"
+        },
+        "username": {
+          "description": "User Name | 用户名",
+          "type": "string",
+          "maxLength": 20,
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
     "RegisterReq": {
       "description": "register request | 注册参数",
       "type": "object",
@@ -5422,6 +5658,7 @@
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
     "ResetPasswordBySmsReq": {
+      "description": "Reset password by SMS request | 通过短信重置密码请求",
       "type": "object",
       "properties": {
         "captcha": {

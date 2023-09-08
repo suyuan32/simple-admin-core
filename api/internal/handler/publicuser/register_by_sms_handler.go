@@ -1,40 +1,40 @@
-package user
+package publicuser
 
 import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/logic/user"
+	"github.com/suyuan32/simple-admin-core/api/internal/logic/publicuser"
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /user/register user Register
+// swagger:route post /user/register_by_sms publicuser RegisterBySms
 //
-// Register | 注册
+// Register by SMS | 短信注册
 //
-// Register | 注册
+// Register by SMS | 短信注册
 //
 // Parameters:
 //  + name: body
 //    require: true
 //    in: body
-//    type: RegisterReq
+//    type: RegisterBySmsReq
 //
 // Responses:
 //  200: BaseMsgResp
 
-func RegisterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func RegisterBySmsHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.RegisterReq
+		var req types.RegisterBySmsReq
 		if err := httpx.Parse(r, &req, true); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := user.NewRegisterLogic(r.Context(), svcCtx)
-		resp, err := l.Register(&req)
+		l := publicuser.NewRegisterBySmsLogic(r.Context(), svcCtx)
+		resp, err := l.RegisterBySms(&req)
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)

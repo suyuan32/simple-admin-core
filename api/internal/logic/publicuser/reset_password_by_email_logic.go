@@ -1,4 +1,4 @@
-package user
+package publicuser
 
 import (
 	"context"
@@ -26,6 +26,10 @@ func NewResetPasswordByEmailLogic(ctx context.Context, svcCtx *svc.ServiceContex
 }
 
 func (l *ResetPasswordByEmailLogic) ResetPasswordByEmail(req *types.ResetPasswordByEmailReq) (resp *types.BaseMsgResp, err error) {
+	if l.svcCtx.Config.ProjectConf.ResetVerify != "email" && l.svcCtx.Config.ProjectConf.ResetVerify != "sms_or_email" {
+		return nil, errorx.NewCodeAbortedError(i18n.PermissionDeny)
+	}
+
 	captchaData, err := l.svcCtx.Redis.Get("CAPTCHA_" + req.Email)
 	if err != nil {
 		logx.Errorw("failed to get captcha data in redis for email validation", logx.Field("detail", err),

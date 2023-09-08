@@ -1,11 +1,11 @@
-package user
+package publicuser
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/i18n"
 	"strings"
 	"time"
 
-	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
@@ -33,6 +33,10 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
+	if l.svcCtx.Config.ProjectConf.LoginVerify != "captcha" && l.svcCtx.Config.ProjectConf.LoginVerify != "all" {
+		return nil, errorx.NewCodeAbortedError(i18n.PermissionDeny)
+	}
+
 	if ok := l.svcCtx.Captcha.Verify("CAPTCHA_"+req.CaptchaId, req.Captcha, true); ok {
 		user, err := l.svcCtx.CoreRpc.GetUserByUsername(l.ctx,
 			&core.UsernameReq{
@@ -77,6 +81,6 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		}
 		return resp, nil
 	} else {
-		return nil, errorx.NewCodeError(errorcode.InvalidArgument, "login.wrongCaptcha")
+		return nil, errorx.NewCodeInvalidArgumentError("login.wrongCaptcha")
 	}
 }

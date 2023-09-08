@@ -110,6 +110,36 @@ type (
         Email     string `json:"email" validate:"required,email,max=100"`
     }
 
+    // Register by email request | 邮箱注册参数
+    RegisterByEmailReq {
+        // User Name | 用户名
+        Username  string `json:"username" validate:"required,alphanum,max=20"`
+
+        // Password | 密码
+        Password  string `json:"password" validate:"required,max=30,min=6"`
+
+        // The Captcha which users input | 用户输入的验证码
+        Captcha   string `json:"captcha" validate:"required,len=5"`
+
+        // The user's email address | 用户的邮箱
+        Email     string `json:"email" validate:"required,email,max=100"`
+    }
+
+    // Register by SMS request | 短信注册参数
+    RegisterBySmsReq {
+        // User Name | 用户名
+        Username  string `json:"username" validate:"required,alphanum,max=20"`
+
+        // Password | 密码
+        Password  string `json:"password" validate:"required,max=30,min=6"`
+
+        // The Captcha which users input | 用户输入的验证码
+        Captcha   string `json:"captcha" validate:"required,len=5"`
+
+        // The user's mobile phone number | 用户的手机号码
+        PhoneNumber   string  `json:"phoneNumber"  validate:"required,numeric,max=20"`
+    }
+
     // change user's password request | 修改密码请求参数
     ChangePasswordReq {
         // User's old password | 用户旧密码
@@ -194,6 +224,24 @@ type (
         Captcha    string `json:"captcha" validate:"required,len=5"`
     }
 
+    // Log in by email request | 邮箱登录参数
+    LoginByEmailReq {
+        // The user's email address | 用户的邮箱
+        Email     string `json:"email" validate:"required,email,max=100"`
+
+        // The Captcha which users input | 用户输入的验证码
+        Captcha    string `json:"captcha,optional" validate:"omitempty,len=5"`
+    }
+
+    // Log in by SMS request | 短信登录参数
+    LoginBySmsReq {
+        // The user's mobile phone number | 用户的手机号码
+        PhoneNumber   string  `json:"phoneNumber"  validate:"required,numeric,max=20"`
+
+        // The Captcha which users input | 用户输入的验证码
+        Captcha    string `json:"captcha,optional" validate:"omitempty,len=5"`
+    }
+
     // The log in response data | 登录返回数据
     LoginResp {
         BaseDataInfo
@@ -241,7 +289,7 @@ type (
 )
 
 @server(
-    group: user
+    group: publicuser
 )
 
 service Core {
@@ -249,9 +297,25 @@ service Core {
     @handler login
     post /user/login (LoginReq) returns (LoginResp)
 
+    // Log in by email | 邮箱登录
+    @handler loginByEmail
+    post /user/login_by_email (LoginByEmailReq) returns (LoginResp)
+
+    // Log in by SMS | 短信登录
+    @handler loginBySms
+    post /user/login_by_sms (LoginBySmsReq) returns (LoginResp)
+
     // Register | 注册
     @handler register
     post /user/register (RegisterReq) returns (BaseMsgResp)
+
+    // Register by Email | 邮箱注册
+    @handler registerByEmail
+    post /user/register_by_email (RegisterByEmailReq) returns (BaseMsgResp)
+
+    // Register by SMS | 短信注册
+    @handler registerBySms
+    post /user/register_by_sms (RegisterBySmsReq) returns (BaseMsgResp)
 
     // Reset password by Email | 通过邮箱重置密码
     @handler resetPasswordByEmail
