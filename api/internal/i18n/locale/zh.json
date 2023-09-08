@@ -239,7 +239,10 @@
 		"wrongCaptcha": "验证码错误",
 		"wrongUsernameOrPassword": "用户名或密码错误",
 		"wrongPassword": "密码错误",
-		"requireLogin": "请重新登录"
+		"requireLogin": "请重新登录",
+		"loginTypeForbidden": "此登录方式被管理员关闭，请尝试其他登录方式",
+		"registerTypeForbidden": "此注册方式被管理员关闭，请尝试其他注册方式",
+		"resetTypeForbidden": "此重置密码方式被管理员关闭，请尝试其他重置密码方式"
 	},
 	"menu": {
 		"deleteChildrenDesc": "请先删除子菜单",

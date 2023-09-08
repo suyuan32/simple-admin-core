@@ -29,7 +29,7 @@ func NewRegisterBySmsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Reg
 
 func (l *RegisterBySmsLogic) RegisterBySms(req *types.RegisterBySmsReq) (resp *types.BaseMsgResp, err error) {
 	if l.svcCtx.Config.ProjectConf.RegisterVerify != "sms" && l.svcCtx.Config.ProjectConf.ResetVerify != "sms_or_email" {
-		return nil, errorx.NewCodeAbortedError(i18n.PermissionDeny)
+		return nil, errorx.NewCodeAbortedError("login.registerTypeForbidden")
 	}
 
 	captchaData, err := l.svcCtx.Redis.Get("CAPTCHA_" + req.PhoneNumber)

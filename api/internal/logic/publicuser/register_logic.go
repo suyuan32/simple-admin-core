@@ -2,8 +2,6 @@ package publicuser
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-common/i18n"
-
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -31,7 +29,7 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 
 func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseMsgResp, err error) {
 	if l.svcCtx.Config.ProjectConf.RegisterVerify != "captcha" {
-		return nil, errorx.NewCodeAbortedError(i18n.PermissionDeny)
+		return nil, errorx.NewCodeAbortedError("login.registerTypeForbidden")
 	}
 
 	if ok := l.svcCtx.Captcha.Verify("CAPTCHA_"+req.CaptchaId, req.Captcha, true); ok {

@@ -27,7 +27,7 @@ func NewResetPasswordBySmsLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 
 func (l *ResetPasswordBySmsLogic) ResetPasswordBySms(req *types.ResetPasswordBySmsReq) (resp *types.BaseMsgResp, err error) {
 	if l.svcCtx.Config.ProjectConf.ResetVerify != "sms" && l.svcCtx.Config.ProjectConf.ResetVerify != "sms_or_email" {
-		return nil, errorx.NewCodeAbortedError(i18n.PermissionDeny)
+		return nil, errorx.NewCodeAbortedError("login.resetTypeForbidden")
 	}
 
 	captchaData, err := l.svcCtx.Redis.Get("CAPTCHA_" + req.PhoneNumber)

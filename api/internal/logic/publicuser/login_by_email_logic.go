@@ -32,7 +32,7 @@ func NewLoginByEmailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Logi
 func (l *LoginByEmailLogic) LoginByEmail(req *types.LoginByEmailReq) (resp *types.LoginResp, err error) {
 	if l.svcCtx.Config.ProjectConf.LoginVerify != "email" && l.svcCtx.Config.ProjectConf.LoginVerify != "sms_or_email" &&
 		l.svcCtx.Config.ProjectConf.LoginVerify != "all" {
-		return nil, errorx.NewCodeAbortedError(i18n.PermissionDeny)
+		return nil, errorx.NewCodeAbortedError("login.loginTypeForbidden")
 	}
 
 	captchaData, err := l.svcCtx.Redis.Get("CAPTCHA_" + req.Email)

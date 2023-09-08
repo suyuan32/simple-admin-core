@@ -2,7 +2,6 @@ package publicuser
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-common/i18n"
 	"strings"
 	"time"
 
@@ -34,7 +33,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
 	if l.svcCtx.Config.ProjectConf.LoginVerify != "captcha" && l.svcCtx.Config.ProjectConf.LoginVerify != "all" {
-		return nil, errorx.NewCodeAbortedError(i18n.PermissionDeny)
+		return nil, errorx.NewCodeAbortedError("login.loginTypeForbidden")
 	}
 
 	if ok := l.svcCtx.Captcha.Verify("CAPTCHA_"+req.CaptchaId, req.Captcha, true); ok {

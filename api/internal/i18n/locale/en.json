@@ -234,7 +234,10 @@
 		"wrongCaptcha": "Wrong captcha",
 		"wrongPassword": "Wrong Password",
 		"wrongUsernameOrPassword": "Wrong username or password",
-		"requireLogin": "Please log in again"
+		"requireLogin": "Please log in again",
+		"loginTypeForbidden": "This login method has been disabled by the administrator. Please try another login method.",
+		"registerTypeForbidden": "This registration method has been disabled by the administrator. Please try another registration method.",
+		"resetTypeForbidden": "This password reset method has been disabled by the administrator. Please try another password reset method."
 	},
 	"menu": {
 		"deleteChildrenDesc": "Please delete menu's children first",
