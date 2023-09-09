@@ -381,6 +381,8 @@ type UserBaseIDInfo struct {
 	HomePath *string `json:"homePath"`
 	// The description of user | 用户的描述信息
 	Description *string `json:"desc"`
+	// User's Role Name | 用户的角色名称
+	RoleName []string `json:"roleName"`
 }
 
 // The permission code for front end permission control | 权限码： 用于前端权限控制
