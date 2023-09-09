@@ -19,6 +19,7 @@ message UserInfo {
   optional uint64 department_id = 14;
   repeated uint64 position_ids = 15;
   repeated string role_codes = 16;
+  repeated string role_name = 17;
 }
 
 message UserListResp {

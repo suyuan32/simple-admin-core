@@ -6768,6 +6768,14 @@
           "type": "string",
           "x-go-name": "Nickname"
         },
+        "roleName": {
+          "description": "User's Role Name | 用户的角色名称",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "RoleName"
+        },
         "userId": {
           "description": "User's UUID | 用户的UUID",
           "type": "string",
