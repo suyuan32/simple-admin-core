@@ -8,9 +8,9 @@ require (
 	github.com/duke-git/lancet/v2 v2.2.5
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/mojocn/base64Captcha v1.3.5
-	github.com/suyuan32/simple-admin-common v1.1.4-0.20230907234509-0f50bae0cb12
-	github.com/suyuan32/simple-admin-job v1.1.3
-	github.com/suyuan32/simple-admin-message-center v1.1.3
+	github.com/suyuan32/simple-admin-common v1.1.4
+	github.com/suyuan32/simple-admin-job v1.1.4
+	github.com/suyuan32/simple-admin-message-center v1.1.4
 	github.com/zeromicro/go-zero v1.5.5
 	golang.org/x/oauth2 v0.12.0
 	google.golang.org/grpc v1.58.0
