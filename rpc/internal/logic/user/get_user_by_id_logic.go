@@ -40,6 +40,7 @@ func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfo, error)
 		Nickname:     &result.Nickname,
 		Avatar:       &result.Avatar,
 		RoleIds:      GetRoleIds(result.Edges.Roles),
+		RoleName:     GetRoleNames(result.Edges.Roles),
 		Mobile:       &result.Mobile,
 		Email:        &result.Email,
 		Status:       pointy.GetPointer(uint32(result.Status)),
@@ -60,6 +61,14 @@ func GetRoleIds(data []*ent.Role) []uint64 {
 		ids = append(ids, v.ID)
 	}
 	return ids
+}
+
+func GetRoleNames(data []*ent.Role) []string {
+	var codes []string
+	for _, v := range data {
+		codes = append(codes, v.Name)
+	}
+	return codes
 }
 
 func GetRoleCodes(data []*ent.Role) []string {

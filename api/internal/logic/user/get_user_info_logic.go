@@ -42,6 +42,16 @@ func (l *GetUserInfoLogic) GetUserInfo() (resp *types.UserBaseIDInfoResp, err er
 			Avatar:      user.Avatar,
 			HomePath:    user.HomePath,
 			Description: user.Description,
+			RoleName:    TransRoleName(l.svcCtx, l.ctx, user.RoleName),
 		},
 	}, nil
+}
+
+// TransRoleName returns the i18n translation of role name slice.
+func TransRoleName(svc *svc.ServiceContext, ctx context.Context, data []string) []string {
+	var result []string
+	for _, v := range data {
+		result = append(result, svc.Trans.Trans(ctx, v))
+	}
+	return result
 }
