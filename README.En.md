@@ -26,6 +26,8 @@ iterate quickly. Suitable for microservice learning and commercial use, open sou
 
 ### [Simple Admin](https://www.youtube.com/@yuansu5197)
 
+## Notice : the document website domain changed: `doc.ryansu.tech`
+
 ## [Goctls](https://github.com/suyuan32/goctls)
 
 Based on the enhanced version of go zero, it provides a lot of optimizations for simple admin, has a lot of additional
@@ -75,7 +77,7 @@ Password:  simple-admin
 
 ## Documentation
 
-[Simple Admin Document](https://doc.ryansu.pro)
+[Simple Admin Document](https://doc.ryansu.tech)
 
 - go-zero
   [Document](https://go-zero.dev/)
@@ -91,7 +93,7 @@ Password:  simple-admin
 
 ## Quick Start
 
-[Quick Start Document](https://doc.ryansu.pro/en/guide/basic-config/env_setting.html)
+[Quick Start Document](https://doc.ryansu.tech/en/guide/basic-config/env_setting.html)
 
 ## Change Log
 

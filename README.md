@@ -20,6 +20,8 @@
 Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基于go-zero开发，为开发中大型后台提供了丰富的功能，支持三端代码生成。
 官方自带多种扩展，助力中小企业快速上云，快速迭代。适合用于微服务学习和商用，开源免费。
 
+## 注意文档域名已更换为 `doc.ryansu.tech`
+
 ## [Goctls](https://github.com/suyuan32/goctls)
 
 基于 go zero 的加强版工具，针对 simple admin 提供了大量优化，具有大量额外的代码生成功能，全面支持ent，轻松实现三端代码生成，使开发变得简单。
@@ -74,7 +76,7 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 
 ## 文档
 
-[Simple Admin 文档](https://doc.ryansu.pro)
+[Simple Admin 文档](https://doc.ryansu.tech)
 
 
 - go-zero
@@ -92,7 +94,7 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 
 ## 快速开始
 
-[快速开始文档](https://doc.ryansu.pro/zh/guide/basic-config/env_setting.html)
+[快速开始文档](https://doc.ryansu.tech/zh/guide/basic-config/env_setting.html)
 
 ## 更新日志
 
