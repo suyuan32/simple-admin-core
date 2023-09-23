@@ -67,7 +67,8 @@ fully supports ent, and easily realizes three-terminal code generation, making d
 ## Preview
 
 ### Online preview
-[Online Preview](http://101.132.124.135/#/dashboard)
+
+[Online Preview](http://101.132.124.135:8080/)
 Account:   admin 
 Password:  simple-admin
 #### Read Only, cannot register and modify
