@@ -242,11 +242,15 @@ func (ac *APICreate) createSpec() (*API, *sqlgraph.CreateSpec) {
 // APICreateBulk is the builder for creating many API entities in bulk.
 type APICreateBulk struct {
 	config
+	err      error
 	builders []*APICreate
 }
 
 // Save creates the API entities in the database.
 func (acb *APICreateBulk) Save(ctx context.Context) ([]*API, error) {
+	if acb.err != nil {
+		return nil, acb.err
+	}
 	specs := make([]*sqlgraph.CreateSpec, len(acb.builders))
 	nodes := make([]*API, len(acb.builders))
 	mutators := make([]Mutator, len(acb.builders))

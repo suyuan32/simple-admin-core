@@ -751,32 +751,15 @@ func InfoURLContainsFold(v string) predicate.OauthProvider {
 
 // And groups predicates with the AND operator between them.
 func And(predicates ...predicate.OauthProvider) predicate.OauthProvider {
-	return predicate.OauthProvider(func(s *sql.Selector) {
-		s1 := s.Clone().SetP(nil)
-		for _, p := range predicates {
-			p(s1)
-		}
-		s.Where(s1.P())
-	})
+	return predicate.OauthProvider(sql.AndPredicates(predicates...))
 }
 
 // Or groups predicates with the OR operator between them.
 func Or(predicates ...predicate.OauthProvider) predicate.OauthProvider {
-	return predicate.OauthProvider(func(s *sql.Selector) {
-		s1 := s.Clone().SetP(nil)
-		for i, p := range predicates {
-			if i > 0 {
-				s1.Or()
-			}
-			p(s1)
-		}
-		s.Where(s1.P())
-	})
+	return predicate.OauthProvider(sql.OrPredicates(predicates...))
 }
 
 // Not applies the not operator on the given predicate.
 func Not(p predicate.OauthProvider) predicate.OauthProvider {
-	return predicate.OauthProvider(func(s *sql.Selector) {
-		p(s.Not())
-	})
+	return predicate.OauthProvider(sql.NotPredicates(p))
 }

@@ -341,11 +341,15 @@ func (rc *RoleCreate) createSpec() (*Role, *sqlgraph.CreateSpec) {
 // RoleCreateBulk is the builder for creating many Role entities in bulk.
 type RoleCreateBulk struct {
 	config
+	err      error
 	builders []*RoleCreate
 }
 
 // Save creates the Role entities in the database.
 func (rcb *RoleCreateBulk) Save(ctx context.Context) ([]*Role, error) {
+	if rcb.err != nil {
+		return nil, rcb.err
+	}
 	specs := make([]*sqlgraph.CreateSpec, len(rcb.builders))
 	nodes := make([]*Role, len(rcb.builders))
 	mutators := make([]Mutator, len(rcb.builders))

@@ -654,11 +654,15 @@ func (mc *MenuCreate) createSpec() (*Menu, *sqlgraph.CreateSpec) {
 // MenuCreateBulk is the builder for creating many Menu entities in bulk.
 type MenuCreateBulk struct {
 	config
+	err      error
 	builders []*MenuCreate
 }
 
 // Save creates the Menu entities in the database.
 func (mcb *MenuCreateBulk) Save(ctx context.Context) ([]*Menu, error) {
+	if mcb.err != nil {
+		return nil, mcb.err
+	}
 	specs := make([]*sqlgraph.CreateSpec, len(mcb.builders))
 	nodes := make([]*Menu, len(mcb.builders))
 	mutators := make([]Mutator, len(mcb.builders))
