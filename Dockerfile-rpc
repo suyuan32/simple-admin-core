@@ -14,6 +14,6 @@ ENV PROJECT=${PROJECT}
 ENV CONFIG_FILE=${CONFIG_FILE}
 
 COPY ./${PROJECT}_rpc ./
-COPY ./etc/${CONFIG_FILE} ./etc/
+COPY ./rpc/etc/${CONFIG_FILE} ./etc/
 
 ENTRYPOINT ./${PROJECT}_rpc -f etc/${CONFIG_FILE}
