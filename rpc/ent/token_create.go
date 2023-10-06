@@ -243,11 +243,15 @@ func (tc *TokenCreate) createSpec() (*Token, *sqlgraph.CreateSpec) {
 // TokenCreateBulk is the builder for creating many Token entities in bulk.
 type TokenCreateBulk struct {
 	config
+	err      error
 	builders []*TokenCreate
 }
 
 // Save creates the Token entities in the database.
 func (tcb *TokenCreateBulk) Save(ctx context.Context) ([]*Token, error) {
+	if tcb.err != nil {
+		return nil, tcb.err
+	}
 	specs := make([]*sqlgraph.CreateSpec, len(tcb.builders))
 	nodes := make([]*Token, len(tcb.builders))
 	mutators := make([]Mutator, len(tcb.builders))
