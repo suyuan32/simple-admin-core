@@ -277,11 +277,15 @@ func (pc *PositionCreate) createSpec() (*Position, *sqlgraph.CreateSpec) {
 // PositionCreateBulk is the builder for creating many Position entities in bulk.
 type PositionCreateBulk struct {
 	config
+	err      error
 	builders []*PositionCreate
 }
 
 // Save creates the Position entities in the database.
 func (pcb *PositionCreateBulk) Save(ctx context.Context) ([]*Position, error) {
+	if pcb.err != nil {
+		return nil, pcb.err
+	}
 	specs := make([]*sqlgraph.CreateSpec, len(pcb.builders))
 	nodes := make([]*Position, len(pcb.builders))
 	mutators := make([]Mutator, len(pcb.builders))

@@ -21,7 +21,7 @@ type Role struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// Update Time | 修改日期
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
-	// Status 1 : normal 2 : ban | 状态 1 正常 2 禁用
+	// Status 1: normal 2: ban | 状态 1 正常 2 禁用
 	Status uint8 `json:"status,omitempty"`
 	// Role name | 角色名
 	Name string `json:"name,omitempty"`

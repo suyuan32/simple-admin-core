@@ -251,11 +251,15 @@ func (dc *DictionaryCreate) createSpec() (*Dictionary, *sqlgraph.CreateSpec) {
 // DictionaryCreateBulk is the builder for creating many Dictionary entities in bulk.
 type DictionaryCreateBulk struct {
 	config
+	err      error
 	builders []*DictionaryCreate
 }
 
 // Save creates the Dictionary entities in the database.
 func (dcb *DictionaryCreateBulk) Save(ctx context.Context) ([]*Dictionary, error) {
+	if dcb.err != nil {
+		return nil, dcb.err
+	}
 	specs := make([]*sqlgraph.CreateSpec, len(dcb.builders))
 	nodes := make([]*Dictionary, len(dcb.builders))
 	mutators := make([]Mutator, len(dcb.builders))

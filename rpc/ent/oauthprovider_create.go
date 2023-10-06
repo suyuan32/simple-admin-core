@@ -270,11 +270,15 @@ func (opc *OauthProviderCreate) createSpec() (*OauthProvider, *sqlgraph.CreateSp
 // OauthProviderCreateBulk is the builder for creating many OauthProvider entities in bulk.
 type OauthProviderCreateBulk struct {
 	config
+	err      error
 	builders []*OauthProviderCreate
 }
 
 // Save creates the OauthProvider entities in the database.
 func (opcb *OauthProviderCreateBulk) Save(ctx context.Context) ([]*OauthProvider, error) {
+	if opcb.err != nil {
+		return nil, opcb.err
+	}
 	specs := make([]*sqlgraph.CreateSpec, len(opcb.builders))
 	nodes := make([]*OauthProvider, len(opcb.builders))
 	mutators := make([]Mutator, len(opcb.builders))

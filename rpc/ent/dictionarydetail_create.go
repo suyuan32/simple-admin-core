@@ -290,11 +290,15 @@ func (ddc *DictionaryDetailCreate) createSpec() (*DictionaryDetail, *sqlgraph.Cr
 // DictionaryDetailCreateBulk is the builder for creating many DictionaryDetail entities in bulk.
 type DictionaryDetailCreateBulk struct {
 	config
+	err      error
 	builders []*DictionaryDetailCreate
 }
 
 // Save creates the DictionaryDetail entities in the database.
 func (ddcb *DictionaryDetailCreateBulk) Save(ctx context.Context) ([]*DictionaryDetail, error) {
+	if ddcb.err != nil {
+		return nil, ddcb.err
+	}
 	specs := make([]*sqlgraph.CreateSpec, len(ddcb.builders))
 	nodes := make([]*DictionaryDetail, len(ddcb.builders))
 	mutators := make([]Mutator, len(ddcb.builders))
