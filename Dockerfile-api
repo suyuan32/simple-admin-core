@@ -15,6 +15,6 @@ ENV CONFIG_FILE=${CONFIG_FILE}
 
 COPY ./${PROJECT}_api ./
 COPY ./api/etc/${CONFIG_FILE} ./etc/
-COPY ./api/internal/i18n/locales ./etc/locales
+COPY ./api/internal/i18n/locale/ ./etc/locale/
 
 ENTRYPOINT ./${PROJECT}_api -f etc/${CONFIG_FILE}
