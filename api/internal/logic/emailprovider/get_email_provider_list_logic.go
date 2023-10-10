@@ -2,6 +2,7 @@ package emailprovider
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -36,7 +37,7 @@ func (l *GetEmailProviderListLogic) GetEmailProviderList(req *types.EmailProvide
 		return nil, err
 	}
 	resp = &types.EmailProviderListResp{}
-	resp.Msg = "successful"
+	resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)
 	resp.Data.Total = data.GetTotal()
 
 	for _, v := range data.Data {

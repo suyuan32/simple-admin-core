@@ -2,6 +2,7 @@ package emaillog
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -33,7 +34,7 @@ func (l *GetEmailLogByIdLogic) GetEmailLogById(req *types.UUIDReq) (resp *types.
 	return &types.EmailLogInfoResp{
 		BaseDataInfo: types.BaseDataInfo{
 			Code: 0,
-			Msg:  "successful",
+			Msg:  l.svcCtx.Trans.Trans(l.ctx, i18n.Success),
 		},
 		Data: types.EmailLogInfo{
 			BaseUUIDInfo: types.BaseUUIDInfo{
