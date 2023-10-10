@@ -2,6 +2,7 @@ package smslog
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -33,7 +34,7 @@ func (l *GetSmsLogByIdLogic) GetSmsLogById(req *types.UUIDReq) (resp *types.SmsL
 	return &types.SmsLogInfoResp{
 		BaseDataInfo: types.BaseDataInfo{
 			Code: 0,
-			Msg:  "successful",
+			Msg:  l.svcCtx.Trans.Trans(l.ctx, i18n.Success),
 		},
 		Data: types.SmsLogInfo{
 			BaseUUIDInfo: types.BaseUUIDInfo{
