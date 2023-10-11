@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.17
 
 # Define the project name | 定义项目名称
 ARG PROJECT=core
