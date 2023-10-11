@@ -36,5 +36,5 @@ func (l *UpdateSmsLogLogic) UpdateSmsLog(req *types.SmsLogInfo) (resp *types.Bas
 	if err != nil {
 		return nil, err
 	}
-	return &types.BaseMsgResp{Msg: data.Msg}, nil
+	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, data.Msg)}, nil
 }

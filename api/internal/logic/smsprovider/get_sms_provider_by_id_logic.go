@@ -2,6 +2,7 @@ package smsprovider
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -33,7 +34,7 @@ func (l *GetSmsProviderByIdLogic) GetSmsProviderById(req *types.IDReq) (resp *ty
 	return &types.SmsProviderInfoResp{
 		BaseDataInfo: types.BaseDataInfo{
 			Code: 0,
-			Msg:  "successful",
+			Msg:  l.svcCtx.Trans.Trans(l.ctx, i18n.Success),
 		},
 		Data: types.SmsProviderInfo{
 			BaseIDInfo: types.BaseIDInfo{
