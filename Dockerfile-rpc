@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.17
 
 # Define the project name | 定义项目名称
 ARG PROJECT=core
@@ -12,6 +12,9 @@ LABEL org.opencontainers.image.authors=${AUTHOR}
 WORKDIR /app
 ENV PROJECT=${PROJECT}
 ENV CONFIG_FILE=${CONFIG_FILE}
+
+ENV TZ=Asia/Shanghai
+RUN apk update --no-cache && apk add --no-cache tzdata
 
 COPY ./${PROJECT}_rpc ./
 COPY ./rpc/etc/${CONFIG_FILE} ./etc/
