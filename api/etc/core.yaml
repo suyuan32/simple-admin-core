@@ -84,7 +84,8 @@ JobRpc:
   Enabled: true
 
 McmsRpc:
-  Target: 10.5.0.9:9106
+  Endpoints:
+    - 10.5.0.9:9106
   Enabled: true
   Timeout: 5000
 
