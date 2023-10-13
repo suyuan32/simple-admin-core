@@ -4,7 +4,7 @@ volumes:
   rocketmq_data:
 
 services:
-  mysql:
+  rocketmq:
     image: xuchengen/rocketmq:latest
     container_name: rocketmq
     ports:
