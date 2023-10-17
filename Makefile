@@ -88,19 +88,19 @@ gen-rpc-ent-logic: # Generate logic code from Ent, need model and group params |
 	@echo "Generate logic codes from Ent successfully"
 
 .PHONY: build-win
-build-win-rpc: # Build RPC project for Windows | 构建Windows下的RPC可执行文件
+build-win: # Build project for Windows | 构建Windows下的可执行文件
 	env CGO_ENABLED=0 GOOS=windows GOARCH=$(GOARCH) go build -ldflags "$(LDFLAGS)" -trimpath -o $(SERVICE_STYLE)_rpc.exe ./rpc/$(SERVICE_STYLE).go
 	env CGO_ENABLED=0 GOOS=windows GOARCH=$(GOARCH) go build -ldflags "$(LDFLAGS)" -trimpath -o $(SERVICE_STYLE)_api.exe ./api/$(SERVICE_STYLE).go
 	@echo "Build project for Windows successfully"
 
 .PHONY: build-mac
-build-mac-rpc: # Build RPC project for MacOS | 构建MacOS下的RPC可执行文件
+build-mac: # Build project for MacOS | 构建MacOS下的可执行文件
 	env CGO_ENABLED=0 GOOS=darwin GOARCH=$(GOARCH) go build -ldflags "$(LDFLAGS)" -trimpath -o $(SERVICE_STYLE)_rpc ./rpc/$(SERVICE_STYLE).go
 	env CGO_ENABLED=0 GOOS=darwin GOARCH=$(GOARCH) go build -ldflags "$(LDFLAGS)" -trimpath -o $(SERVICE_STYLE)_api ./api/$(SERVICE_STYLE).go
 	@echo "Build project for MacOS successfully"
 
 .PHONY: build-linux
-build-linux-rpc: # Build RPC project for Linux | 构建Linux下的RPC可执行文件
+build-linux: # Build project for Linux | 构建Linux下的可执行文件
 	env CGO_ENABLED=0 GOOS=linux GOARCH=$(GOARCH) go build -ldflags "$(LDFLAGS)" -trimpath -o $(SERVICE_STYLE)_rpc ./rpc/$(SERVICE_STYLE).go
 	env CGO_ENABLED=0 GOOS=linux GOARCH=$(GOARCH) go build -ldflags "$(LDFLAGS)" -trimpath -o $(SERVICE_STYLE)_api ./api/$(SERVICE_STYLE).go
 	@echo "Build project for Linux successfully"
