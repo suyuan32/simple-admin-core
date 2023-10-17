@@ -8,10 +8,6 @@ volumes:
 networks:
   simple-admin:
     driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.5.0.0/16
 
 services:
   postgresql:
@@ -29,7 +25,6 @@ services:
       simple-admin:
         aliases:
           - postgresql-server
-        ipv4_address: 10.5.0.2
     deploy:
       resources:
         limits:
@@ -51,7 +46,6 @@ services:
       simple-admin:
         aliases:
           - redis-server
-        ipv4_address: 10.5.0.3
     deploy:
       resources:
         limits:
@@ -62,7 +56,7 @@ services:
           memory: 200M
 
   core-rpc:
-    image: ryanpower/core-rpc-docker:v1.1.5
+    image: ryanpower/core-rpc-docker:v1.1.6
     container_name: core-rpc
     restart: always
     #    ports:
@@ -71,7 +65,6 @@ services:
       simple-admin:
         aliases:
           - core-rpc
-        ipv4_address: 10.5.0.4
     deploy:
       resources:
         limits:
@@ -82,7 +75,7 @@ services:
           memory: 200M
 
   job-rpc:
-    image: ryanpower/job-rpc-docker:v1.1.5
+    image: ryanpower/job-rpc-docker:v1.1.6
     container_name: job-rpc
     restart: always
     #    ports:
@@ -91,7 +84,6 @@ services:
       simple-admin:
         aliases:
           - job-rpc
-        ipv4_address: 10.5.0.7
     deploy:
       resources:
         limits:
@@ -102,7 +94,7 @@ services:
           memory: 200M
 
   core-api:
-    image: ryanpower/core-api-docker:v1.1.5
+    image: ryanpower/core-api-docker:v1.1.6
     container_name: core-api
     restart: always
     environment:
@@ -114,7 +106,6 @@ services:
       simple-admin:
         aliases:
           - core-api
-        ipv4_address: 10.5.0.5
     deploy:
       resources:
         limits:
@@ -125,7 +116,7 @@ services:
           memory: 200M
 
   backend-ui:
-    image: ryanpower/backend-ui-docker:v1.1.5
+    image: ryanpower/backend-ui-docker:v1.1.6
     container_name: backend-ui
     restart: always
     ports:
@@ -134,7 +125,6 @@ services:
       simple-admin:
         aliases:
           - backend-ui
-        ipv4_address: 10.5.0.6
     deploy:
       resources:
         limits:
@@ -145,7 +135,7 @@ services:
           memory: 200M
 
   fms-api:
-    image: ryanpower/fms-api-docker:v1.1.5
+    image: ryanpower/fms-api-docker:v1.1.6
     container_name: fms-api
     restart: always
     #    environment:
@@ -160,7 +150,6 @@ services:
       simple-admin:
         aliases:
           - fms-api
-        ipv4_address: 10.5.0.8
     deploy:
       resources:
         limits:
@@ -171,7 +160,7 @@ services:
           memory: 200M
 
   mcms-rpc:
-    image: ryanpower/mcms-rpc-docker:v1.1.5
+    image: ryanpower/mcms-rpc-docker:v1.1.6
     container_name: mcms-rpc
     restart: always
     #    environment:
@@ -182,7 +171,6 @@ services:
       simple-admin:
         aliases:
           - mcms-rpc
-        ipv4_address: 10.5.0.9
     deploy:
       resources:
         limits:
