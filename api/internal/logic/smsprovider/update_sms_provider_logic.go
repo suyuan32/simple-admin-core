@@ -2,6 +2,8 @@ package smsprovider
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -25,6 +27,9 @@ func NewUpdateSmsProviderLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *UpdateSmsProviderLogic) UpdateSmsProvider(req *types.SmsProviderInfo) (resp *types.BaseMsgResp, err error) {
+	if !l.svcCtx.Config.McmsRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	data, err := l.svcCtx.McmsRpc.UpdateSmsProvider(l.ctx,
 		&mcms.SmsProviderInfo{
 			Id:        req.Id,

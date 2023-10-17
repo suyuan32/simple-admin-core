@@ -2,6 +2,8 @@ package tasklog
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -25,6 +27,9 @@ func NewUpdateTaskLogLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upd
 }
 
 func (l *UpdateTaskLogLogic) UpdateTaskLog(req *types.TaskLogInfo) (resp *types.BaseMsgResp, err error) {
+	if !l.svcCtx.Config.JobRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	data, err := l.svcCtx.JobRpc.UpdateTaskLog(l.ctx,
 		&job.TaskLogInfo{
 			Id:         req.Id,

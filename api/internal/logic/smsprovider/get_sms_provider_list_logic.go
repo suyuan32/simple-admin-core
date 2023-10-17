@@ -3,6 +3,7 @@ package smsprovider
 import (
 	"context"
 	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -26,6 +27,9 @@ func NewGetSmsProviderListLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *GetSmsProviderListLogic) GetSmsProviderList(req *types.SmsProviderListReq) (resp *types.SmsProviderListResp, err error) {
+	if !l.svcCtx.Config.McmsRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	data, err := l.svcCtx.McmsRpc.GetSmsProviderList(l.ctx,
 		&mcms.SmsProviderListReq{
 			Page:     req.Page,

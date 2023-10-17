@@ -28,6 +28,9 @@ func NewInitJobDatabaseLogic(ctx context.Context, svcCtx *svc.ServiceContext) *I
 }
 
 func (l *InitJobDatabaseLogic) InitJobDatabase() (resp *types.BaseMsgResp, err error) {
+	if !l.svcCtx.Config.JobRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	result, err := l.svcCtx.JobRpc.InitDatabase(l.ctx, &job.Empty{})
 	if err != nil {
 		return nil, err

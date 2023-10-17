@@ -2,6 +2,7 @@ package tasklog
 
 import (
 	"context"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -26,6 +27,9 @@ func NewGetTaskLogByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 }
 
 func (l *GetTaskLogByIdLogic) GetTaskLogById(req *types.IDReq) (resp *types.TaskLogInfoResp, err error) {
+	if !l.svcCtx.Config.JobRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	data, err := l.svcCtx.JobRpc.GetTaskLogById(l.ctx, &job.IDReq{Id: req.Id})
 	if err != nil {
 		return nil, err

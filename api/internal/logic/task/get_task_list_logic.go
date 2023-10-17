@@ -2,6 +2,7 @@ package task
 
 import (
 	"context"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-job/types/job"
 
@@ -27,6 +28,9 @@ func NewGetTaskListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetTa
 }
 
 func (l *GetTaskListLogic) GetTaskList(req *types.TaskListReq) (resp *types.TaskListResp, err error) {
+	if !l.svcCtx.Config.JobRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	data, err := l.svcCtx.JobRpc.GetTaskList(l.ctx,
 		&job.TaskListReq{
 			Page:      req.Page,
