@@ -2,6 +2,8 @@ package tasklog
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -25,6 +27,9 @@ func NewDeleteTaskLogLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Del
 }
 
 func (l *DeleteTaskLogLogic) DeleteTaskLog(req *types.IDsReq) (resp *types.BaseMsgResp, err error) {
+	if !l.svcCtx.Config.JobRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	result, err := l.svcCtx.JobRpc.DeleteTaskLog(l.ctx, &job.IDsReq{
 		Ids: req.Ids,
 	})

@@ -2,8 +2,10 @@ package messagesender
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/suyuan32/simple-admin-message-center/types/mcms"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"strings"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -26,6 +28,9 @@ func NewSendSmsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SendSmsLo
 }
 
 func (l *SendSmsLogic) SendSms(req *types.SendSmsReq) (resp *types.BaseMsgResp, err error) {
+	if !l.svcCtx.Config.McmsRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	var result *mcms.BaseUUIDResp
 	if req.TemplateId == nil {
 		result, err = l.svcCtx.McmsRpc.SendSms(l.ctx, &mcms.SmsInfo{

@@ -3,6 +3,7 @@ package emaillog
 import (
 	"context"
 	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -26,6 +27,9 @@ func NewGetEmailLogByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 }
 
 func (l *GetEmailLogByIdLogic) GetEmailLogById(req *types.UUIDReq) (resp *types.EmailLogInfoResp, err error) {
+	if !l.svcCtx.Config.McmsRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	data, err := l.svcCtx.McmsRpc.GetEmailLogById(l.ctx, &mcms.UUIDReq{Id: req.Id})
 	if err != nil {
 		return nil, err

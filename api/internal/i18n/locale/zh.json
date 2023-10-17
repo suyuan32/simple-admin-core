@@ -16,7 +16,8 @@
 		"permissionDeny": "用户无权限访问此接口",
 		"constraintError": "操作失败: 数据冲突",
 		"validationError": "操作失败: 校验失败",
-		"notSingularError": "操作失败: 数据不唯一"
+		"notSingularError": "操作失败: 数据不唯一",
+		"serviceUnavailable": "服务不可用，请检查服务是否已启用"
 	},
 	"apiGroup":{
 		"cloud_file_tag": "云文件标签管理",

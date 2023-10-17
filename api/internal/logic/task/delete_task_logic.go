@@ -2,6 +2,8 @@ package task
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-job/types/job"
 
@@ -26,6 +28,9 @@ func NewDeleteTaskLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 }
 
 func (l *DeleteTaskLogic) DeleteTask(req *types.IDsReq) (resp *types.BaseMsgResp, err error) {
+	if !l.svcCtx.Config.JobRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	result, err := l.svcCtx.JobRpc.DeleteTask(l.ctx, &job.IDsReq{
 		Ids: req.Ids,
 	})

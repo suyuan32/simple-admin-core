@@ -2,6 +2,7 @@ package task
 
 import (
 	"context"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-job/types/job"
 
@@ -27,6 +28,9 @@ func NewGetTaskByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetTa
 }
 
 func (l *GetTaskByIdLogic) GetTaskById(req *types.IDReq) (resp *types.TaskInfoResp, err error) {
+	if !l.svcCtx.Config.JobRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	data, err := l.svcCtx.JobRpc.GetTaskById(l.ctx, &job.IDReq{Id: req.Id})
 	if err != nil {
 		return nil, err

@@ -3,6 +3,7 @@ package smslog
 import (
 	"context"
 	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -26,6 +27,9 @@ func NewGetSmsLogListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Get
 }
 
 func (l *GetSmsLogListLogic) GetSmsLogList(req *types.SmsLogListReq) (resp *types.SmsLogListResp, err error) {
+	if !l.svcCtx.Config.McmsRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	data, err := l.svcCtx.McmsRpc.GetSmsLogList(l.ctx,
 		&mcms.SmsLogListReq{
 			Page:        req.Page,
