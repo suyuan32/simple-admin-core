@@ -1,7 +1,7 @@
 Name: core.api
 Host: 0.0.0.0
 Port: 9100
-Timeout: 30000
+Timeout: 6000
 
 Auth:
   AccessSecret: jS6VKDtsJf3z1n2VKDtsJf3z1n2
@@ -16,28 +16,15 @@ Log:
   KeepDays: 7
   StackCoolDownMillis: 100
 
-RedisConf:
-  Host: 10.5.0.3:6379
-  Type: node
-
-CoreRpc:
-  Endpoints:
-    - 10.5.0.4:9101
-  Enabled: true
-
-JobRpc:
-  Endpoints:
-    - 10.5.0.7:9105
-  Enabled: true
-
 Captcha:
   KeyLong: 5
   ImgWidth: 240
   ImgHeight: 80
+  Driver: digit
 
 DatabaseConf:
   Type: postgres
-  Host: 10.5.0.2
+  Host: postgresql-server
   Port: 5432
   DBName: simple_admin
   Username: postgres # set your username
@@ -45,6 +32,22 @@ DatabaseConf:
   MaxOpenConn: 100
   SSLMode: disable
   CacheTime: 5
+
+RedisConf:
+  Host: redis-server:6379
+  Type: node
+
+ProjectConf:
+  DefaultRoleId: 1  # default role id when register
+  DefaultDepartmentId: 1  # default department id when register
+  DefaultPositionId: 1 # default position id when register
+  EmailCaptchaExpiredTime: 600 # the expired time for email captcha
+  SmsTemplateId: xxx  # The template id for sms
+  SmsAppId: xxx  # the app id for sms
+  SmsSignName: xxx  # the signature name of sms
+  RegisterVerify: captcha # 注册验证方式，支持 captcha, email, sms, sms_or_email
+  LoginVerify: captcha #  登录验证方式，支持 captcha, email, sms, sms_or_email, all
+  ResetVerify: email # 重置验证方式，支持  email, sms, sms_or_email
 
 Prometheus:
   Host: 0.0.0.0
@@ -63,3 +66,33 @@ CasbinConf:
     e = some(where (p.eft == allow))
     [matchers]
     m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
+
+I18nConf:
+  Dir: # set the path of locale if you need to load files
+
+CROSConf:
+  Address: '*'    # if it is *, allow all ip and address. e.g. http://example.com
+
+CoreRpc:
+  Endpoints:
+    - core-rpc:9101
+  Enabled: true
+
+JobRpc:
+  Endpoints:
+    - job-rpc:9105
+  Enabled: true
+
+McmsRpc:
+  Endpoints:
+    - mcms-rpc:9106
+  Enabled: true
+  Timeout: 5000
+
+# Tracing Analysis
+
+#Telemetry:
+#  Name: core-rpc
+#  Endpoint: localhost:4317  # use your jaeger url
+#  Sampler: 1.0
+#  Batcher: otlpgrpc
