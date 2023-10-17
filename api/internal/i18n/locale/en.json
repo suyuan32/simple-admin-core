@@ -16,7 +16,8 @@
 		"permissionDeny": "User does not have permission to access this interface",
 		"constraintError": "Operation failed: Data conflict",
 		"validationError": "Operation failed: Validation failed",
-		"notSingularError": "Operation failed: Data not unique"
+		"notSingularError": "Operation failed: Data not unique",
+		"serviceUnavailable": "Service is unavailable, please check if the service is enabled"
 	},
 	"apiGroup":{
 		"cloud_file_tag": "Cloud File's Tag",

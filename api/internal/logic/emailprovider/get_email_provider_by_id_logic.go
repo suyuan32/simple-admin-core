@@ -3,6 +3,7 @@ package emailprovider
 import (
 	"context"
 	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -26,6 +27,9 @@ func NewGetEmailProviderByIdLogic(ctx context.Context, svcCtx *svc.ServiceContex
 }
 
 func (l *GetEmailProviderByIdLogic) GetEmailProviderById(req *types.IDReq) (resp *types.EmailProviderInfoResp, err error) {
+	if !l.svcCtx.Config.McmsRpc.Enabled {
+		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
+	}
 	data, err := l.svcCtx.McmsRpc.GetEmailProviderById(l.ctx, &mcms.IDReq{Id: req.Id})
 	if err != nil {
 		return nil, err
