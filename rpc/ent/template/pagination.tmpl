@@ -53,30 +53,39 @@
 
     {{ range $node := $.Nodes -}}
         {{- if ne $node.Name "CasbinRule" }}
-            {{ $pager := print $node.Name "Pager" }}
-            {{ $order := print $node.Name "Order"}}
-            {{ $query := print $node.Name "Query"}}
-            {{ $orderField := print $node.Name "OrderField"}}
-            type {{ $pager }} struct {
+        {{ $pager := print $node.Name "Pager" }}
+        {{ $order := print $node.Name "Order"}}
+        {{ $query := print $node.Name "Query"}}
+        {{ $orderField := print $node.Name "OrderField"}}
+        type {{ $pager }} struct {
             Order {{ lower $node.Name }}.OrderOption
             Filter func(*{{ $query }}) (*{{ $query }}, error)
-            }
+        }
 
-            {{ $opt := print $node.Name "PaginateOption" }}
-            // {{ $opt }} enables pagination customization.
-            type {{ $opt }} func(*{{ $pager }})
+        {{ $opt := print $node.Name "PaginateOption" }}
+        // {{ $opt }} enables pagination customization.
+        type {{ $opt }} func(*{{ $pager }})
 
 
-            {{ $newPager := print "new" $node.Name "Pager" -}}
-            {{- $defaultOrder := print "Default" $node.Name "Order" }}
+        {{ $newPager := print "new" $node.Name "Pager" -}}
+        {{- $defaultOrder := print "Default" $node.Name "Order" }}
 
-            // {{ $defaultOrder }} is the default ordering of {{ $node.Name }}.
-            var {{ $defaultOrder }} = Desc({{ lower $node.Name }}.FieldID)
+		{{ range $f :=  $node.Fields -}}
+		   {{- if eq $node.HasOneFieldID true}}
+        // {{ $defaultOrder }} is the default ordering of {{ $node.Name }}.
+        var {{ $defaultOrder }} = Desc({{ lower $node.Name }}.FieldID)
+		    {{- break}}
+		    {{- else}}
+        // {{ $defaultOrder }} is the default ordering of {{ $node.Name }}.
+        var {{ $defaultOrder }} = Desc({{ lower $node.Name }}.Field{{ $f.StructField }})
+		    {{- break}}
+		    {{- end}}
+		{{end}}
 
-            func {{ $newPager }}(opts []{{ $opt }}) (*{{ $pager }}, error) {
+        func {{ $newPager }}(opts []{{ $opt }}) (*{{ $pager }}, error) {
             pager := &{{ $pager }}{}
             for _, opt := range opts {
-            opt(pager)
+                opt(pager)
             }
             if pager.Order == nil {
                 pager.Order = {{ $defaultOrder }}
