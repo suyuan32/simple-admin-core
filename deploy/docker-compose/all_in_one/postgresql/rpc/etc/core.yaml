@@ -3,7 +3,7 @@ ListenOn: 0.0.0.0:9101
 
 DatabaseConf:
   Type: postgres
-  Host: 10.5.0.2
+  Host: postgresql-server
   Port: 5432
   DBName: simple_admin
   Username: postgres # set your username
@@ -11,6 +11,10 @@ DatabaseConf:
   MaxOpenConn: 100
   SSLMode: disable
   CacheTime: 5
+
+RedisConf:
+  Host: redis-server:6379
+  Type: node
 
 Log:
   ServiceName: coreRpcLogger
@@ -21,10 +25,6 @@ Log:
   Compress: false
   KeepDays: 7
   StackCoolDownMillis: 100
-
-RedisConf:
-  Host: 10.5.0.3:6379
-  Type: node
 
 Prometheus:
   Host: 0.0.0.0
