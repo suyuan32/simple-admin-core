@@ -2,11 +2,9 @@ package role
 
 import (
 	"context"
-
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -38,5 +36,6 @@ func (l *UpdateRoleLogic) UpdateRole(req *types.RoleInfo) (resp *types.BaseMsgRe
 	if err != nil {
 		return nil, err
 	}
+
 	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, data.Msg)}, nil
 }

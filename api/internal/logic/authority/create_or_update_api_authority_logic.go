@@ -2,8 +2,8 @@ package authority
 
 import (
 	"context"
+	"github.com/zeromicro/go-zero/core/errorx"
 
-	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/suyuan32/simple-admin-common/i18n"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -39,16 +39,10 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	if len(oldPolicies) != 0 {
 		removeResult, err := l.svcCtx.Casbin.RemoveFilteredPolicy(0, *data.Code)
 		if err != nil {
-			return &types.BaseMsgResp{
-				Code: errorcode.Internal,
-				Msg:  err.Error(),
-			}, nil
+			return nil, errorx.NewInvalidArgumentError(err.Error())
 		}
 		if !removeResult {
-			return &types.BaseMsgResp{
-				Code: errorcode.Internal,
-				Msg:  l.svcCtx.Trans.Trans(l.ctx, "casbin.removeFailed"),
-			}, nil
+			return nil, errorx.NewInvalidArgumentError(l.svcCtx.Trans.Trans(l.ctx, "casbin.removeFailed"))
 		}
 	}
 	// add new policies
@@ -58,10 +52,7 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	}
 	addResult, err := l.svcCtx.Casbin.AddPolicies(policies)
 	if err != nil {
-		return &types.BaseMsgResp{
-			Code: errorcode.Internal,
-			Msg:  l.svcCtx.Trans.Trans(l.ctx, "casbin.addFailed"),
-		}, nil
+		return nil, errorx.NewInvalidArgumentError(l.svcCtx.Trans.Trans(l.ctx, "casbin.addFailed"))
 	}
 	if addResult {
 		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.UpdateSuccess)}, nil

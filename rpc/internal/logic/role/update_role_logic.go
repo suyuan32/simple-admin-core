@@ -2,6 +2,9 @@ package role
 
 import (
 	"context"
+	"fmt"
+	"github.com/suyuan32/simple-admin-core/rpc/ent"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/entx"
 
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 
@@ -29,17 +32,36 @@ func NewUpdateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 }
 
 func (l *UpdateRoleLogic) UpdateRole(in *core.RoleInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Role.UpdateOneID(*in.Id).
-		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
-		SetNotNilName(in.Name).
-		SetNotNilCode(in.Code).
-		SetNotNilDefaultRouter(in.DefaultRouter).
-		SetNotNilRemark(in.Remark).
-		SetNotNilSort(in.Sort).
-		Exec(l.ctx)
+	err := entx.WithTx(l.ctx, l.svcCtx.DB, func(tx *ent.Tx) error {
+		origin, err := tx.Role.Get(l.ctx, *in.Id)
+		if err != nil {
+			return err
+		}
+
+		err = tx.Role.UpdateOneID(*in.Id).
+			SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
+			SetNotNilName(in.Name).
+			SetNotNilCode(in.Code).
+			SetNotNilDefaultRouter(in.DefaultRouter).
+			SetNotNilRemark(in.Remark).
+			SetNotNilSort(in.Sort).
+			Exec(l.ctx)
+		if err != nil {
+			return err
+		}
+
+		if origin.Code != *in.Code {
+			_, err = tx.QueryContext(l.ctx, fmt.Sprintf("update casbin_rules set v0='%s' WHERE v0='%s'", *in.Code, origin.Code))
+			if err != nil {
+				return err
+			}
+		}
+
+		return nil
+	})
+
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
-
 	return &core.BaseResp{Msg: i18n.UpdateSuccess}, nil
 }

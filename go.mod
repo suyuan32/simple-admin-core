@@ -13,7 +13,7 @@ require (
 	github.com/suyuan32/simple-admin-message-center v1.1.6
 	github.com/zeromicro/go-zero v1.5.6
 	golang.org/x/oauth2 v0.13.0
-	google.golang.org/grpc v1.58.3
+	google.golang.org/grpc v1.59.0
 	google.golang.org/protobuf v1.31.0
 )
 
@@ -137,4 +137,4 @@ require (
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
 
-replace github.com/zeromicro/go-zero v1.5.6 => github.com/suyuan32/simple-admin-tools v1.5.18
+replace github.com/zeromicro/go-zero v1.5.6 => github.com/suyuan32/simple-admin-tools v1.5.19-beta
