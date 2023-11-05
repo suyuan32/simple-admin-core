@@ -34,6 +34,10 @@ func NewInitDatabaseLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Init
 }
 
 func (l *InitDatabaseLogic) InitDatabase() (resp *types.BaseMsgResp, err error) {
+	if !l.svcCtx.Config.ProjectConf.AllowInit {
+		return nil, errorx.NewCodeInvalidArgumentError(i18n.PermissionDeny)
+	}
+
 	result, err := l.svcCtx.CoreRpc.InitDatabase(l.ctx, &core.Empty{})
 	if err != nil && !errors.Is(err, status.Error(codes.DeadlineExceeded, "context deadline exceeded")) {
 		return nil, err

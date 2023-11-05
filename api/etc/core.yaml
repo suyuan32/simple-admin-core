@@ -41,9 +41,10 @@ ProjectConf:
   SmsTemplateId: xxx  # The template id for sms
   SmsAppId: xxx  # the app id for sms
   SmsSignName: xxx  # the signature name of sms
-  RegisterVerify: captcha # 注册验证方式，支持 captcha, email, sms, sms_or_email
-  LoginVerify: captcha #  登录验证方式，支持 captcha, email, sms, sms_or_email, all
-  ResetVerify: email # 重置验证方式，支持  email, sms, sms_or_email
+  RegisterVerify: captcha # register captcha type, support captcha, email, sms, sms_or_email
+  LoginVerify: captcha # login captcha type, support captcha, email, sms, sms_or_email, all
+  ResetVerify: email # reset captcha type, support email, sms, sms_or_email
+  AllowInit: true # if false, ban initialization
 
 Prometheus:
   Host: 0.0.0.0

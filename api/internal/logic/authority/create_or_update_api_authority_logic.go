@@ -39,10 +39,11 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	if len(oldPolicies) != 0 {
 		removeResult, err := l.svcCtx.Casbin.RemoveFilteredPolicy(0, *data.Code)
 		if err != nil {
+			l.Logger.Errorw("failed to remove roles policy", logx.Field("roleCode", data.Code), logx.Field("detail", err.Error()))
 			return nil, errorx.NewInvalidArgumentError(err.Error())
 		}
 		if !removeResult {
-			return nil, errorx.NewInvalidArgumentError(l.svcCtx.Trans.Trans(l.ctx, "casbin.removeFailed"))
+			return nil, errorx.NewInvalidArgumentError("casbin.removeFailed")
 		}
 	}
 	// add new policies
@@ -52,7 +53,7 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 	}
 	addResult, err := l.svcCtx.Casbin.AddPolicies(policies)
 	if err != nil {
-		return nil, errorx.NewInvalidArgumentError(l.svcCtx.Trans.Trans(l.ctx, "casbin.addFailed"))
+		return nil, errorx.NewInvalidArgumentError("casbin.addFailed")
 	}
 	if addResult {
 		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, i18n.UpdateSuccess)}, nil

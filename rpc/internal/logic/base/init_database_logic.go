@@ -3,6 +3,7 @@ package base
 import (
 	"context"
 	"fmt"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 
 	"entgo.io/ent/dialect/sql/schema"
 	"github.com/suyuan32/simple-admin-common/enum/common"
@@ -34,7 +35,7 @@ func NewInitDatabaseLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Init
 	}
 }
 
-func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error) {
+func (l *InitDatabaseLogic) InitDatabase(_ *core.Empty) (*core.BaseResp, error) {
 	// If your mysql speed is high, comment the code below.
 	// Because the context deadline will reach if the database is too slow
 	l.ctx = context.Background()
@@ -59,6 +60,14 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	// initialize table structure
 	if err := l.svcCtx.DB.Schema.Create(l.ctx, schema.WithForeignKeys(false), schema.WithDropColumn(true),
 		schema.WithDropIndex(true)); err != nil {
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		_ = l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
+		return nil, errorx.NewInternalError(err.Error())
+	}
+
+	// force update casbin policy to avoid super administrator cannot log in when updating policy failed
+	err := l.insertCasbinPoliciesData()
+	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		_ = l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, errorx.NewInternalError(err.Error())
@@ -112,12 +121,6 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 		_ = l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
 		return nil, errorx.NewInternalError(err.Error())
 	}
-	err = l.insertCasbinPoliciesData()
-	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
-		return nil, errorx.NewInternalError(err.Error())
-	}
 
 	err = l.insertProviderData()
 	if err != nil {
@@ -134,6 +137,13 @@ func (l *InitDatabaseLogic) InitDatabase(in *core.Empty) (*core.BaseResp, error)
 	}
 
 	err = l.insertPositionData()
+	if err != nil {
+		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+		_ = l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
+		return nil, errorx.NewInternalError(err.Error())
+	}
+
+	err = l.insertCasbinPoliciesData()
 	if err != nil {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		_ = l.svcCtx.Redis.Setex("database_error_msg", err.Error(), 300)
@@ -244,16 +254,39 @@ func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 		return errorx.NewInternalError(err.Error())
 	}
 
+	var roleCode string
+
+	if adminData, roleErr := l.svcCtx.DB.Role.Query().Where(role.NameEQ("role.admin")).First(l.ctx); roleErr == nil {
+		roleCode = adminData.Code
+	} else {
+		roleCode = "001"
+	}
+
 	var policies [][]string
 	for _, v := range apis {
-		policies = append(policies, []string{"001", v.Path, v.Method})
+		policies = append(policies, []string{roleCode, v.Path, v.Method})
 	}
 
 	csb, err := l.svcCtx.Config.CasbinConf.NewCasbin(l.svcCtx.Config.DatabaseConf.Type,
 		l.svcCtx.Config.DatabaseConf.GetDSN())
+
 	if err != nil {
 		logx.Error("initialize casbin policy failed")
 		return errorx.NewInternalError(err.Error())
+	}
+
+	// clear old policy belongs to super admin
+	var oldPolicies [][]string
+	oldPolicies = csb.GetFilteredPolicy(0, roleCode)
+	if len(oldPolicies) != 0 {
+		removeResult, err := csb.RemoveFilteredPolicy(0, roleCode)
+		if err != nil {
+			logx.Errorw("failed to remove roles policy", logx.Field("roleCode", roleCode), logx.Field("detail", err.Error()))
+			return errorx.NewInternalError(err.Error())
+		}
+		if !removeResult {
+			return errorx.NewInternalError("casbin.removeFailed")
+		}
 	}
 
 	addResult, err := csb.AddPolicies(policies)

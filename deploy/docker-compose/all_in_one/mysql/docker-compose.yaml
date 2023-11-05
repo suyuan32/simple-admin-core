@@ -5,6 +5,7 @@ volumes:
   redis:
   fms:
 
+
 networks:
   simple-admin:
     driver: bridge
@@ -66,6 +67,7 @@ services:
       DATABASE_TYPE: 'mysql'
       DATABASE_USERNAME: 'root'
       DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_HOST: 'mysql-server'
       DATABASE_PORT: 3306
     networks:
       simple-admin:
@@ -90,6 +92,7 @@ services:
       DATABASE_TYPE: 'mysql'
       DATABASE_USERNAME: 'root'
       DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_HOST: 'mysql-server'
       DATABASE_PORT: 3306
     networks:
       simple-admin:
@@ -141,7 +144,6 @@ services:
       simple-admin:
         aliases:
           - backend-ui
-        ipv4_address: 10.5.0.6
     deploy:
       resources:
         limits:
@@ -162,6 +164,7 @@ services:
       DATABASE_TYPE: 'mysql'
       DATABASE_USERNAME: 'root'
       DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_HOST: 'mysql-server'
       DATABASE_PORT: 3306
     ports:
       - '9102:9102'
@@ -172,7 +175,6 @@ services:
       simple-admin:
         aliases:
           - fms-api
-        ipv4_address: 10.5.0.8
     deploy:
       resources:
         limits:
@@ -190,6 +192,7 @@ services:
       DATABASE_TYPE: 'mysql'
       DATABASE_USERNAME: 'root'
       DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_HOST: 'mysql-server'
       DATABASE_PORT: 3306
     #      EMAIL_ADDR: xxx@gamil.com
     #    ports:
@@ -198,7 +201,6 @@ services:
       simple-admin:
         aliases:
           - mcms-rpc
-        ipv4_address: 10.5.0.9
     deploy:
       resources:
         limits:
