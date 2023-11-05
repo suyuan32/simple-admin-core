@@ -36,4 +36,5 @@ type ProjectConf struct {
 	RegisterVerify          string `json:",default=captcha,options=[captcha,email,sms,sms_or_email]"`
 	LoginVerify             string `json:",default=captcha,options=[captcha,email,sms,sms_or_email,all]"`
 	ResetVerify             string `json:",default=email,options=[email,sms,sms_or_email]"`
+	AllowInit               bool   `json:",default=true"`
 }

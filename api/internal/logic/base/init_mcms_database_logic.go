@@ -30,6 +30,10 @@ func NewInitMcmsDatabaseLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *InitMcmsDatabaseLogic) InitMcmsDatabase() (resp *types.BaseMsgResp, err error) {
+	if !l.svcCtx.Config.ProjectConf.AllowInit {
+		return nil, errorx.NewCodeInvalidArgumentError(i18n.PermissionDeny)
+	}
+
 	if !l.svcCtx.Config.McmsRpc.Enabled {
 		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
 	}
