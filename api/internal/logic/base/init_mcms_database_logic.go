@@ -68,7 +68,7 @@ func (l *InitMcmsDatabaseLogic) InitMcmsDatabase() (resp *types.BaseMsgResp, err
 
 	err = l.svcCtx.Casbin.LoadPolicy()
 	if err != nil {
-		logx.Errorw("failed to load Casbin Policy", logx.Field("detail", err))
+		logx.Errorw("failed to load Casbin policy", logx.Field("detail", err))
 		return nil, errorx.NewCodeInternalError(i18n.DatabaseError)
 	}
 
