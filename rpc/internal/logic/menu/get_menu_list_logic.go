@@ -50,6 +50,7 @@ func (l *GetMenuListLogic) GetMenuList(in *core.PageInfoReq) (resp *core.MenuInf
 			Name:      &v.Name,
 			Redirect:  &v.Redirect,
 			Component: &v.Component,
+			Disabled:  &v.Disabled,
 			Sort:      &v.Sort,
 			Meta: &core.Meta{
 				Title:              &v.Title,
