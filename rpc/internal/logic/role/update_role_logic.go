@@ -50,7 +50,7 @@ func (l *UpdateRoleLogic) UpdateRole(in *core.RoleInfo) (*core.BaseResp, error) 
 			return err
 		}
 
-		if origin.Code != *in.Code {
+		if in.Code != nil && origin.Code != *in.Code {
 			_, err = tx.QueryContext(l.ctx, fmt.Sprintf("update casbin_rules set v0='%s' WHERE v0='%s'", *in.Code, origin.Code))
 			if err != nil {
 				return err

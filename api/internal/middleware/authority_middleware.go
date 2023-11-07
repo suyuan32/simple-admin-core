@@ -17,16 +17,18 @@ import (
 )
 
 type AuthorityMiddleware struct {
-	Cbn   *casbin.Enforcer
-	Rds   *redis.Redis
-	Trans *i18n.Translator
+	Cbn         *casbin.Enforcer
+	Rds         *redis.Redis
+	Trans       *i18n.Translator
+	BanRoleData map[string]bool
 }
 
-func NewAuthorityMiddleware(cbn *casbin.Enforcer, rds *redis.Redis, trans *i18n.Translator) *AuthorityMiddleware {
+func NewAuthorityMiddleware(cbn *casbin.Enforcer, rds *redis.Redis, trans *i18n.Translator, banRoleData map[string]bool) *AuthorityMiddleware {
 	return &AuthorityMiddleware{
-		Cbn:   cbn,
-		Rds:   rds,
-		Trans: trans,
+		Cbn:         cbn,
+		Rds:         rds,
+		Trans:       trans,
+		BanRoleData: banRoleData,
 	}
 }
 
@@ -37,7 +39,19 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		// get the method
 		act := r.Method
 		// get the role id
-		roleIds := r.Context().Value("roleId").(string)
+		roleIds := strings.Split(r.Context().Value("roleId").(string), ",")
+
+		// check the role status
+		var isRoleNormal bool
+		for _, v := range roleIds {
+			if !m.BanRoleData[v] {
+				isRoleNormal = true
+			}
+		}
+		if !isRoleNormal {
+			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
+			return
+		}
 
 		// check jwt blacklist
 		jwtResult, err := m.Rds.Get("token_" + jwt.StripBearerPrefixFromToken(r.Header.Get("Authorization")))
@@ -70,9 +84,9 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func batchCheck(cbn *casbin.Enforcer, roleIds, act, obj string) bool {
+func batchCheck(cbn *casbin.Enforcer, roleIds []string, act, obj string) bool {
 	var checkReq [][]any
-	for _, v := range strings.Split(roleIds, ",") {
+	for _, v := range roleIds {
 		checkReq = append(checkReq, []any{v, obj, act})
 	}
 

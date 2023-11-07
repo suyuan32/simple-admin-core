@@ -32,7 +32,7 @@
 		"position": "Position",
 		"department": "Department",
 		"token": "Token",
-		"oauth": "Oauth",
+		"oauth": "Third-party Log In",
 		"dictionary": "Dictionary",
 		"api": "API",
 		"authority": "Authority",
