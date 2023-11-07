@@ -37,5 +37,11 @@ func (l *CreateRoleLogic) CreateRole(req *types.RoleInfo) (resp *types.BaseMsgRe
 	if err != nil {
 		return nil, err
 	}
+
+	err = l.svcCtx.LoadBanRoleData()
+	if err != nil {
+		return nil, err
+	}
+
 	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, data.Msg)}, nil
 }
