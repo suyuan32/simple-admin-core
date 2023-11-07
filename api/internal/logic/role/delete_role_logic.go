@@ -32,5 +32,10 @@ func (l *DeleteRoleLogic) DeleteRole(req *types.IDsReq) (resp *types.BaseMsgResp
 		return nil, err
 	}
 
+	err = l.svcCtx.LoadBanRoleData()
+	if err != nil {
+		return nil, err
+	}
+
 	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, result.Msg)}, nil
 }

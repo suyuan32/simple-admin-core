@@ -28,6 +28,10 @@ func NewInitJobDatabaseLogic(ctx context.Context, svcCtx *svc.ServiceContext) *I
 }
 
 func (l *InitJobDatabaseLogic) InitJobDatabase() (resp *types.BaseMsgResp, err error) {
+	if !l.svcCtx.Config.ProjectConf.AllowInit {
+		return nil, errorx.NewCodeInvalidArgumentError(i18n.PermissionDeny)
+	}
+
 	if !l.svcCtx.Config.JobRpc.Enabled {
 		return nil, errorx.NewCodeUnavailableError(i18n.ServiceUnavailable)
 	}

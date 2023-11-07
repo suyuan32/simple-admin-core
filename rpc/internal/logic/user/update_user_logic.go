@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/enum/common"
 
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
@@ -70,7 +71,7 @@ func (l *UpdateUserLogic) UpdateUser(in *core.UserInfo) (*core.BaseResp, error) 
 			updateQuery = updateQuery.AddPositionIDs(in.PositionIds...)
 		}
 
-		if in.Password != nil || in.RoleIds != nil || in.PositionIds != nil {
+		if in.Password != nil || in.RoleIds != nil || in.PositionIds != nil || (in.Status != nil && uint8(*in.Status) != common.StatusNormal) {
 			_, err := token.NewBlockUserAllTokenLogic(l.ctx, l.svcCtx).BlockUserAllToken(&core.UUIDReq{Id: *in.Id})
 			if err != nil {
 				return err

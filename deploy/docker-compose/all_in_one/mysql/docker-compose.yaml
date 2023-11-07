@@ -5,6 +5,7 @@ volumes:
   redis:
   fms:
 
+
 networks:
   simple-admin:
     driver: bridge
@@ -57,7 +58,7 @@ services:
           memory: 200M
 
   core-rpc:
-    image: ryanpower/core-rpc-docker:v1.1.6
+    image: ryanpower/core-rpc-docker:v1.2.0
     container_name: core-rpc
     restart: always
     ports:
@@ -66,6 +67,7 @@ services:
       DATABASE_TYPE: 'mysql'
       DATABASE_USERNAME: 'root'
       DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_HOST: 'mysql-server'
       DATABASE_PORT: 3306
     networks:
       simple-admin:
@@ -81,7 +83,7 @@ services:
           memory: 200M
 
   job-rpc:
-    image: ryanpower/job-rpc-docker:v1.1.6
+    image: ryanpower/job-rpc-docker:v1.2.0
     container_name: job-rpc
     restart: always
     ports:
@@ -90,6 +92,7 @@ services:
       DATABASE_TYPE: 'mysql'
       DATABASE_USERNAME: 'root'
       DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_HOST: 'mysql-server'
       DATABASE_PORT: 3306
     networks:
       simple-admin:
@@ -105,7 +108,7 @@ services:
           memory: 200M
 
   core-api:
-    image: ryanpower/core-api-docker:v1.1.6
+    image: ryanpower/core-api-docker:v1.2.0
     container_name: core-api
     restart: always
     environment:
@@ -132,7 +135,7 @@ services:
           memory: 200M
 
   backend-ui:
-    image: ryanpower/backend-ui-docker:v1.1.6
+    image: ryanpower/backend-ui-docker:v1.2.0
     container_name: backend-ui
     restart: always
     ports:
@@ -141,7 +144,6 @@ services:
       simple-admin:
         aliases:
           - backend-ui
-        ipv4_address: 10.5.0.6
     deploy:
       resources:
         limits:
@@ -152,7 +154,7 @@ services:
           memory: 200M
 
   fms-api:
-    image: ryanpower/fms-api-docker:v1.1.6
+    image: ryanpower/fms-api-docker:v1.2.0
     container_name: fms-api
     restart: always
     #    environment:
@@ -162,6 +164,7 @@ services:
       DATABASE_TYPE: 'mysql'
       DATABASE_USERNAME: 'root'
       DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_HOST: 'mysql-server'
       DATABASE_PORT: 3306
     ports:
       - '9102:9102'
@@ -172,7 +175,6 @@ services:
       simple-admin:
         aliases:
           - fms-api
-        ipv4_address: 10.5.0.8
     deploy:
       resources:
         limits:
@@ -183,13 +185,14 @@ services:
           memory: 200M
 
   mcms-rpc:
-    image: ryanpower/mcms-rpc-docker:v1.1.6
+    image: ryanpower/mcms-rpc-docker:v1.2.0
     container_name: mcms-rpc
     restart: always
     environment:
       DATABASE_TYPE: 'mysql'
       DATABASE_USERNAME: 'root'
       DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_HOST: 'mysql-server'
       DATABASE_PORT: 3306
     #      EMAIL_ADDR: xxx@gamil.com
     #    ports:
@@ -198,7 +201,6 @@ services:
       simple-admin:
         aliases:
           - mcms-rpc
-        ipv4_address: 10.5.0.9
     deploy:
       resources:
         limits:
