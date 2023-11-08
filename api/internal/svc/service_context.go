@@ -12,6 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-message-center/mcmsclient"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
+	"strings"
 
 	"github.com/suyuan32/simple-admin-job/jobclient"
 
@@ -84,6 +85,10 @@ func (l *ServiceContext) LoadBanRoleData() error {
 	})
 
 	if err != nil {
+		if strings.Contains(err.Error(), i18n.DatabaseError) {
+			return nil
+		}
+		logx.Error("failed to load role data, please check if initialize the database")
 		return errorx.NewCodeInternalError("failed to load role data")
 	}
 
