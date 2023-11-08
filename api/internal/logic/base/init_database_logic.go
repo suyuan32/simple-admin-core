@@ -72,5 +72,11 @@ func (l *InitDatabaseLogic) InitDatabase() (resp *types.BaseMsgResp, err error) 
 		return nil, errorx.NewCodeInternalError(i18n.DatabaseError)
 	}
 
+	// load role ban data
+	err = l.svcCtx.LoadBanRoleData()
+	if err != nil {
+		return nil, err
+	}
+
 	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, result.Msg)}, nil
 }
