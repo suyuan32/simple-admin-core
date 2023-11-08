@@ -144,6 +144,18 @@ var (
 				OnDelete:   schema.SetNull,
 			},
 		},
+		Indexes: []*schema.Index{
+			{
+				Name:    "menu_name",
+				Unique:  true,
+				Columns: []*schema.Column{SysMenusColumns[7]},
+			},
+			{
+				Name:    "menu_path",
+				Unique:  true,
+				Columns: []*schema.Column{SysMenusColumns[6]},
+			},
+		},
 	}
 	// SysOauthProvidersColumns holds the columns for the "sys_oauth_providers" table.
 	SysOauthProvidersColumns = []*schema.Column{
