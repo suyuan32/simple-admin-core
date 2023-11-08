@@ -6,6 +6,7 @@ import (
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
+	"entgo.io/ent/schema/index"
 
 	"github.com/suyuan32/simple-admin-common/orm/ent/mixins"
 )
@@ -84,6 +85,13 @@ func (Menu) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		mixins.IDMixin{},
 		mixins.SortMixin{},
+	}
+}
+
+func (Menu) Indexes() []ent.Index {
+	return []ent.Index{
+		index.Fields("name").Unique(),
+		index.Fields("path").Unique(),
 	}
 }
 
