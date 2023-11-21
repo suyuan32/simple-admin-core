@@ -90,15 +90,39 @@ func (uu *UserUpdate) SetUsername(s string) *UserUpdate {
 	return uu
 }
 
+// SetNillableUsername sets the "username" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableUsername(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetUsername(*s)
+	}
+	return uu
+}
+
 // SetPassword sets the "password" field.
 func (uu *UserUpdate) SetPassword(s string) *UserUpdate {
 	uu.mutation.SetPassword(s)
 	return uu
 }
 
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (uu *UserUpdate) SetNillablePassword(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetPassword(*s)
+	}
+	return uu
+}
+
 // SetNickname sets the "nickname" field.
 func (uu *UserUpdate) SetNickname(s string) *UserUpdate {
 	uu.mutation.SetNickname(s)
+	return uu
+}
+
+// SetNillableNickname sets the "nickname" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableNickname(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetNickname(*s)
+	}
 	return uu
 }
 
@@ -621,15 +645,39 @@ func (uuo *UserUpdateOne) SetUsername(s string) *UserUpdateOne {
 	return uuo
 }
 
+// SetNillableUsername sets the "username" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableUsername(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetUsername(*s)
+	}
+	return uuo
+}
+
 // SetPassword sets the "password" field.
 func (uuo *UserUpdateOne) SetPassword(s string) *UserUpdateOne {
 	uuo.mutation.SetPassword(s)
 	return uuo
 }
 
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillablePassword(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetPassword(*s)
+	}
+	return uuo
+}
+
 // SetNickname sets the "nickname" field.
 func (uuo *UserUpdateOne) SetNickname(s string) *UserUpdateOne {
 	uuo.mutation.SetNickname(s)
+	return uuo
+}
+
+// SetNillableNickname sets the "nickname" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableNickname(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetNickname(*s)
+	}
 	return uuo
 }
 

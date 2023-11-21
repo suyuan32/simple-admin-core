@@ -90,6 +90,14 @@ func (du *DepartmentUpdate) SetName(s string) *DepartmentUpdate {
 	return du
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (du *DepartmentUpdate) SetNillableName(s *string) *DepartmentUpdate {
+	if s != nil {
+		du.SetName(*s)
+	}
+	return du
+}
+
 // SetAncestors sets the "ancestors" field.
 func (du *DepartmentUpdate) SetAncestors(s string) *DepartmentUpdate {
 	du.mutation.SetAncestors(s)
@@ -116,15 +124,39 @@ func (du *DepartmentUpdate) SetLeader(s string) *DepartmentUpdate {
 	return du
 }
 
+// SetNillableLeader sets the "leader" field if the given value is not nil.
+func (du *DepartmentUpdate) SetNillableLeader(s *string) *DepartmentUpdate {
+	if s != nil {
+		du.SetLeader(*s)
+	}
+	return du
+}
+
 // SetPhone sets the "phone" field.
 func (du *DepartmentUpdate) SetPhone(s string) *DepartmentUpdate {
 	du.mutation.SetPhone(s)
 	return du
 }
 
+// SetNillablePhone sets the "phone" field if the given value is not nil.
+func (du *DepartmentUpdate) SetNillablePhone(s *string) *DepartmentUpdate {
+	if s != nil {
+		du.SetPhone(*s)
+	}
+	return du
+}
+
 // SetEmail sets the "email" field.
 func (du *DepartmentUpdate) SetEmail(s string) *DepartmentUpdate {
 	du.mutation.SetEmail(s)
+	return du
+}
+
+// SetNillableEmail sets the "email" field if the given value is not nil.
+func (du *DepartmentUpdate) SetNillableEmail(s *string) *DepartmentUpdate {
+	if s != nil {
+		du.SetEmail(*s)
+	}
 	return du
 }
 
@@ -542,6 +574,14 @@ func (duo *DepartmentUpdateOne) SetName(s string) *DepartmentUpdateOne {
 	return duo
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (duo *DepartmentUpdateOne) SetNillableName(s *string) *DepartmentUpdateOne {
+	if s != nil {
+		duo.SetName(*s)
+	}
+	return duo
+}
+
 // SetAncestors sets the "ancestors" field.
 func (duo *DepartmentUpdateOne) SetAncestors(s string) *DepartmentUpdateOne {
 	duo.mutation.SetAncestors(s)
@@ -568,15 +608,39 @@ func (duo *DepartmentUpdateOne) SetLeader(s string) *DepartmentUpdateOne {
 	return duo
 }
 
+// SetNillableLeader sets the "leader" field if the given value is not nil.
+func (duo *DepartmentUpdateOne) SetNillableLeader(s *string) *DepartmentUpdateOne {
+	if s != nil {
+		duo.SetLeader(*s)
+	}
+	return duo
+}
+
 // SetPhone sets the "phone" field.
 func (duo *DepartmentUpdateOne) SetPhone(s string) *DepartmentUpdateOne {
 	duo.mutation.SetPhone(s)
 	return duo
 }
 
+// SetNillablePhone sets the "phone" field if the given value is not nil.
+func (duo *DepartmentUpdateOne) SetNillablePhone(s *string) *DepartmentUpdateOne {
+	if s != nil {
+		duo.SetPhone(*s)
+	}
+	return duo
+}
+
 // SetEmail sets the "email" field.
 func (duo *DepartmentUpdateOne) SetEmail(s string) *DepartmentUpdateOne {
 	duo.mutation.SetEmail(s)
+	return duo
+}
+
+// SetNillableEmail sets the "email" field if the given value is not nil.
+func (duo *DepartmentUpdateOne) SetNillableEmail(s *string) *DepartmentUpdateOne {
+	if s != nil {
+		duo.SetEmail(*s)
+	}
 	return duo
 }
 

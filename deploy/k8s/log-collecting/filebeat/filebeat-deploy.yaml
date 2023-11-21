@@ -78,7 +78,7 @@ spec:
           ]
           env:
             - name: ELASTICSEARCH_HOST
-              value: "192.168.50.216"  # host address
+              value: "localhost"  # host address
             - name: ELASTICSEARCH_PORT
               value: "9200"
             - name: ELASTICSEARCH_USERNAME

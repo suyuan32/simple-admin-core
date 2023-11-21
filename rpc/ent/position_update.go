@@ -90,9 +90,25 @@ func (pu *PositionUpdate) SetName(s string) *PositionUpdate {
 	return pu
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (pu *PositionUpdate) SetNillableName(s *string) *PositionUpdate {
+	if s != nil {
+		pu.SetName(*s)
+	}
+	return pu
+}
+
 // SetCode sets the "code" field.
 func (pu *PositionUpdate) SetCode(s string) *PositionUpdate {
 	pu.mutation.SetCode(s)
+	return pu
+}
+
+// SetNillableCode sets the "code" field if the given value is not nil.
+func (pu *PositionUpdate) SetNillableCode(s *string) *PositionUpdate {
+	if s != nil {
+		pu.SetCode(*s)
+	}
 	return pu
 }
 
@@ -357,9 +373,25 @@ func (puo *PositionUpdateOne) SetName(s string) *PositionUpdateOne {
 	return puo
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (puo *PositionUpdateOne) SetNillableName(s *string) *PositionUpdateOne {
+	if s != nil {
+		puo.SetName(*s)
+	}
+	return puo
+}
+
 // SetCode sets the "code" field.
 func (puo *PositionUpdateOne) SetCode(s string) *PositionUpdateOne {
 	puo.mutation.SetCode(s)
+	return puo
+}
+
+// SetNillableCode sets the "code" field if the given value is not nil.
+func (puo *PositionUpdateOne) SetNillableCode(s *string) *PositionUpdateOne {
+	if s != nil {
+		puo.SetCode(*s)
+	}
 	return puo
 }
 
