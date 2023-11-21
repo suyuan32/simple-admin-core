@@ -83,6 +83,14 @@ func (mu *MenuUpdate) SetMenuLevel(u uint32) *MenuUpdate {
 	return mu
 }
 
+// SetNillableMenuLevel sets the "menu_level" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableMenuLevel(u *uint32) *MenuUpdate {
+	if u != nil {
+		mu.SetMenuLevel(*u)
+	}
+	return mu
+}
+
 // AddMenuLevel adds u to the "menu_level" field.
 func (mu *MenuUpdate) AddMenuLevel(u int32) *MenuUpdate {
 	mu.mutation.AddMenuLevel(u)
@@ -93,6 +101,14 @@ func (mu *MenuUpdate) AddMenuLevel(u int32) *MenuUpdate {
 func (mu *MenuUpdate) SetMenuType(u uint32) *MenuUpdate {
 	mu.mutation.ResetMenuType()
 	mu.mutation.SetMenuType(u)
+	return mu
+}
+
+// SetNillableMenuType sets the "menu_type" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableMenuType(u *uint32) *MenuUpdate {
+	if u != nil {
+		mu.SetMenuType(*u)
+	}
 	return mu
 }
 
@@ -125,6 +141,14 @@ func (mu *MenuUpdate) ClearPath() *MenuUpdate {
 // SetName sets the "name" field.
 func (mu *MenuUpdate) SetName(s string) *MenuUpdate {
 	mu.mutation.SetName(s)
+	return mu
+}
+
+// SetNillableName sets the "name" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableName(s *string) *MenuUpdate {
+	if s != nil {
+		mu.SetName(*s)
+	}
 	return mu
 }
 
@@ -194,9 +218,25 @@ func (mu *MenuUpdate) SetTitle(s string) *MenuUpdate {
 	return mu
 }
 
+// SetNillableTitle sets the "title" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableTitle(s *string) *MenuUpdate {
+	if s != nil {
+		mu.SetTitle(*s)
+	}
+	return mu
+}
+
 // SetIcon sets the "icon" field.
 func (mu *MenuUpdate) SetIcon(s string) *MenuUpdate {
 	mu.mutation.SetIcon(s)
+	return mu
+}
+
+// SetNillableIcon sets the "icon" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableIcon(s *string) *MenuUpdate {
+	if s != nil {
+		mu.SetIcon(*s)
+	}
 	return mu
 }
 
@@ -850,6 +890,14 @@ func (muo *MenuUpdateOne) SetMenuLevel(u uint32) *MenuUpdateOne {
 	return muo
 }
 
+// SetNillableMenuLevel sets the "menu_level" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableMenuLevel(u *uint32) *MenuUpdateOne {
+	if u != nil {
+		muo.SetMenuLevel(*u)
+	}
+	return muo
+}
+
 // AddMenuLevel adds u to the "menu_level" field.
 func (muo *MenuUpdateOne) AddMenuLevel(u int32) *MenuUpdateOne {
 	muo.mutation.AddMenuLevel(u)
@@ -860,6 +908,14 @@ func (muo *MenuUpdateOne) AddMenuLevel(u int32) *MenuUpdateOne {
 func (muo *MenuUpdateOne) SetMenuType(u uint32) *MenuUpdateOne {
 	muo.mutation.ResetMenuType()
 	muo.mutation.SetMenuType(u)
+	return muo
+}
+
+// SetNillableMenuType sets the "menu_type" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableMenuType(u *uint32) *MenuUpdateOne {
+	if u != nil {
+		muo.SetMenuType(*u)
+	}
 	return muo
 }
 
@@ -892,6 +948,14 @@ func (muo *MenuUpdateOne) ClearPath() *MenuUpdateOne {
 // SetName sets the "name" field.
 func (muo *MenuUpdateOne) SetName(s string) *MenuUpdateOne {
 	muo.mutation.SetName(s)
+	return muo
+}
+
+// SetNillableName sets the "name" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableName(s *string) *MenuUpdateOne {
+	if s != nil {
+		muo.SetName(*s)
+	}
 	return muo
 }
 
@@ -961,9 +1025,25 @@ func (muo *MenuUpdateOne) SetTitle(s string) *MenuUpdateOne {
 	return muo
 }
 
+// SetNillableTitle sets the "title" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableTitle(s *string) *MenuUpdateOne {
+	if s != nil {
+		muo.SetTitle(*s)
+	}
+	return muo
+}
+
 // SetIcon sets the "icon" field.
 func (muo *MenuUpdateOne) SetIcon(s string) *MenuUpdateOne {
 	muo.mutation.SetIcon(s)
+	return muo
+}
+
+// SetNillableIcon sets the "icon" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableIcon(s *string) *MenuUpdateOne {
+	if s != nil {
+		muo.SetIcon(*s)
+	}
 	return muo
 }
 

@@ -40,9 +40,25 @@ func (opu *OauthProviderUpdate) SetName(s string) *OauthProviderUpdate {
 	return opu
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (opu *OauthProviderUpdate) SetNillableName(s *string) *OauthProviderUpdate {
+	if s != nil {
+		opu.SetName(*s)
+	}
+	return opu
+}
+
 // SetClientID sets the "client_id" field.
 func (opu *OauthProviderUpdate) SetClientID(s string) *OauthProviderUpdate {
 	opu.mutation.SetClientID(s)
+	return opu
+}
+
+// SetNillableClientID sets the "client_id" field if the given value is not nil.
+func (opu *OauthProviderUpdate) SetNillableClientID(s *string) *OauthProviderUpdate {
+	if s != nil {
+		opu.SetClientID(*s)
+	}
 	return opu
 }
 
@@ -52,9 +68,25 @@ func (opu *OauthProviderUpdate) SetClientSecret(s string) *OauthProviderUpdate {
 	return opu
 }
 
+// SetNillableClientSecret sets the "client_secret" field if the given value is not nil.
+func (opu *OauthProviderUpdate) SetNillableClientSecret(s *string) *OauthProviderUpdate {
+	if s != nil {
+		opu.SetClientSecret(*s)
+	}
+	return opu
+}
+
 // SetRedirectURL sets the "redirect_url" field.
 func (opu *OauthProviderUpdate) SetRedirectURL(s string) *OauthProviderUpdate {
 	opu.mutation.SetRedirectURL(s)
+	return opu
+}
+
+// SetNillableRedirectURL sets the "redirect_url" field if the given value is not nil.
+func (opu *OauthProviderUpdate) SetNillableRedirectURL(s *string) *OauthProviderUpdate {
+	if s != nil {
+		opu.SetRedirectURL(*s)
+	}
 	return opu
 }
 
@@ -64,9 +96,25 @@ func (opu *OauthProviderUpdate) SetScopes(s string) *OauthProviderUpdate {
 	return opu
 }
 
+// SetNillableScopes sets the "scopes" field if the given value is not nil.
+func (opu *OauthProviderUpdate) SetNillableScopes(s *string) *OauthProviderUpdate {
+	if s != nil {
+		opu.SetScopes(*s)
+	}
+	return opu
+}
+
 // SetAuthURL sets the "auth_url" field.
 func (opu *OauthProviderUpdate) SetAuthURL(s string) *OauthProviderUpdate {
 	opu.mutation.SetAuthURL(s)
+	return opu
+}
+
+// SetNillableAuthURL sets the "auth_url" field if the given value is not nil.
+func (opu *OauthProviderUpdate) SetNillableAuthURL(s *string) *OauthProviderUpdate {
+	if s != nil {
+		opu.SetAuthURL(*s)
+	}
 	return opu
 }
 
@@ -76,10 +124,26 @@ func (opu *OauthProviderUpdate) SetTokenURL(s string) *OauthProviderUpdate {
 	return opu
 }
 
+// SetNillableTokenURL sets the "token_url" field if the given value is not nil.
+func (opu *OauthProviderUpdate) SetNillableTokenURL(s *string) *OauthProviderUpdate {
+	if s != nil {
+		opu.SetTokenURL(*s)
+	}
+	return opu
+}
+
 // SetAuthStyle sets the "auth_style" field.
 func (opu *OauthProviderUpdate) SetAuthStyle(u uint64) *OauthProviderUpdate {
 	opu.mutation.ResetAuthStyle()
 	opu.mutation.SetAuthStyle(u)
+	return opu
+}
+
+// SetNillableAuthStyle sets the "auth_style" field if the given value is not nil.
+func (opu *OauthProviderUpdate) SetNillableAuthStyle(u *uint64) *OauthProviderUpdate {
+	if u != nil {
+		opu.SetAuthStyle(*u)
+	}
 	return opu
 }
 
@@ -92,6 +156,14 @@ func (opu *OauthProviderUpdate) AddAuthStyle(u int64) *OauthProviderUpdate {
 // SetInfoURL sets the "info_url" field.
 func (opu *OauthProviderUpdate) SetInfoURL(s string) *OauthProviderUpdate {
 	opu.mutation.SetInfoURL(s)
+	return opu
+}
+
+// SetNillableInfoURL sets the "info_url" field if the given value is not nil.
+func (opu *OauthProviderUpdate) SetNillableInfoURL(s *string) *OauthProviderUpdate {
+	if s != nil {
+		opu.SetInfoURL(*s)
+	}
 	return opu
 }
 
@@ -210,9 +282,25 @@ func (opuo *OauthProviderUpdateOne) SetName(s string) *OauthProviderUpdateOne {
 	return opuo
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (opuo *OauthProviderUpdateOne) SetNillableName(s *string) *OauthProviderUpdateOne {
+	if s != nil {
+		opuo.SetName(*s)
+	}
+	return opuo
+}
+
 // SetClientID sets the "client_id" field.
 func (opuo *OauthProviderUpdateOne) SetClientID(s string) *OauthProviderUpdateOne {
 	opuo.mutation.SetClientID(s)
+	return opuo
+}
+
+// SetNillableClientID sets the "client_id" field if the given value is not nil.
+func (opuo *OauthProviderUpdateOne) SetNillableClientID(s *string) *OauthProviderUpdateOne {
+	if s != nil {
+		opuo.SetClientID(*s)
+	}
 	return opuo
 }
 
@@ -222,9 +310,25 @@ func (opuo *OauthProviderUpdateOne) SetClientSecret(s string) *OauthProviderUpda
 	return opuo
 }
 
+// SetNillableClientSecret sets the "client_secret" field if the given value is not nil.
+func (opuo *OauthProviderUpdateOne) SetNillableClientSecret(s *string) *OauthProviderUpdateOne {
+	if s != nil {
+		opuo.SetClientSecret(*s)
+	}
+	return opuo
+}
+
 // SetRedirectURL sets the "redirect_url" field.
 func (opuo *OauthProviderUpdateOne) SetRedirectURL(s string) *OauthProviderUpdateOne {
 	opuo.mutation.SetRedirectURL(s)
+	return opuo
+}
+
+// SetNillableRedirectURL sets the "redirect_url" field if the given value is not nil.
+func (opuo *OauthProviderUpdateOne) SetNillableRedirectURL(s *string) *OauthProviderUpdateOne {
+	if s != nil {
+		opuo.SetRedirectURL(*s)
+	}
 	return opuo
 }
 
@@ -234,9 +338,25 @@ func (opuo *OauthProviderUpdateOne) SetScopes(s string) *OauthProviderUpdateOne 
 	return opuo
 }
 
+// SetNillableScopes sets the "scopes" field if the given value is not nil.
+func (opuo *OauthProviderUpdateOne) SetNillableScopes(s *string) *OauthProviderUpdateOne {
+	if s != nil {
+		opuo.SetScopes(*s)
+	}
+	return opuo
+}
+
 // SetAuthURL sets the "auth_url" field.
 func (opuo *OauthProviderUpdateOne) SetAuthURL(s string) *OauthProviderUpdateOne {
 	opuo.mutation.SetAuthURL(s)
+	return opuo
+}
+
+// SetNillableAuthURL sets the "auth_url" field if the given value is not nil.
+func (opuo *OauthProviderUpdateOne) SetNillableAuthURL(s *string) *OauthProviderUpdateOne {
+	if s != nil {
+		opuo.SetAuthURL(*s)
+	}
 	return opuo
 }
 
@@ -246,10 +366,26 @@ func (opuo *OauthProviderUpdateOne) SetTokenURL(s string) *OauthProviderUpdateOn
 	return opuo
 }
 
+// SetNillableTokenURL sets the "token_url" field if the given value is not nil.
+func (opuo *OauthProviderUpdateOne) SetNillableTokenURL(s *string) *OauthProviderUpdateOne {
+	if s != nil {
+		opuo.SetTokenURL(*s)
+	}
+	return opuo
+}
+
 // SetAuthStyle sets the "auth_style" field.
 func (opuo *OauthProviderUpdateOne) SetAuthStyle(u uint64) *OauthProviderUpdateOne {
 	opuo.mutation.ResetAuthStyle()
 	opuo.mutation.SetAuthStyle(u)
+	return opuo
+}
+
+// SetNillableAuthStyle sets the "auth_style" field if the given value is not nil.
+func (opuo *OauthProviderUpdateOne) SetNillableAuthStyle(u *uint64) *OauthProviderUpdateOne {
+	if u != nil {
+		opuo.SetAuthStyle(*u)
+	}
 	return opuo
 }
 
@@ -262,6 +398,14 @@ func (opuo *OauthProviderUpdateOne) AddAuthStyle(u int64) *OauthProviderUpdateOn
 // SetInfoURL sets the "info_url" field.
 func (opuo *OauthProviderUpdateOne) SetInfoURL(s string) *OauthProviderUpdateOne {
 	opuo.mutation.SetInfoURL(s)
+	return opuo
+}
+
+// SetNillableInfoURL sets the "info_url" field if the given value is not nil.
+func (opuo *OauthProviderUpdateOne) SetNillableInfoURL(s *string) *OauthProviderUpdateOne {
+	if s != nil {
+		opuo.SetInfoURL(*s)
+	}
 	return opuo
 }
 

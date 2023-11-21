@@ -68,9 +68,25 @@ func (tu *TokenUpdate) SetUUID(u uuid.UUID) *TokenUpdate {
 	return tu
 }
 
+// SetNillableUUID sets the "uuid" field if the given value is not nil.
+func (tu *TokenUpdate) SetNillableUUID(u *uuid.UUID) *TokenUpdate {
+	if u != nil {
+		tu.SetUUID(*u)
+	}
+	return tu
+}
+
 // SetToken sets the "token" field.
 func (tu *TokenUpdate) SetToken(s string) *TokenUpdate {
 	tu.mutation.SetToken(s)
+	return tu
+}
+
+// SetNillableToken sets the "token" field if the given value is not nil.
+func (tu *TokenUpdate) SetNillableToken(s *string) *TokenUpdate {
+	if s != nil {
+		tu.SetToken(*s)
+	}
 	return tu
 }
 
@@ -80,9 +96,25 @@ func (tu *TokenUpdate) SetSource(s string) *TokenUpdate {
 	return tu
 }
 
+// SetNillableSource sets the "source" field if the given value is not nil.
+func (tu *TokenUpdate) SetNillableSource(s *string) *TokenUpdate {
+	if s != nil {
+		tu.SetSource(*s)
+	}
+	return tu
+}
+
 // SetExpiredAt sets the "expired_at" field.
 func (tu *TokenUpdate) SetExpiredAt(t time.Time) *TokenUpdate {
 	tu.mutation.SetExpiredAt(t)
+	return tu
+}
+
+// SetNillableExpiredAt sets the "expired_at" field if the given value is not nil.
+func (tu *TokenUpdate) SetNillableExpiredAt(t *time.Time) *TokenUpdate {
+	if t != nil {
+		tu.SetExpiredAt(*t)
+	}
 	return tu
 }
 
@@ -219,9 +251,25 @@ func (tuo *TokenUpdateOne) SetUUID(u uuid.UUID) *TokenUpdateOne {
 	return tuo
 }
 
+// SetNillableUUID sets the "uuid" field if the given value is not nil.
+func (tuo *TokenUpdateOne) SetNillableUUID(u *uuid.UUID) *TokenUpdateOne {
+	if u != nil {
+		tuo.SetUUID(*u)
+	}
+	return tuo
+}
+
 // SetToken sets the "token" field.
 func (tuo *TokenUpdateOne) SetToken(s string) *TokenUpdateOne {
 	tuo.mutation.SetToken(s)
+	return tuo
+}
+
+// SetNillableToken sets the "token" field if the given value is not nil.
+func (tuo *TokenUpdateOne) SetNillableToken(s *string) *TokenUpdateOne {
+	if s != nil {
+		tuo.SetToken(*s)
+	}
 	return tuo
 }
 
@@ -231,9 +279,25 @@ func (tuo *TokenUpdateOne) SetSource(s string) *TokenUpdateOne {
 	return tuo
 }
 
+// SetNillableSource sets the "source" field if the given value is not nil.
+func (tuo *TokenUpdateOne) SetNillableSource(s *string) *TokenUpdateOne {
+	if s != nil {
+		tuo.SetSource(*s)
+	}
+	return tuo
+}
+
 // SetExpiredAt sets the "expired_at" field.
 func (tuo *TokenUpdateOne) SetExpiredAt(t time.Time) *TokenUpdateOne {
 	tuo.mutation.SetExpiredAt(t)
+	return tuo
+}
+
+// SetNillableExpiredAt sets the "expired_at" field if the given value is not nil.
+func (tuo *TokenUpdateOne) SetNillableExpiredAt(t *time.Time) *TokenUpdateOne {
+	if t != nil {
+		tuo.SetExpiredAt(*t)
+	}
 	return tuo
 }
 

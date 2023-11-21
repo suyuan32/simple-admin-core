@@ -36,7 +36,7 @@
 		"dictionary": "字典管理",
 		"api": "接口管理",
 		"authority": "授权管理",
-		"captcha": "验证代码",
+		"captcha": "验证码",
 		"menu": "菜单管理",
 		"role": "角色管理",
 		"user": "用户管理",
