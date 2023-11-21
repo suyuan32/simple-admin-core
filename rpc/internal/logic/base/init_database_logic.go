@@ -2,7 +2,6 @@ package base
 
 import (
 	"context"
-	"fmt"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 
 	"entgo.io/ent/dialect/sql/schema"
@@ -197,26 +196,9 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 	if err != nil {
 		logx.Errorw(err.Error())
 		return errorx.NewInternalError(err.Error())
-	} else {
-		_, err = l.svcCtx.Redis.Del("roleData")
-		if err != nil {
-			logx.Errorw(err.Error())
-			return errorx.NewInternalError(err.Error())
-		}
-
-		_ = l.svcCtx.Redis.Hset("roleData", "001", "role.admin")
-		_ = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%s_status", "001"), "1")
-
-		_ = l.svcCtx.Redis.Hset("roleData", "002", "role.stuff")
-		_ = l.svcCtx.Redis.Hset("roleData", fmt.Sprintf("%s_status", "002"), "1")
-
-		if err != nil {
-			logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
-			return errorx.NewCodeInternalError(i18n.RedisError)
-		}
-
-		return nil
 	}
+
+	return nil
 }
 
 // insert admin menu authority

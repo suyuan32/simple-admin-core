@@ -68,9 +68,25 @@ func (du *DictionaryUpdate) SetTitle(s string) *DictionaryUpdate {
 	return du
 }
 
+// SetNillableTitle sets the "title" field if the given value is not nil.
+func (du *DictionaryUpdate) SetNillableTitle(s *string) *DictionaryUpdate {
+	if s != nil {
+		du.SetTitle(*s)
+	}
+	return du
+}
+
 // SetName sets the "name" field.
 func (du *DictionaryUpdate) SetName(s string) *DictionaryUpdate {
 	du.mutation.SetName(s)
+	return du
+}
+
+// SetNillableName sets the "name" field if the given value is not nil.
+func (du *DictionaryUpdate) SetNillableName(s *string) *DictionaryUpdate {
+	if s != nil {
+		du.SetName(*s)
+	}
 	return du
 }
 
@@ -308,9 +324,25 @@ func (duo *DictionaryUpdateOne) SetTitle(s string) *DictionaryUpdateOne {
 	return duo
 }
 
+// SetNillableTitle sets the "title" field if the given value is not nil.
+func (duo *DictionaryUpdateOne) SetNillableTitle(s *string) *DictionaryUpdateOne {
+	if s != nil {
+		duo.SetTitle(*s)
+	}
+	return duo
+}
+
 // SetName sets the "name" field.
 func (duo *DictionaryUpdateOne) SetName(s string) *DictionaryUpdateOne {
 	duo.mutation.SetName(s)
+	return duo
+}
+
+// SetNillableName sets the "name" field if the given value is not nil.
+func (duo *DictionaryUpdateOne) SetNillableName(s *string) *DictionaryUpdateOne {
+	if s != nil {
+		duo.SetName(*s)
+	}
 	return duo
 }
 

@@ -89,15 +89,39 @@ func (ddu *DictionaryDetailUpdate) SetTitle(s string) *DictionaryDetailUpdate {
 	return ddu
 }
 
+// SetNillableTitle sets the "title" field if the given value is not nil.
+func (ddu *DictionaryDetailUpdate) SetNillableTitle(s *string) *DictionaryDetailUpdate {
+	if s != nil {
+		ddu.SetTitle(*s)
+	}
+	return ddu
+}
+
 // SetKey sets the "key" field.
 func (ddu *DictionaryDetailUpdate) SetKey(s string) *DictionaryDetailUpdate {
 	ddu.mutation.SetKey(s)
 	return ddu
 }
 
+// SetNillableKey sets the "key" field if the given value is not nil.
+func (ddu *DictionaryDetailUpdate) SetNillableKey(s *string) *DictionaryDetailUpdate {
+	if s != nil {
+		ddu.SetKey(*s)
+	}
+	return ddu
+}
+
 // SetValue sets the "value" field.
 func (ddu *DictionaryDetailUpdate) SetValue(s string) *DictionaryDetailUpdate {
 	ddu.mutation.SetValue(s)
+	return ddu
+}
+
+// SetNillableValue sets the "value" field if the given value is not nil.
+func (ddu *DictionaryDetailUpdate) SetNillableValue(s *string) *DictionaryDetailUpdate {
+	if s != nil {
+		ddu.SetValue(*s)
+	}
 	return ddu
 }
 
@@ -332,15 +356,39 @@ func (dduo *DictionaryDetailUpdateOne) SetTitle(s string) *DictionaryDetailUpdat
 	return dduo
 }
 
+// SetNillableTitle sets the "title" field if the given value is not nil.
+func (dduo *DictionaryDetailUpdateOne) SetNillableTitle(s *string) *DictionaryDetailUpdateOne {
+	if s != nil {
+		dduo.SetTitle(*s)
+	}
+	return dduo
+}
+
 // SetKey sets the "key" field.
 func (dduo *DictionaryDetailUpdateOne) SetKey(s string) *DictionaryDetailUpdateOne {
 	dduo.mutation.SetKey(s)
 	return dduo
 }
 
+// SetNillableKey sets the "key" field if the given value is not nil.
+func (dduo *DictionaryDetailUpdateOne) SetNillableKey(s *string) *DictionaryDetailUpdateOne {
+	if s != nil {
+		dduo.SetKey(*s)
+	}
+	return dduo
+}
+
 // SetValue sets the "value" field.
 func (dduo *DictionaryDetailUpdateOne) SetValue(s string) *DictionaryDetailUpdateOne {
 	dduo.mutation.SetValue(s)
+	return dduo
+}
+
+// SetNillableValue sets the "value" field if the given value is not nil.
+func (dduo *DictionaryDetailUpdateOne) SetNillableValue(s *string) *DictionaryDetailUpdateOne {
+	if s != nil {
+		dduo.SetValue(*s)
+	}
 	return dduo
 }
 

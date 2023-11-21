@@ -40,15 +40,39 @@ func (au *APIUpdate) SetPath(s string) *APIUpdate {
 	return au
 }
 
+// SetNillablePath sets the "path" field if the given value is not nil.
+func (au *APIUpdate) SetNillablePath(s *string) *APIUpdate {
+	if s != nil {
+		au.SetPath(*s)
+	}
+	return au
+}
+
 // SetDescription sets the "description" field.
 func (au *APIUpdate) SetDescription(s string) *APIUpdate {
 	au.mutation.SetDescription(s)
 	return au
 }
 
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (au *APIUpdate) SetNillableDescription(s *string) *APIUpdate {
+	if s != nil {
+		au.SetDescription(*s)
+	}
+	return au
+}
+
 // SetAPIGroup sets the "api_group" field.
 func (au *APIUpdate) SetAPIGroup(s string) *APIUpdate {
 	au.mutation.SetAPIGroup(s)
+	return au
+}
+
+// SetNillableAPIGroup sets the "api_group" field if the given value is not nil.
+func (au *APIUpdate) SetNillableAPIGroup(s *string) *APIUpdate {
+	if s != nil {
+		au.SetAPIGroup(*s)
+	}
 	return au
 }
 
@@ -180,15 +204,39 @@ func (auo *APIUpdateOne) SetPath(s string) *APIUpdateOne {
 	return auo
 }
 
+// SetNillablePath sets the "path" field if the given value is not nil.
+func (auo *APIUpdateOne) SetNillablePath(s *string) *APIUpdateOne {
+	if s != nil {
+		auo.SetPath(*s)
+	}
+	return auo
+}
+
 // SetDescription sets the "description" field.
 func (auo *APIUpdateOne) SetDescription(s string) *APIUpdateOne {
 	auo.mutation.SetDescription(s)
 	return auo
 }
 
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (auo *APIUpdateOne) SetNillableDescription(s *string) *APIUpdateOne {
+	if s != nil {
+		auo.SetDescription(*s)
+	}
+	return auo
+}
+
 // SetAPIGroup sets the "api_group" field.
 func (auo *APIUpdateOne) SetAPIGroup(s string) *APIUpdateOne {
 	auo.mutation.SetAPIGroup(s)
+	return auo
+}
+
+// SetNillableAPIGroup sets the "api_group" field if the given value is not nil.
+func (auo *APIUpdateOne) SetNillableAPIGroup(s *string) *APIUpdateOne {
+	if s != nil {
+		auo.SetAPIGroup(*s)
+	}
 	return auo
 }
 

@@ -70,9 +70,25 @@ func (ru *RoleUpdate) SetName(s string) *RoleUpdate {
 	return ru
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (ru *RoleUpdate) SetNillableName(s *string) *RoleUpdate {
+	if s != nil {
+		ru.SetName(*s)
+	}
+	return ru
+}
+
 // SetCode sets the "code" field.
 func (ru *RoleUpdate) SetCode(s string) *RoleUpdate {
 	ru.mutation.SetCode(s)
+	return ru
+}
+
+// SetNillableCode sets the "code" field if the given value is not nil.
+func (ru *RoleUpdate) SetNillableCode(s *string) *RoleUpdate {
+	if s != nil {
+		ru.SetCode(*s)
+	}
 	return ru
 }
 
@@ -426,9 +442,25 @@ func (ruo *RoleUpdateOne) SetName(s string) *RoleUpdateOne {
 	return ruo
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (ruo *RoleUpdateOne) SetNillableName(s *string) *RoleUpdateOne {
+	if s != nil {
+		ruo.SetName(*s)
+	}
+	return ruo
+}
+
 // SetCode sets the "code" field.
 func (ruo *RoleUpdateOne) SetCode(s string) *RoleUpdateOne {
 	ruo.mutation.SetCode(s)
+	return ruo
+}
+
+// SetNillableCode sets the "code" field if the given value is not nil.
+func (ruo *RoleUpdateOne) SetNillableCode(s *string) *RoleUpdateOne {
+	if s != nil {
+		ruo.SetCode(*s)
+	}
 	return ruo
 }
 
