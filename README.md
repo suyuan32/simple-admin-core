@@ -7,9 +7,9 @@
 ---
 [![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.6.0-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.10.1-yellow.svg)](https://vvbin.cn/doc-next/)
-[![Ent](https://img.shields.io/badge/Ent-v0.12.4-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.76.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.2.0-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Ent](https://img.shields.io/badge/Ent-v0.12.5-blue.svg)](https://entgo.io/)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.77.2-orange.svg)](https://github.com/casbin/casbin)
+[![Release](https://img.shields.io/badge/Release-v1.2.3-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
@@ -19,8 +19,6 @@
 
 Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基于go-zero开发，为开发中大型后台提供了丰富的功能，支持三端代码生成。
 官方自带多种扩展，助力中小企业快速上云，快速迭代。适合用于微服务学习和商用，开源免费。
-
-## 注意文档域名已更换为 `doc.ryansu.tech`
 
 ## [Goctls](https://github.com/suyuan32/goctls)
 
