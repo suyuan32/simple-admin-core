@@ -74,7 +74,7 @@ gen-api: # Generate API files | 生成 API 的代码
 
 .PHONY: gen-rpc
 gen-rpc: # Generate RPC files from proto | 生成 RPC 的代码
-	goctls rpc protoc ./rpc/$(SERVICE_STYLE).proto --style=$(PROJECT_STYLE) --go_out=./rpc/types --go-grpc_out=./rpc/types --zrpc_out=./rpc --style=$(PROJECT_STYLE)
+	goctls rpc protoc ./rpc/$(SERVICE_STYLE).proto --style=$(PROJECT_STYLE) --go_out=./rpc/types --go-grpc_out=./rpc/types --zrpc_out=./rpc --style=$(PROJECT_STYLE)  --multiple=true
 	@echo "Generate RPC files successfully"
 
 .PHONY: gen-ent

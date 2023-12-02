@@ -83,130 +83,130 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CoreClient interface {
-	// API management
-	// group: api
+	//  API management
+	//  group: api
 	CreateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
-	// group: api
+	//  group: api
 	UpdateApi(ctx context.Context, in *ApiInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: api
+	//  group: api
 	GetApiList(ctx context.Context, in *ApiListReq, opts ...grpc.CallOption) (*ApiListResp, error)
-	// group: api
+	//  group: api
 	GetApiById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ApiInfo, error)
-	// group: api
+	//  group: api
 	DeleteApi(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: authority
+	//  group: authority
 	GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
-	// group: authority
+	//  group: authority
 	CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: base
+	//  group: base
 	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
-	// Department management
-	// group: department
+	//  Department management
+	//  group: department
 	CreateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
-	// group: department
+	//  group: department
 	UpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: department
+	//  group: department
 	GetDepartmentList(ctx context.Context, in *DepartmentListReq, opts ...grpc.CallOption) (*DepartmentListResp, error)
-	// group: department
+	//  group: department
 	GetDepartmentById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DepartmentInfo, error)
-	// group: department
+	//  group: department
 	DeleteDepartment(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// Dictionary management
-	// group: dictionary
+	//  Dictionary management
+	//  group: dictionary
 	CreateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
-	// group: dictionary
+	//  group: dictionary
 	UpdateDictionary(ctx context.Context, in *DictionaryInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: dictionary
+	//  group: dictionary
 	GetDictionaryList(ctx context.Context, in *DictionaryListReq, opts ...grpc.CallOption) (*DictionaryListResp, error)
-	// group: dictionary
+	//  group: dictionary
 	GetDictionaryById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryInfo, error)
-	// group: dictionary
+	//  group: dictionary
 	DeleteDictionary(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// DictionaryDetail management
-	// group: dictionarydetail
+	//  DictionaryDetail management
+	//  group: dictionarydetail
 	CreateDictionaryDetail(ctx context.Context, in *DictionaryDetailInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
-	// group: dictionarydetail
+	//  group: dictionarydetail
 	UpdateDictionaryDetail(ctx context.Context, in *DictionaryDetailInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: dictionarydetail
+	//  group: dictionarydetail
 	GetDictionaryDetailList(ctx context.Context, in *DictionaryDetailListReq, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
-	// group: dictionarydetail
+	//  group: dictionarydetail
 	GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error)
-	// group: dictionarydetail
+	//  group: dictionarydetail
 	DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: dictionarydetail
+	//  group: dictionarydetail
 	GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
-	// group: menu
+	//  group: menu
 	CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
-	// group: menu
+	//  group: menu
 	UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: menu
+	//  group: menu
 	DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: menu
+	//  group: menu
 	GetMenuListByRole(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*MenuInfoList, error)
-	// group: menu
+	//  group: menu
 	GetMenuList(ctx context.Context, in *PageInfoReq, opts ...grpc.CallOption) (*MenuInfoList, error)
-	// OauthProvider management
-	// group: oauthprovider
+	//  OauthProvider management
+	//  group: oauthprovider
 	CreateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
-	// group: oauthprovider
+	//  group: oauthprovider
 	UpdateOauthProvider(ctx context.Context, in *OauthProviderInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: oauthprovider
+	//  group: oauthprovider
 	GetOauthProviderList(ctx context.Context, in *OauthProviderListReq, opts ...grpc.CallOption) (*OauthProviderListResp, error)
-	// group: oauthprovider
+	//  group: oauthprovider
 	GetOauthProviderById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*OauthProviderInfo, error)
-	// group: oauthprovider
+	//  group: oauthprovider
 	DeleteOauthProvider(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: oauthprovider
+	//  group: oauthprovider
 	OauthLogin(ctx context.Context, in *OauthLoginReq, opts ...grpc.CallOption) (*OauthRedirectResp, error)
-	// group: oauthprovider
+	//  group: oauthprovider
 	OauthCallback(ctx context.Context, in *CallbackReq, opts ...grpc.CallOption) (*UserInfo, error)
-	// Position management
-	// group: position
+	//  Position management
+	//  group: position
 	CreatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
-	// group: position
+	//  group: position
 	UpdatePosition(ctx context.Context, in *PositionInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: position
+	//  group: position
 	GetPositionList(ctx context.Context, in *PositionListReq, opts ...grpc.CallOption) (*PositionListResp, error)
-	// group: position
+	//  group: position
 	GetPositionById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*PositionInfo, error)
-	// group: position
+	//  group: position
 	DeletePosition(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// Role management
-	// group: role
+	//  Role management
+	//  group: role
 	CreateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
-	// group: role
+	//  group: role
 	UpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: role
+	//  group: role
 	GetRoleList(ctx context.Context, in *RoleListReq, opts ...grpc.CallOption) (*RoleListResp, error)
-	// group: role
+	//  group: role
 	GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
-	// group: role
+	//  group: role
 	DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// Token management
-	// group: token
+	//  Token management
+	//  group: token
 	CreateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
-	// group: token
+	//  group: token
 	DeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: token
+	//  group: token
 	GetTokenList(ctx context.Context, in *TokenListReq, opts ...grpc.CallOption) (*TokenListResp, error)
-	// group: token
+	//  group: token
 	GetTokenById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*TokenInfo, error)
-	// group: token
+	//  group: token
 	BlockUserAllToken(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: token
+	//  group: token
 	UpdateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// User management
-	// group: user
+	//  User management
+	//  group: user
 	CreateUser(ctx context.Context, in *UserInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
-	// group: user
+	//  group: user
 	UpdateUser(ctx context.Context, in *UserInfo, opts ...grpc.CallOption) (*BaseResp, error)
-	// group: user
+	//  group: user
 	GetUserList(ctx context.Context, in *UserListReq, opts ...grpc.CallOption) (*UserListResp, error)
-	// group: user
+	//  group: user
 	GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfo, error)
-	// group: user
+	//  group: user
 	GetUserByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*UserInfo, error)
-	// group: user
+	//  group: user
 	DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 }
 
@@ -744,130 +744,130 @@ func (c *coreClient) DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.
 // All implementations must embed UnimplementedCoreServer
 // for forward compatibility
 type CoreServer interface {
-	// API management
-	// group: api
+	//  API management
+	//  group: api
 	CreateApi(context.Context, *ApiInfo) (*BaseIDResp, error)
-	// group: api
+	//  group: api
 	UpdateApi(context.Context, *ApiInfo) (*BaseResp, error)
-	// group: api
+	//  group: api
 	GetApiList(context.Context, *ApiListReq) (*ApiListResp, error)
-	// group: api
+	//  group: api
 	GetApiById(context.Context, *IDReq) (*ApiInfo, error)
-	// group: api
+	//  group: api
 	DeleteApi(context.Context, *IDsReq) (*BaseResp, error)
-	// group: authority
+	//  group: authority
 	GetMenuAuthority(context.Context, *IDReq) (*RoleMenuAuthorityResp, error)
-	// group: authority
+	//  group: authority
 	CreateOrUpdateMenuAuthority(context.Context, *RoleMenuAuthorityReq) (*BaseResp, error)
-	// group: base
+	//  group: base
 	InitDatabase(context.Context, *Empty) (*BaseResp, error)
-	// Department management
-	// group: department
+	//  Department management
+	//  group: department
 	CreateDepartment(context.Context, *DepartmentInfo) (*BaseIDResp, error)
-	// group: department
+	//  group: department
 	UpdateDepartment(context.Context, *DepartmentInfo) (*BaseResp, error)
-	// group: department
+	//  group: department
 	GetDepartmentList(context.Context, *DepartmentListReq) (*DepartmentListResp, error)
-	// group: department
+	//  group: department
 	GetDepartmentById(context.Context, *IDReq) (*DepartmentInfo, error)
-	// group: department
+	//  group: department
 	DeleteDepartment(context.Context, *IDsReq) (*BaseResp, error)
-	// Dictionary management
-	// group: dictionary
+	//  Dictionary management
+	//  group: dictionary
 	CreateDictionary(context.Context, *DictionaryInfo) (*BaseIDResp, error)
-	// group: dictionary
+	//  group: dictionary
 	UpdateDictionary(context.Context, *DictionaryInfo) (*BaseResp, error)
-	// group: dictionary
+	//  group: dictionary
 	GetDictionaryList(context.Context, *DictionaryListReq) (*DictionaryListResp, error)
-	// group: dictionary
+	//  group: dictionary
 	GetDictionaryById(context.Context, *IDReq) (*DictionaryInfo, error)
-	// group: dictionary
+	//  group: dictionary
 	DeleteDictionary(context.Context, *IDsReq) (*BaseResp, error)
-	// DictionaryDetail management
-	// group: dictionarydetail
+	//  DictionaryDetail management
+	//  group: dictionarydetail
 	CreateDictionaryDetail(context.Context, *DictionaryDetailInfo) (*BaseIDResp, error)
-	// group: dictionarydetail
+	//  group: dictionarydetail
 	UpdateDictionaryDetail(context.Context, *DictionaryDetailInfo) (*BaseResp, error)
-	// group: dictionarydetail
+	//  group: dictionarydetail
 	GetDictionaryDetailList(context.Context, *DictionaryDetailListReq) (*DictionaryDetailListResp, error)
-	// group: dictionarydetail
+	//  group: dictionarydetail
 	GetDictionaryDetailById(context.Context, *IDReq) (*DictionaryDetailInfo, error)
-	// group: dictionarydetail
+	//  group: dictionarydetail
 	DeleteDictionaryDetail(context.Context, *IDsReq) (*BaseResp, error)
-	// group: dictionarydetail
+	//  group: dictionarydetail
 	GetDictionaryDetailByDictionaryName(context.Context, *BaseMsg) (*DictionaryDetailListResp, error)
-	// group: menu
+	//  group: menu
 	CreateMenu(context.Context, *MenuInfo) (*BaseIDResp, error)
-	// group: menu
+	//  group: menu
 	UpdateMenu(context.Context, *MenuInfo) (*BaseResp, error)
-	// group: menu
+	//  group: menu
 	DeleteMenu(context.Context, *IDReq) (*BaseResp, error)
-	// group: menu
+	//  group: menu
 	GetMenuListByRole(context.Context, *BaseMsg) (*MenuInfoList, error)
-	// group: menu
+	//  group: menu
 	GetMenuList(context.Context, *PageInfoReq) (*MenuInfoList, error)
-	// OauthProvider management
-	// group: oauthprovider
+	//  OauthProvider management
+	//  group: oauthprovider
 	CreateOauthProvider(context.Context, *OauthProviderInfo) (*BaseIDResp, error)
-	// group: oauthprovider
+	//  group: oauthprovider
 	UpdateOauthProvider(context.Context, *OauthProviderInfo) (*BaseResp, error)
-	// group: oauthprovider
+	//  group: oauthprovider
 	GetOauthProviderList(context.Context, *OauthProviderListReq) (*OauthProviderListResp, error)
-	// group: oauthprovider
+	//  group: oauthprovider
 	GetOauthProviderById(context.Context, *IDReq) (*OauthProviderInfo, error)
-	// group: oauthprovider
+	//  group: oauthprovider
 	DeleteOauthProvider(context.Context, *IDsReq) (*BaseResp, error)
-	// group: oauthprovider
+	//  group: oauthprovider
 	OauthLogin(context.Context, *OauthLoginReq) (*OauthRedirectResp, error)
-	// group: oauthprovider
+	//  group: oauthprovider
 	OauthCallback(context.Context, *CallbackReq) (*UserInfo, error)
-	// Position management
-	// group: position
+	//  Position management
+	//  group: position
 	CreatePosition(context.Context, *PositionInfo) (*BaseIDResp, error)
-	// group: position
+	//  group: position
 	UpdatePosition(context.Context, *PositionInfo) (*BaseResp, error)
-	// group: position
+	//  group: position
 	GetPositionList(context.Context, *PositionListReq) (*PositionListResp, error)
-	// group: position
+	//  group: position
 	GetPositionById(context.Context, *IDReq) (*PositionInfo, error)
-	// group: position
+	//  group: position
 	DeletePosition(context.Context, *IDsReq) (*BaseResp, error)
-	// Role management
-	// group: role
+	//  Role management
+	//  group: role
 	CreateRole(context.Context, *RoleInfo) (*BaseIDResp, error)
-	// group: role
+	//  group: role
 	UpdateRole(context.Context, *RoleInfo) (*BaseResp, error)
-	// group: role
+	//  group: role
 	GetRoleList(context.Context, *RoleListReq) (*RoleListResp, error)
-	// group: role
+	//  group: role
 	GetRoleById(context.Context, *IDReq) (*RoleInfo, error)
-	// group: role
+	//  group: role
 	DeleteRole(context.Context, *IDsReq) (*BaseResp, error)
-	// Token management
-	// group: token
+	//  Token management
+	//  group: token
 	CreateToken(context.Context, *TokenInfo) (*BaseUUIDResp, error)
-	// group: token
+	//  group: token
 	DeleteToken(context.Context, *UUIDsReq) (*BaseResp, error)
-	// group: token
+	//  group: token
 	GetTokenList(context.Context, *TokenListReq) (*TokenListResp, error)
-	// group: token
+	//  group: token
 	GetTokenById(context.Context, *UUIDReq) (*TokenInfo, error)
-	// group: token
+	//  group: token
 	BlockUserAllToken(context.Context, *UUIDReq) (*BaseResp, error)
-	// group: token
+	//  group: token
 	UpdateToken(context.Context, *TokenInfo) (*BaseResp, error)
-	// User management
-	// group: user
+	//  User management
+	//  group: user
 	CreateUser(context.Context, *UserInfo) (*BaseUUIDResp, error)
-	// group: user
+	//  group: user
 	UpdateUser(context.Context, *UserInfo) (*BaseResp, error)
-	// group: user
+	//  group: user
 	GetUserList(context.Context, *UserListReq) (*UserListResp, error)
-	// group: user
+	//  group: user
 	GetUserById(context.Context, *UUIDReq) (*UserInfo, error)
-	// group: user
+	//  group: user
 	GetUserByUsername(context.Context, *UsernameReq) (*UserInfo, error)
-	// group: user
+	//  group: user
 	DeleteUser(context.Context, *UUIDsReq) (*BaseResp, error)
 	mustEmbedUnimplementedCoreServer()
 }

@@ -8,7 +8,7 @@ import (
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/suyuan32/simple-admin-common/utils/uuidx"
 
-	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/core/token"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/entx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/ent"

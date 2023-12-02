@@ -21,7 +21,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 
-	user2 "github.com/suyuan32/simple-admin-core/rpc/internal/logic/user"
+	user2 "github.com/suyuan32/simple-admin-core/rpc/internal/logic/core/user"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
