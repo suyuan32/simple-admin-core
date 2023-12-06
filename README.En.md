@@ -44,19 +44,17 @@ fully supports ent, and easily realizes three-terminal code generation, making d
 - **Multiple extensions**: Provides a variety of extensions and has a very simple access function
 - **Other** builtin concurrency control, adaptive circuit breaker, adaptive load shedding, auto-trigger, auto recover
 
-## Support functions
+## Supported functions
 
-- User management: The user is the system operator, and this function mainly completes the system user configuration.
-- Department management: Configure the system organization (company, department, group), and the tree structure shows the support data permissions.
-- Position management: configure the positions that system users belong to.
-- Menu management: configure system menu, operation authority, button authority identification, interface authority, etc.
-- Role management: role menu permission assignment, role setting, data range permission division by organization.
-- Dictionary management: maintain some relatively fixed data frequently used in the system.
-- Operation log: system normal operation log record and query; system abnormal information log record and query.
-- Member management: manage registered member information
-- Interface documents: Automatically generate relevant API interface documents based on business codes.
-- Code generation: Generate corresponding additions, deletions, modifications, and queries based on the data table structure
-- Service monitoring: View some basic information about servers
+- User management: manage system user data
+- Department management: manage the department to which you belong
+- Post management: configure the positions held by system users
+- Menu management: configure system menus, tree display
+- Role management: manage role permissions, support multiple roles
+- Dictionary management: maintain data dictionary, convenient for front-end use
+- Interface document: automatically generate related api interface documents according to business code
+- Code generation: automatically generate CRUD code, quickly generate custom logic
+- Token management: manage token status, support blacklisting token
 
 ## Project Planning Progress
 
