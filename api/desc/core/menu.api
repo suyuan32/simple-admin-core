@@ -128,7 +128,7 @@ type (
         Path *string `json:"path,optional" validate:"omitempty,max=200"`
 
         // Menu name | 菜单名称
-        Name *string `json:"name,optional" validate:"omitempty,max=50"`
+        Name *string `json:"name,optional" validate:"omitempty,max=100"`
 
         // Redirect | 跳转地址
         Redirect *string `json:"redirect,optional" validate:"omitempty,max=300"`
