@@ -594,8 +594,8 @@ type MenuPlainInfo struct {
 	// max length : 200
 	Path *string `json:"path,optional" validate:"omitempty,max=200"`
 	// Menu name | 菜单名称
-	// max length : 50
-	Name *string `json:"name,optional" validate:"omitempty,max=50"`
+	// max length : 100
+	Name *string `json:"name,optional" validate:"omitempty,max=100"`
 	// Redirect | 跳转地址
 	// max length : 300
 	Redirect *string `json:"redirect,optional" validate:"omitempty,max=300"`
