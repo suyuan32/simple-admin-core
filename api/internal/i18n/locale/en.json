@@ -19,7 +19,7 @@
 		"notSingularError": "Operation failed: Data not unique",
 		"serviceUnavailable": "Service is unavailable, please check if the service is enabled"
 	},
-	"apiGroup":{
+	"apiGroup": {
 		"cloud_file_tag": "Cloud File's Tag",
 		"cloud_file": "Cloud File",
 		"storage_provider": "Storage Provider",
