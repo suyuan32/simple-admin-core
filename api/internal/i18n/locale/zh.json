@@ -19,7 +19,7 @@
 		"notSingularError": "操作失败: 数据不唯一",
 		"serviceUnavailable": "服务不可用，请检查服务是否已启用"
 	},
-	"apiGroup":{
+	"apiGroup": {
 		"cloud_file_tag": "云文件标签管理",
 		"cloud_file": "云文件管理",
 		"storage_provider": "云存储服务管理",
@@ -197,8 +197,8 @@
 		"createTask": "创建任务",
 		"updateTask": "更新任务",
 		"deleteTask": "删除一个任务",
-        "getTaskList": "获取任务列表",
-      	"getTaskById": "通过ID获取任务信息",
+		"getTaskList": "获取任务列表",
+		"getTaskById": "通过ID获取任务信息",
 		"createTaskLog": "创建任务日志",
 		"updateTaskLog": "更新任务日志",
 		"deleteTaskLog": "删除任务日志",
