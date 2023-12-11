@@ -2,6 +2,7 @@ package publicuser
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/enum/common"
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
@@ -69,7 +70,7 @@ func (l *LoginByEmailLogic) LoginByEmail(req *types.LoginByEmailReq) (resp *type
 			Uuid:      userData.Data[0].Id,
 			Token:     pointy.GetPointer(token),
 			Source:    pointy.GetPointer("core_user"),
-			Status:    pointy.GetPointer(uint32(1)),
+			Status:    pointy.GetPointer(uint32(common.StatusNormal)),
 			ExpiredAt: pointy.GetPointer(expiredAt),
 		})
 
