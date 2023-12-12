@@ -7,7 +7,7 @@ require (
 	github.com/casbin/casbin/v2 v2.79.0
 	github.com/duke-git/lancet/v2 v2.2.7
 	github.com/gofrs/uuid/v5 v5.0.0
-	github.com/mojocn/base64Captcha v1.3.5
+	github.com/mojocn/base64Captcha v1.3.6
 	github.com/suyuan32/simple-admin-common v1.2.4
 	github.com/suyuan32/simple-admin-job v1.2.4
 	github.com/suyuan32/simple-admin-message-center v1.2.4
@@ -110,7 +110,7 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.24.0 // indirect
 	golang.org/x/crypto v0.16.0 // indirect
-	golang.org/x/image v0.10.0 // indirect
+	golang.org/x/image v0.13.0 // indirect
 	golang.org/x/mod v0.12.0 // indirect
 	golang.org/x/net v0.18.0 // indirect
 	golang.org/x/sys v0.15.0 // indirect
