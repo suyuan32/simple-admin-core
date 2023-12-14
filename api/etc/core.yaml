@@ -41,6 +41,7 @@ ProjectConf:
   SmsTemplateId: xxx  # The template id for sms
   SmsAppId: xxx  # the app id for sms
   SmsSignName: xxx  # the signature name of sms
+  SmsParamsType: json # the type of sms param, support json and array
   RegisterVerify: captcha # register captcha type, support captcha, email, sms, sms_or_email
   LoginVerify: captcha # login captcha type, support captcha, email, sms, sms_or_email, all
   ResetVerify: email # reset captcha type, support email, sms, sms_or_email
