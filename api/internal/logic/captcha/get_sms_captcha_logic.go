@@ -2,6 +2,7 @@ package captcha
 
 import (
 	"context"
+	"fmt"
 	"github.com/duke-git/lancet/v2/random"
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-message-center/types/mcms"
@@ -33,9 +34,17 @@ func (l *GetSmsCaptchaLogic) GetSmsCaptcha(req *types.SmsCaptchaReq) (resp *type
 	}
 
 	captcha := random.RandInt(10000, 99999)
+
+	var params []string
+	if l.svcCtx.Config.ProjectConf.SmsParamsType == "json" {
+		params = []string{fmt.Sprintf("{\"code\":%d}", captcha)}
+	} else {
+		params = []string{strconv.Itoa(captcha)}
+	}
+
 	_, err = l.svcCtx.McmsRpc.SendSms(l.ctx, &mcms.SmsInfo{
 		PhoneNumber: []string{req.PhoneNumber},
-		Params:      []string{strconv.Itoa(captcha)},
+		Params:      params,
 		TemplateId:  &l.svcCtx.Config.ProjectConf.SmsTemplateId,
 		AppId:       &l.svcCtx.Config.ProjectConf.SmsAppId,
 		SignName:    &l.svcCtx.Config.ProjectConf.SmsSignName,

@@ -2,6 +2,7 @@ package publicuser
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/enum/common"
 	"strings"
 	"time"
 
@@ -62,7 +63,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			Uuid:      user.Id,
 			Token:     pointy.GetPointer(token),
 			Source:    pointy.GetPointer("core_user"),
-			Status:    pointy.GetPointer(uint32(1)),
+			Status:    pointy.GetPointer(uint32(common.StatusNormal)),
 			ExpiredAt: pointy.GetPointer(expiredAt),
 		})
 

@@ -2,6 +2,7 @@ package token
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/enum/common"
 	"time"
 
 	"github.com/suyuan32/simple-admin-common/msg/logmsg"
@@ -34,14 +35,14 @@ func NewBlockUserAllTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Token.Update().Where(token.UUIDEQ(uuidx.ParseUUIDString(in.Id))).SetStatus(0).Exec(l.ctx)
+	err := l.svcCtx.DB.Token.Update().Where(token.UUIDEQ(uuidx.ParseUUIDString(in.Id))).SetStatus(common.StatusBanned).Exec(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	tokenData, err := l.svcCtx.DB.Token.Query().
 		Where(token.UUIDEQ(uuidx.ParseUUIDString(in.Id))).
-		Where(token.StatusEQ(0)).
+		Where(token.StatusEQ(common.StatusBanned)).
 		Where(token.ExpiredAtGT(time.Now())).
 		All(l.ctx)
 	if err != nil {

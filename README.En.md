@@ -32,6 +32,12 @@ Based on the enhanced version of go zero, it provides a lot of optimizations for
 code generation functions,
 fully supports ent, and easily realizes three-terminal code generation, making development easier.
 
+## [Doge](https://github.com/suyuan32/doge)
+
+Doge is Simple Admin's command line tool for module download and deployment. It provides module source code download,
+module docker, k8s deployment, server maintenance and other functions. Users can upload their own paid modules to earn
+revenue, and now 10+ modules are included.
+
 ## Feature
 
 - **State of The Art Development**：Use latest back-end technology development such as ent, go-zero, casbin
