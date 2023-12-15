@@ -3,7 +3,6 @@ package messagesender
 import (
 	"context"
 	"github.com/suyuan32/simple-admin-common/i18n"
-	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/suyuan32/simple-admin-message-center/types/mcms"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"strings"
@@ -39,7 +38,7 @@ func (l *SendSmsLogic) SendSms(req *types.SendSmsReq) (resp *types.BaseMsgResp, 
 			TemplateId:  &l.svcCtx.Config.ProjectConf.SmsTemplateId,
 			AppId:       &l.svcCtx.Config.ProjectConf.SmsAppId,
 			SignName:    &l.svcCtx.Config.ProjectConf.SmsSignName,
-			Provider:    pointy.GetPointer("tencent"),
+			Provider:    nil,
 		})
 	} else {
 		result, err = l.svcCtx.McmsRpc.SendSms(l.ctx, &mcms.SmsInfo{

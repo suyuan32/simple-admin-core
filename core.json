@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.2.4"
+    "version": "1.2.5"
   },
   "host": "localhost:9100",
   "basePath": "/",
@@ -4826,7 +4826,7 @@
         "name": {
           "description": "Menu name | 菜单名称",
           "type": "string",
-          "maxLength": 50,
+          "maxLength": 100,
           "x-go-name": "Name"
         },
         "parentId": {
