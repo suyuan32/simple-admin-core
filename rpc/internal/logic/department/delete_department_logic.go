@@ -2,6 +2,7 @@ package department
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 
 	"github.com/zeromicro/go-zero/core/errorx"
 
@@ -36,6 +37,12 @@ func (l *DeleteDepartmentLogic) DeleteDepartment(in *core.IDsReq) (*core.BaseRes
 		logx.Errorw("delete department failed, please check its children had been deleted",
 			logx.Field("departmentId", in.Ids))
 		return nil, errorx.NewInvalidArgumentError("department.deleteDepartmentChildrenFirst")
+	}
+
+	checkUser, err := l.svcCtx.DB.User.Query().Where(user.DepartmentIDIn(in.Ids...)).Exist(l.ctx)
+	if checkUser {
+		logx.Errorw("delete department failed, there are users belongs to the department", logx.Field("departmentId", in.Ids))
+		return nil, errorx.NewInvalidArgumentError("department.deleteDepartmentUserFirst")
 	}
 
 	_, err = l.svcCtx.DB.Department.Delete().Where(department.IDIn(in.Ids...)).Exec(l.ctx)

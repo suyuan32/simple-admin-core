@@ -276,7 +276,8 @@
 	},
 	"department": {
 		"managementDepartment": "Management Department",
-		"deleteDepartmentChildrenFirst": "The department has sub-departments, please delete the sub-departments first"
+		"deleteDepartmentChildrenFirst": "The department has sub-departments, please delete the sub-departments first",
+		"deleteDepartmentUserFirst": "There are users under the department, please delete all users in the department first"
 	},
 	"position": {
 		"userExistError": "There are users under this position, it is forbidden to delete.",
