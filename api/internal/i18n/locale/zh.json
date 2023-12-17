@@ -281,7 +281,8 @@
 	},
 	"department": {
 		"managementDepartment": "核心管理部门",
-		"deleteDepartmentChildrenFirst": "部门存在子部门，请先删除子部门"
+		"deleteDepartmentChildrenFirst": "部门存在子部门，请先删除子部门",
+		"deleteDepartmentUserFirst": "部门下存在用户，请先删除部门所有用户"
 	},
 	"position": {
 		"userExistError": "该职位下存在用户，禁止删除",
