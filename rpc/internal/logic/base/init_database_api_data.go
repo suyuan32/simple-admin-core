@@ -12,7 +12,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	var apis []*ent.APICreate
 	// USER
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user/login").
 		SetDescription("apiDesc.userLogin").
 		SetAPIGroup("user").
@@ -21,7 +21,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user/register").
 		SetDescription("apiDesc.userRegister").
 		SetAPIGroup("user").
@@ -30,7 +30,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user/create").
 		SetDescription("apiDesc.createUser").
 		SetAPIGroup("user").
@@ -38,7 +38,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user/update").
 		SetDescription("apiDesc.updateUser").
 		SetAPIGroup("user").
@@ -46,7 +46,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user/change_password").
 		SetDescription("apiDesc.userChangePassword").
 		SetAPIGroup("user").
@@ -55,7 +55,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user/info").
 		SetDescription("apiDesc.userInfo").
 		SetAPIGroup("user").
@@ -64,7 +64,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user/list").
 		SetDescription("apiDesc.userList").
 		SetAPIGroup("user").
@@ -72,7 +72,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user/delete").
 		SetDescription("apiDesc.deleteUser").
 		SetAPIGroup("user").
@@ -80,7 +80,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user/perm").
 		SetDescription("apiDesc.userPermissions").
 		SetAPIGroup("user").
@@ -89,7 +89,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user/profile").
 		SetDescription("apiDesc.userProfile").
 		SetAPIGroup("user").
@@ -98,7 +98,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user/profile").
 		SetDescription("apiDesc.updateProfile").
 		SetAPIGroup("user").
@@ -107,7 +107,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user/logout").
 		SetDescription("apiDesc.logout").
 		SetAPIGroup("user").
@@ -116,7 +116,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/user").
 		SetDescription("apiDesc.getUserById").
 		SetAPIGroup("user").
@@ -125,7 +125,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	// ROLE
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/role/create").
 		SetDescription("apiDesc.createRole").
 		SetAPIGroup("role").
@@ -133,7 +133,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/role/update").
 		SetDescription("apiDesc.updateRole").
 		SetAPIGroup("role").
@@ -141,7 +141,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/role/delete").
 		SetDescription("apiDesc.deleteRole").
 		SetAPIGroup("role").
@@ -149,7 +149,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/role/list").
 		SetDescription("apiDesc.roleList").
 		SetAPIGroup("role").
@@ -157,7 +157,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/role").
 		SetDescription("apiDesc.getRoleById").
 		SetAPIGroup("role").
@@ -167,7 +167,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	// MENU
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/menu/create").
 		SetDescription("apiDesc.createMenu").
 		SetAPIGroup("menu").
@@ -175,7 +175,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/menu/update").
 		SetDescription("apiDesc.updateMenu").
 		SetAPIGroup("menu").
@@ -183,7 +183,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/menu/delete").
 		SetDescription("apiDesc.deleteMenu").
 		SetAPIGroup("menu").
@@ -191,7 +191,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/menu/list").
 		SetDescription("apiDesc.menuList").
 		SetAPIGroup("menu").
@@ -199,7 +199,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/menu/role/list").
 		SetDescription("apiDesc.menuRoleList").
 		SetAPIGroup("authority").
@@ -208,7 +208,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/menu_param/create").
 		SetDescription("apiDesc.createMenuParam").
 		SetAPIGroup("menu").
@@ -216,7 +216,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/menu_param/update").
 		SetDescription("apiDesc.updateMenuParam").
 		SetAPIGroup("menu").
@@ -224,7 +224,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/menu_param/list").
 		SetDescription("apiDesc.menuParamListByMenuId").
 		SetAPIGroup("menu").
@@ -232,7 +232,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/menu_param/delete").
 		SetDescription("apiDesc.deleteMenuParam").
 		SetAPIGroup("menu").
@@ -240,7 +240,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/menu_param").
 		SetDescription("apiDesc.getMenuParamById").
 		SetAPIGroup("menu").
@@ -248,7 +248,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/menu").
 		SetDescription("apiDesc.getMenuById").
 		SetAPIGroup("menu").
@@ -258,7 +258,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	// CAPTCHA
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/captcha").
 		SetDescription("apiDesc.captcha").
 		SetAPIGroup("captcha").
@@ -269,7 +269,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	// AUTHORIZATION
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/authority/api/create_or_update").
 		SetDescription("apiDesc.createOrUpdateApiAuthority").
 		SetAPIGroup("authority").
@@ -277,7 +277,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/authority/api/role").
 		SetDescription("apiDesc.APIAuthorityOfRole").
 		SetAPIGroup("authority").
@@ -285,7 +285,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/authority/menu/create_or_update").
 		SetDescription("apiDesc.createOrUpdateMenuAuthority").
 		SetAPIGroup("authority").
@@ -293,7 +293,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/authority/menu/role").
 		SetDescription("apiDesc.menuAuthorityOfRole").
 		SetAPIGroup("authority").
@@ -303,7 +303,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	// API
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/api/create").
 		SetDescription("apiDesc.createApi").
 		SetAPIGroup("api").
@@ -311,7 +311,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/api/update").
 		SetDescription("apiDesc.updateApi").
 		SetAPIGroup("api").
@@ -319,7 +319,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/api/delete").
 		SetDescription("apiDesc.deleteAPI").
 		SetAPIGroup("api").
@@ -327,7 +327,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/api/list").
 		SetDescription("apiDesc.APIList").
 		SetAPIGroup("api").
@@ -335,7 +335,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/api").
 		SetDescription("apiDesc.getApiById").
 		SetAPIGroup("api").
@@ -345,7 +345,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	// DICTIONARY
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/dictionary").
 		SetDescription("apiDesc.getDictionaryById").
 		SetAPIGroup("dictionary").
@@ -353,7 +353,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/dictionary/create").
 		SetDescription("apiDesc.createDictionary").
 		SetAPIGroup("dictionary").
@@ -361,7 +361,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/dictionary/update").
 		SetDescription("apiDesc.updateDictionary").
 		SetAPIGroup("dictionary").
@@ -369,7 +369,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/dictionary/delete").
 		SetDescription("apiDesc.deleteDictionary").
 		SetAPIGroup("dictionary").
@@ -377,7 +377,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/dictionary_detail/delete").
 		SetDescription("apiDesc.deleteDictionaryDetail").
 		SetAPIGroup("dictionary").
@@ -385,7 +385,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/dictionary_detail").
 		SetDescription("apiDesc.getDictionaryDetailById").
 		SetAPIGroup("dictionary").
@@ -393,7 +393,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/dictionary_detail/create").
 		SetDescription("apiDesc.createDictionaryDetail").
 		SetAPIGroup("dictionary").
@@ -401,7 +401,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/dictionary_detail/update").
 		SetDescription("apiDesc.updateDictionaryDetail").
 		SetAPIGroup("dictionary").
@@ -409,7 +409,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/dictionary_detail/list").
 		SetDescription("apiDesc.getDictionaryListDetail").
 		SetAPIGroup("dictionary").
@@ -417,7 +417,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/dictionary/list").
 		SetDescription("apiDesc.getDictionaryList").
 		SetAPIGroup("dictionary").
@@ -425,7 +425,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/dict/:name").
 		SetDescription("apiDesc.getDictionaryDetailByDictionaryName").
 		SetAPIGroup("dictionary").
@@ -435,7 +435,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	// OAUTH
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/oauth_provider/create").
 		SetDescription("apiDesc.createProvider").
 		SetAPIGroup("oauth").
@@ -443,7 +443,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/oauth_provider/update").
 		SetDescription("apiDesc.updateProvider").
 		SetAPIGroup("oauth").
@@ -451,7 +451,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/oauth_provider/delete").
 		SetDescription("apiDesc.deleteProvider").
 		SetAPIGroup("oauth").
@@ -459,7 +459,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/oauth_provider/list").
 		SetDescription("apiDesc.getProviderList").
 		SetAPIGroup("oauth").
@@ -467,7 +467,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/oauth/login").
 		SetDescription("apiDesc.oauthLogin").
 		SetAPIGroup("oauth").
@@ -476,7 +476,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/oauth_provider").
 		SetDescription("apiDesc.getProviderById").
 		SetAPIGroup("oauth").
@@ -486,7 +486,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	// TOKEN
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/token/create").
 		SetDescription("apiDesc.createToken").
 		SetAPIGroup("token").
@@ -494,7 +494,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/token/update").
 		SetDescription("apiDesc.updateToken").
 		SetAPIGroup("token").
@@ -502,7 +502,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/token/delete").
 		SetDescription("apiDesc.deleteToken").
 		SetAPIGroup("token").
@@ -510,7 +510,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/token/list").
 		SetDescription("apiDesc.getTokenList").
 		SetAPIGroup("token").
@@ -518,7 +518,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/token/logout").
 		SetDescription("apiDesc.forceLoggingOut").
 		SetAPIGroup("token").
@@ -526,7 +526,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/token").
 		SetDescription("apiDesc.getTokenById").
 		SetAPIGroup("token").
@@ -536,7 +536,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	// DEPARTMENT
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/department/create").
 		SetDescription("apiDesc.createDepartment").
 		SetAPIGroup("department").
@@ -544,7 +544,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/department/update").
 		SetDescription("apiDesc.updateDepartment").
 		SetAPIGroup("department").
@@ -552,7 +552,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/department/delete").
 		SetDescription("apiDesc.deleteDepartment").
 		SetAPIGroup("department").
@@ -560,7 +560,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/department/list").
 		SetDescription("apiDesc.getDepartmentList").
 		SetAPIGroup("department").
@@ -568,7 +568,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/department").
 		SetDescription("apiDesc.getDepartmentById").
 		SetAPIGroup("department").
@@ -578,7 +578,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	// POSITION
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/position/create").
 		SetDescription("apiDesc.createPosition").
 		SetAPIGroup("position").
@@ -586,7 +586,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/position/update").
 		SetDescription("apiDesc.updatePosition").
 		SetAPIGroup("position").
@@ -594,7 +594,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/position/delete").
 		SetDescription("apiDesc.deletePosition").
 		SetAPIGroup("position").
@@ -602,7 +602,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/position/list").
 		SetDescription("apiDesc.getPositionList").
 		SetAPIGroup("position").
@@ -610,7 +610,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("core").
+		SetServiceName("Core").
 		SetPath("/position").
 		SetDescription("apiDesc.getPositionById").
 		SetAPIGroup("position").
@@ -619,7 +619,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	// TASK
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("job").
+		SetServiceName("Job").
 		SetPath("/task/create").
 		SetDescription("apiDesc.createTask").
 		SetAPIGroup("task").
@@ -627,7 +627,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("job").
+		SetServiceName("Job").
 		SetPath("/task/update").
 		SetDescription("apiDesc.updateTask").
 		SetAPIGroup("task").
@@ -635,7 +635,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("job").
+		SetServiceName("Job").
 		SetPath("/task/delete").
 		SetDescription("apiDesc.deleteTask").
 		SetAPIGroup("task").
@@ -643,7 +643,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("job").
+		SetServiceName("Job").
 		SetPath("/task/list").
 		SetDescription("apiDesc.getTaskList").
 		SetAPIGroup("task").
@@ -651,7 +651,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("job").
+		SetServiceName("Job").
 		SetPath("/task").
 		SetDescription("apiDesc.getTaskById").
 		SetAPIGroup("task").
@@ -660,7 +660,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 
 	// TASK LOG
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("job").
+		SetServiceName("Job").
 		SetPath("/task_log/create").
 		SetDescription("apiDesc.createTaskLog").
 		SetAPIGroup("task_log").
@@ -668,7 +668,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("job").
+		SetServiceName("Job").
 		SetPath("/task_log/update").
 		SetDescription("apiDesc.updateTaskLog").
 		SetAPIGroup("task_log").
@@ -676,7 +676,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("job").
+		SetServiceName("Job").
 		SetPath("/task_log/delete").
 		SetDescription("apiDesc.deleteTaskLog").
 		SetAPIGroup("task_log").
@@ -684,7 +684,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("job").
+		SetServiceName("Job").
 		SetPath("/task_log/list").
 		SetDescription("apiDesc.getTaskLogList").
 		SetAPIGroup("task_log").
@@ -692,7 +692,7 @@ func (l *InitDatabaseLogic) insertApiData() error {
 	)
 
 	apis = append(apis, l.svcCtx.DB.API.Create().
-		SetServiceName("job").
+		SetServiceName("Job").
 		SetPath("/task_log").
 		SetDescription("apiDesc.getTaskLogById").
 		SetAPIGroup("task_log").
