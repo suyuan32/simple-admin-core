@@ -1,0 +1,77 @@
+{{/*
+Copyright 2022-present Ryan SU (github.com/suyuan32). All rights reserved.
+This source code is licensed under the Apache 2.0 license found
+in the LICENSE file in the root directory of this source tree.
+*/}}
+
+{{- /*gotype: entgo.io/ent/entc/gen.Graph*/ -}}
+
+{{ define "cache" }}
+{{/* Add the base header for the generated file */}}
+{{ $pkg := base $.Config.Package }}
+{{ template "header" $ }}
+
+import (
+"github.com/redis/go-redis/v9"
+)
+
+{{/* Loop over all updaters and implement the "SetOrClear" method for all optional fields */}}
+{{ range $n := $.Nodes }}
+{{ $dbPrefix := print "DB:CACHE:"}}
+// GetCache returns a
+{{$n.Name}}  entity by its id, use cache if it exists.
+func ({{ receiver $n.QueryName }} *{{ $n.QueryName }}) GetCache(ctx context.Context, rds *redis.Client, predicates predicate.{{$n.Name}}, keyVal string, expire time.Duration) (*{{ $n.Name }}, error) {
+var key strings.Builder
+key.WriteString("{{$dbPrefix}}{{$n.Name}}:")
+key.WriteString(keyVal)
+
+cacheData, err := rds.Get(ctx, key.String()).Result()
+
+if errors.Is(err, redis.Nil) {
+data, err := {{ receiver $n.QueryName }}.Where(predicates).Only(ctx)
+if err != nil {
+return nil, err
+}
+
+m, err := json.Marshal(data)
+if err != nil {
+return nil, err
+}
+
+err = rds.Set(ctx, key.String(), m, expire).Err()
+if err != nil {
+return nil, err
+}
+
+return data, err
+} else if err != nil {
+return nil, err
+}
+
+result := &{{$n.Name}}{}
+
+err = json.Unmarshal([]byte(cacheData), result)
+if err != nil {
+return nil, err
+}
+
+return result, err
+}
+
+// DelCache delete the
+{{$n.Name}}  redis cache of specific key
+func ({{ receiver $n.QueryName }} *{{ $n.QueryName }}) DelCache(ctx context.Context, rds *redis.Client, keyVal string) error {
+var key strings.Builder
+key.WriteString("{{$dbPrefix}}{{$n.Name}}:")
+key.WriteString(keyVal)
+
+err := rds.Del(ctx, key.String()).Err()
+if err != nil {
+return err
+}
+
+return err
+}
+
+{{ end }}
+{{ end }}

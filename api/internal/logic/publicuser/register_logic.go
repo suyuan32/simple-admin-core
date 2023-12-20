@@ -2,6 +2,7 @@ package publicuser
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/config"
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -32,7 +33,7 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseMsgRes
 		return nil, errorx.NewCodeAbortedError("login.registerTypeForbidden")
 	}
 
-	if ok := l.svcCtx.Captcha.Verify("CAPTCHA_"+req.CaptchaId, req.Captcha, true); ok {
+	if ok := l.svcCtx.Captcha.Verify(config.RedisCaptchaPrefix+req.CaptchaId, req.Captcha, true); ok {
 		_, err := l.svcCtx.CoreRpc.CreateUser(l.ctx,
 			&core.UserInfo{
 				Username:     &req.Username,
@@ -47,11 +48,6 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseMsgRes
 			})
 		if err != nil {
 			return nil, err
-		}
-
-		_, err = l.svcCtx.Redis.Del("CAPTCHA_" + req.CaptchaId)
-		if err != nil {
-			logx.Errorw("failed to delete captcha in redis", logx.Field("detail", err))
 		}
 
 		resp = &types.BaseMsgResp{

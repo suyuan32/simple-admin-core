@@ -2,6 +2,7 @@ package publicuser
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/config"
 	"github.com/suyuan32/simple-admin-common/enum/common"
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
@@ -36,7 +37,7 @@ func (l *LoginBySmsLogic) LoginBySms(req *types.LoginBySmsReq) (resp *types.Logi
 		return nil, errorx.NewCodeAbortedError("login.loginTypeForbidden")
 	}
 
-	captchaData, err := l.svcCtx.Redis.Get("CAPTCHA_" + req.PhoneNumber)
+	captchaData, err := l.svcCtx.Redis.Get(l.ctx, config.RedisCaptchaPrefix+req.PhoneNumber).Result()
 	if err != nil {
 		logx.Errorw("failed to get captcha data in redis for email validation", logx.Field("detail", err),
 			logx.Field("data", req))
@@ -78,7 +79,7 @@ func (l *LoginBySmsLogic) LoginBySms(req *types.LoginBySmsReq) (resp *types.Logi
 			return nil, err
 		}
 
-		_, err = l.svcCtx.Redis.Del("CAPTCHA_" + req.PhoneNumber)
+		_, err = l.svcCtx.Redis.Del(l.ctx, config.RedisCaptchaPrefix+req.PhoneNumber).Result()
 		if err != nil {
 			logx.Errorw("failed to delete captcha in redis", logx.Field("detail", err))
 		}

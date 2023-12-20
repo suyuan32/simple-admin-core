@@ -4,10 +4,12 @@ import (
 	"context"
 	"fmt"
 	"github.com/duke-git/lancet/v2/random"
+	"github.com/suyuan32/simple-admin-common/config"
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-message-center/types/mcms"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"strconv"
+	"time"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
@@ -53,7 +55,7 @@ func (l *GetSmsCaptchaLogic) GetSmsCaptcha(req *types.SmsCaptchaReq) (resp *type
 		return nil, err
 	}
 
-	err = l.svcCtx.Redis.Setex("CAPTCHA_"+req.PhoneNumber, strconv.Itoa(captcha), l.svcCtx.Config.ProjectConf.EmailCaptchaExpiredTime)
+	err = l.svcCtx.Redis.Set(l.ctx, config.RedisCaptchaPrefix+req.PhoneNumber, strconv.Itoa(captcha), time.Duration(l.svcCtx.Config.ProjectConf.EmailCaptchaExpiredTime)*time.Second).Err()
 	if err != nil {
 		logx.Errorw("failed to write sms captcha to redis", logx.Field("detail", err))
 		return nil, errorx.NewCodeInternalError(i18n.RedisError)

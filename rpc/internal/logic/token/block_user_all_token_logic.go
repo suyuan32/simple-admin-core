@@ -2,6 +2,7 @@ package token
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/config"
 	"github.com/suyuan32/simple-admin-common/enum/common"
 	"time"
 
@@ -52,7 +53,7 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 	for _, v := range tokenData {
 		expiredTime := int(v.ExpiredAt.Unix() - time.Now().Unix())
 		if expiredTime > 0 {
-			err = l.svcCtx.Redis.Setex("token_"+v.Token, "1", expiredTime)
+			err = l.svcCtx.Redis.Set(l.ctx, config.RedisTokenPrefix+v.Token, "1", time.Duration(expiredTime)).Err()
 			if err != nil {
 				logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
 				return nil, errorx.NewInternalError(i18n.RedisError)

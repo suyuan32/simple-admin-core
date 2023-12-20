@@ -3,7 +3,7 @@ package dictionarydetail
 import (
 	"context"
 	"encoding/json"
-	"fmt"
+	"time"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -30,7 +30,7 @@ func NewGetDictionaryDetailByDictionaryNameLogic(ctx context.Context, svcCtx *sv
 }
 
 func (l *GetDictionaryDetailByDictionaryNameLogic) GetDictionaryDetailByDictionaryName(req *types.DictionaryNameReq) (resp *types.DictionaryDetailListResp, err error) {
-	if val, err := l.svcCtx.Redis.GetCtx(l.ctx, fmt.Sprintf("dict_%d", req.Name)); err == nil && val != "" {
+	if val, err := l.svcCtx.Redis.Get(l.ctx, "DICTIONARY:"+*req.Name).Result(); err == nil && val != "" {
 		resp = &types.DictionaryDetailListResp{}
 		resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)
 		err = json.Unmarshal([]byte(val), &resp.Data)
@@ -69,7 +69,7 @@ func (l *GetDictionaryDetailByDictionaryNameLogic) GetDictionaryDetailByDictiona
 	}
 
 	storeData, err := json.Marshal(&resp.Data)
-	err = l.svcCtx.Redis.SetexCtx(l.ctx, fmt.Sprintf("dict_%d", req.Name), string(storeData), 3600)
+	err = l.svcCtx.Redis.Set(l.ctx, "DICTIONARY:"+*req.Name, string(storeData), 24*time.Hour).Err()
 	if err != nil {
 		logx.Errorw("failed to set dictionary detail data to redis", logx.Field("detail", err))
 		return nil, errorx.NewCodeInternalError(i18n.RedisError)
