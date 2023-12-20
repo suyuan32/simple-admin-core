@@ -349,7 +349,6 @@ github.com/mattn/go-isatty v0.0.12/go.mod h1:cbi8OIDigv2wuxKPP5vlRcQ1OAZbq2CE4Ky
 github.com/mattn/go-isatty v0.0.16/go.mod h1:kYGgaQfpe5nmfYZH+SKPsOc2e4SrIfOl2e/yFXSvRLM=
 github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWEY=
 github.com/mattn/go-isatty v0.0.20/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
-github.com/mattn/go-runewidth v0.0.9 h1:Lm995f3rfxdpd6TSmuVCHVb/QhupuXlYr8sCI/QdE+0=
 github.com/mattn/go-runewidth v0.0.9/go.mod h1:H031xJmbD/WCDINGzjvQ9THkh0rPKHF+m2gUSrubnMI=
 github.com/mattn/go-sqlite3 v1.14.6/go.mod h1:NyWgC/yNuGj7Q9rpYnZvas74GogHl5/Z4A/KQRfk6bU=
 github.com/mattn/go-sqlite3 v1.14.19 h1:fhGleo2h1p8tVChob4I9HpmVFIAkKGpiukdrgQbWfGI=
@@ -386,7 +385,6 @@ github.com/nicksnyder/go-i18n/v2 v2.3.0/go.mod h1:nxYSZE9M0bf3Y70gPQjN9ha7XNHX7g
 github.com/nxadm/tail v1.4.8 h1:nPr65rt6Y5JFSKQO7qToXr7pePgD6Gwiw05lkbyAQTE=
 github.com/nxadm/tail v1.4.8/go.mod h1:+ncqLTQzXmGhMZNUePPaPqPvBxHAIsmXswZKocGu+AU=
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
-github.com/olekukonko/tablewriter v0.0.5 h1:P2Ga83D34wi1o9J6Wh1mRuqd4mF/x/lgBS7N7AbDhec=
 github.com/olekukonko/tablewriter v0.0.5/go.mod h1:hPp6KlRPjbx+hW8ykQs1w3UBbZlj6HuIJcUGPhkA7kY=
 github.com/onsi/ginkgo v1.16.5 h1:8xi0RTUf59SOSfEtZMvwTvXYMzG4gV23XVHOZiXNtnE=
 github.com/onsi/ginkgo v1.16.5/go.mod h1:+E8gABHa3K6zRBolWtd+ROzc/U5bkGt0FwiG042wbpU=
@@ -459,8 +457,6 @@ github.com/spaolacci/murmur3 v1.1.0/go.mod h1:JwIasOWyU6f++ZhiEuf87xNszmSA2myDM2
 github.com/spf13/afero v1.1.2/go.mod h1:j4pytiNVoe2o6bmDsKpLACNPDBIoEAkihy7loJ1B0CQ=
 github.com/spf13/cast v1.3.0/go.mod h1:Qx5cxh0v+4UWYiBimWS+eyWzqEqokIECu5etghLkUJE=
 github.com/spf13/cobra v1.1.3/go.mod h1:pGADOWyqRD/YMrPZigI/zbliZ2wVD/23d+is3pSWzOo=
-github.com/spf13/cobra v1.7.0 h1:hyqWnYt1ZQShIddO5kBpj3vu05/++x6tJ6dg8EC572I=
-github.com/spf13/cobra v1.7.0/go.mod h1:uLxZILRyS/50WlhOIKD7W6V5bgeIt+4sICxh6uRMrb0=
 github.com/spf13/jwalterweatherman v1.0.0/go.mod h1:cQK4TGJAtQXfYWX+Ddv3mKDzgVb68N+wFjFa4jdeBTo=
 github.com/spf13/pflag v1.0.3/go.mod h1:DYY7MBk1bdzusC3SYhjObp+wFpr4gzcvqqNjLnInEg4=
 github.com/spf13/pflag v1.0.5 h1:iy+VFUOCP1a+8yFto/drg2CJ5u0yRoB7fZw3DKv/JXA=
@@ -484,12 +480,12 @@ github.com/stretchr/testify v1.8.2/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o
 github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
-github.com/suyuan32/simple-admin-common v1.2.8-0.20231220030440-ae71619dfc2d h1:G6GvGRA7JCccpmWOZaXulbhAaytMmjE60pW2LAJnCX0=
-github.com/suyuan32/simple-admin-common v1.2.8-0.20231220030440-ae71619dfc2d/go.mod h1:MI5f0TIeUpiXx7sVvmuYlOm5R5W/wAOBD4BU1nCCs4E=
-github.com/suyuan32/simple-admin-job v1.2.7 h1:D/sPfyCFDXl7nIpZdeLqtr2FhZQ0SKmb7ZS6jQxX7Uo=
-github.com/suyuan32/simple-admin-job v1.2.7/go.mod h1:lGhaoc2QB6loZzihOqxCAnDdtljW3xeZUazWe9N/Hgg=
-github.com/suyuan32/simple-admin-message-center v1.2.7 h1:RHMlQG0DWEWJEVTugg1r76c9Ok3vKABFn84V/10X+Gg=
-github.com/suyuan32/simple-admin-message-center v1.2.7/go.mod h1:FXeBXV30TvmfeZcNR123QbyGdid494sOcRCjn/6j7EY=
+github.com/suyuan32/simple-admin-common v1.2.8 h1:fefZimkkC4eTsQ422alwHczMCFF8X547CagvtF5jg1A=
+github.com/suyuan32/simple-admin-common v1.2.8/go.mod h1:MI5f0TIeUpiXx7sVvmuYlOm5R5W/wAOBD4BU1nCCs4E=
+github.com/suyuan32/simple-admin-job v1.2.8 h1:UzOeov5hMsqslbjSkMLKCEVj6YwnHdheyVhIrOBqix4=
+github.com/suyuan32/simple-admin-job v1.2.8/go.mod h1:PqVQjwhODnZVN3UyRUxuKAU0R8EliGYnR6VmTZG4mRw=
+github.com/suyuan32/simple-admin-message-center v1.2.8 h1:3nzFN/keVcwkd7nNtWIrQR3MgUlblQBGgkoc1OQ5pVI=
+github.com/suyuan32/simple-admin-message-center v1.2.8/go.mod h1:5gQobfwS93WwLTIMWgvdMhLGEs+aMj2/7S3iooCuICw=
 github.com/suyuan32/simple-admin-tools v1.6.3 h1:BgasHW7GBJfbOhQqvdnovATYpGEsEEd2PtGS0xfksuQ=
 github.com/suyuan32/simple-admin-tools v1.6.3/go.mod h1:TxS7kvMSnTI0HrqCXUjDoSfuQh+WfJ1x073DzVs3UAc=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=

@@ -51,9 +51,9 @@ func (l *BlockUserAllTokenLogic) BlockUserAllToken(in *core.UUIDReq) (*core.Base
 	}
 
 	for _, v := range tokenData {
-		expiredTime := int(v.ExpiredAt.Unix() - time.Now().Unix())
+		expiredTime := v.ExpiredAt.Sub(time.Now())
 		if expiredTime > 0 {
-			err = l.svcCtx.Redis.Set(l.ctx, config.RedisTokenPrefix+v.Token, "1", time.Duration(expiredTime)).Err()
+			err = l.svcCtx.Redis.Set(l.ctx, config.RedisTokenPrefix+v.Token, "1", expiredTime).Err()
 			if err != nil {
 				logx.Errorw(logmsg.RedisError, logx.Field("detail", err.Error()))
 				return nil, errorx.NewInternalError(i18n.RedisError)

@@ -10,9 +10,9 @@ require (
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/mojocn/base64Captcha v1.3.6
 	github.com/redis/go-redis/v9 v9.3.1
-	github.com/suyuan32/simple-admin-common v1.2.8-0.20231220030440-ae71619dfc2d
-	github.com/suyuan32/simple-admin-job v1.2.7
-	github.com/suyuan32/simple-admin-message-center v1.2.7
+	github.com/suyuan32/simple-admin-common v1.2.8
+	github.com/suyuan32/simple-admin-job v1.2.8
+	github.com/suyuan32/simple-admin-message-center v1.2.8
 	github.com/zeromicro/go-zero v1.6.1
 	golang.org/x/oauth2 v0.15.0
 	google.golang.org/grpc v1.60.1
