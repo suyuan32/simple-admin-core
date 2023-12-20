@@ -17,7 +17,7 @@ var (
 		{Name: "path", Type: field.TypeString, Comment: "API path | API 路径"},
 		{Name: "description", Type: field.TypeString, Comment: "API description | API 描述"},
 		{Name: "api_group", Type: field.TypeString, Comment: "API group | API 分组"},
-		{Name: "service_name", Type: field.TypeString, Comment: "Service name | 服务名称", Default: "other"},
+		{Name: "service_name", Type: field.TypeString, Comment: "Service name | 服务名称", Default: "Other"},
 		{Name: "method", Type: field.TypeString, Comment: "HTTP method | HTTP 请求类型", Default: "POST"},
 		{Name: "is_required", Type: field.TypeBool, Comment: "Whether is required | 是否必选", Default: false},
 	}

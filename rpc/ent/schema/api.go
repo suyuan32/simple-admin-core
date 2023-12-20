@@ -26,7 +26,7 @@ func (API) Fields() []ent.Field {
 			Annotations(entsql.WithComments(true)),
 		field.String("service_name").
 			Comment("Service name | 服务名称").
-			Default("other").
+			Default("Other").
 			Annotations(entsql.WithComments(true)),
 		field.String("method").Default("POST").
 			Comment("HTTP method | HTTP 请求类型").
