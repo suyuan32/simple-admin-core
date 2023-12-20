@@ -2,8 +2,6 @@ package dictionarydetail
 
 import (
 	"context"
-	"fmt"
-
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/zeromicro/go-zero/core/errorx"
 
@@ -48,7 +46,7 @@ func (l *CreateDictionaryDetailLogic) CreateDictionaryDetail(req *types.Dictiona
 		return nil, err
 	}
 
-	if _, err := l.svcCtx.Redis.DelCtx(l.ctx, fmt.Sprintf("dict_%d", dict.Data.Name)); err != nil {
+	if err := l.svcCtx.Redis.Del(l.ctx, "DICTIONARY:"+*dict.Data.Name).Err(); err != nil {
 		logx.Errorw("failed to delete dictionary data in redis", logx.Field("detail", err))
 		return nil, errorx.NewCodeInternalError(i18n.RedisError)
 	}

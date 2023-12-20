@@ -11,6 +11,7 @@ message ApiInfo {
   optional string api_group = 6;
   optional string method = 7;
   optional bool is_required = 8;
+  optional string service_name = 9;
 }
 
 message ApiListResp {
@@ -26,6 +27,7 @@ message ApiListReq {
   optional string api_group = 5;
   optional string method = 6;
   optional string is_default = 7;
+  optional string service_name = 8;
 }
 
 

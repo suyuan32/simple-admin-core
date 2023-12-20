@@ -79,6 +79,11 @@ func APIGroup(v string) predicate.API {
 	return predicate.API(sql.FieldEQ(FieldAPIGroup, v))
 }
 
+// ServiceName applies equality check predicate on the "service_name" field. It's identical to ServiceNameEQ.
+func ServiceName(v string) predicate.API {
+	return predicate.API(sql.FieldEQ(FieldServiceName, v))
+}
+
 // Method applies equality check predicate on the "method" field. It's identical to MethodEQ.
 func Method(v string) predicate.API {
 	return predicate.API(sql.FieldEQ(FieldMethod, v))
@@ -362,6 +367,71 @@ func APIGroupEqualFold(v string) predicate.API {
 // APIGroupContainsFold applies the ContainsFold predicate on the "api_group" field.
 func APIGroupContainsFold(v string) predicate.API {
 	return predicate.API(sql.FieldContainsFold(FieldAPIGroup, v))
+}
+
+// ServiceNameEQ applies the EQ predicate on the "service_name" field.
+func ServiceNameEQ(v string) predicate.API {
+	return predicate.API(sql.FieldEQ(FieldServiceName, v))
+}
+
+// ServiceNameNEQ applies the NEQ predicate on the "service_name" field.
+func ServiceNameNEQ(v string) predicate.API {
+	return predicate.API(sql.FieldNEQ(FieldServiceName, v))
+}
+
+// ServiceNameIn applies the In predicate on the "service_name" field.
+func ServiceNameIn(vs ...string) predicate.API {
+	return predicate.API(sql.FieldIn(FieldServiceName, vs...))
+}
+
+// ServiceNameNotIn applies the NotIn predicate on the "service_name" field.
+func ServiceNameNotIn(vs ...string) predicate.API {
+	return predicate.API(sql.FieldNotIn(FieldServiceName, vs...))
+}
+
+// ServiceNameGT applies the GT predicate on the "service_name" field.
+func ServiceNameGT(v string) predicate.API {
+	return predicate.API(sql.FieldGT(FieldServiceName, v))
+}
+
+// ServiceNameGTE applies the GTE predicate on the "service_name" field.
+func ServiceNameGTE(v string) predicate.API {
+	return predicate.API(sql.FieldGTE(FieldServiceName, v))
+}
+
+// ServiceNameLT applies the LT predicate on the "service_name" field.
+func ServiceNameLT(v string) predicate.API {
+	return predicate.API(sql.FieldLT(FieldServiceName, v))
+}
+
+// ServiceNameLTE applies the LTE predicate on the "service_name" field.
+func ServiceNameLTE(v string) predicate.API {
+	return predicate.API(sql.FieldLTE(FieldServiceName, v))
+}
+
+// ServiceNameContains applies the Contains predicate on the "service_name" field.
+func ServiceNameContains(v string) predicate.API {
+	return predicate.API(sql.FieldContains(FieldServiceName, v))
+}
+
+// ServiceNameHasPrefix applies the HasPrefix predicate on the "service_name" field.
+func ServiceNameHasPrefix(v string) predicate.API {
+	return predicate.API(sql.FieldHasPrefix(FieldServiceName, v))
+}
+
+// ServiceNameHasSuffix applies the HasSuffix predicate on the "service_name" field.
+func ServiceNameHasSuffix(v string) predicate.API {
+	return predicate.API(sql.FieldHasSuffix(FieldServiceName, v))
+}
+
+// ServiceNameEqualFold applies the EqualFold predicate on the "service_name" field.
+func ServiceNameEqualFold(v string) predicate.API {
+	return predicate.API(sql.FieldEqualFold(FieldServiceName, v))
+}
+
+// ServiceNameContainsFold applies the ContainsFold predicate on the "service_name" field.
+func ServiceNameContainsFold(v string) predicate.API {
+	return predicate.API(sql.FieldContainsFold(FieldServiceName, v))
 }
 
 // MethodEQ applies the EQ predicate on the "method" field.

@@ -33,6 +33,7 @@ func (l *CreateApiLogic) CreateApi(in *core.ApiInfo) (*core.BaseIDResp, error) {
 		SetNotNilAPIGroup(in.ApiGroup).
 		SetNotNilMethod(in.Method).
 		SetNotNilIsRequired(in.IsRequired).
+		SetNotNilServiceName(in.ServiceName).
 		Save(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)

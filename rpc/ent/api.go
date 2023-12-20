@@ -27,6 +27,8 @@ type API struct {
 	Description string `json:"description,omitempty"`
 	// API group | API 分组
 	APIGroup string `json:"api_group,omitempty"`
+	// Service name | 服务名称
+	ServiceName string `json:"service_name,omitempty"`
 	// HTTP method | HTTP 请求类型
 	Method string `json:"method,omitempty"`
 	// Whether is required | 是否必选
@@ -43,7 +45,7 @@ func (*API) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullBool)
 		case api.FieldID:
 			values[i] = new(sql.NullInt64)
-		case api.FieldPath, api.FieldDescription, api.FieldAPIGroup, api.FieldMethod:
+		case api.FieldPath, api.FieldDescription, api.FieldAPIGroup, api.FieldServiceName, api.FieldMethod:
 			values[i] = new(sql.NullString)
 		case api.FieldCreatedAt, api.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -97,6 +99,12 @@ func (a *API) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field api_group", values[i])
 			} else if value.Valid {
 				a.APIGroup = value.String
+			}
+		case api.FieldServiceName:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field service_name", values[i])
+			} else if value.Valid {
+				a.ServiceName = value.String
 			}
 		case api.FieldMethod:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -160,6 +168,9 @@ func (a *API) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("api_group=")
 	builder.WriteString(a.APIGroup)
+	builder.WriteString(", ")
+	builder.WriteString("service_name=")
+	builder.WriteString(a.ServiceName)
 	builder.WriteString(", ")
 	builder.WriteString("method=")
 	builder.WriteString(a.Method)

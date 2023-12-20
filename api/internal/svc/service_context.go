@@ -2,6 +2,7 @@ package svc
 
 import (
 	"github.com/mojocn/base64Captcha"
+	"github.com/redis/go-redis/v9"
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-common/utils/captcha"
 	i18n2 "github.com/suyuan32/simple-admin-core/api/internal/i18n"
@@ -14,7 +15,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
 
 	"github.com/casbin/casbin/v2"
-	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/rest"
 	"github.com/zeromicro/go-zero/zrpc"
 )
@@ -25,7 +25,7 @@ type ServiceContext struct {
 	CoreRpc     coreclient.Core
 	JobRpc      jobclient.Job
 	McmsRpc     mcmsclient.Mcms
-	Redis       *redis.Redis
+	Redis       *redis.Client
 	Casbin      *casbin.Enforcer
 	Trans       *i18n.Translator
 	Captcha     *base64Captcha.Captcha
@@ -33,9 +33,9 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
-	rds := redis.MustNewRedis(c.RedisConf)
+	rds := c.RedisConf.MustNewRedis()
 
-	cbn := c.CasbinConf.MustNewCasbinWithRedisWatcher(c.DatabaseConf.Type, c.DatabaseConf.GetDSN(),
+	cbn := c.CasbinConf.MustNewCasbinWithOriginalRedisWatcher(c.DatabaseConf.Type, c.DatabaseConf.GetDSN(),
 		c.RedisConf)
 
 	var trans *i18n.Translator
@@ -50,7 +50,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		CoreRpc: coreclient.NewCore(zrpc.NewClientIfEnable(c.CoreRpc)),
 		JobRpc:  jobclient.NewJob(zrpc.NewClientIfEnable(c.JobRpc)),
 		McmsRpc: mcmsclient.NewMcms(zrpc.NewClientIfEnable(c.McmsRpc)),
-		Captcha: captcha.MustNewRedisCaptcha(c.Captcha, rds),
+		Captcha: captcha.MustNewOriginalRedisCaptcha(c.Captcha, rds),
 		Redis:   rds,
 		Casbin:  cbn,
 		Trans:   trans,

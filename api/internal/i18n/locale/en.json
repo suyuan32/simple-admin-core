@@ -17,7 +17,8 @@
 		"constraintError": "Operation failed: Data conflict",
 		"validationError": "Operation failed: Validation failed",
 		"notSingularError": "Operation failed: Data not unique",
-		"serviceUnavailable": "Service is unavailable, please check if the service is enabled"
+		"serviceUnavailable": "Service is unavailable, please check if the service is enabled",
+		"cacheError": "Cache error"
 	},
 	"apiGroup": {
 		"cloud_file_tag": "Cloud File's Tag",

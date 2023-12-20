@@ -44,6 +44,9 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiListReq) (*core.ApiListResp, er
 	if in.Method != nil {
 		predicates = append(predicates, api.Method(*in.Method))
 	}
+	if in.ServiceName != nil {
+		predicates = append(predicates, api.ServiceNameContains(*in.ServiceName))
+	}
 	result, err := l.svcCtx.DB.API.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
@@ -61,6 +64,7 @@ func (l *GetApiListLogic) GetApiList(in *core.ApiListReq) (*core.ApiListResp, er
 			ApiGroup:    &v.APIGroup,
 			Method:      &v.Method,
 			IsRequired:  &v.IsRequired,
+			ServiceName: &v.ServiceName,
 		})
 	}
 

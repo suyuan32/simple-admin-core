@@ -105,6 +105,30 @@ func (a *APICreate) SetNotNilAPIGroup(value *string) *APICreate {
 }
 
 // set field if value's pointer is not nil.
+func (a *APIUpdate) SetNotNilServiceName(value *string) *APIUpdate {
+	if value != nil {
+		return a.SetServiceName(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *APIUpdateOne) SetNotNilServiceName(value *string) *APIUpdateOne {
+	if value != nil {
+		return a.SetServiceName(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
+func (a *APICreate) SetNotNilServiceName(value *string) *APICreate {
+	if value != nil {
+		return a.SetServiceName(*value)
+	}
+	return a
+}
+
+// set field if value's pointer is not nil.
 func (a *APIUpdate) SetNotNilMethod(value *string) *APIUpdate {
 	if value != nil {
 		return a.SetMethod(*value)

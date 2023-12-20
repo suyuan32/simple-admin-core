@@ -45,7 +45,7 @@ func (l *InitDatabaseLogic) InitDatabase() (resp *types.BaseMsgResp, err error) 
 		for {
 			// wait 10 second for initialization
 			time.Sleep(time.Second * 5)
-			if initState, err := l.svcCtx.Redis.Get("database_init_state"); err == nil {
+			if initState, err := l.svcCtx.Redis.Get(context.Background(), "INIT:DATABASE:STATE").Result(); err == nil {
 				if initState == "1" {
 					return nil, errorx.NewCodeError(errorcode.InvalidArgument,
 						l.svcCtx.Trans.Trans(l.ctx, i18n.AlreadyInit))
@@ -55,7 +55,7 @@ func (l *InitDatabaseLogic) InitDatabase() (resp *types.BaseMsgResp, err error) 
 					l.svcCtx.Trans.Trans(l.ctx, i18n.RedisError))
 			}
 
-			if errMsg, err := l.svcCtx.Redis.Get("database_error_msg"); err == nil {
+			if errMsg, err := l.svcCtx.Redis.Get(context.Background(), "INIT:DATABASE:ERROR").Result(); err == nil {
 				if errMsg != "" {
 					return nil, errorx.NewCodeError(errorcode.Internal, errMsg)
 				}
