@@ -35,6 +35,7 @@ func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiList
 			Description: req.Description,
 			Method:      req.Method,
 			ApiGroup:    req.Group,
+			ServiceName: req.ServiceName,
 		})
 	if err != nil {
 		return nil, err
@@ -66,6 +67,7 @@ func (l *GetApiListLogic) GetApiList(req *types.ApiListReq) (resp *types.ApiList
 				Group:       v.ApiGroup,
 				Method:      v.Method,
 				IsRequired:  v.IsRequired,
+				ServiceName: v.ServiceName,
 			})
 	}
 	return resp, nil

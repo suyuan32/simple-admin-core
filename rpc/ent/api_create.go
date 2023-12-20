@@ -66,6 +66,20 @@ func (ac *APICreate) SetAPIGroup(s string) *APICreate {
 	return ac
 }
 
+// SetServiceName sets the "service_name" field.
+func (ac *APICreate) SetServiceName(s string) *APICreate {
+	ac.mutation.SetServiceName(s)
+	return ac
+}
+
+// SetNillableServiceName sets the "service_name" field if the given value is not nil.
+func (ac *APICreate) SetNillableServiceName(s *string) *APICreate {
+	if s != nil {
+		ac.SetServiceName(*s)
+	}
+	return ac
+}
+
 // SetMethod sets the "method" field.
 func (ac *APICreate) SetMethod(s string) *APICreate {
 	ac.mutation.SetMethod(s)
@@ -143,6 +157,10 @@ func (ac *APICreate) defaults() {
 		v := api.DefaultUpdatedAt()
 		ac.mutation.SetUpdatedAt(v)
 	}
+	if _, ok := ac.mutation.ServiceName(); !ok {
+		v := api.DefaultServiceName
+		ac.mutation.SetServiceName(v)
+	}
 	if _, ok := ac.mutation.Method(); !ok {
 		v := api.DefaultMethod
 		ac.mutation.SetMethod(v)
@@ -169,6 +187,9 @@ func (ac *APICreate) check() error {
 	}
 	if _, ok := ac.mutation.APIGroup(); !ok {
 		return &ValidationError{Name: "api_group", err: errors.New(`ent: missing required field "API.api_group"`)}
+	}
+	if _, ok := ac.mutation.ServiceName(); !ok {
+		return &ValidationError{Name: "service_name", err: errors.New(`ent: missing required field "API.service_name"`)}
 	}
 	if _, ok := ac.mutation.Method(); !ok {
 		return &ValidationError{Name: "method", err: errors.New(`ent: missing required field "API.method"`)}
@@ -227,6 +248,10 @@ func (ac *APICreate) createSpec() (*API, *sqlgraph.CreateSpec) {
 	if value, ok := ac.mutation.APIGroup(); ok {
 		_spec.SetField(api.FieldAPIGroup, field.TypeString, value)
 		_node.APIGroup = value
+	}
+	if value, ok := ac.mutation.ServiceName(); ok {
+		_spec.SetField(api.FieldServiceName, field.TypeString, value)
+		_node.ServiceName = value
 	}
 	if value, ok := ac.mutation.Method(); ok {
 		_spec.SetField(api.FieldMethod, field.TypeString, value)

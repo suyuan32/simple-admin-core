@@ -57,6 +57,7 @@ type APIMutation struct {
 	_path         *string
 	description   *string
 	api_group     *string
+	service_name  *string
 	method        *string
 	is_required   *bool
 	clearedFields map[string]struct{}
@@ -349,6 +350,42 @@ func (m *APIMutation) ResetAPIGroup() {
 	m.api_group = nil
 }
 
+// SetServiceName sets the "service_name" field.
+func (m *APIMutation) SetServiceName(s string) {
+	m.service_name = &s
+}
+
+// ServiceName returns the value of the "service_name" field in the mutation.
+func (m *APIMutation) ServiceName() (r string, exists bool) {
+	v := m.service_name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldServiceName returns the old "service_name" field's value of the API entity.
+// If the API object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *APIMutation) OldServiceName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldServiceName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldServiceName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldServiceName: %w", err)
+	}
+	return oldValue.ServiceName, nil
+}
+
+// ResetServiceName resets all changes to the "service_name" field.
+func (m *APIMutation) ResetServiceName() {
+	m.service_name = nil
+}
+
 // SetMethod sets the "method" field.
 func (m *APIMutation) SetMethod(s string) {
 	m.method = &s
@@ -455,7 +492,7 @@ func (m *APIMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *APIMutation) Fields() []string {
-	fields := make([]string, 0, 7)
+	fields := make([]string, 0, 8)
 	if m.created_at != nil {
 		fields = append(fields, api.FieldCreatedAt)
 	}
@@ -470,6 +507,9 @@ func (m *APIMutation) Fields() []string {
 	}
 	if m.api_group != nil {
 		fields = append(fields, api.FieldAPIGroup)
+	}
+	if m.service_name != nil {
+		fields = append(fields, api.FieldServiceName)
 	}
 	if m.method != nil {
 		fields = append(fields, api.FieldMethod)
@@ -495,6 +535,8 @@ func (m *APIMutation) Field(name string) (ent.Value, bool) {
 		return m.Description()
 	case api.FieldAPIGroup:
 		return m.APIGroup()
+	case api.FieldServiceName:
+		return m.ServiceName()
 	case api.FieldMethod:
 		return m.Method()
 	case api.FieldIsRequired:
@@ -518,6 +560,8 @@ func (m *APIMutation) OldField(ctx context.Context, name string) (ent.Value, err
 		return m.OldDescription(ctx)
 	case api.FieldAPIGroup:
 		return m.OldAPIGroup(ctx)
+	case api.FieldServiceName:
+		return m.OldServiceName(ctx)
 	case api.FieldMethod:
 		return m.OldMethod(ctx)
 	case api.FieldIsRequired:
@@ -565,6 +609,13 @@ func (m *APIMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetAPIGroup(v)
+		return nil
+	case api.FieldServiceName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetServiceName(v)
 		return nil
 	case api.FieldMethod:
 		v, ok := value.(string)
@@ -643,6 +694,9 @@ func (m *APIMutation) ResetField(name string) error {
 		return nil
 	case api.FieldAPIGroup:
 		m.ResetAPIGroup()
+		return nil
+	case api.FieldServiceName:
+		m.ResetServiceName()
 		return nil
 	case api.FieldMethod:
 		m.ResetMethod()

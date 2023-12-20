@@ -23,6 +23,8 @@ const (
 	FieldDescription = "description"
 	// FieldAPIGroup holds the string denoting the api_group field in the database.
 	FieldAPIGroup = "api_group"
+	// FieldServiceName holds the string denoting the service_name field in the database.
+	FieldServiceName = "service_name"
 	// FieldMethod holds the string denoting the method field in the database.
 	FieldMethod = "method"
 	// FieldIsRequired holds the string denoting the is_required field in the database.
@@ -39,6 +41,7 @@ var Columns = []string{
 	FieldPath,
 	FieldDescription,
 	FieldAPIGroup,
+	FieldServiceName,
 	FieldMethod,
 	FieldIsRequired,
 }
@@ -60,6 +63,8 @@ var (
 	DefaultUpdatedAt func() time.Time
 	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
 	UpdateDefaultUpdatedAt func() time.Time
+	// DefaultServiceName holds the default value on creation for the "service_name" field.
+	DefaultServiceName string
 	// DefaultMethod holds the default value on creation for the "method" field.
 	DefaultMethod string
 	// DefaultIsRequired holds the default value on creation for the "is_required" field.
@@ -97,6 +102,11 @@ func ByDescription(opts ...sql.OrderTermOption) OrderOption {
 // ByAPIGroup orders the results by the api_group field.
 func ByAPIGroup(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAPIGroup, opts...).ToFunc()
+}
+
+// ByServiceName orders the results by the service_name field.
+func ByServiceName(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldServiceName, opts...).ToFunc()
 }
 
 // ByMethod orders the results by the method field.

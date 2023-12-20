@@ -24,6 +24,10 @@ func (API) Fields() []ent.Field {
 		field.String("api_group").
 			Comment("API group | API 分组").
 			Annotations(entsql.WithComments(true)),
+		field.String("service_name").
+			Comment("Service name | 服务名称").
+			Default("other").
+			Annotations(entsql.WithComments(true)),
 		field.String("method").Default("POST").
 			Comment("HTTP method | HTTP 请求类型").
 			Annotations(entsql.WithComments(true)),

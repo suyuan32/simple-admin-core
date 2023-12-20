@@ -38,12 +38,16 @@ func init() {
 	api.DefaultUpdatedAt = apiDescUpdatedAt.Default.(func() time.Time)
 	// api.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
 	api.UpdateDefaultUpdatedAt = apiDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// apiDescServiceName is the schema descriptor for service_name field.
+	apiDescServiceName := apiFields[3].Descriptor()
+	// api.DefaultServiceName holds the default value on creation for the service_name field.
+	api.DefaultServiceName = apiDescServiceName.Default.(string)
 	// apiDescMethod is the schema descriptor for method field.
-	apiDescMethod := apiFields[3].Descriptor()
+	apiDescMethod := apiFields[4].Descriptor()
 	// api.DefaultMethod holds the default value on creation for the method field.
 	api.DefaultMethod = apiDescMethod.Default.(string)
 	// apiDescIsRequired is the schema descriptor for is_required field.
-	apiDescIsRequired := apiFields[4].Descriptor()
+	apiDescIsRequired := apiFields[5].Descriptor()
 	// api.DefaultIsRequired holds the default value on creation for the is_required field.
 	api.DefaultIsRequired = apiDescIsRequired.Default.(bool)
 	departmentMixin := schema.Department{}.Mixin()
