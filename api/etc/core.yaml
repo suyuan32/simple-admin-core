@@ -35,7 +35,7 @@ DatabaseConf:
 
 RedisConf:
   Host: redis-server:6379
-  Type: node
+  Db: 0
 
 ProjectConf:
   DefaultRoleId: 1  # default role id when register
@@ -50,11 +50,6 @@ ProjectConf:
   LoginVerify: captcha # login captcha type, support captcha, email, sms, sms_or_email, all
   ResetVerify: email # reset captcha type, support email, sms, sms_or_email
   AllowInit: true # if false, ban initialization
-
-Prometheus:
-  Host: 0.0.0.0
-  Port: 4000
-  Path: /metrics
 
 CasbinConf:
   ModelText: |

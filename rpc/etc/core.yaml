@@ -14,7 +14,7 @@ DatabaseConf:
 
 RedisConf:
   Host: redis-server:6379
-  Type: node
+  Db: 0
 
 Log:
   ServiceName: coreRpcLogger
@@ -25,11 +25,6 @@ Log:
   Compress: false
   KeepDays: 7
   StackCoolDownMillis: 100
-
-Prometheus:
-  Host: 0.0.0.0
-  Port: 4001
-  Path: /metrics
 
 CasbinConf:
   ModelText: |
