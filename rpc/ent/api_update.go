@@ -76,6 +76,20 @@ func (au *APIUpdate) SetNillableAPIGroup(s *string) *APIUpdate {
 	return au
 }
 
+// SetServiceName sets the "service_name" field.
+func (au *APIUpdate) SetServiceName(s string) *APIUpdate {
+	au.mutation.SetServiceName(s)
+	return au
+}
+
+// SetNillableServiceName sets the "service_name" field if the given value is not nil.
+func (au *APIUpdate) SetNillableServiceName(s *string) *APIUpdate {
+	if s != nil {
+		au.SetServiceName(*s)
+	}
+	return au
+}
+
 // SetMethod sets the "method" field.
 func (au *APIUpdate) SetMethod(s string) *APIUpdate {
 	au.mutation.SetMethod(s)
@@ -166,6 +180,9 @@ func (au *APIUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := au.mutation.APIGroup(); ok {
 		_spec.SetField(api.FieldAPIGroup, field.TypeString, value)
 	}
+	if value, ok := au.mutation.ServiceName(); ok {
+		_spec.SetField(api.FieldServiceName, field.TypeString, value)
+	}
 	if value, ok := au.mutation.Method(); ok {
 		_spec.SetField(api.FieldMethod, field.TypeString, value)
 	}
@@ -236,6 +253,20 @@ func (auo *APIUpdateOne) SetAPIGroup(s string) *APIUpdateOne {
 func (auo *APIUpdateOne) SetNillableAPIGroup(s *string) *APIUpdateOne {
 	if s != nil {
 		auo.SetAPIGroup(*s)
+	}
+	return auo
+}
+
+// SetServiceName sets the "service_name" field.
+func (auo *APIUpdateOne) SetServiceName(s string) *APIUpdateOne {
+	auo.mutation.SetServiceName(s)
+	return auo
+}
+
+// SetNillableServiceName sets the "service_name" field if the given value is not nil.
+func (auo *APIUpdateOne) SetNillableServiceName(s *string) *APIUpdateOne {
+	if s != nil {
+		auo.SetServiceName(*s)
 	}
 	return auo
 }
@@ -359,6 +390,9 @@ func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *API, err error) {
 	}
 	if value, ok := auo.mutation.APIGroup(); ok {
 		_spec.SetField(api.FieldAPIGroup, field.TypeString, value)
+	}
+	if value, ok := auo.mutation.ServiceName(); ok {
+		_spec.SetField(api.FieldServiceName, field.TypeString, value)
 	}
 	if value, ok := auo.mutation.Method(); ok {
 		_spec.SetField(api.FieldMethod, field.TypeString, value)

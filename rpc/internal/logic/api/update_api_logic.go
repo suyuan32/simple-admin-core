@@ -33,6 +33,7 @@ func (l *UpdateApiLogic) UpdateApi(in *core.ApiInfo) (*core.BaseResp, error) {
 		SetNotNilAPIGroup(in.ApiGroup).
 		SetNotNilMethod(in.Method).
 		SetNotNilIsRequired(in.IsRequired).
+		SetNotNilServiceName(in.ServiceName).
 		Exec(l.ctx)
 	if err != nil {
 		return nil, errorhandler.DefaultEntError(l.Logger, err, in)

@@ -32,6 +32,7 @@ func (l *CreateApiLogic) CreateApi(req *types.ApiInfo) (resp *types.BaseMsgResp,
 			ApiGroup:    req.Group,
 			Method:      req.Method,
 			IsRequired:  req.IsRequired,
+			ServiceName: req.ServiceName,
 		})
 	if err != nil {
 		return nil, err

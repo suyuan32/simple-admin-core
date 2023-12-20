@@ -17,7 +17,8 @@
 		"constraintError": "Operation failed: Data conflict",
 		"validationError": "Operation failed: Validation failed",
 		"notSingularError": "Operation failed: Data not unique",
-		"serviceUnavailable": "Service is unavailable, please check if the service is enabled"
+		"serviceUnavailable": "Service is unavailable, please check if the service is enabled",
+		"cacheError": "Cache error"
 	},
 	"apiGroup": {
 		"cloud_file_tag": "Cloud File's Tag",
@@ -276,7 +277,8 @@
 	},
 	"department": {
 		"managementDepartment": "Management Department",
-		"deleteDepartmentChildrenFirst": "The department has sub-departments, please delete the sub-departments first"
+		"deleteDepartmentChildrenFirst": "The department has sub-departments, please delete the sub-departments first",
+		"deleteDepartmentUserFirst": "There are users under the department, please delete all users in the department first"
 	},
 	"position": {
 		"userExistError": "There are users under this position, it is forbidden to delete.",

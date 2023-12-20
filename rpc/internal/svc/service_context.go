@@ -1,11 +1,11 @@
 package svc
 
 import (
+	"github.com/redis/go-redis/v9"
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/config"
 
 	"github.com/zeromicro/go-zero/core/logx"
-	"github.com/zeromicro/go-zero/core/stores/redis"
 
 	_ "github.com/suyuan32/simple-admin-core/rpc/ent/runtime"
 )
@@ -13,7 +13,7 @@ import (
 type ServiceContext struct {
 	Config config.Config
 	DB     *ent.Client
-	Redis  *redis.Redis
+	Redis  *redis.Client
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -26,6 +26,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config: c,
 		DB:     db,
-		Redis:  redis.MustNewRedis(c.RedisConf),
+		Redis:  c.RedisConf.MustNewRedis(),
 	}
 }

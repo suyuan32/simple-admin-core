@@ -2,6 +2,7 @@ package publicuser
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/config"
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
@@ -32,7 +33,7 @@ func (l *RegisterByEmailLogic) RegisterByEmail(req *types.RegisterByEmailReq) (r
 		return nil, errorx.NewCodeAbortedError("login.registerTypeForbidden")
 	}
 
-	captchaData, err := l.svcCtx.Redis.Get("CAPTCHA_" + req.Email)
+	captchaData, err := l.svcCtx.Redis.Get(l.ctx, config.RedisCaptchaPrefix+req.Email).Result()
 	if err != nil {
 		logx.Errorw("failed to get captcha data in redis for email validation", logx.Field("detail", err),
 			logx.Field("data", req))
@@ -56,7 +57,7 @@ func (l *RegisterByEmailLogic) RegisterByEmail(req *types.RegisterByEmailReq) (r
 			return nil, err
 		}
 
-		_, err = l.svcCtx.Redis.Del("CAPTCHA_" + req.Email)
+		_, err = l.svcCtx.Redis.Del(l.ctx, config.RedisCaptchaPrefix+req.Email).Result()
 		if err != nil {
 			logx.Errorw("failed to delete captcha in redis", logx.Field("detail", err))
 		}

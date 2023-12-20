@@ -706,6 +706,8 @@ type ApiInfo struct {
 	Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=7"`
 	// Whether is required | 是否是必须的 api
 	IsRequired *bool `json:"isRequired,optional"`
+	// Service name | 服务名称
+	ServiceName *string `json:"serviceName,optional"`
 }
 
 // The response data of API list | API列表数据
@@ -743,6 +745,8 @@ type ApiListReq struct {
 	Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=7"`
 	// Whether is required | 是否是必须的 api
 	IsRequired *bool `json:"isRequired,optional"`
+	// Service name | 服务名称
+	ServiceName *string `json:"serviceName,optional"`
 }
 
 // API information response | API信息返回体

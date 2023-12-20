@@ -2,6 +2,7 @@ package publicuser
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/config"
 	"github.com/suyuan32/simple-admin-common/enum/common"
 	"strings"
 	"time"
@@ -37,7 +38,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		return nil, errorx.NewCodeAbortedError("login.loginTypeForbidden")
 	}
 
-	if ok := l.svcCtx.Captcha.Verify("CAPTCHA_"+req.CaptchaId, req.Captcha, true); ok {
+	if ok := l.svcCtx.Captcha.Verify(config.RedisCaptchaPrefix+req.CaptchaId, req.Captcha, true); ok {
 		user, err := l.svcCtx.CoreRpc.GetUserByUsername(l.ctx,
 			&core.UsernameReq{
 				Username: req.Username,
@@ -71,7 +72,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			return nil, err
 		}
 
-		_, err = l.svcCtx.Redis.Del("CAPTCHA_" + req.CaptchaId)
+		err = l.svcCtx.Redis.Del(l.ctx, config.RedisCaptchaPrefix+req.CaptchaId).Err()
 		if err != nil {
 			logx.Errorw("failed to delete captcha in redis", logx.Field("detail", err))
 		}
