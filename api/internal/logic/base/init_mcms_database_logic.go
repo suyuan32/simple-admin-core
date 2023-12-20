@@ -78,7 +78,7 @@ func (l *InitMcmsDatabaseLogic) InitMcmsDatabase() (resp *types.BaseMsgResp, err
 func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	// Email Log
 	_, err := l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/email_log/create"),
 		Description: pointy.GetPointer("apiDesc.createEmailLog"),
 		ApiGroup:    pointy.GetPointer("email_log"),
@@ -90,7 +90,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/email_log/update"),
 		Description: pointy.GetPointer("apiDesc.updateEmailLog"),
 		ApiGroup:    pointy.GetPointer("email_log"),
@@ -102,7 +102,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/email_log/delete"),
 		Description: pointy.GetPointer("apiDesc.deleteEmailLog"),
 		ApiGroup:    pointy.GetPointer("email_log"),
@@ -114,7 +114,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/email_log/list"),
 		Description: pointy.GetPointer("apiDesc.getEmailLogList"),
 		ApiGroup:    pointy.GetPointer("email_log"),
@@ -126,7 +126,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/email_log"),
 		Description: pointy.GetPointer("apiDesc.getEmailLogById"),
 		ApiGroup:    pointy.GetPointer("email_log"),
@@ -139,7 +139,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 
 	// Email Provider
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/email_provider/create"),
 		Description: pointy.GetPointer("apiDesc.createEmailProvider"),
 		ApiGroup:    pointy.GetPointer("email_provider"),
@@ -151,7 +151,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/email_provider/update"),
 		Description: pointy.GetPointer("apiDesc.updateEmailProvider"),
 		ApiGroup:    pointy.GetPointer("email_provider"),
@@ -163,7 +163,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/email_provider/delete"),
 		Description: pointy.GetPointer("apiDesc.deleteEmailProvider"),
 		ApiGroup:    pointy.GetPointer("email_provider"),
@@ -175,7 +175,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/email_provider/list"),
 		Description: pointy.GetPointer("apiDesc.getEmailProviderList"),
 		ApiGroup:    pointy.GetPointer("email_provider"),
@@ -187,7 +187,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/email_provider"),
 		Description: pointy.GetPointer("apiDesc.getEmailProviderById"),
 		ApiGroup:    pointy.GetPointer("email_provider"),
@@ -200,7 +200,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 
 	// Sms Log
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/sms_log/create"),
 		Description: pointy.GetPointer("apiDesc.createSmsLog"),
 		ApiGroup:    pointy.GetPointer("sms_log"),
@@ -212,7 +212,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/sms_log/update"),
 		Description: pointy.GetPointer("apiDesc.updateSmsLog"),
 		ApiGroup:    pointy.GetPointer("sms_log"),
@@ -224,7 +224,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/sms_log/delete"),
 		Description: pointy.GetPointer("apiDesc.deleteSmsLog"),
 		ApiGroup:    pointy.GetPointer("sms_log"),
@@ -236,7 +236,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/sms_log/list"),
 		Description: pointy.GetPointer("apiDesc.getSmsLogList"),
 		ApiGroup:    pointy.GetPointer("sms_log"),
@@ -248,7 +248,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/sms_log"),
 		Description: pointy.GetPointer("apiDesc.getSmsLogById"),
 		ApiGroup:    pointy.GetPointer("sms_log"),
@@ -261,7 +261,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 
 	// Sms Provider
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/sms_provider/create"),
 		Description: pointy.GetPointer("apiDesc.createSmsProvider"),
 		ApiGroup:    pointy.GetPointer("sms_provider"),
@@ -273,7 +273,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/sms_provider/update"),
 		Description: pointy.GetPointer("apiDesc.updateSmsProvider"),
 		ApiGroup:    pointy.GetPointer("sms_provider"),
@@ -285,7 +285,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/sms_provider/delete"),
 		Description: pointy.GetPointer("apiDesc.deleteSmsProvider"),
 		ApiGroup:    pointy.GetPointer("sms_provider"),
@@ -297,7 +297,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/sms_provider/list"),
 		Description: pointy.GetPointer("apiDesc.getSmsProviderList"),
 		ApiGroup:    pointy.GetPointer("sms_provider"),
@@ -309,7 +309,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/sms_provider"),
 		Description: pointy.GetPointer("apiDesc.getSmsProviderById"),
 		ApiGroup:    pointy.GetPointer("sms_provider"),
@@ -321,7 +321,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/sms/send"),
 		Description: pointy.GetPointer("apiDesc.sendSms"),
 		ApiGroup:    pointy.GetPointer("message_sender"),
@@ -333,7 +333,7 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateApi(l.ctx, &core.ApiInfo{
-		ServiceName: pointy.GetPointer("mcms"),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Path:        pointy.GetPointer("/email/send"),
 		Description: pointy.GetPointer("apiDesc.sendEmail"),
 		ApiGroup:    pointy.GetPointer("message_sender"),
