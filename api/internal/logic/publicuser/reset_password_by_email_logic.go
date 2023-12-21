@@ -57,7 +57,7 @@ func (l *ResetPasswordByEmailLogic) ResetPasswordByEmail(req *types.ResetPasswor
 			return nil, err
 		}
 
-		_, err = l.svcCtx.Redis.Del(l.ctx, config.RedisCaptchaPrefix+req.Email).Result()
+		err = l.svcCtx.Redis.Del(l.ctx, config.RedisCaptchaPrefix+req.Email).Err()
 		if err != nil {
 			logx.Errorw("failed to delete captcha in redis", logx.Field("detail", err))
 		}
