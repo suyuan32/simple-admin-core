@@ -11,7 +11,7 @@ SERVICE_SNAKE=core
 SERVICE_DASH=core
 
 # The project version, if you don't use git, you should set it manually | 项目版本，如果不使用git请手动设置
-VERSION=v1.2.8
+VERSION=v1.2.9-beta
 
 # The project file name style | 项目文件命名风格
 PROJECT_STYLE=go_zero
@@ -26,7 +26,7 @@ SWAGGER_TYPE=json
 ENT_FEATURE=sql/execquery,intercept
 
 # The arch of the build | 构建的架构
-GOARCH=amd64
+GOARCH=arm64
 
 # ---- You may not need to modify the codes below | 下面的代码大概率不需要更改 ----
 
@@ -55,8 +55,8 @@ tools: # Install the necessary tools | 安装必要的工具
 
 .PHONY: docker
 docker: # Build the docker image | 构建 docker 镜像
-	docker build --network=host -f Dockerfile-api -t ${DOCKER_USERNAME}/$(SERVICE_DASH)-api-docker:${VERSION} .
-	docker build -f Dockerfile-rpc -t ${DOCKER_USERNAME}/$(SERVICE_DASH)-rpc-docker:${VERSION} .
+	docker build --platform linux/arm64 -f Dockerfile-api -t ${DOCKER_USERNAME}/$(SERVICE_DASH)-api-docker-arm64:${VERSION} .
+	docker build --platform linux/arm64 -f Dockerfile-rpc -t ${DOCKER_USERNAME}/$(SERVICE_DASH)-rpc-docker-arm64:${VERSION} .
 	@echo "Build docker successfully"
 
 .PHONY: publish-docker
