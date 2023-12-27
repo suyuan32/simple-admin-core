@@ -1,4 +1,4 @@
-package errorhandler
+package dberrorhandler
 
 import (
 	"github.com/zeromicro/go-zero/core/errorx"

@@ -10,7 +10,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dberrorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 )
 
@@ -38,7 +38,7 @@ func (l *GetDepartmentListLogic) GetDepartmentList(in *core.DepartmentListReq) (
 	}
 	result, err := l.svcCtx.DB.Department.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
+		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	resp := &core.DepartmentListResp{}
