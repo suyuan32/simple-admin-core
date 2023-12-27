@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dberrorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -39,7 +39,7 @@ func (l *UpdateOauthProviderLogic) UpdateOauthProvider(in *core.OauthProviderInf
 		SetNotNilInfoURL(in.InfoUrl).
 		Exec(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
+		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	if _, ok := providerConfig[*in.Name]; ok {
