@@ -65,6 +65,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			Token:     pointy.GetPointer(token),
 			Source:    pointy.GetPointer("core_user"),
 			Status:    pointy.GetPointer(uint32(common.StatusNormal)),
+			Username:  user.Username,
 			ExpiredAt: pointy.GetPointer(expiredAt),
 		})
 

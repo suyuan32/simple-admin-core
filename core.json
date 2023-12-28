@@ -6598,6 +6598,11 @@
           "format": "int64",
           "x-go-name": "UpdatedAt"
         },
+        "username": {
+          "description": "Username | 用户名",
+          "type": "string",
+          "x-go-name": "Username"
+        },
         "uuid": {
           "description": "User's UUID | 用户的UUID",
           "type": "string",

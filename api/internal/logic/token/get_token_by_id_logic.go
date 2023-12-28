@@ -47,6 +47,7 @@ func (l *GetTokenByIdLogic) GetTokenById(req *types.UUIDReq) (resp *types.TokenI
 			Uuid:      data.Uuid,
 			Token:     data.Token,
 			Source:    data.Source,
+			Username:  data.Username,
 			ExpiredAt: data.ExpiredAt,
 		},
 	}, nil
