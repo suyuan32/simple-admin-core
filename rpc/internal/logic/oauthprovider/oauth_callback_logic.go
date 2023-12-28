@@ -23,7 +23,7 @@ import (
 
 	user2 "github.com/suyuan32/simple-admin-core/rpc/internal/logic/user"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dberrorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -54,7 +54,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo
 	if _, ok := providerConfig[provider]; !ok {
 		p, err := l.svcCtx.DB.OauthProvider.Query().Where(oauthprovider.NameEQ(provider)).First(l.ctx)
 		if err != nil {
-			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
+			return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 		}
 
 		providerConfig[provider] = oauth2.Config{

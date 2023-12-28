@@ -25,7 +25,7 @@ type ServiceContext struct {
 	CoreRpc     coreclient.Core
 	JobRpc      jobclient.Job
 	McmsRpc     mcmsclient.Mcms
-	Redis       *redis.Client
+	Redis       redis.UniversalClient
 	Casbin      *casbin.Enforcer
 	Trans       *i18n.Translator
 	Captcha     *base64Captcha.Captcha
@@ -33,7 +33,7 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
-	rds := c.RedisConf.MustNewRedis()
+	rds := c.RedisConf.MustNewUniversalRedis()
 
 	cbn := c.CasbinConf.MustNewCasbinWithOriginalRedisWatcher(c.DatabaseConf.Type, c.DatabaseConf.GetDSN(),
 		c.RedisConf)

@@ -9,7 +9,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dberrorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -35,7 +35,7 @@ func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseIDResp, error
 	if *in.ParentId != common.DefaultParentId {
 		m, err := l.svcCtx.DB.Menu.Query().Where(menu.IDEQ(*in.ParentId)).First(l.ctx)
 		if err != nil {
-			return nil, errorhandler.DefaultEntError(l.Logger, err, in)
+			return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 		}
 
 		menuLevel = m.MenuLevel + 1
@@ -68,7 +68,7 @@ func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseIDResp, error
 		SetNotNilRealPath(in.Meta.RealPath).
 		Save(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
+		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseIDResp{Id: result.ID, Msg: i18n.CreateSuccess}, nil

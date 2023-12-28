@@ -20,6 +20,10 @@ func (Token) Fields() []ent.Field {
 		field.UUID("uuid", uuid.UUID{}).
 			Comment(" User's UUID | 用户的UUID").
 			Annotations(entsql.WithComments(true)),
+		field.String("username").
+			Comment("Username | 用户名").
+			Default("unknown").
+			Annotations(entsql.WithComments(true)),
 		field.String("token").
 			Comment("Token string | Token 字符串").
 			Annotations(entsql.WithComments(true)),
