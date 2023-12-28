@@ -35,6 +35,7 @@ func (l *CreateTokenLogic) CreateToken(in *core.TokenInfo) (*core.BaseUUIDResp, 
 		SetNotNilUUID(uuidx.ParseUUIDStringToPointer(in.Uuid)).
 		SetNotNilToken(in.Token).
 		SetNotNilSource(in.Source).
+		SetNotNilUsername(in.Username).
 		SetNotNilExpiredAt(pointy.GetTimePointer(in.ExpiredAt, 0)).
 		Save(l.ctx)
 	if err != nil {

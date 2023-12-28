@@ -76,6 +76,20 @@ func (tu *TokenUpdate) SetNillableUUID(u *uuid.UUID) *TokenUpdate {
 	return tu
 }
 
+// SetUsername sets the "username" field.
+func (tu *TokenUpdate) SetUsername(s string) *TokenUpdate {
+	tu.mutation.SetUsername(s)
+	return tu
+}
+
+// SetNillableUsername sets the "username" field if the given value is not nil.
+func (tu *TokenUpdate) SetNillableUsername(s *string) *TokenUpdate {
+	if s != nil {
+		tu.SetUsername(*s)
+	}
+	return tu
+}
+
 // SetToken sets the "token" field.
 func (tu *TokenUpdate) SetToken(s string) *TokenUpdate {
 	tu.mutation.SetToken(s)
@@ -183,6 +197,9 @@ func (tu *TokenUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := tu.mutation.UUID(); ok {
 		_spec.SetField(token.FieldUUID, field.TypeUUID, value)
 	}
+	if value, ok := tu.mutation.Username(); ok {
+		_spec.SetField(token.FieldUsername, field.TypeString, value)
+	}
 	if value, ok := tu.mutation.Token(); ok {
 		_spec.SetField(token.FieldToken, field.TypeString, value)
 	}
@@ -255,6 +272,20 @@ func (tuo *TokenUpdateOne) SetUUID(u uuid.UUID) *TokenUpdateOne {
 func (tuo *TokenUpdateOne) SetNillableUUID(u *uuid.UUID) *TokenUpdateOne {
 	if u != nil {
 		tuo.SetUUID(*u)
+	}
+	return tuo
+}
+
+// SetUsername sets the "username" field.
+func (tuo *TokenUpdateOne) SetUsername(s string) *TokenUpdateOne {
+	tuo.mutation.SetUsername(s)
+	return tuo
+}
+
+// SetNillableUsername sets the "username" field if the given value is not nil.
+func (tuo *TokenUpdateOne) SetNillableUsername(s *string) *TokenUpdateOne {
+	if s != nil {
+		tuo.SetUsername(*s)
 	}
 	return tuo
 }
@@ -395,6 +426,9 @@ func (tuo *TokenUpdateOne) sqlSave(ctx context.Context) (_node *Token, err error
 	}
 	if value, ok := tuo.mutation.UUID(); ok {
 		_spec.SetField(token.FieldUUID, field.TypeUUID, value)
+	}
+	if value, ok := tuo.mutation.Username(); ok {
+		_spec.SetField(token.FieldUsername, field.TypeString, value)
 	}
 	if value, ok := tuo.mutation.Token(); ok {
 		_spec.SetField(token.FieldToken, field.TypeString, value)

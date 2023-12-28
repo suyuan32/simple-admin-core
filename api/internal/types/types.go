@@ -995,6 +995,8 @@ type TokenInfo struct {
 	Token *string `json:"token,optional"`
 	// Source | Token 来源
 	Source *string `json:"source,optional"`
+	// Username | 用户名
+	Username *string `json:"username,optional"`
 	// ExpiredAt | 过期时间
 	ExpiredAt *int64 `json:"expiredAt,optional"`
 }

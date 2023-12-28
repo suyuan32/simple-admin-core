@@ -31,6 +31,7 @@ func (l *CreateTokenLogic) CreateToken(req *types.TokenInfo) (resp *types.BaseMs
 			Uuid:      req.Uuid,
 			Token:     req.Token,
 			Source:    req.Source,
+			Username:  req.Username,
 			ExpiredAt: req.ExpiredAt,
 		})
 	if err != nil {

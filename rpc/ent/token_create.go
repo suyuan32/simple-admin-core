@@ -69,6 +69,20 @@ func (tc *TokenCreate) SetUUID(u uuid.UUID) *TokenCreate {
 	return tc
 }
 
+// SetUsername sets the "username" field.
+func (tc *TokenCreate) SetUsername(s string) *TokenCreate {
+	tc.mutation.SetUsername(s)
+	return tc
+}
+
+// SetNillableUsername sets the "username" field if the given value is not nil.
+func (tc *TokenCreate) SetNillableUsername(s *string) *TokenCreate {
+	if s != nil {
+		tc.SetUsername(*s)
+	}
+	return tc
+}
+
 // SetToken sets the "token" field.
 func (tc *TokenCreate) SetToken(s string) *TokenCreate {
 	tc.mutation.SetToken(s)
@@ -148,6 +162,10 @@ func (tc *TokenCreate) defaults() {
 		v := token.DefaultStatus
 		tc.mutation.SetStatus(v)
 	}
+	if _, ok := tc.mutation.Username(); !ok {
+		v := token.DefaultUsername
+		tc.mutation.SetUsername(v)
+	}
 	if _, ok := tc.mutation.ID(); !ok {
 		v := token.DefaultID()
 		tc.mutation.SetID(v)
@@ -164,6 +182,9 @@ func (tc *TokenCreate) check() error {
 	}
 	if _, ok := tc.mutation.UUID(); !ok {
 		return &ValidationError{Name: "uuid", err: errors.New(`ent: missing required field "Token.uuid"`)}
+	}
+	if _, ok := tc.mutation.Username(); !ok {
+		return &ValidationError{Name: "username", err: errors.New(`ent: missing required field "Token.username"`)}
 	}
 	if _, ok := tc.mutation.Token(); !ok {
 		return &ValidationError{Name: "token", err: errors.New(`ent: missing required field "Token.token"`)}
@@ -224,6 +245,10 @@ func (tc *TokenCreate) createSpec() (*Token, *sqlgraph.CreateSpec) {
 	if value, ok := tc.mutation.UUID(); ok {
 		_spec.SetField(token.FieldUUID, field.TypeUUID, value)
 		_node.UUID = value
+	}
+	if value, ok := tc.mutation.Username(); ok {
+		_spec.SetField(token.FieldUsername, field.TypeString, value)
+		_node.Username = value
 	}
 	if value, ok := tc.mutation.Token(); ok {
 		_spec.SetField(token.FieldToken, field.TypeString, value)
