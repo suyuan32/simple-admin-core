@@ -22,6 +22,8 @@ const (
 	FieldStatus = "status"
 	// FieldUUID holds the string denoting the uuid field in the database.
 	FieldUUID = "uuid"
+	// FieldUsername holds the string denoting the username field in the database.
+	FieldUsername = "username"
 	// FieldToken holds the string denoting the token field in the database.
 	FieldToken = "token"
 	// FieldSource holds the string denoting the source field in the database.
@@ -39,6 +41,7 @@ var Columns = []string{
 	FieldUpdatedAt,
 	FieldStatus,
 	FieldUUID,
+	FieldUsername,
 	FieldToken,
 	FieldSource,
 	FieldExpiredAt,
@@ -63,6 +66,8 @@ var (
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultStatus holds the default value on creation for the "status" field.
 	DefaultStatus uint8
+	// DefaultUsername holds the default value on creation for the "username" field.
+	DefaultUsername string
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )
@@ -93,6 +98,11 @@ func ByStatus(opts ...sql.OrderTermOption) OrderOption {
 // ByUUID orders the results by the uuid field.
 func ByUUID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUUID, opts...).ToFunc()
+}
+
+// ByUsername orders the results by the username field.
+func ByUsername(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUsername, opts...).ToFunc()
 }
 
 // ByToken orders the results by the token field.

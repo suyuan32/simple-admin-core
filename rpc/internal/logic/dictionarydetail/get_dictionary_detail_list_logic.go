@@ -11,7 +11,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dberrorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 )
 
@@ -41,7 +41,7 @@ func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(in *core.Dictiona
 		pager.Order = ent.Asc(dictionarydetail.FieldSort)
 	})
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
+		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	resp := &core.DictionaryDetailListResp{}

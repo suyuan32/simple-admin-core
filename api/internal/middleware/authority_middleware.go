@@ -20,12 +20,12 @@ import (
 
 type AuthorityMiddleware struct {
 	Cbn         *casbin.Enforcer
-	Rds         *redis.Client
+	Rds         redis.UniversalClient
 	Trans       *i18n.Translator
 	BanRoleData map[string]bool
 }
 
-func NewAuthorityMiddleware(cbn *casbin.Enforcer, rds *redis.Client, trans *i18n.Translator, banRoleData map[string]bool) *AuthorityMiddleware {
+func NewAuthorityMiddleware(cbn *casbin.Enforcer, rds redis.UniversalClient, trans *i18n.Translator, banRoleData map[string]bool) *AuthorityMiddleware {
 	return &AuthorityMiddleware{
 		Cbn:         cbn,
 		Rds:         rds,

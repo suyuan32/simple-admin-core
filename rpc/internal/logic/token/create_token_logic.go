@@ -7,7 +7,7 @@ import (
 	"github.com/suyuan32/simple-admin-common/utils/uuidx"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/errorhandler"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dberrorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
@@ -35,10 +35,11 @@ func (l *CreateTokenLogic) CreateToken(in *core.TokenInfo) (*core.BaseUUIDResp, 
 		SetNotNilUUID(uuidx.ParseUUIDStringToPointer(in.Uuid)).
 		SetNotNilToken(in.Token).
 		SetNotNilSource(in.Source).
+		SetNotNilUsername(in.Username).
 		SetNotNilExpiredAt(pointy.GetTimePointer(in.ExpiredAt, 0)).
 		Save(l.ctx)
 	if err != nil {
-		return nil, errorhandler.DefaultEntError(l.Logger, err, in)
+		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.BaseUUIDResp{Id: result.ID.String(), Msg: i18n.CreateSuccess}, nil
