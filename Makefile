@@ -55,8 +55,8 @@ tools: # Install the necessary tools | 安装必要的工具
 
 .PHONY: docker
 docker: # Build the docker image | 构建 docker 镜像
-	docker build --network=host -f Dockerfile-api -t ${DOCKER_USERNAME}/$(SERVICE_DASH)-api-docker:${VERSION} .
-	docker build -f Dockerfile-rpc -t ${DOCKER_USERNAME}/$(SERVICE_DASH)-rpc-docker:${VERSION} .
+	docker build --network=host -f Dockerfile-api -t ${DOCKER_USERNAME}/$(SERVICE_DASH)-api-demo:${VERSION} .
+	# docker build -f Dockerfile-rpc -t ${DOCKER_USERNAME}/$(SERVICE_DASH)-rpc-docker:${VERSION} .
 	@echo "Build docker successfully"
 
 .PHONY: publish-docker

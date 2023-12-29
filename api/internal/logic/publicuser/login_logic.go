@@ -3,13 +3,11 @@ package publicuser
 import (
 	"context"
 	"github.com/suyuan32/simple-admin-common/config"
-	"github.com/suyuan32/simple-admin-common/enum/common"
 	"strings"
 	"time"
 
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
-	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -60,18 +58,18 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 
 		// add token into database
 		expiredAt := time.Now().Add(time.Second * time.Duration(l.svcCtx.Config.Auth.AccessExpire)).Unix()
-		_, err = l.svcCtx.CoreRpc.CreateToken(l.ctx, &core.TokenInfo{
-			Uuid:      user.Id,
-			Token:     pointy.GetPointer(token),
-			Source:    pointy.GetPointer("core_user"),
-			Status:    pointy.GetPointer(uint32(common.StatusNormal)),
-			Username:  user.Username,
-			ExpiredAt: pointy.GetPointer(expiredAt),
-		})
-
-		if err != nil {
-			return nil, err
-		}
+		//_, err = l.svcCtx.CoreRpc.CreateToken(l.ctx, &core.TokenInfo{
+		//	Uuid:      user.Id,
+		//	Token:     pointy.GetPointer(token),
+		//	Source:    pointy.GetPointer("core_user"),
+		//	Status:    pointy.GetPointer(uint32(common.StatusNormal)),
+		//	Username:  user.Username,
+		//	ExpiredAt: pointy.GetPointer(expiredAt),
+		//})
+		//
+		//if err != nil {
+		//	return nil, err
+		//}
 
 		err = l.svcCtx.Redis.Del(l.ctx, config.RedisCaptchaPrefix+req.CaptchaId).Err()
 		if err != nil {
