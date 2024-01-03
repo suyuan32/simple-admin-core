@@ -48,7 +48,7 @@ func (l *GetUserByUsernameLogic) GetUserByUsername(in *core.UsernameReq) (*core.
 		HomePath:     &result.HomePath,
 		Description:  &result.Description,
 		DepartmentId: &result.DepartmentID,
-		CreatedAt:    pointy.GetPointer(result.CreatedAt.Unix()),
-		UpdatedAt:    pointy.GetPointer(result.UpdatedAt.Unix()),
+		CreatedAt:    pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt:    pointy.GetPointer(result.UpdatedAt.UnixMilli()),
 	}, nil
 }
