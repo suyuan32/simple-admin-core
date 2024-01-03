@@ -46,7 +46,7 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 			strings.Join(result.RoleCodes, ",")))
 
 	// add token into database
-	expiredAt := time.Now().Add(time.Second * 259200).Unix()
+	expiredAt := time.Now().Add(time.Second * time.Duration(l.svcCtx.Config.Auth.AccessExpire)).UnixMilli()
 	_, err = l.svcCtx.CoreRpc.CreateToken(l.ctx, &core.TokenInfo{
 		Uuid:      result.Id,
 		Token:     pointy.GetPointer(token),
@@ -62,6 +62,6 @@ func (l *OauthCallbackLogic) OauthCallback() (resp *types.CallbackResp, err erro
 	return &types.CallbackResp{
 		UserId: *result.Id,
 		Token:  token,
-		Expire: uint64(time.Now().Add(time.Second * 259200).Unix()),
+		Expire: uint64(expiredAt),
 	}, nil
 }

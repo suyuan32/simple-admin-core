@@ -36,7 +36,7 @@ func (l *CreateTokenLogic) CreateToken(in *core.TokenInfo) (*core.BaseUUIDResp, 
 		SetNotNilToken(in.Token).
 		SetNotNilSource(in.Source).
 		SetNotNilUsername(in.Username).
-		SetNotNilExpiredAt(pointy.GetTimePointer(in.ExpiredAt, 0)).
+		SetNotNilExpiredAt(pointy.GetTimeMilliPointer(in.ExpiredAt)).
 		Save(l.ctx)
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
