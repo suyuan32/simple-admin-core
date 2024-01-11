@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.3.1"
+    "version": "1.3.2"
   },
   "host": "localhost:9100",
   "basePath": "/",
@@ -3078,7 +3078,7 @@
         "group": {
           "description": "API group | API分组",
           "type": "string",
-          "maxLength": 20,
+          "maxLength": 80,
           "minLength": 1,
           "x-go-name": "Group"
         },
@@ -3188,7 +3188,7 @@
         "group": {
           "description": "API group | API分组",
           "type": "string",
-          "maxLength": 20,
+          "maxLength": 80,
           "x-go-name": "Group"
         },
         "isRequired": {
