@@ -698,8 +698,8 @@ type ApiInfo struct {
 	Description *string `json:"description,optional" validate:"omitempty,max=100"`
 	// API group | API分组
 	// min length : 1
-	// max length : 20
-	Group *string `json:"group,optional" validate:"omitempty,min=1,max=20"`
+	// max length : 80
+	Group *string `json:"group,optional" validate:"omitempty,min=1,max=80"`
 	// API request method e.g. POST | API请求类型 如POST
 	// min length : 3
 	// max length : 7
@@ -737,8 +737,8 @@ type ApiListReq struct {
 	// max length : 100
 	Description *string `json:"description,optional" validate:"omitempty,max=100"`
 	// API group | API分组
-	// max length : 20
-	Group *string `json:"group,optional" validate:"omitempty,max=20"`
+	// max length : 80
+	Group *string `json:"group,optional" validate:"omitempty,max=80"`
 	// API request method e.g. POST | API请求类型 如POST
 	// min length : 3
 	// max length : 7

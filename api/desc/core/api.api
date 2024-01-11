@@ -25,7 +25,7 @@ type (
         Description *string `json:"description,optional" validate:"omitempty,max=100"`
 
         // API group | API分组
-        Group *string `json:"group,optional" validate:"omitempty,min=1,max=20"`
+        Group *string `json:"group,optional" validate:"omitempty,min=1,max=80"`
 
         // API request method e.g. POST | API请求类型 如POST
         Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=7"`
@@ -64,7 +64,7 @@ type (
         Description *string `json:"description,optional" validate:"omitempty,max=100"`
 
         // API group | API分组
-        Group *string `json:"group,optional" validate:"omitempty,max=20"`
+        Group *string `json:"group,optional" validate:"omitempty,max=80"`
 
         // API request method e.g. POST | API请求类型 如POST
         Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=7"`
