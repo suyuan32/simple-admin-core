@@ -151,6 +151,20 @@ func (mc *MenuCreate) SetNillableDisabled(b *bool) *MenuCreate {
 	return mc
 }
 
+// SetServiceName sets the "service_name" field.
+func (mc *MenuCreate) SetServiceName(s string) *MenuCreate {
+	mc.mutation.SetServiceName(s)
+	return mc
+}
+
+// SetNillableServiceName sets the "service_name" field if the given value is not nil.
+func (mc *MenuCreate) SetNillableServiceName(s *string) *MenuCreate {
+	if s != nil {
+		mc.SetServiceName(*s)
+	}
+	return mc
+}
+
 // SetTitle sets the "title" field.
 func (mc *MenuCreate) SetTitle(s string) *MenuCreate {
 	mc.mutation.SetTitle(s)
@@ -411,6 +425,10 @@ func (mc *MenuCreate) defaults() {
 		v := menu.DefaultDisabled
 		mc.mutation.SetDisabled(v)
 	}
+	if _, ok := mc.mutation.ServiceName(); !ok {
+		v := menu.DefaultServiceName
+		mc.mutation.SetServiceName(v)
+	}
 	if _, ok := mc.mutation.HideMenu(); !ok {
 		v := menu.DefaultHideMenu
 		mc.mutation.SetHideMenu(v)
@@ -550,6 +568,10 @@ func (mc *MenuCreate) createSpec() (*Menu, *sqlgraph.CreateSpec) {
 	if value, ok := mc.mutation.Disabled(); ok {
 		_spec.SetField(menu.FieldDisabled, field.TypeBool, value)
 		_node.Disabled = value
+	}
+	if value, ok := mc.mutation.ServiceName(); ok {
+		_spec.SetField(menu.FieldServiceName, field.TypeString, value)
+		_node.ServiceName = value
 	}
 	if value, ok := mc.mutation.Title(); ok {
 		_spec.SetField(menu.FieldTitle, field.TypeString, value)

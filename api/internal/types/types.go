@@ -518,6 +518,8 @@ type MenuInfo struct {
 	Meta Meta `json:"meta"`
 	// MenuType | 菜单类型
 	MenuType *uint32 `json:"menuType,optional"`
+	// Service Name | 服务名称
+	ServiceName *string `json:"serviceName,optional"`
 }
 
 // The meta data of menu | 菜单的meta数据
@@ -610,6 +612,8 @@ type MenuPlainInfo struct {
 	// MenuType | 菜单类型
 	// max : 10
 	MenuType *uint32 `json:"menuType,optional" validate:"omitempty,lt=10"`
+	// Service Name | 服务名称
+	ServiceName *string `json:"serviceName,optional"`
 	// Menu title show in page | 菜单显示名
 	// max length : 50
 	Title *string `json:"title" validate:"omitempty,max=50"`

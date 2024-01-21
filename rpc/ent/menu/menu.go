@@ -36,6 +36,8 @@ const (
 	FieldComponent = "component"
 	// FieldDisabled holds the string denoting the disabled field in the database.
 	FieldDisabled = "disabled"
+	// FieldServiceName holds the string denoting the service_name field in the database.
+	FieldServiceName = "service_name"
 	// FieldTitle holds the string denoting the title field in the database.
 	FieldTitle = "title"
 	// FieldIcon holds the string denoting the icon field in the database.
@@ -97,6 +99,7 @@ var Columns = []string{
 	FieldRedirect,
 	FieldComponent,
 	FieldDisabled,
+	FieldServiceName,
 	FieldTitle,
 	FieldIcon,
 	FieldHideMenu,
@@ -146,6 +149,8 @@ var (
 	DefaultComponent string
 	// DefaultDisabled holds the default value on creation for the "disabled" field.
 	DefaultDisabled bool
+	// DefaultServiceName holds the default value on creation for the "service_name" field.
+	DefaultServiceName string
 	// DefaultHideMenu holds the default value on creation for the "hide_menu" field.
 	DefaultHideMenu bool
 	// DefaultHideBreadcrumb holds the default value on creation for the "hide_breadcrumb" field.
@@ -229,6 +234,11 @@ func ByComponent(opts ...sql.OrderTermOption) OrderOption {
 // ByDisabled orders the results by the disabled field.
 func ByDisabled(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDisabled, opts...).ToFunc()
+}
+
+// ByServiceName orders the results by the service_name field.
+func ByServiceName(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldServiceName, opts...).ToFunc()
 }
 
 // ByTitle orders the results by the title field.
