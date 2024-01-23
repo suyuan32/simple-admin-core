@@ -21,4 +21,6 @@ COPY ./${PROJECT}_api ./
 COPY ./api/etc/${CONFIG_FILE} ./etc/
 COPY ./api/internal/i18n/locale/ ./etc/locale/
 
+EXPOSE 9100
+
 ENTRYPOINT ./${PROJECT}_api -f etc/${CONFIG_FILE}

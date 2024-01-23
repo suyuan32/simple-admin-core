@@ -110,6 +110,11 @@ func Disabled(v bool) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldDisabled, v))
 }
 
+// ServiceName applies equality check predicate on the "service_name" field. It's identical to ServiceNameEQ.
+func ServiceName(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldServiceName, v))
+}
+
 // Title applies equality check predicate on the "title" field. It's identical to TitleEQ.
 func Title(v string) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldTitle, v))
@@ -708,6 +713,81 @@ func DisabledIsNil() predicate.Menu {
 // DisabledNotNil applies the NotNil predicate on the "disabled" field.
 func DisabledNotNil() predicate.Menu {
 	return predicate.Menu(sql.FieldNotNull(FieldDisabled))
+}
+
+// ServiceNameEQ applies the EQ predicate on the "service_name" field.
+func ServiceNameEQ(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldServiceName, v))
+}
+
+// ServiceNameNEQ applies the NEQ predicate on the "service_name" field.
+func ServiceNameNEQ(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldNEQ(FieldServiceName, v))
+}
+
+// ServiceNameIn applies the In predicate on the "service_name" field.
+func ServiceNameIn(vs ...string) predicate.Menu {
+	return predicate.Menu(sql.FieldIn(FieldServiceName, vs...))
+}
+
+// ServiceNameNotIn applies the NotIn predicate on the "service_name" field.
+func ServiceNameNotIn(vs ...string) predicate.Menu {
+	return predicate.Menu(sql.FieldNotIn(FieldServiceName, vs...))
+}
+
+// ServiceNameGT applies the GT predicate on the "service_name" field.
+func ServiceNameGT(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldGT(FieldServiceName, v))
+}
+
+// ServiceNameGTE applies the GTE predicate on the "service_name" field.
+func ServiceNameGTE(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldGTE(FieldServiceName, v))
+}
+
+// ServiceNameLT applies the LT predicate on the "service_name" field.
+func ServiceNameLT(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldLT(FieldServiceName, v))
+}
+
+// ServiceNameLTE applies the LTE predicate on the "service_name" field.
+func ServiceNameLTE(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldLTE(FieldServiceName, v))
+}
+
+// ServiceNameContains applies the Contains predicate on the "service_name" field.
+func ServiceNameContains(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldContains(FieldServiceName, v))
+}
+
+// ServiceNameHasPrefix applies the HasPrefix predicate on the "service_name" field.
+func ServiceNameHasPrefix(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldHasPrefix(FieldServiceName, v))
+}
+
+// ServiceNameHasSuffix applies the HasSuffix predicate on the "service_name" field.
+func ServiceNameHasSuffix(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldHasSuffix(FieldServiceName, v))
+}
+
+// ServiceNameIsNil applies the IsNil predicate on the "service_name" field.
+func ServiceNameIsNil() predicate.Menu {
+	return predicate.Menu(sql.FieldIsNull(FieldServiceName))
+}
+
+// ServiceNameNotNil applies the NotNil predicate on the "service_name" field.
+func ServiceNameNotNil() predicate.Menu {
+	return predicate.Menu(sql.FieldNotNull(FieldServiceName))
+}
+
+// ServiceNameEqualFold applies the EqualFold predicate on the "service_name" field.
+func ServiceNameEqualFold(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldEqualFold(FieldServiceName, v))
+}
+
+// ServiceNameContainsFold applies the ContainsFold predicate on the "service_name" field.
+func ServiceNameContainsFold(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldContainsFold(FieldServiceName, v))
 }
 
 // TitleEQ applies the EQ predicate on the "title" field.
