@@ -1,5 +1,526 @@
-<a name="v1.0.12"></a>
+<a name="v1.3.2"></a>
 
+## [v1.3.2](https://github.com/suyuan32/simple-admin-core/compare/v1.3.1...v1.3.2) (2024-01-11)
+
+### Chore
+
+* upgrade deps
+
+### Docs
+
+* update readme
+
+### Fix
+
+* provide more length for api group
+
+### Pull Requests
+
+* Merge pull request [#248](https://github.com/suyuan32/simple-admin-core/issues/248) from suyuan32/dev
+* Merge pull request [#247](https://github.com/suyuan32/simple-admin-core/issues/247) from suyuan32/dev
+
+<a name="v1.3.1"></a>
+
+## [v1.3.1](https://github.com/suyuan32/simple-admin-core/compare/v1.3.0...v1.3.1) (2024-01-03)
+
+### Chore
+
+* update system version
+* update deps
+* upgrade docker image
+
+### Pull Requests
+
+* Merge pull request [#245](https://github.com/suyuan32/simple-admin-core/issues/245) from suyuan32/dev
+
+<a name="v1.3.0"></a>
+
+## [v1.3.0](https://github.com/suyuan32/simple-admin-core/compare/v1.2.8...v1.3.0) (2023-12-28)
+
+### Chore
+
+* update version
+
+### Docs
+
+* update readme
+
+### Feat
+
+* use universal redis
+* username in token page
+
+### Fix
+
+* optimize redis error handle
+
+### Refactor
+
+* errorhandler rename to dberrorhandler
+
+### Pull Requests
+
+* Merge pull request [#244](https://github.com/suyuan32/simple-admin-core/issues/244) from suyuan32/dev
+* Merge pull request [#243](https://github.com/suyuan32/simple-admin-core/issues/243) from suyuan32/dev
+* Merge pull request [#242](https://github.com/suyuan32/simple-admin-core/issues/242) from suyuan32/dev
+* Merge pull request [#241](https://github.com/suyuan32/simple-admin-core/issues/241) from suyuan32/dev
+
+<a name="v1.2.8"></a>
+
+## [v1.2.8](https://github.com/suyuan32/simple-admin-core/compare/v1.2.5...v1.2.8) (2023-12-20)
+
+### Chore
+
+* update all in one image version
+* update version
+* use original redis
+* update all in one images
+
+### Feat
+
+* api service name field and mcms init code
+
+### Fix
+
+* optimize mcms service name
+* token expired time in redis
+* optimize api default service name
+* optimize service name
+* ent tpl format
+* ent tpl format
+* department delete without judging users
+
+### Pull Requests
+
+* Merge pull request [#237](https://github.com/suyuan32/simple-admin-core/issues/237) from suyuan32/dev
+* Merge pull request [#234](https://github.com/suyuan32/simple-admin-core/issues/234) from suyuan32/dev
+
+<a name="v1.2.5"></a>
+
+## [v1.2.5](https://github.com/suyuan32/simple-admin-core/compare/v1.2.4...v1.2.5) (2023-12-15)
+
+### Chore
+
+* upgrade version
+
+### Docs
+
+* update readme
+* update readme
+
+### Feat
+
+* sms params type
+* disable register
+
+### Fix
+
+* argument of captcha
+* default sms provider
+* wrong status when block user
+* optimize i18n files
+
+### Pull Requests
+
+* Merge pull request [#233](https://github.com/suyuan32/simple-admin-core/issues/233) from suyuan32/dev
+* Merge pull request [#232](https://github.com/suyuan32/simple-admin-core/issues/232) from suyuan32/dev
+* Merge pull request [#231](https://github.com/suyuan32/simple-admin-core/issues/231) from suyuan32/dev
+* Merge pull request [#229](https://github.com/suyuan32/simple-admin-core/issues/229) from suyuan32/dev
+* Merge pull request [#228](https://github.com/suyuan32/simple-admin-core/issues/228) from suyuan32/dev
+* Merge pull request [#227](https://github.com/suyuan32/simple-admin-core/issues/227) from suyuan32/dev
+* Merge pull request [#226](https://github.com/suyuan32/simple-admin-core/issues/226) from ctra-wang/master
+* Merge pull request [#225](https://github.com/suyuan32/simple-admin-core/issues/225) from suyuan32/dev
+
+<a name="v1.2.4"></a>
+
+## [v1.2.4](https://github.com/suyuan32/simple-admin-core/compare/v1.2.3...v1.2.4) (2023-12-04)
+
+### Chore
+
+* update docker image
+* update all in one
+* update deps
+* update swagger version
+
+### Docs
+
+* update readme
+* update readme
+
+### Feat
+
+* department Id in token
+
+### Fix
+
+* remove unused set not empty files
+
+### Pull Requests
+
+* Merge pull request [#224](https://github.com/suyuan32/simple-admin-core/issues/224) from suyuan32/dev
+* Merge pull request [#223](https://github.com/suyuan32/simple-admin-core/issues/223) from suyuan32/dev
+* Merge pull request [#221](https://github.com/suyuan32/simple-admin-core/issues/221) from suyuan32/dev
+* Merge pull request [#219](https://github.com/suyuan32/simple-admin-core/issues/219) from suyuan32/dev
+* Merge pull request [#218](https://github.com/suyuan32/simple-admin-core/issues/218) from suyuan32/dev
+
+<a name="v1.2.3"></a>
+
+## [v1.2.3](https://github.com/suyuan32/simple-admin-core/compare/v1.2.2...v1.2.3) (2023-11-21)
+
+### Chore
+
+* update all in one
+* update dependencies
+
+### Fix
+
+* add index for menu
+* add index for menu
+
+### Pull Requests
+
+* Merge pull request [#217](https://github.com/suyuan32/simple-admin-core/issues/217) from suyuan32/dev
+* Merge pull request [#214](https://github.com/suyuan32/simple-admin-core/issues/214) from suyuan32/dev
+* Merge pull request [#213](https://github.com/suyuan32/simple-admin-core/issues/213) from suyuan32/dev
+
+<a name="v1.2.2"></a>
+
+## [v1.2.2](https://github.com/suyuan32/simple-admin-core/compare/v1.2.0...v1.2.2) (2023-11-07)
+
+### Chore
+
+* update all in one
+* upgrade deps
+
+### Feat
+
+* allow init config and add force add super policy support
+
+### Fix
+
+* block token when user status change to abnormal
+* forbid user login with wrong status
+* nil pointer error in role update
+* optimize i18n trans
+* hide disable menu in role menu list
+* lack disabled response variable
+* host name in mysql deploy
+
+### Pull Requests
+
+* Merge pull request [#212](https://github.com/suyuan32/simple-admin-core/issues/212) from suyuan32/dev
+* Merge pull request [#211](https://github.com/suyuan32/simple-admin-core/issues/211) from suyuan32/dev
+* Merge pull request [#210](https://github.com/suyuan32/simple-admin-core/issues/210) from suyuan32/dev
+* Merge pull request [#209](https://github.com/suyuan32/simple-admin-core/issues/209) from suyuan32/dev
+
+<a name="v1.2.0"></a>
+
+## [v1.2.0](https://github.com/suyuan32/simple-admin-core/compare/v1.1.6...v1.2.0) (2023-10-29)
+
+### Chore
+
+* upgrade deps and version
+* update all in one etc
+
+### Ci
+
+* **deploy:** update deploy jaeger
+
+### Fix
+
+* update all in one
+* update casbin rules when role code update
+
+### Pull Requests
+
+* Merge pull request [#205](https://github.com/suyuan32/simple-admin-core/issues/205) from suyuan32/dev
+* Merge pull request [#202](https://github.com/suyuan32/simple-admin-core/issues/202) from shaohongwu/ci/jaeger
+* Merge pull request [#201](https://github.com/suyuan32/simple-admin-core/issues/201) from suyuan32/dev
+
+<a name="v1.1.6"></a>
+
+## [v1.1.6](https://github.com/suyuan32/simple-admin-core/compare/v1.1.5...v1.1.6) (2023-10-17)
+
+### Chore
+
+* update all in one
+* update system version in swagger
+* update deps
+
+### Ci
+
+* **deploy:** update deploy rocketmq
+
+### Fix
+
+* optimize makefile
+* makefile
+* dockerfile timezone
+* dockerfile timezone and makefile
+* message i18n trans
+* message i18n trans
+
+### Pull Requests
+
+* Merge pull request [#200](https://github.com/suyuan32/simple-admin-core/issues/200) from suyuan32/dev
+* Merge pull request [#199](https://github.com/suyuan32/simple-admin-core/issues/199) from shaohongwu/ci/rocketmq
+* Merge pull request [#197](https://github.com/suyuan32/simple-admin-core/issues/197) from suyuan32/dev
+* Merge pull request [#196](https://github.com/suyuan32/simple-admin-core/issues/196) from suyuan32/dev
+* Merge pull request [#195](https://github.com/suyuan32/simple-admin-core/issues/195) from suyuan32/dev
+
+<a name="v1.1.5"></a>
+
+## [v1.1.5](https://github.com/suyuan32/simple-admin-core/compare/v1.1.4...v1.1.5) (2023-10-06)
+
+### Chore
+
+* upgrade deps
+* update all in one
+* update all in one
+* upgrade deps
+
+### Docs
+
+* update readme
+* update readme
+* update readme
+
+### Fix
+
+* update config file
+* the path in dockerfile
+
+### Pull Requests
+
+* Merge pull request [#194](https://github.com/suyuan32/simple-admin-core/issues/194) from suyuan32/dev
+* Merge pull request [#193](https://github.com/suyuan32/simple-admin-core/issues/193) from suyuan32/dev
+* Merge pull request [#192](https://github.com/suyuan32/simple-admin-core/issues/192) from suyuan32/dev
+* Merge pull request [#191](https://github.com/suyuan32/simple-admin-core/issues/191) from suyuan32/dev
+* Merge pull request [#190](https://github.com/suyuan32/simple-admin-core/issues/190) from suyuan32/dev
+
+<a name="v1.1.4"></a>
+
+## [v1.1.4](https://github.com/suyuan32/simple-admin-core/compare/v1.1.3...v1.1.4) (2023-09-10)
+
+### Chore
+
+* update all in one
+* upgrade deps
+* update deploy images version
+* update deploy images version
+
+### Feat
+
+* login response with role name
+* add mcms error msg
+* email and sms for login and register
+
+### Fix
+
+* optimize login method error msg
+* del captcha redis key when login successful
+* jwt blacklist invalid when use bearer token
+* jwt blacklist invalid when use bearer token
+
+### Pull Requests
+
+* Merge pull request [#187](https://github.com/suyuan32/simple-admin-core/issues/187) from suyuan32/dev
+* Merge pull request [#186](https://github.com/suyuan32/simple-admin-core/issues/186) from suyuan32/dev
+* Merge pull request [#185](https://github.com/suyuan32/simple-admin-core/issues/185) from suyuan32/dev
+* Merge pull request [#184](https://github.com/suyuan32/simple-admin-core/issues/184) from suyuan32/dev
+* Merge pull request [#182](https://github.com/suyuan32/simple-admin-core/issues/182) from suyuan32/dev
+* Merge pull request [#181](https://github.com/suyuan32/simple-admin-core/issues/181) from suyuan32/dev
+
+<a name="v1.1.3"></a>
+
+## [v1.1.3](https://github.com/suyuan32/simple-admin-core/compare/v1.1.2...v1.1.3) (2023-09-03)
+
+### Chore
+
+* upgrade deps
+
+### Docs
+
+* update readme
+* update readme
+
+### Feat
+
+* fms i18n trans
+
+### Fix
+
+* open the port of core api in all in one
+
+### Pull Requests
+
+* Merge pull request [#180](https://github.com/suyuan32/simple-admin-core/issues/180) from suyuan32/dev
+* Merge pull request [#179](https://github.com/suyuan32/simple-admin-core/issues/179) from suyuan32/dev
+* Merge pull request [#177](https://github.com/suyuan32/simple-admin-core/issues/177) from suyuan32/dev
+* Merge pull request [#176](https://github.com/suyuan32/simple-admin-core/issues/176) from suyuan32/dev
+
+<a name="v1.1.2"></a>
+
+## [v1.1.2](https://github.com/suyuan32/simple-admin-core/compare/v1.1.1...v1.1.2) (2023-08-18)
+
+### Chore
+
+* update all in one
+* update system version
+* upgrade deps
+* upgrade deps
+* upgrade deps
+
+### Docs
+
+* update README.En.md
+* update github funding
+* update readme
+* update readme
+
+### Pull Requests
+
+* Merge pull request [#175](https://github.com/suyuan32/simple-admin-core/issues/175) from suyuan32/dev
+* Merge pull request [#174](https://github.com/suyuan32/simple-admin-core/issues/174) from suyuan32/dev
+* Merge pull request [#173](https://github.com/suyuan32/simple-admin-core/issues/173) from suyuan32/dev
+* Merge pull request [#172](https://github.com/suyuan32/simple-admin-core/issues/172) from suyuan32/dev
+* Merge pull request [#171](https://github.com/suyuan32/simple-admin-core/issues/171) from suyuan32/dev
+* Merge pull request [#170](https://github.com/suyuan32/simple-admin-core/issues/170) from suyuan32/dev
+
+<a name="v1.1.1"></a>
+
+## [v1.1.1](https://github.com/suyuan32/simple-admin-core/compare/v1.1.0...v1.1.1) (2023-08-04)
+
+### Chore
+
+* update all in one
+* update system version
+* update all in one
+
+### Fix
+
+* optimize makefile
+* regen ent schema
+* optimize soft delete
+
+### Pull Requests
+
+* Merge pull request [#169](https://github.com/suyuan32/simple-admin-core/issues/169) from suyuan32/dev
+
+<a name="v1.1.0"></a>
+
+## [v1.1.0](https://github.com/suyuan32/simple-admin-core/compare/v1.0.14...v1.1.0) (2023-07-25)
+
+### Chore
+
+* update all in one
+* update swagger version
+* upgrade deps
+* upgrade go zero version
+* update image version in all in one
+
+### Docs
+
+* update readme
+
+### Fix
+
+* reload Casbin policy after init database
+
+### Pull Requests
+
+* Merge pull request [#167](https://github.com/suyuan32/simple-admin-core/issues/167) from suyuan32/dev
+* Merge pull request [#166](https://github.com/suyuan32/simple-admin-core/issues/166) from suyuan32/dev
+* Merge pull request [#165](https://github.com/suyuan32/simple-admin-core/issues/165) from suyuan32/dev
+* Merge pull request [#164](https://github.com/suyuan32/simple-admin-core/issues/164) from suyuan32/dev
+
+<a name="v1.0.14"></a>
+
+## [v1.0.14](https://github.com/suyuan32/simple-admin-core/compare/v1.0.13...v1.0.14) (2023-07-14)
+
+### Chore
+
+* upgrade deps
+
+### Feat
+
+* required for api
+* send email and sms
+* sendStatus params in log list req
+* add email and sms support
+* mcms rpc in all in one
+
+### Fix
+
+* optimize all in one
+* optimize all in one
+
+### Refactor
+
+* add directory to api desc
+
+### Pull Requests
+
+* Merge pull request [#163](https://github.com/suyuan32/simple-admin-core/issues/163) from suyuan32/dev
+* Merge pull request [#162](https://github.com/suyuan32/simple-admin-core/issues/162) from suyuan32/dev
+* Merge pull request [#160](https://github.com/suyuan32/simple-admin-core/issues/160) from suyuan32/dev
+
+<a name="v1.0.13"></a>
+
+## [v1.0.13](https://github.com/suyuan32/simple-admin-core/compare/v1.0.12...v1.0.13) (2023-07-09)
+
+### Chore
+
+* upgrade deps
+
+### Docs
+
+* update README.md
+* update CHANGELOG.md
+
+### Feat
+
+* reset password by email and sms
+* email and sms captcha support
+
+### Fix
+
+* update all in one
+* optimize ent comment
+* phone number tag
+* optimize project config
+* optimize timeout config
+* optimize redis error in captcha logic
+* optimize menu role list i18n trans
+* add port env vals to docker-compose.yaml
+* use postgresql by default in all in one
+
+### Refactor
+
+* rename config fields
+
+### Wip
+
+* optimize all in one
+
+### Pull Requests
+
+* Merge pull request [#159](https://github.com/suyuan32/simple-admin-core/issues/159) from suyuan32/dev
+* Merge pull request [#158](https://github.com/suyuan32/simple-admin-core/issues/158) from suyuan32/dev
+* Merge pull request [#157](https://github.com/suyuan32/simple-admin-core/issues/157) from suyuan32/dev
+* Merge pull request [#156](https://github.com/suyuan32/simple-admin-core/issues/156) from suyuan32/dev
+* Merge pull request [#155](https://github.com/suyuan32/simple-admin-core/issues/155) from suyuan32/dev
+* Merge pull request [#154](https://github.com/suyuan32/simple-admin-core/issues/154) from suyuan32/dev
+* Merge pull request [#153](https://github.com/suyuan32/simple-admin-core/issues/153) from suyuan32/dev
+* Merge pull request [#152](https://github.com/suyuan32/simple-admin-core/issues/152) from suyuan32/dev
+* Merge pull request [#151](https://github.com/suyuan32/simple-admin-core/issues/151) from suyuan32/dev
+* Merge pull request [#150](https://github.com/suyuan32/simple-admin-core/issues/150) from suyuan32/dev
+* Merge pull request [#149](https://github.com/suyuan32/simple-admin-core/issues/149) from AOEIUVBPMFDTNL/master
+* Merge pull request [#146](https://github.com/suyuan32/simple-admin-core/issues/146) from suyuan32/dev
+* Merge pull request [#145](https://github.com/suyuan32/simple-admin-core/issues/145) from suyuan32/dev
+* Merge pull request [#144](https://github.com/suyuan32/simple-admin-core/issues/144) from suyuan32/dev
+
+<a name="v1.0.12"></a>
 ## [v1.0.12](https://github.com/suyuan32/simple-admin-core/compare/v1.0.11...v1.0.12) (2023-07-03)
 
 ### Chore
@@ -22,7 +543,6 @@
 * Merge pull request [#139](https://github.com/suyuan32/simple-admin-core/issues/139) from suyuan32/dev
 
 <a name="v1.0.11"></a>
-
 ## [v1.0.11](https://github.com/suyuan32/simple-admin-core/compare/v1.0.10...v1.0.11) (2023-06-20)
 
 ### Docs
@@ -41,7 +561,6 @@
 * Merge pull request [#137](https://github.com/suyuan32/simple-admin-core/issues/137) from suyuan32/dev
 
 <a name="v1.0.10"></a>
-
 ## [v1.0.10](https://github.com/suyuan32/simple-admin-core/compare/v1.0.9...v1.0.10) (2023-06-19)
 
 ### Chore
@@ -67,7 +586,6 @@
 * Merge pull request [#132](https://github.com/suyuan32/simple-admin-core/issues/132) from suyuan32/dev
 
 <a name="v1.0.9"></a>
-
 ## [v1.0.9](https://github.com/suyuan32/simple-admin-core/compare/v1.0.7...v1.0.9) (2023-06-16)
 
 ### Feat
@@ -101,7 +619,6 @@
 * Merge pull request [#123](https://github.com/suyuan32/simple-admin-core/issues/123) from suyuan32/dev
 
 <a name="v1.0.7"></a>
-
 ## [v1.0.7](https://github.com/suyuan32/simple-admin-core/compare/v1.0.6...v1.0.7) (2023-05-31)
 
 ### Chore
@@ -126,7 +643,6 @@
 * Merge pull request [#110](https://github.com/suyuan32/simple-admin-core/issues/110) from suyuan32/dev
 
 <a name="v1.0.6"></a>
-
 ## [v1.0.6](https://github.com/suyuan32/simple-admin-core/compare/v1.0.5...v1.0.6) (2023-05-23)
 
 ### Chore
@@ -152,7 +668,6 @@
 * Merge pull request [#103](https://github.com/suyuan32/simple-admin-core/issues/103) from suyuan32/dev
 
 <a name="v1.0.5"></a>
-
 ## [v1.0.5](https://github.com/suyuan32/simple-admin-core/compare/v1.0.4...v1.0.5) (2023-05-15)
 
 ### Chore
@@ -174,7 +689,6 @@
 * Merge pull request [#99](https://github.com/suyuan32/simple-admin-core/issues/99) from suyuan32/dev
 
 <a name="v1.0.4"></a>
-
 ## [v1.0.4](https://github.com/suyuan32/simple-admin-core/compare/v1.0.3...v1.0.4) (2023-05-09)
 
 ### Chore
@@ -194,7 +708,6 @@
 * Merge pull request [#98](https://github.com/suyuan32/simple-admin-core/issues/98) from suyuan32/dev
 
 <a name="v1.0.3"></a>
-
 ## [v1.0.3](https://github.com/suyuan32/simple-admin-core/compare/v1.0.2...v1.0.3) (2023-05-02)
 
 ### Chore
@@ -209,7 +722,6 @@
 * remove default MysqlConfig
 
 <a name="v1.0.2"></a>
-
 ## [v1.0.2](https://github.com/suyuan32/simple-admin-core/compare/v1.0.0...v1.0.2) (2023-04-22)
 
 ### Docs
@@ -226,7 +738,6 @@
 * only use redis cache when dictionary detail key is empty
 
 <a name="v1.0.0"></a>
-
 ## [v1.0.0](https://github.com/suyuan32/simple-admin-core/compare/v0.3.2...v1.0.0) (2023-04-17)
 
 ### Chore
