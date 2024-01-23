@@ -349,12 +349,13 @@ func (l *InitMcmsDatabaseLogic) InsertApiData() error {
 
 func (l *InitMcmsDatabaseLogic) InsertMenuData() error {
 	menuData, err := l.svcCtx.CoreRpc.CreateMenu(l.ctx, &core.MenuInfo{
-		Level:     pointy.GetPointer(uint32(1)),
-		ParentId:  pointy.GetPointer(common.DefaultParentId),
-		Path:      pointy.GetPointer("/mcms_dir"),
-		Name:      pointy.GetPointer("MessageCenterManagement"),
-		Component: pointy.GetPointer("LAYOUT"),
-		Sort:      pointy.GetPointer(uint32(4)),
+		Level:       pointy.GetPointer(uint32(1)),
+		ParentId:    pointy.GetPointer(common.DefaultParentId),
+		Path:        pointy.GetPointer("/mcms_dir"),
+		Name:        pointy.GetPointer("MessageCenterManagement"),
+		Component:   pointy.GetPointer("LAYOUT"),
+		Sort:        pointy.GetPointer(uint32(4)),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Meta: &core.Meta{
 			Title: pointy.GetPointer("route.messageCenterManagement"),
 			Icon:  pointy.GetPointer("clarity:email-line"),
@@ -366,12 +367,13 @@ func (l *InitMcmsDatabaseLogic) InsertMenuData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateMenu(l.ctx, &core.MenuInfo{
-		Level:     pointy.GetPointer(uint32(2)),
-		ParentId:  pointy.GetPointer(menuData.Id),
-		Path:      pointy.GetPointer("/mcms_email_provider"),
-		Name:      pointy.GetPointer("EmailProviderManagement"),
-		Component: pointy.GetPointer("/mcms/emailProvider/index"),
-		Sort:      pointy.GetPointer(uint32(1)),
+		Level:       pointy.GetPointer(uint32(2)),
+		ParentId:    pointy.GetPointer(menuData.Id),
+		Path:        pointy.GetPointer("/mcms_email_provider"),
+		Name:        pointy.GetPointer("EmailProviderManagement"),
+		Component:   pointy.GetPointer("/mcms/emailProvider/index"),
+		Sort:        pointy.GetPointer(uint32(1)),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Meta: &core.Meta{
 			Title: pointy.GetPointer("route.emailProviderManagement"),
 			Icon:  pointy.GetPointer("clarity:email-line"),
@@ -383,12 +385,13 @@ func (l *InitMcmsDatabaseLogic) InsertMenuData() error {
 	}
 
 	_, err = l.svcCtx.CoreRpc.CreateMenu(l.ctx, &core.MenuInfo{
-		Level:     pointy.GetPointer(uint32(2)),
-		ParentId:  pointy.GetPointer(menuData.Id),
-		Path:      pointy.GetPointer("/mcms_sms_provider"),
-		Name:      pointy.GetPointer("SmsProviderManagement"),
-		Component: pointy.GetPointer("/mcms/smsProvider/index"),
-		Sort:      pointy.GetPointer(uint32(2)),
+		Level:       pointy.GetPointer(uint32(2)),
+		ParentId:    pointy.GetPointer(menuData.Id),
+		Path:        pointy.GetPointer("/mcms_sms_provider"),
+		Name:        pointy.GetPointer("SmsProviderManagement"),
+		Component:   pointy.GetPointer("/mcms/smsProvider/index"),
+		Sort:        pointy.GetPointer(uint32(2)),
+		ServiceName: pointy.GetPointer("Mcms"),
 		Meta: &core.Meta{
 			Title: pointy.GetPointer("route.smsProviderManagement"),
 			Icon:  pointy.GetPointer("clarity:mobile-line"),
