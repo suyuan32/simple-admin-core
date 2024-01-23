@@ -212,6 +212,26 @@ func (mu *MenuUpdate) ClearDisabled() *MenuUpdate {
 	return mu
 }
 
+// SetServiceName sets the "service_name" field.
+func (mu *MenuUpdate) SetServiceName(s string) *MenuUpdate {
+	mu.mutation.SetServiceName(s)
+	return mu
+}
+
+// SetNillableServiceName sets the "service_name" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillableServiceName(s *string) *MenuUpdate {
+	if s != nil {
+		mu.SetServiceName(*s)
+	}
+	return mu
+}
+
+// ClearServiceName clears the value of the "service_name" field.
+func (mu *MenuUpdate) ClearServiceName() *MenuUpdate {
+	mu.mutation.ClearServiceName()
+	return mu
+}
+
 // SetTitle sets the "title" field.
 func (mu *MenuUpdate) SetTitle(s string) *MenuUpdate {
 	mu.mutation.SetTitle(s)
@@ -628,6 +648,12 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if mu.mutation.DisabledCleared() {
 		_spec.ClearField(menu.FieldDisabled, field.TypeBool)
 	}
+	if value, ok := mu.mutation.ServiceName(); ok {
+		_spec.SetField(menu.FieldServiceName, field.TypeString, value)
+	}
+	if mu.mutation.ServiceNameCleared() {
+		_spec.ClearField(menu.FieldServiceName, field.TypeString)
+	}
 	if value, ok := mu.mutation.Title(); ok {
 		_spec.SetField(menu.FieldTitle, field.TypeString, value)
 	}
@@ -1016,6 +1042,26 @@ func (muo *MenuUpdateOne) SetNillableDisabled(b *bool) *MenuUpdateOne {
 // ClearDisabled clears the value of the "disabled" field.
 func (muo *MenuUpdateOne) ClearDisabled() *MenuUpdateOne {
 	muo.mutation.ClearDisabled()
+	return muo
+}
+
+// SetServiceName sets the "service_name" field.
+func (muo *MenuUpdateOne) SetServiceName(s string) *MenuUpdateOne {
+	muo.mutation.SetServiceName(s)
+	return muo
+}
+
+// SetNillableServiceName sets the "service_name" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillableServiceName(s *string) *MenuUpdateOne {
+	if s != nil {
+		muo.SetServiceName(*s)
+	}
+	return muo
+}
+
+// ClearServiceName clears the value of the "service_name" field.
+func (muo *MenuUpdateOne) ClearServiceName() *MenuUpdateOne {
+	muo.mutation.ClearServiceName()
 	return muo
 }
 
@@ -1464,6 +1510,12 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	}
 	if muo.mutation.DisabledCleared() {
 		_spec.ClearField(menu.FieldDisabled, field.TypeBool)
+	}
+	if value, ok := muo.mutation.ServiceName(); ok {
+		_spec.SetField(menu.FieldServiceName, field.TypeString, value)
+	}
+	if muo.mutation.ServiceNameCleared() {
+		_spec.ClearField(menu.FieldServiceName, field.TypeString)
 	}
 	if value, ok := muo.mutation.Title(); ok {
 		_spec.SetField(menu.FieldTitle, field.TypeString, value)

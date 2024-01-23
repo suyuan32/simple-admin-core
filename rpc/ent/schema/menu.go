@@ -41,6 +41,9 @@ func (Menu) Fields() []ent.Field {
 		field.Bool("disabled").Optional().Default(false).
 			Comment("Disable status | 是否停用").
 			Annotations(entsql.WithComments(true)),
+		field.String("service_name").Optional().Default("Other").
+			Comment("Service Name | 服务名称").
+			Annotations(entsql.WithComments(true)),
 		// meta
 		field.String("title").
 			Comment("Menu name | 菜单显示标题").

@@ -4651,6 +4651,11 @@
           "type": "string",
           "x-go-name": "Redirect"
         },
+        "serviceName": {
+          "description": "Service Name | 服务名称",
+          "type": "string",
+          "x-go-name": "ServiceName"
+        },
         "sort": {
           "description": "Sort | 排序",
           "type": "integer",
@@ -4861,6 +4866,11 @@
           "type": "string",
           "maxLength": 300,
           "x-go-name": "Redirect"
+        },
+        "serviceName": {
+          "description": "Service Name | 服务名称",
+          "type": "string",
+          "x-go-name": "ServiceName"
         },
         "sort": {
           "description": "Sort | 排序",
