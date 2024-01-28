@@ -29,7 +29,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(0).
-		SetParentID(0).
+		SetParentID(common.DefaultParentId).
 		SetPath("/system").
 		SetName("SystemManagement").
 		SetComponent("LAYOUT").
