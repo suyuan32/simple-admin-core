@@ -60,6 +60,29 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
 - 代码生成：自动生成 CRUD 代码，快捷生成自定义逻辑
 - 令牌管理：管理 token 状态，支持拉黑 token
 
+## 永久免费的官方模块
+
+| 模块名称       | 模块介绍 | 模块地址                                                                      |
+|------------|------|---------------------------------------------------------------------------|
+| Core       | 核心模块 | [Core](https://github.com/suyuan32/simple-admin-core)                     |
+| Backend UI | 后端界面 | [Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)         |
+| FMS        | 文件管理 | [File](https://github.com/suyuan32/simple-admin-file)                     |
+| Job        | 定时任务 | [Job](https://github.com/suyuan32/simple-admin-job)                       |
+| MMS        | 会员管理 | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
+| MCMS       | 消息中心 | [Message Center](https://github.com/suyuan32/simple-admin-message-center) |
+
+## 会员专属的模块
+
+| 模块名称        | 模块介绍        |
+|-------------|-------------| 
+| CMS         | 内容管理模块      |
+| Simple-Uni  | 小程序开发脚手架    |
+| Simple-Nuxt | PC 网页端开发脚手架 |
+
+# 社区模块
+
+[点击查看](https://github.com/suyuan32/awesome-simple-admin-module)
+
 ## 项目规划进度
 
 [RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
@@ -94,26 +117,6 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
 - [Casbin](https://casbin.org/) - 权限管理
 - [Go-swagger](https://goswagger.io/) - Go-swagger 文档生成调试
 
-## 快速开始
-
-[快速开始文档](https://doc.ryansu.tech/zh/guide/basic-config/env_setting.html)
-
-## 更新日志
-
-[CHANGELOG](./CHANGELOG.md)
-
-## 相关项目
-
-- [Simple Admin](https://github.com/suyuan32/simple-admin-core)
-- [Simple Admin 后端界面](https://github.com/suyuan32/simple-admin-backend-ui)
-
-## 可选组件
-
-- [文件管理](https://github.com/suyuan32/simple-admin-file)
-- [定时任务](https://github.com/suyuan32/simple-admin-job)
-- [会员管理](https://github.com/suyuan32/simple-admin-member-api)
-- [消息中心模块](https://github.com/suyuan32/simple-admin-message-center)
-
 ## 如何贡献
 
 非常欢迎你的加入！[提一个 Issue](https://github.com/suyuan32/simple-admin-core/issues/new) 或者提交一个 Pull Request。
@@ -143,6 +146,10 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
     - `ci` 持续集成
     - `types` 类型定义文件更改
     - `wip` 开发中
+
+## 更新日志
+
+[CHANGELOG](./CHANGELOG.md)
 
 ## 交流群
 
