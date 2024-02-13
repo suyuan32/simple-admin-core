@@ -62,6 +62,29 @@ revenue, and now 10+ modules are included.
 - Code generation: automatically generate CRUD code, quickly generate custom logic
 - Token management: manage token status, support blacklisting token
 
+## Permanently Free Official Modules
+
+| Module Name | Module Introduction | Module Address                                                            |
+|-------------|---------------------|---------------------------------------------------------------------------|
+| Core        | Core Module         | [Core](https://github.com/suyuan32/simple-admin-core)                     |
+| Backend UI  | Backend Interface   | [Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)         |
+| FMS         | File Management     | [File](https://github.com/suyuan32/simple-admin-file)                     |
+| Job         | Scheduled Task      | [Job](https://github.com/suyuan32/simple-admin-job)                       |
+| MMS         | Member Management   | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
+| MCMS        | Message Center      | [Message Center](https://github.com/suyuan32/simple-admin-message-center) |
+
+## Member Exclusive Modules
+
+| Module Name | Module Introduction               |
+|-------------|-----------------------------------| 
+| CMS         | Content Management Module         |
+| Simple-Uni  | Mini Program Development Scaffold |
+| Simple-Nuxt | PC Web End Development Scaffold   |
+
+# Community Modules
+
+[Click to view](https://github.com/suyuan32/awesome-simple-admin-module)
+
 ## Project Planning Progress
 
 [RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
@@ -94,26 +117,6 @@ Password:  simple-admin
 - [Casbin](https://casbin.org/) - Familiar with Casbin apis
 - [Go-swagger](https://goswagger.io/) - Go-swagger document generation
 
-## Quick Start
-
-[Quick Start Document](https://doc.ryansu.tech/en/guide/basic-config/env_setting.html)
-
-## Change Log
-
-[CHANGELOG](./CHANGELOG.md)
-
-## Relative Project
-
-- [Simple Admin](https://github.com/suyuan32/simple-admin-core)
-- [Simple Admin Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)
-
-## Optional Components
-
-- [File Management](https://github.com/suyuan32/simple-admin-file)
-- [Scheduled Task](https://github.com/suyuan32/simple-admin-job)
-- [Member Management](https://github.com/suyuan32/simple-admin-member-api)
-- [Message Center](https://github.com/suyuan32/simple-admin-message-center)
-
 
 ## How to contribute
 
@@ -144,6 +147,10 @@ You are very welcome to join！[Raise an issue](https://github.com/suyuan32/simp
     - `ci` Continuous integration
     - `types` Type definition file changes
     - `wip` In development
+
+## Change Log
+
+[CHANGELOG](./CHANGELOG.md)
 
 # Community
 
