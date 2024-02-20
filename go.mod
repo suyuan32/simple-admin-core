@@ -11,10 +11,10 @@ require (
 	github.com/mojocn/base64Captcha v1.3.6
 	github.com/redis/go-redis/v9 v9.5.0
 	github.com/suyuan32/simple-admin-common v1.3.6
-	github.com/suyuan32/simple-admin-job v1.3.5
-	github.com/suyuan32/simple-admin-message-center v1.3.5
+	github.com/suyuan32/simple-admin-job v1.3.6
+	github.com/suyuan32/simple-admin-message-center v1.3.6
 	github.com/zeromicro/go-zero v1.6.2
-	golang.org/x/oauth2 v0.16.0
+	golang.org/x/oauth2 v0.17.0
 	google.golang.org/grpc v1.61.1
 	google.golang.org/protobuf v1.32.0
 )
@@ -35,7 +35,7 @@ require (
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/emicklei/go-restful/v3 v3.11.0 // indirect
 	github.com/fatih/color v1.16.0 // indirect
-	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
+	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-openapi/inflect v0.19.0 // indirect
@@ -44,7 +44,7 @@ require (
 	github.com/go-openapi/swag v0.22.3 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/go-playground/validator/v10 v10.17.0 // indirect
+	github.com/go-playground/validator/v10 v10.18.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
@@ -67,7 +67,7 @@ require (
 	github.com/jackc/pgx/v4 v4.18.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/leodido/go-urn v1.2.4 // indirect
+	github.com/leodido/go-urn v1.4.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
@@ -121,9 +121,9 @@ require (
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/api v0.29.1 // indirect
-	k8s.io/apimachinery v0.29.1 // indirect
-	k8s.io/client-go v0.29.1 // indirect
+	k8s.io/api v0.29.2 // indirect
+	k8s.io/apimachinery v0.29.2 // indirect
+	k8s.io/client-go v0.29.2 // indirect
 	k8s.io/klog/v2 v2.110.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20231010175941-2dd684a91f00 // indirect
 	k8s.io/utils v0.0.0-20240102154912-e7106e64919e // indirect
@@ -132,4 +132,4 @@ require (
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
 
-replace github.com/zeromicro/go-zero v1.6.2 => github.com/suyuan32/simple-admin-tools v1.6.5
+replace github.com/zeromicro/go-zero v1.6.2 => github.com/suyuan32/simple-admin-tools v1.6.6
