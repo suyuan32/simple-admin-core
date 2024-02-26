@@ -29,7 +29,6 @@ func NewCreateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 func (l *CreateMenuLogic) CreateMenu(req *types.MenuPlainInfo) (resp *types.BaseMsgResp, err error) {
 	if *req.MenuType == 0 {
 		req.Component = pointy.GetPointer("LAYOUT")
-		req.Path = pointy.GetPointer("")
 		req.Redirect = pointy.GetPointer("")
 		req.FrameSrc = pointy.GetPointer("")
 	}
