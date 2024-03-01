@@ -38,6 +38,8 @@ Doge is Simple Admin's command line tool for module download and deployment. It 
 module docker, k8s deployment, server maintenance and other functions. Users can upload their own paid modules to earn
 revenue, and now 10+ modules are included.
 
+> [Module Store](https://doge.ryansu.tech/store/index)
+
 ## Feature
 
 - **State of The Art Development**：Use latest back-end technology development such as ent, go-zero, casbin
