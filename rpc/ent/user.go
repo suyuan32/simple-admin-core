@@ -68,12 +68,10 @@ type UserEdges struct {
 // DepartmentsOrErr returns the Departments value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
 func (e UserEdges) DepartmentsOrErr() (*Department, error) {
-	if e.loadedTypes[0] {
-		if e.Departments == nil {
-			// Edge was loaded but was not found.
-			return nil, &NotFoundError{label: department.Label}
-		}
+	if e.Departments != nil {
 		return e.Departments, nil
+	} else if e.loadedTypes[0] {
+		return nil, &NotFoundError{label: department.Label}
 	}
 	return nil, &NotLoadedError{edge: "departments"}
 }
