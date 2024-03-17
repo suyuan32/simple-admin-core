@@ -1,5 +1,107 @@
-<a name="v1.3.3"></a>
+<a name="v1.3.10"></a>
 
+## [v1.3.10](https://github.com/suyuan32/simple-admin-core/compare/v1.3.8...v1.3.10) (2024-03-05)
+
+### Chore
+
+* upgrade deps
+* upgrade deps
+
+### Docs
+
+* update readme
+
+### Fix
+
+* empty path when create menu
+
+### Pull Requests
+
+* Merge pull request [#271](https://github.com/suyuan32/simple-admin-core/issues/271) from suyuan32/dev
+* Merge pull request [#269](https://github.com/suyuan32/simple-admin-core/issues/269) from suyuan32/dev
+* Merge pull request [#268](https://github.com/suyuan32/simple-admin-core/issues/268) from suyuan32/dev
+
+<a name="v1.3.8"></a>
+
+## [v1.3.8](https://github.com/suyuan32/simple-admin-core/compare/v1.3.7...v1.3.8) (2024-02-21)
+
+### Chore
+
+* update version
+* update all in one
+* upgrade deps
+
+### Docs
+
+* update readme
+
+### Pull Requests
+
+* Merge pull request [#266](https://github.com/suyuan32/simple-admin-core/issues/266) from suyuan32/dev
+
+<a name="v1.3.7"></a>
+
+## [v1.3.7](https://github.com/suyuan32/simple-admin-core/compare/v1.3.6...v1.3.7) (2024-02-20)
+
+### Chore
+
+* update all in one
+* upgrade common to v1.3.7
+
+### Pull Requests
+
+* Merge pull request [#265](https://github.com/suyuan32/simple-admin-core/issues/265) from suyuan32/dev
+
+<a name="v1.3.6"></a>
+
+## [v1.3.6](https://github.com/suyuan32/simple-admin-core/compare/v1.3.5...v1.3.6) (2024-02-20)
+
+### Chore
+
+* upgrade deps
+* upgrade common deps
+* update all in one
+
+### Docs
+
+* update readme
+
+### Pull Requests
+
+* Merge pull request [#264](https://github.com/suyuan32/simple-admin-core/issues/264) from suyuan32/dev
+* Merge pull request [#263](https://github.com/suyuan32/simple-admin-core/issues/263) from suyuan32/dev
+* Merge pull request [#261](https://github.com/suyuan32/simple-admin-core/issues/261) from suyuan32/dev
+* Merge pull request [#260](https://github.com/suyuan32/simple-admin-core/issues/260) from suyuan32/dev
+
+<a name="v1.3.5"></a>
+
+## [v1.3.5](https://github.com/suyuan32/simple-admin-core/compare/v1.3.3...v1.3.5) (2024-02-05)
+
+### Chore
+
+* upgrade deps
+* update all in one
+
+### Docs
+
+* update version
+* update readme
+* update changelog
+
+### Fix
+
+* wrong parent id of system menu
+* mcms menu service name in init code
+
+### Pull Requests
+
+* Merge pull request [#259](https://github.com/suyuan32/simple-admin-core/issues/259) from suyuan32/dev
+* Merge pull request [#256](https://github.com/suyuan32/simple-admin-core/issues/256) from suyuan32/dev
+* Merge pull request [#255](https://github.com/suyuan32/simple-admin-core/issues/255) from suyuan32/dev
+* Merge pull request [#254](https://github.com/suyuan32/simple-admin-core/issues/254) from suyuan32/dev
+* Merge pull request [#253](https://github.com/suyuan32/simple-admin-core/issues/253) from suyuan32/dev
+
+<a name="v1.3.3"></a>
 ## [v1.3.3](https://github.com/suyuan32/simple-admin-core/compare/v1.3.2...v1.3.3) (2024-01-23)
 
 ### Chore
