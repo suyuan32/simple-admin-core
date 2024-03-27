@@ -5,16 +5,16 @@ type (
     SmsLogInfo {
         BaseUUIDInfo
 
-        // PhoneNumber
+        // Phone number | 手机号码
         PhoneNumber  *string `json:"phoneNumber,optional"`
 
-        // Content
+        // Content | 短信内容
         Content  *string `json:"content,optional"`
 
-        // SendStatus
+        // Send status | 发送状态
         SendStatus  *uint32 `json:"sendStatus,optional"`
 
-        // Provider
+        // Provider | 服务商
         Provider  *string `json:"provider,optional"`
     }
 
@@ -38,13 +38,13 @@ type (
     SmsLogListReq {
         PageInfo
 
-        // PhoneNumber
+        // Phone number | 手机号码
         PhoneNumber *string `json:"phoneNumber,optional"`
 
-        // Content
+        // Content | 短信内容
         Content *string `json:"content,optional"`
 
-        // Provider
+        // Provider | 服务商
         Provider *string `json:"provider,optional"`
 
         // Send Status | 发送状态
