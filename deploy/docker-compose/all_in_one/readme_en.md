@@ -1,6 +1,6 @@
 # Quick start with docker-compose
 
-> 3 Steps
+> 2 Steps
 
 1. Run docker-compose
 
@@ -11,8 +11,6 @@ docker-compose up -d
 2. Initialize database
 
 > http://localhost/init
-
-3. Restart core-api, core-rpc container
 
 # In this folder, you can check the  api and rpc configuration 
 
