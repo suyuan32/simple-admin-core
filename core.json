@@ -6566,7 +6566,7 @@
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
     "TokenInfo": {
-      "description": "The response data of token information | Token信息",
+      "description": "The response data of token information | 令牌信息",
       "type": "object",
       "properties": {
         "createdAt": {
@@ -6650,7 +6650,7 @@
       "type": "object",
       "properties": {
         "data": {
-          "description": "The API list data | Token列表数据",
+          "description": "The API list data | 令牌列表数据",
           "type": "array",
           "items": {
             "$ref": "#/definitions/TokenInfo"
@@ -6667,7 +6667,7 @@
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
     "TokenListReq": {
-      "description": "Get token list request params | Token列表请求参数",
+      "description": "Get token list request params | 令牌列表请求参数",
       "type": "object",
       "required": [
         "page",
@@ -6675,12 +6675,12 @@
       ],
       "properties": {
         "email": {
-          "description": "Email",
+          "description": "Email | 邮箱",
           "type": "string",
           "x-go-name": "Email"
         },
         "nickname": {
-          "description": "Nickname",
+          "description": "Nickname | 昵称",
           "type": "string",
           "x-go-name": "Nickname"
         },
@@ -6699,12 +6699,12 @@
           "x-go-name": "PageSize"
         },
         "username": {
-          "description": "Username",
+          "description": "Username | 用户名",
           "type": "string",
           "x-go-name": "Username"
         },
         "uuid": {
-          "description": "Uuid",
+          "description": "UUID",
           "type": "string",
           "x-go-name": "Uuid"
         }
@@ -6712,7 +6712,7 @@
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
     "TokenListResp": {
-      "description": "The response data of token list | Token列表数据",
+      "description": "The response data of token list | 令牌列表数据",
       "type": "object",
       "properties": {
         "code": {
