@@ -987,7 +987,7 @@ type CallbackResp struct {
 	Expire uint64 `json:"expire"`
 }
 
-// The response data of token information | Token信息
+// The response data of token information | 令牌信息
 // swagger:model TokenInfo
 type TokenInfo struct {
 	BaseUUIDInfo
@@ -1005,11 +1005,11 @@ type TokenInfo struct {
 	ExpiredAt *int64 `json:"expiredAt,optional"`
 }
 
-// The response data of token list | Token列表数据
+// The response data of token list | 令牌列表数据
 // swagger:model TokenListResp
 type TokenListResp struct {
 	BaseDataInfo
-	// Token list data | Token列表数据
+	// Token list data | 令牌列表数据
 	Data TokenListInfo `json:"data"`
 }
 
@@ -1017,21 +1017,21 @@ type TokenListResp struct {
 // swagger:model TokenListInfo
 type TokenListInfo struct {
 	BaseListInfo
-	// The API list data | Token列表数据
+	// The API list data | 令牌列表数据
 	Data []TokenInfo `json:"data"`
 }
 
-// Get token list request params | Token列表请求参数
+// Get token list request params | 令牌列表请求参数
 // swagger:model TokenListReq
 type TokenListReq struct {
 	PageInfo
-	// Username
+	// Username | 用户名
 	Username *string `json:"username,optional"`
-	// Nickname
+	// Nickname | 昵称
 	Nickname *string `json:"nickname,optional"`
-	// Email
+	// Email | 邮箱
 	Email *string `json:"email,optional"`
-	// Uuid
+	// UUID
 	Uuid *string `json:"uuid,optional"`
 }
 
