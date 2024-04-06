@@ -4014,7 +4014,7 @@
       "type": "object",
       "properties": {
         "content": {
-          "description": "Content",
+          "description": "Content | 内容",
           "type": "string",
           "x-go-name": "Content"
         },
@@ -4030,23 +4030,23 @@
           "x-go-name": "Id"
         },
         "provider": {
-          "description": "Provider",
+          "description": "Provider | 服务提供商",
           "type": "string",
           "x-go-name": "Provider"
         },
         "sendStatus": {
-          "description": "SendStatus",
+          "description": "SendStatus | 发送状态",
           "type": "integer",
           "format": "uint32",
           "x-go-name": "SendStatus"
         },
         "subject": {
-          "description": "Subject",
+          "description": "Subject | 主题",
           "type": "string",
           "x-go-name": "Subject"
         },
         "target": {
-          "description": "Target",
+          "description": "Target | 目标邮箱",
           "type": "string",
           "x-go-name": "Target"
         },
@@ -4127,7 +4127,7 @@
           "x-go-name": "PageSize"
         },
         "provider": {
-          "description": "Provider",
+          "description": "Provider | 服务提供商",
           "type": "string",
           "x-go-name": "Provider"
         },
@@ -4138,12 +4138,12 @@
           "x-go-name": "SendStatus"
         },
         "subject": {
-          "description": "Subject",
+          "description": "Subject | 主题",
           "type": "string",
           "x-go-name": "Subject"
         },
         "target": {
-          "description": "Target",
+          "description": "Target | 目标邮箱",
           "type": "string",
           "x-go-name": "Target"
         }
@@ -4179,7 +4179,7 @@
       "type": "object",
       "properties": {
         "authType": {
-          "description": "AuthType",
+          "description": "AuthType | 认证类型",
           "type": "integer",
           "format": "uint32",
           "x-go-name": "AuthType"
@@ -4191,12 +4191,12 @@
           "x-go-name": "CreatedAt"
         },
         "emailAddr": {
-          "description": "EmailAddr",
+          "description": "Email address | 邮箱地址",
           "type": "string",
           "x-go-name": "EmailAddr"
         },
         "hostName": {
-          "description": "HostName",
+          "description": "HostName | 主机名",
           "type": "string",
           "x-go-name": "HostName"
         },
@@ -4207,38 +4207,38 @@
           "x-go-name": "Id"
         },
         "identify": {
-          "description": "Identify",
+          "description": "Identify | 身份标识",
           "type": "string",
           "x-go-name": "Identify"
         },
         "isDefault": {
-          "description": "IsDefault",
+          "description": "Is default provider | 是否默认",
           "type": "boolean",
           "x-go-name": "IsDefault"
         },
         "name": {
-          "description": "Name",
+          "description": "Name | 名称",
           "type": "string",
           "x-go-name": "Name"
         },
         "password": {
-          "description": "Password",
+          "description": "Password | 密码",
           "type": "string",
           "x-go-name": "Password"
         },
         "port": {
-          "description": "Port",
+          "description": "Port | 端口",
           "type": "integer",
           "format": "uint32",
           "x-go-name": "Port"
         },
         "secret": {
-          "description": "Secret",
+          "description": "Secret | 密钥",
           "type": "string",
           "x-go-name": "Secret"
         },
         "tls": {
-          "description": "Tls",
+          "description": "Tls | 是否启用TLS",
           "type": "boolean",
           "x-go-name": "Tls"
         },
@@ -4305,12 +4305,12 @@
       ],
       "properties": {
         "emailAddr": {
-          "description": "EmailAddr",
+          "description": "Email address | 邮箱地址",
           "type": "string",
           "x-go-name": "EmailAddr"
         },
         "name": {
-          "description": "Name",
+          "description": "Name | 名称",
           "type": "string",
           "x-go-name": "Name"
         },
@@ -5959,7 +5959,7 @@
       "type": "object",
       "properties": {
         "content": {
-          "description": "Content",
+          "description": "Content | 短信内容",
           "type": "string",
           "x-go-name": "Content"
         },
@@ -5975,17 +5975,17 @@
           "x-go-name": "Id"
         },
         "phoneNumber": {
-          "description": "PhoneNumber",
+          "description": "Phone number | 手机号码",
           "type": "string",
           "x-go-name": "PhoneNumber"
         },
         "provider": {
-          "description": "Provider",
+          "description": "Provider | 服务商",
           "type": "string",
           "x-go-name": "Provider"
         },
         "sendStatus": {
-          "description": "SendStatus",
+          "description": "Send status | 发送状态",
           "type": "integer",
           "format": "uint32",
           "x-go-name": "SendStatus"
@@ -6053,7 +6053,7 @@
       ],
       "properties": {
         "content": {
-          "description": "Content",
+          "description": "Content | 短信内容",
           "type": "string",
           "x-go-name": "Content"
         },
@@ -6072,12 +6072,12 @@
           "x-go-name": "PageSize"
         },
         "phoneNumber": {
-          "description": "PhoneNumber",
+          "description": "Phone number | 手机号码",
           "type": "string",
           "x-go-name": "PhoneNumber"
         },
         "provider": {
-          "description": "Provider",
+          "description": "Provider | 服务商",
           "type": "string",
           "x-go-name": "Provider"
         },
@@ -6131,27 +6131,27 @@
           "x-go-name": "Id"
         },
         "isDefault": {
-          "description": "IsDefault",
+          "description": "Is default provider | 是否默认服务商",
           "type": "boolean",
           "x-go-name": "IsDefault"
         },
         "name": {
-          "description": "Name",
+          "description": "Name | 名称",
           "type": "string",
           "x-go-name": "Name"
         },
         "region": {
-          "description": "Region",
+          "description": "Region | 区域",
           "type": "string",
           "x-go-name": "Region"
         },
         "secretId": {
-          "description": "SecretId",
+          "description": "Secret id | 秘钥 ID",
           "type": "string",
           "x-go-name": "SecretId"
         },
         "secretKey": {
-          "description": "SecretKey",
+          "description": "Secret key | 秘钥 Key",
           "type": "string",
           "x-go-name": "SecretKey"
         },
@@ -6218,7 +6218,7 @@
       ],
       "properties": {
         "name": {
-          "description": "Name",
+          "description": "Name | 名称",
           "type": "string",
           "x-go-name": "Name"
         },
@@ -6566,7 +6566,7 @@
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
     "TokenInfo": {
-      "description": "The response data of token information | Token信息",
+      "description": "The response data of token information | 令牌信息",
       "type": "object",
       "properties": {
         "createdAt": {
@@ -6650,7 +6650,7 @@
       "type": "object",
       "properties": {
         "data": {
-          "description": "The API list data | Token列表数据",
+          "description": "The API list data | 令牌列表数据",
           "type": "array",
           "items": {
             "$ref": "#/definitions/TokenInfo"
@@ -6667,7 +6667,7 @@
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
     "TokenListReq": {
-      "description": "Get token list request params | Token列表请求参数",
+      "description": "Get token list request params | 令牌列表请求参数",
       "type": "object",
       "required": [
         "page",
@@ -6675,12 +6675,12 @@
       ],
       "properties": {
         "email": {
-          "description": "Email",
+          "description": "Email | 邮箱",
           "type": "string",
           "x-go-name": "Email"
         },
         "nickname": {
-          "description": "Nickname",
+          "description": "Nickname | 昵称",
           "type": "string",
           "x-go-name": "Nickname"
         },
@@ -6699,12 +6699,12 @@
           "x-go-name": "PageSize"
         },
         "username": {
-          "description": "Username",
+          "description": "Username | 用户名",
           "type": "string",
           "x-go-name": "Username"
         },
         "uuid": {
-          "description": "Uuid",
+          "description": "UUID",
           "type": "string",
           "x-go-name": "Uuid"
         }
@@ -6712,7 +6712,7 @@
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
     "TokenListResp": {
-      "description": "The response data of token list | Token列表数据",
+      "description": "The response data of token list | 令牌列表数据",
       "type": "object",
       "properties": {
         "code": {
@@ -7087,12 +7087,5 @@
       "name": "Authorization",
       "in": "header"
     }
-  },
-  "security": [
-    {
-      "Token": [
-        "[]"
-      ]
-    }
-  ]
+  }
 }

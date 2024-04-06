@@ -1,5 +1,25 @@
-<a name="v1.3.10"></a>
+<a name="v1.3.11"></a>
 
+## [v1.3.11](https://github.com/suyuan32/simple-admin-core/compare/v1.3.10...v1.3.11) (2024-03-19)
+
+### Chore
+
+* upgrade deps
+* update CHANGELOG.md
+* update all in one
+
+### Docs
+
+* update readme
+
+### Pull Requests
+
+* Merge pull request [#276](https://github.com/suyuan32/simple-admin-core/issues/276) from suyuan32/dev
+* Merge pull request [#275](https://github.com/suyuan32/simple-admin-core/issues/275) from suyuan32/dev
+* Merge pull request [#273](https://github.com/suyuan32/simple-admin-core/issues/273) from suyuan32/dev
+* Merge pull request [#272](https://github.com/suyuan32/simple-admin-core/issues/272) from suyuan32/dev
+
+<a name="v1.3.10"></a>
 ## [v1.3.10](https://github.com/suyuan32/simple-admin-core/compare/v1.3.8...v1.3.10) (2024-03-05)
 
 ### Chore
@@ -22,7 +42,6 @@
 * Merge pull request [#268](https://github.com/suyuan32/simple-admin-core/issues/268) from suyuan32/dev
 
 <a name="v1.3.8"></a>
-
 ## [v1.3.8](https://github.com/suyuan32/simple-admin-core/compare/v1.3.7...v1.3.8) (2024-02-21)
 
 ### Chore
@@ -40,7 +59,6 @@
 * Merge pull request [#266](https://github.com/suyuan32/simple-admin-core/issues/266) from suyuan32/dev
 
 <a name="v1.3.7"></a>
-
 ## [v1.3.7](https://github.com/suyuan32/simple-admin-core/compare/v1.3.6...v1.3.7) (2024-02-20)
 
 ### Chore
@@ -53,7 +71,6 @@
 * Merge pull request [#265](https://github.com/suyuan32/simple-admin-core/issues/265) from suyuan32/dev
 
 <a name="v1.3.6"></a>
-
 ## [v1.3.6](https://github.com/suyuan32/simple-admin-core/compare/v1.3.5...v1.3.6) (2024-02-20)
 
 ### Chore
@@ -74,7 +91,6 @@
 * Merge pull request [#260](https://github.com/suyuan32/simple-admin-core/issues/260) from suyuan32/dev
 
 <a name="v1.3.5"></a>
-
 ## [v1.3.5](https://github.com/suyuan32/simple-admin-core/compare/v1.3.3...v1.3.5) (2024-02-05)
 
 ### Chore

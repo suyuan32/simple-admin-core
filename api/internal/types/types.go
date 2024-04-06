@@ -987,7 +987,7 @@ type CallbackResp struct {
 	Expire uint64 `json:"expire"`
 }
 
-// The response data of token information | Token信息
+// The response data of token information | 令牌信息
 // swagger:model TokenInfo
 type TokenInfo struct {
 	BaseUUIDInfo
@@ -1005,11 +1005,11 @@ type TokenInfo struct {
 	ExpiredAt *int64 `json:"expiredAt,optional"`
 }
 
-// The response data of token list | Token列表数据
+// The response data of token list | 令牌列表数据
 // swagger:model TokenListResp
 type TokenListResp struct {
 	BaseDataInfo
-	// Token list data | Token列表数据
+	// Token list data | 令牌列表数据
 	Data TokenListInfo `json:"data"`
 }
 
@@ -1017,21 +1017,21 @@ type TokenListResp struct {
 // swagger:model TokenListInfo
 type TokenListInfo struct {
 	BaseListInfo
-	// The API list data | Token列表数据
+	// The API list data | 令牌列表数据
 	Data []TokenInfo `json:"data"`
 }
 
-// Get token list request params | Token列表请求参数
+// Get token list request params | 令牌列表请求参数
 // swagger:model TokenListReq
 type TokenListReq struct {
 	PageInfo
-	// Username
+	// Username | 用户名
 	Username *string `json:"username,optional"`
-	// Nickname
+	// Nickname | 昵称
 	Nickname *string `json:"nickname,optional"`
-	// Email
+	// Email | 邮箱
 	Email *string `json:"email,optional"`
-	// Uuid
+	// UUID
 	Uuid *string `json:"uuid,optional"`
 }
 
@@ -1350,15 +1350,15 @@ type TaskLogInfoResp struct {
 // swagger:model EmailLogInfo
 type EmailLogInfo struct {
 	BaseUUIDInfo
-	// Target
+	// Target | 目标邮箱
 	Target *string `json:"target,optional"`
-	// Subject
+	// Subject | 主题
 	Subject *string `json:"subject,optional"`
-	// Content
+	// Content | 内容
 	Content *string `json:"content,optional"`
-	// SendStatus
+	// SendStatus | 发送状态
 	SendStatus *uint32 `json:"sendStatus,optional"`
-	// Provider
+	// Provider | 服务提供商
 	Provider *string `json:"provider,optional"`
 }
 
@@ -1382,11 +1382,11 @@ type EmailLogListInfo struct {
 // swagger:model EmailLogListReq
 type EmailLogListReq struct {
 	PageInfo
-	// Target
+	// Target | 目标邮箱
 	Target *string `json:"target,optional"`
-	// Subject
+	// Subject | 主题
 	Subject *string `json:"subject,optional"`
-	// Provider
+	// Provider | 服务提供商
 	Provider *string `json:"provider,optional"`
 	// Send Status | 发送状态
 	SendStatus *uint32 `json:"sendStatus,optional"`
@@ -1404,13 +1404,13 @@ type EmailLogInfoResp struct {
 // swagger:model SmsLogInfo
 type SmsLogInfo struct {
 	BaseUUIDInfo
-	// PhoneNumber
+	// Phone number | 手机号码
 	PhoneNumber *string `json:"phoneNumber,optional"`
-	// Content
+	// Content | 短信内容
 	Content *string `json:"content,optional"`
-	// SendStatus
+	// Send status | 发送状态
 	SendStatus *uint32 `json:"sendStatus,optional"`
-	// Provider
+	// Provider | 服务商
 	Provider *string `json:"provider,optional"`
 }
 
@@ -1434,11 +1434,11 @@ type SmsLogListInfo struct {
 // swagger:model SmsLogListReq
 type SmsLogListReq struct {
 	PageInfo
-	// PhoneNumber
+	// Phone number | 手机号码
 	PhoneNumber *string `json:"phoneNumber,optional"`
-	// Content
+	// Content | 短信内容
 	Content *string `json:"content,optional"`
-	// Provider
+	// Provider | 服务商
 	Provider *string `json:"provider,optional"`
 	// Send Status | 发送状态
 	SendStatus *uint32 `json:"sendStatus,optional"`
@@ -1456,15 +1456,15 @@ type SmsLogInfoResp struct {
 // swagger:model SmsProviderInfo
 type SmsProviderInfo struct {
 	BaseIDInfo
-	// Name
+	// Name | 名称
 	Name *string `json:"name,optional"`
-	// SecretId
+	// Secret id | 秘钥 ID
 	SecretId *string `json:"secretId,optional"`
-	// SecretKey
+	// Secret key | 秘钥 Key
 	SecretKey *string `json:"secretKey,optional"`
-	// Region
+	// Region | 区域
 	Region *string `json:"region,optional"`
-	// IsDefault
+	// Is default provider | 是否默认服务商
 	IsDefault *bool `json:"isDefault,optional"`
 }
 
@@ -1488,7 +1488,7 @@ type SmsProviderListInfo struct {
 // swagger:model SmsProviderListReq
 type SmsProviderListReq struct {
 	PageInfo
-	// Name
+	// Name | 名称
 	Name *string `json:"name,optional"`
 }
 
@@ -1504,25 +1504,25 @@ type SmsProviderInfoResp struct {
 // swagger:model EmailProviderInfo
 type EmailProviderInfo struct {
 	BaseIDInfo
-	// Name
+	// Name | 名称
 	Name *string `json:"name,optional"`
-	// AuthType
+	// AuthType | 认证类型
 	AuthType *uint32 `json:"authType,optional"`
-	// EmailAddr
+	// Email address | 邮箱地址
 	EmailAddr *string `json:"emailAddr,optional"`
-	// Password
+	// Password | 密码
 	Password *string `json:"password,optional"`
-	// HostName
+	// HostName | 主机名
 	HostName *string `json:"hostName,optional"`
-	// Identify
+	// Identify | 身份标识
 	Identify *string `json:"identify,optional"`
-	// Secret
+	// Secret | 密钥
 	Secret *string `json:"secret,optional"`
-	// Port
+	// Port | 端口
 	Port *uint32 `json:"port,optional"`
-	// Tls
+	// Tls | 是否启用TLS
 	Tls *bool `json:"tls,optional"`
-	// IsDefault
+	// Is default provider | 是否默认
 	IsDefault *bool `json:"isDefault,optional"`
 }
 
@@ -1546,9 +1546,9 @@ type EmailProviderListInfo struct {
 // swagger:model EmailProviderListReq
 type EmailProviderListReq struct {
 	PageInfo
-	// Name
+	// Name | 名称
 	Name *string `json:"name,optional"`
-	// EmailAddr
+	// Email address | 邮箱地址
 	EmailAddr *string `json:"emailAddr,optional"`
 }
 

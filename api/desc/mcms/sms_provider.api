@@ -5,19 +5,19 @@ type (
     SmsProviderInfo {
         BaseIDInfo
 
-        // Name
+        // Name | 名称
         Name  *string `json:"name,optional"`
 
-        // SecretId
+        // Secret id | 秘钥 ID
         SecretId  *string `json:"secretId,optional"`
 
-        // SecretKey
+        // Secret key | 秘钥 Key
         SecretKey  *string `json:"secretKey,optional"`
 
-        // Region
+        // Region | 区域
         Region  *string `json:"region,optional"`
 
-        // IsDefault
+        // Is default provider | 是否默认服务商
         IsDefault  *bool `json:"isDefault,optional"`
     }
 
@@ -41,7 +41,7 @@ type (
     SmsProviderListReq {
         PageInfo
 
-        // Name
+        // Name | 名称
         Name  *string `json:"name,optional"`
     }
 
