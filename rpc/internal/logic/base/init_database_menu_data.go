@@ -22,20 +22,22 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(0).
 		SetTitle("route.dashboard").
 		SetIcon("ant-design:home-outlined").
-		SetHideMenu(false),
+		SetHideMenu(false).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(0).
-		SetParentID(0).
+		SetParentID(common.DefaultParentId).
 		SetPath("/system").
 		SetName("SystemManagement").
 		SetComponent("LAYOUT").
 		SetSort(999).
 		SetTitle("route.systemManagementTitle").
 		SetIcon("ant-design:tool-outlined").
-		SetHideMenu(false),
+		SetHideMenu(false).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -48,7 +50,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(1).
 		SetTitle("route.menuManagementTitle").
 		SetIcon("ant-design:bars-outlined").
-		SetHideMenu(false),
+		SetHideMenu(false).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -61,7 +64,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(2).
 		SetTitle("route.roleManagementTitle").
 		SetIcon("ant-design:user-outlined").
-		SetHideMenu(false),
+		SetHideMenu(false).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -74,7 +78,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(3).
 		SetTitle("route.userManagementTitle").
 		SetIcon("ant-design:user-outlined").
-		SetHideMenu(false),
+		SetHideMenu(false).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -87,7 +92,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(4).
 		SetTitle("route.departmentManagement").
 		SetIcon("ic:outline-people-alt").
-		SetHideMenu(false),
+		SetHideMenu(false).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -100,7 +106,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(5).
 		SetTitle("route.apiManagementTitle").
 		SetIcon("ant-design:api-outlined").
-		SetHideMenu(false),
+		SetHideMenu(false).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -114,7 +121,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetHideChildrenInMenu(true).
 		SetTitle("route.dictionaryManagementTitle").
 		SetIcon("ant-design:book-outlined").
-		SetHideMenu(false),
+		SetHideMenu(false).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -127,7 +135,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(1000).
 		SetTitle("route.otherPages").
 		SetIcon("ant-design:question-circle-outlined").
-		SetHideMenu(true),
+		SetHideMenu(true).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -140,7 +149,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(1).
 		SetTitle("route.dictionaryDetailManagementTitle").
 		SetIcon("ant-design:align-left-outlined").
-		SetHideMenu(true),
+		SetHideMenu(true).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -153,7 +163,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(3).
 		SetTitle("route.userProfileTitle").
 		SetIcon("ant-design:profile-outlined").
-		SetHideMenu(true),
+		SetHideMenu(true).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -166,7 +177,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(6).
 		SetTitle("route.oauthManagement").
 		SetIcon("ant-design:unlock-filled").
-		SetHideMenu(false),
+		SetHideMenu(false).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -179,7 +191,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(7).
 		SetTitle("route.tokenManagement").
 		SetIcon("ant-design:lock-outlined").
-		SetHideMenu(false),
+		SetHideMenu(false).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -192,7 +205,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(8).
 		SetTitle("route.positionManagement").
 		SetIcon("ic:twotone-work-outline").
-		SetHideMenu(false),
+		SetHideMenu(false).
+		SetServiceName("Core"),
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
@@ -205,7 +219,8 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetSort(8).
 		SetTitle("route.taskManagement").
 		SetIcon("ic:baseline-access-alarm").
-		SetHideMenu(true),
+		SetHideMenu(true).
+		SetServiceName("Job"),
 	)
 
 	err := l.svcCtx.DB.Menu.CreateBulk(menus...).Exec(l.ctx)

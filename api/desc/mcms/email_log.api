@@ -5,19 +5,19 @@ type (
     EmailLogInfo {
         BaseUUIDInfo
 
-        // Target
+        // Target | 目标邮箱
         Target  *string `json:"target,optional"`
 
-        // Subject
+        // Subject | 主题
         Subject  *string `json:"subject,optional"`
 
-        // Content
+        // Content | 内容
         Content  *string `json:"content,optional"`
 
-        // SendStatus
+        // SendStatus | 发送状态
         SendStatus  *uint32 `json:"sendStatus,optional"`
 
-        // Provider
+        // Provider | 服务提供商
         Provider  *string `json:"provider,optional"`
     }
 
@@ -41,13 +41,13 @@ type (
     EmailLogListReq {
         PageInfo
 
-        // Target
+        // Target | 目标邮箱
         Target *string `json:"target,optional"`
 
-        // Subject
+        // Subject | 主题
         Subject *string `json:"subject,optional"`
 
-        // Provider
+        // Provider | 服务提供商
         Provider *string `json:"provider,optional"`
 
         // Send Status | 发送状态

@@ -29,20 +29,20 @@ func NewCreateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 func (l *CreateMenuLogic) CreateMenu(req *types.MenuPlainInfo) (resp *types.BaseMsgResp, err error) {
 	if *req.MenuType == 0 {
 		req.Component = pointy.GetPointer("LAYOUT")
-		req.Path = pointy.GetPointer("")
 		req.Redirect = pointy.GetPointer("")
 		req.FrameSrc = pointy.GetPointer("")
 	}
 
 	result, err := l.svcCtx.CoreRpc.CreateMenu(l.ctx, &core.MenuInfo{
-		MenuType:  req.MenuType,
-		ParentId:  req.ParentId,
-		Path:      req.Path,
-		Name:      req.Name,
-		Redirect:  req.Redirect,
-		Component: req.Component,
-		Sort:      req.Sort,
-		Disabled:  req.Disabled,
+		MenuType:    req.MenuType,
+		ParentId:    req.ParentId,
+		Path:        req.Path,
+		Name:        req.Name,
+		Redirect:    req.Redirect,
+		Component:   req.Component,
+		Sort:        req.Sort,
+		Disabled:    req.Disabled,
+		ServiceName: req.ServiceName,
 		Meta: &core.Meta{
 			Title:              req.Title,
 			Icon:               req.Icon,

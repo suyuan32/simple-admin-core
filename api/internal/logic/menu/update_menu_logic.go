@@ -26,15 +26,16 @@ func NewUpdateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 
 func (l *UpdateMenuLogic) UpdateMenu(req *types.MenuPlainInfo) (resp *types.BaseMsgResp, err error) {
 	result, err := l.svcCtx.CoreRpc.UpdateMenu(l.ctx, &core.MenuInfo{
-		Id:        req.Id,
-		MenuType:  req.MenuType,
-		ParentId:  req.ParentId,
-		Path:      req.Path,
-		Name:      req.Name,
-		Redirect:  req.Redirect,
-		Component: req.Component,
-		Sort:      req.Sort,
-		Disabled:  req.Disabled,
+		Id:          req.Id,
+		MenuType:    req.MenuType,
+		ParentId:    req.ParentId,
+		Path:        req.Path,
+		Name:        req.Name,
+		Redirect:    req.Redirect,
+		Component:   req.Component,
+		Sort:        req.Sort,
+		Disabled:    req.Disabled,
+		ServiceName: req.ServiceName,
 		Meta: &core.Meta{
 			Title:              req.Title,
 			Icon:               req.Icon,

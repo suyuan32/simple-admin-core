@@ -1,7 +1,7 @@
 import "../base.api"
 
 type (
-    // The response data of token information | Token信息
+    // The response data of token information | 令牌信息
     TokenInfo {
         BaseUUIDInfo
 
@@ -24,11 +24,11 @@ type (
         ExpiredAt *int64 `json:"expiredAt,optional"`
     }
 
-    // The response data of token list | Token列表数据
+    // The response data of token list | 令牌列表数据
     TokenListResp {
         BaseDataInfo
 
-        // Token list data | Token列表数据
+        // Token list data | 令牌列表数据
         Data TokenListInfo `json:"data"`
     }
 
@@ -36,24 +36,24 @@ type (
     TokenListInfo {
         BaseListInfo
 
-        // The API list data | Token列表数据
+        // The API list data | 令牌列表数据
         Data  []TokenInfo  `json:"data"`
     }
 
-    // Get token list request params | Token列表请求参数
+    // Get token list request params | 令牌列表请求参数
     TokenListReq {
         PageInfo
 
-        // Username
+        // Username | 用户名
         Username *string `json:"username,optional"`
 
-        // Nickname
+        // Nickname | 昵称
         Nickname *string `json:"nickname,optional"`
 
-        // Email
+        // Email | 邮箱
         Email *string `json:"email,optional"`
 
-        // Uuid
+        // UUID
         Uuid *string `json:"uuid,optional"`
     }
 
@@ -73,23 +73,23 @@ type (
 )
 
 service Core {
-    // Create token information | 创建Token
+    // Create token information | 创建令牌
     @handler createToken
     post /token/create (TokenInfo) returns (BaseMsgResp)
 
-    // Update token information | 更新 Token
+    // Update token information | 更新令牌
     @handler updateToken
     post /token/update (TokenInfo) returns (BaseMsgResp)
 
-    // Delete token information | 删除Token信息
+    // Delete token information | 删除令牌信息
     @handler deleteToken
     post /token/delete (UUIDsReq) returns (BaseMsgResp)
 
-    // Get token list | 获取Token列表
+    // Get token list | 获取令牌列表
     @handler getTokenList
     post /token/list (TokenListReq) returns (TokenListResp)
 
-    // Get Token by ID | 通过ID获取Token
+    // Get Token by ID | 通过ID获取令牌
     @handler getTokenById
     post /token (UUIDReq) returns (TokenInfoResp)
 

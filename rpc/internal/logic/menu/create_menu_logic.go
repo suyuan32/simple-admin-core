@@ -53,6 +53,7 @@ func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseIDResp, error
 		SetNotNilComponent(in.Component).
 		SetNotNilSort(in.Sort).
 		SetNotNilDisabled(in.Disabled).
+		SetNotNilServiceName(in.ServiceName).
 		// meta
 		SetNotNilTitle(in.Meta.Title).
 		SetNotNilIcon(in.Meta.Icon).

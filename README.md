@@ -5,11 +5,11 @@
 
 **中文** | [English](./README.En.md) 
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.6.0-brightgreen.svg)](https://go-zero.dev/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.6.3-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.10.1-yellow.svg)](https://vvbin.cn/doc-next/)
-[![Ent](https://img.shields.io/badge/Ent-v0.12.5-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.80.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.2.4-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Ent](https://img.shields.io/badge/Ent-v0.13.1-blue.svg)](https://entgo.io/)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.85.0-orange.svg)](https://github.com/casbin/casbin)
+[![Release](https://img.shields.io/badge/Release-v1.3.11-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
@@ -28,6 +28,8 @@ Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基�
 
 Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源码下载，模块 docker , k8s 部署，服务器维护等功能。用户可以上传自己的付费模块获取收益，现已收录
 10 + 模块。
+
+> [模块商店](https://doge.ryansu.tech/store/index)
 
 ## 相关教程
 
@@ -59,6 +61,29 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
 - 接口文档：根据业务代码自动生成相关的api接口文档
 - 代码生成：自动生成 CRUD 代码，快捷生成自定义逻辑
 - 令牌管理：管理 token 状态，支持拉黑 token
+
+## 永久免费的官方模块
+
+| 模块名称       | 模块介绍 | 模块地址                                                                      |
+|------------|------|---------------------------------------------------------------------------|
+| Core       | 核心模块 | [Core](https://github.com/suyuan32/simple-admin-core)                     |
+| Backend UI | 后端界面 | [Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)         |
+| FMS        | 文件管理 | [File](https://github.com/suyuan32/simple-admin-file)                     |
+| Job        | 定时任务 | [Job](https://github.com/suyuan32/simple-admin-job)                       |
+| MMS        | 会员管理 | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
+| MCMS       | 消息中心 | [Message Center](https://github.com/suyuan32/simple-admin-message-center) |
+
+## 会员专属的模块
+
+| 模块名称        | 模块介绍        |
+|-------------|-------------| 
+| CMS         | 内容管理模块      |
+| Simple-Uni  | 小程序开发脚手架    |
+| Simple-Nuxt | PC 网页端开发脚手架 |
+
+# 社区模块
+
+[点击查看](https://github.com/suyuan32/awesome-simple-admin-module)
 
 ## 项目规划进度
 
@@ -94,26 +119,6 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
 - [Casbin](https://casbin.org/) - 权限管理
 - [Go-swagger](https://goswagger.io/) - Go-swagger 文档生成调试
 
-## 快速开始
-
-[快速开始文档](https://doc.ryansu.tech/zh/guide/basic-config/env_setting.html)
-
-## 更新日志
-
-[CHANGELOG](./CHANGELOG.md)
-
-## 相关项目
-
-- [Simple Admin](https://github.com/suyuan32/simple-admin-core)
-- [Simple Admin 后端界面](https://github.com/suyuan32/simple-admin-backend-ui)
-
-## 可选组件
-
-- [文件管理](https://github.com/suyuan32/simple-admin-file)
-- [定时任务](https://github.com/suyuan32/simple-admin-job)
-- [会员管理](https://github.com/suyuan32/simple-admin-member-api)
-- [消息中心模块](https://github.com/suyuan32/simple-admin-message-center)
-
 ## 如何贡献
 
 非常欢迎你的加入！[提一个 Issue](https://github.com/suyuan32/simple-admin-core/issues/new) 或者提交一个 Pull Request。
@@ -143,6 +148,10 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
     - `ci` 持续集成
     - `types` 类型定义文件更改
     - `wip` 开发中
+
+## 更新日志
+
+[CHANGELOG](./CHANGELOG.md)
 
 ## 交流群
 

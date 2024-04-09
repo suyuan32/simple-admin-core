@@ -14,6 +14,7 @@ message MenuInfo {
   optional bool disabled = 11;
   optional Meta meta = 12;
   optional uint32 menu_type = 13;
+  optional string service_name = 14;
 }
 
 message Meta {

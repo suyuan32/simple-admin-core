@@ -5,11 +5,11 @@
 
 **English** | [中文](./README.md)
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.6.0-brightgreen.svg)](https://go-zero.dev/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.6.3-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.10.1-yellow.svg)](https://vvbin.cn/doc-next/)
-[![Ent](https://img.shields.io/badge/Ent-v0.12.5-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.80.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.2.4-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Ent](https://img.shields.io/badge/Ent-v0.13.1-blue.svg)](https://entgo.io/)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.85.0-orange.svg)](https://github.com/casbin/casbin)
+[![Release](https://img.shields.io/badge/Release-v1.3.11-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
@@ -38,6 +38,8 @@ Doge is Simple Admin's command line tool for module download and deployment. It 
 module docker, k8s deployment, server maintenance and other functions. Users can upload their own paid modules to earn
 revenue, and now 10+ modules are included.
 
+> [Module Store](https://doge.ryansu.tech/store/index)
+
 ## Feature
 
 - **State of The Art Development**：Use latest back-end technology development such as ent, go-zero, casbin
@@ -61,6 +63,29 @@ revenue, and now 10+ modules are included.
 - Interface document: automatically generate related api interface documents according to business code
 - Code generation: automatically generate CRUD code, quickly generate custom logic
 - Token management: manage token status, support blacklisting token
+
+## Permanently Free Official Modules
+
+| Module Name | Module Introduction | Module Address                                                            |
+|-------------|---------------------|---------------------------------------------------------------------------|
+| Core        | Core Module         | [Core](https://github.com/suyuan32/simple-admin-core)                     |
+| Backend UI  | Backend Interface   | [Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)         |
+| FMS         | File Management     | [File](https://github.com/suyuan32/simple-admin-file)                     |
+| Job         | Scheduled Task      | [Job](https://github.com/suyuan32/simple-admin-job)                       |
+| MMS         | Member Management   | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
+| MCMS        | Message Center      | [Message Center](https://github.com/suyuan32/simple-admin-message-center) |
+
+## Member Exclusive Modules
+
+| Module Name | Module Introduction               |
+|-------------|-----------------------------------| 
+| CMS         | Content Management Module         |
+| Simple-Uni  | Mini Program Development Scaffold |
+| Simple-Nuxt | PC Web End Development Scaffold   |
+
+# Community Modules
+
+[Click to view](https://github.com/suyuan32/awesome-simple-admin-module)
 
 ## Project Planning Progress
 
@@ -94,26 +119,6 @@ Password:  simple-admin
 - [Casbin](https://casbin.org/) - Familiar with Casbin apis
 - [Go-swagger](https://goswagger.io/) - Go-swagger document generation
 
-## Quick Start
-
-[Quick Start Document](https://doc.ryansu.tech/en/guide/basic-config/env_setting.html)
-
-## Change Log
-
-[CHANGELOG](./CHANGELOG.md)
-
-## Relative Project
-
-- [Simple Admin](https://github.com/suyuan32/simple-admin-core)
-- [Simple Admin Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)
-
-## Optional Components
-
-- [File Management](https://github.com/suyuan32/simple-admin-file)
-- [Scheduled Task](https://github.com/suyuan32/simple-admin-job)
-- [Member Management](https://github.com/suyuan32/simple-admin-member-api)
-- [Message Center](https://github.com/suyuan32/simple-admin-message-center)
-
 
 ## How to contribute
 
@@ -144,6 +149,10 @@ You are very welcome to join！[Raise an issue](https://github.com/suyuan32/simp
     - `ci` Continuous integration
     - `types` Type definition file changes
     - `wip` In development
+
+## Change Log
+
+[CHANGELOG](./CHANGELOG.md)
 
 # Community
 

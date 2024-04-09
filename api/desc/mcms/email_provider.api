@@ -5,34 +5,34 @@ type (
     EmailProviderInfo {
         BaseIDInfo
 
-        // Name
+        // Name | 名称
         Name  *string `json:"name,optional"`
 
-        // AuthType
+        // AuthType | 认证类型
         AuthType  *uint32 `json:"authType,optional"`
 
-        // EmailAddr
+        // Email address | 邮箱地址
         EmailAddr  *string `json:"emailAddr,optional"`
 
-        // Password
+        // Password | 密码
         Password  *string `json:"password,optional"`
 
-        // HostName
+        // HostName | 主机名
         HostName  *string `json:"hostName,optional"`
 
-        // Identify
+        // Identify | 身份标识
         Identify  *string `json:"identify,optional"`
 
-        // Secret
+        // Secret | 密钥
         Secret  *string `json:"secret,optional"`
 
-        // Port
+        // Port | 端口
         Port  *uint32 `json:"port,optional"`
 
-        // Tls
+        // Tls | 是否启用TLS
         Tls  *bool `json:"tls,optional"`
 
-        // IsDefault
+        // Is default provider | 是否默认
         IsDefault  *bool `json:"isDefault,optional"`
     }
 
@@ -56,10 +56,10 @@ type (
     EmailProviderListReq {
         PageInfo
 
-        // Name
+        // Name | 名称
         Name  *string `json:"name,optional"`
 
-        // EmailAddr
+        // Email address | 邮箱地址
         EmailAddr  *string `json:"emailAddr,optional"`
     }
 

@@ -118,6 +118,7 @@ var (
 		{Name: "redirect", Type: field.TypeString, Nullable: true, Comment: "Redirect path | 跳转路径 （外链）", Default: ""},
 		{Name: "component", Type: field.TypeString, Nullable: true, Comment: "The path of vue file | 组件路径", Default: ""},
 		{Name: "disabled", Type: field.TypeBool, Nullable: true, Comment: "Disable status | 是否停用", Default: false},
+		{Name: "service_name", Type: field.TypeString, Nullable: true, Comment: "Service Name | 服务名称", Default: "Other"},
 		{Name: "title", Type: field.TypeString, Comment: "Menu name | 菜单显示标题"},
 		{Name: "icon", Type: field.TypeString, Comment: "Menu icon | 菜单图标"},
 		{Name: "hide_menu", Type: field.TypeBool, Nullable: true, Comment: "Hide menu | 是否隐藏菜单", Default: false},
@@ -140,7 +141,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "sys_menus_sys_menus_children",
-				Columns:    []*schema.Column{SysMenusColumns[23]},
+				Columns:    []*schema.Column{SysMenusColumns[24]},
 				RefColumns: []*schema.Column{SysMenusColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
