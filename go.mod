@@ -13,10 +13,10 @@ require (
 	github.com/suyuan32/simple-admin-common v1.3.12
 	github.com/suyuan32/simple-admin-job v1.3.12
 	github.com/suyuan32/simple-admin-message-center v1.3.12
-	github.com/zeromicro/go-zero v1.6.3
+	github.com/zeromicro/go-zero v1.6.4
 	golang.org/x/oauth2 v0.19.0
-	google.golang.org/grpc v1.63.0
-	google.golang.org/protobuf v1.33.0
+	google.golang.org/grpc v1.63.2
+	google.golang.org/protobuf v1.33.1-0.20240408130810-98873a205002
 )
 
 require (
@@ -131,6 +131,6 @@ require (
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
 
-replace github.com/zeromicro/go-zero v1.6.3 => github.com/suyuan32/simple-admin-tools v1.6.9
+replace github.com/zeromicro/go-zero v1.6.4 => github.com/suyuan32/simple-admin-tools v1.6.10
 
 replace github.com/mojocn/base64Captcha v1.3.6 => github.com/suyuan32/base64Captcha v1.3.7
