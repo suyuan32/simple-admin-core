@@ -12,7 +12,7 @@ networks:
 
 services:
   mysql:
-    image: mysql:8.0.36
+    image: mysql:8.3.0
     container_name: mysql
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always
@@ -58,7 +58,7 @@ services:
           memory: 200M
 
   core-rpc:
-    image: ryanpower/core-rpc-docker:v1.3.11
+    image: ryanpower/core-rpc-docker:v1.4.0
     container_name: core-rpc
     restart: always
     ports:
@@ -83,7 +83,7 @@ services:
           memory: 200M
 
   job-rpc:
-    image: ryanpower/job-rpc-docker:v1.3.11
+    image: ryanpower/job-rpc-docker:v1.4.0
     container_name: job-rpc
     restart: always
     ports:
@@ -108,7 +108,7 @@ services:
           memory: 200M
 
   core-api:
-    image: ryanpower/core-api-docker:v1.3.11
+    image: ryanpower/core-api-docker:v1.4.0
     container_name: core-api
     restart: always
     environment:
@@ -135,7 +135,7 @@ services:
           memory: 200M
 
   backend-ui:
-    image: ryanpower/backend-ui-docker:v1.3.11
+    image: ryanpower/backend-ui-docker:v1.4.0
     container_name: backend-ui
     restart: always
     ports:
@@ -154,7 +154,7 @@ services:
           memory: 200M
 
   fms-api:
-    image: ryanpower/fms-api-docker:v1.3.11
+    image: ryanpower/fms-api-docker:v1.4.0
     container_name: fms-api
     restart: always
     #    environment:
@@ -185,7 +185,7 @@ services:
           memory: 200M
 
   mcms-rpc:
-    image: ryanpower/mcms-rpc-docker:v1.3.11
+    image: ryanpower/mcms-rpc-docker:v1.4.0
     container_name: mcms-rpc
     restart: always
     environment:
