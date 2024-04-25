@@ -60,12 +60,13 @@ revenue, and now 10+ modules are included.
 - **State of The Art Development**：Use latest back-end technology development such as ent, go-zero, casbin
 - **Fully support go-swagger**: Write comment in api file and generate swagger doc easily
 - **Error handling**: Handle error messages via one module
-- **International**：support different languages show in the front-end via put locale path in the message
-- **Service Discover**: use k8s endpoints to do service discovery and load-balance
+- **International**：Support different languages show in the front-end via put locale path in the message
+- **Service Discover**: Use k8s endpoints to do service discovery and load-balance
 - **Authority** Manage authority via Casbin, based on RBAC
 - **Code Generation**: Built-in three-terminal Web, API, RPC code generation
 - **Multiple extensions**: Provides a variety of extensions and has a very simple access function
-- **Other** builtin concurrency control, adaptive circuit breaker, adaptive load shedding, auto-trigger, auto recover
+- **Other** Builtin concurrency control, adaptive circuit breaker, adaptive load shedding, auto-trigger, auto recover
+- **ORM**: Powerful `Ent` supported
 
 ## Supported functions
 
