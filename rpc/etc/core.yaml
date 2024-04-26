@@ -47,6 +47,6 @@ CasbinConf:
 
 #Telemetry:
 #  Name: core-rpc
-#  Endpoint: http://127.0.0.1:14268/api/traces
+#  Endpoint: localhost:4317
 #  Sampler: 1.0
-#  Batcher: jaeger
+#  Batcher: otlpgrpc # grpc

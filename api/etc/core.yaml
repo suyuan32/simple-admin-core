@@ -91,7 +91,7 @@ McmsRpc:
 # Tracing Analysis
 
 #Telemetry:
-#  Name: core-rpc
-#  Endpoint: localhost:4317  # use your jaeger url
+#  Name: core-api
+#  Endpoint: localhost:4317
 #  Sampler: 1.0
-#  Batcher: otlpgrpc
+#  Batcher: otlpgrpc # grpc
