@@ -20,8 +20,9 @@ import (
 // DepartmentUpdate is the builder for updating Department entities.
 type DepartmentUpdate struct {
 	config
-	hooks    []Hook
-	mutation *DepartmentMutation
+	hooks     []Hook
+	mutation  *DepartmentMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the DepartmentUpdate builder.
@@ -324,6 +325,12 @@ func (du *DepartmentUpdate) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (du *DepartmentUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DepartmentUpdate {
+	du.modifiers = append(du.modifiers, modifiers...)
+	return du
+}
+
 func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(department.Table, department.Columns, sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64))
 	if ps := du.mutation.predicates; len(ps) > 0 {
@@ -494,6 +501,7 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	_spec.AddModifiers(du.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, du.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{department.Label}
@@ -509,9 +517,10 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 // DepartmentUpdateOne is the builder for updating a single Department entity.
 type DepartmentUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *DepartmentMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *DepartmentMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -821,6 +830,12 @@ func (duo *DepartmentUpdateOne) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (duo *DepartmentUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DepartmentUpdateOne {
+	duo.modifiers = append(duo.modifiers, modifiers...)
+	return duo
+}
+
 func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department, err error) {
 	_spec := sqlgraph.NewUpdateSpec(department.Table, department.Columns, sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64))
 	id, ok := duo.mutation.ID()
@@ -1008,6 +1023,7 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	_spec.AddModifiers(duo.modifiers...)
 	_node = &Department{config: duo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

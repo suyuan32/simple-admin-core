@@ -18,8 +18,9 @@ import (
 // APIUpdate is the builder for updating API entities.
 type APIUpdate struct {
 	config
-	hooks    []Hook
-	mutation *APIMutation
+	hooks     []Hook
+	mutation  *APIMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the APIUpdate builder.
@@ -159,6 +160,12 @@ func (au *APIUpdate) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (au *APIUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *APIUpdate {
+	au.modifiers = append(au.modifiers, modifiers...)
+	return au
+}
+
 func (au *APIUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(api.Table, api.Columns, sqlgraph.NewFieldSpec(api.FieldID, field.TypeUint64))
 	if ps := au.mutation.predicates; len(ps) > 0 {
@@ -189,6 +196,7 @@ func (au *APIUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := au.mutation.IsRequired(); ok {
 		_spec.SetField(api.FieldIsRequired, field.TypeBool, value)
 	}
+	_spec.AddModifiers(au.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, au.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{api.Label}
@@ -204,9 +212,10 @@ func (au *APIUpdate) sqlSave(ctx context.Context) (n int, err error) {
 // APIUpdateOne is the builder for updating a single API entity.
 type APIUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *APIMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *APIMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -353,6 +362,12 @@ func (auo *APIUpdateOne) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (auo *APIUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *APIUpdateOne {
+	auo.modifiers = append(auo.modifiers, modifiers...)
+	return auo
+}
+
 func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *API, err error) {
 	_spec := sqlgraph.NewUpdateSpec(api.Table, api.Columns, sqlgraph.NewFieldSpec(api.FieldID, field.TypeUint64))
 	id, ok := auo.mutation.ID()
@@ -400,6 +415,7 @@ func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *API, err error) {
 	if value, ok := auo.mutation.IsRequired(); ok {
 		_spec.SetField(api.FieldIsRequired, field.TypeBool, value)
 	}
+	_spec.AddModifiers(auo.modifiers...)
 	_node = &API{config: auo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

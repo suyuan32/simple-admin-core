@@ -20,6 +20,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	db := ent.NewClient(
 		ent.Log(logx.Error), // logger
 		ent.Driver(c.DatabaseConf.NewNoCacheDriver()),
+		ent.Debug(),
 	)
 
 	return &ServiceContext{

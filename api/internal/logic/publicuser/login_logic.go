@@ -2,10 +2,11 @@ package publicuser
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-common/config"
-	"github.com/suyuan32/simple-admin-common/enum/common"
 	"strings"
 	"time"
+
+	"github.com/suyuan32/simple-admin-common/config"
+	"github.com/suyuan32/simple-admin-common/enum/common"
 
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
@@ -39,6 +40,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 	}
 
 	if ok := l.svcCtx.Captcha.Verify(config.RedisCaptchaPrefix+req.CaptchaId, req.Captcha, true); ok {
+		// 获取用户信息
 		user, err := l.svcCtx.CoreRpc.GetUserByUsername(l.ctx,
 			&core.UsernameReq{
 				Username: req.Username,
@@ -47,13 +49,25 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			return nil, err
 		}
 
+		// 获取用户对应部门信息,并找到部门对应的根级标识，用于加入token作为企业标识
+		dept, err := l.svcCtx.CoreRpc.GetDepartmentById(l.ctx, &core.IDReq{
+			Id: *user.DepartmentId,
+		})
+		if err != nil {
+			return nil, errorx.NewCodeInvalidArgumentError("login.notFoundEntprise")
+		}
+		deptAncestors := strings.Split(*dept.Ancestors, ",")
+		deptRootId := deptAncestors[len(deptAncestors)-1]
+
+		// 校验密码
 		if !encrypt.BcryptCheck(req.Password, *user.Password) {
 			return nil, errorx.NewCodeInvalidArgumentError("login.wrongUsernameOrPassword")
 		}
 
+		// 生成token
 		token, err := jwt.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, time.Now().Unix(),
 			l.svcCtx.Config.Auth.AccessExpire, jwt.WithOption("userId", user.Id), jwt.WithOption("roleId",
-				strings.Join(user.RoleCodes, ",")), jwt.WithOption("deptId", user.DepartmentId))
+				strings.Join(user.RoleCodes, ",")), jwt.WithOption("deptId", user.DepartmentId), jwt.WithOption("tenantId", deptRootId))
 		if err != nil {
 			return nil, err
 		}

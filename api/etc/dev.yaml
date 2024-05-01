@@ -1,0 +1,103 @@
+Name: core.api
+Host: 0.0.0.0
+Port: 9100
+Timeout: 6000
+
+Auth:
+  AccessSecret: jS6VKDtsJf3z1n2VKDtsJfttapp
+  AccessExpire: 259200
+
+Log:
+  ServiceName: coreApiLogger
+  Mode: console
+  Path: /home/data/logs/core/api
+  Level: info
+  Compress: false
+  KeepDays: 7
+  StackCoolDownMillis: 100
+
+Captcha:
+  KeyLong: 5
+  ImgWidth: 240
+  ImgHeight: 80
+  Driver: digit
+
+DatabaseConf:
+  Type: postgres
+  Host: 127.0.0.1
+  Port: 5432
+  DBName: ttapp_core
+  Username: simple_admin
+  Password: "123456"
+  MaxOpenConn: 100
+  SSLMode: disable
+  CacheTime: 5
+
+ProjectConf:
+  DefaultRoleId: 1  # default role id when register
+  DefaultDepartmentId: 1  # default department id when register
+  DefaultPositionId: 1 # default position id when register
+  EmailCaptchaExpiredTime: 600 # the expired time for email captcha
+  SmsTemplateId: xxx  # The template id for sms
+  SmsAppId: xxx  # the app id for sms
+  SmsSignName: xxx  # the signature name of sm
+  SmsParamsType: json # the type of sms param, support json and arrays
+  RegisterVerify: captcha  # verify captcha type, support captcha, email, sms, sms_or_email
+  LoginVerify: captcha
+  ResetVerify: email
+  ServiceMenuName: Services
+  ApplicationMenuName: Applications 
+
+# Prometheus:
+#   Host: 0.0.0.0
+#   Port: 4000
+#   Path: /metrics
+
+CasbinConf:
+  ModelText: |
+    [request_definition]
+    r = sub, obj, act
+    [policy_definition]
+    p = sub, obj, act
+    [role_definition]
+    g = _, _
+    [policy_effect]
+    e = some(where (p.eft == allow))
+    [matchers]
+    m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
+
+I18nConf:
+  Dir: # set the path of locale if you need to load files
+
+CROSConf:
+  Address: '*'    # if it is *, allow all ip and address. e.g. http://example.com
+
+RedisConf:
+  Host: 127.0.0.1:6379
+  Db: 0
+
+CoreRpc:
+  # Target: k8s://default/core-rpc-svc:9101
+  Endpoints: 
+    - 127.0.0.1:9101
+  Enabled: true
+
+JobRpc:
+  Endpoints:
+    - 127.0.0.1:9105
+  Enabled: false 
+
+McmsRpc:
+  # Target: k8s://default/mcms-rpc-svc:9106
+  Endpoints:
+    - 127.0.0.1:9701
+  Enabled: false
+  Timeout: 5000
+
+# Tracing Analysis
+
+#Telemetry:
+#  Name: core-rpc
+#  Endpoint: http://127.0.0.1:14268/api/traces  # use your jaeger url
+#  Sampler: 1.0
+#  Batcher: jaeger

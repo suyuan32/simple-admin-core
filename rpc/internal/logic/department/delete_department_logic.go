@@ -2,6 +2,7 @@ package department
 
 import (
 	"context"
+
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -33,6 +34,10 @@ func NewDeleteDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 
 func (l *DeleteDepartmentLogic) DeleteDepartment(in *core.IDsReq) (*core.BaseResp, error) {
 	exist, err := l.svcCtx.DB.Department.Query().Where(department.ParentIDIn(in.Ids...)).Exist(l.ctx)
+	if err != nil {
+		logx.Errorw("query department by ParentId error", logx.Field("department ParentId", in.Ids))
+		return nil, errorx.NewInvalidArgumentError("department.queryDepartmentFailed")
+	}
 	if exist {
 		logx.Errorw("delete department failed, please check its children had been deleted",
 			logx.Field("departmentId", in.Ids))
@@ -40,6 +45,10 @@ func (l *DeleteDepartmentLogic) DeleteDepartment(in *core.IDsReq) (*core.BaseRes
 	}
 
 	checkUser, err := l.svcCtx.DB.User.Query().Where(user.DepartmentIDIn(in.Ids...)).Exist(l.ctx)
+	if err != nil {
+		logx.Errorw("query user of department error", logx.Field("userId", in.Ids))
+		return nil, errorx.NewInvalidArgumentError("department.queryUserOfDepartmentFailed")
+	}
 	if checkUser {
 		logx.Errorw("delete department failed, there are users belongs to the department", logx.Field("departmentId", in.Ids))
 		return nil, errorx.NewInvalidArgumentError("department.deleteDepartmentUserFirst")
