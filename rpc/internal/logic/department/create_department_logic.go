@@ -7,6 +7,7 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dberrorhandler"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dbfunc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -29,11 +30,16 @@ func NewCreateDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *CreateDepartmentLogic) CreateDepartment(in *core.DepartmentInfo) (*core.BaseIDResp, error) {
+
+	// get department ancestor ids
+	cd := dbfunc.NewGenAncestorsLogic(l.ctx, l.svcCtx)
+	ancestors := cd.Department_ancestors(in.ParentId)
+
 	result, err := l.svcCtx.DB.Department.Create().
 		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilSort(in.Sort).
 		SetNotNilName(in.Name).
-		SetNotNilAncestors(in.Ancestors).
+		SetNotNilAncestors(ancestors).
 		SetNotNilLeader(in.Leader).
 		SetNotNilPhone(in.Phone).
 		SetNotNilEmail(in.Email).

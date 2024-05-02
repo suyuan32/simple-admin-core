@@ -19,8 +19,9 @@ import (
 // DictionaryUpdate is the builder for updating Dictionary entities.
 type DictionaryUpdate struct {
 	config
-	hooks    []Hook
-	mutation *DictionaryMutation
+	hooks     []Hook
+	mutation  *DictionaryMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the DictionaryUpdate builder.
@@ -187,6 +188,12 @@ func (du *DictionaryUpdate) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (du *DictionaryUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DictionaryUpdate {
+	du.modifiers = append(du.modifiers, modifiers...)
+	return du
+}
+
 func (du *DictionaryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(dictionary.Table, dictionary.Columns, sqlgraph.NewFieldSpec(dictionary.FieldID, field.TypeUint64))
 	if ps := du.mutation.predicates; len(ps) > 0 {
@@ -265,6 +272,7 @@ func (du *DictionaryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	_spec.AddModifiers(du.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, du.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{dictionary.Label}
@@ -280,9 +288,10 @@ func (du *DictionaryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 // DictionaryUpdateOne is the builder for updating a single Dictionary entity.
 type DictionaryUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *DictionaryMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *DictionaryMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -456,6 +465,12 @@ func (duo *DictionaryUpdateOne) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (duo *DictionaryUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DictionaryUpdateOne {
+	duo.modifiers = append(duo.modifiers, modifiers...)
+	return duo
+}
+
 func (duo *DictionaryUpdateOne) sqlSave(ctx context.Context) (_node *Dictionary, err error) {
 	_spec := sqlgraph.NewUpdateSpec(dictionary.Table, dictionary.Columns, sqlgraph.NewFieldSpec(dictionary.FieldID, field.TypeUint64))
 	id, ok := duo.mutation.ID()
@@ -551,6 +566,7 @@ func (duo *DictionaryUpdateOne) sqlSave(ctx context.Context) (_node *Dictionary,
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	_spec.AddModifiers(duo.modifiers...)
 	_node = &Dictionary{config: duo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
