@@ -3,31 +3,18 @@ package dbfunc
 import (
 	"context"
 	"fmt"
+	"github.com/suyuan32/simple-admin-core/rpc/ent"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dberrorhandler"
+	"github.com/zeromicro/go-zero/core/logx"
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-common/enum/common"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type GenAncestorsLogic struct {
-	ctx    context.Context
-	svcCtx *svc.ServiceContext
-	logx.Logger
-}
-
-func NewGenAncestorsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GenAncestorsLogic {
-	return &GenAncestorsLogic{
-		ctx:    ctx,
-		svcCtx: svcCtx,
-		Logger: logx.WithContext(ctx),
-	}
-}
-
-func (l *GenAncestorsLogic) Department_ancestors(departmentID *uint64) *string {
-	ancestors, err := l.svcCtx.DB.Debug().Department.Query().
+func GetDepartmentAncestors(departmentID *uint64, db *ent.Client, logger logx.Logger, ctx context.Context) (string, error) {
+	ancestors, err := db.Department.Query().
 		Modify(func(s *sql.Selector) {
 			t1, t2 := sql.Table(department.Table), sql.Table(department.Table)
 			with := sql.WithRecursive("ancestors")
@@ -53,10 +40,9 @@ func (l *GenAncestorsLogic) Department_ancestors(departmentID *uint64) *string {
 			s.Prefix(with).Select(with.C(department.FieldParentID)).From(with).
 				Where(sql.NEQ(with.C(department.FieldParentID), common.DefaultParentId))
 		}).
-		Select(department.FieldParentID).Strings(l.ctx)
+		Select(department.FieldParentID).Strings(ctx)
 	if err != nil {
-		fmt.Println("error", err)
+		return "", dberrorhandler.DefaultEntError(logger, err, fmt.Sprintf("failed to get the department ancestors of %d", departmentID))
 	}
-	ancestorsStr := strings.Join(ancestors, ",")
-	return &ancestorsStr
+	return strings.Join(ancestors, ","), nil
 }
