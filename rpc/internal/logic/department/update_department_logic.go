@@ -31,31 +31,22 @@ func NewUpdateDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 
 func (l *UpdateDepartmentLogic) UpdateDepartment(in *core.DepartmentInfo) (*core.BaseResp, error) {
 
-	var (
-		ancestors string
-		err       error
-	)
-
-	if in.ParentId != nil {
-		ancestors, err = dbfunc.GetDepartmentAncestors(in.ParentId, l.svcCtx.DB, l.Logger, l.ctx)
+	ancestors, err := dbfunc.GetDepartmentAncestors(in.ParentId, l.svcCtx.DB, l.Logger, l.ctx)
+	if err != nil {
+		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	query := l.svcCtx.DB.Department.UpdateOneID(*in.Id).
+	err = l.svcCtx.DB.Department.UpdateOneID(*in.Id).
 		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilSort(in.Sort).
 		SetNotNilName(in.Name).
-		SetNotNilAncestors(&ancestors).
+		SetNotNilAncestors(ancestors).
 		SetNotNilLeader(in.Leader).
 		SetNotNilPhone(in.Phone).
 		SetNotNilEmail(in.Email).
 		SetNotNilRemark(in.Remark).
-		SetNotNilParentID(in.ParentId)
-
-	if ancestors != "" {
-		query.SetAncestors(ancestors)
-	}
-
-	err = query.Exec(l.ctx)
+		SetNotNilParentID(in.ParentId).
+		Exec(l.ctx)
 
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
