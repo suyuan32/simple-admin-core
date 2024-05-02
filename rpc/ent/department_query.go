@@ -26,6 +26,7 @@ type DepartmentQuery struct {
 	withParent   *DepartmentQuery
 	withChildren *DepartmentQuery
 	withUsers    *UserQuery
+	modifiers    []func(*sql.Selector)
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -455,6 +456,9 @@ func (dq *DepartmentQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*D
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
 	}
+	if len(dq.modifiers) > 0 {
+		_spec.Modifiers = dq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -579,6 +583,9 @@ func (dq *DepartmentQuery) loadUsers(ctx context.Context, query *UserQuery, node
 
 func (dq *DepartmentQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := dq.querySpec()
+	if len(dq.modifiers) > 0 {
+		_spec.Modifiers = dq.modifiers
+	}
 	_spec.Node.Columns = dq.ctx.Fields
 	if len(dq.ctx.Fields) > 0 {
 		_spec.Unique = dq.ctx.Unique != nil && *dq.ctx.Unique
@@ -644,6 +651,9 @@ func (dq *DepartmentQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if dq.ctx.Unique != nil && *dq.ctx.Unique {
 		selector.Distinct()
 	}
+	for _, m := range dq.modifiers {
+		m(selector)
+	}
 	for _, p := range dq.predicates {
 		p(selector)
 	}
@@ -659,6 +669,12 @@ func (dq *DepartmentQuery) sqlQuery(ctx context.Context) *sql.Selector {
 		selector.Limit(*limit)
 	}
 	return selector
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (dq *DepartmentQuery) Modify(modifiers ...func(s *sql.Selector)) *DepartmentSelect {
+	dq.modifiers = append(dq.modifiers, modifiers...)
+	return dq.Select()
 }
 
 // DepartmentGroupBy is the group-by builder for Department entities.
@@ -749,4 +765,10 @@ func (ds *DepartmentSelect) sqlScan(ctx context.Context, root *DepartmentQuery, 
 	}
 	defer rows.Close()
 	return sql.ScanSlice(rows, v)
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (ds *DepartmentSelect) Modify(modifiers ...func(s *sql.Selector)) *DepartmentSelect {
+	ds.modifiers = append(ds.modifiers, modifiers...)
+	return ds
 }
