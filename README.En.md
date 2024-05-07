@@ -8,7 +8,7 @@
 [![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.6.4-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.10.1-yellow.svg)](https://vvbin.cn/doc-next/)
 [![Ent](https://img.shields.io/badge/Ent-v0.13.1-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.86.1-orange.svg)](https://github.com/casbin/casbin)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.87.1-orange.svg)](https://github.com/casbin/casbin)
 [![Release](https://img.shields.io/badge/Release-v1.4.0-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
