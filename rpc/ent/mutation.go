@@ -1206,9 +1206,22 @@ func (m *DepartmentMutation) OldLeader(ctx context.Context) (v string, err error
 	return oldValue.Leader, nil
 }
 
+// ClearLeader clears the value of the "leader" field.
+func (m *DepartmentMutation) ClearLeader() {
+	m.leader = nil
+	m.clearedFields[department.FieldLeader] = struct{}{}
+}
+
+// LeaderCleared returns if the "leader" field was cleared in this mutation.
+func (m *DepartmentMutation) LeaderCleared() bool {
+	_, ok := m.clearedFields[department.FieldLeader]
+	return ok
+}
+
 // ResetLeader resets all changes to the "leader" field.
 func (m *DepartmentMutation) ResetLeader() {
 	m.leader = nil
+	delete(m.clearedFields, department.FieldLeader)
 }
 
 // SetPhone sets the "phone" field.
@@ -1242,9 +1255,22 @@ func (m *DepartmentMutation) OldPhone(ctx context.Context) (v string, err error)
 	return oldValue.Phone, nil
 }
 
+// ClearPhone clears the value of the "phone" field.
+func (m *DepartmentMutation) ClearPhone() {
+	m.phone = nil
+	m.clearedFields[department.FieldPhone] = struct{}{}
+}
+
+// PhoneCleared returns if the "phone" field was cleared in this mutation.
+func (m *DepartmentMutation) PhoneCleared() bool {
+	_, ok := m.clearedFields[department.FieldPhone]
+	return ok
+}
+
 // ResetPhone resets all changes to the "phone" field.
 func (m *DepartmentMutation) ResetPhone() {
 	m.phone = nil
+	delete(m.clearedFields, department.FieldPhone)
 }
 
 // SetEmail sets the "email" field.
@@ -1278,9 +1304,22 @@ func (m *DepartmentMutation) OldEmail(ctx context.Context) (v string, err error)
 	return oldValue.Email, nil
 }
 
+// ClearEmail clears the value of the "email" field.
+func (m *DepartmentMutation) ClearEmail() {
+	m.email = nil
+	m.clearedFields[department.FieldEmail] = struct{}{}
+}
+
+// EmailCleared returns if the "email" field was cleared in this mutation.
+func (m *DepartmentMutation) EmailCleared() bool {
+	_, ok := m.clearedFields[department.FieldEmail]
+	return ok
+}
+
 // ResetEmail resets all changes to the "email" field.
 func (m *DepartmentMutation) ResetEmail() {
 	m.email = nil
+	delete(m.clearedFields, department.FieldEmail)
 }
 
 // SetRemark sets the "remark" field.
@@ -1794,6 +1833,15 @@ func (m *DepartmentMutation) ClearedFields() []string {
 	if m.FieldCleared(department.FieldAncestors) {
 		fields = append(fields, department.FieldAncestors)
 	}
+	if m.FieldCleared(department.FieldLeader) {
+		fields = append(fields, department.FieldLeader)
+	}
+	if m.FieldCleared(department.FieldPhone) {
+		fields = append(fields, department.FieldPhone)
+	}
+	if m.FieldCleared(department.FieldEmail) {
+		fields = append(fields, department.FieldEmail)
+	}
 	if m.FieldCleared(department.FieldRemark) {
 		fields = append(fields, department.FieldRemark)
 	}
@@ -1819,6 +1867,15 @@ func (m *DepartmentMutation) ClearField(name string) error {
 		return nil
 	case department.FieldAncestors:
 		m.ClearAncestors()
+		return nil
+	case department.FieldLeader:
+		m.ClearLeader()
+		return nil
+	case department.FieldPhone:
+		m.ClearPhone()
+		return nil
+	case department.FieldEmail:
+		m.ClearEmail()
 		return nil
 	case department.FieldRemark:
 		m.ClearRemark()
