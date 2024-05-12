@@ -133,6 +133,12 @@ func (du *DepartmentUpdate) SetNillableLeader(s *string) *DepartmentUpdate {
 	return du
 }
 
+// ClearLeader clears the value of the "leader" field.
+func (du *DepartmentUpdate) ClearLeader() *DepartmentUpdate {
+	du.mutation.ClearLeader()
+	return du
+}
+
 // SetPhone sets the "phone" field.
 func (du *DepartmentUpdate) SetPhone(s string) *DepartmentUpdate {
 	du.mutation.SetPhone(s)
@@ -147,6 +153,12 @@ func (du *DepartmentUpdate) SetNillablePhone(s *string) *DepartmentUpdate {
 	return du
 }
 
+// ClearPhone clears the value of the "phone" field.
+func (du *DepartmentUpdate) ClearPhone() *DepartmentUpdate {
+	du.mutation.ClearPhone()
+	return du
+}
+
 // SetEmail sets the "email" field.
 func (du *DepartmentUpdate) SetEmail(s string) *DepartmentUpdate {
 	du.mutation.SetEmail(s)
@@ -158,6 +170,12 @@ func (du *DepartmentUpdate) SetNillableEmail(s *string) *DepartmentUpdate {
 	if s != nil {
 		du.SetEmail(*s)
 	}
+	return du
+}
+
+// ClearEmail clears the value of the "email" field.
+func (du *DepartmentUpdate) ClearEmail() *DepartmentUpdate {
+	du.mutation.ClearEmail()
 	return du
 }
 
@@ -370,11 +388,20 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := du.mutation.Leader(); ok {
 		_spec.SetField(department.FieldLeader, field.TypeString, value)
 	}
+	if du.mutation.LeaderCleared() {
+		_spec.ClearField(department.FieldLeader, field.TypeString)
+	}
 	if value, ok := du.mutation.Phone(); ok {
 		_spec.SetField(department.FieldPhone, field.TypeString, value)
 	}
+	if du.mutation.PhoneCleared() {
+		_spec.ClearField(department.FieldPhone, field.TypeString)
+	}
 	if value, ok := du.mutation.Email(); ok {
 		_spec.SetField(department.FieldEmail, field.TypeString, value)
+	}
+	if du.mutation.EmailCleared() {
+		_spec.ClearField(department.FieldEmail, field.TypeString)
 	}
 	if value, ok := du.mutation.Remark(); ok {
 		_spec.SetField(department.FieldRemark, field.TypeString, value)
@@ -625,6 +652,12 @@ func (duo *DepartmentUpdateOne) SetNillableLeader(s *string) *DepartmentUpdateOn
 	return duo
 }
 
+// ClearLeader clears the value of the "leader" field.
+func (duo *DepartmentUpdateOne) ClearLeader() *DepartmentUpdateOne {
+	duo.mutation.ClearLeader()
+	return duo
+}
+
 // SetPhone sets the "phone" field.
 func (duo *DepartmentUpdateOne) SetPhone(s string) *DepartmentUpdateOne {
 	duo.mutation.SetPhone(s)
@@ -639,6 +672,12 @@ func (duo *DepartmentUpdateOne) SetNillablePhone(s *string) *DepartmentUpdateOne
 	return duo
 }
 
+// ClearPhone clears the value of the "phone" field.
+func (duo *DepartmentUpdateOne) ClearPhone() *DepartmentUpdateOne {
+	duo.mutation.ClearPhone()
+	return duo
+}
+
 // SetEmail sets the "email" field.
 func (duo *DepartmentUpdateOne) SetEmail(s string) *DepartmentUpdateOne {
 	duo.mutation.SetEmail(s)
@@ -650,6 +689,12 @@ func (duo *DepartmentUpdateOne) SetNillableEmail(s *string) *DepartmentUpdateOne
 	if s != nil {
 		duo.SetEmail(*s)
 	}
+	return duo
+}
+
+// ClearEmail clears the value of the "email" field.
+func (duo *DepartmentUpdateOne) ClearEmail() *DepartmentUpdateOne {
+	duo.mutation.ClearEmail()
 	return duo
 }
 
@@ -892,11 +937,20 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 	if value, ok := duo.mutation.Leader(); ok {
 		_spec.SetField(department.FieldLeader, field.TypeString, value)
 	}
+	if duo.mutation.LeaderCleared() {
+		_spec.ClearField(department.FieldLeader, field.TypeString)
+	}
 	if value, ok := duo.mutation.Phone(); ok {
 		_spec.SetField(department.FieldPhone, field.TypeString, value)
 	}
+	if duo.mutation.PhoneCleared() {
+		_spec.ClearField(department.FieldPhone, field.TypeString)
+	}
 	if value, ok := duo.mutation.Email(); ok {
 		_spec.SetField(department.FieldEmail, field.TypeString, value)
+	}
+	if duo.mutation.EmailCleared() {
+		_spec.ClearField(department.FieldEmail, field.TypeString)
 	}
 	if value, ok := duo.mutation.Remark(); ok {
 		_spec.SetField(department.FieldRemark, field.TypeString, value)
