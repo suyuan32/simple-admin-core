@@ -23,6 +23,7 @@ type DictionaryDetailQuery struct {
 	inters           []Interceptor
 	predicates       []predicate.DictionaryDetail
 	withDictionaries *DictionaryQuery
+	modifiers        []func(*sql.Selector)
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -382,6 +383,9 @@ func (ddq *DictionaryDetailQuery) sqlAll(ctx context.Context, hooks ...queryHook
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
 	}
+	if len(ddq.modifiers) > 0 {
+		_spec.Modifiers = ddq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -432,6 +436,9 @@ func (ddq *DictionaryDetailQuery) loadDictionaries(ctx context.Context, query *D
 
 func (ddq *DictionaryDetailQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := ddq.querySpec()
+	if len(ddq.modifiers) > 0 {
+		_spec.Modifiers = ddq.modifiers
+	}
 	_spec.Node.Columns = ddq.ctx.Fields
 	if len(ddq.ctx.Fields) > 0 {
 		_spec.Unique = ddq.ctx.Unique != nil && *ddq.ctx.Unique
@@ -497,6 +504,9 @@ func (ddq *DictionaryDetailQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if ddq.ctx.Unique != nil && *ddq.ctx.Unique {
 		selector.Distinct()
 	}
+	for _, m := range ddq.modifiers {
+		m(selector)
+	}
 	for _, p := range ddq.predicates {
 		p(selector)
 	}
@@ -512,6 +522,12 @@ func (ddq *DictionaryDetailQuery) sqlQuery(ctx context.Context) *sql.Selector {
 		selector.Limit(*limit)
 	}
 	return selector
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (ddq *DictionaryDetailQuery) Modify(modifiers ...func(s *sql.Selector)) *DictionaryDetailSelect {
+	ddq.modifiers = append(ddq.modifiers, modifiers...)
+	return ddq.Select()
 }
 
 // DictionaryDetailGroupBy is the group-by builder for DictionaryDetail entities.
@@ -602,4 +618,10 @@ func (dds *DictionaryDetailSelect) sqlScan(ctx context.Context, root *Dictionary
 	}
 	defer rows.Close()
 	return sql.ScanSlice(rows, v)
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (dds *DictionaryDetailSelect) Modify(modifiers ...func(s *sql.Selector)) *DictionaryDetailSelect {
+	dds.modifiers = append(dds.modifiers, modifiers...)
+	return dds
 }

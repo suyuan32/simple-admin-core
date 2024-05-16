@@ -43,9 +43,9 @@ var (
 		{Name: "sort", Type: field.TypeUint32, Comment: "Sort Number | 排序编号", Default: 1},
 		{Name: "name", Type: field.TypeString, Comment: "Department name | 部门名称"},
 		{Name: "ancestors", Type: field.TypeString, Nullable: true, Comment: "Parents' IDs | 父级列表"},
-		{Name: "leader", Type: field.TypeString, Comment: "Department leader | 部门负责人"},
-		{Name: "phone", Type: field.TypeString, Comment: "Leader's phone number | 负责人电话"},
-		{Name: "email", Type: field.TypeString, Comment: "Leader's email | 部门负责人电子邮箱"},
+		{Name: "leader", Type: field.TypeString, Nullable: true, Comment: "Department leader | 部门负责人"},
+		{Name: "phone", Type: field.TypeString, Nullable: true, Comment: "Leader's phone number | 负责人电话"},
+		{Name: "email", Type: field.TypeString, Nullable: true, Comment: "Leader's email | 部门负责人电子邮箱"},
 		{Name: "remark", Type: field.TypeString, Nullable: true, Comment: "Remark | 备注"},
 		{Name: "parent_id", Type: field.TypeUint64, Nullable: true, Comment: "Parent department ID | 父级部门ID", Default: 0},
 	}

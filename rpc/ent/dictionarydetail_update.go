@@ -19,8 +19,9 @@ import (
 // DictionaryDetailUpdate is the builder for updating DictionaryDetail entities.
 type DictionaryDetailUpdate struct {
 	config
-	hooks    []Hook
-	mutation *DictionaryDetailMutation
+	hooks     []Hook
+	mutation  *DictionaryDetailMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the DictionaryDetailUpdate builder.
@@ -211,6 +212,12 @@ func (ddu *DictionaryDetailUpdate) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (ddu *DictionaryDetailUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DictionaryDetailUpdate {
+	ddu.modifiers = append(ddu.modifiers, modifiers...)
+	return ddu
+}
+
 func (ddu *DictionaryDetailUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(dictionarydetail.Table, dictionarydetail.Columns, sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64))
 	if ps := ddu.mutation.predicates; len(ps) > 0 {
@@ -276,6 +283,7 @@ func (ddu *DictionaryDetailUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	_spec.AddModifiers(ddu.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, ddu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{dictionarydetail.Label}
@@ -291,9 +299,10 @@ func (ddu *DictionaryDetailUpdate) sqlSave(ctx context.Context) (n int, err erro
 // DictionaryDetailUpdateOne is the builder for updating a single DictionaryDetail entity.
 type DictionaryDetailUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *DictionaryDetailMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *DictionaryDetailMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -491,6 +500,12 @@ func (dduo *DictionaryDetailUpdateOne) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (dduo *DictionaryDetailUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DictionaryDetailUpdateOne {
+	dduo.modifiers = append(dduo.modifiers, modifiers...)
+	return dduo
+}
+
 func (dduo *DictionaryDetailUpdateOne) sqlSave(ctx context.Context) (_node *DictionaryDetail, err error) {
 	_spec := sqlgraph.NewUpdateSpec(dictionarydetail.Table, dictionarydetail.Columns, sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64))
 	id, ok := dduo.mutation.ID()
@@ -573,6 +588,7 @@ func (dduo *DictionaryDetailUpdateOne) sqlSave(ctx context.Context) (_node *Dict
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	_spec.AddModifiers(dduo.modifiers...)
 	_node = &DictionaryDetail{config: dduo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

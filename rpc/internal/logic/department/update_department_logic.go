@@ -7,6 +7,7 @@ import (
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dberrorhandler"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dbfunc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -29,17 +30,24 @@ func NewUpdateDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *UpdateDepartmentLogic) UpdateDepartment(in *core.DepartmentInfo) (*core.BaseResp, error) {
-	err := l.svcCtx.DB.Department.UpdateOneID(*in.Id).
+
+	ancestors, err := dbfunc.GetDepartmentAncestors(in.ParentId, l.svcCtx.DB, l.Logger, l.ctx)
+	if err != nil {
+		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
+	}
+
+	err = l.svcCtx.DB.Department.UpdateOneID(*in.Id).
 		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilSort(in.Sort).
 		SetNotNilName(in.Name).
-		SetNotNilAncestors(in.Ancestors).
+		SetNotNilAncestors(ancestors).
 		SetNotNilLeader(in.Leader).
 		SetNotNilPhone(in.Phone).
 		SetNotNilEmail(in.Email).
 		SetNotNilRemark(in.Remark).
 		SetNotNilParentID(in.ParentId).
 		Exec(l.ctx)
+
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
