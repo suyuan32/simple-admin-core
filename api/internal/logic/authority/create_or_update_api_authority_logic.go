@@ -35,7 +35,12 @@ func (l *CreateOrUpdateApiAuthorityLogic) CreateOrUpdateApiAuthority(req *types.
 
 	// clear old policies
 	var oldPolicies [][]string
-	oldPolicies = l.svcCtx.Casbin.GetFilteredPolicy(0, *data.Code)
+	oldPolicies, err = l.svcCtx.Casbin.GetFilteredPolicy(0, *data.Code)
+	if err != nil {
+		logx.Error("failed to get old Casbin policy", logx.Field("detail", err))
+		return nil, errorx.NewInternalError(err.Error())
+	}
+
 	if len(oldPolicies) != 0 {
 		removeResult, err := l.svcCtx.Casbin.RemoveFilteredPolicy(0, *data.Code)
 		if err != nil {
