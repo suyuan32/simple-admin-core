@@ -257,7 +257,12 @@ func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 
 	// clear old policy belongs to super admin
 	var oldPolicies [][]string
-	oldPolicies = csb.GetFilteredPolicy(0, roleCode)
+	oldPolicies, err = csb.GetFilteredPolicy(0, roleCode)
+	if err != nil {
+		logx.Error("failed to get old Casbin policy", logx.Field("detail", err))
+		return errorx.NewInternalError(err.Error())
+	}
+
 	if len(oldPolicies) != 0 {
 		removeResult, err := csb.RemoveFilteredPolicy(0, roleCode)
 		if err != nil {

@@ -45,6 +45,8 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		trans = i18n.NewTranslator(i18n2.LocaleFS)
 	}
 
+	trans.AddLanguagesByConf(c.I18nConf, i18n2.LocaleFS)
+
 	svc := &ServiceContext{
 		Config:  c,
 		CoreRpc: coreclient.NewCore(zrpc.NewClientIfEnable(c.CoreRpc)),
