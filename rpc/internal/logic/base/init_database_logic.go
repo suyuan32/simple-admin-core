@@ -163,7 +163,7 @@ func (l *InitDatabaseLogic) insertUserData() error {
 	}
 }
 
-// insert init apis data
+// insert init roles data
 func (l *InitDatabaseLogic) insertRoleData() error {
 	var roles []*ent.RoleCreate
 	roles = append(roles, l.svcCtx.DB.Role.Create().
