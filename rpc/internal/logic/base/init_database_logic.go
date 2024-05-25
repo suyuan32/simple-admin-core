@@ -86,65 +86,55 @@ func (l *InitDatabaseLogic) InitDatabase(_ *core.Empty) (*core.BaseResp, error) 
 	_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", "", 300*time.Second)
 	_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:STATE", "0", 300*time.Second)
 
-	err = l.insertRoleData()
-	if err != nil {
+	errHandler := func(err error) (*core.BaseResp, error) {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
 		return nil, errorx.NewInternalError(err.Error())
+	}
+
+	err = l.insertRoleData()
+	if err != nil {
+		return errHandler(err)
 	}
 
 	err = l.insertUserData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
 
 	err = l.insertMenuData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
+
 	err = l.insertApiData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
+
 	err = l.insertRoleMenuAuthorityData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
 
 	err = l.insertProviderData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
 
 	err = l.insertDepartmentData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
 
 	err = l.insertPositionData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
 
 	err = l.insertCasbinPoliciesData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
 
 	_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:STATE", "1", 24*time.Hour)
