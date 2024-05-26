@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/suyuan32/simple-admin-common/enum/common"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -50,8 +49,7 @@ func (l *GenAncestorsLogic) Department_ancestors(departmentID *uint64) *string {
 							On(t2.C(department.FieldID), with.C(department.FieldParentID)),
 					),
 			)
-			s.Prefix(with).Select(with.C(department.FieldParentID)).From(with).
-				Where(sql.NEQ(with.C(department.FieldParentID), common.DefaultParentId))
+			s.Prefix(with).Select(with.C(department.FieldID)).From(with)
 		}).
 		Select(department.FieldParentID).Strings(l.ctx)
 	if err != nil {
