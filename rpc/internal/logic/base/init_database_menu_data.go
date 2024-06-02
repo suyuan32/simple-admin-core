@@ -8,7 +8,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
 )
 
-// init menu data
+// insert initial menu data
 func (l *InitDatabaseLogic) insertMenuData() error {
 	var menus []*ent.MenuCreate
 

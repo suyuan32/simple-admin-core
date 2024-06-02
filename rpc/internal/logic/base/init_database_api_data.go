@@ -7,7 +7,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
 )
 
-// insert init api data
+// insert initial api data
 func (l *InitDatabaseLogic) insertApiData() error {
 	var apis []*ent.APICreate
 	// USER

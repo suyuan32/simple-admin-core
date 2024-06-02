@@ -163,7 +163,7 @@ func (l *InitDatabaseLogic) insertUserData() error {
 	}
 }
 
-// insert init roles data
+// insert initial role data
 func (l *InitDatabaseLogic) insertRoleData() error {
 	var roles []*ent.RoleCreate
 	roles = append(roles, l.svcCtx.DB.Role.Create().
@@ -189,8 +189,7 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 	return nil
 }
 
-// insert admin menu authority
-
+// insert initial admin menu authority data
 func (l *InitDatabaseLogic) insertRoleMenuAuthorityData() error {
 	count, err := l.svcCtx.DB.Menu.Query().Count(l.ctx)
 	if err != nil {
@@ -215,8 +214,7 @@ func (l *InitDatabaseLogic) insertRoleMenuAuthorityData() error {
 	}
 }
 
-// init casbin policies
-
+// insert initial Casbin policies
 func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 	apis, err := l.svcCtx.DB.API.Query().All(l.ctx)
 	if err != nil {
@@ -276,6 +274,7 @@ func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 	}
 }
 
+// insert initial provider data
 func (l *InitDatabaseLogic) insertProviderData() error {
 	var providers []*ent.OauthProviderCreate
 
@@ -312,7 +311,7 @@ func (l *InitDatabaseLogic) insertProviderData() error {
 	}
 }
 
-// insert init department data
+// insert initial department data
 func (l *InitDatabaseLogic) insertDepartmentData() error {
 	var departments []*ent.DepartmentCreate
 	departments = append(departments, l.svcCtx.DB.Department.Create().
@@ -335,7 +334,7 @@ func (l *InitDatabaseLogic) insertDepartmentData() error {
 	}
 }
 
-// insert init position data
+// insert initial position data
 func (l *InitDatabaseLogic) insertPositionData() error {
 	var posts []*ent.PositionCreate
 	posts = append(posts, l.svcCtx.DB.Position.Create().
