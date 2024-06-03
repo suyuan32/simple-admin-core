@@ -58,6 +58,10 @@ func (l *LoginByEmailLogic) LoginByEmail(req *types.LoginByEmailReq) (resp *type
 			return nil, errorx.NewCodeInvalidArgumentError("login.userNotExist")
 		}
 
+		if *userData.Data[0].Status != uint32(common.StatusNormal) {
+			return nil, errorx.NewCodeInvalidArgumentError("login.userBanned")
+		}
+
 		token, err := jwt.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, time.Now().Unix(),
 			l.svcCtx.Config.Auth.AccessExpire, jwt.WithOption("userId", userData.Data[0].Id), jwt.WithOption("roleId",
 				strings.Join(userData.Data[0].RoleCodes, ",")), jwt.WithOption("deptId", userData.Data[0].DepartmentId))

@@ -47,6 +47,10 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			return nil, err
 		}
 
+		if user.Status != nil && *user.Status != uint32(common.StatusNormal) {
+			return nil, errorx.NewCodeInvalidArgumentError("login.userBanned")
+		}
+
 		if !encrypt.BcryptCheck(req.Password, *user.Password) {
 			return nil, errorx.NewCodeInvalidArgumentError("login.wrongUsernameOrPassword")
 		}
