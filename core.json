@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.4.3"
+    "version": "1.4.4"
   },
   "host": "localhost:9100",
   "basePath": "/",
