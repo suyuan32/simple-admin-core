@@ -6778,6 +6778,11 @@
           "type": "string",
           "x-go-name": "Avatar"
         },
+        "departmentName": {
+          "description": "Department Name | 部门名称",
+          "type": "string",
+          "x-go-name": "DepartmentName"
+        },
         "desc": {
           "description": "The description of user | 用户的描述信息",
           "type": "string",
