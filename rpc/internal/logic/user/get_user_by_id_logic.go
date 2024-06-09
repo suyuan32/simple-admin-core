@@ -31,27 +31,28 @@ func NewGetUserByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfo, error) {
-	result, err := l.svcCtx.DB.User.Query().Where(user.IDEQ(uuidx.ParseUUIDString(in.Id))).WithRoles().First(l.ctx)
+	result, err := l.svcCtx.DB.User.Query().Where(user.IDEQ(uuidx.ParseUUIDString(in.Id))).WithRoles().WithDepartments().First(l.ctx)
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
 	return &core.UserInfo{
-		Nickname:     &result.Nickname,
-		Avatar:       &result.Avatar,
-		RoleIds:      GetRoleIds(result.Edges.Roles),
-		RoleName:     GetRoleNames(result.Edges.Roles),
-		Mobile:       &result.Mobile,
-		Email:        &result.Email,
-		Status:       pointy.GetPointer(uint32(result.Status)),
-		Id:           pointy.GetPointer(result.ID.String()),
-		Username:     &result.Username,
-		HomePath:     &result.HomePath,
-		Password:     &result.Password,
-		Description:  &result.Description,
-		DepartmentId: &result.DepartmentID,
-		CreatedAt:    pointy.GetPointer(result.CreatedAt.UnixMilli()),
-		UpdatedAt:    pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		Nickname:       &result.Nickname,
+		Avatar:         &result.Avatar,
+		RoleIds:        GetRoleIds(result.Edges.Roles),
+		RoleName:       GetRoleNames(result.Edges.Roles),
+		Mobile:         &result.Mobile,
+		Email:          &result.Email,
+		Status:         pointy.GetPointer(uint32(result.Status)),
+		Id:             pointy.GetPointer(result.ID.String()),
+		Username:       &result.Username,
+		HomePath:       &result.HomePath,
+		Password:       &result.Password,
+		Description:    &result.Description,
+		DepartmentId:   &result.DepartmentID,
+		DepartmentName: &result.Edges.Departments.Name,
+		CreatedAt:      pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt:      pointy.GetPointer(result.UpdatedAt.UnixMilli()),
 	}, nil
 }
 

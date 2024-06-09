@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.4.4"
+    "version": "1.4.5"
   },
   "host": "localhost:9100",
   "basePath": "/",
@@ -6777,6 +6777,11 @@
           "description": "The user's avatar path | 用户的头像路径",
           "type": "string",
           "x-go-name": "Avatar"
+        },
+        "departmentName": {
+          "description": "Department Name | 部门名称",
+          "type": "string",
+          "x-go-name": "DepartmentName"
         },
         "desc": {
           "description": "The description of user | 用户的描述信息",
