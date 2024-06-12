@@ -55,8 +55,8 @@ github.com/bsm/gomega v1.27.10/go.mod h1:JyEr/xRbxbtgWNi8tIEVPUYZ5Dzef52k01W3YH0
 github.com/bsm/redislock v0.9.4 h1:X/Wse1DPpiQgHbVYRE9zv6m070UcKoOGekgvpNhiSvw=
 github.com/bsm/redislock v0.9.4/go.mod h1:Epf7AJLiSFwLCiZcfi6pWFO/8eAYrYpQXFxEDPoDeAk=
 github.com/casbin/casbin/v2 v2.29.2/go.mod h1:vByNa/Fchek0KZUgG5wEsl7iFsiviAYKRtgrQfcJqHg=
-github.com/casbin/casbin/v2 v2.94.0 h1:bhCl2pqn4Zylgze2T0mWwLqBiC5H0+tx/Pi6X3KlDxY=
-github.com/casbin/casbin/v2 v2.94.0/go.mod h1:jX8uoN4veP85O/n2674r2qtfSXI6myvxW85f6TH50fw=
+github.com/casbin/casbin/v2 v2.96.0 h1:uHEOYAk3vmh1xREUeCnuD/crJuokH5d/wd2PSCN3BSk=
+github.com/casbin/casbin/v2 v2.96.0/go.mod h1:jX8uoN4veP85O/n2674r2qtfSXI6myvxW85f6TH50fw=
 github.com/casbin/ent-adapter v0.3.0 h1:4lkhB/BwXAhj84iSrZG/gQ4avkO4uPwz4kdDP1VEnww=
 github.com/casbin/ent-adapter v0.3.0/go.mod h1:U6saAFuVDEOWLCtrgx35d95M12FC0uh5GtJL82QunRM=
 github.com/casbin/govaluate v1.1.0/go.mod h1:G/UnbIjZk/0uMNaLwZZmFQrR72tYRZWQkO70si/iR7A=
@@ -469,8 +469,8 @@ github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8
 github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
 github.com/suyuan32/base64Captcha v1.3.7 h1:B5+ArqVlnzdO+5oyHzvz1nKSipUcicaHEBMFZb7hpv4=
 github.com/suyuan32/base64Captcha v1.3.7/go.mod h1:XXuqS4lYf+ANu15oTrA2Z47hv8R2h9nVVH5IJRmxLZQ=
-github.com/suyuan32/simple-admin-common v1.4.5 h1:E3+38voibAQn7OdTDZIc+6FSZfUzQzHkqusKL45/bYw=
-github.com/suyuan32/simple-admin-common v1.4.5/go.mod h1:4IOgRGHAcfVZHKK/8t4vx+CyTDS0lyut8alKxYp8WLQ=
+github.com/suyuan32/simple-admin-common v1.4.6-beta h1:PIFikmW6NT3AvH4DVMyKOUqKmtdh1LtUKSaJ2162fa8=
+github.com/suyuan32/simple-admin-common v1.4.6-beta/go.mod h1:w3xDV61z39v5zvmDNrN5Cv+E20Qq9JEhTbCsihREjhw=
 github.com/suyuan32/simple-admin-job v1.4.5 h1:gFuPZGeMvh/uvu99FzrfawwZ+OqX3RpQf7xEdYWWY/M=
 github.com/suyuan32/simple-admin-job v1.4.5/go.mod h1:Oh6vVXNnAQ22yfetp9KVIg9DiGn6drRQXJDiEGjs6Vs=
 github.com/suyuan32/simple-admin-message-center v1.4.5 h1:AMnyOu+X1eM/LFHqT3+XLeSapjqWaDPfS9Nk77S2V9o=
