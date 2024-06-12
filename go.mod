@@ -5,12 +5,12 @@ go 1.22.3
 require (
 	entgo.io/ent v0.13.1
 	github.com/bsm/redislock v0.9.4
-	github.com/casbin/casbin/v2 v2.94.0
+	github.com/casbin/casbin/v2 v2.96.0
 	github.com/duke-git/lancet/v2 v2.3.1
 	github.com/gofrs/uuid/v5 v5.2.0
 	github.com/mojocn/base64Captcha v1.3.6
 	github.com/redis/go-redis/v9 v9.5.3
-	github.com/suyuan32/simple-admin-common v1.4.5
+	github.com/suyuan32/simple-admin-common v1.4.6-beta
 	github.com/suyuan32/simple-admin-job v1.4.5
 	github.com/suyuan32/simple-admin-message-center v1.4.5
 	github.com/zeromicro/go-zero v1.6.5
