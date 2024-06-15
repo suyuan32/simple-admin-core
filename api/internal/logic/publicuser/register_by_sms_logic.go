@@ -35,7 +35,7 @@ func (l *RegisterBySmsLogic) RegisterBySms(req *types.RegisterBySmsReq) (resp *t
 
 	captchaData, err := l.svcCtx.Redis.Get(l.ctx, config.RedisCaptchaPrefix+req.PhoneNumber).Result()
 	if err != nil {
-		logx.Errorw("failed to get captcha data in redis for email validation", logx.Field("detail", err),
+		logx.Errorw("failed to get captcha data in redis for sms validation", logx.Field("detail", err),
 			logx.Field("data", req))
 		return nil, errorx.NewCodeInvalidArgumentError(i18n.Failed)
 	}

@@ -22,13 +22,13 @@ func (Department) Fields() []ent.Field {
 			Comment("Parents' IDs | 父级列表").
 			Annotations(entsql.WithComments(true)),
 		field.String("leader").
-			Comment("Department leader | 部门负责人").
+			Comment("Department leader | 部门负责人").Optional().
 			Annotations(entsql.WithComments(true)),
 		field.String("phone").
-			Comment("Leader's phone number | 负责人电话").
+			Comment("Leader's phone number | 负责人电话").Optional().
 			Annotations(entsql.WithComments(true)),
 		field.String("email").
-			Comment("Leader's email | 部门负责人电子邮箱").
+			Comment("Leader's email | 部门负责人电子邮箱").Optional().
 			Annotations(entsql.WithComments(true)),
 		field.String("remark").Optional().
 			Comment("Remark | 备注").

@@ -86,65 +86,55 @@ func (l *InitDatabaseLogic) InitDatabase(_ *core.Empty) (*core.BaseResp, error) 
 	_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", "", 300*time.Second)
 	_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:STATE", "0", 300*time.Second)
 
-	err = l.insertRoleData()
-	if err != nil {
+	errHandler := func(err error) (*core.BaseResp, error) {
 		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
 		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
 		return nil, errorx.NewInternalError(err.Error())
+	}
+
+	err = l.insertRoleData()
+	if err != nil {
+		return errHandler(err)
 	}
 
 	err = l.insertUserData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
 
 	err = l.insertMenuData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
+
 	err = l.insertApiData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
+
 	err = l.insertRoleMenuAuthorityData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
 
 	err = l.insertProviderData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
 
 	err = l.insertDepartmentData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
 
 	err = l.insertPositionData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
 
 	err = l.insertCasbinPoliciesData()
 	if err != nil {
-		logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-		_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:ERROR", err.Error(), 300*time.Second)
-		return nil, errorx.NewInternalError(err.Error())
+		return errHandler(err)
 	}
 
 	_ = l.svcCtx.Redis.Set(l.ctx, "INIT:DATABASE:STATE", "1", 24*time.Hour)
@@ -173,7 +163,7 @@ func (l *InitDatabaseLogic) insertUserData() error {
 	}
 }
 
-// insert init apis data
+// insert initial role data
 func (l *InitDatabaseLogic) insertRoleData() error {
 	var roles []*ent.RoleCreate
 	roles = append(roles, l.svcCtx.DB.Role.Create().
@@ -199,8 +189,7 @@ func (l *InitDatabaseLogic) insertRoleData() error {
 	return nil
 }
 
-// insert admin menu authority
-
+// insert initial admin menu authority data
 func (l *InitDatabaseLogic) insertRoleMenuAuthorityData() error {
 	count, err := l.svcCtx.DB.Menu.Query().Count(l.ctx)
 	if err != nil {
@@ -225,8 +214,7 @@ func (l *InitDatabaseLogic) insertRoleMenuAuthorityData() error {
 	}
 }
 
-// init casbin policies
-
+// insert initial Casbin policies
 func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 	apis, err := l.svcCtx.DB.API.Query().All(l.ctx)
 	if err != nil {
@@ -257,7 +245,12 @@ func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 
 	// clear old policy belongs to super admin
 	var oldPolicies [][]string
-	oldPolicies = csb.GetFilteredPolicy(0, roleCode)
+	oldPolicies, err = csb.GetFilteredPolicy(0, roleCode)
+	if err != nil {
+		logx.Error("failed to get old Casbin policy", logx.Field("detail", err))
+		return errorx.NewInternalError(err.Error())
+	}
+
 	if len(oldPolicies) != 0 {
 		removeResult, err := csb.RemoveFilteredPolicy(0, roleCode)
 		if err != nil {
@@ -281,6 +274,7 @@ func (l *InitDatabaseLogic) insertCasbinPoliciesData() error {
 	}
 }
 
+// insert initial provider data
 func (l *InitDatabaseLogic) insertProviderData() error {
 	var providers []*ent.OauthProviderCreate
 
@@ -317,7 +311,7 @@ func (l *InitDatabaseLogic) insertProviderData() error {
 	}
 }
 
-// insert init department data
+// insert initial department data
 func (l *InitDatabaseLogic) insertDepartmentData() error {
 	var departments []*ent.DepartmentCreate
 	departments = append(departments, l.svcCtx.DB.Department.Create().
@@ -340,7 +334,7 @@ func (l *InitDatabaseLogic) insertDepartmentData() error {
 	}
 }
 
-// insert init position data
+// insert initial position data
 func (l *InitDatabaseLogic) insertPositionData() error {
 	var posts []*ent.PositionCreate
 	posts = append(posts, l.svcCtx.DB.Position.Create().

@@ -1,5 +1,61 @@
-<a name="v1.3.11"></a>
+<a name="v1.4.0"></a>
 
+## [v1.4.0](https://github.com/suyuan32/simple-admin-core/compare/v1.3.12...v1.4.0) (2024-04-16)
+
+### Chore
+
+* update readme
+* update all in one
+* update system version
+* update mysql version in docker
+* upgrade deps
+
+### Docs
+
+* update all in one
+
+### Perf
+
+* close debug mode of ent
+
+### Pull Requests
+
+* Merge pull request [#286](https://github.com/suyuan32/simple-admin-core/issues/286) from suyuan32/dev
+* Merge pull request [#285](https://github.com/suyuan32/simple-admin-core/issues/285) from suyuan32/dev
+
+<a name="v1.3.12"></a>
+
+## [v1.3.12](https://github.com/suyuan32/simple-admin-core/compare/v1.3.11...v1.3.12) (2024-04-06)
+
+### Chore
+
+* upgrade deps
+* update all in one
+
+### Docs
+
+* update all in one readme
+* update readme
+* update changelog
+
+### Fix
+
+* optimize token api comments
+* optimize mcms field comments
+* remove undefined token in swagger
+
+### Pull Requests
+
+* Merge pull request [#284](https://github.com/suyuan32/simple-admin-core/issues/284) from suyuan32/dev
+* Merge pull request [#283](https://github.com/suyuan32/simple-admin-core/issues/283) from suyuan32/dev
+* Merge pull request [#282](https://github.com/suyuan32/simple-admin-core/issues/282) from suyuan32/dev
+* Merge pull request [#281](https://github.com/suyuan32/simple-admin-core/issues/281) from suyuan32/dev
+* Merge pull request [#280](https://github.com/suyuan32/simple-admin-core/issues/280) from suyuan32/dev
+* Merge pull request [#279](https://github.com/suyuan32/simple-admin-core/issues/279) from suyuan32/dev
+* Merge pull request [#278](https://github.com/suyuan32/simple-admin-core/issues/278) from suyuan32/dev
+* Merge pull request [#277](https://github.com/suyuan32/simple-admin-core/issues/277) from suyuan32/dev
+
+<a name="v1.3.11"></a>
 ## [v1.3.11](https://github.com/suyuan32/simple-admin-core/compare/v1.3.10...v1.3.11) (2024-03-19)
 
 ### Chore

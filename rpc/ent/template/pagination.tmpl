@@ -140,7 +140,9 @@ in the LICENSE file in the root directory of this source tree.
                 Size: pageSize,
             }
 
-            count, err := {{ $r }}.Clone().Count(ctx)
+query := {{ $r }}.Clone()
+query.ctx.Fields = nil
+count, err := query.Count(ctx)
 
             if err != nil {
                 return nil, err

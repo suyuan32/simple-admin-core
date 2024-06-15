@@ -18,8 +18,9 @@ import (
 // OauthProviderUpdate is the builder for updating OauthProvider entities.
 type OauthProviderUpdate struct {
 	config
-	hooks    []Hook
-	mutation *OauthProviderMutation
+	hooks     []Hook
+	mutation  *OauthProviderMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the OauthProviderUpdate builder.
@@ -208,6 +209,12 @@ func (opu *OauthProviderUpdate) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (opu *OauthProviderUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *OauthProviderUpdate {
+	opu.modifiers = append(opu.modifiers, modifiers...)
+	return opu
+}
+
 func (opu *OauthProviderUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(oauthprovider.Table, oauthprovider.Columns, sqlgraph.NewFieldSpec(oauthprovider.FieldID, field.TypeUint64))
 	if ps := opu.mutation.predicates; len(ps) > 0 {
@@ -250,6 +257,7 @@ func (opu *OauthProviderUpdate) sqlSave(ctx context.Context) (n int, err error) 
 	if value, ok := opu.mutation.InfoURL(); ok {
 		_spec.SetField(oauthprovider.FieldInfoURL, field.TypeString, value)
 	}
+	_spec.AddModifiers(opu.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, opu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{oauthprovider.Label}
@@ -265,9 +273,10 @@ func (opu *OauthProviderUpdate) sqlSave(ctx context.Context) (n int, err error) 
 // OauthProviderUpdateOne is the builder for updating a single OauthProvider entity.
 type OauthProviderUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *OauthProviderMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *OauthProviderMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -463,6 +472,12 @@ func (opuo *OauthProviderUpdateOne) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (opuo *OauthProviderUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *OauthProviderUpdateOne {
+	opuo.modifiers = append(opuo.modifiers, modifiers...)
+	return opuo
+}
+
 func (opuo *OauthProviderUpdateOne) sqlSave(ctx context.Context) (_node *OauthProvider, err error) {
 	_spec := sqlgraph.NewUpdateSpec(oauthprovider.Table, oauthprovider.Columns, sqlgraph.NewFieldSpec(oauthprovider.FieldID, field.TypeUint64))
 	id, ok := opuo.mutation.ID()
@@ -522,6 +537,7 @@ func (opuo *OauthProviderUpdateOne) sqlSave(ctx context.Context) (_node *OauthPr
 	if value, ok := opuo.mutation.InfoURL(); ok {
 		_spec.SetField(oauthprovider.FieldInfoURL, field.TypeString, value)
 	}
+	_spec.AddModifiers(opuo.modifiers...)
 	_node = &OauthProvider{config: opuo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

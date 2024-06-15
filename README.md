@@ -5,20 +5,22 @@
 
 **中文** | [English](./README.En.md) 
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.6.3-brightgreen.svg)](https://go-zero.dev/)
-[![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.10.1-yellow.svg)](https://vvbin.cn/doc-next/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.6.5-brightgreen.svg)](https://go-zero.dev/)
+[![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.11.4-yellow.svg)](https://vvbin.cn/doc-next/)
 [![Ent](https://img.shields.io/badge/Ent-v0.13.1-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.85.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.3.11-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.93.0-orange.svg)](https://github.com/casbin/casbin)
+[![Release](https://img.shields.io/badge/Release-v1.4.6-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![SimpleAdmin](https://dcbadge.vercel.app/api/server/NDED5p2hJk)](https://discord.gg/NDED5p2hJk)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
 ![注意](https://img.shields.io/badge/%E6%B3%A8%E6%84%8F-%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A0%E5%85%A5%E5%BE%AE%E4%BF%A1%E7%BE%A4-blue)
 
 ## 简介
 
-Simple Admin 是一个开箱即用的分布式微服务后端管理系统，基于go-zero开发，为开发中大型后台提供了丰富的功能，支持三端代码生成。
-官方自带多种扩展，助力中小企业快速上云，快速迭代。适合用于微服务学习和商用，开源免费。
+Simple Admin 是一个强大的、易扩展的后台管理系统，基于 Go-Zero、Vben Admin、Ent、Casbin
+等开源项目构建，提供了完整的用户管理、权限管理、角色管理、菜单管理、日志管理、配置管理等功能，支持多语言等特性，适用于小型或大型企业快速搭建分布式后台管理系统。 <br><br>
+Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠、复杂的业务场景，项目可以方便地一键升级，提供了完善的文档视频和示例，让开发者可以快速上手，快速开发。官方提供了
+6 大免费基础模块，可以满足 80 % 的常用业务需求。同时提供了模块商店，可以方便的购买和使用更多的模块。<br><br>
+6大免费模块均可免费商用，适合开发者学习、企业内部使用、个人项目使用等，欢迎大家使用和反馈问题，我们会持续更新和维护。
 
 ## [Goctls](https://github.com/suyuan32/goctls)
 
@@ -49,6 +51,7 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
 - **代码生成**: 内置三端 Web, API, RPC 代码生成
 - **多种扩展**: 提供多种扩展，同时具有非常简单的接入功能
 - **其他**: 流量控制， ES服务
+- **ORM**: 强大的 Ent 框架支持
 
 ## 支持功能
 

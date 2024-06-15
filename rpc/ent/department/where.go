@@ -475,6 +475,16 @@ func LeaderHasSuffix(v string) predicate.Department {
 	return predicate.Department(sql.FieldHasSuffix(FieldLeader, v))
 }
 
+// LeaderIsNil applies the IsNil predicate on the "leader" field.
+func LeaderIsNil() predicate.Department {
+	return predicate.Department(sql.FieldIsNull(FieldLeader))
+}
+
+// LeaderNotNil applies the NotNil predicate on the "leader" field.
+func LeaderNotNil() predicate.Department {
+	return predicate.Department(sql.FieldNotNull(FieldLeader))
+}
+
 // LeaderEqualFold applies the EqualFold predicate on the "leader" field.
 func LeaderEqualFold(v string) predicate.Department {
 	return predicate.Department(sql.FieldEqualFold(FieldLeader, v))
@@ -540,6 +550,16 @@ func PhoneHasSuffix(v string) predicate.Department {
 	return predicate.Department(sql.FieldHasSuffix(FieldPhone, v))
 }
 
+// PhoneIsNil applies the IsNil predicate on the "phone" field.
+func PhoneIsNil() predicate.Department {
+	return predicate.Department(sql.FieldIsNull(FieldPhone))
+}
+
+// PhoneNotNil applies the NotNil predicate on the "phone" field.
+func PhoneNotNil() predicate.Department {
+	return predicate.Department(sql.FieldNotNull(FieldPhone))
+}
+
 // PhoneEqualFold applies the EqualFold predicate on the "phone" field.
 func PhoneEqualFold(v string) predicate.Department {
 	return predicate.Department(sql.FieldEqualFold(FieldPhone, v))
@@ -603,6 +623,16 @@ func EmailHasPrefix(v string) predicate.Department {
 // EmailHasSuffix applies the HasSuffix predicate on the "email" field.
 func EmailHasSuffix(v string) predicate.Department {
 	return predicate.Department(sql.FieldHasSuffix(FieldEmail, v))
+}
+
+// EmailIsNil applies the IsNil predicate on the "email" field.
+func EmailIsNil() predicate.Department {
+	return predicate.Department(sql.FieldIsNull(FieldEmail))
+}
+
+// EmailNotNil applies the NotNil predicate on the "email" field.
+func EmailNotNil() predicate.Department {
+	return predicate.Department(sql.FieldNotNull(FieldEmail))
 }
 
 // EmailEqualFold applies the EqualFold predicate on the "email" field.

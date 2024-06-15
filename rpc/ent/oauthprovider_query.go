@@ -21,6 +21,7 @@ type OauthProviderQuery struct {
 	order      []oauthprovider.OrderOption
 	inters     []Interceptor
 	predicates []predicate.OauthProvider
+	modifiers  []func(*sql.Selector)
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -342,6 +343,9 @@ func (opq *OauthProviderQuery) sqlAll(ctx context.Context, hooks ...queryHook) (
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
+	if len(opq.modifiers) > 0 {
+		_spec.Modifiers = opq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -356,6 +360,9 @@ func (opq *OauthProviderQuery) sqlAll(ctx context.Context, hooks ...queryHook) (
 
 func (opq *OauthProviderQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := opq.querySpec()
+	if len(opq.modifiers) > 0 {
+		_spec.Modifiers = opq.modifiers
+	}
 	_spec.Node.Columns = opq.ctx.Fields
 	if len(opq.ctx.Fields) > 0 {
 		_spec.Unique = opq.ctx.Unique != nil && *opq.ctx.Unique
@@ -418,6 +425,9 @@ func (opq *OauthProviderQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if opq.ctx.Unique != nil && *opq.ctx.Unique {
 		selector.Distinct()
 	}
+	for _, m := range opq.modifiers {
+		m(selector)
+	}
 	for _, p := range opq.predicates {
 		p(selector)
 	}
@@ -433,6 +443,12 @@ func (opq *OauthProviderQuery) sqlQuery(ctx context.Context) *sql.Selector {
 		selector.Limit(*limit)
 	}
 	return selector
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (opq *OauthProviderQuery) Modify(modifiers ...func(s *sql.Selector)) *OauthProviderSelect {
+	opq.modifiers = append(opq.modifiers, modifiers...)
+	return opq.Select()
 }
 
 // OauthProviderGroupBy is the group-by builder for OauthProvider entities.
@@ -523,4 +539,10 @@ func (ops *OauthProviderSelect) sqlScan(ctx context.Context, root *OauthProvider
 	}
 	defer rows.Close()
 	return sql.ScanSlice(rows, v)
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (ops *OauthProviderSelect) Modify(modifiers ...func(s *sql.Selector)) *OauthProviderSelect {
+	ops.modifiers = append(ops.modifiers, modifiers...)
+	return ops
 }

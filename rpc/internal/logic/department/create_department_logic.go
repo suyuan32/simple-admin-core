@@ -2,6 +2,7 @@ package department
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dbfunc"
 
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 
@@ -29,17 +30,24 @@ func NewCreateDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *CreateDepartmentLogic) CreateDepartment(in *core.DepartmentInfo) (*core.BaseIDResp, error) {
+
+	ancestors, err := dbfunc.GetDepartmentAncestors(in.ParentId, l.svcCtx.DB, l.Logger, l.ctx)
+	if err != nil {
+		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
+	}
+
 	result, err := l.svcCtx.DB.Department.Create().
 		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilSort(in.Sort).
 		SetNotNilName(in.Name).
-		SetNotNilAncestors(in.Ancestors).
+		SetNotNilAncestors(ancestors).
 		SetNotNilLeader(in.Leader).
 		SetNotNilPhone(in.Phone).
 		SetNotNilEmail(in.Email).
 		SetNotNilRemark(in.Remark).
 		SetNotNilParentID(in.ParentId).
 		Save(l.ctx)
+
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}

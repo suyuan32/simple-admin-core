@@ -23,7 +23,7 @@ PROJECT_I18N=true
 SWAGGER_TYPE=json
 
 # Ent enabled features | Ent 启用的官方特性
-ENT_FEATURE=sql/execquery,intercept
+ENT_FEATURE=sql/execquery,intercept,sql/modifier
 
 # The arch of the build | 构建的架构
 GOARCH=amd64

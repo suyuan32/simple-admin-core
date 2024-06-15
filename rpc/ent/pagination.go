@@ -119,7 +119,9 @@ func (a *APIQuery) Page(
 		Size: pageSize,
 	}
 
-	count, err := a.Clone().Count(ctx)
+	query := a.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
 
 	if err != nil {
 		return nil, err
@@ -198,7 +200,9 @@ func (d *DepartmentQuery) Page(
 		Size: pageSize,
 	}
 
-	count, err := d.Clone().Count(ctx)
+	query := d.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
 
 	if err != nil {
 		return nil, err
@@ -277,7 +281,9 @@ func (d *DictionaryQuery) Page(
 		Size: pageSize,
 	}
 
-	count, err := d.Clone().Count(ctx)
+	query := d.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
 
 	if err != nil {
 		return nil, err
@@ -356,7 +362,9 @@ func (dd *DictionaryDetailQuery) Page(
 		Size: pageSize,
 	}
 
-	count, err := dd.Clone().Count(ctx)
+	query := dd.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
 
 	if err != nil {
 		return nil, err
@@ -435,7 +443,9 @@ func (m *MenuQuery) Page(
 		Size: pageSize,
 	}
 
-	count, err := m.Clone().Count(ctx)
+	query := m.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
 
 	if err != nil {
 		return nil, err
@@ -514,7 +524,9 @@ func (op *OauthProviderQuery) Page(
 		Size: pageSize,
 	}
 
-	count, err := op.Clone().Count(ctx)
+	query := op.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
 
 	if err != nil {
 		return nil, err
@@ -593,7 +605,9 @@ func (po *PositionQuery) Page(
 		Size: pageSize,
 	}
 
-	count, err := po.Clone().Count(ctx)
+	query := po.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
 
 	if err != nil {
 		return nil, err
@@ -672,7 +686,9 @@ func (r *RoleQuery) Page(
 		Size: pageSize,
 	}
 
-	count, err := r.Clone().Count(ctx)
+	query := r.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
 
 	if err != nil {
 		return nil, err
@@ -751,7 +767,9 @@ func (t *TokenQuery) Page(
 		Size: pageSize,
 	}
 
-	count, err := t.Clone().Count(ctx)
+	query := t.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
 
 	if err != nil {
 		return nil, err
@@ -830,7 +848,9 @@ func (u *UserQuery) Page(
 		Size: pageSize,
 	}
 
-	count, err := u.Clone().Count(ctx)
+	query := u.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
 
 	if err != nil {
 		return nil, err

@@ -2,6 +2,7 @@ package authority
 
 import (
 	"context"
+	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
 
@@ -32,7 +33,12 @@ func (l *GetApiAuthorityLogic) GetApiAuthority(req *types.IDReq) (resp *types.Ap
 		return nil, err
 	}
 
-	data := l.svcCtx.Casbin.GetFilteredPolicy(0, *roleData.Code)
+	data, err := l.svcCtx.Casbin.GetFilteredPolicy(0, *roleData.Code)
+	if err != nil {
+		logx.Error("failed to get old Casbin policy", logx.Field("detail", err))
+		return nil, errorx.NewInternalError(err.Error())
+	}
+
 	resp = &types.ApiAuthorityListResp{}
 	resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)
 	resp.Data.Total = uint64(len(data))

@@ -20,8 +20,9 @@ import (
 // DepartmentUpdate is the builder for updating Department entities.
 type DepartmentUpdate struct {
 	config
-	hooks    []Hook
-	mutation *DepartmentMutation
+	hooks     []Hook
+	mutation  *DepartmentMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the DepartmentUpdate builder.
@@ -132,6 +133,12 @@ func (du *DepartmentUpdate) SetNillableLeader(s *string) *DepartmentUpdate {
 	return du
 }
 
+// ClearLeader clears the value of the "leader" field.
+func (du *DepartmentUpdate) ClearLeader() *DepartmentUpdate {
+	du.mutation.ClearLeader()
+	return du
+}
+
 // SetPhone sets the "phone" field.
 func (du *DepartmentUpdate) SetPhone(s string) *DepartmentUpdate {
 	du.mutation.SetPhone(s)
@@ -146,6 +153,12 @@ func (du *DepartmentUpdate) SetNillablePhone(s *string) *DepartmentUpdate {
 	return du
 }
 
+// ClearPhone clears the value of the "phone" field.
+func (du *DepartmentUpdate) ClearPhone() *DepartmentUpdate {
+	du.mutation.ClearPhone()
+	return du
+}
+
 // SetEmail sets the "email" field.
 func (du *DepartmentUpdate) SetEmail(s string) *DepartmentUpdate {
 	du.mutation.SetEmail(s)
@@ -157,6 +170,12 @@ func (du *DepartmentUpdate) SetNillableEmail(s *string) *DepartmentUpdate {
 	if s != nil {
 		du.SetEmail(*s)
 	}
+	return du
+}
+
+// ClearEmail clears the value of the "email" field.
+func (du *DepartmentUpdate) ClearEmail() *DepartmentUpdate {
+	du.mutation.ClearEmail()
 	return du
 }
 
@@ -324,6 +343,12 @@ func (du *DepartmentUpdate) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (du *DepartmentUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DepartmentUpdate {
+	du.modifiers = append(du.modifiers, modifiers...)
+	return du
+}
+
 func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(department.Table, department.Columns, sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64))
 	if ps := du.mutation.predicates; len(ps) > 0 {
@@ -363,11 +388,20 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := du.mutation.Leader(); ok {
 		_spec.SetField(department.FieldLeader, field.TypeString, value)
 	}
+	if du.mutation.LeaderCleared() {
+		_spec.ClearField(department.FieldLeader, field.TypeString)
+	}
 	if value, ok := du.mutation.Phone(); ok {
 		_spec.SetField(department.FieldPhone, field.TypeString, value)
 	}
+	if du.mutation.PhoneCleared() {
+		_spec.ClearField(department.FieldPhone, field.TypeString)
+	}
 	if value, ok := du.mutation.Email(); ok {
 		_spec.SetField(department.FieldEmail, field.TypeString, value)
+	}
+	if du.mutation.EmailCleared() {
+		_spec.ClearField(department.FieldEmail, field.TypeString)
 	}
 	if value, ok := du.mutation.Remark(); ok {
 		_spec.SetField(department.FieldRemark, field.TypeString, value)
@@ -494,6 +528,7 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	_spec.AddModifiers(du.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, du.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{department.Label}
@@ -509,9 +544,10 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 // DepartmentUpdateOne is the builder for updating a single Department entity.
 type DepartmentUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *DepartmentMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *DepartmentMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -616,6 +652,12 @@ func (duo *DepartmentUpdateOne) SetNillableLeader(s *string) *DepartmentUpdateOn
 	return duo
 }
 
+// ClearLeader clears the value of the "leader" field.
+func (duo *DepartmentUpdateOne) ClearLeader() *DepartmentUpdateOne {
+	duo.mutation.ClearLeader()
+	return duo
+}
+
 // SetPhone sets the "phone" field.
 func (duo *DepartmentUpdateOne) SetPhone(s string) *DepartmentUpdateOne {
 	duo.mutation.SetPhone(s)
@@ -630,6 +672,12 @@ func (duo *DepartmentUpdateOne) SetNillablePhone(s *string) *DepartmentUpdateOne
 	return duo
 }
 
+// ClearPhone clears the value of the "phone" field.
+func (duo *DepartmentUpdateOne) ClearPhone() *DepartmentUpdateOne {
+	duo.mutation.ClearPhone()
+	return duo
+}
+
 // SetEmail sets the "email" field.
 func (duo *DepartmentUpdateOne) SetEmail(s string) *DepartmentUpdateOne {
 	duo.mutation.SetEmail(s)
@@ -641,6 +689,12 @@ func (duo *DepartmentUpdateOne) SetNillableEmail(s *string) *DepartmentUpdateOne
 	if s != nil {
 		duo.SetEmail(*s)
 	}
+	return duo
+}
+
+// ClearEmail clears the value of the "email" field.
+func (duo *DepartmentUpdateOne) ClearEmail() *DepartmentUpdateOne {
+	duo.mutation.ClearEmail()
 	return duo
 }
 
@@ -821,6 +875,12 @@ func (duo *DepartmentUpdateOne) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (duo *DepartmentUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DepartmentUpdateOne {
+	duo.modifiers = append(duo.modifiers, modifiers...)
+	return duo
+}
+
 func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department, err error) {
 	_spec := sqlgraph.NewUpdateSpec(department.Table, department.Columns, sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64))
 	id, ok := duo.mutation.ID()
@@ -877,11 +937,20 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 	if value, ok := duo.mutation.Leader(); ok {
 		_spec.SetField(department.FieldLeader, field.TypeString, value)
 	}
+	if duo.mutation.LeaderCleared() {
+		_spec.ClearField(department.FieldLeader, field.TypeString)
+	}
 	if value, ok := duo.mutation.Phone(); ok {
 		_spec.SetField(department.FieldPhone, field.TypeString, value)
 	}
+	if duo.mutation.PhoneCleared() {
+		_spec.ClearField(department.FieldPhone, field.TypeString)
+	}
 	if value, ok := duo.mutation.Email(); ok {
 		_spec.SetField(department.FieldEmail, field.TypeString, value)
+	}
+	if duo.mutation.EmailCleared() {
+		_spec.ClearField(department.FieldEmail, field.TypeString)
 	}
 	if value, ok := duo.mutation.Remark(); ok {
 		_spec.SetField(department.FieldRemark, field.TypeString, value)
@@ -1008,6 +1077,7 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department,
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	_spec.AddModifiers(duo.modifiers...)
 	_node = &Department{config: duo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
