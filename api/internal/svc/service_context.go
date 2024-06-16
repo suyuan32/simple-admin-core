@@ -35,8 +35,7 @@ type ServiceContext struct {
 func NewServiceContext(c config.Config) *ServiceContext {
 	rds := c.RedisConf.MustNewUniversalRedis()
 
-	cbn := c.CasbinConf.MustNewCasbinWithOriginalRedisWatcher(c.DatabaseConf.Type, c.DatabaseConf.GetDSN(),
-		c.RedisConf)
+	cbn := c.CasbinConf.MustNewCasbin(c.DatabaseConf.Type, c.DatabaseConf.GetDSN())
 
 	trans := i18n.NewTranslator(c.I18nConf, i18n2.LocaleFS)
 
