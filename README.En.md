@@ -55,6 +55,27 @@ revenue, and now 10+ modules are included.
 
 > [Module Store](https://doge.ryansu.tech/store/index)
 
+### Online Preview
+
+#### [Free Edition Online Preview](https://preview.ryansu.tech/)
+
+- Account **admin**
+- Password **simple-admin**
+
+#### [Multi-tenant Edition Online Preview](https://tenant-preview.ryansu.tech/)
+
+- Administrator Tenant Account
+  - Enterprise: **admin**
+  - Account: **admin**
+  - Password: **simple-admin**
+
+- Tenant Account
+  - Enterprise: **测试企业**
+  - Account: **admin**
+  - Password: **simple-admin**
+
+> Read-only, cannot be modified or registered
+
 ## Feature
 
 - **State of The Art Development**：Use latest back-end technology development such as ent, go-zero, casbin

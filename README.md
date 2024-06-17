@@ -40,6 +40,27 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
 
 #### [Ent 中文文档](https://suyuan32.github.io/ent-chinese-doc/#/zh-cn/getting-started)
 
+### 在线预览
+
+#### [免费版在线预览](https://preview.ryansu.tech/)
+
+- 账号 **admin**
+- 密码 **simple-admin**
+
+#### [多租户版在线预览](https://tenant-preview.ryansu.tech/)
+
+- 管理员租户账号
+  - 企业： **admin**
+  - 账号: **admin**
+  - 密码: **simple-admin**
+
+- 租户账号
+  - 企业: **测试企业**
+  - 账号: **admin**
+  - 密码: **simple-admin**
+
+> 只读，不可修改和注册
+
 ## 特性
 
 - **最新技术栈**：使用 ent, casbin, kafka 等前沿技术开发
@@ -93,13 +114,6 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
 [RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
 
 ## 预览
-
-### 在线预览
-
-[在线预览](http://101.132.124.135:8080/)
-账号 admin
-密码 simple-admin
-#### 只读，不可修改和注册
 
 ![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png)
 ![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
