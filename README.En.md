@@ -119,6 +119,7 @@ revenue, and now 10+ modules are included.
 | CMS         | Content Management Module         |
 | Simple-Uni  | Mini Program Development Scaffold |
 | Simple-Nuxt | PC Web End Development Scaffold   |
+| Core Tenant | Multi-Tenant version              |
 
 # Community Modules
 
@@ -129,13 +130,6 @@ revenue, and now 10+ modules are included.
 [RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
 
 ## Preview
-
-### Online preview
-
-[Online Preview](http://101.132.124.135:8080/)
-Account:   admin 
-Password:  simple-admin
-#### Read Only, cannot register and modify
 
 ![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png)
 ![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
