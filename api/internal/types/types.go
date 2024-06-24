@@ -494,6 +494,21 @@ type ResetPasswordBySmsReq struct {
 	Password    string `json:"password"`
 }
 
+// Refresh token response data | 刷新令牌响应数据
+// swagger:model RefreshTokenResp
+type RefreshTokenResp struct {
+	BaseDataInfo
+	// The token information | 令牌信息
+	Data RefreshTokenInfo `json:"data"`
+}
+
+// Refresh token information | 刷新令牌信息
+// swagger:model RefreshTokenInfo
+type RefreshTokenInfo struct {
+	Token     string `json:"token"`
+	ExpiredAt int64  `json:"expiredAt"`
+}
+
 // The response data of menu information | 菜单信息
 // swagger:model MenuInfo
 type MenuInfo struct {

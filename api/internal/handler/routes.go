@@ -189,6 +189,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/user/logout",
 					Handler: user.LogoutHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/user/refresh_token",
+					Handler: user.RefreshTokenHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),

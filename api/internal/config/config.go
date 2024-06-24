@@ -37,4 +37,5 @@ type ProjectConf struct {
 	LoginVerify             string `json:",default=captcha,options=[captcha,email,sms,sms_or_email,all]"`
 	ResetVerify             string `json:",default=email,options=[email,sms,sms_or_email]"`
 	AllowInit               bool   `json:",default=true"`
+	RefreshTokenPeriod      int    `json:",optional,default=24"` // refresh token valid period, unit: hour | 刷新 token 的有效期，单位：小时
 }
