@@ -105,6 +105,7 @@
 		"deleteUser": "Delete users",
 		"logout": "Log out (Required)",
 		"updateUserStatus": "Update user's status",
+		"refreshToken": "Get a short-term token",
 		"createRole": "Create role information",
 		"updateRole": "Update role information",
 		"deleteRole": "Delete role information",

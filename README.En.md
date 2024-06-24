@@ -5,11 +5,11 @@
 
 **English** | [中文](./README.md)
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.6.5-brightgreen.svg)](https://go-zero.dev/)
-[![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.11.4-yellow.svg)](https://vvbin.cn/doc-next/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.6.6-brightgreen.svg)](https://go-zero.dev/)
+[![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.11.5-yellow.svg)](https://vvbin.cn/doc-next/)
 [![Ent](https://img.shields.io/badge/Ent-v0.13.1-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.93.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.4.6-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.97.0-orange.svg)](https://github.com/casbin/casbin)
+[![Release](https://img.shields.io/badge/Release-v1.4.8-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
 ![注意](https://img.shields.io/badge/%E6%B3%A8%E6%84%8F-%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A0%E5%85%A5%E5%BE%AE%E4%BF%A1%E7%BE%A4-blue)
@@ -55,6 +55,27 @@ revenue, and now 10+ modules are included.
 
 > [Module Store](https://doge.ryansu.tech/store/index)
 
+### Online Preview
+
+#### [Free Edition Online Preview](https://preview.ryansu.tech/)
+
+- Account **admin**
+- Password **simple-admin**
+
+#### [Multi-tenant Edition Online Preview](https://tenant-preview.ryansu.tech/)
+
+- Administrator Tenant Account
+  - Enterprise: **admin**
+  - Account: **admin**
+  - Password: **simple-admin**
+
+- Tenant Account
+  - Enterprise: **测试企业**
+  - Account: **admin**
+  - Password: **simple-admin**
+
+> Read-only, cannot be modified or registered
+
 ## Feature
 
 - **State of The Art Development**：Use latest back-end technology development such as ent, go-zero, casbin
@@ -98,6 +119,7 @@ revenue, and now 10+ modules are included.
 | CMS         | Content Management Module         |
 | Simple-Uni  | Mini Program Development Scaffold |
 | Simple-Nuxt | PC Web End Development Scaffold   |
+| Core Tenant | Multi-Tenant version              |
 
 # Community Modules
 
@@ -108,13 +130,6 @@ revenue, and now 10+ modules are included.
 [RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
 
 ## Preview
-
-### Online preview
-
-[Online Preview](http://101.132.124.135:8080/)
-Account:   admin 
-Password:  simple-admin
-#### Read Only, cannot register and modify
 
 ![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png)
 ![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
