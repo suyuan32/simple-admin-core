@@ -31,7 +31,6 @@ func NewRefreshTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Refr
 func (l *RefreshTokenLogic) RefreshToken() (resp *types.RefreshTokenResp, err error) {
 	userId := l.ctx.Value("userId").(string)
 	roleId := l.ctx.Value("roleId").(string)
-	deptId := l.ctx.Value("deptId").(string)
 
 	userData, err := l.svcCtx.CoreRpc.GetUserById(l.ctx, &core.UUIDReq{
 		Id: userId,
@@ -41,8 +40,8 @@ func (l *RefreshTokenLogic) RefreshToken() (resp *types.RefreshTokenResp, err er
 	}
 
 	token, err := jwt.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, time.Now().Unix(),
-		l.svcCtx.Config.Auth.AccessExpire, jwt.WithOption("userId", userId), jwt.WithOption("roleId",
-			roleId), jwt.WithOption("deptId", deptId))
+		int64(l.svcCtx.Config.ProjectConf.RefreshTokenPeriod)*60*60, jwt.WithOption("userId", userId), jwt.WithOption("roleId",
+			roleId), jwt.WithOption("deptId", userData.DepartmentId))
 	if err != nil {
 		return nil, err
 	}
