@@ -2526,6 +2526,24 @@
         }
       }
     },
+    "/user/access_token": {
+      "get": {
+        "description": "Access token | 获取短期 token",
+        "tags": [
+          "user"
+        ],
+        "summary": "Access token | 获取短期 token",
+        "operationId": "AccessToken",
+        "responses": {
+          "200": {
+            "description": "RefreshTokenResp",
+            "schema": {
+              "$ref": "#/definitions/RefreshTokenResp"
+            }
+          }
+        }
+      }
+    },
     "/user/change_password": {
       "post": {
         "description": "Change Password | 修改密码",

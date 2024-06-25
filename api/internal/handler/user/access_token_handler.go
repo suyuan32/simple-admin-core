@@ -9,19 +9,19 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 )
 
-// swagger:route get /user/refresh_token user RefreshToken
+// swagger:route get /user/access_token user AccessToken
 //
-// Refresh token | 获取刷新 token
+// Access token | 获取短期 token
 //
-// Refresh token | 获取刷新 token
+// Access token | 获取短期 token
 //
 // Responses:
 //  200: RefreshTokenResp
 
-func RefreshTokenHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func AccessTokenHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		l := user.NewRefreshTokenLogic(r.Context(), svcCtx)
-		resp, err := l.RefreshToken()
+		l := user.NewAccessTokenLogic(r.Context(), svcCtx)
+		resp, err := l.AccessToken()
 		if err != nil {
 			err = svcCtx.Trans.TransError(r.Context(), err)
 			httpx.ErrorCtx(r.Context(), w, err)
