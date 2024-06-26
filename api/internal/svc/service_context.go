@@ -37,18 +37,15 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 	trans := i18n.NewTranslator(c.I18nConf, i18n2.LocaleFS)
 
-	svc := &ServiceContext{
-		Config:  c,
-		CoreRpc: coreclient.NewCore(zrpc.NewClientIfEnable(c.CoreRpc)),
-		JobRpc:  jobclient.NewJob(zrpc.NewClientIfEnable(c.JobRpc)),
-		McmsRpc: mcmsclient.NewMcms(zrpc.NewClientIfEnable(c.McmsRpc)),
-		Captcha: captcha.MustNewOriginalRedisCaptcha(c.Captcha, rds),
-		Redis:   rds,
-		Casbin:  cbn,
-		Trans:   trans,
+	return &ServiceContext{
+		Config:    c,
+		CoreRpc:   coreclient.NewCore(zrpc.NewClientIfEnable(c.CoreRpc)),
+		JobRpc:    jobclient.NewJob(zrpc.NewClientIfEnable(c.JobRpc)),
+		McmsRpc:   mcmsclient.NewMcms(zrpc.NewClientIfEnable(c.McmsRpc)),
+		Captcha:   captcha.MustNewOriginalRedisCaptcha(c.Captcha, rds),
+		Redis:     rds,
+		Casbin:    cbn,
+		Trans:     trans,
+		Authority: middleware.NewAuthorityMiddleware(cbn, rds, trans).Handle,
 	}
-
-	svc.Authority = middleware.NewAuthorityMiddleware(cbn, rds, trans).Handle
-
-	return svc
 }
