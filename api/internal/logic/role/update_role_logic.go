@@ -40,21 +40,23 @@ func (l *UpdateRoleLogic) UpdateRole(req *types.RoleInfo) (resp *types.BaseMsgRe
 	}
 
 	if req.Status != nil && uint8(*req.Status) == common.StatusBanned {
-		if req.Code == nil {
-			return nil, errorx.NewInvalidArgumentError("please provide role code")
+		roleData, err := l.svcCtx.CoreRpc.GetRoleById(l.ctx, &core.IDReq{Id: *req.Id})
+		if err != nil {
+			return nil, err
 		}
+
 		// clear old policies
 		var oldPolicies [][]string
-		oldPolicies, err = l.svcCtx.Casbin.GetFilteredPolicy(0, *req.Code)
+		oldPolicies, err = l.svcCtx.Casbin.GetFilteredPolicy(0, *roleData.Code)
 		if err != nil {
 			logx.Error("failed to get old Casbin policy", logx.Field("detail", err))
 			return nil, errorx.NewInternalError(err.Error())
 		}
 
 		if len(oldPolicies) != 0 {
-			removeResult, err := l.svcCtx.Casbin.RemoveFilteredPolicy(0, *req.Code)
+			removeResult, err := l.svcCtx.Casbin.RemoveFilteredPolicy(0, *roleData.Code)
 			if err != nil {
-				l.Logger.Errorw("failed to remove roles policy", logx.Field("roleCode", req.Code), logx.Field("detail", err.Error()))
+				l.Logger.Errorw("failed to remove roles policy", logx.Field("roleCode", roleData.Code), logx.Field("detail", err.Error()))
 				return nil, errorx.NewInvalidArgumentError(err.Error())
 			}
 			if !removeResult {

@@ -20,7 +20,7 @@ func (Role) Fields() []ent.Field {
 		field.String("name").
 			Comment("Role name | 角色名").
 			Annotations(entsql.WithComments(true)),
-		field.String("code").Unique().
+		field.String("code").
 			Comment("Role code for permission control in front end | 角色码，用于前端权限控制").
 			Annotations(entsql.WithComments(true)),
 		field.String("default_router").Default("dashboard").
