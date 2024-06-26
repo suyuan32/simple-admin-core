@@ -19,18 +19,16 @@ import (
 )
 
 type AuthorityMiddleware struct {
-	Cbn         *casbin.Enforcer
-	Rds         redis.UniversalClient
-	Trans       *i18n.Translator
-	BanRoleData map[string]bool
+	Cbn   *casbin.Enforcer
+	Rds   redis.UniversalClient
+	Trans *i18n.Translator
 }
 
-func NewAuthorityMiddleware(cbn *casbin.Enforcer, rds redis.UniversalClient, trans *i18n.Translator, banRoleData map[string]bool) *AuthorityMiddleware {
+func NewAuthorityMiddleware(cbn *casbin.Enforcer, rds redis.UniversalClient, trans *i18n.Translator) *AuthorityMiddleware {
 	return &AuthorityMiddleware{
-		Cbn:         cbn,
-		Rds:         rds,
-		Trans:       trans,
-		BanRoleData: banRoleData,
+		Cbn:   cbn,
+		Rds:   rds,
+		Trans: trans,
 	}
 }
 
@@ -42,18 +40,6 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		act := r.Method
 		// get the role id
 		roleIds := strings.Split(r.Context().Value("roleId").(string), ",")
-
-		// check the role status
-		var isRoleNormal bool
-		for _, v := range roleIds {
-			if !m.BanRoleData[v] {
-				isRoleNormal = true
-			}
-		}
-		if !isRoleNormal {
-			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
-			return
-		}
 
 		// check jwt blacklist
 		jwtResult, err := m.Rds.Get(context.Background(), config.RedisTokenPrefix+jwt.StripBearerPrefixFromToken(r.Header.Get("Authorization"))).Result()
