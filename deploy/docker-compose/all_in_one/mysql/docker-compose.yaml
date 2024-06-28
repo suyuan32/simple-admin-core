@@ -112,7 +112,7 @@ services:
     container_name: core-api
     restart: always
     environment:
-      I18N_DIR: '/app/etc/'
+      #      I18N_DIR: '/app/etc/'
       DATABASE_TYPE: 'mysql'
       DATABASE_HOST: 'mysql-server'
       DATABASE_USERNAME: 'root'
