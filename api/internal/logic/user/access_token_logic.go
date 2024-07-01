@@ -7,6 +7,7 @@ import (
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+	"github.com/zeromicro/go-zero/core/errorx"
 	"time"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -37,6 +38,10 @@ func (l *AccessTokenLogic) AccessToken() (resp *types.RefreshTokenResp, err erro
 	})
 	if err != nil {
 		return nil, err
+	}
+
+	if userData.Status != nil && *userData.Status != uint32(common.StatusNormal) {
+		return nil, errorx.NewApiUnauthorizedError(i18n.Failed)
 	}
 
 	token, err := jwt.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, time.Now().Unix(),
