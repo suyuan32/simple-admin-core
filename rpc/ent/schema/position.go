@@ -18,14 +18,11 @@ type Position struct {
 func (Position) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("name").
-			Comment("Position Name | 职位名称").
-			Annotations(entsql.WithComments(true)),
+			Comment("Position Name | 职位名称"),
 		field.String("code").
-			Comment("The code of position | 职位编码").
-			Annotations(entsql.WithComments(true)),
+			Comment("The code of position | 职位编码"),
 		field.String("remark").Optional().
-			Comment("Remark | 备注").
-			Annotations(entsql.WithComments(true)),
+			Comment("Remark | 备注"),
 	}
 }
 
@@ -51,6 +48,7 @@ func (Position) Indexes() []ent.Index {
 
 func (Position) Annotations() []schema.Annotation {
 	return []schema.Annotation{
+		entsql.WithComments(true),
 		entsql.Annotation{Table: "sys_positions"},
 	}
 }
