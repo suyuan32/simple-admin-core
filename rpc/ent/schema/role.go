@@ -18,20 +18,15 @@ type Role struct {
 func (Role) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("name").
-			Comment("Role name | 角色名").
-			Annotations(entsql.WithComments(true)),
+			Comment("Role name | 角色名"),
 		field.String("code").
-			Comment("Role code for permission control in front end | 角色码，用于前端权限控制").
-			Annotations(entsql.WithComments(true)),
+			Comment("Role code for permission control in front end | 角色码，用于前端权限控制"),
 		field.String("default_router").Default("dashboard").
-			Comment("Default menu : dashboard | 默认登录页面").
-			Annotations(entsql.WithComments(true)),
+			Comment("Default menu : dashboard | 默认登录页面"),
 		field.String("remark").Default("").
-			Comment("Remark | 备注").
-			Annotations(entsql.WithComments(true)),
+			Comment("Remark | 备注"),
 		field.Uint32("sort").Default(0).
-			Comment("Order number | 排序编号").
-			Annotations(entsql.WithComments(true)),
+			Comment("Order number | 排序编号"),
 	}
 }
 
@@ -57,6 +52,7 @@ func (Role) Indexes() []ent.Index {
 
 func (Role) Annotations() []schema.Annotation {
 	return []schema.Annotation{
+		entsql.WithComments(true),
 		entsql.Annotation{Table: "sys_roles"},
 	}
 }

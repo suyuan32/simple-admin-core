@@ -16,15 +16,12 @@ type Dictionary struct {
 func (Dictionary) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("title").
-			Comment("The title shown in the ui | 展示名称 （建议配合i18n）").
-			Annotations(entsql.WithComments(true)),
+			Comment("The title shown in the ui | 展示名称 （建议配合i18n）"),
 		field.String("name").Unique().
-			Comment("The name of dictionary for search | 字典搜索名称").
-			Annotations(entsql.WithComments(true)),
+			Comment("The name of dictionary for search | 字典搜索名称"),
 		field.String("desc").
 			Comment("The description of dictionary | 字典的描述").
-			Optional().
-			Annotations(entsql.WithComments(true)),
+			Optional(),
 	}
 }
 
@@ -43,6 +40,7 @@ func (Dictionary) Edges() []ent.Edge {
 
 func (Dictionary) Annotations() []schema.Annotation {
 	return []schema.Annotation{
+		entsql.WithComments(true),
 		entsql.Annotation{Table: "sys_dictionaries"},
 	}
 }

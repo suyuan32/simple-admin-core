@@ -18,21 +18,16 @@ type Token struct {
 func (Token) Fields() []ent.Field {
 	return []ent.Field{
 		field.UUID("uuid", uuid.UUID{}).
-			Comment(" User's UUID | 用户的UUID").
-			Annotations(entsql.WithComments(true)),
+			Comment(" User's UUID | 用户的UUID"),
 		field.String("username").
 			Comment("Username | 用户名").
-			Default("unknown").
-			Annotations(entsql.WithComments(true)),
+			Default("unknown"),
 		field.String("token").
-			Comment("Token string | Token 字符串").
-			Annotations(entsql.WithComments(true)),
+			Comment("Token string | Token 字符串"),
 		field.String("source").
-			Comment("Log in source such as GitHub | Token 来源 （本地为core, 第三方如github等）").
-			Annotations(entsql.WithComments(true)),
+			Comment("Log in source such as GitHub | Token 来源 （本地为core, 第三方如github等）"),
 		field.Time("expired_at").
-			Comment(" Expire time | 过期时间").
-			Annotations(entsql.WithComments(true)),
+			Comment(" Expire time | 过期时间"),
 	}
 }
 
@@ -56,6 +51,7 @@ func (Token) Indexes() []ent.Index {
 
 func (Token) Annotations() []schema.Annotation {
 	return []schema.Annotation{
+		entsql.WithComments(true),
 		entsql.Annotation{Table: "sys_tokens"},
 	}
 }
