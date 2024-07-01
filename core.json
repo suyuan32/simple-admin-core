@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.4.8"
+    "version": "1.4.9"
   },
   "host": "localhost:9100",
   "basePath": "/",
@@ -2840,11 +2840,11 @@
     },
     "/user/refresh_token": {
       "get": {
-        "description": "Refresh token | 获取短期 token",
+        "description": "Refresh token | 获取刷新 token",
         "tags": [
           "user"
         ],
-        "summary": "Refresh token | 获取短期 token",
+        "summary": "Refresh token | 获取刷新 token",
         "operationId": "RefreshToken",
         "responses": {
           "200": {

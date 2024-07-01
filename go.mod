@@ -10,9 +10,9 @@ require (
 	github.com/gofrs/uuid/v5 v5.2.0
 	github.com/mojocn/base64Captcha v1.3.6
 	github.com/redis/go-redis/v9 v9.5.3
-	github.com/suyuan32/simple-admin-common v1.4.8
-	github.com/suyuan32/simple-admin-job v1.4.8
-	github.com/suyuan32/simple-admin-message-center v1.4.8
+	github.com/suyuan32/simple-admin-common v1.4.9
+	github.com/suyuan32/simple-admin-job v1.4.9
+	github.com/suyuan32/simple-admin-message-center v1.4.9
 	github.com/zeromicro/go-zero v1.6.6
 	golang.org/x/oauth2 v0.21.0
 	google.golang.org/grpc v1.64.0
@@ -84,7 +84,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_golang v1.19.1 // indirect
 	github.com/prometheus/client_model v0.6.1 // indirect
-	github.com/prometheus/common v0.54.0 // indirect
+	github.com/prometheus/common v0.55.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/zclconf/go-cty v1.14.4 // indirect
@@ -106,7 +106,7 @@ require (
 	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/crypto v0.24.0 // indirect
 	golang.org/x/exp v0.0.0-20240604190554-fc45aab8b7f8 // indirect
-	golang.org/x/image v0.17.0 // indirect
+	golang.org/x/image v0.18.0 // indirect
 	golang.org/x/mod v0.18.0 // indirect
 	golang.org/x/net v0.26.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
