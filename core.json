@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.4.8"
+    "version": "1.4.9"
   },
   "host": "localhost:9100",
   "basePath": "/",
@@ -2526,6 +2526,24 @@
         }
       }
     },
+    "/user/access_token": {
+      "get": {
+        "description": "Access token | 获取短期 token",
+        "tags": [
+          "user"
+        ],
+        "summary": "Access token | 获取短期 token",
+        "operationId": "AccessToken",
+        "responses": {
+          "200": {
+            "description": "RefreshTokenResp",
+            "schema": {
+              "$ref": "#/definitions/RefreshTokenResp"
+            }
+          }
+        }
+      }
+    },
     "/user/change_password": {
       "post": {
         "description": "Change Password | 修改密码",
@@ -2822,11 +2840,11 @@
     },
     "/user/refresh_token": {
       "get": {
-        "description": "Refresh token | 获取短期 token",
+        "description": "Refresh token | 获取刷新 token",
         "tags": [
           "user"
         ],
-        "summary": "Refresh token | 获取短期 token",
+        "summary": "Refresh token | 获取刷新 token",
         "operationId": "RefreshToken",
         "responses": {
           "200": {

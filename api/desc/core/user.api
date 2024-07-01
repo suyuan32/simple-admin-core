@@ -397,7 +397,11 @@ service Core {
     @handler logout
     get /user/logout returns (BaseMsgResp)
 
-    // Refresh token | 获取短期 token
+    // Refresh token | 获取刷新 token
     @handler refreshToken
     get /user/refresh_token returns (RefreshTokenResp)
+
+    // Access token | 获取短期 token
+    @handler accessToken
+    get /user/access_token returns (RefreshTokenResp)
 }

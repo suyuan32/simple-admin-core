@@ -194,6 +194,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/user/refresh_token",
 					Handler: user.RefreshTokenHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/user/access_token",
+					Handler: user.AccessTokenHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),

@@ -128,7 +128,15 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetPath("/user/refresh_token").
 		SetDescription("apiDesc.refreshToken").
 		SetAPIGroup("user").
-		SetMethod("POST"),
+		SetMethod("GET"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetServiceName("Core").
+		SetPath("/user/access_token").
+		SetDescription("apiDesc.accessToken").
+		SetAPIGroup("user").
+		SetMethod("GET"),
 	)
 
 	// ROLE

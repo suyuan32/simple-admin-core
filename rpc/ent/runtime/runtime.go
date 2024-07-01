@@ -347,10 +347,6 @@ func init() {
 	userDescHomePath := userFields[4].Descriptor()
 	// user.DefaultHomePath holds the default value on creation for the home_path field.
 	user.DefaultHomePath = userDescHomePath.Default.(string)
-	// userDescAvatar is the schema descriptor for avatar field.
-	userDescAvatar := userFields[7].Descriptor()
-	// user.DefaultAvatar holds the default value on creation for the avatar field.
-	user.DefaultAvatar = userDescAvatar.Default.(string)
 	// userDescDepartmentID is the schema descriptor for department_id field.
 	userDescDepartmentID := userFields[8].Descriptor()
 	// user.DefaultDepartmentID holds the default value on creation for the department_id field.
