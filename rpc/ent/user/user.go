@@ -124,8 +124,6 @@ var (
 	DefaultStatus uint8
 	// DefaultHomePath holds the default value on creation for the "home_path" field.
 	DefaultHomePath string
-	// DefaultAvatar holds the default value on creation for the "avatar" field.
-	DefaultAvatar string
 	// DefaultDepartmentID holds the default value on creation for the "department_id" field.
 	DefaultDepartmentID uint64
 	// DefaultID holds the default value on creation for the "id" field.

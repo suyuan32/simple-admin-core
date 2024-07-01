@@ -273,7 +273,7 @@ var (
 		{Name: "home_path", Type: field.TypeString, Comment: "The home page that the user enters after logging in | 用户登陆后进入的首页", Default: "/dashboard"},
 		{Name: "mobile", Type: field.TypeString, Nullable: true, Comment: "Mobile number | 手机号"},
 		{Name: "email", Type: field.TypeString, Nullable: true, Comment: "Email | 邮箱号"},
-		{Name: "avatar", Type: field.TypeString, Nullable: true, Comment: "Avatar | 头像路径", Default: "", SchemaType: map[string]string{"mysql": "varchar(512)"}},
+		{Name: "avatar", Type: field.TypeString, Nullable: true, Comment: "Avatar | 头像路径", SchemaType: map[string]string{"mysql": "varchar(512)"}},
 		{Name: "department_id", Type: field.TypeUint64, Nullable: true, Comment: "Department ID | 部门ID", Default: 1},
 	}
 	// SysUsersTable holds the schema information for the "sys_users" table.

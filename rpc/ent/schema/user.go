@@ -37,7 +37,6 @@ func (User) Fields() []ent.Field {
 		field.String("avatar").
 			SchemaType(map[string]string{dialect.MySQL: "varchar(512)"}).
 			Optional().
-			Default("").
 			Comment("Avatar | 头像路径"),
 		field.Uint64("department_id").Optional().Default(1).
 			Comment("Department ID | 部门ID"),
