@@ -106,6 +106,8 @@
 		"batchDeleteUser": "批量删除用户",
 		"logout": "退出登陆（必须）",
 		"updateUserStatus": "更新用户状态",
+		"refreshToken": "获取 refresh token",
+		"accessToken": "获取 access token",
 		"createRole": "新建角色信息",
 		"updateRole": "更新角色信息",
 		"deleteRole": "删除角色信息",

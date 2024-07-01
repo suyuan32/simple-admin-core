@@ -2,6 +2,7 @@ package dictionarydetail
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-common/enum/common"
 
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 
@@ -35,9 +36,10 @@ func (l *GetDictionaryDetailByDictionaryNameLogic) GetDictionaryDetailByDictiona
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	result, err := l.svcCtx.DB.DictionaryDetail.Query().Where(dictionarydetail.DictionaryID(dictionaryData.ID)).Page(l.ctx, 1, 10000, func(pager *ent.DictionaryDetailPager) {
-		pager.Order = ent.Asc(dictionarydetail.FieldSort)
-	})
+	result, err := l.svcCtx.DB.DictionaryDetail.Query().Where(dictionarydetail.DictionaryID(dictionaryData.ID), dictionarydetail.StatusEQ(common.StatusNormal)).
+		Page(l.ctx, 1, 10000, func(pager *ent.DictionaryDetailPager) {
+			pager.Order = ent.Asc(dictionarydetail.FieldSort)
+		})
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
