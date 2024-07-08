@@ -3,16 +3,15 @@ package middleware
 import (
 	"context"
 	"errors"
+	"github.com/casbin/casbin/v2"
 	"github.com/redis/go-redis/v9"
 	"github.com/suyuan32/simple-admin-common/config"
-	"net/http"
-	"strings"
-
-	"github.com/casbin/casbin/v2"
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"
+	"github.com/suyuan32/simple-admin-common/orm/ent/entctx/rolectx"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
@@ -39,7 +38,11 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		// get the method
 		act := r.Method
 		// get the role id
-		roleIds := strings.Split(r.Context().Value("roleId").(string), ",")
+		roleIds, err := rolectx.GetRoleIDFromCtx(r.Context())
+		if err != nil {
+			httpx.Error(w, err)
+			return
+		}
 
 		// check jwt blacklist
 		jwtResult, err := m.Rds.Get(context.Background(), config.RedisTokenPrefix+jwt.StripBearerPrefixFromToken(r.Header.Get("Authorization"))).Result()
