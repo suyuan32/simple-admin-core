@@ -4,10 +4,13 @@ import (
 	"context"
 	"github.com/suyuan32/simple-admin-common/enum/common"
 	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/suyuan32/simple-admin-common/orm/ent/entctx/rolectx"
+	"github.com/suyuan32/simple-admin-common/orm/ent/entctx/userctx"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 	"github.com/zeromicro/go-zero/core/errorx"
+	"strings"
 	"time"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
@@ -30,8 +33,14 @@ func NewRefreshTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Refr
 }
 
 func (l *RefreshTokenLogic) RefreshToken() (resp *types.RefreshTokenResp, err error) {
-	userId := l.ctx.Value("userId").(string)
-	roleId := l.ctx.Value("roleId").(string)
+	userId, err := userctx.GetUserIDFromCtx(l.ctx)
+	if err != nil {
+		return nil, err
+	}
+	roleIds, err := rolectx.GetRoleIDFromCtx(l.ctx)
+	if err != nil {
+		return nil, err
+	}
 
 	userData, err := l.svcCtx.CoreRpc.GetUserById(l.ctx, &core.UUIDReq{
 		Id: userId,
@@ -46,7 +55,7 @@ func (l *RefreshTokenLogic) RefreshToken() (resp *types.RefreshTokenResp, err er
 
 	token, err := jwt.NewJwtToken(l.svcCtx.Config.Auth.AccessSecret, time.Now().Unix(),
 		int64(l.svcCtx.Config.ProjectConf.RefreshTokenPeriod)*60*60, jwt.WithOption("userId", userId), jwt.WithOption("roleId",
-			roleId), jwt.WithOption("deptId", userData.DepartmentId))
+			strings.Join(roleIds, ",")), jwt.WithOption("deptId", userData.DepartmentId))
 	if err != nil {
 		return nil, err
 	}
