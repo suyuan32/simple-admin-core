@@ -4682,6 +4682,11 @@
           "type": "string",
           "x-go-name": "Path"
         },
+        "permission": {
+          "description": "Permission symbol | 权限标识",
+          "type": "string",
+          "x-go-name": "Permission"
+        },
         "redirect": {
           "description": "Redirect | 跳转地址",
           "type": "string",
@@ -4891,6 +4896,11 @@
           "type": "string",
           "maxLength": 200,
           "x-go-name": "Path"
+        },
+        "permission": {
+          "description": "Permission symbol | 权限标识",
+          "type": "string",
+          "x-go-name": "Permission"
         },
         "realPath": {
           "description": "The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分",

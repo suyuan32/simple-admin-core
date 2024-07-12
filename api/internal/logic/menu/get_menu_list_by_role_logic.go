@@ -49,6 +49,7 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole() (resp *types.MenuListResp, 
 			Sort:        v.Sort,
 			ParentId:    v.ParentId,
 			ServiceName: v.ServiceName,
+			Permission:  v.Permission,
 			Meta: types.Meta{
 				Title:              pointy.GetPointer(l.svcCtx.Trans.Trans(l.ctx, *v.Meta.Title)),
 				Icon:               v.Meta.Icon,

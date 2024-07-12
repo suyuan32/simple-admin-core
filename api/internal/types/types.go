@@ -537,6 +537,8 @@ type MenuInfo struct {
 	MenuType *uint32 `json:"menuType,optional"`
 	// Service Name | 服务名称
 	ServiceName *string `json:"serviceName,optional"`
+	// Permission symbol | 权限标识
+	Permission *string `json:"permission,optional"`
 }
 
 // The meta data of menu | 菜单的meta数据
@@ -631,6 +633,8 @@ type MenuPlainInfo struct {
 	MenuType *uint32 `json:"menuType,optional" validate:"omitempty,lt=10"`
 	// Service Name | 服务名称
 	ServiceName *string `json:"serviceName,optional"`
+	// Permission symbol | 权限标识
+	Permission *string `json:"permission,optional"`
 	// Menu title show in page | 菜单显示名
 	// max length : 50
 	Title *string `json:"title" validate:"omitempty,max=50"`
@@ -655,7 +659,7 @@ type MenuPlainInfo struct {
 	// Affix tab | 是否固定标签
 	Affix *bool `json:"affix,optional" validate:"omitempty,boolean"`
 	// The maximum number of pages the router can open | 动态路由可打开Tab页数
-	DynamicLevel *uint32 `json:"dynamicLevel" validate:"number,lt=30"`
+	DynamicLevel *uint32 `json:"dynamicLevel,optional" validate:"omitempty,number,lt=30"`
 	// The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分
 	RealPath *string `json:"realPath,optional"`
 }

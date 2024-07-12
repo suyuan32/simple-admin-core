@@ -152,6 +152,7 @@ message MenuInfo {
   optional Meta meta = 12;
   optional uint32 menu_type = 13;
   optional string service_name = 14;
+  optional string permission = 15;
 }
 
 message MenuInfoList {

@@ -38,6 +38,8 @@ const (
 	FieldDisabled = "disabled"
 	// FieldServiceName holds the string denoting the service_name field in the database.
 	FieldServiceName = "service_name"
+	// FieldPermission holds the string denoting the permission field in the database.
+	FieldPermission = "permission"
 	// FieldTitle holds the string denoting the title field in the database.
 	FieldTitle = "title"
 	// FieldIcon holds the string denoting the icon field in the database.
@@ -100,6 +102,7 @@ var Columns = []string{
 	FieldComponent,
 	FieldDisabled,
 	FieldServiceName,
+	FieldPermission,
 	FieldTitle,
 	FieldIcon,
 	FieldHideMenu,
@@ -239,6 +242,11 @@ func ByDisabled(opts ...sql.OrderTermOption) OrderOption {
 // ByServiceName orders the results by the service_name field.
 func ByServiceName(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldServiceName, opts...).ToFunc()
+}
+
+// ByPermission orders the results by the permission field.
+func ByPermission(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPermission, opts...).ToFunc()
 }
 
 // ByTitle orders the results by the title field.
