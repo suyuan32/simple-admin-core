@@ -165,6 +165,20 @@ func (mc *MenuCreate) SetNillableServiceName(s *string) *MenuCreate {
 	return mc
 }
 
+// SetPermission sets the "permission" field.
+func (mc *MenuCreate) SetPermission(s string) *MenuCreate {
+	mc.mutation.SetPermission(s)
+	return mc
+}
+
+// SetNillablePermission sets the "permission" field if the given value is not nil.
+func (mc *MenuCreate) SetNillablePermission(s *string) *MenuCreate {
+	if s != nil {
+		mc.SetPermission(*s)
+	}
+	return mc
+}
+
 // SetTitle sets the "title" field.
 func (mc *MenuCreate) SetTitle(s string) *MenuCreate {
 	mc.mutation.SetTitle(s)
@@ -572,6 +586,10 @@ func (mc *MenuCreate) createSpec() (*Menu, *sqlgraph.CreateSpec) {
 	if value, ok := mc.mutation.ServiceName(); ok {
 		_spec.SetField(menu.FieldServiceName, field.TypeString, value)
 		_node.ServiceName = value
+	}
+	if value, ok := mc.mutation.Permission(); ok {
+		_spec.SetField(menu.FieldPermission, field.TypeString, value)
+		_node.Permission = value
 	}
 	if value, ok := mc.mutation.Title(); ok {
 		_spec.SetField(menu.FieldTitle, field.TypeString, value)

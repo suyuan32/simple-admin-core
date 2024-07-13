@@ -41,6 +41,8 @@ type Menu struct {
 	Disabled bool `json:"disabled,omitempty"`
 	// Service Name | 服务名称
 	ServiceName string `json:"service_name,omitempty"`
+	// Permission symbol | 权限标识
+	Permission string `json:"permission,omitempty"`
 	// Menu name | 菜单显示标题
 	Title string `json:"title,omitempty"`
 	// Menu icon | 菜单图标
@@ -122,7 +124,7 @@ func (*Menu) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullBool)
 		case menu.FieldID, menu.FieldSort, menu.FieldParentID, menu.FieldMenuLevel, menu.FieldMenuType, menu.FieldDynamicLevel:
 			values[i] = new(sql.NullInt64)
-		case menu.FieldPath, menu.FieldName, menu.FieldRedirect, menu.FieldComponent, menu.FieldServiceName, menu.FieldTitle, menu.FieldIcon, menu.FieldFrameSrc, menu.FieldRealPath:
+		case menu.FieldPath, menu.FieldName, menu.FieldRedirect, menu.FieldComponent, menu.FieldServiceName, menu.FieldPermission, menu.FieldTitle, menu.FieldIcon, menu.FieldFrameSrc, menu.FieldRealPath:
 			values[i] = new(sql.NullString)
 		case menu.FieldCreatedAt, menu.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -218,6 +220,12 @@ func (m *Menu) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field service_name", values[i])
 			} else if value.Valid {
 				m.ServiceName = value.String
+			}
+		case menu.FieldPermission:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field permission", values[i])
+			} else if value.Valid {
+				m.Permission = value.String
 			}
 		case menu.FieldTitle:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -377,6 +385,9 @@ func (m *Menu) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("service_name=")
 	builder.WriteString(m.ServiceName)
+	builder.WriteString(", ")
+	builder.WriteString("permission=")
+	builder.WriteString(m.Permission)
 	builder.WriteString(", ")
 	builder.WriteString("title=")
 	builder.WriteString(m.Title)

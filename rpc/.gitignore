@@ -30,3 +30,6 @@
 # Build files
 *_api
 *_rpc
+
+# VsCode debug files
+_debug*

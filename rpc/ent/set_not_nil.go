@@ -969,6 +969,30 @@ func (m *MenuCreate) SetNotNilServiceName(value *string) *MenuCreate {
 }
 
 // set field if value's pointer is not nil.
+func (m *MenuUpdate) SetNotNilPermission(value *string) *MenuUpdate {
+	if value != nil {
+		return m.SetPermission(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MenuUpdateOne) SetNotNilPermission(value *string) *MenuUpdateOne {
+	if value != nil {
+		return m.SetPermission(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
+func (m *MenuCreate) SetNotNilPermission(value *string) *MenuCreate {
+	if value != nil {
+		return m.SetPermission(*value)
+	}
+	return m
+}
+
+// set field if value's pointer is not nil.
 func (m *MenuUpdate) SetNotNilTitle(value *string) *MenuUpdate {
 	if value != nil {
 		return m.SetTitle(*value)

@@ -54,6 +54,7 @@ func (l *UpdateMenuLogic) UpdateMenu(in *core.MenuInfo) (*core.BaseResp, error) 
 		SetNotNilSort(in.Sort).
 		SetNotNilDisabled(in.Disabled).
 		SetNotNilServiceName(in.ServiceName).
+		SetNotNilPermission(in.Permission).
 		// meta
 		SetNotNilTitle(in.Meta.Title).
 		SetNotNilIcon(in.Meta.Icon).

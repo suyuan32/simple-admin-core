@@ -35,6 +35,9 @@ func (Menu) Fields() []ent.Field {
 			Comment("Disable status | 是否停用"),
 		field.String("service_name").Optional().Default("Other").
 			Comment("Service Name | 服务名称"),
+		field.String("permission").
+			Optional().
+			Comment("Permission symbol | 权限标识"),
 		// meta
 		field.String("title").
 			Comment("Menu name | 菜单显示标题"),
