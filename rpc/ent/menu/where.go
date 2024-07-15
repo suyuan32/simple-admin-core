@@ -115,6 +115,11 @@ func ServiceName(v string) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldServiceName, v))
 }
 
+// Permission applies equality check predicate on the "permission" field. It's identical to PermissionEQ.
+func Permission(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldPermission, v))
+}
+
 // Title applies equality check predicate on the "title" field. It's identical to TitleEQ.
 func Title(v string) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldTitle, v))
@@ -788,6 +793,81 @@ func ServiceNameEqualFold(v string) predicate.Menu {
 // ServiceNameContainsFold applies the ContainsFold predicate on the "service_name" field.
 func ServiceNameContainsFold(v string) predicate.Menu {
 	return predicate.Menu(sql.FieldContainsFold(FieldServiceName, v))
+}
+
+// PermissionEQ applies the EQ predicate on the "permission" field.
+func PermissionEQ(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldPermission, v))
+}
+
+// PermissionNEQ applies the NEQ predicate on the "permission" field.
+func PermissionNEQ(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldNEQ(FieldPermission, v))
+}
+
+// PermissionIn applies the In predicate on the "permission" field.
+func PermissionIn(vs ...string) predicate.Menu {
+	return predicate.Menu(sql.FieldIn(FieldPermission, vs...))
+}
+
+// PermissionNotIn applies the NotIn predicate on the "permission" field.
+func PermissionNotIn(vs ...string) predicate.Menu {
+	return predicate.Menu(sql.FieldNotIn(FieldPermission, vs...))
+}
+
+// PermissionGT applies the GT predicate on the "permission" field.
+func PermissionGT(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldGT(FieldPermission, v))
+}
+
+// PermissionGTE applies the GTE predicate on the "permission" field.
+func PermissionGTE(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldGTE(FieldPermission, v))
+}
+
+// PermissionLT applies the LT predicate on the "permission" field.
+func PermissionLT(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldLT(FieldPermission, v))
+}
+
+// PermissionLTE applies the LTE predicate on the "permission" field.
+func PermissionLTE(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldLTE(FieldPermission, v))
+}
+
+// PermissionContains applies the Contains predicate on the "permission" field.
+func PermissionContains(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldContains(FieldPermission, v))
+}
+
+// PermissionHasPrefix applies the HasPrefix predicate on the "permission" field.
+func PermissionHasPrefix(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldHasPrefix(FieldPermission, v))
+}
+
+// PermissionHasSuffix applies the HasSuffix predicate on the "permission" field.
+func PermissionHasSuffix(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldHasSuffix(FieldPermission, v))
+}
+
+// PermissionIsNil applies the IsNil predicate on the "permission" field.
+func PermissionIsNil() predicate.Menu {
+	return predicate.Menu(sql.FieldIsNull(FieldPermission))
+}
+
+// PermissionNotNil applies the NotNil predicate on the "permission" field.
+func PermissionNotNil() predicate.Menu {
+	return predicate.Menu(sql.FieldNotNull(FieldPermission))
+}
+
+// PermissionEqualFold applies the EqualFold predicate on the "permission" field.
+func PermissionEqualFold(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldEqualFold(FieldPermission, v))
+}
+
+// PermissionContainsFold applies the ContainsFold predicate on the "permission" field.
+func PermissionContainsFold(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldContainsFold(FieldPermission, v))
 }
 
 // TitleEQ applies the EQ predicate on the "title" field.

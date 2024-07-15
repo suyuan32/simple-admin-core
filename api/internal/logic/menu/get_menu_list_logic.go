@@ -65,6 +65,7 @@ func (l *GetMenuListLogic) GetMenuList() (resp *types.MenuPlainInfoListResp, err
 			RealPath:           v.Meta.RealPath,
 			Disabled:           v.Disabled,
 			ServiceName:        v.ServiceName,
+			Permission:         v.Permission,
 		})
 	}
 	resp.Msg = l.svcCtx.Trans.Trans(l.ctx, i18n.Success)

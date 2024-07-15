@@ -43,6 +43,7 @@ func (l *CreateMenuLogic) CreateMenu(req *types.MenuPlainInfo) (resp *types.Base
 		Sort:        req.Sort,
 		Disabled:    req.Disabled,
 		ServiceName: req.ServiceName,
+		Permission:  req.Permission,
 		Meta: &core.Meta{
 			Title:              req.Title,
 			Icon:               req.Icon,

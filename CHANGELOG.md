@@ -1,5 +1,225 @@
-<a name="v1.4.0"></a>
+<a name="v1.5.0"></a>
 
+## [v1.5.0](https://github.com/suyuan32/simple-admin-core/compare/v1.4.10...v1.5.0) (2024-07-13)
+
+### Chore
+
+* upgrade deps
+
+### Feat
+
+* menu permission field
+
+<a name="v1.4.10"></a>
+
+## [v1.4.10](https://github.com/suyuan32/simple-admin-core/compare/v1.4.9...v1.4.10) (2024-07-08)
+
+### Chore
+
+* update version and deps
+* use new functions to get ctx
+
+<a name="v1.4.9"></a>
+
+## [v1.4.9](https://github.com/suyuan32/simple-admin-core/compare/v1.4.8...v1.4.9) (2024-07-01)
+
+### Chore
+
+* upgrade deps
+
+### Feat
+
+* access token
+
+### Fix
+
+* check user status for refresh token api
+* remove default value of avatar
+* optimize schemas
+* optimize all in one config
+* optimize service context in api
+* get role code to modify casbin when update role
+* forbid role to access any api when role is banned
+* token init codes and i18n trans
+
+### Pull Requests
+
+* Merge pull request [#316](https://github.com/suyuan32/simple-admin-core/issues/316) from suyuan32/dev
+* Merge pull request [#315](https://github.com/suyuan32/simple-admin-core/issues/315) from suyuan32/dev
+
+<a name="v1.4.8"></a>
+
+## [v1.4.8](https://github.com/suyuan32/simple-admin-core/compare/v1.4.6...v1.4.8) (2024-06-24)
+
+### Chore
+
+* update all in one and readme
+* upgrade deps
+
+### Docs
+
+* update readme
+* update readme
+* update readme
+
+### Feat
+
+* refresh token
+
+### Fix
+
+* expired time in refresh token
+* get dictionary by name returns status normal details
+
+<a name="v1.4.6"></a>
+
+## [v1.4.6](https://github.com/suyuan32/simple-admin-core/compare/v1.4.5...v1.4.6) (2024-06-14)
+
+### Chore
+
+* upgrade deps and version
+
+### Fix
+
+* use new i18n init function
+
+### Pull Requests
+
+* Merge pull request [#313](https://github.com/suyuan32/simple-admin-core/issues/313) from suyuan32/dev
+* Merge pull request [#312](https://github.com/suyuan32/simple-admin-core/issues/312) from suyuan32/dev
+* Merge pull request [#311](https://github.com/suyuan32/simple-admin-core/issues/311) from suyuan32/dev
+
+<a name="v1.4.5"></a>
+
+## [v1.4.5](https://github.com/suyuan32/simple-admin-core/compare/v1.4.4...v1.4.5) (2024-06-09)
+
+### Chore
+
+* upgrade deps and system version
+
+### Feat
+
+* user info response with department name
+
+### Pull Requests
+
+* Merge pull request [#310](https://github.com/suyuan32/simple-admin-core/issues/310) from suyuan32/dev
+
+<a name="v1.4.4"></a>
+
+## [v1.4.4](https://github.com/suyuan32/simple-admin-core/compare/v1.4.3...v1.4.4) (2024-06-05)
+
+### Chore
+
+* upgrade deps
+* update system version in swagger
+
+### Docs
+
+* update readme
+* optimize comments
+* optimize comments
+* optimize comments
+* update readme
+
+### Fix
+
+* format i18n file of zh
+* user can still log in when user is banned
+* Department_ancestors function params with department parentID
+
+### Refactor
+
+* regen rpc with new goctls
+* optimize err handler in init db codes
+* optimize err handler in init db codes
+
+### Pull Requests
+
+* Merge pull request [#309](https://github.com/suyuan32/simple-admin-core/issues/309) from suyuan32/dev
+* Merge pull request [#308](https://github.com/suyuan32/simple-admin-core/issues/308) from suyuan32/dev
+* Merge pull request [#307](https://github.com/suyuan32/simple-admin-core/issues/307) from suyuan32/dev
+* Merge pull request [#306](https://github.com/suyuan32/simple-admin-core/issues/306) from suyuan32/dev
+* Merge pull request [#305](https://github.com/suyuan32/simple-admin-core/issues/305) from
+  zhuangpeng/function/get_dept_ancestor_ids
+* Merge pull request [#304](https://github.com/suyuan32/simple-admin-core/issues/304) from suyuan32/dev
+
+<a name="v1.4.3"></a>
+
+## [v1.4.3](https://github.com/suyuan32/simple-admin-core/compare/v1.4.1...v1.4.3) (2024-05-16)
+
+### Chore
+
+* update readme
+* update all in one
+* upgrade deps
+* update all in one
+
+### Docs
+
+* update readme
+
+### Feat
+
+* i18n multi-language support
+
+### Fix
+
+* use optional fields in department
+* wrong log message in sms register logic
+* optimize get department ancestors function
+* optimize get department ancestors function
+* add sql/modifier to ent feature of makefile
+
+### Function
+
+* add get department ancestor ids
+
+### Refactor
+
+* adjust new Casbin return params
+
+### Pull Requests
+
+* Merge pull request [#303](https://github.com/suyuan32/simple-admin-core/issues/303) from suyuan32/dev
+* Merge pull request [#302](https://github.com/suyuan32/simple-admin-core/issues/302) from suyuan32/dev
+* Merge pull request [#301](https://github.com/suyuan32/simple-admin-core/issues/301) from suyuan32/dev
+* Merge pull request [#300](https://github.com/suyuan32/simple-admin-core/issues/300) from suyuan32/dev
+* Merge pull request [#299](https://github.com/suyuan32/simple-admin-core/issues/299) from suyuan32/dev
+* Merge pull request [#298](https://github.com/suyuan32/simple-admin-core/issues/298) from
+  zhuangpeng/function/get_dept_ancestor_ids
+* Merge pull request [#297](https://github.com/suyuan32/simple-admin-core/issues/297) from suyuan32/dev
+* Merge pull request [#294](https://github.com/suyuan32/simple-admin-core/issues/294) from suyuan32/dev
+
+<a name="v1.4.1"></a>
+
+## [v1.4.1](https://github.com/suyuan32/simple-admin-core/compare/v1.4.0...v1.4.1) (2024-04-29)
+
+### Chore
+
+* upgrade version
+* update ent template
+* update changelog
+
+### Docs
+
+* update readme
+* update readme
+
+### Fix
+
+* new config example in etc
+
+### Pull Requests
+
+* Merge pull request [#293](https://github.com/suyuan32/simple-admin-core/issues/293) from suyuan32/dev
+* Merge pull request [#292](https://github.com/suyuan32/simple-admin-core/issues/292) from suyuan32/dev
+* Merge pull request [#291](https://github.com/suyuan32/simple-admin-core/issues/291) from suyuan32/dev
+* Merge pull request [#290](https://github.com/suyuan32/simple-admin-core/issues/290) from suyuan32/dev
+* Merge pull request [#289](https://github.com/suyuan32/simple-admin-core/issues/289) from suyuan32/dev
+* Merge pull request [#287](https://github.com/suyuan32/simple-admin-core/issues/287) from suyuan32/dev
+
+<a name="v1.4.0"></a>
 ## [v1.4.0](https://github.com/suyuan32/simple-admin-core/compare/v1.3.12...v1.4.0) (2024-04-16)
 
 ### Chore
@@ -24,7 +244,6 @@
 * Merge pull request [#285](https://github.com/suyuan32/simple-admin-core/issues/285) from suyuan32/dev
 
 <a name="v1.3.12"></a>
-
 ## [v1.3.12](https://github.com/suyuan32/simple-admin-core/compare/v1.3.11...v1.3.12) (2024-04-06)
 
 ### Chore

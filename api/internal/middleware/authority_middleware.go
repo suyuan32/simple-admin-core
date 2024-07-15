@@ -3,34 +3,31 @@ package middleware
 import (
 	"context"
 	"errors"
+	"github.com/casbin/casbin/v2"
 	"github.com/redis/go-redis/v9"
 	"github.com/suyuan32/simple-admin-common/config"
-	"net/http"
-	"strings"
-
-	"github.com/casbin/casbin/v2"
 	"github.com/suyuan32/simple-admin-common/enum/errorcode"
+	"github.com/suyuan32/simple-admin-common/orm/ent/entctx/rolectx"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
+	"net/http"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
 )
 
 type AuthorityMiddleware struct {
-	Cbn         *casbin.Enforcer
-	Rds         redis.UniversalClient
-	Trans       *i18n.Translator
-	BanRoleData map[string]bool
+	Cbn   *casbin.Enforcer
+	Rds   redis.UniversalClient
+	Trans *i18n.Translator
 }
 
-func NewAuthorityMiddleware(cbn *casbin.Enforcer, rds redis.UniversalClient, trans *i18n.Translator, banRoleData map[string]bool) *AuthorityMiddleware {
+func NewAuthorityMiddleware(cbn *casbin.Enforcer, rds redis.UniversalClient, trans *i18n.Translator) *AuthorityMiddleware {
 	return &AuthorityMiddleware{
-		Cbn:         cbn,
-		Rds:         rds,
-		Trans:       trans,
-		BanRoleData: banRoleData,
+		Cbn:   cbn,
+		Rds:   rds,
+		Trans: trans,
 	}
 }
 
@@ -41,17 +38,9 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		// get the method
 		act := r.Method
 		// get the role id
-		roleIds := strings.Split(r.Context().Value("roleId").(string), ",")
-
-		// check the role status
-		var isRoleNormal bool
-		for _, v := range roleIds {
-			if !m.BanRoleData[v] {
-				isRoleNormal = true
-			}
-		}
-		if !isRoleNormal {
-			httpx.Error(w, errorx.NewApiErrorWithoutMsg(http.StatusUnauthorized))
+		roleIds, err := rolectx.GetRoleIDFromCtx(r.Context())
+		if err != nil {
+			httpx.Error(w, err)
 			return
 		}
 

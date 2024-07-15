@@ -304,10 +304,6 @@ func (uc *UserCreate) defaults() error {
 		v := user.DefaultHomePath
 		uc.mutation.SetHomePath(v)
 	}
-	if _, ok := uc.mutation.Avatar(); !ok {
-		v := user.DefaultAvatar
-		uc.mutation.SetAvatar(v)
-	}
 	if _, ok := uc.mutation.DepartmentID(); !ok {
 		v := user.DefaultDepartmentID
 		uc.mutation.SetDepartmentID(v)

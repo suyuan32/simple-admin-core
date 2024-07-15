@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.4.6"
+    "version": "1.5.0"
   },
   "host": "localhost:9100",
   "basePath": "/",
@@ -2526,6 +2526,24 @@
         }
       }
     },
+    "/user/access_token": {
+      "get": {
+        "description": "Access token | 获取短期 token",
+        "tags": [
+          "user"
+        ],
+        "summary": "Access token | 获取短期 token",
+        "operationId": "AccessToken",
+        "responses": {
+          "200": {
+            "description": "RefreshTokenResp",
+            "schema": {
+              "$ref": "#/definitions/RefreshTokenResp"
+            }
+          }
+        }
+      }
+    },
     "/user/change_password": {
       "post": {
         "description": "Change Password | 修改密码",
@@ -2815,6 +2833,24 @@
             "description": "BaseMsgResp",
             "schema": {
               "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/user/refresh_token": {
+      "get": {
+        "description": "Refresh token | 获取刷新 token",
+        "tags": [
+          "user"
+        ],
+        "summary": "Refresh token | 获取刷新 token",
+        "operationId": "RefreshToken",
+        "responses": {
+          "200": {
+            "description": "RefreshTokenResp",
+            "schema": {
+              "$ref": "#/definitions/RefreshTokenResp"
             }
           }
         }
@@ -4646,6 +4682,11 @@
           "type": "string",
           "x-go-name": "Path"
         },
+        "permission": {
+          "description": "Permission symbol | 权限标识",
+          "type": "string",
+          "x-go-name": "Permission"
+        },
         "redirect": {
           "description": "Redirect | 跳转地址",
           "type": "string",
@@ -4855,6 +4896,11 @@
           "type": "string",
           "maxLength": 200,
           "x-go-name": "Path"
+        },
+        "permission": {
+          "description": "Permission symbol | 权限标识",
+          "type": "string",
+          "x-go-name": "Permission"
         },
         "realPath": {
           "description": "The real path of the route without dynamic part | 动态路由的实际Path, 即去除路由的动态部分",
@@ -5524,6 +5570,46 @@
           "type": "string",
           "x-go-name": "Data",
           "$ref": "#/definitions/RedirectInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "RefreshTokenInfo": {
+      "description": "Refresh token information | 刷新令牌信息",
+      "type": "object",
+      "properties": {
+        "expiredAt": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpiredAt"
+        },
+        "token": {
+          "type": "string",
+          "x-go-name": "Token"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "RefreshTokenResp": {
+      "description": "Refresh token response data | 刷新令牌响应数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/RefreshTokenInfo"
         },
         "msg": {
           "description": "Message | 提示信息",

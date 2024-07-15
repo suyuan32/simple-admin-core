@@ -233,6 +233,26 @@ func (mu *MenuUpdate) ClearServiceName() *MenuUpdate {
 	return mu
 }
 
+// SetPermission sets the "permission" field.
+func (mu *MenuUpdate) SetPermission(s string) *MenuUpdate {
+	mu.mutation.SetPermission(s)
+	return mu
+}
+
+// SetNillablePermission sets the "permission" field if the given value is not nil.
+func (mu *MenuUpdate) SetNillablePermission(s *string) *MenuUpdate {
+	if s != nil {
+		mu.SetPermission(*s)
+	}
+	return mu
+}
+
+// ClearPermission clears the value of the "permission" field.
+func (mu *MenuUpdate) ClearPermission() *MenuUpdate {
+	mu.mutation.ClearPermission()
+	return mu
+}
+
 // SetTitle sets the "title" field.
 func (mu *MenuUpdate) SetTitle(s string) *MenuUpdate {
 	mu.mutation.SetTitle(s)
@@ -661,6 +681,12 @@ func (mu *MenuUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if mu.mutation.ServiceNameCleared() {
 		_spec.ClearField(menu.FieldServiceName, field.TypeString)
 	}
+	if value, ok := mu.mutation.Permission(); ok {
+		_spec.SetField(menu.FieldPermission, field.TypeString, value)
+	}
+	if mu.mutation.PermissionCleared() {
+		_spec.ClearField(menu.FieldPermission, field.TypeString)
+	}
 	if value, ok := mu.mutation.Title(); ok {
 		_spec.SetField(menu.FieldTitle, field.TypeString, value)
 	}
@@ -1071,6 +1097,26 @@ func (muo *MenuUpdateOne) SetNillableServiceName(s *string) *MenuUpdateOne {
 // ClearServiceName clears the value of the "service_name" field.
 func (muo *MenuUpdateOne) ClearServiceName() *MenuUpdateOne {
 	muo.mutation.ClearServiceName()
+	return muo
+}
+
+// SetPermission sets the "permission" field.
+func (muo *MenuUpdateOne) SetPermission(s string) *MenuUpdateOne {
+	muo.mutation.SetPermission(s)
+	return muo
+}
+
+// SetNillablePermission sets the "permission" field if the given value is not nil.
+func (muo *MenuUpdateOne) SetNillablePermission(s *string) *MenuUpdateOne {
+	if s != nil {
+		muo.SetPermission(*s)
+	}
+	return muo
+}
+
+// ClearPermission clears the value of the "permission" field.
+func (muo *MenuUpdateOne) ClearPermission() *MenuUpdateOne {
+	muo.mutation.ClearPermission()
 	return muo
 }
 
@@ -1531,6 +1577,12 @@ func (muo *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) 
 	}
 	if muo.mutation.ServiceNameCleared() {
 		_spec.ClearField(menu.FieldServiceName, field.TypeString)
+	}
+	if value, ok := muo.mutation.Permission(); ok {
+		_spec.SetField(menu.FieldPermission, field.TypeString, value)
+	}
+	if muo.mutation.PermissionCleared() {
+		_spec.ClearField(menu.FieldPermission, field.TypeString)
 	}
 	if value, ok := muo.mutation.Title(); ok {
 		_spec.SetField(menu.FieldTitle, field.TypeString, value)

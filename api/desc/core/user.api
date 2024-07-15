@@ -292,6 +292,20 @@ type (
         Captcha         string  `json:"captcha"`
         Password        string  `json:"password"`
     }
+
+    // Refresh token response data | 刷新令牌响应数据
+    RefreshTokenResp {
+        BaseDataInfo
+
+        // The token information | 令牌信息
+        Data RefreshTokenInfo `json:"data"`
+    }
+
+    // Refresh token information | 刷新令牌信息
+    RefreshTokenInfo {
+        Token       string  `json:"token"`
+        ExpiredAt   int64   `json:"expiredAt"`
+    }
 )
 
 @server(
@@ -382,4 +396,12 @@ service Core {
     // Log out | 退出登陆
     @handler logout
     get /user/logout returns (BaseMsgResp)
+
+    // Refresh token | 获取刷新 token
+    @handler refreshToken
+    get /user/refresh_token returns (RefreshTokenResp)
+
+    // Access token | 获取短期 token
+    @handler accessToken
+    get /user/access_token returns (RefreshTokenResp)
 }

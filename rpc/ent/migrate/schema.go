@@ -119,6 +119,7 @@ var (
 		{Name: "component", Type: field.TypeString, Nullable: true, Comment: "The path of vue file | 组件路径", Default: ""},
 		{Name: "disabled", Type: field.TypeBool, Nullable: true, Comment: "Disable status | 是否停用", Default: false},
 		{Name: "service_name", Type: field.TypeString, Nullable: true, Comment: "Service Name | 服务名称", Default: "Other"},
+		{Name: "permission", Type: field.TypeString, Nullable: true, Comment: "Permission symbol | 权限标识"},
 		{Name: "title", Type: field.TypeString, Comment: "Menu name | 菜单显示标题"},
 		{Name: "icon", Type: field.TypeString, Comment: "Menu icon | 菜单图标"},
 		{Name: "hide_menu", Type: field.TypeBool, Nullable: true, Comment: "Hide menu | 是否隐藏菜单", Default: false},
@@ -141,7 +142,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "sys_menus_sys_menus_children",
-				Columns:    []*schema.Column{SysMenusColumns[24]},
+				Columns:    []*schema.Column{SysMenusColumns[25]},
 				RefColumns: []*schema.Column{SysMenusColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
@@ -211,7 +212,7 @@ var (
 		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
 		{Name: "name", Type: field.TypeString, Comment: "Role name | 角色名"},
-		{Name: "code", Type: field.TypeString, Unique: true, Comment: "Role code for permission control in front end | 角色码，用于前端权限控制"},
+		{Name: "code", Type: field.TypeString, Comment: "Role code for permission control in front end | 角色码，用于前端权限控制"},
 		{Name: "default_router", Type: field.TypeString, Comment: "Default menu : dashboard | 默认登录页面", Default: "dashboard"},
 		{Name: "remark", Type: field.TypeString, Comment: "Remark | 备注", Default: ""},
 		{Name: "sort", Type: field.TypeUint32, Comment: "Order number | 排序编号", Default: 0},
@@ -231,7 +232,7 @@ var (
 	}
 	// SysTokensColumns holds the columns for the "sys_tokens" table.
 	SysTokensColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
+		{Name: "id", Type: field.TypeUUID, Comment: "UUID"},
 		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
 		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
@@ -261,7 +262,7 @@ var (
 	}
 	// SysUsersColumns holds the columns for the "sys_users" table.
 	SysUsersColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
+		{Name: "id", Type: field.TypeUUID, Comment: "UUID"},
 		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
 		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
@@ -273,7 +274,7 @@ var (
 		{Name: "home_path", Type: field.TypeString, Comment: "The home page that the user enters after logging in | 用户登陆后进入的首页", Default: "/dashboard"},
 		{Name: "mobile", Type: field.TypeString, Nullable: true, Comment: "Mobile number | 手机号"},
 		{Name: "email", Type: field.TypeString, Nullable: true, Comment: "Email | 邮箱号"},
-		{Name: "avatar", Type: field.TypeString, Nullable: true, Comment: "Avatar | 头像路径", Default: "", SchemaType: map[string]string{"mysql": "varchar(512)"}},
+		{Name: "avatar", Type: field.TypeString, Nullable: true, Comment: "Avatar | 头像路径", SchemaType: map[string]string{"mysql": "varchar(512)"}},
 		{Name: "department_id", Type: field.TypeUint64, Nullable: true, Comment: "Department ID | 部门ID", Default: 1},
 	}
 	// SysUsersTable holds the schema information for the "sys_users" table.

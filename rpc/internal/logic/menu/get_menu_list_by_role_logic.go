@@ -59,6 +59,7 @@ func (l *GetMenuListByRoleLogic) GetMenuListByRole(in *core.BaseMsg) (*core.Menu
 					Component:   &m.Component,
 					Sort:        &m.Sort,
 					ServiceName: &m.ServiceName,
+					Permission:  &m.Permission,
 					Meta: &core.Meta{
 						Title:              &m.Title,
 						Icon:               &m.Icon,

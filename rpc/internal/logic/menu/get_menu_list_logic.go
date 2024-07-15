@@ -53,6 +53,7 @@ func (l *GetMenuListLogic) GetMenuList(in *core.PageInfoReq) (resp *core.MenuInf
 			Disabled:    &v.Disabled,
 			Sort:        &v.Sort,
 			ServiceName: &v.ServiceName,
+			Permission:  &v.Permission,
 			Meta: &core.Meta{
 				Title:              &v.Title,
 				Icon:               &v.Icon,

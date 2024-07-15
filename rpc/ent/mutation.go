@@ -3737,6 +3737,7 @@ type MenuMutation struct {
 	component             *string
 	disabled              *bool
 	service_name          *string
+	permission            *string
 	title                 *string
 	icon                  *string
 	hide_menu             *bool
@@ -4436,6 +4437,55 @@ func (m *MenuMutation) ServiceNameCleared() bool {
 func (m *MenuMutation) ResetServiceName() {
 	m.service_name = nil
 	delete(m.clearedFields, menu.FieldServiceName)
+}
+
+// SetPermission sets the "permission" field.
+func (m *MenuMutation) SetPermission(s string) {
+	m.permission = &s
+}
+
+// Permission returns the value of the "permission" field in the mutation.
+func (m *MenuMutation) Permission() (r string, exists bool) {
+	v := m.permission
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPermission returns the old "permission" field's value of the Menu entity.
+// If the Menu object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MenuMutation) OldPermission(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPermission is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPermission requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPermission: %w", err)
+	}
+	return oldValue.Permission, nil
+}
+
+// ClearPermission clears the value of the "permission" field.
+func (m *MenuMutation) ClearPermission() {
+	m.permission = nil
+	m.clearedFields[menu.FieldPermission] = struct{}{}
+}
+
+// PermissionCleared returns if the "permission" field was cleared in this mutation.
+func (m *MenuMutation) PermissionCleared() bool {
+	_, ok := m.clearedFields[menu.FieldPermission]
+	return ok
+}
+
+// ResetPermission resets all changes to the "permission" field.
+func (m *MenuMutation) ResetPermission() {
+	m.permission = nil
+	delete(m.clearedFields, menu.FieldPermission)
 }
 
 // SetTitle sets the "title" field.
@@ -5190,7 +5240,7 @@ func (m *MenuMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *MenuMutation) Fields() []string {
-	fields := make([]string, 0, 24)
+	fields := make([]string, 0, 25)
 	if m.created_at != nil {
 		fields = append(fields, menu.FieldCreatedAt)
 	}
@@ -5226,6 +5276,9 @@ func (m *MenuMutation) Fields() []string {
 	}
 	if m.service_name != nil {
 		fields = append(fields, menu.FieldServiceName)
+	}
+	if m.permission != nil {
+		fields = append(fields, menu.FieldPermission)
 	}
 	if m.title != nil {
 		fields = append(fields, menu.FieldTitle)
@@ -5295,6 +5348,8 @@ func (m *MenuMutation) Field(name string) (ent.Value, bool) {
 		return m.Disabled()
 	case menu.FieldServiceName:
 		return m.ServiceName()
+	case menu.FieldPermission:
+		return m.Permission()
 	case menu.FieldTitle:
 		return m.Title()
 	case menu.FieldIcon:
@@ -5352,6 +5407,8 @@ func (m *MenuMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldDisabled(ctx)
 	case menu.FieldServiceName:
 		return m.OldServiceName(ctx)
+	case menu.FieldPermission:
+		return m.OldPermission(ctx)
 	case menu.FieldTitle:
 		return m.OldTitle(ctx)
 	case menu.FieldIcon:
@@ -5468,6 +5525,13 @@ func (m *MenuMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetServiceName(v)
+		return nil
+	case menu.FieldPermission:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPermission(v)
 		return nil
 	case menu.FieldTitle:
 		v, ok := value.(string)
@@ -5652,6 +5716,9 @@ func (m *MenuMutation) ClearedFields() []string {
 	if m.FieldCleared(menu.FieldServiceName) {
 		fields = append(fields, menu.FieldServiceName)
 	}
+	if m.FieldCleared(menu.FieldPermission) {
+		fields = append(fields, menu.FieldPermission)
+	}
 	if m.FieldCleared(menu.FieldHideMenu) {
 		fields = append(fields, menu.FieldHideMenu)
 	}
@@ -5713,6 +5780,9 @@ func (m *MenuMutation) ClearField(name string) error {
 		return nil
 	case menu.FieldServiceName:
 		m.ClearServiceName()
+		return nil
+	case menu.FieldPermission:
+		m.ClearPermission()
 		return nil
 	case menu.FieldHideMenu:
 		m.ClearHideMenu()
@@ -5787,6 +5857,9 @@ func (m *MenuMutation) ResetField(name string) error {
 		return nil
 	case menu.FieldServiceName:
 		m.ResetServiceName()
+		return nil
+	case menu.FieldPermission:
+		m.ResetPermission()
 		return nil
 	case menu.FieldTitle:
 		m.ResetTitle()

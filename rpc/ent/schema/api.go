@@ -16,24 +16,18 @@ type API struct {
 func (API) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("path").
-			Comment("API path | API 路径").
-			Annotations(entsql.WithComments(true)),
+			Comment("API path | API 路径"),
 		field.String("description").
-			Comment("API description | API 描述").
-			Annotations(entsql.WithComments(true)),
+			Comment("API description | API 描述"),
 		field.String("api_group").
-			Comment("API group | API 分组").
-			Annotations(entsql.WithComments(true)),
+			Comment("API group | API 分组"),
 		field.String("service_name").
 			Comment("Service name | 服务名称").
-			Default("Other").
-			Annotations(entsql.WithComments(true)),
+			Default("Other"),
 		field.String("method").Default("POST").
-			Comment("HTTP method | HTTP 请求类型").
-			Annotations(entsql.WithComments(true)),
+			Comment("HTTP method | HTTP 请求类型"),
 		field.Bool("is_required").Default(false).
-			Comment("Whether is required | 是否必选").
-			Annotations(entsql.WithComments(true)),
+			Comment("Whether is required | 是否必选"),
 	}
 }
 
@@ -56,6 +50,7 @@ func (API) Indexes() []ent.Index {
 
 func (API) Annotations() []schema.Annotation {
 	return []schema.Annotation{
+		entsql.WithComments(true),
 		entsql.Annotation{Table: "sys_apis"},
 	}
 }
