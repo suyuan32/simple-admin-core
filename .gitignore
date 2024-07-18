@@ -27,3 +27,6 @@ cusCMD
 
 core_api
 core_rpc
+
+# vscode debug files
+_debug*
