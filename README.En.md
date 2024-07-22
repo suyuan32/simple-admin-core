@@ -39,7 +39,9 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 <br>
 
-> **Note: Secondary sale of module code is prohibited. It can only be used for personal and commercial purposes. Please obtain authorization for secondary sale.**
+> 💡 **Note: Secondary sale of module code is prohibited. It can only be used for personal and commercial purposes. Please obtain authorization for secondary sale.**
+
+> ✨ We accept outsourcing. Please contact us via email if you have any outsourcing needs.
 
 ## Official Tutorial
 
