@@ -27,6 +27,11 @@ const (
 	Core_GetMenuAuthority_FullMethodName                    = "/core.Core/getMenuAuthority"
 	Core_CreateOrUpdateMenuAuthority_FullMethodName         = "/core.Core/createOrUpdateMenuAuthority"
 	Core_InitDatabase_FullMethodName                        = "/core.Core/initDatabase"
+	Core_CreateConfiguration_FullMethodName                 = "/core.Core/createConfiguration"
+	Core_UpdateConfiguration_FullMethodName                 = "/core.Core/updateConfiguration"
+	Core_GetConfigurationList_FullMethodName                = "/core.Core/getConfigurationList"
+	Core_GetConfigurationById_FullMethodName                = "/core.Core/getConfigurationById"
+	Core_DeleteConfiguration_FullMethodName                 = "/core.Core/deleteConfiguration"
 	Core_CreateDepartment_FullMethodName                    = "/core.Core/createDepartment"
 	Core_UpdateDepartment_FullMethodName                    = "/core.Core/updateDepartment"
 	Core_GetDepartmentList_FullMethodName                   = "/core.Core/getDepartmentList"
@@ -100,6 +105,17 @@ type CoreClient interface {
 	CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: base
 	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
+	// Configuration management
+	// group: configuration
+	CreateConfiguration(ctx context.Context, in *ConfigurationInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+	// group: configuration
+	UpdateConfiguration(ctx context.Context, in *ConfigurationInfo, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: configuration
+	GetConfigurationList(ctx context.Context, in *ConfigurationListReq, opts ...grpc.CallOption) (*ConfigurationListResp, error)
+	// group: configuration
+	GetConfigurationById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ConfigurationInfo, error)
+	// group: configuration
+	DeleteConfiguration(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// Department management
 	// group: department
 	CreateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -284,6 +300,51 @@ func (c *coreClient) CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMe
 func (c *coreClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, Core_InitDatabase_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) CreateConfiguration(ctx context.Context, in *ConfigurationInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	out := new(BaseIDResp)
+	err := c.cc.Invoke(ctx, Core_CreateConfiguration_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) UpdateConfiguration(ctx context.Context, in *ConfigurationInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_UpdateConfiguration_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetConfigurationList(ctx context.Context, in *ConfigurationListReq, opts ...grpc.CallOption) (*ConfigurationListResp, error) {
+	out := new(ConfigurationListResp)
+	err := c.cc.Invoke(ctx, Core_GetConfigurationList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) GetConfigurationById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ConfigurationInfo, error) {
+	out := new(ConfigurationInfo)
+	err := c.cc.Invoke(ctx, Core_GetConfigurationById_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) DeleteConfiguration(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Core_DeleteConfiguration_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -761,6 +822,17 @@ type CoreServer interface {
 	CreateOrUpdateMenuAuthority(context.Context, *RoleMenuAuthorityReq) (*BaseResp, error)
 	// group: base
 	InitDatabase(context.Context, *Empty) (*BaseResp, error)
+	// Configuration management
+	// group: configuration
+	CreateConfiguration(context.Context, *ConfigurationInfo) (*BaseIDResp, error)
+	// group: configuration
+	UpdateConfiguration(context.Context, *ConfigurationInfo) (*BaseResp, error)
+	// group: configuration
+	GetConfigurationList(context.Context, *ConfigurationListReq) (*ConfigurationListResp, error)
+	// group: configuration
+	GetConfigurationById(context.Context, *IDReq) (*ConfigurationInfo, error)
+	// group: configuration
+	DeleteConfiguration(context.Context, *IDsReq) (*BaseResp, error)
 	// Department management
 	// group: department
 	CreateDepartment(context.Context, *DepartmentInfo) (*BaseIDResp, error)
@@ -899,6 +971,21 @@ func (UnimplementedCoreServer) CreateOrUpdateMenuAuthority(context.Context, *Rol
 }
 func (UnimplementedCoreServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
+}
+func (UnimplementedCoreServer) CreateConfiguration(context.Context, *ConfigurationInfo) (*BaseIDResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateConfiguration not implemented")
+}
+func (UnimplementedCoreServer) UpdateConfiguration(context.Context, *ConfigurationInfo) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateConfiguration not implemented")
+}
+func (UnimplementedCoreServer) GetConfigurationList(context.Context, *ConfigurationListReq) (*ConfigurationListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetConfigurationList not implemented")
+}
+func (UnimplementedCoreServer) GetConfigurationById(context.Context, *IDReq) (*ConfigurationInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetConfigurationById not implemented")
+}
+func (UnimplementedCoreServer) DeleteConfiguration(context.Context, *IDsReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteConfiguration not implemented")
 }
 func (UnimplementedCoreServer) CreateDepartment(context.Context, *DepartmentInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDepartment not implemented")
@@ -1203,6 +1290,96 @@ func _Core_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).InitDatabase(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_CreateConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConfigurationInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).CreateConfiguration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_CreateConfiguration_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).CreateConfiguration(ctx, req.(*ConfigurationInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_UpdateConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConfigurationInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).UpdateConfiguration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_UpdateConfiguration_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).UpdateConfiguration(ctx, req.(*ConfigurationInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetConfigurationList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConfigurationListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetConfigurationList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetConfigurationList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetConfigurationList(ctx, req.(*ConfigurationListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_GetConfigurationById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).GetConfigurationById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_GetConfigurationById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).GetConfigurationById(ctx, req.(*IDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_DeleteConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDsReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).DeleteConfiguration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Core_DeleteConfiguration_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).DeleteConfiguration(ctx, req.(*IDsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2145,6 +2322,26 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "initDatabase",
 			Handler:    _Core_InitDatabase_Handler,
+		},
+		{
+			MethodName: "createConfiguration",
+			Handler:    _Core_CreateConfiguration_Handler,
+		},
+		{
+			MethodName: "updateConfiguration",
+			Handler:    _Core_UpdateConfiguration_Handler,
+		},
+		{
+			MethodName: "getConfigurationList",
+			Handler:    _Core_GetConfigurationList_Handler,
+		},
+		{
+			MethodName: "getConfigurationById",
+			Handler:    _Core_GetConfigurationById_Handler,
+		},
+		{
+			MethodName: "deleteConfiguration",
+			Handler:    _Core_DeleteConfiguration_Handler,
 		},
 		{
 			MethodName: "createDepartment",

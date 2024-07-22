@@ -177,6 +177,198 @@ func (a *APICreate) SetNotNilIsRequired(value *bool) *APICreate {
 }
 
 // set field if value's pointer is not nil.
+func (c *ConfigurationUpdate) SetNotNilUpdatedAt(value *time.Time) *ConfigurationUpdate {
+	if value != nil {
+		return c.SetUpdatedAt(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ConfigurationUpdateOne {
+	if value != nil {
+		return c.SetUpdatedAt(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationCreate) SetNotNilUpdatedAt(value *time.Time) *ConfigurationCreate {
+	if value != nil {
+		return c.SetUpdatedAt(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdate) SetNotNilSort(value *uint32) *ConfigurationUpdate {
+	if value != nil {
+		return c.SetSort(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdateOne) SetNotNilSort(value *uint32) *ConfigurationUpdateOne {
+	if value != nil {
+		return c.SetSort(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationCreate) SetNotNilSort(value *uint32) *ConfigurationCreate {
+	if value != nil {
+		return c.SetSort(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdate) SetNotNilState(value *bool) *ConfigurationUpdate {
+	if value != nil {
+		return c.SetState(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdateOne) SetNotNilState(value *bool) *ConfigurationUpdateOne {
+	if value != nil {
+		return c.SetState(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationCreate) SetNotNilState(value *bool) *ConfigurationCreate {
+	if value != nil {
+		return c.SetState(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdate) SetNotNilName(value *string) *ConfigurationUpdate {
+	if value != nil {
+		return c.SetName(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdateOne) SetNotNilName(value *string) *ConfigurationUpdateOne {
+	if value != nil {
+		return c.SetName(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationCreate) SetNotNilName(value *string) *ConfigurationCreate {
+	if value != nil {
+		return c.SetName(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdate) SetNotNilKey(value *string) *ConfigurationUpdate {
+	if value != nil {
+		return c.SetKey(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdateOne) SetNotNilKey(value *string) *ConfigurationUpdateOne {
+	if value != nil {
+		return c.SetKey(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationCreate) SetNotNilKey(value *string) *ConfigurationCreate {
+	if value != nil {
+		return c.SetKey(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdate) SetNotNilValue(value *string) *ConfigurationUpdate {
+	if value != nil {
+		return c.SetValue(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdateOne) SetNotNilValue(value *string) *ConfigurationUpdateOne {
+	if value != nil {
+		return c.SetValue(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationCreate) SetNotNilValue(value *string) *ConfigurationCreate {
+	if value != nil {
+		return c.SetValue(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdate) SetNotNilCategory(value *string) *ConfigurationUpdate {
+	if value != nil {
+		return c.SetCategory(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdateOne) SetNotNilCategory(value *string) *ConfigurationUpdateOne {
+	if value != nil {
+		return c.SetCategory(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationCreate) SetNotNilCategory(value *string) *ConfigurationCreate {
+	if value != nil {
+		return c.SetCategory(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdate) SetNotNilRemark(value *string) *ConfigurationUpdate {
+	if value != nil {
+		return c.SetRemark(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationUpdateOne) SetNotNilRemark(value *string) *ConfigurationUpdateOne {
+	if value != nil {
+		return c.SetRemark(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
+func (c *ConfigurationCreate) SetNotNilRemark(value *string) *ConfigurationCreate {
+	if value != nil {
+		return c.SetRemark(*value)
+	}
+	return c
+}
+
+// set field if value's pointer is not nil.
 func (d *DepartmentUpdate) SetNotNilUpdatedAt(value *time.Time) *DepartmentUpdate {
 	if value != nil {
 		return d.SetUpdatedAt(*value)

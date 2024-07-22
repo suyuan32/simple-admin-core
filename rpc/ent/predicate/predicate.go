@@ -9,6 +9,9 @@ import (
 // API is the predicate function for api builders.
 type API func(*sql.Selector)
 
+// Configuration is the predicate function for configuration builders.
+type Configuration func(*sql.Selector)
+
 // Department is the predicate function for department builders.
 type Department func(*sql.Selector)
 

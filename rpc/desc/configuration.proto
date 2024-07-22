@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+// Configuration message
+
+message ConfigurationInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // Sort Number | 排序编号
+  optional uint32 sort = 4;
+  // State true: normal false: ban | 状态 true 正常 false 禁用
+  optional bool state = 5;
+  // Configurarion name | 配置名称
+  optional string name = 6;
+  // Configuration key | 配置的键名
+  optional string key = 7;
+  // Configuraion value | 配置的值
+  optional string value = 8;
+  // Configuration category | 配置的分类
+  optional string category = 9;
+  // Remark | 备注
+  optional string remark = 10;
+}
+
+message ConfigurationListResp {
+  uint64 total = 1;
+  repeated ConfigurationInfo data = 2;
+}
+
+message ConfigurationListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional string name = 3;
+  optional string key = 4;
+  optional string category = 5;
+  optional bool state = 6;
+}
+
+
+service Core {
+
+  // Configuration management
+  // group: configuration
+  rpc createConfiguration (ConfigurationInfo) returns (BaseIDResp);
+  // group: configuration
+  rpc updateConfiguration (ConfigurationInfo) returns (BaseResp);
+  // group: configuration
+  rpc getConfigurationList (ConfigurationListReq) returns (ConfigurationListResp);
+  // group: configuration
+  rpc getConfigurationById (IDReq) returns (ConfigurationInfo);
+  // group: configuration
+  rpc deleteConfiguration (IDsReq) returns (BaseResp);
+
+
+}

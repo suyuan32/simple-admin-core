@@ -45,9 +45,15 @@
 		"email_log": "电子邮件发送日志",
 		"sms_provider": "短信服务配置",
 		"sms_log": "短信发送日志",
-		"message_sender": "消息发送"
+		"message_sender": "消息发送",
+		"configuration": "参数配置"
 	},
 	"apiDesc": {
+		"createConfiguration": "创建参数配置",
+		"updateConfiguration": "更新参数配置",
+		"deleteConfiguration": "删除参数配置",
+		"getConfigurationList": "获取参数配置列表",
+		"getConfigurationById": "通过ID获取参数配置",
 		"createCloudFileTag": "创建云文件标签",
 		"updateCloudFileTag": "更新云文件标签",
 		"deleteCloudFileTag": "删除云文件标签",
@@ -233,7 +239,8 @@
 		"messageCenterManagement": "消息中心管理",
 		"storageProviderManagement": "云存储服务商管理",
 		"cloudFileManagement": "云文件管理",
-		"cloudFileTagManagement": "云文件标签管理"
+		"cloudFileTagManagement": "云文件标签管理",
+		"configurationManagement": "参数管理"
 	},
 	"login": {
 		"loginSuccessTitle": "登录成功",

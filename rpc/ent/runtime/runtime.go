@@ -7,6 +7,7 @@ import (
 
 	uuid "github.com/gofrs/uuid/v5"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
@@ -50,6 +51,33 @@ func init() {
 	apiDescIsRequired := apiFields[5].Descriptor()
 	// api.DefaultIsRequired holds the default value on creation for the is_required field.
 	api.DefaultIsRequired = apiDescIsRequired.Default.(bool)
+	configurationMixin := schema.Configuration{}.Mixin()
+	configurationMixinFields0 := configurationMixin[0].Fields()
+	_ = configurationMixinFields0
+	configurationMixinFields1 := configurationMixin[1].Fields()
+	_ = configurationMixinFields1
+	configurationMixinFields2 := configurationMixin[2].Fields()
+	_ = configurationMixinFields2
+	configurationFields := schema.Configuration{}.Fields()
+	_ = configurationFields
+	// configurationDescCreatedAt is the schema descriptor for created_at field.
+	configurationDescCreatedAt := configurationMixinFields0[1].Descriptor()
+	// configuration.DefaultCreatedAt holds the default value on creation for the created_at field.
+	configuration.DefaultCreatedAt = configurationDescCreatedAt.Default.(func() time.Time)
+	// configurationDescUpdatedAt is the schema descriptor for updated_at field.
+	configurationDescUpdatedAt := configurationMixinFields0[2].Descriptor()
+	// configuration.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	configuration.DefaultUpdatedAt = configurationDescUpdatedAt.Default.(func() time.Time)
+	// configuration.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	configuration.UpdateDefaultUpdatedAt = configurationDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// configurationDescSort is the schema descriptor for sort field.
+	configurationDescSort := configurationMixinFields1[0].Descriptor()
+	// configuration.DefaultSort holds the default value on creation for the sort field.
+	configuration.DefaultSort = configurationDescSort.Default.(uint32)
+	// configurationDescState is the schema descriptor for state field.
+	configurationDescState := configurationMixinFields2[0].Descriptor()
+	// configuration.DefaultState holds the default value on creation for the state field.
+	configuration.DefaultState = configurationDescState.Default.(bool)
 	departmentMixin := schema.Department{}.Mixin()
 	departmentMixinFields0 := departmentMixin[0].Fields()
 	_ = departmentMixinFields0

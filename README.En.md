@@ -37,6 +37,10 @@ Here are some key points about Simple Admin:
 <br>
 The 6 free modules are all free for commercial use and are suitable for developer learning, internal use of enterprises, personal project use, etc. Everyone is welcome to use and feedback problems, and we will continue to update and maintain them.
 
+<br>
+
+> **Note: Secondary sale of module code is prohibited. It can only be used for personal and commercial purposes. Please obtain authorization for secondary sale.**
+
 ## Official Tutorial
 
 ### [Simple Admin](https://www.youtube.com/@yuansu5197)
@@ -104,7 +108,7 @@ revenue, and now 10+ modules are included.
 ## Permanently Free Official Modules
 
 | Module Name | Module Introduction | Module Address                                                            |
-|-------------|---------------------|---------------------------------------------------------------------------|
+| ----------- | ------------------- | ------------------------------------------------------------------------- |
 | Core        | Core Module         | [Core](https://github.com/suyuan32/simple-admin-core)                     |
 | Backend UI  | Backend Interface   | [Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)         |
 | FMS         | File Management     | [File](https://github.com/suyuan32/simple-admin-file)                     |
@@ -115,7 +119,7 @@ revenue, and now 10+ modules are included.
 ## Member Exclusive Modules
 
 | Module Name | Module Introduction               |
-|-------------|-----------------------------------| 
+| ----------- | --------------------------------- |
 | CMS         | Content Management Module         |
 | Simple-Uni  | Mini Program Development Scaffold |
 | Simple-Nuxt | PC Web End Development Scaffold   |

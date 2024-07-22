@@ -223,6 +223,21 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetServiceName("Job"),
 	)
 
+	menus = append(menus, l.svcCtx.DB.Menu.Create().
+		SetMenuLevel(2).
+		SetMenuType(1).
+		SetParentID(2).
+		SetPath("/configuration").
+		SetName("ConfigurationManagement").
+		SetComponent("/sys/configuration/index").
+		SetSort(9).
+		SetHideChildrenInMenu(true).
+		SetTitle("route.configurationManagement").
+		SetIcon("carbon:data-2").
+		SetHideMenu(false).
+		SetServiceName("Core"),
+	)
+
 	err := l.svcCtx.DB.Menu.CreateBulk(menus...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
