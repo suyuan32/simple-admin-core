@@ -8,6 +8,7 @@ import (
 	authority "github.com/suyuan32/simple-admin-core/api/internal/handler/authority"
 	base "github.com/suyuan32/simple-admin-core/api/internal/handler/base"
 	captcha "github.com/suyuan32/simple-admin-core/api/internal/handler/captcha"
+	configuration "github.com/suyuan32/simple-admin-core/api/internal/handler/configuration"
 	department "github.com/suyuan32/simple-admin-core/api/internal/handler/department"
 	dictionary "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionary"
 	dictionarydetail "github.com/suyuan32/simple-admin-core/api/internal/handler/dictionarydetail"
@@ -17,6 +18,7 @@ import (
 	messagesender "github.com/suyuan32/simple-admin-core/api/internal/handler/messagesender"
 	oauthprovider "github.com/suyuan32/simple-admin-core/api/internal/handler/oauthprovider"
 	position "github.com/suyuan32/simple-admin-core/api/internal/handler/position"
+	publicapi "github.com/suyuan32/simple-admin-core/api/internal/handler/publicapi"
 	publicuser "github.com/suyuan32/simple-admin-core/api/internal/handler/publicuser"
 	role "github.com/suyuan32/simple-admin-core/api/internal/handler/role"
 	smslog "github.com/suyuan32/simple-admin-core/api/internal/handler/smslog"
@@ -785,5 +787,49 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.Authority},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/configuration/create",
+					Handler: configuration.CreateConfigurationHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/configuration/update",
+					Handler: configuration.UpdateConfigurationHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/configuration/delete",
+					Handler: configuration.DeleteConfigurationHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/configuration/list",
+					Handler: configuration.GetConfigurationListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/configuration",
+					Handler: configuration.GetConfigurationByIdHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/configuration/system/list",
+				Handler: publicapi.GetPublicSystemConfigurationListHandler(serverCtx),
+			},
+		},
 	)
 }

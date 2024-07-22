@@ -8,8 +8,8 @@
 [![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.6.6-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.11.5-yellow.svg)](https://vvbin.cn/doc-next/)
 [![Ent](https://img.shields.io/badge/Ent-v0.13.1-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.97.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.4.9-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.98.0-orange.svg)](https://github.com/casbin/casbin)
+[![Release](https://img.shields.io/badge/Release-v1.5.1-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
 ![注意](https://img.shields.io/badge/%E6%B3%A8%E6%84%8F-%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A0%E5%85%A5%E5%BE%AE%E4%BF%A1%E7%BE%A4-blue)
@@ -36,6 +36,12 @@ Here are some key points about Simple Admin:
 
 <br>
 The 6 free modules are all free for commercial use and are suitable for developer learning, internal use of enterprises, personal project use, etc. Everyone is welcome to use and feedback problems, and we will continue to update and maintain them.
+
+<br>
+
+> 💡 **Note: Secondary sale of module code is prohibited. It can only be used for personal and commercial purposes. Please obtain authorization for secondary sale.**
+
+> ✨ We accept outsourcing. Please contact us via email if you have any outsourcing needs.
 
 ## Official Tutorial
 
@@ -104,7 +110,7 @@ revenue, and now 10+ modules are included.
 ## Permanently Free Official Modules
 
 | Module Name | Module Introduction | Module Address                                                            |
-|-------------|---------------------|---------------------------------------------------------------------------|
+| ----------- | ------------------- | ------------------------------------------------------------------------- |
 | Core        | Core Module         | [Core](https://github.com/suyuan32/simple-admin-core)                     |
 | Backend UI  | Backend Interface   | [Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)         |
 | FMS         | File Management     | [File](https://github.com/suyuan32/simple-admin-file)                     |
@@ -115,7 +121,7 @@ revenue, and now 10+ modules are included.
 ## Member Exclusive Modules
 
 | Module Name | Module Introduction               |
-|-------------|-----------------------------------| 
+| ----------- | --------------------------------- |
 | CMS         | Content Management Module         |
 | Simple-Uni  | Mini Program Development Scaffold |
 | Simple-Nuxt | PC Web End Development Scaffold   |

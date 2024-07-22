@@ -21,6 +21,9 @@ type (
 	BaseResp                 = core.BaseResp
 	BaseUUIDResp             = core.BaseUUIDResp
 	CallbackReq              = core.CallbackReq
+	ConfigurationInfo        = core.ConfigurationInfo
+	ConfigurationListReq     = core.ConfigurationListReq
+	ConfigurationListResp    = core.ConfigurationListResp
 	DepartmentInfo           = core.DepartmentInfo
 	DepartmentListReq        = core.DepartmentListReq
 	DepartmentListResp       = core.DepartmentListResp
@@ -72,6 +75,12 @@ type (
 		GetMenuAuthority(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleMenuAuthorityResp, error)
 		CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleMenuAuthorityReq, opts ...grpc.CallOption) (*BaseResp, error)
 		InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
+		// Configuration management
+		CreateConfiguration(ctx context.Context, in *ConfigurationInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
+		UpdateConfiguration(ctx context.Context, in *ConfigurationInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetConfigurationList(ctx context.Context, in *ConfigurationListReq, opts ...grpc.CallOption) (*ConfigurationListResp, error)
+		GetConfigurationById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ConfigurationInfo, error)
+		DeleteConfiguration(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// Department management
 		CreateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateDepartment(ctx context.Context, in *DepartmentInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -182,6 +191,32 @@ func (m *defaultCore) CreateOrUpdateMenuAuthority(ctx context.Context, in *RoleM
 func (m *defaultCore) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.InitDatabase(ctx, in, opts...)
+}
+
+// Configuration management
+func (m *defaultCore) CreateConfiguration(ctx context.Context, in *ConfigurationInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateConfiguration(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateConfiguration(ctx context.Context, in *ConfigurationInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateConfiguration(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetConfigurationList(ctx context.Context, in *ConfigurationListReq, opts ...grpc.CallOption) (*ConfigurationListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetConfigurationList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetConfigurationById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*ConfigurationInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetConfigurationById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteConfiguration(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteConfiguration(ctx, in, opts...)
 }
 
 // Department management

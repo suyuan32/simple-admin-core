@@ -1,0 +1,105 @@
+import "../base.api"
+
+type (
+    // The response data of configuration information | 参数配置信息
+    ConfigurationInfo {
+        BaseIDInfo
+
+        // Sort Number | 排序编号
+        Sort  *uint32 `json:"sort,optional"`
+
+        // State true: normal false: ban | 状态 true 正常 false 禁用
+        State  *bool `json:"state,optional"`
+
+        // Configurarion name | 配置名称
+        Name  *string `json:"name,optional"`
+
+        // Configuration key | 配置的键名
+        Key  *string `json:"key,optional"`
+
+        // Configuraion value | 配置的值
+        Value  *string `json:"value,optional"`
+
+        // Configuration category | 配置的分类
+        Category  *string `json:"category,optional"`
+
+        // Remark | 备注
+        Remark  *string `json:"remark,optional"`
+    }
+
+    // The response data of configuration list | 参数配置列表数据
+    ConfigurationListResp {
+        BaseDataInfo
+
+        // Configuration list data | 参数配置列表数据
+        Data ConfigurationListInfo `json:"data"`
+    }
+
+    // Configuration list data | 参数配置列表数据
+    ConfigurationListInfo {
+        BaseListInfo
+
+        // The API list data | Configuration列表数据
+        Data  []ConfigurationInfo  `json:"data"`
+    }
+
+    // Get configuration list request params | 参数配置列表请求参数
+    ConfigurationListReq {
+        PageInfo
+
+        // Name
+        Name  *string `json:"name,optional"`
+
+        // Key
+        Key  *string `json:"key,optional"`
+
+        // Category 
+        Category *string `json:"category,optional"`
+    }
+
+    // Configuration information response | 参数配置信息返回体
+    ConfigurationInfoResp {
+        BaseDataInfo
+
+        // Configuration information | 参数配置数据
+        Data ConfigurationInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: configuration
+    middleware: Authority
+)
+
+service Core {
+    // Create configuration information | 创建参数配置
+    @handler createConfiguration
+    post /configuration/create (ConfigurationInfo) returns (BaseMsgResp)
+
+    // Update configuration information | 更新参数配置
+    @handler updateConfiguration
+    post /configuration/update (ConfigurationInfo) returns (BaseMsgResp)
+
+    // Delete configuration information | 删除参数配置信息
+    @handler deleteConfiguration
+    post /configuration/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get configuration list | 获取参数配置列表
+    @handler getConfigurationList
+    post /configuration/list (ConfigurationListReq) returns (ConfigurationListResp)
+
+    // Get configuration by ID | 通过ID获取参数配置
+    @handler getConfigurationById
+    post /configuration (IDReq) returns (ConfigurationInfoResp)
+}
+
+@server(
+    group: publicapi
+)
+
+service Core {
+    // Get public system configuration list | 获取公开系统参数列表
+    @handler getPublicSystemConfigurationList
+    get /configuration/system/list returns (ConfigurationListResp)
+}

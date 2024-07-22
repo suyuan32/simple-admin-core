@@ -1608,3 +1608,59 @@ type SendEmailReq struct {
 	// The email provider | 邮件服务提供商
 	Provider *string `json:"provider,optional"`
 }
+
+// The response data of configuration information | 参数配置信息
+// swagger:model ConfigurationInfo
+type ConfigurationInfo struct {
+	BaseIDInfo
+	// Sort Number | 排序编号
+	Sort *uint32 `json:"sort,optional"`
+	// State true: normal false: ban | 状态 true 正常 false 禁用
+	State *bool `json:"state,optional"`
+	// Configurarion name | 配置名称
+	Name *string `json:"name,optional"`
+	// Configuration key | 配置的键名
+	Key *string `json:"key,optional"`
+	// Configuraion value | 配置的值
+	Value *string `json:"value,optional"`
+	// Configuration category | 配置的分类
+	Category *string `json:"category,optional"`
+	// Remark | 备注
+	Remark *string `json:"remark,optional"`
+}
+
+// The response data of configuration list | 参数配置列表数据
+// swagger:model ConfigurationListResp
+type ConfigurationListResp struct {
+	BaseDataInfo
+	// Configuration list data | 参数配置列表数据
+	Data ConfigurationListInfo `json:"data"`
+}
+
+// Configuration list data | 参数配置列表数据
+// swagger:model ConfigurationListInfo
+type ConfigurationListInfo struct {
+	BaseListInfo
+	// The API list data | Configuration列表数据
+	Data []ConfigurationInfo `json:"data"`
+}
+
+// Get configuration list request params | 参数配置列表请求参数
+// swagger:model ConfigurationListReq
+type ConfigurationListReq struct {
+	PageInfo
+	// Name
+	Name *string `json:"name,optional"`
+	// Key
+	Key *string `json:"key,optional"`
+	// Category
+	Category *string `json:"category,optional"`
+}
+
+// Configuration information response | 参数配置信息返回体
+// swagger:model ConfigurationInfoResp
+type ConfigurationInfoResp struct {
+	BaseDataInfo
+	// Configuration information | 参数配置数据
+	Data ConfigurationInfo `json:"data"`
+}

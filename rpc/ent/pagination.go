@@ -7,6 +7,7 @@ import (
 	"fmt"
 
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
@@ -137,6 +138,87 @@ func (a *APIQuery) Page(
 
 	a = a.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
 	list, err := a.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type ConfigurationPager struct {
+	Order  configuration.OrderOption
+	Filter func(*ConfigurationQuery) (*ConfigurationQuery, error)
+}
+
+// ConfigurationPaginateOption enables pagination customization.
+type ConfigurationPaginateOption func(*ConfigurationPager)
+
+// DefaultConfigurationOrder is the default ordering of Configuration.
+var DefaultConfigurationOrder = Desc(configuration.FieldID)
+
+func newConfigurationPager(opts []ConfigurationPaginateOption) (*ConfigurationPager, error) {
+	pager := &ConfigurationPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultConfigurationOrder
+	}
+	return pager, nil
+}
+
+func (p *ConfigurationPager) ApplyFilter(query *ConfigurationQuery) (*ConfigurationQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// ConfigurationPageList is Configuration PageList result.
+type ConfigurationPageList struct {
+	List        []*Configuration `json:"list"`
+	PageDetails *PageDetails     `json:"pageDetails"`
+}
+
+func (c *ConfigurationQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ConfigurationPaginateOption,
+) (*ConfigurationPageList, error) {
+
+	pager, err := newConfigurationPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if c, err = pager.ApplyFilter(c); err != nil {
+		return nil, err
+	}
+
+	ret := &ConfigurationPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := c.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		c = c.Order(pager.Order)
+	} else {
+		c = c.Order(DefaultConfigurationOrder)
+	}
+
+	c = c.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := c.All(ctx)
 	if err != nil {
 		return nil, err
 	}

@@ -45,9 +45,15 @@
 		"email_log": "Email Log",
 		"sms_provider": "SMS Provider",
 		"sms_log": "SMS Log",
-		"message_sender": "Send Message"
+		"message_sender": "Send Message",
+		"configuration": "System Configuration"
 	},
 	"apiDesc": {
+		"createConfiguration": "Create a configuration",
+		"updateConfiguration": "Update the configuration",
+		"deleteConfiguration": "Delete configurations",
+		"getConfigurationList": "Get configuration list",
+		"getConfigurationById": "Get configuration by ID",
 		"createCloudFileTag": "Create a cloud file tag",
 		"updateCloudFileTag": "Update the cloud file tag",
 		"deleteCloudFileTag": "Delete cloud file tags",
@@ -228,7 +234,8 @@
 		"messageCenterManagement": "Message Center",
 		"storageProviderManagement": "Storage Provider",
 		"cloudFileManagement": "Cloud File",
-		"cloudFileTagManagement": "Cloud File's Tag"
+		"cloudFileTagManagement": "Cloud File's Tag",
+		"configurationManagement": "System Config"
 	},
 	"login": {
 		"loginSuccessTitle": "Login successful",

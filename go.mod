@@ -5,14 +5,14 @@ go 1.22.5
 require (
 	entgo.io/ent v0.13.1
 	github.com/bsm/redislock v0.9.4
-	github.com/casbin/casbin/v2 v2.97.0
-	github.com/duke-git/lancet/v2 v2.3.1
+	github.com/casbin/casbin/v2 v2.98.0
+	github.com/duke-git/lancet/v2 v2.3.2
 	github.com/gofrs/uuid/v5 v5.2.0
 	github.com/mojocn/base64Captcha v1.3.6
-	github.com/redis/go-redis/v9 v9.5.4
-	github.com/suyuan32/simple-admin-common v1.5.0
-	github.com/suyuan32/simple-admin-job v1.5.0
-	github.com/suyuan32/simple-admin-message-center v1.5.0
+	github.com/redis/go-redis/v9 v9.6.0
+	github.com/suyuan32/simple-admin-common v1.5.1
+	github.com/suyuan32/simple-admin-job v1.5.1
+	github.com/suyuan32/simple-admin-message-center v1.5.1
 	github.com/zeromicro/go-zero v1.6.6
 	golang.org/x/oauth2 v0.21.0
 	google.golang.org/grpc v1.65.0
@@ -87,10 +87,10 @@ require (
 	github.com/prometheus/common v0.55.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
-	github.com/zclconf/go-cty v1.14.4 // indirect
-	go.etcd.io/etcd/api/v3 v3.5.14 // indirect
-	go.etcd.io/etcd/client/pkg/v3 v3.5.14 // indirect
-	go.etcd.io/etcd/client/v3 v3.5.14 // indirect
+	github.com/zclconf/go-cty v1.15.0 // indirect
+	go.etcd.io/etcd/api/v3 v3.5.15 // indirect
+	go.etcd.io/etcd/client/pkg/v3 v3.5.15 // indirect
+	go.etcd.io/etcd/client/v3 v3.5.15 // indirect
 	go.opentelemetry.io/otel v1.28.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.28.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.28.0 // indirect
@@ -105,7 +105,7 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/crypto v0.25.0 // indirect
-	golang.org/x/exp v0.0.0-20240604190554-fc45aab8b7f8 // indirect
+	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56 // indirect
 	golang.org/x/image v0.18.0 // indirect
 	golang.org/x/mod v0.19.0 // indirect
 	golang.org/x/net v0.27.0 // indirect
@@ -120,9 +120,9 @@ require (
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/api v0.30.2 // indirect
-	k8s.io/apimachinery v0.30.2 // indirect
-	k8s.io/client-go v0.30.2 // indirect
+	k8s.io/api v0.30.3 // indirect
+	k8s.io/apimachinery v0.30.3 // indirect
+	k8s.io/client-go v0.30.3 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20240709000822-3c01b740850f // indirect
 	k8s.io/utils v0.0.0-20240711033017-18e509b52bc8 // indirect
