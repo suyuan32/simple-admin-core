@@ -231,7 +231,6 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("ConfigurationManagement").
 		SetComponent("/sys/configuration/index").
 		SetSort(9).
-		SetHideChildrenInMenu(true).
 		SetTitle("route.configurationManagement").
 		SetIcon("carbon:data-2").
 		SetHideMenu(false).
