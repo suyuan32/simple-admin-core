@@ -198,9 +198,9 @@ type UserInfo struct {
 	// max length : 300
 	Avatar *string `json:"avatar,optional" validate:"omitempty,max=300"`
 	// Department ID | 部门ID
-	DepartmentId *uint64 `json:"departmentId,optional"`
+	DepartmentId *uint64 `json:"departmentId,optional,omitempty"`
 	// Position ID | 职位ID
-	PositionIds []uint64 `json:"positionId,optional"`
+	PositionIds []uint64 `json:"positionId,optional,omitempty"`
 }
 
 // The response data of user list | 用户列表数据
