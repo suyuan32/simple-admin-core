@@ -141,7 +141,7 @@ func getUserInfo(c oauth2.Config, infoURL string, code string) ([]byte, error) {
 	var token *oauth2.Token
 	var err error
 
-	if strings.Contains(c.Endpoint.AuthURL, "feishu.com") {
+	if strings.Contains(c.Endpoint.AuthURL, "feishu") {
 		return GetFeishuUserInfo(c, code)
 	} else {
 		token, err = c.Exchange(context.Background(), code)
