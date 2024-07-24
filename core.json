@@ -5474,7 +5474,7 @@
         "scopes": {
           "description": "Scopes | 授权范围",
           "type": "string",
-          "maxLength": 50,
+          "maxLength": 100,
           "x-go-name": "Scopes"
         },
         "tokenUrl": {

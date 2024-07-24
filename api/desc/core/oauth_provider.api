@@ -20,7 +20,7 @@ type (
         RedirectUrl *string `json:"redirectUrl,optional" validate:"omitempty,max=300"`
 
         // Scopes | 授权范围
-        Scopes *string `json:"scopes,optional" validate:"omitempty,max=50"`
+        Scopes *string `json:"scopes,optional" validate:"omitempty,max=100"`
 
         // Authority URL | 授权地址
         AuthUrl *string `json:"authUrl,optional" validate:"omitempty,max=300"`

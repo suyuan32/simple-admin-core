@@ -916,8 +916,8 @@ type OauthProviderInfo struct {
 	// max length : 300
 	RedirectUrl *string `json:"redirectUrl,optional" validate:"omitempty,max=300"`
 	// Scopes | 授权范围
-	// max length : 50
-	Scopes *string `json:"scopes,optional" validate:"omitempty,max=50"`
+	// max length : 100
+	Scopes *string `json:"scopes,optional" validate:"omitempty,max=100"`
 	// Authority URL | 授权地址
 	// max length : 300
 	AuthUrl *string `json:"authUrl,optional" validate:"omitempty,max=300"`
