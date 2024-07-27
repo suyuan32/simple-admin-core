@@ -3,6 +3,7 @@ package configuration
 import (
 	"context"
 
+	"github.com/suyuan32/simple-admin-core/rpc/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
@@ -43,7 +44,11 @@ func (l *GetConfigurationListLogic) GetConfigurationList(in *core.ConfigurationL
 		predicates = append(predicates, configuration.StateEQ(*in.State))
 	}
 
-	result, err := l.svcCtx.DB.Configuration.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
+	result, err := l.svcCtx.DB.Configuration.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize, func(cp *ent.ConfigurationPager) {
+		if in.Category != nil {
+			cp.Order = ent.Asc(configuration.FieldSort)
+		}
+	})
 
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
