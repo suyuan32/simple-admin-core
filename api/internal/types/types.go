@@ -198,9 +198,9 @@ type UserInfo struct {
 	// max length : 300
 	Avatar *string `json:"avatar,optional" validate:"omitempty,max=300"`
 	// Department ID | 部门ID
-	DepartmentId *uint64 `json:"departmentId,optional"`
+	DepartmentId *uint64 `json:"departmentId,optional,omitempty"`
 	// Position ID | 职位ID
-	PositionIds []uint64 `json:"positionId,optional"`
+	PositionIds []uint64 `json:"positionId,optional,omitempty"`
 }
 
 // The response data of user list | 用户列表数据
@@ -916,8 +916,8 @@ type OauthProviderInfo struct {
 	// max length : 300
 	RedirectUrl *string `json:"redirectUrl,optional" validate:"omitempty,max=300"`
 	// Scopes | 授权范围
-	// max length : 50
-	Scopes *string `json:"scopes,optional" validate:"omitempty,max=50"`
+	// max length : 100
+	Scopes *string `json:"scopes,optional" validate:"omitempty,max=100"`
 	// Authority URL | 授权地址
 	// max length : 300
 	AuthUrl *string `json:"authUrl,optional" validate:"omitempty,max=300"`

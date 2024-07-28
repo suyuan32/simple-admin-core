@@ -39,6 +39,7 @@ type userInfo struct {
 	Email    string `json:"email"`
 	NickName string `json:"nickName"`
 	Picture  string `json:"picture"`
+	Mobile   string `json:"mobile"`
 }
 
 func NewOauthCallbackLogic(ctx context.Context, svcCtx *svc.ServiceContext) *OauthCallbackLogic {
@@ -86,8 +87,10 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo
 		return nil, errorx.NewInternalError(err.Error())
 	}
 
-	if u.Email != "" {
-		result, err := l.svcCtx.DB.User.Query().Where(user.EmailEQ(u.Email)).WithRoles().First(l.ctx)
+	var result *ent.User
+
+	if u.Mobile != "" {
+		result, err = l.svcCtx.DB.User.Query().Where(user.MobileEQ(u.Mobile)).WithRoles().First(l.ctx)
 		if err != nil {
 			switch {
 			case ent.IsNotFound(err):
@@ -98,7 +101,21 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo
 				return nil, errorx.NewInternalError(i18n.DatabaseError)
 			}
 		}
+	} else if u.Email != "" {
+		result, err = l.svcCtx.DB.User.Query().Where(user.EmailEQ(u.Email)).WithRoles().First(l.ctx)
+		if err != nil {
+			switch {
+			case ent.IsNotFound(err):
+				logx.Errorw(err.Error(), logx.Field("detail", in))
+				return nil, errorx.NewInvalidArgumentError("login.userNotExist")
+			default:
+				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
+				return nil, errorx.NewInternalError(i18n.DatabaseError)
+			}
+		}
+	}
 
+	if result != nil {
 		return &core.UserInfo{
 			Nickname:     &result.Nickname,
 			Avatar:       &result.Avatar,
@@ -121,7 +138,15 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo
 }
 
 func getUserInfo(c oauth2.Config, infoURL string, code string) ([]byte, error) {
-	token, err := c.Exchange(context.Background(), code)
+	var token *oauth2.Token
+	var err error
+
+	if strings.Contains(c.Endpoint.AuthURL, "feishu") {
+		return GetFeishuUserInfo(c, code)
+	} else {
+		token, err = c.Exchange(context.Background(), code)
+	}
+
 	if err != nil {
 		return nil, fmt.Errorf("code exchange failed: %s", err.Error())
 	}

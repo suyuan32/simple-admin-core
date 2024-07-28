@@ -5,11 +5,11 @@
 
 **中文** | [English](./README.En.md) 
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.6.6-brightgreen.svg)](https://go-zero.dev/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.7.0-brightgreen.svg)](https://go-zero.dev/)
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.11.5-yellow.svg)](https://vvbin.cn/doc-next/)
 [![Ent](https://img.shields.io/badge/Ent-v0.13.1-blue.svg)](https://entgo.io/)
 [![Casbin](https://img.shields.io/badge/Casbin-v2.98.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.5.1-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Release](https://img.shields.io/badge/Release-v1.5.2-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
 ![注意](https://img.shields.io/badge/%E6%B3%A8%E6%84%8F-%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A0%E5%85%A5%E5%BE%AE%E4%BF%A1%E7%BE%A4-blue)
@@ -22,7 +22,7 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 6 大免费基础模块，可以满足 80 % 的常用业务需求。同时提供了模块商店，可以方便的购买和使用更多的模块。<br><br>
 6大免费模块均可免费商用，适合开发者学习、企业内部使用、个人项目使用等，欢迎大家使用和反馈问题，我们会持续更新和维护。
 
-> 💡 **注意：禁止二次销售模块代码，仅可以自用商用，二次销售请获取授权。**
+> 💡禁止将免费模块进行二次销售，请自行开发商用模块接入。二次开发免费模块销售请联系我们获取授权。
 
 > ✨ 我们接外包哦，外包需求请添加公众号联系管理员。 
 

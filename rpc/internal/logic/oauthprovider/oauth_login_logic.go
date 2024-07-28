@@ -48,7 +48,7 @@ func (l *OauthLoginLogic) OauthLogin(in *core.OauthLoginReq) (*core.OauthRedirec
 			ClientID:     p.ClientID,
 			ClientSecret: p.ClientSecret,
 			Endpoint: oauth2.Endpoint{
-				AuthURL:   p.AuthURL,
+				AuthURL:   replaceKeywords(p.AuthURL, p),
 				TokenURL:  p.TokenURL,
 				AuthStyle: oauth2.AuthStyle(p.AuthStyle),
 			},

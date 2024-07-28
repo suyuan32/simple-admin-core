@@ -1,10 +1,9 @@
-version: '3'
+version: "3"
 
 volumes:
   mysql:
   redis:
   fms:
-
 
 networks:
   simple-admin:
@@ -17,10 +16,10 @@ services:
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always
     ports:
-      - '3306:3306'
+      - "3306:3306"
     environment:
-      MYSQL_DATABASE: 'simple_admin'
-      MYSQL_ROOT_PASSWORD: 'simple-admin.'
+      MYSQL_DATABASE: "simple_admin"
+      MYSQL_ROOT_PASSWORD: "simple-admin."
     volumes:
       - mysql:/var/lib/mysql
     networks:
@@ -30,10 +29,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: "0.5"
           memory: 1000M
         reservations:
-          cpus: '0.05'
+          cpus: "0.05"
           memory: 200M
 
   redis:
@@ -41,7 +40,7 @@ services:
     container_name: redis
     restart: always
     ports:
-      - '6379:6379'
+      - "6379:6379"
     volumes:
       - redis:/data
     networks:
@@ -51,23 +50,23 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: "0.5"
           memory: 500M
         reservations:
-          cpus: '0.05'
+          cpus: "0.05"
           memory: 200M
 
   core-rpc:
-    image: ryanpower/core-rpc-docker:v1.5.0
+    image: ryanpower/core-rpc-docker:v1.5.2
     container_name: core-rpc
     restart: always
     ports:
-      - '9101:9101'
+      - "9101:9101"
     environment:
-      DATABASE_TYPE: 'mysql'
-      DATABASE_USERNAME: 'root'
-      DATABASE_PASSWORD: 'simple-admin.'
-      DATABASE_HOST: 'mysql-server'
+      DATABASE_TYPE: "mysql"
+      DATABASE_USERNAME: "root"
+      DATABASE_PASSWORD: "simple-admin."
+      DATABASE_HOST: "mysql-server"
       DATABASE_PORT: 3306
     networks:
       simple-admin:
@@ -76,23 +75,23 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: "0.5"
           memory: 500M
         reservations:
-          cpus: '0.05'
+          cpus: "0.05"
           memory: 200M
 
   job-rpc:
-    image: ryanpower/job-rpc-docker:v1.5.0
+    image: ryanpower/job-rpc-docker:v1.5.2
     container_name: job-rpc
     restart: always
     ports:
-      - '9105:9105'
+      - "9105:9105"
     environment:
-      DATABASE_TYPE: 'mysql'
-      DATABASE_USERNAME: 'root'
-      DATABASE_PASSWORD: 'simple-admin.'
-      DATABASE_HOST: 'mysql-server'
+      DATABASE_TYPE: "mysql"
+      DATABASE_USERNAME: "root"
+      DATABASE_PASSWORD: "simple-admin."
+      DATABASE_HOST: "mysql-server"
       DATABASE_PORT: 3306
     networks:
       simple-admin:
@@ -101,26 +100,26 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: "0.5"
           memory: 500M
         reservations:
-          cpus: '0.05'
+          cpus: "0.05"
           memory: 200M
 
   core-api:
-    image: ryanpower/core-api-docker:v1.5.0
+    image: ryanpower/core-api-docker:v1.5.2
     container_name: core-api
     restart: always
     environment:
       #      I18N_DIR: '/app/etc/'
-      DATABASE_TYPE: 'mysql'
-      DATABASE_HOST: 'mysql-server'
-      DATABASE_USERNAME: 'root'
-      DATABASE_PASSWORD: 'simple-admin.'
+      DATABASE_TYPE: "mysql"
+      DATABASE_HOST: "mysql-server"
+      DATABASE_USERNAME: "root"
+      DATABASE_PASSWORD: "simple-admin."
       DATABASE_PORT: 3306
     #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
     ports:
-      - '9100:9100'
+      - "9100:9100"
     networks:
       simple-admin:
         aliases:
@@ -128,18 +127,18 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: "0.5"
           memory: 500M
         reservations:
-          cpus: '0.05'
+          cpus: "0.05"
           memory: 200M
 
   backend-ui:
-    image: ryanpower/backend-ui-docker:v1.5.0
+    image: ryanpower/backend-ui-docker:v1.5.2
     container_name: backend-ui
     restart: always
     ports:
-      - '80:80'
+      - "80:80"
     networks:
       simple-admin:
         aliases:
@@ -147,28 +146,28 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: "0.5"
           memory: 500M
         reservations:
-          cpus: '0.05'
+          cpus: "0.05"
           memory: 200M
 
   fms-api:
-    image: ryanpower/fms-api-docker:v1.5.0
+    image: ryanpower/fms-api-docker:v1.5.2
     container_name: fms-api
     restart: always
     #    environment:
     #      SERVER_URL: 'http://localhost:81'
     #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
     environment:
-      DATABASE_TYPE: 'mysql'
-      DATABASE_USERNAME: 'root'
-      DATABASE_PASSWORD: 'simple-admin.'
-      DATABASE_HOST: 'mysql-server'
+      DATABASE_TYPE: "mysql"
+      DATABASE_USERNAME: "root"
+      DATABASE_PASSWORD: "simple-admin."
+      DATABASE_HOST: "mysql-server"
       DATABASE_PORT: 3306
     ports:
-      - '9102:9102'
-      - '81:80'
+      - "9102:9102"
+      - "81:80"
     volumes:
       - fms:/home/data
     networks:
@@ -178,21 +177,21 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: "0.5"
           memory: 500M
         reservations:
-          cpus: '0.05'
+          cpus: "0.05"
           memory: 200M
 
   mcms-rpc:
-    image: ryanpower/mcms-rpc-docker:v1.5.0
+    image: ryanpower/mcms-rpc-docker:v1.5.2
     container_name: mcms-rpc
     restart: always
     environment:
-      DATABASE_TYPE: 'mysql'
-      DATABASE_USERNAME: 'root'
-      DATABASE_PASSWORD: 'simple-admin.'
-      DATABASE_HOST: 'mysql-server'
+      DATABASE_TYPE: "mysql"
+      DATABASE_USERNAME: "root"
+      DATABASE_PASSWORD: "simple-admin."
+      DATABASE_HOST: "mysql-server"
       DATABASE_PORT: 3306
     #      EMAIL_ADDR: xxx@gamil.com
     #    ports:
@@ -204,8 +203,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: "0.5"
           memory: 500M
         reservations:
-          cpus: '0.05'
+          cpus: "0.05"
           memory: 200M
