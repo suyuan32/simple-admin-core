@@ -246,10 +246,11 @@
 		"wrongPassword": "Wrong Password",
 		"wrongUsernameOrPassword": "Wrong username or password",
 		"requireLogin": "Please log in again",
-		"loginTypeForbidden": "This login method has been disabled by the administrator. Please try another login method.",
-		"registerTypeForbidden": "This registration method has been disabled by the administrator. Please try another registration method.",
-		"resetTypeForbidden": "This password reset method has been disabled by the administrator. Please try another password reset method.",
-		"userBanned": "Your account has been deactivated or is under review, please contact the administrator."
+		"loginTypeForbidden": "This login method has been disabled by the administrator. Please try another login method",
+		"registerTypeForbidden": "This registration method has been disabled by the administrator. Please try another registration method",
+		"resetTypeForbidden": "This password reset method has been disabled by the administrator. Please try another password reset method",
+		"userBanned": "Your account has been deactivated or is under review, please contact the administrator",
+		"mobileExist": "This phone number had been registered"
 	},
 	"menu": {
 		"deleteChildrenDesc": "Please delete menu's children first",
@@ -291,7 +292,7 @@
 		"deleteDepartmentUserFirst": "There are users under the department, please delete all users in the department first"
 	},
 	"position": {
-		"userExistError": "There are users under this position, it is forbidden to delete.",
+		"userExistError": "There are users under this position, it is forbidden to delete",
 		"ceo": "CEO"
 	},
 	"mcms": {
