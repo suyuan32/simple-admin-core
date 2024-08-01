@@ -3,7 +3,7 @@ module github.com/suyuan32/simple-admin-core
 go 1.22.5
 
 require (
-	entgo.io/ent v0.13.1
+	entgo.io/ent v0.14.0
 	github.com/bsm/redislock v0.9.4
 	github.com/casbin/casbin/v2 v2.98.0
 	github.com/duke-git/lancet/v2 v2.3.2
@@ -11,9 +11,9 @@ require (
 	github.com/larksuite/oapi-sdk-go/v3 v3.2.9
 	github.com/mojocn/base64Captcha v1.3.6
 	github.com/redis/go-redis/v9 v9.6.1
-	github.com/suyuan32/simple-admin-common v1.5.2
-	github.com/suyuan32/simple-admin-job v1.5.2
-	github.com/suyuan32/simple-admin-message-center v1.5.2
+	github.com/suyuan32/simple-admin-common v1.5.3
+	github.com/suyuan32/simple-admin-job v1.5.3
+	github.com/suyuan32/simple-admin-message-center v1.5.3
 	github.com/zeromicro/go-zero v1.7.0
 	golang.org/x/oauth2 v0.21.0
 	google.golang.org/grpc v1.65.0

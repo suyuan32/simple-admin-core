@@ -6,12 +6,14 @@ import (
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 
+	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dberrorhandler"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/suyuan32/simple-admin-common/i18n"
 
+	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -30,6 +32,28 @@ func NewCreateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 }
 
 func (l *CreateUserLogic) CreateUser(in *core.UserInfo) (*core.BaseUUIDResp, error) {
+	if in.Mobile != nil {
+		checkMobile, err := l.svcCtx.DB.User.Query().Where(user.MobileEQ(*in.Mobile)).Exist(l.ctx)
+		if err != nil {
+			return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
+		}
+
+		if checkMobile {
+			return nil, errorx.NewInvalidArgumentError("login.mobileExist")
+		}
+	}
+
+	if in.Email != nil {
+		checkEmail, err := l.svcCtx.DB.User.Query().Where(user.EmailEQ(*in.Email)).Exist(l.ctx)
+		if err != nil {
+			return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
+		}
+
+		if checkEmail {
+			return nil, errorx.NewInvalidArgumentError("login.signupUserExist")
+		}
+	}
+
 	result, err := l.svcCtx.DB.User.Create().
 		SetNotNilUsername(in.Username).
 		SetNotNilPassword(pointy.GetPointer(encrypt.BcryptEncrypt(*in.Password))).
