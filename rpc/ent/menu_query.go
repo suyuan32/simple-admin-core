@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"math"
 
+	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -132,7 +133,7 @@ func (mq *MenuQuery) QueryChildren() *MenuQuery {
 // First returns the first Menu entity from the query.
 // Returns a *NotFoundError when no Menu was found.
 func (mq *MenuQuery) First(ctx context.Context) (*Menu, error) {
-	nodes, err := mq.Limit(1).All(setContextOp(ctx, mq.ctx, "First"))
+	nodes, err := mq.Limit(1).All(setContextOp(ctx, mq.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -155,7 +156,7 @@ func (mq *MenuQuery) FirstX(ctx context.Context) *Menu {
 // Returns a *NotFoundError when no Menu ID was found.
 func (mq *MenuQuery) FirstID(ctx context.Context) (id uint64, err error) {
 	var ids []uint64
-	if ids, err = mq.Limit(1).IDs(setContextOp(ctx, mq.ctx, "FirstID")); err != nil {
+	if ids, err = mq.Limit(1).IDs(setContextOp(ctx, mq.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -178,7 +179,7 @@ func (mq *MenuQuery) FirstIDX(ctx context.Context) uint64 {
 // Returns a *NotSingularError when more than one Menu entity is found.
 // Returns a *NotFoundError when no Menu entities are found.
 func (mq *MenuQuery) Only(ctx context.Context) (*Menu, error) {
-	nodes, err := mq.Limit(2).All(setContextOp(ctx, mq.ctx, "Only"))
+	nodes, err := mq.Limit(2).All(setContextOp(ctx, mq.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -206,7 +207,7 @@ func (mq *MenuQuery) OnlyX(ctx context.Context) *Menu {
 // Returns a *NotFoundError when no entities are found.
 func (mq *MenuQuery) OnlyID(ctx context.Context) (id uint64, err error) {
 	var ids []uint64
-	if ids, err = mq.Limit(2).IDs(setContextOp(ctx, mq.ctx, "OnlyID")); err != nil {
+	if ids, err = mq.Limit(2).IDs(setContextOp(ctx, mq.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -231,7 +232,7 @@ func (mq *MenuQuery) OnlyIDX(ctx context.Context) uint64 {
 
 // All executes the query and returns a list of Menus.
 func (mq *MenuQuery) All(ctx context.Context) ([]*Menu, error) {
-	ctx = setContextOp(ctx, mq.ctx, "All")
+	ctx = setContextOp(ctx, mq.ctx, ent.OpQueryAll)
 	if err := mq.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
@@ -253,7 +254,7 @@ func (mq *MenuQuery) IDs(ctx context.Context) (ids []uint64, err error) {
 	if mq.ctx.Unique == nil && mq.path != nil {
 		mq.Unique(true)
 	}
-	ctx = setContextOp(ctx, mq.ctx, "IDs")
+	ctx = setContextOp(ctx, mq.ctx, ent.OpQueryIDs)
 	if err = mq.Select(menu.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
@@ -271,7 +272,7 @@ func (mq *MenuQuery) IDsX(ctx context.Context) []uint64 {
 
 // Count returns the count of the given query.
 func (mq *MenuQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, mq.ctx, "Count")
+	ctx = setContextOp(ctx, mq.ctx, ent.OpQueryCount)
 	if err := mq.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
@@ -289,7 +290,7 @@ func (mq *MenuQuery) CountX(ctx context.Context) int {
 
 // Exist returns true if the query has elements in the graph.
 func (mq *MenuQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, mq.ctx, "Exist")
+	ctx = setContextOp(ctx, mq.ctx, ent.OpQueryExist)
 	switch _, err := mq.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
@@ -722,7 +723,7 @@ func (mgb *MenuGroupBy) Aggregate(fns ...AggregateFunc) *MenuGroupBy {
 
 // Scan applies the selector query and scans the result into the given value.
 func (mgb *MenuGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, mgb.build.ctx, "GroupBy")
+	ctx = setContextOp(ctx, mgb.build.ctx, ent.OpQueryGroupBy)
 	if err := mgb.build.prepareQuery(ctx); err != nil {
 		return err
 	}
@@ -770,7 +771,7 @@ func (ms *MenuSelect) Aggregate(fns ...AggregateFunc) *MenuSelect {
 
 // Scan applies the selector query and scans the result into the given value.
 func (ms *MenuSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ms.ctx, "Select")
+	ctx = setContextOp(ctx, ms.ctx, ent.OpQuerySelect)
 	if err := ms.prepareQuery(ctx); err != nil {
 		return err
 	}
