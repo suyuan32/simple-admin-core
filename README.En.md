@@ -120,12 +120,12 @@ revenue, and now 10+ modules are included.
 
 ## Member Exclusive Modules
 
-| Module Name | Module Introduction               |
-| ----------- | --------------------------------- |
-| CMS         | Content Management Module         |
-| Simple-Uni  | Mini Program Development Scaffold |
-| Simple-Nuxt | PC Web End Development Scaffold   |
-| Core Tenant | Multi-Tenant version              |
+| Module Name          | Module Introduction               |
+|----------------------|-----------------------------------|
+| CMS                  | Content Management Module         |
+| Simple-Uni           | Mini Program Development Scaffold |
+| Simple-Nuxt          | PC Web End Development Scaffold   |
+| Core Data Permission | Core data permission version      |
 
 # Community Modules
 
