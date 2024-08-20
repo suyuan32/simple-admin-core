@@ -1,7 +1,7 @@
 version: "3"
 
 volumes:
-  mysql:
+  postgresql:
   redis:
   fms:
 
@@ -10,22 +10,21 @@ networks:
     driver: bridge
 
 services:
-  mysql:
-    image: mysql:8.3.0
-    container_name: mysql
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  postgresql:
+    image: bitnami/postgresql:latest
+    container_name: postgresql
     restart: always
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      MYSQL_DATABASE: "simple_admin"
-      MYSQL_ROOT_PASSWORD: "simple-admin."
+      POSTGRESQL_DATABASE: "simple_admin"
+      POSTGRESQL_PASSWORD: "simple-admin."
     volumes:
-      - mysql:/var/lib/mysql
+      - postgresql:/bitnami/postgresql
     networks:
       simple-admin:
         aliases:
-          - mysql-server
+          - postgresql-server
     deploy:
       resources:
         limits:
@@ -57,17 +56,11 @@ services:
           memory: 200M
 
   core-rpc:
-    image: ryanpower/core-rpc-docker:v1.5.4
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/core-rpc-docker:v1.5.4
     container_name: core-rpc
     restart: always
-    ports:
-      - "9101:9101"
-    environment:
-      DATABASE_TYPE: "mysql"
-      DATABASE_USERNAME: "root"
-      DATABASE_PASSWORD: "simple-admin."
-      DATABASE_HOST: "mysql-server"
-      DATABASE_PORT: 3306
+    #    ports:
+    #      - '9101:9101'
     networks:
       simple-admin:
         aliases:
@@ -82,17 +75,11 @@ services:
           memory: 200M
 
   job-rpc:
-    image: ryanpower/job-rpc-docker:v1.5.4
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/job-rpc-docker:v1.5.4
     container_name: job-rpc
     restart: always
-    ports:
-      - "9105:9105"
-    environment:
-      DATABASE_TYPE: "mysql"
-      DATABASE_USERNAME: "root"
-      DATABASE_PASSWORD: "simple-admin."
-      DATABASE_HOST: "mysql-server"
-      DATABASE_PORT: 3306
+    #    ports:
+    #      - '9105:9105'
     networks:
       simple-admin:
         aliases:
@@ -107,16 +94,11 @@ services:
           memory: 200M
 
   core-api:
-    image: ryanpower/core-api-docker:v1.5.4
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/core-api-docker:v1.5.4
     container_name: core-api
     restart: always
-    environment:
-      #      I18N_DIR: '/app/etc/'
-      DATABASE_TYPE: "mysql"
-      DATABASE_HOST: "mysql-server"
-      DATABASE_USERNAME: "root"
-      DATABASE_PASSWORD: "simple-admin."
-      DATABASE_PORT: 3306
+    #    environment:
+    #      I18N_DIR: ''
     #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
     ports:
       - "9100:9100"
@@ -134,7 +116,7 @@ services:
           memory: 200M
 
   backend-ui:
-    image: ryanpower/backend-ui-docker:v1.5.4
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/backend-ui-docker:v1.5.4
     container_name: backend-ui
     restart: always
     ports:
@@ -153,20 +135,14 @@ services:
           memory: 200M
 
   fms-api:
-    image: ryanpower/fms-api-docker:v1.5.4
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/fms-api-docker:v1.5.4
     container_name: fms-api
     restart: always
     #    environment:
     #      SERVER_URL: 'http://localhost:81'
     #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
-    environment:
-      DATABASE_TYPE: "mysql"
-      DATABASE_USERNAME: "root"
-      DATABASE_PASSWORD: "simple-admin."
-      DATABASE_HOST: "mysql-server"
-      DATABASE_PORT: 3306
     ports:
-      - "9102:9102"
+      #      - '9102:9102'
       - "81:80"
     volumes:
       - fms:/home/data
@@ -184,15 +160,10 @@ services:
           memory: 200M
 
   mcms-rpc:
-    image: ryanpower/mcms-rpc-docker:v1.5.4
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/mcms-rpc-docker:v1.5.4
     container_name: mcms-rpc
     restart: always
-    environment:
-      DATABASE_TYPE: "mysql"
-      DATABASE_USERNAME: "root"
-      DATABASE_PASSWORD: "simple-admin."
-      DATABASE_HOST: "mysql-server"
-      DATABASE_PORT: 3306
+    #    environment:
     #      EMAIL_ADDR: xxx@gamil.com
     #    ports:
     #      - '9106:9106'

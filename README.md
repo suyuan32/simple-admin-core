@@ -9,7 +9,7 @@
 [![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.11.5-yellow.svg)](https://vvbin.cn/doc-next/)
 [![Ent](https://img.shields.io/badge/Ent-v0.14.0-blue.svg)](https://entgo.io/)
 [![Casbin](https://img.shields.io/badge/Casbin-v2.98.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.5.3-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Release](https://img.shields.io/badge/Release-v1.5.4-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
 ![注意](https://img.shields.io/badge/%E6%B3%A8%E6%84%8F-%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A0%E5%85%A5%E5%BE%AE%E4%BF%A1%E7%BE%A4-blue)
@@ -103,12 +103,12 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
 
 ## 会员专属的模块
 
-| 模块名称    | 模块介绍            |
-| ----------- | ------------------- |
-| CMS         | 内容管理模块        |
-| Simple-Uni  | 小程序开发脚手架    |
-| Simple-Nuxt | PC 网页端开发脚手架 |
-| Core Tenant | 多租户版本          |
+| 模块名称                 | 模块介绍        |
+|----------------------|-------------|
+| CMS                  | 内容管理模块      |
+| Simple-Uni           | 小程序开发脚手架    |
+| Simple-Nuxt          | PC 网页端开发脚手架 |
+| Core Data Permission | 数据权限版本      |
 
 # 社区模块
 
