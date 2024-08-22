@@ -2,6 +2,8 @@ package api
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-core/rpc/ent"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
 
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dberrorhandler"
@@ -27,6 +29,18 @@ func NewCreateApiLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateA
 }
 
 func (l *CreateApiLogic) CreateApi(in *core.ApiInfo) (*core.BaseIDResp, error) {
+	// if exist , return success
+	if in.Path != nil && in.Method != nil {
+		check, err := l.svcCtx.DB.API.Query().Where(api.Path(*in.Path), api.Method(*in.Method)).Only(l.ctx)
+		if err != nil && !ent.IsNotFound(err) {
+			return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
+		}
+
+		if check != nil {
+			return &core.BaseIDResp{Id: check.ID, Msg: i18n.CreateSuccess}, nil
+		}
+	}
+
 	result, err := l.svcCtx.DB.API.Create().
 		SetNotNilPath(in.Path).
 		SetNotNilDescription(in.Description).

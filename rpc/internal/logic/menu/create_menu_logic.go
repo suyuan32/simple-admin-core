@@ -2,6 +2,7 @@ package menu
 
 import (
 	"context"
+	"github.com/suyuan32/simple-admin-core/rpc/ent"
 
 	"github.com/suyuan32/simple-admin-common/enum/common"
 	"github.com/suyuan32/simple-admin-common/i18n"
@@ -30,6 +31,18 @@ func NewCreateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 }
 
 func (l *CreateMenuLogic) CreateMenu(in *core.MenuInfo) (*core.BaseIDResp, error) {
+	// if exists , return success
+	if in.Name != nil && in.Component != nil && in.Path != nil {
+		check, err := l.svcCtx.DB.Menu.Query().Where(menu.Name(*in.Name), menu.Component(*in.Component), menu.Path(*in.Path)).Only(l.ctx)
+		if err != nil && !ent.IsNotFound(err) {
+			return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
+		}
+
+		if check != nil {
+			return &core.BaseIDResp{Id: check.ID, Msg: i18n.CreateSuccess}, nil
+		}
+	}
+
 	// get parent level
 	var menuLevel uint32
 	if *in.ParentId != common.DefaultParentId {
