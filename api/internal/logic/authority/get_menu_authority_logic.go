@@ -40,7 +40,7 @@ func (l *GetMenuAuthorityLogic) GetMenuAuthority(req *types.IDReq) (resp *types.
 		},
 		Data: types.MenuAuthorityInfoReq{
 			RoleId:  req.Id,
-			MenuIds: data.MenuId,
+			MenuIds: data.MenuIds,
 		},
 	}
 
