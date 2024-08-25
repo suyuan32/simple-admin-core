@@ -7506,5 +7506,10 @@
       "name": "Authorization",
       "in": "header"
     }
-  }
+  },
+  "security": [
+    {
+      "Token": []
+    }
+  ]
 }
