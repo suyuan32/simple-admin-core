@@ -252,8 +252,9 @@ func (aq *APIQuery) Clone() *APIQuery {
 		inters:     append([]Interceptor{}, aq.inters...),
 		predicates: append([]predicate.API{}, aq.predicates...),
 		// clone intermediate query.
-		sql:  aq.sql.Clone(),
-		path: aq.path,
+		sql:       aq.sql.Clone(),
+		path:      aq.path,
+		modifiers: append([]func(*sql.Selector){}, aq.modifiers...),
 	}
 }
 

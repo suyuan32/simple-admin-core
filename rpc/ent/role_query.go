@@ -304,8 +304,9 @@ func (rq *RoleQuery) Clone() *RoleQuery {
 		withMenus:  rq.withMenus.Clone(),
 		withUsers:  rq.withUsers.Clone(),
 		// clone intermediate query.
-		sql:  rq.sql.Clone(),
-		path: rq.path,
+		sql:       rq.sql.Clone(),
+		path:      rq.path,
+		modifiers: append([]func(*sql.Selector){}, rq.modifiers...),
 	}
 }
 

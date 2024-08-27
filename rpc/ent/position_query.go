@@ -279,8 +279,9 @@ func (pq *PositionQuery) Clone() *PositionQuery {
 		predicates: append([]predicate.Position{}, pq.predicates...),
 		withUsers:  pq.withUsers.Clone(),
 		// clone intermediate query.
-		sql:  pq.sql.Clone(),
-		path: pq.path,
+		sql:       pq.sql.Clone(),
+		path:      pq.path,
+		modifiers: append([]func(*sql.Selector){}, pq.modifiers...),
 	}
 }
 

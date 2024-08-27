@@ -253,8 +253,9 @@ func (tq *TokenQuery) Clone() *TokenQuery {
 		inters:     append([]Interceptor{}, tq.inters...),
 		predicates: append([]predicate.Token{}, tq.predicates...),
 		// clone intermediate query.
-		sql:  tq.sql.Clone(),
-		path: tq.path,
+		sql:       tq.sql.Clone(),
+		path:      tq.path,
+		modifiers: append([]func(*sql.Selector){}, tq.modifiers...),
 	}
 }
 
