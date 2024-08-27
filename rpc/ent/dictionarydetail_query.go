@@ -277,8 +277,9 @@ func (ddq *DictionaryDetailQuery) Clone() *DictionaryDetailQuery {
 		predicates:       append([]predicate.DictionaryDetail{}, ddq.predicates...),
 		withDictionaries: ddq.withDictionaries.Clone(),
 		// clone intermediate query.
-		sql:  ddq.sql.Clone(),
-		path: ddq.path,
+		sql:       ddq.sql.Clone(),
+		path:      ddq.path,
+		modifiers: append([]func(*sql.Selector){}, ddq.modifiers...),
 	}
 }
 

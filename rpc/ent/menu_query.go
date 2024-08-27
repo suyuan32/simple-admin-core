@@ -326,8 +326,9 @@ func (mq *MenuQuery) Clone() *MenuQuery {
 		withParent:   mq.withParent.Clone(),
 		withChildren: mq.withChildren.Clone(),
 		// clone intermediate query.
-		sql:  mq.sql.Clone(),
-		path: mq.path,
+		sql:       mq.sql.Clone(),
+		path:      mq.path,
+		modifiers: append([]func(*sql.Selector){}, mq.modifiers...),
 	}
 }
 

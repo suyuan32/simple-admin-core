@@ -326,8 +326,9 @@ func (dq *DepartmentQuery) Clone() *DepartmentQuery {
 		withChildren: dq.withChildren.Clone(),
 		withUsers:    dq.withUsers.Clone(),
 		// clone intermediate query.
-		sql:  dq.sql.Clone(),
-		path: dq.path,
+		sql:       dq.sql.Clone(),
+		path:      dq.path,
+		modifiers: append([]func(*sql.Selector){}, dq.modifiers...),
 	}
 }
 

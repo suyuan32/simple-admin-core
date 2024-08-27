@@ -252,8 +252,9 @@ func (opq *OauthProviderQuery) Clone() *OauthProviderQuery {
 		inters:     append([]Interceptor{}, opq.inters...),
 		predicates: append([]predicate.OauthProvider{}, opq.predicates...),
 		// clone intermediate query.
-		sql:  opq.sql.Clone(),
-		path: opq.path,
+		sql:       opq.sql.Clone(),
+		path:      opq.path,
+		modifiers: append([]func(*sql.Selector){}, opq.modifiers...),
 	}
 }
 

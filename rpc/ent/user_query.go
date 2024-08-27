@@ -329,8 +329,9 @@ func (uq *UserQuery) Clone() *UserQuery {
 		withPositions:   uq.withPositions.Clone(),
 		withRoles:       uq.withRoles.Clone(),
 		// clone intermediate query.
-		sql:  uq.sql.Clone(),
-		path: uq.path,
+		sql:       uq.sql.Clone(),
+		path:      uq.path,
+		modifiers: append([]func(*sql.Selector){}, uq.modifiers...),
 	}
 }
 
