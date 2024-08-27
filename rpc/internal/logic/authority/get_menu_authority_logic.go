@@ -32,5 +32,5 @@ func (l *GetMenuAuthorityLogic) GetMenuAuthority(in *core.IDReq) (*core.RoleMenu
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
 	}
 
-	return &core.RoleMenuAuthorityResp{MenuId: menus}, nil
+	return &core.RoleMenuAuthorityResp{MenuIds: menus}, nil
 }
