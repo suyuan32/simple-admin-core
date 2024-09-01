@@ -2,6 +2,7 @@ package department
 
 import (
 	"context"
+
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 
 	"github.com/zeromicro/go-zero/core/errorx"

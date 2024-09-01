@@ -2,6 +2,7 @@ package authority
 
 import (
 	"context"
+
 	"github.com/zeromicro/go-zero/core/errorx"
 
 	"github.com/suyuan32/simple-admin-common/i18n"

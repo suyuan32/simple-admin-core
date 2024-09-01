@@ -32,16 +32,15 @@ func (l *GetConfigurationByIdLogic) GetConfigurationById(in *core.IDReq) (*core.
 	}
 
 	return &core.ConfigurationInfo{
-		Id:          &result.ID,
-		CreatedAt:    pointy.GetPointer(result.CreatedAt.UnixMilli()),
-		UpdatedAt:    pointy.GetPointer(result.UpdatedAt.UnixMilli()),
-		Sort:	&result.Sort,
-		State:	&result.State,
-		Name:	&result.Name,
-		Key:	&result.Key,
-		Value:	&result.Value,
-		Category:	&result.Category,
-		Remark:	&result.Remark,
+		Id:        &result.ID,
+		CreatedAt: pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt: pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		Sort:      &result.Sort,
+		State:     &result.State,
+		Name:      &result.Name,
+		Key:       &result.Key,
+		Value:     &result.Value,
+		Category:  &result.Category,
+		Remark:    &result.Remark,
 	}, nil
 }
-
