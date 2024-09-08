@@ -94,11 +94,11 @@ type (
 service Core {
     // Create API information | 创建API
     @handler createApi
-    post /api/create(ApiInfo) returns (BaseMsgResp)
+    post /api/create (ApiInfo) returns (BaseMsgResp)
 
     // Update API information | 创建API
     @handler updateApi
-    post /api/update(ApiInfo) returns (BaseMsgResp)
+    post /api/update (ApiInfo) returns (BaseMsgResp)
 
     // Delete API information | 删除API信息
     @handler deleteApi

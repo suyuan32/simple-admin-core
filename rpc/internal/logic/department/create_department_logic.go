@@ -2,6 +2,7 @@ package department
 
 import (
 	"context"
+
 	"github.com/suyuan32/simple-admin-core/rpc/internal/utils/dbfunc"
 
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
