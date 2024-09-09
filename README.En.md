@@ -39,8 +39,6 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 <br>
 
-> 💡It is forbidden to resell free modules. Please develop commercial modules by yourself to connecting free core module. Please contact us for authorization if you want to redevelop free modules for sale.
-
 > ✨ We accept outsourcing. Please contact us via email if you have any outsourcing needs.
 
 ## Official Tutorial
