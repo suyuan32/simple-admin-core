@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.5.0"
+    "version": "1.5.6"
   },
   "host": "localhost:9100",
   "basePath": "/",
@@ -334,6 +334,164 @@
             "schema": {
               "type": "object",
               "$ref": "#/definitions/SmsCaptchaReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/configuration": {
+      "post": {
+        "description": "Get configuration by ID | 通过ID获取Configuration",
+        "tags": [
+          "configuration"
+        ],
+        "summary": "Get configuration by ID | 通过ID获取Configuration",
+        "operationId": "GetConfigurationById",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ConfigurationInfoResp",
+            "schema": {
+              "$ref": "#/definitions/ConfigurationInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/configuration/create": {
+      "post": {
+        "description": "Create configuration information | 创建Configuration",
+        "tags": [
+          "configuration"
+        ],
+        "summary": "Create configuration information | 创建Configuration",
+        "operationId": "CreateConfiguration",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ConfigurationInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/configuration/delete": {
+      "post": {
+        "description": "Delete configuration information | 删除Configuration信息",
+        "tags": [
+          "configuration"
+        ],
+        "summary": "Delete configuration information | 删除Configuration信息",
+        "operationId": "DeleteConfiguration",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/IDsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "BaseMsgResp",
+            "schema": {
+              "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/configuration/list": {
+      "post": {
+        "description": "Get configuration list | 获取Configuration列表",
+        "tags": [
+          "configuration"
+        ],
+        "summary": "Get configuration list | 获取Configuration列表",
+        "operationId": "GetConfigurationList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ConfigurationListReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ConfigurationListResp",
+            "schema": {
+              "$ref": "#/definitions/ConfigurationListResp"
+            }
+          }
+        }
+      }
+    },
+    "/configuration/system/list": {
+      "get": {
+        "description": "Get public system configuration list | 获取公开系统参数列表",
+        "tags": [
+          "publicapi"
+        ],
+        "summary": "Get public system configuration list | 获取公开系统参数列表",
+        "operationId": "GetPublicSystemConfigurationList",
+        "responses": {
+          "200": {
+            "description": "ConfigurationListResp",
+            "schema": {
+              "$ref": "#/definitions/ConfigurationListResp"
+            }
+          }
+        }
+      }
+    },
+    "/configuration/update": {
+      "post": {
+        "description": "Update configuration information | 更新Configuration",
+        "tags": [
+          "configuration"
+        ],
+        "summary": "Update configuration information | 更新Configuration",
+        "operationId": "UpdateConfiguration",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ConfigurationInfo"
             }
           }
         ],
@@ -3487,6 +3645,176 @@
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
     },
+    "ConfigurationInfo": {
+      "description": "The response data of configuration information | 参数配置信息",
+      "type": "object",
+      "properties": {
+        "category": {
+          "description": "Configuration category | 配置的分类",
+          "type": "string",
+          "x-go-name": "Category"
+        },
+        "createdAt": {
+          "description": "Create date | 创建日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "description": "ID",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Id"
+        },
+        "key": {
+          "description": "Configuration key | 配置的键名",
+          "type": "string",
+          "x-go-name": "Key"
+        },
+        "name": {
+          "description": "Configurarion name | 配置名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "remark": {
+          "description": "Remark | 备注",
+          "type": "string",
+          "x-go-name": "Remark"
+        },
+        "sort": {
+          "description": "Sort Number | 排序编号",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Sort"
+        },
+        "state": {
+          "description": "State true: normal false: ban | 状态 true 正常 false 禁用",
+          "type": "boolean",
+          "x-go-name": "State"
+        },
+        "updatedAt": {
+          "description": "Update date | 更新日期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UpdatedAt"
+        },
+        "value": {
+          "description": "Configuraion value | 配置的值",
+          "type": "string",
+          "x-go-name": "Value"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ConfigurationInfoResp": {
+      "description": "Configuration information response | 参数配置信息返回体",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/ConfigurationInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ConfigurationListInfo": {
+      "description": "Configuration list data | 参数配置列表数据",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "The API list data | Configuration列表数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConfigurationInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "The total number of data | 数据总数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ConfigurationListReq": {
+      "description": "Get configuration list request params | 参数配置列表请求参数",
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize"
+      ],
+      "properties": {
+        "category": {
+          "description": "Category",
+          "type": "string",
+          "x-go-name": "Category"
+        },
+        "key": {
+          "description": "Key",
+          "type": "string",
+          "x-go-name": "Key"
+        },
+        "name": {
+          "description": "Name",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "page": {
+          "description": "Page number | 第几页",
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0,
+          "x-go-name": "Page"
+        },
+        "pageSize": {
+          "description": "Page size | 单页数据行数",
+          "type": "integer",
+          "format": "uint64",
+          "maximum": 100000,
+          "x-go-name": "PageSize"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
+    "ConfigurationListResp": {
+      "description": "The response data of configuration list | 参数配置列表数据",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code | 错误代码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Data | 数据",
+          "type": "string",
+          "x-go-name": "Data",
+          "$ref": "#/definitions/ConfigurationListInfo"
+        },
+        "msg": {
+          "description": "Message | 提示信息",
+          "type": "string",
+          "x-go-name": "Msg"
+        }
+      },
+      "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
+    },
     "CreateOrUpdateApiAuthorityReq": {
       "description": "Create or update api authorization information request | 创建或更新API授权信息",
       "type": "object",
@@ -5146,7 +5474,7 @@
         "scopes": {
           "description": "Scopes | 授权范围",
           "type": "string",
-          "maxLength": 50,
+          "maxLength": 100,
           "x-go-name": "Scopes"
         },
         "tokenUrl": {
@@ -7178,5 +7506,10 @@
       "name": "Authorization",
       "in": "header"
     }
-  }
+  },
+  "security": [
+    {
+      "Token": []
+    }
+  ]
 }

@@ -198,9 +198,9 @@ type UserInfo struct {
 	// max length : 300
 	Avatar *string `json:"avatar,optional" validate:"omitempty,max=300"`
 	// Department ID | 部门ID
-	DepartmentId *uint64 `json:"departmentId,optional"`
+	DepartmentId *uint64 `json:"departmentId,optional,omitempty"`
 	// Position ID | 职位ID
-	PositionIds []uint64 `json:"positionId,optional"`
+	PositionIds []uint64 `json:"positionId,optional,omitempty"`
 }
 
 // The response data of user list | 用户列表数据
@@ -916,8 +916,8 @@ type OauthProviderInfo struct {
 	// max length : 300
 	RedirectUrl *string `json:"redirectUrl,optional" validate:"omitempty,max=300"`
 	// Scopes | 授权范围
-	// max length : 50
-	Scopes *string `json:"scopes,optional" validate:"omitempty,max=50"`
+	// max length : 100
+	Scopes *string `json:"scopes,optional" validate:"omitempty,max=100"`
 	// Authority URL | 授权地址
 	// max length : 300
 	AuthUrl *string `json:"authUrl,optional" validate:"omitempty,max=300"`
@@ -1607,4 +1607,60 @@ type SendEmailReq struct {
 	Content string `json:"content"`
 	// The email provider | 邮件服务提供商
 	Provider *string `json:"provider,optional"`
+}
+
+// The response data of configuration information | 参数配置信息
+// swagger:model ConfigurationInfo
+type ConfigurationInfo struct {
+	BaseIDInfo
+	// Sort Number | 排序编号
+	Sort *uint32 `json:"sort,optional"`
+	// State true: normal false: ban | 状态 true 正常 false 禁用
+	State *bool `json:"state,optional"`
+	// Configurarion name | 配置名称
+	Name *string `json:"name,optional"`
+	// Configuration key | 配置的键名
+	Key *string `json:"key,optional"`
+	// Configuraion value | 配置的值
+	Value *string `json:"value,optional"`
+	// Configuration category | 配置的分类
+	Category *string `json:"category,optional"`
+	// Remark | 备注
+	Remark *string `json:"remark,optional"`
+}
+
+// The response data of configuration list | 参数配置列表数据
+// swagger:model ConfigurationListResp
+type ConfigurationListResp struct {
+	BaseDataInfo
+	// Configuration list data | 参数配置列表数据
+	Data ConfigurationListInfo `json:"data"`
+}
+
+// Configuration list data | 参数配置列表数据
+// swagger:model ConfigurationListInfo
+type ConfigurationListInfo struct {
+	BaseListInfo
+	// The API list data | Configuration列表数据
+	Data []ConfigurationInfo `json:"data"`
+}
+
+// Get configuration list request params | 参数配置列表请求参数
+// swagger:model ConfigurationListReq
+type ConfigurationListReq struct {
+	PageInfo
+	// Name
+	Name *string `json:"name,optional"`
+	// Key
+	Key *string `json:"key,optional"`
+	// Category
+	Category *string `json:"category,optional"`
+}
+
+// Configuration information response | 参数配置信息返回体
+// swagger:model ConfigurationInfoResp
+type ConfigurationInfoResp struct {
+	BaseDataInfo
+	// Configuration information | 参数配置数据
+	Data ConfigurationInfo `json:"data"`
 }

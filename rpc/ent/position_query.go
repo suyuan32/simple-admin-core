@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"math"
 
+	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -87,7 +88,7 @@ func (pq *PositionQuery) QueryUsers() *UserQuery {
 // First returns the first Position entity from the query.
 // Returns a *NotFoundError when no Position was found.
 func (pq *PositionQuery) First(ctx context.Context) (*Position, error) {
-	nodes, err := pq.Limit(1).All(setContextOp(ctx, pq.ctx, "First"))
+	nodes, err := pq.Limit(1).All(setContextOp(ctx, pq.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -110,7 +111,7 @@ func (pq *PositionQuery) FirstX(ctx context.Context) *Position {
 // Returns a *NotFoundError when no Position ID was found.
 func (pq *PositionQuery) FirstID(ctx context.Context) (id uint64, err error) {
 	var ids []uint64
-	if ids, err = pq.Limit(1).IDs(setContextOp(ctx, pq.ctx, "FirstID")); err != nil {
+	if ids, err = pq.Limit(1).IDs(setContextOp(ctx, pq.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -133,7 +134,7 @@ func (pq *PositionQuery) FirstIDX(ctx context.Context) uint64 {
 // Returns a *NotSingularError when more than one Position entity is found.
 // Returns a *NotFoundError when no Position entities are found.
 func (pq *PositionQuery) Only(ctx context.Context) (*Position, error) {
-	nodes, err := pq.Limit(2).All(setContextOp(ctx, pq.ctx, "Only"))
+	nodes, err := pq.Limit(2).All(setContextOp(ctx, pq.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -161,7 +162,7 @@ func (pq *PositionQuery) OnlyX(ctx context.Context) *Position {
 // Returns a *NotFoundError when no entities are found.
 func (pq *PositionQuery) OnlyID(ctx context.Context) (id uint64, err error) {
 	var ids []uint64
-	if ids, err = pq.Limit(2).IDs(setContextOp(ctx, pq.ctx, "OnlyID")); err != nil {
+	if ids, err = pq.Limit(2).IDs(setContextOp(ctx, pq.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -186,7 +187,7 @@ func (pq *PositionQuery) OnlyIDX(ctx context.Context) uint64 {
 
 // All executes the query and returns a list of Positions.
 func (pq *PositionQuery) All(ctx context.Context) ([]*Position, error) {
-	ctx = setContextOp(ctx, pq.ctx, "All")
+	ctx = setContextOp(ctx, pq.ctx, ent.OpQueryAll)
 	if err := pq.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
@@ -208,7 +209,7 @@ func (pq *PositionQuery) IDs(ctx context.Context) (ids []uint64, err error) {
 	if pq.ctx.Unique == nil && pq.path != nil {
 		pq.Unique(true)
 	}
-	ctx = setContextOp(ctx, pq.ctx, "IDs")
+	ctx = setContextOp(ctx, pq.ctx, ent.OpQueryIDs)
 	if err = pq.Select(position.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
@@ -226,7 +227,7 @@ func (pq *PositionQuery) IDsX(ctx context.Context) []uint64 {
 
 // Count returns the count of the given query.
 func (pq *PositionQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, pq.ctx, "Count")
+	ctx = setContextOp(ctx, pq.ctx, ent.OpQueryCount)
 	if err := pq.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
@@ -244,7 +245,7 @@ func (pq *PositionQuery) CountX(ctx context.Context) int {
 
 // Exist returns true if the query has elements in the graph.
 func (pq *PositionQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, pq.ctx, "Exist")
+	ctx = setContextOp(ctx, pq.ctx, ent.OpQueryExist)
 	switch _, err := pq.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
@@ -278,8 +279,9 @@ func (pq *PositionQuery) Clone() *PositionQuery {
 		predicates: append([]predicate.Position{}, pq.predicates...),
 		withUsers:  pq.withUsers.Clone(),
 		// clone intermediate query.
-		sql:  pq.sql.Clone(),
-		path: pq.path,
+		sql:       pq.sql.Clone(),
+		path:      pq.path,
+		modifiers: append([]func(*sql.Selector){}, pq.modifiers...),
 	}
 }
 
@@ -576,7 +578,7 @@ func (pgb *PositionGroupBy) Aggregate(fns ...AggregateFunc) *PositionGroupBy {
 
 // Scan applies the selector query and scans the result into the given value.
 func (pgb *PositionGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, pgb.build.ctx, "GroupBy")
+	ctx = setContextOp(ctx, pgb.build.ctx, ent.OpQueryGroupBy)
 	if err := pgb.build.prepareQuery(ctx); err != nil {
 		return err
 	}
@@ -624,7 +626,7 @@ func (ps *PositionSelect) Aggregate(fns ...AggregateFunc) *PositionSelect {
 
 // Scan applies the selector query and scans the result into the given value.
 func (ps *PositionSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ps.ctx, "Select")
+	ctx = setContextOp(ctx, ps.ctx, ent.OpQuerySelect)
 	if err := ps.prepareQuery(ctx); err != nil {
 		return err
 	}

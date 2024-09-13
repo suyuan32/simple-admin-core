@@ -1,0 +1,97 @@
+Name: core.api
+Host: 0.0.0.0
+Port: 9100
+Timeout: 6000
+
+Auth:
+  AccessSecret: jS6VKDtsJf3z1n2VKDtsJf3z1n2
+  AccessExpire: 259200
+
+Log:
+  ServiceName: coreApiLogger
+  Mode: file
+  Path: /home/data/logs/core/api
+  Level: info
+  Compress: false
+  KeepDays: 7
+  StackCoolDownMillis: 100
+
+Captcha:
+  KeyLong: 5
+  ImgWidth: 240
+  ImgHeight: 80
+  Driver: digit
+
+DatabaseConf:
+  Type: postgres
+  Host: postgresql-server
+  Port: 5432
+  DBName: simple_admin
+  Username: postgres # set your username
+  Password: simple-admin. # set your password
+  MaxOpenConn: 100
+  SSLMode: disable
+  CacheTime: 5
+
+RedisConf:
+  Host: redis-server:6379
+  Db: 0
+
+ProjectConf:
+  DefaultRoleId: 1  # default role id when register
+  DefaultDepartmentId: 1  # default department id when register
+  DefaultPositionId: 1 # default position id when register
+  EmailCaptchaExpiredTime: 600 # the expired time for email captcha
+  SmsTemplateId: xxx  # The template id for sms
+  SmsAppId: xxx  # the app id for sms
+  SmsSignName: xxx  # the signature name of sms
+  SmsParamsType: json # the type of sms param, support json and array
+  RegisterVerify: captcha # register captcha type, support captcha, email, sms, sms_or_email
+  LoginVerify: captcha # login captcha type, support captcha, email, sms, sms_or_email, all
+  ResetVerify: email # reset captcha type, support email, sms, sms_or_email
+  AllowInit: true # if false, ban initialization
+  RefreshTokenPeriod: 24 # refresh token valid period, unit: hour | 刷新 token 的有效期，单位：小时
+  AccessTokenPeriod: 1 # access token valid period, unit: hour | 短期 token 的有效期，单位：小时
+
+CasbinConf:
+  ModelText: |
+    [request_definition]
+    r = sub, obj, act
+    [policy_definition]
+    p = sub, obj, act
+    [role_definition]
+    g = _, _
+    [policy_effect]
+    e = some(where (p.eft == allow))
+    [matchers]
+    m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
+
+I18nConf:
+  Dir: # set the path of locale if you need to load files
+
+CROSConf:
+  Address: '*'    # if it is *, allow all ip and address. e.g. http://example.com
+
+CoreRpc:
+  Endpoints:
+    - core-rpc:9101
+  Enabled: true
+
+JobRpc:
+  Endpoints:
+    - job-rpc:9105
+  Enabled: false
+
+McmsRpc:
+  Endpoints:
+    - mcms-rpc:9106
+  Enabled: false
+  Timeout: 5000
+
+# Tracing Analysis
+
+#Telemetry:
+#  Name: core-api
+#  Endpoint: localhost:4317
+#  Sampler: 1.0
+#  Batcher: otlpgrpc # grpc

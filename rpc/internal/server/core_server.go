@@ -9,6 +9,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/api"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/authority"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/base"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/configuration"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionarydetail"
@@ -72,6 +73,32 @@ func (s *CoreServer) CreateOrUpdateMenuAuthority(ctx context.Context, in *core.R
 func (s *CoreServer) InitDatabase(ctx context.Context, in *core.Empty) (*core.BaseResp, error) {
 	l := base.NewInitDatabaseLogic(ctx, s.svcCtx)
 	return l.InitDatabase(in)
+}
+
+// Configuration management
+func (s *CoreServer) CreateConfiguration(ctx context.Context, in *core.ConfigurationInfo) (*core.BaseIDResp, error) {
+	l := configuration.NewCreateConfigurationLogic(ctx, s.svcCtx)
+	return l.CreateConfiguration(in)
+}
+
+func (s *CoreServer) UpdateConfiguration(ctx context.Context, in *core.ConfigurationInfo) (*core.BaseResp, error) {
+	l := configuration.NewUpdateConfigurationLogic(ctx, s.svcCtx)
+	return l.UpdateConfiguration(in)
+}
+
+func (s *CoreServer) GetConfigurationList(ctx context.Context, in *core.ConfigurationListReq) (*core.ConfigurationListResp, error) {
+	l := configuration.NewGetConfigurationListLogic(ctx, s.svcCtx)
+	return l.GetConfigurationList(in)
+}
+
+func (s *CoreServer) GetConfigurationById(ctx context.Context, in *core.IDReq) (*core.ConfigurationInfo, error) {
+	l := configuration.NewGetConfigurationByIdLogic(ctx, s.svcCtx)
+	return l.GetConfigurationById(in)
+}
+
+func (s *CoreServer) DeleteConfiguration(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
+	l := configuration.NewDeleteConfigurationLogic(ctx, s.svcCtx)
+	return l.DeleteConfiguration(in)
 }
 
 // Department management

@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+
 	"github.com/suyuan32/simple-admin-common/enum/common"
 
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"

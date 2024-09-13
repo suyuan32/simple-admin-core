@@ -17,6 +17,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
@@ -37,6 +38,8 @@ type Client struct {
 	Schema *migrate.Schema
 	// API is the client for interacting with the API builders.
 	API *APIClient
+	// Configuration is the client for interacting with the Configuration builders.
+	Configuration *ConfigurationClient
 	// Department is the client for interacting with the Department builders.
 	Department *DepartmentClient
 	// Dictionary is the client for interacting with the Dictionary builders.
@@ -67,6 +70,7 @@ func NewClient(opts ...Option) *Client {
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
 	c.API = NewAPIClient(c.config)
+	c.Configuration = NewConfigurationClient(c.config)
 	c.Department = NewDepartmentClient(c.config)
 	c.Dictionary = NewDictionaryClient(c.config)
 	c.DictionaryDetail = NewDictionaryDetailClient(c.config)
@@ -169,6 +173,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		ctx:              ctx,
 		config:           cfg,
 		API:              NewAPIClient(cfg),
+		Configuration:    NewConfigurationClient(cfg),
 		Department:       NewDepartmentClient(cfg),
 		Dictionary:       NewDictionaryClient(cfg),
 		DictionaryDetail: NewDictionaryDetailClient(cfg),
@@ -198,6 +203,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		ctx:              ctx,
 		config:           cfg,
 		API:              NewAPIClient(cfg),
+		Configuration:    NewConfigurationClient(cfg),
 		Department:       NewDepartmentClient(cfg),
 		Dictionary:       NewDictionaryClient(cfg),
 		DictionaryDetail: NewDictionaryDetailClient(cfg),
@@ -236,8 +242,8 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
-		c.API, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu, c.OauthProvider,
-		c.Position, c.Role, c.Token, c.User,
+		c.API, c.Configuration, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu,
+		c.OauthProvider, c.Position, c.Role, c.Token, c.User,
 	} {
 		n.Use(hooks...)
 	}
@@ -247,8 +253,8 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.API, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu, c.OauthProvider,
-		c.Position, c.Role, c.Token, c.User,
+		c.API, c.Configuration, c.Department, c.Dictionary, c.DictionaryDetail, c.Menu,
+		c.OauthProvider, c.Position, c.Role, c.Token, c.User,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -259,6 +265,8 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 	switch m := m.(type) {
 	case *APIMutation:
 		return c.API.mutate(ctx, m)
+	case *ConfigurationMutation:
+		return c.Configuration.mutate(ctx, m)
 	case *DepartmentMutation:
 		return c.Department.mutate(ctx, m)
 	case *DictionaryMutation:
@@ -412,6 +420,139 @@ func (c *APIClient) mutate(ctx context.Context, m *APIMutation) (Value, error) {
 		return (&APIDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
 		return nil, fmt.Errorf("ent: unknown API mutation op: %q", m.Op())
+	}
+}
+
+// ConfigurationClient is a client for the Configuration schema.
+type ConfigurationClient struct {
+	config
+}
+
+// NewConfigurationClient returns a client for the Configuration from the given config.
+func NewConfigurationClient(c config) *ConfigurationClient {
+	return &ConfigurationClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `configuration.Hooks(f(g(h())))`.
+func (c *ConfigurationClient) Use(hooks ...Hook) {
+	c.hooks.Configuration = append(c.hooks.Configuration, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `configuration.Intercept(f(g(h())))`.
+func (c *ConfigurationClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Configuration = append(c.inters.Configuration, interceptors...)
+}
+
+// Create returns a builder for creating a Configuration entity.
+func (c *ConfigurationClient) Create() *ConfigurationCreate {
+	mutation := newConfigurationMutation(c.config, OpCreate)
+	return &ConfigurationCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Configuration entities.
+func (c *ConfigurationClient) CreateBulk(builders ...*ConfigurationCreate) *ConfigurationCreateBulk {
+	return &ConfigurationCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *ConfigurationClient) MapCreateBulk(slice any, setFunc func(*ConfigurationCreate, int)) *ConfigurationCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &ConfigurationCreateBulk{err: fmt.Errorf("calling to ConfigurationClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*ConfigurationCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &ConfigurationCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Configuration.
+func (c *ConfigurationClient) Update() *ConfigurationUpdate {
+	mutation := newConfigurationMutation(c.config, OpUpdate)
+	return &ConfigurationUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *ConfigurationClient) UpdateOne(co *Configuration) *ConfigurationUpdateOne {
+	mutation := newConfigurationMutation(c.config, OpUpdateOne, withConfiguration(co))
+	return &ConfigurationUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *ConfigurationClient) UpdateOneID(id uint64) *ConfigurationUpdateOne {
+	mutation := newConfigurationMutation(c.config, OpUpdateOne, withConfigurationID(id))
+	return &ConfigurationUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Configuration.
+func (c *ConfigurationClient) Delete() *ConfigurationDelete {
+	mutation := newConfigurationMutation(c.config, OpDelete)
+	return &ConfigurationDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *ConfigurationClient) DeleteOne(co *Configuration) *ConfigurationDeleteOne {
+	return c.DeleteOneID(co.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *ConfigurationClient) DeleteOneID(id uint64) *ConfigurationDeleteOne {
+	builder := c.Delete().Where(configuration.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &ConfigurationDeleteOne{builder}
+}
+
+// Query returns a query builder for Configuration.
+func (c *ConfigurationClient) Query() *ConfigurationQuery {
+	return &ConfigurationQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeConfiguration},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a Configuration entity by its id.
+func (c *ConfigurationClient) Get(ctx context.Context, id uint64) (*Configuration, error) {
+	return c.Query().Where(configuration.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *ConfigurationClient) GetX(ctx context.Context, id uint64) *Configuration {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *ConfigurationClient) Hooks() []Hook {
+	return c.hooks.Configuration
+}
+
+// Interceptors returns the client interceptors.
+func (c *ConfigurationClient) Interceptors() []Interceptor {
+	return c.inters.Configuration
+}
+
+func (c *ConfigurationClient) mutate(ctx context.Context, m *ConfigurationMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&ConfigurationCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&ConfigurationUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&ConfigurationUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&ConfigurationDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Configuration mutation op: %q", m.Op())
 	}
 }
 
@@ -1841,12 +1982,12 @@ func (c *UserClient) mutate(ctx context.Context, m *UserMutation) (Value, error)
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		API, Department, Dictionary, DictionaryDetail, Menu, OauthProvider, Position,
-		Role, Token, User []ent.Hook
+		API, Configuration, Department, Dictionary, DictionaryDetail, Menu,
+		OauthProvider, Position, Role, Token, User []ent.Hook
 	}
 	inters struct {
-		API, Department, Dictionary, DictionaryDetail, Menu, OauthProvider, Position,
-		Role, Token, User []ent.Interceptor
+		API, Configuration, Department, Dictionary, DictionaryDetail, Menu,
+		OauthProvider, Position, Role, Token, User []ent.Interceptor
 	}
 )
 

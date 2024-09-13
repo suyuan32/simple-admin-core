@@ -2,10 +2,11 @@ package publicuser
 
 import (
 	"context"
-	"github.com/suyuan32/simple-admin-common/config"
-	"github.com/suyuan32/simple-admin-common/enum/common"
 	"strings"
 	"time"
+
+	"github.com/suyuan32/simple-admin-common/config"
+	"github.com/suyuan32/simple-admin-common/enum/common"
 
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"

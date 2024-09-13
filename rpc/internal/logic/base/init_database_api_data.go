@@ -715,6 +715,48 @@ func (l *InitDatabaseLogic) insertApiData() error {
 		SetMethod("POST"),
 	)
 
+	// CONFIGURATION
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetServiceName("Core").
+		SetPath("/configuration/create").
+		SetDescription("apiDesc.createConfiguration").
+		SetAPIGroup("configuration").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetServiceName("Core").
+		SetPath("/configuration/update").
+		SetDescription("apiDesc.updateConfiguration").
+		SetAPIGroup("configuration").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetServiceName("Core").
+		SetPath("/configuration/delete").
+		SetDescription("apiDesc.deleteConfiguration").
+		SetAPIGroup("configuration").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetServiceName("Core").
+		SetPath("/configuration/list").
+		SetDescription("apiDesc.getConfigurationList").
+		SetAPIGroup("configuration").
+		SetMethod("POST"),
+	)
+
+	apis = append(apis, l.svcCtx.DB.API.Create().
+		SetServiceName("Core").
+		SetPath("/configuration").
+		SetDescription("apiDesc.getConfigurationById").
+		SetAPIGroup("configuration").
+		SetMethod("POST"),
+	)
+
 	err := l.svcCtx.DB.API.CreateBulk(apis...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())

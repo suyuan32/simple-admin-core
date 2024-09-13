@@ -2,9 +2,10 @@ package token
 
 import (
 	"context"
+	"time"
+
 	"github.com/suyuan32/simple-admin-common/config"
 	"github.com/suyuan32/simple-admin-common/enum/common"
-	"time"
 
 	"github.com/suyuan32/simple-admin-common/msg/logmsg"
 	"github.com/suyuan32/simple-admin-common/utils/uuidx"

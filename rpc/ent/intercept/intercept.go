@@ -9,6 +9,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/suyuan32/simple-admin-core/rpc/ent"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
@@ -102,6 +103,33 @@ func (f TraverseAPI) Traverse(ctx context.Context, q ent.Query) error {
 		return f(ctx, q)
 	}
 	return fmt.Errorf("unexpected query type %T. expect *ent.APIQuery", q)
+}
+
+// The ConfigurationFunc type is an adapter to allow the use of ordinary function as a Querier.
+type ConfigurationFunc func(context.Context, *ent.ConfigurationQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f ConfigurationFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.ConfigurationQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ConfigurationQuery", q)
+}
+
+// The TraverseConfiguration type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseConfiguration func(context.Context, *ent.ConfigurationQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseConfiguration) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseConfiguration) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.ConfigurationQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.ConfigurationQuery", q)
 }
 
 // The DepartmentFunc type is an adapter to allow the use of ordinary function as a Querier.
@@ -352,6 +380,8 @@ func NewQuery(q ent.Query) (Query, error) {
 	switch q := q.(type) {
 	case *ent.APIQuery:
 		return &query[*ent.APIQuery, predicate.API, api.OrderOption]{typ: ent.TypeAPI, tq: q}, nil
+	case *ent.ConfigurationQuery:
+		return &query[*ent.ConfigurationQuery, predicate.Configuration, configuration.OrderOption]{typ: ent.TypeConfiguration, tq: q}, nil
 	case *ent.DepartmentQuery:
 		return &query[*ent.DepartmentQuery, predicate.Department, department.OrderOption]{typ: ent.TypeDepartment, tq: q}, nil
 	case *ent.DictionaryQuery:

@@ -1,0 +1,210 @@
+version: "3"
+
+volumes:
+  mysql:
+  redis:
+  fms:
+
+networks:
+  simple-admin:
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql:8.3.0
+    container_name: mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "simple_admin"
+      MYSQL_ROOT_PASSWORD: "simple-admin."
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      simple-admin:
+        aliases:
+          - mysql-server
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1000M
+        reservations:
+          cpus: "0.05"
+          memory: 200M
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
+    networks:
+      simple-admin:
+        aliases:
+          - redis-server
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500M
+        reservations:
+          cpus: "0.05"
+          memory: 200M
+
+  core-rpc:
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/core-rpc-docker:v1.5.6
+    container_name: core-rpc
+    restart: always
+    ports:
+      - "9101:9101"
+    environment:
+      DATABASE_TYPE: "mysql"
+      DATABASE_USERNAME: "root"
+      DATABASE_PASSWORD: "simple-admin."
+      DATABASE_HOST: "mysql-server"
+      DATABASE_PORT: 3306
+    networks:
+      simple-admin:
+        aliases:
+          - core-rpc
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500M
+        reservations:
+          cpus: "0.05"
+          memory: 200M
+
+  job-rpc:
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/job-rpc-docker:v1.5.6
+    container_name: job-rpc
+    restart: always
+    ports:
+      - "9105:9105"
+    environment:
+      DATABASE_TYPE: "mysql"
+      DATABASE_USERNAME: "root"
+      DATABASE_PASSWORD: "simple-admin."
+      DATABASE_HOST: "mysql-server"
+      DATABASE_PORT: 3306
+    networks:
+      simple-admin:
+        aliases:
+          - job-rpc
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500M
+        reservations:
+          cpus: "0.05"
+          memory: 200M
+
+  core-api:
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/core-api-docker:v1.5.6
+    container_name: core-api
+    restart: always
+    environment:
+      #      I18N_DIR: '/app/etc/'
+      DATABASE_TYPE: "mysql"
+      DATABASE_HOST: "mysql-server"
+      DATABASE_USERNAME: "root"
+      DATABASE_PASSWORD: "simple-admin."
+      DATABASE_PORT: 3306
+    #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
+    ports:
+      - "9100:9100"
+    networks:
+      simple-admin:
+        aliases:
+          - core-api
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500M
+        reservations:
+          cpus: "0.05"
+          memory: 200M
+
+  backend-ui:
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/backend-ui-docker:v1.5.6
+    container_name: backend-ui
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      simple-admin:
+        aliases:
+          - backend-ui
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500M
+        reservations:
+          cpus: "0.05"
+          memory: 200M
+
+  fms-api:
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/fms-api-docker:v1.5.6
+    container_name: fms-api
+    restart: always
+    #    environment:
+    #      SERVER_URL: 'http://localhost:81'
+    #      AUTH_SECRET: 'jS6VKDtsJf3z1n2VKDtsJf3z1n2'
+    environment:
+      DATABASE_TYPE: "mysql"
+      DATABASE_USERNAME: "root"
+      DATABASE_PASSWORD: "simple-admin."
+      DATABASE_HOST: "mysql-server"
+      DATABASE_PORT: 3306
+    ports:
+      - "9102:9102"
+      - "81:80"
+    volumes:
+      - fms:/home/data
+    networks:
+      simple-admin:
+        aliases:
+          - fms-api
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500M
+        reservations:
+          cpus: "0.05"
+          memory: 200M
+
+  mcms-rpc:
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/mcms-rpc-docker:v1.5.6
+    container_name: mcms-rpc
+    restart: always
+    environment:
+      DATABASE_TYPE: "mysql"
+      DATABASE_USERNAME: "root"
+      DATABASE_PASSWORD: "simple-admin."
+      DATABASE_HOST: "mysql-server"
+      DATABASE_PORT: 3306
+    #      EMAIL_ADDR: xxx@gamil.com
+    #    ports:
+    #      - '9106:9106'
+    networks:
+      simple-admin:
+        aliases:
+          - mcms-rpc
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500M
+        reservations:
+          cpus: "0.05"
+          memory: 200M

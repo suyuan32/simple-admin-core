@@ -37,7 +37,7 @@ func (l *CreateOrUpdateMenuAuthorityLogic) CreateOrUpdateMenuAuthority(in *core.
 			return err
 		}
 
-		err = tx.Role.UpdateOneID(in.RoleId).AddMenuIDs(in.MenuId...).Exec(l.ctx)
+		err = tx.Role.UpdateOneID(in.RoleId).AddMenuIDs(in.MenuIds...).Exec(l.ctx)
 		if err != nil {
 			return err
 		}

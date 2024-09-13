@@ -2,10 +2,12 @@ package publicuser
 
 import (
 	"context"
+
 	"github.com/suyuan32/simple-admin-common/config"
 	"github.com/suyuan32/simple-admin-common/i18n"
-	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 	"github.com/zeromicro/go-zero/core/errorx"
+
+	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"

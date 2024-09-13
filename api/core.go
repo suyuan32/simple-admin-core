@@ -5,13 +5,15 @@
 //		Schemes: http, https
 //		Host: localhost:9100
 //		BasePath: /
-//		Version: 1.5.0
+//		Version: 1.5.6
 //		Contact: yuansu.china.work@gmail.com
 //		SecurityDefinitions:
 //		  Token:
 //		    type: apiKey
 //		    name: Authorization
 //		    in: header
+//		Security:
+//	  	  Token:
 //	    Consumes:
 //		  - application/json
 //
