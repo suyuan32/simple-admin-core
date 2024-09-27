@@ -206,4 +206,4 @@ You are very welcome to join！[Raise an issue](https://github.com/suyuan32/simp
 
 ## License
 
-[MIT © Ryan-2022](./LICENSE)
+[Apache2.0 © Ryan-2022](./LICENSE)
