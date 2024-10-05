@@ -5,7 +5,7 @@ go 1.23.0
 require (
 	entgo.io/ent v0.14.1
 	github.com/bsm/redislock v0.9.4
-	github.com/casbin/casbin/v2 v2.99.0
+	github.com/casbin/casbin/v2 v2.100.0
 	github.com/duke-git/lancet/v2 v2.3.2
 	github.com/gofrs/uuid/v5 v5.3.0
 	github.com/larksuite/oapi-sdk-go/v3 v3.3.2
