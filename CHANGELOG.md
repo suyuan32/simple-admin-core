@@ -1,3 +1,58 @@
+<a name="v1.5.6"></a>
+
+## [v1.5.6](https://github.com/suyuan32/simple-admin-core/compare/v1.5.4...v1.5.6) (2024-09-08)
+
+### Chore
+
+* update all in one
+* upgrade deps
+* regen ent files
+* upgrade deps and version
+
+### Docs
+
+* update readme
+
+### Feat
+
+* core deploy cn
+* core deploy
+
+### Fix
+
+* format imports
+* swagger security comments
+* check api and menu when create
+* **configuration:** return false state config
+
+### Perf
+
+* api format
+
+### Refactor
+
+* authority rpc menu_ids field
+
+<a name="v1.5.4"></a>
+
+## [v1.5.4](https://github.com/suyuan32/simple-admin-core/compare/v1.5.3...v1.5.4) (2024-08-20)
+
+### Chore
+
+* update all in one
+* upgrade deps
+* upgrade dockerfile image and config
+
+### Docs
+
+* update readme
+* update readme
+* update readme
+* update change log
+
+### Fix
+
+* version tag in all in one
 
 <a name="v1.5.3"></a>
 ## [v1.5.3](https://github.com/suyuan32/simple-admin-core/compare/v1.5.2...v1.5.3) (2024-08-01)
