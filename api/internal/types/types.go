@@ -1090,9 +1090,8 @@ type DepartmentInfo struct {
 	// max length : 18
 	Phone *string `json:"phone,optional" validate:"omitempty,max=18"`
 	// Email | 邮箱
-	// min length : 5
 	// max length : 70
-	Email *string `json:"email,optional" validate:"omitempty,min=5,max=70"`
+	Email *string `json:"email,optional" validate:"omitempty,max=70"`
 	// Remark | 备注
 	// max length : 200
 	Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
