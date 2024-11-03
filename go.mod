@@ -11,9 +11,9 @@ require (
 	github.com/larksuite/oapi-sdk-go/v3 v3.3.5
 	github.com/mojocn/base64Captcha v1.3.6
 	github.com/redis/go-redis/v9 v9.7.0
-	github.com/suyuan32/simple-admin-common v1.5.7
-	github.com/suyuan32/simple-admin-job v1.5.7
-	github.com/suyuan32/simple-admin-message-center v1.5.7
+	github.com/suyuan32/simple-admin-common v1.5.8
+	github.com/suyuan32/simple-admin-job v1.5.8
+	github.com/suyuan32/simple-admin-message-center v1.5.8
 	github.com/zeromicro/go-zero v1.7.3
 	golang.org/x/oauth2 v0.23.0
 	google.golang.org/grpc v1.67.1
@@ -61,7 +61,7 @@ require (
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.22.0 // indirect
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.23.0 // indirect
 	github.com/hashicorp/hcl/v2 v2.22.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
@@ -130,7 +130,7 @@ require (
 	k8s.io/kube-openapi v0.0.0-20241009091222-67ed5848f094 // indirect
 	k8s.io/utils v0.0.0-20240921022957-49e7df575cb6 // indirect
 	sigs.k8s.io/json v0.0.0-20241014173422-cfa47c3a1cc8 // indirect
-	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
+	sigs.k8s.io/structured-merge-diff/v4 v4.4.2 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
 
