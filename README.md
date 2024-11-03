@@ -27,13 +27,6 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 基于 go zero 的加强版工具，针对 simple admin 提供了大量优化，具有大量额外的代码生成功能，全面支持ent，轻松实现三端代码生成，使开发变得简单。
 
-## [Doge](https://github.com/suyuan32/doge)
-
-Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源码下载，模块 docker , k8s 部署，服务器维护等功能。用户可以上传自己的付费模块获取收益，现已收录
-10 + 模块。
-
-> [模块商店](https://doge.ryansu.tech/store/index)
-
 ## 相关教程
 
 > [Bilibili 视频教程](https://space.bilibili.com/9872669/channel/series) \

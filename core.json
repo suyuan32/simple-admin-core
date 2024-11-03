@@ -3861,7 +3861,6 @@
           "description": "Email | 邮箱",
           "type": "string",
           "maxLength": 70,
-          "minLength": 5,
           "x-go-name": "Email"
         },
         "id": {

@@ -34,6 +34,9 @@ func NewDeleteDepartmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 
 func (l *DeleteDepartmentLogic) DeleteDepartment(in *core.IDsReq) (*core.BaseResp, error) {
 	exist, err := l.svcCtx.DB.Department.Query().Where(department.ParentIDIn(in.Ids...)).Exist(l.ctx)
+	if err != nil {
+		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
+	}
 	if exist {
 		logx.Errorw("delete department failed, please check its children had been deleted",
 			logx.Field("departmentId", in.Ids))
@@ -41,6 +44,9 @@ func (l *DeleteDepartmentLogic) DeleteDepartment(in *core.IDsReq) (*core.BaseRes
 	}
 
 	checkUser, err := l.svcCtx.DB.User.Query().Where(user.DepartmentIDIn(in.Ids...)).Exist(l.ctx)
+	if err != nil {
+		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)
+	}
 	if checkUser {
 		logx.Errorw("delete department failed, there are users belongs to the department", logx.Field("departmentId", in.Ids))
 		return nil, errorx.NewInvalidArgumentError("department.deleteDepartmentUserFirst")
