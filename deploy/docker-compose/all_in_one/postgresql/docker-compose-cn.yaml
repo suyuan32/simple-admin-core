@@ -56,7 +56,7 @@ services:
           memory: 200M
 
   core-rpc:
-    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/core-rpc-docker:v1.5.7
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/core-rpc-docker:v1.5.8
     container_name: core-rpc
     restart: always
     #    ports:
@@ -75,7 +75,7 @@ services:
           memory: 200M
 
   job-rpc:
-    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/job-rpc-docker:v1.5.7
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/job-rpc-docker:v1.5.8
     container_name: job-rpc
     restart: always
     #    ports:
@@ -94,7 +94,7 @@ services:
           memory: 200M
 
   core-api:
-    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/core-api-docker:v1.5.7
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/core-api-docker:v1.5.8
     container_name: core-api
     restart: always
     #    environment:
@@ -116,7 +116,7 @@ services:
           memory: 200M
 
   backend-ui:
-    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/backend-ui-docker:v1.5.7
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/backend-ui-docker:v1.5.8
     container_name: backend-ui
     restart: always
     ports:
@@ -135,7 +135,7 @@ services:
           memory: 200M
 
   fms-api:
-    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/fms-api-docker:v1.5.7
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/fms-api-docker:v1.5.8
     container_name: fms-api
     restart: always
     #    environment:
@@ -160,7 +160,7 @@ services:
           memory: 200M
 
   mcms-rpc:
-    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/mcms-rpc-docker:v1.5.7
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/mcms-rpc-docker:v1.5.8
     container_name: mcms-rpc
     restart: always
     #    environment:
