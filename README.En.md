@@ -121,6 +121,12 @@ fully supports ent, and easily realizes three-terminal code generation, making d
 
 [Click to view](https://github.com/suyuan32/awesome-simple-admin-module)
 
+## Notice
+
+1. It is forbidden to use Simple Admin to develop websites and applications that violate local laws and regulations
+2. Simple Admin does not assume any legal responsibility for websites and applications developed using Simple Admin
+3. It is forbidden to resell free or paid module source code
+
 ## Project Planning Progress
 
 [RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)

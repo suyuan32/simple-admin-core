@@ -599,7 +599,7 @@ type MenuInfoResp struct {
 // Menu information plain | 菜单信息无嵌套
 // swagger:model MenuPlainInfo
 type MenuPlainInfo struct {
-	Id *uint64 `json:"id"`
+	Id *uint64 `json:"id,optional"`
 	// Create date | 创建日期
 	CreatedAt *int64 `json:"createdAt,optional"`
 	// Update date | 更新日期
