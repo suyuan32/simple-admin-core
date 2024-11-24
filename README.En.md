@@ -100,9 +100,9 @@ fully supports ent, and easily realizes three-terminal code generation, making d
 ## Permanently Free Official Modules
 
 | Module Name | Module Introduction | Module Address                                                            |
-| ----------- | ------------------- | ------------------------------------------------------------------------- |
+|-------------|---------------------|---------------------------------------------------------------------------|
 | Core        | Core Module         | [Core](https://github.com/suyuan32/simple-admin-core)                     |
-| Backend UI  | Backend Interface   | [Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)         |
+| Backend UI  | Backend UI          | [Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)         |
 | FMS         | File Management     | [File](https://github.com/suyuan32/simple-admin-file)                     |
 | Job         | Scheduled Task      | [Job](https://github.com/suyuan32/simple-admin-job)                       |
 | MMS         | Member Management   | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
@@ -116,6 +116,7 @@ fully supports ent, and easily realizes three-terminal code generation, making d
 | Simple-Uni           | Mini Program Development Scaffold |
 | Simple-Nuxt          | PC Web End Development Scaffold   |
 | Core Data Permission | Core data permission version      |
+| Backend UI Vben5     | Backend UI based on Vben5         |
 
 # Community Modules
 

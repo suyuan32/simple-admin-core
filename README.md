@@ -99,6 +99,7 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 | Simple-Uni           | 小程序开发脚手架    |
 | Simple-Nuxt          | PC 网页端开发脚手架 |
 | Core Data Permission | 数据权限版本      |
+| Backend UI Vben5     | 后台 Vben5 UI |
 
 # 社区模块
 
