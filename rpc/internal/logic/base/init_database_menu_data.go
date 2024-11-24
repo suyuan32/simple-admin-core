@@ -212,7 +212,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(common.DefaultParentId).
+		SetParentID(2).
 		SetPath("/task").
 		SetName("TaskManagement").
 		SetComponent("/sys/task/index").
