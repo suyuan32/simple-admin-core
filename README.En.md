@@ -116,7 +116,6 @@ fully supports ent, and easily realizes three-terminal code generation, making d
 | Simple-Uni           | Mini Program Development Scaffold |
 | Simple-Nuxt          | PC Web End Development Scaffold   |
 | Core Data Permission | Core data permission version      |
-| Backend UI Vben5     | Backend UI based on Vben5         |
 
 # Community Modules
 
