@@ -44,7 +44,7 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 ### [Simple Admin](https://www.youtube.com/@yuansu5197)
 
-## New upgraded UI (Vben5), greatly optimized experience!
+## New upgraded UI (Vben5), greatly optimized experience! [Visit](https://github.com/suyuan32/simple-admin-vben5-ui)
 
 ### Online Preview
 
