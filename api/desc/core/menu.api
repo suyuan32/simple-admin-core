@@ -113,7 +113,7 @@ type (
 
     // Menu information plain | 菜单信息无嵌套
     MenuPlainInfo {
-        Id *uint64 `json:"id"`
+        Id *uint64 `json:"id,optional"`
 
         // Create date | 创建日期
         CreatedAt *int64 `json:"createdAt,optional"`

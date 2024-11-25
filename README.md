@@ -23,9 +23,7 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 > ✨ 我们接外包哦，外包需求请添加公众号联系管理员。 
 
-## [Goctls](https://github.com/suyuan32/goctls)
-
-基于 go zero 的加强版工具，针对 simple admin 提供了大量优化，具有大量额外的代码生成功能，全面支持ent，轻松实现三端代码生成，使开发变得简单。
+## 全新升级 UI (Vben5)，大幅优化体验 !
 
 ## 相关教程
 
@@ -36,7 +34,7 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 ### 在线预览
 
-#### [免费版在线预览](https://preview.ryansu.tech/)
+#### [免费版在线预览](https://vben5-preview.ryansu.tech/)
 
 - 账号 **admin**
 - 密码 **simple-admin**
@@ -82,10 +80,10 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 ## 永久免费的官方模块
 
-| 模块名称   | 模块介绍 | 模块地址                                                                  |
-| ---------- | -------- | ------------------------------------------------------------------------- |
+| 模块名称       | 模块介绍 | 模块地址                                                                      |
+|------------|------|---------------------------------------------------------------------------|
 | Core       | 核心模块 | [Core](https://github.com/suyuan32/simple-admin-core)                     |
-| Backend UI | 后端界面 | [Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)         |
+| Backend UI | 后端界面 | [Backend UI](https://github.com/suyuan32/simple-admin-vben5-ui)           |
 | FMS        | 文件管理 | [File](https://github.com/suyuan32/simple-admin-file)                     |
 | Job        | 定时任务 | [Job](https://github.com/suyuan32/simple-admin-job)                       |
 | MMS        | 会员管理 | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
@@ -103,6 +101,12 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 # 社区模块
 
 [点击查看](https://github.com/suyuan32/awesome-simple-admin-module)
+
+## 注意
+
+1. 禁止使用 Simple Admin 开发违反当地法律法规的网站及应用
+2. 使用 Simple Admin 开发的网站及应用 Simple Admin 官方不承担任何法律责任
+3. 禁止二次销售免费或付费模块源码
 
 ## 项目规划进度
 

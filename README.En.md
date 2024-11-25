@@ -44,16 +44,11 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 ### [Simple Admin](https://www.youtube.com/@yuansu5197)
 
-## [Goctls](https://github.com/suyuan32/goctls)
-
-Based on the enhanced version of go zero, it provides a lot of optimizations for simple admin, has a lot of additional
-code generation functions,
-fully supports ent, and easily realizes three-terminal code generation, making development easier.
-
+## New upgraded UI (Vben5), greatly optimized experience!
 
 ### Online Preview
 
-#### [Free Edition Online Preview](https://preview.ryansu.tech/)
+#### [Free Edition Online Preview](https://vben5-preview.ryansu.tech/)
 
 - Account **admin**
 - Password **simple-admin**
@@ -100,9 +95,9 @@ fully supports ent, and easily realizes three-terminal code generation, making d
 ## Permanently Free Official Modules
 
 | Module Name | Module Introduction | Module Address                                                            |
-| ----------- | ------------------- | ------------------------------------------------------------------------- |
+|-------------|---------------------|---------------------------------------------------------------------------|
 | Core        | Core Module         | [Core](https://github.com/suyuan32/simple-admin-core)                     |
-| Backend UI  | Backend Interface   | [Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)         |
+| Backend UI  | Backend UI          | [Backend UI](https://github.com/suyuan32/simple-admin-vben5-ui)           |
 | FMS         | File Management     | [File](https://github.com/suyuan32/simple-admin-file)                     |
 | Job         | Scheduled Task      | [Job](https://github.com/suyuan32/simple-admin-job)                       |
 | MMS         | Member Management   | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
@@ -120,6 +115,12 @@ fully supports ent, and easily realizes three-terminal code generation, making d
 # Community Modules
 
 [Click to view](https://github.com/suyuan32/awesome-simple-admin-module)
+
+# Notice
+
+1. It is forbidden to use Simple Admin to develop websites and applications that violate local laws and regulations
+2. Simple Admin does not assume any legal responsibility for websites and applications developed using Simple Admin
+3. It is forbidden to resell free or paid module source code
 
 ## Project Planning Progress
 
