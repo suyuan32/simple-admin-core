@@ -116,7 +116,7 @@ services:
           memory: 200M
 
   backend-ui:
-    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/backend-ui-vben5:v1.6.0-rc.2
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/backend-ui-vben5:v1.6.0-rc.3
     container_name: backend-ui
     restart: always
     ports:
