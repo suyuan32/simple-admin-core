@@ -140,20 +140,6 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	)
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
-		SetMenuLevel(2).
-		SetMenuType(1).
-		SetParentID(8).
-		SetPath("/dictionary/detail/:dictionaryId").
-		SetName("DictionaryDetail").
-		SetComponent("/sys/dictionaryDetail/index").
-		SetSort(1).
-		SetTitle("route.dictionaryDetailManagementTitle").
-		SetIcon("ant-design:align-left-outlined").
-		SetHideMenu(true).
-		SetServiceName("Core"),
-	)
-
-	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(1).
 		SetParentID(9).
