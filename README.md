@@ -112,11 +112,6 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 [RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
 
-## 预览
-
-![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png)
-![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
-
 ## 文档
 
 ### [Simple Admin 中文文档](https://doc.ryansu.tech/zh)
