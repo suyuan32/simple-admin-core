@@ -65,6 +65,7 @@ func (l *GetDictionaryDetailByDictionaryNameLogic) GetDictionaryDetailByDictiona
 				Value:        v.Value,
 				DictionaryId: v.DictionaryId,
 				Sort:         v.Sort,
+				Trans:        l.svcCtx.Trans.Trans(l.ctx, *v.Title),
 			})
 	}
 

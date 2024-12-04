@@ -4082,6 +4082,11 @@
           "maxLength": 50,
           "x-go-name": "Title"
         },
+        "trans": {
+          "description": "Title I18n Trans | 标题国际化后",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
         "updatedAt": {
           "description": "Update date | 更新日期",
           "type": "integer",

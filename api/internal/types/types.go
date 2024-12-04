@@ -1218,6 +1218,8 @@ type DictionaryDetailInfo struct {
 	// Sort | 排序
 	// max : 10000
 	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+	// Title I18n Trans | 标题国际化后
+	Trans string `json:"trans,optional"`
 }
 
 // The response data of dictionary detail list | 字典键值列表数据
