@@ -55,6 +55,7 @@ func (l *GetDictionaryDetailListLogic) GetDictionaryDetailList(req *types.Dictio
 				Value:        v.Value,
 				DictionaryId: v.DictionaryId,
 				Sort:         v.Sort,
+				Trans:        l.svcCtx.Trans.Trans(l.ctx, *v.Title),
 			})
 	}
 

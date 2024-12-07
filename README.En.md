@@ -126,11 +126,6 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 [RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
 
-## Preview
-
-![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png)
-![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
-
 ## Documentation
 
 ### [Simple Admin Document](https://doc.ryansu.tech)

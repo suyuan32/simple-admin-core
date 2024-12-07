@@ -231,7 +231,7 @@ type UserListReq struct {
 	Nickname *string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
 	// User's mobile phone number | 用户的手机号码
 	// max length : 18
-	Mobile *string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
+	Mobile *string `json:"mobile,optional" validate:"omitempty,eq=|numeric,max=18"`
 	// The user's email address | 用户的邮箱
 	// max length : 100
 	Email *string `json:"email,optional" validate:"omitempty,email,max=100"`
@@ -241,6 +241,9 @@ type UserListReq struct {
 	DepartmentId *uint64 `json:"departmentId,optional"`
 	// User's position id | 用户的职位ID
 	PositionId *uint64 `json:"positionId,optional"`
+	// Description | 描述
+	// max length : 100
+	Description *string `json:"description,optional" validate:"omitempty,max=100"`
 }
 
 // User information response | 用户信息返回体
@@ -464,7 +467,7 @@ type ProfileInfo struct {
 	Avatar *string `json:"avatar" validate:"omitempty,max=300"`
 	// User's mobile phone number | 用户的手机号码
 	// max length : 18
-	Mobile *string `json:"mobile" validate:"omitempty,numeric,max=18"`
+	Mobile *string `json:"mobile" validate:"omitempty,eq=|numeric,max=18"`
 	// The user's email address | 用户的邮箱
 	// max length : 100
 	Email *string `json:"email" validate:"omitempty,email,max=100"`
@@ -1218,6 +1221,8 @@ type DictionaryDetailInfo struct {
 	// Sort | 排序
 	// max : 10000
 	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+	// Title I18n Trans | 标题国际化后
+	Trans string `json:"trans,optional"`
 }
 
 // The response data of dictionary detail list | 字典键值列表数据

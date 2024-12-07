@@ -39,6 +39,10 @@ func (l *GetDictionaryDetailByDictionaryNameLogic) GetDictionaryDetailByDictiona
 				logx.Field("detail", err), logx.Field("dictionaryName", req.Name))
 			return nil, errorx.NewCodeInternalError(i18n.Failed)
 		}
+
+		for _, v := range resp.Data.Data {
+			v.Trans = l.svcCtx.Trans.Trans(l.ctx, *v.Title)
+		}
 		return resp, nil
 	}
 
@@ -65,6 +69,7 @@ func (l *GetDictionaryDetailByDictionaryNameLogic) GetDictionaryDetailByDictiona
 				Value:        v.Value,
 				DictionaryId: v.DictionaryId,
 				Sort:         v.Sort,
+				Trans:        l.svcCtx.Trans.Trans(l.ctx, *v.Title),
 			})
 	}
 

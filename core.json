@@ -4082,6 +4082,11 @@
           "maxLength": 50,
           "x-go-name": "Title"
         },
+        "trans": {
+          "description": "Title I18n Trans | 标题国际化后",
+          "type": "string",
+          "x-go-name": "Trans"
+        },
         "updatedAt": {
           "description": "Update date | 更新日期",
           "type": "integer",
@@ -7417,6 +7422,12 @@
           "type": "integer",
           "format": "uint64",
           "x-go-name": "DepartmentId"
+        },
+        "description": {
+          "description": "Description | 描述",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Description"
         },
         "email": {
           "description": "The user's email address | 用户的邮箱",

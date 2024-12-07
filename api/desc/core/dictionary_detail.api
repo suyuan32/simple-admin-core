@@ -22,6 +22,9 @@ type (
 
         // Sort | 排序
         Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+
+        // Title I18n Trans | 标题国际化后
+        Trans string `json:"trans,optional"`
     }
 
     // The response data of dictionary detail list | 字典键值列表数据
@@ -59,8 +62,8 @@ type (
         Data DictionaryDetailInfo `json:"data"`
     }
 
-        // Dictionary name request | 字典名称请求
-        // swagger:parameters GetDictionaryDetailByDictionaryName
+    // Dictionary name request | 字典名称请求
+    // swagger:parameters GetDictionaryDetailByDictionaryName
     DictionaryNameReq {
         // in:path
         Name *string `json:"name,optional" path:"name"`
