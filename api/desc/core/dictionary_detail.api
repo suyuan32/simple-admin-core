@@ -62,8 +62,8 @@ type (
         Data DictionaryDetailInfo `json:"data"`
     }
 
-        // Dictionary name request | 字典名称请求
-        // swagger:parameters GetDictionaryDetailByDictionaryName
+    // Dictionary name request | 字典名称请求
+    // swagger:parameters GetDictionaryDetailByDictionaryName
     DictionaryNameReq {
         // in:path
         Name *string `json:"name,optional" path:"name"`
