@@ -62,6 +62,10 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 		predicates = append(predicates, user.HasPositionsWith(position.IDIn(in.PositionIds...)))
 	}
 
+	if in.Description != nil {
+		predicates = append(predicates, user.DescriptionContains(*in.Description))
+	}
+
 	users, err := l.svcCtx.DB.User.Query().Where(predicates...).WithRoles().WithPositions().Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)

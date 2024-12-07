@@ -241,6 +241,9 @@ type UserListReq struct {
 	DepartmentId *uint64 `json:"departmentId,optional"`
 	// User's position id | 用户的职位ID
 	PositionId *uint64 `json:"positionId,optional"`
+	// Description | 描述
+	// max length : 100
+	Description *string `json:"description,optional" validate:"omitempty,max=100"`
 }
 
 // User information response | 用户信息返回体

@@ -7423,6 +7423,12 @@
           "format": "uint64",
           "x-go-name": "DepartmentId"
         },
+        "description": {
+          "description": "Description | 描述",
+          "type": "string",
+          "maxLength": 100,
+          "x-go-name": "Description"
+        },
         "email": {
           "description": "The user's email address | 用户的邮箱",
           "type": "string",
