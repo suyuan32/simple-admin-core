@@ -5,19 +5,19 @@ go 1.23.0
 require (
 	entgo.io/ent v0.14.1
 	github.com/bsm/redislock v0.9.4
-	github.com/casbin/casbin/v2 v2.102.0
+	github.com/casbin/casbin/v2 v2.103.0
 	github.com/duke-git/lancet/v2 v2.3.4
 	github.com/gofrs/uuid/v5 v5.3.0
 	github.com/larksuite/oapi-sdk-go/v3 v3.4.5
 	github.com/mojocn/base64Captcha v1.3.6
 	github.com/redis/go-redis/v9 v9.7.0
-	github.com/suyuan32/simple-admin-common v1.6.0
-	github.com/suyuan32/simple-admin-job v1.6.0
-	github.com/suyuan32/simple-admin-message-center v1.6.0
-	github.com/zeromicro/go-zero v1.7.4
+	github.com/suyuan32/simple-admin-common v1.6.1
+	github.com/suyuan32/simple-admin-job v1.6.1
+	github.com/suyuan32/simple-admin-message-center v1.6.1
+	github.com/zeromicro/go-zero v1.7.5
 	golang.org/x/oauth2 v0.24.0
 	google.golang.org/grpc v1.69.2
-	google.golang.org/protobuf v1.36.0
+	google.golang.org/protobuf v1.36.1
 )
 
 require github.com/bmatcuk/doublestar/v4 v4.7.1 // indirect
@@ -30,7 +30,7 @@ require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bmatcuk/doublestar v1.3.4 // indirect
 	github.com/casbin/ent-adapter v0.4.0 // indirect
-	github.com/casbin/govaluate v1.2.0 // indirect
+	github.com/casbin/govaluate v1.3.0 // indirect
 	github.com/casbin/redis-watcher/v2 v2.5.0 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
@@ -65,7 +65,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.23.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
-	github.com/jackc/pgx/v5 v5.7.1 // indirect
+	github.com/jackc/pgx/v5 v5.7.2 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
@@ -120,7 +120,7 @@ require (
 	golang.org/x/time v0.8.0 // indirect
 	golang.org/x/tools v0.28.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20241219192143-6b3ec007d9bb // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20241219192143-6b3ec007d9bb // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20241230172942-26aa7a208def // indirect
 	gopkg.in/evanphx/json-patch.v4 v4.12.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
@@ -136,6 +136,6 @@ require (
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
 
-replace github.com/zeromicro/go-zero v1.7.4 => github.com/suyuan32/simple-admin-tools v1.7.4
+replace github.com/zeromicro/go-zero v1.7.5 => github.com/suyuan32/simple-admin-tools v1.7.5
 
 replace github.com/mojocn/base64Captcha v1.3.6 => github.com/suyuan32/base64Captcha v1.3.7
