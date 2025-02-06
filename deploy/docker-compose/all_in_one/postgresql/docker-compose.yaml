@@ -75,7 +75,7 @@ services:
           memory: 200M
 
   job-rpc:
-    image: ryanpower/job-rpc-docker:v1.6.0
+    image: ryanpower/job-rpc-docker:v1.6.2
     container_name: job-rpc
     restart: always
     #    ports:
@@ -135,7 +135,7 @@ services:
           memory: 200M
 
   fms-api:
-    image: ryanpower/fms-api-docker:v1.6.0
+    image: ryanpower/fms-api-docker:v1.6.2
     container_name: fms-api
     restart: always
     #    environment:
@@ -160,7 +160,7 @@ services:
           memory: 200M
 
   mcms-rpc:
-    image: ryanpower/mcms-rpc-docker:v1.6.0
+    image: ryanpower/mcms-rpc-docker:v1.6.2
     container_name: mcms-rpc
     restart: always
     #    environment:

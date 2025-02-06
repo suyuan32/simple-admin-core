@@ -1,13 +1,125 @@
+<a name="v1.6.2"></a>
+
+## [v1.6.2](https://github.com/suyuan32/simple-admin-core/compare/v1.6.1...v1.6.2) (2025-01-03)
+
+### Chore
+
+* upgrade deps
+
+<a name="v1.6.1"></a>
+
+## [v1.6.1](https://github.com/suyuan32/simple-admin-core/compare/v1.6.0.1...v1.6.1) (2025-01-02)
+
+### Chore
+
+* upgrade version
+* upgrade deps
+
+### Docs
+
+* update readme
+
+<a name="v1.6.0.1"></a>
+
+## [v1.6.0.1](https://github.com/suyuan32/simple-admin-core/compare/v1.6.0...v1.6.0.1) (2024-12-07)
+
+### Chore
+
+* update deploy image
+* update images version
+* update images verison
+* update vben image
+
+### Docs
+
+* update readme
+* update docs
+
+### Feat
+
+* user description search field
+* add trans label to dictionary detail
+
+### Fix
+
+* trans dictionary detail in redis cache
+* remove dictionary detail menu
+
+### Pull Requests
+
+* Merge pull request [#325](https://github.com/suyuan32/simple-admin-core/issues/325) from neumathe/fix/simple-admin
+
+<a name="v1.6.0"></a>
+
+## [v1.6.0](https://github.com/suyuan32/simple-admin-core/compare/v1.5.8...v1.6.0) (2024-11-25)
+
+### Chore
+
+* upgrade deps
+* upgrade deps
+
+### Docs
+
+* update readme
+* update readme
+* update readme
+* update readme
+* update readme
+
+### Fix
+
+* move task menu to system
+
+<a name="v1.5.8"></a>
+
+## [v1.5.8](https://github.com/suyuan32/simple-admin-core/compare/v1.5.7...v1.5.8) (2024-11-03)
+
+### Chore
+
+* upgrade all in one
+* upgrade deps
+* upgrade deps
+* update deployments
+
+### Docs
+
+* update readme
+
+### Fix
+
+* check error when delete departments
+* optimize department email validator
+
+### Revert
+
+* wrong deps version
+
+<a name="v1.5.7"></a>
+
+## [v1.5.7](https://github.com/suyuan32/simple-admin-core/compare/v1.5.6...v1.5.7) (2024-10-10)
+
+### Chore
+
+* upgrade deps and version
+* upgrade deps
+* upgrade deps
+* upgrade deps
+
+### Docs
+
+* update readme
+* update license
+* update changelog
+* update readme
+
 <a name="v1.5.6"></a>
 
-## [v1.5.6](https://github.com/suyuan32/simple-admin-core/compare/v1.5.4...v1.5.6) (2024-09-08)
+## [v1.5.6](https://github.com/suyuan32/simple-admin-core/compare/v1.5.5...v1.5.6) (2024-09-08)
 
 ### Chore
 
 * update all in one
 * upgrade deps
-* regen ent files
-* upgrade deps and version
 
 ### Docs
 
@@ -21,20 +133,31 @@
 ### Fix
 
 * format imports
-* swagger security comments
-* check api and menu when create
 * **configuration:** return false state config
 
 ### Perf
 
 * api format
 
+<a name="v1.5.5"></a>
+
+## [v1.5.5](https://github.com/suyuan32/simple-admin-core/compare/v1.5.4...v1.5.5) (2024-08-27)
+
+### Chore
+
+* regen ent files
+* upgrade deps and version
+
+### Fix
+
+* swagger security comments
+* check api and menu when create
+
 ### Refactor
 
 * authority rpc menu_ids field
 
 <a name="v1.5.4"></a>
-
 ## [v1.5.4](https://github.com/suyuan32/simple-admin-core/compare/v1.5.3...v1.5.4) (2024-08-20)
 
 ### Chore
