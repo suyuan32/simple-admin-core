@@ -31,7 +31,7 @@ func NewRegisterBySmsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Reg
 }
 
 func (l *RegisterBySmsLogic) RegisterBySms(req *types.RegisterBySmsReq) (resp *types.BaseMsgResp, err error) {
-	if l.svcCtx.Config.ProjectConf.RegisterVerify != "sms" && l.svcCtx.Config.ProjectConf.ResetVerify != "sms_or_email" {
+	if l.svcCtx.Config.ProjectConf.RegisterVerify != "sms" && l.svcCtx.Config.ProjectConf.RegisterVerify != "sms_or_email" {
 		return nil, errorx.NewCodeAbortedError("login.registerTypeForbidden")
 	}
 
