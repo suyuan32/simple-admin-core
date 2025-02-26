@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.6.3"
+    "version": "1.6.4"
   },
   "host": "localhost:9100",
   "basePath": "/",
@@ -4006,6 +4006,13 @@
           "format": "uint64",
           "maximum": 100000,
           "x-go-name": "PageSize"
+        },
+        "status": {
+          "description": "Status | 状态",
+          "type": "integer",
+          "format": "uint32",
+          "maximum": 20,
+          "x-go-name": "Status"
         }
       },
       "x-go-package": "github.com/suyuan32/simple-admin-core/api/internal/types"
