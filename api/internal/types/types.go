@@ -1128,6 +1128,9 @@ type DepartmentListReq struct {
 	// Leader | 部门负责人
 	// max length : 20
 	Leader *string `json:"leader,optional" validate:"omitempty,max=20"`
+	// Status | 状态
+	// max : 20
+	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 }
 
 // Department information response | 部门信息返回体

@@ -3,6 +3,8 @@ package user
 import (
 	"context"
 
+	"github.com/zeromicro/go-zero/core/errorx"
+
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
@@ -25,6 +27,10 @@ func NewCreateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 }
 
 func (l *CreateUserLogic) CreateUser(req *types.UserInfo) (resp *types.BaseMsgResp, err error) {
+	if req.Password == nil || *req.Password == "" {
+		return nil, errorx.NewApiBadRequestError("password can not be empty")
+	}
+
 	data, err := l.svcCtx.CoreRpc.CreateUser(l.ctx,
 		&core.UserInfo{
 			Status:       req.Status,

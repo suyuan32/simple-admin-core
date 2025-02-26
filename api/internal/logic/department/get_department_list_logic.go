@@ -33,6 +33,7 @@ func (l *GetDepartmentListLogic) GetDepartmentList(req *types.DepartmentListReq)
 			PageSize: req.PageSize,
 			Name:     req.Name,
 			Leader:   req.Leader,
+			Status:   req.Status,
 		})
 	if err != nil {
 		return nil, err

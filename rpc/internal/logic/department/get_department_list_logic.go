@@ -36,6 +36,9 @@ func (l *GetDepartmentListLogic) GetDepartmentList(in *core.DepartmentListReq) (
 	if in.Leader != nil {
 		predicates = append(predicates, department.LeaderContains(*in.Leader))
 	}
+	if in.Status != nil {
+		predicates = append(predicates, department.StatusEQ(uint8(*in.Status)))
+	}
 	result, err := l.svcCtx.DB.Department.Query().Where(predicates...).Page(l.ctx, in.Page, in.PageSize)
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)

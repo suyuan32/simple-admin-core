@@ -108,6 +108,7 @@ message DepartmentListReq {
   uint64 page_size = 2;
   optional string name = 3;
   optional string leader = 4;
+  optional uint32 status = 5;
 }
 
 message DepartmentListResp {
