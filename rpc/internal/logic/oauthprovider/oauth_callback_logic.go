@@ -94,7 +94,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo
 		if err != nil {
 			switch {
 			case ent.IsNotFound(err):
-				logx.Errorw(err.Error(), logx.Field("detail", in))
+				logx.Errorw(err.Error(), logx.Field("detail", in), logx.Field("mobile", u.Mobile))
 				return nil, errorx.NewInvalidArgumentError("login.userNotExist")
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
@@ -106,7 +106,7 @@ func (l *OauthCallbackLogic) OauthCallback(in *core.CallbackReq) (*core.UserInfo
 		if err != nil {
 			switch {
 			case ent.IsNotFound(err):
-				logx.Errorw(err.Error(), logx.Field("detail", in))
+				logx.Errorw(err.Error(), logx.Field("detail", in), logx.Field("email", u.Email))
 				return nil, errorx.NewInvalidArgumentError("login.userNotExist")
 			default:
 				logx.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))

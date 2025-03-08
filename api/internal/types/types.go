@@ -231,7 +231,7 @@ type UserListReq struct {
 	Nickname *string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
 	// User's mobile phone number | 用户的手机号码
 	// max length : 18
-	Mobile *string `json:"mobile,optional" validate:"omitempty,numeric,max=18"`
+	Mobile *string `json:"mobile,optional" validate:"omitempty,eq=|numeric,max=18"`
 	// The user's email address | 用户的邮箱
 	// max length : 100
 	Email *string `json:"email,optional" validate:"omitempty,email,max=100"`
@@ -241,6 +241,9 @@ type UserListReq struct {
 	DepartmentId *uint64 `json:"departmentId,optional"`
 	// User's position id | 用户的职位ID
 	PositionId *uint64 `json:"positionId,optional"`
+	// Description | 描述
+	// max length : 100
+	Description *string `json:"description,optional" validate:"omitempty,max=100"`
 }
 
 // User information response | 用户信息返回体
@@ -464,7 +467,7 @@ type ProfileInfo struct {
 	Avatar *string `json:"avatar" validate:"omitempty,max=300"`
 	// User's mobile phone number | 用户的手机号码
 	// max length : 18
-	Mobile *string `json:"mobile" validate:"omitempty,numeric,max=18"`
+	Mobile *string `json:"mobile" validate:"omitempty,eq=|numeric,max=18"`
 	// The user's email address | 用户的邮箱
 	// max length : 100
 	Email *string `json:"email" validate:"omitempty,email,max=100"`
@@ -599,7 +602,7 @@ type MenuInfoResp struct {
 // Menu information plain | 菜单信息无嵌套
 // swagger:model MenuPlainInfo
 type MenuPlainInfo struct {
-	Id *uint64 `json:"id"`
+	Id *uint64 `json:"id,optional"`
 	// Create date | 创建日期
 	CreatedAt *int64 `json:"createdAt,optional"`
 	// Update date | 更新日期
@@ -1090,9 +1093,8 @@ type DepartmentInfo struct {
 	// max length : 18
 	Phone *string `json:"phone,optional" validate:"omitempty,max=18"`
 	// Email | 邮箱
-	// min length : 5
 	// max length : 70
-	Email *string `json:"email,optional" validate:"omitempty,min=5,max=70"`
+	Email *string `json:"email,optional" validate:"omitempty,max=70"`
 	// Remark | 备注
 	// max length : 200
 	Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
@@ -1126,6 +1128,9 @@ type DepartmentListReq struct {
 	// Leader | 部门负责人
 	// max length : 20
 	Leader *string `json:"leader,optional" validate:"omitempty,max=20"`
+	// Status | 状态
+	// max : 20
+	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 }
 
 // Department information response | 部门信息返回体
@@ -1219,6 +1224,8 @@ type DictionaryDetailInfo struct {
 	// Sort | 排序
 	// max : 10000
 	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
+	// Title I18n Trans | 标题国际化后
+	Trans string `json:"trans,optional"`
 }
 
 // The response data of dictionary detail list | 字典键值列表数据

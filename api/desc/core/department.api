@@ -27,7 +27,7 @@ type (
         Phone *string `json:"phone,optional" validate:"omitempty,max=18"`
 
         // Email | 邮箱
-        Email *string `json:"email,optional" validate:"omitempty,min=5,max=70"`
+        Email *string `json:"email,optional" validate:"omitempty,max=70"`
 
         // Remark | 备注
         Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
@@ -61,6 +61,9 @@ type (
 
         // Leader | 部门负责人
         Leader *string `json:"leader,optional" validate:"omitempty,max=20"`
+
+        // Status | 状态
+        Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
     }
 
     // Department information response | 部门信息返回体

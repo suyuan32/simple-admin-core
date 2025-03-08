@@ -38,6 +38,7 @@ message UserListReq {
   repeated uint64 role_ids = 7;
   optional uint64 department_id = 8;
   repeated uint64 position_ids = 9;
+  optional string description = 10;
 }
 
 message UsernameReq {

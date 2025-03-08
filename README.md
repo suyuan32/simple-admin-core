@@ -5,12 +5,11 @@
 
 **中文** | [English](./README.En.md) 
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.7.2-brightgreen.svg)](https://go-zero.dev/)
-[![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.11.5-yellow.svg)](https://vvbin.cn/doc-next/)
-[![Ent](https://img.shields.io/badge/Ent-v0.14.1-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.99.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.5.6-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.8.0-brightgreen.svg)](https://go-zero.dev/)
+[![Ent](https://img.shields.io/badge/Ent-v0.14.2-blue.svg)](https://entgo.io/)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.103.0-orange.svg)](https://github.com/casbin/casbin)
+[![Release](https://img.shields.io/badge/Release-v1.6.4-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![License: Apache2.0](https://img.shields.io/badge/License-Apache2.0-yellow.svg)](https://opensource.org/licenses/MIT)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
 ![注意](https://img.shields.io/badge/%E6%B3%A8%E6%84%8F-%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A0%E5%85%A5%E5%BE%AE%E4%BF%A1%E7%BE%A4-blue)
 
@@ -24,16 +23,7 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 > ✨ 我们接外包哦，外包需求请添加公众号联系管理员。 
 
-## [Goctls](https://github.com/suyuan32/goctls)
-
-基于 go zero 的加强版工具，针对 simple admin 提供了大量优化，具有大量额外的代码生成功能，全面支持ent，轻松实现三端代码生成，使开发变得简单。
-
-## [Doge](https://github.com/suyuan32/doge)
-
-Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源码下载，模块 docker , k8s 部署，服务器维护等功能。用户可以上传自己的付费模块获取收益，现已收录
-10 + 模块。
-
-> [模块商店](https://doge.ryansu.tech/store/index)
+## 全新升级 UI (Vben5)，大幅优化体验 ! [点击访问](https://github.com/suyuan32/simple-admin-vben5-ui)
 
 ## 相关教程
 
@@ -44,7 +34,7 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
 
 ### 在线预览
 
-#### [免费版在线预览](https://preview.ryansu.tech/)
+#### [免费版在线预览](https://vben5-preview.ryansu.tech/)
 
 - 账号 **admin**
 - 密码 **simple-admin**
@@ -90,10 +80,10 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
 
 ## 永久免费的官方模块
 
-| 模块名称   | 模块介绍 | 模块地址                                                                  |
-| ---------- | -------- | ------------------------------------------------------------------------- |
+| 模块名称       | 模块介绍 | 模块地址                                                                      |
+|------------|------|---------------------------------------------------------------------------|
 | Core       | 核心模块 | [Core](https://github.com/suyuan32/simple-admin-core)                     |
-| Backend UI | 后端界面 | [Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)         |
+| Backend UI | 后端界面 | [Backend UI](https://github.com/suyuan32/simple-admin-vben5-ui)           |
 | FMS        | 文件管理 | [File](https://github.com/suyuan32/simple-admin-file)                     |
 | Job        | 定时任务 | [Job](https://github.com/suyuan32/simple-admin-job)                       |
 | MMS        | 会员管理 | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
@@ -112,14 +102,15 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
 
 [点击查看](https://github.com/suyuan32/awesome-simple-admin-module)
 
+## 注意
+
+1. 禁止使用 Simple Admin 开发违反当地法律法规的网站及应用
+2. 使用 Simple Admin 开发的网站及应用 Simple Admin 官方不承担任何法律责任
+3. 禁止二次销售免费或付费模块源码
+
 ## 项目规划进度
 
 [RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
-
-## 预览
-
-![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png)
-![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
 
 ## 文档
 
@@ -191,4 +182,4 @@ Doge 是 Simple Admin 的模块下载部署的命令行工具，提供模块源�
 
 ## License
 
-[MIT © Ryan-2022](./LICENSE)
+[Apache2.0 © Ryan-2022](./LICENSE)

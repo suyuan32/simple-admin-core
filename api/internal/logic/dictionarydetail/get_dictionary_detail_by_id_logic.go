@@ -49,6 +49,7 @@ func (l *GetDictionaryDetailByIdLogic) GetDictionaryDetailById(req *types.IDReq)
 			Value:        data.Value,
 			DictionaryId: data.DictionaryId,
 			Sort:         data.Sort,
+			Trans:        l.svcCtx.Trans.Trans(l.ctx, *data.Title),
 		},
 	}, nil
 }

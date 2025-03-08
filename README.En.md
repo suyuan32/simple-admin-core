@@ -5,12 +5,11 @@
 
 **English** | [中文](./README.md)
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.7.2-brightgreen.svg)](https://go-zero.dev/)
-[![Vben Admin](https://img.shields.io/badge/Vben%20Admin-v2.11.5-yellow.svg)](https://vvbin.cn/doc-next/)
-[![Ent](https://img.shields.io/badge/Ent-v0.14.1-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.99.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.5.6-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.8.0-brightgreen.svg)](https://go-zero.dev/)
+[![Ent](https://img.shields.io/badge/Ent-v0.14.2-blue.svg)](https://entgo.io/)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.103.0-orange.svg)](https://github.com/casbin/casbin)
+[![Release](https://img.shields.io/badge/Release-v1.6.4-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![License: Apache2.0](https://img.shields.io/badge/License-Apache2.0-yellow.svg)](https://opensource.org/licenses/MIT)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
 ![注意](https://img.shields.io/badge/%E6%B3%A8%E6%84%8F-%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A0%E5%85%A5%E5%BE%AE%E4%BF%A1%E7%BE%A4-blue)
 
@@ -45,23 +44,11 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 ### [Simple Admin](https://www.youtube.com/@yuansu5197)
 
-## [Goctls](https://github.com/suyuan32/goctls)
-
-Based on the enhanced version of go zero, it provides a lot of optimizations for simple admin, has a lot of additional
-code generation functions,
-fully supports ent, and easily realizes three-terminal code generation, making development easier.
-
-## [Doge](https://github.com/suyuan32/doge)
-
-Doge is Simple Admin's command line tool for module download and deployment. It provides module source code download,
-module docker, k8s deployment, server maintenance and other functions. Users can upload their own paid modules to earn
-revenue, and now 10+ modules are included.
-
-> [Module Store](https://doge.ryansu.tech/store/index)
+## New upgraded UI (Vben5), greatly optimized experience! [Visit](https://github.com/suyuan32/simple-admin-vben5-ui)
 
 ### Online Preview
 
-#### [Free Edition Online Preview](https://preview.ryansu.tech/)
+#### [Free Edition Online Preview](https://vben5-preview.ryansu.tech/)
 
 - Account **admin**
 - Password **simple-admin**
@@ -108,9 +95,9 @@ revenue, and now 10+ modules are included.
 ## Permanently Free Official Modules
 
 | Module Name | Module Introduction | Module Address                                                            |
-| ----------- | ------------------- | ------------------------------------------------------------------------- |
+|-------------|---------------------|---------------------------------------------------------------------------|
 | Core        | Core Module         | [Core](https://github.com/suyuan32/simple-admin-core)                     |
-| Backend UI  | Backend Interface   | [Backend UI](https://github.com/suyuan32/simple-admin-backend-ui)         |
+| Backend UI  | Backend UI          | [Backend UI](https://github.com/suyuan32/simple-admin-vben5-ui)           |
 | FMS         | File Management     | [File](https://github.com/suyuan32/simple-admin-file)                     |
 | Job         | Scheduled Task      | [Job](https://github.com/suyuan32/simple-admin-job)                       |
 | MMS         | Member Management   | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
@@ -129,14 +116,15 @@ revenue, and now 10+ modules are included.
 
 [Click to view](https://github.com/suyuan32/awesome-simple-admin-module)
 
+# Notice
+
+1. It is forbidden to use Simple Admin to develop websites and applications that violate local laws and regulations
+2. Simple Admin does not assume any legal responsibility for websites and applications developed using Simple Admin
+3. It is forbidden to resell free or paid module source code
+
 ## Project Planning Progress
 
 [RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
-
-## Preview
-
-![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png)
-![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
 
 ## Documentation
 
@@ -206,4 +194,4 @@ You are very welcome to join！[Raise an issue](https://github.com/suyuan32/simp
 
 ## License
 
-[MIT © Ryan-2022](./LICENSE)
+[Apache2.0 © Ryan-2022](./LICENSE)
