@@ -235,7 +235,8 @@
 		"storageProviderManagement": "Storage Provider",
 		"cloudFileManagement": "Cloud File",
 		"cloudFileTagManagement": "Cloud File's Tag",
-		"configurationManagement": "System Config"
+		"configurationManagement": "System Config",
+		"manageCenter": "Admin Center"
 	},
 	"login": {
 		"loginSuccessTitle": "Login successful",
