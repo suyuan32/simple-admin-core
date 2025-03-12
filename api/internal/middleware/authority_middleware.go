@@ -13,21 +13,18 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
 
-	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
 )
 
 type AuthorityMiddleware struct {
-	Cbn   *casbin.Enforcer
-	Rds   redis.UniversalClient
-	Trans *i18n.Translator
+	Cbn *casbin.Enforcer
+	Rds redis.UniversalClient
 }
 
-func NewAuthorityMiddleware(cbn *casbin.Enforcer, rds redis.UniversalClient, trans *i18n.Translator) *AuthorityMiddleware {
+func NewAuthorityMiddleware(cbn *casbin.Enforcer, rds redis.UniversalClient) *AuthorityMiddleware {
 	return &AuthorityMiddleware{
-		Cbn:   cbn,
-		Rds:   rds,
-		Trans: trans,
+		Cbn: cbn,
+		Rds: rds,
 	}
 }
 
@@ -67,9 +64,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		} else {
 			logx.Errorw("the role is not permitted to access the API", logx.Field("roleId", roleIds),
 				logx.Field("path", obj), logx.Field("method", act))
-			httpx.Error(w, errorx.NewApiForbiddenError(m.Trans.Trans(
-				context.WithValue(context.Background(), "lang", r.Header.Get("Accept-Language")),
-				i18n.PermissionDeny)))
+			httpx.Error(w, errorx.NewApiForbiddenError("You do not have permission to access the API"))
 			return
 		}
 	}
