@@ -20,7 +20,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetName("DashBoardDir").
 		SetComponent("LAYOUT").
 		SetSort(1).
-		SetTitle("sys.menu.managementCenter").
+		SetTitle("route.managementCenter").
 		SetIcon("ic:baseline-view-in-ar").
 		SetHideMenu(false).
 		SetServiceName("Core"),
