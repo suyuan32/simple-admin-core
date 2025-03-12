@@ -156,7 +156,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
 		SetMenuType(1).
-		SetParentID(9).
+		SetParentID(10).
 		SetPath("/profile").
 		SetName("Profile").
 		SetComponent("/sys/profile/index").
