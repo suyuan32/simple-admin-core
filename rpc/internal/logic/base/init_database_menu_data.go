@@ -14,8 +14,22 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(1).
-		SetMenuType(1).
+		SetMenuType(0).
 		SetParentID(common.DefaultParentId).
+		SetPath("/dashboard_dir").
+		SetName("DashBoardDir").
+		SetComponent("LAYOUT").
+		SetSort(1).
+		SetTitle("sys.menu.managementCenter").
+		SetIcon("ic:baseline-view-in-ar").
+		SetHideMenu(false).
+		SetServiceName("Core"),
+	)
+
+	menus = append(menus, l.svcCtx.DB.Menu.Create().
+		SetMenuLevel(2).
+		SetMenuType(1).
+		SetParentID(1).
 		SetPath("/dashboard").
 		SetName("Dashboard").
 		SetComponent("/dashboard/workbench/index").
@@ -43,7 +57,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(2).
+		SetParentID(3).
 		SetPath("/menu").
 		SetName("MenuManagement").
 		SetComponent("/sys/menu/index").
@@ -57,7 +71,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(2).
+		SetParentID(3).
 		SetPath("/role").
 		SetName("RoleManagement").
 		SetComponent("/sys/role/index").
@@ -71,7 +85,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(2).
+		SetParentID(3).
 		SetPath("/user").
 		SetName("UserManagement").
 		SetComponent("/sys/user/index").
@@ -85,7 +99,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(2).
+		SetParentID(3).
 		SetPath("/department").
 		SetName("DepartmentManagement").
 		SetComponent("/sys/department/index").
@@ -99,7 +113,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(2).
+		SetParentID(3).
 		SetPath("/api").
 		SetName("APIManagement").
 		SetComponent("/sys/api/index").
@@ -113,7 +127,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(2).
+		SetParentID(3).
 		SetPath("/dictionary").
 		SetName("DictionaryManagement").
 		SetComponent("/sys/dictionary/index").
@@ -156,7 +170,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(2).
+		SetParentID(3).
 		SetPath("/oauth").
 		SetName("OauthManagement").
 		SetComponent("/sys/oauth/index").
@@ -170,7 +184,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(2).
+		SetParentID(3).
 		SetPath("/token").
 		SetName("TokenManagement").
 		SetComponent("/sys/token/index").
@@ -184,7 +198,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(2).
+		SetParentID(3).
 		SetPath("/position").
 		SetName("PositionManagement").
 		SetComponent("/sys/position/index").
@@ -198,7 +212,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(2).
+		SetParentID(3).
 		SetPath("/task").
 		SetName("TaskManagement").
 		SetComponent("/sys/task/index").
@@ -212,7 +226,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 	menus = append(menus, l.svcCtx.DB.Menu.Create().
 		SetMenuLevel(2).
 		SetMenuType(1).
-		SetParentID(2).
+		SetParentID(3).
 		SetPath("/configuration").
 		SetName("ConfigurationManagement").
 		SetComponent("/sys/configuration/index").

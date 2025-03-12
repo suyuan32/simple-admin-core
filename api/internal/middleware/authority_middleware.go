@@ -8,7 +8,6 @@ import (
 	"github.com/casbin/casbin/v2"
 	"github.com/redis/go-redis/v9"
 	"github.com/suyuan32/simple-admin-common/config"
-	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/suyuan32/simple-admin-common/orm/ent/entctx/rolectx"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -68,7 +67,7 @@ func (m *AuthorityMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 		} else {
 			logx.Errorw("the role is not permitted to access the API", logx.Field("roleId", roleIds),
 				logx.Field("path", obj), logx.Field("method", act))
-			httpx.Error(w, errorx.NewCodeError(errorcode.PermissionDenied, m.Trans.Trans(
+			httpx.Error(w, errorx.NewApiForbiddenError(m.Trans.Trans(
 				context.WithValue(context.Background(), "lang", r.Header.Get("Accept-Language")),
 				i18n.PermissionDeny)))
 			return
