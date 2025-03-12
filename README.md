@@ -5,8 +5,8 @@
 
 **中文** | [English](./README.En.md) 
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.8.0-brightgreen.svg)](https://go-zero.dev/)
-[![Ent](https://img.shields.io/badge/Ent-v0.14.2-blue.svg)](https://entgo.io/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.8.1-brightgreen.svg)](https://go-zero.dev/)
+[![Ent](https://img.shields.io/badge/Ent-v0.14.3-blue.svg)](https://entgo.io/)
 [![Casbin](https://img.shields.io/badge/Casbin-v2.103.0-orange.svg)](https://github.com/casbin/casbin)
 [![Release](https://img.shields.io/badge/Release-v1.6.5-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: Apache2.0](https://img.shields.io/badge/License-Apache2.0-yellow.svg)](https://opensource.org/licenses/MIT)
