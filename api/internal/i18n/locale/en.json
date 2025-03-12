@@ -236,7 +236,7 @@
 		"cloudFileManagement": "Cloud File",
 		"cloudFileTagManagement": "Cloud File's Tag",
 		"configurationManagement": "System Config",
-		"manageCenter": "Admin Center"
+		"managementCenter": "Admin Center"
 	},
 	"login": {
 		"loginSuccessTitle": "Login successful",
