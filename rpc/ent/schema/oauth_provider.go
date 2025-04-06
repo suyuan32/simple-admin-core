@@ -50,6 +50,7 @@ func (OauthProvider) Edges() []ent.Edge {
 func (OauthProvider) Annotations() []schema.Annotation {
 	return []schema.Annotation{
 		entsql.WithComments(true),
+		schema.Comment("Oauth Provider Configuration Table | 三方登录配置表"),
 		entsql.Annotation{Table: "sys_oauth_providers"},
 	}
 }

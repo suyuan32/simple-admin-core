@@ -52,6 +52,7 @@ func (Token) Indexes() []ent.Index {
 func (Token) Annotations() []schema.Annotation {
 	return []schema.Annotation{
 		entsql.WithComments(true),
+		schema.Comment("Token Log Table | 令牌信息表"),
 		entsql.Annotation{Table: "sys_tokens"},
 	}
 }

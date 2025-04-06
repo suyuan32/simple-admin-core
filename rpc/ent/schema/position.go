@@ -49,6 +49,7 @@ func (Position) Indexes() []ent.Index {
 func (Position) Annotations() []schema.Annotation {
 	return []schema.Annotation{
 		entsql.WithComments(true),
+		schema.Comment("Position Table | 职位信息表"),
 		entsql.Annotation{Table: "sys_positions"},
 	}
 }

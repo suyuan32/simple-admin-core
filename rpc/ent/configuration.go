@@ -12,7 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
 )
 
-// Configuration is the model entity for the Configuration schema.
+// Dynamic Configuration Table | 动态配置表
 type Configuration struct {
 	config `json:"-"`
 	// ID of the ent.

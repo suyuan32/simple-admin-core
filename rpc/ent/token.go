@@ -13,7 +13,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 )
 
-// Token is the model entity for the Token schema.
+// Token Log Table | 令牌信息表
 type Token struct {
 	config `json:"-"`
 	// ID of the ent.

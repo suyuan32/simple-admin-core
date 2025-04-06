@@ -12,7 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 )
 
-// Department is the model entity for the Department schema.
+// Department Table | 部门表
 type Department struct {
 	config `json:"-"`
 	// ID of the ent.

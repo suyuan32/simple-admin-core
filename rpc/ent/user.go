@@ -14,7 +14,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
 )
 
-// User is the model entity for the User schema.
+// User Table | 用户信息表
 type User struct {
 	config `json:"-"`
 	// ID of the ent.

@@ -12,7 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 )
 
-// Position is the model entity for the Position schema.
+// Position Table | 职位信息表
 type Position struct {
 	config `json:"-"`
 	// ID of the ent.

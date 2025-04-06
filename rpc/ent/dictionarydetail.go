@@ -13,7 +13,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
 )
 
-// DictionaryDetail is the model entity for the DictionaryDetail schema.
+// Dictionary Key/Value Table | 字典键值表
 type DictionaryDetail struct {
 	config `json:"-"`
 	// ID of the ent.

@@ -12,7 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 )
 
-// OauthProvider is the model entity for the OauthProvider schema.
+// Oauth Provider Configuration Table | 三方登录配置表
 type OauthProvider struct {
 	config `json:"-"`
 	// ID of the ent.

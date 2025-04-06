@@ -50,6 +50,7 @@ func (Department) Edges() []ent.Edge {
 func (Department) Annotations() []schema.Annotation {
 	return []schema.Annotation{
 		entsql.WithComments(true),
+		schema.Comment("Department Table | 部门表"),
 		entsql.Annotation{Table: "sys_departments"},
 	}
 }

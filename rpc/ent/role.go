@@ -12,7 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 )
 
-// Role is the model entity for the Role schema.
+// Role Table | 角色信息表
 type Role struct {
 	config `json:"-"`
 	// ID of the ent.
