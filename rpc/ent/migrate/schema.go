@@ -24,6 +24,7 @@ var (
 	// SysApisTable holds the schema information for the "sys_apis" table.
 	SysApisTable = &schema.Table{
 		Name:       "sys_apis",
+		Comment:    "API Table | API接口表",
 		Columns:    SysApisColumns,
 		PrimaryKey: []*schema.Column{SysApisColumns[0]},
 		Indexes: []*schema.Index{
@@ -50,6 +51,7 @@ var (
 	// SysConfigurationTable holds the schema information for the "sys_configuration" table.
 	SysConfigurationTable = &schema.Table{
 		Name:       "sys_configuration",
+		Comment:    "Dynamic Configuration Table | 动态配置表",
 		Columns:    SysConfigurationColumns,
 		PrimaryKey: []*schema.Column{SysConfigurationColumns[0]},
 		Indexes: []*schema.Index{
@@ -78,6 +80,7 @@ var (
 	// SysDepartmentsTable holds the schema information for the "sys_departments" table.
 	SysDepartmentsTable = &schema.Table{
 		Name:       "sys_departments",
+		Comment:    "Department Table | 部门表",
 		Columns:    SysDepartmentsColumns,
 		PrimaryKey: []*schema.Column{SysDepartmentsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
@@ -102,6 +105,7 @@ var (
 	// SysDictionariesTable holds the schema information for the "sys_dictionaries" table.
 	SysDictionariesTable = &schema.Table{
 		Name:       "sys_dictionaries",
+		Comment:    "Dictionary Table | 字典信息表",
 		Columns:    SysDictionariesColumns,
 		PrimaryKey: []*schema.Column{SysDictionariesColumns[0]},
 	}
@@ -120,6 +124,7 @@ var (
 	// SysDictionaryDetailsTable holds the schema information for the "sys_dictionary_details" table.
 	SysDictionaryDetailsTable = &schema.Table{
 		Name:       "sys_dictionary_details",
+		Comment:    "Dictionary Key/Value Table | 字典键值表",
 		Columns:    SysDictionaryDetailsColumns,
 		PrimaryKey: []*schema.Column{SysDictionaryDetailsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
@@ -163,6 +168,7 @@ var (
 	// SysMenusTable holds the schema information for the "sys_menus" table.
 	SysMenusTable = &schema.Table{
 		Name:       "sys_menus",
+		Comment:    "Menu Table | 菜单表",
 		Columns:    SysMenusColumns,
 		PrimaryKey: []*schema.Column{SysMenusColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
@@ -204,6 +210,7 @@ var (
 	// SysOauthProvidersTable holds the schema information for the "sys_oauth_providers" table.
 	SysOauthProvidersTable = &schema.Table{
 		Name:       "sys_oauth_providers",
+		Comment:    "Oauth Provider Configuration Table | 三方登录配置表",
 		Columns:    SysOauthProvidersColumns,
 		PrimaryKey: []*schema.Column{SysOauthProvidersColumns[0]},
 	}
@@ -221,6 +228,7 @@ var (
 	// SysPositionsTable holds the schema information for the "sys_positions" table.
 	SysPositionsTable = &schema.Table{
 		Name:       "sys_positions",
+		Comment:    "Position Table | 职位信息表",
 		Columns:    SysPositionsColumns,
 		PrimaryKey: []*schema.Column{SysPositionsColumns[0]},
 		Indexes: []*schema.Index{
@@ -246,6 +254,7 @@ var (
 	// SysRolesTable holds the schema information for the "sys_roles" table.
 	SysRolesTable = &schema.Table{
 		Name:       "sys_roles",
+		Comment:    "Role Table | 角色信息表",
 		Columns:    SysRolesColumns,
 		PrimaryKey: []*schema.Column{SysRolesColumns[0]},
 		Indexes: []*schema.Index{
@@ -271,6 +280,7 @@ var (
 	// SysTokensTable holds the schema information for the "sys_tokens" table.
 	SysTokensTable = &schema.Table{
 		Name:       "sys_tokens",
+		Comment:    "Token Log Table | 令牌信息表",
 		Columns:    SysTokensColumns,
 		PrimaryKey: []*schema.Column{SysTokensColumns[0]},
 		Indexes: []*schema.Index{
@@ -306,6 +316,7 @@ var (
 	// SysUsersTable holds the schema information for the "sys_users" table.
 	SysUsersTable = &schema.Table{
 		Name:       "sys_users",
+		Comment:    "User Table | 用户信息表",
 		Columns:    SysUsersColumns,
 		PrimaryKey: []*schema.Column{SysUsersColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{

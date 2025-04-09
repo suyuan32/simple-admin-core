@@ -90,6 +90,7 @@ func (Menu) Edges() []ent.Edge {
 func (Menu) Annotations() []schema.Annotation {
 	return []schema.Annotation{
 		entsql.WithComments(true),
+		schema.Comment("Menu Table | 菜单表"),
 		entsql.Annotation{Table: "sys_menus"},
 	}
 }

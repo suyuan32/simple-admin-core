@@ -41,6 +41,7 @@ func (Dictionary) Edges() []ent.Edge {
 func (Dictionary) Annotations() []schema.Annotation {
 	return []schema.Annotation{
 		entsql.WithComments(true),
+		schema.Comment("Dictionary Table | 字典信息表"),
 		entsql.Annotation{Table: "sys_dictionaries"},
 	}
 }

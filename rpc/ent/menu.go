@@ -12,7 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 )
 
-// Menu is the model entity for the Menu schema.
+// Menu Table | 菜单表
 type Menu struct {
 	config `json:"-"`
 	// ID of the ent.

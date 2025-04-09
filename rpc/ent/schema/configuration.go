@@ -50,6 +50,7 @@ func (Configuration) Indexes() []ent.Index {
 func (Configuration) Annotations() []schema.Annotation {
 	return []schema.Annotation{
 		entsql.WithComments(true),
+		schema.Comment("Dynamic Configuration Table | 动态配置表"),
 		entsql.Annotation{Table: "sys_configuration"},
 	}
 }

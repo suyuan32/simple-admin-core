@@ -1,5 +1,54 @@
-<a name="v1.6.2"></a>
+<a name="v1.6.5"></a>
 
+## [v1.6.5](https://github.com/suyuan32/simple-admin-core/compare/v1.6.4...v1.6.5) (2025-03-12)
+
+### Chore
+
+* upgrade deps and version
+
+### Docs
+
+* update readme
+* update readme
+
+### Fix
+
+* remove trans in authority
+* optimize menu init code , add manage dir for dashboard
+* use api error in authority middleware
+
+<a name="v1.6.4"></a>
+
+## [v1.6.4](https://github.com/suyuan32/simple-admin-core/compare/v1.6.3...v1.6.4) (2025-02-26)
+
+### Chore
+
+* upgrade deploy image and readme
+* upgrade version and deps
+
+### Feat
+
+* department status req params
+
+### Fix
+
+* add department id to jwt in oauth login
+* add more log info to oauth callback
+* add password condition in create user logic
+* register verify type bug
+
+<a name="v1.6.3"></a>
+
+## [v1.6.3](https://github.com/suyuan32/simple-admin-core/compare/v1.6.2...v1.6.3) (2025-02-06)
+
+### Chore
+
+* upgrade image version
+* upgrade version
+* update change log
+* upgrade image version
+
+<a name="v1.6.2"></a>
 ## [v1.6.2](https://github.com/suyuan32/simple-admin-core/compare/v1.6.1...v1.6.2) (2025-01-03)
 
 ### Chore
@@ -7,7 +56,6 @@
 * upgrade deps
 
 <a name="v1.6.1"></a>
-
 ## [v1.6.1](https://github.com/suyuan32/simple-admin-core/compare/v1.6.0.1...v1.6.1) (2025-01-02)
 
 ### Chore
@@ -20,7 +68,6 @@
 * update readme
 
 <a name="v1.6.0.1"></a>
-
 ## [v1.6.0.1](https://github.com/suyuan32/simple-admin-core/compare/v1.6.0...v1.6.0.1) (2024-12-07)
 
 ### Chore
@@ -50,7 +97,6 @@
 * Merge pull request [#325](https://github.com/suyuan32/simple-admin-core/issues/325) from neumathe/fix/simple-admin
 
 <a name="v1.6.0"></a>
-
 ## [v1.6.0](https://github.com/suyuan32/simple-admin-core/compare/v1.5.8...v1.6.0) (2024-11-25)
 
 ### Chore
@@ -71,7 +117,6 @@
 * move task menu to system
 
 <a name="v1.5.8"></a>
-
 ## [v1.5.8](https://github.com/suyuan32/simple-admin-core/compare/v1.5.7...v1.5.8) (2024-11-03)
 
 ### Chore
@@ -95,7 +140,6 @@
 * wrong deps version
 
 <a name="v1.5.7"></a>
-
 ## [v1.5.7](https://github.com/suyuan32/simple-admin-core/compare/v1.5.6...v1.5.7) (2024-10-10)
 
 ### Chore
@@ -113,7 +157,6 @@
 * update readme
 
 <a name="v1.5.6"></a>
-
 ## [v1.5.6](https://github.com/suyuan32/simple-admin-core/compare/v1.5.5...v1.5.6) (2024-09-08)
 
 ### Chore
@@ -140,7 +183,6 @@
 * api format
 
 <a name="v1.5.5"></a>
-
 ## [v1.5.5](https://github.com/suyuan32/simple-admin-core/compare/v1.5.4...v1.5.5) (2024-08-27)
 
 ### Chore

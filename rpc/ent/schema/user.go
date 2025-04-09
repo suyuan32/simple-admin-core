@@ -69,6 +69,7 @@ func (User) Indexes() []ent.Index {
 func (User) Annotations() []schema.Annotation {
 	return []schema.Annotation{
 		entsql.WithComments(true),
+		schema.Comment("User Table | 用户信息表"),
 		entsql.Annotation{Table: "sys_users"},
 	}
 }

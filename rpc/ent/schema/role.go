@@ -53,6 +53,7 @@ func (Role) Indexes() []ent.Index {
 func (Role) Annotations() []schema.Annotation {
 	return []schema.Annotation{
 		entsql.WithComments(true),
+		schema.Comment("Role Table | 角色信息表"),
 		entsql.Annotation{Table: "sys_roles"},
 	}
 }

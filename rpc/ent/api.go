@@ -12,7 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/api"
 )
 
-// API is the model entity for the API schema.
+// API Table | API接口表
 type API struct {
 	config `json:"-"`
 	// ID of the ent.

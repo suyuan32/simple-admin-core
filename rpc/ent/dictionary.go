@@ -12,7 +12,7 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 )
 
-// Dictionary is the model entity for the Dictionary schema.
+// Dictionary Table | 字典信息表
 type Dictionary struct {
 	config `json:"-"`
 	// ID of the ent.
