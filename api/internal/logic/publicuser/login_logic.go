@@ -7,6 +7,8 @@ import (
 
 	"github.com/suyuan32/simple-admin-common/config"
 	"github.com/suyuan32/simple-admin-common/enum/common"
+	"github.com/suyuan32/simple-admin-common/i18n"
+	"google.golang.org/grpc/status"
 
 	"github.com/suyuan32/simple-admin-common/utils/encrypt"
 	"github.com/suyuan32/simple-admin-common/utils/jwt"
@@ -45,6 +47,12 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 				Username: req.Username,
 			})
 		if err != nil {
+			if e, ok := status.FromError(err); ok {
+				if e.Message() == i18n.TargetNotFound {
+					return nil, errorx.NewCodeInvalidArgumentError("login.wrongUsernameOrPassword")
+				}
+			}
+
 			return nil, err
 		}
 
