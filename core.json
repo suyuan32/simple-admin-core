@@ -6128,7 +6128,7 @@
         "code": {
           "description": "Role code | 角色码",
           "type": "string",
-          "maxLength": 20,
+          "maxLength": 15,
           "x-go-name": "Code"
         },
         "createdAt": {
