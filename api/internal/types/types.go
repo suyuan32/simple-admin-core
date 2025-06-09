@@ -119,8 +119,8 @@ type RoleInfo struct {
 	// max length : 30
 	Name *string `json:"name,optional" validate:"omitempty,max=30"`
 	// Role code | 角色码
-	// max length : 20
-	Code *string `json:"code,optional" validate:"omitempty,max=20"`
+	// max length : 15
+	Code *string `json:"code,optional" validate:"omitempty,max=15,alphanum"`
 	// DefaultRouter | 默认首页
 	// max length : 80
 	DefaultRouter *string `json:"defaultRouter,optional" validate:"omitempty,max=80"`
