@@ -237,6 +237,21 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetServiceName("Core"),
 	)
 
+	menus = append(menus, l.svcCtx.DB.Menu.Create().
+		SetMenuLevel(1).
+		SetMenuType(1).
+		SetParentID(common.DefaultParentId).
+		SetPath("/module_store").
+		SetName("ModuleStore").
+		SetComponent("IFrame").
+		SetSort(99).
+		SetTitle("route.moduleStore").
+		SetIcon("ion:bag-handle-outline").
+		SetHideMenu(false).
+		SetServiceName("Core").
+		SetFrameSrc("https://doge.ryansu.tech/#/store/index"),
+	)
+
 	err := l.svcCtx.DB.Menu.CreateBulk(menus...).Exec(l.ctx)
 	if err != nil {
 		logx.Errorw(err.Error())
