@@ -241,7 +241,8 @@
 		"cloudFileManagement": "云文件管理",
 		"cloudFileTagManagement": "云文件标签管理",
 		"configurationManagement": "参数管理",
-		"managementCenter": "管理中心"
+		"managementCenter": "管理中心",
+		"moduleStore": "模块商店"
 	},
 	"login": {
 		"loginSuccessTitle": "登录成功",
