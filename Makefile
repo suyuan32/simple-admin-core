@@ -69,7 +69,7 @@ publish-docker: # Publish docker image | 发布 docker 镜像
 .PHONY: gen-api
 gen-api: # Generate API files | 生成 API 的代码
 	goctls api go --api ./api/desc/all.api --dir ./api --trans_err=true --style=$(PROJECT_STYLE)
-	swagger generate spec --output=./$(SERVICE_STYLE).$(SWAGGER_TYPE) --scan-models
+	swagger generate spec --output=./$(SERVICE_STYLE).$(SWAGGER_TYPE) --scan-models  --exclude-deps
 	@echo "Generate API files successfully"
 
 .PHONY: gen-rpc
@@ -107,7 +107,7 @@ build-linux: # Build project for Linux | 构建Linux下的可执行文件
 
 .PHONY: gen-swagger
 gen-swagger: # Generate swagger file | 生成 swagger 文件
-	swagger generate spec --output=./$(SERVICE_STYLE).$(SWAGGER_TYPE) --scan-models
+	swagger generate spec --output=./$(SERVICE_STYLE).$(SWAGGER_TYPE) --scan-models  --exclude-deps
 	@echo "Generate swagger successfully"
 
 .PHONY: serve-swagger
