@@ -50,7 +50,7 @@ func (l *RegisterBySmsLogic) RegisterBySms(req *types.RegisterBySmsReq) (resp *t
 				Mobile:       &req.PhoneNumber,
 				Nickname:     &req.Username,
 				Status:       pointy.GetPointer(uint32(1)),
-				HomePath:     pointy.GetPointer("/dashboard"),
+				HomePath:     &l.svcCtx.Config.ProjectConf.DefaultRegisterHomePath,
 				RoleIds:      []uint64{l.svcCtx.Config.ProjectConf.DefaultRoleId},
 				DepartmentId: pointy.GetPointer(l.svcCtx.Config.ProjectConf.DefaultDepartmentId),
 				PositionIds:  []uint64{l.svcCtx.Config.ProjectConf.DefaultPositionId},

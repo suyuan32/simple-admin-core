@@ -42,7 +42,7 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.BaseMsgRes
 				Email:        &req.Email,
 				Nickname:     &req.Username,
 				Status:       pointy.GetPointer(uint32(1)),
-				HomePath:     pointy.GetPointer("/dashboard"),
+				HomePath:     &l.svcCtx.Config.ProjectConf.DefaultRegisterHomePath,
 				RoleIds:      []uint64{l.svcCtx.Config.ProjectConf.DefaultRoleId},
 				DepartmentId: pointy.GetPointer(l.svcCtx.Config.ProjectConf.DefaultDepartmentId),
 				PositionIds:  []uint64{l.svcCtx.Config.ProjectConf.DefaultPositionId},

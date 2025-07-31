@@ -26,6 +26,7 @@ type Config struct {
 
 type ProjectConf struct {
 	DefaultRoleId           uint64 `json:",default=1"`
+	DefaultRegisterHomePath string `json:",default=/dashboard"`
 	DefaultDepartmentId     uint64 `json:",default=1"`
 	DefaultPositionId       uint64 `json:",default=1"`
 	EmailCaptchaExpiredTime int    `json:",default=600"`
