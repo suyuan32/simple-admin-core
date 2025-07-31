@@ -27,12 +27,11 @@ func NewCreateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 func (l *CreateRoleLogic) CreateRole(req *types.RoleInfo) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.CreateRole(l.ctx,
 		&core.RoleInfo{
-			Status:        req.Status,
-			Name:          req.Name,
-			Code:          req.Code,
-			DefaultRouter: req.DefaultRouter,
-			Remark:        req.Remark,
-			Sort:          req.Sort,
+			Status: req.Status,
+			Name:   req.Name,
+			Code:   req.Code,
+			Remark: req.Remark,
+			Sort:   req.Sort,
 		})
 	if err != nil {
 		return nil, err

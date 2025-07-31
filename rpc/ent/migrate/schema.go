@@ -247,7 +247,6 @@ var (
 		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
 		{Name: "name", Type: field.TypeString, Comment: "Role name | 角色名"},
 		{Name: "code", Type: field.TypeString, Comment: "Role code for permission control in front end | 角色码，用于前端权限控制"},
-		{Name: "default_router", Type: field.TypeString, Comment: "Default menu : dashboard | 默认登录页面", Default: "dashboard"},
 		{Name: "remark", Type: field.TypeString, Comment: "Remark | 备注", Default: ""},
 		{Name: "sort", Type: field.TypeUint32, Comment: "Order number | 排序编号", Default: 0},
 	}

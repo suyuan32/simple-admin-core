@@ -48,13 +48,12 @@ func (l *GetRoleListLogic) GetRoleList(req *types.RoleListReq) (resp *types.Role
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,
 				},
-				Trans:         l.svcCtx.Trans.Trans(l.ctx, *v.Name),
-				Status:        v.Status,
-				Name:          v.Name,
-				Code:          v.Code,
-				DefaultRouter: v.DefaultRouter,
-				Remark:        v.Remark,
-				Sort:          v.Sort,
+				Trans:  l.svcCtx.Trans.Trans(l.ctx, *v.Name),
+				Status: v.Status,
+				Name:   v.Name,
+				Code:   v.Code,
+				Remark: v.Remark,
+				Sort:   v.Sort,
 			})
 	}
 	return resp, nil

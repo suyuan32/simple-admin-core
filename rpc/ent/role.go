@@ -27,8 +27,6 @@ type Role struct {
 	Name string `json:"name,omitempty"`
 	// Role code for permission control in front end | 角色码，用于前端权限控制
 	Code string `json:"code,omitempty"`
-	// Default menu : dashboard | 默认登录页面
-	DefaultRouter string `json:"default_router,omitempty"`
 	// Remark | 备注
 	Remark string `json:"remark,omitempty"`
 	// Order number | 排序编号
@@ -75,7 +73,7 @@ func (*Role) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case role.FieldID, role.FieldStatus, role.FieldSort:
 			values[i] = new(sql.NullInt64)
-		case role.FieldName, role.FieldCode, role.FieldDefaultRouter, role.FieldRemark:
+		case role.FieldName, role.FieldCode, role.FieldRemark:
 			values[i] = new(sql.NullString)
 		case role.FieldCreatedAt, role.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -129,12 +127,6 @@ func (r *Role) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field code", values[i])
 			} else if value.Valid {
 				r.Code = value.String
-			}
-		case role.FieldDefaultRouter:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field default_router", values[i])
-			} else if value.Valid {
-				r.DefaultRouter = value.String
 			}
 		case role.FieldRemark:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -208,9 +200,6 @@ func (r *Role) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("code=")
 	builder.WriteString(r.Code)
-	builder.WriteString(", ")
-	builder.WriteString("default_router=")
-	builder.WriteString(r.DefaultRouter)
 	builder.WriteString(", ")
 	builder.WriteString("remark=")
 	builder.WriteString(r.Remark)

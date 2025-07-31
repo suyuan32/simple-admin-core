@@ -24,8 +24,6 @@ const (
 	FieldName = "name"
 	// FieldCode holds the string denoting the code field in the database.
 	FieldCode = "code"
-	// FieldDefaultRouter holds the string denoting the default_router field in the database.
-	FieldDefaultRouter = "default_router"
 	// FieldRemark holds the string denoting the remark field in the database.
 	FieldRemark = "remark"
 	// FieldSort holds the string denoting the sort field in the database.
@@ -56,7 +54,6 @@ var Columns = []string{
 	FieldStatus,
 	FieldName,
 	FieldCode,
-	FieldDefaultRouter,
 	FieldRemark,
 	FieldSort,
 }
@@ -89,8 +86,6 @@ var (
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultStatus holds the default value on creation for the "status" field.
 	DefaultStatus uint8
-	// DefaultDefaultRouter holds the default value on creation for the "default_router" field.
-	DefaultDefaultRouter string
 	// DefaultRemark holds the default value on creation for the "remark" field.
 	DefaultRemark string
 	// DefaultSort holds the default value on creation for the "sort" field.
@@ -128,11 +123,6 @@ func ByName(opts ...sql.OrderTermOption) OrderOption {
 // ByCode orders the results by the code field.
 func ByCode(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCode, opts...).ToFunc()
-}
-
-// ByDefaultRouter orders the results by the default_router field.
-func ByDefaultRouter(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldDefaultRouter, opts...).ToFunc()
 }
 
 // ByRemark orders the results by the remark field.

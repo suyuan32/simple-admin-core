@@ -8643,29 +8643,28 @@ func (m *PositionMutation) ResetEdge(name string) error {
 // RoleMutation represents an operation that mutates the Role nodes in the graph.
 type RoleMutation struct {
 	config
-	op             Op
-	typ            string
-	id             *uint64
-	created_at     *time.Time
-	updated_at     *time.Time
-	status         *uint8
-	addstatus      *int8
-	name           *string
-	code           *string
-	default_router *string
-	remark         *string
-	sort           *uint32
-	addsort        *int32
-	clearedFields  map[string]struct{}
-	menus          map[uint64]struct{}
-	removedmenus   map[uint64]struct{}
-	clearedmenus   bool
-	users          map[uuid.UUID]struct{}
-	removedusers   map[uuid.UUID]struct{}
-	clearedusers   bool
-	done           bool
-	oldValue       func(context.Context) (*Role, error)
-	predicates     []predicate.Role
+	op            Op
+	typ           string
+	id            *uint64
+	created_at    *time.Time
+	updated_at    *time.Time
+	status        *uint8
+	addstatus     *int8
+	name          *string
+	code          *string
+	remark        *string
+	sort          *uint32
+	addsort       *int32
+	clearedFields map[string]struct{}
+	menus         map[uint64]struct{}
+	removedmenus  map[uint64]struct{}
+	clearedmenus  bool
+	users         map[uuid.UUID]struct{}
+	removedusers  map[uuid.UUID]struct{}
+	clearedusers  bool
+	done          bool
+	oldValue      func(context.Context) (*Role, error)
+	predicates    []predicate.Role
 }
 
 var _ ent.Mutation = (*RoleMutation)(nil)
@@ -8986,42 +8985,6 @@ func (m *RoleMutation) ResetCode() {
 	m.code = nil
 }
 
-// SetDefaultRouter sets the "default_router" field.
-func (m *RoleMutation) SetDefaultRouter(s string) {
-	m.default_router = &s
-}
-
-// DefaultRouter returns the value of the "default_router" field in the mutation.
-func (m *RoleMutation) DefaultRouter() (r string, exists bool) {
-	v := m.default_router
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldDefaultRouter returns the old "default_router" field's value of the Role entity.
-// If the Role object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *RoleMutation) OldDefaultRouter(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldDefaultRouter is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldDefaultRouter requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldDefaultRouter: %w", err)
-	}
-	return oldValue.DefaultRouter, nil
-}
-
-// ResetDefaultRouter resets all changes to the "default_router" field.
-func (m *RoleMutation) ResetDefaultRouter() {
-	m.default_router = nil
-}
-
 // SetRemark sets the "remark" field.
 func (m *RoleMutation) SetRemark(s string) {
 	m.remark = &s
@@ -9256,7 +9219,7 @@ func (m *RoleMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *RoleMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 7)
 	if m.created_at != nil {
 		fields = append(fields, role.FieldCreatedAt)
 	}
@@ -9271,9 +9234,6 @@ func (m *RoleMutation) Fields() []string {
 	}
 	if m.code != nil {
 		fields = append(fields, role.FieldCode)
-	}
-	if m.default_router != nil {
-		fields = append(fields, role.FieldDefaultRouter)
 	}
 	if m.remark != nil {
 		fields = append(fields, role.FieldRemark)
@@ -9299,8 +9259,6 @@ func (m *RoleMutation) Field(name string) (ent.Value, bool) {
 		return m.Name()
 	case role.FieldCode:
 		return m.Code()
-	case role.FieldDefaultRouter:
-		return m.DefaultRouter()
 	case role.FieldRemark:
 		return m.Remark()
 	case role.FieldSort:
@@ -9324,8 +9282,6 @@ func (m *RoleMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldName(ctx)
 	case role.FieldCode:
 		return m.OldCode(ctx)
-	case role.FieldDefaultRouter:
-		return m.OldDefaultRouter(ctx)
 	case role.FieldRemark:
 		return m.OldRemark(ctx)
 	case role.FieldSort:
@@ -9373,13 +9329,6 @@ func (m *RoleMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCode(v)
-		return nil
-	case role.FieldDefaultRouter:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetDefaultRouter(v)
 		return nil
 	case role.FieldRemark:
 		v, ok := value.(string)
@@ -9494,9 +9443,6 @@ func (m *RoleMutation) ResetField(name string) error {
 		return nil
 	case role.FieldCode:
 		m.ResetCode()
-		return nil
-	case role.FieldDefaultRouter:
-		m.ResetDefaultRouter()
 		return nil
 	case role.FieldRemark:
 		m.ResetRemark()

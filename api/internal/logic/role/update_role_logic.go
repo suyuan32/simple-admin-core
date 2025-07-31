@@ -29,13 +29,12 @@ func NewUpdateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 func (l *UpdateRoleLogic) UpdateRole(req *types.RoleInfo) (resp *types.BaseMsgResp, err error) {
 	data, err := l.svcCtx.CoreRpc.UpdateRole(l.ctx,
 		&core.RoleInfo{
-			Id:            req.Id,
-			Status:        req.Status,
-			Name:          req.Name,
-			Code:          req.Code,
-			DefaultRouter: req.DefaultRouter,
-			Remark:        req.Remark,
-			Sort:          req.Sort,
+			Id:     req.Id,
+			Status: req.Status,
+			Name:   req.Name,
+			Code:   req.Code,
+			Remark: req.Remark,
+			Sort:   req.Sort,
 		})
 	if err != nil {
 		return nil, err
