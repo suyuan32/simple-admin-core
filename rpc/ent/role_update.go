@@ -93,20 +93,6 @@ func (ru *RoleUpdate) SetNillableCode(s *string) *RoleUpdate {
 	return ru
 }
 
-// SetDefaultRouter sets the "default_router" field.
-func (ru *RoleUpdate) SetDefaultRouter(s string) *RoleUpdate {
-	ru.mutation.SetDefaultRouter(s)
-	return ru
-}
-
-// SetNillableDefaultRouter sets the "default_router" field if the given value is not nil.
-func (ru *RoleUpdate) SetNillableDefaultRouter(s *string) *RoleUpdate {
-	if s != nil {
-		ru.SetDefaultRouter(*s)
-	}
-	return ru
-}
-
 // SetRemark sets the "remark" field.
 func (ru *RoleUpdate) SetRemark(s string) *RoleUpdate {
 	ru.mutation.SetRemark(s)
@@ -288,9 +274,6 @@ func (ru *RoleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := ru.mutation.Code(); ok {
 		_spec.SetField(role.FieldCode, field.TypeString, value)
 	}
-	if value, ok := ru.mutation.DefaultRouter(); ok {
-		_spec.SetField(role.FieldDefaultRouter, field.TypeString, value)
-	}
 	if value, ok := ru.mutation.Remark(); ok {
 		_spec.SetField(role.FieldRemark, field.TypeString, value)
 	}
@@ -469,20 +452,6 @@ func (ruo *RoleUpdateOne) SetCode(s string) *RoleUpdateOne {
 func (ruo *RoleUpdateOne) SetNillableCode(s *string) *RoleUpdateOne {
 	if s != nil {
 		ruo.SetCode(*s)
-	}
-	return ruo
-}
-
-// SetDefaultRouter sets the "default_router" field.
-func (ruo *RoleUpdateOne) SetDefaultRouter(s string) *RoleUpdateOne {
-	ruo.mutation.SetDefaultRouter(s)
-	return ruo
-}
-
-// SetNillableDefaultRouter sets the "default_router" field if the given value is not nil.
-func (ruo *RoleUpdateOne) SetNillableDefaultRouter(s *string) *RoleUpdateOne {
-	if s != nil {
-		ruo.SetDefaultRouter(*s)
 	}
 	return ruo
 }
@@ -697,9 +666,6 @@ func (ruo *RoleUpdateOne) sqlSave(ctx context.Context) (_node *Role, err error) 
 	}
 	if value, ok := ruo.mutation.Code(); ok {
 		_spec.SetField(role.FieldCode, field.TypeString, value)
-	}
-	if value, ok := ruo.mutation.DefaultRouter(); ok {
-		_spec.SetField(role.FieldDefaultRouter, field.TypeString, value)
 	}
 	if value, ok := ruo.mutation.Remark(); ok {
 		_spec.SetField(role.FieldRemark, field.TypeString, value)

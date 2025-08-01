@@ -39,6 +39,7 @@ RedisConf:
 
 ProjectConf:
   DefaultRoleId: 1  # default role id when register
+  DefaultRegisterHomePath: '/dashboard'
   DefaultDepartmentId: 1  # default department id when register
   DefaultPositionId: 1 # default position id when register
   EmailCaptchaExpiredTime: 600 # the expired time for email captcha

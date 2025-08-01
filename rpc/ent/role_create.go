@@ -77,20 +77,6 @@ func (rc *RoleCreate) SetCode(s string) *RoleCreate {
 	return rc
 }
 
-// SetDefaultRouter sets the "default_router" field.
-func (rc *RoleCreate) SetDefaultRouter(s string) *RoleCreate {
-	rc.mutation.SetDefaultRouter(s)
-	return rc
-}
-
-// SetNillableDefaultRouter sets the "default_router" field if the given value is not nil.
-func (rc *RoleCreate) SetNillableDefaultRouter(s *string) *RoleCreate {
-	if s != nil {
-		rc.SetDefaultRouter(*s)
-	}
-	return rc
-}
-
 // SetRemark sets the "remark" field.
 func (rc *RoleCreate) SetRemark(s string) *RoleCreate {
 	rc.mutation.SetRemark(s)
@@ -202,10 +188,6 @@ func (rc *RoleCreate) defaults() {
 		v := role.DefaultStatus
 		rc.mutation.SetStatus(v)
 	}
-	if _, ok := rc.mutation.DefaultRouter(); !ok {
-		v := role.DefaultDefaultRouter
-		rc.mutation.SetDefaultRouter(v)
-	}
 	if _, ok := rc.mutation.Remark(); !ok {
 		v := role.DefaultRemark
 		rc.mutation.SetRemark(v)
@@ -229,9 +211,6 @@ func (rc *RoleCreate) check() error {
 	}
 	if _, ok := rc.mutation.Code(); !ok {
 		return &ValidationError{Name: "code", err: errors.New(`ent: missing required field "Role.code"`)}
-	}
-	if _, ok := rc.mutation.DefaultRouter(); !ok {
-		return &ValidationError{Name: "default_router", err: errors.New(`ent: missing required field "Role.default_router"`)}
 	}
 	if _, ok := rc.mutation.Remark(); !ok {
 		return &ValidationError{Name: "remark", err: errors.New(`ent: missing required field "Role.remark"`)}
@@ -290,10 +269,6 @@ func (rc *RoleCreate) createSpec() (*Role, *sqlgraph.CreateSpec) {
 	if value, ok := rc.mutation.Code(); ok {
 		_spec.SetField(role.FieldCode, field.TypeString, value)
 		_node.Code = value
-	}
-	if value, ok := rc.mutation.DefaultRouter(); ok {
-		_spec.SetField(role.FieldDefaultRouter, field.TypeString, value)
-		_node.DefaultRouter = value
 	}
 	if value, ok := rc.mutation.Remark(); ok {
 		_spec.SetField(role.FieldRemark, field.TypeString, value)

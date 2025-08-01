@@ -80,11 +80,6 @@ func Code(v string) predicate.Role {
 	return predicate.Role(sql.FieldEQ(FieldCode, v))
 }
 
-// DefaultRouter applies equality check predicate on the "default_router" field. It's identical to DefaultRouterEQ.
-func DefaultRouter(v string) predicate.Role {
-	return predicate.Role(sql.FieldEQ(FieldDefaultRouter, v))
-}
-
 // Remark applies equality check predicate on the "remark" field. It's identical to RemarkEQ.
 func Remark(v string) predicate.Role {
 	return predicate.Role(sql.FieldEQ(FieldRemark, v))
@@ -353,71 +348,6 @@ func CodeEqualFold(v string) predicate.Role {
 // CodeContainsFold applies the ContainsFold predicate on the "code" field.
 func CodeContainsFold(v string) predicate.Role {
 	return predicate.Role(sql.FieldContainsFold(FieldCode, v))
-}
-
-// DefaultRouterEQ applies the EQ predicate on the "default_router" field.
-func DefaultRouterEQ(v string) predicate.Role {
-	return predicate.Role(sql.FieldEQ(FieldDefaultRouter, v))
-}
-
-// DefaultRouterNEQ applies the NEQ predicate on the "default_router" field.
-func DefaultRouterNEQ(v string) predicate.Role {
-	return predicate.Role(sql.FieldNEQ(FieldDefaultRouter, v))
-}
-
-// DefaultRouterIn applies the In predicate on the "default_router" field.
-func DefaultRouterIn(vs ...string) predicate.Role {
-	return predicate.Role(sql.FieldIn(FieldDefaultRouter, vs...))
-}
-
-// DefaultRouterNotIn applies the NotIn predicate on the "default_router" field.
-func DefaultRouterNotIn(vs ...string) predicate.Role {
-	return predicate.Role(sql.FieldNotIn(FieldDefaultRouter, vs...))
-}
-
-// DefaultRouterGT applies the GT predicate on the "default_router" field.
-func DefaultRouterGT(v string) predicate.Role {
-	return predicate.Role(sql.FieldGT(FieldDefaultRouter, v))
-}
-
-// DefaultRouterGTE applies the GTE predicate on the "default_router" field.
-func DefaultRouterGTE(v string) predicate.Role {
-	return predicate.Role(sql.FieldGTE(FieldDefaultRouter, v))
-}
-
-// DefaultRouterLT applies the LT predicate on the "default_router" field.
-func DefaultRouterLT(v string) predicate.Role {
-	return predicate.Role(sql.FieldLT(FieldDefaultRouter, v))
-}
-
-// DefaultRouterLTE applies the LTE predicate on the "default_router" field.
-func DefaultRouterLTE(v string) predicate.Role {
-	return predicate.Role(sql.FieldLTE(FieldDefaultRouter, v))
-}
-
-// DefaultRouterContains applies the Contains predicate on the "default_router" field.
-func DefaultRouterContains(v string) predicate.Role {
-	return predicate.Role(sql.FieldContains(FieldDefaultRouter, v))
-}
-
-// DefaultRouterHasPrefix applies the HasPrefix predicate on the "default_router" field.
-func DefaultRouterHasPrefix(v string) predicate.Role {
-	return predicate.Role(sql.FieldHasPrefix(FieldDefaultRouter, v))
-}
-
-// DefaultRouterHasSuffix applies the HasSuffix predicate on the "default_router" field.
-func DefaultRouterHasSuffix(v string) predicate.Role {
-	return predicate.Role(sql.FieldHasSuffix(FieldDefaultRouter, v))
-}
-
-// DefaultRouterEqualFold applies the EqualFold predicate on the "default_router" field.
-func DefaultRouterEqualFold(v string) predicate.Role {
-	return predicate.Role(sql.FieldEqualFold(FieldDefaultRouter, v))
-}
-
-// DefaultRouterContainsFold applies the ContainsFold predicate on the "default_router" field.
-func DefaultRouterContainsFold(v string) predicate.Role {
-	return predicate.Role(sql.FieldContainsFold(FieldDefaultRouter, v))
 }
 
 // RemarkEQ applies the EQ predicate on the "remark" field.

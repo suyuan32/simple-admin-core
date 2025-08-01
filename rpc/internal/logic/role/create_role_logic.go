@@ -33,7 +33,6 @@ func (l *CreateRoleLogic) CreateRole(in *core.RoleInfo) (*core.BaseIDResp, error
 		SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 		SetNotNilName(in.Name).
 		SetNotNilCode(in.Code).
-		SetNotNilDefaultRouter(in.DefaultRouter).
 		SetNotNilRemark(in.Remark).
 		SetNotNilSort(in.Sort).
 		Save(l.ctx)

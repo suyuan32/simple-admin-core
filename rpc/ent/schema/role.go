@@ -21,8 +21,6 @@ func (Role) Fields() []ent.Field {
 			Comment("Role name | 角色名"),
 		field.String("code").
 			Comment("Role code for permission control in front end | 角色码，用于前端权限控制"),
-		field.String("default_router").Default("dashboard").
-			Comment("Default menu : dashboard | 默认登录页面"),
 		field.String("remark").Default("").
 			Comment("Remark | 备注"),
 		field.Uint32("sort").Default(0).

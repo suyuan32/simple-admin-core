@@ -33,14 +33,13 @@ func (l *GetRoleByIdLogic) GetRoleById(in *core.IDReq) (*core.RoleInfo, error) {
 	}
 
 	return &core.RoleInfo{
-		Id:            &result.ID,
-		CreatedAt:     pointy.GetPointer(result.CreatedAt.UnixMilli()),
-		UpdatedAt:     pointy.GetPointer(result.UpdatedAt.UnixMilli()),
-		Status:        pointy.GetPointer(uint32(result.Status)),
-		Name:          &result.Name,
-		Code:          &result.Code,
-		DefaultRouter: &result.DefaultRouter,
-		Remark:        &result.Remark,
-		Sort:          &result.Sort,
+		Id:        &result.ID,
+		CreatedAt: pointy.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt: pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		Status:    pointy.GetPointer(uint32(result.Status)),
+		Name:      &result.Name,
+		Code:      &result.Code,
+		Remark:    &result.Remark,
+		Sort:      &result.Sort,
 	}, nil
 }

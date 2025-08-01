@@ -1953,30 +1953,6 @@ func (r *RoleCreate) SetNotNilCode(value *string) *RoleCreate {
 }
 
 // set field if value's pointer is not nil.
-func (r *RoleUpdate) SetNotNilDefaultRouter(value *string) *RoleUpdate {
-	if value != nil {
-		return r.SetDefaultRouter(*value)
-	}
-	return r
-}
-
-// set field if value's pointer is not nil.
-func (r *RoleUpdateOne) SetNotNilDefaultRouter(value *string) *RoleUpdateOne {
-	if value != nil {
-		return r.SetDefaultRouter(*value)
-	}
-	return r
-}
-
-// set field if value's pointer is not nil.
-func (r *RoleCreate) SetNotNilDefaultRouter(value *string) *RoleCreate {
-	if value != nil {
-		return r.SetDefaultRouter(*value)
-	}
-	return r
-}
-
-// set field if value's pointer is not nil.
 func (r *RoleUpdate) SetNotNilRemark(value *string) *RoleUpdate {
 	if value != nil {
 		return r.SetRemark(*value)

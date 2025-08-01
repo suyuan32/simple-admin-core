@@ -305,16 +305,12 @@ func init() {
 	roleDescStatus := roleMixinFields1[0].Descriptor()
 	// role.DefaultStatus holds the default value on creation for the status field.
 	role.DefaultStatus = roleDescStatus.Default.(uint8)
-	// roleDescDefaultRouter is the schema descriptor for default_router field.
-	roleDescDefaultRouter := roleFields[2].Descriptor()
-	// role.DefaultDefaultRouter holds the default value on creation for the default_router field.
-	role.DefaultDefaultRouter = roleDescDefaultRouter.Default.(string)
 	// roleDescRemark is the schema descriptor for remark field.
-	roleDescRemark := roleFields[3].Descriptor()
+	roleDescRemark := roleFields[2].Descriptor()
 	// role.DefaultRemark holds the default value on creation for the remark field.
 	role.DefaultRemark = roleDescRemark.Default.(string)
 	// roleDescSort is the schema descriptor for sort field.
-	roleDescSort := roleFields[4].Descriptor()
+	roleDescSort := roleFields[3].Descriptor()
 	// role.DefaultSort holds the default value on creation for the sort field.
 	role.DefaultSort = roleDescSort.Default.(uint32)
 	tokenMixin := schema.Token{}.Mixin()
@@ -386,6 +382,6 @@ func init() {
 }
 
 const (
-	Version = "v0.14.3"                                         // Version of ent codegen.
-	Sum     = "h1:wokAV/kIlH9TeklJWGGS7AYJdVckr0DloWjIcO9iIIQ=" // Sum of ent codegen.
+	Version = "v0.14.4"                                         // Version of ent codegen.
+	Sum     = "h1:/DhDraSLXIkBhyiVoJeSshr4ZYi7femzhj6/TckzZuI=" // Sum of ent codegen.
 )

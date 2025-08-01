@@ -292,9 +292,8 @@ message RoleInfo {
   optional uint32 status = 4;
   optional string name = 5;
   optional string code = 6;
-  optional string default_router = 7;
-  optional string remark = 8;
-  optional uint32 sort = 9;
+  optional string remark = 7;
+  optional uint32 sort = 8;
 }
 
 message RoleListReq {
@@ -302,7 +301,6 @@ message RoleListReq {
   uint64 page_size = 2;
   optional string name = 3;
   optional string code = 4;
-  optional string default_router = 5;
 }
 
 message RoleListResp {

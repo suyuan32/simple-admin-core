@@ -43,7 +43,6 @@ func (l *UpdateRoleLogic) UpdateRole(in *core.RoleInfo) (*core.BaseResp, error) 
 			SetNotNilStatus(pointy.GetStatusPointer(in.Status)).
 			SetNotNilName(in.Name).
 			SetNotNilCode(in.Code).
-			SetNotNilDefaultRouter(in.DefaultRouter).
 			SetNotNilRemark(in.Remark).
 			SetNotNilSort(in.Sort).
 			Exec(l.ctx)
