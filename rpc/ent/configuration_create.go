@@ -21,119 +21,119 @@ type ConfigurationCreate struct {
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (cc *ConfigurationCreate) SetCreatedAt(t time.Time) *ConfigurationCreate {
-	cc.mutation.SetCreatedAt(t)
-	return cc
+func (_c *ConfigurationCreate) SetCreatedAt(v time.Time) *ConfigurationCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (cc *ConfigurationCreate) SetNillableCreatedAt(t *time.Time) *ConfigurationCreate {
-	if t != nil {
-		cc.SetCreatedAt(*t)
+func (_c *ConfigurationCreate) SetNillableCreatedAt(v *time.Time) *ConfigurationCreate {
+	if v != nil {
+		_c.SetCreatedAt(*v)
 	}
-	return cc
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (cc *ConfigurationCreate) SetUpdatedAt(t time.Time) *ConfigurationCreate {
-	cc.mutation.SetUpdatedAt(t)
-	return cc
+func (_c *ConfigurationCreate) SetUpdatedAt(v time.Time) *ConfigurationCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (cc *ConfigurationCreate) SetNillableUpdatedAt(t *time.Time) *ConfigurationCreate {
-	if t != nil {
-		cc.SetUpdatedAt(*t)
+func (_c *ConfigurationCreate) SetNillableUpdatedAt(v *time.Time) *ConfigurationCreate {
+	if v != nil {
+		_c.SetUpdatedAt(*v)
 	}
-	return cc
+	return _c
 }
 
 // SetSort sets the "sort" field.
-func (cc *ConfigurationCreate) SetSort(u uint32) *ConfigurationCreate {
-	cc.mutation.SetSort(u)
-	return cc
+func (_c *ConfigurationCreate) SetSort(v uint32) *ConfigurationCreate {
+	_c.mutation.SetSort(v)
+	return _c
 }
 
 // SetNillableSort sets the "sort" field if the given value is not nil.
-func (cc *ConfigurationCreate) SetNillableSort(u *uint32) *ConfigurationCreate {
-	if u != nil {
-		cc.SetSort(*u)
+func (_c *ConfigurationCreate) SetNillableSort(v *uint32) *ConfigurationCreate {
+	if v != nil {
+		_c.SetSort(*v)
 	}
-	return cc
+	return _c
 }
 
 // SetState sets the "state" field.
-func (cc *ConfigurationCreate) SetState(b bool) *ConfigurationCreate {
-	cc.mutation.SetState(b)
-	return cc
+func (_c *ConfigurationCreate) SetState(v bool) *ConfigurationCreate {
+	_c.mutation.SetState(v)
+	return _c
 }
 
 // SetNillableState sets the "state" field if the given value is not nil.
-func (cc *ConfigurationCreate) SetNillableState(b *bool) *ConfigurationCreate {
-	if b != nil {
-		cc.SetState(*b)
+func (_c *ConfigurationCreate) SetNillableState(v *bool) *ConfigurationCreate {
+	if v != nil {
+		_c.SetState(*v)
 	}
-	return cc
+	return _c
 }
 
 // SetName sets the "name" field.
-func (cc *ConfigurationCreate) SetName(s string) *ConfigurationCreate {
-	cc.mutation.SetName(s)
-	return cc
+func (_c *ConfigurationCreate) SetName(v string) *ConfigurationCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetKey sets the "key" field.
-func (cc *ConfigurationCreate) SetKey(s string) *ConfigurationCreate {
-	cc.mutation.SetKey(s)
-	return cc
+func (_c *ConfigurationCreate) SetKey(v string) *ConfigurationCreate {
+	_c.mutation.SetKey(v)
+	return _c
 }
 
 // SetValue sets the "value" field.
-func (cc *ConfigurationCreate) SetValue(s string) *ConfigurationCreate {
-	cc.mutation.SetValue(s)
-	return cc
+func (_c *ConfigurationCreate) SetValue(v string) *ConfigurationCreate {
+	_c.mutation.SetValue(v)
+	return _c
 }
 
 // SetCategory sets the "category" field.
-func (cc *ConfigurationCreate) SetCategory(s string) *ConfigurationCreate {
-	cc.mutation.SetCategory(s)
-	return cc
+func (_c *ConfigurationCreate) SetCategory(v string) *ConfigurationCreate {
+	_c.mutation.SetCategory(v)
+	return _c
 }
 
 // SetRemark sets the "remark" field.
-func (cc *ConfigurationCreate) SetRemark(s string) *ConfigurationCreate {
-	cc.mutation.SetRemark(s)
-	return cc
+func (_c *ConfigurationCreate) SetRemark(v string) *ConfigurationCreate {
+	_c.mutation.SetRemark(v)
+	return _c
 }
 
 // SetNillableRemark sets the "remark" field if the given value is not nil.
-func (cc *ConfigurationCreate) SetNillableRemark(s *string) *ConfigurationCreate {
-	if s != nil {
-		cc.SetRemark(*s)
+func (_c *ConfigurationCreate) SetNillableRemark(v *string) *ConfigurationCreate {
+	if v != nil {
+		_c.SetRemark(*v)
 	}
-	return cc
+	return _c
 }
 
 // SetID sets the "id" field.
-func (cc *ConfigurationCreate) SetID(u uint64) *ConfigurationCreate {
-	cc.mutation.SetID(u)
-	return cc
+func (_c *ConfigurationCreate) SetID(v uint64) *ConfigurationCreate {
+	_c.mutation.SetID(v)
+	return _c
 }
 
 // Mutation returns the ConfigurationMutation object of the builder.
-func (cc *ConfigurationCreate) Mutation() *ConfigurationMutation {
-	return cc.mutation
+func (_c *ConfigurationCreate) Mutation() *ConfigurationMutation {
+	return _c.mutation
 }
 
 // Save creates the Configuration in the database.
-func (cc *ConfigurationCreate) Save(ctx context.Context) (*Configuration, error) {
-	cc.defaults()
-	return withHooks(ctx, cc.sqlSave, cc.mutation, cc.hooks)
+func (_c *ConfigurationCreate) Save(ctx context.Context) (*Configuration, error) {
+	_c.defaults()
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (cc *ConfigurationCreate) SaveX(ctx context.Context) *Configuration {
-	v, err := cc.Save(ctx)
+func (_c *ConfigurationCreate) SaveX(ctx context.Context) *Configuration {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -141,70 +141,70 @@ func (cc *ConfigurationCreate) SaveX(ctx context.Context) *Configuration {
 }
 
 // Exec executes the query.
-func (cc *ConfigurationCreate) Exec(ctx context.Context) error {
-	_, err := cc.Save(ctx)
+func (_c *ConfigurationCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (cc *ConfigurationCreate) ExecX(ctx context.Context) {
-	if err := cc.Exec(ctx); err != nil {
+func (_c *ConfigurationCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (cc *ConfigurationCreate) defaults() {
-	if _, ok := cc.mutation.CreatedAt(); !ok {
+func (_c *ConfigurationCreate) defaults() {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		v := configuration.DefaultCreatedAt()
-		cc.mutation.SetCreatedAt(v)
+		_c.mutation.SetCreatedAt(v)
 	}
-	if _, ok := cc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		v := configuration.DefaultUpdatedAt()
-		cc.mutation.SetUpdatedAt(v)
+		_c.mutation.SetUpdatedAt(v)
 	}
-	if _, ok := cc.mutation.Sort(); !ok {
+	if _, ok := _c.mutation.Sort(); !ok {
 		v := configuration.DefaultSort
-		cc.mutation.SetSort(v)
+		_c.mutation.SetSort(v)
 	}
-	if _, ok := cc.mutation.State(); !ok {
+	if _, ok := _c.mutation.State(); !ok {
 		v := configuration.DefaultState
-		cc.mutation.SetState(v)
+		_c.mutation.SetState(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (cc *ConfigurationCreate) check() error {
-	if _, ok := cc.mutation.CreatedAt(); !ok {
+func (_c *ConfigurationCreate) check() error {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Configuration.created_at"`)}
 	}
-	if _, ok := cc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Configuration.updated_at"`)}
 	}
-	if _, ok := cc.mutation.Sort(); !ok {
+	if _, ok := _c.mutation.Sort(); !ok {
 		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "Configuration.sort"`)}
 	}
-	if _, ok := cc.mutation.Name(); !ok {
+	if _, ok := _c.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Configuration.name"`)}
 	}
-	if _, ok := cc.mutation.Key(); !ok {
+	if _, ok := _c.mutation.Key(); !ok {
 		return &ValidationError{Name: "key", err: errors.New(`ent: missing required field "Configuration.key"`)}
 	}
-	if _, ok := cc.mutation.Value(); !ok {
+	if _, ok := _c.mutation.Value(); !ok {
 		return &ValidationError{Name: "value", err: errors.New(`ent: missing required field "Configuration.value"`)}
 	}
-	if _, ok := cc.mutation.Category(); !ok {
+	if _, ok := _c.mutation.Category(); !ok {
 		return &ValidationError{Name: "category", err: errors.New(`ent: missing required field "Configuration.category"`)}
 	}
 	return nil
 }
 
-func (cc *ConfigurationCreate) sqlSave(ctx context.Context) (*Configuration, error) {
-	if err := cc.check(); err != nil {
+func (_c *ConfigurationCreate) sqlSave(ctx context.Context) (*Configuration, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := cc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, cc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -214,53 +214,53 @@ func (cc *ConfigurationCreate) sqlSave(ctx context.Context) (*Configuration, err
 		id := _spec.ID.Value.(int64)
 		_node.ID = uint64(id)
 	}
-	cc.mutation.id = &_node.ID
-	cc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (cc *ConfigurationCreate) createSpec() (*Configuration, *sqlgraph.CreateSpec) {
+func (_c *ConfigurationCreate) createSpec() (*Configuration, *sqlgraph.CreateSpec) {
 	var (
-		_node = &Configuration{config: cc.config}
+		_node = &Configuration{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(configuration.Table, sqlgraph.NewFieldSpec(configuration.FieldID, field.TypeUint64))
 	)
-	if id, ok := cc.mutation.ID(); ok {
+	if id, ok := _c.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
 	}
-	if value, ok := cc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(configuration.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := cc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(configuration.FieldUpdatedAt, field.TypeTime, value)
 		_node.UpdatedAt = value
 	}
-	if value, ok := cc.mutation.Sort(); ok {
+	if value, ok := _c.mutation.Sort(); ok {
 		_spec.SetField(configuration.FieldSort, field.TypeUint32, value)
 		_node.Sort = value
 	}
-	if value, ok := cc.mutation.State(); ok {
+	if value, ok := _c.mutation.State(); ok {
 		_spec.SetField(configuration.FieldState, field.TypeBool, value)
 		_node.State = value
 	}
-	if value, ok := cc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(configuration.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := cc.mutation.Key(); ok {
+	if value, ok := _c.mutation.Key(); ok {
 		_spec.SetField(configuration.FieldKey, field.TypeString, value)
 		_node.Key = value
 	}
-	if value, ok := cc.mutation.Value(); ok {
+	if value, ok := _c.mutation.Value(); ok {
 		_spec.SetField(configuration.FieldValue, field.TypeString, value)
 		_node.Value = value
 	}
-	if value, ok := cc.mutation.Category(); ok {
+	if value, ok := _c.mutation.Category(); ok {
 		_spec.SetField(configuration.FieldCategory, field.TypeString, value)
 		_node.Category = value
 	}
-	if value, ok := cc.mutation.Remark(); ok {
+	if value, ok := _c.mutation.Remark(); ok {
 		_spec.SetField(configuration.FieldRemark, field.TypeString, value)
 		_node.Remark = value
 	}
@@ -275,16 +275,16 @@ type ConfigurationCreateBulk struct {
 }
 
 // Save creates the Configuration entities in the database.
-func (ccb *ConfigurationCreateBulk) Save(ctx context.Context) ([]*Configuration, error) {
-	if ccb.err != nil {
-		return nil, ccb.err
+func (_c *ConfigurationCreateBulk) Save(ctx context.Context) ([]*Configuration, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(ccb.builders))
-	nodes := make([]*Configuration, len(ccb.builders))
-	mutators := make([]Mutator, len(ccb.builders))
-	for i := range ccb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*Configuration, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := ccb.builders[i]
+			builder := _c.builders[i]
 			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*ConfigurationMutation)
@@ -298,11 +298,11 @@ func (ccb *ConfigurationCreateBulk) Save(ctx context.Context) ([]*Configuration,
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, ccb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, ccb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -326,7 +326,7 @@ func (ccb *ConfigurationCreateBulk) Save(ctx context.Context) ([]*Configuration,
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, ccb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -334,8 +334,8 @@ func (ccb *ConfigurationCreateBulk) Save(ctx context.Context) ([]*Configuration,
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ccb *ConfigurationCreateBulk) SaveX(ctx context.Context) []*Configuration {
-	v, err := ccb.Save(ctx)
+func (_c *ConfigurationCreateBulk) SaveX(ctx context.Context) []*Configuration {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -343,14 +343,14 @@ func (ccb *ConfigurationCreateBulk) SaveX(ctx context.Context) []*Configuration 
 }
 
 // Exec executes the query.
-func (ccb *ConfigurationCreateBulk) Exec(ctx context.Context) error {
-	_, err := ccb.Save(ctx)
+func (_c *ConfigurationCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ccb *ConfigurationCreateBulk) ExecX(ctx context.Context) {
-	if err := ccb.Exec(ctx); err != nil {
+func (_c *ConfigurationCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

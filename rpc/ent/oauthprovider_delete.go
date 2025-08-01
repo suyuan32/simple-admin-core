@@ -20,56 +20,56 @@ type OauthProviderDelete struct {
 }
 
 // Where appends a list predicates to the OauthProviderDelete builder.
-func (opd *OauthProviderDelete) Where(ps ...predicate.OauthProvider) *OauthProviderDelete {
-	opd.mutation.Where(ps...)
-	return opd
+func (_d *OauthProviderDelete) Where(ps ...predicate.OauthProvider) *OauthProviderDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (opd *OauthProviderDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, opd.sqlExec, opd.mutation, opd.hooks)
+func (_d *OauthProviderDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (opd *OauthProviderDelete) ExecX(ctx context.Context) int {
-	n, err := opd.Exec(ctx)
+func (_d *OauthProviderDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (opd *OauthProviderDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *OauthProviderDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(oauthprovider.Table, sqlgraph.NewFieldSpec(oauthprovider.FieldID, field.TypeUint64))
-	if ps := opd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, opd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	opd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // OauthProviderDeleteOne is the builder for deleting a single OauthProvider entity.
 type OauthProviderDeleteOne struct {
-	opd *OauthProviderDelete
+	_d *OauthProviderDelete
 }
 
 // Where appends a list predicates to the OauthProviderDelete builder.
-func (opdo *OauthProviderDeleteOne) Where(ps ...predicate.OauthProvider) *OauthProviderDeleteOne {
-	opdo.opd.mutation.Where(ps...)
-	return opdo
+func (_d *OauthProviderDeleteOne) Where(ps ...predicate.OauthProvider) *OauthProviderDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (opdo *OauthProviderDeleteOne) Exec(ctx context.Context) error {
-	n, err := opdo.opd.Exec(ctx)
+func (_d *OauthProviderDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (opdo *OauthProviderDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (opdo *OauthProviderDeleteOne) ExecX(ctx context.Context) {
-	if err := opdo.Exec(ctx); err != nil {
+func (_d *OauthProviderDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

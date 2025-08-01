@@ -29,40 +29,40 @@ type ConfigurationQuery struct {
 }
 
 // Where adds a new predicate for the ConfigurationQuery builder.
-func (cq *ConfigurationQuery) Where(ps ...predicate.Configuration) *ConfigurationQuery {
-	cq.predicates = append(cq.predicates, ps...)
-	return cq
+func (_q *ConfigurationQuery) Where(ps ...predicate.Configuration) *ConfigurationQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (cq *ConfigurationQuery) Limit(limit int) *ConfigurationQuery {
-	cq.ctx.Limit = &limit
-	return cq
+func (_q *ConfigurationQuery) Limit(limit int) *ConfigurationQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (cq *ConfigurationQuery) Offset(offset int) *ConfigurationQuery {
-	cq.ctx.Offset = &offset
-	return cq
+func (_q *ConfigurationQuery) Offset(offset int) *ConfigurationQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (cq *ConfigurationQuery) Unique(unique bool) *ConfigurationQuery {
-	cq.ctx.Unique = &unique
-	return cq
+func (_q *ConfigurationQuery) Unique(unique bool) *ConfigurationQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (cq *ConfigurationQuery) Order(o ...configuration.OrderOption) *ConfigurationQuery {
-	cq.order = append(cq.order, o...)
-	return cq
+func (_q *ConfigurationQuery) Order(o ...configuration.OrderOption) *ConfigurationQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // First returns the first Configuration entity from the query.
 // Returns a *NotFoundError when no Configuration was found.
-func (cq *ConfigurationQuery) First(ctx context.Context) (*Configuration, error) {
-	nodes, err := cq.Limit(1).All(setContextOp(ctx, cq.ctx, ent.OpQueryFirst))
+func (_q *ConfigurationQuery) First(ctx context.Context) (*Configuration, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -73,8 +73,8 @@ func (cq *ConfigurationQuery) First(ctx context.Context) (*Configuration, error)
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (cq *ConfigurationQuery) FirstX(ctx context.Context) *Configuration {
-	node, err := cq.First(ctx)
+func (_q *ConfigurationQuery) FirstX(ctx context.Context) *Configuration {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -83,9 +83,9 @@ func (cq *ConfigurationQuery) FirstX(ctx context.Context) *Configuration {
 
 // FirstID returns the first Configuration ID from the query.
 // Returns a *NotFoundError when no Configuration ID was found.
-func (cq *ConfigurationQuery) FirstID(ctx context.Context) (id uint64, err error) {
+func (_q *ConfigurationQuery) FirstID(ctx context.Context) (id uint64, err error) {
 	var ids []uint64
-	if ids, err = cq.Limit(1).IDs(setContextOp(ctx, cq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -96,8 +96,8 @@ func (cq *ConfigurationQuery) FirstID(ctx context.Context) (id uint64, err error
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (cq *ConfigurationQuery) FirstIDX(ctx context.Context) uint64 {
-	id, err := cq.FirstID(ctx)
+func (_q *ConfigurationQuery) FirstIDX(ctx context.Context) uint64 {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -107,8 +107,8 @@ func (cq *ConfigurationQuery) FirstIDX(ctx context.Context) uint64 {
 // Only returns a single Configuration entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one Configuration entity is found.
 // Returns a *NotFoundError when no Configuration entities are found.
-func (cq *ConfigurationQuery) Only(ctx context.Context) (*Configuration, error) {
-	nodes, err := cq.Limit(2).All(setContextOp(ctx, cq.ctx, ent.OpQueryOnly))
+func (_q *ConfigurationQuery) Only(ctx context.Context) (*Configuration, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -123,8 +123,8 @@ func (cq *ConfigurationQuery) Only(ctx context.Context) (*Configuration, error) 
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (cq *ConfigurationQuery) OnlyX(ctx context.Context) *Configuration {
-	node, err := cq.Only(ctx)
+func (_q *ConfigurationQuery) OnlyX(ctx context.Context) *Configuration {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -134,9 +134,9 @@ func (cq *ConfigurationQuery) OnlyX(ctx context.Context) *Configuration {
 // OnlyID is like Only, but returns the only Configuration ID in the query.
 // Returns a *NotSingularError when more than one Configuration ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (cq *ConfigurationQuery) OnlyID(ctx context.Context) (id uint64, err error) {
+func (_q *ConfigurationQuery) OnlyID(ctx context.Context) (id uint64, err error) {
 	var ids []uint64
-	if ids, err = cq.Limit(2).IDs(setContextOp(ctx, cq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -151,8 +151,8 @@ func (cq *ConfigurationQuery) OnlyID(ctx context.Context) (id uint64, err error)
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (cq *ConfigurationQuery) OnlyIDX(ctx context.Context) uint64 {
-	id, err := cq.OnlyID(ctx)
+func (_q *ConfigurationQuery) OnlyIDX(ctx context.Context) uint64 {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -160,18 +160,18 @@ func (cq *ConfigurationQuery) OnlyIDX(ctx context.Context) uint64 {
 }
 
 // All executes the query and returns a list of Configurations.
-func (cq *ConfigurationQuery) All(ctx context.Context) ([]*Configuration, error) {
-	ctx = setContextOp(ctx, cq.ctx, ent.OpQueryAll)
-	if err := cq.prepareQuery(ctx); err != nil {
+func (_q *ConfigurationQuery) All(ctx context.Context) ([]*Configuration, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*Configuration, *ConfigurationQuery]()
-	return withInterceptors[[]*Configuration](ctx, cq, qr, cq.inters)
+	return withInterceptors[[]*Configuration](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (cq *ConfigurationQuery) AllX(ctx context.Context) []*Configuration {
-	nodes, err := cq.All(ctx)
+func (_q *ConfigurationQuery) AllX(ctx context.Context) []*Configuration {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -179,20 +179,20 @@ func (cq *ConfigurationQuery) AllX(ctx context.Context) []*Configuration {
 }
 
 // IDs executes the query and returns a list of Configuration IDs.
-func (cq *ConfigurationQuery) IDs(ctx context.Context) (ids []uint64, err error) {
-	if cq.ctx.Unique == nil && cq.path != nil {
-		cq.Unique(true)
+func (_q *ConfigurationQuery) IDs(ctx context.Context) (ids []uint64, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, cq.ctx, ent.OpQueryIDs)
-	if err = cq.Select(configuration.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(configuration.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (cq *ConfigurationQuery) IDsX(ctx context.Context) []uint64 {
-	ids, err := cq.IDs(ctx)
+func (_q *ConfigurationQuery) IDsX(ctx context.Context) []uint64 {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -200,17 +200,17 @@ func (cq *ConfigurationQuery) IDsX(ctx context.Context) []uint64 {
 }
 
 // Count returns the count of the given query.
-func (cq *ConfigurationQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, cq.ctx, ent.OpQueryCount)
-	if err := cq.prepareQuery(ctx); err != nil {
+func (_q *ConfigurationQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, cq, querierCount[*ConfigurationQuery](), cq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*ConfigurationQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (cq *ConfigurationQuery) CountX(ctx context.Context) int {
-	count, err := cq.Count(ctx)
+func (_q *ConfigurationQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -218,9 +218,9 @@ func (cq *ConfigurationQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (cq *ConfigurationQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, cq.ctx, ent.OpQueryExist)
-	switch _, err := cq.FirstID(ctx); {
+func (_q *ConfigurationQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -231,8 +231,8 @@ func (cq *ConfigurationQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (cq *ConfigurationQuery) ExistX(ctx context.Context) bool {
-	exist, err := cq.Exist(ctx)
+func (_q *ConfigurationQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -241,20 +241,20 @@ func (cq *ConfigurationQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the ConfigurationQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (cq *ConfigurationQuery) Clone() *ConfigurationQuery {
-	if cq == nil {
+func (_q *ConfigurationQuery) Clone() *ConfigurationQuery {
+	if _q == nil {
 		return nil
 	}
 	return &ConfigurationQuery{
-		config:     cq.config,
-		ctx:        cq.ctx.Clone(),
-		order:      append([]configuration.OrderOption{}, cq.order...),
-		inters:     append([]Interceptor{}, cq.inters...),
-		predicates: append([]predicate.Configuration{}, cq.predicates...),
+		config:     _q.config,
+		ctx:        _q.ctx.Clone(),
+		order:      append([]configuration.OrderOption{}, _q.order...),
+		inters:     append([]Interceptor{}, _q.inters...),
+		predicates: append([]predicate.Configuration{}, _q.predicates...),
 		// clone intermediate query.
-		sql:       cq.sql.Clone(),
-		path:      cq.path,
-		modifiers: append([]func(*sql.Selector){}, cq.modifiers...),
+		sql:       _q.sql.Clone(),
+		path:      _q.path,
+		modifiers: append([]func(*sql.Selector){}, _q.modifiers...),
 	}
 }
 
@@ -272,10 +272,10 @@ func (cq *ConfigurationQuery) Clone() *ConfigurationQuery {
 //		GroupBy(configuration.FieldCreatedAt).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (cq *ConfigurationQuery) GroupBy(field string, fields ...string) *ConfigurationGroupBy {
-	cq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &ConfigurationGroupBy{build: cq}
-	grbuild.flds = &cq.ctx.Fields
+func (_q *ConfigurationQuery) GroupBy(field string, fields ...string) *ConfigurationGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &ConfigurationGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = configuration.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -293,65 +293,65 @@ func (cq *ConfigurationQuery) GroupBy(field string, fields ...string) *Configura
 //	client.Configuration.Query().
 //		Select(configuration.FieldCreatedAt).
 //		Scan(ctx, &v)
-func (cq *ConfigurationQuery) Select(fields ...string) *ConfigurationSelect {
-	cq.ctx.Fields = append(cq.ctx.Fields, fields...)
-	sbuild := &ConfigurationSelect{ConfigurationQuery: cq}
+func (_q *ConfigurationQuery) Select(fields ...string) *ConfigurationSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &ConfigurationSelect{ConfigurationQuery: _q}
 	sbuild.label = configuration.Label
-	sbuild.flds, sbuild.scan = &cq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a ConfigurationSelect configured with the given aggregations.
-func (cq *ConfigurationQuery) Aggregate(fns ...AggregateFunc) *ConfigurationSelect {
-	return cq.Select().Aggregate(fns...)
+func (_q *ConfigurationQuery) Aggregate(fns ...AggregateFunc) *ConfigurationSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (cq *ConfigurationQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range cq.inters {
+func (_q *ConfigurationQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, cq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range cq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !configuration.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if cq.path != nil {
-		prev, err := cq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		cq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (cq *ConfigurationQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Configuration, error) {
+func (_q *ConfigurationQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Configuration, error) {
 	var (
 		nodes = []*Configuration{}
-		_spec = cq.querySpec()
+		_spec = _q.querySpec()
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*Configuration).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &Configuration{config: cq.config}
+		node := &Configuration{config: _q.config}
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
-	if len(cq.modifiers) > 0 {
-		_spec.Modifiers = cq.modifiers
+	if len(_q.modifiers) > 0 {
+		_spec.Modifiers = _q.modifiers
 	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, cq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
@@ -360,27 +360,27 @@ func (cq *ConfigurationQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([
 	return nodes, nil
 }
 
-func (cq *ConfigurationQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := cq.querySpec()
-	if len(cq.modifiers) > 0 {
-		_spec.Modifiers = cq.modifiers
+func (_q *ConfigurationQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	if len(_q.modifiers) > 0 {
+		_spec.Modifiers = _q.modifiers
 	}
-	_spec.Node.Columns = cq.ctx.Fields
-	if len(cq.ctx.Fields) > 0 {
-		_spec.Unique = cq.ctx.Unique != nil && *cq.ctx.Unique
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, cq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (cq *ConfigurationQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *ConfigurationQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(configuration.Table, configuration.Columns, sqlgraph.NewFieldSpec(configuration.FieldID, field.TypeUint64))
-	_spec.From = cq.sql
-	if unique := cq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if cq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := cq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, configuration.FieldID)
 		for i := range fields {
@@ -389,20 +389,20 @@ func (cq *ConfigurationQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := cq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := cq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := cq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := cq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -412,45 +412,45 @@ func (cq *ConfigurationQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (cq *ConfigurationQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(cq.driver.Dialect())
+func (_q *ConfigurationQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(configuration.Table)
-	columns := cq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = configuration.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if cq.sql != nil {
-		selector = cq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if cq.ctx.Unique != nil && *cq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, m := range cq.modifiers {
+	for _, m := range _q.modifiers {
 		m(selector)
 	}
-	for _, p := range cq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range cq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := cq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := cq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
 }
 
 // Modify adds a query modifier for attaching custom logic to queries.
-func (cq *ConfigurationQuery) Modify(modifiers ...func(s *sql.Selector)) *ConfigurationSelect {
-	cq.modifiers = append(cq.modifiers, modifiers...)
-	return cq.Select()
+func (_q *ConfigurationQuery) Modify(modifiers ...func(s *sql.Selector)) *ConfigurationSelect {
+	_q.modifiers = append(_q.modifiers, modifiers...)
+	return _q.Select()
 }
 
 // ConfigurationGroupBy is the group-by builder for Configuration entities.
@@ -460,41 +460,41 @@ type ConfigurationGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (cgb *ConfigurationGroupBy) Aggregate(fns ...AggregateFunc) *ConfigurationGroupBy {
-	cgb.fns = append(cgb.fns, fns...)
-	return cgb
+func (_g *ConfigurationGroupBy) Aggregate(fns ...AggregateFunc) *ConfigurationGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (cgb *ConfigurationGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, cgb.build.ctx, ent.OpQueryGroupBy)
-	if err := cgb.build.prepareQuery(ctx); err != nil {
+func (_g *ConfigurationGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*ConfigurationQuery, *ConfigurationGroupBy](ctx, cgb.build, cgb, cgb.build.inters, v)
+	return scanWithInterceptors[*ConfigurationQuery, *ConfigurationGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (cgb *ConfigurationGroupBy) sqlScan(ctx context.Context, root *ConfigurationQuery, v any) error {
+func (_g *ConfigurationGroupBy) sqlScan(ctx context.Context, root *ConfigurationQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(cgb.fns))
-	for _, fn := range cgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*cgb.flds)+len(cgb.fns))
-		for _, f := range *cgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*cgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := cgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -508,27 +508,27 @@ type ConfigurationSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (cs *ConfigurationSelect) Aggregate(fns ...AggregateFunc) *ConfigurationSelect {
-	cs.fns = append(cs.fns, fns...)
-	return cs
+func (_s *ConfigurationSelect) Aggregate(fns ...AggregateFunc) *ConfigurationSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (cs *ConfigurationSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, cs.ctx, ent.OpQuerySelect)
-	if err := cs.prepareQuery(ctx); err != nil {
+func (_s *ConfigurationSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*ConfigurationQuery, *ConfigurationSelect](ctx, cs.ConfigurationQuery, cs, cs.inters, v)
+	return scanWithInterceptors[*ConfigurationQuery, *ConfigurationSelect](ctx, _s.ConfigurationQuery, _s, _s.inters, v)
 }
 
-func (cs *ConfigurationSelect) sqlScan(ctx context.Context, root *ConfigurationQuery, v any) error {
+func (_s *ConfigurationSelect) sqlScan(ctx context.Context, root *ConfigurationQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(cs.fns))
-	for _, fn := range cs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*cs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -536,7 +536,7 @@ func (cs *ConfigurationSelect) sqlScan(ctx context.Context, root *ConfigurationQ
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := cs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -544,7 +544,7 @@ func (cs *ConfigurationSelect) sqlScan(ctx context.Context, root *ConfigurationQ
 }
 
 // Modify adds a query modifier for attaching custom logic to queries.
-func (cs *ConfigurationSelect) Modify(modifiers ...func(s *sql.Selector)) *ConfigurationSelect {
-	cs.modifiers = append(cs.modifiers, modifiers...)
-	return cs
+func (_s *ConfigurationSelect) Modify(modifiers ...func(s *sql.Selector)) *ConfigurationSelect {
+	_s.modifiers = append(_s.modifiers, modifiers...)
+	return _s
 }

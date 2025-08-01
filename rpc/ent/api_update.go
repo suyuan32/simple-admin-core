@@ -24,115 +24,115 @@ type APIUpdate struct {
 }
 
 // Where appends a list predicates to the APIUpdate builder.
-func (au *APIUpdate) Where(ps ...predicate.API) *APIUpdate {
-	au.mutation.Where(ps...)
-	return au
+func (_u *APIUpdate) Where(ps ...predicate.API) *APIUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (au *APIUpdate) SetUpdatedAt(t time.Time) *APIUpdate {
-	au.mutation.SetUpdatedAt(t)
-	return au
+func (_u *APIUpdate) SetUpdatedAt(v time.Time) *APIUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetPath sets the "path" field.
-func (au *APIUpdate) SetPath(s string) *APIUpdate {
-	au.mutation.SetPath(s)
-	return au
+func (_u *APIUpdate) SetPath(v string) *APIUpdate {
+	_u.mutation.SetPath(v)
+	return _u
 }
 
 // SetNillablePath sets the "path" field if the given value is not nil.
-func (au *APIUpdate) SetNillablePath(s *string) *APIUpdate {
-	if s != nil {
-		au.SetPath(*s)
+func (_u *APIUpdate) SetNillablePath(v *string) *APIUpdate {
+	if v != nil {
+		_u.SetPath(*v)
 	}
-	return au
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (au *APIUpdate) SetDescription(s string) *APIUpdate {
-	au.mutation.SetDescription(s)
-	return au
+func (_u *APIUpdate) SetDescription(v string) *APIUpdate {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (au *APIUpdate) SetNillableDescription(s *string) *APIUpdate {
-	if s != nil {
-		au.SetDescription(*s)
+func (_u *APIUpdate) SetNillableDescription(v *string) *APIUpdate {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return au
+	return _u
 }
 
 // SetAPIGroup sets the "api_group" field.
-func (au *APIUpdate) SetAPIGroup(s string) *APIUpdate {
-	au.mutation.SetAPIGroup(s)
-	return au
+func (_u *APIUpdate) SetAPIGroup(v string) *APIUpdate {
+	_u.mutation.SetAPIGroup(v)
+	return _u
 }
 
 // SetNillableAPIGroup sets the "api_group" field if the given value is not nil.
-func (au *APIUpdate) SetNillableAPIGroup(s *string) *APIUpdate {
-	if s != nil {
-		au.SetAPIGroup(*s)
+func (_u *APIUpdate) SetNillableAPIGroup(v *string) *APIUpdate {
+	if v != nil {
+		_u.SetAPIGroup(*v)
 	}
-	return au
+	return _u
 }
 
 // SetServiceName sets the "service_name" field.
-func (au *APIUpdate) SetServiceName(s string) *APIUpdate {
-	au.mutation.SetServiceName(s)
-	return au
+func (_u *APIUpdate) SetServiceName(v string) *APIUpdate {
+	_u.mutation.SetServiceName(v)
+	return _u
 }
 
 // SetNillableServiceName sets the "service_name" field if the given value is not nil.
-func (au *APIUpdate) SetNillableServiceName(s *string) *APIUpdate {
-	if s != nil {
-		au.SetServiceName(*s)
+func (_u *APIUpdate) SetNillableServiceName(v *string) *APIUpdate {
+	if v != nil {
+		_u.SetServiceName(*v)
 	}
-	return au
+	return _u
 }
 
 // SetMethod sets the "method" field.
-func (au *APIUpdate) SetMethod(s string) *APIUpdate {
-	au.mutation.SetMethod(s)
-	return au
+func (_u *APIUpdate) SetMethod(v string) *APIUpdate {
+	_u.mutation.SetMethod(v)
+	return _u
 }
 
 // SetNillableMethod sets the "method" field if the given value is not nil.
-func (au *APIUpdate) SetNillableMethod(s *string) *APIUpdate {
-	if s != nil {
-		au.SetMethod(*s)
+func (_u *APIUpdate) SetNillableMethod(v *string) *APIUpdate {
+	if v != nil {
+		_u.SetMethod(*v)
 	}
-	return au
+	return _u
 }
 
 // SetIsRequired sets the "is_required" field.
-func (au *APIUpdate) SetIsRequired(b bool) *APIUpdate {
-	au.mutation.SetIsRequired(b)
-	return au
+func (_u *APIUpdate) SetIsRequired(v bool) *APIUpdate {
+	_u.mutation.SetIsRequired(v)
+	return _u
 }
 
 // SetNillableIsRequired sets the "is_required" field if the given value is not nil.
-func (au *APIUpdate) SetNillableIsRequired(b *bool) *APIUpdate {
-	if b != nil {
-		au.SetIsRequired(*b)
+func (_u *APIUpdate) SetNillableIsRequired(v *bool) *APIUpdate {
+	if v != nil {
+		_u.SetIsRequired(*v)
 	}
-	return au
+	return _u
 }
 
 // Mutation returns the APIMutation object of the builder.
-func (au *APIUpdate) Mutation() *APIMutation {
-	return au.mutation
+func (_u *APIUpdate) Mutation() *APIMutation {
+	return _u.mutation
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (au *APIUpdate) Save(ctx context.Context) (int, error) {
-	au.defaults()
-	return withHooks(ctx, au.sqlSave, au.mutation, au.hooks)
+func (_u *APIUpdate) Save(ctx context.Context) (int, error) {
+	_u.defaults()
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (au *APIUpdate) SaveX(ctx context.Context) int {
-	affected, err := au.Save(ctx)
+func (_u *APIUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -140,64 +140,64 @@ func (au *APIUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (au *APIUpdate) Exec(ctx context.Context) error {
-	_, err := au.Save(ctx)
+func (_u *APIUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (au *APIUpdate) ExecX(ctx context.Context) {
-	if err := au.Exec(ctx); err != nil {
+func (_u *APIUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (au *APIUpdate) defaults() {
-	if _, ok := au.mutation.UpdatedAt(); !ok {
+func (_u *APIUpdate) defaults() {
+	if _, ok := _u.mutation.UpdatedAt(); !ok {
 		v := api.UpdateDefaultUpdatedAt()
-		au.mutation.SetUpdatedAt(v)
+		_u.mutation.SetUpdatedAt(v)
 	}
 }
 
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (au *APIUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *APIUpdate {
-	au.modifiers = append(au.modifiers, modifiers...)
-	return au
+func (_u *APIUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *APIUpdate {
+	_u.modifiers = append(_u.modifiers, modifiers...)
+	return _u
 }
 
-func (au *APIUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *APIUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(api.Table, api.Columns, sqlgraph.NewFieldSpec(api.FieldID, field.TypeUint64))
-	if ps := au.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := au.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(api.FieldUpdatedAt, field.TypeTime, value)
 	}
-	if value, ok := au.mutation.Path(); ok {
+	if value, ok := _u.mutation.Path(); ok {
 		_spec.SetField(api.FieldPath, field.TypeString, value)
 	}
-	if value, ok := au.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(api.FieldDescription, field.TypeString, value)
 	}
-	if value, ok := au.mutation.APIGroup(); ok {
+	if value, ok := _u.mutation.APIGroup(); ok {
 		_spec.SetField(api.FieldAPIGroup, field.TypeString, value)
 	}
-	if value, ok := au.mutation.ServiceName(); ok {
+	if value, ok := _u.mutation.ServiceName(); ok {
 		_spec.SetField(api.FieldServiceName, field.TypeString, value)
 	}
-	if value, ok := au.mutation.Method(); ok {
+	if value, ok := _u.mutation.Method(); ok {
 		_spec.SetField(api.FieldMethod, field.TypeString, value)
 	}
-	if value, ok := au.mutation.IsRequired(); ok {
+	if value, ok := _u.mutation.IsRequired(); ok {
 		_spec.SetField(api.FieldIsRequired, field.TypeBool, value)
 	}
-	_spec.AddModifiers(au.modifiers...)
-	if n, err = sqlgraph.UpdateNodes(ctx, au.driver, _spec); err != nil {
+	_spec.AddModifiers(_u.modifiers...)
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{api.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -205,8 +205,8 @@ func (au *APIUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	au.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // APIUpdateOne is the builder for updating a single API entity.
@@ -219,122 +219,122 @@ type APIUpdateOne struct {
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (auo *APIUpdateOne) SetUpdatedAt(t time.Time) *APIUpdateOne {
-	auo.mutation.SetUpdatedAt(t)
-	return auo
+func (_u *APIUpdateOne) SetUpdatedAt(v time.Time) *APIUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetPath sets the "path" field.
-func (auo *APIUpdateOne) SetPath(s string) *APIUpdateOne {
-	auo.mutation.SetPath(s)
-	return auo
+func (_u *APIUpdateOne) SetPath(v string) *APIUpdateOne {
+	_u.mutation.SetPath(v)
+	return _u
 }
 
 // SetNillablePath sets the "path" field if the given value is not nil.
-func (auo *APIUpdateOne) SetNillablePath(s *string) *APIUpdateOne {
-	if s != nil {
-		auo.SetPath(*s)
+func (_u *APIUpdateOne) SetNillablePath(v *string) *APIUpdateOne {
+	if v != nil {
+		_u.SetPath(*v)
 	}
-	return auo
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (auo *APIUpdateOne) SetDescription(s string) *APIUpdateOne {
-	auo.mutation.SetDescription(s)
-	return auo
+func (_u *APIUpdateOne) SetDescription(v string) *APIUpdateOne {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (auo *APIUpdateOne) SetNillableDescription(s *string) *APIUpdateOne {
-	if s != nil {
-		auo.SetDescription(*s)
+func (_u *APIUpdateOne) SetNillableDescription(v *string) *APIUpdateOne {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return auo
+	return _u
 }
 
 // SetAPIGroup sets the "api_group" field.
-func (auo *APIUpdateOne) SetAPIGroup(s string) *APIUpdateOne {
-	auo.mutation.SetAPIGroup(s)
-	return auo
+func (_u *APIUpdateOne) SetAPIGroup(v string) *APIUpdateOne {
+	_u.mutation.SetAPIGroup(v)
+	return _u
 }
 
 // SetNillableAPIGroup sets the "api_group" field if the given value is not nil.
-func (auo *APIUpdateOne) SetNillableAPIGroup(s *string) *APIUpdateOne {
-	if s != nil {
-		auo.SetAPIGroup(*s)
+func (_u *APIUpdateOne) SetNillableAPIGroup(v *string) *APIUpdateOne {
+	if v != nil {
+		_u.SetAPIGroup(*v)
 	}
-	return auo
+	return _u
 }
 
 // SetServiceName sets the "service_name" field.
-func (auo *APIUpdateOne) SetServiceName(s string) *APIUpdateOne {
-	auo.mutation.SetServiceName(s)
-	return auo
+func (_u *APIUpdateOne) SetServiceName(v string) *APIUpdateOne {
+	_u.mutation.SetServiceName(v)
+	return _u
 }
 
 // SetNillableServiceName sets the "service_name" field if the given value is not nil.
-func (auo *APIUpdateOne) SetNillableServiceName(s *string) *APIUpdateOne {
-	if s != nil {
-		auo.SetServiceName(*s)
+func (_u *APIUpdateOne) SetNillableServiceName(v *string) *APIUpdateOne {
+	if v != nil {
+		_u.SetServiceName(*v)
 	}
-	return auo
+	return _u
 }
 
 // SetMethod sets the "method" field.
-func (auo *APIUpdateOne) SetMethod(s string) *APIUpdateOne {
-	auo.mutation.SetMethod(s)
-	return auo
+func (_u *APIUpdateOne) SetMethod(v string) *APIUpdateOne {
+	_u.mutation.SetMethod(v)
+	return _u
 }
 
 // SetNillableMethod sets the "method" field if the given value is not nil.
-func (auo *APIUpdateOne) SetNillableMethod(s *string) *APIUpdateOne {
-	if s != nil {
-		auo.SetMethod(*s)
+func (_u *APIUpdateOne) SetNillableMethod(v *string) *APIUpdateOne {
+	if v != nil {
+		_u.SetMethod(*v)
 	}
-	return auo
+	return _u
 }
 
 // SetIsRequired sets the "is_required" field.
-func (auo *APIUpdateOne) SetIsRequired(b bool) *APIUpdateOne {
-	auo.mutation.SetIsRequired(b)
-	return auo
+func (_u *APIUpdateOne) SetIsRequired(v bool) *APIUpdateOne {
+	_u.mutation.SetIsRequired(v)
+	return _u
 }
 
 // SetNillableIsRequired sets the "is_required" field if the given value is not nil.
-func (auo *APIUpdateOne) SetNillableIsRequired(b *bool) *APIUpdateOne {
-	if b != nil {
-		auo.SetIsRequired(*b)
+func (_u *APIUpdateOne) SetNillableIsRequired(v *bool) *APIUpdateOne {
+	if v != nil {
+		_u.SetIsRequired(*v)
 	}
-	return auo
+	return _u
 }
 
 // Mutation returns the APIMutation object of the builder.
-func (auo *APIUpdateOne) Mutation() *APIMutation {
-	return auo.mutation
+func (_u *APIUpdateOne) Mutation() *APIMutation {
+	return _u.mutation
 }
 
 // Where appends a list predicates to the APIUpdate builder.
-func (auo *APIUpdateOne) Where(ps ...predicate.API) *APIUpdateOne {
-	auo.mutation.Where(ps...)
-	return auo
+func (_u *APIUpdateOne) Where(ps ...predicate.API) *APIUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (auo *APIUpdateOne) Select(field string, fields ...string) *APIUpdateOne {
-	auo.fields = append([]string{field}, fields...)
-	return auo
+func (_u *APIUpdateOne) Select(field string, fields ...string) *APIUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated API entity.
-func (auo *APIUpdateOne) Save(ctx context.Context) (*API, error) {
-	auo.defaults()
-	return withHooks(ctx, auo.sqlSave, auo.mutation, auo.hooks)
+func (_u *APIUpdateOne) Save(ctx context.Context) (*API, error) {
+	_u.defaults()
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (auo *APIUpdateOne) SaveX(ctx context.Context) *API {
-	node, err := auo.Save(ctx)
+func (_u *APIUpdateOne) SaveX(ctx context.Context) *API {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -342,40 +342,40 @@ func (auo *APIUpdateOne) SaveX(ctx context.Context) *API {
 }
 
 // Exec executes the query on the entity.
-func (auo *APIUpdateOne) Exec(ctx context.Context) error {
-	_, err := auo.Save(ctx)
+func (_u *APIUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (auo *APIUpdateOne) ExecX(ctx context.Context) {
-	if err := auo.Exec(ctx); err != nil {
+func (_u *APIUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (auo *APIUpdateOne) defaults() {
-	if _, ok := auo.mutation.UpdatedAt(); !ok {
+func (_u *APIUpdateOne) defaults() {
+	if _, ok := _u.mutation.UpdatedAt(); !ok {
 		v := api.UpdateDefaultUpdatedAt()
-		auo.mutation.SetUpdatedAt(v)
+		_u.mutation.SetUpdatedAt(v)
 	}
 }
 
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (auo *APIUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *APIUpdateOne {
-	auo.modifiers = append(auo.modifiers, modifiers...)
-	return auo
+func (_u *APIUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *APIUpdateOne {
+	_u.modifiers = append(_u.modifiers, modifiers...)
+	return _u
 }
 
-func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *API, err error) {
+func (_u *APIUpdateOne) sqlSave(ctx context.Context) (_node *API, err error) {
 	_spec := sqlgraph.NewUpdateSpec(api.Table, api.Columns, sqlgraph.NewFieldSpec(api.FieldID, field.TypeUint64))
-	id, ok := auo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "API.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := auo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, api.FieldID)
 		for _, f := range fields {
@@ -387,39 +387,39 @@ func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *API, err error) {
 			}
 		}
 	}
-	if ps := auo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := auo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(api.FieldUpdatedAt, field.TypeTime, value)
 	}
-	if value, ok := auo.mutation.Path(); ok {
+	if value, ok := _u.mutation.Path(); ok {
 		_spec.SetField(api.FieldPath, field.TypeString, value)
 	}
-	if value, ok := auo.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(api.FieldDescription, field.TypeString, value)
 	}
-	if value, ok := auo.mutation.APIGroup(); ok {
+	if value, ok := _u.mutation.APIGroup(); ok {
 		_spec.SetField(api.FieldAPIGroup, field.TypeString, value)
 	}
-	if value, ok := auo.mutation.ServiceName(); ok {
+	if value, ok := _u.mutation.ServiceName(); ok {
 		_spec.SetField(api.FieldServiceName, field.TypeString, value)
 	}
-	if value, ok := auo.mutation.Method(); ok {
+	if value, ok := _u.mutation.Method(); ok {
 		_spec.SetField(api.FieldMethod, field.TypeString, value)
 	}
-	if value, ok := auo.mutation.IsRequired(); ok {
+	if value, ok := _u.mutation.IsRequired(); ok {
 		_spec.SetField(api.FieldIsRequired, field.TypeBool, value)
 	}
-	_spec.AddModifiers(auo.modifiers...)
-	_node = &API{config: auo.config}
+	_spec.AddModifiers(_u.modifiers...)
+	_node = &API{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, auo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{api.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -427,6 +427,6 @@ func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *API, err error) {
 		}
 		return nil, err
 	}
-	auo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

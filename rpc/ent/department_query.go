@@ -34,44 +34,44 @@ type DepartmentQuery struct {
 }
 
 // Where adds a new predicate for the DepartmentQuery builder.
-func (dq *DepartmentQuery) Where(ps ...predicate.Department) *DepartmentQuery {
-	dq.predicates = append(dq.predicates, ps...)
-	return dq
+func (_q *DepartmentQuery) Where(ps ...predicate.Department) *DepartmentQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (dq *DepartmentQuery) Limit(limit int) *DepartmentQuery {
-	dq.ctx.Limit = &limit
-	return dq
+func (_q *DepartmentQuery) Limit(limit int) *DepartmentQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (dq *DepartmentQuery) Offset(offset int) *DepartmentQuery {
-	dq.ctx.Offset = &offset
-	return dq
+func (_q *DepartmentQuery) Offset(offset int) *DepartmentQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (dq *DepartmentQuery) Unique(unique bool) *DepartmentQuery {
-	dq.ctx.Unique = &unique
-	return dq
+func (_q *DepartmentQuery) Unique(unique bool) *DepartmentQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (dq *DepartmentQuery) Order(o ...department.OrderOption) *DepartmentQuery {
-	dq.order = append(dq.order, o...)
-	return dq
+func (_q *DepartmentQuery) Order(o ...department.OrderOption) *DepartmentQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryParent chains the current query on the "parent" edge.
-func (dq *DepartmentQuery) QueryParent() *DepartmentQuery {
-	query := (&DepartmentClient{config: dq.config}).Query()
+func (_q *DepartmentQuery) QueryParent() *DepartmentQuery {
+	query := (&DepartmentClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := dq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := dq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -80,20 +80,20 @@ func (dq *DepartmentQuery) QueryParent() *DepartmentQuery {
 			sqlgraph.To(department.Table, department.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, department.ParentTable, department.ParentColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryChildren chains the current query on the "children" edge.
-func (dq *DepartmentQuery) QueryChildren() *DepartmentQuery {
-	query := (&DepartmentClient{config: dq.config}).Query()
+func (_q *DepartmentQuery) QueryChildren() *DepartmentQuery {
+	query := (&DepartmentClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := dq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := dq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -102,20 +102,20 @@ func (dq *DepartmentQuery) QueryChildren() *DepartmentQuery {
 			sqlgraph.To(department.Table, department.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, false, department.ChildrenTable, department.ChildrenColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryUsers chains the current query on the "users" edge.
-func (dq *DepartmentQuery) QueryUsers() *UserQuery {
-	query := (&UserClient{config: dq.config}).Query()
+func (_q *DepartmentQuery) QueryUsers() *UserQuery {
+	query := (&UserClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := dq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := dq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -124,7 +124,7 @@ func (dq *DepartmentQuery) QueryUsers() *UserQuery {
 			sqlgraph.To(user.Table, user.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, true, department.UsersTable, department.UsersColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -132,8 +132,8 @@ func (dq *DepartmentQuery) QueryUsers() *UserQuery {
 
 // First returns the first Department entity from the query.
 // Returns a *NotFoundError when no Department was found.
-func (dq *DepartmentQuery) First(ctx context.Context) (*Department, error) {
-	nodes, err := dq.Limit(1).All(setContextOp(ctx, dq.ctx, ent.OpQueryFirst))
+func (_q *DepartmentQuery) First(ctx context.Context) (*Department, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -144,8 +144,8 @@ func (dq *DepartmentQuery) First(ctx context.Context) (*Department, error) {
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (dq *DepartmentQuery) FirstX(ctx context.Context) *Department {
-	node, err := dq.First(ctx)
+func (_q *DepartmentQuery) FirstX(ctx context.Context) *Department {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -154,9 +154,9 @@ func (dq *DepartmentQuery) FirstX(ctx context.Context) *Department {
 
 // FirstID returns the first Department ID from the query.
 // Returns a *NotFoundError when no Department ID was found.
-func (dq *DepartmentQuery) FirstID(ctx context.Context) (id uint64, err error) {
+func (_q *DepartmentQuery) FirstID(ctx context.Context) (id uint64, err error) {
 	var ids []uint64
-	if ids, err = dq.Limit(1).IDs(setContextOp(ctx, dq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -167,8 +167,8 @@ func (dq *DepartmentQuery) FirstID(ctx context.Context) (id uint64, err error) {
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (dq *DepartmentQuery) FirstIDX(ctx context.Context) uint64 {
-	id, err := dq.FirstID(ctx)
+func (_q *DepartmentQuery) FirstIDX(ctx context.Context) uint64 {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -178,8 +178,8 @@ func (dq *DepartmentQuery) FirstIDX(ctx context.Context) uint64 {
 // Only returns a single Department entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one Department entity is found.
 // Returns a *NotFoundError when no Department entities are found.
-func (dq *DepartmentQuery) Only(ctx context.Context) (*Department, error) {
-	nodes, err := dq.Limit(2).All(setContextOp(ctx, dq.ctx, ent.OpQueryOnly))
+func (_q *DepartmentQuery) Only(ctx context.Context) (*Department, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -194,8 +194,8 @@ func (dq *DepartmentQuery) Only(ctx context.Context) (*Department, error) {
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (dq *DepartmentQuery) OnlyX(ctx context.Context) *Department {
-	node, err := dq.Only(ctx)
+func (_q *DepartmentQuery) OnlyX(ctx context.Context) *Department {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -205,9 +205,9 @@ func (dq *DepartmentQuery) OnlyX(ctx context.Context) *Department {
 // OnlyID is like Only, but returns the only Department ID in the query.
 // Returns a *NotSingularError when more than one Department ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (dq *DepartmentQuery) OnlyID(ctx context.Context) (id uint64, err error) {
+func (_q *DepartmentQuery) OnlyID(ctx context.Context) (id uint64, err error) {
 	var ids []uint64
-	if ids, err = dq.Limit(2).IDs(setContextOp(ctx, dq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -222,8 +222,8 @@ func (dq *DepartmentQuery) OnlyID(ctx context.Context) (id uint64, err error) {
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (dq *DepartmentQuery) OnlyIDX(ctx context.Context) uint64 {
-	id, err := dq.OnlyID(ctx)
+func (_q *DepartmentQuery) OnlyIDX(ctx context.Context) uint64 {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -231,18 +231,18 @@ func (dq *DepartmentQuery) OnlyIDX(ctx context.Context) uint64 {
 }
 
 // All executes the query and returns a list of Departments.
-func (dq *DepartmentQuery) All(ctx context.Context) ([]*Department, error) {
-	ctx = setContextOp(ctx, dq.ctx, ent.OpQueryAll)
-	if err := dq.prepareQuery(ctx); err != nil {
+func (_q *DepartmentQuery) All(ctx context.Context) ([]*Department, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*Department, *DepartmentQuery]()
-	return withInterceptors[[]*Department](ctx, dq, qr, dq.inters)
+	return withInterceptors[[]*Department](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (dq *DepartmentQuery) AllX(ctx context.Context) []*Department {
-	nodes, err := dq.All(ctx)
+func (_q *DepartmentQuery) AllX(ctx context.Context) []*Department {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -250,20 +250,20 @@ func (dq *DepartmentQuery) AllX(ctx context.Context) []*Department {
 }
 
 // IDs executes the query and returns a list of Department IDs.
-func (dq *DepartmentQuery) IDs(ctx context.Context) (ids []uint64, err error) {
-	if dq.ctx.Unique == nil && dq.path != nil {
-		dq.Unique(true)
+func (_q *DepartmentQuery) IDs(ctx context.Context) (ids []uint64, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, dq.ctx, ent.OpQueryIDs)
-	if err = dq.Select(department.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(department.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (dq *DepartmentQuery) IDsX(ctx context.Context) []uint64 {
-	ids, err := dq.IDs(ctx)
+func (_q *DepartmentQuery) IDsX(ctx context.Context) []uint64 {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -271,17 +271,17 @@ func (dq *DepartmentQuery) IDsX(ctx context.Context) []uint64 {
 }
 
 // Count returns the count of the given query.
-func (dq *DepartmentQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, dq.ctx, ent.OpQueryCount)
-	if err := dq.prepareQuery(ctx); err != nil {
+func (_q *DepartmentQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, dq, querierCount[*DepartmentQuery](), dq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*DepartmentQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (dq *DepartmentQuery) CountX(ctx context.Context) int {
-	count, err := dq.Count(ctx)
+func (_q *DepartmentQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -289,9 +289,9 @@ func (dq *DepartmentQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (dq *DepartmentQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, dq.ctx, ent.OpQueryExist)
-	switch _, err := dq.FirstID(ctx); {
+func (_q *DepartmentQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -302,8 +302,8 @@ func (dq *DepartmentQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (dq *DepartmentQuery) ExistX(ctx context.Context) bool {
-	exist, err := dq.Exist(ctx)
+func (_q *DepartmentQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -312,57 +312,57 @@ func (dq *DepartmentQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the DepartmentQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (dq *DepartmentQuery) Clone() *DepartmentQuery {
-	if dq == nil {
+func (_q *DepartmentQuery) Clone() *DepartmentQuery {
+	if _q == nil {
 		return nil
 	}
 	return &DepartmentQuery{
-		config:       dq.config,
-		ctx:          dq.ctx.Clone(),
-		order:        append([]department.OrderOption{}, dq.order...),
-		inters:       append([]Interceptor{}, dq.inters...),
-		predicates:   append([]predicate.Department{}, dq.predicates...),
-		withParent:   dq.withParent.Clone(),
-		withChildren: dq.withChildren.Clone(),
-		withUsers:    dq.withUsers.Clone(),
+		config:       _q.config,
+		ctx:          _q.ctx.Clone(),
+		order:        append([]department.OrderOption{}, _q.order...),
+		inters:       append([]Interceptor{}, _q.inters...),
+		predicates:   append([]predicate.Department{}, _q.predicates...),
+		withParent:   _q.withParent.Clone(),
+		withChildren: _q.withChildren.Clone(),
+		withUsers:    _q.withUsers.Clone(),
 		// clone intermediate query.
-		sql:       dq.sql.Clone(),
-		path:      dq.path,
-		modifiers: append([]func(*sql.Selector){}, dq.modifiers...),
+		sql:       _q.sql.Clone(),
+		path:      _q.path,
+		modifiers: append([]func(*sql.Selector){}, _q.modifiers...),
 	}
 }
 
 // WithParent tells the query-builder to eager-load the nodes that are connected to
 // the "parent" edge. The optional arguments are used to configure the query builder of the edge.
-func (dq *DepartmentQuery) WithParent(opts ...func(*DepartmentQuery)) *DepartmentQuery {
-	query := (&DepartmentClient{config: dq.config}).Query()
+func (_q *DepartmentQuery) WithParent(opts ...func(*DepartmentQuery)) *DepartmentQuery {
+	query := (&DepartmentClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withParent = query
-	return dq
+	_q.withParent = query
+	return _q
 }
 
 // WithChildren tells the query-builder to eager-load the nodes that are connected to
 // the "children" edge. The optional arguments are used to configure the query builder of the edge.
-func (dq *DepartmentQuery) WithChildren(opts ...func(*DepartmentQuery)) *DepartmentQuery {
-	query := (&DepartmentClient{config: dq.config}).Query()
+func (_q *DepartmentQuery) WithChildren(opts ...func(*DepartmentQuery)) *DepartmentQuery {
+	query := (&DepartmentClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withChildren = query
-	return dq
+	_q.withChildren = query
+	return _q
 }
 
 // WithUsers tells the query-builder to eager-load the nodes that are connected to
 // the "users" edge. The optional arguments are used to configure the query builder of the edge.
-func (dq *DepartmentQuery) WithUsers(opts ...func(*UserQuery)) *DepartmentQuery {
-	query := (&UserClient{config: dq.config}).Query()
+func (_q *DepartmentQuery) WithUsers(opts ...func(*UserQuery)) *DepartmentQuery {
+	query := (&UserClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withUsers = query
-	return dq
+	_q.withUsers = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -379,10 +379,10 @@ func (dq *DepartmentQuery) WithUsers(opts ...func(*UserQuery)) *DepartmentQuery 
 //		GroupBy(department.FieldCreatedAt).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (dq *DepartmentQuery) GroupBy(field string, fields ...string) *DepartmentGroupBy {
-	dq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &DepartmentGroupBy{build: dq}
-	grbuild.flds = &dq.ctx.Fields
+func (_q *DepartmentQuery) GroupBy(field string, fields ...string) *DepartmentGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &DepartmentGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = department.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -400,91 +400,91 @@ func (dq *DepartmentQuery) GroupBy(field string, fields ...string) *DepartmentGr
 //	client.Department.Query().
 //		Select(department.FieldCreatedAt).
 //		Scan(ctx, &v)
-func (dq *DepartmentQuery) Select(fields ...string) *DepartmentSelect {
-	dq.ctx.Fields = append(dq.ctx.Fields, fields...)
-	sbuild := &DepartmentSelect{DepartmentQuery: dq}
+func (_q *DepartmentQuery) Select(fields ...string) *DepartmentSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &DepartmentSelect{DepartmentQuery: _q}
 	sbuild.label = department.Label
-	sbuild.flds, sbuild.scan = &dq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a DepartmentSelect configured with the given aggregations.
-func (dq *DepartmentQuery) Aggregate(fns ...AggregateFunc) *DepartmentSelect {
-	return dq.Select().Aggregate(fns...)
+func (_q *DepartmentQuery) Aggregate(fns ...AggregateFunc) *DepartmentSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (dq *DepartmentQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range dq.inters {
+func (_q *DepartmentQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, dq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range dq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !department.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if dq.path != nil {
-		prev, err := dq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		dq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (dq *DepartmentQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Department, error) {
+func (_q *DepartmentQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Department, error) {
 	var (
 		nodes       = []*Department{}
-		_spec       = dq.querySpec()
+		_spec       = _q.querySpec()
 		loadedTypes = [3]bool{
-			dq.withParent != nil,
-			dq.withChildren != nil,
-			dq.withUsers != nil,
+			_q.withParent != nil,
+			_q.withChildren != nil,
+			_q.withUsers != nil,
 		}
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*Department).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &Department{config: dq.config}
+		node := &Department{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
 	}
-	if len(dq.modifiers) > 0 {
-		_spec.Modifiers = dq.modifiers
+	if len(_q.modifiers) > 0 {
+		_spec.Modifiers = _q.modifiers
 	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, dq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := dq.withParent; query != nil {
-		if err := dq.loadParent(ctx, query, nodes, nil,
+	if query := _q.withParent; query != nil {
+		if err := _q.loadParent(ctx, query, nodes, nil,
 			func(n *Department, e *Department) { n.Edges.Parent = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := dq.withChildren; query != nil {
-		if err := dq.loadChildren(ctx, query, nodes,
+	if query := _q.withChildren; query != nil {
+		if err := _q.loadChildren(ctx, query, nodes,
 			func(n *Department) { n.Edges.Children = []*Department{} },
 			func(n *Department, e *Department) { n.Edges.Children = append(n.Edges.Children, e) }); err != nil {
 			return nil, err
 		}
 	}
-	if query := dq.withUsers; query != nil {
-		if err := dq.loadUsers(ctx, query, nodes,
+	if query := _q.withUsers; query != nil {
+		if err := _q.loadUsers(ctx, query, nodes,
 			func(n *Department) { n.Edges.Users = []*User{} },
 			func(n *Department, e *User) { n.Edges.Users = append(n.Edges.Users, e) }); err != nil {
 			return nil, err
@@ -493,7 +493,7 @@ func (dq *DepartmentQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*D
 	return nodes, nil
 }
 
-func (dq *DepartmentQuery) loadParent(ctx context.Context, query *DepartmentQuery, nodes []*Department, init func(*Department), assign func(*Department, *Department)) error {
+func (_q *DepartmentQuery) loadParent(ctx context.Context, query *DepartmentQuery, nodes []*Department, init func(*Department), assign func(*Department, *Department)) error {
 	ids := make([]uint64, 0, len(nodes))
 	nodeids := make(map[uint64][]*Department)
 	for i := range nodes {
@@ -522,7 +522,7 @@ func (dq *DepartmentQuery) loadParent(ctx context.Context, query *DepartmentQuer
 	}
 	return nil
 }
-func (dq *DepartmentQuery) loadChildren(ctx context.Context, query *DepartmentQuery, nodes []*Department, init func(*Department), assign func(*Department, *Department)) error {
+func (_q *DepartmentQuery) loadChildren(ctx context.Context, query *DepartmentQuery, nodes []*Department, init func(*Department), assign func(*Department, *Department)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[uint64]*Department)
 	for i := range nodes {
@@ -552,7 +552,7 @@ func (dq *DepartmentQuery) loadChildren(ctx context.Context, query *DepartmentQu
 	}
 	return nil
 }
-func (dq *DepartmentQuery) loadUsers(ctx context.Context, query *UserQuery, nodes []*Department, init func(*Department), assign func(*Department, *User)) error {
+func (_q *DepartmentQuery) loadUsers(ctx context.Context, query *UserQuery, nodes []*Department, init func(*Department), assign func(*Department, *User)) error {
 	fks := make([]driver.Value, 0, len(nodes))
 	nodeids := make(map[uint64]*Department)
 	for i := range nodes {
@@ -583,27 +583,27 @@ func (dq *DepartmentQuery) loadUsers(ctx context.Context, query *UserQuery, node
 	return nil
 }
 
-func (dq *DepartmentQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := dq.querySpec()
-	if len(dq.modifiers) > 0 {
-		_spec.Modifiers = dq.modifiers
+func (_q *DepartmentQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	if len(_q.modifiers) > 0 {
+		_spec.Modifiers = _q.modifiers
 	}
-	_spec.Node.Columns = dq.ctx.Fields
-	if len(dq.ctx.Fields) > 0 {
-		_spec.Unique = dq.ctx.Unique != nil && *dq.ctx.Unique
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, dq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (dq *DepartmentQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *DepartmentQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(department.Table, department.Columns, sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64))
-	_spec.From = dq.sql
-	if unique := dq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if dq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := dq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, department.FieldID)
 		for i := range fields {
@@ -611,24 +611,24 @@ func (dq *DepartmentQuery) querySpec() *sqlgraph.QuerySpec {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}
-		if dq.withParent != nil {
+		if _q.withParent != nil {
 			_spec.Node.AddColumnOnce(department.FieldParentID)
 		}
 	}
-	if ps := dq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := dq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := dq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := dq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -638,45 +638,45 @@ func (dq *DepartmentQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (dq *DepartmentQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(dq.driver.Dialect())
+func (_q *DepartmentQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(department.Table)
-	columns := dq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = department.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if dq.sql != nil {
-		selector = dq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if dq.ctx.Unique != nil && *dq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, m := range dq.modifiers {
+	for _, m := range _q.modifiers {
 		m(selector)
 	}
-	for _, p := range dq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range dq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := dq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := dq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
 }
 
 // Modify adds a query modifier for attaching custom logic to queries.
-func (dq *DepartmentQuery) Modify(modifiers ...func(s *sql.Selector)) *DepartmentSelect {
-	dq.modifiers = append(dq.modifiers, modifiers...)
-	return dq.Select()
+func (_q *DepartmentQuery) Modify(modifiers ...func(s *sql.Selector)) *DepartmentSelect {
+	_q.modifiers = append(_q.modifiers, modifiers...)
+	return _q.Select()
 }
 
 // DepartmentGroupBy is the group-by builder for Department entities.
@@ -686,41 +686,41 @@ type DepartmentGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (dgb *DepartmentGroupBy) Aggregate(fns ...AggregateFunc) *DepartmentGroupBy {
-	dgb.fns = append(dgb.fns, fns...)
-	return dgb
+func (_g *DepartmentGroupBy) Aggregate(fns ...AggregateFunc) *DepartmentGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (dgb *DepartmentGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, dgb.build.ctx, ent.OpQueryGroupBy)
-	if err := dgb.build.prepareQuery(ctx); err != nil {
+func (_g *DepartmentGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*DepartmentQuery, *DepartmentGroupBy](ctx, dgb.build, dgb, dgb.build.inters, v)
+	return scanWithInterceptors[*DepartmentQuery, *DepartmentGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (dgb *DepartmentGroupBy) sqlScan(ctx context.Context, root *DepartmentQuery, v any) error {
+func (_g *DepartmentGroupBy) sqlScan(ctx context.Context, root *DepartmentQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(dgb.fns))
-	for _, fn := range dgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*dgb.flds)+len(dgb.fns))
-		for _, f := range *dgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*dgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := dgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -734,27 +734,27 @@ type DepartmentSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (ds *DepartmentSelect) Aggregate(fns ...AggregateFunc) *DepartmentSelect {
-	ds.fns = append(ds.fns, fns...)
-	return ds
+func (_s *DepartmentSelect) Aggregate(fns ...AggregateFunc) *DepartmentSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (ds *DepartmentSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ds.ctx, ent.OpQuerySelect)
-	if err := ds.prepareQuery(ctx); err != nil {
+func (_s *DepartmentSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*DepartmentQuery, *DepartmentSelect](ctx, ds.DepartmentQuery, ds, ds.inters, v)
+	return scanWithInterceptors[*DepartmentQuery, *DepartmentSelect](ctx, _s.DepartmentQuery, _s, _s.inters, v)
 }
 
-func (ds *DepartmentSelect) sqlScan(ctx context.Context, root *DepartmentQuery, v any) error {
+func (_s *DepartmentSelect) sqlScan(ctx context.Context, root *DepartmentQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(ds.fns))
-	for _, fn := range ds.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*ds.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -762,7 +762,7 @@ func (ds *DepartmentSelect) sqlScan(ctx context.Context, root *DepartmentQuery, 
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := ds.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -770,7 +770,7 @@ func (ds *DepartmentSelect) sqlScan(ctx context.Context, root *DepartmentQuery, 
 }
 
 // Modify adds a query modifier for attaching custom logic to queries.
-func (ds *DepartmentSelect) Modify(modifiers ...func(s *sql.Selector)) *DepartmentSelect {
-	ds.modifiers = append(ds.modifiers, modifiers...)
-	return ds
+func (_s *DepartmentSelect) Modify(modifiers ...func(s *sql.Selector)) *DepartmentSelect {
+	_s.modifiers = append(_s.modifiers, modifiers...)
+	return _s
 }
