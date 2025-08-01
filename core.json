@@ -6137,12 +6137,6 @@
           "format": "int64",
           "x-go-name": "CreatedAt"
         },
-        "defaultRouter": {
-          "description": "DefaultRouter | 默认首页",
-          "type": "string",
-          "maxLength": 80,
-          "x-go-name": "DefaultRouter"
-        },
         "id": {
           "description": "ID",
           "type": "integer",
