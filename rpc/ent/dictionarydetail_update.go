@@ -25,166 +25,166 @@ type DictionaryDetailUpdate struct {
 }
 
 // Where appends a list predicates to the DictionaryDetailUpdate builder.
-func (ddu *DictionaryDetailUpdate) Where(ps ...predicate.DictionaryDetail) *DictionaryDetailUpdate {
-	ddu.mutation.Where(ps...)
-	return ddu
+func (_u *DictionaryDetailUpdate) Where(ps ...predicate.DictionaryDetail) *DictionaryDetailUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (ddu *DictionaryDetailUpdate) SetUpdatedAt(t time.Time) *DictionaryDetailUpdate {
-	ddu.mutation.SetUpdatedAt(t)
-	return ddu
+func (_u *DictionaryDetailUpdate) SetUpdatedAt(v time.Time) *DictionaryDetailUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetStatus sets the "status" field.
-func (ddu *DictionaryDetailUpdate) SetStatus(u uint8) *DictionaryDetailUpdate {
-	ddu.mutation.ResetStatus()
-	ddu.mutation.SetStatus(u)
-	return ddu
+func (_u *DictionaryDetailUpdate) SetStatus(v uint8) *DictionaryDetailUpdate {
+	_u.mutation.ResetStatus()
+	_u.mutation.SetStatus(v)
+	return _u
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (ddu *DictionaryDetailUpdate) SetNillableStatus(u *uint8) *DictionaryDetailUpdate {
-	if u != nil {
-		ddu.SetStatus(*u)
+func (_u *DictionaryDetailUpdate) SetNillableStatus(v *uint8) *DictionaryDetailUpdate {
+	if v != nil {
+		_u.SetStatus(*v)
 	}
-	return ddu
+	return _u
 }
 
-// AddStatus adds u to the "status" field.
-func (ddu *DictionaryDetailUpdate) AddStatus(u int8) *DictionaryDetailUpdate {
-	ddu.mutation.AddStatus(u)
-	return ddu
+// AddStatus adds value to the "status" field.
+func (_u *DictionaryDetailUpdate) AddStatus(v int8) *DictionaryDetailUpdate {
+	_u.mutation.AddStatus(v)
+	return _u
 }
 
 // ClearStatus clears the value of the "status" field.
-func (ddu *DictionaryDetailUpdate) ClearStatus() *DictionaryDetailUpdate {
-	ddu.mutation.ClearStatus()
-	return ddu
+func (_u *DictionaryDetailUpdate) ClearStatus() *DictionaryDetailUpdate {
+	_u.mutation.ClearStatus()
+	return _u
 }
 
 // SetSort sets the "sort" field.
-func (ddu *DictionaryDetailUpdate) SetSort(u uint32) *DictionaryDetailUpdate {
-	ddu.mutation.ResetSort()
-	ddu.mutation.SetSort(u)
-	return ddu
+func (_u *DictionaryDetailUpdate) SetSort(v uint32) *DictionaryDetailUpdate {
+	_u.mutation.ResetSort()
+	_u.mutation.SetSort(v)
+	return _u
 }
 
 // SetNillableSort sets the "sort" field if the given value is not nil.
-func (ddu *DictionaryDetailUpdate) SetNillableSort(u *uint32) *DictionaryDetailUpdate {
-	if u != nil {
-		ddu.SetSort(*u)
+func (_u *DictionaryDetailUpdate) SetNillableSort(v *uint32) *DictionaryDetailUpdate {
+	if v != nil {
+		_u.SetSort(*v)
 	}
-	return ddu
+	return _u
 }
 
-// AddSort adds u to the "sort" field.
-func (ddu *DictionaryDetailUpdate) AddSort(u int32) *DictionaryDetailUpdate {
-	ddu.mutation.AddSort(u)
-	return ddu
+// AddSort adds value to the "sort" field.
+func (_u *DictionaryDetailUpdate) AddSort(v int32) *DictionaryDetailUpdate {
+	_u.mutation.AddSort(v)
+	return _u
 }
 
 // SetTitle sets the "title" field.
-func (ddu *DictionaryDetailUpdate) SetTitle(s string) *DictionaryDetailUpdate {
-	ddu.mutation.SetTitle(s)
-	return ddu
+func (_u *DictionaryDetailUpdate) SetTitle(v string) *DictionaryDetailUpdate {
+	_u.mutation.SetTitle(v)
+	return _u
 }
 
 // SetNillableTitle sets the "title" field if the given value is not nil.
-func (ddu *DictionaryDetailUpdate) SetNillableTitle(s *string) *DictionaryDetailUpdate {
-	if s != nil {
-		ddu.SetTitle(*s)
+func (_u *DictionaryDetailUpdate) SetNillableTitle(v *string) *DictionaryDetailUpdate {
+	if v != nil {
+		_u.SetTitle(*v)
 	}
-	return ddu
+	return _u
 }
 
 // SetKey sets the "key" field.
-func (ddu *DictionaryDetailUpdate) SetKey(s string) *DictionaryDetailUpdate {
-	ddu.mutation.SetKey(s)
-	return ddu
+func (_u *DictionaryDetailUpdate) SetKey(v string) *DictionaryDetailUpdate {
+	_u.mutation.SetKey(v)
+	return _u
 }
 
 // SetNillableKey sets the "key" field if the given value is not nil.
-func (ddu *DictionaryDetailUpdate) SetNillableKey(s *string) *DictionaryDetailUpdate {
-	if s != nil {
-		ddu.SetKey(*s)
+func (_u *DictionaryDetailUpdate) SetNillableKey(v *string) *DictionaryDetailUpdate {
+	if v != nil {
+		_u.SetKey(*v)
 	}
-	return ddu
+	return _u
 }
 
 // SetValue sets the "value" field.
-func (ddu *DictionaryDetailUpdate) SetValue(s string) *DictionaryDetailUpdate {
-	ddu.mutation.SetValue(s)
-	return ddu
+func (_u *DictionaryDetailUpdate) SetValue(v string) *DictionaryDetailUpdate {
+	_u.mutation.SetValue(v)
+	return _u
 }
 
 // SetNillableValue sets the "value" field if the given value is not nil.
-func (ddu *DictionaryDetailUpdate) SetNillableValue(s *string) *DictionaryDetailUpdate {
-	if s != nil {
-		ddu.SetValue(*s)
+func (_u *DictionaryDetailUpdate) SetNillableValue(v *string) *DictionaryDetailUpdate {
+	if v != nil {
+		_u.SetValue(*v)
 	}
-	return ddu
+	return _u
 }
 
 // SetDictionaryID sets the "dictionary_id" field.
-func (ddu *DictionaryDetailUpdate) SetDictionaryID(u uint64) *DictionaryDetailUpdate {
-	ddu.mutation.SetDictionaryID(u)
-	return ddu
+func (_u *DictionaryDetailUpdate) SetDictionaryID(v uint64) *DictionaryDetailUpdate {
+	_u.mutation.SetDictionaryID(v)
+	return _u
 }
 
 // SetNillableDictionaryID sets the "dictionary_id" field if the given value is not nil.
-func (ddu *DictionaryDetailUpdate) SetNillableDictionaryID(u *uint64) *DictionaryDetailUpdate {
-	if u != nil {
-		ddu.SetDictionaryID(*u)
+func (_u *DictionaryDetailUpdate) SetNillableDictionaryID(v *uint64) *DictionaryDetailUpdate {
+	if v != nil {
+		_u.SetDictionaryID(*v)
 	}
-	return ddu
+	return _u
 }
 
 // ClearDictionaryID clears the value of the "dictionary_id" field.
-func (ddu *DictionaryDetailUpdate) ClearDictionaryID() *DictionaryDetailUpdate {
-	ddu.mutation.ClearDictionaryID()
-	return ddu
+func (_u *DictionaryDetailUpdate) ClearDictionaryID() *DictionaryDetailUpdate {
+	_u.mutation.ClearDictionaryID()
+	return _u
 }
 
 // SetDictionariesID sets the "dictionaries" edge to the Dictionary entity by ID.
-func (ddu *DictionaryDetailUpdate) SetDictionariesID(id uint64) *DictionaryDetailUpdate {
-	ddu.mutation.SetDictionariesID(id)
-	return ddu
+func (_u *DictionaryDetailUpdate) SetDictionariesID(id uint64) *DictionaryDetailUpdate {
+	_u.mutation.SetDictionariesID(id)
+	return _u
 }
 
 // SetNillableDictionariesID sets the "dictionaries" edge to the Dictionary entity by ID if the given value is not nil.
-func (ddu *DictionaryDetailUpdate) SetNillableDictionariesID(id *uint64) *DictionaryDetailUpdate {
+func (_u *DictionaryDetailUpdate) SetNillableDictionariesID(id *uint64) *DictionaryDetailUpdate {
 	if id != nil {
-		ddu = ddu.SetDictionariesID(*id)
+		_u = _u.SetDictionariesID(*id)
 	}
-	return ddu
+	return _u
 }
 
 // SetDictionaries sets the "dictionaries" edge to the Dictionary entity.
-func (ddu *DictionaryDetailUpdate) SetDictionaries(d *Dictionary) *DictionaryDetailUpdate {
-	return ddu.SetDictionariesID(d.ID)
+func (_u *DictionaryDetailUpdate) SetDictionaries(v *Dictionary) *DictionaryDetailUpdate {
+	return _u.SetDictionariesID(v.ID)
 }
 
 // Mutation returns the DictionaryDetailMutation object of the builder.
-func (ddu *DictionaryDetailUpdate) Mutation() *DictionaryDetailMutation {
-	return ddu.mutation
+func (_u *DictionaryDetailUpdate) Mutation() *DictionaryDetailMutation {
+	return _u.mutation
 }
 
 // ClearDictionaries clears the "dictionaries" edge to the Dictionary entity.
-func (ddu *DictionaryDetailUpdate) ClearDictionaries() *DictionaryDetailUpdate {
-	ddu.mutation.ClearDictionaries()
-	return ddu
+func (_u *DictionaryDetailUpdate) ClearDictionaries() *DictionaryDetailUpdate {
+	_u.mutation.ClearDictionaries()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (ddu *DictionaryDetailUpdate) Save(ctx context.Context) (int, error) {
-	ddu.defaults()
-	return withHooks(ctx, ddu.sqlSave, ddu.mutation, ddu.hooks)
+func (_u *DictionaryDetailUpdate) Save(ctx context.Context) (int, error) {
+	_u.defaults()
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ddu *DictionaryDetailUpdate) SaveX(ctx context.Context) int {
-	affected, err := ddu.Save(ctx)
+func (_u *DictionaryDetailUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -192,69 +192,69 @@ func (ddu *DictionaryDetailUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (ddu *DictionaryDetailUpdate) Exec(ctx context.Context) error {
-	_, err := ddu.Save(ctx)
+func (_u *DictionaryDetailUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ddu *DictionaryDetailUpdate) ExecX(ctx context.Context) {
-	if err := ddu.Exec(ctx); err != nil {
+func (_u *DictionaryDetailUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (ddu *DictionaryDetailUpdate) defaults() {
-	if _, ok := ddu.mutation.UpdatedAt(); !ok {
+func (_u *DictionaryDetailUpdate) defaults() {
+	if _, ok := _u.mutation.UpdatedAt(); !ok {
 		v := dictionarydetail.UpdateDefaultUpdatedAt()
-		ddu.mutation.SetUpdatedAt(v)
+		_u.mutation.SetUpdatedAt(v)
 	}
 }
 
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (ddu *DictionaryDetailUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DictionaryDetailUpdate {
-	ddu.modifiers = append(ddu.modifiers, modifiers...)
-	return ddu
+func (_u *DictionaryDetailUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DictionaryDetailUpdate {
+	_u.modifiers = append(_u.modifiers, modifiers...)
+	return _u
 }
 
-func (ddu *DictionaryDetailUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *DictionaryDetailUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(dictionarydetail.Table, dictionarydetail.Columns, sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64))
-	if ps := ddu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := ddu.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(dictionarydetail.FieldUpdatedAt, field.TypeTime, value)
 	}
-	if value, ok := ddu.mutation.Status(); ok {
+	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(dictionarydetail.FieldStatus, field.TypeUint8, value)
 	}
-	if value, ok := ddu.mutation.AddedStatus(); ok {
+	if value, ok := _u.mutation.AddedStatus(); ok {
 		_spec.AddField(dictionarydetail.FieldStatus, field.TypeUint8, value)
 	}
-	if ddu.mutation.StatusCleared() {
+	if _u.mutation.StatusCleared() {
 		_spec.ClearField(dictionarydetail.FieldStatus, field.TypeUint8)
 	}
-	if value, ok := ddu.mutation.Sort(); ok {
+	if value, ok := _u.mutation.Sort(); ok {
 		_spec.SetField(dictionarydetail.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := ddu.mutation.AddedSort(); ok {
+	if value, ok := _u.mutation.AddedSort(); ok {
 		_spec.AddField(dictionarydetail.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := ddu.mutation.Title(); ok {
+	if value, ok := _u.mutation.Title(); ok {
 		_spec.SetField(dictionarydetail.FieldTitle, field.TypeString, value)
 	}
-	if value, ok := ddu.mutation.Key(); ok {
+	if value, ok := _u.mutation.Key(); ok {
 		_spec.SetField(dictionarydetail.FieldKey, field.TypeString, value)
 	}
-	if value, ok := ddu.mutation.Value(); ok {
+	if value, ok := _u.mutation.Value(); ok {
 		_spec.SetField(dictionarydetail.FieldValue, field.TypeString, value)
 	}
-	if ddu.mutation.DictionariesCleared() {
+	if _u.mutation.DictionariesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -267,7 +267,7 @@ func (ddu *DictionaryDetailUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ddu.mutation.DictionariesIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.DictionariesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -283,8 +283,8 @@ func (ddu *DictionaryDetailUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_spec.AddModifiers(ddu.modifiers...)
-	if n, err = sqlgraph.UpdateNodes(ctx, ddu.driver, _spec); err != nil {
+	_spec.AddModifiers(_u.modifiers...)
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{dictionarydetail.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -292,8 +292,8 @@ func (ddu *DictionaryDetailUpdate) sqlSave(ctx context.Context) (n int, err erro
 		}
 		return 0, err
 	}
-	ddu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // DictionaryDetailUpdateOne is the builder for updating a single DictionaryDetail entity.
@@ -306,173 +306,173 @@ type DictionaryDetailUpdateOne struct {
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (dduo *DictionaryDetailUpdateOne) SetUpdatedAt(t time.Time) *DictionaryDetailUpdateOne {
-	dduo.mutation.SetUpdatedAt(t)
-	return dduo
+func (_u *DictionaryDetailUpdateOne) SetUpdatedAt(v time.Time) *DictionaryDetailUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetStatus sets the "status" field.
-func (dduo *DictionaryDetailUpdateOne) SetStatus(u uint8) *DictionaryDetailUpdateOne {
-	dduo.mutation.ResetStatus()
-	dduo.mutation.SetStatus(u)
-	return dduo
+func (_u *DictionaryDetailUpdateOne) SetStatus(v uint8) *DictionaryDetailUpdateOne {
+	_u.mutation.ResetStatus()
+	_u.mutation.SetStatus(v)
+	return _u
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (dduo *DictionaryDetailUpdateOne) SetNillableStatus(u *uint8) *DictionaryDetailUpdateOne {
-	if u != nil {
-		dduo.SetStatus(*u)
+func (_u *DictionaryDetailUpdateOne) SetNillableStatus(v *uint8) *DictionaryDetailUpdateOne {
+	if v != nil {
+		_u.SetStatus(*v)
 	}
-	return dduo
+	return _u
 }
 
-// AddStatus adds u to the "status" field.
-func (dduo *DictionaryDetailUpdateOne) AddStatus(u int8) *DictionaryDetailUpdateOne {
-	dduo.mutation.AddStatus(u)
-	return dduo
+// AddStatus adds value to the "status" field.
+func (_u *DictionaryDetailUpdateOne) AddStatus(v int8) *DictionaryDetailUpdateOne {
+	_u.mutation.AddStatus(v)
+	return _u
 }
 
 // ClearStatus clears the value of the "status" field.
-func (dduo *DictionaryDetailUpdateOne) ClearStatus() *DictionaryDetailUpdateOne {
-	dduo.mutation.ClearStatus()
-	return dduo
+func (_u *DictionaryDetailUpdateOne) ClearStatus() *DictionaryDetailUpdateOne {
+	_u.mutation.ClearStatus()
+	return _u
 }
 
 // SetSort sets the "sort" field.
-func (dduo *DictionaryDetailUpdateOne) SetSort(u uint32) *DictionaryDetailUpdateOne {
-	dduo.mutation.ResetSort()
-	dduo.mutation.SetSort(u)
-	return dduo
+func (_u *DictionaryDetailUpdateOne) SetSort(v uint32) *DictionaryDetailUpdateOne {
+	_u.mutation.ResetSort()
+	_u.mutation.SetSort(v)
+	return _u
 }
 
 // SetNillableSort sets the "sort" field if the given value is not nil.
-func (dduo *DictionaryDetailUpdateOne) SetNillableSort(u *uint32) *DictionaryDetailUpdateOne {
-	if u != nil {
-		dduo.SetSort(*u)
+func (_u *DictionaryDetailUpdateOne) SetNillableSort(v *uint32) *DictionaryDetailUpdateOne {
+	if v != nil {
+		_u.SetSort(*v)
 	}
-	return dduo
+	return _u
 }
 
-// AddSort adds u to the "sort" field.
-func (dduo *DictionaryDetailUpdateOne) AddSort(u int32) *DictionaryDetailUpdateOne {
-	dduo.mutation.AddSort(u)
-	return dduo
+// AddSort adds value to the "sort" field.
+func (_u *DictionaryDetailUpdateOne) AddSort(v int32) *DictionaryDetailUpdateOne {
+	_u.mutation.AddSort(v)
+	return _u
 }
 
 // SetTitle sets the "title" field.
-func (dduo *DictionaryDetailUpdateOne) SetTitle(s string) *DictionaryDetailUpdateOne {
-	dduo.mutation.SetTitle(s)
-	return dduo
+func (_u *DictionaryDetailUpdateOne) SetTitle(v string) *DictionaryDetailUpdateOne {
+	_u.mutation.SetTitle(v)
+	return _u
 }
 
 // SetNillableTitle sets the "title" field if the given value is not nil.
-func (dduo *DictionaryDetailUpdateOne) SetNillableTitle(s *string) *DictionaryDetailUpdateOne {
-	if s != nil {
-		dduo.SetTitle(*s)
+func (_u *DictionaryDetailUpdateOne) SetNillableTitle(v *string) *DictionaryDetailUpdateOne {
+	if v != nil {
+		_u.SetTitle(*v)
 	}
-	return dduo
+	return _u
 }
 
 // SetKey sets the "key" field.
-func (dduo *DictionaryDetailUpdateOne) SetKey(s string) *DictionaryDetailUpdateOne {
-	dduo.mutation.SetKey(s)
-	return dduo
+func (_u *DictionaryDetailUpdateOne) SetKey(v string) *DictionaryDetailUpdateOne {
+	_u.mutation.SetKey(v)
+	return _u
 }
 
 // SetNillableKey sets the "key" field if the given value is not nil.
-func (dduo *DictionaryDetailUpdateOne) SetNillableKey(s *string) *DictionaryDetailUpdateOne {
-	if s != nil {
-		dduo.SetKey(*s)
+func (_u *DictionaryDetailUpdateOne) SetNillableKey(v *string) *DictionaryDetailUpdateOne {
+	if v != nil {
+		_u.SetKey(*v)
 	}
-	return dduo
+	return _u
 }
 
 // SetValue sets the "value" field.
-func (dduo *DictionaryDetailUpdateOne) SetValue(s string) *DictionaryDetailUpdateOne {
-	dduo.mutation.SetValue(s)
-	return dduo
+func (_u *DictionaryDetailUpdateOne) SetValue(v string) *DictionaryDetailUpdateOne {
+	_u.mutation.SetValue(v)
+	return _u
 }
 
 // SetNillableValue sets the "value" field if the given value is not nil.
-func (dduo *DictionaryDetailUpdateOne) SetNillableValue(s *string) *DictionaryDetailUpdateOne {
-	if s != nil {
-		dduo.SetValue(*s)
+func (_u *DictionaryDetailUpdateOne) SetNillableValue(v *string) *DictionaryDetailUpdateOne {
+	if v != nil {
+		_u.SetValue(*v)
 	}
-	return dduo
+	return _u
 }
 
 // SetDictionaryID sets the "dictionary_id" field.
-func (dduo *DictionaryDetailUpdateOne) SetDictionaryID(u uint64) *DictionaryDetailUpdateOne {
-	dduo.mutation.SetDictionaryID(u)
-	return dduo
+func (_u *DictionaryDetailUpdateOne) SetDictionaryID(v uint64) *DictionaryDetailUpdateOne {
+	_u.mutation.SetDictionaryID(v)
+	return _u
 }
 
 // SetNillableDictionaryID sets the "dictionary_id" field if the given value is not nil.
-func (dduo *DictionaryDetailUpdateOne) SetNillableDictionaryID(u *uint64) *DictionaryDetailUpdateOne {
-	if u != nil {
-		dduo.SetDictionaryID(*u)
+func (_u *DictionaryDetailUpdateOne) SetNillableDictionaryID(v *uint64) *DictionaryDetailUpdateOne {
+	if v != nil {
+		_u.SetDictionaryID(*v)
 	}
-	return dduo
+	return _u
 }
 
 // ClearDictionaryID clears the value of the "dictionary_id" field.
-func (dduo *DictionaryDetailUpdateOne) ClearDictionaryID() *DictionaryDetailUpdateOne {
-	dduo.mutation.ClearDictionaryID()
-	return dduo
+func (_u *DictionaryDetailUpdateOne) ClearDictionaryID() *DictionaryDetailUpdateOne {
+	_u.mutation.ClearDictionaryID()
+	return _u
 }
 
 // SetDictionariesID sets the "dictionaries" edge to the Dictionary entity by ID.
-func (dduo *DictionaryDetailUpdateOne) SetDictionariesID(id uint64) *DictionaryDetailUpdateOne {
-	dduo.mutation.SetDictionariesID(id)
-	return dduo
+func (_u *DictionaryDetailUpdateOne) SetDictionariesID(id uint64) *DictionaryDetailUpdateOne {
+	_u.mutation.SetDictionariesID(id)
+	return _u
 }
 
 // SetNillableDictionariesID sets the "dictionaries" edge to the Dictionary entity by ID if the given value is not nil.
-func (dduo *DictionaryDetailUpdateOne) SetNillableDictionariesID(id *uint64) *DictionaryDetailUpdateOne {
+func (_u *DictionaryDetailUpdateOne) SetNillableDictionariesID(id *uint64) *DictionaryDetailUpdateOne {
 	if id != nil {
-		dduo = dduo.SetDictionariesID(*id)
+		_u = _u.SetDictionariesID(*id)
 	}
-	return dduo
+	return _u
 }
 
 // SetDictionaries sets the "dictionaries" edge to the Dictionary entity.
-func (dduo *DictionaryDetailUpdateOne) SetDictionaries(d *Dictionary) *DictionaryDetailUpdateOne {
-	return dduo.SetDictionariesID(d.ID)
+func (_u *DictionaryDetailUpdateOne) SetDictionaries(v *Dictionary) *DictionaryDetailUpdateOne {
+	return _u.SetDictionariesID(v.ID)
 }
 
 // Mutation returns the DictionaryDetailMutation object of the builder.
-func (dduo *DictionaryDetailUpdateOne) Mutation() *DictionaryDetailMutation {
-	return dduo.mutation
+func (_u *DictionaryDetailUpdateOne) Mutation() *DictionaryDetailMutation {
+	return _u.mutation
 }
 
 // ClearDictionaries clears the "dictionaries" edge to the Dictionary entity.
-func (dduo *DictionaryDetailUpdateOne) ClearDictionaries() *DictionaryDetailUpdateOne {
-	dduo.mutation.ClearDictionaries()
-	return dduo
+func (_u *DictionaryDetailUpdateOne) ClearDictionaries() *DictionaryDetailUpdateOne {
+	_u.mutation.ClearDictionaries()
+	return _u
 }
 
 // Where appends a list predicates to the DictionaryDetailUpdate builder.
-func (dduo *DictionaryDetailUpdateOne) Where(ps ...predicate.DictionaryDetail) *DictionaryDetailUpdateOne {
-	dduo.mutation.Where(ps...)
-	return dduo
+func (_u *DictionaryDetailUpdateOne) Where(ps ...predicate.DictionaryDetail) *DictionaryDetailUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (dduo *DictionaryDetailUpdateOne) Select(field string, fields ...string) *DictionaryDetailUpdateOne {
-	dduo.fields = append([]string{field}, fields...)
-	return dduo
+func (_u *DictionaryDetailUpdateOne) Select(field string, fields ...string) *DictionaryDetailUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated DictionaryDetail entity.
-func (dduo *DictionaryDetailUpdateOne) Save(ctx context.Context) (*DictionaryDetail, error) {
-	dduo.defaults()
-	return withHooks(ctx, dduo.sqlSave, dduo.mutation, dduo.hooks)
+func (_u *DictionaryDetailUpdateOne) Save(ctx context.Context) (*DictionaryDetail, error) {
+	_u.defaults()
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (dduo *DictionaryDetailUpdateOne) SaveX(ctx context.Context) *DictionaryDetail {
-	node, err := dduo.Save(ctx)
+func (_u *DictionaryDetailUpdateOne) SaveX(ctx context.Context) *DictionaryDetail {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -480,40 +480,40 @@ func (dduo *DictionaryDetailUpdateOne) SaveX(ctx context.Context) *DictionaryDet
 }
 
 // Exec executes the query on the entity.
-func (dduo *DictionaryDetailUpdateOne) Exec(ctx context.Context) error {
-	_, err := dduo.Save(ctx)
+func (_u *DictionaryDetailUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (dduo *DictionaryDetailUpdateOne) ExecX(ctx context.Context) {
-	if err := dduo.Exec(ctx); err != nil {
+func (_u *DictionaryDetailUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (dduo *DictionaryDetailUpdateOne) defaults() {
-	if _, ok := dduo.mutation.UpdatedAt(); !ok {
+func (_u *DictionaryDetailUpdateOne) defaults() {
+	if _, ok := _u.mutation.UpdatedAt(); !ok {
 		v := dictionarydetail.UpdateDefaultUpdatedAt()
-		dduo.mutation.SetUpdatedAt(v)
+		_u.mutation.SetUpdatedAt(v)
 	}
 }
 
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (dduo *DictionaryDetailUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DictionaryDetailUpdateOne {
-	dduo.modifiers = append(dduo.modifiers, modifiers...)
-	return dduo
+func (_u *DictionaryDetailUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DictionaryDetailUpdateOne {
+	_u.modifiers = append(_u.modifiers, modifiers...)
+	return _u
 }
 
-func (dduo *DictionaryDetailUpdateOne) sqlSave(ctx context.Context) (_node *DictionaryDetail, err error) {
+func (_u *DictionaryDetailUpdateOne) sqlSave(ctx context.Context) (_node *DictionaryDetail, err error) {
 	_spec := sqlgraph.NewUpdateSpec(dictionarydetail.Table, dictionarydetail.Columns, sqlgraph.NewFieldSpec(dictionarydetail.FieldID, field.TypeUint64))
-	id, ok := dduo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "DictionaryDetail.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := dduo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, dictionarydetail.FieldID)
 		for _, f := range fields {
@@ -525,41 +525,41 @@ func (dduo *DictionaryDetailUpdateOne) sqlSave(ctx context.Context) (_node *Dict
 			}
 		}
 	}
-	if ps := dduo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := dduo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(dictionarydetail.FieldUpdatedAt, field.TypeTime, value)
 	}
-	if value, ok := dduo.mutation.Status(); ok {
+	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(dictionarydetail.FieldStatus, field.TypeUint8, value)
 	}
-	if value, ok := dduo.mutation.AddedStatus(); ok {
+	if value, ok := _u.mutation.AddedStatus(); ok {
 		_spec.AddField(dictionarydetail.FieldStatus, field.TypeUint8, value)
 	}
-	if dduo.mutation.StatusCleared() {
+	if _u.mutation.StatusCleared() {
 		_spec.ClearField(dictionarydetail.FieldStatus, field.TypeUint8)
 	}
-	if value, ok := dduo.mutation.Sort(); ok {
+	if value, ok := _u.mutation.Sort(); ok {
 		_spec.SetField(dictionarydetail.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := dduo.mutation.AddedSort(); ok {
+	if value, ok := _u.mutation.AddedSort(); ok {
 		_spec.AddField(dictionarydetail.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := dduo.mutation.Title(); ok {
+	if value, ok := _u.mutation.Title(); ok {
 		_spec.SetField(dictionarydetail.FieldTitle, field.TypeString, value)
 	}
-	if value, ok := dduo.mutation.Key(); ok {
+	if value, ok := _u.mutation.Key(); ok {
 		_spec.SetField(dictionarydetail.FieldKey, field.TypeString, value)
 	}
-	if value, ok := dduo.mutation.Value(); ok {
+	if value, ok := _u.mutation.Value(); ok {
 		_spec.SetField(dictionarydetail.FieldValue, field.TypeString, value)
 	}
-	if dduo.mutation.DictionariesCleared() {
+	if _u.mutation.DictionariesCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -572,7 +572,7 @@ func (dduo *DictionaryDetailUpdateOne) sqlSave(ctx context.Context) (_node *Dict
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := dduo.mutation.DictionariesIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.DictionariesIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -588,11 +588,11 @@ func (dduo *DictionaryDetailUpdateOne) sqlSave(ctx context.Context) (_node *Dict
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_spec.AddModifiers(dduo.modifiers...)
-	_node = &DictionaryDetail{config: dduo.config}
+	_spec.AddModifiers(_u.modifiers...)
+	_node = &DictionaryDetail{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, dduo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{dictionarydetail.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -600,6 +600,6 @@ func (dduo *DictionaryDetailUpdateOne) sqlSave(ctx context.Context) (_node *Dict
 		}
 		return nil, err
 	}
-	dduo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

@@ -20,56 +20,56 @@ type DepartmentDelete struct {
 }
 
 // Where appends a list predicates to the DepartmentDelete builder.
-func (dd *DepartmentDelete) Where(ps ...predicate.Department) *DepartmentDelete {
-	dd.mutation.Where(ps...)
-	return dd
+func (_d *DepartmentDelete) Where(ps ...predicate.Department) *DepartmentDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (dd *DepartmentDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, dd.sqlExec, dd.mutation, dd.hooks)
+func (_d *DepartmentDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (dd *DepartmentDelete) ExecX(ctx context.Context) int {
-	n, err := dd.Exec(ctx)
+func (_d *DepartmentDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (dd *DepartmentDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *DepartmentDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(department.Table, sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64))
-	if ps := dd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, dd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	dd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // DepartmentDeleteOne is the builder for deleting a single Department entity.
 type DepartmentDeleteOne struct {
-	dd *DepartmentDelete
+	_d *DepartmentDelete
 }
 
 // Where appends a list predicates to the DepartmentDelete builder.
-func (ddo *DepartmentDeleteOne) Where(ps ...predicate.Department) *DepartmentDeleteOne {
-	ddo.dd.mutation.Where(ps...)
-	return ddo
+func (_d *DepartmentDeleteOne) Where(ps ...predicate.Department) *DepartmentDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (ddo *DepartmentDeleteOne) Exec(ctx context.Context) error {
-	n, err := ddo.dd.Exec(ctx)
+func (_d *DepartmentDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (ddo *DepartmentDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ddo *DepartmentDeleteOne) ExecX(ctx context.Context) {
-	if err := ddo.Exec(ctx); err != nil {
+func (_d *DepartmentDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

@@ -24,148 +24,148 @@ type ConfigurationUpdate struct {
 }
 
 // Where appends a list predicates to the ConfigurationUpdate builder.
-func (cu *ConfigurationUpdate) Where(ps ...predicate.Configuration) *ConfigurationUpdate {
-	cu.mutation.Where(ps...)
-	return cu
+func (_u *ConfigurationUpdate) Where(ps ...predicate.Configuration) *ConfigurationUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (cu *ConfigurationUpdate) SetUpdatedAt(t time.Time) *ConfigurationUpdate {
-	cu.mutation.SetUpdatedAt(t)
-	return cu
+func (_u *ConfigurationUpdate) SetUpdatedAt(v time.Time) *ConfigurationUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetSort sets the "sort" field.
-func (cu *ConfigurationUpdate) SetSort(u uint32) *ConfigurationUpdate {
-	cu.mutation.ResetSort()
-	cu.mutation.SetSort(u)
-	return cu
+func (_u *ConfigurationUpdate) SetSort(v uint32) *ConfigurationUpdate {
+	_u.mutation.ResetSort()
+	_u.mutation.SetSort(v)
+	return _u
 }
 
 // SetNillableSort sets the "sort" field if the given value is not nil.
-func (cu *ConfigurationUpdate) SetNillableSort(u *uint32) *ConfigurationUpdate {
-	if u != nil {
-		cu.SetSort(*u)
+func (_u *ConfigurationUpdate) SetNillableSort(v *uint32) *ConfigurationUpdate {
+	if v != nil {
+		_u.SetSort(*v)
 	}
-	return cu
+	return _u
 }
 
-// AddSort adds u to the "sort" field.
-func (cu *ConfigurationUpdate) AddSort(u int32) *ConfigurationUpdate {
-	cu.mutation.AddSort(u)
-	return cu
+// AddSort adds value to the "sort" field.
+func (_u *ConfigurationUpdate) AddSort(v int32) *ConfigurationUpdate {
+	_u.mutation.AddSort(v)
+	return _u
 }
 
 // SetState sets the "state" field.
-func (cu *ConfigurationUpdate) SetState(b bool) *ConfigurationUpdate {
-	cu.mutation.SetState(b)
-	return cu
+func (_u *ConfigurationUpdate) SetState(v bool) *ConfigurationUpdate {
+	_u.mutation.SetState(v)
+	return _u
 }
 
 // SetNillableState sets the "state" field if the given value is not nil.
-func (cu *ConfigurationUpdate) SetNillableState(b *bool) *ConfigurationUpdate {
-	if b != nil {
-		cu.SetState(*b)
+func (_u *ConfigurationUpdate) SetNillableState(v *bool) *ConfigurationUpdate {
+	if v != nil {
+		_u.SetState(*v)
 	}
-	return cu
+	return _u
 }
 
 // ClearState clears the value of the "state" field.
-func (cu *ConfigurationUpdate) ClearState() *ConfigurationUpdate {
-	cu.mutation.ClearState()
-	return cu
+func (_u *ConfigurationUpdate) ClearState() *ConfigurationUpdate {
+	_u.mutation.ClearState()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (cu *ConfigurationUpdate) SetName(s string) *ConfigurationUpdate {
-	cu.mutation.SetName(s)
-	return cu
+func (_u *ConfigurationUpdate) SetName(v string) *ConfigurationUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (cu *ConfigurationUpdate) SetNillableName(s *string) *ConfigurationUpdate {
-	if s != nil {
-		cu.SetName(*s)
+func (_u *ConfigurationUpdate) SetNillableName(v *string) *ConfigurationUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return cu
+	return _u
 }
 
 // SetKey sets the "key" field.
-func (cu *ConfigurationUpdate) SetKey(s string) *ConfigurationUpdate {
-	cu.mutation.SetKey(s)
-	return cu
+func (_u *ConfigurationUpdate) SetKey(v string) *ConfigurationUpdate {
+	_u.mutation.SetKey(v)
+	return _u
 }
 
 // SetNillableKey sets the "key" field if the given value is not nil.
-func (cu *ConfigurationUpdate) SetNillableKey(s *string) *ConfigurationUpdate {
-	if s != nil {
-		cu.SetKey(*s)
+func (_u *ConfigurationUpdate) SetNillableKey(v *string) *ConfigurationUpdate {
+	if v != nil {
+		_u.SetKey(*v)
 	}
-	return cu
+	return _u
 }
 
 // SetValue sets the "value" field.
-func (cu *ConfigurationUpdate) SetValue(s string) *ConfigurationUpdate {
-	cu.mutation.SetValue(s)
-	return cu
+func (_u *ConfigurationUpdate) SetValue(v string) *ConfigurationUpdate {
+	_u.mutation.SetValue(v)
+	return _u
 }
 
 // SetNillableValue sets the "value" field if the given value is not nil.
-func (cu *ConfigurationUpdate) SetNillableValue(s *string) *ConfigurationUpdate {
-	if s != nil {
-		cu.SetValue(*s)
+func (_u *ConfigurationUpdate) SetNillableValue(v *string) *ConfigurationUpdate {
+	if v != nil {
+		_u.SetValue(*v)
 	}
-	return cu
+	return _u
 }
 
 // SetCategory sets the "category" field.
-func (cu *ConfigurationUpdate) SetCategory(s string) *ConfigurationUpdate {
-	cu.mutation.SetCategory(s)
-	return cu
+func (_u *ConfigurationUpdate) SetCategory(v string) *ConfigurationUpdate {
+	_u.mutation.SetCategory(v)
+	return _u
 }
 
 // SetNillableCategory sets the "category" field if the given value is not nil.
-func (cu *ConfigurationUpdate) SetNillableCategory(s *string) *ConfigurationUpdate {
-	if s != nil {
-		cu.SetCategory(*s)
+func (_u *ConfigurationUpdate) SetNillableCategory(v *string) *ConfigurationUpdate {
+	if v != nil {
+		_u.SetCategory(*v)
 	}
-	return cu
+	return _u
 }
 
 // SetRemark sets the "remark" field.
-func (cu *ConfigurationUpdate) SetRemark(s string) *ConfigurationUpdate {
-	cu.mutation.SetRemark(s)
-	return cu
+func (_u *ConfigurationUpdate) SetRemark(v string) *ConfigurationUpdate {
+	_u.mutation.SetRemark(v)
+	return _u
 }
 
 // SetNillableRemark sets the "remark" field if the given value is not nil.
-func (cu *ConfigurationUpdate) SetNillableRemark(s *string) *ConfigurationUpdate {
-	if s != nil {
-		cu.SetRemark(*s)
+func (_u *ConfigurationUpdate) SetNillableRemark(v *string) *ConfigurationUpdate {
+	if v != nil {
+		_u.SetRemark(*v)
 	}
-	return cu
+	return _u
 }
 
 // ClearRemark clears the value of the "remark" field.
-func (cu *ConfigurationUpdate) ClearRemark() *ConfigurationUpdate {
-	cu.mutation.ClearRemark()
-	return cu
+func (_u *ConfigurationUpdate) ClearRemark() *ConfigurationUpdate {
+	_u.mutation.ClearRemark()
+	return _u
 }
 
 // Mutation returns the ConfigurationMutation object of the builder.
-func (cu *ConfigurationUpdate) Mutation() *ConfigurationMutation {
-	return cu.mutation
+func (_u *ConfigurationUpdate) Mutation() *ConfigurationMutation {
+	return _u.mutation
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (cu *ConfigurationUpdate) Save(ctx context.Context) (int, error) {
-	cu.defaults()
-	return withHooks(ctx, cu.sqlSave, cu.mutation, cu.hooks)
+func (_u *ConfigurationUpdate) Save(ctx context.Context) (int, error) {
+	_u.defaults()
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (cu *ConfigurationUpdate) SaveX(ctx context.Context) int {
-	affected, err := cu.Save(ctx)
+func (_u *ConfigurationUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -173,76 +173,76 @@ func (cu *ConfigurationUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (cu *ConfigurationUpdate) Exec(ctx context.Context) error {
-	_, err := cu.Save(ctx)
+func (_u *ConfigurationUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (cu *ConfigurationUpdate) ExecX(ctx context.Context) {
-	if err := cu.Exec(ctx); err != nil {
+func (_u *ConfigurationUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (cu *ConfigurationUpdate) defaults() {
-	if _, ok := cu.mutation.UpdatedAt(); !ok {
+func (_u *ConfigurationUpdate) defaults() {
+	if _, ok := _u.mutation.UpdatedAt(); !ok {
 		v := configuration.UpdateDefaultUpdatedAt()
-		cu.mutation.SetUpdatedAt(v)
+		_u.mutation.SetUpdatedAt(v)
 	}
 }
 
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (cu *ConfigurationUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ConfigurationUpdate {
-	cu.modifiers = append(cu.modifiers, modifiers...)
-	return cu
+func (_u *ConfigurationUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ConfigurationUpdate {
+	_u.modifiers = append(_u.modifiers, modifiers...)
+	return _u
 }
 
-func (cu *ConfigurationUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *ConfigurationUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(configuration.Table, configuration.Columns, sqlgraph.NewFieldSpec(configuration.FieldID, field.TypeUint64))
-	if ps := cu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := cu.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(configuration.FieldUpdatedAt, field.TypeTime, value)
 	}
-	if value, ok := cu.mutation.Sort(); ok {
+	if value, ok := _u.mutation.Sort(); ok {
 		_spec.SetField(configuration.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := cu.mutation.AddedSort(); ok {
+	if value, ok := _u.mutation.AddedSort(); ok {
 		_spec.AddField(configuration.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := cu.mutation.State(); ok {
+	if value, ok := _u.mutation.State(); ok {
 		_spec.SetField(configuration.FieldState, field.TypeBool, value)
 	}
-	if cu.mutation.StateCleared() {
+	if _u.mutation.StateCleared() {
 		_spec.ClearField(configuration.FieldState, field.TypeBool)
 	}
-	if value, ok := cu.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(configuration.FieldName, field.TypeString, value)
 	}
-	if value, ok := cu.mutation.Key(); ok {
+	if value, ok := _u.mutation.Key(); ok {
 		_spec.SetField(configuration.FieldKey, field.TypeString, value)
 	}
-	if value, ok := cu.mutation.Value(); ok {
+	if value, ok := _u.mutation.Value(); ok {
 		_spec.SetField(configuration.FieldValue, field.TypeString, value)
 	}
-	if value, ok := cu.mutation.Category(); ok {
+	if value, ok := _u.mutation.Category(); ok {
 		_spec.SetField(configuration.FieldCategory, field.TypeString, value)
 	}
-	if value, ok := cu.mutation.Remark(); ok {
+	if value, ok := _u.mutation.Remark(); ok {
 		_spec.SetField(configuration.FieldRemark, field.TypeString, value)
 	}
-	if cu.mutation.RemarkCleared() {
+	if _u.mutation.RemarkCleared() {
 		_spec.ClearField(configuration.FieldRemark, field.TypeString)
 	}
-	_spec.AddModifiers(cu.modifiers...)
-	if n, err = sqlgraph.UpdateNodes(ctx, cu.driver, _spec); err != nil {
+	_spec.AddModifiers(_u.modifiers...)
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{configuration.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -250,8 +250,8 @@ func (cu *ConfigurationUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	cu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // ConfigurationUpdateOne is the builder for updating a single Configuration entity.
@@ -264,155 +264,155 @@ type ConfigurationUpdateOne struct {
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (cuo *ConfigurationUpdateOne) SetUpdatedAt(t time.Time) *ConfigurationUpdateOne {
-	cuo.mutation.SetUpdatedAt(t)
-	return cuo
+func (_u *ConfigurationUpdateOne) SetUpdatedAt(v time.Time) *ConfigurationUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetSort sets the "sort" field.
-func (cuo *ConfigurationUpdateOne) SetSort(u uint32) *ConfigurationUpdateOne {
-	cuo.mutation.ResetSort()
-	cuo.mutation.SetSort(u)
-	return cuo
+func (_u *ConfigurationUpdateOne) SetSort(v uint32) *ConfigurationUpdateOne {
+	_u.mutation.ResetSort()
+	_u.mutation.SetSort(v)
+	return _u
 }
 
 // SetNillableSort sets the "sort" field if the given value is not nil.
-func (cuo *ConfigurationUpdateOne) SetNillableSort(u *uint32) *ConfigurationUpdateOne {
-	if u != nil {
-		cuo.SetSort(*u)
+func (_u *ConfigurationUpdateOne) SetNillableSort(v *uint32) *ConfigurationUpdateOne {
+	if v != nil {
+		_u.SetSort(*v)
 	}
-	return cuo
+	return _u
 }
 
-// AddSort adds u to the "sort" field.
-func (cuo *ConfigurationUpdateOne) AddSort(u int32) *ConfigurationUpdateOne {
-	cuo.mutation.AddSort(u)
-	return cuo
+// AddSort adds value to the "sort" field.
+func (_u *ConfigurationUpdateOne) AddSort(v int32) *ConfigurationUpdateOne {
+	_u.mutation.AddSort(v)
+	return _u
 }
 
 // SetState sets the "state" field.
-func (cuo *ConfigurationUpdateOne) SetState(b bool) *ConfigurationUpdateOne {
-	cuo.mutation.SetState(b)
-	return cuo
+func (_u *ConfigurationUpdateOne) SetState(v bool) *ConfigurationUpdateOne {
+	_u.mutation.SetState(v)
+	return _u
 }
 
 // SetNillableState sets the "state" field if the given value is not nil.
-func (cuo *ConfigurationUpdateOne) SetNillableState(b *bool) *ConfigurationUpdateOne {
-	if b != nil {
-		cuo.SetState(*b)
+func (_u *ConfigurationUpdateOne) SetNillableState(v *bool) *ConfigurationUpdateOne {
+	if v != nil {
+		_u.SetState(*v)
 	}
-	return cuo
+	return _u
 }
 
 // ClearState clears the value of the "state" field.
-func (cuo *ConfigurationUpdateOne) ClearState() *ConfigurationUpdateOne {
-	cuo.mutation.ClearState()
-	return cuo
+func (_u *ConfigurationUpdateOne) ClearState() *ConfigurationUpdateOne {
+	_u.mutation.ClearState()
+	return _u
 }
 
 // SetName sets the "name" field.
-func (cuo *ConfigurationUpdateOne) SetName(s string) *ConfigurationUpdateOne {
-	cuo.mutation.SetName(s)
-	return cuo
+func (_u *ConfigurationUpdateOne) SetName(v string) *ConfigurationUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (cuo *ConfigurationUpdateOne) SetNillableName(s *string) *ConfigurationUpdateOne {
-	if s != nil {
-		cuo.SetName(*s)
+func (_u *ConfigurationUpdateOne) SetNillableName(v *string) *ConfigurationUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return cuo
+	return _u
 }
 
 // SetKey sets the "key" field.
-func (cuo *ConfigurationUpdateOne) SetKey(s string) *ConfigurationUpdateOne {
-	cuo.mutation.SetKey(s)
-	return cuo
+func (_u *ConfigurationUpdateOne) SetKey(v string) *ConfigurationUpdateOne {
+	_u.mutation.SetKey(v)
+	return _u
 }
 
 // SetNillableKey sets the "key" field if the given value is not nil.
-func (cuo *ConfigurationUpdateOne) SetNillableKey(s *string) *ConfigurationUpdateOne {
-	if s != nil {
-		cuo.SetKey(*s)
+func (_u *ConfigurationUpdateOne) SetNillableKey(v *string) *ConfigurationUpdateOne {
+	if v != nil {
+		_u.SetKey(*v)
 	}
-	return cuo
+	return _u
 }
 
 // SetValue sets the "value" field.
-func (cuo *ConfigurationUpdateOne) SetValue(s string) *ConfigurationUpdateOne {
-	cuo.mutation.SetValue(s)
-	return cuo
+func (_u *ConfigurationUpdateOne) SetValue(v string) *ConfigurationUpdateOne {
+	_u.mutation.SetValue(v)
+	return _u
 }
 
 // SetNillableValue sets the "value" field if the given value is not nil.
-func (cuo *ConfigurationUpdateOne) SetNillableValue(s *string) *ConfigurationUpdateOne {
-	if s != nil {
-		cuo.SetValue(*s)
+func (_u *ConfigurationUpdateOne) SetNillableValue(v *string) *ConfigurationUpdateOne {
+	if v != nil {
+		_u.SetValue(*v)
 	}
-	return cuo
+	return _u
 }
 
 // SetCategory sets the "category" field.
-func (cuo *ConfigurationUpdateOne) SetCategory(s string) *ConfigurationUpdateOne {
-	cuo.mutation.SetCategory(s)
-	return cuo
+func (_u *ConfigurationUpdateOne) SetCategory(v string) *ConfigurationUpdateOne {
+	_u.mutation.SetCategory(v)
+	return _u
 }
 
 // SetNillableCategory sets the "category" field if the given value is not nil.
-func (cuo *ConfigurationUpdateOne) SetNillableCategory(s *string) *ConfigurationUpdateOne {
-	if s != nil {
-		cuo.SetCategory(*s)
+func (_u *ConfigurationUpdateOne) SetNillableCategory(v *string) *ConfigurationUpdateOne {
+	if v != nil {
+		_u.SetCategory(*v)
 	}
-	return cuo
+	return _u
 }
 
 // SetRemark sets the "remark" field.
-func (cuo *ConfigurationUpdateOne) SetRemark(s string) *ConfigurationUpdateOne {
-	cuo.mutation.SetRemark(s)
-	return cuo
+func (_u *ConfigurationUpdateOne) SetRemark(v string) *ConfigurationUpdateOne {
+	_u.mutation.SetRemark(v)
+	return _u
 }
 
 // SetNillableRemark sets the "remark" field if the given value is not nil.
-func (cuo *ConfigurationUpdateOne) SetNillableRemark(s *string) *ConfigurationUpdateOne {
-	if s != nil {
-		cuo.SetRemark(*s)
+func (_u *ConfigurationUpdateOne) SetNillableRemark(v *string) *ConfigurationUpdateOne {
+	if v != nil {
+		_u.SetRemark(*v)
 	}
-	return cuo
+	return _u
 }
 
 // ClearRemark clears the value of the "remark" field.
-func (cuo *ConfigurationUpdateOne) ClearRemark() *ConfigurationUpdateOne {
-	cuo.mutation.ClearRemark()
-	return cuo
+func (_u *ConfigurationUpdateOne) ClearRemark() *ConfigurationUpdateOne {
+	_u.mutation.ClearRemark()
+	return _u
 }
 
 // Mutation returns the ConfigurationMutation object of the builder.
-func (cuo *ConfigurationUpdateOne) Mutation() *ConfigurationMutation {
-	return cuo.mutation
+func (_u *ConfigurationUpdateOne) Mutation() *ConfigurationMutation {
+	return _u.mutation
 }
 
 // Where appends a list predicates to the ConfigurationUpdate builder.
-func (cuo *ConfigurationUpdateOne) Where(ps ...predicate.Configuration) *ConfigurationUpdateOne {
-	cuo.mutation.Where(ps...)
-	return cuo
+func (_u *ConfigurationUpdateOne) Where(ps ...predicate.Configuration) *ConfigurationUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (cuo *ConfigurationUpdateOne) Select(field string, fields ...string) *ConfigurationUpdateOne {
-	cuo.fields = append([]string{field}, fields...)
-	return cuo
+func (_u *ConfigurationUpdateOne) Select(field string, fields ...string) *ConfigurationUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated Configuration entity.
-func (cuo *ConfigurationUpdateOne) Save(ctx context.Context) (*Configuration, error) {
-	cuo.defaults()
-	return withHooks(ctx, cuo.sqlSave, cuo.mutation, cuo.hooks)
+func (_u *ConfigurationUpdateOne) Save(ctx context.Context) (*Configuration, error) {
+	_u.defaults()
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (cuo *ConfigurationUpdateOne) SaveX(ctx context.Context) *Configuration {
-	node, err := cuo.Save(ctx)
+func (_u *ConfigurationUpdateOne) SaveX(ctx context.Context) *Configuration {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -420,40 +420,40 @@ func (cuo *ConfigurationUpdateOne) SaveX(ctx context.Context) *Configuration {
 }
 
 // Exec executes the query on the entity.
-func (cuo *ConfigurationUpdateOne) Exec(ctx context.Context) error {
-	_, err := cuo.Save(ctx)
+func (_u *ConfigurationUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (cuo *ConfigurationUpdateOne) ExecX(ctx context.Context) {
-	if err := cuo.Exec(ctx); err != nil {
+func (_u *ConfigurationUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (cuo *ConfigurationUpdateOne) defaults() {
-	if _, ok := cuo.mutation.UpdatedAt(); !ok {
+func (_u *ConfigurationUpdateOne) defaults() {
+	if _, ok := _u.mutation.UpdatedAt(); !ok {
 		v := configuration.UpdateDefaultUpdatedAt()
-		cuo.mutation.SetUpdatedAt(v)
+		_u.mutation.SetUpdatedAt(v)
 	}
 }
 
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (cuo *ConfigurationUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ConfigurationUpdateOne {
-	cuo.modifiers = append(cuo.modifiers, modifiers...)
-	return cuo
+func (_u *ConfigurationUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ConfigurationUpdateOne {
+	_u.modifiers = append(_u.modifiers, modifiers...)
+	return _u
 }
 
-func (cuo *ConfigurationUpdateOne) sqlSave(ctx context.Context) (_node *Configuration, err error) {
+func (_u *ConfigurationUpdateOne) sqlSave(ctx context.Context) (_node *Configuration, err error) {
 	_spec := sqlgraph.NewUpdateSpec(configuration.Table, configuration.Columns, sqlgraph.NewFieldSpec(configuration.FieldID, field.TypeUint64))
-	id, ok := cuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Configuration.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := cuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, configuration.FieldID)
 		for _, f := range fields {
@@ -465,51 +465,51 @@ func (cuo *ConfigurationUpdateOne) sqlSave(ctx context.Context) (_node *Configur
 			}
 		}
 	}
-	if ps := cuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := cuo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(configuration.FieldUpdatedAt, field.TypeTime, value)
 	}
-	if value, ok := cuo.mutation.Sort(); ok {
+	if value, ok := _u.mutation.Sort(); ok {
 		_spec.SetField(configuration.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := cuo.mutation.AddedSort(); ok {
+	if value, ok := _u.mutation.AddedSort(); ok {
 		_spec.AddField(configuration.FieldSort, field.TypeUint32, value)
 	}
-	if value, ok := cuo.mutation.State(); ok {
+	if value, ok := _u.mutation.State(); ok {
 		_spec.SetField(configuration.FieldState, field.TypeBool, value)
 	}
-	if cuo.mutation.StateCleared() {
+	if _u.mutation.StateCleared() {
 		_spec.ClearField(configuration.FieldState, field.TypeBool)
 	}
-	if value, ok := cuo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(configuration.FieldName, field.TypeString, value)
 	}
-	if value, ok := cuo.mutation.Key(); ok {
+	if value, ok := _u.mutation.Key(); ok {
 		_spec.SetField(configuration.FieldKey, field.TypeString, value)
 	}
-	if value, ok := cuo.mutation.Value(); ok {
+	if value, ok := _u.mutation.Value(); ok {
 		_spec.SetField(configuration.FieldValue, field.TypeString, value)
 	}
-	if value, ok := cuo.mutation.Category(); ok {
+	if value, ok := _u.mutation.Category(); ok {
 		_spec.SetField(configuration.FieldCategory, field.TypeString, value)
 	}
-	if value, ok := cuo.mutation.Remark(); ok {
+	if value, ok := _u.mutation.Remark(); ok {
 		_spec.SetField(configuration.FieldRemark, field.TypeString, value)
 	}
-	if cuo.mutation.RemarkCleared() {
+	if _u.mutation.RemarkCleared() {
 		_spec.ClearField(configuration.FieldRemark, field.TypeString)
 	}
-	_spec.AddModifiers(cuo.modifiers...)
-	_node = &Configuration{config: cuo.config}
+	_spec.AddModifiers(_u.modifiers...)
+	_node = &Configuration{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, cuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{configuration.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -517,6 +517,6 @@ func (cuo *ConfigurationUpdateOne) sqlSave(ctx context.Context) (_node *Configur
 		}
 		return nil, err
 	}
-	cuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }
