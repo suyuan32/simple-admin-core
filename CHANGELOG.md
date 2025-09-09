@@ -1,5 +1,117 @@
-<a name="v1.6.5"></a>
+<a name="v1.7.0"></a>
 
+## [v1.7.0](https://github.com/suyuan32/simple-admin-core/compare/v1.6.13...v1.7.0) (2025-08-20)
+
+### Chore
+
+* upgrade deps and version
+
+<a name="v1.6.13"></a>
+
+## [v1.6.13](https://github.com/suyuan32/simple-admin-core/compare/v1.6.12...v1.6.13) (2025-08-07)
+
+### Chore
+
+* upgrade deps
+* regen ent files
+
+### Fix
+
+* remove redundant field in api desc
+
+<a name="v1.6.12"></a>
+
+## [v1.6.12](https://github.com/suyuan32/simple-admin-core/compare/v1.6.11...v1.6.12) (2025-08-01)
+
+### Chore
+
+* upgrade deps and version
+
+### Feat
+
+* add default register home path config
+
+### Fix
+
+* remove unused default router field in role
+
+<a name="v1.6.11"></a>
+
+## [v1.6.11](https://github.com/suyuan32/simple-admin-core/compare/v1.6.8...v1.6.11) (2025-07-14)
+
+### Chore
+
+* upgrade deps
+* upgrade version
+
+### Docs
+
+* update readme
+
+### Fix
+
+* swagger cmd unknown annotation entendee bug
+
+<a name="v1.6.8"></a>
+
+## [v1.6.8](https://github.com/suyuan32/simple-admin-core/compare/v1.6.7...v1.6.8) (2025-06-10)
+
+### Chore
+
+* upgrade version and deps
+* upgrade deps
+
+### Feat
+
+* module store menu
+
+### Fix
+
+* optimize role code validator to avoid sql injects
+
+<a name="v1.6.7"></a>
+
+## [v1.6.7](https://github.com/suyuan32/simple-admin-core/compare/v1.6.6...v1.6.7) (2025-05-07)
+
+### Chore
+
+* upgrade deps
+
+### Docs
+
+* update deploy and readme
+
+### Fix
+
+* wrong sms login log message
+* optimize login error
+
+<a name="v1.6.6"></a>
+
+## [v1.6.6](https://github.com/suyuan32/simple-admin-core/compare/v1.6.5...v1.6.6) (2025-04-09)
+
+### Chore
+
+* upgrade deps and version
+
+### Docs
+
+* update deployment and readme
+* update change log
+
+### Feat
+
+* add schema comments
+* optimize manage center trans
+* add manage center trans
+
+### Fix
+
+* expand menu list pageSize
+* profile parent id
+* manage center title
+
+<a name="v1.6.5"></a>
 ## [v1.6.5](https://github.com/suyuan32/simple-admin-core/compare/v1.6.4...v1.6.5) (2025-03-12)
 
 ### Chore
@@ -18,7 +130,6 @@
 * use api error in authority middleware
 
 <a name="v1.6.4"></a>
-
 ## [v1.6.4](https://github.com/suyuan32/simple-admin-core/compare/v1.6.3...v1.6.4) (2025-02-26)
 
 ### Chore
@@ -38,7 +149,6 @@
 * register verify type bug
 
 <a name="v1.6.3"></a>
-
 ## [v1.6.3](https://github.com/suyuan32/simple-admin-core/compare/v1.6.2...v1.6.3) (2025-02-06)
 
 ### Chore
