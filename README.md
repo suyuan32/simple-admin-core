@@ -102,11 +102,9 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 [点击查看](https://github.com/suyuan32/awesome-simple-admin-module)
 
-## 注意
+## 商用说明
 
-1. 禁止使用 Simple Admin 开发违反当地法律法规的网站及应用
-2. 使用 Simple Admin 开发的网站及应用 Simple Admin 官方不承担任何法律责任
-3. 禁止二次销售免费或付费模块源码
+[商用说明](https://doc.ryansu.tech/zh/guide/member.html#%E5%95%86%E7%94%A8%E8%AF%B4%E6%98%8E)
 
 ## 项目规划进度
 

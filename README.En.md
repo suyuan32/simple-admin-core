@@ -116,11 +116,9 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 [Click to view](https://github.com/suyuan32/awesome-simple-admin-module)
 
-# Notice
+# Commercial Usage Notification
 
-1. It is forbidden to use Simple Admin to develop websites and applications that violate local laws and regulations
-2. Simple Admin does not assume any legal responsibility for websites and applications developed using Simple Admin
-3. It is forbidden to resell free or paid module source code
+[Commercial Usage Details](https://doc.ryansu.tech/guide/member.html#commercial-usage-details)
 
 ## Project Planning Progress
 
