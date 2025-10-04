@@ -249,7 +249,7 @@ func (l *InitDatabaseLogic) insertMenuData() error {
 		SetIcon("ion:bag-handle-outline").
 		SetHideMenu(false).
 		SetServiceName("Core").
-		SetFrameSrc("https://doge.ryansu.tech/#/store/index"),
+		SetFrameSrc("https://simple-admin.simple-hub.top/#/store/index"),
 	)
 
 	err := l.svcCtx.DB.Menu.CreateBulk(menus...).Exec(l.ctx)

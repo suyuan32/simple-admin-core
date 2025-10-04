@@ -135,7 +135,7 @@ services:
           memory: 200M
 
   fms-api:
-    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/fms-api-docker:v1.7.0
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/fms-api-docker:v1.7.1
     container_name: fms-api
     restart: always
     #    environment:
