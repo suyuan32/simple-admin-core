@@ -21,6 +21,7 @@ message UserInfo {
   repeated string role_codes = 16;
   repeated string role_name = 17;
   optional string department_name = 18;
+  optional string locale = 19;
 }
 
 message UserListResp {

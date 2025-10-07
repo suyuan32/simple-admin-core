@@ -198,6 +198,9 @@ type UserInfo struct {
 	DepartmentId *uint64 `json:"departmentId,optional,omitempty"`
 	// Position ID | 职位ID
 	PositionIds []uint64 `json:"positionId,optional,omitempty"`
+	// Locale | 语言偏好
+	// max length : 10
+	Locale *string `json:"locale,optional" validate:"omitempty,max=10"`
 }
 
 // The response data of user list | 用户列表数据
@@ -385,6 +388,8 @@ type UserBaseIDInfo struct {
 	RoleName []string `json:"roleName"`
 	// Department Name | 部门名称
 	DepartmentName string `json:"departmentName,optional"`
+	// Locale | 语言偏好
+	Locale *string `json:"locale,optional"`
 }
 
 // The permission code for front end permission control | 权限码： 用于前端权限控制
@@ -468,6 +473,9 @@ type ProfileInfo struct {
 	// The user's email address | 用户的邮箱
 	// max length : 100
 	Email *string `json:"email" validate:"omitempty,email,max=100"`
+	// Locale | 语言偏好
+	// max length : 10
+	Locale *string `json:"locale,optional" validate:"omitempty,max=10"`
 }
 
 // The profile response data | 个人信息返回数据
