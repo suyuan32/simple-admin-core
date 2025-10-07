@@ -1,0 +1,55 @@
+version: '3'
+
+volumes:
+  postgresql:
+  redis:
+
+networks:
+  simple-admin:
+    driver: bridge
+
+services:
+  postgresql:
+    image: bitnami/postgresql:latest
+    container_name: simple-admin-postgresql
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRESQL_DATABASE: 'simple_admin'
+      POSTGRESQL_PASSWORD: 'simple-admin.'
+    volumes:
+      - 'postgresql:/bitnami/postgresql'
+    networks:
+      simple-admin:
+        aliases:
+          - postgresql-server
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1000M
+        reservations:
+          cpus: '0.05'
+          memory: 200M
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: simple-admin-redis
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis:/data
+    networks:
+      simple-admin:
+        aliases:
+          - redis-server
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 500M
+        reservations:
+          cpus: '0.05'
+          memory: 200M
