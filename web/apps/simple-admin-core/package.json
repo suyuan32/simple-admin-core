@@ -1,0 +1,65 @@
+{
+  "name": "@vben/simple-admin-core",
+  "version": "1.7.2",
+  "homepage": "https://doc.ryansu.tech/",
+  "bugs": "https://github.com/suyuan32/simple-admin-vben5-ui/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suyuan32/simple-admin-vben5-ui.git",
+    "directory": "apps/simple-admin-core"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Ryan SU",
+    "email": "yuansu.china.work@gmail.com",
+    "url": "https://github.com/suyuan32"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build --mode production",
+    "build:analyze": "pnpm vite build --mode analyze",
+    "dev": "pnpm vite --mode development",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit --skipLibCheck"
+  },
+  "imports": {
+    "#/*": "./src/*"
+  },
+  "dependencies": {
+    "@ant-design/icons-vue": "catalog:",
+    "@codemirror/lang-json": "catalog:",
+    "@codemirror/language": "catalog:",
+    "@codemirror/legacy-modes": "catalog:",
+    "@iconify/vue": "catalog:",
+    "@uiw/codemirror-theme-github": "catalog:",
+    "@vben/access": "workspace:*",
+    "@vben/common-ui": "workspace:*",
+    "@vben/constants": "workspace:*",
+    "@vben/hooks": "workspace:*",
+    "@vben/icons": "workspace:*",
+    "@vben/layouts": "workspace:*",
+    "@vben/locales": "workspace:*",
+    "@vben/plugins": "workspace:*",
+    "@vben/preferences": "workspace:*",
+    "@vben/request": "workspace:*",
+    "@vben/stores": "workspace:*",
+    "@vben/styles": "workspace:*",
+    "@vben/types": "workspace:*",
+    "@vben/utils": "workspace:*",
+    "@vueuse/core": "catalog:",
+    "@wangeditor-next/editor": "catalog:",
+    "@wangeditor-next/editor-for-vue": "catalog:",
+    "ant-design-vue": "catalog:",
+    "dayjs": "catalog:",
+    "json-bigint": "catalog:",
+    "performant-array-to-tree": "catalog:",
+    "pinia": "^3.0.3",
+    "remeda": "catalog:",
+    "vue": "^3.5.22",
+    "vue-codemirror": "catalog:",
+    "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "@types/json-bigint": "catalog:"
+  }
+}

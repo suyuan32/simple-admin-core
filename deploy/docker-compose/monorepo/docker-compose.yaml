@@ -1,0 +1,120 @@
+version: "3"
+
+# Monorepo Docker Compose Configuration
+# This configuration builds Frontend from the monorepo (web/)
+# Backend services (API/RPC) use pre-built images
+
+volumes:
+  postgresql:
+  redis:
+  fms:
+
+networks:
+  simple-admin:
+    driver: bridge
+
+services:
+  postgresql:
+    image: bitnami/postgresql:latest
+    container_name: postgresql
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRESQL_DATABASE: "simple_admin"
+      POSTGRESQL_PASSWORD: "simple-admin."
+    volumes:
+      - postgresql:/bitnami/postgresql
+    networks:
+      simple-admin:
+        aliases:
+          - postgresql-server
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1000M
+        reservations:
+          cpus: "0.05"
+          memory: 200M
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
+    networks:
+      simple-admin:
+        aliases:
+          - redis-server
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500M
+        reservations:
+          cpus: "0.05"
+          memory: 200M
+
+  core-rpc:
+    image: ryanpower/core-rpc-docker:v1.7.0
+    container_name: core-rpc
+    restart: always
+    networks:
+      simple-admin:
+        aliases:
+          - core-rpc
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500M
+        reservations:
+          cpus: "0.05"
+          memory: 200M
+
+  core-api:
+    image: ryanpower/core-api-docker:v1.7.0
+    container_name: core-api
+    restart: always
+    ports:
+      - "9100:9100"
+    networks:
+      simple-admin:
+        aliases:
+          - core-api
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500M
+        reservations:
+          cpus: "0.05"
+          memory: 200M
+
+  # Frontend built from Monorepo
+  backend-ui:
+    build:
+      context: ../../..
+      dockerfile: Dockerfile.web
+    container_name: backend-ui
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - core-api
+    networks:
+      simple-admin:
+        aliases:
+          - backend-ui
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500M
+        reservations:
+          cpus: "0.05"
+          memory: 200M

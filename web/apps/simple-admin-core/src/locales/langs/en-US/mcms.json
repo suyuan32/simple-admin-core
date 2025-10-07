@@ -1,0 +1,67 @@
+{
+  "emailProvider": {
+    "name": "Provider Name",
+    "authType": "Authority Type",
+    "emailAddr": "Email Address",
+    "password": "Password",
+    "hostName": "Host Name",
+    "identify": "Identify",
+    "secret": "Secret",
+    "port": "Port",
+    "tls": "TLS",
+    "isDefault": "Default Provider",
+    "addEmailProvider": "Add Email Provider",
+    "editEmailProvider": "Edit Email Provider",
+    "emailProviderList": "Email Provider List",
+    "authTypeHelp": "Normally select plain",
+    "passwordHelp": "Input authorization code"
+  },
+  "smsProvider": {
+    "name": "Provider Name",
+    "secretId": "Secret ID",
+    "secretKey": "Secret Key",
+    "region": "Region",
+    "isDefault": "Default Provider",
+    "addSmsProvider": "Add Sms Provider",
+    "editSmsProvider": "Edit Sms Provider",
+    "smsProviderList": "Sms Provider List",
+    "tencent": "Tencent Cloud",
+    "aliyun": "Alibaba Cloud",
+    "uni": "Uni SMS",
+    "smsbao": "SMS Bao"
+  },
+  "smsLog": {
+    "phoneNumber": "Phone Number",
+    "content": "Content",
+    "sendStatus": "Send Status",
+    "provider": "Provider",
+    "addSmsLog": "Add Sms Log",
+    "editSmsLog": "Edit Sms Log",
+    "smsLogList": "Sms Log List"
+  },
+  "emailLog": {
+    "target": "Target Email Address",
+    "subject": "Subject",
+    "content": "Content",
+    "sendStatus": "Send Status",
+    "provider": "Provider",
+    "addEmailLog": "Add Email Log",
+    "editEmailLog": "Edit Email Log",
+    "emailLogList": "Email Log List"
+  },
+  "email": {
+    "sendEmail": "Send Email",
+    "targetAddress": "Receiver",
+    "subject": "Title",
+    "content": "Content"
+  },
+  "sms": {
+    "phoneNumber": "Phone Number",
+    "params": "Parameters",
+    "templateId": "Template ID",
+    "signName": "Signature",
+    "sendSms": "Send SMS",
+    "paramsHelp": "separated by commas",
+    "templateIdHelp": "If the template ID is empty, it will use default configuration. Signatures and service providers also do not need to be set"
+  }
+}

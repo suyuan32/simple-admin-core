@@ -1,0 +1,67 @@
+{
+  "emailProvider": {
+    "name": "郵件服務名稱",
+    "authType": "認證方式",
+    "emailAddr": "電子郵件地址",
+    "password": "密碼",
+    "hostName": "伺服器位址",
+    "identify": "身分資訊",
+    "secret": "密鑰資訊",
+    "port": "連接埠",
+    "tls": "TLS加密",
+    "isDefault": "是否為預設服務",
+    "addEmailProvider": "新增郵件服務",
+    "editEmailProvider": "編輯郵件服務",
+    "emailProviderList": "郵件服務清單",
+    "authTypeHelp": "通常選擇 plain",
+    "passwordHelp": "輸入授權碼"
+  },
+  "smsProvider": {
+    "name": "簡訊服務名稱",
+    "secretId": "密鑰 ID",
+    "secretKey": "密鑰 Key",
+    "region": "地區",
+    "isDefault": "是否為預設服務",
+    "addSmsProvider": "新增簡訊服務",
+    "editSmsProvider": "編輯簡訊服務",
+    "smsProviderList": "簡訊服務清單",
+    "tencent": "騰訊雲",
+    "aliyun": "阿里雲",
+    "uni": "合一簡訊",
+    "smsbao": "簡訊寶"
+  },
+  "smsLog": {
+    "phoneNumber": "電話號碼",
+    "content": "內容",
+    "sendStatus": "狀態",
+    "provider": "服務商",
+    "addSmsLog": "新增簡訊日誌",
+    "editSmsLog": "編輯簡訊日誌",
+    "smsLogList": "簡訊日誌清單"
+  },
+  "emailLog": {
+    "target": "收件人郵箱",
+    "subject": "標題",
+    "content": "內容",
+    "sendStatus": "傳送狀態",
+    "provider": "服務商",
+    "addEmailLog": "新增郵件日誌",
+    "editEmailLog": "編輯郵件日誌",
+    "emailLogList": "郵件日誌清單"
+  },
+  "email": {
+    "sendEmail": "傳送郵件",
+    "targetAddress": "收件人郵箱",
+    "subject": "標題",
+    "content": "內容"
+  },
+  "sms": {
+    "phoneNumber": "電話號碼",
+    "params": "參數",
+    "templateId": "範本 ID",
+    "signName": "簽名",
+    "sendSms": "傳送簡訊",
+    "paramsHelp": "使用逗號隔開",
+    "templateIdHelp": "若範本 ID 為空，則使用預設設定，且無需設定簽名和服務商"
+  }
+}

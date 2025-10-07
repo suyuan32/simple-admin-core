@@ -5844,6 +5844,12 @@
           "maxLength": 100,
           "x-go-name": "Email"
         },
+        "locale": {
+          "description": "Locale | 语言偏好",
+          "type": "string",
+          "maxLength": 10,
+          "x-go-name": "Locale"
+        },
         "mobile": {
           "description": "User's mobile phone number | 用户的手机号码",
           "type": "string",
@@ -7212,6 +7218,11 @@
           "type": "string",
           "x-go-name": "HomePath"
         },
+        "locale": {
+          "description": "Locale | 语言偏好",
+          "type": "string",
+          "x-go-name": "Locale"
+        },
         "nickname": {
           "description": "User's nickname | 用户的昵称",
           "type": "string",
@@ -7306,6 +7317,12 @@
           "description": "ID",
           "type": "string",
           "x-go-name": "Id"
+        },
+        "locale": {
+          "description": "Locale | 语言偏好",
+          "type": "string",
+          "maxLength": 10,
+          "x-go-name": "Locale"
         },
         "mobile": {
           "description": "Mobile | 手机号",

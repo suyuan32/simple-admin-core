@@ -1,0 +1,67 @@
+{
+  "emailProvider": {
+    "name": "邮件服务名称",
+    "authType": "认证方式",
+    "emailAddr": "邮箱地址",
+    "password": "密码",
+    "hostName": "服务器地址",
+    "identify": "身份信息",
+    "secret": "密钥信息",
+    "port": "端口",
+    "tls": "TLS加密",
+    "isDefault": "是否为默认服务",
+    "addEmailProvider": "添加邮件服务",
+    "editEmailProvider": "编辑邮件服务",
+    "emailProviderList": "邮件服务列表",
+    "authTypeHelp": "通常选择 plain",
+    "passwordHelp": "输入授权码"
+  },
+  "smsProvider": {
+    "name": "短信服务名称",
+    "secretId": "密钥 ID",
+    "secretKey": "密钥 Key",
+    "region": "地区",
+    "isDefault": "是否为默认服务",
+    "addSmsProvider": "添加短信服务",
+    "editSmsProvider": "编辑短信服务",
+    "smsProviderList": "短信服务列表",
+    "tencent": "腾讯云",
+    "aliyun": "阿里云",
+    "uni": "合一短信",
+    "smsbao": "短信宝"
+  },
+  "smsLog": {
+    "phoneNumber": "电话号码",
+    "content": "内容",
+    "sendStatus": "状态",
+    "provider": "服务商",
+    "addSmsLog": "添加短信日志",
+    "editSmsLog": "编辑短信日志",
+    "smsLogList": "短信日志列表"
+  },
+  "emailLog": {
+    "target": "收件人邮箱",
+    "subject": "标题",
+    "content": "内容",
+    "sendStatus": "发送状态",
+    "provider": "服务商",
+    "addEmailLog": "添加邮件日志",
+    "editEmailLog": "编辑邮件日志",
+    "emailLogList": "邮件日志列表"
+  },
+  "email": {
+    "sendEmail": "发送邮件",
+    "targetAddress": "收件人邮箱",
+    "subject": "标题",
+    "content": "内容"
+  },
+  "sms": {
+    "phoneNumber": "电话号码",
+    "params": "参数",
+    "templateId": "模板 ID",
+    "signName": "签名",
+    "sendSms": "发送短信",
+    "paramsHelp": "使用逗号隔开",
+    "templateIdHelp": "若模板 ID 为空,则使用默认配置,且无需配置签名和服务商"
+  }
+}

@@ -93,9 +93,45 @@ pnpm run dev:core
 
 ---
 
-### 方法二：Docker Compose 部署
+### 方法二：Docker Compose（推薦用於開發/測試環境）
 
-#### 1. 構建映像
+#### 選項 A：從 Monorepo 建置 Frontend（推薦）
+
+使用 Monorepo Docker Compose 配置，會從源碼建置 Frontend：
+
+```bash
+cd deploy/docker-compose/monorepo
+docker-compose up -d
+```
+
+**優點**：
+- ✅ Frontend 從 `web/` 源碼建置，包含最新變更
+- ✅ 自動包含 zh-TW 語言檔案
+- ✅ 適合開發和測試
+
+訪問：http://localhost
+
+#### 選項 B：使用預建 Images
+
+使用 all-in-one Docker Compose 配置：
+
+```bash
+cd deploy/docker-compose/all_in_one/postgresql
+docker-compose up -d
+```
+
+此配置包含：
+- PostgreSQL 資料庫
+- Redis
+- Core RPC Service
+- Core API Service
+- Backend UI (Frontend - 預建 image)
+
+訪問：http://localhost
+
+**注意**：此方法使用預建的 Docker images，可能不包含最新的 zh-TW 語言檔案變更。
+
+#### 選項 C：自行建置所有映像
 
 ```bash
 # Backend RPC
@@ -104,36 +140,11 @@ docker build -f Dockerfile-rpc -t simple-admin/core-rpc:zh-tw .
 # Backend API
 docker build -f Dockerfile-api -t simple-admin/core-api:zh-tw .
 
-# Frontend
-cd web
-docker build -t simple-admin/frontend:zh-tw .
-cd ..
+# Frontend (from Monorepo)
+docker build -f Dockerfile.web -t simple-admin/backend-ui-vben5:zh-tw .
 ```
 
-#### 2. 使用 Docker Compose
-
-修改 `deploy/docker-compose/all_in_one/postgresql/docker-compose.yaml`：
-
-```yaml
-services:
-  core-rpc:
-    image: simple-admin/core-rpc:zh-tw
-
-  core-api:
-    image: simple-admin/core-api:zh-tw
-
-  backend-ui:
-    image: simple-admin/frontend:zh-tw
-```
-
-啟動：
-
-```bash
-cd deploy/docker-compose/all_in_one/postgresql
-docker-compose up -d
-```
-
-訪問：http://localhost
+修改 docker-compose.yaml 使用自建映像後啟動。
 
 ---
 
@@ -166,6 +177,51 @@ spec:
 ```bash
 cd deploy/k8s
 kubectl apply -f .
+```
+
+---
+
+## 🔧 Makefile 快速指令
+
+本專案提供 Makefile 簡化常見操作：
+
+### Backend 指令
+
+```bash
+# 產生程式碼
+make gen-api          # 生成 API 代碼
+make gen-rpc          # 生成 RPC 代碼
+make gen-ent          # 生成 Ent ORM 代碼
+
+# 建置
+make build-linux      # 建置 Linux 執行檔
+make build-win        # 建置 Windows 執行檔
+make build-mac        # 建置 macOS 執行檔
+
+# Docker
+make docker           # 建置 Backend Docker images
+make publish-docker   # 發布 Docker images
+
+# 測試
+make test             # 執行測試
+make lint             # 執行代碼檢查
+```
+
+### Frontend 指令（Monorepo）
+
+```bash
+# 安裝依賴
+make install-web      # 安裝 Frontend 依賴
+
+# 開發
+make dev-web          # 啟動 Frontend 開發服務器 (port 5666)
+
+# 建置
+make build-web        # 建置 Frontend 生產版本
+
+# Docker
+make docker-web       # 建置 Frontend Docker image
+make publish-docker-web  # 發布 Frontend Docker image
 ```
 
 ---

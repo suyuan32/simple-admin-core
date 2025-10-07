@@ -53,11 +53,30 @@ tools: # Install the necessary tools | 安装必要的工具
 	$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	$(GO) install github.com/go-swagger/go-swagger/cmd/swagger@latest
 
+.PHONY: install-web
+install-web: # Install frontend dependencies | 安装前端依赖
+	cd web && pnpm install
+	@echo "Install frontend dependencies successfully"
+
+.PHONY: dev-web
+dev-web: # Run frontend dev server | 运行前端开发服务器
+	cd web && pnpm dev:simple-admin-core
+
+.PHONY: build-web
+build-web: # Build frontend for production | 构建前端生产版本
+	cd web && pnpm install && pnpm build:simple-admin-core
+	@echo "Build frontend successfully"
+
 .PHONY: docker
 docker: # Build the docker image | 构建 docker 镜像
 	docker build -f Dockerfile-api -t ${DOCKER_USERNAME}/$(SERVICE_DASH)-api:${VERSION} .
 	docker build -f Dockerfile-rpc -t ${DOCKER_USERNAME}/$(SERVICE_DASH)-rpc:${VERSION} .
 	@echo "Build docker successfully"
+
+.PHONY: docker-web
+docker-web: # Build the frontend docker image | 构建前端 docker 镜像
+	docker build -f Dockerfile.web -t ${DOCKER_USERNAME}/backend-ui-vben5:${VERSION} .
+	@echo "Build frontend docker successfully"
 
 .PHONY: publish-docker
 publish-docker: # Publish docker image | 发布 docker 镜像
@@ -65,6 +84,12 @@ publish-docker: # Publish docker image | 发布 docker 镜像
 	docker push ${DOCKER_USERNAME}/$(SERVICE_DASH)-rpc:${VERSION}
 	docker push ${DOCKER_USERNAME}/$(SERVICE_DASH)-api:${VERSION}
 	@echo "Publish docker successfully"
+
+.PHONY: publish-docker-web
+publish-docker-web: # Publish frontend docker image | 发布前端 docker 镜像
+	echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin https://${REPO}
+	docker push ${DOCKER_USERNAME}/backend-ui-vben5:${VERSION}
+	@echo "Publish frontend docker successfully"
 
 .PHONY: gen-api
 gen-api: # Generate API files | 生成 API 的代码
