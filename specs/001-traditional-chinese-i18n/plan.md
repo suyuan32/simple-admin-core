@@ -8,11 +8,15 @@
 ## Architecture Overview
 
 ### System Architecture
+
+**Note**: This is a **Monorepo** architecture - Frontend and Backend are in the same repository under `simple-admin-core/`.
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                         Browser                                  │
 │  ┌──────────────────────────────────────────────────────────┐  │
-│  │  Vben5 Frontend (Vue 3 + TypeScript)                      │  │
+│  │  Vben5 Frontend (web/apps/simple-admin-core/)             │  │
+│  │  (Vue 3 + TypeScript)                                     │  │
 │  │  ┌────────────────────────────────────────────────────┐  │  │
 │  │  │  Language Selector Component                        │  │  │
 │  │  │  - localStorage: user_locale                        │  │  │
@@ -20,9 +24,12 @@
 │  │  └────────────────────────────────────────────────────┘  │  │
 │  │  ┌────────────────────────────────────────────────────┐  │  │
 │  │  │  vue-i18n (v9)                                      │  │  │
-│  │  │  - src/locales/lang/zh_CN.ts (existing)            │  │  │
-│  │  │  - src/locales/lang/en.ts (existing)               │  │  │
-│  │  │  - src/locales/lang/zh_TW.ts (NEW)                 │  │  │
+│  │  │  - web/apps/simple-admin-core/src/locales/langs/   │  │  │
+│  │  │    - zh-CN/ (existing)                             │  │  │
+│  │  │    - en/ (existing)                                │  │  │
+│  │  │    - zh-TW/ (NEW)                                  │  │  │
+│  │  │      - common.json, sys.json, component.json       │  │  │
+│  │  │      - fms.json, mcms.json, page.json              │  │  │
 │  │  └────────────────────────────────────────────────────┘  │  │
 │  │  ┌────────────────────────────────────────────────────┐  │  │
 │  │  │  Ant Design Vue Locale                              │  │  │
@@ -396,177 +403,78 @@ func TestNormalizeLocale(t *testing.T) {
 
 ### Phase 2: Frontend Implementation (8-10 hours)
 
-#### Task 2.1: Create zh_TW Language File
-**File**: `src/locales/lang/zh_TW.ts` (path may vary based on Vben5 structure)
+**Note**: Frontend code is located in `web/apps/simple-admin-core/` within the Monorepo.
 
-```typescript
-export default {
-  common: {
-    okText: '確定',
-    closeText: '關閉',
-    cancelText: '取消',
-    loadingText: '載入中...',
-    saveText: '儲存',
-    delText: '刪除',
-    resetText: '重設',
-    searchText: '搜尋',
-    queryText: '查詢',
+#### Task 2.1: Create zh_TW Language Files
+**Location**: `web/apps/simple-admin-core/src/locales/langs/zh-TW/`
 
-    inputText: '請輸入',
-    chooseText: '請選擇',
+**Files to create**:
+1. `common.json`
+2. `sys.json`
+3. `component.json`
+4. `fms.json`
+5. `mcms.json`
+6. `page.json`
 
-    redo: '重新整理',
-    back: '返回',
-
-    light: '淺色主題',
-    dark: '深色主題',
-  },
-
-  login: {
-    backSignIn: '返回登入',
-    signInFormTitle: '登入',
-    mobileSignInFormTitle: '行動裝置登入',
-    qrSignInFormTitle: 'QR Code 登入',
-    signUpFormTitle: '註冊',
-    forgetFormTitle: '重設密碼',
-
-    signInTitle: '後台管理系統',
-    signInDesc: '輸入您的個人資訊以登入',
-    policy: '我同意服務條款與隱私權政策',
-    scanSign: `掃描 QR Code 以登入`,
-
-    loginButton: '登入',
-    registerButton: '註冊',
-    rememberMe: '記住我',
-    forgetPassword: '忘記密碼？',
-    otherSignIn: '其他登入方式',
-
-    // Placeholder
-    accountPlaceholder: '請輸入使用者名稱',
-    passwordPlaceholder: '請輸入密碼',
-    smsPlaceholder: '請輸入簡訊驗證碼',
-    mobilePlaceholder: '請輸入手機號碼',
-    policyPlaceholder: '註冊即表示同意',
-    diffPwd: '兩次密碼輸入不一致',
-
-    userName: '使用者名稱',
-    password: '密碼',
-    confirmPassword: '確認密碼',
-    email: '電子郵件',
-    smsCode: '簡訊驗證碼',
-    mobile: '手機號碼',
-  },
-
-  route: {
-    dashboard: '控制台',
-    about: '關於',
-
-    // System Management
-    system: '系統管理',
-    user: '使用者管理',
-    role: '角色管理',
-    menu: '選單管理',
-    dept: '部門管理',
-    dict: '字典管理',
-    api: 'API 管理',
-    token: 'Token 管理',
-
-    // Other modules
-    moduleStore: '模組商店',
-  },
-
-  user: {
-    title: '使用者管理',
-    username: '使用者名稱',
-    nickname: '暱稱',
-    email: '電子郵件',
-    mobile: '手機號碼',
-    status: '狀態',
-    createTime: '建立時間',
-    updateTime: '更新時間',
-
-    addUser: '新增使用者',
-    editUser: '編輯使用者',
-    deleteUser: '刪除使用者',
-
-    statusNormal: '正常',
-    statusBanned: '停權',
-  },
-
-  role: {
-    title: '角色管理',
-    roleName: '角色名稱',
-    roleCode: '角色代碼',
-    roleDesc: '角色描述',
-    sort: '排序',
-    status: '狀態',
-
-    addRole: '新增角色',
-    editRole: '編輯角色',
-    deleteRole: '刪除角色',
-    assignPermission: '分配權限',
-  },
-
-  menu: {
-    title: '選單管理',
-    menuName: '選單名稱',
-    menuType: '選單類型',
-    icon: '圖示',
-    path: '路徑',
-    component: '元件',
-    permission: '權限標識',
-    sort: '排序',
-    visible: '顯示',
-    status: '狀態',
-
-    menuTypeDir: '目錄',
-    menuTypeMenu: '選單',
-    menuTypeButton: '按鈕',
-  },
-};
+**Example**: `common.json`
+```json
+{
+  "okText": "確定",
+  "closeText": "關閉",
+  "cancelText": "取消",
+  "loadingText": "載入中...",
+  "saveText": "儲存",
+  "delText": "刪除",
+  "resetText": "重設",
+  "searchText": "搜尋",
+  "queryText": "查詢",
+  "inputText": "請輸入",
+  "chooseText": "請選擇"
+}
 ```
 
+**Note**: The actual Frontend language files already exist in the Monorepo at `web/apps/simple-admin-core/src/locales/langs/zh-TW/`. These files contain comprehensive translations (705+ lines total across 6 files) using JSON format, not TypeScript.
+
 #### Task 2.2: Register zh_TW in i18n
-**File**: `src/locales/index.ts`
+**File**: `web/apps/simple-admin-core/src/locales/index.ts`
 
 ```typescript
 import { createI18n } from 'vue-i18n';
-import zh_CN from './lang/zh_CN';
-import en from './lang/en';
-import zh_TW from './lang/zh_TW'; // NEW
+// Import zh-TW language files
+import zhTW from './langs/zh-TW'; // NEW
 
 const messages = {
-  zh_CN,
-  en,
-  zh_TW, // NEW
+  'zh-CN': zhCN,
+  'en': en,
+  'zh-TW': zhTW, // NEW
 };
 
 // Get locale from localStorage or browser
 const getLocale = (): string => {
   const localLocale = localStorage.getItem('locale');
-  if (localLocale && ['zh_CN', 'en', 'zh_TW'].includes(localLocale)) {
+  if (localLocale && ['zh-CN', 'en', 'zh-TW'].includes(localLocale)) {
     return localLocale;
   }
 
   // Browser locale detection
   const browserLang = navigator.language;
   if (browserLang.includes('zh-TW') || browserLang.includes('zh-Hant')) {
-    return 'zh_TW';
+    return 'zh-TW';
   }
   if (browserLang.includes('zh')) {
-    return 'zh_CN';
+    return 'zh-CN';
   }
   if (browserLang.includes('en')) {
     return 'en';
   }
 
-  return 'zh_CN'; // Default
+  return 'zh-CN'; // Default
 };
 
 export const i18n = createI18n({
   legacy: false,
   locale: getLocale(),
-  fallbackLocale: 'zh_CN',
+  fallbackLocale: 'zh-CN',
   messages,
   globalInjection: true,
 });
@@ -575,7 +483,9 @@ export default i18n;
 ```
 
 #### Task 2.3: Update Language Selector Component
-**File**: `src/components/LanguageSelector/index.vue`
+**File**: `web/packages/constants/src/core.ts`
+
+**Note**: In this Monorepo, language configuration is centralized in constants package.
 
 ```vue
 <template>
@@ -610,9 +520,9 @@ const { locale } = useI18n();
 const userStore = useUserStore();
 
 const languageMap = {
-  zh_CN: '简体中文',
-  en: 'English',
-  zh_TW: '繁體中文',
+  'zh-CN': '简体中文',
+  'en': 'English',
+  'zh-TW': '繁體中文',
 };
 
 const currentLanguageName = computed(() => {
@@ -661,7 +571,7 @@ const updateAntdLocale = (locale: string) => {
 ```
 
 #### Task 2.4: Update Ant Design ConfigProvider
-**File**: `src/App.vue`
+**File**: `web/apps/simple-admin-core/src/App.vue`
 
 ```vue
 <template>
@@ -681,9 +591,9 @@ const { locale } = useI18n();
 
 const antdLocale = computed(() => {
   const localeMap = {
-    zh_CN: zhCN,
-    en: enUS,
-    zh_TW: zhTW, // NEW
+    'zh-CN': zhCN,
+    'en': enUS,
+    'zh-TW': zhTW, // NEW
   };
   return localeMap[locale.value as keyof typeof localeMap] || zhCN;
 });
@@ -784,7 +694,7 @@ npm run test:unit
 ```
 
 #### Task 4.2: E2E Tests
-**File**: `tests/e2e/i18n.spec.ts`
+**File**: `web/tests/e2e/i18n.spec.ts` (if tests exist in Monorepo)
 
 ```typescript
 import { test, expect } from '@playwright/test';
@@ -900,11 +810,28 @@ test.describe('i18n Traditional Chinese', () => {
 
 ## Deployment Strategy
 
+**Note**: This is a Monorepo deployment - both Frontend and Backend are deployed together from `simple-admin-core/`.
+
 ### Rollout Plan
-1. **Week 1**: Deploy to development environment
+1. **Week 1**: Deploy to development environment (Backend + Frontend together)
 2. **Week 2**: Internal testing with Taiwan team members
 3. **Week 3**: Beta release to 10 Taiwan pilot users
 4. **Week 4**: Production release to all users
+
+### Monorepo Deployment Commands
+```bash
+# Build Backend (from project root)
+make build-linux
+
+# Build Frontend
+cd web
+pnpm install
+pnpm run build:core
+
+# Docker Compose deployment (all-in-one)
+cd deploy/docker-compose/all_in_one/postgresql
+docker-compose up -d
+```
 
 ### Feature Flag
 ```go
@@ -976,6 +903,27 @@ If critical issues found:
 | Full-stack Developer | Database schema, user preference | 6h |
 | QA Engineer | Testing, manual QA | 4h |
 | Taiwan Native Speaker | Translation review, QA | 4h |
+
+---
+
+## Monorepo Architecture Summary
+
+This implementation spans both Frontend and Backend within a single repository (`simple-admin-core/`):
+
+**Backend Components**:
+- `api/internal/i18n/locale/zh-TW.json` - Backend translations
+- `api/internal/i18n/translator.go` - Translation engine
+- `rpc/ent/schema/user.go` - User locale field
+
+**Frontend Components**:
+- `web/apps/simple-admin-core/src/locales/langs/zh-TW/` - 6 language files
+- `web/apps/simple-admin-core/src/locales/index.ts` - i18n configuration
+- `web/packages/constants/src/core.ts` - Language selector constants
+
+**Unified Deployment**:
+- Single repository simplifies version control
+- Backend and Frontend changes can be committed atomically
+- Deployment scripts handle both layers together
 
 ---
 

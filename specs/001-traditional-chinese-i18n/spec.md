@@ -133,8 +133,9 @@ Dates display in Taiwan standard format (YYYY/MM/DD or 民國年), numbers use T
 ```
 
 #### LanguageFile (Frontend)
-- **Location**: `src/locales/lang/zh_TW.ts`
+- **Location**: `web/apps/simple-admin-core/src/locales/langs/zh-TW/*.json`
 - **Framework**: vue-i18n compatible
+- **Files**: 6 JSON files (common.json, sys.json, component.json, fms.json, mcms.json, page.json)
 - **Dependencies**: Ant Design Vue zh_TW locale
 - **Coverage**: All routes, menus, forms, validation messages, notifications
 
@@ -263,6 +264,19 @@ Before marking this specification as "Ready for Planning", verify:
 - [ ] Translation coverage target is realistic
 - [ ] Timeline aligns with project roadmap
 - [ ] Stakeholders have reviewed and approved
+
+---
+
+---
+
+## Project Architecture Note
+
+This project uses a **Monorepo** architecture:
+- **Backend**: `api/` (REST API), `rpc/` (gRPC)
+- **Frontend**: `web/apps/simple-admin-core/` (Vue 3 + Vben5)
+- **Single Repository**: Both Frontend and Backend in `simple-admin-core/`
+
+All zh-TW implementation spans both Frontend and Backend within this single repository.
 
 ---
 

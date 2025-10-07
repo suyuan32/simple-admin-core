@@ -1,135 +1,157 @@
 # 專案範圍說明
 
-## 🎯 本專案 (simple-admin-core)
+## 🎯 本專案 (simple-admin-core) - Monorepo 架構
 
-**定位**: Backend 微服務系統
+**定位**: Full-stack 微服務系統（Monorepo）
+
+**專案結構**:
+```
+simple-admin-core/
+├── api/                    # Backend API Service
+├── rpc/                    # Backend RPC Service
+└── web/                    # Frontend (simple-admin-vben5-ui)
+    └── apps/
+        └── simple-admin-core/
+```
 
 **包含**:
-- ✅ API Service (REST API 閘道)
-- ✅ RPC Service (gRPC 業務邏輯)
+- ✅ Backend API Service (REST API 閘道)
+- ✅ Backend RPC Service (gRPC 業務邏輯)
+- ✅ Frontend (Vue 3 + Vben5)
 - ✅ Ent ORM Schema
 - ✅ Proto 定義
-- ✅ Backend i18n 支援
+- ✅ 全端 i18n 支援
 
 **Git Repository**: https://github.com/suyuan32/simple-admin-core
 
 ---
 
-## 🚫 不在本專案範圍
+## 📦 Monorepo 目錄結構
 
-### Frontend (simple-admin-vben5-ui)
+### Backend (`api/`, `rpc/`)
+- API Service (Port 9100)
+- RPC Service (Port 9101)
+- i18n 支援: `api/internal/i18n/locale/zh-TW.json`
 
-**定位**: Vue 3 前端應用（獨立專案）
-
-**包含**:
-- ❌ Vue 3 組件
-- ❌ 前端語言檔案 (zh-TW.ts, zh-CN.ts, en-US.ts)
-- ❌ UI 元件
-- ❌ 路由與狀態管理
-
-**Git Repository**: https://github.com/suyuan32/simple-admin-vben5-ui
+### Frontend (`web/`)
+- Vue 3 + Vben5 前端應用
+- i18n 支援: `web/apps/simple-admin-core/src/locales/langs/zh-TW/`
+- Port: 5555 (dev), 80 (production)
 
 ---
 
 ## 📋 zh-TW 功能任務分配
 
-### Backend 任務（本專案）✅
+### Backend 任務 ✅
 
-| 任務 ID | 描述 | 狀態 | Commit |
-|---------|------|------|--------|
-| ZH-TW-001 | Backend zh-TW.json | ✅ 完成 | efd2d8d |
-| ZH-TW-002 | i18n Translator | ✅ 完成 | e94e1d1 |
-| ZH-TW-003 | Backend 測試 | ✅ 完成 | e94e1d1 |
-| ZH-TW-007 | Ent Schema | ✅ 完成 | 451ed06 |
-| ZH-TW-008 | Proto & API | ✅ 完成 | be16dc9 |
+| 任務 ID | 描述 | 檔案 | 狀態 | Commit |
+|---------|------|------|------|--------|
+| ZH-TW-001 | Backend zh-TW.json | `api/internal/i18n/locale/zh-TW.json` | ✅ 完成 | efd2d8d |
+| ZH-TW-002 | i18n Translator | `api/internal/i18n/translator.go` | ✅ 完成 | e94e1d1 |
+| ZH-TW-003 | Backend 測試 | `api/internal/i18n/translator_test.go` | ✅ 完成 | e94e1d1 |
+| ZH-TW-007 | Ent Schema | `rpc/ent/schema/user.go` | ✅ 完成 | 451ed06 |
+| ZH-TW-008 | Proto & API | `rpc/desc/user.proto` | ✅ 完成 | be16dc9 |
 
-### Frontend 任務（獨立專案）❌
+### Frontend 任務 ✅
 
-| 任務 ID | 描述 | 狀態 | 說明 |
-|---------|------|------|------|
-| ZH-TW-004 | 前端語言檔案 | ❌ Out of Scope | 需在 simple-admin-vben5-ui 處理 |
-| ZH-TW-005 | Ant Design 整合 | ❌ Out of Scope | 需在 simple-admin-vben5-ui 處理 |
-| ZH-TW-006 | 語言選擇器 UI | ❌ Out of Scope | 需在 simple-admin-vben5-ui 處理 |
-
----
-
-## ⚠️ 重要提醒
-
-1. **不要在 Backend 專案中修改 Frontend 程式碼**
-2. **不要在 Backend 專案文檔中指示操作 Frontend**
-3. **Frontend 和 Backend 有各自的 Git Repository**
-4. **部署文檔應明確區分 Backend 和 Frontend**
+| 任務 ID | 描述 | 檔案路徑 | 狀態 |
+|---------|------|----------|------|
+| ZH-TW-004 | 前端語言檔案 | `web/apps/simple-admin-core/src/locales/langs/zh-TW/*.json` | ✅ 完成 |
+| ZH-TW-005 | Ant Design 整合 | `web/apps/simple-admin-core/src/locales/index.ts` | ✅ 完成 |
+| ZH-TW-006 | 語言選擇器 UI | `web/packages/constants/src/core.ts` | ✅ 完成 |
 
 ---
 
-## 🔗 正確的協作流程
+## 🚀 Monorepo 開發流程
 
-### Backend 開發者
-1. Clone `simple-admin-core`
-2. 修改 Backend 程式碼
-3. Commit 到 `simple-admin-core` Repository
+### 1. Backend 開發
+```bash
+cd simple-admin-core
 
-### Frontend 開發者
-1. Clone `simple-admin-vben5-ui`
-2. 修改 Frontend 程式碼
-3. Commit 到 `simple-admin-vben5-ui` Repository
+# 修改 Backend 程式碼
+vim api/internal/...
+vim rpc/internal/...
 
-### 整合測試
-1. Backend 開發者發布 API 變更
-2. Frontend 開發者依據 API 文檔更新前端
-3. 兩個專案**獨立**進行版本發布
+# 提交 Backend 變更
+git add api/ rpc/
+git commit -m "feat: backend feature"
+```
+
+### 2. Frontend 開發
+```bash
+cd simple-admin-core/web
+
+# 修改 Frontend 程式碼
+vim apps/simple-admin-core/src/...
+
+# 提交 Frontend 變更
+cd ..
+git add web/
+git commit -m "feat: frontend feature"
+```
+
+### 3. 全端功能開發
+```bash
+# 同時修改 Backend 和 Frontend
+git add api/ rpc/ web/
+git commit -m "feat: full-stack feature"
+```
 
 ---
 
 ## 📝 文檔規範
 
-### Backend 文檔 ✅
-- 可以說明 Backend API 如何支援 zh-TW
-- 可以說明 Accept-Language header 處理
-- 可以說明 Backend 錯誤訊息格式
+### Backend 文檔
+- 說明 Backend API 支援 zh-TW
+- 說明 Accept-Language header 處理
+- 說明 Backend 錯誤訊息格式
 
-### Backend 文檔 ❌
-- **不應該**指示如何修改 Frontend 程式碼
-- **不應該**包含 Frontend 部署步驟
-- **不應該**假設 Frontend 和 Backend 在同一專案
+### Frontend 文檔
+- 說明 Frontend 語言檔案結構
+- 說明 i18n 整合方式
+- 說明語言切換流程
 
----
-
-## ✅ 修正措施
-
-### 已完成
-1. ✅ 更新 Notion 任務狀態（標記 Frontend 任務為 Out of Scope）
-2. ✅ 刪除包含 Frontend 指示的部署文檔
-3. ✅ 創建僅涵蓋 Backend 的部署文檔
-
-### 文檔變更
-- ❌ 刪除: `docs/DEPLOYMENT-ZH-TW.md` (包含 Frontend 指示)
-- ❌ 刪除: `docs/LOCAL-DEVELOPMENT-ZH-TW.md` (包含 Frontend 指示)
-- ✅ 新增: `docs/BACKEND-DEPLOYMENT-ZH-TW.md` (僅 Backend)
-- ✅ 新增: `docs/PROJECT-SCOPE-CLARIFICATION.md` (本文檔)
+### 全端文檔
+- 說明 Frontend ↔ Backend i18n 協作
+- 說明完整的部署流程
+- 說明 Monorepo 開發規範
 
 ---
 
-## 📊 正確的 Git Commits
+## 🎯 Monorepo 優勢
 
-**本專案的所有 commits 應該只涉及 Backend**:
+1. **統一版本管理**: Frontend 和 Backend 在同一 Repository
+2. **原子性提交**: 全端功能可在單一 commit 完成
+3. **簡化 CI/CD**: 單一 Repository 的持續整合
+4. **共享配置**: 共享 ESLint, Prettier, Git hooks 等配置
 
+---
+
+## 📊 Git Commits 規範
+
+**本專案 commits 可以包含**:
+- ✅ Backend: `api/`, `rpc/`, `ent/`, `proto/`
+- ✅ Frontend: `web/`
+- ✅ Docs: `docs/`, `README.md`
+- ✅ Config: `Makefile`, `.gitignore`, etc.
+
+**Commit 範例**:
 ```bash
-git log --oneline --since="2025-10-07"
+# Backend only
+git commit -m "feat(api): add zh-TW i18n support"
+
+# Frontend only
+git commit -m "feat(web): add zh-TW language files"
+
+# Full-stack
+git commit -m "feat: add zh-TW i18n support for full-stack"
 ```
 
-輸出應該只包含 Backend 相關變更：
-- ✅ api/internal/i18n/
-- ✅ rpc/ent/schema/
-- ✅ rpc/desc/*.proto
-- ✅ docs/
-- ❌ 不應包含任何 Frontend 路徑
-
 ---
 
-## 🎯 總結
+## ✅ Monorepo 架構優勢總結
 
-- **simple-admin-core** = Backend 專案
-- **simple-admin-vben5-ui** = Frontend 專案
-- **兩者獨立開發、獨立部署、獨立版本管理**
-- **本專案文檔應僅涵蓋 Backend**
+- **統一管理**: Frontend + Backend 在同一專案
+- **協作便利**: 跨端功能開發更容易
+- **版本同步**: 避免前後端版本不一致
+- **CI/CD 簡化**: 單一流水線完成全端部署
