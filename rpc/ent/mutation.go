@@ -10352,6 +10352,7 @@ type UserMutation struct {
 	mobile             *string
 	email              *string
 	avatar             *string
+	locale             *string
 	clearedFields      map[string]struct{}
 	departments        *uint64
 	cleareddepartments bool
@@ -11050,6 +11051,55 @@ func (m *UserMutation) ResetDepartmentID() {
 	delete(m.clearedFields, user.FieldDepartmentID)
 }
 
+// SetLocale sets the "locale" field.
+func (m *UserMutation) SetLocale(s string) {
+	m.locale = &s
+}
+
+// Locale returns the value of the "locale" field in the mutation.
+func (m *UserMutation) Locale() (r string, exists bool) {
+	v := m.locale
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLocale returns the old "locale" field's value of the User entity.
+// If the User object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserMutation) OldLocale(ctx context.Context) (v *string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLocale is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLocale requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLocale: %w", err)
+	}
+	return oldValue.Locale, nil
+}
+
+// ClearLocale clears the value of the "locale" field.
+func (m *UserMutation) ClearLocale() {
+	m.locale = nil
+	m.clearedFields[user.FieldLocale] = struct{}{}
+}
+
+// LocaleCleared returns if the "locale" field was cleared in this mutation.
+func (m *UserMutation) LocaleCleared() bool {
+	_, ok := m.clearedFields[user.FieldLocale]
+	return ok
+}
+
+// ResetLocale resets all changes to the "locale" field.
+func (m *UserMutation) ResetLocale() {
+	m.locale = nil
+	delete(m.clearedFields, user.FieldLocale)
+}
+
 // SetDepartmentsID sets the "departments" edge to the Department entity by id.
 func (m *UserMutation) SetDepartmentsID(id uint64) {
 	m.departments = &id
@@ -11232,7 +11282,7 @@ func (m *UserMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *UserMutation) Fields() []string {
-	fields := make([]string, 0, 13)
+	fields := make([]string, 0, 14)
 	if m.created_at != nil {
 		fields = append(fields, user.FieldCreatedAt)
 	}
@@ -11272,6 +11322,9 @@ func (m *UserMutation) Fields() []string {
 	if m.departments != nil {
 		fields = append(fields, user.FieldDepartmentID)
 	}
+	if m.locale != nil {
+		fields = append(fields, user.FieldLocale)
+	}
 	return fields
 }
 
@@ -11306,6 +11359,8 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 		return m.Avatar()
 	case user.FieldDepartmentID:
 		return m.DepartmentID()
+	case user.FieldLocale:
+		return m.Locale()
 	}
 	return nil, false
 }
@@ -11341,6 +11396,8 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldAvatar(ctx)
 	case user.FieldDepartmentID:
 		return m.OldDepartmentID(ctx)
+	case user.FieldLocale:
+		return m.OldLocale(ctx)
 	}
 	return nil, fmt.Errorf("unknown User field %s", name)
 }
@@ -11441,6 +11498,13 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetDepartmentID(v)
 		return nil
+	case user.FieldLocale:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLocale(v)
+		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
 }
@@ -11507,6 +11571,9 @@ func (m *UserMutation) ClearedFields() []string {
 	if m.FieldCleared(user.FieldDepartmentID) {
 		fields = append(fields, user.FieldDepartmentID)
 	}
+	if m.FieldCleared(user.FieldLocale) {
+		fields = append(fields, user.FieldLocale)
+	}
 	return fields
 }
 
@@ -11541,6 +11608,9 @@ func (m *UserMutation) ClearField(name string) error {
 		return nil
 	case user.FieldDepartmentID:
 		m.ClearDepartmentID()
+		return nil
+	case user.FieldLocale:
+		m.ClearLocale()
 		return nil
 	}
 	return fmt.Errorf("unknown User nullable field %s", name)
@@ -11588,6 +11658,9 @@ func (m *UserMutation) ResetField(name string) error {
 		return nil
 	case user.FieldDepartmentID:
 		m.ResetDepartmentID()
+		return nil
+	case user.FieldLocale:
+		m.ResetLocale()
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)

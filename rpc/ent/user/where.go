@@ -121,6 +121,11 @@ func DepartmentID(v uint64) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldDepartmentID, v))
 }
 
+// Locale applies equality check predicate on the "locale" field. It's identical to LocaleEQ.
+func Locale(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldLocale, v))
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v time.Time) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldCreatedAt, v))
@@ -889,6 +894,81 @@ func DepartmentIDIsNil() predicate.User {
 // DepartmentIDNotNil applies the NotNil predicate on the "department_id" field.
 func DepartmentIDNotNil() predicate.User {
 	return predicate.User(sql.FieldNotNull(FieldDepartmentID))
+}
+
+// LocaleEQ applies the EQ predicate on the "locale" field.
+func LocaleEQ(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldLocale, v))
+}
+
+// LocaleNEQ applies the NEQ predicate on the "locale" field.
+func LocaleNEQ(v string) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldLocale, v))
+}
+
+// LocaleIn applies the In predicate on the "locale" field.
+func LocaleIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldIn(FieldLocale, vs...))
+}
+
+// LocaleNotIn applies the NotIn predicate on the "locale" field.
+func LocaleNotIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldLocale, vs...))
+}
+
+// LocaleGT applies the GT predicate on the "locale" field.
+func LocaleGT(v string) predicate.User {
+	return predicate.User(sql.FieldGT(FieldLocale, v))
+}
+
+// LocaleGTE applies the GTE predicate on the "locale" field.
+func LocaleGTE(v string) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldLocale, v))
+}
+
+// LocaleLT applies the LT predicate on the "locale" field.
+func LocaleLT(v string) predicate.User {
+	return predicate.User(sql.FieldLT(FieldLocale, v))
+}
+
+// LocaleLTE applies the LTE predicate on the "locale" field.
+func LocaleLTE(v string) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldLocale, v))
+}
+
+// LocaleContains applies the Contains predicate on the "locale" field.
+func LocaleContains(v string) predicate.User {
+	return predicate.User(sql.FieldContains(FieldLocale, v))
+}
+
+// LocaleHasPrefix applies the HasPrefix predicate on the "locale" field.
+func LocaleHasPrefix(v string) predicate.User {
+	return predicate.User(sql.FieldHasPrefix(FieldLocale, v))
+}
+
+// LocaleHasSuffix applies the HasSuffix predicate on the "locale" field.
+func LocaleHasSuffix(v string) predicate.User {
+	return predicate.User(sql.FieldHasSuffix(FieldLocale, v))
+}
+
+// LocaleIsNil applies the IsNil predicate on the "locale" field.
+func LocaleIsNil() predicate.User {
+	return predicate.User(sql.FieldIsNull(FieldLocale))
+}
+
+// LocaleNotNil applies the NotNil predicate on the "locale" field.
+func LocaleNotNil() predicate.User {
+	return predicate.User(sql.FieldNotNull(FieldLocale))
+}
+
+// LocaleEqualFold applies the EqualFold predicate on the "locale" field.
+func LocaleEqualFold(v string) predicate.User {
+	return predicate.User(sql.FieldEqualFold(FieldLocale, v))
+}
+
+// LocaleContainsFold applies the ContainsFold predicate on the "locale" field.
+func LocaleContainsFold(v string) predicate.User {
+	return predicate.User(sql.FieldContainsFold(FieldLocale, v))
 }
 
 // HasDepartments applies the HasEdge predicate on the "departments" edge.

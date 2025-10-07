@@ -241,6 +241,26 @@ func (_u *UserUpdate) ClearDepartmentID() *UserUpdate {
 	return _u
 }
 
+// SetLocale sets the "locale" field.
+func (_u *UserUpdate) SetLocale(v string) *UserUpdate {
+	_u.mutation.SetLocale(v)
+	return _u
+}
+
+// SetNillableLocale sets the "locale" field if the given value is not nil.
+func (_u *UserUpdate) SetNillableLocale(v *string) *UserUpdate {
+	if v != nil {
+		_u.SetLocale(*v)
+	}
+	return _u
+}
+
+// ClearLocale clears the value of the "locale" field.
+func (_u *UserUpdate) ClearLocale() *UserUpdate {
+	_u.mutation.ClearLocale()
+	return _u
+}
+
 // SetDepartmentsID sets the "departments" edge to the Department entity by ID.
 func (_u *UserUpdate) SetDepartmentsID(id uint64) *UserUpdate {
 	_u.mutation.SetDepartmentsID(id)
@@ -385,6 +405,16 @@ func (_u *UserUpdate) defaults() error {
 	return nil
 }
 
+// check runs all checks and user-defined validators on the builder.
+func (_u *UserUpdate) check() error {
+	if v, ok := _u.mutation.Locale(); ok {
+		if err := user.LocaleValidator(v); err != nil {
+			return &ValidationError{Name: "locale", err: fmt.Errorf(`ent: validator failed for field "User.locale": %w`, err)}
+		}
+	}
+	return nil
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (_u *UserUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserUpdate {
 	_u.modifiers = append(_u.modifiers, modifiers...)
@@ -392,6 +422,9 @@ func (_u *UserUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserUpdat
 }
 
 func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
+	}
 	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID))
 	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
@@ -453,6 +486,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if _u.mutation.AvatarCleared() {
 		_spec.ClearField(user.FieldAvatar, field.TypeString)
+	}
+	if value, ok := _u.mutation.Locale(); ok {
+		_spec.SetField(user.FieldLocale, field.TypeString, value)
+	}
+	if _u.mutation.LocaleCleared() {
+		_spec.ClearField(user.FieldLocale, field.TypeString)
 	}
 	if _u.mutation.DepartmentsCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -804,6 +843,26 @@ func (_u *UserUpdateOne) ClearDepartmentID() *UserUpdateOne {
 	return _u
 }
 
+// SetLocale sets the "locale" field.
+func (_u *UserUpdateOne) SetLocale(v string) *UserUpdateOne {
+	_u.mutation.SetLocale(v)
+	return _u
+}
+
+// SetNillableLocale sets the "locale" field if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableLocale(v *string) *UserUpdateOne {
+	if v != nil {
+		_u.SetLocale(*v)
+	}
+	return _u
+}
+
+// ClearLocale clears the value of the "locale" field.
+func (_u *UserUpdateOne) ClearLocale() *UserUpdateOne {
+	_u.mutation.ClearLocale()
+	return _u
+}
+
 // SetDepartmentsID sets the "departments" edge to the Department entity by ID.
 func (_u *UserUpdateOne) SetDepartmentsID(id uint64) *UserUpdateOne {
 	_u.mutation.SetDepartmentsID(id)
@@ -961,6 +1020,16 @@ func (_u *UserUpdateOne) defaults() error {
 	return nil
 }
 
+// check runs all checks and user-defined validators on the builder.
+func (_u *UserUpdateOne) check() error {
+	if v, ok := _u.mutation.Locale(); ok {
+		if err := user.LocaleValidator(v); err != nil {
+			return &ValidationError{Name: "locale", err: fmt.Errorf(`ent: validator failed for field "User.locale": %w`, err)}
+		}
+	}
+	return nil
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (_u *UserUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserUpdateOne {
 	_u.modifiers = append(_u.modifiers, modifiers...)
@@ -968,6 +1037,9 @@ func (_u *UserUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserUp
 }
 
 func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
+	}
 	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeUUID))
 	id, ok := _u.mutation.ID()
 	if !ok {
@@ -1046,6 +1118,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	}
 	if _u.mutation.AvatarCleared() {
 		_spec.ClearField(user.FieldAvatar, field.TypeString)
+	}
+	if value, ok := _u.mutation.Locale(); ok {
+		_spec.SetField(user.FieldLocale, field.TypeString, value)
+	}
+	if _u.mutation.LocaleCleared() {
+		_spec.ClearField(user.FieldLocale, field.TypeString)
 	}
 	if _u.mutation.DepartmentsCleared() {
 		edge := &sqlgraph.EdgeSpec{

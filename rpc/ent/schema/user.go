@@ -40,6 +40,12 @@ func (User) Fields() []ent.Field {
 			Comment("Avatar | 头像路径"),
 		field.Uint64("department_id").Optional().Default(1).
 			Comment("Department ID | 部门ID"),
+		field.String("locale").
+			Comment("User's preferred language | 使用者偏好語言: zh-CN, en, zh-TW").
+			Optional().
+			Nillable().
+			MaxLen(10).
+			Default("zh-CN"),
 	}
 }
 

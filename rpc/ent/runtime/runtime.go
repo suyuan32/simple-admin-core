@@ -375,6 +375,12 @@ func init() {
 	userDescDepartmentID := userFields[8].Descriptor()
 	// user.DefaultDepartmentID holds the default value on creation for the department_id field.
 	user.DefaultDepartmentID = userDescDepartmentID.Default.(uint64)
+	// userDescLocale is the schema descriptor for locale field.
+	userDescLocale := userFields[9].Descriptor()
+	// user.DefaultLocale holds the default value on creation for the locale field.
+	user.DefaultLocale = userDescLocale.Default.(string)
+	// user.LocaleValidator is a validator for the "locale" field. It is called by the builders before save.
+	user.LocaleValidator = userDescLocale.Validators[0].(func(string) error)
 	// userDescID is the schema descriptor for id field.
 	userDescID := userMixinFields0[0].Descriptor()
 	// user.DefaultID holds the default value on creation for the id field.

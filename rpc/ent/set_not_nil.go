@@ -2455,3 +2455,27 @@ func (_m *UserCreate) SetNotNilDepartmentID(value *uint64) *UserCreate {
 	}
 	return _m
 }
+
+// set field if value's pointer is not nil.
+func (_m *UserUpdate) SetNotNilLocale(value *string) *UserUpdate {
+	if value != nil {
+		return _m.SetLocale(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *UserUpdateOne) SetNotNilLocale(value *string) *UserUpdateOne {
+	if value != nil {
+		return _m.SetLocale(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *UserCreate) SetNotNilLocale(value *string) *UserCreate {
+	if value != nil {
+		return _m.SetLocale(*value)
+	}
+	return _m
+}

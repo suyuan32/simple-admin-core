@@ -182,6 +182,20 @@ func (_c *UserCreate) SetNillableDepartmentID(v *uint64) *UserCreate {
 	return _c
 }
 
+// SetLocale sets the "locale" field.
+func (_c *UserCreate) SetLocale(v string) *UserCreate {
+	_c.mutation.SetLocale(v)
+	return _c
+}
+
+// SetNillableLocale sets the "locale" field if the given value is not nil.
+func (_c *UserCreate) SetNillableLocale(v *string) *UserCreate {
+	if v != nil {
+		_c.SetLocale(*v)
+	}
+	return _c
+}
+
 // SetID sets the "id" field.
 func (_c *UserCreate) SetID(v uuid.UUID) *UserCreate {
 	_c.mutation.SetID(v)
@@ -308,6 +322,10 @@ func (_c *UserCreate) defaults() error {
 		v := user.DefaultDepartmentID
 		_c.mutation.SetDepartmentID(v)
 	}
+	if _, ok := _c.mutation.Locale(); !ok {
+		v := user.DefaultLocale
+		_c.mutation.SetLocale(v)
+	}
 	if _, ok := _c.mutation.ID(); !ok {
 		if user.DefaultID == nil {
 			return fmt.Errorf("ent: uninitialized user.DefaultID (forgotten import ent/runtime?)")
@@ -337,6 +355,11 @@ func (_c *UserCreate) check() error {
 	}
 	if _, ok := _c.mutation.HomePath(); !ok {
 		return &ValidationError{Name: "home_path", err: errors.New(`ent: missing required field "User.home_path"`)}
+	}
+	if v, ok := _c.mutation.Locale(); ok {
+		if err := user.LocaleValidator(v); err != nil {
+			return &ValidationError{Name: "locale", err: fmt.Errorf(`ent: validator failed for field "User.locale": %w`, err)}
+		}
 	}
 	return nil
 }
@@ -420,6 +443,10 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.Avatar(); ok {
 		_spec.SetField(user.FieldAvatar, field.TypeString, value)
 		_node.Avatar = value
+	}
+	if value, ok := _c.mutation.Locale(); ok {
+		_spec.SetField(user.FieldLocale, field.TypeString, value)
+		_node.Locale = &value
 	}
 	if nodes := _c.mutation.DepartmentsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

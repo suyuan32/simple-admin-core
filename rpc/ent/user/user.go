@@ -42,6 +42,8 @@ const (
 	FieldAvatar = "avatar"
 	// FieldDepartmentID holds the string denoting the department_id field in the database.
 	FieldDepartmentID = "department_id"
+	// FieldLocale holds the string denoting the locale field in the database.
+	FieldLocale = "locale"
 	// EdgeDepartments holds the string denoting the departments edge name in mutations.
 	EdgeDepartments = "departments"
 	// EdgePositions holds the string denoting the positions edge name in mutations.
@@ -85,6 +87,7 @@ var Columns = []string{
 	FieldEmail,
 	FieldAvatar,
 	FieldDepartmentID,
+	FieldLocale,
 }
 
 var (
@@ -126,6 +129,10 @@ var (
 	DefaultHomePath string
 	// DefaultDepartmentID holds the default value on creation for the "department_id" field.
 	DefaultDepartmentID uint64
+	// DefaultLocale holds the default value on creation for the "locale" field.
+	DefaultLocale string
+	// LocaleValidator is a validator for the "locale" field. It is called by the builders before save.
+	LocaleValidator func(string) error
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )
@@ -201,6 +208,11 @@ func ByAvatar(opts ...sql.OrderTermOption) OrderOption {
 // ByDepartmentID orders the results by the department_id field.
 func ByDepartmentID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDepartmentID, opts...).ToFunc()
+}
+
+// ByLocale orders the results by the locale field.
+func ByLocale(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldLocale, opts...).ToFunc()
 }
 
 // ByDepartmentsField orders the results by departments field.

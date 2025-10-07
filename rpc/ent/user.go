@@ -46,6 +46,8 @@ type User struct {
 	Avatar string `json:"avatar,omitempty"`
 	// Department ID | 部门ID
 	DepartmentID uint64 `json:"department_id,omitempty"`
+	// User's preferred language | 使用者偏好語言: zh-CN, en, zh-TW
+	Locale *string `json:"locale,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the UserQuery when eager-loading is set.
 	Edges        UserEdges `json:"edges"`
@@ -101,7 +103,7 @@ func (*User) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case user.FieldStatus, user.FieldDepartmentID:
 			values[i] = new(sql.NullInt64)
-		case user.FieldUsername, user.FieldPassword, user.FieldNickname, user.FieldDescription, user.FieldHomePath, user.FieldMobile, user.FieldEmail, user.FieldAvatar:
+		case user.FieldUsername, user.FieldPassword, user.FieldNickname, user.FieldDescription, user.FieldHomePath, user.FieldMobile, user.FieldEmail, user.FieldAvatar, user.FieldLocale:
 			values[i] = new(sql.NullString)
 		case user.FieldCreatedAt, user.FieldUpdatedAt, user.FieldDeletedAt:
 			values[i] = new(sql.NullTime)
@@ -206,6 +208,13 @@ func (_m *User) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.DepartmentID = uint64(value.Int64)
 			}
+		case user.FieldLocale:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field locale", values[i])
+			} else if value.Valid {
+				_m.Locale = new(string)
+				*_m.Locale = value.String
+			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -295,6 +304,11 @@ func (_m *User) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("department_id=")
 	builder.WriteString(fmt.Sprintf("%v", _m.DepartmentID))
+	builder.WriteString(", ")
+	if v := _m.Locale; v != nil {
+		builder.WriteString("locale=")
+		builder.WriteString(*v)
+	}
 	builder.WriteByte(')')
 	return builder.String()
 }
