@@ -11,6 +11,7 @@ require (
 	github.com/larksuite/oapi-sdk-go/v3 v3.4.25
 	github.com/mojocn/base64Captcha v1.3.8
 	github.com/redis/go-redis/v9 v9.14.0
+	github.com/stretchr/testify v1.11.1
 	github.com/suyuan32/simple-admin-common v1.7.2
 	github.com/suyuan32/simple-admin-job v1.7.0
 	github.com/suyuan32/simple-admin-message-center v1.7.0
