@@ -30,3 +30,6 @@ core_rpc
 
 # VsCode debug files
 __debug*
+
+# Claude MCP config (may contain sensitive tokens)
+.claude/
