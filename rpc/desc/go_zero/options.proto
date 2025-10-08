@@ -1,0 +1,194 @@
+// Copyright 2025 simple-admin-core. All rights reserved.
+// Use of this source code is governed by an Apache-2.0 license
+// that can be found in the LICENSE file.
+
+// Package go_zero defines custom Protocol Buffer options for Go-Zero framework integration.
+// These options allow Proto services to specify Go-Zero specific features like:
+// - JWT authentication requirements
+// - Middleware configuration
+// - Route grouping
+// - API metadata
+//
+// Example usage:
+//   service UserService {
+//     option (go_zero.jwt) = "Auth";
+//     option (go_zero.middleware) = "Authority,RateLimit";
+//     option (go_zero.group) = "user";
+//
+//     rpc CreateUser(CreateUserReq) returns (UserResp) {
+//       option (google.api.http) = {
+//         post: "/user/create"
+//         body: "*"
+//       };
+//     }
+//   }
+
+syntax = "proto3";
+
+package go_zero;
+
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/chimerakang/simple-admin-core/rpc/types/go_zero";
+
+// Service-level options for Go-Zero API generation
+// These options apply to all methods in the service unless overridden at method level
+
+extend google.protobuf.ServiceOptions {
+  // JWT authentication configuration name (e.g., "Auth")
+  // If set, all methods in this service require JWT authentication
+  // Can be overridden per-method using (go_zero.public) = true
+  //
+  // Example:
+  //   option (go_zero.jwt) = "Auth";
+  string jwt = 50001;
+
+  // Comma-separated list of middleware to apply (e.g., "Authority,RateLimit")
+  // Middleware are applied in the order specified
+  // Can be overridden per-method
+  //
+  // Example:
+  //   option (go_zero.middleware) = "Authority,RateLimit";
+  string middleware = 50002;
+
+  // Route group name for API organization (e.g., "user", "admin")
+  // Defaults to lowercase service name if not specified
+  // Maps to Go-Zero @server(group: xxx)
+  //
+  // Example:
+  //   option (go_zero.group) = "user";
+  string group = 50003;
+
+  // Route prefix for all endpoints in this service (e.g., "/api/v1")
+  // Optional - if not set, no prefix is added
+  //
+  // Example:
+  //   option (go_zero.prefix) = "/api/v1";
+  string prefix = 50004;
+}
+
+// Method-level options for Go-Zero API generation
+// These options override service-level settings for specific methods
+
+extend google.protobuf.MethodOptions {
+  // Mark method as public (no JWT authentication required)
+  // Overrides service-level JWT requirement
+  // Use for endpoints like login, register, public info
+  //
+  // Example:
+  //   rpc Login(LoginReq) returns (LoginResp) {
+  //     option (google.api.http) = {post: "/user/login" body: "*"};
+  //     option (go_zero.public) = true;  // No JWT required
+  //   }
+  bool public = 50011;
+
+  // Method-specific middleware (overrides service-level middleware)
+  // Comma-separated list
+  //
+  // Example:
+  //   rpc UpdateUser(UpdateUserReq) returns (UpdateUserResp) {
+  //     option (google.api.http) = {post: "/user/update" body: "*"};
+  //     option (go_zero.method_middleware) = "Authority,RateLimit,Audit";
+  //   }
+  string method_middleware = 50012;
+}
+
+// File-level options for Go-Zero API generation
+
+extend google.protobuf.FileOptions {
+  // API metadata for info() section in .api file
+  // Contains documentation and versioning information
+  //
+  // Example:
+  //   option (go_zero.api_info) = {
+  //     title: "User Management API"
+  //     desc: "User CRUD and authentication endpoints"
+  //     author: "Ryan Su"
+  //     email: "yuansu.china.work@gmail.com"
+  //     version: "v1.0"
+  //   };
+  ApiInfo api_info = 50021;
+}
+
+// ApiInfo contains metadata for the generated .api file
+// Maps to Go-Zero info() block
+message ApiInfo {
+  // API title (e.g., "User Management API")
+  string title = 1;
+
+  // API description (e.g., "User CRUD and authentication endpoints")
+  string desc = 2;
+
+  // Author name (e.g., "Ryan Su")
+  string author = 3;
+
+  // Author email (e.g., "yuansu.china.work@gmail.com")
+  string email = 4;
+
+  // API version (e.g., "v1.0", "v2.1")
+  string version = 5;
+}
+
+// Field-level options (future extension)
+// Reserved for future use - not currently implemented
+
+extend google.protobuf.FieldOptions {
+  // Reserved for validation rules (e.g., required, min, max)
+  // Example: option (go_zero.validate) = "required,min=1,max=100";
+  string validate = 50031 [deprecated = true];
+}
+
+// Enum-level options (future extension)
+// Reserved for future use
+
+extend google.protobuf.EnumOptions {
+  // Reserved for enum display settings
+  string enum_display = 50041 [deprecated = true];
+}
+
+// Usage Notes:
+//
+// 1. Service-level options are inherited by all methods unless overridden
+// 2. Method-level options take precedence over service-level options
+// 3. Public endpoints (public=true) automatically remove JWT requirement
+// 4. Middleware can be specified at both service and method levels
+// 5. Group name defaults to lowercase service name if not specified
+// 6. ApiInfo is optional - if not specified, basic info will be generated
+//
+// Complete Example:
+//
+//   syntax = "proto3";
+//   package core.v1;
+//
+//   import "google/api/annotations.proto";
+//   import "go_zero/options.proto";
+//
+//   option (go_zero.api_info) = {
+//     title: "User Management API"
+//     desc: "User CRUD and authentication"
+//     author: "Ryan Su"
+//     version: "v1.0"
+//   };
+//
+//   service User {
+//     option (go_zero.jwt) = "Auth";
+//     option (go_zero.middleware) = "Authority";
+//     option (go_zero.group) = "user";
+//
+//     // Protected endpoint
+//     rpc CreateUser(CreateUserReq) returns (BaseIDResp) {
+//       option (google.api.http) = {post: "/user/create" body: "*"};
+//     }
+//
+//     // Public endpoint
+//     rpc Login(LoginReq) returns (LoginResp) {
+//       option (google.api.http) = {post: "/user/login" body: "*"};
+//       option (go_zero.public) = true;
+//     }
+//
+//     // Custom middleware
+//     rpc UpdateUser(UpdateUserReq) returns (BaseMsgResp) {
+//       option (google.api.http) = {post: "/user/update" body: "*"};
+//       option (go_zero.method_middleware) = "Authority,RateLimit,Audit";
+//     }
+//   }
