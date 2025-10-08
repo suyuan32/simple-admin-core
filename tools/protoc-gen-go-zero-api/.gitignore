@@ -1,0 +1,11 @@
+# Binaries
+protoc-gen-go-zero-api
+protoc-gen-go-zero-api.exe
+
+# Test outputs
+test/output/
+*.api.tmp
+
+# IDE
+.vscode/
+.idea/
