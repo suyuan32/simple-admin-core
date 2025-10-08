@@ -323,6 +323,8 @@
     "configurationList": "參數設定清單"
   },
   "route": {
+    "managementCenter": "管理中心",
+    "dashboard": "儀表板",
     "systemManagementTitle": "系統管理",
     "menuManagementTitle": "選單管理",
     "roleManagementTitle": "角色管理",
@@ -336,6 +338,8 @@
     "tokenManagement": "Token管理",
     "otherPages": "其他頁面",
     "positionManagement": "職位管理",
-    "taskManagement": "定時任務管理"
+    "taskManagement": "定時任務管理",
+    "departmentManagement": "部門管理",
+    "configurationManagement": "參數設定管理"
   }
 }
