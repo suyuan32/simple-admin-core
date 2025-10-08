@@ -153,6 +153,7 @@ var (
 		{Name: "permission", Type: field.TypeString, Nullable: true, Comment: "Permission symbol | 权限标识"},
 		{Name: "title", Type: field.TypeString, Comment: "Menu name | 菜单显示标题"},
 		{Name: "icon", Type: field.TypeString, Comment: "Menu icon | 菜单图标"},
+		{Name: "trans", Type: field.TypeString, Nullable: true, Comment: "i18n key for menu title | 菜单标题国际化key", Default: ""},
 		{Name: "hide_menu", Type: field.TypeBool, Nullable: true, Comment: "Hide menu | 是否隐藏菜单", Default: false},
 		{Name: "hide_breadcrumb", Type: field.TypeBool, Nullable: true, Comment: "Hide the breadcrumb | 隐藏面包屑", Default: false},
 		{Name: "ignore_keep_alive", Type: field.TypeBool, Nullable: true, Comment: "Do not keep alive the tab | 取消页面缓存", Default: false},
@@ -174,7 +175,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "sys_menus_sys_menus_children",
-				Columns:    []*schema.Column{SysMenusColumns[25]},
+				Columns:    []*schema.Column{SysMenusColumns[26]},
 				RefColumns: []*schema.Column{SysMenusColumns[0]},
 				OnDelete:   schema.SetNull,
 			},

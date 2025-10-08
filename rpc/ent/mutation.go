@@ -4583,6 +4583,7 @@ type MenuMutation struct {
 	permission            *string
 	title                 *string
 	icon                  *string
+	trans                 *string
 	hide_menu             *bool
 	hide_breadcrumb       *bool
 	ignore_keep_alive     *bool
@@ -5403,6 +5404,55 @@ func (m *MenuMutation) ResetIcon() {
 	m.icon = nil
 }
 
+// SetTrans sets the "trans" field.
+func (m *MenuMutation) SetTrans(s string) {
+	m.trans = &s
+}
+
+// Trans returns the value of the "trans" field in the mutation.
+func (m *MenuMutation) Trans() (r string, exists bool) {
+	v := m.trans
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTrans returns the old "trans" field's value of the Menu entity.
+// If the Menu object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MenuMutation) OldTrans(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTrans is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTrans requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTrans: %w", err)
+	}
+	return oldValue.Trans, nil
+}
+
+// ClearTrans clears the value of the "trans" field.
+func (m *MenuMutation) ClearTrans() {
+	m.trans = nil
+	m.clearedFields[menu.FieldTrans] = struct{}{}
+}
+
+// TransCleared returns if the "trans" field was cleared in this mutation.
+func (m *MenuMutation) TransCleared() bool {
+	_, ok := m.clearedFields[menu.FieldTrans]
+	return ok
+}
+
+// ResetTrans resets all changes to the "trans" field.
+func (m *MenuMutation) ResetTrans() {
+	m.trans = nil
+	delete(m.clearedFields, menu.FieldTrans)
+}
+
 // SetHideMenu sets the "hide_menu" field.
 func (m *MenuMutation) SetHideMenu(b bool) {
 	m.hide_menu = &b
@@ -6083,7 +6133,7 @@ func (m *MenuMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *MenuMutation) Fields() []string {
-	fields := make([]string, 0, 25)
+	fields := make([]string, 0, 26)
 	if m.created_at != nil {
 		fields = append(fields, menu.FieldCreatedAt)
 	}
@@ -6128,6 +6178,9 @@ func (m *MenuMutation) Fields() []string {
 	}
 	if m.icon != nil {
 		fields = append(fields, menu.FieldIcon)
+	}
+	if m.trans != nil {
+		fields = append(fields, menu.FieldTrans)
 	}
 	if m.hide_menu != nil {
 		fields = append(fields, menu.FieldHideMenu)
@@ -6197,6 +6250,8 @@ func (m *MenuMutation) Field(name string) (ent.Value, bool) {
 		return m.Title()
 	case menu.FieldIcon:
 		return m.Icon()
+	case menu.FieldTrans:
+		return m.Trans()
 	case menu.FieldHideMenu:
 		return m.HideMenu()
 	case menu.FieldHideBreadcrumb:
@@ -6256,6 +6311,8 @@ func (m *MenuMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldTitle(ctx)
 	case menu.FieldIcon:
 		return m.OldIcon(ctx)
+	case menu.FieldTrans:
+		return m.OldTrans(ctx)
 	case menu.FieldHideMenu:
 		return m.OldHideMenu(ctx)
 	case menu.FieldHideBreadcrumb:
@@ -6389,6 +6446,13 @@ func (m *MenuMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetIcon(v)
+		return nil
+	case menu.FieldTrans:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTrans(v)
 		return nil
 	case menu.FieldHideMenu:
 		v, ok := value.(bool)
@@ -6562,6 +6626,9 @@ func (m *MenuMutation) ClearedFields() []string {
 	if m.FieldCleared(menu.FieldPermission) {
 		fields = append(fields, menu.FieldPermission)
 	}
+	if m.FieldCleared(menu.FieldTrans) {
+		fields = append(fields, menu.FieldTrans)
+	}
 	if m.FieldCleared(menu.FieldHideMenu) {
 		fields = append(fields, menu.FieldHideMenu)
 	}
@@ -6626,6 +6693,9 @@ func (m *MenuMutation) ClearField(name string) error {
 		return nil
 	case menu.FieldPermission:
 		m.ClearPermission()
+		return nil
+	case menu.FieldTrans:
+		m.ClearTrans()
 		return nil
 	case menu.FieldHideMenu:
 		m.ClearHideMenu()
@@ -6709,6 +6779,9 @@ func (m *MenuMutation) ResetField(name string) error {
 		return nil
 	case menu.FieldIcon:
 		m.ResetIcon()
+		return nil
+	case menu.FieldTrans:
+		m.ResetTrans()
 		return nil
 	case menu.FieldHideMenu:
 		m.ResetHideMenu()

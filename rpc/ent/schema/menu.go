@@ -43,6 +43,8 @@ func (Menu) Fields() []ent.Field {
 			Comment("Menu name | 菜单显示标题"),
 		field.String("icon").
 			Comment("Menu icon | 菜单图标"),
+		field.String("trans").Optional().Default("").
+			Comment("i18n key for menu title | 菜单标题国际化key"),
 		field.Bool("hide_menu").Optional().Default(false).
 			Comment("Hide menu | 是否隐藏菜单"),
 		field.Bool("hide_breadcrumb").Optional().Default(false).

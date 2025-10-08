@@ -21,9 +21,8 @@ import (
 // RoleUpdate is the builder for updating Role entities.
 type RoleUpdate struct {
 	config
-	hooks     []Hook
-	mutation  *RoleMutation
-	modifiers []func(*sql.UpdateBuilder)
+	hooks    []Hook
+	mutation *RoleMutation
 }
 
 // Where appends a list predicates to the RoleUpdate builder.
@@ -241,12 +240,6 @@ func (_u *RoleUpdate) defaults() {
 	}
 }
 
-// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *RoleUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *RoleUpdate {
-	_u.modifiers = append(_u.modifiers, modifiers...)
-	return _u
-}
-
 func (_u *RoleUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(role.Table, role.Columns, sqlgraph.NewFieldSpec(role.FieldID, field.TypeUint64))
 	if ps := _u.mutation.predicates; len(ps) > 0 {
@@ -373,7 +366,6 @@ func (_u *RoleUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_spec.AddModifiers(_u.modifiers...)
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{role.Label}
@@ -389,10 +381,9 @@ func (_u *RoleUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 // RoleUpdateOne is the builder for updating a single Role entity.
 type RoleUpdateOne struct {
 	config
-	fields    []string
-	hooks     []Hook
-	mutation  *RoleMutation
-	modifiers []func(*sql.UpdateBuilder)
+	fields   []string
+	hooks    []Hook
+	mutation *RoleMutation
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -617,12 +608,6 @@ func (_u *RoleUpdateOne) defaults() {
 	}
 }
 
-// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *RoleUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *RoleUpdateOne {
-	_u.modifiers = append(_u.modifiers, modifiers...)
-	return _u
-}
-
 func (_u *RoleUpdateOne) sqlSave(ctx context.Context) (_node *Role, err error) {
 	_spec := sqlgraph.NewUpdateSpec(role.Table, role.Columns, sqlgraph.NewFieldSpec(role.FieldID, field.TypeUint64))
 	id, ok := _u.mutation.ID()
@@ -766,7 +751,6 @@ func (_u *RoleUpdateOne) sqlSave(ctx context.Context) (_node *Role, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_spec.AddModifiers(_u.modifiers...)
 	_node = &Role{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

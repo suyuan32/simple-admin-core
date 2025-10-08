@@ -20,9 +20,8 @@ import (
 // PositionUpdate is the builder for updating Position entities.
 type PositionUpdate struct {
 	config
-	hooks     []Hook
-	mutation  *PositionMutation
-	modifiers []func(*sql.UpdateBuilder)
+	hooks    []Hook
+	mutation *PositionMutation
 }
 
 // Where appends a list predicates to the PositionUpdate builder.
@@ -210,12 +209,6 @@ func (_u *PositionUpdate) defaults() {
 	}
 }
 
-// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *PositionUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *PositionUpdate {
-	_u.modifiers = append(_u.modifiers, modifiers...)
-	return _u
-}
-
 func (_u *PositionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(position.Table, position.Columns, sqlgraph.NewFieldSpec(position.FieldID, field.TypeUint64))
 	if ps := _u.mutation.predicates; len(ps) > 0 {
@@ -300,7 +293,6 @@ func (_u *PositionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_spec.AddModifiers(_u.modifiers...)
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{position.Label}
@@ -316,10 +308,9 @@ func (_u *PositionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 // PositionUpdateOne is the builder for updating a single Position entity.
 type PositionUpdateOne struct {
 	config
-	fields    []string
-	hooks     []Hook
-	mutation  *PositionMutation
-	modifiers []func(*sql.UpdateBuilder)
+	fields   []string
+	hooks    []Hook
+	mutation *PositionMutation
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -514,12 +505,6 @@ func (_u *PositionUpdateOne) defaults() {
 	}
 }
 
-// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *PositionUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *PositionUpdateOne {
-	_u.modifiers = append(_u.modifiers, modifiers...)
-	return _u
-}
-
 func (_u *PositionUpdateOne) sqlSave(ctx context.Context) (_node *Position, err error) {
 	_spec := sqlgraph.NewUpdateSpec(position.Table, position.Columns, sqlgraph.NewFieldSpec(position.FieldID, field.TypeUint64))
 	id, ok := _u.mutation.ID()
@@ -621,7 +606,6 @@ func (_u *PositionUpdateOne) sqlSave(ctx context.Context) (_node *Position, err 
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_spec.AddModifiers(_u.modifiers...)
 	_node = &Position{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

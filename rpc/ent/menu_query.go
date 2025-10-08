@@ -27,7 +27,6 @@ type MenuQuery struct {
 	withRoles    *RoleQuery
 	withParent   *MenuQuery
 	withChildren *MenuQuery
-	modifiers    []func(*sql.Selector)
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -326,9 +325,8 @@ func (_q *MenuQuery) Clone() *MenuQuery {
 		withParent:   _q.withParent.Clone(),
 		withChildren: _q.withChildren.Clone(),
 		// clone intermediate query.
-		sql:       _q.sql.Clone(),
-		path:      _q.path,
-		modifiers: append([]func(*sql.Selector){}, _q.modifiers...),
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
@@ -457,9 +455,6 @@ func (_q *MenuQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Menu, e
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
-	}
-	if len(_q.modifiers) > 0 {
-		_spec.Modifiers = _q.modifiers
 	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
@@ -616,9 +611,6 @@ func (_q *MenuQuery) loadChildren(ctx context.Context, query *MenuQuery, nodes [
 
 func (_q *MenuQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := _q.querySpec()
-	if len(_q.modifiers) > 0 {
-		_spec.Modifiers = _q.modifiers
-	}
 	_spec.Node.Columns = _q.ctx.Fields
 	if len(_q.ctx.Fields) > 0 {
 		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
@@ -684,9 +676,6 @@ func (_q *MenuQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, m := range _q.modifiers {
-		m(selector)
-	}
 	for _, p := range _q.predicates {
 		p(selector)
 	}
@@ -702,12 +691,6 @@ func (_q *MenuQuery) sqlQuery(ctx context.Context) *sql.Selector {
 		selector.Limit(*limit)
 	}
 	return selector
-}
-
-// Modify adds a query modifier for attaching custom logic to queries.
-func (_q *MenuQuery) Modify(modifiers ...func(s *sql.Selector)) *MenuSelect {
-	_q.modifiers = append(_q.modifiers, modifiers...)
-	return _q.Select()
 }
 
 // MenuGroupBy is the group-by builder for Menu entities.
@@ -798,10 +781,4 @@ func (_s *MenuSelect) sqlScan(ctx context.Context, root *MenuQuery, v any) error
 	}
 	defer rows.Close()
 	return sql.ScanSlice(rows, v)
-}
-
-// Modify adds a query modifier for attaching custom logic to queries.
-func (_s *MenuSelect) Modify(modifiers ...func(s *sql.Selector)) *MenuSelect {
-	_s.modifiers = append(_s.modifiers, modifiers...)
-	return _s
 }

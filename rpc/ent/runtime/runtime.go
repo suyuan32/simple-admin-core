@@ -202,44 +202,48 @@ func init() {
 	menuDescServiceName := menuFields[8].Descriptor()
 	// menu.DefaultServiceName holds the default value on creation for the service_name field.
 	menu.DefaultServiceName = menuDescServiceName.Default.(string)
+	// menuDescTrans is the schema descriptor for trans field.
+	menuDescTrans := menuFields[12].Descriptor()
+	// menu.DefaultTrans holds the default value on creation for the trans field.
+	menu.DefaultTrans = menuDescTrans.Default.(string)
 	// menuDescHideMenu is the schema descriptor for hide_menu field.
-	menuDescHideMenu := menuFields[12].Descriptor()
+	menuDescHideMenu := menuFields[13].Descriptor()
 	// menu.DefaultHideMenu holds the default value on creation for the hide_menu field.
 	menu.DefaultHideMenu = menuDescHideMenu.Default.(bool)
 	// menuDescHideBreadcrumb is the schema descriptor for hide_breadcrumb field.
-	menuDescHideBreadcrumb := menuFields[13].Descriptor()
+	menuDescHideBreadcrumb := menuFields[14].Descriptor()
 	// menu.DefaultHideBreadcrumb holds the default value on creation for the hide_breadcrumb field.
 	menu.DefaultHideBreadcrumb = menuDescHideBreadcrumb.Default.(bool)
 	// menuDescIgnoreKeepAlive is the schema descriptor for ignore_keep_alive field.
-	menuDescIgnoreKeepAlive := menuFields[14].Descriptor()
+	menuDescIgnoreKeepAlive := menuFields[15].Descriptor()
 	// menu.DefaultIgnoreKeepAlive holds the default value on creation for the ignore_keep_alive field.
 	menu.DefaultIgnoreKeepAlive = menuDescIgnoreKeepAlive.Default.(bool)
 	// menuDescHideTab is the schema descriptor for hide_tab field.
-	menuDescHideTab := menuFields[15].Descriptor()
+	menuDescHideTab := menuFields[16].Descriptor()
 	// menu.DefaultHideTab holds the default value on creation for the hide_tab field.
 	menu.DefaultHideTab = menuDescHideTab.Default.(bool)
 	// menuDescFrameSrc is the schema descriptor for frame_src field.
-	menuDescFrameSrc := menuFields[16].Descriptor()
+	menuDescFrameSrc := menuFields[17].Descriptor()
 	// menu.DefaultFrameSrc holds the default value on creation for the frame_src field.
 	menu.DefaultFrameSrc = menuDescFrameSrc.Default.(string)
 	// menuDescCarryParam is the schema descriptor for carry_param field.
-	menuDescCarryParam := menuFields[17].Descriptor()
+	menuDescCarryParam := menuFields[18].Descriptor()
 	// menu.DefaultCarryParam holds the default value on creation for the carry_param field.
 	menu.DefaultCarryParam = menuDescCarryParam.Default.(bool)
 	// menuDescHideChildrenInMenu is the schema descriptor for hide_children_in_menu field.
-	menuDescHideChildrenInMenu := menuFields[18].Descriptor()
+	menuDescHideChildrenInMenu := menuFields[19].Descriptor()
 	// menu.DefaultHideChildrenInMenu holds the default value on creation for the hide_children_in_menu field.
 	menu.DefaultHideChildrenInMenu = menuDescHideChildrenInMenu.Default.(bool)
 	// menuDescAffix is the schema descriptor for affix field.
-	menuDescAffix := menuFields[19].Descriptor()
+	menuDescAffix := menuFields[20].Descriptor()
 	// menu.DefaultAffix holds the default value on creation for the affix field.
 	menu.DefaultAffix = menuDescAffix.Default.(bool)
 	// menuDescDynamicLevel is the schema descriptor for dynamic_level field.
-	menuDescDynamicLevel := menuFields[20].Descriptor()
+	menuDescDynamicLevel := menuFields[21].Descriptor()
 	// menu.DefaultDynamicLevel holds the default value on creation for the dynamic_level field.
 	menu.DefaultDynamicLevel = menuDescDynamicLevel.Default.(uint32)
 	// menuDescRealPath is the schema descriptor for real_path field.
-	menuDescRealPath := menuFields[21].Descriptor()
+	menuDescRealPath := menuFields[22].Descriptor()
 	// menu.DefaultRealPath holds the default value on creation for the real_path field.
 	menu.DefaultRealPath = menuDescRealPath.Default.(string)
 	oauthproviderMixin := schema.OauthProvider{}.Mixin()

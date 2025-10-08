@@ -130,6 +130,11 @@ func Icon(v string) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldIcon, v))
 }
 
+// Trans applies equality check predicate on the "trans" field. It's identical to TransEQ.
+func Trans(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldTrans, v))
+}
+
 // HideMenu applies equality check predicate on the "hide_menu" field. It's identical to HideMenuEQ.
 func HideMenu(v bool) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldHideMenu, v))
@@ -998,6 +1003,81 @@ func IconEqualFold(v string) predicate.Menu {
 // IconContainsFold applies the ContainsFold predicate on the "icon" field.
 func IconContainsFold(v string) predicate.Menu {
 	return predicate.Menu(sql.FieldContainsFold(FieldIcon, v))
+}
+
+// TransEQ applies the EQ predicate on the "trans" field.
+func TransEQ(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldTrans, v))
+}
+
+// TransNEQ applies the NEQ predicate on the "trans" field.
+func TransNEQ(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldNEQ(FieldTrans, v))
+}
+
+// TransIn applies the In predicate on the "trans" field.
+func TransIn(vs ...string) predicate.Menu {
+	return predicate.Menu(sql.FieldIn(FieldTrans, vs...))
+}
+
+// TransNotIn applies the NotIn predicate on the "trans" field.
+func TransNotIn(vs ...string) predicate.Menu {
+	return predicate.Menu(sql.FieldNotIn(FieldTrans, vs...))
+}
+
+// TransGT applies the GT predicate on the "trans" field.
+func TransGT(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldGT(FieldTrans, v))
+}
+
+// TransGTE applies the GTE predicate on the "trans" field.
+func TransGTE(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldGTE(FieldTrans, v))
+}
+
+// TransLT applies the LT predicate on the "trans" field.
+func TransLT(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldLT(FieldTrans, v))
+}
+
+// TransLTE applies the LTE predicate on the "trans" field.
+func TransLTE(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldLTE(FieldTrans, v))
+}
+
+// TransContains applies the Contains predicate on the "trans" field.
+func TransContains(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldContains(FieldTrans, v))
+}
+
+// TransHasPrefix applies the HasPrefix predicate on the "trans" field.
+func TransHasPrefix(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldHasPrefix(FieldTrans, v))
+}
+
+// TransHasSuffix applies the HasSuffix predicate on the "trans" field.
+func TransHasSuffix(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldHasSuffix(FieldTrans, v))
+}
+
+// TransIsNil applies the IsNil predicate on the "trans" field.
+func TransIsNil() predicate.Menu {
+	return predicate.Menu(sql.FieldIsNull(FieldTrans))
+}
+
+// TransNotNil applies the NotNil predicate on the "trans" field.
+func TransNotNil() predicate.Menu {
+	return predicate.Menu(sql.FieldNotNull(FieldTrans))
+}
+
+// TransEqualFold applies the EqualFold predicate on the "trans" field.
+func TransEqualFold(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldEqualFold(FieldTrans, v))
+}
+
+// TransContainsFold applies the ContainsFold predicate on the "trans" field.
+func TransContainsFold(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldContainsFold(FieldTrans, v))
 }
 
 // HideMenuEQ applies the EQ predicate on the "hide_menu" field.

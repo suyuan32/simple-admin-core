@@ -47,6 +47,8 @@ type Menu struct {
 	Title string `json:"title,omitempty"`
 	// Menu icon | 菜单图标
 	Icon string `json:"icon,omitempty"`
+	// i18n key for menu title | 菜单标题国际化key
+	Trans string `json:"trans,omitempty"`
 	// Hide menu | 是否隐藏菜单
 	HideMenu bool `json:"hide_menu,omitempty"`
 	// Hide the breadcrumb | 隐藏面包屑
@@ -124,7 +126,7 @@ func (*Menu) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullBool)
 		case menu.FieldID, menu.FieldSort, menu.FieldParentID, menu.FieldMenuLevel, menu.FieldMenuType, menu.FieldDynamicLevel:
 			values[i] = new(sql.NullInt64)
-		case menu.FieldPath, menu.FieldName, menu.FieldRedirect, menu.FieldComponent, menu.FieldServiceName, menu.FieldPermission, menu.FieldTitle, menu.FieldIcon, menu.FieldFrameSrc, menu.FieldRealPath:
+		case menu.FieldPath, menu.FieldName, menu.FieldRedirect, menu.FieldComponent, menu.FieldServiceName, menu.FieldPermission, menu.FieldTitle, menu.FieldIcon, menu.FieldTrans, menu.FieldFrameSrc, menu.FieldRealPath:
 			values[i] = new(sql.NullString)
 		case menu.FieldCreatedAt, menu.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -238,6 +240,12 @@ func (_m *Menu) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field icon", values[i])
 			} else if value.Valid {
 				_m.Icon = value.String
+			}
+		case menu.FieldTrans:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field trans", values[i])
+			} else if value.Valid {
+				_m.Trans = value.String
 			}
 		case menu.FieldHideMenu:
 			if value, ok := values[i].(*sql.NullBool); !ok {
@@ -394,6 +402,9 @@ func (_m *Menu) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("icon=")
 	builder.WriteString(_m.Icon)
+	builder.WriteString(", ")
+	builder.WriteString("trans=")
+	builder.WriteString(_m.Trans)
 	builder.WriteString(", ")
 	builder.WriteString("hide_menu=")
 	builder.WriteString(fmt.Sprintf("%v", _m.HideMenu))

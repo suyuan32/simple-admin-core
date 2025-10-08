@@ -18,9 +18,8 @@ import (
 // ConfigurationUpdate is the builder for updating Configuration entities.
 type ConfigurationUpdate struct {
 	config
-	hooks     []Hook
-	mutation  *ConfigurationMutation
-	modifiers []func(*sql.UpdateBuilder)
+	hooks    []Hook
+	mutation *ConfigurationMutation
 }
 
 // Where appends a list predicates to the ConfigurationUpdate builder.
@@ -193,12 +192,6 @@ func (_u *ConfigurationUpdate) defaults() {
 	}
 }
 
-// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *ConfigurationUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ConfigurationUpdate {
-	_u.modifiers = append(_u.modifiers, modifiers...)
-	return _u
-}
-
 func (_u *ConfigurationUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(configuration.Table, configuration.Columns, sqlgraph.NewFieldSpec(configuration.FieldID, field.TypeUint64))
 	if ps := _u.mutation.predicates; len(ps) > 0 {
@@ -241,7 +234,6 @@ func (_u *ConfigurationUpdate) sqlSave(ctx context.Context) (_node int, err erro
 	if _u.mutation.RemarkCleared() {
 		_spec.ClearField(configuration.FieldRemark, field.TypeString)
 	}
-	_spec.AddModifiers(_u.modifiers...)
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{configuration.Label}
@@ -257,10 +249,9 @@ func (_u *ConfigurationUpdate) sqlSave(ctx context.Context) (_node int, err erro
 // ConfigurationUpdateOne is the builder for updating a single Configuration entity.
 type ConfigurationUpdateOne struct {
 	config
-	fields    []string
-	hooks     []Hook
-	mutation  *ConfigurationMutation
-	modifiers []func(*sql.UpdateBuilder)
+	fields   []string
+	hooks    []Hook
+	mutation *ConfigurationMutation
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -440,12 +431,6 @@ func (_u *ConfigurationUpdateOne) defaults() {
 	}
 }
 
-// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *ConfigurationUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ConfigurationUpdateOne {
-	_u.modifiers = append(_u.modifiers, modifiers...)
-	return _u
-}
-
 func (_u *ConfigurationUpdateOne) sqlSave(ctx context.Context) (_node *Configuration, err error) {
 	_spec := sqlgraph.NewUpdateSpec(configuration.Table, configuration.Columns, sqlgraph.NewFieldSpec(configuration.FieldID, field.TypeUint64))
 	id, ok := _u.mutation.ID()
@@ -505,7 +490,6 @@ func (_u *ConfigurationUpdateOne) sqlSave(ctx context.Context) (_node *Configura
 	if _u.mutation.RemarkCleared() {
 		_spec.ClearField(configuration.FieldRemark, field.TypeString)
 	}
-	_spec.AddModifiers(_u.modifiers...)
 	_node = &Configuration{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

@@ -19,9 +19,8 @@ import (
 // MenuUpdate is the builder for updating Menu entities.
 type MenuUpdate struct {
 	config
-	hooks     []Hook
-	mutation  *MenuMutation
-	modifiers []func(*sql.UpdateBuilder)
+	hooks    []Hook
+	mutation *MenuMutation
 }
 
 // Where appends a list predicates to the MenuUpdate builder.
@@ -278,6 +277,26 @@ func (_u *MenuUpdate) SetNillableIcon(v *string) *MenuUpdate {
 	if v != nil {
 		_u.SetIcon(*v)
 	}
+	return _u
+}
+
+// SetTrans sets the "trans" field.
+func (_u *MenuUpdate) SetTrans(v string) *MenuUpdate {
+	_u.mutation.SetTrans(v)
+	return _u
+}
+
+// SetNillableTrans sets the "trans" field if the given value is not nil.
+func (_u *MenuUpdate) SetNillableTrans(v *string) *MenuUpdate {
+	if v != nil {
+		_u.SetTrans(*v)
+	}
+	return _u
+}
+
+// ClearTrans clears the value of the "trans" field.
+func (_u *MenuUpdate) ClearTrans() *MenuUpdate {
+	_u.mutation.ClearTrans()
 	return _u
 }
 
@@ -612,12 +631,6 @@ func (_u *MenuUpdate) defaults() {
 	}
 }
 
-// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *MenuUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *MenuUpdate {
-	_u.modifiers = append(_u.modifiers, modifiers...)
-	return _u
-}
-
 func (_u *MenuUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(menu.Table, menu.Columns, sqlgraph.NewFieldSpec(menu.FieldID, field.TypeUint64))
 	if ps := _u.mutation.predicates; len(ps) > 0 {
@@ -692,6 +705,12 @@ func (_u *MenuUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.Icon(); ok {
 		_spec.SetField(menu.FieldIcon, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Trans(); ok {
+		_spec.SetField(menu.FieldTrans, field.TypeString, value)
+	}
+	if _u.mutation.TransCleared() {
+		_spec.ClearField(menu.FieldTrans, field.TypeString)
 	}
 	if value, ok := _u.mutation.HideMenu(); ok {
 		_spec.SetField(menu.FieldHideMenu, field.TypeBool, value)
@@ -875,7 +894,6 @@ func (_u *MenuUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_spec.AddModifiers(_u.modifiers...)
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{menu.Label}
@@ -891,10 +909,9 @@ func (_u *MenuUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 // MenuUpdateOne is the builder for updating a single Menu entity.
 type MenuUpdateOne struct {
 	config
-	fields    []string
-	hooks     []Hook
-	mutation  *MenuMutation
-	modifiers []func(*sql.UpdateBuilder)
+	fields   []string
+	hooks    []Hook
+	mutation *MenuMutation
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -1145,6 +1162,26 @@ func (_u *MenuUpdateOne) SetNillableIcon(v *string) *MenuUpdateOne {
 	if v != nil {
 		_u.SetIcon(*v)
 	}
+	return _u
+}
+
+// SetTrans sets the "trans" field.
+func (_u *MenuUpdateOne) SetTrans(v string) *MenuUpdateOne {
+	_u.mutation.SetTrans(v)
+	return _u
+}
+
+// SetNillableTrans sets the "trans" field if the given value is not nil.
+func (_u *MenuUpdateOne) SetNillableTrans(v *string) *MenuUpdateOne {
+	if v != nil {
+		_u.SetTrans(*v)
+	}
+	return _u
+}
+
+// ClearTrans clears the value of the "trans" field.
+func (_u *MenuUpdateOne) ClearTrans() *MenuUpdateOne {
+	_u.mutation.ClearTrans()
 	return _u
 }
 
@@ -1492,12 +1529,6 @@ func (_u *MenuUpdateOne) defaults() {
 	}
 }
 
-// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *MenuUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *MenuUpdateOne {
-	_u.modifiers = append(_u.modifiers, modifiers...)
-	return _u
-}
-
 func (_u *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) {
 	_spec := sqlgraph.NewUpdateSpec(menu.Table, menu.Columns, sqlgraph.NewFieldSpec(menu.FieldID, field.TypeUint64))
 	id, ok := _u.mutation.ID()
@@ -1589,6 +1620,12 @@ func (_u *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) {
 	}
 	if value, ok := _u.mutation.Icon(); ok {
 		_spec.SetField(menu.FieldIcon, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Trans(); ok {
+		_spec.SetField(menu.FieldTrans, field.TypeString, value)
+	}
+	if _u.mutation.TransCleared() {
+		_spec.ClearField(menu.FieldTrans, field.TypeString)
 	}
 	if value, ok := _u.mutation.HideMenu(); ok {
 		_spec.SetField(menu.FieldHideMenu, field.TypeBool, value)
@@ -1772,7 +1809,6 @@ func (_u *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_spec.AddModifiers(_u.modifiers...)
 	_node = &Menu{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

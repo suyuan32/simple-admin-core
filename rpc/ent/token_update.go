@@ -19,9 +19,8 @@ import (
 // TokenUpdate is the builder for updating Token entities.
 type TokenUpdate struct {
 	config
-	hooks     []Hook
-	mutation  *TokenMutation
-	modifiers []func(*sql.UpdateBuilder)
+	hooks    []Hook
+	mutation *TokenMutation
 }
 
 // Where appends a list predicates to the TokenUpdate builder.
@@ -174,12 +173,6 @@ func (_u *TokenUpdate) defaults() {
 	}
 }
 
-// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *TokenUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *TokenUpdate {
-	_u.modifiers = append(_u.modifiers, modifiers...)
-	return _u
-}
-
 func (_u *TokenUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(token.Table, token.Columns, sqlgraph.NewFieldSpec(token.FieldID, field.TypeUUID))
 	if ps := _u.mutation.predicates; len(ps) > 0 {
@@ -216,7 +209,6 @@ func (_u *TokenUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.ExpiredAt(); ok {
 		_spec.SetField(token.FieldExpiredAt, field.TypeTime, value)
 	}
-	_spec.AddModifiers(_u.modifiers...)
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{token.Label}
@@ -232,10 +224,9 @@ func (_u *TokenUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 // TokenUpdateOne is the builder for updating a single Token entity.
 type TokenUpdateOne struct {
 	config
-	fields    []string
-	hooks     []Hook
-	mutation  *TokenMutation
-	modifiers []func(*sql.UpdateBuilder)
+	fields   []string
+	hooks    []Hook
+	mutation *TokenMutation
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -395,12 +386,6 @@ func (_u *TokenUpdateOne) defaults() {
 	}
 }
 
-// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *TokenUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *TokenUpdateOne {
-	_u.modifiers = append(_u.modifiers, modifiers...)
-	return _u
-}
-
 func (_u *TokenUpdateOne) sqlSave(ctx context.Context) (_node *Token, err error) {
 	_spec := sqlgraph.NewUpdateSpec(token.Table, token.Columns, sqlgraph.NewFieldSpec(token.FieldID, field.TypeUUID))
 	id, ok := _u.mutation.ID()
@@ -454,7 +439,6 @@ func (_u *TokenUpdateOne) sqlSave(ctx context.Context) (_node *Token, err error)
 	if value, ok := _u.mutation.ExpiredAt(); ok {
 		_spec.SetField(token.FieldExpiredAt, field.TypeTime, value)
 	}
-	_spec.AddModifiers(_u.modifiers...)
 	_node = &Token{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

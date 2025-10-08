@@ -44,6 +44,8 @@ const (
 	FieldTitle = "title"
 	// FieldIcon holds the string denoting the icon field in the database.
 	FieldIcon = "icon"
+	// FieldTrans holds the string denoting the trans field in the database.
+	FieldTrans = "trans"
 	// FieldHideMenu holds the string denoting the hide_menu field in the database.
 	FieldHideMenu = "hide_menu"
 	// FieldHideBreadcrumb holds the string denoting the hide_breadcrumb field in the database.
@@ -105,6 +107,7 @@ var Columns = []string{
 	FieldPermission,
 	FieldTitle,
 	FieldIcon,
+	FieldTrans,
 	FieldHideMenu,
 	FieldHideBreadcrumb,
 	FieldIgnoreKeepAlive,
@@ -154,6 +157,8 @@ var (
 	DefaultDisabled bool
 	// DefaultServiceName holds the default value on creation for the "service_name" field.
 	DefaultServiceName string
+	// DefaultTrans holds the default value on creation for the "trans" field.
+	DefaultTrans string
 	// DefaultHideMenu holds the default value on creation for the "hide_menu" field.
 	DefaultHideMenu bool
 	// DefaultHideBreadcrumb holds the default value on creation for the "hide_breadcrumb" field.
@@ -257,6 +262,11 @@ func ByTitle(opts ...sql.OrderTermOption) OrderOption {
 // ByIcon orders the results by the icon field.
 func ByIcon(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldIcon, opts...).ToFunc()
+}
+
+// ByTrans orders the results by the trans field.
+func ByTrans(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldTrans, opts...).ToFunc()
 }
 
 // ByHideMenu orders the results by the hide_menu field.

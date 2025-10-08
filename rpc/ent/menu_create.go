@@ -191,6 +191,20 @@ func (_c *MenuCreate) SetIcon(v string) *MenuCreate {
 	return _c
 }
 
+// SetTrans sets the "trans" field.
+func (_c *MenuCreate) SetTrans(v string) *MenuCreate {
+	_c.mutation.SetTrans(v)
+	return _c
+}
+
+// SetNillableTrans sets the "trans" field if the given value is not nil.
+func (_c *MenuCreate) SetNillableTrans(v *string) *MenuCreate {
+	if v != nil {
+		_c.SetTrans(*v)
+	}
+	return _c
+}
+
 // SetHideMenu sets the "hide_menu" field.
 func (_c *MenuCreate) SetHideMenu(v bool) *MenuCreate {
 	_c.mutation.SetHideMenu(v)
@@ -443,6 +457,10 @@ func (_c *MenuCreate) defaults() {
 		v := menu.DefaultServiceName
 		_c.mutation.SetServiceName(v)
 	}
+	if _, ok := _c.mutation.Trans(); !ok {
+		v := menu.DefaultTrans
+		_c.mutation.SetTrans(v)
+	}
 	if _, ok := _c.mutation.HideMenu(); !ok {
 		v := menu.DefaultHideMenu
 		_c.mutation.SetHideMenu(v)
@@ -598,6 +616,10 @@ func (_c *MenuCreate) createSpec() (*Menu, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.Icon(); ok {
 		_spec.SetField(menu.FieldIcon, field.TypeString, value)
 		_node.Icon = value
+	}
+	if value, ok := _c.mutation.Trans(); ok {
+		_spec.SetField(menu.FieldTrans, field.TypeString, value)
+		_node.Trans = value
 	}
 	if value, ok := _c.mutation.HideMenu(); ok {
 		_spec.SetField(menu.FieldHideMenu, field.TypeBool, value)

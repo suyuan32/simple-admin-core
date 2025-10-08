@@ -20,9 +20,8 @@ import (
 // DepartmentUpdate is the builder for updating Department entities.
 type DepartmentUpdate struct {
 	config
-	hooks     []Hook
-	mutation  *DepartmentMutation
-	modifiers []func(*sql.UpdateBuilder)
+	hooks    []Hook
+	mutation *DepartmentMutation
 }
 
 // Where appends a list predicates to the DepartmentUpdate builder.
@@ -343,12 +342,6 @@ func (_u *DepartmentUpdate) defaults() {
 	}
 }
 
-// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *DepartmentUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DepartmentUpdate {
-	_u.modifiers = append(_u.modifiers, modifiers...)
-	return _u
-}
-
 func (_u *DepartmentUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(department.Table, department.Columns, sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64))
 	if ps := _u.mutation.predicates; len(ps) > 0 {
@@ -528,7 +521,6 @@ func (_u *DepartmentUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_spec.AddModifiers(_u.modifiers...)
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{department.Label}
@@ -544,10 +536,9 @@ func (_u *DepartmentUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 // DepartmentUpdateOne is the builder for updating a single Department entity.
 type DepartmentUpdateOne struct {
 	config
-	fields    []string
-	hooks     []Hook
-	mutation  *DepartmentMutation
-	modifiers []func(*sql.UpdateBuilder)
+	fields   []string
+	hooks    []Hook
+	mutation *DepartmentMutation
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -875,12 +866,6 @@ func (_u *DepartmentUpdateOne) defaults() {
 	}
 }
 
-// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
-func (_u *DepartmentUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DepartmentUpdateOne {
-	_u.modifiers = append(_u.modifiers, modifiers...)
-	return _u
-}
-
 func (_u *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department, err error) {
 	_spec := sqlgraph.NewUpdateSpec(department.Table, department.Columns, sqlgraph.NewFieldSpec(department.FieldID, field.TypeUint64))
 	id, ok := _u.mutation.ID()
@@ -1077,7 +1062,6 @@ func (_u *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department, 
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_spec.AddModifiers(_u.modifiers...)
 	_node = &Department{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
