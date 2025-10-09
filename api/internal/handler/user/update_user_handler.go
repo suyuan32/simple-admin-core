@@ -5,9 +5,9 @@ import (
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/logic/user"
-	"github.com/suyuan32/simple-admin-core/api/internal/svc"
-	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/chimerakang/simple-admin-core/api/internal/logic/user"
+	"github.com/chimerakang/simple-admin-core/api/internal/svc"
+	"github.com/chimerakang/simple-admin-core/api/internal/types"
 )
 
 // swagger:route post /user/update user UpdateUser

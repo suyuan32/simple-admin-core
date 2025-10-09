@@ -8,7 +8,7 @@
 [![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.9.1-brightgreen.svg)](https://go-zero.dev/)
 [![Ent](https://img.shields.io/badge/Ent-v0.14.5-blue.svg)](https://entgo.io/)
 [![Casbin](https://img.shields.io/badge/Casbin-v2.127.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.7.2-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Release](https://img.shields.io/badge/Release-v1.7.2-green.svg)](https://github.com/chimerakang/simple-admin-core/releases)
 [![License: Apache2.0](https://img.shields.io/badge/License-Apache2.0-yellow.svg)](https://opensource.org/licenses/MIT)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
 ![注意](https://img.shields.io/badge/%E6%B3%A8%E6%84%8F-%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A0%E5%85%A5%E5%BE%AE%E4%BF%A1%E7%BE%A4-blue)
@@ -23,14 +23,14 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 > ✨ 我们接外包哦，外包需求请添加公众号联系管理员。 
 
-## 全新升级 UI (Vben5)，大幅优化体验 ! [点击访问](https://github.com/suyuan32/simple-admin-vben5-ui)
+## 全新升级 UI (Vben5)，大幅优化体验 ! [点击访问](https://github.com/chimerakang/simple-admin-vben5-ui)
 
 ## 相关教程
 
 > [Bilibili 视频教程](https://space.bilibili.com/9872669/channel/series) \
 > 关注微信公众号 - 几颗酥 获取更多教程
 
-#### [Ent 中文文档](https://suyuan32.github.io/ent-chinese-doc/#/zh-cn/getting-started)
+#### [Ent 中文文档](https://chimerakang.github.io/ent-chinese-doc/#/zh-cn/getting-started)
 
 ### 在线预览
 
@@ -82,12 +82,12 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 | 模块名称       | 模块介绍 | 模块地址                                                                      |
 |------------|------|---------------------------------------------------------------------------|
-| Core       | 核心模块 | [Core](https://github.com/suyuan32/simple-admin-core)                     |
-| Backend UI | 后端界面 | [Backend UI](https://github.com/suyuan32/simple-admin-vben5-ui)           |
-| FMS        | 文件管理 | [File](https://github.com/suyuan32/simple-admin-file)                     |
-| Job        | 定时任务 | [Job](https://github.com/suyuan32/simple-admin-job)                       |
-| MMS        | 会员管理 | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
-| MCMS       | 消息中心 | [Message Center](https://github.com/suyuan32/simple-admin-message-center) |
+| Core       | 核心模块 | [Core](https://github.com/chimerakang/simple-admin-core)                     |
+| Backend UI | 后端界面 | [Backend UI](https://github.com/chimerakang/simple-admin-vben5-ui)           |
+| FMS        | 文件管理 | [File](https://github.com/chimerakang/simple-admin-file)                     |
+| Job        | 定时任务 | [Job](https://github.com/chimerakang/simple-admin-job)                       |
+| MMS        | 会员管理 | [Member](https://github.com/chimerakang/simple-admin-member-api)             |
+| MCMS       | 消息中心 | [Message Center](https://github.com/chimerakang/simple-admin-message-center) |
 
 ## 会员专属的模块
 
@@ -100,7 +100,7 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 # 社区模块
 
-[点击查看](https://github.com/suyuan32/awesome-simple-admin-module)
+[点击查看](https://github.com/chimerakang/awesome-simple-admin-module)
 
 ## 商用说明
 
@@ -108,7 +108,7 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 ## 项目规划进度
 
-[RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
+[RoadMap](https://github.com/chimerakang/simple-admin-core/issues/63)
 
 ## 文档
 
@@ -130,7 +130,7 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 ## 如何贡献
 
-非常欢迎你的加入！[提一个 Issue](https://github.com/suyuan32/simple-admin-core/issues/new) 或者提交一个 Pull Request。
+非常欢迎你的加入！[提一个 Issue](https://github.com/chimerakang/simple-admin-core/issues/new) 或者提交一个 Pull Request。
 
 **Pull Request:**
 
@@ -166,17 +166,17 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 > [Discord](https://discord.gg/NDED5p2hJk)
 
-> [论坛](https://github.com/suyuan32/simple-admin-core/discussions)
+> [论坛](https://github.com/chimerakang/simple-admin-core/discussions)
 
 > 关注公众号 《几颗酥》 加入微信群
 
 ## Stars
 
-[![Star History Chart](https://api.star-history.com/svg?repos=suyuan32/simple-admin-core&type=Date)](https://github.com/suyuan32/simple-admin-core)
+[![Star History Chart](https://api.star-history.com/svg?repos=chimerakang/simple-admin-core&type=Date)](https://github.com/chimerakang/simple-admin-core)
 
 ## 维护者
 
-[@Ryan Su](https://github.com/suyuan32)
+[@Ryan Su](https://github.com/chimerakang)
 
 ## License
 

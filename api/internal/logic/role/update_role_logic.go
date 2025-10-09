@@ -3,13 +3,13 @@ package role
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-common/enum/common"
+	"github.com/chimerakang/simple-admin-common/enum/common"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/svc"
-	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+	"github.com/chimerakang/simple-admin-core/api/internal/svc"
+	"github.com/chimerakang/simple-admin-core/api/internal/types"
+	"github.com/chimerakang/simple-admin-core/rpc/types/core"
 )
 
 type UpdateRoleLogic struct {

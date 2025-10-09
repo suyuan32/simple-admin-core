@@ -5,19 +5,19 @@ import (
 	"strings"
 	"time"
 
-	"github.com/suyuan32/simple-admin-common/config"
-	"github.com/suyuan32/simple-admin-common/enum/common"
-	"github.com/suyuan32/simple-admin-common/i18n"
+	"github.com/chimerakang/simple-admin-common/config"
+	"github.com/chimerakang/simple-admin-common/enum/common"
+	"github.com/chimerakang/simple-admin-common/i18n"
 	"google.golang.org/grpc/status"
 
-	"github.com/suyuan32/simple-admin-common/utils/encrypt"
-	"github.com/suyuan32/simple-admin-common/utils/jwt"
-	"github.com/suyuan32/simple-admin-common/utils/pointy"
+	"github.com/chimerakang/simple-admin-common/utils/encrypt"
+	"github.com/chimerakang/simple-admin-common/utils/jwt"
+	"github.com/chimerakang/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/errorx"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/svc"
-	"github.com/suyuan32/simple-admin-core/api/internal/types"
-	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+	"github.com/chimerakang/simple-admin-core/api/internal/svc"
+	"github.com/chimerakang/simple-admin-core/api/internal/types"
+	"github.com/chimerakang/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

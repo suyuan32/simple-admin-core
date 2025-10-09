@@ -58,13 +58,13 @@ Simple Admin UI 是基于 vue-vben-admin v5 二次开发的为 Simple Admin 专�
 
 ## 项目规划进度
 
-[RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
+[RoadMap](https://github.com/chimerakang/simple-admin-core/issues/63)
 
 ## 预览
 
 ![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png) ![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
 
-[更多预览](https://suyuan32.github.io/simple-admin-core/#/simple-admin/zh-cn/docs/screenshot)
+[更多预览](https://chimerakang.github.io/simple-admin-core/#/simple-admin/zh-cn/docs/screenshot)
 
 ## 文档
 
@@ -93,12 +93,12 @@ Simple Admin UI 是基于 vue-vben-admin v5 二次开发的为 Simple Admin 专�
 
 ## 项目地址
 
-- [Simple-Admin-ui](https://github.com/suyuan32/Simple-Admin-ui)
-- [Simple-Admin](https://github.com/suyuan32/Simple-Admin)
+- [Simple-Admin-ui](https://github.com/chimerakang/Simple-Admin-ui)
+- [Simple-Admin](https://github.com/chimerakang/Simple-Admin)
 
 ## 如何贡献
 
-非常欢迎你的加入！[提一个 Issue](https://github.com/suyuan32/Simple-Admin-ui/issues/new/choose) 或者提交一个 Pull Request。
+非常欢迎你的加入！[提一个 Issue](https://github.com/chimerakang/Simple-Admin-ui/issues/new/choose) 或者提交一个 Pull Request。
 
 **Pull Request:**
 
@@ -150,7 +150,7 @@ Simple Admin UI 是基于 vue-vben-admin v5 二次开发的为 Simple Admin 专�
 
 ## 维护者
 
-[@Ryan Su](https://github.com/suyuan32)
+[@Ryan Su](https://github.com/chimerakang)
 
 ## License
 

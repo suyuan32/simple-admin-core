@@ -1,17 +1,17 @@
 package svc
 
 import (
+	"github.com/chimerakang/simple-admin-common/i18n"
+	"github.com/chimerakang/simple-admin-common/utils/captcha"
+	"github.com/chimerakang/simple-admin-job/jobclient"
+	"github.com/chimerakang/simple-admin-message-center/mcmsclient"
 	"github.com/mojocn/base64Captcha"
 	"github.com/redis/go-redis/v9"
-	"github.com/suyuan32/simple-admin-common/i18n"
-	"github.com/suyuan32/simple-admin-common/utils/captcha"
-	"github.com/suyuan32/simple-admin-job/jobclient"
-	"github.com/suyuan32/simple-admin-message-center/mcmsclient"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/config"
-	i18n2 "github.com/suyuan32/simple-admin-core/api/internal/i18n"
-	"github.com/suyuan32/simple-admin-core/api/internal/middleware"
-	"github.com/suyuan32/simple-admin-core/rpc/coreclient"
+	"github.com/chimerakang/simple-admin-core/api/internal/config"
+	i18n2 "github.com/chimerakang/simple-admin-core/api/internal/i18n"
+	"github.com/chimerakang/simple-admin-core/api/internal/middleware"
+	"github.com/chimerakang/simple-admin-core/rpc/coreclient"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/zeromicro/go-zero/rest"

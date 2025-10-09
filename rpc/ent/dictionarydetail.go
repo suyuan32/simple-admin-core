@@ -9,8 +9,8 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/dictionary"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/dictionarydetail"
 )
 
 // Dictionary Key/Value Table | 字典键值表

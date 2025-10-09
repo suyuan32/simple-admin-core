@@ -58,13 +58,13 @@ Simple Admin Vben5 UI is a modern UI for Simple Admin. It is based on vue-vben-a
 
 ## Project Planning Progress
 
-[RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
+[RoadMap](https://github.com/chimerakang/simple-admin-core/issues/63)
 
 ### Preview
 
 ![pic](https://i.postimg.cc/qqPNR02x/register-zh-cn.png) ![pic](https://i.postimg.cc/PxczkCr6/dashboard-zh-cn.png)
 
-[More](https://suyuan32.github.io/simple-admin-core/#/simple-admin/zh-cn/docs/screenshot)
+[More](https://chimerakang.github.io/simple-admin-core/#/simple-admin/zh-cn/docs/screenshot)
 
 ## Documentation
 
@@ -93,12 +93,12 @@ Simple Admin Vben5 UI is a modern UI for Simple Admin. It is based on vue-vben-a
 
 ## Project
 
-- [Simple-Admin-ui](https://github.com/suyuan32/Simple-Admin-ui)
-- [Simple-Admin](https://github.com/suyuan32/Simple-Admin)
+- [Simple-Admin-ui](https://github.com/chimerakang/Simple-Admin-ui)
+- [Simple-Admin](https://github.com/chimerakang/Simple-Admin)
 
 ## How to contribute
 
-You are very welcome to join！[Raise an issue](https://github.com/suyuan32/Simple-Admin-ui/issues/new/choose) Or submit a Pull Request。
+You are very welcome to join！[Raise an issue](https://github.com/chimerakang/Simple-Admin-ui/issues/new/choose) Or submit a Pull Request。
 
 **Pull Request:**
 
@@ -150,7 +150,7 @@ Support modern browsers, not IE
 
 ## Maintainer
 
-[@Ryan Su](https://github.com/suyuan32)
+[@Ryan Su](https://github.com/chimerakang)
 
 ## License
 

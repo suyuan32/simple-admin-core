@@ -1,6 +1,6 @@
 <a name="v1.7.0"></a>
 
-## [v1.7.0](https://github.com/suyuan32/simple-admin-core/compare/v1.6.13...v1.7.0) (2025-08-20)
+## [v1.7.0](https://github.com/chimerakang/simple-admin-core/compare/v1.6.13...v1.7.0) (2025-08-20)
 
 ### Chore
 
@@ -8,7 +8,7 @@
 
 <a name="v1.6.13"></a>
 
-## [v1.6.13](https://github.com/suyuan32/simple-admin-core/compare/v1.6.12...v1.6.13) (2025-08-07)
+## [v1.6.13](https://github.com/chimerakang/simple-admin-core/compare/v1.6.12...v1.6.13) (2025-08-07)
 
 ### Chore
 
@@ -21,7 +21,7 @@
 
 <a name="v1.6.12"></a>
 
-## [v1.6.12](https://github.com/suyuan32/simple-admin-core/compare/v1.6.11...v1.6.12) (2025-08-01)
+## [v1.6.12](https://github.com/chimerakang/simple-admin-core/compare/v1.6.11...v1.6.12) (2025-08-01)
 
 ### Chore
 
@@ -37,7 +37,7 @@
 
 <a name="v1.6.11"></a>
 
-## [v1.6.11](https://github.com/suyuan32/simple-admin-core/compare/v1.6.8...v1.6.11) (2025-07-14)
+## [v1.6.11](https://github.com/chimerakang/simple-admin-core/compare/v1.6.8...v1.6.11) (2025-07-14)
 
 ### Chore
 
@@ -54,7 +54,7 @@
 
 <a name="v1.6.8"></a>
 
-## [v1.6.8](https://github.com/suyuan32/simple-admin-core/compare/v1.6.7...v1.6.8) (2025-06-10)
+## [v1.6.8](https://github.com/chimerakang/simple-admin-core/compare/v1.6.7...v1.6.8) (2025-06-10)
 
 ### Chore
 
@@ -71,7 +71,7 @@
 
 <a name="v1.6.7"></a>
 
-## [v1.6.7](https://github.com/suyuan32/simple-admin-core/compare/v1.6.6...v1.6.7) (2025-05-07)
+## [v1.6.7](https://github.com/chimerakang/simple-admin-core/compare/v1.6.6...v1.6.7) (2025-05-07)
 
 ### Chore
 
@@ -88,7 +88,7 @@
 
 <a name="v1.6.6"></a>
 
-## [v1.6.6](https://github.com/suyuan32/simple-admin-core/compare/v1.6.5...v1.6.6) (2025-04-09)
+## [v1.6.6](https://github.com/chimerakang/simple-admin-core/compare/v1.6.5...v1.6.6) (2025-04-09)
 
 ### Chore
 
@@ -112,7 +112,7 @@
 * manage center title
 
 <a name="v1.6.5"></a>
-## [v1.6.5](https://github.com/suyuan32/simple-admin-core/compare/v1.6.4...v1.6.5) (2025-03-12)
+## [v1.6.5](https://github.com/chimerakang/simple-admin-core/compare/v1.6.4...v1.6.5) (2025-03-12)
 
 ### Chore
 
@@ -130,7 +130,7 @@
 * use api error in authority middleware
 
 <a name="v1.6.4"></a>
-## [v1.6.4](https://github.com/suyuan32/simple-admin-core/compare/v1.6.3...v1.6.4) (2025-02-26)
+## [v1.6.4](https://github.com/chimerakang/simple-admin-core/compare/v1.6.3...v1.6.4) (2025-02-26)
 
 ### Chore
 
@@ -149,7 +149,7 @@
 * register verify type bug
 
 <a name="v1.6.3"></a>
-## [v1.6.3](https://github.com/suyuan32/simple-admin-core/compare/v1.6.2...v1.6.3) (2025-02-06)
+## [v1.6.3](https://github.com/chimerakang/simple-admin-core/compare/v1.6.2...v1.6.3) (2025-02-06)
 
 ### Chore
 
@@ -159,14 +159,14 @@
 * upgrade image version
 
 <a name="v1.6.2"></a>
-## [v1.6.2](https://github.com/suyuan32/simple-admin-core/compare/v1.6.1...v1.6.2) (2025-01-03)
+## [v1.6.2](https://github.com/chimerakang/simple-admin-core/compare/v1.6.1...v1.6.2) (2025-01-03)
 
 ### Chore
 
 * upgrade deps
 
 <a name="v1.6.1"></a>
-## [v1.6.1](https://github.com/suyuan32/simple-admin-core/compare/v1.6.0.1...v1.6.1) (2025-01-02)
+## [v1.6.1](https://github.com/chimerakang/simple-admin-core/compare/v1.6.0.1...v1.6.1) (2025-01-02)
 
 ### Chore
 
@@ -178,7 +178,7 @@
 * update readme
 
 <a name="v1.6.0.1"></a>
-## [v1.6.0.1](https://github.com/suyuan32/simple-admin-core/compare/v1.6.0...v1.6.0.1) (2024-12-07)
+## [v1.6.0.1](https://github.com/chimerakang/simple-admin-core/compare/v1.6.0...v1.6.0.1) (2024-12-07)
 
 ### Chore
 
@@ -204,10 +204,10 @@
 
 ### Pull Requests
 
-* Merge pull request [#325](https://github.com/suyuan32/simple-admin-core/issues/325) from neumathe/fix/simple-admin
+* Merge pull request [#325](https://github.com/chimerakang/simple-admin-core/issues/325) from neumathe/fix/simple-admin
 
 <a name="v1.6.0"></a>
-## [v1.6.0](https://github.com/suyuan32/simple-admin-core/compare/v1.5.8...v1.6.0) (2024-11-25)
+## [v1.6.0](https://github.com/chimerakang/simple-admin-core/compare/v1.5.8...v1.6.0) (2024-11-25)
 
 ### Chore
 
@@ -227,7 +227,7 @@
 * move task menu to system
 
 <a name="v1.5.8"></a>
-## [v1.5.8](https://github.com/suyuan32/simple-admin-core/compare/v1.5.7...v1.5.8) (2024-11-03)
+## [v1.5.8](https://github.com/chimerakang/simple-admin-core/compare/v1.5.7...v1.5.8) (2024-11-03)
 
 ### Chore
 
@@ -250,7 +250,7 @@
 * wrong deps version
 
 <a name="v1.5.7"></a>
-## [v1.5.7](https://github.com/suyuan32/simple-admin-core/compare/v1.5.6...v1.5.7) (2024-10-10)
+## [v1.5.7](https://github.com/chimerakang/simple-admin-core/compare/v1.5.6...v1.5.7) (2024-10-10)
 
 ### Chore
 
@@ -267,7 +267,7 @@
 * update readme
 
 <a name="v1.5.6"></a>
-## [v1.5.6](https://github.com/suyuan32/simple-admin-core/compare/v1.5.5...v1.5.6) (2024-09-08)
+## [v1.5.6](https://github.com/chimerakang/simple-admin-core/compare/v1.5.5...v1.5.6) (2024-09-08)
 
 ### Chore
 
@@ -293,7 +293,7 @@
 * api format
 
 <a name="v1.5.5"></a>
-## [v1.5.5](https://github.com/suyuan32/simple-admin-core/compare/v1.5.4...v1.5.5) (2024-08-27)
+## [v1.5.5](https://github.com/chimerakang/simple-admin-core/compare/v1.5.4...v1.5.5) (2024-08-27)
 
 ### Chore
 
@@ -310,7 +310,7 @@
 * authority rpc menu_ids field
 
 <a name="v1.5.4"></a>
-## [v1.5.4](https://github.com/suyuan32/simple-admin-core/compare/v1.5.3...v1.5.4) (2024-08-20)
+## [v1.5.4](https://github.com/chimerakang/simple-admin-core/compare/v1.5.3...v1.5.4) (2024-08-20)
 
 ### Chore
 
@@ -330,7 +330,7 @@
 * version tag in all in one
 
 <a name="v1.5.3"></a>
-## [v1.5.3](https://github.com/suyuan32/simple-admin-core/compare/v1.5.2...v1.5.3) (2024-08-01)
+## [v1.5.3](https://github.com/chimerakang/simple-admin-core/compare/v1.5.2...v1.5.3) (2024-08-01)
 
 ### Chore
 
@@ -343,7 +343,7 @@
 
 
 <a name="v1.5.2"></a>
-## [v1.5.2](https://github.com/suyuan32/simple-admin-core/compare/v1.5.1...v1.5.2) (2024-07-28)
+## [v1.5.2](https://github.com/chimerakang/simple-admin-core/compare/v1.5.1...v1.5.2) (2024-07-28)
 
 ### Chore
 
@@ -369,7 +369,7 @@
 
 
 <a name="v1.5.1"></a>
-## [v1.5.1](https://github.com/suyuan32/simple-admin-core/compare/v1.5.0...v1.5.1) (2024-07-22)
+## [v1.5.1](https://github.com/chimerakang/simple-admin-core/compare/v1.5.0...v1.5.1) (2024-07-22)
 
 ### Chore
 
@@ -395,7 +395,7 @@
 
 
 <a name="v1.5.0"></a>
-## [v1.5.0](https://github.com/suyuan32/simple-admin-core/compare/v1.4.10...v1.5.0) (2024-07-13)
+## [v1.5.0](https://github.com/chimerakang/simple-admin-core/compare/v1.4.10...v1.5.0) (2024-07-13)
 
 ### Chore
 
@@ -407,7 +407,7 @@
 
 
 <a name="v1.4.10"></a>
-## [v1.4.10](https://github.com/suyuan32/simple-admin-core/compare/v1.4.9...v1.4.10) (2024-07-08)
+## [v1.4.10](https://github.com/chimerakang/simple-admin-core/compare/v1.4.9...v1.4.10) (2024-07-08)
 
 ### Chore
 
@@ -416,7 +416,7 @@
 
 
 <a name="v1.4.9"></a>
-## [v1.4.9](https://github.com/suyuan32/simple-admin-core/compare/v1.4.8...v1.4.9) (2024-07-01)
+## [v1.4.9](https://github.com/chimerakang/simple-admin-core/compare/v1.4.8...v1.4.9) (2024-07-01)
 
 ### Chore
 
@@ -439,12 +439,12 @@
 
 ### Pull Requests
 
-* Merge pull request [#316](https://github.com/suyuan32/simple-admin-core/issues/316) from suyuan32/dev
-* Merge pull request [#315](https://github.com/suyuan32/simple-admin-core/issues/315) from suyuan32/dev
+* Merge pull request [#316](https://github.com/chimerakang/simple-admin-core/issues/316) from chimerakang/dev
+* Merge pull request [#315](https://github.com/chimerakang/simple-admin-core/issues/315) from chimerakang/dev
 
 
 <a name="v1.4.8"></a>
-## [v1.4.8](https://github.com/suyuan32/simple-admin-core/compare/v1.4.6...v1.4.8) (2024-06-24)
+## [v1.4.8](https://github.com/chimerakang/simple-admin-core/compare/v1.4.6...v1.4.8) (2024-06-24)
 
 ### Chore
 
@@ -468,7 +468,7 @@
 
 
 <a name="v1.4.6"></a>
-## [v1.4.6](https://github.com/suyuan32/simple-admin-core/compare/v1.4.5...v1.4.6) (2024-06-14)
+## [v1.4.6](https://github.com/chimerakang/simple-admin-core/compare/v1.4.5...v1.4.6) (2024-06-14)
 
 ### Chore
 
@@ -480,13 +480,13 @@
 
 ### Pull Requests
 
-* Merge pull request [#313](https://github.com/suyuan32/simple-admin-core/issues/313) from suyuan32/dev
-* Merge pull request [#312](https://github.com/suyuan32/simple-admin-core/issues/312) from suyuan32/dev
-* Merge pull request [#311](https://github.com/suyuan32/simple-admin-core/issues/311) from suyuan32/dev
+* Merge pull request [#313](https://github.com/chimerakang/simple-admin-core/issues/313) from chimerakang/dev
+* Merge pull request [#312](https://github.com/chimerakang/simple-admin-core/issues/312) from chimerakang/dev
+* Merge pull request [#311](https://github.com/chimerakang/simple-admin-core/issues/311) from chimerakang/dev
 
 
 <a name="v1.4.5"></a>
-## [v1.4.5](https://github.com/suyuan32/simple-admin-core/compare/v1.4.4...v1.4.5) (2024-06-09)
+## [v1.4.5](https://github.com/chimerakang/simple-admin-core/compare/v1.4.4...v1.4.5) (2024-06-09)
 
 ### Chore
 
@@ -498,11 +498,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#310](https://github.com/suyuan32/simple-admin-core/issues/310) from suyuan32/dev
+* Merge pull request [#310](https://github.com/chimerakang/simple-admin-core/issues/310) from chimerakang/dev
 
 
 <a name="v1.4.4"></a>
-## [v1.4.4](https://github.com/suyuan32/simple-admin-core/compare/v1.4.3...v1.4.4) (2024-06-05)
+## [v1.4.4](https://github.com/chimerakang/simple-admin-core/compare/v1.4.3...v1.4.4) (2024-06-05)
 
 ### Chore
 
@@ -531,16 +531,16 @@
 
 ### Pull Requests
 
-* Merge pull request [#309](https://github.com/suyuan32/simple-admin-core/issues/309) from suyuan32/dev
-* Merge pull request [#308](https://github.com/suyuan32/simple-admin-core/issues/308) from suyuan32/dev
-* Merge pull request [#307](https://github.com/suyuan32/simple-admin-core/issues/307) from suyuan32/dev
-* Merge pull request [#306](https://github.com/suyuan32/simple-admin-core/issues/306) from suyuan32/dev
-* Merge pull request [#305](https://github.com/suyuan32/simple-admin-core/issues/305) from zhuangpeng/function/get_dept_ancestor_ids
-* Merge pull request [#304](https://github.com/suyuan32/simple-admin-core/issues/304) from suyuan32/dev
+* Merge pull request [#309](https://github.com/chimerakang/simple-admin-core/issues/309) from chimerakang/dev
+* Merge pull request [#308](https://github.com/chimerakang/simple-admin-core/issues/308) from chimerakang/dev
+* Merge pull request [#307](https://github.com/chimerakang/simple-admin-core/issues/307) from chimerakang/dev
+* Merge pull request [#306](https://github.com/chimerakang/simple-admin-core/issues/306) from chimerakang/dev
+* Merge pull request [#305](https://github.com/chimerakang/simple-admin-core/issues/305) from zhuangpeng/function/get_dept_ancestor_ids
+* Merge pull request [#304](https://github.com/chimerakang/simple-admin-core/issues/304) from chimerakang/dev
 
 
 <a name="v1.4.3"></a>
-## [v1.4.3](https://github.com/suyuan32/simple-admin-core/compare/v1.4.1...v1.4.3) (2024-05-16)
+## [v1.4.3](https://github.com/chimerakang/simple-admin-core/compare/v1.4.1...v1.4.3) (2024-05-16)
 
 ### Chore
 
@@ -575,18 +575,18 @@
 
 ### Pull Requests
 
-* Merge pull request [#303](https://github.com/suyuan32/simple-admin-core/issues/303) from suyuan32/dev
-* Merge pull request [#302](https://github.com/suyuan32/simple-admin-core/issues/302) from suyuan32/dev
-* Merge pull request [#301](https://github.com/suyuan32/simple-admin-core/issues/301) from suyuan32/dev
-* Merge pull request [#300](https://github.com/suyuan32/simple-admin-core/issues/300) from suyuan32/dev
-* Merge pull request [#299](https://github.com/suyuan32/simple-admin-core/issues/299) from suyuan32/dev
-* Merge pull request [#298](https://github.com/suyuan32/simple-admin-core/issues/298) from zhuangpeng/function/get_dept_ancestor_ids
-* Merge pull request [#297](https://github.com/suyuan32/simple-admin-core/issues/297) from suyuan32/dev
-* Merge pull request [#294](https://github.com/suyuan32/simple-admin-core/issues/294) from suyuan32/dev
+* Merge pull request [#303](https://github.com/chimerakang/simple-admin-core/issues/303) from chimerakang/dev
+* Merge pull request [#302](https://github.com/chimerakang/simple-admin-core/issues/302) from chimerakang/dev
+* Merge pull request [#301](https://github.com/chimerakang/simple-admin-core/issues/301) from chimerakang/dev
+* Merge pull request [#300](https://github.com/chimerakang/simple-admin-core/issues/300) from chimerakang/dev
+* Merge pull request [#299](https://github.com/chimerakang/simple-admin-core/issues/299) from chimerakang/dev
+* Merge pull request [#298](https://github.com/chimerakang/simple-admin-core/issues/298) from zhuangpeng/function/get_dept_ancestor_ids
+* Merge pull request [#297](https://github.com/chimerakang/simple-admin-core/issues/297) from chimerakang/dev
+* Merge pull request [#294](https://github.com/chimerakang/simple-admin-core/issues/294) from chimerakang/dev
 
 
 <a name="v1.4.1"></a>
-## [v1.4.1](https://github.com/suyuan32/simple-admin-core/compare/v1.4.0...v1.4.1) (2024-04-29)
+## [v1.4.1](https://github.com/chimerakang/simple-admin-core/compare/v1.4.0...v1.4.1) (2024-04-29)
 
 ### Chore
 
@@ -605,16 +605,16 @@
 
 ### Pull Requests
 
-* Merge pull request [#293](https://github.com/suyuan32/simple-admin-core/issues/293) from suyuan32/dev
-* Merge pull request [#292](https://github.com/suyuan32/simple-admin-core/issues/292) from suyuan32/dev
-* Merge pull request [#291](https://github.com/suyuan32/simple-admin-core/issues/291) from suyuan32/dev
-* Merge pull request [#290](https://github.com/suyuan32/simple-admin-core/issues/290) from suyuan32/dev
-* Merge pull request [#289](https://github.com/suyuan32/simple-admin-core/issues/289) from suyuan32/dev
-* Merge pull request [#287](https://github.com/suyuan32/simple-admin-core/issues/287) from suyuan32/dev
+* Merge pull request [#293](https://github.com/chimerakang/simple-admin-core/issues/293) from chimerakang/dev
+* Merge pull request [#292](https://github.com/chimerakang/simple-admin-core/issues/292) from chimerakang/dev
+* Merge pull request [#291](https://github.com/chimerakang/simple-admin-core/issues/291) from chimerakang/dev
+* Merge pull request [#290](https://github.com/chimerakang/simple-admin-core/issues/290) from chimerakang/dev
+* Merge pull request [#289](https://github.com/chimerakang/simple-admin-core/issues/289) from chimerakang/dev
+* Merge pull request [#287](https://github.com/chimerakang/simple-admin-core/issues/287) from chimerakang/dev
 
 
 <a name="v1.4.0"></a>
-## [v1.4.0](https://github.com/suyuan32/simple-admin-core/compare/v1.3.12...v1.4.0) (2024-04-16)
+## [v1.4.0](https://github.com/chimerakang/simple-admin-core/compare/v1.3.12...v1.4.0) (2024-04-16)
 
 ### Chore
 
@@ -634,12 +634,12 @@
 
 ### Pull Requests
 
-* Merge pull request [#286](https://github.com/suyuan32/simple-admin-core/issues/286) from suyuan32/dev
-* Merge pull request [#285](https://github.com/suyuan32/simple-admin-core/issues/285) from suyuan32/dev
+* Merge pull request [#286](https://github.com/chimerakang/simple-admin-core/issues/286) from chimerakang/dev
+* Merge pull request [#285](https://github.com/chimerakang/simple-admin-core/issues/285) from chimerakang/dev
 
 
 <a name="v1.3.12"></a>
-## [v1.3.12](https://github.com/suyuan32/simple-admin-core/compare/v1.3.11...v1.3.12) (2024-04-06)
+## [v1.3.12](https://github.com/chimerakang/simple-admin-core/compare/v1.3.11...v1.3.12) (2024-04-06)
 
 ### Chore
 
@@ -660,18 +660,18 @@
 
 ### Pull Requests
 
-* Merge pull request [#284](https://github.com/suyuan32/simple-admin-core/issues/284) from suyuan32/dev
-* Merge pull request [#283](https://github.com/suyuan32/simple-admin-core/issues/283) from suyuan32/dev
-* Merge pull request [#282](https://github.com/suyuan32/simple-admin-core/issues/282) from suyuan32/dev
-* Merge pull request [#281](https://github.com/suyuan32/simple-admin-core/issues/281) from suyuan32/dev
-* Merge pull request [#280](https://github.com/suyuan32/simple-admin-core/issues/280) from suyuan32/dev
-* Merge pull request [#279](https://github.com/suyuan32/simple-admin-core/issues/279) from suyuan32/dev
-* Merge pull request [#278](https://github.com/suyuan32/simple-admin-core/issues/278) from suyuan32/dev
-* Merge pull request [#277](https://github.com/suyuan32/simple-admin-core/issues/277) from suyuan32/dev
+* Merge pull request [#284](https://github.com/chimerakang/simple-admin-core/issues/284) from chimerakang/dev
+* Merge pull request [#283](https://github.com/chimerakang/simple-admin-core/issues/283) from chimerakang/dev
+* Merge pull request [#282](https://github.com/chimerakang/simple-admin-core/issues/282) from chimerakang/dev
+* Merge pull request [#281](https://github.com/chimerakang/simple-admin-core/issues/281) from chimerakang/dev
+* Merge pull request [#280](https://github.com/chimerakang/simple-admin-core/issues/280) from chimerakang/dev
+* Merge pull request [#279](https://github.com/chimerakang/simple-admin-core/issues/279) from chimerakang/dev
+* Merge pull request [#278](https://github.com/chimerakang/simple-admin-core/issues/278) from chimerakang/dev
+* Merge pull request [#277](https://github.com/chimerakang/simple-admin-core/issues/277) from chimerakang/dev
 
 
 <a name="v1.3.11"></a>
-## [v1.3.11](https://github.com/suyuan32/simple-admin-core/compare/v1.3.10...v1.3.11) (2024-03-19)
+## [v1.3.11](https://github.com/chimerakang/simple-admin-core/compare/v1.3.10...v1.3.11) (2024-03-19)
 
 ### Chore
 
@@ -685,14 +685,14 @@
 
 ### Pull Requests
 
-* Merge pull request [#276](https://github.com/suyuan32/simple-admin-core/issues/276) from suyuan32/dev
-* Merge pull request [#275](https://github.com/suyuan32/simple-admin-core/issues/275) from suyuan32/dev
-* Merge pull request [#273](https://github.com/suyuan32/simple-admin-core/issues/273) from suyuan32/dev
-* Merge pull request [#272](https://github.com/suyuan32/simple-admin-core/issues/272) from suyuan32/dev
+* Merge pull request [#276](https://github.com/chimerakang/simple-admin-core/issues/276) from chimerakang/dev
+* Merge pull request [#275](https://github.com/chimerakang/simple-admin-core/issues/275) from chimerakang/dev
+* Merge pull request [#273](https://github.com/chimerakang/simple-admin-core/issues/273) from chimerakang/dev
+* Merge pull request [#272](https://github.com/chimerakang/simple-admin-core/issues/272) from chimerakang/dev
 
 
 <a name="v1.3.10"></a>
-## [v1.3.10](https://github.com/suyuan32/simple-admin-core/compare/v1.3.8...v1.3.10) (2024-03-05)
+## [v1.3.10](https://github.com/chimerakang/simple-admin-core/compare/v1.3.8...v1.3.10) (2024-03-05)
 
 ### Chore
 
@@ -709,13 +709,13 @@
 
 ### Pull Requests
 
-* Merge pull request [#271](https://github.com/suyuan32/simple-admin-core/issues/271) from suyuan32/dev
-* Merge pull request [#269](https://github.com/suyuan32/simple-admin-core/issues/269) from suyuan32/dev
-* Merge pull request [#268](https://github.com/suyuan32/simple-admin-core/issues/268) from suyuan32/dev
+* Merge pull request [#271](https://github.com/chimerakang/simple-admin-core/issues/271) from chimerakang/dev
+* Merge pull request [#269](https://github.com/chimerakang/simple-admin-core/issues/269) from chimerakang/dev
+* Merge pull request [#268](https://github.com/chimerakang/simple-admin-core/issues/268) from chimerakang/dev
 
 
 <a name="v1.3.8"></a>
-## [v1.3.8](https://github.com/suyuan32/simple-admin-core/compare/v1.3.7...v1.3.8) (2024-02-21)
+## [v1.3.8](https://github.com/chimerakang/simple-admin-core/compare/v1.3.7...v1.3.8) (2024-02-21)
 
 ### Chore
 
@@ -729,11 +729,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#266](https://github.com/suyuan32/simple-admin-core/issues/266) from suyuan32/dev
+* Merge pull request [#266](https://github.com/chimerakang/simple-admin-core/issues/266) from chimerakang/dev
 
 
 <a name="v1.3.7"></a>
-## [v1.3.7](https://github.com/suyuan32/simple-admin-core/compare/v1.3.6...v1.3.7) (2024-02-20)
+## [v1.3.7](https://github.com/chimerakang/simple-admin-core/compare/v1.3.6...v1.3.7) (2024-02-20)
 
 ### Chore
 
@@ -742,11 +742,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#265](https://github.com/suyuan32/simple-admin-core/issues/265) from suyuan32/dev
+* Merge pull request [#265](https://github.com/chimerakang/simple-admin-core/issues/265) from chimerakang/dev
 
 
 <a name="v1.3.6"></a>
-## [v1.3.6](https://github.com/suyuan32/simple-admin-core/compare/v1.3.5...v1.3.6) (2024-02-20)
+## [v1.3.6](https://github.com/chimerakang/simple-admin-core/compare/v1.3.5...v1.3.6) (2024-02-20)
 
 ### Chore
 
@@ -760,14 +760,14 @@
 
 ### Pull Requests
 
-* Merge pull request [#264](https://github.com/suyuan32/simple-admin-core/issues/264) from suyuan32/dev
-* Merge pull request [#263](https://github.com/suyuan32/simple-admin-core/issues/263) from suyuan32/dev
-* Merge pull request [#261](https://github.com/suyuan32/simple-admin-core/issues/261) from suyuan32/dev
-* Merge pull request [#260](https://github.com/suyuan32/simple-admin-core/issues/260) from suyuan32/dev
+* Merge pull request [#264](https://github.com/chimerakang/simple-admin-core/issues/264) from chimerakang/dev
+* Merge pull request [#263](https://github.com/chimerakang/simple-admin-core/issues/263) from chimerakang/dev
+* Merge pull request [#261](https://github.com/chimerakang/simple-admin-core/issues/261) from chimerakang/dev
+* Merge pull request [#260](https://github.com/chimerakang/simple-admin-core/issues/260) from chimerakang/dev
 
 
 <a name="v1.3.5"></a>
-## [v1.3.5](https://github.com/suyuan32/simple-admin-core/compare/v1.3.3...v1.3.5) (2024-02-05)
+## [v1.3.5](https://github.com/chimerakang/simple-admin-core/compare/v1.3.3...v1.3.5) (2024-02-05)
 
 ### Chore
 
@@ -787,15 +787,15 @@
 
 ### Pull Requests
 
-* Merge pull request [#259](https://github.com/suyuan32/simple-admin-core/issues/259) from suyuan32/dev
-* Merge pull request [#256](https://github.com/suyuan32/simple-admin-core/issues/256) from suyuan32/dev
-* Merge pull request [#255](https://github.com/suyuan32/simple-admin-core/issues/255) from suyuan32/dev
-* Merge pull request [#254](https://github.com/suyuan32/simple-admin-core/issues/254) from suyuan32/dev
-* Merge pull request [#253](https://github.com/suyuan32/simple-admin-core/issues/253) from suyuan32/dev
+* Merge pull request [#259](https://github.com/chimerakang/simple-admin-core/issues/259) from chimerakang/dev
+* Merge pull request [#256](https://github.com/chimerakang/simple-admin-core/issues/256) from chimerakang/dev
+* Merge pull request [#255](https://github.com/chimerakang/simple-admin-core/issues/255) from chimerakang/dev
+* Merge pull request [#254](https://github.com/chimerakang/simple-admin-core/issues/254) from chimerakang/dev
+* Merge pull request [#253](https://github.com/chimerakang/simple-admin-core/issues/253) from chimerakang/dev
 
 
 <a name="v1.3.3"></a>
-## [v1.3.3](https://github.com/suyuan32/simple-admin-core/compare/v1.3.2...v1.3.3) (2024-01-23)
+## [v1.3.3](https://github.com/chimerakang/simple-admin-core/compare/v1.3.2...v1.3.3) (2024-01-23)
 
 ### Chore
 
@@ -812,13 +812,13 @@
 
 ### Pull Requests
 
-* Merge pull request [#252](https://github.com/suyuan32/simple-admin-core/issues/252) from suyuan32/dev
-* Merge pull request [#251](https://github.com/suyuan32/simple-admin-core/issues/251) from suyuan32/dev
-* Merge pull request [#250](https://github.com/suyuan32/simple-admin-core/issues/250) from suyuan32/dev
+* Merge pull request [#252](https://github.com/chimerakang/simple-admin-core/issues/252) from chimerakang/dev
+* Merge pull request [#251](https://github.com/chimerakang/simple-admin-core/issues/251) from chimerakang/dev
+* Merge pull request [#250](https://github.com/chimerakang/simple-admin-core/issues/250) from chimerakang/dev
 
 
 <a name="v1.3.2"></a>
-## [v1.3.2](https://github.com/suyuan32/simple-admin-core/compare/v1.3.1...v1.3.2) (2024-01-11)
+## [v1.3.2](https://github.com/chimerakang/simple-admin-core/compare/v1.3.1...v1.3.2) (2024-01-11)
 
 ### Chore
 
@@ -834,12 +834,12 @@
 
 ### Pull Requests
 
-* Merge pull request [#248](https://github.com/suyuan32/simple-admin-core/issues/248) from suyuan32/dev
-* Merge pull request [#247](https://github.com/suyuan32/simple-admin-core/issues/247) from suyuan32/dev
+* Merge pull request [#248](https://github.com/chimerakang/simple-admin-core/issues/248) from chimerakang/dev
+* Merge pull request [#247](https://github.com/chimerakang/simple-admin-core/issues/247) from chimerakang/dev
 
 
 <a name="v1.3.1"></a>
-## [v1.3.1](https://github.com/suyuan32/simple-admin-core/compare/v1.3.0...v1.3.1) (2024-01-03)
+## [v1.3.1](https://github.com/chimerakang/simple-admin-core/compare/v1.3.0...v1.3.1) (2024-01-03)
 
 ### Chore
 
@@ -849,11 +849,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#245](https://github.com/suyuan32/simple-admin-core/issues/245) from suyuan32/dev
+* Merge pull request [#245](https://github.com/chimerakang/simple-admin-core/issues/245) from chimerakang/dev
 
 
 <a name="v1.3.0"></a>
-## [v1.3.0](https://github.com/suyuan32/simple-admin-core/compare/v1.2.8...v1.3.0) (2023-12-28)
+## [v1.3.0](https://github.com/chimerakang/simple-admin-core/compare/v1.2.8...v1.3.0) (2023-12-28)
 
 ### Chore
 
@@ -878,14 +878,14 @@
 
 ### Pull Requests
 
-* Merge pull request [#244](https://github.com/suyuan32/simple-admin-core/issues/244) from suyuan32/dev
-* Merge pull request [#243](https://github.com/suyuan32/simple-admin-core/issues/243) from suyuan32/dev
-* Merge pull request [#242](https://github.com/suyuan32/simple-admin-core/issues/242) from suyuan32/dev
-* Merge pull request [#241](https://github.com/suyuan32/simple-admin-core/issues/241) from suyuan32/dev
+* Merge pull request [#244](https://github.com/chimerakang/simple-admin-core/issues/244) from chimerakang/dev
+* Merge pull request [#243](https://github.com/chimerakang/simple-admin-core/issues/243) from chimerakang/dev
+* Merge pull request [#242](https://github.com/chimerakang/simple-admin-core/issues/242) from chimerakang/dev
+* Merge pull request [#241](https://github.com/chimerakang/simple-admin-core/issues/241) from chimerakang/dev
 
 
 <a name="v1.2.8"></a>
-## [v1.2.8](https://github.com/suyuan32/simple-admin-core/compare/v1.2.5...v1.2.8) (2023-12-20)
+## [v1.2.8](https://github.com/chimerakang/simple-admin-core/compare/v1.2.5...v1.2.8) (2023-12-20)
 
 ### Chore
 
@@ -910,12 +910,12 @@
 
 ### Pull Requests
 
-* Merge pull request [#237](https://github.com/suyuan32/simple-admin-core/issues/237) from suyuan32/dev
-* Merge pull request [#234](https://github.com/suyuan32/simple-admin-core/issues/234) from suyuan32/dev
+* Merge pull request [#237](https://github.com/chimerakang/simple-admin-core/issues/237) from chimerakang/dev
+* Merge pull request [#234](https://github.com/chimerakang/simple-admin-core/issues/234) from chimerakang/dev
 
 
 <a name="v1.2.5"></a>
-## [v1.2.5](https://github.com/suyuan32/simple-admin-core/compare/v1.2.4...v1.2.5) (2023-12-15)
+## [v1.2.5](https://github.com/chimerakang/simple-admin-core/compare/v1.2.4...v1.2.5) (2023-12-15)
 
 ### Chore
 
@@ -940,18 +940,18 @@
 
 ### Pull Requests
 
-* Merge pull request [#233](https://github.com/suyuan32/simple-admin-core/issues/233) from suyuan32/dev
-* Merge pull request [#232](https://github.com/suyuan32/simple-admin-core/issues/232) from suyuan32/dev
-* Merge pull request [#231](https://github.com/suyuan32/simple-admin-core/issues/231) from suyuan32/dev
-* Merge pull request [#229](https://github.com/suyuan32/simple-admin-core/issues/229) from suyuan32/dev
-* Merge pull request [#228](https://github.com/suyuan32/simple-admin-core/issues/228) from suyuan32/dev
-* Merge pull request [#227](https://github.com/suyuan32/simple-admin-core/issues/227) from suyuan32/dev
-* Merge pull request [#226](https://github.com/suyuan32/simple-admin-core/issues/226) from ctra-wang/master
-* Merge pull request [#225](https://github.com/suyuan32/simple-admin-core/issues/225) from suyuan32/dev
+* Merge pull request [#233](https://github.com/chimerakang/simple-admin-core/issues/233) from chimerakang/dev
+* Merge pull request [#232](https://github.com/chimerakang/simple-admin-core/issues/232) from chimerakang/dev
+* Merge pull request [#231](https://github.com/chimerakang/simple-admin-core/issues/231) from chimerakang/dev
+* Merge pull request [#229](https://github.com/chimerakang/simple-admin-core/issues/229) from chimerakang/dev
+* Merge pull request [#228](https://github.com/chimerakang/simple-admin-core/issues/228) from chimerakang/dev
+* Merge pull request [#227](https://github.com/chimerakang/simple-admin-core/issues/227) from chimerakang/dev
+* Merge pull request [#226](https://github.com/chimerakang/simple-admin-core/issues/226) from ctra-wang/master
+* Merge pull request [#225](https://github.com/chimerakang/simple-admin-core/issues/225) from chimerakang/dev
 
 
 <a name="v1.2.4"></a>
-## [v1.2.4](https://github.com/suyuan32/simple-admin-core/compare/v1.2.3...v1.2.4) (2023-12-04)
+## [v1.2.4](https://github.com/chimerakang/simple-admin-core/compare/v1.2.3...v1.2.4) (2023-12-04)
 
 ### Chore
 
@@ -975,15 +975,15 @@
 
 ### Pull Requests
 
-* Merge pull request [#224](https://github.com/suyuan32/simple-admin-core/issues/224) from suyuan32/dev
-* Merge pull request [#223](https://github.com/suyuan32/simple-admin-core/issues/223) from suyuan32/dev
-* Merge pull request [#221](https://github.com/suyuan32/simple-admin-core/issues/221) from suyuan32/dev
-* Merge pull request [#219](https://github.com/suyuan32/simple-admin-core/issues/219) from suyuan32/dev
-* Merge pull request [#218](https://github.com/suyuan32/simple-admin-core/issues/218) from suyuan32/dev
+* Merge pull request [#224](https://github.com/chimerakang/simple-admin-core/issues/224) from chimerakang/dev
+* Merge pull request [#223](https://github.com/chimerakang/simple-admin-core/issues/223) from chimerakang/dev
+* Merge pull request [#221](https://github.com/chimerakang/simple-admin-core/issues/221) from chimerakang/dev
+* Merge pull request [#219](https://github.com/chimerakang/simple-admin-core/issues/219) from chimerakang/dev
+* Merge pull request [#218](https://github.com/chimerakang/simple-admin-core/issues/218) from chimerakang/dev
 
 
 <a name="v1.2.3"></a>
-## [v1.2.3](https://github.com/suyuan32/simple-admin-core/compare/v1.2.2...v1.2.3) (2023-11-21)
+## [v1.2.3](https://github.com/chimerakang/simple-admin-core/compare/v1.2.2...v1.2.3) (2023-11-21)
 
 ### Chore
 
@@ -997,13 +997,13 @@
 
 ### Pull Requests
 
-* Merge pull request [#217](https://github.com/suyuan32/simple-admin-core/issues/217) from suyuan32/dev
-* Merge pull request [#214](https://github.com/suyuan32/simple-admin-core/issues/214) from suyuan32/dev
-* Merge pull request [#213](https://github.com/suyuan32/simple-admin-core/issues/213) from suyuan32/dev
+* Merge pull request [#217](https://github.com/chimerakang/simple-admin-core/issues/217) from chimerakang/dev
+* Merge pull request [#214](https://github.com/chimerakang/simple-admin-core/issues/214) from chimerakang/dev
+* Merge pull request [#213](https://github.com/chimerakang/simple-admin-core/issues/213) from chimerakang/dev
 
 
 <a name="v1.2.2"></a>
-## [v1.2.2](https://github.com/suyuan32/simple-admin-core/compare/v1.2.0...v1.2.2) (2023-11-07)
+## [v1.2.2](https://github.com/chimerakang/simple-admin-core/compare/v1.2.0...v1.2.2) (2023-11-07)
 
 ### Chore
 
@@ -1026,14 +1026,14 @@
 
 ### Pull Requests
 
-* Merge pull request [#212](https://github.com/suyuan32/simple-admin-core/issues/212) from suyuan32/dev
-* Merge pull request [#211](https://github.com/suyuan32/simple-admin-core/issues/211) from suyuan32/dev
-* Merge pull request [#210](https://github.com/suyuan32/simple-admin-core/issues/210) from suyuan32/dev
-* Merge pull request [#209](https://github.com/suyuan32/simple-admin-core/issues/209) from suyuan32/dev
+* Merge pull request [#212](https://github.com/chimerakang/simple-admin-core/issues/212) from chimerakang/dev
+* Merge pull request [#211](https://github.com/chimerakang/simple-admin-core/issues/211) from chimerakang/dev
+* Merge pull request [#210](https://github.com/chimerakang/simple-admin-core/issues/210) from chimerakang/dev
+* Merge pull request [#209](https://github.com/chimerakang/simple-admin-core/issues/209) from chimerakang/dev
 
 
 <a name="v1.2.0"></a>
-## [v1.2.0](https://github.com/suyuan32/simple-admin-core/compare/v1.1.6...v1.2.0) (2023-10-29)
+## [v1.2.0](https://github.com/chimerakang/simple-admin-core/compare/v1.1.6...v1.2.0) (2023-10-29)
 
 ### Chore
 
@@ -1051,13 +1051,13 @@
 
 ### Pull Requests
 
-* Merge pull request [#205](https://github.com/suyuan32/simple-admin-core/issues/205) from suyuan32/dev
-* Merge pull request [#202](https://github.com/suyuan32/simple-admin-core/issues/202) from shaohongwu/ci/jaeger
-* Merge pull request [#201](https://github.com/suyuan32/simple-admin-core/issues/201) from suyuan32/dev
+* Merge pull request [#205](https://github.com/chimerakang/simple-admin-core/issues/205) from chimerakang/dev
+* Merge pull request [#202](https://github.com/chimerakang/simple-admin-core/issues/202) from shaohongwu/ci/jaeger
+* Merge pull request [#201](https://github.com/chimerakang/simple-admin-core/issues/201) from chimerakang/dev
 
 
 <a name="v1.1.6"></a>
-## [v1.1.6](https://github.com/suyuan32/simple-admin-core/compare/v1.1.5...v1.1.6) (2023-10-17)
+## [v1.1.6](https://github.com/chimerakang/simple-admin-core/compare/v1.1.5...v1.1.6) (2023-10-17)
 
 ### Chore
 
@@ -1080,15 +1080,15 @@
 
 ### Pull Requests
 
-* Merge pull request [#200](https://github.com/suyuan32/simple-admin-core/issues/200) from suyuan32/dev
-* Merge pull request [#199](https://github.com/suyuan32/simple-admin-core/issues/199) from shaohongwu/ci/rocketmq
-* Merge pull request [#197](https://github.com/suyuan32/simple-admin-core/issues/197) from suyuan32/dev
-* Merge pull request [#196](https://github.com/suyuan32/simple-admin-core/issues/196) from suyuan32/dev
-* Merge pull request [#195](https://github.com/suyuan32/simple-admin-core/issues/195) from suyuan32/dev
+* Merge pull request [#200](https://github.com/chimerakang/simple-admin-core/issues/200) from chimerakang/dev
+* Merge pull request [#199](https://github.com/chimerakang/simple-admin-core/issues/199) from shaohongwu/ci/rocketmq
+* Merge pull request [#197](https://github.com/chimerakang/simple-admin-core/issues/197) from chimerakang/dev
+* Merge pull request [#196](https://github.com/chimerakang/simple-admin-core/issues/196) from chimerakang/dev
+* Merge pull request [#195](https://github.com/chimerakang/simple-admin-core/issues/195) from chimerakang/dev
 
 
 <a name="v1.1.5"></a>
-## [v1.1.5](https://github.com/suyuan32/simple-admin-core/compare/v1.1.4...v1.1.5) (2023-10-06)
+## [v1.1.5](https://github.com/chimerakang/simple-admin-core/compare/v1.1.4...v1.1.5) (2023-10-06)
 
 ### Chore
 
@@ -1110,15 +1110,15 @@
 
 ### Pull Requests
 
-* Merge pull request [#194](https://github.com/suyuan32/simple-admin-core/issues/194) from suyuan32/dev
-* Merge pull request [#193](https://github.com/suyuan32/simple-admin-core/issues/193) from suyuan32/dev
-* Merge pull request [#192](https://github.com/suyuan32/simple-admin-core/issues/192) from suyuan32/dev
-* Merge pull request [#191](https://github.com/suyuan32/simple-admin-core/issues/191) from suyuan32/dev
-* Merge pull request [#190](https://github.com/suyuan32/simple-admin-core/issues/190) from suyuan32/dev
+* Merge pull request [#194](https://github.com/chimerakang/simple-admin-core/issues/194) from chimerakang/dev
+* Merge pull request [#193](https://github.com/chimerakang/simple-admin-core/issues/193) from chimerakang/dev
+* Merge pull request [#192](https://github.com/chimerakang/simple-admin-core/issues/192) from chimerakang/dev
+* Merge pull request [#191](https://github.com/chimerakang/simple-admin-core/issues/191) from chimerakang/dev
+* Merge pull request [#190](https://github.com/chimerakang/simple-admin-core/issues/190) from chimerakang/dev
 
 
 <a name="v1.1.4"></a>
-## [v1.1.4](https://github.com/suyuan32/simple-admin-core/compare/v1.1.3...v1.1.4) (2023-09-10)
+## [v1.1.4](https://github.com/chimerakang/simple-admin-core/compare/v1.1.3...v1.1.4) (2023-09-10)
 
 ### Chore
 
@@ -1142,16 +1142,16 @@
 
 ### Pull Requests
 
-* Merge pull request [#187](https://github.com/suyuan32/simple-admin-core/issues/187) from suyuan32/dev
-* Merge pull request [#186](https://github.com/suyuan32/simple-admin-core/issues/186) from suyuan32/dev
-* Merge pull request [#185](https://github.com/suyuan32/simple-admin-core/issues/185) from suyuan32/dev
-* Merge pull request [#184](https://github.com/suyuan32/simple-admin-core/issues/184) from suyuan32/dev
-* Merge pull request [#182](https://github.com/suyuan32/simple-admin-core/issues/182) from suyuan32/dev
-* Merge pull request [#181](https://github.com/suyuan32/simple-admin-core/issues/181) from suyuan32/dev
+* Merge pull request [#187](https://github.com/chimerakang/simple-admin-core/issues/187) from chimerakang/dev
+* Merge pull request [#186](https://github.com/chimerakang/simple-admin-core/issues/186) from chimerakang/dev
+* Merge pull request [#185](https://github.com/chimerakang/simple-admin-core/issues/185) from chimerakang/dev
+* Merge pull request [#184](https://github.com/chimerakang/simple-admin-core/issues/184) from chimerakang/dev
+* Merge pull request [#182](https://github.com/chimerakang/simple-admin-core/issues/182) from chimerakang/dev
+* Merge pull request [#181](https://github.com/chimerakang/simple-admin-core/issues/181) from chimerakang/dev
 
 
 <a name="v1.1.3"></a>
-## [v1.1.3](https://github.com/suyuan32/simple-admin-core/compare/v1.1.2...v1.1.3) (2023-09-03)
+## [v1.1.3](https://github.com/chimerakang/simple-admin-core/compare/v1.1.2...v1.1.3) (2023-09-03)
 
 ### Chore
 
@@ -1172,14 +1172,14 @@
 
 ### Pull Requests
 
-* Merge pull request [#180](https://github.com/suyuan32/simple-admin-core/issues/180) from suyuan32/dev
-* Merge pull request [#179](https://github.com/suyuan32/simple-admin-core/issues/179) from suyuan32/dev
-* Merge pull request [#177](https://github.com/suyuan32/simple-admin-core/issues/177) from suyuan32/dev
-* Merge pull request [#176](https://github.com/suyuan32/simple-admin-core/issues/176) from suyuan32/dev
+* Merge pull request [#180](https://github.com/chimerakang/simple-admin-core/issues/180) from chimerakang/dev
+* Merge pull request [#179](https://github.com/chimerakang/simple-admin-core/issues/179) from chimerakang/dev
+* Merge pull request [#177](https://github.com/chimerakang/simple-admin-core/issues/177) from chimerakang/dev
+* Merge pull request [#176](https://github.com/chimerakang/simple-admin-core/issues/176) from chimerakang/dev
 
 
 <a name="v1.1.2"></a>
-## [v1.1.2](https://github.com/suyuan32/simple-admin-core/compare/v1.1.1...v1.1.2) (2023-08-18)
+## [v1.1.2](https://github.com/chimerakang/simple-admin-core/compare/v1.1.1...v1.1.2) (2023-08-18)
 
 ### Chore
 
@@ -1198,16 +1198,16 @@
 
 ### Pull Requests
 
-* Merge pull request [#175](https://github.com/suyuan32/simple-admin-core/issues/175) from suyuan32/dev
-* Merge pull request [#174](https://github.com/suyuan32/simple-admin-core/issues/174) from suyuan32/dev
-* Merge pull request [#173](https://github.com/suyuan32/simple-admin-core/issues/173) from suyuan32/dev
-* Merge pull request [#172](https://github.com/suyuan32/simple-admin-core/issues/172) from suyuan32/dev
-* Merge pull request [#171](https://github.com/suyuan32/simple-admin-core/issues/171) from suyuan32/dev
-* Merge pull request [#170](https://github.com/suyuan32/simple-admin-core/issues/170) from suyuan32/dev
+* Merge pull request [#175](https://github.com/chimerakang/simple-admin-core/issues/175) from chimerakang/dev
+* Merge pull request [#174](https://github.com/chimerakang/simple-admin-core/issues/174) from chimerakang/dev
+* Merge pull request [#173](https://github.com/chimerakang/simple-admin-core/issues/173) from chimerakang/dev
+* Merge pull request [#172](https://github.com/chimerakang/simple-admin-core/issues/172) from chimerakang/dev
+* Merge pull request [#171](https://github.com/chimerakang/simple-admin-core/issues/171) from chimerakang/dev
+* Merge pull request [#170](https://github.com/chimerakang/simple-admin-core/issues/170) from chimerakang/dev
 
 
 <a name="v1.1.1"></a>
-## [v1.1.1](https://github.com/suyuan32/simple-admin-core/compare/v1.1.0...v1.1.1) (2023-08-04)
+## [v1.1.1](https://github.com/chimerakang/simple-admin-core/compare/v1.1.0...v1.1.1) (2023-08-04)
 
 ### Chore
 
@@ -1223,11 +1223,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#169](https://github.com/suyuan32/simple-admin-core/issues/169) from suyuan32/dev
+* Merge pull request [#169](https://github.com/chimerakang/simple-admin-core/issues/169) from chimerakang/dev
 
 
 <a name="v1.1.0"></a>
-## [v1.1.0](https://github.com/suyuan32/simple-admin-core/compare/v1.0.14...v1.1.0) (2023-07-25)
+## [v1.1.0](https://github.com/chimerakang/simple-admin-core/compare/v1.0.14...v1.1.0) (2023-07-25)
 
 ### Chore
 
@@ -1247,14 +1247,14 @@
 
 ### Pull Requests
 
-* Merge pull request [#167](https://github.com/suyuan32/simple-admin-core/issues/167) from suyuan32/dev
-* Merge pull request [#166](https://github.com/suyuan32/simple-admin-core/issues/166) from suyuan32/dev
-* Merge pull request [#165](https://github.com/suyuan32/simple-admin-core/issues/165) from suyuan32/dev
-* Merge pull request [#164](https://github.com/suyuan32/simple-admin-core/issues/164) from suyuan32/dev
+* Merge pull request [#167](https://github.com/chimerakang/simple-admin-core/issues/167) from chimerakang/dev
+* Merge pull request [#166](https://github.com/chimerakang/simple-admin-core/issues/166) from chimerakang/dev
+* Merge pull request [#165](https://github.com/chimerakang/simple-admin-core/issues/165) from chimerakang/dev
+* Merge pull request [#164](https://github.com/chimerakang/simple-admin-core/issues/164) from chimerakang/dev
 
 
 <a name="v1.0.14"></a>
-## [v1.0.14](https://github.com/suyuan32/simple-admin-core/compare/v1.0.13...v1.0.14) (2023-07-14)
+## [v1.0.14](https://github.com/chimerakang/simple-admin-core/compare/v1.0.13...v1.0.14) (2023-07-14)
 
 ### Chore
 
@@ -1279,13 +1279,13 @@
 
 ### Pull Requests
 
-* Merge pull request [#163](https://github.com/suyuan32/simple-admin-core/issues/163) from suyuan32/dev
-* Merge pull request [#162](https://github.com/suyuan32/simple-admin-core/issues/162) from suyuan32/dev
-* Merge pull request [#160](https://github.com/suyuan32/simple-admin-core/issues/160) from suyuan32/dev
+* Merge pull request [#163](https://github.com/chimerakang/simple-admin-core/issues/163) from chimerakang/dev
+* Merge pull request [#162](https://github.com/chimerakang/simple-admin-core/issues/162) from chimerakang/dev
+* Merge pull request [#160](https://github.com/chimerakang/simple-admin-core/issues/160) from chimerakang/dev
 
 
 <a name="v1.0.13"></a>
-## [v1.0.13](https://github.com/suyuan32/simple-admin-core/compare/v1.0.12...v1.0.13) (2023-07-09)
+## [v1.0.13](https://github.com/chimerakang/simple-admin-core/compare/v1.0.12...v1.0.13) (2023-07-09)
 
 ### Chore
 
@@ -1323,24 +1323,24 @@
 
 ### Pull Requests
 
-* Merge pull request [#159](https://github.com/suyuan32/simple-admin-core/issues/159) from suyuan32/dev
-* Merge pull request [#158](https://github.com/suyuan32/simple-admin-core/issues/158) from suyuan32/dev
-* Merge pull request [#157](https://github.com/suyuan32/simple-admin-core/issues/157) from suyuan32/dev
-* Merge pull request [#156](https://github.com/suyuan32/simple-admin-core/issues/156) from suyuan32/dev
-* Merge pull request [#155](https://github.com/suyuan32/simple-admin-core/issues/155) from suyuan32/dev
-* Merge pull request [#154](https://github.com/suyuan32/simple-admin-core/issues/154) from suyuan32/dev
-* Merge pull request [#153](https://github.com/suyuan32/simple-admin-core/issues/153) from suyuan32/dev
-* Merge pull request [#152](https://github.com/suyuan32/simple-admin-core/issues/152) from suyuan32/dev
-* Merge pull request [#151](https://github.com/suyuan32/simple-admin-core/issues/151) from suyuan32/dev
-* Merge pull request [#150](https://github.com/suyuan32/simple-admin-core/issues/150) from suyuan32/dev
-* Merge pull request [#149](https://github.com/suyuan32/simple-admin-core/issues/149) from AOEIUVBPMFDTNL/master
-* Merge pull request [#146](https://github.com/suyuan32/simple-admin-core/issues/146) from suyuan32/dev
-* Merge pull request [#145](https://github.com/suyuan32/simple-admin-core/issues/145) from suyuan32/dev
-* Merge pull request [#144](https://github.com/suyuan32/simple-admin-core/issues/144) from suyuan32/dev
+* Merge pull request [#159](https://github.com/chimerakang/simple-admin-core/issues/159) from chimerakang/dev
+* Merge pull request [#158](https://github.com/chimerakang/simple-admin-core/issues/158) from chimerakang/dev
+* Merge pull request [#157](https://github.com/chimerakang/simple-admin-core/issues/157) from chimerakang/dev
+* Merge pull request [#156](https://github.com/chimerakang/simple-admin-core/issues/156) from chimerakang/dev
+* Merge pull request [#155](https://github.com/chimerakang/simple-admin-core/issues/155) from chimerakang/dev
+* Merge pull request [#154](https://github.com/chimerakang/simple-admin-core/issues/154) from chimerakang/dev
+* Merge pull request [#153](https://github.com/chimerakang/simple-admin-core/issues/153) from chimerakang/dev
+* Merge pull request [#152](https://github.com/chimerakang/simple-admin-core/issues/152) from chimerakang/dev
+* Merge pull request [#151](https://github.com/chimerakang/simple-admin-core/issues/151) from chimerakang/dev
+* Merge pull request [#150](https://github.com/chimerakang/simple-admin-core/issues/150) from chimerakang/dev
+* Merge pull request [#149](https://github.com/chimerakang/simple-admin-core/issues/149) from AOEIUVBPMFDTNL/master
+* Merge pull request [#146](https://github.com/chimerakang/simple-admin-core/issues/146) from chimerakang/dev
+* Merge pull request [#145](https://github.com/chimerakang/simple-admin-core/issues/145) from chimerakang/dev
+* Merge pull request [#144](https://github.com/chimerakang/simple-admin-core/issues/144) from chimerakang/dev
 
 
 <a name="v1.0.12"></a>
-## [v1.0.12](https://github.com/suyuan32/simple-admin-core/compare/v1.0.11...v1.0.12) (2023-07-03)
+## [v1.0.12](https://github.com/chimerakang/simple-admin-core/compare/v1.0.11...v1.0.12) (2023-07-03)
 
 ### Chore
 
@@ -1356,14 +1356,14 @@
 
 ### Pull Requests
 
-* Merge pull request [#143](https://github.com/suyuan32/simple-admin-core/issues/143) from suyuan32/dev
-* Merge pull request [#142](https://github.com/suyuan32/simple-admin-core/issues/142) from suyuan32/dev
-* Merge pull request [#140](https://github.com/suyuan32/simple-admin-core/issues/140) from suyuan32/dev
-* Merge pull request [#139](https://github.com/suyuan32/simple-admin-core/issues/139) from suyuan32/dev
+* Merge pull request [#143](https://github.com/chimerakang/simple-admin-core/issues/143) from chimerakang/dev
+* Merge pull request [#142](https://github.com/chimerakang/simple-admin-core/issues/142) from chimerakang/dev
+* Merge pull request [#140](https://github.com/chimerakang/simple-admin-core/issues/140) from chimerakang/dev
+* Merge pull request [#139](https://github.com/chimerakang/simple-admin-core/issues/139) from chimerakang/dev
 
 
 <a name="v1.0.11"></a>
-## [v1.0.11](https://github.com/suyuan32/simple-admin-core/compare/v1.0.10...v1.0.11) (2023-06-20)
+## [v1.0.11](https://github.com/chimerakang/simple-admin-core/compare/v1.0.10...v1.0.11) (2023-06-20)
 
 ### Docs
 
@@ -1377,12 +1377,12 @@
 
 ### Pull Requests
 
-* Merge pull request [#138](https://github.com/suyuan32/simple-admin-core/issues/138) from suyuan32/dev
-* Merge pull request [#137](https://github.com/suyuan32/simple-admin-core/issues/137) from suyuan32/dev
+* Merge pull request [#138](https://github.com/chimerakang/simple-admin-core/issues/138) from chimerakang/dev
+* Merge pull request [#137](https://github.com/chimerakang/simple-admin-core/issues/137) from chimerakang/dev
 
 
 <a name="v1.0.10"></a>
-## [v1.0.10](https://github.com/suyuan32/simple-admin-core/compare/v1.0.9...v1.0.10) (2023-06-19)
+## [v1.0.10](https://github.com/chimerakang/simple-admin-core/compare/v1.0.9...v1.0.10) (2023-06-19)
 
 ### Chore
 
@@ -1400,15 +1400,15 @@
 
 ### Pull Requests
 
-* Merge pull request [#136](https://github.com/suyuan32/simple-admin-core/issues/136) from suyuan32/dev
-* Merge pull request [#135](https://github.com/suyuan32/simple-admin-core/issues/135) from suyuan32/dev
-* Merge pull request [#134](https://github.com/suyuan32/simple-admin-core/issues/134) from suyuan32/dev
-* Merge pull request [#133](https://github.com/suyuan32/simple-admin-core/issues/133) from suyuan32/dev
-* Merge pull request [#132](https://github.com/suyuan32/simple-admin-core/issues/132) from suyuan32/dev
+* Merge pull request [#136](https://github.com/chimerakang/simple-admin-core/issues/136) from chimerakang/dev
+* Merge pull request [#135](https://github.com/chimerakang/simple-admin-core/issues/135) from chimerakang/dev
+* Merge pull request [#134](https://github.com/chimerakang/simple-admin-core/issues/134) from chimerakang/dev
+* Merge pull request [#133](https://github.com/chimerakang/simple-admin-core/issues/133) from chimerakang/dev
+* Merge pull request [#132](https://github.com/chimerakang/simple-admin-core/issues/132) from chimerakang/dev
 
 
 <a name="v1.0.9"></a>
-## [v1.0.9](https://github.com/suyuan32/simple-admin-core/compare/v1.0.7...v1.0.9) (2023-06-16)
+## [v1.0.9](https://github.com/chimerakang/simple-admin-core/compare/v1.0.7...v1.0.9) (2023-06-16)
 
 ### Feat
 
@@ -1435,14 +1435,14 @@
 
 ### Pull Requests
 
-* Merge pull request [#129](https://github.com/suyuan32/simple-admin-core/issues/129) from suyuan32/dev
-* Merge pull request [#127](https://github.com/suyuan32/simple-admin-core/issues/127) from suyuan32/dev
-* Merge pull request [#126](https://github.com/suyuan32/simple-admin-core/issues/126) from suyuan32/dev
-* Merge pull request [#123](https://github.com/suyuan32/simple-admin-core/issues/123) from suyuan32/dev
+* Merge pull request [#129](https://github.com/chimerakang/simple-admin-core/issues/129) from chimerakang/dev
+* Merge pull request [#127](https://github.com/chimerakang/simple-admin-core/issues/127) from chimerakang/dev
+* Merge pull request [#126](https://github.com/chimerakang/simple-admin-core/issues/126) from chimerakang/dev
+* Merge pull request [#123](https://github.com/chimerakang/simple-admin-core/issues/123) from chimerakang/dev
 
 
 <a name="v1.0.7"></a>
-## [v1.0.7](https://github.com/suyuan32/simple-admin-core/compare/v1.0.6...v1.0.7) (2023-05-31)
+## [v1.0.7](https://github.com/chimerakang/simple-admin-core/compare/v1.0.6...v1.0.7) (2023-05-31)
 
 ### Chore
 
@@ -1461,13 +1461,13 @@
 
 ### Pull Requests
 
-* Merge pull request [#122](https://github.com/suyuan32/simple-admin-core/issues/122) from suyuan32/dev
-* Merge pull request [#112](https://github.com/suyuan32/simple-admin-core/issues/112) from suyuan32/dev
-* Merge pull request [#110](https://github.com/suyuan32/simple-admin-core/issues/110) from suyuan32/dev
+* Merge pull request [#122](https://github.com/chimerakang/simple-admin-core/issues/122) from chimerakang/dev
+* Merge pull request [#112](https://github.com/chimerakang/simple-admin-core/issues/112) from chimerakang/dev
+* Merge pull request [#110](https://github.com/chimerakang/simple-admin-core/issues/110) from chimerakang/dev
 
 
 <a name="v1.0.6"></a>
-## [v1.0.6](https://github.com/suyuan32/simple-admin-core/compare/v1.0.5...v1.0.6) (2023-05-23)
+## [v1.0.6](https://github.com/chimerakang/simple-admin-core/compare/v1.0.5...v1.0.6) (2023-05-23)
 
 ### Chore
 
@@ -1485,15 +1485,15 @@
 
 ### Pull Requests
 
-* Merge pull request [#109](https://github.com/suyuan32/simple-admin-core/issues/109) from suyuan32/dev
-* Merge pull request [#108](https://github.com/suyuan32/simple-admin-core/issues/108) from suyuan32/dev
-* Merge pull request [#106](https://github.com/suyuan32/simple-admin-core/issues/106) from suyuan32/dev
-* Merge pull request [#105](https://github.com/suyuan32/simple-admin-core/issues/105) from suyuan32/dev
-* Merge pull request [#103](https://github.com/suyuan32/simple-admin-core/issues/103) from suyuan32/dev
+* Merge pull request [#109](https://github.com/chimerakang/simple-admin-core/issues/109) from chimerakang/dev
+* Merge pull request [#108](https://github.com/chimerakang/simple-admin-core/issues/108) from chimerakang/dev
+* Merge pull request [#106](https://github.com/chimerakang/simple-admin-core/issues/106) from chimerakang/dev
+* Merge pull request [#105](https://github.com/chimerakang/simple-admin-core/issues/105) from chimerakang/dev
+* Merge pull request [#103](https://github.com/chimerakang/simple-admin-core/issues/103) from chimerakang/dev
 
 
 <a name="v1.0.5"></a>
-## [v1.0.5](https://github.com/suyuan32/simple-admin-core/compare/v1.0.4...v1.0.5) (2023-05-15)
+## [v1.0.5](https://github.com/chimerakang/simple-admin-core/compare/v1.0.4...v1.0.5) (2023-05-15)
 
 ### Chore
 
@@ -1508,14 +1508,14 @@
 
 ### Pull Requests
 
-* Merge pull request [#102](https://github.com/suyuan32/simple-admin-core/issues/102) from suyuan32/dev
-* Merge pull request [#101](https://github.com/suyuan32/simple-admin-core/issues/101) from suyuan32/dev
-* Merge pull request [#100](https://github.com/suyuan32/simple-admin-core/issues/100) from suyuan32/dev
-* Merge pull request [#99](https://github.com/suyuan32/simple-admin-core/issues/99) from suyuan32/dev
+* Merge pull request [#102](https://github.com/chimerakang/simple-admin-core/issues/102) from chimerakang/dev
+* Merge pull request [#101](https://github.com/chimerakang/simple-admin-core/issues/101) from chimerakang/dev
+* Merge pull request [#100](https://github.com/chimerakang/simple-admin-core/issues/100) from chimerakang/dev
+* Merge pull request [#99](https://github.com/chimerakang/simple-admin-core/issues/99) from chimerakang/dev
 
 
 <a name="v1.0.4"></a>
-## [v1.0.4](https://github.com/suyuan32/simple-admin-core/compare/v1.0.3...v1.0.4) (2023-05-09)
+## [v1.0.4](https://github.com/chimerakang/simple-admin-core/compare/v1.0.3...v1.0.4) (2023-05-09)
 
 ### Chore
 
@@ -1531,11 +1531,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#98](https://github.com/suyuan32/simple-admin-core/issues/98) from suyuan32/dev
+* Merge pull request [#98](https://github.com/chimerakang/simple-admin-core/issues/98) from chimerakang/dev
 
 
 <a name="v1.0.3"></a>
-## [v1.0.3](https://github.com/suyuan32/simple-admin-core/compare/v1.0.2...v1.0.3) (2023-05-02)
+## [v1.0.3](https://github.com/chimerakang/simple-admin-core/compare/v1.0.2...v1.0.3) (2023-05-02)
 
 ### Chore
 
@@ -1550,7 +1550,7 @@
 
 
 <a name="v1.0.2"></a>
-## [v1.0.2](https://github.com/suyuan32/simple-admin-core/compare/v1.0.0...v1.0.2) (2023-04-22)
+## [v1.0.2](https://github.com/chimerakang/simple-admin-core/compare/v1.0.0...v1.0.2) (2023-04-22)
 
 ### Docs
 
@@ -1567,7 +1567,7 @@
 
 
 <a name="v1.0.0"></a>
-## [v1.0.0](https://github.com/suyuan32/simple-admin-core/compare/v0.3.2...v1.0.0) (2023-04-17)
+## [v1.0.0](https://github.com/chimerakang/simple-admin-core/compare/v0.3.2...v1.0.0) (2023-04-17)
 
 ### Chore
 
@@ -1595,7 +1595,7 @@
 
 
 <a name="v0.3.2"></a>
-## [v0.3.2](https://github.com/suyuan32/simple-admin-core/compare/v0.3.2-beta...v0.3.2) (2023-04-09)
+## [v0.3.2](https://github.com/chimerakang/simple-admin-core/compare/v0.3.2-beta...v0.3.2) (2023-04-09)
 
 ### Chore
 
@@ -1603,11 +1603,11 @@
 
 
 <a name="v0.3.2-beta"></a>
-## [v0.3.2-beta](https://github.com/suyuan32/simple-admin-core/compare/list...v0.3.2-beta) (2023-04-09)
+## [v0.3.2-beta](https://github.com/chimerakang/simple-admin-core/compare/list...v0.3.2-beta) (2023-04-09)
 
 
 <a name="list"></a>
-## [list](https://github.com/suyuan32/simple-admin-core/compare/v0.3.1...list) (2023-04-09)
+## [list](https://github.com/chimerakang/simple-admin-core/compare/v0.3.1...list) (2023-04-09)
 
 ### Fix
 
@@ -1619,7 +1619,7 @@
 
 
 <a name="v0.3.1"></a>
-## [v0.3.1](https://github.com/suyuan32/simple-admin-core/compare/v0.3.0...v0.3.1) (2023-04-03)
+## [v0.3.1](https://github.com/chimerakang/simple-admin-core/compare/v0.3.0...v0.3.1) (2023-04-03)
 
 ### Chore
 
@@ -1642,7 +1642,7 @@
 
 
 <a name="v0.3.0"></a>
-## [v0.3.0](https://github.com/suyuan32/simple-admin-core/compare/v0.2.9...v0.3.0) (2023-03-30)
+## [v0.3.0](https://github.com/chimerakang/simple-admin-core/compare/v0.2.9...v0.3.0) (2023-03-30)
 
 ### Chore
 
@@ -1666,7 +1666,7 @@
 
 
 <a name="v0.2.9"></a>
-## [v0.2.9](https://github.com/suyuan32/simple-admin-core/compare/v0.2.9-beta...v0.2.9) (2023-03-26)
+## [v0.2.9](https://github.com/chimerakang/simple-admin-core/compare/v0.2.9-beta...v0.2.9) (2023-03-26)
 
 ### Refactor
 
@@ -1674,7 +1674,7 @@
 
 
 <a name="v0.2.9-beta"></a>
-## [v0.2.9-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.2.8...v0.2.9-beta) (2023-03-24)
+## [v0.2.9-beta](https://github.com/chimerakang/simple-admin-core/compare/v0.2.8...v0.2.9-beta) (2023-03-24)
 
 ### Docs
 
@@ -1694,11 +1694,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#86](https://github.com/suyuan32/simple-admin-core/issues/86) from ch3nnn/fix/optimeze-api-comment
+* Merge pull request [#86](https://github.com/chimerakang/simple-admin-core/issues/86) from ch3nnn/fix/optimeze-api-comment
 
 
 <a name="v0.2.8"></a>
-## [v0.2.8](https://github.com/suyuan32/simple-admin-core/compare/v0.2.7...v0.2.8) (2023-03-19)
+## [v0.2.8](https://github.com/chimerakang/simple-admin-core/compare/v0.2.7...v0.2.8) (2023-03-19)
 
 ### Chore
 
@@ -1726,12 +1726,12 @@
 
 ### Pull Requests
 
-* Merge pull request [#84](https://github.com/suyuan32/simple-admin-core/issues/84) from suyuan32/feat-task-log
-* Merge pull request [#83](https://github.com/suyuan32/simple-admin-core/issues/83) from suyuan32/feat-postgres-docker
+* Merge pull request [#84](https://github.com/chimerakang/simple-admin-core/issues/84) from chimerakang/feat-task-log
+* Merge pull request [#83](https://github.com/chimerakang/simple-admin-core/issues/83) from chimerakang/feat-postgres-docker
 
 
 <a name="v0.2.7"></a>
-## [v0.2.7](https://github.com/suyuan32/simple-admin-core/compare/v0.2.7-beta...v0.2.7) (2023-03-12)
+## [v0.2.7](https://github.com/chimerakang/simple-admin-core/compare/v0.2.7-beta...v0.2.7) (2023-03-12)
 
 ### Chore
 
@@ -1744,7 +1744,7 @@
 
 
 <a name="v0.2.7-beta"></a>
-## [v0.2.7-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.2.5-beta...v0.2.7-beta) (2023-03-08)
+## [v0.2.7-beta](https://github.com/chimerakang/simple-admin-core/compare/v0.2.5-beta...v0.2.7-beta) (2023-03-08)
 
 ### Chore
 
@@ -1775,15 +1775,15 @@
 
 ### Pull Requests
 
-* Merge pull request [#79](https://github.com/suyuan32/simple-admin-core/issues/79) from suyuan32/refator-split-pkg
+* Merge pull request [#79](https://github.com/chimerakang/simple-admin-core/issues/79) from chimerakang/refator-split-pkg
 
 
 <a name="v0.2.5-beta"></a>
-## [v0.2.5-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.2.6...v0.2.5-beta) (2023-02-28)
+## [v0.2.5-beta](https://github.com/chimerakang/simple-admin-core/compare/v0.2.6...v0.2.5-beta) (2023-02-28)
 
 
 <a name="v0.2.6"></a>
-## [v0.2.6](https://github.com/suyuan32/simple-admin-core/compare/v0.2.5...v0.2.6) (2023-02-28)
+## [v0.2.6](https://github.com/chimerakang/simple-admin-core/compare/v0.2.5...v0.2.6) (2023-02-28)
 
 ### Docs
 
@@ -1810,12 +1810,12 @@
 
 ### Pull Requests
 
-* Merge pull request [#78](https://github.com/suyuan32/simple-admin-core/issues/78) from suyuan32/feat-error-handling
-* Merge pull request [#77](https://github.com/suyuan32/simple-admin-core/issues/77) from suyuan32/feat-redis-watcher
+* Merge pull request [#78](https://github.com/chimerakang/simple-admin-core/issues/78) from chimerakang/feat-error-handling
+* Merge pull request [#77](https://github.com/chimerakang/simple-admin-core/issues/77) from chimerakang/feat-redis-watcher
 
 
 <a name="v0.2.5"></a>
-## [v0.2.5](https://github.com/suyuan32/simple-admin-core/compare/v0.2.4...v0.2.5) (2023-02-23)
+## [v0.2.5](https://github.com/chimerakang/simple-admin-core/compare/v0.2.4...v0.2.5) (2023-02-23)
 
 ### Chore
 
@@ -1845,11 +1845,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#72](https://github.com/suyuan32/simple-admin-core/issues/72) from suyuan32/refator-split-member
+* Merge pull request [#72](https://github.com/chimerakang/simple-admin-core/issues/72) from chimerakang/refator-split-member
 
 
 <a name="v0.2.4"></a>
-## [v0.2.4](https://github.com/suyuan32/simple-admin-core/compare/v0.2.4-beta...v0.2.4) (2023-02-13)
+## [v0.2.4](https://github.com/chimerakang/simple-admin-core/compare/v0.2.4-beta...v0.2.4) (2023-02-13)
 
 ### Chore
 
@@ -1869,7 +1869,7 @@
 
 
 <a name="v0.2.4-beta"></a>
-## [v0.2.4-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.2.3...v0.2.4-beta) (2023-02-09)
+## [v0.2.4-beta](https://github.com/chimerakang/simple-admin-core/compare/v0.2.3...v0.2.4-beta) (2023-02-09)
 
 ### Docs
 
@@ -1891,11 +1891,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#68](https://github.com/suyuan32/simple-admin-core/issues/68) from suyuan32/refator-createUpdate
+* Merge pull request [#68](https://github.com/chimerakang/simple-admin-core/issues/68) from chimerakang/refator-createUpdate
 
 
 <a name="v0.2.3"></a>
-## [v0.2.3](https://github.com/suyuan32/simple-admin-core/compare/v0.2.2...v0.2.3) (2023-02-06)
+## [v0.2.3](https://github.com/chimerakang/simple-admin-core/compare/v0.2.2...v0.2.3) (2023-02-06)
 
 ### Chore
 
@@ -1931,12 +1931,12 @@
 
 ### Pull Requests
 
-* Merge pull request [#66](https://github.com/suyuan32/simple-admin-core/issues/66) from suyuan32/feat-post
-* Merge pull request [#65](https://github.com/suyuan32/simple-admin-core/issues/65) from suyuan32/feat-dept
+* Merge pull request [#66](https://github.com/chimerakang/simple-admin-core/issues/66) from chimerakang/feat-post
+* Merge pull request [#65](https://github.com/chimerakang/simple-admin-core/issues/65) from chimerakang/feat-dept
 
 
 <a name="v0.2.2"></a>
-## [v0.2.2](https://github.com/suyuan32/simple-admin-core/compare/v0.2.1...v0.2.2) (2023-01-29)
+## [v0.2.2](https://github.com/chimerakang/simple-admin-core/compare/v0.2.1...v0.2.2) (2023-01-29)
 
 ### Chore
 
@@ -1965,12 +1965,12 @@
 
 ### Pull Requests
 
-* Merge pull request [#61](https://github.com/suyuan32/simple-admin-core/issues/61) from suyuan32/feat-proto-split
-* Merge pull request [#58](https://github.com/suyuan32/simple-admin-core/issues/58) from ch3nnn/fix/config-database
+* Merge pull request [#61](https://github.com/chimerakang/simple-admin-core/issues/61) from chimerakang/feat-proto-split
+* Merge pull request [#58](https://github.com/chimerakang/simple-admin-core/issues/58) from ch3nnn/fix/config-database
 
 
 <a name="v0.2.1"></a>
-## [v0.2.1](https://github.com/suyuan32/simple-admin-core/compare/v0.2.1-beta...v0.2.1) (2023-01-10)
+## [v0.2.1](https://github.com/chimerakang/simple-admin-core/compare/v0.2.1-beta...v0.2.1) (2023-01-10)
 
 ### Doc
 
@@ -1978,7 +1978,7 @@
 
 
 <a name="v0.2.1-beta"></a>
-## [v0.2.1-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.2.0...v0.2.1-beta) (2023-01-09)
+## [v0.2.1-beta](https://github.com/chimerakang/simple-admin-core/compare/v0.2.0...v0.2.1-beta) (2023-01-09)
 
 ### Chore
 
@@ -2000,7 +2000,7 @@
 
 
 <a name="v0.2.0"></a>
-## [v0.2.0](https://github.com/suyuan32/simple-admin-core/compare/v0.2.0-beta...v0.2.0) (2022-12-29)
+## [v0.2.0](https://github.com/chimerakang/simple-admin-core/compare/v0.2.0-beta...v0.2.0) (2022-12-29)
 
 ### Chore
 
@@ -2023,7 +2023,7 @@
 
 
 <a name="v0.2.0-beta"></a>
-## [v0.2.0-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.1.9...v0.2.0-beta) (2022-12-17)
+## [v0.2.0-beta](https://github.com/chimerakang/simple-admin-core/compare/v0.1.9...v0.2.0-beta) (2022-12-17)
 
 ### Docs
 
@@ -2035,16 +2035,16 @@
 ### Fix
 
 * postgres dsn
-* pagination template bug [#51](https://github.com/suyuan32/simple-admin-core/issues/51)
+* pagination template bug [#51](https://github.com/chimerakang/simple-admin-core/issues/51)
 * postgres dsn
 
 ### Pull Requests
 
-* Merge pull request [#52](https://github.com/suyuan32/simple-admin-core/issues/52) from suyuan32/fix-pagination
+* Merge pull request [#52](https://github.com/chimerakang/simple-admin-core/issues/52) from chimerakang/fix-pagination
 
 
 <a name="v0.1.9"></a>
-## [v0.1.9](https://github.com/suyuan32/simple-admin-core/compare/v0.1.8...v0.1.9) (2022-12-15)
+## [v0.1.9](https://github.com/chimerakang/simple-admin-core/compare/v0.1.8...v0.1.9) (2022-12-15)
 
 ### Chore
 
@@ -2071,11 +2071,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#49](https://github.com/suyuan32/simple-admin-core/issues/49) from suyuan32/group-logic
+* Merge pull request [#49](https://github.com/chimerakang/simple-admin-core/issues/49) from chimerakang/group-logic
 
 
 <a name="v0.1.8"></a>
-## [v0.1.8](https://github.com/suyuan32/simple-admin-core/compare/v0.1.7...v0.1.8) (2022-12-10)
+## [v0.1.8](https://github.com/chimerakang/simple-admin-core/compare/v0.1.7...v0.1.8) (2022-12-10)
 
 ### Docs
 
@@ -2104,7 +2104,7 @@
 
 
 <a name="v0.1.7"></a>
-## [v0.1.7](https://github.com/suyuan32/simple-admin-core/compare/v0.1.6...v0.1.7) (2022-12-03)
+## [v0.1.7](https://github.com/chimerakang/simple-admin-core/compare/v0.1.6...v0.1.7) (2022-12-03)
 
 ### Docs
 
@@ -2125,11 +2125,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#46](https://github.com/suyuan32/simple-admin-core/issues/46) from suyuan32/fix-reuse-pkg
+* Merge pull request [#46](https://github.com/chimerakang/simple-admin-core/issues/46) from chimerakang/fix-reuse-pkg
 
 
 <a name="v0.1.6"></a>
-## [v0.1.6](https://github.com/suyuan32/simple-admin-core/compare/v0.1.5...v0.1.6) (2022-11-18)
+## [v0.1.6](https://github.com/chimerakang/simple-admin-core/compare/v0.1.5...v0.1.6) (2022-11-18)
 
 ### Docs
 
@@ -2155,11 +2155,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#45](https://github.com/suyuan32/simple-admin-core/issues/45) from suyuan32/fix-reuse-pkg
+* Merge pull request [#45](https://github.com/chimerakang/simple-admin-core/issues/45) from chimerakang/fix-reuse-pkg
 
 
 <a name="v0.1.5"></a>
-## [v0.1.5](https://github.com/suyuan32/simple-admin-core/compare/v0.1.4...v0.1.5) (2022-11-13)
+## [v0.1.5](https://github.com/chimerakang/simple-admin-core/compare/v0.1.4...v0.1.5) (2022-11-13)
 
 ### Docs
 
@@ -2185,11 +2185,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#43](https://github.com/suyuan32/simple-admin-core/issues/43) from suyuan32/fix-error-code
+* Merge pull request [#43](https://github.com/chimerakang/simple-admin-core/issues/43) from chimerakang/fix-error-code
 
 
 <a name="v0.1.4"></a>
-## [v0.1.4](https://github.com/suyuan32/simple-admin-core/compare/v0.1.4-beta...v0.1.4) (2022-11-11)
+## [v0.1.4](https://github.com/chimerakang/simple-admin-core/compare/v0.1.4-beta...v0.1.4) (2022-11-11)
 
 ### Chore
 
@@ -2217,7 +2217,7 @@
 
 
 <a name="v0.1.4-beta"></a>
-## [v0.1.4-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.1.3...v0.1.4-beta) (2022-11-07)
+## [v0.1.4-beta](https://github.com/chimerakang/simple-admin-core/compare/v0.1.3...v0.1.4-beta) (2022-11-07)
 
 ### Docs
 
@@ -2243,11 +2243,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#40](https://github.com/suyuan32/simple-admin-core/issues/40) from suyuan32/ent
+* Merge pull request [#40](https://github.com/chimerakang/simple-admin-core/issues/40) from chimerakang/ent
 
 
 <a name="v0.1.3"></a>
-## [v0.1.3](https://github.com/suyuan32/simple-admin-core/compare/v0.1.2...v0.1.3) (2022-11-02)
+## [v0.1.3](https://github.com/chimerakang/simple-admin-core/compare/v0.1.2...v0.1.3) (2022-11-02)
 
 ### Chore
 
@@ -2265,7 +2265,7 @@
 
 ### Fix
 
-* DictionaryDetail 表结构 [#38](https://github.com/suyuan32/simple-admin-core/issues/38)
+* DictionaryDetail 表结构 [#38](https://github.com/chimerakang/simple-admin-core/issues/38)
 * blocking in cron
 * api model index
 * http status
@@ -2279,11 +2279,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#37](https://github.com/suyuan32/simple-admin-core/issues/37) from MUHM/fix/status
+* Merge pull request [#37](https://github.com/chimerakang/simple-admin-core/issues/37) from MUHM/fix/status
 
 
 <a name="v0.1.2"></a>
-## [v0.1.2](https://github.com/suyuan32/simple-admin-core/compare/v0.1.1...v0.1.2) (2022-10-28)
+## [v0.1.2](https://github.com/chimerakang/simple-admin-core/compare/v0.1.1...v0.1.2) (2022-10-28)
 
 ### Chore
 
@@ -2305,8 +2305,8 @@
 * add optional tag for userprofile request
 * add optional tag for userprofile request
 * add optional tag for page request
-* CreateAt,UpdateAt,DeleteAt 命名不统一 [#29](https://github.com/suyuan32/simple-admin-core/issues/29)
-* swagger response type definition wrong [#27](https://github.com/suyuan32/simple-admin-core/issues/27)
+* CreateAt,UpdateAt,DeleteAt 命名不统一 [#29](https://github.com/chimerakang/simple-admin-core/issues/29)
+* swagger response type definition wrong [#27](https://github.com/chimerakang/simple-admin-core/issues/27)
 * change log message into lowercase
 
 ### Perf
@@ -2324,12 +2324,12 @@
 
 ### Pull Requests
 
-* Merge pull request [#34](https://github.com/suyuan32/simple-admin-core/issues/34) from suyuan32/feat-rckmq
-* Merge pull request [#31](https://github.com/suyuan32/simple-admin-core/issues/31) from RogueCultivators/fix/list
+* Merge pull request [#34](https://github.com/chimerakang/simple-admin-core/issues/34) from chimerakang/feat-rckmq
+* Merge pull request [#31](https://github.com/chimerakang/simple-admin-core/issues/31) from RogueCultivators/fix/list
 
 
 <a name="v0.1.1"></a>
-## [v0.1.1](https://github.com/suyuan32/simple-admin-core/compare/v0.1.0...v0.1.1) (2022-10-21)
+## [v0.1.1](https://github.com/chimerakang/simple-admin-core/compare/v0.1.0...v0.1.1) (2022-10-21)
 
 ### Docs
 
@@ -2348,7 +2348,7 @@
 
 
 <a name="v0.1.0"></a>
-## [v0.1.0](https://github.com/suyuan32/simple-admin-core/compare/v0.0.9...v0.1.0) (2022-10-17)
+## [v0.1.0](https://github.com/chimerakang/simple-admin-core/compare/v0.0.9...v0.1.0) (2022-10-17)
 
 ### Docs
 
@@ -2373,13 +2373,13 @@
 
 ### Pull Requests
 
-* Merge pull request [#20](https://github.com/suyuan32/simple-admin-core/issues/20) from suyuan32/feat-log-collection
-* Merge pull request [#19](https://github.com/suyuan32/simple-admin-core/issues/19) from suyuan32/feat-log-collection
-* Merge pull request [#18](https://github.com/suyuan32/simple-admin-core/issues/18) from suyuan32/feat-monitor
+* Merge pull request [#20](https://github.com/chimerakang/simple-admin-core/issues/20) from chimerakang/feat-log-collection
+* Merge pull request [#19](https://github.com/chimerakang/simple-admin-core/issues/19) from chimerakang/feat-log-collection
+* Merge pull request [#18](https://github.com/chimerakang/simple-admin-core/issues/18) from chimerakang/feat-monitor
 
 
 <a name="v0.0.9"></a>
-## [v0.0.9](https://github.com/suyuan32/simple-admin-core/compare/v0.0.8.1...v0.0.9) (2022-10-12)
+## [v0.0.9](https://github.com/chimerakang/simple-admin-core/compare/v0.0.8.1...v0.0.9) (2022-10-12)
 
 ### Docs
 
@@ -2407,11 +2407,11 @@
 
 ### Pull Requests
 
-* Merge pull request [#16](https://github.com/suyuan32/simple-admin-core/issues/16) from suyuan32/feat-k8s
+* Merge pull request [#16](https://github.com/chimerakang/simple-admin-core/issues/16) from chimerakang/feat-k8s
 
 
 <a name="v0.0.8.1"></a>
-## [v0.0.8.1](https://github.com/suyuan32/simple-admin-core/compare/v0.0.8...v0.0.8.1) (2022-10-09)
+## [v0.0.8.1](https://github.com/chimerakang/simple-admin-core/compare/v0.0.8...v0.0.8.1) (2022-10-09)
 
 ### Docs
 
@@ -2425,7 +2425,7 @@
 
 
 <a name="v0.0.8"></a>
-## [v0.0.8](https://github.com/suyuan32/simple-admin-core/compare/v0.0.7...v0.0.8) (2022-10-08)
+## [v0.0.8](https://github.com/chimerakang/simple-admin-core/compare/v0.0.7...v0.0.8) (2022-10-08)
 
 ### Docs
 
@@ -2447,7 +2447,7 @@
 
 
 <a name="v0.0.7"></a>
-## [v0.0.7](https://github.com/suyuan32/simple-admin-core/compare/v0.0.7-beta...v0.0.7) (2022-09-30)
+## [v0.0.7](https://github.com/chimerakang/simple-admin-core/compare/v0.0.7-beta...v0.0.7) (2022-09-30)
 
 ### Fix
 
@@ -2456,7 +2456,7 @@
 
 
 <a name="v0.0.7-beta"></a>
-## [v0.0.7-beta](https://github.com/suyuan32/simple-admin-core/compare/v0.0.6...v0.0.7-beta) (2022-09-29)
+## [v0.0.7-beta](https://github.com/chimerakang/simple-admin-core/compare/v0.0.6...v0.0.7-beta) (2022-09-29)
 
 ### Docs
 
@@ -2490,7 +2490,7 @@
 
 
 <a name="v0.0.6"></a>
-## [v0.0.6](https://github.com/suyuan32/simple-admin-core/compare/v0.0.5...v0.0.6) (2022-09-23)
+## [v0.0.6](https://github.com/chimerakang/simple-admin-core/compare/v0.0.5...v0.0.6) (2022-09-23)
 
 ### Feat
 
@@ -2502,7 +2502,7 @@
 
 
 <a name="v0.0.5"></a>
-## [v0.0.5](https://github.com/suyuan32/simple-admin-core/compare/v0.0.4...v0.0.5) (2022-09-21)
+## [v0.0.5](https://github.com/chimerakang/simple-admin-core/compare/v0.0.4...v0.0.5) (2022-09-21)
 
 ### Feat
 
@@ -2523,7 +2523,7 @@
 
 
 <a name="v0.0.4"></a>
-## [v0.0.4](https://github.com/suyuan32/simple-admin-core/compare/v0.0.2...v0.0.4) (2022-09-13)
+## [v0.0.4](https://github.com/chimerakang/simple-admin-core/compare/v0.0.2...v0.0.4) (2022-09-13)
 
 ### Feat
 
@@ -2551,7 +2551,7 @@
 
 
 <a name="v0.0.2"></a>
-## [v0.0.2](https://github.com/suyuan32/simple-admin-core/compare/v0.0.1...v0.0.2) (2022-09-05)
+## [v0.0.2](https://github.com/chimerakang/simple-admin-core/compare/v0.0.1...v0.0.2) (2022-09-05)
 
 ### Feat
 
@@ -2570,7 +2570,7 @@
 
 ### Pull Requests
 
-* Merge pull request [#2](https://github.com/suyuan32/simple-admin-core/issues/2) from suyuan32/dev
+* Merge pull request [#2](https://github.com/chimerakang/simple-admin-core/issues/2) from chimerakang/dev
 
 
 <a name="v0.0.1"></a>
@@ -2598,5 +2598,5 @@
 
 ### Pull Requests
 
-* Merge pull request [#1](https://github.com/suyuan32/simple-admin-core/issues/1) from suyuan32/dev
+* Merge pull request [#1](https://github.com/chimerakang/simple-admin-core/issues/1) from chimerakang/dev
 

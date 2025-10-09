@@ -5,9 +5,9 @@ import (
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/logic/emailprovider"
-	"github.com/suyuan32/simple-admin-core/api/internal/svc"
-	"github.com/suyuan32/simple-admin-core/api/internal/types"
+	"github.com/chimerakang/simple-admin-core/api/internal/logic/emailprovider"
+	"github.com/chimerakang/simple-admin-core/api/internal/svc"
+	"github.com/chimerakang/simple-admin-core/api/internal/types"
 )
 
 // swagger:route post /email_provider/create emailprovider CreateEmailProvider

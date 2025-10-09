@@ -8,7 +8,7 @@
 [![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.9.0-brightgreen.svg)](https://go-zero.dev/)
 [![Ent](https://img.shields.io/badge/Ent-v0.14.5-blue.svg)](https://entgo.io/)
 [![Casbin](https://img.shields.io/badge/Casbin-v2.127.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.7.2-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Release](https://img.shields.io/badge/Release-v1.7.2-green.svg)](https://github.com/chimerakang/simple-admin-core/releases)
 [![License: Apache2.0](https://img.shields.io/badge/License-Apache2.0-yellow.svg)](https://opensource.org/licenses/MIT)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
 ![注意](https://img.shields.io/badge/%E6%B3%A8%E6%84%8F-%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A0%E5%85%A5%E5%BE%AE%E4%BF%A1%E7%BE%A4-blue)
@@ -44,7 +44,7 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 ### [Simple Admin](https://www.youtube.com/@yuansu5197)
 
-## New upgraded UI (Vben5), greatly optimized experience! [Visit](https://github.com/suyuan32/simple-admin-vben5-ui)
+## New upgraded UI (Vben5), greatly optimized experience! [Visit](https://github.com/chimerakang/simple-admin-vben5-ui)
 
 ### Online Preview
 
@@ -96,12 +96,12 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 | Module Name | Module Introduction | Module Address                                                            |
 |-------------|---------------------|---------------------------------------------------------------------------|
-| Core        | Core Module         | [Core](https://github.com/suyuan32/simple-admin-core)                     |
-| Backend UI  | Backend UI          | [Backend UI](https://github.com/suyuan32/simple-admin-vben5-ui)           |
-| FMS         | File Management     | [File](https://github.com/suyuan32/simple-admin-file)                     |
-| Job         | Scheduled Task      | [Job](https://github.com/suyuan32/simple-admin-job)                       |
-| MMS         | Member Management   | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
-| MCMS        | Message Center      | [Message Center](https://github.com/suyuan32/simple-admin-message-center) |
+| Core        | Core Module         | [Core](https://github.com/chimerakang/simple-admin-core)                     |
+| Backend UI  | Backend UI          | [Backend UI](https://github.com/chimerakang/simple-admin-vben5-ui)           |
+| FMS         | File Management     | [File](https://github.com/chimerakang/simple-admin-file)                     |
+| Job         | Scheduled Task      | [Job](https://github.com/chimerakang/simple-admin-job)                       |
+| MMS         | Member Management   | [Member](https://github.com/chimerakang/simple-admin-member-api)             |
+| MCMS        | Message Center      | [Message Center](https://github.com/chimerakang/simple-admin-message-center) |
 
 ## Member Exclusive Modules
 
@@ -114,7 +114,7 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 # Community Modules
 
-[Click to view](https://github.com/suyuan32/awesome-simple-admin-module)
+[Click to view](https://github.com/chimerakang/awesome-simple-admin-module)
 
 # Commercial Usage Notification
 
@@ -122,7 +122,7 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 ## Project Planning Progress
 
-[RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
+[RoadMap](https://github.com/chimerakang/simple-admin-core/issues/63)
 
 ## Documentation
 
@@ -143,7 +143,7 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 ## How to contribute
 
-You are very welcome to join！[Raise an issue](https://github.com/suyuan32/simple-admin-core/issues/new) Or submit a Pull Request。
+You are very welcome to join！[Raise an issue](https://github.com/chimerakang/simple-admin-core/issues/new) Or submit a Pull Request。
 
 **Pull Request:**
 
@@ -179,16 +179,16 @@ You are very welcome to join！[Raise an issue](https://github.com/suyuan32/simp
 
 > [Discard](https://discord.gg/NDED5p2hJk)
 
-> [Discussion](https://github.com/suyuan32/simple-admin-core/discussions)
+> [Discussion](https://github.com/chimerakang/simple-admin-core/discussions)
 
 ## Stars
 
-[![Star History Chart](https://api.star-history.com/svg?repos=suyuan32/simple-admin-core&type=Date)](https://github.com/suyuan32/simple-admin-core)
+[![Star History Chart](https://api.star-history.com/svg?repos=chimerakang/simple-admin-core&type=Date)](https://github.com/chimerakang/simple-admin-core)
 
 
 ## Maintainer
 
-[@Ryan Su](https://github.com/suyuan32)
+[@Ryan Su](https://github.com/chimerakang)
 
 ## License
 

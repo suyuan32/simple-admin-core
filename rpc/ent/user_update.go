@@ -11,11 +11,11 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/department"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/position"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/predicate"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/role"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/user"
 )
 
 // UserUpdate is the builder for updating User entities.

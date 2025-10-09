@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/configuration"
 )
 
 // Dynamic Configuration Table | 动态配置表

@@ -11,8 +11,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/configuration"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/predicate"
 )
 
 // ConfigurationQuery is the builder for querying Configuration entities.

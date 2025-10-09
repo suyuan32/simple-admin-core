@@ -11,7 +11,7 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	uuid "github.com/gofrs/uuid/v5"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/token"
 )
 
 // TokenCreate is the builder for creating a Token entity.

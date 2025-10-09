@@ -11,8 +11,8 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	uuid "github.com/gofrs/uuid/v5"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/department"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/user"
 )
 
 // DepartmentCreate is the builder for creating a Department entity.

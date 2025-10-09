@@ -1,4 +1,4 @@
-module github.com/suyuan32/simple-admin-core
+module github.com/chimerakang/simple-admin-core
 
 go 1.25.0
 
@@ -12,9 +12,9 @@ require (
 	github.com/mojocn/base64Captcha v1.3.8
 	github.com/redis/go-redis/v9 v9.14.0
 	github.com/stretchr/testify v1.11.1
-	github.com/suyuan32/simple-admin-common v1.7.2
-	github.com/suyuan32/simple-admin-job v1.7.0
-	github.com/suyuan32/simple-admin-message-center v1.7.0
+	github.com/chimerakang/simple-admin-common v1.7.2
+	github.com/chimerakang/simple-admin-job v1.7.0
+	github.com/chimerakang/simple-admin-message-center v1.7.0
 	github.com/zeromicro/go-zero v1.9.1
 	golang.org/x/oauth2 v0.31.0
 	google.golang.org/grpc v1.75.1
@@ -159,6 +159,6 @@ require (
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
 
-replace github.com/zeromicro/go-zero v1.9.1 => github.com/suyuan32/simple-admin-tools v1.9.1
+replace github.com/zeromicro/go-zero v1.9.1 => github.com/chimerakang/simple-admin-tools v1.9.1
 
-replace github.com/mojocn/base64Captcha v1.3.8 => github.com/suyuan32/base64Captcha v1.3.8
+replace github.com/mojocn/base64Captcha v1.3.8 => github.com/chimerakang/base64Captcha v1.3.8

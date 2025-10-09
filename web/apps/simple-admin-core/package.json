@@ -2,17 +2,17 @@
   "name": "@vben/simple-admin-core",
   "version": "1.7.2",
   "homepage": "https://doc.ryansu.tech/",
-  "bugs": "https://github.com/suyuan32/simple-admin-vben5-ui/issues",
+  "bugs": "https://github.com/chimerakang/simple-admin-vben5-ui/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/suyuan32/simple-admin-vben5-ui.git",
+    "url": "git+https://github.com/chimerakang/simple-admin-vben5-ui.git",
     "directory": "apps/simple-admin-core"
   },
   "license": "Apache-2.0",
   "author": {
     "name": "Ryan SU",
     "email": "yuansu.china.work@gmail.com",
-    "url": "https://github.com/suyuan32"
+    "url": "https://github.com/chimerakang"
   },
   "type": "module",
   "scripts": {

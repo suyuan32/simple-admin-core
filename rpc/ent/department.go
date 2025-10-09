@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/department"
 )
 
 // Department Table | 部门表

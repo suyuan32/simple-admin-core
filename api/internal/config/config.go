@@ -1,10 +1,10 @@
 package config
 
 import (
-	"github.com/suyuan32/simple-admin-common/config"
-	"github.com/suyuan32/simple-admin-common/i18n"
-	"github.com/suyuan32/simple-admin-common/plugins/casbin"
-	"github.com/suyuan32/simple-admin-common/utils/captcha"
+	"github.com/chimerakang/simple-admin-common/config"
+	"github.com/chimerakang/simple-admin-common/i18n"
+	"github.com/chimerakang/simple-admin-common/plugins/casbin"
+	"github.com/chimerakang/simple-admin-common/utils/captcha"
 	"github.com/zeromicro/go-zero/rest"
 	"github.com/zeromicro/go-zero/zrpc"
 )

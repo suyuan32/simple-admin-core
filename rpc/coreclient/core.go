@@ -6,7 +6,7 @@ package coreclient
 import (
 	"context"
 
-	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+	"github.com/chimerakang/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"

@@ -2,4 +2,4 @@
 
 package ent
 
-// The schema-stitching logic is generated in github.com/suyuan32/simple-admin-core/rpc/ent/runtime/runtime.go
+// The schema-stitching logic is generated in github.com/chimerakang/simple-admin-core/rpc/ent/runtime/runtime.go

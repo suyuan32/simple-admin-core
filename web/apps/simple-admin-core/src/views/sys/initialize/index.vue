@@ -106,7 +106,7 @@ async function initMcmsDatabase() {
         <Card :hoverable="true" :title="$t('sys.init.initCoreDatabase')">
           <Button
             class="w-full"
-            href="https://github.com/suyuan32/simple-admin-core"
+            href="https://github.com/chimerakang/simple-admin-core"
             type="link"
           >
             Core Github
@@ -126,7 +126,7 @@ async function initMcmsDatabase() {
         <Card :hoverable="true" :title="$t('sys.init.initFileDatabase')">
           <Button
             class="w-full"
-            href="https://github.com/suyuan32/simple-admin-file"
+            href="https://github.com/chimerakang/simple-admin-file"
             type="link"
           >
             File Manager Github
@@ -145,7 +145,7 @@ async function initMcmsDatabase() {
         <Card :hoverable="true" :title="$t('sys.init.initMMSDatabase')">
           <Button
             class="w-full"
-            href="https://github.com/suyuan32/simple-admin-member-api"
+            href="https://github.com/chimerakang/simple-admin-member-api"
             type="link"
           >
             Member Github
@@ -164,7 +164,7 @@ async function initMcmsDatabase() {
         <Card :hoverable="true" :title="$t('sys.init.initJobDatabase')">
           <Button
             class="w-full"
-            href="https://github.com/suyuan32/simple-admin-job"
+            href="https://github.com/chimerakang/simple-admin-job"
             type="link"
           >
             Job Github
@@ -183,7 +183,7 @@ async function initMcmsDatabase() {
         <Card :hoverable="true" :title="$t('sys.init.initMcmsDatabase')">
           <Button
             class="w-full"
-            href="https://github.com/suyuan32/simple-admin-message-center"
+            href="https://github.com/chimerakang/simple-admin-message-center"
             type="link"
           >
             Mcms Github

@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/configuration"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/configuration"
 )
 
 // ConfigurationCreate is the builder for creating a Configuration entity.

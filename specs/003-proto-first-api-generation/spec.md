@@ -339,7 +339,7 @@ package core.v1;
 import "google/api/annotations.proto";
 import "go_zero/options.proto";
 
-option go_package = "github.com/suyuan32/simple-admin-core/rpc/types/core";
+option go_package = "github.com/chimerakang/simple-admin-core/rpc/types/core";
 
 // File-level API metadata
 option (go_zero.api_info) = {

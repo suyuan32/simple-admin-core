@@ -237,7 +237,7 @@ func getAPIFilename(file *protogen.File) string {
 **Testing**:
 ```bash
 cd tools/protoc-gen-go-zero-api
-go mod init github.com/suyuan32/simple-admin-core/tools/protoc-gen-go-zero-api
+go mod init github.com/chimerakang/simple-admin-core/tools/protoc-gen-go-zero-api
 go get google.golang.org/protobuf/compiler/protogen
 go build -o protoc-gen-go-zero-api
 ```
@@ -258,7 +258,7 @@ package go_zero;
 
 import "google/protobuf/descriptor.proto";
 
-option go_package = "github.com/suyuan32/simple-admin-core/rpc/types/go_zero";
+option go_package = "github.com/chimerakang/simple-admin-core/rpc/types/go_zero";
 
 // Service-level options
 extend google.protobuf.ServiceOptions {
@@ -473,7 +473,7 @@ import (
     "google.golang.org/protobuf/compiler/protogen"
     "google.golang.org/protobuf/proto"
 
-    "github.com/suyuan32/simple-admin-core/tools/protoc-gen-go-zero-api/model"
+    "github.com/chimerakang/simple-admin-core/tools/protoc-gen-go-zero-api/model"
 )
 
 type HTTPParser struct{}
@@ -615,8 +615,8 @@ import (
     "google.golang.org/protobuf/compiler/protogen"
     "google.golang.org/protobuf/proto"
 
-    go_zero "github.com/suyuan32/simple-admin-core/rpc/types/go_zero"
-    "github.com/suyuan32/simple-admin-core/tools/protoc-gen-go-zero-api/model"
+    go_zero "github.com/chimerakang/simple-admin-core/rpc/types/go_zero"
+    "github.com/chimerakang/simple-admin-core/tools/protoc-gen-go-zero-api/model"
 )
 
 type OptionsParser struct{}
@@ -772,7 +772,7 @@ import (
     "google.golang.org/protobuf/compiler/protogen"
     "google.golang.org/protobuf/reflect/protoreflect"
 
-    "github.com/suyuan32/simple-admin-core/tools/protoc-gen-go-zero-api/model"
+    "github.com/chimerakang/simple-admin-core/tools/protoc-gen-go-zero-api/model"
 )
 
 type TypeConverter struct {
@@ -928,7 +928,7 @@ Group methods by their @server configuration to generate separate service blocks
 package generator
 
 import (
-    "github.com/suyuan32/simple-admin-core/tools/protoc-gen-go-zero-api/model"
+    "github.com/chimerakang/simple-admin-core/tools/protoc-gen-go-zero-api/model"
 )
 
 type ServiceGrouper struct{}
@@ -1056,7 +1056,7 @@ import (
     "strings"
     "text/template"
 
-    "github.com/suyuan32/simple-admin-core/tools/protoc-gen-go-zero-api/model"
+    "github.com/chimerakang/simple-admin-core/tools/protoc-gen-go-zero-api/model"
 )
 
 const apiTemplate = `syntax = "v1"
@@ -1209,7 +1209,7 @@ import (
 
     "google.golang.org/protobuf/compiler/protogen"
 
-    "github.com/suyuan32/simple-admin-core/tools/protoc-gen-go-zero-api/model"
+    "github.com/chimerakang/simple-admin-core/tools/protoc-gen-go-zero-api/model"
 )
 
 type Generator struct {
@@ -1549,7 +1549,7 @@ package core.v1;
 import "google/api/annotations.proto";
 import "go_zero/options.proto";
 
-option go_package = "github.com/suyuan32/simple-admin-core/rpc/types/core";
+option go_package = "github.com/chimerakang/simple-admin-core/rpc/types/core";
 
 option (go_zero.api_info) = {
   title: "User Management"

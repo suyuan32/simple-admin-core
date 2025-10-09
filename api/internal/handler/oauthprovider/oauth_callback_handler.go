@@ -5,8 +5,8 @@ import (
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 
-	"github.com/suyuan32/simple-admin-core/api/internal/logic/oauthprovider"
-	"github.com/suyuan32/simple-admin-core/api/internal/svc"
+	"github.com/chimerakang/simple-admin-core/api/internal/logic/oauthprovider"
+	"github.com/chimerakang/simple-admin-core/api/internal/svc"
 )
 
 // swagger:route get /oauth/login/callback oauthprovider OauthCallback

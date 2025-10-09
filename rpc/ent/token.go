@@ -10,7 +10,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	uuid "github.com/gofrs/uuid/v5"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/token"
 )
 
 // Token Log Table | 令牌信息表

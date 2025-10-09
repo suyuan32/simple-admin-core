@@ -22,7 +22,7 @@ simple-admin-core/
 - ✅ Proto 定義
 - ✅ 全端 i18n 支援
 
-**Git Repository**: https://github.com/suyuan32/simple-admin-core
+**Git Repository**: https://github.com/chimerakang/simple-admin-core
 
 ---
 

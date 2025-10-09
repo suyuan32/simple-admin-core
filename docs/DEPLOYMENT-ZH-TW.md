@@ -366,7 +366,7 @@ go test ./api/internal/i18n/... -cover
 
 ## 📞 支援
 
-- GitHub Issues: https://github.com/suyuan32/simple-admin-core/issues
+- GitHub Issues: https://github.com/chimerakang/simple-admin-core/issues
 - Discord: https://discord.gg/simple-admin
 
 ---

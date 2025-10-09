@@ -7,18 +7,18 @@ import (
 
 	"github.com/bsm/redislock"
 
-	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/role"
 
 	"entgo.io/ent/dialect/sql/schema"
-	"github.com/suyuan32/simple-admin-common/enum/common"
-	"github.com/suyuan32/simple-admin-common/i18n"
-	"github.com/suyuan32/simple-admin-common/msg/logmsg"
-	"github.com/suyuan32/simple-admin-common/utils/encrypt"
+	"github.com/chimerakang/simple-admin-common/enum/common"
+	"github.com/chimerakang/simple-admin-common/i18n"
+	"github.com/chimerakang/simple-admin-common/msg/logmsg"
+	"github.com/chimerakang/simple-admin-common/utils/encrypt"
 	"github.com/zeromicro/go-zero/core/errorx"
 
-	"github.com/suyuan32/simple-admin-core/rpc/ent"
-	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
-	"github.com/suyuan32/simple-admin-core/rpc/types/core"
+	"github.com/chimerakang/simple-admin-core/rpc/ent"
+	"github.com/chimerakang/simple-admin-core/rpc/internal/svc"
+	"github.com/chimerakang/simple-admin-core/rpc/types/core"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

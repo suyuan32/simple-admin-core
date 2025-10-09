@@ -346,7 +346,7 @@ docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"
 
 - **官方文檔**: https://doc.ryansu.tech/
 - **影片教程**: https://space.bilibili.com/9872669
-- **GitHub**: https://github.com/suyuan32/simple-admin-core
+- **GitHub**: https://github.com/chimerakang/simple-admin-core
 - **線上預覽**: https://vben5-preview.ryansu.tech/
 
 ### 本地文檔

@@ -8,8 +8,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
-	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/menu"
+	"github.com/chimerakang/simple-admin-core/rpc/ent/predicate"
 )
 
 // MenuDelete is the builder for deleting a Menu entity.

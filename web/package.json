@@ -16,13 +16,13 @@
     "Simple Admin"
   ],
   "homepage": "https://doc.ryansu.tech/",
-  "bugs": "https://github.com/suyuan32/simple-admin-vben5-ui/issues",
-  "repository": "https://github.com/suyuan32/simple-admin-vben5-ui.git",
+  "bugs": "https://github.com/chimerakang/simple-admin-vben5-ui/issues",
+  "repository": "https://github.com/chimerakang/simple-admin-vben5-ui.git",
   "license": "Apache-2.0",
   "author": {
     "name": "Ryan SU",
     "email": "yuansu.china.work@gmail.com",
-    "url": "https://github.com/suyuan32"
+    "url": "https://github.com/chimerakang"
   },
   "type": "module",
   "scripts": {

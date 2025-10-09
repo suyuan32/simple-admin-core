@@ -6,14 +6,14 @@ import (
 	"net/http"
 
 	"github.com/casbin/casbin/v2"
+	"github.com/chimerakang/simple-admin-common/config"
+	"github.com/chimerakang/simple-admin-common/orm/ent/entctx/rolectx"
 	"github.com/redis/go-redis/v9"
-	"github.com/suyuan32/simple-admin-common/config"
-	"github.com/suyuan32/simple-admin-common/orm/ent/entctx/rolectx"
 	"github.com/zeromicro/go-zero/core/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
 
-	"github.com/suyuan32/simple-admin-common/utils/jwt"
+	"github.com/chimerakang/simple-admin-common/utils/jwt"
 )
 
 type AuthorityMiddleware struct {

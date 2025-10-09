@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/suyuan32/simple-admin-core/rpc/ent"
+	"github.com/chimerakang/simple-admin-core/rpc/ent"
 )
 
 // The APIFunc type is an adapter to allow the use of ordinary
