@@ -190,13 +190,11 @@ message RefreshTokenResp {
 
 // ============= Service Definition =============
 
-service Core {
+service User {
   // Service-level defaults (will apply to all methods unless overridden)
-  option (go_zero.server) = {
-    jwt: "Auth"
-    middleware: "Authority"
-    group: "user"
-  };
+  option (go_zero.jwt) = "Auth";
+  option (go_zero.middleware) = "Authority";
+  option (go_zero.group) = "user";
 
   // ============= Public Endpoints (no JWT required) =============
 
@@ -206,7 +204,6 @@ service Core {
       body: "*"
     };
     option (go_zero.public) = true;
-    option (go_zero.group) = "publicuser";
   }
 
   rpc loginByEmail(LoginByEmailReq) returns (LoginResp) {
@@ -215,7 +212,6 @@ service Core {
       body: "*"
     };
     option (go_zero.public) = true;
-    option (go_zero.group) = "publicuser";
   }
 
   rpc loginBySms(LoginBySmsReq) returns (LoginResp) {
@@ -224,7 +220,6 @@ service Core {
       body: "*"
     };
     option (go_zero.public) = true;
-    option (go_zero.group) = "publicuser";
   }
 
   rpc register(RegisterReq) returns (BaseResp) {
@@ -233,7 +228,6 @@ service Core {
       body: "*"
     };
     option (go_zero.public) = true;
-    option (go_zero.group) = "publicuser";
   }
 
   rpc registerByEmail(RegisterByEmailReq) returns (BaseResp) {
@@ -242,7 +236,6 @@ service Core {
       body: "*"
     };
     option (go_zero.public) = true;
-    option (go_zero.group) = "publicuser";
   }
 
   rpc registerBySms(RegisterBySmsReq) returns (BaseResp) {
@@ -251,7 +244,6 @@ service Core {
       body: "*"
     };
     option (go_zero.public) = true;
-    option (go_zero.group) = "publicuser";
   }
 
   rpc resetPasswordByEmail(ResetPasswordByEmailReq) returns (BaseResp) {
@@ -260,7 +252,6 @@ service Core {
       body: "*"
     };
     option (go_zero.public) = true;
-    option (go_zero.group) = "publicuser";
   }
 
   rpc resetPasswordBySms(ResetPasswordBySmsReq) returns (BaseResp) {
@@ -269,7 +260,6 @@ service Core {
       body: "*"
     };
     option (go_zero.public) = true;
-    option (go_zero.group) = "publicuser";
   }
 
   // ============= Protected Endpoints (require JWT + Authority) =============

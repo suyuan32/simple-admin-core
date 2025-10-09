@@ -1,0 +1,233 @@
+syntax = "v1"
+
+info(
+    title: "User Management API"
+    desc: "User authentication and management services"
+    author: "Ryan Su"
+    email: "yuansu.china.work@gmail.com"
+    version: "v1.0"
+)
+
+import "../base.api"
+
+type (
+    UserInfo {
+        Id *string `json:"id,optional"`
+        CreatedAt *int64 `json:"createdAt,optional"`
+        UpdatedAt *int64 `json:"updatedAt,optional"`
+        Status *uint32 `json:"status,optional"`
+        Username *string `json:"username,optional"`
+        Password *string `json:"password,optional"`
+        Nickname *string `json:"nickname,optional"`
+        Description *string `json:"description,optional"`
+        HomePath *string `json:"homePath,optional"`
+        RoleIds []uint64 `json:"roleIds"`
+        Mobile *string `json:"mobile,optional"`
+        Email *string `json:"email,optional"`
+        Avatar *string `json:"avatar,optional"`
+        DepartmentId *uint64 `json:"departmentId,optional"`
+        PositionIds []uint64 `json:"positionIds"`
+        RoleCodes []string `json:"roleCodes"`
+        RoleName []string `json:"roleName"`
+        DepartmentName *string `json:"departmentName,optional"`
+        Locale *string `json:"locale,optional"`
+    }
+
+    UserListResp {
+        Total uint64 `json:"total"`
+        Data []UserInfo `json:"data"`
+    }
+
+    UserListReq {
+        Page uint64 `json:"page"`
+        PageSize uint64 `json:"pageSize"`
+        Username *string `json:"username,optional"`
+        Nickname *string `json:"nickname,optional"`
+        Email *string `json:"email,optional"`
+        Mobile *string `json:"mobile,optional"`
+        RoleIds []uint64 `json:"roleIds"`
+        DepartmentId *uint64 `json:"departmentId,optional"`
+        PositionIds []uint64 `json:"positionIds"`
+        Description *string `json:"description,optional"`
+    }
+
+    UsernameReq {
+        Username string `json:"username"`
+    }
+
+    LoginReq {
+        Username string `json:"username"`
+        Password string `json:"password"`
+        CaptchaId string `json:"captchaId"`
+        Captcha string `json:"captcha"`
+    }
+
+    LoginByEmailReq {
+        Email string `json:"email"`
+        Captcha string `json:"captcha"`
+    }
+
+    LoginBySmsReq {
+        PhoneNumber string `json:"phoneNumber"`
+        Captcha string `json:"captcha"`
+    }
+
+    LoginInfo {
+        UserId string `json:"userId"`
+        Token string `json:"token"`
+        Expire uint64 `json:"expire"`
+    }
+
+    LoginResp {
+        Code uint32 `json:"code"`
+        Msg string `json:"msg"`
+        Data LoginInfo `json:"data"`
+    }
+
+    RegisterReq {
+        Username string `json:"username"`
+        Password string `json:"password"`
+        CaptchaId string `json:"captchaId"`
+        Captcha string `json:"captcha"`
+        Email string `json:"email"`
+    }
+
+    RegisterByEmailReq {
+        Username string `json:"username"`
+        Password string `json:"password"`
+        Captcha string `json:"captcha"`
+        Email string `json:"email"`
+    }
+
+    RegisterBySmsReq {
+        Username string `json:"username"`
+        Password string `json:"password"`
+        Captcha string `json:"captcha"`
+        PhoneNumber string `json:"phoneNumber"`
+    }
+
+    ChangePasswordReq {
+        OldPassword string `json:"oldPassword"`
+        NewPassword string `json:"newPassword"`
+    }
+
+    ResetPasswordByEmailReq {
+        Email string `json:"email"`
+        Captcha string `json:"captcha"`
+        Password string `json:"password"`
+    }
+
+    ResetPasswordBySmsReq {
+        PhoneNumber string `json:"phoneNumber"`
+        Captcha string `json:"captcha"`
+        Password string `json:"password"`
+    }
+
+    UserBaseIDInfo {
+        Uuid *string `json:"uuid,optional"`
+        Username *string `json:"username,optional"`
+        Nickname *string `json:"nickname,optional"`
+        Avatar *string `json:"avatar,optional"`
+        HomePath *string `json:"homePath,optional"`
+        Description *string `json:"description,optional"`
+        RoleName []string `json:"roleName"`
+        DepartmentName string `json:"departmentName"`
+        Locale *string `json:"locale,optional"`
+    }
+
+    UserBaseIDInfoResp {
+        Code uint32 `json:"code"`
+        Msg string `json:"msg"`
+        Data UserBaseIDInfo `json:"data"`
+    }
+
+    PermCodeResp {
+        Code uint32 `json:"code"`
+        Msg string `json:"msg"`
+        Data []string `json:"data"`
+    }
+
+    ProfileInfo {
+        Nickname *string `json:"nickname,optional"`
+        Avatar *string `json:"avatar,optional"`
+        Mobile *string `json:"mobile,optional"`
+        Email *string `json:"email,optional"`
+        Locale *string `json:"locale,optional"`
+    }
+
+    ProfileResp {
+        Code uint32 `json:"code"`
+        Msg string `json:"msg"`
+        Data ProfileInfo `json:"data"`
+    }
+
+    RefreshTokenInfo {
+        Token string `json:"token"`
+        ExpiredAt int64 `json:"expiredAt"`
+    }
+
+    RefreshTokenResp {
+        Code uint32 `json:"code"`
+        Msg string `json:"msg"`
+        Data RefreshTokenInfo `json:"data"`
+    }
+
+)
+@server(
+    jwt: Auth
+    group: user
+    middleware: Authority
+)
+service Core {
+    @handler createUser
+    post /user/create (UserInfo) returns (BaseUUIDResp)
+    @handler updateUser
+    post /user/update (UserInfo) returns (BaseResp)
+    @handler getUserList
+    post /user/list (UserListReq) returns (UserListResp)
+    @handler getUserById
+    post /user (UUIDReq) returns (UserInfo)
+    @handler getUserByUsername
+    get /user/by_username/:username (UsernameReq) returns (UserInfo)
+    @handler deleteUser
+    post /user/delete (UUIDsReq) returns (BaseResp)
+    @handler changePassword
+    post /user/change_password (ChangePasswordReq) returns (BaseResp)
+    @handler getUserInfo
+    get /user/info (Empty) returns (UserBaseIDInfoResp)
+    @handler getUserPermCode
+    get /user/perm (Empty) returns (PermCodeResp)
+    @handler getUserProfile
+    get /user/profile (Empty) returns (ProfileResp)
+    @handler updateUserProfile
+    post /user/profile (ProfileInfo) returns (BaseResp)
+    @handler logout
+    get /user/logout (Empty) returns (BaseResp)
+    @handler refreshToken
+    get /user/refresh_token (Empty) returns (RefreshTokenResp)
+    @handler accessToken
+    get /user/access_token (Empty) returns (RefreshTokenResp)
+}
+@server(
+    group: user
+    middleware: Authority
+)
+service Core {
+    @handler login
+    post /user/login (LoginReq) returns (LoginResp)
+    @handler loginByEmail
+    post /user/login_by_email (LoginByEmailReq) returns (LoginResp)
+    @handler loginBySms
+    post /user/login_by_sms (LoginBySmsReq) returns (LoginResp)
+    @handler register
+    post /user/register (RegisterReq) returns (BaseResp)
+    @handler registerByEmail
+    post /user/register_by_email (RegisterByEmailReq) returns (BaseResp)
+    @handler registerBySms
+    post /user/register_by_sms (RegisterBySmsReq) returns (BaseResp)
+    @handler resetPasswordByEmail
+    post /user/reset_password_by_email (ResetPasswordByEmailReq) returns (BaseResp)
+    @handler resetPasswordBySms
+    post /user/reset_password_by_sms (ResetPasswordBySmsReq) returns (BaseResp)
+}
+
