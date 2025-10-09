@@ -10,87 +10,128 @@ import (
 
 // Generator generates Go-Zero .api files from Proto definitions
 type Generator struct {
-	file *protogen.File
-	// Parsers will be added in later tasks
-	// httpParser    *HTTPParser
-	// optionsParser *OptionsParser
-	// typeConverter *TypeConverter
-	// grouper       *ServiceGrouper
-	// templateGen   *TemplateGenerator
+	file          *protogen.File
+	httpParser    *HTTPParser
+	optionsParser *OptionsParser
+	typeConverter *TypeConverter
+	grouper       *ServiceGrouper
+	templateGen   *TemplateGenerator
 }
 
 // NewGenerator creates a new Generator instance
 func NewGenerator(file *protogen.File) *Generator {
 	return &Generator{
-		file: file,
-		// Initialize parsers here in future tasks
+		file:          file,
+		httpParser:    NewHTTPParser(),
+		optionsParser: NewOptionsParser(),
+		typeConverter: NewTypeConverter(),
+		grouper:       NewServiceGrouper(),
+		templateGen:   NewTemplateGenerator(),
 	}
 }
 
 // Generate generates .api file content from proto file
 func (g *Generator) Generate() (string, error) {
-	// TODO: This is a stub implementation
-	// Full implementation will be done in [PF-011] task
+	// 1. Parse API info from file-level options
+	apiInfo := g.optionsParser.ParseAPIInfo(g.file)
 
-	// For now, return a basic template to allow compilation
-	return g.generateStub()
-}
+	// 2. Convert all message types (request/response)
+	var types []*TypeDefinition
+	for _, msg := range g.file.Messages {
+		converted := g.typeConverter.ConvertMessage(msg)
+		if converted != nil {
+			typeDef := &TypeDefinition{
+				Name:       converted.Name,
+				Definition: g.typeConverter.GenerateTypeDefinition(converted),
+			}
+			types = append(types, typeDef)
+		}
+	}
 
-// generateStub generates a minimal .api file for testing
-func (g *Generator) generateStub() (string, error) {
-	// Get package name
-	packageName := string(g.file.Desc.Package())
+	// 3. Parse all services and methods
+	var allMethods []*model.Method
+	for _, service := range g.file.Services {
+		methods, err := g.parseService(service)
+		if err != nil {
+			return "", fmt.Errorf("failed to parse service %s: %w", service.Desc.Name(), err)
+		}
+		allMethods = append(allMethods, methods...)
+	}
 
-	// Count services
-	serviceCount := len(g.file.Services)
+	// 4. Group methods by @server configuration
+	serviceGroups := g.grouper.GroupMethods(allMethods)
 
-	content := fmt.Sprintf(`syntax = "v1"
+	// 5. Prepare template data
+	data := &TemplateData{
+		APIInfo:       apiInfo,
+		Types:         types,
+		ServiceGroups: serviceGroups,
+	}
 
-// Auto-generated from %s
-// Package: %s
-// Services: %d
-// TODO: Full implementation in progress
+	// 6. Validate template data
+	if err := g.templateGen.ValidateData(data); err != nil {
+		return "", fmt.Errorf("template validation failed: %w", err)
+	}
 
-info(
-    title: "API (Generated)"
-    desc: "Auto-generated API from Proto"
-    author: "protoc-gen-go-zero-api"
-    version: "v1.0"
-)
-
-// TODO: Import base types
-// import "../base.api"
-
-// TODO: Type definitions will be generated here
-
-// TODO: Service definitions will be generated here
-`,
-		g.file.Desc.Path(),
-		packageName,
-		serviceCount,
-	)
+	// 7. Generate .api content
+	content, err := g.templateGen.Generate(data)
+	if err != nil {
+		return "", fmt.Errorf("template generation failed: %w", err)
+	}
 
 	return content, nil
 }
 
-// parseService parses a Proto service (stub for now)
-func (g *Generator) parseService(service *protogen.Service) *model.Service {
-	// TODO: Implement in [PF-011]
-	return &model.Service{
-		Name:    string(service.Desc.Name()),
-		Methods: []*model.Method{},
-		Options: &model.ServerOptions{},
+
+// parseService parses a Proto service and returns all its methods
+func (g *Generator) parseService(service *protogen.Service) ([]*model.Method, error) {
+	// Parse service-level options
+	serviceOpts := g.optionsParser.ParseServiceOptions(service)
+
+	var methods []*model.Method
+
+	// Parse each method
+	for _, method := range service.Methods {
+		parsedMethod, err := g.parseMethod(method, serviceOpts)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse method %s: %w", method.Desc.Name(), err)
+		}
+		methods = append(methods, parsedMethod)
 	}
+
+	return methods, nil
 }
 
-// parseMethod parses a Proto method (stub for now)
-func (g *Generator) parseMethod(method *protogen.Method, serviceOpts *model.ServerOptions) *model.Method {
-	// TODO: Implement in [PF-011]
+// parseMethod parses a Proto method with HTTP and options annotations
+func (g *Generator) parseMethod(method *protogen.Method, serviceOpts *model.ServerOptions) (*model.Method, error) {
+	// 1. Parse HTTP rule (google.api.http)
+	httpRule, err := g.httpParser.Parse(method)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse HTTP rule: %w", err)
+	}
+
+	// Skip methods without HTTP annotations
+	if httpRule == nil {
+		return nil, fmt.Errorf("method %s missing google.api.http annotation", method.Desc.Name())
+	}
+
+	// 2. Validate path parameters
+	if err := g.httpParser.ValidatePathParams(httpRule, method.Input); err != nil {
+		return nil, fmt.Errorf("invalid path parameters: %w", err)
+	}
+
+	// 3. Parse method-level options
+	methodOpts := g.optionsParser.ParseMethodOptions(method)
+
+	// 4. Merge service and method options
+	effectiveOpts := g.optionsParser.MergeOptions(serviceOpts, methodOpts)
+
+	// 5. Create method model
 	return &model.Method{
 		Name:         string(method.Desc.Name()),
 		RequestType:  string(method.Input.Desc.Name()),
 		ResponseType: string(method.Output.Desc.Name()),
-		HTTPRule:     nil, // Will be parsed by HTTPParser
-		Options:      serviceOpts,
-	}
+		HTTPRule:     httpRule,
+		Options:      effectiveOpts,
+	}, nil
 }
