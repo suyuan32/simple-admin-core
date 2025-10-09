@@ -1,6 +1,23 @@
 syntax = "proto3";
 
-// User message
+package core;
+
+import "google/api/annotations.proto";
+import "go_zero/options.proto";
+import "base.proto";
+
+option go_package = "./core";
+
+// File-level API metadata
+option (go_zero.api_info) = {
+  title: "User Management API"
+  desc: "User authentication and management services"
+  author: "Ryan Su"
+  email: "yuansu.china.work@gmail.com"
+  version: "v1.0"
+};
+
+// ============= User Messages =============
 
 message UserInfo {
   optional string id = 1;
@@ -46,18 +63,307 @@ message UsernameReq {
   string username = 1;
 }
 
+// ============= Authentication Messages =============
+
+message LoginReq {
+  string username = 1;
+  string password = 2;
+  string captcha_id = 3;
+  string captcha = 4;
+}
+
+message LoginByEmailReq {
+  string email = 1;
+  string captcha = 2;
+}
+
+message LoginBySmsReq {
+  string phone_number = 1;
+  string captcha = 2;
+}
+
+message LoginInfo {
+  string user_id = 1;
+  string token = 2;
+  uint64 expire = 3;
+}
+
+message LoginResp {
+  uint32 code = 1;
+  string msg = 2;
+  LoginInfo data = 3;
+}
+
+message RegisterReq {
+  string username = 1;
+  string password = 2;
+  string captcha_id = 3;
+  string captcha = 4;
+  string email = 5;
+}
+
+message RegisterByEmailReq {
+  string username = 1;
+  string password = 2;
+  string captcha = 3;
+  string email = 4;
+}
+
+message RegisterBySmsReq {
+  string username = 1;
+  string password = 2;
+  string captcha = 3;
+  string phone_number = 4;
+}
+
+message ChangePasswordReq {
+  string old_password = 1;
+  string new_password = 2;
+}
+
+message ResetPasswordByEmailReq {
+  string email = 1;
+  string captcha = 2;
+  string password = 3;
+}
+
+message ResetPasswordBySmsReq {
+  string phone_number = 1;
+  string captcha = 2;
+  string password = 3;
+}
+
+// ============= User Info Messages =============
+
+message UserBaseIDInfo {
+  optional string uuid = 1;
+  optional string username = 2;
+  optional string nickname = 3;
+  optional string avatar = 4;
+  optional string home_path = 5;
+  optional string description = 6;
+  repeated string role_name = 7;
+  string department_name = 8;
+  optional string locale = 9;
+}
+
+message UserBaseIDInfoResp {
+  uint32 code = 1;
+  string msg = 2;
+  UserBaseIDInfo data = 3;
+}
+
+message PermCodeResp {
+  uint32 code = 1;
+  string msg = 2;
+  repeated string data = 3;
+}
+
+// ============= Profile Messages =============
+
+message ProfileInfo {
+  optional string nickname = 1;
+  optional string avatar = 2;
+  optional string mobile = 3;
+  optional string email = 4;
+  optional string locale = 5;
+}
+
+message ProfileResp {
+  uint32 code = 1;
+  string msg = 2;
+  ProfileInfo data = 3;
+}
+
+// ============= Token Messages =============
+
+message RefreshTokenInfo {
+  string token = 1;
+  int64 expired_at = 2;
+}
+
+message RefreshTokenResp {
+  uint32 code = 1;
+  string msg = 2;
+  RefreshTokenInfo data = 3;
+}
+
+// ============= Service Definition =============
+
 service Core {
-  // User management
-  // group: user
-  rpc createUser (UserInfo) returns (BaseUUIDResp);
-  // group: user
-  rpc updateUser (UserInfo) returns (BaseResp);
-  // group: user
-  rpc getUserList (UserListReq) returns (UserListResp);
-  // group: user
-  rpc getUserById (UUIDReq) returns (UserInfo);
-  // group: user
-  rpc getUserByUsername (UsernameReq) returns (UserInfo);
-  // group: user
-  rpc deleteUser (UUIDsReq) returns (BaseResp);
+  // Service-level defaults (will apply to all methods unless overridden)
+  option (go_zero.server) = {
+    jwt: "Auth"
+    middleware: "Authority"
+    group: "user"
+  };
+
+  // ============= Public Endpoints (no JWT required) =============
+
+  rpc login(LoginReq) returns (LoginResp) {
+    option (google.api.http) = {
+      post: "/user/login"
+      body: "*"
+    };
+    option (go_zero.public) = true;
+    option (go_zero.group) = "publicuser";
+  }
+
+  rpc loginByEmail(LoginByEmailReq) returns (LoginResp) {
+    option (google.api.http) = {
+      post: "/user/login_by_email"
+      body: "*"
+    };
+    option (go_zero.public) = true;
+    option (go_zero.group) = "publicuser";
+  }
+
+  rpc loginBySms(LoginBySmsReq) returns (LoginResp) {
+    option (google.api.http) = {
+      post: "/user/login_by_sms"
+      body: "*"
+    };
+    option (go_zero.public) = true;
+    option (go_zero.group) = "publicuser";
+  }
+
+  rpc register(RegisterReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/user/register"
+      body: "*"
+    };
+    option (go_zero.public) = true;
+    option (go_zero.group) = "publicuser";
+  }
+
+  rpc registerByEmail(RegisterByEmailReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/user/register_by_email"
+      body: "*"
+    };
+    option (go_zero.public) = true;
+    option (go_zero.group) = "publicuser";
+  }
+
+  rpc registerBySms(RegisterBySmsReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/user/register_by_sms"
+      body: "*"
+    };
+    option (go_zero.public) = true;
+    option (go_zero.group) = "publicuser";
+  }
+
+  rpc resetPasswordByEmail(ResetPasswordByEmailReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/user/reset_password_by_email"
+      body: "*"
+    };
+    option (go_zero.public) = true;
+    option (go_zero.group) = "publicuser";
+  }
+
+  rpc resetPasswordBySms(ResetPasswordBySmsReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/user/reset_password_by_sms"
+      body: "*"
+    };
+    option (go_zero.public) = true;
+    option (go_zero.group) = "publicuser";
+  }
+
+  // ============= Protected Endpoints (require JWT + Authority) =============
+
+  // Existing CRUD methods (add HTTP annotations)
+  rpc createUser(UserInfo) returns (BaseUUIDResp) {
+    option (google.api.http) = {
+      post: "/user/create"
+      body: "*"
+    };
+  }
+
+  rpc updateUser(UserInfo) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/user/update"
+      body: "*"
+    };
+  }
+
+  rpc getUserList(UserListReq) returns (UserListResp) {
+    option (google.api.http) = {
+      post: "/user/list"
+      body: "*"
+    };
+  }
+
+  rpc getUserById(UUIDReq) returns (UserInfo) {
+    option (google.api.http) = {
+      post: "/user"
+      body: "*"
+    };
+  }
+
+  rpc getUserByUsername(UsernameReq) returns (UserInfo) {
+    option (google.api.http) = {
+      get: "/user/by_username/{username}"
+    };
+  }
+
+  rpc deleteUser(UUIDsReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/user/delete"
+      body: "*"
+    };
+  }
+
+  // New methods
+  rpc changePassword(ChangePasswordReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/user/change_password"
+      body: "*"
+    };
+  }
+
+  rpc getUserInfo(Empty) returns (UserBaseIDInfoResp) {
+    option (google.api.http) = {
+      get: "/user/info"
+    };
+  }
+
+  rpc getUserPermCode(Empty) returns (PermCodeResp) {
+    option (google.api.http) = {
+      get: "/user/perm"
+    };
+  }
+
+  rpc getUserProfile(Empty) returns (ProfileResp) {
+    option (google.api.http) = {
+      get: "/user/profile"
+    };
+  }
+
+  rpc updateUserProfile(ProfileInfo) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/user/profile"
+      body: "*"
+    };
+  }
+
+  rpc logout(Empty) returns (BaseResp) {
+    option (google.api.http) = {
+      get: "/user/logout"
+    };
+  }
+
+  rpc refreshToken(Empty) returns (RefreshTokenResp) {
+    option (google.api.http) = {
+      get: "/user/refresh_token"
+    };
+  }
+
+  rpc accessToken(Empty) returns (RefreshTokenResp) {
+    option (google.api.http) = {
+      get: "/user/access_token"
+    };
+  }
 }

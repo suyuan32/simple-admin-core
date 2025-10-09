@@ -1,7 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Read(//d/Projects/**)"
+      "Read(//d/Projects/**)",
+      "Bash(find:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(make gen-rpc:*)",
+      "Bash(cat:*)",
+      "Bash(protoc:*)",
+      "Bash(go install:*)",
+      "Read(//c/Users/chime/go/pkg/mod/google.golang.org/**)",
+      "Bash(curl -sL https://raw.githubusercontent.com/googleapis/googleapis/master/google/api/annotations.proto -o /d/Projects/simple-admin-core/rpc/desc/google/api/annotations.proto)",
+      "Bash(curl -sL https://raw.githubusercontent.com/googleapis/googleapis/master/google/api/http.proto -o /d/Projects/simple-admin-core/rpc/desc/google/api/http.proto)"
     ],
     "deny": [],
     "ask": []
