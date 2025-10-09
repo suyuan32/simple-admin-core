@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package admin;
+
+option go_package = "github.com/test/admin";
+
+import "google/api/annotations.proto";
+import "rpc/types/go_zero/go_zero.proto";
+
+option (go_zero.api_info) = {
+  title: "Admin Service API"
+  desc: "Admin endpoints with middleware"
+  author: "Test Author"
+  version: "v1.0"
+};
+
+service AdminService {
+  option (go_zero.server) = {
+    jwt: "Auth"
+    group: "admin"
+    middleware: "Authority,RateLimit"
+  };
+
+  rpc GetSystemStats(GetSystemStatsReq) returns (GetSystemStatsResp) {
+    option (google.api.http) = {
+      get: "/admin/stats"
+    };
+  }
+
+  rpc UpdateSystemConfig(UpdateSystemConfigReq) returns (UpdateSystemConfigResp) {
+    option (google.api.http) = {
+      put: "/admin/config"
+      body: "*"
+    };
+  }
+}
+
+message GetSystemStatsReq {
+  string period = 1;
+}
+
+message GetSystemStatsResp {
+  int64 total_users = 1;
+  int64 active_users = 2;
+  map<string, int64> metrics = 3;
+}
+
+message UpdateSystemConfigReq {
+  string key = 1;
+  string value = 2;
+}
+
+message UpdateSystemConfigResp {
+  bool success = 1;
+  string message = 2;
+}

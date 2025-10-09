@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package product;
+
+option go_package = "github.com/test/product";
+
+import "google/api/annotations.proto";
+import "rpc/types/go_zero/go_zero.proto";
+
+option (go_zero.api_info) = {
+  title: "Product Service API"
+  desc: "Product management with nested types"
+  author: "Test Author"
+  version: "v1.0"
+};
+
+service ProductService {
+  option (go_zero.server) = {
+    jwt: "Auth"
+    group: "product"
+  };
+
+  rpc CreateProduct(CreateProductReq) returns (CreateProductResp) {
+    option (google.api.http) = {
+      post: "/product"
+      body: "*"
+    };
+  }
+
+  rpc GetProduct(GetProductReq) returns (GetProductResp) {
+    option (google.api.http) = {
+      get: "/product/:id"
+    };
+  }
+}
+
+message CreateProductReq {
+  string name = 1;
+  string description = 2;
+  Price price = 3;
+  repeated string tags = 4;
+  map<string, string> metadata = 5;
+  Category category = 6;
+}
+
+message CreateProductResp {
+  int64 id = 1;
+  string name = 2;
+  Price price = 3;
+}
+
+message GetProductReq {
+  int64 id = 1;
+}
+
+message GetProductResp {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  Price price = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  Category category = 7;
+}
+
+message Price {
+  int64 amount = 1;
+  string currency = 2;
+}
+
+message Category {
+  int64 id = 1;
+  string name = 2;
+  optional Category parent = 3;
+}

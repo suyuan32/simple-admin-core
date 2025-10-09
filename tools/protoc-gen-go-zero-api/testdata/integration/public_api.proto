@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "github.com/test/auth";
+
+import "google/api/annotations.proto";
+import "rpc/types/go_zero/go_zero.proto";
+
+option (go_zero.api_info) = {
+  title: "Auth Service API"
+  desc: "Public authentication endpoints"
+  author: "Test Author"
+  version: "v1.0"
+};
+
+service AuthService {
+  // Public endpoints (no JWT)
+  rpc Login(LoginReq) returns (LoginResp) {
+    option (google.api.http) = {
+      post: "/auth/login"
+      body: "*"
+    };
+    option (go_zero.method) = {
+      public: true
+    };
+  }
+
+  rpc Register(RegisterReq) returns (RegisterResp) {
+    option (google.api.http) = {
+      post: "/auth/register"
+      body: "*"
+    };
+    option (go_zero.method) = {
+      public: true
+    };
+  }
+
+  // Protected endpoint
+  rpc Logout(LogoutReq) returns (LogoutResp) {
+    option (google.api.http) = {
+      post: "/auth/logout"
+      body: "*"
+    };
+  }
+}
+
+message LoginReq {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResp {
+  string token = 1;
+  int64 expires_in = 2;
+}
+
+message RegisterReq {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+}
+
+message RegisterResp {
+  int64 id = 1;
+  string email = 2;
+  string name = 3;
+}
+
+message LogoutReq {
+  string token = 1;
+}
+
+message LogoutResp {
+  bool success = 1;
+}

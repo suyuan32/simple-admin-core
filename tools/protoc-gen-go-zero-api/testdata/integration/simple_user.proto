@@ -1,0 +1,115 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/test/user";
+
+import "google/api/annotations.proto";
+import "rpc/types/go_zero/go_zero.proto";
+
+option (go_zero.api_info) = {
+  title: "User Service API"
+  desc: "Simple user management service"
+  author: "Test Author"
+  email: "test@example.com"
+  version: "v1.0"
+};
+
+service UserService {
+  option (go_zero.server) = {
+    jwt: "Auth"
+    group: "user"
+    prefix: "/api/v1"
+  };
+
+  rpc CreateUser(CreateUserReq) returns (CreateUserResp) {
+    option (google.api.http) = {
+      post: "/user"
+      body: "*"
+    };
+  }
+
+  rpc GetUser(GetUserReq) returns (GetUserResp) {
+    option (google.api.http) = {
+      get: "/user/:id"
+    };
+  }
+
+  rpc UpdateUser(UpdateUserReq) returns (UpdateUserResp) {
+    option (google.api.http) = {
+      put: "/user/:id"
+      body: "*"
+    };
+  }
+
+  rpc DeleteUser(DeleteUserReq) returns (DeleteUserResp) {
+    option (google.api.http) = {
+      delete: "/user/:id"
+    };
+  }
+
+  rpc ListUsers(ListUsersReq) returns (ListUsersResp) {
+    option (google.api.http) = {
+      get: "/users"
+    };
+  }
+}
+
+message CreateUserReq {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message CreateUserResp {
+  int64 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message GetUserReq {
+  int64 id = 1;
+}
+
+message GetUserResp {
+  int64 id = 1;
+  string name = 2;
+  string email = 3;
+  string created_at = 4;
+}
+
+message UpdateUserReq {
+  int64 id = 1;
+  optional string name = 2;
+  optional string email = 3;
+}
+
+message UpdateUserResp {
+  int64 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message DeleteUserReq {
+  int64 id = 1;
+}
+
+message DeleteUserResp {
+  bool success = 1;
+}
+
+message ListUsersReq {
+  int32 page = 1;
+  int32 page_size = 2;
+}
+
+message ListUsersResp {
+  repeated UserInfo users = 1;
+  int64 total = 2;
+}
+
+message UserInfo {
+  int64 id = 1;
+  string name = 2;
+  string email = 3;
+}

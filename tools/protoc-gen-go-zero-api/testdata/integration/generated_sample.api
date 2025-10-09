@@ -1,0 +1,43 @@
+syntax = "v1"
+
+info(
+    title: "User Service API"
+    desc: "Simple user management service"
+    author: "Test Author"
+    email: "test@example.com"
+    version: "v1.0"
+)
+
+import "../base.api"
+
+type (
+    CreateUserReq {
+        Name string `json:"name"`
+        Email string `json:"email"`
+    }
+
+    CreateUserResp {
+        Id int64 `json:"id"`
+    }
+
+    GetUserReq {
+        Id int64 `json:"id"`
+    }
+
+    GetUserResp {
+        Id int64 `json:"id"`
+        Name string `json:"name"`
+    }
+
+)
+@server(
+    jwt: Auth
+    group: user
+    prefix: /api/v1
+)
+service Core {
+    @handler createUser
+    post /user (CreateUserReq) returns (CreateUserResp)
+    @handler getUser
+    get /user/:id (GetUserReq) returns (GetUserResp)
+}

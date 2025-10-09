@@ -1,0 +1,4 @@
+# command-line-arguments
+package command-line-arguments: case-insensitive file name collision: "generator_integration_test.go" and "generator_integration_test.go"
+FAIL	command-line-arguments [setup failed]
+FAIL

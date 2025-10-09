@@ -1,0 +1,458 @@
+=== RUN   TestGenerateAPI_EndToEnd
+=== RUN   TestGenerateAPI_EndToEnd/basic_CRUD_service_generation
+    generator_integration_test.go:39: Generated .api content:
+        syntax = "v1"
+        
+        info(
+            title: "User Service API"
+            desc: "Simple user management service"
+            author: "Test Author"
+            email: "test@example.com"
+            version: "v1.0"
+        )
+        
+        import "../base.api"
+        
+        type (
+            CreateUserReq {
+                Name string `json:"name"`
+                Email string `json:"email"`
+            }
+        
+            CreateUserResp {
+                Id int64 `json:"id"`
+            }
+        
+            GetUserReq {
+                Id int64 `json:"id"`
+            }
+        
+            GetUserResp {
+                Id int64 `json:"id"`
+                Name string `json:"name"`
+            }
+        
+        )
+        @server(
+            jwt: Auth
+            group: user
+            prefix: /api/v1
+        )
+        service Core {
+            @handler createUser
+            post /user (CreateUserReq) returns (CreateUserResp)
+            @handler getUser
+            get /user/:id (GetUserReq) returns (GetUserResp)
+        }
+--- PASS: TestGenerateAPI_EndToEnd (0.00s)
+    --- PASS: TestGenerateAPI_EndToEnd/basic_CRUD_service_generation (0.00s)
+=== RUN   TestGenerateAPI_TypeConversion
+=== RUN   TestGenerateAPI_TypeConversion/message_to_.api_type_conversion
+    generator_integration_test.go:73: Generated types:
+        syntax = "v1"
+        
+        info(
+            title: "Type Test API"
+            desc: "Test type conversions"
+            author: "Test"
+            version: "v1.0"
+        )
+        
+        import "../base.api"
+        
+        type (
+            TypeTestReq {
+                StringField string `json:"stringField"`
+                Int64Field int64 `json:"int64Field"`
+                BoolField bool `json:"boolField"`
+                OptionalField *string `json:"optionalField,optional"`
+                RepeatedField []string `json:"repeatedField"`
+            }
+        
+            TypeTestResp {
+                Success bool `json:"success"`
+            }
+        
+        )
+        @server(
+            group: test
+        )
+        service Core {
+            @handler testTypes
+            post /test (TypeTestReq) returns (TypeTestResp)
+        }
+--- PASS: TestGenerateAPI_TypeConversion (0.00s)
+    --- PASS: TestGenerateAPI_TypeConversion/message_to_.api_type_conversion (0.00s)
+=== RUN   TestTemplateGeneration
+=== RUN   TestTemplateGeneration/template_generates_valid_.api_structure
+    generator_integration_test.go:150: Template output:
+        syntax = "v1"
+        
+        info(
+            title: "Test API"
+            desc: "Test Description"
+            author: "Test Author"
+            version: "v1.0"
+        )
+        
+        import "../base.api"
+        
+        type (
+            TestReq {
+                Id int64 `json:"id"`
+                Name string `json:"name"`
+            }
+        
+            TestResp {
+                Success bool `json:"success"`
+            }
+        
+        )
+        @server(
+            jwt: Auth
+            group: test
+            prefix: /api/v1
+        )
+        service Core {
+            @handler testMethod
+            post /test (TestReq) returns (TestResp)
+        }
+--- PASS: TestTemplateGeneration (0.00s)
+    --- PASS: TestTemplateGeneration/template_generates_valid_.api_structure (0.00s)
+=== RUN   TestServiceGrouping
+=== RUN   TestServiceGrouping/methods_grouped_by_server_options
+    generator_integration_test.go:210: Number of groups: 3
+--- PASS: TestServiceGrouping (0.00s)
+    --- PASS: TestServiceGrouping/methods_grouped_by_server_options (0.00s)
+=== RUN   TestValidation
+=== RUN   TestValidation/duplicate_type_names
+=== RUN   TestValidation/duplicate_handler_names
+--- PASS: TestValidation (0.00s)
+    --- PASS: TestValidation/duplicate_type_names (0.00s)
+    --- PASS: TestValidation/duplicate_handler_names (0.00s)
+=== RUN   TestGenerateWithDefaults
+=== RUN   TestGenerateWithDefaults/generation_with_missing_API_info
+--- PASS: TestGenerateWithDefaults (0.00s)
+    --- PASS: TestGenerateWithDefaults/generation_with_missing_API_info (0.00s)
+=== RUN   TestOutputFormat
+=== RUN   TestOutputFormat/output_has_proper_formatting
+--- PASS: TestOutputFormat (0.00s)
+    --- PASS: TestOutputFormat/output_has_proper_formatting (0.00s)
+=== RUN   TestNewServiceGrouper
+--- PASS: TestNewServiceGrouper (0.00s)
+=== RUN   TestGroupMethods_EmptyMethods
+--- PASS: TestGroupMethods_EmptyMethods (0.00s)
+=== RUN   TestGroupMethods_EmptySlice
+--- PASS: TestGroupMethods_EmptySlice (0.00s)
+=== RUN   TestGroupMethods_SingleMethod
+--- PASS: TestGroupMethods_SingleMethod (0.00s)
+=== RUN   TestGroupMethods_IdenticalServerOptions
+--- PASS: TestGroupMethods_IdenticalServerOptions (0.00s)
+=== RUN   TestGroupMethods_DifferentServerOptions
+--- PASS: TestGroupMethods_DifferentServerOptions (0.00s)
+=== RUN   TestGroupMethods_SkipsMethodsWithNilOptions
+--- PASS: TestGroupMethods_SkipsMethodsWithNilOptions (0.00s)
+=== RUN   TestGroupMethods_JWTVsNoJWT
+--- PASS: TestGroupMethods_JWTVsNoJWT (0.00s)
+=== RUN   TestGroupMethods_PublicMethodOverride
+--- PASS: TestGroupMethods_PublicMethodOverride (0.00s)
+=== RUN   TestGroupMethods_DifferentMiddleware
+--- PASS: TestGroupMethods_DifferentMiddleware (0.00s)
+=== RUN   TestGroupMethods_SameMiddlewareDifferentOrder
+--- PASS: TestGroupMethods_SameMiddlewareDifferentOrder (0.00s)
+=== RUN   TestGroupMethods_SameMiddlewareSameOrder
+--- PASS: TestGroupMethods_SameMiddlewareSameOrder (0.00s)
+=== RUN   TestGroupMethods_NoMiddlewareVsWithMiddleware
+--- PASS: TestGroupMethods_NoMiddlewareVsWithMiddleware (0.00s)
+=== RUN   TestGroupMethods_MultipleMiddleware
+--- PASS: TestGroupMethods_MultipleMiddleware (0.00s)
+=== RUN   TestGroupMethods_DifferentGroup
+--- PASS: TestGroupMethods_DifferentGroup (0.00s)
+=== RUN   TestGroupMethods_DifferentPrefix
+--- PASS: TestGroupMethods_DifferentPrefix (0.00s)
+=== RUN   TestGroupMethods_EmptyGroupVsPopulated
+--- PASS: TestGroupMethods_EmptyGroupVsPopulated (0.00s)
+=== RUN   TestSortGroups_JWTComesFirst
+--- PASS: TestSortGroups_JWTComesFirst (0.00s)
+=== RUN   TestSortGroups_MoreMiddlewareFirst
+--- PASS: TestSortGroups_MoreMiddlewareFirst (0.00s)
+=== RUN   TestSortGroups_AlphabeticalByGroup
+--- PASS: TestSortGroups_AlphabeticalByGroup (0.00s)
+=== RUN   TestSortGroups_ComplexPriority
+--- PASS: TestSortGroups_ComplexPriority (0.00s)
+=== RUN   TestSplitByServerConfig_SingleGroup
+--- PASS: TestSplitByServerConfig_SingleGroup (0.00s)
+=== RUN   TestSplitByServerConfig_MultipleGroups
+--- PASS: TestSplitByServerConfig_MultipleGroups (0.00s)
+=== RUN   TestSplitByServerConfig_EmptyService
+--- PASS: TestSplitByServerConfig_EmptyService (0.00s)
+=== RUN   TestMergeGroups_EmptyGroups
+--- PASS: TestMergeGroups_EmptyGroups (0.00s)
+=== RUN   TestMergeGroups_SingleGroup
+--- PASS: TestMergeGroups_SingleGroup (0.00s)
+=== RUN   TestMergeGroups_IdenticalServerOptions
+--- PASS: TestMergeGroups_IdenticalServerOptions (0.00s)
+=== RUN   TestMergeGroups_DifferentServerOptions
+--- PASS: TestMergeGroups_DifferentServerOptions (0.00s)
+=== RUN   TestMergeGroups_DoesNotModifyOriginal
+--- PASS: TestMergeGroups_DoesNotModifyOriginal (0.00s)
+=== RUN   TestMergeGroups_MultipleGroupsMerge
+--- PASS: TestMergeGroups_MultipleGroupsMerge (0.00s)
+=== RUN   TestMergeGroups_PartialMerge
+--- PASS: TestMergeGroups_PartialMerge (0.00s)
+=== RUN   TestGetPublicGroups_NoPublicGroups
+--- PASS: TestGetPublicGroups_NoPublicGroups (0.00s)
+=== RUN   TestGetPublicGroups_AllPublic
+--- PASS: TestGetPublicGroups_AllPublic (0.00s)
+=== RUN   TestGetPublicGroups_Mixed
+--- PASS: TestGetPublicGroups_Mixed (0.00s)
+=== RUN   TestGetProtectedGroups_NoProtectedGroups
+--- PASS: TestGetProtectedGroups_NoProtectedGroups (0.00s)
+=== RUN   TestGetProtectedGroups_AllProtected
+--- PASS: TestGetProtectedGroups_AllProtected (0.00s)
+=== RUN   TestGetProtectedGroups_Mixed
+--- PASS: TestGetProtectedGroups_Mixed (0.00s)
+=== RUN   TestHasMultipleGroups_SingleGroup
+--- PASS: TestHasMultipleGroups_SingleGroup (0.00s)
+=== RUN   TestHasMultipleGroups_MultipleGroups
+--- PASS: TestHasMultipleGroups_MultipleGroups (0.00s)
+=== RUN   TestHasMultipleGroups_EmptyMethods
+--- PASS: TestHasMultipleGroups_EmptyMethods (0.00s)
+=== RUN   TestGetGroupCount_Zero
+--- PASS: TestGetGroupCount_Zero (0.00s)
+=== RUN   TestGetGroupCount_One
+--- PASS: TestGetGroupCount_One (0.00s)
+=== RUN   TestGetGroupCount_Multiple
+--- PASS: TestGetGroupCount_Multiple (0.00s)
+=== RUN   TestComplexScenario_MicroserviceAPIs
+--- PASS: TestComplexScenario_MicroserviceAPIs (0.00s)
+=== RUN   TestComplexScenario_MultiServiceMerge
+--- PASS: TestComplexScenario_MultiServiceMerge (0.00s)
+=== RUN   TestEdgeCase_AllNilOptions
+--- PASS: TestEdgeCase_AllNilOptions (0.00s)
+=== RUN   TestEdgeCase_GrouperEmptyServerOptions
+--- PASS: TestEdgeCase_GrouperEmptyServerOptions (0.00s)
+=== RUN   TestEdgeCase_GrouperVeryLongMiddlewareList
+--- PASS: TestEdgeCase_GrouperVeryLongMiddlewareList (0.00s)
+=== RUN   TestEdgeCase_SpecialCharactersInGroup
+--- PASS: TestEdgeCase_SpecialCharactersInGroup (0.00s)
+=== RUN   TestConsistency_MultipleCalls
+--- PASS: TestConsistency_MultipleCalls (0.00s)
+=== RUN   TestParseMiddlewareList_SingleMiddleware
+--- PASS: TestParseMiddlewareList_SingleMiddleware (0.00s)
+=== RUN   TestParseMiddlewareList_MultipleMiddleware
+--- PASS: TestParseMiddlewareList_MultipleMiddleware (0.00s)
+=== RUN   TestParseMiddlewareList_WithSpaces
+--- PASS: TestParseMiddlewareList_WithSpaces (0.00s)
+=== RUN   TestParseMiddlewareList_WithExtraCommas
+--- PASS: TestParseMiddlewareList_WithExtraCommas (0.00s)
+=== RUN   TestParseMiddlewareList_EmptyString
+--- PASS: TestParseMiddlewareList_EmptyString (0.00s)
+=== RUN   TestParseMiddlewareList_OnlySpacesAndCommas
+--- PASS: TestParseMiddlewareList_OnlySpacesAndCommas (0.00s)
+=== RUN   TestParseMiddlewareList_TrailingComma
+--- PASS: TestParseMiddlewareList_TrailingComma (0.00s)
+=== RUN   TestParseMiddlewareList_LeadingComma
+--- PASS: TestParseMiddlewareList_LeadingComma (0.00s)
+=== RUN   TestParseMiddlewareList_OnlyCommas
+--- PASS: TestParseMiddlewareList_OnlyCommas (0.00s)
+=== RUN   TestParseMiddlewareList_SingleWithSpaces
+--- PASS: TestParseMiddlewareList_SingleWithSpaces (0.00s)
+=== RUN   TestParseMiddlewareList_MixedWhitespace
+--- PASS: TestParseMiddlewareList_MixedWhitespace (0.00s)
+=== RUN   TestMergeOptions_ServiceOnly
+--- PASS: TestMergeOptions_ServiceOnly (0.00s)
+=== RUN   TestMergeOptions_PublicMethodOverridesJWT
+--- PASS: TestMergeOptions_PublicMethodOverridesJWT (0.00s)
+=== RUN   TestMergeOptions_MethodMiddlewareOverridesService
+--- PASS: TestMergeOptions_MethodMiddlewareOverridesService (0.00s)
+=== RUN   TestMergeOptions_PublicWithCustomMiddleware
+--- PASS: TestMergeOptions_PublicWithCustomMiddleware (0.00s)
+=== RUN   TestMergeOptions_NilServiceOptions
+--- PASS: TestMergeOptions_NilServiceOptions (0.00s)
+=== RUN   TestMergeOptions_NilMethodOptions
+--- PASS: TestMergeOptions_NilMethodOptions (0.00s)
+=== RUN   TestMergeOptions_BothNil
+--- PASS: TestMergeOptions_BothNil (0.00s)
+=== RUN   TestMergeOptions_EmptyMiddlewareSlices
+--- PASS: TestMergeOptions_EmptyMiddlewareSlices (0.00s)
+=== RUN   TestMergeOptions_DoesNotModifyOriginal
+--- PASS: TestMergeOptions_DoesNotModifyOriginal (0.00s)
+=== RUN   TestMergeOptions_MiddlewareArrayIsolation
+--- PASS: TestMergeOptions_MiddlewareArrayIsolation (0.00s)
+=== RUN   TestHasJWT_ServiceRequiresJWT
+--- PASS: TestHasJWT_ServiceRequiresJWT (0.00s)
+=== RUN   TestHasJWT_PublicMethodNoJWT
+--- PASS: TestHasJWT_PublicMethodNoJWT (0.00s)
+=== RUN   TestHasJWT_NoServiceJWT
+--- PASS: TestHasJWT_NoServiceJWT (0.00s)
+=== RUN   TestHasJWT_NilOptions
+--- PASS: TestHasJWT_NilOptions (0.00s)
+=== RUN   TestHasJWT_NilServiceOptions
+--- PASS: TestHasJWT_NilServiceOptions (0.00s)
+=== RUN   TestHasJWT_NilMethodOptions_ServiceHasJWT
+--- PASS: TestHasJWT_NilMethodOptions_ServiceHasJWT (0.00s)
+=== RUN   TestGetMiddleware_ServiceLevelOnly
+--- PASS: TestGetMiddleware_ServiceLevelOnly (0.00s)
+=== RUN   TestGetMiddleware_MethodOverridesService
+--- PASS: TestGetMiddleware_MethodOverridesService (0.00s)
+=== RUN   TestGetMiddleware_NoMiddleware
+--- PASS: TestGetMiddleware_NoMiddleware (0.00s)
+=== RUN   TestGetMiddleware_NilOptions
+--- PASS: TestGetMiddleware_NilOptions (0.00s)
+=== RUN   TestGetMiddleware_NilServiceOptions
+--- PASS: TestGetMiddleware_NilServiceOptions (0.00s)
+=== RUN   TestGetMiddleware_NilMethodOptions
+--- PASS: TestGetMiddleware_NilMethodOptions (0.00s)
+=== RUN   TestGetMiddleware_EmptyServiceMiddleware
+--- PASS: TestGetMiddleware_EmptyServiceMiddleware (0.00s)
+=== RUN   TestGetMiddleware_EmptyMethodMiddleware
+--- PASS: TestGetMiddleware_EmptyMethodMiddleware (0.00s)
+=== RUN   TestComplexScenario_PublicLoginWithRateLimit
+--- PASS: TestComplexScenario_PublicLoginWithRateLimit (0.00s)
+=== RUN   TestComplexScenario_ProtectedUpdateWithExtraMiddleware
+--- PASS: TestComplexScenario_ProtectedUpdateWithExtraMiddleware (0.00s)
+=== RUN   TestComplexScenario_NoServiceMiddleware_MethodHasMiddleware
+--- PASS: TestComplexScenario_NoServiceMiddleware_MethodHasMiddleware (0.00s)
+=== RUN   TestComplexScenario_MultipleMiddleware
+--- PASS: TestComplexScenario_MultipleMiddleware (0.00s)
+=== RUN   TestEdgeCase_VeryLongMiddlewareList
+--- PASS: TestEdgeCase_VeryLongMiddlewareList (0.00s)
+=== RUN   TestEdgeCase_SpecialCharactersInMiddleware
+--- PASS: TestEdgeCase_SpecialCharactersInMiddleware (0.00s)
+=== RUN   TestEdgeCase_EmptyServerOptions
+--- PASS: TestEdgeCase_EmptyServerOptions (0.00s)
+=== RUN   TestEdgeCase_PublicFalseExplicitly
+--- PASS: TestEdgeCase_PublicFalseExplicitly (0.00s)
+=== RUN   TestEdgeCase_ZeroValueServerOptions
+--- PASS: TestEdgeCase_ZeroValueServerOptions (0.00s)
+=== RUN   TestNewOptionsParser
+--- PASS: TestNewOptionsParser (0.00s)
+=== RUN   TestNewTypeConverter
+--- PASS: TestNewTypeConverter (0.00s)
+=== RUN   TestToGoFieldName
+=== RUN   TestToGoFieldName/simple_snake_case
+=== RUN   TestToGoFieldName/multiple_underscores
+=== RUN   TestToGoFieldName/single_word
+=== RUN   TestToGoFieldName/empty_string
+=== RUN   TestToGoFieldName/single_letter
+=== RUN   TestToGoFieldName/with_numbers
+=== RUN   TestToGoFieldName/consecutive_underscores
+=== RUN   TestToGoFieldName/leading_underscore
+=== RUN   TestToGoFieldName/trailing_underscore
+--- PASS: TestToGoFieldName (0.00s)
+    --- PASS: TestToGoFieldName/simple_snake_case (0.00s)
+    --- PASS: TestToGoFieldName/multiple_underscores (0.00s)
+    --- PASS: TestToGoFieldName/single_word (0.00s)
+    --- PASS: TestToGoFieldName/empty_string (0.00s)
+    --- PASS: TestToGoFieldName/single_letter (0.00s)
+    --- PASS: TestToGoFieldName/with_numbers (0.00s)
+    --- PASS: TestToGoFieldName/consecutive_underscores (0.00s)
+    --- PASS: TestToGoFieldName/leading_underscore (0.00s)
+    --- PASS: TestToGoFieldName/trailing_underscore (0.00s)
+=== RUN   TestIsScalarType
+=== RUN   TestIsScalarType/bool
+=== RUN   TestIsScalarType/int32
+=== RUN   TestIsScalarType/int64
+=== RUN   TestIsScalarType/uint32
+=== RUN   TestIsScalarType/uint64
+=== RUN   TestIsScalarType/sint32
+=== RUN   TestIsScalarType/sint64
+=== RUN   TestIsScalarType/fixed32
+=== RUN   TestIsScalarType/fixed64
+=== RUN   TestIsScalarType/sfixed32
+=== RUN   TestIsScalarType/sfixed64
+=== RUN   TestIsScalarType/float
+=== RUN   TestIsScalarType/double
+=== RUN   TestIsScalarType/string
+=== RUN   TestIsScalarType/bytes
+=== RUN   TestIsScalarType/enum
+=== RUN   TestIsScalarType/message
+=== RUN   TestIsScalarType/group
+--- PASS: TestIsScalarType (0.00s)
+    --- PASS: TestIsScalarType/bool (0.00s)
+    --- PASS: TestIsScalarType/int32 (0.00s)
+    --- PASS: TestIsScalarType/int64 (0.00s)
+    --- PASS: TestIsScalarType/uint32 (0.00s)
+    --- PASS: TestIsScalarType/uint64 (0.00s)
+    --- PASS: TestIsScalarType/sint32 (0.00s)
+    --- PASS: TestIsScalarType/sint64 (0.00s)
+    --- PASS: TestIsScalarType/fixed32 (0.00s)
+    --- PASS: TestIsScalarType/fixed64 (0.00s)
+    --- PASS: TestIsScalarType/sfixed32 (0.00s)
+    --- PASS: TestIsScalarType/sfixed64 (0.00s)
+    --- PASS: TestIsScalarType/float (0.00s)
+    --- PASS: TestIsScalarType/double (0.00s)
+    --- PASS: TestIsScalarType/string (0.00s)
+    --- PASS: TestIsScalarType/bytes (0.00s)
+    --- PASS: TestIsScalarType/enum (0.00s)
+    --- PASS: TestIsScalarType/message (0.00s)
+    --- PASS: TestIsScalarType/group (0.00s)
+=== RUN   TestGetGoZeroType
+=== RUN   TestGetGoZeroType/basic_string
+=== RUN   TestGetGoZeroType/optional_string
+=== RUN   TestGetGoZeroType/repeated_string
+=== RUN   TestGetGoZeroType/repeated_int32
+=== RUN   TestGetGoZeroType/optional_int64
+=== RUN   TestGetGoZeroType/map_type
+=== RUN   TestGetGoZeroType/optional_map_type_(should_not_add_pointer)
+=== RUN   TestGetGoZeroType/optional_slice_type_(should_not_add_pointer)
+=== RUN   TestGetGoZeroType/custom_message_type
+=== RUN   TestGetGoZeroType/optional_custom_message_type
+=== RUN   TestGetGoZeroType/repeated_custom_message_type
+--- PASS: TestGetGoZeroType (0.00s)
+    --- PASS: TestGetGoZeroType/basic_string (0.00s)
+    --- PASS: TestGetGoZeroType/optional_string (0.00s)
+    --- PASS: TestGetGoZeroType/repeated_string (0.00s)
+    --- PASS: TestGetGoZeroType/repeated_int32 (0.00s)
+    --- PASS: TestGetGoZeroType/optional_int64 (0.00s)
+    --- PASS: TestGetGoZeroType/map_type (0.00s)
+    --- PASS: TestGetGoZeroType/optional_map_type_(should_not_add_pointer) (0.00s)
+    --- PASS: TestGetGoZeroType/optional_slice_type_(should_not_add_pointer) (0.00s)
+    --- PASS: TestGetGoZeroType/custom_message_type (0.00s)
+    --- PASS: TestGetGoZeroType/optional_custom_message_type (0.00s)
+    --- PASS: TestGetGoZeroType/repeated_custom_message_type (0.00s)
+=== RUN   TestGenerateFieldLine
+=== RUN   TestGenerateFieldLine/basic_field
+=== RUN   TestGenerateFieldLine/optional_field
+=== RUN   TestGenerateFieldLine/repeated_field
+=== RUN   TestGenerateFieldLine/ignored_field
+=== RUN   TestGenerateFieldLine/int32_field
+=== RUN   TestGenerateFieldLine/map_field
+--- PASS: TestGenerateFieldLine (0.00s)
+    --- PASS: TestGenerateFieldLine/basic_field (0.00s)
+    --- PASS: TestGenerateFieldLine/optional_field (0.00s)
+    --- PASS: TestGenerateFieldLine/repeated_field (0.00s)
+    --- PASS: TestGenerateFieldLine/ignored_field (0.00s)
+    --- PASS: TestGenerateFieldLine/int32_field (0.00s)
+    --- PASS: TestGenerateFieldLine/map_field (0.00s)
+=== RUN   TestGenerateTypeDefinition
+=== RUN   TestGenerateTypeDefinition/simple_message
+=== RUN   TestGenerateTypeDefinition/message_with_optional_fields
+=== RUN   TestGenerateTypeDefinition/message_with_repeated_fields
+=== RUN   TestGenerateTypeDefinition/empty_message
+--- PASS: TestGenerateTypeDefinition (0.00s)
+    --- PASS: TestGenerateTypeDefinition/simple_message (0.00s)
+    --- PASS: TestGenerateTypeDefinition/message_with_optional_fields (0.00s)
+    --- PASS: TestGenerateTypeDefinition/message_with_repeated_fields (0.00s)
+    --- PASS: TestGenerateTypeDefinition/empty_message (0.00s)
+=== RUN   TestReset
+--- PASS: TestReset (0.00s)
+=== RUN   TestGetAllConvertedTypes
+--- PASS: TestGetAllConvertedTypes (0.00s)
+=== RUN   TestConvertMessage
+--- PASS: TestConvertMessage (0.00s)
+=== RUN   TestConvertMessage_CachingBehavior
+--- PASS: TestConvertMessage_CachingBehavior (0.00s)
+=== RUN   TestConvertType
+--- PASS: TestConvertType (0.00s)
+=== RUN   TestConvertType_AllTypes
+--- PASS: TestConvertType_AllTypes (0.00s)
+=== RUN   TestConvertMapType
+--- PASS: TestConvertMapType (0.00s)
+=== RUN   TestConvertAllMessages
+--- PASS: TestConvertAllMessages (0.00s)
+=== RUN   TestConvertField
+--- PASS: TestConvertField (0.00s)
+PASS
+ok  	github.com/chimerakang/simple-admin-core/tools/protoc-gen-go-zero-api/generator	0.105s

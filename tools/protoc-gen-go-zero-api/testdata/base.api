@@ -1,0 +1,10 @@
+syntax = "v1"
+
+// Base API types shared across all services
+
+type (
+    BaseResp {
+        Code int `json:"code"`
+        Msg string `json:"msg"`
+    }
+)
