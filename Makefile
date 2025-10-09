@@ -40,6 +40,23 @@ test: # Run test for the project | 运行项目测试
 	go test -v --cover ./api/internal/..
 	go test -v --cover ./rpc/internal/..
 
+.PHONY: test-proto-plugin
+test-proto-plugin: # Run tests for protoc-gen-go-zero-api plugin | 运行 protoc-gen-go-zero-api 插件测试
+	cd tools/protoc-gen-go-zero-api && go test -v ./generator/...
+	@echo "Proto plugin tests completed successfully"
+
+.PHONY: test-proto-plugin-coverage
+test-proto-plugin-coverage: # Run tests with coverage for protoc-gen-go-zero-api | 运行 protoc-gen-go-zero-api 插件测试（带覆盖率）
+	cd tools/protoc-gen-go-zero-api && go test -v -coverprofile=coverage.out -covermode=atomic ./generator/...
+	cd tools/protoc-gen-go-zero-api && go tool cover -func=coverage.out
+	@echo "Proto plugin coverage report generated"
+
+.PHONY: test-proto-plugin-html
+test-proto-plugin-html: # Generate HTML coverage report for protoc-gen-go-zero-api | 生成 HTML 覆盖率报告
+	cd tools/protoc-gen-go-zero-api && go test -v -coverprofile=coverage.out -covermode=atomic ./generator/...
+	cd tools/protoc-gen-go-zero-api && go tool cover -html=coverage.out -o coverage.html
+	@echo "Proto plugin HTML coverage report generated at tools/protoc-gen-go-zero-api/coverage.html"
+
 .PHONY: fmt
 fmt: # Format the codes | 格式化代码
 	$(GOFMT) -w $(GOFILES)
