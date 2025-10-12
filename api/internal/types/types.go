@@ -864,6 +864,8 @@ type DictionaryInfo struct {
 	// Description of dictionary | 字典描述
 	// max length : 200
 	Desc *string `json:"desc,optional" validate:"omitempty,max=200"`
+	// Whether to be public for everyone | 是否公开词典，无需登录即可访问
+	IsPublic *bool `json:"isPublic,optional"`
 }
 
 // The response data of dictionary list | 字典列表数据
@@ -1261,7 +1263,7 @@ type DictionaryDetailInfoResp struct {
 }
 
 // Dictionary name request | 字典名称请求
-// swagger:parameters GetDictionaryDetailByDictionaryName
+// swagger:parameters GetDictionaryDetailByDictionaryName GetPublicDictionaryDetailByDictionaryName
 type DictionaryNameReq struct {
 	// in:path
 	Name *string `json:"name,optional" path:"name"`

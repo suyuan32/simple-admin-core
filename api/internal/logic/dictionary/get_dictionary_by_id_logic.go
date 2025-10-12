@@ -43,10 +43,11 @@ func (l *GetDictionaryByIdLogic) GetDictionaryById(req *types.IDReq) (resp *type
 				CreatedAt: data.CreatedAt,
 				UpdatedAt: data.UpdatedAt,
 			},
-			Title:  data.Title,
-			Name:   data.Name,
-			Status: data.Status,
-			Desc:   data.Desc,
+			Title:    data.Title,
+			Name:     data.Name,
+			Status:   data.Status,
+			Desc:     data.Desc,
+			IsPublic: data.IsPublic,
 		},
 	}, nil
 }

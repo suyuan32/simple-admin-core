@@ -729,6 +729,30 @@ func (_m *DictionaryCreate) SetNotNilDesc(value *string) *DictionaryCreate {
 }
 
 // set field if value's pointer is not nil.
+func (_m *DictionaryUpdate) SetNotNilIsPublic(value *bool) *DictionaryUpdate {
+	if value != nil {
+		return _m.SetIsPublic(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DictionaryUpdateOne) SetNotNilIsPublic(value *bool) *DictionaryUpdateOne {
+	if value != nil {
+		return _m.SetIsPublic(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DictionaryCreate) SetNotNilIsPublic(value *bool) *DictionaryCreate {
+	if value != nil {
+		return _m.SetIsPublic(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
 func (_m *DictionaryDetailUpdate) SetNotNilUpdatedAt(value *time.Time) *DictionaryDetailUpdate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)

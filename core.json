@@ -16,7 +16,7 @@
     "contact": {
       "email": "yuansu.china.work@gmail.com"
     },
-    "version": "1.7.2"
+    "version": "1.7.3"
   },
   "host": "localhost:9100",
   "basePath": "/",
@@ -694,6 +694,33 @@
             "description": "BaseMsgResp",
             "schema": {
               "$ref": "#/definitions/BaseMsgResp"
+            }
+          }
+        }
+      }
+    },
+    "/dict/public/{name}": {
+      "get": {
+        "description": "Get dictionary detail by dictionary name without logging in | 无需登录通过字典名称获取字典内容",
+        "tags": [
+          "publicapi"
+        ],
+        "summary": "Get dictionary detail by dictionary name without logging in | 无需登录通过字典名称获取字典内容",
+        "operationId": "GetPublicDictionaryDetailByDictionaryName",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DictionaryDetailListResp",
+            "schema": {
+              "$ref": "#/definitions/DictionaryDetailListResp"
             }
           }
         }
@@ -4236,6 +4263,11 @@
           "type": "integer",
           "format": "uint64",
           "x-go-name": "Id"
+        },
+        "isPublic": {
+          "description": "Whether to be public for everyone | 是否公开词典，无需登录即可访问",
+          "type": "boolean",
+          "x-go-name": "IsPublic"
         },
         "name": {
           "description": "Name | 字典名称",

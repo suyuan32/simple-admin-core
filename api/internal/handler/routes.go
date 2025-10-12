@@ -560,6 +560,16 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	)
 
 	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/dict/public/:name",
+				Handler: publicapi.GetPublicDictionaryDetailByDictionaryNameHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.Authority},
 			[]rest.Route{

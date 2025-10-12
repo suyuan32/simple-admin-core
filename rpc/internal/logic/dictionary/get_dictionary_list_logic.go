@@ -50,6 +50,7 @@ func (l *GetDictionaryListLogic) GetDictionaryList(in *core.DictionaryListReq) (
 			Title:     &v.Title,
 			Name:      &v.Name,
 			Desc:      &v.Desc,
+			IsPublic:  &v.IsPublic,
 		})
 	}
 

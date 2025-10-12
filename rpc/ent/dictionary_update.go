@@ -111,6 +111,20 @@ func (_u *DictionaryUpdate) ClearDesc() *DictionaryUpdate {
 	return _u
 }
 
+// SetIsPublic sets the "is_public" field.
+func (_u *DictionaryUpdate) SetIsPublic(v bool) *DictionaryUpdate {
+	_u.mutation.SetIsPublic(v)
+	return _u
+}
+
+// SetNillableIsPublic sets the "is_public" field if the given value is not nil.
+func (_u *DictionaryUpdate) SetNillableIsPublic(v *bool) *DictionaryUpdate {
+	if v != nil {
+		_u.SetIsPublic(*v)
+	}
+	return _u
+}
+
 // AddDictionaryDetailIDs adds the "dictionary_details" edge to the DictionaryDetail entity by IDs.
 func (_u *DictionaryUpdate) AddDictionaryDetailIDs(ids ...uint64) *DictionaryUpdate {
 	_u.mutation.AddDictionaryDetailIDs(ids...)
@@ -226,6 +240,9 @@ func (_u *DictionaryUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 	}
 	if _u.mutation.DescCleared() {
 		_spec.ClearField(dictionary.FieldDesc, field.TypeString)
+	}
+	if value, ok := _u.mutation.IsPublic(); ok {
+		_spec.SetField(dictionary.FieldIsPublic, field.TypeBool, value)
 	}
 	if _u.mutation.DictionaryDetailsCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -375,6 +392,20 @@ func (_u *DictionaryUpdateOne) ClearDesc() *DictionaryUpdateOne {
 	return _u
 }
 
+// SetIsPublic sets the "is_public" field.
+func (_u *DictionaryUpdateOne) SetIsPublic(v bool) *DictionaryUpdateOne {
+	_u.mutation.SetIsPublic(v)
+	return _u
+}
+
+// SetNillableIsPublic sets the "is_public" field if the given value is not nil.
+func (_u *DictionaryUpdateOne) SetNillableIsPublic(v *bool) *DictionaryUpdateOne {
+	if v != nil {
+		_u.SetIsPublic(*v)
+	}
+	return _u
+}
+
 // AddDictionaryDetailIDs adds the "dictionary_details" edge to the DictionaryDetail entity by IDs.
 func (_u *DictionaryUpdateOne) AddDictionaryDetailIDs(ids ...uint64) *DictionaryUpdateOne {
 	_u.mutation.AddDictionaryDetailIDs(ids...)
@@ -520,6 +551,9 @@ func (_u *DictionaryUpdateOne) sqlSave(ctx context.Context) (_node *Dictionary, 
 	}
 	if _u.mutation.DescCleared() {
 		_spec.ClearField(dictionary.FieldDesc, field.TypeString)
+	}
+	if value, ok := _u.mutation.IsPublic(); ok {
+		_spec.SetField(dictionary.FieldIsPublic, field.TypeBool, value)
 	}
 	if _u.mutation.DictionaryDetailsCleared() {
 		edge := &sqlgraph.EdgeSpec{

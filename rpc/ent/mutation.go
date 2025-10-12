@@ -2912,6 +2912,7 @@ type DictionaryMutation struct {
 	title                     *string
 	name                      *string
 	desc                      *string
+	is_public                 *bool
 	clearedFields             map[string]struct{}
 	dictionary_details        map[uint64]struct{}
 	removeddictionary_details map[uint64]struct{}
@@ -3288,6 +3289,42 @@ func (m *DictionaryMutation) ResetDesc() {
 	delete(m.clearedFields, dictionary.FieldDesc)
 }
 
+// SetIsPublic sets the "is_public" field.
+func (m *DictionaryMutation) SetIsPublic(b bool) {
+	m.is_public = &b
+}
+
+// IsPublic returns the value of the "is_public" field in the mutation.
+func (m *DictionaryMutation) IsPublic() (r bool, exists bool) {
+	v := m.is_public
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIsPublic returns the old "is_public" field's value of the Dictionary entity.
+// If the Dictionary object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DictionaryMutation) OldIsPublic(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldIsPublic is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldIsPublic requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIsPublic: %w", err)
+	}
+	return oldValue.IsPublic, nil
+}
+
+// ResetIsPublic resets all changes to the "is_public" field.
+func (m *DictionaryMutation) ResetIsPublic() {
+	m.is_public = nil
+}
+
 // AddDictionaryDetailIDs adds the "dictionary_details" edge to the DictionaryDetail entity by ids.
 func (m *DictionaryMutation) AddDictionaryDetailIDs(ids ...uint64) {
 	if m.dictionary_details == nil {
@@ -3376,7 +3413,7 @@ func (m *DictionaryMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *DictionaryMutation) Fields() []string {
-	fields := make([]string, 0, 6)
+	fields := make([]string, 0, 7)
 	if m.created_at != nil {
 		fields = append(fields, dictionary.FieldCreatedAt)
 	}
@@ -3394,6 +3431,9 @@ func (m *DictionaryMutation) Fields() []string {
 	}
 	if m.desc != nil {
 		fields = append(fields, dictionary.FieldDesc)
+	}
+	if m.is_public != nil {
+		fields = append(fields, dictionary.FieldIsPublic)
 	}
 	return fields
 }
@@ -3415,6 +3455,8 @@ func (m *DictionaryMutation) Field(name string) (ent.Value, bool) {
 		return m.Name()
 	case dictionary.FieldDesc:
 		return m.Desc()
+	case dictionary.FieldIsPublic:
+		return m.IsPublic()
 	}
 	return nil, false
 }
@@ -3436,6 +3478,8 @@ func (m *DictionaryMutation) OldField(ctx context.Context, name string) (ent.Val
 		return m.OldName(ctx)
 	case dictionary.FieldDesc:
 		return m.OldDesc(ctx)
+	case dictionary.FieldIsPublic:
+		return m.OldIsPublic(ctx)
 	}
 	return nil, fmt.Errorf("unknown Dictionary field %s", name)
 }
@@ -3486,6 +3530,13 @@ func (m *DictionaryMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetDesc(v)
+		return nil
+	case dictionary.FieldIsPublic:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIsPublic(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Dictionary field %s", name)
@@ -3583,6 +3634,9 @@ func (m *DictionaryMutation) ResetField(name string) error {
 		return nil
 	case dictionary.FieldDesc:
 		m.ResetDesc()
+		return nil
+	case dictionary.FieldIsPublic:
+		m.ResetIsPublic()
 		return nil
 	}
 	return fmt.Errorf("unknown Dictionary field %s", name)

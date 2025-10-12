@@ -63,7 +63,7 @@ type (
     }
 
     // Dictionary name request | 字典名称请求
-    // swagger:parameters GetDictionaryDetailByDictionaryName
+    // swagger:parameters GetDictionaryDetailByDictionaryName GetPublicDictionaryDetailByDictionaryName
     DictionaryNameReq {
         // in:path
         Name *string `json:"name,optional" path:"name"`
@@ -100,4 +100,14 @@ service Core {
     // Get dictionary detail by dictionary name | 通过字典名称获取字典内容
     @handler getDictionaryDetailByDictionaryName
     get /dict/:name (DictionaryNameReq) returns (DictionaryDetailListResp)
+}
+
+@server(
+    group: publicapi
+)
+
+service Core {
+    // Get dictionary detail by dictionary name without logging in | 无需登录通过字典名称获取字典内容
+    @handler getPublicDictionaryDetailByDictionaryName
+    get /dict/public/:name (DictionaryNameReq) returns (DictionaryDetailListResp)
 }

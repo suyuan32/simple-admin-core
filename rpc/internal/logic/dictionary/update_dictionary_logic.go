@@ -34,6 +34,7 @@ func (l *UpdateDictionaryLogic) UpdateDictionary(in *core.DictionaryInfo) (*core
 		SetNotNilTitle(in.Title).
 		SetNotNilName(in.Name).
 		SetNotNilDesc(in.Desc).
+		SetNotNilIsPublic(in.IsPublic).
 		Exec(l.ctx)
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)

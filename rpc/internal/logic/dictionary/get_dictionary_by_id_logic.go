@@ -40,5 +40,6 @@ func (l *GetDictionaryByIdLogic) GetDictionaryById(in *core.IDReq) (*core.Dictio
 		Title:     &result.Title,
 		Name:      &result.Name,
 		Desc:      &result.Desc,
+		IsPublic:  &result.IsPublic,
 	}, nil
 }

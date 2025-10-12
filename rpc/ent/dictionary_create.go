@@ -89,6 +89,20 @@ func (_c *DictionaryCreate) SetNillableDesc(v *string) *DictionaryCreate {
 	return _c
 }
 
+// SetIsPublic sets the "is_public" field.
+func (_c *DictionaryCreate) SetIsPublic(v bool) *DictionaryCreate {
+	_c.mutation.SetIsPublic(v)
+	return _c
+}
+
+// SetNillableIsPublic sets the "is_public" field if the given value is not nil.
+func (_c *DictionaryCreate) SetNillableIsPublic(v *bool) *DictionaryCreate {
+	if v != nil {
+		_c.SetIsPublic(*v)
+	}
+	return _c
+}
+
 // SetID sets the "id" field.
 func (_c *DictionaryCreate) SetID(v uint64) *DictionaryCreate {
 	_c.mutation.SetID(v)
@@ -157,6 +171,10 @@ func (_c *DictionaryCreate) defaults() {
 		v := dictionary.DefaultStatus
 		_c.mutation.SetStatus(v)
 	}
+	if _, ok := _c.mutation.IsPublic(); !ok {
+		v := dictionary.DefaultIsPublic
+		_c.mutation.SetIsPublic(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -172,6 +190,9 @@ func (_c *DictionaryCreate) check() error {
 	}
 	if _, ok := _c.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Dictionary.name"`)}
+	}
+	if _, ok := _c.mutation.IsPublic(); !ok {
+		return &ValidationError{Name: "is_public", err: errors.New(`ent: missing required field "Dictionary.is_public"`)}
 	}
 	return nil
 }
@@ -228,6 +249,10 @@ func (_c *DictionaryCreate) createSpec() (*Dictionary, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.Desc(); ok {
 		_spec.SetField(dictionary.FieldDesc, field.TypeString, value)
 		_node.Desc = value
+	}
+	if value, ok := _c.mutation.IsPublic(); ok {
+		_spec.SetField(dictionary.FieldIsPublic, field.TypeBool, value)
+		_node.IsPublic = value
 	}
 	if nodes := _c.mutation.DictionaryDetailsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

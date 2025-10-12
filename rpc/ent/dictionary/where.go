@@ -85,6 +85,11 @@ func Desc(v string) predicate.Dictionary {
 	return predicate.Dictionary(sql.FieldEQ(FieldDesc, v))
 }
 
+// IsPublic applies equality check predicate on the "is_public" field. It's identical to IsPublicEQ.
+func IsPublic(v bool) predicate.Dictionary {
+	return predicate.Dictionary(sql.FieldEQ(FieldIsPublic, v))
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v time.Time) predicate.Dictionary {
 	return predicate.Dictionary(sql.FieldEQ(FieldCreatedAt, v))
@@ -418,6 +423,16 @@ func DescEqualFold(v string) predicate.Dictionary {
 // DescContainsFold applies the ContainsFold predicate on the "desc" field.
 func DescContainsFold(v string) predicate.Dictionary {
 	return predicate.Dictionary(sql.FieldContainsFold(FieldDesc, v))
+}
+
+// IsPublicEQ applies the EQ predicate on the "is_public" field.
+func IsPublicEQ(v bool) predicate.Dictionary {
+	return predicate.Dictionary(sql.FieldEQ(FieldIsPublic, v))
+}
+
+// IsPublicNEQ applies the NEQ predicate on the "is_public" field.
+func IsPublicNEQ(v bool) predicate.Dictionary {
+	return predicate.Dictionary(sql.FieldNEQ(FieldIsPublic, v))
 }
 
 // HasDictionaryDetails applies the HasEdge predicate on the "dictionary_details" edge.
