@@ -48,11 +48,12 @@ func (l *GetDictionaryListLogic) GetDictionaryList(req *types.DictionaryListReq)
 					CreatedAt: v.CreatedAt,
 					UpdatedAt: v.UpdatedAt,
 				},
-				Trans:  l.svcCtx.Trans.Trans(l.ctx, *v.Title),
-				Title:  v.Title,
-				Name:   v.Name,
-				Status: v.Status,
-				Desc:   v.Desc,
+				Trans:    l.svcCtx.Trans.Trans(l.ctx, *v.Title),
+				Title:    v.Title,
+				Name:     v.Name,
+				Status:   v.Status,
+				Desc:     v.Desc,
+				IsPublic: v.IsPublic,
 			})
 	}
 	return resp, nil

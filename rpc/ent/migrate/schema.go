@@ -101,6 +101,7 @@ var (
 		{Name: "title", Type: field.TypeString, Comment: "The title shown in the ui | 展示名称 （建议配合i18n）"},
 		{Name: "name", Type: field.TypeString, Unique: true, Comment: "The name of dictionary for search | 字典搜索名称"},
 		{Name: "desc", Type: field.TypeString, Nullable: true, Comment: "The description of dictionary | 字典的描述"},
+		{Name: "is_public", Type: field.TypeBool, Comment: "Whether to be public for everyone | 是否公开词典，无需登录即可访问", Default: false},
 	}
 	// SysDictionariesTable holds the schema information for the "sys_dictionaries" table.
 	SysDictionariesTable = &schema.Table{

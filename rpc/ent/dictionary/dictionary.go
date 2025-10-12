@@ -26,6 +26,8 @@ const (
 	FieldName = "name"
 	// FieldDesc holds the string denoting the desc field in the database.
 	FieldDesc = "desc"
+	// FieldIsPublic holds the string denoting the is_public field in the database.
+	FieldIsPublic = "is_public"
 	// EdgeDictionaryDetails holds the string denoting the dictionary_details edge name in mutations.
 	EdgeDictionaryDetails = "dictionary_details"
 	// Table holds the table name of the dictionary in the database.
@@ -48,6 +50,7 @@ var Columns = []string{
 	FieldTitle,
 	FieldName,
 	FieldDesc,
+	FieldIsPublic,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -69,6 +72,8 @@ var (
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultStatus holds the default value on creation for the "status" field.
 	DefaultStatus uint8
+	// DefaultIsPublic holds the default value on creation for the "is_public" field.
+	DefaultIsPublic bool
 )
 
 // OrderOption defines the ordering options for the Dictionary queries.
@@ -107,6 +112,11 @@ func ByName(opts ...sql.OrderTermOption) OrderOption {
 // ByDesc orders the results by the desc field.
 func ByDesc(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDesc, opts...).ToFunc()
+}
+
+// ByIsPublic orders the results by the is_public field.
+func ByIsPublic(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldIsPublic, opts...).ToFunc()
 }
 
 // ByDictionaryDetailsCount orders the results by dictionary_details count.

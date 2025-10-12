@@ -29,6 +29,8 @@ type Dictionary struct {
 	Name string `json:"name,omitempty"`
 	// The description of dictionary | 字典的描述
 	Desc string `json:"desc,omitempty"`
+	// Whether to be public for everyone | 是否公开词典，无需登录即可访问
+	IsPublic bool `json:"is_public,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the DictionaryQuery when eager-loading is set.
 	Edges        DictionaryEdges `json:"edges"`
@@ -58,6 +60,8 @@ func (*Dictionary) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case dictionary.FieldIsPublic:
+			values[i] = new(sql.NullBool)
 		case dictionary.FieldID, dictionary.FieldStatus:
 			values[i] = new(sql.NullInt64)
 		case dictionary.FieldTitle, dictionary.FieldName, dictionary.FieldDesc:
@@ -121,6 +125,12 @@ func (_m *Dictionary) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.Desc = value.String
 			}
+		case dictionary.FieldIsPublic:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field is_public", values[i])
+			} else if value.Valid {
+				_m.IsPublic = value.Bool
+			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
 		}
@@ -179,6 +189,9 @@ func (_m *Dictionary) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("desc=")
 	builder.WriteString(_m.Desc)
+	builder.WriteString(", ")
+	builder.WriteString("is_public=")
+	builder.WriteString(fmt.Sprintf("%v", _m.IsPublic))
 	builder.WriteByte(')')
 	return builder.String()
 }

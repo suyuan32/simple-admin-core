@@ -130,6 +130,10 @@ func init() {
 	dictionaryDescStatus := dictionaryMixinFields1[0].Descriptor()
 	// dictionary.DefaultStatus holds the default value on creation for the status field.
 	dictionary.DefaultStatus = dictionaryDescStatus.Default.(uint8)
+	// dictionaryDescIsPublic is the schema descriptor for is_public field.
+	dictionaryDescIsPublic := dictionaryFields[3].Descriptor()
+	// dictionary.DefaultIsPublic holds the default value on creation for the is_public field.
+	dictionary.DefaultIsPublic = dictionaryDescIsPublic.Default.(bool)
 	dictionarydetailMixin := schema.DictionaryDetail{}.Mixin()
 	dictionarydetailMixinFields0 := dictionarydetailMixin[0].Fields()
 	_ = dictionarydetailMixinFields0

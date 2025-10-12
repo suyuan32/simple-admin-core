@@ -22,6 +22,7 @@ func (Dictionary) Fields() []ent.Field {
 		field.String("desc").
 			Comment("The description of dictionary | 字典的描述").
 			Optional(),
+		field.Bool("is_public").Default(false).Comment("Whether to be public for everyone | 是否公开词典，无需登录即可访问"),
 	}
 }
 
