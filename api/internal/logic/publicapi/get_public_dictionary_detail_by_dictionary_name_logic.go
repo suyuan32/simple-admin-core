@@ -53,7 +53,7 @@ func (l *GetPublicDictionaryDetailByDictionaryNameLogic) GetPublicDictionaryDeta
 				}
 
 				if !*v.IsPublic {
-					return nil, errorx.NewCodeUnavailableError("this dictionary cannot be view by public")
+					return nil, errorx.NewCodeUnavailableError("this dictionary cannot be viewed by public")
 				}
 			}
 		}
