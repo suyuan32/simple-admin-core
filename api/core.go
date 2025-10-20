@@ -5,7 +5,7 @@
 //		Schemes: http, https
 //		Host: localhost:9100
 //		BasePath: /
-//		Version: 1.7.3
+//		Version: 1.7.4
 //		Contact: yuansu.china.work@gmail.com
 //		SecurityDefinitions:
 //		  Token:
