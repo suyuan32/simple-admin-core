@@ -10,10 +10,10 @@ require (
 	github.com/gofrs/uuid/v5 v5.3.2
 	github.com/larksuite/oapi-sdk-go/v3 v3.4.25
 	github.com/mojocn/base64Captcha v1.3.8
-	github.com/redis/go-redis/v9 v9.14.0
-	github.com/suyuan32/simple-admin-common v1.7.3
-	github.com/suyuan32/simple-admin-job v1.7.0
-	github.com/suyuan32/simple-admin-message-center v1.7.0
+	github.com/redis/go-redis/v9 v9.14.1
+	github.com/suyuan32/simple-admin-common v1.7.4
+	github.com/suyuan32/simple-admin-job v1.7.4
+	github.com/suyuan32/simple-admin-message-center v1.7.4
 	github.com/zeromicro/go-zero v1.9.1
 	golang.org/x/oauth2 v0.32.0
 	google.golang.org/grpc v1.76.0
@@ -133,8 +133,8 @@ require (
 	golang.org/x/text v0.30.0 // indirect
 	golang.org/x/time v0.14.0 // indirect
 	golang.org/x/tools v0.38.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20251007200510-49b9836ed3ff // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20251007200510-49b9836ed3ff // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20251014184007-4626949a642f // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20251014184007-4626949a642f // indirect
 	gopkg.in/evanphx/json-patch.v4 v4.13.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
