@@ -23,8 +23,6 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 > ✨ 我们接外包哦，外包需求请添加公众号联系管理员。 
 
-## 全新升级 UI (Vben5)，大幅优化体验 ! [点击访问](https://github.com/suyuan32/simple-admin-vben5-ui)
-
 ## 相关教程
 
 > [Bilibili 视频教程](https://space.bilibili.com/9872669/channel/series) \

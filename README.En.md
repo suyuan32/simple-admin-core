@@ -5,7 +5,7 @@
 
 **English** | [中文](./README.md)
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.9.0-brightgreen.svg)](https://go-zero.dev/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.9.1-brightgreen.svg)](https://go-zero.dev/)
 [![Ent](https://img.shields.io/badge/Ent-v0.14.5-blue.svg)](https://entgo.io/)
 [![Casbin](https://img.shields.io/badge/Casbin-v2.127.0-orange.svg)](https://github.com/casbin/casbin)
 [![Release](https://img.shields.io/badge/Release-v1.7.4-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
@@ -43,8 +43,6 @@ The 6 free modules are all free for commercial use and are suitable for develope
 ## Official Tutorial
 
 ### [Simple Admin](https://www.youtube.com/@yuansu5197)
-
-## New upgraded UI (Vben5), greatly optimized experience! [Visit](https://github.com/suyuan32/simple-admin-vben5-ui)
 
 ### Online Preview
 
