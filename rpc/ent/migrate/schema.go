@@ -182,11 +182,6 @@ var (
 		},
 		Indexes: []*schema.Index{
 			{
-				Name:    "menu_name",
-				Unique:  true,
-				Columns: []*schema.Column{SysMenusColumns[7]},
-			},
-			{
 				Name:    "menu_path",
 				Unique:  true,
 				Columns: []*schema.Column{SysMenusColumns[6]},
