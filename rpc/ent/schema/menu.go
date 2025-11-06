@@ -75,6 +75,7 @@ func (Menu) Mixin() []ent.Mixin {
 
 func (Menu) Indexes() []ent.Index {
 	return []ent.Index{
+		index.Fields("name").Unique(),
 		index.Fields("path").Unique(),
 	}
 }
