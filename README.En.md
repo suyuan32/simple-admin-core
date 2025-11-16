@@ -38,12 +38,12 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 <br>
 
-If you intend to use this project for commercial purposes (including all revenue-generating commercial activities),
-please strictly adhere to the Apache 2.0 open-source license and retain the author's technical support statement in its
-entirety. You must ensure that all copyright information related to the project (including copyright notices embedded in
-the text, logs, and code) is retained. This information is for compliance purposes only and will not affect your
-business functions or operations. If you need to remove relevant copyright notices or use it for commercial purposes,
-you should first purchase the appropriate license (https://simple-admin-official.simple-hub.top/commercial).
+> If you intend to use this project for commercial purposes (including all revenue-generating commercial activities),
+> please strictly adhere to the Apache 2.0 open-source license and retain the author's technical support statement in its
+> entirety. You must ensure that all copyright information related to the project (including copyright notices embedded in
+> the text, logs, and code) is retained. This information is for compliance purposes only and will not affect your
+> business functions or operations. If you need to remove relevant copyright notices or use it for commercial purposes,
+> you should first purchase the appropriate license (https://simple-admin-official.simple-hub.top/commercial).
 
 ## Feature
 

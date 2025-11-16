@@ -81,12 +81,12 @@ CoreRpc:
 JobRpc:
   Endpoints:
     - job-rpc:9105
-  Enabled: true
+  Enabled: false
 
 McmsRpc:
   Endpoints:
     - mcms-rpc:9106
-  Enabled: true
+  Enabled: false
   Timeout: 5000
 
 # Tracing Analysis
