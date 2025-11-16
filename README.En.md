@@ -5,10 +5,10 @@
 
 **English** | [中文](./README.md)
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.9.1-brightgreen.svg)](https://go-zero.dev/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.9.2-brightgreen.svg)](https://go-zero.dev/)
 [![Ent](https://img.shields.io/badge/Ent-v0.14.5-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.127.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.7.4-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.138.0-orange.svg)](https://github.com/casbin/casbin)
+[![Release](https://img.shields.io/badge/Release-v1.7.5-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: Apache2.0](https://img.shields.io/badge/License-Apache2.0-yellow.svg)](https://opensource.org/licenses/MIT)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
 ![注意](https://img.shields.io/badge/%E6%B3%A8%E6%84%8F-%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A0%E5%85%A5%E5%BE%AE%E4%BF%A1%E7%BE%A4-blue)
@@ -38,32 +38,12 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 <br>
 
-> ✨ We accept outsourcing. Please contact us via email if you have any outsourcing needs.
-
-## Official Tutorial
-
-### [Simple Admin](https://www.youtube.com/@yuansu5197)
-
-### Online Preview
-
-#### [Free Edition Online Preview](https://vben5-preview.ryansu.tech/)
-
-- Account **admin**
-- Password **simple-admin**
-
-#### [Multi-tenant Edition Online Preview](https://tenant-preview.ryansu.tech/)
-
-- Administrator Tenant Account
-  - Enterprise: **admin**
-  - Account: **admin**
-  - Password: **simple-admin**
-
-- Tenant Account
-  - Enterprise: **测试企业**
-  - Account: **admin**
-  - Password: **simple-admin**
-
-> Read-only, cannot be modified or registered
+If you intend to use this project for commercial purposes (including all revenue-generating commercial activities),
+please strictly adhere to the Apache 2.0 open-source license and retain the author's technical support statement in its
+entirety. You must ensure that all copyright information related to the project (including copyright notices embedded in
+the text, logs, and code) is retained. This information is for compliance purposes only and will not affect your
+business functions or operations. If you need to remove relevant copyright notices or use it for commercial purposes,
+you should first purchase the appropriate license (https://simple-admin-official.simple-hub.top/commercial).
 
 ## Feature
 
@@ -101,83 +81,40 @@ The 6 free modules are all free for commercial use and are suitable for develope
 | MMS         | Member Management   | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
 | MCMS        | Message Center      | [Message Center](https://github.com/suyuan32/simple-admin-message-center) |
 
-## Member Exclusive Modules
+## Official Tutorial
 
-| Module Name          | Module Introduction               |
-|----------------------|-----------------------------------|
-| CMS                  | Content Management Module         |
-| Simple-Uni           | Mini Program Development Scaffold |
-| Simple-Nuxt          | PC Web End Development Scaffold   |
-| Core Data Permission | Core data permission version      |
+### [Simple Admin](https://www.youtube.com/@yuansu5197)
+
+### Online Preview
+
+#### [Free Edition Online Preview](https://vben5-preview.ryansu.tech/)
+
+- Account **admin**
+- Password **simple-admin**
+
+#### [Multi-tenant Edition Online Preview](https://tenant-preview.ryansu.tech/)
+
+- Administrator Tenant Account
+    - Enterprise: **admin**
+    - Account: **admin**
+    - Password: **simple-admin**
+
+- Tenant Account
+    - Enterprise: **测试企业**
+    - Account: **admin**
+    - Password: **simple-admin**
+
+> Read-only, cannot be modified or registered
 
 # Community Modules
 
 [Click to view](https://github.com/suyuan32/awesome-simple-admin-module)
 
-# Commercial Usage Notification
-
-[Commercial Usage Details](https://doc.ryansu.tech/guide/member.html#commercial-usage-details)
-
-## Project Planning Progress
-
-[RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
 
 ## Documentation
 
 ### [Simple Admin Document](https://doc.ryansu.tech)
 
-- go-zero
-  [Document](https://go-zero.dev/)
-- ant-design-vue [Document](https://antdv.com/components/overview)
-
-## Preparation
-- [Golang](http://go.dev/) and [git](https://git-scm.com/) - Project development environment
-- [Ent](https://entgo.io/docs/getting-started) - Ent
-- [Mysql](https://www.mysql.com/) - Familiar with mysql database
-- [GORM](https://gorm.io/) - Familiar with GORM apis
-- [Casbin](https://casbin.org/) - Familiar with Casbin apis
-- [Go-swagger](https://goswagger.io/) - Go-swagger document generation
-
-
-## How to contribute
-
-You are very welcome to join！[Raise an issue](https://github.com/suyuan32/simple-admin-core/issues/new) Or submit a Pull Request。
-
-**Pull Request:**
-
-1. Fork code!
-2. Create your own branch: `git checkout -b feat/xxxx`
-3. Submit your changes: `git commit -am 'feat(function): add xxxxx'`
-4. Push your branch: `git push origin feat/xxxx`
-5. submit`pull request`
-
-## Git Contribution submission specification
-
-- reference [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) specification ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
-
-    - `feat` Add new features
-    - `fix` Fix the problem/BUG
-    - `style` The code style is related and does not affect the running result
-    - `perf` Optimization/performance improvement
-    - `refactor` Refactor
-    - `revert` Undo edit
-    - `test` Test related
-    - `docs` Documentation/notes
-    - `chore` Dependency update/scaffolding configuration modification etc.
-    - `workflow` Workflow improvements
-    - `ci` Continuous integration
-    - `types` Type definition file changes
-    - `wip` In development
-
-## Change Log
-
-[CHANGELOG](./CHANGELOG.md)
-
-# Community
-
-> [Discard](https://discord.gg/NDED5p2hJk)
-
-> [Discussion](https://github.com/suyuan32/simple-admin-core/discussions)
 
 ## Stars
 

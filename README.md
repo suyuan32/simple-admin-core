@@ -5,10 +5,10 @@
 
 **中文** | [English](./README.En.md) 
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.9.1-brightgreen.svg)](https://go-zero.dev/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.9.2-brightgreen.svg)](https://go-zero.dev/)
 [![Ent](https://img.shields.io/badge/Ent-v0.14.5-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v2.127.0-orange.svg)](https://github.com/casbin/casbin)
-[![Release](https://img.shields.io/badge/Release-v1.7.4-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
+[![Casbin](https://img.shields.io/badge/Casbin-v2.134.0-orange.svg)](https://github.com/casbin/casbin)
+[![Release](https://img.shields.io/badge/Release-v1.7.5-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: Apache2.0](https://img.shields.io/badge/License-Apache2.0-yellow.svg)](https://opensource.org/licenses/MIT)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
 ![注意](https://img.shields.io/badge/%E6%B3%A8%E6%84%8F-%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A0%E5%85%A5%E5%BE%AE%E4%BF%A1%E7%BE%A4-blue)
@@ -19,37 +19,10 @@ Simple Admin 是一个强大的、易扩展的后台管理系统，基于 Go-Zer
 等开源项目构建，提供了完整的用户管理、权限管理、角色管理、菜单管理、日志管理、配置管理等功能，支持多语言等特性，适用于小型或大型企业快速搭建分布式后台管理系统。 <br><br>
 Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠、复杂的业务场景，项目可以方便地一键升级，提供了完善的文档视频和示例，让开发者可以快速上手，快速开发。官方提供了
 6 大免费基础模块，可以满足 80 % 的常用业务需求。同时提供了模块商店，可以方便的购买和使用更多的模块。<br><br>
-6大免费模块均可免费商用，适合开发者学习、企业内部使用、个人项目使用等，欢迎大家使用和反馈问题，我们会持续更新和维护。
+6 大免费模块均可免费商用，适合开发者学习、企业内部使用、个人项目使用等，欢迎大家使用和反馈问题，我们会持续更新和维护。
 
-> ✨ 我们接外包哦，外包需求请添加公众号联系管理员。 
-
-## 相关教程
-
-> [Bilibili 视频教程](https://space.bilibili.com/9872669/channel/series) \
-> 关注微信公众号 - 几颗酥 获取更多教程
-
-#### [Ent 中文文档](https://suyuan32.github.io/ent-chinese-doc/#/zh-cn/getting-started)
-
-### 在线预览
-
-#### [免费版在线预览](https://vben5-preview.ryansu.tech/)
-
-- 账号 **admin**
-- 密码 **simple-admin**
-
-#### [多租户版在线预览](https://tenant-preview.ryansu.tech/)
-
-- 管理员租户账号
-  - 企业： **admin**
-  - 账号: **admin**
-  - 密码: **simple-admin**
-
-- 租户账号
-  - 企业: **测试企业**
-  - 账号: **admin**
-  - 密码: **simple-admin**
-
-> 只读，不可修改和注册
+> 若您拟将本项目用于商业用途（包括所有产生收益的商业行为），请严格遵守 Apache 2.0
+> 开源协议，同时完整保留作者技术支持声明。您需确保项目相关的版权声明信息（含文案、日志及代码中内嵌的版权声明）全部保留，该类信息仅为合规性文案，不会对您的业务功能及运营产生任何影响。若您需剔除相关版权声明或用于商业用途，应先行[购买相应授权](https://simple-admin-official.simple-hub.top/commercial)。
 
 ## 特性
 
@@ -76,7 +49,28 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 - 代码生成：自动生成 CRUD 代码，快捷生成自定义逻辑
 - 令牌管理：管理 token 状态，支持拉黑 token
 
-## 永久免费的官方模块
+### 在线预览
+
+#### [免费版在线预览](https://vben5-preview.ryansu.tech/)
+
+- 账号 **admin**
+- 密码 **simple-admin**
+
+#### [多租户版在线预览](https://tenant-preview.ryansu.tech/)
+
+- 管理员租户账号
+    - 企业： **admin**
+    - 账号: **admin**
+    - 密码: **simple-admin**
+
+- 租户账号
+    - 企业: **测试企业**
+    - 账号: **admin**
+    - 密码: **simple-admin**
+
+> 只读，不可修改和注册
+
+## 免费的官方模块
 
 | 模块名称       | 模块介绍 | 模块地址                                                                      |
 |------------|------|---------------------------------------------------------------------------|
@@ -87,86 +81,15 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 | MMS        | 会员管理 | [Member](https://github.com/suyuan32/simple-admin-member-api)             |
 | MCMS       | 消息中心 | [Message Center](https://github.com/suyuan32/simple-admin-message-center) |
 
-## 会员专属的模块
-
-| 模块名称                 | 模块介绍        |
-|----------------------|-------------|
-| CMS                  | 内容管理模块      |
-| Simple-Uni           | 小程序开发脚手架    |
-| Simple-Nuxt          | PC 网页端开发脚手架 |
-| Core Data Permission | 数据权限版本      |
 
 # 社区模块
 
 [点击查看](https://github.com/suyuan32/awesome-simple-admin-module)
 
-## 商用说明
-
-[商用说明](https://doc.ryansu.tech/zh/guide/member.html#%E5%95%86%E7%94%A8%E8%AF%B4%E6%98%8E)
-
-## 项目规划进度
-
-[RoadMap](https://github.com/suyuan32/simple-admin-core/issues/63)
 
 ## 文档
 
 ### [Simple Admin 中文文档](https://doc.ryansu.tech/zh)
-
-
-- go-zero
-  [Document](https://go-zero.dev/)
-- ant-design-vue [Document](https://antdv.com/components/overview)
-
-## 准备
-
-- [Golang](http://go.dev/) and [git](https://git-scm.com/) - Go 语言
-- [Ent](https://entgo.io/docs/getting-started) - Ent
-- [Mysql](https://www.mysql.com/) - Mysql数据库
-- [GORM](https://gorm.io/) - GORM 数据库ORM组件
-- [Casbin](https://casbin.org/) - 权限管理
-- [Go-swagger](https://goswagger.io/) - Go-swagger 文档生成调试
-
-## 如何贡献
-
-非常欢迎你的加入！[提一个 Issue](https://github.com/suyuan32/simple-admin-core/issues/new) 或者提交一个 Pull Request。
-
-**Pull Request:**
-
-1. Fork 代码!
-2. 创建自己的分支: `git checkout -b feat/xxxx`
-3. 提交你的修改: `git commit -am 'feat(function): add xxxxx'`
-4. 推送您的分支: `git push origin feat/xxxx`
-5. 提交`pull request`
-
-## Git 贡献提交规范
-
-- 参考 [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) 规范 ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
-
-    - `feat` 增加新功能
-    - `fix` 修复问题/BUG
-    - `style` 代码风格相关无影响运行结果的
-    - `perf` 优化/性能提升
-    - `refactor` 重构
-    - `revert` 撤销修改
-    - `test` 测试相关
-    - `docs` 文档/注释
-    - `chore` 依赖更新/脚手架配置修改等
-    - `workflow` 工作流改进
-    - `ci` 持续集成
-    - `types` 类型定义文件更改
-    - `wip` 开发中
-
-## 更新日志
-
-[CHANGELOG](./CHANGELOG.md)
-
-## 交流群
-
-> [Discord](https://discord.gg/NDED5p2hJk)
-
-> [论坛](https://github.com/suyuan32/simple-admin-core/discussions)
-
-> 关注公众号 《几颗酥》 加入微信群
 
 ## Stars
 
