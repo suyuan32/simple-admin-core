@@ -17,7 +17,7 @@ require (
 	github.com/zeromicro/go-zero v1.9.2
 	golang.org/x/oauth2 v0.34.0
 	google.golang.org/grpc v1.77.0
-	google.golang.org/protobuf v1.36.10
+	google.golang.org/protobuf v1.36.11
 )
 
 require go.uber.org/mock v0.6.0 // indirect
