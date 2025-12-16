@@ -47,7 +47,7 @@ The 6 free modules are all free for commercial use and are suitable for develope
 
 ## Feature
 
-- **State of The Art Development**：Use latest back-end technology development such as ent, go-zero, casbin
+- **State of The Art Development**：Use latest back-end technology development such as ent, go-zero, Casbin
 - **Fully support go-swagger**: Write comment in api file and generate swagger doc easily
 - **Error handling**: Handle error messages via one module
 - **International**：Support different languages show in the front-end via put locale path in the message
