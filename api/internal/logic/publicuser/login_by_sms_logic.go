@@ -100,7 +100,7 @@ func (l *LoginBySmsLogic) LoginBySms(req *types.LoginBySmsReq) (resp *types.Logi
 			},
 		}
 		return resp, nil
-	} else {
-		return nil, errorx.NewCodeInvalidArgumentError("login.wrongCaptcha")
 	}
+
+	return nil, errorx.NewCodeInvalidArgumentError("login.wrongCaptcha")
 }

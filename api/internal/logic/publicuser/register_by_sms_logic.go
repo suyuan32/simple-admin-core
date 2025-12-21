@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/suyuan32/simple-admin-common/config"
-	"github.com/suyuan32/simple-admin-common/enum/errorcode"
 	"github.com/suyuan32/simple-admin-common/i18n"
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -68,8 +67,8 @@ func (l *RegisterBySmsLogic) RegisterBySms(req *types.RegisterBySmsReq) (resp *t
 			Msg: l.svcCtx.Trans.Trans(l.ctx, "login.signupSuccessTitle"),
 		}
 		return resp, nil
-	} else {
-		return nil, errorx.NewCodeError(errorcode.InvalidArgument,
-			l.svcCtx.Trans.Trans(l.ctx, "login.wrongCaptcha"))
 	}
+
+	return nil, errorx.NewInvalidArgumentError(
+		l.svcCtx.Trans.Trans(l.ctx, "login.wrongCaptcha"))
 }
