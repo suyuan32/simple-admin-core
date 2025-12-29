@@ -8,7 +8,7 @@ require (
 	github.com/casbin/casbin/v2 v2.135.0
 	github.com/duke-git/lancet/v2 v2.3.8
 	github.com/gofrs/uuid/v5 v5.4.0
-	github.com/larksuite/oapi-sdk-go/v3 v3.5.1
+	github.com/larksuite/oapi-sdk-go/v3 v3.5.2
 	github.com/mojocn/base64Captcha v1.3.8
 	github.com/redis/go-redis/v9 v9.17.2
 	github.com/suyuan32/simple-admin-common v1.7.7
