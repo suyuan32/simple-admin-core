@@ -13,12 +13,16 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/department"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/inventory"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/position"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/product"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/role"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/stock_movement"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/token"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/user"
+	"github.com/suyuan32/simple-admin-core/rpc/internal/logic/warehouse"
 	"github.com/suyuan32/simple-admin-core/rpc/internal/svc"
 	"github.com/suyuan32/simple-admin-core/rpc/types/core"
 )
@@ -184,6 +188,32 @@ func (s *CoreServer) GetDictionaryDetailByDictionaryName(ctx context.Context, in
 	return l.GetDictionaryDetailByDictionaryName(in)
 }
 
+// Inventory management
+func (s *CoreServer) CreateInventory(ctx context.Context, in *core.InventoryInfo) (*core.BaseUUIDResp, error) {
+	l := inventory.NewCreateInventoryLogic(ctx, s.svcCtx)
+	return l.CreateInventory(in)
+}
+
+func (s *CoreServer) UpdateInventory(ctx context.Context, in *core.InventoryInfo) (*core.BaseResp, error) {
+	l := inventory.NewUpdateInventoryLogic(ctx, s.svcCtx)
+	return l.UpdateInventory(in)
+}
+
+func (s *CoreServer) GetInventoryList(ctx context.Context, in *core.InventoryListReq) (*core.InventoryListResp, error) {
+	l := inventory.NewGetInventoryListLogic(ctx, s.svcCtx)
+	return l.GetInventoryList(in)
+}
+
+func (s *CoreServer) GetInventoryById(ctx context.Context, in *core.UUIDReq) (*core.InventoryInfo, error) {
+	l := inventory.NewGetInventoryByIdLogic(ctx, s.svcCtx)
+	return l.GetInventoryById(in)
+}
+
+func (s *CoreServer) DeleteInventory(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := inventory.NewDeleteInventoryLogic(ctx, s.svcCtx)
+	return l.DeleteInventory(in)
+}
+
 func (s *CoreServer) CreateMenu(ctx context.Context, in *core.MenuInfo) (*core.BaseIDResp, error) {
 	l := menu.NewCreateMenuLogic(ctx, s.svcCtx)
 	return l.CreateMenu(in)
@@ -271,6 +301,32 @@ func (s *CoreServer) DeletePosition(ctx context.Context, in *core.IDsReq) (*core
 	return l.DeletePosition(in)
 }
 
+// Product management
+func (s *CoreServer) CreateProduct(ctx context.Context, in *core.ProductInfo) (*core.BaseUUIDResp, error) {
+	l := product.NewCreateProductLogic(ctx, s.svcCtx)
+	return l.CreateProduct(in)
+}
+
+func (s *CoreServer) UpdateProduct(ctx context.Context, in *core.ProductInfo) (*core.BaseResp, error) {
+	l := product.NewUpdateProductLogic(ctx, s.svcCtx)
+	return l.UpdateProduct(in)
+}
+
+func (s *CoreServer) GetProductList(ctx context.Context, in *core.ProductListReq) (*core.ProductListResp, error) {
+	l := product.NewGetProductListLogic(ctx, s.svcCtx)
+	return l.GetProductList(in)
+}
+
+func (s *CoreServer) GetProductById(ctx context.Context, in *core.UUIDReq) (*core.ProductInfo, error) {
+	l := product.NewGetProductByIdLogic(ctx, s.svcCtx)
+	return l.GetProductById(in)
+}
+
+func (s *CoreServer) DeleteProduct(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := product.NewDeleteProductLogic(ctx, s.svcCtx)
+	return l.DeleteProduct(in)
+}
+
 // Role management
 func (s *CoreServer) CreateRole(ctx context.Context, in *core.RoleInfo) (*core.BaseIDResp, error) {
 	l := role.NewCreateRoleLogic(ctx, s.svcCtx)
@@ -295,6 +351,32 @@ func (s *CoreServer) GetRoleById(ctx context.Context, in *core.IDReq) (*core.Rol
 func (s *CoreServer) DeleteRole(ctx context.Context, in *core.IDsReq) (*core.BaseResp, error) {
 	l := role.NewDeleteRoleLogic(ctx, s.svcCtx)
 	return l.DeleteRole(in)
+}
+
+// StockMovement management
+func (s *CoreServer) CreateStockMovement(ctx context.Context, in *core.StockMovementInfo) (*core.BaseUUIDResp, error) {
+	l := stock_movement.NewCreateStockMovementLogic(ctx, s.svcCtx)
+	return l.CreateStockMovement(in)
+}
+
+func (s *CoreServer) UpdateStockMovement(ctx context.Context, in *core.StockMovementInfo) (*core.BaseResp, error) {
+	l := stock_movement.NewUpdateStockMovementLogic(ctx, s.svcCtx)
+	return l.UpdateStockMovement(in)
+}
+
+func (s *CoreServer) GetStockMovementList(ctx context.Context, in *core.StockMovementListReq) (*core.StockMovementListResp, error) {
+	l := stock_movement.NewGetStockMovementListLogic(ctx, s.svcCtx)
+	return l.GetStockMovementList(in)
+}
+
+func (s *CoreServer) GetStockMovementById(ctx context.Context, in *core.UUIDReq) (*core.StockMovementInfo, error) {
+	l := stock_movement.NewGetStockMovementByIdLogic(ctx, s.svcCtx)
+	return l.GetStockMovementById(in)
+}
+
+func (s *CoreServer) DeleteStockMovement(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := stock_movement.NewDeleteStockMovementLogic(ctx, s.svcCtx)
+	return l.DeleteStockMovement(in)
 }
 
 // Token management
@@ -357,4 +439,30 @@ func (s *CoreServer) GetUserByUsername(ctx context.Context, in *core.UsernameReq
 func (s *CoreServer) DeleteUser(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
 	l := user.NewDeleteUserLogic(ctx, s.svcCtx)
 	return l.DeleteUser(in)
+}
+
+// Warehouse management
+func (s *CoreServer) CreateWarehouse(ctx context.Context, in *core.WarehouseInfo) (*core.BaseUUIDResp, error) {
+	l := warehouse.NewCreateWarehouseLogic(ctx, s.svcCtx)
+	return l.CreateWarehouse(in)
+}
+
+func (s *CoreServer) UpdateWarehouse(ctx context.Context, in *core.WarehouseInfo) (*core.BaseResp, error) {
+	l := warehouse.NewUpdateWarehouseLogic(ctx, s.svcCtx)
+	return l.UpdateWarehouse(in)
+}
+
+func (s *CoreServer) GetWarehouseList(ctx context.Context, in *core.WarehouseListReq) (*core.WarehouseListResp, error) {
+	l := warehouse.NewGetWarehouseListLogic(ctx, s.svcCtx)
+	return l.GetWarehouseList(in)
+}
+
+func (s *CoreServer) GetWarehouseById(ctx context.Context, in *core.UUIDReq) (*core.WarehouseInfo, error) {
+	l := warehouse.NewGetWarehouseByIdLogic(ctx, s.svcCtx)
+	return l.GetWarehouseById(in)
+}
+
+func (s *CoreServer) DeleteWarehouse(ctx context.Context, in *core.UUIDsReq) (*core.BaseResp, error) {
+	l := warehouse.NewDeleteWarehouseLogic(ctx, s.svcCtx)
+	return l.DeleteWarehouse(in)
 }

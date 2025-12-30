@@ -1,0 +1,73 @@
+import "../base.api"
+
+type (
+    // The response data of warehouse information | 仓库信息
+    WarehouseInfo {
+        BaseUUIDInfo
+        // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+        Status *uint32 `json:"status,optional"`
+        // Warehouse Name | 仓库名称
+        Name *string `json:"name,optional"`
+        // Location | 位置
+        Location *string `json:"location,optional"`
+        // Description | 描述
+        Description *string `json:"description,optional"`
+    }
+
+    // The response data of warehouse list | 仓库列表数据
+    WarehouseListResp {
+        BaseDataInfo
+        // Warehouse list data | Warehouse列表数据
+        Data WarehouseListInfo `json:"data"`
+    }
+
+    // Warehouse list data | 仓库列表数据
+    WarehouseListInfo {
+        BaseListInfo
+        // The API list data | Warehouse列表数据
+        Data []WarehouseInfo `json:"data"`
+    }
+
+    // Get warehouse list request params | 仓库列表请求参数
+    WarehouseListReq {
+        PageInfo
+        // Warehouse Name | 仓库名称
+        Name *string `json:"name,optional"`
+        // Location | 位置
+        Location *string `json:"location,optional"`
+    }
+
+    // Warehouse information response | 仓库信息返回体
+    WarehouseInfoResp {
+        BaseDataInfo
+        // Warehouse information | Warehouse数据
+        Data WarehouseInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: warehouse
+    middleware: Authority
+)
+service Core {
+    // Create warehouse information | 创建仓库
+    @handler createWarehouse
+    post /warehouse/create (WarehouseInfo) returns (BaseMsgResp)
+
+    // Update warehouse information | 更新仓库
+    @handler updateWarehouse
+    post /warehouse/update (WarehouseInfo) returns (BaseMsgResp)
+
+    // Delete warehouse information | 删除仓库信息
+    @handler deleteWarehouse
+    post /warehouse/delete (UUIDsReq) returns (BaseMsgResp)
+
+    // Get warehouse list | 获取仓库列表
+    @handler getWarehouseList
+    post /warehouse/list (WarehouseListReq) returns (WarehouseListResp)
+
+    // Get warehouse by ID | 通过ID获取仓库
+    @handler getWarehouseById
+    post /warehouse (UUIDReq) returns (WarehouseInfoResp)
+}

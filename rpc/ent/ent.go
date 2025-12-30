@@ -17,12 +17,16 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/inventory"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/product"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/stockmovement"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/warehouse"
 )
 
 // ent aliases to avoid import conflicts in user's code.
@@ -88,12 +92,16 @@ func checkColumn(t, c string) error {
 			department.Table:       department.ValidColumn,
 			dictionary.Table:       dictionary.ValidColumn,
 			dictionarydetail.Table: dictionarydetail.ValidColumn,
+			inventory.Table:        inventory.ValidColumn,
 			menu.Table:             menu.ValidColumn,
 			oauthprovider.Table:    oauthprovider.ValidColumn,
 			position.Table:         position.ValidColumn,
+			product.Table:          product.ValidColumn,
 			role.Table:             role.ValidColumn,
+			stockmovement.Table:    stockmovement.ValidColumn,
 			token.Table:            token.ValidColumn,
 			user.Table:             user.ValidColumn,
+			warehouse.Table:        warehouse.ValidColumn,
 		})
 	})
 	return columnCheck(t, c)

@@ -1,13 +1,13 @@
 Name: core.rpc
-ListenOn: 0.0.0.0:9101
+ListenOn: 0.0.0.0:9102
 
 DatabaseConf:
   Type: mysql
   Host: 127.0.0.1
   Port: 3306
   DBName: simple_admin
-  Username: # set your username
-  Password: # set your password
+  Username: root
+  Password: ""
   MaxOpenConn: 100
   SSLMode: disable # disable or require
   CacheTime: 5
@@ -15,7 +15,7 @@ DatabaseConf:
 Log:
   ServiceName: coreRpcLogger
   Mode: file
-  Path: /home/data/logs/core/rpc
+  Path: ./logs/core/rpc
   Encoding: json
   Level: info
   Compress: false

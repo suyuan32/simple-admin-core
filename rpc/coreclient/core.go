@@ -36,6 +36,9 @@ type (
 	Empty                    = core.Empty
 	IDReq                    = core.IDReq
 	IDsReq                   = core.IDsReq
+	InventoryInfo            = core.InventoryInfo
+	InventoryListReq         = core.InventoryListReq
+	InventoryListResp        = core.InventoryListResp
 	MenuInfo                 = core.MenuInfo
 	MenuInfoList             = core.MenuInfoList
 	MenuRoleInfo             = core.MenuRoleInfo
@@ -50,11 +53,17 @@ type (
 	PositionInfo             = core.PositionInfo
 	PositionListReq          = core.PositionListReq
 	PositionListResp         = core.PositionListResp
+	ProductInfo              = core.ProductInfo
+	ProductListReq           = core.ProductListReq
+	ProductListResp          = core.ProductListResp
 	RoleInfo                 = core.RoleInfo
 	RoleListReq              = core.RoleListReq
 	RoleListResp             = core.RoleListResp
 	RoleMenuAuthorityReq     = core.RoleMenuAuthorityReq
 	RoleMenuAuthorityResp    = core.RoleMenuAuthorityResp
+	StockMovementInfo        = core.StockMovementInfo
+	StockMovementListReq     = core.StockMovementListReq
+	StockMovementListResp    = core.StockMovementListResp
 	TokenInfo                = core.TokenInfo
 	TokenListReq             = core.TokenListReq
 	TokenListResp            = core.TokenListResp
@@ -64,6 +73,9 @@ type (
 	UserListReq              = core.UserListReq
 	UserListResp             = core.UserListResp
 	UsernameReq              = core.UsernameReq
+	WarehouseInfo            = core.WarehouseInfo
+	WarehouseListReq         = core.WarehouseListReq
+	WarehouseListResp        = core.WarehouseListResp
 
 	Core interface {
 		// API management
@@ -100,6 +112,12 @@ type (
 		GetDictionaryDetailById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*DictionaryDetailInfo, error)
 		DeleteDictionaryDetail(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		GetDictionaryDetailByDictionaryName(ctx context.Context, in *BaseMsg, opts ...grpc.CallOption) (*DictionaryDetailListResp, error)
+		// Inventory management
+		CreateInventory(ctx context.Context, in *InventoryInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdateInventory(ctx context.Context, in *InventoryInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetInventoryList(ctx context.Context, in *InventoryListReq, opts ...grpc.CallOption) (*InventoryListResp, error)
+		GetInventoryById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*InventoryInfo, error)
+		DeleteInventory(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		DeleteMenu(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -119,12 +137,24 @@ type (
 		GetPositionList(ctx context.Context, in *PositionListReq, opts ...grpc.CallOption) (*PositionListResp, error)
 		GetPositionById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*PositionInfo, error)
 		DeletePosition(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// Product management
+		CreateProduct(ctx context.Context, in *ProductInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdateProduct(ctx context.Context, in *ProductInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetProductList(ctx context.Context, in *ProductListReq, opts ...grpc.CallOption) (*ProductListResp, error)
+		GetProductById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*ProductInfo, error)
+		DeleteProduct(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// Role management
 		CreateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseResp, error)
 		GetRoleList(ctx context.Context, in *RoleListReq, opts ...grpc.CallOption) (*RoleListResp, error)
 		GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*RoleInfo, error)
 		DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// StockMovement management
+		CreateStockMovement(ctx context.Context, in *StockMovementInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdateStockMovement(ctx context.Context, in *StockMovementInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetStockMovementList(ctx context.Context, in *StockMovementListReq, opts ...grpc.CallOption) (*StockMovementListResp, error)
+		GetStockMovementById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*StockMovementInfo, error)
+		DeleteStockMovement(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// Token management
 		CreateToken(ctx context.Context, in *TokenInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
 		DeleteToken(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -139,6 +169,12 @@ type (
 		GetUserById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*UserInfo, error)
 		GetUserByUsername(ctx context.Context, in *UsernameReq, opts ...grpc.CallOption) (*UserInfo, error)
 		DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+		// Warehouse management
+		CreateWarehouse(ctx context.Context, in *WarehouseInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error)
+		UpdateWarehouse(ctx context.Context, in *WarehouseInfo, opts ...grpc.CallOption) (*BaseResp, error)
+		GetWarehouseList(ctx context.Context, in *WarehouseListReq, opts ...grpc.CallOption) (*WarehouseListResp, error)
+		GetWarehouseById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*WarehouseInfo, error)
+		DeleteWarehouse(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	}
 
 	defaultCore struct {
@@ -302,6 +338,32 @@ func (m *defaultCore) GetDictionaryDetailByDictionaryName(ctx context.Context, i
 	return client.GetDictionaryDetailByDictionaryName(ctx, in, opts...)
 }
 
+// Inventory management
+func (m *defaultCore) CreateInventory(ctx context.Context, in *InventoryInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateInventory(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateInventory(ctx context.Context, in *InventoryInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateInventory(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetInventoryList(ctx context.Context, in *InventoryListReq, opts ...grpc.CallOption) (*InventoryListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetInventoryList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetInventoryById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*InventoryInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetInventoryById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteInventory(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteInventory(ctx, in, opts...)
+}
+
 func (m *defaultCore) CreateMenu(ctx context.Context, in *MenuInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.CreateMenu(ctx, in, opts...)
@@ -389,6 +451,32 @@ func (m *defaultCore) DeletePosition(ctx context.Context, in *IDsReq, opts ...gr
 	return client.DeletePosition(ctx, in, opts...)
 }
 
+// Product management
+func (m *defaultCore) CreateProduct(ctx context.Context, in *ProductInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateProduct(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateProduct(ctx context.Context, in *ProductInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateProduct(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetProductList(ctx context.Context, in *ProductListReq, opts ...grpc.CallOption) (*ProductListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetProductList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetProductById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*ProductInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetProductById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteProduct(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteProduct(ctx, in, opts...)
+}
+
 // Role management
 func (m *defaultCore) CreateRole(ctx context.Context, in *RoleInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
@@ -413,6 +501,32 @@ func (m *defaultCore) GetRoleById(ctx context.Context, in *IDReq, opts ...grpc.C
 func (m *defaultCore) DeleteRole(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteRole(ctx, in, opts...)
+}
+
+// StockMovement management
+func (m *defaultCore) CreateStockMovement(ctx context.Context, in *StockMovementInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateStockMovement(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateStockMovement(ctx context.Context, in *StockMovementInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateStockMovement(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetStockMovementList(ctx context.Context, in *StockMovementListReq, opts ...grpc.CallOption) (*StockMovementListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetStockMovementList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetStockMovementById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*StockMovementInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetStockMovementById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteStockMovement(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteStockMovement(ctx, in, opts...)
 }
 
 // Token management
@@ -475,4 +589,30 @@ func (m *defaultCore) GetUserByUsername(ctx context.Context, in *UsernameReq, op
 func (m *defaultCore) DeleteUser(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := core.NewCoreClient(m.cli.Conn())
 	return client.DeleteUser(ctx, in, opts...)
+}
+
+// Warehouse management
+func (m *defaultCore) CreateWarehouse(ctx context.Context, in *WarehouseInfo, opts ...grpc.CallOption) (*BaseUUIDResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.CreateWarehouse(ctx, in, opts...)
+}
+
+func (m *defaultCore) UpdateWarehouse(ctx context.Context, in *WarehouseInfo, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.UpdateWarehouse(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetWarehouseList(ctx context.Context, in *WarehouseListReq, opts ...grpc.CallOption) (*WarehouseListResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetWarehouseList(ctx, in, opts...)
+}
+
+func (m *defaultCore) GetWarehouseById(ctx context.Context, in *UUIDReq, opts ...grpc.CallOption) (*WarehouseInfo, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.GetWarehouseById(ctx, in, opts...)
+}
+
+func (m *defaultCore) DeleteWarehouse(ctx context.Context, in *UUIDsReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := core.NewCoreClient(m.cli.Conn())
+	return client.DeleteWarehouse(ctx, in, opts...)
 }

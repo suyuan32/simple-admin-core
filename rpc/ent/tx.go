@@ -24,18 +24,26 @@ type Tx struct {
 	Dictionary *DictionaryClient
 	// DictionaryDetail is the client for interacting with the DictionaryDetail builders.
 	DictionaryDetail *DictionaryDetailClient
+	// Inventory is the client for interacting with the Inventory builders.
+	Inventory *InventoryClient
 	// Menu is the client for interacting with the Menu builders.
 	Menu *MenuClient
 	// OauthProvider is the client for interacting with the OauthProvider builders.
 	OauthProvider *OauthProviderClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
+	// Product is the client for interacting with the Product builders.
+	Product *ProductClient
 	// Role is the client for interacting with the Role builders.
 	Role *RoleClient
+	// StockMovement is the client for interacting with the StockMovement builders.
+	StockMovement *StockMovementClient
 	// Token is the client for interacting with the Token builders.
 	Token *TokenClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
+	// Warehouse is the client for interacting with the Warehouse builders.
+	Warehouse *WarehouseClient
 
 	// lazily loaded.
 	client     *Client
@@ -172,12 +180,16 @@ func (tx *Tx) init() {
 	tx.Department = NewDepartmentClient(tx.config)
 	tx.Dictionary = NewDictionaryClient(tx.config)
 	tx.DictionaryDetail = NewDictionaryDetailClient(tx.config)
+	tx.Inventory = NewInventoryClient(tx.config)
 	tx.Menu = NewMenuClient(tx.config)
 	tx.OauthProvider = NewOauthProviderClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
+	tx.Product = NewProductClient(tx.config)
 	tx.Role = NewRoleClient(tx.config)
+	tx.StockMovement = NewStockMovementClient(tx.config)
 	tx.Token = NewTokenClient(tx.config)
 	tx.User = NewUserClient(tx.config)
+	tx.Warehouse = NewWarehouseClient(tx.config)
 }
 
 // txDriver wraps the given dialect.Tx with a nop dialect.Driver implementation.

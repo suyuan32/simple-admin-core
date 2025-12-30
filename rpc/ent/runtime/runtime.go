@@ -11,13 +11,17 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/inventory"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/product"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/schema"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/stockmovement"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/warehouse"
 )
 
 // The init function reads all schema descriptors with runtime code
@@ -161,6 +165,33 @@ func init() {
 	dictionarydetailDescSort := dictionarydetailMixinFields2[0].Descriptor()
 	// dictionarydetail.DefaultSort holds the default value on creation for the sort field.
 	dictionarydetail.DefaultSort = dictionarydetailDescSort.Default.(uint32)
+	inventoryMixin := schema.Inventory{}.Mixin()
+	inventoryMixinHooks1 := inventoryMixin[1].Hooks()
+	inventory.Hooks[0] = inventoryMixinHooks1[0]
+	inventoryMixinInters1 := inventoryMixin[1].Interceptors()
+	inventory.Interceptors[0] = inventoryMixinInters1[0]
+	inventoryMixinFields0 := inventoryMixin[0].Fields()
+	_ = inventoryMixinFields0
+	inventoryFields := schema.Inventory{}.Fields()
+	_ = inventoryFields
+	// inventoryDescCreatedAt is the schema descriptor for created_at field.
+	inventoryDescCreatedAt := inventoryMixinFields0[1].Descriptor()
+	// inventory.DefaultCreatedAt holds the default value on creation for the created_at field.
+	inventory.DefaultCreatedAt = inventoryDescCreatedAt.Default.(func() time.Time)
+	// inventoryDescUpdatedAt is the schema descriptor for updated_at field.
+	inventoryDescUpdatedAt := inventoryMixinFields0[2].Descriptor()
+	// inventory.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	inventory.DefaultUpdatedAt = inventoryDescUpdatedAt.Default.(func() time.Time)
+	// inventory.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	inventory.UpdateDefaultUpdatedAt = inventoryDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// inventoryDescQuantity is the schema descriptor for quantity field.
+	inventoryDescQuantity := inventoryFields[2].Descriptor()
+	// inventory.QuantityValidator is a validator for the "quantity" field. It is called by the builders before save.
+	inventory.QuantityValidator = inventoryDescQuantity.Validators[0].(func(int32) error)
+	// inventoryDescID is the schema descriptor for id field.
+	inventoryDescID := inventoryMixinFields0[0].Descriptor()
+	// inventory.DefaultID holds the default value on creation for the id field.
+	inventory.DefaultID = inventoryDescID.Default.(func() uuid.UUID)
 	menuMixin := schema.Menu{}.Mixin()
 	menuMixinFields0 := menuMixin[0].Fields()
 	_ = menuMixinFields0
@@ -288,6 +319,39 @@ func init() {
 	positionDescSort := positionMixinFields2[0].Descriptor()
 	// position.DefaultSort holds the default value on creation for the sort field.
 	position.DefaultSort = positionDescSort.Default.(uint32)
+	productMixin := schema.Product{}.Mixin()
+	productMixinHooks2 := productMixin[2].Hooks()
+	product.Hooks[0] = productMixinHooks2[0]
+	productMixinInters2 := productMixin[2].Interceptors()
+	product.Interceptors[0] = productMixinInters2[0]
+	productMixinFields0 := productMixin[0].Fields()
+	_ = productMixinFields0
+	productMixinFields1 := productMixin[1].Fields()
+	_ = productMixinFields1
+	productFields := schema.Product{}.Fields()
+	_ = productFields
+	// productDescCreatedAt is the schema descriptor for created_at field.
+	productDescCreatedAt := productMixinFields0[1].Descriptor()
+	// product.DefaultCreatedAt holds the default value on creation for the created_at field.
+	product.DefaultCreatedAt = productDescCreatedAt.Default.(func() time.Time)
+	// productDescUpdatedAt is the schema descriptor for updated_at field.
+	productDescUpdatedAt := productMixinFields0[2].Descriptor()
+	// product.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	product.DefaultUpdatedAt = productDescUpdatedAt.Default.(func() time.Time)
+	// product.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	product.UpdateDefaultUpdatedAt = productDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// productDescStatus is the schema descriptor for status field.
+	productDescStatus := productMixinFields1[0].Descriptor()
+	// product.DefaultStatus holds the default value on creation for the status field.
+	product.DefaultStatus = productDescStatus.Default.(uint8)
+	// productDescPrice is the schema descriptor for price field.
+	productDescPrice := productFields[3].Descriptor()
+	// product.PriceValidator is a validator for the "price" field. It is called by the builders before save.
+	product.PriceValidator = productDescPrice.Validators[0].(func(float64) error)
+	// productDescID is the schema descriptor for id field.
+	productDescID := productMixinFields0[0].Descriptor()
+	// product.DefaultID holds the default value on creation for the id field.
+	product.DefaultID = productDescID.Default.(func() uuid.UUID)
 	roleMixin := schema.Role{}.Mixin()
 	roleMixinFields0 := roleMixin[0].Fields()
 	_ = roleMixinFields0
@@ -317,6 +381,29 @@ func init() {
 	roleDescSort := roleFields[3].Descriptor()
 	// role.DefaultSort holds the default value on creation for the sort field.
 	role.DefaultSort = roleDescSort.Default.(uint32)
+	stockmovementMixin := schema.StockMovement{}.Mixin()
+	stockmovementMixinHooks1 := stockmovementMixin[1].Hooks()
+	stockmovement.Hooks[0] = stockmovementMixinHooks1[0]
+	stockmovementMixinInters1 := stockmovementMixin[1].Interceptors()
+	stockmovement.Interceptors[0] = stockmovementMixinInters1[0]
+	stockmovementMixinFields0 := stockmovementMixin[0].Fields()
+	_ = stockmovementMixinFields0
+	stockmovementFields := schema.StockMovement{}.Fields()
+	_ = stockmovementFields
+	// stockmovementDescCreatedAt is the schema descriptor for created_at field.
+	stockmovementDescCreatedAt := stockmovementMixinFields0[1].Descriptor()
+	// stockmovement.DefaultCreatedAt holds the default value on creation for the created_at field.
+	stockmovement.DefaultCreatedAt = stockmovementDescCreatedAt.Default.(func() time.Time)
+	// stockmovementDescUpdatedAt is the schema descriptor for updated_at field.
+	stockmovementDescUpdatedAt := stockmovementMixinFields0[2].Descriptor()
+	// stockmovement.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	stockmovement.DefaultUpdatedAt = stockmovementDescUpdatedAt.Default.(func() time.Time)
+	// stockmovement.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	stockmovement.UpdateDefaultUpdatedAt = stockmovementDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// stockmovementDescID is the schema descriptor for id field.
+	stockmovementDescID := stockmovementMixinFields0[0].Descriptor()
+	// stockmovement.DefaultID holds the default value on creation for the id field.
+	stockmovement.DefaultID = stockmovementDescID.Default.(func() uuid.UUID)
 	tokenMixin := schema.Token{}.Mixin()
 	tokenMixinFields0 := tokenMixin[0].Fields()
 	_ = tokenMixinFields0
@@ -383,6 +470,35 @@ func init() {
 	userDescID := userMixinFields0[0].Descriptor()
 	// user.DefaultID holds the default value on creation for the id field.
 	user.DefaultID = userDescID.Default.(func() uuid.UUID)
+	warehouseMixin := schema.Warehouse{}.Mixin()
+	warehouseMixinHooks2 := warehouseMixin[2].Hooks()
+	warehouse.Hooks[0] = warehouseMixinHooks2[0]
+	warehouseMixinInters2 := warehouseMixin[2].Interceptors()
+	warehouse.Interceptors[0] = warehouseMixinInters2[0]
+	warehouseMixinFields0 := warehouseMixin[0].Fields()
+	_ = warehouseMixinFields0
+	warehouseMixinFields1 := warehouseMixin[1].Fields()
+	_ = warehouseMixinFields1
+	warehouseFields := schema.Warehouse{}.Fields()
+	_ = warehouseFields
+	// warehouseDescCreatedAt is the schema descriptor for created_at field.
+	warehouseDescCreatedAt := warehouseMixinFields0[1].Descriptor()
+	// warehouse.DefaultCreatedAt holds the default value on creation for the created_at field.
+	warehouse.DefaultCreatedAt = warehouseDescCreatedAt.Default.(func() time.Time)
+	// warehouseDescUpdatedAt is the schema descriptor for updated_at field.
+	warehouseDescUpdatedAt := warehouseMixinFields0[2].Descriptor()
+	// warehouse.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	warehouse.DefaultUpdatedAt = warehouseDescUpdatedAt.Default.(func() time.Time)
+	// warehouse.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	warehouse.UpdateDefaultUpdatedAt = warehouseDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// warehouseDescStatus is the schema descriptor for status field.
+	warehouseDescStatus := warehouseMixinFields1[0].Descriptor()
+	// warehouse.DefaultStatus holds the default value on creation for the status field.
+	warehouse.DefaultStatus = warehouseDescStatus.Default.(uint8)
+	// warehouseDescID is the schema descriptor for id field.
+	warehouseDescID := warehouseMixinFields0[0].Descriptor()
+	// warehouse.DefaultID holds the default value on creation for the id field.
+	warehouse.DefaultID = warehouseDescID.Default.(func() uuid.UUID)
 }
 
 const (
