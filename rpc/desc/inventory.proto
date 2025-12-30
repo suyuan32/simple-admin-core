@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+// Inventory message
+
+message InventoryInfo {
+  optional string id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // Product ID | 产品ID
+  optional string product_id = 4;
+  // Warehouse ID | 仓库ID
+  optional string warehouse_id = 5;
+  // Quantity | 数量
+  optional int32 quantity = 6;
+}
+
+message InventoryListResp {
+  uint64 total = 1;
+  repeated InventoryInfo data = 2;
+}
+
+message InventoryListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional int64 deleted_at = 5;
+  optional string product_id = 6;
+  optional string warehouse_id = 7;
+  optional int32 quantity = 8;
+}
+
+
+service Core {
+
+  // Inventory management
+  // group: inventory
+  rpc createInventory (InventoryInfo) returns (BaseUUIDResp);
+  // group: inventory
+  rpc updateInventory (InventoryInfo) returns (BaseResp);
+  // group: inventory
+  rpc getInventoryList (InventoryListReq) returns (InventoryListResp);
+  // group: inventory
+  rpc getInventoryById (UUIDReq) returns (InventoryInfo);
+  // group: inventory
+  rpc deleteInventory (UUIDsReq) returns (BaseResp);
+
+
+}

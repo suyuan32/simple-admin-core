@@ -1670,3 +1670,205 @@ type ConfigurationInfoResp struct {
 	// Configuration information | 参数配置数据
 	Data ConfigurationInfo `json:"data"`
 }
+
+// The response data of product information | 产品信息
+// swagger:model ProductInfo
+type ProductInfo struct {
+	BaseUUIDInfo
+	// Status 1: normal 2: ban | 状态 1 正常 2 禁用
+	Status *uint32 `json:"status,optional"`
+	// Product Name | 产品名称
+	Name *string `json:"name,optional"`
+	// SKU | 库存单位
+	Sku *string `json:"sku,optional"`
+	// Description | 描述
+	Description *string `json:"description,optional"`
+	// Price | 价格
+	Price *float64 `json:"price,optional"`
+	// Unit | 单位
+	Unit *string `json:"unit,optional"`
+}
+
+// The response data of product list | 产品列表数据
+// swagger:model ProductListResp
+type ProductListResp struct {
+	BaseDataInfo
+	// Product list data | Product列表数据
+	Data ProductListInfo `json:"data"`
+}
+
+// Product list data | 产品列表数据
+// swagger:model ProductListInfo
+type ProductListInfo struct {
+	BaseListInfo
+	// The API list data | Product列表数据
+	Data []ProductInfo `json:"data"`
+}
+
+// Get product list request params | 产品列表请求参数
+// swagger:model ProductListReq
+type ProductListReq struct {
+	PageInfo
+	// Product Name | 产品名称
+	Name *string `json:"name,optional"`
+	// SKU | 库存单位
+	Sku *string `json:"sku,optional"`
+}
+
+// Product information response | 产品信息返回体
+// swagger:model ProductInfoResp
+type ProductInfoResp struct {
+	BaseDataInfo
+	// Product information | Product数据
+	Data ProductInfo `json:"data"`
+}
+
+// The response data of warehouse information | 仓库信息
+// swagger:model WarehouseInfo
+type WarehouseInfo struct {
+	BaseUUIDInfo
+	// Status 1: normal 2: ban | 状态 1 正常 2 禁用
+	Status *uint32 `json:"status,optional"`
+	// Warehouse Name | 仓库名称
+	Name *string `json:"name,optional"`
+	// Location | 位置
+	Location *string `json:"location,optional"`
+	// Description | 描述
+	Description *string `json:"description,optional"`
+}
+
+// The response data of warehouse list | 仓库列表数据
+// swagger:model WarehouseListResp
+type WarehouseListResp struct {
+	BaseDataInfo
+	// Warehouse list data | Warehouse列表数据
+	Data WarehouseListInfo `json:"data"`
+}
+
+// Warehouse list data | 仓库列表数据
+// swagger:model WarehouseListInfo
+type WarehouseListInfo struct {
+	BaseListInfo
+	// The API list data | Warehouse列表数据
+	Data []WarehouseInfo `json:"data"`
+}
+
+// Get warehouse list request params | 仓库列表请求参数
+// swagger:model WarehouseListReq
+type WarehouseListReq struct {
+	PageInfo
+	// Warehouse Name | 仓库名称
+	Name *string `json:"name,optional"`
+	// Location | 位置
+	Location *string `json:"location,optional"`
+}
+
+// Warehouse information response | 仓库信息返回体
+// swagger:model WarehouseInfoResp
+type WarehouseInfoResp struct {
+	BaseDataInfo
+	// Warehouse information | Warehouse数据
+	Data WarehouseInfo `json:"data"`
+}
+
+// The response data of inventory information | 库存信息
+// swagger:model InventoryInfo
+type InventoryInfo struct {
+	BaseUUIDInfo
+	// Product ID | 产品ID
+	ProductId *string `json:"productId,optional"`
+	// Warehouse ID | 仓库ID
+	WarehouseId *string `json:"warehouseId,optional"`
+	// Quantity | 数量
+	Quantity *int32 `json:"quantity,optional"`
+}
+
+// The response data of inventory list | 库存列表数据
+// swagger:model InventoryListResp
+type InventoryListResp struct {
+	BaseDataInfo
+	// Inventory list data | Inventory列表数据
+	Data InventoryListInfo `json:"data"`
+}
+
+// Inventory list data | 库存列表数据
+// swagger:model InventoryListInfo
+type InventoryListInfo struct {
+	BaseListInfo
+	// The API list data | Inventory列表数据
+	Data []InventoryInfo `json:"data"`
+}
+
+// Get inventory list request params | 库存列表请求参数
+// swagger:model InventoryListReq
+type InventoryListReq struct {
+	PageInfo
+	// Product ID | 产品ID
+	ProductId *string `json:"productId,optional"`
+	// Warehouse ID | 仓库ID
+	WarehouseId *string `json:"warehouseId,optional"`
+}
+
+// Inventory information response | 库存信息返回体
+// swagger:model InventoryInfoResp
+type InventoryInfoResp struct {
+	BaseDataInfo
+	// Inventory information | Inventory数据
+	Data InventoryInfo `json:"data"`
+}
+
+// The response data of stock movement information | 库存移动信息
+// swagger:model StockMovementInfo
+type StockMovementInfo struct {
+	BaseUUIDInfo
+	// Product ID | 产品ID
+	ProductId *string `json:"productId,optional"`
+	// From Warehouse ID | 来源仓库ID
+	FromWarehouseId *string `json:"fromWarehouseId,optional"`
+	// To Warehouse ID | 目标仓库ID
+	ToWarehouseId *string `json:"toWarehouseId,optional"`
+	// Quantity | 数量
+	Quantity *int32 `json:"quantity,optional"`
+	// Movement Type (IN/OUT/MOVE) | 移动类型
+	MovementType *string `json:"movementType,optional"`
+	// Reference | 关联单号
+	Reference *string `json:"reference,optional"`
+	// Details | 详情
+	Details *string `json:"details,optional"`
+}
+
+// The response data of stock movement list | 库存移动列表数据
+// swagger:model StockMovementListResp
+type StockMovementListResp struct {
+	BaseDataInfo
+	// StockMovement list data | StockMovement列表数据
+	Data StockMovementListInfo `json:"data"`
+}
+
+// StockMovement list data | 库存移动列表数据
+// swagger:model StockMovementListInfo
+type StockMovementListInfo struct {
+	BaseListInfo
+	// The API list data | StockMovement列表数据
+	Data []StockMovementInfo `json:"data"`
+}
+
+// Get stock movement list request params | 库存移动列表请求参数
+// swagger:model StockMovementListReq
+type StockMovementListReq struct {
+	PageInfo
+	// Product ID | 产品ID
+	ProductId *string `json:"productId,optional"`
+	// Movement Type (IN/OUT/MOVE) | 移动类型
+	MovementType *string `json:"movementType,optional"`
+	// Reference | 关联单号
+	Reference *string `json:"reference,optional"`
+}
+
+// StockMovement information response | 库存移动信息返回体
+// swagger:model StockMovementInfoResp
+type StockMovementInfoResp struct {
+	BaseDataInfo
+	// StockMovement information | StockMovement数据
+	Data StockMovementInfo `json:"data"`
+}

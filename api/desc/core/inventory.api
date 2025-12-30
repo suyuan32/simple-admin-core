@@ -1,0 +1,71 @@
+import "../base.api"
+
+type (
+    // The response data of inventory information | 库存信息
+    InventoryInfo {
+        BaseUUIDInfo
+        // Product ID | 产品ID
+        ProductId *string `json:"productId,optional"`
+        // Warehouse ID | 仓库ID
+        WarehouseId *string `json:"warehouseId,optional"`
+        // Quantity | 数量
+        Quantity *int32 `json:"quantity,optional"`
+    }
+
+    // The response data of inventory list | 库存列表数据
+    InventoryListResp {
+        BaseDataInfo
+        // Inventory list data | Inventory列表数据
+        Data InventoryListInfo `json:"data"`
+    }
+
+    // Inventory list data | 库存列表数据
+    InventoryListInfo {
+        BaseListInfo
+        // The API list data | Inventory列表数据
+        Data []InventoryInfo `json:"data"`
+    }
+
+    // Get inventory list request params | 库存列表请求参数
+    InventoryListReq {
+        PageInfo
+        // Product ID | 产品ID
+        ProductId *string `json:"productId,optional"`
+        // Warehouse ID | 仓库ID
+        WarehouseId *string `json:"warehouseId,optional"`
+    }
+
+    // Inventory information response | 库存信息返回体
+    InventoryInfoResp {
+        BaseDataInfo
+        // Inventory information | Inventory数据
+        Data InventoryInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: inventory
+    middleware: Authority
+)
+service Core {
+    // Create inventory information | 创建库存
+    @handler createInventory
+    post /inventory/create (InventoryInfo) returns (BaseMsgResp)
+
+    // Update inventory information | 更新库存
+    @handler updateInventory
+    post /inventory/update (InventoryInfo) returns (BaseMsgResp)
+
+    // Delete inventory information | 删除库存信息
+    @handler deleteInventory
+    post /inventory/delete (UUIDsReq) returns (BaseMsgResp)
+
+    // Get inventory list | 获取库存列表
+    @handler getInventoryList
+    post /inventory/list (InventoryListReq) returns (InventoryListResp)
+
+    // Get inventory by ID | 通过ID获取库存
+    @handler getInventoryById
+    post /inventory (UUIDReq) returns (InventoryInfoResp)
+}

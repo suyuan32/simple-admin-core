@@ -1,0 +1,77 @@
+import "../base.api"
+
+type (
+    // The response data of product information | 产品信息
+    ProductInfo {
+        BaseUUIDInfo
+        // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+        Status *uint32 `json:"status,optional"`
+        // Product Name | 产品名称
+        Name *string `json:"name,optional"`
+        // SKU | 库存单位
+        Sku *string `json:"sku,optional"`
+        // Description | 描述
+        Description *string `json:"description,optional"`
+        // Price | 价格
+        Price *float64 `json:"price,optional"`
+        // Unit | 单位
+        Unit *string `json:"unit,optional"`
+    }
+
+    // The response data of product list | 产品列表数据
+    ProductListResp {
+        BaseDataInfo
+        // Product list data | Product列表数据
+        Data ProductListInfo `json:"data"`
+    }
+
+    // Product list data | 产品列表数据
+    ProductListInfo {
+        BaseListInfo
+        // The API list data | Product列表数据
+        Data []ProductInfo `json:"data"`
+    }
+
+    // Get product list request params | 产品列表请求参数
+    ProductListReq {
+        PageInfo
+        // Product Name | 产品名称
+        Name *string `json:"name,optional"`
+        // SKU | 库存单位
+        Sku *string `json:"sku,optional"`
+    }
+
+    // Product information response | 产品信息返回体
+    ProductInfoResp {
+        BaseDataInfo
+        // Product information | Product数据
+        Data ProductInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: product
+    middleware: Authority
+)
+service Core {
+    // Create product information | 创建产品
+    @handler createProduct
+    post /product/create (ProductInfo) returns (BaseMsgResp)
+
+    // Update product information | 更新产品
+    @handler updateProduct
+    post /product/update (ProductInfo) returns (BaseMsgResp)
+
+    // Delete product information | 删除产品信息
+    @handler deleteProduct
+    post /product/delete (UUIDsReq) returns (BaseMsgResp)
+
+    // Get product list | 获取产品列表
+    @handler getProductList
+    post /product/list (ProductListReq) returns (ProductListResp)
+
+    // Get product by ID | 通过ID获取产品
+    @handler getProductById
+    post /product (UUIDReq) returns (ProductInfoResp)
+}

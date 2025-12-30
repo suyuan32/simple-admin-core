@@ -1,0 +1,81 @@
+import "../base.api"
+
+type (
+    // The response data of stock movement information | 库存移动信息
+    StockMovementInfo {
+        BaseUUIDInfo
+        // Product ID | 产品ID
+        ProductId *string `json:"productId,optional"`
+        // From Warehouse ID | 来源仓库ID
+        FromWarehouseId *string `json:"fromWarehouseId,optional"`
+        // To Warehouse ID | 目标仓库ID
+        ToWarehouseId *string `json:"toWarehouseId,optional"`
+        // Quantity | 数量
+        Quantity *int32 `json:"quantity,optional"`
+        // Movement Type (IN/OUT/MOVE) | 移动类型
+        MovementType *string `json:"movementType,optional"`
+        // Reference | 关联单号
+        Reference *string `json:"reference,optional"`
+        // Details | 详情
+        Details *string `json:"details,optional"`
+    }
+
+    // The response data of stock movement list | 库存移动列表数据
+    StockMovementListResp {
+        BaseDataInfo
+        // StockMovement list data | StockMovement列表数据
+        Data StockMovementListInfo `json:"data"`
+    }
+
+    // StockMovement list data | 库存移动列表数据
+    StockMovementListInfo {
+        BaseListInfo
+        // The API list data | StockMovement列表数据
+        Data []StockMovementInfo `json:"data"`
+    }
+
+    // Get stock movement list request params | 库存移动列表请求参数
+    StockMovementListReq {
+        PageInfo
+        // Product ID | 产品ID
+        ProductId *string `json:"productId,optional"`
+        // Movement Type (IN/OUT/MOVE) | 移动类型
+        MovementType *string `json:"movementType,optional"`
+        // Reference | 关联单号
+        Reference *string `json:"reference,optional"`
+    }
+
+    // StockMovement information response | 库存移动信息返回体
+    StockMovementInfoResp {
+        BaseDataInfo
+        // StockMovement information | StockMovement数据
+        Data StockMovementInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: stock_movement
+    middleware: Authority
+)
+service Core {
+    // Create stock movement information | 创建库存移动
+    @handler createStockMovement
+    post /stock_movement/create (StockMovementInfo) returns (BaseMsgResp)
+
+    // Update stock movement information | 更新库存移动
+    @handler updateStockMovement
+    post /stock_movement/update (StockMovementInfo) returns (BaseMsgResp)
+
+    // Delete stock movement information | 删除库存移动信息
+    @handler deleteStockMovement
+    post /stock_movement/delete (UUIDsReq) returns (BaseMsgResp)
+
+    // Get stock movement list | 获取库存移动列表
+    @handler getStockMovementList
+    post /stock_movement/list (StockMovementListReq) returns (StockMovementListResp)
+
+    // Get stock movement by ID | 通过ID获取库存移动
+    @handler getStockMovementById
+    post /stock_movement (UUIDReq) returns (StockMovementInfoResp)
+}

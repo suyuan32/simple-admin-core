@@ -21,6 +21,9 @@ type Dictionary func(*sql.Selector)
 // DictionaryDetail is the predicate function for dictionarydetail builders.
 type DictionaryDetail func(*sql.Selector)
 
+// Inventory is the predicate function for inventory builders.
+type Inventory func(*sql.Selector)
+
 // Menu is the predicate function for menu builders.
 type Menu func(*sql.Selector)
 
@@ -30,11 +33,20 @@ type OauthProvider func(*sql.Selector)
 // Position is the predicate function for position builders.
 type Position func(*sql.Selector)
 
+// Product is the predicate function for product builders.
+type Product func(*sql.Selector)
+
 // Role is the predicate function for role builders.
 type Role func(*sql.Selector)
+
+// StockMovement is the predicate function for stockmovement builders.
+type StockMovement func(*sql.Selector)
 
 // Token is the predicate function for token builders.
 type Token func(*sql.Selector)
 
 // User is the predicate function for user builders.
 type User func(*sql.Selector)
+
+// Warehouse is the predicate function for warehouse builders.
+type Warehouse func(*sql.Selector)

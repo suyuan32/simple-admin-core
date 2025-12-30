@@ -137,6 +137,37 @@ var (
 			},
 		},
 	}
+	// SysInventoriesColumns holds the columns for the "sys_inventories" table.
+	SysInventoriesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID, Comment: "UUID"},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "deleted_at", Type: field.TypeTime, Nullable: true, Comment: "Delete Time | 删除日期"},
+		{Name: "quantity", Type: field.TypeInt32, Comment: "Quantity | 数量"},
+		{Name: "product_id", Type: field.TypeUUID, Comment: "Product ID | 产品ID"},
+		{Name: "warehouse_id", Type: field.TypeUUID, Comment: "Warehouse ID | 仓库ID"},
+	}
+	// SysInventoriesTable holds the schema information for the "sys_inventories" table.
+	SysInventoriesTable = &schema.Table{
+		Name:       "sys_inventories",
+		Comment:    "Inventory Table | 库存表",
+		Columns:    SysInventoriesColumns,
+		PrimaryKey: []*schema.Column{SysInventoriesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "sys_inventories_sys_products_product",
+				Columns:    []*schema.Column{SysInventoriesColumns[5]},
+				RefColumns: []*schema.Column{SysProductsColumns[0]},
+				OnDelete:   schema.NoAction,
+			},
+			{
+				Symbol:     "sys_inventories_sys_warehouses_warehouse",
+				Columns:    []*schema.Column{SysInventoriesColumns[6]},
+				RefColumns: []*schema.Column{SysWarehousesColumns[0]},
+				OnDelete:   schema.NoAction,
+			},
+		},
+	}
 	// SysMenusColumns holds the columns for the "sys_menus" table.
 	SysMenusColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -240,6 +271,26 @@ var (
 			},
 		},
 	}
+	// SysProductsColumns holds the columns for the "sys_products" table.
+	SysProductsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID, Comment: "UUID"},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "deleted_at", Type: field.TypeTime, Nullable: true, Comment: "Delete Time | 删除日期"},
+		{Name: "name", Type: field.TypeString, Comment: "Product Name | 产品名称"},
+		{Name: "sku", Type: field.TypeString, Unique: true, Comment: "SKU | 库存单位"},
+		{Name: "description", Type: field.TypeString, Nullable: true, Comment: "Description | 描述"},
+		{Name: "price", Type: field.TypeFloat64, Comment: "Price | 价格"},
+		{Name: "unit", Type: field.TypeString, Comment: "Unit | 单位"},
+	}
+	// SysProductsTable holds the schema information for the "sys_products" table.
+	SysProductsTable = &schema.Table{
+		Name:       "sys_products",
+		Comment:    "Product Table | 产品表",
+		Columns:    SysProductsColumns,
+		PrimaryKey: []*schema.Column{SysProductsColumns[0]},
+	}
 	// SysRolesColumns holds the columns for the "sys_roles" table.
 	SysRolesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -262,6 +313,47 @@ var (
 				Name:    "role_code",
 				Unique:  true,
 				Columns: []*schema.Column{SysRolesColumns[5]},
+			},
+		},
+	}
+	// SysStockMovementsColumns holds the columns for the "sys_stock_movements" table.
+	SysStockMovementsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID, Comment: "UUID"},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "deleted_at", Type: field.TypeTime, Nullable: true, Comment: "Delete Time | 删除日期"},
+		{Name: "quantity", Type: field.TypeInt32, Comment: "Quantity | 数量"},
+		{Name: "movement_type", Type: field.TypeString, Comment: "Movement Type (IN/OUT/MOVE) | 移动类型"},
+		{Name: "reference", Type: field.TypeString, Comment: "Reference | 关联单号"},
+		{Name: "details", Type: field.TypeString, Nullable: true, Comment: "Details | 详情"},
+		{Name: "product_id", Type: field.TypeUUID, Comment: "Product ID | 产品ID"},
+		{Name: "from_warehouse_id", Type: field.TypeUUID, Nullable: true, Comment: "From Warehouse ID | 来源仓库ID"},
+		{Name: "to_warehouse_id", Type: field.TypeUUID, Nullable: true, Comment: "To Warehouse ID | 目标仓库ID"},
+	}
+	// SysStockMovementsTable holds the schema information for the "sys_stock_movements" table.
+	SysStockMovementsTable = &schema.Table{
+		Name:       "sys_stock_movements",
+		Comment:    "Stock Movement Table | 库存移动表",
+		Columns:    SysStockMovementsColumns,
+		PrimaryKey: []*schema.Column{SysStockMovementsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "sys_stock_movements_sys_products_product",
+				Columns:    []*schema.Column{SysStockMovementsColumns[8]},
+				RefColumns: []*schema.Column{SysProductsColumns[0]},
+				OnDelete:   schema.NoAction,
+			},
+			{
+				Symbol:     "sys_stock_movements_sys_warehouses_from_warehouse",
+				Columns:    []*schema.Column{SysStockMovementsColumns[9]},
+				RefColumns: []*schema.Column{SysWarehousesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:     "sys_stock_movements_sys_warehouses_to_warehouse",
+				Columns:    []*schema.Column{SysStockMovementsColumns[10]},
+				RefColumns: []*schema.Column{SysWarehousesColumns[0]},
+				OnDelete:   schema.SetNull,
 			},
 		},
 	}
@@ -334,6 +426,24 @@ var (
 				Columns: []*schema.Column{SysUsersColumns[5], SysUsersColumns[11]},
 			},
 		},
+	}
+	// SysWarehousesColumns holds the columns for the "sys_warehouses" table.
+	SysWarehousesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID, Comment: "UUID"},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Create Time | 创建日期"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Update Time | 修改日期"},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Comment: "Status 1: normal 2: ban | 状态 1 正常 2 禁用", Default: 1},
+		{Name: "deleted_at", Type: field.TypeTime, Nullable: true, Comment: "Delete Time | 删除日期"},
+		{Name: "name", Type: field.TypeString, Comment: "Warehouse Name | 仓库名称"},
+		{Name: "location", Type: field.TypeString, Comment: "Location | 位置"},
+		{Name: "description", Type: field.TypeString, Nullable: true, Comment: "Description | 描述"},
+	}
+	// SysWarehousesTable holds the schema information for the "sys_warehouses" table.
+	SysWarehousesTable = &schema.Table{
+		Name:       "sys_warehouses",
+		Comment:    "Warehouse Table | 仓库表",
+		Columns:    SysWarehousesColumns,
+		PrimaryKey: []*schema.Column{SysWarehousesColumns[0]},
 	}
 	// RoleMenusColumns holds the columns for the "role_menus" table.
 	RoleMenusColumns = []*schema.Column{
@@ -417,12 +527,16 @@ var (
 		SysDepartmentsTable,
 		SysDictionariesTable,
 		SysDictionaryDetailsTable,
+		SysInventoriesTable,
 		SysMenusTable,
 		SysOauthProvidersTable,
 		SysPositionsTable,
+		SysProductsTable,
 		SysRolesTable,
+		SysStockMovementsTable,
 		SysTokensTable,
 		SysUsersTable,
+		SysWarehousesTable,
 		RoleMenusTable,
 		UserPositionsTable,
 		UserRolesTable,
@@ -447,6 +561,11 @@ func init() {
 	SysDictionaryDetailsTable.Annotation = &entsql.Annotation{
 		Table: "sys_dictionary_details",
 	}
+	SysInventoriesTable.ForeignKeys[0].RefTable = SysProductsTable
+	SysInventoriesTable.ForeignKeys[1].RefTable = SysWarehousesTable
+	SysInventoriesTable.Annotation = &entsql.Annotation{
+		Table: "sys_inventories",
+	}
 	SysMenusTable.ForeignKeys[0].RefTable = SysMenusTable
 	SysMenusTable.Annotation = &entsql.Annotation{
 		Table: "sys_menus",
@@ -457,8 +576,17 @@ func init() {
 	SysPositionsTable.Annotation = &entsql.Annotation{
 		Table: "sys_positions",
 	}
+	SysProductsTable.Annotation = &entsql.Annotation{
+		Table: "sys_products",
+	}
 	SysRolesTable.Annotation = &entsql.Annotation{
 		Table: "sys_roles",
+	}
+	SysStockMovementsTable.ForeignKeys[0].RefTable = SysProductsTable
+	SysStockMovementsTable.ForeignKeys[1].RefTable = SysWarehousesTable
+	SysStockMovementsTable.ForeignKeys[2].RefTable = SysWarehousesTable
+	SysStockMovementsTable.Annotation = &entsql.Annotation{
+		Table: "sys_stock_movements",
 	}
 	SysTokensTable.Annotation = &entsql.Annotation{
 		Table: "sys_tokens",
@@ -466,6 +594,9 @@ func init() {
 	SysUsersTable.ForeignKeys[0].RefTable = SysDepartmentsTable
 	SysUsersTable.Annotation = &entsql.Annotation{
 		Table: "sys_users",
+	}
+	SysWarehousesTable.Annotation = &entsql.Annotation{
+		Table: "sys_warehouses",
 	}
 	RoleMenusTable.ForeignKeys[0].RefTable = SysRolesTable
 	RoleMenusTable.ForeignKeys[1].RefTable = SysMenusTable
