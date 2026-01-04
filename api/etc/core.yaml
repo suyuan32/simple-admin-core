@@ -10,7 +10,7 @@ Auth:
 Log:
   ServiceName: coreApiLogger
   Mode: file
-  Path: /home/data/logs/core/api
+  Path: ./logs/core/api
   Level: info
   Compress: false
   KeepDays: 7
@@ -27,8 +27,8 @@ DatabaseConf:
   Host: 127.0.0.1
   Port: 3306
   DBName: simple_admin
-  Username: # set your username
-  Password: # set your password
+  Username: root
+  Password: ""
   MaxOpenConn: 100
   SSLMode: disable
   CacheTime: 5
@@ -79,7 +79,8 @@ RedisConf:
   Db: 0
 
 CoreRpc:
-  Target: k8s://default/core-rpc-svc:9101
+  Endpoints:
+    - 127.0.0.1:9102
   Enabled: true
 
 JobRpc:

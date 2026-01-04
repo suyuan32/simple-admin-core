@@ -13,13 +13,17 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/inventory"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/predicate"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/product"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/stockmovement"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/warehouse"
 )
 
 // The Query interface represents an operation that queries a graph.
@@ -213,6 +217,33 @@ func (f TraverseDictionaryDetail) Traverse(ctx context.Context, q ent.Query) err
 	return fmt.Errorf("unexpected query type %T. expect *ent.DictionaryDetailQuery", q)
 }
 
+// The InventoryFunc type is an adapter to allow the use of ordinary function as a Querier.
+type InventoryFunc func(context.Context, *ent.InventoryQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f InventoryFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.InventoryQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.InventoryQuery", q)
+}
+
+// The TraverseInventory type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseInventory func(context.Context, *ent.InventoryQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseInventory) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseInventory) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.InventoryQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.InventoryQuery", q)
+}
+
 // The MenuFunc type is an adapter to allow the use of ordinary function as a Querier.
 type MenuFunc func(context.Context, *ent.MenuQuery) (ent.Value, error)
 
@@ -294,6 +325,33 @@ func (f TraversePosition) Traverse(ctx context.Context, q ent.Query) error {
 	return fmt.Errorf("unexpected query type %T. expect *ent.PositionQuery", q)
 }
 
+// The ProductFunc type is an adapter to allow the use of ordinary function as a Querier.
+type ProductFunc func(context.Context, *ent.ProductQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f ProductFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.ProductQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ProductQuery", q)
+}
+
+// The TraverseProduct type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseProduct func(context.Context, *ent.ProductQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseProduct) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseProduct) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.ProductQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.ProductQuery", q)
+}
+
 // The RoleFunc type is an adapter to allow the use of ordinary function as a Querier.
 type RoleFunc func(context.Context, *ent.RoleQuery) (ent.Value, error)
 
@@ -319,6 +377,33 @@ func (f TraverseRole) Traverse(ctx context.Context, q ent.Query) error {
 		return f(ctx, q)
 	}
 	return fmt.Errorf("unexpected query type %T. expect *ent.RoleQuery", q)
+}
+
+// The StockMovementFunc type is an adapter to allow the use of ordinary function as a Querier.
+type StockMovementFunc func(context.Context, *ent.StockMovementQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f StockMovementFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.StockMovementQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.StockMovementQuery", q)
+}
+
+// The TraverseStockMovement type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseStockMovement func(context.Context, *ent.StockMovementQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseStockMovement) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseStockMovement) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.StockMovementQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.StockMovementQuery", q)
 }
 
 // The TokenFunc type is an adapter to allow the use of ordinary function as a Querier.
@@ -375,6 +460,33 @@ func (f TraverseUser) Traverse(ctx context.Context, q ent.Query) error {
 	return fmt.Errorf("unexpected query type %T. expect *ent.UserQuery", q)
 }
 
+// The WarehouseFunc type is an adapter to allow the use of ordinary function as a Querier.
+type WarehouseFunc func(context.Context, *ent.WarehouseQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f WarehouseFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.WarehouseQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.WarehouseQuery", q)
+}
+
+// The TraverseWarehouse type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseWarehouse func(context.Context, *ent.WarehouseQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseWarehouse) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseWarehouse) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.WarehouseQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.WarehouseQuery", q)
+}
+
 // NewQuery returns the generic Query interface for the given typed query.
 func NewQuery(q ent.Query) (Query, error) {
 	switch q := q.(type) {
@@ -388,18 +500,26 @@ func NewQuery(q ent.Query) (Query, error) {
 		return &query[*ent.DictionaryQuery, predicate.Dictionary, dictionary.OrderOption]{typ: ent.TypeDictionary, tq: q}, nil
 	case *ent.DictionaryDetailQuery:
 		return &query[*ent.DictionaryDetailQuery, predicate.DictionaryDetail, dictionarydetail.OrderOption]{typ: ent.TypeDictionaryDetail, tq: q}, nil
+	case *ent.InventoryQuery:
+		return &query[*ent.InventoryQuery, predicate.Inventory, inventory.OrderOption]{typ: ent.TypeInventory, tq: q}, nil
 	case *ent.MenuQuery:
 		return &query[*ent.MenuQuery, predicate.Menu, menu.OrderOption]{typ: ent.TypeMenu, tq: q}, nil
 	case *ent.OauthProviderQuery:
 		return &query[*ent.OauthProviderQuery, predicate.OauthProvider, oauthprovider.OrderOption]{typ: ent.TypeOauthProvider, tq: q}, nil
 	case *ent.PositionQuery:
 		return &query[*ent.PositionQuery, predicate.Position, position.OrderOption]{typ: ent.TypePosition, tq: q}, nil
+	case *ent.ProductQuery:
+		return &query[*ent.ProductQuery, predicate.Product, product.OrderOption]{typ: ent.TypeProduct, tq: q}, nil
 	case *ent.RoleQuery:
 		return &query[*ent.RoleQuery, predicate.Role, role.OrderOption]{typ: ent.TypeRole, tq: q}, nil
+	case *ent.StockMovementQuery:
+		return &query[*ent.StockMovementQuery, predicate.StockMovement, stockmovement.OrderOption]{typ: ent.TypeStockMovement, tq: q}, nil
 	case *ent.TokenQuery:
 		return &query[*ent.TokenQuery, predicate.Token, token.OrderOption]{typ: ent.TypeToken, tq: q}, nil
 	case *ent.UserQuery:
 		return &query[*ent.UserQuery, predicate.User, user.OrderOption]{typ: ent.TypeUser, tq: q}, nil
+	case *ent.WarehouseQuery:
+		return &query[*ent.WarehouseQuery, predicate.Warehouse, warehouse.OrderOption]{typ: ent.TypeWarehouse, tq: q}, nil
 	default:
 		return nil, fmt.Errorf("unknown query type %T", q)
 	}

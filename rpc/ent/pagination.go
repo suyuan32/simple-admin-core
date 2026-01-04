@@ -11,12 +11,16 @@ import (
 	"github.com/suyuan32/simple-admin-core/rpc/ent/department"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionary"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/dictionarydetail"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/inventory"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/menu"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/oauthprovider"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/position"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/product"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/role"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/stockmovement"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/token"
 	"github.com/suyuan32/simple-admin-core/rpc/ent/user"
+	"github.com/suyuan32/simple-admin-core/rpc/ent/warehouse"
 )
 
 const errInvalidPage = "INVALID_PAGE"
@@ -470,6 +474,87 @@ func (_m *DictionaryDetailQuery) Page(
 	return ret, nil
 }
 
+type InventoryPager struct {
+	Order  inventory.OrderOption
+	Filter func(*InventoryQuery) (*InventoryQuery, error)
+}
+
+// InventoryPaginateOption enables pagination customization.
+type InventoryPaginateOption func(*InventoryPager)
+
+// DefaultInventoryOrder is the default ordering of Inventory.
+var DefaultInventoryOrder = Desc(inventory.FieldID)
+
+func newInventoryPager(opts []InventoryPaginateOption) (*InventoryPager, error) {
+	pager := &InventoryPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultInventoryOrder
+	}
+	return pager, nil
+}
+
+func (p *InventoryPager) ApplyFilter(query *InventoryQuery) (*InventoryQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// InventoryPageList is Inventory PageList result.
+type InventoryPageList struct {
+	List        []*Inventory `json:"list"`
+	PageDetails *PageDetails `json:"pageDetails"`
+}
+
+func (_m *InventoryQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...InventoryPaginateOption,
+) (*InventoryPageList, error) {
+
+	pager, err := newInventoryPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if _m, err = pager.ApplyFilter(_m); err != nil {
+		return nil, err
+	}
+
+	ret := &InventoryPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := _m.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		_m = _m.Order(pager.Order)
+	} else {
+		_m = _m.Order(DefaultInventoryOrder)
+	}
+
+	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := _m.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
 type MenuPager struct {
 	Order  menu.OrderOption
 	Filter func(*MenuQuery) (*MenuQuery, error)
@@ -713,6 +798,87 @@ func (_m *PositionQuery) Page(
 	return ret, nil
 }
 
+type ProductPager struct {
+	Order  product.OrderOption
+	Filter func(*ProductQuery) (*ProductQuery, error)
+}
+
+// ProductPaginateOption enables pagination customization.
+type ProductPaginateOption func(*ProductPager)
+
+// DefaultProductOrder is the default ordering of Product.
+var DefaultProductOrder = Desc(product.FieldID)
+
+func newProductPager(opts []ProductPaginateOption) (*ProductPager, error) {
+	pager := &ProductPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultProductOrder
+	}
+	return pager, nil
+}
+
+func (p *ProductPager) ApplyFilter(query *ProductQuery) (*ProductQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// ProductPageList is Product PageList result.
+type ProductPageList struct {
+	List        []*Product   `json:"list"`
+	PageDetails *PageDetails `json:"pageDetails"`
+}
+
+func (_m *ProductQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ProductPaginateOption,
+) (*ProductPageList, error) {
+
+	pager, err := newProductPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if _m, err = pager.ApplyFilter(_m); err != nil {
+		return nil, err
+	}
+
+	ret := &ProductPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := _m.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		_m = _m.Order(pager.Order)
+	} else {
+		_m = _m.Order(DefaultProductOrder)
+	}
+
+	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := _m.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
 type RolePager struct {
 	Order  role.OrderOption
 	Filter func(*RoleQuery) (*RoleQuery, error)
@@ -782,6 +948,87 @@ func (_m *RoleQuery) Page(
 		_m = _m.Order(pager.Order)
 	} else {
 		_m = _m.Order(DefaultRoleOrder)
+	}
+
+	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := _m.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type StockMovementPager struct {
+	Order  stockmovement.OrderOption
+	Filter func(*StockMovementQuery) (*StockMovementQuery, error)
+}
+
+// StockMovementPaginateOption enables pagination customization.
+type StockMovementPaginateOption func(*StockMovementPager)
+
+// DefaultStockMovementOrder is the default ordering of StockMovement.
+var DefaultStockMovementOrder = Desc(stockmovement.FieldID)
+
+func newStockMovementPager(opts []StockMovementPaginateOption) (*StockMovementPager, error) {
+	pager := &StockMovementPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultStockMovementOrder
+	}
+	return pager, nil
+}
+
+func (p *StockMovementPager) ApplyFilter(query *StockMovementQuery) (*StockMovementQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// StockMovementPageList is StockMovement PageList result.
+type StockMovementPageList struct {
+	List        []*StockMovement `json:"list"`
+	PageDetails *PageDetails     `json:"pageDetails"`
+}
+
+func (_m *StockMovementQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...StockMovementPaginateOption,
+) (*StockMovementPageList, error) {
+
+	pager, err := newStockMovementPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if _m, err = pager.ApplyFilter(_m); err != nil {
+		return nil, err
+	}
+
+	ret := &StockMovementPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := _m.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		_m = _m.Order(pager.Order)
+	} else {
+		_m = _m.Order(DefaultStockMovementOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -944,6 +1191,87 @@ func (_m *UserQuery) Page(
 		_m = _m.Order(pager.Order)
 	} else {
 		_m = _m.Order(DefaultUserOrder)
+	}
+
+	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := _m.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type WarehousePager struct {
+	Order  warehouse.OrderOption
+	Filter func(*WarehouseQuery) (*WarehouseQuery, error)
+}
+
+// WarehousePaginateOption enables pagination customization.
+type WarehousePaginateOption func(*WarehousePager)
+
+// DefaultWarehouseOrder is the default ordering of Warehouse.
+var DefaultWarehouseOrder = Desc(warehouse.FieldID)
+
+func newWarehousePager(opts []WarehousePaginateOption) (*WarehousePager, error) {
+	pager := &WarehousePager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultWarehouseOrder
+	}
+	return pager, nil
+}
+
+func (p *WarehousePager) ApplyFilter(query *WarehouseQuery) (*WarehouseQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// WarehousePageList is Warehouse PageList result.
+type WarehousePageList struct {
+	List        []*Warehouse `json:"list"`
+	PageDetails *PageDetails `json:"pageDetails"`
+}
+
+func (_m *WarehouseQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...WarehousePaginateOption,
+) (*WarehousePageList, error) {
+
+	pager, err := newWarehousePager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if _m, err = pager.ApplyFilter(_m); err != nil {
+		return nil, err
+	}
+
+	ret := &WarehousePageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := _m.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		_m = _m.Order(pager.Order)
+	} else {
+		_m = _m.Order(DefaultWarehouseOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))

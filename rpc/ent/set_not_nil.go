@@ -921,6 +921,126 @@ func (_m *DictionaryDetailCreate) SetNotNilDictionaryID(value *uint64) *Dictiona
 }
 
 // set field if value's pointer is not nil.
+func (_m *InventoryUpdate) SetNotNilUpdatedAt(value *time.Time) *InventoryUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryUpdateOne) SetNotNilUpdatedAt(value *time.Time) *InventoryUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryCreate) SetNotNilUpdatedAt(value *time.Time) *InventoryCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryUpdate) SetNotNilDeletedAt(value *time.Time) *InventoryUpdate {
+	if value != nil {
+		return _m.SetDeletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryUpdateOne) SetNotNilDeletedAt(value *time.Time) *InventoryUpdateOne {
+	if value != nil {
+		return _m.SetDeletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryCreate) SetNotNilDeletedAt(value *time.Time) *InventoryCreate {
+	if value != nil {
+		return _m.SetDeletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryUpdate) SetNotNilProductID(value *uuid.UUID) *InventoryUpdate {
+	if value != nil {
+		return _m.SetProductID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryUpdateOne) SetNotNilProductID(value *uuid.UUID) *InventoryUpdateOne {
+	if value != nil {
+		return _m.SetProductID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryCreate) SetNotNilProductID(value *uuid.UUID) *InventoryCreate {
+	if value != nil {
+		return _m.SetProductID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryUpdate) SetNotNilWarehouseID(value *uuid.UUID) *InventoryUpdate {
+	if value != nil {
+		return _m.SetWarehouseID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryUpdateOne) SetNotNilWarehouseID(value *uuid.UUID) *InventoryUpdateOne {
+	if value != nil {
+		return _m.SetWarehouseID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryCreate) SetNotNilWarehouseID(value *uuid.UUID) *InventoryCreate {
+	if value != nil {
+		return _m.SetWarehouseID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryUpdate) SetNotNilQuantity(value *int32) *InventoryUpdate {
+	if value != nil {
+		return _m.SetQuantity(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryUpdateOne) SetNotNilQuantity(value *int32) *InventoryUpdateOne {
+	if value != nil {
+		return _m.SetQuantity(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InventoryCreate) SetNotNilQuantity(value *int32) *InventoryCreate {
+	if value != nil {
+		return _m.SetQuantity(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
 func (_m *MenuUpdate) SetNotNilUpdatedAt(value *time.Time) *MenuUpdate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
@@ -1881,6 +2001,198 @@ func (_m *PositionCreate) SetNotNilRemark(value *string) *PositionCreate {
 }
 
 // set field if value's pointer is not nil.
+func (_m *ProductUpdate) SetNotNilUpdatedAt(value *time.Time) *ProductUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ProductUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductCreate) SetNotNilUpdatedAt(value *time.Time) *ProductCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdate) SetNotNilStatus(value *uint8) *ProductUpdate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdateOne) SetNotNilStatus(value *uint8) *ProductUpdateOne {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductCreate) SetNotNilStatus(value *uint8) *ProductCreate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdate) SetNotNilDeletedAt(value *time.Time) *ProductUpdate {
+	if value != nil {
+		return _m.SetDeletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdateOne) SetNotNilDeletedAt(value *time.Time) *ProductUpdateOne {
+	if value != nil {
+		return _m.SetDeletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductCreate) SetNotNilDeletedAt(value *time.Time) *ProductCreate {
+	if value != nil {
+		return _m.SetDeletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdate) SetNotNilName(value *string) *ProductUpdate {
+	if value != nil {
+		return _m.SetName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdateOne) SetNotNilName(value *string) *ProductUpdateOne {
+	if value != nil {
+		return _m.SetName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductCreate) SetNotNilName(value *string) *ProductCreate {
+	if value != nil {
+		return _m.SetName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdate) SetNotNilSku(value *string) *ProductUpdate {
+	if value != nil {
+		return _m.SetSku(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdateOne) SetNotNilSku(value *string) *ProductUpdateOne {
+	if value != nil {
+		return _m.SetSku(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductCreate) SetNotNilSku(value *string) *ProductCreate {
+	if value != nil {
+		return _m.SetSku(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdate) SetNotNilDescription(value *string) *ProductUpdate {
+	if value != nil {
+		return _m.SetDescription(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdateOne) SetNotNilDescription(value *string) *ProductUpdateOne {
+	if value != nil {
+		return _m.SetDescription(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductCreate) SetNotNilDescription(value *string) *ProductCreate {
+	if value != nil {
+		return _m.SetDescription(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdate) SetNotNilPrice(value *float64) *ProductUpdate {
+	if value != nil {
+		return _m.SetPrice(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdateOne) SetNotNilPrice(value *float64) *ProductUpdateOne {
+	if value != nil {
+		return _m.SetPrice(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductCreate) SetNotNilPrice(value *float64) *ProductCreate {
+	if value != nil {
+		return _m.SetPrice(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdate) SetNotNilUnit(value *string) *ProductUpdate {
+	if value != nil {
+		return _m.SetUnit(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductUpdateOne) SetNotNilUnit(value *string) *ProductUpdateOne {
+	if value != nil {
+		return _m.SetUnit(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ProductCreate) SetNotNilUnit(value *string) *ProductCreate {
+	if value != nil {
+		return _m.SetUnit(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
 func (_m *RoleUpdate) SetNotNilUpdatedAt(value *time.Time) *RoleUpdate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
@@ -2020,6 +2332,222 @@ func (_m *RoleUpdateOne) SetNotNilSort(value *uint32) *RoleUpdateOne {
 func (_m *RoleCreate) SetNotNilSort(value *uint32) *RoleCreate {
 	if value != nil {
 		return _m.SetSort(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdate) SetNotNilUpdatedAt(value *time.Time) *StockMovementUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdateOne) SetNotNilUpdatedAt(value *time.Time) *StockMovementUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementCreate) SetNotNilUpdatedAt(value *time.Time) *StockMovementCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdate) SetNotNilDeletedAt(value *time.Time) *StockMovementUpdate {
+	if value != nil {
+		return _m.SetDeletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdateOne) SetNotNilDeletedAt(value *time.Time) *StockMovementUpdateOne {
+	if value != nil {
+		return _m.SetDeletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementCreate) SetNotNilDeletedAt(value *time.Time) *StockMovementCreate {
+	if value != nil {
+		return _m.SetDeletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdate) SetNotNilProductID(value *uuid.UUID) *StockMovementUpdate {
+	if value != nil {
+		return _m.SetProductID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdateOne) SetNotNilProductID(value *uuid.UUID) *StockMovementUpdateOne {
+	if value != nil {
+		return _m.SetProductID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementCreate) SetNotNilProductID(value *uuid.UUID) *StockMovementCreate {
+	if value != nil {
+		return _m.SetProductID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdate) SetNotNilFromWarehouseID(value *uuid.UUID) *StockMovementUpdate {
+	if value != nil {
+		return _m.SetFromWarehouseID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdateOne) SetNotNilFromWarehouseID(value *uuid.UUID) *StockMovementUpdateOne {
+	if value != nil {
+		return _m.SetFromWarehouseID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementCreate) SetNotNilFromWarehouseID(value *uuid.UUID) *StockMovementCreate {
+	if value != nil {
+		return _m.SetFromWarehouseID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdate) SetNotNilToWarehouseID(value *uuid.UUID) *StockMovementUpdate {
+	if value != nil {
+		return _m.SetToWarehouseID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdateOne) SetNotNilToWarehouseID(value *uuid.UUID) *StockMovementUpdateOne {
+	if value != nil {
+		return _m.SetToWarehouseID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementCreate) SetNotNilToWarehouseID(value *uuid.UUID) *StockMovementCreate {
+	if value != nil {
+		return _m.SetToWarehouseID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdate) SetNotNilQuantity(value *int32) *StockMovementUpdate {
+	if value != nil {
+		return _m.SetQuantity(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdateOne) SetNotNilQuantity(value *int32) *StockMovementUpdateOne {
+	if value != nil {
+		return _m.SetQuantity(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementCreate) SetNotNilQuantity(value *int32) *StockMovementCreate {
+	if value != nil {
+		return _m.SetQuantity(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdate) SetNotNilMovementType(value *string) *StockMovementUpdate {
+	if value != nil {
+		return _m.SetMovementType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdateOne) SetNotNilMovementType(value *string) *StockMovementUpdateOne {
+	if value != nil {
+		return _m.SetMovementType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementCreate) SetNotNilMovementType(value *string) *StockMovementCreate {
+	if value != nil {
+		return _m.SetMovementType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdate) SetNotNilReference(value *string) *StockMovementUpdate {
+	if value != nil {
+		return _m.SetReference(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdateOne) SetNotNilReference(value *string) *StockMovementUpdateOne {
+	if value != nil {
+		return _m.SetReference(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementCreate) SetNotNilReference(value *string) *StockMovementCreate {
+	if value != nil {
+		return _m.SetReference(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdate) SetNotNilDetails(value *string) *StockMovementUpdate {
+	if value != nil {
+		return _m.SetDetails(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementUpdateOne) SetNotNilDetails(value *string) *StockMovementUpdateOne {
+	if value != nil {
+		return _m.SetDetails(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *StockMovementCreate) SetNotNilDetails(value *string) *StockMovementCreate {
+	if value != nil {
+		return _m.SetDetails(*value)
 	}
 	return _m
 }
@@ -2476,6 +3004,150 @@ func (_m *UserUpdateOne) SetNotNilDepartmentID(value *uint64) *UserUpdateOne {
 func (_m *UserCreate) SetNotNilDepartmentID(value *uint64) *UserCreate {
 	if value != nil {
 		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseUpdate) SetNotNilUpdatedAt(value *time.Time) *WarehouseUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseUpdateOne) SetNotNilUpdatedAt(value *time.Time) *WarehouseUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseCreate) SetNotNilUpdatedAt(value *time.Time) *WarehouseCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseUpdate) SetNotNilStatus(value *uint8) *WarehouseUpdate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseUpdateOne) SetNotNilStatus(value *uint8) *WarehouseUpdateOne {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseCreate) SetNotNilStatus(value *uint8) *WarehouseCreate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseUpdate) SetNotNilDeletedAt(value *time.Time) *WarehouseUpdate {
+	if value != nil {
+		return _m.SetDeletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseUpdateOne) SetNotNilDeletedAt(value *time.Time) *WarehouseUpdateOne {
+	if value != nil {
+		return _m.SetDeletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseCreate) SetNotNilDeletedAt(value *time.Time) *WarehouseCreate {
+	if value != nil {
+		return _m.SetDeletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseUpdate) SetNotNilName(value *string) *WarehouseUpdate {
+	if value != nil {
+		return _m.SetName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseUpdateOne) SetNotNilName(value *string) *WarehouseUpdateOne {
+	if value != nil {
+		return _m.SetName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseCreate) SetNotNilName(value *string) *WarehouseCreate {
+	if value != nil {
+		return _m.SetName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseUpdate) SetNotNilLocation(value *string) *WarehouseUpdate {
+	if value != nil {
+		return _m.SetLocation(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseUpdateOne) SetNotNilLocation(value *string) *WarehouseUpdateOne {
+	if value != nil {
+		return _m.SetLocation(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseCreate) SetNotNilLocation(value *string) *WarehouseCreate {
+	if value != nil {
+		return _m.SetLocation(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseUpdate) SetNotNilDescription(value *string) *WarehouseUpdate {
+	if value != nil {
+		return _m.SetDescription(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseUpdateOne) SetNotNilDescription(value *string) *WarehouseUpdateOne {
+	if value != nil {
+		return _m.SetDescription(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WarehouseCreate) SetNotNilDescription(value *string) *WarehouseCreate {
+	if value != nil {
+		return _m.SetDescription(*value)
 	}
 	return _m
 }

@@ -29,4 +29,5 @@ core_api
 core_rpc
 
 # VsCode debug files
-__debug*
+__debug*api/logs/
+*.log
