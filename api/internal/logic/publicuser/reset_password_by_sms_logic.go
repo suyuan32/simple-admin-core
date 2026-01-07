@@ -67,8 +67,6 @@ func (l *ResetPasswordBySmsLogic) ResetPasswordBySms(req *types.ResetPasswordByS
 		return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, result.Msg)}, nil
 	}
 
-	return &types.BaseMsgResp{
-		Code: 0,
-		Msg:  l.svcCtx.Trans.Trans(l.ctx, "login.wrongCaptcha"),
-	}, nil
+	return nil, errorx.NewInvalidArgumentError(
+		l.svcCtx.Trans.Trans(l.ctx, "login.wrongCaptcha"))
 }

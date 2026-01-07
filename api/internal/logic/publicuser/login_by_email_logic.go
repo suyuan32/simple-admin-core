@@ -100,7 +100,7 @@ func (l *LoginByEmailLogic) LoginByEmail(req *types.LoginByEmailReq) (resp *type
 			},
 		}
 		return resp, nil
-	} else {
-		return nil, errorx.NewCodeInvalidArgumentError("login.wrongCaptcha")
 	}
+
+	return nil, errorx.NewCodeInvalidArgumentError("login.wrongCaptcha")
 }

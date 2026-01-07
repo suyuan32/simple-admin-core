@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/casbin/casbin/v2"
+	"github.com/casbin/casbin/v3"
 	"github.com/redis/go-redis/v9"
 	"github.com/suyuan32/simple-admin-common/config"
 	"github.com/suyuan32/simple-admin-common/orm/ent/entctx/rolectx"
