@@ -16,7 +16,7 @@ require (
 	github.com/suyuan32/simple-admin-message-center v1.7.5
 	github.com/zeromicro/go-zero v1.9.4
 	golang.org/x/oauth2 v0.35.0
-	google.golang.org/grpc v1.78.0
+	google.golang.org/grpc v1.79.1
 	google.golang.org/protobuf v1.36.11
 )
 
