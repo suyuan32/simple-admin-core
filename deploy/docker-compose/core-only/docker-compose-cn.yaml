@@ -55,7 +55,7 @@ services:
           memory: 200M
 
   core-rpc:
-    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/core-rpc-docker:v1.7.9
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/core-rpc-docker:v1.8.0
     container_name: core-rpc
     restart: always
     ports:
@@ -74,7 +74,7 @@ services:
           memory: 200M
 
   core-api:
-    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/core-api-docker:v1.7.9
+    image: registry.cn-hangzhou.aliyuncs.com/simple_admin/core-api-docker:v1.8.0
     container_name: core-api
     restart: always
     #    environment:
