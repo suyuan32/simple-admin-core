@@ -6,7 +6,7 @@ require (
 	entgo.io/ent v0.14.5
 	github.com/bsm/redislock v0.9.4
 	github.com/casbin/casbin/v3 v3.10.0
-	github.com/duke-git/lancet/v2 v2.3.8
+	github.com/duke-git/lancet/v2 v2.3.9
 	github.com/gofrs/uuid/v5 v5.4.0
 	github.com/larksuite/oapi-sdk-go/v3 v3.5.3
 	github.com/mojocn/base64Captcha v1.3.8
