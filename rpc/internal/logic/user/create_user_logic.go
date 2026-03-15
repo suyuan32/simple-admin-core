@@ -66,6 +66,7 @@ func (l *CreateUserLogic) CreateUser(in *core.UserInfo) (*core.BaseUUIDResp, err
 		SetNotNilDescription(in.Description).
 		SetNotNilDepartmentID(in.DepartmentId).
 		AddPositionIDs(in.PositionIds...).
+		SetNotNilExpiredAt(pointy.GetTimeMilliPointer(in.ExpiredAt)).
 		Save(l.ctx)
 	if err != nil {
 		return nil, dberrorhandler.DefaultEntError(l.Logger, err, in)

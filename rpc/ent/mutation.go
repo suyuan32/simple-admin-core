@@ -10406,6 +10406,7 @@ type UserMutation struct {
 	mobile             *string
 	email              *string
 	avatar             *string
+	expired_at         *time.Time
 	clearedFields      map[string]struct{}
 	departments        *uint64
 	cleareddepartments bool
@@ -11104,6 +11105,55 @@ func (m *UserMutation) ResetDepartmentID() {
 	delete(m.clearedFields, user.FieldDepartmentID)
 }
 
+// SetExpiredAt sets the "expired_at" field.
+func (m *UserMutation) SetExpiredAt(t time.Time) {
+	m.expired_at = &t
+}
+
+// ExpiredAt returns the value of the "expired_at" field in the mutation.
+func (m *UserMutation) ExpiredAt() (r time.Time, exists bool) {
+	v := m.expired_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldExpiredAt returns the old "expired_at" field's value of the User entity.
+// If the User object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserMutation) OldExpiredAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldExpiredAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldExpiredAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldExpiredAt: %w", err)
+	}
+	return oldValue.ExpiredAt, nil
+}
+
+// ClearExpiredAt clears the value of the "expired_at" field.
+func (m *UserMutation) ClearExpiredAt() {
+	m.expired_at = nil
+	m.clearedFields[user.FieldExpiredAt] = struct{}{}
+}
+
+// ExpiredAtCleared returns if the "expired_at" field was cleared in this mutation.
+func (m *UserMutation) ExpiredAtCleared() bool {
+	_, ok := m.clearedFields[user.FieldExpiredAt]
+	return ok
+}
+
+// ResetExpiredAt resets all changes to the "expired_at" field.
+func (m *UserMutation) ResetExpiredAt() {
+	m.expired_at = nil
+	delete(m.clearedFields, user.FieldExpiredAt)
+}
+
 // SetDepartmentsID sets the "departments" edge to the Department entity by id.
 func (m *UserMutation) SetDepartmentsID(id uint64) {
 	m.departments = &id
@@ -11286,7 +11336,7 @@ func (m *UserMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *UserMutation) Fields() []string {
-	fields := make([]string, 0, 13)
+	fields := make([]string, 0, 14)
 	if m.created_at != nil {
 		fields = append(fields, user.FieldCreatedAt)
 	}
@@ -11326,6 +11376,9 @@ func (m *UserMutation) Fields() []string {
 	if m.departments != nil {
 		fields = append(fields, user.FieldDepartmentID)
 	}
+	if m.expired_at != nil {
+		fields = append(fields, user.FieldExpiredAt)
+	}
 	return fields
 }
 
@@ -11360,6 +11413,8 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 		return m.Avatar()
 	case user.FieldDepartmentID:
 		return m.DepartmentID()
+	case user.FieldExpiredAt:
+		return m.ExpiredAt()
 	}
 	return nil, false
 }
@@ -11395,6 +11450,8 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldAvatar(ctx)
 	case user.FieldDepartmentID:
 		return m.OldDepartmentID(ctx)
+	case user.FieldExpiredAt:
+		return m.OldExpiredAt(ctx)
 	}
 	return nil, fmt.Errorf("unknown User field %s", name)
 }
@@ -11495,6 +11552,13 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetDepartmentID(v)
 		return nil
+	case user.FieldExpiredAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetExpiredAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
 }
@@ -11561,6 +11625,9 @@ func (m *UserMutation) ClearedFields() []string {
 	if m.FieldCleared(user.FieldDepartmentID) {
 		fields = append(fields, user.FieldDepartmentID)
 	}
+	if m.FieldCleared(user.FieldExpiredAt) {
+		fields = append(fields, user.FieldExpiredAt)
+	}
 	return fields
 }
 
@@ -11595,6 +11662,9 @@ func (m *UserMutation) ClearField(name string) error {
 		return nil
 	case user.FieldDepartmentID:
 		m.ClearDepartmentID()
+		return nil
+	case user.FieldExpiredAt:
+		m.ClearExpiredAt()
 		return nil
 	}
 	return fmt.Errorf("unknown User nullable field %s", name)
@@ -11642,6 +11712,9 @@ func (m *UserMutation) ResetField(name string) error {
 		return nil
 	case user.FieldDepartmentID:
 		m.ResetDepartmentID()
+		return nil
+	case user.FieldExpiredAt:
+		m.ResetExpiredAt()
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)

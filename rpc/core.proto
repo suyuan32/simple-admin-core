@@ -374,6 +374,7 @@ message UserInfo {
   repeated string role_codes = 16;
   repeated string role_name = 17;
   optional string department_name = 18;
+  optional int64 expired_at = 19;
 }
 
 message UserListReq {
@@ -387,6 +388,7 @@ message UserListReq {
   optional uint64 department_id = 8;
   repeated uint64 position_ids = 9;
   optional string description = 10;
+  optional int64 expired_at = 11;
 }
 
 message UserListResp {

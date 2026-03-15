@@ -198,6 +198,8 @@ type UserInfo struct {
 	DepartmentId *uint64 `json:"departmentId,optional,omitempty"`
 	// Position ID | 职位ID
 	PositionIds []uint64 `json:"positionId,optional,omitempty"`
+	// Expired At | 到期时间
+	ExpiredAt *int64 `json:"expiredAt,optional"`
 }
 
 // The response data of user list | 用户列表数据
@@ -241,6 +243,8 @@ type UserListReq struct {
 	// Description | 描述
 	// max length : 100
 	Description *string `json:"description,optional" validate:"omitempty,max=100"`
+	// Expired At | 到期时间
+	ExpiredAt *int64 `json:"expiredAt,optional"`
 }
 
 // User information response | 用户信息返回体

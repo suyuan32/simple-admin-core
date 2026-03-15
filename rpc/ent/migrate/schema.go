@@ -306,6 +306,7 @@ var (
 		{Name: "mobile", Type: field.TypeString, Nullable: true, Comment: "Mobile number | 手机号"},
 		{Name: "email", Type: field.TypeString, Nullable: true, Comment: "Email | 邮箱号"},
 		{Name: "avatar", Type: field.TypeString, Nullable: true, Comment: "Avatar | 头像路径", SchemaType: map[string]string{"mysql": "varchar(512)"}},
+		{Name: "expired_at", Type: field.TypeTime, Nullable: true, Comment: "The expired time | 到期时间", SchemaType: map[string]string{"mysql": "datetime"}},
 		{Name: "department_id", Type: field.TypeUint64, Nullable: true, Comment: "Department ID | 部门ID", Default: 1},
 	}
 	// SysUsersTable holds the schema information for the "sys_users" table.
@@ -317,7 +318,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "sys_users_sys_departments_departments",
-				Columns:    []*schema.Column{SysUsersColumns[13]},
+				Columns:    []*schema.Column{SysUsersColumns[14]},
 				RefColumns: []*schema.Column{SysDepartmentsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},

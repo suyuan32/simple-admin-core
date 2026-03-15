@@ -42,6 +42,8 @@ const (
 	FieldAvatar = "avatar"
 	// FieldDepartmentID holds the string denoting the department_id field in the database.
 	FieldDepartmentID = "department_id"
+	// FieldExpiredAt holds the string denoting the expired_at field in the database.
+	FieldExpiredAt = "expired_at"
 	// EdgeDepartments holds the string denoting the departments edge name in mutations.
 	EdgeDepartments = "departments"
 	// EdgePositions holds the string denoting the positions edge name in mutations.
@@ -85,6 +87,7 @@ var Columns = []string{
 	FieldEmail,
 	FieldAvatar,
 	FieldDepartmentID,
+	FieldExpiredAt,
 }
 
 var (
@@ -201,6 +204,11 @@ func ByAvatar(opts ...sql.OrderTermOption) OrderOption {
 // ByDepartmentID orders the results by the department_id field.
 func ByDepartmentID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDepartmentID, opts...).ToFunc()
+}
+
+// ByExpiredAt orders the results by the expired_at field.
+func ByExpiredAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldExpiredAt, opts...).ToFunc()
 }
 
 // ByDepartmentsField orders the results by departments field.

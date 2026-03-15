@@ -91,6 +91,7 @@ func (l *GetUserListLogic) GetUserList(in *core.UserListReq) (*core.UserListResp
 			PositionIds:  GetPositionIds(v.Edges.Positions),
 			CreatedAt:    pointy.GetPointer(v.CreatedAt.UnixMilli()),
 			UpdatedAt:    pointy.GetPointer(v.UpdatedAt.UnixMilli()),
+			ExpiredAt:    pointy.GetPointer(v.ExpiredAt.UnixMilli()),
 		})
 	}
 
