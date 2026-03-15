@@ -53,6 +53,7 @@ func (l *GetUserByIdLogic) GetUserById(in *core.UUIDReq) (*core.UserInfo, error)
 		DepartmentName: &result.Edges.Departments.Name,
 		CreatedAt:      pointy.GetPointer(result.CreatedAt.UnixMilli()),
 		UpdatedAt:      pointy.GetPointer(result.UpdatedAt.UnixMilli()),
+		ExpiredAt:      pointy.GetPointer(result.ExpiredAt.UnixMilli()),
 	}, nil
 }
 

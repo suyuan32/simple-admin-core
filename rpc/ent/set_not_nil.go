@@ -2479,3 +2479,27 @@ func (_m *UserCreate) SetNotNilDepartmentID(value *uint64) *UserCreate {
 	}
 	return _m
 }
+
+// set field if value's pointer is not nil.
+func (_m *UserUpdate) SetNotNilExpiredAt(value *time.Time) *UserUpdate {
+	if value != nil {
+		return _m.SetExpiredAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *UserUpdateOne) SetNotNilExpiredAt(value *time.Time) *UserUpdateOne {
+	if value != nil {
+		return _m.SetExpiredAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *UserCreate) SetNotNilExpiredAt(value *time.Time) *UserCreate {
+	if value != nil {
+		return _m.SetExpiredAt(*value)
+	}
+	return _m
+}

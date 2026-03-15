@@ -182,6 +182,20 @@ func (_c *UserCreate) SetNillableDepartmentID(v *uint64) *UserCreate {
 	return _c
 }
 
+// SetExpiredAt sets the "expired_at" field.
+func (_c *UserCreate) SetExpiredAt(v time.Time) *UserCreate {
+	_c.mutation.SetExpiredAt(v)
+	return _c
+}
+
+// SetNillableExpiredAt sets the "expired_at" field if the given value is not nil.
+func (_c *UserCreate) SetNillableExpiredAt(v *time.Time) *UserCreate {
+	if v != nil {
+		_c.SetExpiredAt(*v)
+	}
+	return _c
+}
+
 // SetID sets the "id" field.
 func (_c *UserCreate) SetID(v uuid.UUID) *UserCreate {
 	_c.mutation.SetID(v)
@@ -420,6 +434,10 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.Avatar(); ok {
 		_spec.SetField(user.FieldAvatar, field.TypeString, value)
 		_node.Avatar = value
+	}
+	if value, ok := _c.mutation.ExpiredAt(); ok {
+		_spec.SetField(user.FieldExpiredAt, field.TypeTime, value)
+		_node.ExpiredAt = value
 	}
 	if nodes := _c.mutation.DepartmentsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

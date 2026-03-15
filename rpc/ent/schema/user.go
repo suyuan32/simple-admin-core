@@ -40,6 +40,11 @@ func (User) Fields() []ent.Field {
 			Comment("Avatar | 头像路径"),
 		field.Uint64("department_id").Optional().Default(1).
 			Comment("Department ID | 部门ID"),
+		field.Time("expired_at").
+			Comment("The expired time | 到期时间").
+			SchemaType(map[string]string{
+				dialect.MySQL: "datetime",
+			}).Optional(),
 	}
 }
 

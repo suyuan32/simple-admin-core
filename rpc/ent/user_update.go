@@ -241,6 +241,26 @@ func (_u *UserUpdate) ClearDepartmentID() *UserUpdate {
 	return _u
 }
 
+// SetExpiredAt sets the "expired_at" field.
+func (_u *UserUpdate) SetExpiredAt(v time.Time) *UserUpdate {
+	_u.mutation.SetExpiredAt(v)
+	return _u
+}
+
+// SetNillableExpiredAt sets the "expired_at" field if the given value is not nil.
+func (_u *UserUpdate) SetNillableExpiredAt(v *time.Time) *UserUpdate {
+	if v != nil {
+		_u.SetExpiredAt(*v)
+	}
+	return _u
+}
+
+// ClearExpiredAt clears the value of the "expired_at" field.
+func (_u *UserUpdate) ClearExpiredAt() *UserUpdate {
+	_u.mutation.ClearExpiredAt()
+	return _u
+}
+
 // SetDepartmentsID sets the "departments" edge to the Department entity by ID.
 func (_u *UserUpdate) SetDepartmentsID(id uint64) *UserUpdate {
 	_u.mutation.SetDepartmentsID(id)
@@ -453,6 +473,12 @@ func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if _u.mutation.AvatarCleared() {
 		_spec.ClearField(user.FieldAvatar, field.TypeString)
+	}
+	if value, ok := _u.mutation.ExpiredAt(); ok {
+		_spec.SetField(user.FieldExpiredAt, field.TypeTime, value)
+	}
+	if _u.mutation.ExpiredAtCleared() {
+		_spec.ClearField(user.FieldExpiredAt, field.TypeTime)
 	}
 	if _u.mutation.DepartmentsCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -804,6 +830,26 @@ func (_u *UserUpdateOne) ClearDepartmentID() *UserUpdateOne {
 	return _u
 }
 
+// SetExpiredAt sets the "expired_at" field.
+func (_u *UserUpdateOne) SetExpiredAt(v time.Time) *UserUpdateOne {
+	_u.mutation.SetExpiredAt(v)
+	return _u
+}
+
+// SetNillableExpiredAt sets the "expired_at" field if the given value is not nil.
+func (_u *UserUpdateOne) SetNillableExpiredAt(v *time.Time) *UserUpdateOne {
+	if v != nil {
+		_u.SetExpiredAt(*v)
+	}
+	return _u
+}
+
+// ClearExpiredAt clears the value of the "expired_at" field.
+func (_u *UserUpdateOne) ClearExpiredAt() *UserUpdateOne {
+	_u.mutation.ClearExpiredAt()
+	return _u
+}
+
 // SetDepartmentsID sets the "departments" edge to the Department entity by ID.
 func (_u *UserUpdateOne) SetDepartmentsID(id uint64) *UserUpdateOne {
 	_u.mutation.SetDepartmentsID(id)
@@ -1046,6 +1092,12 @@ func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	}
 	if _u.mutation.AvatarCleared() {
 		_spec.ClearField(user.FieldAvatar, field.TypeString)
+	}
+	if value, ok := _u.mutation.ExpiredAt(); ok {
+		_spec.SetField(user.FieldExpiredAt, field.TypeTime, value)
+	}
+	if _u.mutation.ExpiredAtCleared() {
+		_spec.ClearField(user.FieldExpiredAt, field.TypeTime)
 	}
 	if _u.mutation.DepartmentsCleared() {
 		edge := &sqlgraph.EdgeSpec{

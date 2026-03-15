@@ -60,6 +60,7 @@ func (l *GetUserListLogic) GetUserList(req *types.UserListReq) (resp *types.User
 			HomePath:     v.HomePath,
 			DepartmentId: v.DepartmentId,
 			PositionIds:  v.PositionIds,
+			ExpiredAt:    v.ExpiredAt,
 		})
 	}
 	resp.Data.Total = data.Total

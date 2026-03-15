@@ -45,6 +45,7 @@ func (l *CreateUserLogic) CreateUser(req *types.UserInfo) (resp *types.BaseMsgRe
 			Avatar:       req.Avatar,
 			DepartmentId: req.DepartmentId,
 			PositionIds:  req.PositionIds,
+			ExpiredAt:    req.ExpiredAt,
 		})
 	if err != nil {
 		return nil, err

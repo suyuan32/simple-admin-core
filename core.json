@@ -7328,6 +7328,12 @@
           "maxLength": 80,
           "x-go-name": "Email"
         },
+        "expiredAt": {
+          "description": "Expired At | 到期时间",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpiredAt"
+        },
         "homePath": {
           "description": "HomePath | 首页",
           "type": "string",
@@ -7467,6 +7473,12 @@
           "type": "string",
           "maxLength": 100,
           "x-go-name": "Email"
+        },
+        "expiredAt": {
+          "description": "Expired At | 到期时间",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpiredAt"
         },
         "mobile": {
           "description": "User's mobile phone number | 用户的手机号码",
