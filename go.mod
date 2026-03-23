@@ -3,7 +3,7 @@ module github.com/suyuan32/simple-admin-core
 go 1.25.0
 
 require (
-	entgo.io/ent v0.14.5
+	entgo.io/ent v0.14.6
 	github.com/bsm/redislock v0.9.4
 	github.com/casbin/casbin/v3 v3.10.0
 	github.com/duke-git/lancet/v2 v2.3.9
