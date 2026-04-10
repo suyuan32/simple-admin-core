@@ -19,9 +19,6 @@ PROJECT_STYLE=go_zero
 # Whether to use i18n | 是否启用 i18n
 PROJECT_I18N=true
 
-# Swagger type, support yml,json | Swagger 文件类型，支持yml,json
-SWAGGER_TYPE=json
-
 # Ent enabled features | Ent 启用的官方特性
 ENT_FEATURE=sql/execquery,intercept,sql/modifier
 
@@ -69,7 +66,7 @@ publish-docker: # Publish docker image | 发布 docker 镜像
 .PHONY: gen-api
 gen-api: # Generate API files | 生成 API 的代码
 	goctls api go --api ./api/desc/all.api --dir ./api --trans_err=true --style=$(PROJECT_STYLE)
-	swagger generate spec --output=./$(SERVICE_STYLE).$(SWAGGER_TYPE) --scan-models  --exclude-deps
+	goctls api swagger --filename=$(SERVICE_STYLE) --dir=./ --api=./api/desc/all.api --makefile=./Makefile
 	@echo "Generate API files successfully"
 
 .PHONY: gen-rpc
@@ -104,17 +101,6 @@ build-linux: # Build project for Linux | 构建Linux下的可执行文件
 	env CGO_ENABLED=0 GOOS=linux GOARCH=$(GOARCH) go build -ldflags "$(LDFLAGS)" -trimpath -o $(SERVICE_STYLE)_rpc ./rpc/$(SERVICE_STYLE).go
 	env CGO_ENABLED=0 GOOS=linux GOARCH=$(GOARCH) go build -ldflags "$(LDFLAGS)" -trimpath -o $(SERVICE_STYLE)_api ./api/$(SERVICE_STYLE).go
 	@echo "Build project for Linux successfully"
-
-.PHONY: gen-swagger
-gen-swagger: # Generate swagger file | 生成 swagger 文件
-	swagger generate spec --output=./$(SERVICE_STYLE).$(SWAGGER_TYPE) --scan-models  --exclude-deps
-	@echo "Generate swagger successfully"
-
-.PHONY: serve-swagger
-serve-swagger: # Run the swagger server | 运行 swagger 服务
-	lsof -i:36666 | awk 'NR!=1 {print $2}' | xargs killall -9 || true
-	swagger serve -F=swagger --port 36666 $(SERVICE_STYLE).$(SWAGGER_TYPE)
-	@echo "Serve swagger-ui successfully"
 
 .PHONY: help
 help: # Show help | 显示帮助

@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /oauth_provider/list oauthprovider GetOauthProviderList
-//
-// Get oauth provider list | 获取第三方列表
-//
-// Get oauth provider list | 获取第三方列表
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: OauthProviderListReq
-//
-// Responses:
-//  200: OauthProviderListResp
-
 func GetOauthProviderListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.OauthProviderListReq

@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /user/profile user UpdateUserProfile
-//
-// Update user's profile | 更新用户个人信息
-//
-// Update user's profile | 更新用户个人信息
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: ProfileInfo
-//
-// Responses:
-//  200: BaseMsgResp
-
 func UpdateUserProfileHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.ProfileInfo

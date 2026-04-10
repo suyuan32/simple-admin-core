@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /user/reset_password_by_sms publicuser ResetPasswordBySms
-//
-// Reset password by Sms | 通过短信重置密码
-//
-// Reset password by Sms | 通过短信重置密码
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: ResetPasswordBySmsReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func ResetPasswordBySmsHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.ResetPasswordBySmsReq

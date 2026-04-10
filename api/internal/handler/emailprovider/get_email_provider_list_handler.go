@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /email_provider/list emailprovider GetEmailProviderList
-//
-// Get email provider list | 获取邮箱服务配置列表
-//
-// Get email provider list | 获取邮箱服务配置列表
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: EmailProviderListReq
-//
-// Responses:
-//  200: EmailProviderListResp
-
 func GetEmailProviderListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.EmailProviderListReq

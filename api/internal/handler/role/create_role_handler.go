@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /role/create role CreateRole
-//
-// Create role information | 创建角色
-//
-// Create role information | 创建角色
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: RoleInfo
-//
-// Responses:
-//  200: BaseMsgResp
-
 func CreateRoleHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.RoleInfo

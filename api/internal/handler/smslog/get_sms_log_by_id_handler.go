@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /sms_log smslog GetSmsLogById
-//
-// Get sms log by ID | 通过ID获取短信日志
-//
-// Get sms log by ID | 通过ID获取短信日志
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: UUIDReq
-//
-// Responses:
-//  200: SmsLogInfoResp
-
 func GetSmsLogByIdHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.UUIDReq

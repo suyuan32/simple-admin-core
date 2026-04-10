@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /user/register_by_sms publicuser RegisterBySms
-//
-// Register by SMS | 短信注册
-//
-// Register by SMS | 短信注册
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: RegisterBySmsReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func RegisterBySmsHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.RegisterBySmsReq

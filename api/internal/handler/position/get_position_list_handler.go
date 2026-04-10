@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /position/list position GetPositionList
-//
-// Get position list | 获取职位列表
-//
-// Get position list | 获取职位列表
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: PositionListReq
-//
-// Responses:
-//  200: PositionListResp
-
 func GetPositionListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.PositionListReq

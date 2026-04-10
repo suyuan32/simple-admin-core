@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /sms_log/delete smslog DeleteSmsLog
-//
-// Delete sms log information | 删除短信日志信息
-//
-// Delete sms log information | 删除短信日志信息
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: UUIDsReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func DeleteSmsLogHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.UUIDsReq

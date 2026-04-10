@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /dictionary/delete dictionary DeleteDictionary
-//
-// Delete dictionary information | 删除字典信息
-//
-// Delete dictionary information | 删除字典信息
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: IDsReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func DeleteDictionaryHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.IDsReq

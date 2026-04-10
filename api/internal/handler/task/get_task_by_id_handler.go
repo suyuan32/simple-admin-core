@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /task task GetTaskById
-//
-// Get task by ID | 通过ID获取Task
-//
-// Get task by ID | 通过ID获取Task
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: IDReq
-//
-// Responses:
-//  200: TaskInfoResp
-
 func GetTaskByIdHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.IDReq

@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /sms_provider smsprovider GetSmsProviderById
-//
-// Get sms provider by ID | 通过ID获取短信配置
-//
-// Get sms provider by ID | 通过ID获取短信配置
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: IDReq
-//
-// Responses:
-//  200: SmsProviderInfoResp
-
 func GetSmsProviderByIdHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.IDReq

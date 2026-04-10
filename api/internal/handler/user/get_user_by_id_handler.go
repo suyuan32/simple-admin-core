@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /user user GetUserById
-//
-// Get User by ID | 通过ID获取用户
-//
-// Get User by ID | 通过ID获取用户
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: UUIDReq
-//
-// Responses:
-//  200: UserInfoResp
-
 func GetUserByIdHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.UUIDReq

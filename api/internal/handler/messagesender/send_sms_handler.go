@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /sms/send messagesender SendSms
-//
-// Send sms message | 发送短信
-//
-// Send sms message | 发送短信
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: SendSmsReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func SendSmsHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.SendSmsReq

@@ -9,15 +9,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 )
 
-// swagger:route get /core/init/database base InitDatabase
-//
-// Initialize database | 初始化数据库
-//
-// Initialize database | 初始化数据库
-//
-// Responses:
-//  200: BaseMsgResp
-
 func InitDatabaseHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		l := base.NewInitDatabaseLogic(r.Context(), svcCtx)

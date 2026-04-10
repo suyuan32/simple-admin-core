@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /position/create position CreatePosition
-//
-// Create position information | 创建职位
-//
-// Create position information | 创建职位
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: PositionInfo
-//
-// Responses:
-//  200: BaseMsgResp
-
 func CreatePositionHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.PositionInfo

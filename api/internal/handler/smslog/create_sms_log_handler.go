@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /sms_log/create smslog CreateSmsLog
-//
-// Create sms log information | 创建短信日志
-//
-// Create sms log information | 创建短信日志
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: SmsLogInfo
-//
-// Responses:
-//  200: BaseMsgResp
-
 func CreateSmsLogHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.SmsLogInfo

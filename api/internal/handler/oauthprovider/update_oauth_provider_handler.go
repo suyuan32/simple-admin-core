@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /oauth_provider/update oauthprovider UpdateOauthProvider
-//
-// Update oauth provider information | 更新第三方
-//
-// Update oauth provider information | 更新第三方
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: OauthProviderInfo
-//
-// Responses:
-//  200: BaseMsgResp
-
 func UpdateOauthProviderHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.OauthProviderInfo

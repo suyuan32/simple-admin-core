@@ -2,7 +2,6 @@
 package types
 
 // The basic response with data | 基础带数据信息
-// swagger:model BaseDataInfo
 type BaseDataInfo struct {
 	// Error code | 错误代码
 	Code int `json:"code"`
@@ -13,7 +12,6 @@ type BaseDataInfo struct {
 }
 
 // The basic response with data | 基础带数据信息
-// swagger:model BaseListInfo
 type BaseListInfo struct {
 	// The total number of data | 数据总数
 	Total uint64 `json:"total"`
@@ -22,7 +20,6 @@ type BaseListInfo struct {
 }
 
 // The basic response without data | 基础不带数据信息
-// swagger:model BaseMsgResp
 type BaseMsgResp struct {
 	// Error code | 错误代码
 	Code int `json:"code"`
@@ -31,61 +28,44 @@ type BaseMsgResp struct {
 }
 
 // The page request parameters | 列表请求参数
-// swagger:model PageInfo
 type PageInfo struct {
 	// Page number | 第几页
-	// required : true
-	// min : 0
 	Page uint64 `json:"page" validate:"required,number,gt=0"`
 	// Page size | 单页数据行数
-	// required : true
-	// max : 100000
 	PageSize uint64 `json:"pageSize" validate:"required,number,lt=100000"`
 }
 
 // Basic ID request | 基础ID参数请求
-// swagger:model IDReq
 type IDReq struct {
 	// ID
-	// Required: true
 	Id uint64 `json:"id" validate:"number"`
 }
 
 // Basic IDs request | 基础ID数组参数请求
-// swagger:model IDsReq
 type IDsReq struct {
 	// IDs
-	// Required: true
 	Ids []uint64 `json:"ids"`
 }
 
 // Basic ID request | 基础ID地址参数请求
-// swagger:model IDPathReq
 type IDPathReq struct {
 	// ID
-	// Required: true
 	Id uint64 `path:"id"`
 }
 
 // Basic UUID request | 基础UUID参数请求
-// swagger:model UUIDReq
 type UUIDReq struct {
 	// ID
-	// Required: true
-	// Max length: 36
 	Id string `json:"id" validate:"len=36"`
 }
 
 // Basic UUID array request | 基础UUID数组参数请求
-// swagger:model UUIDsReq
 type UUIDsReq struct {
 	// Ids
-	// Required: true
 	Ids []string `json:"ids"`
 }
 
 // The base ID response data | 基础ID信息
-// swagger:model BaseIDInfo
 type BaseIDInfo struct {
 	// ID
 	Id *uint64 `json:"id,optional"`
@@ -96,7 +76,6 @@ type BaseIDInfo struct {
 }
 
 // The base UUID response data | 基础UUID信息
-// swagger:model BaseUUIDInfo
 type BaseUUIDInfo struct {
 	// ID
 	Id *string `json:"id,optional"`
@@ -107,30 +86,23 @@ type BaseUUIDInfo struct {
 }
 
 // The response data of role information | 角色信息
-// swagger:model RoleInfo
 type RoleInfo struct {
 	BaseIDInfo
 	// Translated Name | 展示名称
 	Trans string `json:"trans,optional"`
 	// Status | 状态
-	// max : 20
 	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 	// Name | 角色名称
-	// max length : 30
 	Name *string `json:"name,optional" validate:"omitempty,max=30"`
 	// Role code | 角色码
-	// max length : 15
 	Code *string `json:"code,optional" validate:"omitempty,max=15,alphanum"`
 	// Remark | 备注
-	// max length : 200
 	Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
 	// Sort | 排序
-	// max : 10000
 	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
 }
 
 // The response data of role list | 角色列表数据
-// swagger:model RoleListResp
 type RoleListResp struct {
 	BaseDataInfo
 	// Role list data | 角色列表数据
@@ -138,7 +110,6 @@ type RoleListResp struct {
 }
 
 // Role list data | 角色列表数据
-// swagger:model RoleListInfo
 type RoleListInfo struct {
 	BaseListInfo
 	// The API list data | 角色列表数据
@@ -146,7 +117,6 @@ type RoleListInfo struct {
 }
 
 // Get role list request params | 角色列表请求参数
-// swagger:model RoleListReq
 type RoleListReq struct {
 	PageInfo
 	// Name | 角色名称
@@ -154,7 +124,6 @@ type RoleListReq struct {
 }
 
 // Role information response | 角色信息返回体
-// swagger:model RoleInfoResp
 type RoleInfoResp struct {
 	BaseDataInfo
 	// Role information | 角色数据
@@ -162,37 +131,27 @@ type RoleInfoResp struct {
 }
 
 // The response data of user information | 用户信息
-// swagger:model UserInfo
 type UserInfo struct {
 	BaseUUIDInfo
 	// Status | 状态
-	// max : 20
 	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 	// Username | 用户名
-	// max length : 50
 	Username *string `json:"username,optional" validate:"omitempty,max=50"`
 	// Nickname | 昵称
-	// max length : 40
 	Nickname *string `json:"nickname,optional" validate:"omitempty,max=40"`
 	// Password | 密码
-	// min length : 6
 	Password *string `json:"password,optional" validate:"omitempty,min=6"`
 	// Description | 描述
-	// max length : 100
 	Description *string `json:"description,optional" validate:"omitempty,max=100"`
 	// HomePath | 首页
-	// max length : 70
 	HomePath *string `json:"homePath,optional" validate:"omitempty,max=70"`
 	// RoleId | 角色ID
 	RoleIds []uint64 `json:"roleIds,optional"`
 	// Mobile | 手机号
-	// max length : 18
 	Mobile *string `json:"mobile,optional" validate:"omitempty,max=18"`
 	// Email | 邮箱
-	// max length : 80
 	Email *string `json:"email,optional" validate:"omitempty,max=80"`
 	// Avatar | 头像地址
-	// max length : 300
 	Avatar *string `json:"avatar,optional" validate:"omitempty,max=300"`
 	// Department ID | 部门ID
 	DepartmentId *uint64 `json:"departmentId,optional,omitempty"`
@@ -203,7 +162,6 @@ type UserInfo struct {
 }
 
 // The response data of user list | 用户列表数据
-// swagger:model UserListResp
 type UserListResp struct {
 	BaseDataInfo
 	// User list data | User列表数据
@@ -211,7 +169,6 @@ type UserListResp struct {
 }
 
 // User list data | 用户列表数据
-// swagger:model UserListInfo
 type UserListInfo struct {
 	BaseListInfo
 	// The API list data | User列表数据
@@ -219,20 +176,15 @@ type UserListInfo struct {
 }
 
 // Get user list request params | 用户列表请求参数
-// swagger:model UserListReq
 type UserListReq struct {
 	PageInfo
 	// User Name | 用户名
-	// max length : 20
 	Username *string `json:"username,optional" validate:"omitempty,alphanum,max=20"`
 	// User's nickname | 用户的昵称
-	// max length : 10
 	Nickname *string `json:"nickname,optional" validate:"omitempty,alphanumunicode,max=10"`
 	// User's mobile phone number | 用户的手机号码
-	// max length : 18
 	Mobile *string `json:"mobile,optional" validate:"omitempty,eq=|numeric,max=18"`
 	// The user's email address | 用户的邮箱
-	// max length : 100
 	Email *string `json:"email,optional" validate:"omitempty,email,max=100"`
 	// User's role ID | 用户的角色ID
 	RoleIds []uint64 `json:"roleIds,optional"`
@@ -241,14 +193,12 @@ type UserListReq struct {
 	// User's position id | 用户的职位ID
 	PositionId *uint64 `json:"positionId,optional"`
 	// Description | 描述
-	// max length : 100
 	Description *string `json:"description,optional" validate:"omitempty,max=100"`
 	// Expired At | 到期时间
 	ExpiredAt *int64 `json:"expiredAt,optional"`
 }
 
 // User information response | 用户信息返回体
-// swagger:model UserInfoResp
 type UserInfoResp struct {
 	BaseDataInfo
 	// User information | User数据
@@ -256,94 +206,52 @@ type UserInfoResp struct {
 }
 
 // register request | 注册参数
-// swagger:model RegisterReq
 type RegisterReq struct {
 	// User Name | 用户名
-	// required : true
-	// max length : 20
 	Username string `json:"username" validate:"required,alphanum,max=20"`
 	// Password | 密码
-	// required : true
-	// max length : 30
-	// min length : 6
 	Password string `json:"password" validate:"required,max=30,min=6"`
 	// Captcha ID which store in redis | 验证码编号, 存在redis中
-	// required : true
-	// max length : 20
-	// min length : 20
 	CaptchaId string `json:"captchaId" validate:"required,len=20"`
 	// The Captcha which users input | 用户输入的验证码
-	// required : true
-	// max length : 5
-	// min length : 5
 	Captcha string `json:"captcha" validate:"required,len=5"`
 	// The user's email address | 用户的邮箱
-	// required : true
-	// max length : 100
 	Email string `json:"email" validate:"required,email,max=100"`
 }
 
 // Register by email request | 邮箱注册参数
-// swagger:model RegisterByEmailReq
 type RegisterByEmailReq struct {
 	// User Name | 用户名
-	// required : true
-	// max length : 20
 	Username string `json:"username" validate:"required,alphanum,max=20"`
 	// Password | 密码
-	// required : true
-	// max length : 30
-	// min length : 6
 	Password string `json:"password" validate:"required,max=30,min=6"`
 	// The Captcha which users input | 用户输入的验证码
-	// required : true
-	// max length : 5
-	// min length : 5
 	Captcha string `json:"captcha" validate:"required,len=5"`
 	// The user's email address | 用户的邮箱
-	// required : true
-	// max length : 100
 	Email string `json:"email" validate:"required,email,max=100"`
 }
 
 // Register by SMS request | 短信注册参数
-// swagger:model RegisterBySmsReq
 type RegisterBySmsReq struct {
 	// User Name | 用户名
-	// required : true
-	// max length : 20
 	Username string `json:"username" validate:"required,alphanum,max=20"`
 	// Password | 密码
-	// required : true
-	// max length : 30
-	// min length : 6
 	Password string `json:"password" validate:"required,max=30,min=6"`
 	// The Captcha which users input | 用户输入的验证码
-	// required : true
-	// max length : 5
-	// min length : 5
 	Captcha string `json:"captcha" validate:"required,len=5"`
 	// The user's mobile phone number | 用户的手机号码
-	// required : true
-	// max length : 20
 	PhoneNumber string `json:"phoneNumber"  validate:"required,numeric,max=20"`
 }
 
 // change user's password request | 修改密码请求参数
-// swagger:model ChangePasswordReq
 type ChangePasswordReq struct {
 	// User's old password | 用户旧密码
-	// required : true
-	// max length : 30
 	OldPassword string `json:"oldPassword" validate:"required,max=30"`
 	// User's new password | 用户新密码
-	// required : true
-	// max length : 30
 	NewPassword string `json:"newPassword" validate:"required,max=30"`
 }
 
 // The log in information | 登陆返回的数据信息
-// swagger:model LoginInfo
 type LoginInfo struct {
 	// User's UUID | 用户的UUID
 	UserId string `json:"userId"`
@@ -363,7 +271,6 @@ type RoleInfoSimple struct {
 }
 
 // The response data of user's basic information | 用户基本信息返回数据
-// swagger:model UserBaseIDInfoResp
 type UserBaseIDInfoResp struct {
 	BaseDataInfo
 	// The  data of user's basic information | 用户基本信息
@@ -371,7 +278,6 @@ type UserBaseIDInfoResp struct {
 }
 
 // The  data of user's basic information | 用户基本信息
-// swagger:model UserBaseIDInfo
 type UserBaseIDInfo struct {
 	// User's UUID | 用户的UUID
 	UUID *string `json:"userId"`
@@ -392,7 +298,6 @@ type UserBaseIDInfo struct {
 }
 
 // The permission code for front end permission control | 权限码： 用于前端权限控制
-// swagger:model PermCodeResp
 type PermCodeResp struct {
 	BaseDataInfo
 	// Permission code data | 权限码数据
@@ -400,57 +305,34 @@ type PermCodeResp struct {
 }
 
 // Login request | 登录参数
-// swagger:model LoginReq
 type LoginReq struct {
 	// User Name | 用户名
-	// required : true
-	// max length : 20
 	Username string `json:"username" validate:"required,alphanum,max=20"`
 	// Password | 密码
-	// required : true
-	// max length : 30
-	// min length : 6
 	Password string `json:"password" validate:"required,max=30,min=6"`
 	// Captcha ID which store in redis | 验证码编号, 存在redis中
-	// required : true
-	// max length : 20
-	// min length : 20
 	CaptchaId string `json:"captchaId"  validate:"required,len=20"`
 	// The Captcha which users input | 用户输入的验证码
-	// required : true
-	// max length : 5
-	// min length : 5
 	Captcha string `json:"captcha" validate:"required,len=5"`
 }
 
 // Log in by email request | 邮箱登录参数
-// swagger:model LoginByEmailReq
 type LoginByEmailReq struct {
 	// The user's email address | 用户的邮箱
-	// required : true
-	// max length : 100
 	Email string `json:"email" validate:"required,email,max=100"`
 	// The Captcha which users input | 用户输入的验证码
-	// max length : 5
-	// min length : 5
 	Captcha string `json:"captcha,optional" validate:"omitempty,len=5"`
 }
 
 // Log in by SMS request | 短信登录参数
-// swagger:model LoginBySmsReq
 type LoginBySmsReq struct {
 	// The user's mobile phone number | 用户的手机号码
-	// required : true
-	// max length : 20
 	PhoneNumber string `json:"phoneNumber"  validate:"required,numeric,max=20"`
 	// The Captcha which users input | 用户输入的验证码
-	// max length : 5
-	// min length : 5
 	Captcha string `json:"captcha,optional" validate:"omitempty,len=5"`
 }
 
 // The log in response data | 登录返回数据
-// swagger:model LoginResp
 type LoginResp struct {
 	BaseDataInfo
 	// The log in information | 登陆返回的数据信息
@@ -458,24 +340,18 @@ type LoginResp struct {
 }
 
 // The profile information | 个人信息
-// swagger:model ProfileInfo
 type ProfileInfo struct {
 	// user's nickname | 用户的昵称
-	// max length : 10
 	Nickname *string `json:"nickname" validate:"omitempty,alphanumunicode,max=10"`
 	// The user's avatar path | 用户的头像路径
-	// max length : 300
 	Avatar *string `json:"avatar" validate:"omitempty,max=300"`
 	// User's mobile phone number | 用户的手机号码
-	// max length : 18
 	Mobile *string `json:"mobile" validate:"omitempty,eq=|numeric,max=18"`
 	// The user's email address | 用户的邮箱
-	// max length : 100
 	Email *string `json:"email" validate:"omitempty,email,max=100"`
 }
 
 // The profile response data | 个人信息返回数据
-// swagger:model ProfileResp
 type ProfileResp struct {
 	BaseDataInfo
 	// The profile information | 个人信息
@@ -483,7 +359,6 @@ type ProfileResp struct {
 }
 
 // Reset password by email request | 通过邮箱重置密码请求
-// swagger:model ResetPasswordByEmailReq
 type ResetPasswordByEmailReq struct {
 	Email    string `json:"email" validate:"email"`
 	Captcha  string `json:"captcha"`
@@ -491,7 +366,6 @@ type ResetPasswordByEmailReq struct {
 }
 
 // Reset password by SMS request | 通过短信重置密码请求
-// swagger:model ResetPasswordBySmsReq
 type ResetPasswordBySmsReq struct {
 	PhoneNumber string `json:"phoneNumber"`
 	Captcha     string `json:"captcha"`
@@ -499,7 +373,6 @@ type ResetPasswordBySmsReq struct {
 }
 
 // Refresh token response data | 刷新令牌响应数据
-// swagger:model RefreshTokenResp
 type RefreshTokenResp struct {
 	BaseDataInfo
 	// The token information | 令牌信息
@@ -507,14 +380,12 @@ type RefreshTokenResp struct {
 }
 
 // Refresh token information | 刷新令牌信息
-// swagger:model RefreshTokenInfo
 type RefreshTokenInfo struct {
 	Token     string `json:"token"`
 	ExpiredAt int64  `json:"expiredAt"`
 }
 
 // The response data of menu information | 菜单信息
-// swagger:model MenuInfo
 type MenuInfo struct {
 	BaseIDInfo
 	// Translated Name | 国际化展示名称
@@ -549,10 +420,8 @@ type MenuInfo struct {
 // swagger:model Meta
 type Meta struct {
 	// Menu title show in page | 菜单显示名
-	// Max length: 50
 	Title *string `json:"title" validate:"max=50"`
 	// Menu Icon | 菜单图标
-	// Max length: 50
 	Icon *string `json:"icon" validate:"max=50"`
 	// Hide menu | 隐藏菜单
 	HideMenu *bool `json:"hideMenu" validate:"omitempty,boolean"`
@@ -577,7 +446,6 @@ type Meta struct {
 }
 
 // The response data of menu list | 菜单列表返回数据
-// swagger:model MenuListResp
 type MenuListResp struct {
 	BaseDataInfo
 	// Menu list data | Menu列表数据
@@ -585,7 +453,6 @@ type MenuListResp struct {
 }
 
 // Menu list data | Menu列表数据
-// swagger:model MenuListInfo
 type MenuListInfo struct {
 	BaseListInfo
 	// The menu list data | 菜单列表数据
@@ -593,7 +460,6 @@ type MenuListInfo struct {
 }
 
 // Menu information response | 菜单信息返回体
-// swagger:model MenuInfoResp
 type MenuInfoResp struct {
 	BaseDataInfo
 	// Menu information | Menu数据
@@ -601,7 +467,6 @@ type MenuInfoResp struct {
 }
 
 // Menu information plain | 菜单信息无嵌套
-// swagger:model MenuPlainInfo
 type MenuPlainInfo struct {
 	Id *uint64 `json:"id,optional"`
 	// Create date | 创建日期
@@ -611,39 +476,30 @@ type MenuPlainInfo struct {
 	// Translated Name | 国际化展示名称
 	Trans *string `json:"trans,optional"`
 	// Level | 菜单层级
-	// max : 20
 	Level *uint32 `json:"level,optional" validate:"omitempty,lt=20"`
 	// ParentId | 父级菜单ID
 	ParentId *uint64 `json:"parentId,optional"`
 	// Path | 菜单访问路径
-	// max length : 200
 	Path *string `json:"path,optional" validate:"omitempty,max=200"`
 	// Menu name | 菜单名称
-	// max length : 100
 	Name *string `json:"name,optional" validate:"omitempty,max=100"`
 	// Redirect | 跳转地址
-	// max length : 300
 	Redirect *string `json:"redirect,optional" validate:"omitempty,max=300"`
 	// Component | 组件地址
-	// max length : 80
 	Component *string `json:"component,optional" validate:"omitempty,max=80"`
 	// Sort | 排序
-	// max : 10000
 	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
 	// Disabled | 是否启用
 	Disabled *bool `json:"disabled,optional"`
 	// MenuType | 菜单类型
-	// max : 10
 	MenuType *uint32 `json:"menuType,optional" validate:"omitempty,lt=10"`
 	// Service Name | 服务名称
 	ServiceName *string `json:"serviceName,optional"`
 	// Permission symbol | 权限标识
 	Permission *string `json:"permission,optional"`
 	// Menu title show in page | 菜单显示名
-	// max length : 50
 	Title *string `json:"title" validate:"omitempty,max=50"`
 	// Menu Icon | 菜单图标
-	// max length : 50
 	Icon *string `json:"icon" validate:"omitempty,max=50"`
 	// Hide menu | 隐藏菜单
 	HideMenu *bool `json:"hideMenu" validate:"omitempty,boolean"`
@@ -654,7 +510,6 @@ type MenuPlainInfo struct {
 	// Hide the tab header | 当前路由不在标签页显示
 	HideTab *bool `json:"hideTab,optional" validate:"omitempty,boolean"`
 	// Iframe path | 内嵌iframe的地址
-	// max length : 300
 	FrameSrc *string `json:"frameSrc,optional" validate:"omitempty,max=300"`
 	// The route carries parameters or not | 如果该路由会携带参数，且需要在tab页上面显示。则需要设置为true
 	CarryParam *bool `json:"carryParam,optional" validate:"omitempty,boolean"`
@@ -676,7 +531,6 @@ type MenuPlainInfoList struct {
 }
 
 // Menu list data response | 菜单列表数据返回体
-// swagger:model MenuPlainInfoListResp
 type MenuPlainInfoListResp struct {
 	BaseDataInfo
 	// Menu list data | Menu列表数据
@@ -684,14 +538,12 @@ type MenuPlainInfoListResp struct {
 }
 
 // The information of captcha | 验证码数据
-// swagger:model CaptchaInfo
 type CaptchaInfo struct {
 	CaptchaId string `json:"captchaId"`
 	ImgPath   string `json:"imgPath"`
 }
 
 // The response data of captcha | 验证码返回数据
-// swagger:model CaptchaResp
 type CaptchaResp struct {
 	BaseDataInfo
 	// The menu authorization data | 菜单授权信息数据
@@ -699,39 +551,29 @@ type CaptchaResp struct {
 }
 
 // The email captcha request | 邮箱验证码请求参数
-// swagger:model EmailCaptchaReq
 type EmailCaptchaReq struct {
 	// The email address | 邮箱地址
 	Email string `json:"email"`
 }
 
 // The sms captcha request | 短信验证码请求参数
-// swagger:model SmsCaptchaReq
 type SmsCaptchaReq struct {
 	// The phone number | 电话号码
 	PhoneNumber string `json:"phoneNumber"`
 }
 
 // The API information | API信息
-// swagger:model ApiInfo
 type ApiInfo struct {
 	BaseIDInfo
 	// Translated Name | 多语言名称
 	Trans string `json:"trans,optional"`
 	// API path | API路径
-	// min length : 1
-	// max length : 80
 	Path *string `json:"path,optional" validate:"omitempty,min=1,max=80"`
 	// API Description | API 描述
-	// max length : 100
 	Description *string `json:"description,optional" validate:"omitempty,max=100"`
 	// API group | API分组
-	// min length : 1
-	// max length : 80
 	Group *string `json:"group,optional" validate:"omitempty,min=1,max=80"`
 	// API request method e.g. POST | API请求类型 如POST
-	// min length : 3
-	// max length : 7
 	Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=7"`
 	// Whether is required | 是否是必须的 api
 	IsRequired *bool `json:"isRequired,optional"`
@@ -740,7 +582,6 @@ type ApiInfo struct {
 }
 
 // The response data of API list | API列表数据
-// swagger:model ApiListResp
 type ApiListResp struct {
 	BaseDataInfo
 	// API list data | API 列表数据
@@ -748,7 +589,6 @@ type ApiListResp struct {
 }
 
 // API list data | API 列表数据
-// swagger:model ApiListInfo
 type ApiListInfo struct {
 	BaseListInfo
 	// The API list data | API列表数据
@@ -756,21 +596,15 @@ type ApiListInfo struct {
 }
 
 // Get API list request params | API列表请求参数
-// swagger:model ApiListReq
 type ApiListReq struct {
 	PageInfo
 	// API path | API路径
-	// max length : 200
 	Path *string `json:"path,optional" validate:"omitempty,max=200"`
 	// API Description | API 描述
-	// max length : 100
 	Description *string `json:"description,optional" validate:"omitempty,max=100"`
 	// API group | API分组
-	// max length : 80
 	Group *string `json:"group,optional" validate:"omitempty,max=80"`
 	// API request method e.g. POST | API请求类型 如POST
-	// min length : 3
-	// max length : 7
 	Method *string `json:"method,optional" validate:"omitempty,uppercase,min=3,max=7"`
 	// Whether is required | 是否是必须的 api
 	IsRequired *bool `json:"isRequired,optional"`
@@ -779,7 +613,6 @@ type ApiListReq struct {
 }
 
 // API information response | API信息返回体
-// swagger:model ApiInfoResp
 type ApiInfoResp struct {
 	BaseDataInfo
 	// API information | API数据
@@ -787,33 +620,22 @@ type ApiInfoResp struct {
 }
 
 // The response data of api authorization | API授权数据
-// swagger:model ApiAuthorityInfo
 type ApiAuthorityInfo struct {
 	// API path | API 路径
-	// required : true
-	// max length : 80
 	Path string `json:"path" validate="required,max=80"`
 	// API method | API请求方法
-	// required : true
-	// min length : 3
-	// max length : 4
 	Method string `json:"method" validate="required,min=3,max=4"`
 }
 
 // Create or update api authorization information request | 创建或更新API授权信息
-// swagger:model CreateOrUpdateApiAuthorityReq
 type CreateOrUpdateApiAuthorityReq struct {
 	// Role ID | 角色ID
-	// required : true
-	// max : 1000
 	RoleId uint64 `json:"roleId" validate:"required,lt=1000"`
 	// API authorization list | API授权列表数据
-	// Required: true
 	Data []ApiAuthorityInfo `json:"data"`
 }
 
 // The response data of api authorization list | API授权列表返回数据
-// swagger:model ApiAuthorityListResp
 type ApiAuthorityListResp struct {
 	BaseDataInfo
 	// The api authorization list data | API授权列表数据
@@ -821,7 +643,6 @@ type ApiAuthorityListResp struct {
 }
 
 // The  data of api authorization list | API授权列表数据
-// swagger:model ApiAuthorityListInfo
 type ApiAuthorityListInfo struct {
 	BaseListInfo
 	// The api authorization list data | API授权列表数据
@@ -829,19 +650,14 @@ type ApiAuthorityListInfo struct {
 }
 
 // Create or update menu authorization information request params | 创建或更新菜单授权信息参数
-// swagger:model MenuAuthorityInfoReq
 type MenuAuthorityInfoReq struct {
 	// role ID | 角色ID
-	// required : true
-	// max : 1000
 	RoleId uint64 `json:"roleId" validate:"required,lt=1000"`
 	// menu ID array | 菜单ID数组
-	// required : true
 	MenuIds []uint64 `json:"menuIds" validate:"required"`
 }
 
 // Menu authorization response data | 菜单授权信息数据
-// swagger:model MenuAuthorityInfoResp
 type MenuAuthorityInfoResp struct {
 	BaseDataInfo
 	// The menu authorization data | 菜单授权信息数据
@@ -849,31 +665,23 @@ type MenuAuthorityInfoResp struct {
 }
 
 // The response data of dictionary information | 字典信息
-// swagger:model DictionaryInfo
 type DictionaryInfo struct {
 	BaseIDInfo
 	// Translated Name | 字典多语言名称
 	Trans string `json:"trans,optional"`
 	// Title | 字典多语言名称
-	// min length : 1
-	// max length : 50
 	Title *string `json:"title,optional" validate:"omitempty,min=1,max=50"`
 	// Name | 字典名称
-	// min length : 1
-	// max length : 50
 	Name *string `json:"name,optional" validate:"omitempty,min=1,max=50"`
 	// Status | 状态
-	// max : 20
 	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 	// Description of dictionary | 字典描述
-	// max length : 200
 	Desc *string `json:"desc,optional" validate:"omitempty,max=200"`
 	// Whether to be public for everyone | 是否公开词典，无需登录即可访问
 	IsPublic *bool `json:"isPublic,optional"`
 }
 
 // The response data of dictionary list | 字典列表数据
-// swagger:model DictionaryListResp
 type DictionaryListResp struct {
 	BaseDataInfo
 	// Dictionary list data | 字典列表数据
@@ -881,7 +689,6 @@ type DictionaryListResp struct {
 }
 
 // Dictionary list data | 字典列表数据
-// swagger:model DictionaryListInfo
 type DictionaryListInfo struct {
 	BaseListInfo
 	// The API list data | 字典列表数据
@@ -889,16 +696,13 @@ type DictionaryListInfo struct {
 }
 
 // Get dictionary list request params | 字典列表请求参数
-// swagger:model DictionaryListReq
 type DictionaryListReq struct {
 	PageInfo
 	// Name | 字典名称
-	// max length : 50
 	Name *string `json:"name,optional" validate:"omitempty,max=50"`
 }
 
 // Dictionary information response | 字典信息返回体
-// swagger:model DictionaryInfoResp
 type DictionaryInfoResp struct {
 	BaseDataInfo
 	// Dictionary information | 字典数据
@@ -906,40 +710,29 @@ type DictionaryInfoResp struct {
 }
 
 // The response data of oauth provider information | 第三方信息
-// swagger:model OauthProviderInfo
 type OauthProviderInfo struct {
 	BaseIDInfo
 	// Provider name | 第三方提供商名称
-	// max length : 30
 	Name *string `json:"name,optional" validate:"omitempty,max=30"`
 	// ClientId | 客户端ID
-	// max length : 80
 	ClientId *string `json:"clientId,optional" validate:"omitempty,max=80"`
 	// ClientSecret | 客户端密钥
-	// max length : 100
 	ClientSecret *string `json:"clientSecret,optional" validate:"omitempty,max=100"`
 	// Redirect URL| 跳转地址
-	// max length : 300
 	RedirectUrl *string `json:"redirectUrl,optional" validate:"omitempty,max=300"`
 	// Scopes | 授权范围
-	// max length : 100
 	Scopes *string `json:"scopes,optional" validate:"omitempty,max=100"`
 	// Authority URL | 授权地址
-	// max length : 300
 	AuthUrl *string `json:"authUrl,optional" validate:"omitempty,max=300"`
 	// The URL to get token | 获取Token的地址
-	// max length : 300
 	TokenUrl *string `json:"tokenUrl,optional" validate:"omitempty,max=300"`
 	// The type of auth | 鉴权方式
-	// max : 20
 	AuthStyle *uint64 `json:"authStyle,optional" validate:"omitempty,lt=20"`
 	// The URL to get user information | 获取信息地址
-	// max length : 300
 	InfoUrl *string `json:"infoUrl,optional" validate:"omitempty,max=300"`
 }
 
 // The response data of oauth provider list | 第三方列表数据
-// swagger:model OauthProviderListResp
 type OauthProviderListResp struct {
 	BaseDataInfo
 	// OauthProvider list data | 第三方列表数据
@@ -947,7 +740,6 @@ type OauthProviderListResp struct {
 }
 
 // OauthProvider list data | 第三方列表数据
-// swagger:model OauthProviderListInfo
 type OauthProviderListInfo struct {
 	BaseListInfo
 	// The API list data | 第三方列表数据
@@ -955,16 +747,13 @@ type OauthProviderListInfo struct {
 }
 
 // Get oauth provider list request params | 第三方列表请求参数
-// swagger:model OauthProviderListReq
 type OauthProviderListReq struct {
 	PageInfo
 	// Name | 第三方提供商名称
-	// max length : 30
 	Name *string `json:"name,optional" validate:"omitempty,max=30"`
 }
 
 // Oauth provider information response | 第三方信息返回体
-// swagger:model OauthProviderInfoResp
 type OauthProviderInfoResp struct {
 	BaseDataInfo
 	// OauthProvider information | 第三方数据
@@ -972,21 +761,14 @@ type OauthProviderInfoResp struct {
 }
 
 // Oauth log in request | Oauth 登录请求
-// swagger:model OauthLoginReq
 type OauthLoginReq struct {
 	// State code to avoid hack | 状态码，请求前后相同避免安全问题
-	// required : true
-	// max length : 30
 	State string `json:"state" validate:"required,max=30"`
 	// Provider name | 提供商名字
-	// Example: google
-	// required : true
-	// max length : 40
 	Provider string `json:"provider" validate:"required,max=40"`
 }
 
 // Redirect response | 跳转网址返回信息
-// swagger:model RedirectResp
 type RedirectResp struct {
 	BaseDataInfo
 	// Redirect information | 跳转网址
@@ -994,19 +776,16 @@ type RedirectResp struct {
 }
 
 // Redirect information | 跳转网址
-// swagger:model RedirectInfo
 type RedirectInfo struct {
 	// Redirect URL | 跳转网址
 	URL string `json:"URL"`
 }
 
 // The oauth callback response data | Oauth回调数据
-// swagger:model CallbackResp
 type CallbackResp struct {
 	// User's UUID | 用户的UUID
 	UserId string `json:"userId"`
 	// User's role information| 用户的角色信息
-	// in: body
 	Role RoleInfoSimple `json:"role"`
 	// Token for authorization | 验证身份的token
 	Token string `json:"token"`
@@ -1015,7 +794,6 @@ type CallbackResp struct {
 }
 
 // The response data of token information | 令牌信息
-// swagger:model TokenInfo
 type TokenInfo struct {
 	BaseUUIDInfo
 	// Status | 状态
@@ -1033,7 +811,6 @@ type TokenInfo struct {
 }
 
 // The response data of token list | 令牌列表数据
-// swagger:model TokenListResp
 type TokenListResp struct {
 	BaseDataInfo
 	// Token list data | 令牌列表数据
@@ -1041,7 +818,6 @@ type TokenListResp struct {
 }
 
 // Token list data | Token列表数据
-// swagger:model TokenListInfo
 type TokenListInfo struct {
 	BaseListInfo
 	// The API list data | 令牌列表数据
@@ -1049,7 +825,6 @@ type TokenListInfo struct {
 }
 
 // Get token list request params | 令牌列表请求参数
-// swagger:model TokenListReq
 type TokenListReq struct {
 	PageInfo
 	// Username | 用户名
@@ -1063,7 +838,6 @@ type TokenListReq struct {
 }
 
 // Token information response | Token信息返回体
-// swagger:model TokenInfoResp
 type TokenInfoResp struct {
 	BaseDataInfo
 	// Token information | Token数据
@@ -1071,42 +845,31 @@ type TokenInfoResp struct {
 }
 
 // The response data of department information | 部门信息
-// swagger:model DepartmentInfo
 type DepartmentInfo struct {
 	BaseIDInfo
 	// Translated Name | 展示名称
 	Trans string `json:"trans,optional"`
 	// Status | 状态
-	// max : 20
 	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 	// Sort | 排序
-	// max : 10000
 	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
 	// Name | 部门名称
-	// min length : 1
-	// max length : 50
 	Name *string `json:"name,optional" validate:"omitempty,min=1,max=50"`
 	// Ancestors | 父级部门列表
-	// max length : 200
 	Ancestors *string `json:"ancestors,optional" validate:"omitempty,max=200"`
 	// Leader | 部门负责人
-	// max length : 20
 	Leader *string `json:"leader,optional" validate:"omitempty,max=20"`
 	// Phone | 电话号码
-	// max length : 18
 	Phone *string `json:"phone,optional" validate:"omitempty,max=18"`
 	// Email | 邮箱
-	// max length : 70
 	Email *string `json:"email,optional" validate:"omitempty,max=70"`
 	// Remark | 备注
-	// max length : 200
 	Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
 	// ParentId | 父级 ID
 	ParentId *uint64 `json:"parentId,optional"`
 }
 
 // The response data of department list | 部门列表数据
-// swagger:model DepartmentListResp
 type DepartmentListResp struct {
 	BaseDataInfo
 	// Department list data | 部门列表数据
@@ -1114,7 +877,6 @@ type DepartmentListResp struct {
 }
 
 // Department list data | 部门列表数据
-// swagger:model DepartmentListInfo
 type DepartmentListInfo struct {
 	BaseListInfo
 	// The API list data | 部门列表数据
@@ -1122,22 +884,17 @@ type DepartmentListInfo struct {
 }
 
 // Get department list request params | 部门列表请求参数
-// swagger:model DepartmentListReq
 type DepartmentListReq struct {
 	PageInfo
 	// Name | 部门名称
-	// max length : 50
 	Name *string `json:"name,optional" validate:"omitempty,max=50"`
 	// Leader | 部门负责人
-	// max length : 20
 	Leader *string `json:"leader,optional" validate:"omitempty,max=20"`
 	// Status | 状态
-	// max : 20
 	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 }
 
 // Department information response | 部门信息返回体
-// swagger:model DepartmentInfoResp
 type DepartmentInfoResp struct {
 	BaseDataInfo
 	// Department information | 部门数据
@@ -1145,30 +902,23 @@ type DepartmentInfoResp struct {
 }
 
 // The response data of position information | 职位信息
-// swagger:model PositionInfo
 type PositionInfo struct {
 	BaseIDInfo
 	// Translated Name | 展示名称
 	Trans string `json:"trans,optional"`
 	// Status | 状态
-	// max : 20
 	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 	// Sort | 排序
-	// max : 10000
 	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
 	// Name | 职位名称
-	// max length : 50
 	Name *string `json:"name,optional" validate:"omitempty,max=50"`
 	// Code | 职位代码
-	// max length : 20
 	Code *string `json:"code,optional" validate:"omitempty,max=20"`
 	// Remark | 备注
-	// max length : 200
 	Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
 }
 
 // The response data of position list | 职位列表数据
-// swagger:model PositionListResp
 type PositionListResp struct {
 	BaseDataInfo
 	// Position list data | 职位列表数据
@@ -1176,7 +926,6 @@ type PositionListResp struct {
 }
 
 // Position list data | 职位列表数据
-// swagger:model PositionListInfo
 type PositionListInfo struct {
 	BaseListInfo
 	// The API list data | 职位列表数据
@@ -1184,22 +933,17 @@ type PositionListInfo struct {
 }
 
 // Get position list request params | 职位列表请求参数
-// swagger:model PositionListReq
 type PositionListReq struct {
 	PageInfo
 	// Name | 职位名称
-	// max length : 50
 	Name *string `json:"name,optional" validate:"omitempty,max=50"`
 	// Code | 职位代码
-	// max length : 20
 	Code *string `json:"code,optional" validate:"omitempty,max=20"`
 	// Remark | 备注
-	// max length : 200
 	Remark *string `json:"remark,optional" validate:"omitempty,max=200"`
 }
 
 // Position information response | 职位信息返回体
-// swagger:model PositionInfoResp
 type PositionInfoResp struct {
 	BaseDataInfo
 	// Position information | 职位数据
@@ -1207,32 +951,25 @@ type PositionInfoResp struct {
 }
 
 // The response data of dictionary detail information | 字典键值信息
-// swagger:model DictionaryDetailInfo
 type DictionaryDetailInfo struct {
 	BaseIDInfo
 	// Status | 状态
-	// max : 20
 	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 	// Title | 显示名称
-	// max length : 50
 	Title *string `json:"title,optional" validate:"omitempty,max=50"`
 	// Key | 键
-	// max length : 80
 	Key *string `json:"key,optional" validate:"omitempty,max=80"`
 	// Value | 值
-	// max length : 100
 	Value *string `json:"value,optional" validate:"omitempty,max=100"`
 	// Dictionary ID | 所属字典ID
 	DictionaryId *uint64 `json:"dictionaryId,optional"`
 	// Sort | 排序
-	// max : 10000
 	Sort *uint32 `json:"sort,optional" validate:"omitempty,lt=10000"`
 	// Title I18n Trans | 标题国际化后
 	Trans string `json:"trans,optional"`
 }
 
 // The response data of dictionary detail list | 字典键值列表数据
-// swagger:model DictionaryDetailListResp
 type DictionaryDetailListResp struct {
 	BaseDataInfo
 	// DictionaryDetail list data | 字典键值列表数据
@@ -1240,7 +977,6 @@ type DictionaryDetailListResp struct {
 }
 
 // DictionaryDetail list data | 字典键值列表数据
-// swagger:model DictionaryDetailListInfo
 type DictionaryDetailListInfo struct {
 	BaseListInfo
 	// The API list data | 字典键值列表数据
@@ -1248,18 +984,15 @@ type DictionaryDetailListInfo struct {
 }
 
 // Get dictionary detail list request params | 字典键值列表请求参数
-// swagger:model DictionaryDetailListReq
 type DictionaryDetailListReq struct {
 	PageInfo
 	// Key | 键
-	// max length : 80
 	Key *string `json:"key,optional" validate:"omitempty,max=80"`
 	// Dictionary ID | 所属字典ID
 	DictionaryId *uint64 `json:"dictionaryId,optional"`
 }
 
 // DictionaryDetail information response | 字典键值信息返回体
-// swagger:model DictionaryDetailInfoResp
 type DictionaryDetailInfoResp struct {
 	BaseDataInfo
 	// DictionaryDetail information | 字典键值数据
@@ -1274,30 +1007,23 @@ type DictionaryNameReq struct {
 }
 
 // The response data of task information | 定时任务信息
-// swagger:model TaskInfo
 type TaskInfo struct {
 	BaseIDInfo
 	// Status | 状态
-	// max : 20
 	Status *uint32 `json:"status,optional" validate:"omitempty,lt=20"`
 	// Name | 任务名称
-	// max length : 50
 	Name *string `json:"name,optional" validate:"omitempty,max=50"`
 	// TaskGroup | 任务分组
-	// max length : 40
 	TaskGroup *string `json:"taskGroup,optional" validate:"omitempty,max=40"`
 	// CronExpression | 定时任务 Cron 表达式
-	// max length : 80
 	CronExpression *string `json:"cronExpression,optional" validate:"omitempty,max=80"`
 	// Pattern | 任务的标识 (用于区分和确定要执行的任务)
-	// max length : 100
 	Pattern *string `json:"pattern,optional" validate:"omitempty,max=100"`
 	// Payload | 任务需要数据(JSON 字符串)
 	Payload *string `json:"payload,optional"`
 }
 
 // The response data of task list | 定时任务列表数据
-// swagger:model TaskListResp
 type TaskListResp struct {
 	BaseDataInfo
 	// Task list data | 定时任务列表数据
@@ -1305,7 +1031,6 @@ type TaskListResp struct {
 }
 
 // Task list data | 定时任务列表数据
-// swagger:model TaskListInfo
 type TaskListInfo struct {
 	BaseListInfo
 	// The API list data | 定时任务列表数据
@@ -1313,7 +1038,6 @@ type TaskListInfo struct {
 }
 
 // Get task list request params | 定时任务列表请求参数
-// swagger:model TaskListReq
 type TaskListReq struct {
 	PageInfo
 	// Name | 任务名称
@@ -1323,7 +1047,6 @@ type TaskListReq struct {
 }
 
 // Task information response | 定时任务信息返回体
-// swagger:model TaskInfoResp
 type TaskInfoResp struct {
 	BaseDataInfo
 	// Task information | 定时任务数据
@@ -1331,7 +1054,6 @@ type TaskInfoResp struct {
 }
 
 // The response data of task log information | 任务日志信息
-// swagger:model TaskLogInfo
 type TaskLogInfo struct {
 	// ID
 	Id *uint64 `json:"id"`
@@ -1344,7 +1066,6 @@ type TaskLogInfo struct {
 }
 
 // The response data of task log list | 任务日志列表数据
-// swagger:model TaskLogListResp
 type TaskLogListResp struct {
 	BaseDataInfo
 	// TaskLog list data | 任务日志列表数据
@@ -1352,7 +1073,6 @@ type TaskLogListResp struct {
 }
 
 // TaskLog list data | 任务日志列表数据
-// swagger:model TaskLogListInfo
 type TaskLogListInfo struct {
 	BaseListInfo
 	// The API list data | 任务日志列表数据
@@ -1360,7 +1080,6 @@ type TaskLogListInfo struct {
 }
 
 // Get task log list request params | 任务日志列表请求参数
-// swagger:model TaskLogListReq
 type TaskLogListReq struct {
 	PageInfo
 	// TaskId | 任务ID
@@ -1370,7 +1089,6 @@ type TaskLogListReq struct {
 }
 
 // TaskLog information response | 任务日志信息返回体
-// swagger:model TaskLogInfoResp
 type TaskLogInfoResp struct {
 	BaseDataInfo
 	// TaskLog information | 任务日志数据
@@ -1378,7 +1096,6 @@ type TaskLogInfoResp struct {
 }
 
 // The response data of email log information | 电子邮件日志信息
-// swagger:model EmailLogInfo
 type EmailLogInfo struct {
 	BaseUUIDInfo
 	// Target | 目标邮箱
@@ -1394,7 +1111,6 @@ type EmailLogInfo struct {
 }
 
 // The response data of email log list | 电子邮件日志列表数据
-// swagger:model EmailLogListResp
 type EmailLogListResp struct {
 	BaseDataInfo
 	// EmailLog list data | 电子邮件日志列表数据
@@ -1402,7 +1118,6 @@ type EmailLogListResp struct {
 }
 
 // EmailLog list data | 电子邮件日志列表数据
-// swagger:model EmailLogListInfo
 type EmailLogListInfo struct {
 	BaseListInfo
 	// The API list data | 电子邮件日志列表数据
@@ -1410,7 +1125,6 @@ type EmailLogListInfo struct {
 }
 
 // Get email log list request params | 电子邮件日志列表请求参数
-// swagger:model EmailLogListReq
 type EmailLogListReq struct {
 	PageInfo
 	// Target | 目标邮箱
@@ -1424,7 +1138,6 @@ type EmailLogListReq struct {
 }
 
 // EmailLog information response | 电子邮件日志信息返回体
-// swagger:model EmailLogInfoResp
 type EmailLogInfoResp struct {
 	BaseDataInfo
 	// EmailLog information | 电子邮件日志数据
@@ -1432,7 +1145,6 @@ type EmailLogInfoResp struct {
 }
 
 // The response data of sms log information | 短信日志信息
-// swagger:model SmsLogInfo
 type SmsLogInfo struct {
 	BaseUUIDInfo
 	// Phone number | 手机号码
@@ -1446,7 +1158,6 @@ type SmsLogInfo struct {
 }
 
 // The response data of sms log list | 短信日志列表数据
-// swagger:model SmsLogListResp
 type SmsLogListResp struct {
 	BaseDataInfo
 	// SmsLog list data | 短信日志列表数据
@@ -1454,7 +1165,6 @@ type SmsLogListResp struct {
 }
 
 // SmsLog list data | 短信日志列表数据
-// swagger:model SmsLogListInfo
 type SmsLogListInfo struct {
 	BaseListInfo
 	// The API list data | 短信日志列表数据
@@ -1462,7 +1172,6 @@ type SmsLogListInfo struct {
 }
 
 // Get sms log list request params | 短信日志列表请求参数
-// swagger:model SmsLogListReq
 type SmsLogListReq struct {
 	PageInfo
 	// Phone number | 手机号码
@@ -1476,7 +1185,6 @@ type SmsLogListReq struct {
 }
 
 // SmsLog information response | 短信日志信息返回体
-// swagger:model SmsLogInfoResp
 type SmsLogInfoResp struct {
 	BaseDataInfo
 	// SmsLog information | 短信日志数据
@@ -1484,7 +1192,6 @@ type SmsLogInfoResp struct {
 }
 
 // The response data of sms provider information | 短信配置信息
-// swagger:model SmsProviderInfo
 type SmsProviderInfo struct {
 	BaseIDInfo
 	// Name | 名称
@@ -1500,7 +1207,6 @@ type SmsProviderInfo struct {
 }
 
 // The response data of sms provider list | 短信配置列表数据
-// swagger:model SmsProviderListResp
 type SmsProviderListResp struct {
 	BaseDataInfo
 	// SmsProvider list data | 短信配置列表数据
@@ -1508,7 +1214,6 @@ type SmsProviderListResp struct {
 }
 
 // SmsProvider list data | 短信配置列表数据
-// swagger:model SmsProviderListInfo
 type SmsProviderListInfo struct {
 	BaseListInfo
 	// The API list data | 短信配置列表数据
@@ -1516,7 +1221,6 @@ type SmsProviderListInfo struct {
 }
 
 // Get sms provider list request params | 短信配置列表请求参数
-// swagger:model SmsProviderListReq
 type SmsProviderListReq struct {
 	PageInfo
 	// Name | 名称
@@ -1524,7 +1228,6 @@ type SmsProviderListReq struct {
 }
 
 // SmsProvider information response | 短信配置信息返回体
-// swagger:model SmsProviderInfoResp
 type SmsProviderInfoResp struct {
 	BaseDataInfo
 	// SmsProvider information | 短信配置数据
@@ -1532,7 +1235,6 @@ type SmsProviderInfoResp struct {
 }
 
 // The response data of email provider information | 邮箱服务配置信息
-// swagger:model EmailProviderInfo
 type EmailProviderInfo struct {
 	BaseIDInfo
 	// Name | 名称
@@ -1558,7 +1260,6 @@ type EmailProviderInfo struct {
 }
 
 // The response data of email provider list | 邮箱服务配置列表数据
-// swagger:model EmailProviderListResp
 type EmailProviderListResp struct {
 	BaseDataInfo
 	// EmailProvider list data | 邮箱服务配置列表数据
@@ -1566,7 +1267,6 @@ type EmailProviderListResp struct {
 }
 
 // EmailProvider list data | 邮箱服务配置列表数据
-// swagger:model EmailProviderListInfo
 type EmailProviderListInfo struct {
 	BaseListInfo
 	// The API list data | 邮箱服务配置列表数据
@@ -1574,7 +1274,6 @@ type EmailProviderListInfo struct {
 }
 
 // Get email provider list request params | 邮箱服务配置列表请求参数
-// swagger:model EmailProviderListReq
 type EmailProviderListReq struct {
 	PageInfo
 	// Name | 名称
@@ -1584,14 +1283,12 @@ type EmailProviderListReq struct {
 }
 
 // EmailProvider information response | 邮箱服务配置信息返回体
-// swagger:model EmailProviderInfoResp
 type EmailProviderInfoResp struct {
 	BaseDataInfo
 	// EmailProvider information | 邮箱服务配置数据
 	Data EmailProviderInfo `json:"data"`
 }
 
-// swagger:model SendSmsReq
 type SendSmsReq struct {
 	// Phone number | 电话号码
 	PhoneNumber string `json:"phoneNumber"`
@@ -1607,7 +1304,6 @@ type SendSmsReq struct {
 	Provider *string `json:"provider,optional"`
 }
 
-// swagger:model SendEmailReq
 type SendEmailReq struct {
 	// Target email address | 目标邮箱地址
 	Target string `json:"target"`
@@ -1620,7 +1316,6 @@ type SendEmailReq struct {
 }
 
 // The response data of configuration information | 参数配置信息
-// swagger:model ConfigurationInfo
 type ConfigurationInfo struct {
 	BaseIDInfo
 	// Sort Number | 排序编号
@@ -1640,7 +1335,6 @@ type ConfigurationInfo struct {
 }
 
 // The response data of configuration list | 参数配置列表数据
-// swagger:model ConfigurationListResp
 type ConfigurationListResp struct {
 	BaseDataInfo
 	// Configuration list data | 参数配置列表数据
@@ -1648,7 +1342,6 @@ type ConfigurationListResp struct {
 }
 
 // Configuration list data | 参数配置列表数据
-// swagger:model ConfigurationListInfo
 type ConfigurationListInfo struct {
 	BaseListInfo
 	// The API list data | Configuration列表数据
@@ -1656,7 +1349,6 @@ type ConfigurationListInfo struct {
 }
 
 // Get configuration list request params | 参数配置列表请求参数
-// swagger:model ConfigurationListReq
 type ConfigurationListReq struct {
 	PageInfo
 	// Name
@@ -1668,7 +1360,6 @@ type ConfigurationListReq struct {
 }
 
 // Configuration information response | 参数配置信息返回体
-// swagger:model ConfigurationInfoResp
 type ConfigurationInfoResp struct {
 	BaseDataInfo
 	// Configuration information | 参数配置数据

@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /token/logout token Logout
-//
-// Force logging out by user UUID | 根据UUID强制用户退出
-//
-// Force logging out by user UUID | 根据UUID强制用户退出
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: UUIDReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func LogoutHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.UUIDReq

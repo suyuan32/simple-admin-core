@@ -9,15 +9,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 )
 
-// swagger:route get /user/info user GetUserInfo
-//
-// Get user basic information | 获取用户基本信息
-//
-// Get user basic information | 获取用户基本信息
-//
-// Responses:
-//  200: UserBaseIDInfoResp
-
 func GetUserInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		l := user.NewGetUserInfoLogic(r.Context(), svcCtx)

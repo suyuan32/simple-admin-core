@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /department/create department CreateDepartment
-//
-// Create department information | 创建部门
-//
-// Create department information | 创建部门
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: DepartmentInfo
-//
-// Responses:
-//  200: BaseMsgResp
-
 func CreateDepartmentHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.DepartmentInfo

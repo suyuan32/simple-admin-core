@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /user/change_password user ChangePassword
-//
-// Change Password | 修改密码
-//
-// Change Password | 修改密码
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: ChangePasswordReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func ChangePasswordHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.ChangePasswordReq
