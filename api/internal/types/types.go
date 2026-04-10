@@ -1000,10 +1000,8 @@ type DictionaryDetailInfoResp struct {
 }
 
 // Dictionary name request | 字典名称请求
-// swagger:parameters GetDictionaryDetailByDictionaryName GetPublicDictionaryDetailByDictionaryName
 type DictionaryNameReq struct {
-	// in:path
-	Name *string `json:"name,optional" path:"name"`
+	Name *string `path:"name"`
 }
 
 // The response data of task information | 定时任务信息
