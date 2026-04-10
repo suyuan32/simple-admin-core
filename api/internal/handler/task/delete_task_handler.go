@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /task/delete task DeleteTask
-//
-// Delete task information | 删除Task信息
-//
-// Delete task information | 删除Task信息
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: IDsReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func DeleteTaskHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.IDsReq

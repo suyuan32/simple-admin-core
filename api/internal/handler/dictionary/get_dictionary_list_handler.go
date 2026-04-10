@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /dictionary/list dictionary GetDictionaryList
-//
-// Get dictionary list | 获取字典列表
-//
-// Get dictionary list | 获取字典列表
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: DictionaryListReq
-//
-// Responses:
-//  200: DictionaryListResp
-
 func GetDictionaryListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.DictionaryListReq

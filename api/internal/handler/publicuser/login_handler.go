@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /user/login publicuser Login
-//
-// Log in | 登录
-//
-// Log in | 登录
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: LoginReq
-//
-// Responses:
-//  200: LoginResp
-
 func LoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.LoginReq

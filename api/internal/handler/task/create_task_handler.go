@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /task/create task CreateTask
-//
-// Create task information | 创建Task
-//
-// Create task information | 创建Task
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: TaskInfo
-//
-// Responses:
-//  200: BaseMsgResp
-
 func CreateTaskHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.TaskInfo

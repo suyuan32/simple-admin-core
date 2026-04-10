@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /configuration/create configuration CreateConfiguration
-//
-// Create configuration information | 创建Configuration
-//
-// Create configuration information | 创建Configuration
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: ConfigurationInfo
-//
-// Responses:
-//  200: BaseMsgResp
-
 func CreateConfigurationHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.ConfigurationInfo

@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /department/list department GetDepartmentList
-//
-// Get department list | 获取部门列表
-//
-// Get department list | 获取部门列表
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: DepartmentListReq
-//
-// Responses:
-//  200: DepartmentListResp
-
 func GetDepartmentListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.DepartmentListReq

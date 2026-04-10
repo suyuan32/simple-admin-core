@@ -9,15 +9,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 )
 
-// swagger:route get /menu/role/list menu GetMenuListByRole
-//
-// Get menu list by role | 获取菜单列表
-//
-// Get menu list by role | 获取菜单列表
-//
-// Responses:
-//  200: MenuListResp
-
 func GetMenuListByRoleHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		l := menu.NewGetMenuListByRoleLogic(r.Context(), svcCtx)

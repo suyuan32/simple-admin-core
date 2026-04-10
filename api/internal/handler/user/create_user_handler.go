@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /user/create user CreateUser
-//
-// Create user information | 创建用户
-//
-// Create user information | 创建用户
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: UserInfo
-//
-// Responses:
-//  200: BaseMsgResp
-
 func CreateUserHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.UserInfo

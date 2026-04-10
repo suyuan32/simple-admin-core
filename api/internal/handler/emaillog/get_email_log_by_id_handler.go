@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /email_log emaillog GetEmailLogById
-//
-// Get email log by ID | 通过ID获取电子邮件日志
-//
-// Get email log by ID | 通过ID获取电子邮件日志
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: UUIDReq
-//
-// Responses:
-//  200: EmailLogInfoResp
-
 func GetEmailLogByIdHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.UUIDReq

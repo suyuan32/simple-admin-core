@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /authority/api/create_or_update authority CreateOrUpdateApiAuthority
-//
-// Create or update API authorization information | 创建或更新API权限
-//
-// Create or update API authorization information | 创建或更新API权限
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: CreateOrUpdateApiAuthorityReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func CreateOrUpdateApiAuthorityHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.CreateOrUpdateApiAuthorityReq

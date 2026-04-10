@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /email_log/delete emaillog DeleteEmailLog
-//
-// Delete email log information | 删除电子邮件日志信息
-//
-// Delete email log information | 删除电子邮件日志信息
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: UUIDsReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func DeleteEmailLogHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.UUIDsReq

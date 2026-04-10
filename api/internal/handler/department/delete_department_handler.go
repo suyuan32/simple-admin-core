@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /department/delete department DeleteDepartment
-//
-// Delete department information | 删除部门信息
-//
-// Delete department information | 删除部门信息
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: IDsReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func DeleteDepartmentHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.IDsReq

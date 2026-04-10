@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /email_log/create emaillog CreateEmailLog
-//
-// Create email log information | 创建电子邮件日志
-//
-// Create email log information | 创建电子邮件日志
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: EmailLogInfo
-//
-// Responses:
-//  200: BaseMsgResp
-
 func CreateEmailLogHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.EmailLogInfo

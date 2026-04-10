@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /email_log/list emaillog GetEmailLogList
-//
-// Get email log list | 获取电子邮件日志列表
-//
-// Get email log list | 获取电子邮件日志列表
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: EmailLogListReq
-//
-// Responses:
-//  200: EmailLogListResp
-
 func GetEmailLogListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.EmailLogListReq

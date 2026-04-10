@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /oauth_provider/delete oauthprovider DeleteOauthProvider
-//
-// Delete oauth provider information | 删除第三方信息
-//
-// Delete oauth provider information | 删除第三方信息
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: IDsReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func DeleteOauthProviderHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.IDsReq

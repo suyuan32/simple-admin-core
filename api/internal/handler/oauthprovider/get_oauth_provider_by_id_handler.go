@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /oauth_provider oauthprovider GetOauthProviderById
-//
-// Get oauth provider by ID | 通过ID获取第三方
-//
-// Get oauth provider by ID | 通过ID获取第三方
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: IDReq
-//
-// Responses:
-//  200: OauthProviderInfoResp
-
 func GetOauthProviderByIdHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.IDReq

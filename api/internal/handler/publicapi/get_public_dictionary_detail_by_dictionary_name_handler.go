@@ -10,15 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route get /dict/public/{name} publicapi GetPublicDictionaryDetailByDictionaryName
-//
-// Get dictionary detail by dictionary name without logging in | 无需登录通过字典名称获取字典内容
-//
-// Get dictionary detail by dictionary name without logging in | 无需登录通过字典名称获取字典内容
-//
-// Responses:
-//  200: DictionaryDetailListResp
-
 func GetPublicDictionaryDetailByDictionaryNameHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.DictionaryNameReq

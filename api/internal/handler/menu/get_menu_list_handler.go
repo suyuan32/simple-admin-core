@@ -9,15 +9,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 )
 
-// swagger:route get /menu/list menu GetMenuList
-//
-// Get menu list | 获取菜单列表
-//
-// Get menu list | 获取菜单列表
-//
-// Responses:
-//  200: MenuPlainInfoListResp
-
 func GetMenuListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		l := menu.NewGetMenuListLogic(r.Context(), svcCtx)

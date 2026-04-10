@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /user/reset_password_by_email publicuser ResetPasswordByEmail
-//
-// Reset password by Email | 通过邮箱重置密码
-//
-// Reset password by Email | 通过邮箱重置密码
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: ResetPasswordByEmailReq
-//
-// Responses:
-//  200: BaseMsgResp
-
 func ResetPasswordByEmailHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.ResetPasswordByEmailReq

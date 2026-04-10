@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /task/update task UpdateTask
-//
-// Update task information | 更新Task
-//
-// Update task information | 更新Task
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: TaskInfo
-//
-// Responses:
-//  200: BaseMsgResp
-
 func UpdateTaskHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.TaskInfo

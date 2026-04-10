@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /task/list task GetTaskList
-//
-// Get task list | 获取Task列表
-//
-// Get task list | 获取Task列表
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: TaskListReq
-//
-// Responses:
-//  200: TaskListResp
-
 func GetTaskListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.TaskListReq

@@ -9,15 +9,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/svc"
 )
 
-// swagger:route get /user/profile user GetUserProfile
-//
-// Get user's profile | 获取用户个人信息
-//
-// Get user's profile | 获取用户个人信息
-//
-// Responses:
-//  200: ProfileResp
-
 func GetUserProfileHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		l := user.NewGetUserProfileLogic(r.Context(), svcCtx)

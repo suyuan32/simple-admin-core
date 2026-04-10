@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /user/list user GetUserList
-//
-// Get user list | 获取用户列表
-//
-// Get user list | 获取用户列表
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: UserListReq
-//
-// Responses:
-//  200: UserListResp
-
 func GetUserListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.UserListReq

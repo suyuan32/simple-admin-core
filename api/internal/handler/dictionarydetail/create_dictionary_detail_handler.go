@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /dictionary_detail/create dictionarydetail CreateDictionaryDetail
-//
-// Create dictionary detail information | 创建字典键值
-//
-// Create dictionary detail information | 创建字典键值
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: DictionaryDetailInfo
-//
-// Responses:
-//  200: BaseMsgResp
-
 func CreateDictionaryDetailHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.DictionaryDetailInfo

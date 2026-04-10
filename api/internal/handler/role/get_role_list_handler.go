@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /role/list role GetRoleList
-//
-// Get role list | 获取角色列表
-//
-// Get role list | 获取角色列表
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: RoleListReq
-//
-// Responses:
-//  200: RoleListResp
-
 func GetRoleListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.RoleListReq

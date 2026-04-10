@@ -10,21 +10,6 @@ import (
 	"github.com/suyuan32/simple-admin-core/api/internal/types"
 )
 
-// swagger:route post /dictionary dictionary GetDictionaryById
-//
-// Get Dictionary by ID | 通过ID获取字典
-//
-// Get Dictionary by ID | 通过ID获取字典
-//
-// Parameters:
-//  + name: body
-//    require: true
-//    in: body
-//    type: IDReq
-//
-// Responses:
-//  200: DictionaryInfoResp
-
 func GetDictionaryByIdHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.IDReq
