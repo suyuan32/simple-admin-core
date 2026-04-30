@@ -10,7 +10,7 @@ require (
 	github.com/gofrs/uuid/v5 v5.4.0
 	github.com/larksuite/oapi-sdk-go/v3 v3.5.3
 	github.com/mojocn/base64Captcha v1.3.8
-	github.com/redis/go-redis/v9 v9.18.0
+	github.com/redis/go-redis/v9 v9.19.0
 	github.com/suyuan32/simple-admin-common v1.8.4
 	github.com/suyuan32/simple-admin-job v1.8.4
 	github.com/suyuan32/simple-admin-message-center v1.8.4
@@ -34,7 +34,6 @@ require (
 	github.com/coreos/go-semver v0.3.1 // indirect
 	github.com/coreos/go-systemd/v22 v22.7.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
-	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/emicklei/go-restful/v3 v3.13.0 // indirect
 	github.com/fatih/color v1.19.0 // indirect
 	github.com/fxamacker/cbor/v2 v2.9.0 // indirect
