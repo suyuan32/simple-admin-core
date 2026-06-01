@@ -14,7 +14,7 @@
     "title": "core",
     "version": "1.0"
   },
-  "host": "0.0.0.0:9100",
+  "host": "localhost:9100",
   "basePath": "/",
   "paths": {
     "/api": {
@@ -43,7 +43,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -242,7 +242,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "IDs Required: true",
+                  "description": "IDs",
                   "type": "array",
                   "items": {
                     "type": "integer"
@@ -620,7 +620,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -766,7 +766,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -993,7 +993,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -1178,7 +1178,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "IDs Required: true",
+                  "description": "IDs",
                   "type": "array",
                   "items": {
                     "type": "integer"
@@ -1642,7 +1642,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -1865,7 +1865,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "IDs Required: true",
+                  "description": "IDs",
                   "type": "array",
                   "items": {
                     "type": "integer"
@@ -2169,23 +2169,9 @@
         "parameters": [
           {
             "type": "string",
-            "description": "in:path",
             "name": "name",
-            "in": "path"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "description": "in:path",
-                  "type": "string"
-                }
-              }
-            }
+            "in": "path",
+            "required": true
           }
         ],
         "responses": {
@@ -2289,23 +2275,9 @@
         "parameters": [
           {
             "type": "string",
-            "description": "in:path",
             "name": "name",
-            "in": "path"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "description": "in:path",
-                  "type": "string"
-                }
-              }
-            }
+            "in": "path",
+            "required": true
           }
         ],
         "responses": {
@@ -2421,7 +2393,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -2608,7 +2580,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "IDs Required: true",
+                  "description": "IDs",
                   "type": "array",
                   "items": {
                     "type": "integer"
@@ -2879,7 +2851,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -3070,7 +3042,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "IDs Required: true",
+                  "description": "IDs",
                   "type": "array",
                   "items": {
                     "type": "integer"
@@ -3416,7 +3388,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true Max length: 36",
+                  "description": "ID",
                   "type": "string",
                   "maxLength": 36,
                   "minLength": 36
@@ -3587,7 +3559,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "Ids Required: true",
+                  "description": "Ids",
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -3851,7 +3823,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -4060,7 +4032,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "IDs Required: true",
+                  "description": "IDs",
                   "type": "array",
                   "items": {
                     "type": "integer"
@@ -4521,7 +4493,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -5219,7 +5191,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -5436,7 +5408,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "IDs Required: true",
+                  "description": "IDs",
                   "type": "array",
                   "items": {
                     "type": "integer"
@@ -5737,7 +5709,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -5920,7 +5892,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "IDs Required: true",
+                  "description": "IDs",
                   "type": "array",
                   "items": {
                     "type": "integer"
@@ -6197,7 +6169,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -6380,7 +6352,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "IDs Required: true",
+                  "description": "IDs",
                   "type": "array",
                   "items": {
                     "type": "integer"
@@ -6720,7 +6692,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true Max length: 36",
+                  "description": "ID",
                   "type": "string",
                   "maxLength": 36,
                   "minLength": 36
@@ -6883,7 +6855,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "Ids Required: true",
+                  "description": "Ids",
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -7139,7 +7111,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -7308,7 +7280,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "IDs Required: true",
+                  "description": "IDs",
                   "type": "array",
                   "items": {
                     "type": "integer"
@@ -7560,7 +7532,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -7745,7 +7717,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "IDs Required: true",
+                  "description": "IDs",
                   "type": "array",
                   "items": {
                     "type": "integer"
@@ -8017,7 +7989,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true",
+                  "description": "ID",
                   "type": "integer"
                 }
               }
@@ -8160,7 +8132,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "IDs Required: true",
+                  "description": "IDs",
                   "type": "array",
                   "items": {
                     "type": "integer"
@@ -8392,7 +8364,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true Max length: 36",
+                  "description": "ID",
                   "type": "string",
                   "maxLength": 36,
                   "minLength": 36
@@ -8571,7 +8543,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "Ids Required: true",
+                  "description": "Ids",
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -8761,7 +8733,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true Max length: 36",
+                  "description": "ID",
                   "type": "string",
                   "maxLength": 36,
                   "minLength": 36
@@ -8898,7 +8870,7 @@
               ],
               "properties": {
                 "id": {
-                  "description": "ID Required: true Max length: 36",
+                  "description": "ID",
                   "type": "string",
                   "maxLength": 36,
                   "minLength": 36
@@ -9268,7 +9240,7 @@
               ],
               "properties": {
                 "ids": {
-                  "description": "Ids Required: true",
+                  "description": "Ids",
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -10582,7 +10554,7 @@
       "Token": []
     }
   ],
-  "x-date": "2026-04-10 16:45:35",
+  "x-date": "2026-04-10 18:20:09",
   "x-description": "This is a goctls generated swagger file.",
   "x-github": "https://github.com/suyuan32/simple-admin-core",
   "x-goctl-version": "v1.14.2",
