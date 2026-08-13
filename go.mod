@@ -17,7 +17,7 @@ require (
 	github.com/zeromicro/go-zero v1.10.2
 	golang.org/x/oauth2 v0.36.0
 	google.golang.org/grpc v1.83.0
-	google.golang.org/protobuf v1.36.12-0.20260120151049-f2248ac996af
+	google.golang.org/protobuf v1.36.12
 )
 
 require (
