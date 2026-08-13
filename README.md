@@ -93,7 +93,7 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 ## Stars
 
-[![Star History Chart](https://api.star-history.com/svg?repos=suyuan32/simple-admin-core&type=Date)](https://github.com/suyuan32/simple-admin-core)
+[![Star History Chart](https://star-history.dera.page/svg?repos=suyuan32/simple-admin-core&type=Date)](https://star-history.dera.page/#suyuan32/simple-admin-core&type=Date)
 
 ## 维护者
 

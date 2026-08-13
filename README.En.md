@@ -118,7 +118,7 @@ you should first purchase the appropriate license (https://simple-admin-official
 
 ## Stars
 
-[![Star History Chart](https://api.star-history.com/svg?repos=suyuan32/simple-admin-core&type=Date)](https://github.com/suyuan32/simple-admin-core)
+[![Star History Chart](https://star-history.dera.page/svg?repos=suyuan32/simple-admin-core&type=Date)](https://star-history.dera.page/#suyuan32/simple-admin-core&type=Date)
 
 
 ## Maintainer
