@@ -5,9 +5,9 @@
 
 **English** | [中文](./README.md)
 ---
-[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.10.2-brightgreen.svg)](https://go-zero.dev/)
+[![Go-Zero](https://img.shields.io/badge/Go--Zero-v1.10.3-brightgreen.svg)](https://go-zero.dev/)
 [![Ent](https://img.shields.io/badge/Ent-v0.14.6-blue.svg)](https://entgo.io/)
-[![Casbin](https://img.shields.io/badge/Casbin-v3.10.0-orange.svg)](https://github.com/casbin/casbin)
+[![Casbin](https://img.shields.io/badge/Casbin-v3.11.0-orange.svg)](https://github.com/casbin/casbin)
 [![Release](https://img.shields.io/badge/Release-v1.8.6-green.svg)](https://github.com/suyuan32/simple-admin-core/releases)
 [![License: Apache2.0](https://img.shields.io/badge/License-Apache2.0-yellow.svg)](https://opensource.org/licenses/MIT)
 ![公众号](https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-%E5%87%A0%E9%A2%97%E9%85%A5-blue)
@@ -114,12 +114,6 @@ The 6 free modules are all free for commercial use and are suitable for develope
 ## Documentation
 
 ### [Simple Admin Document](https://doc.ryansu.tech)
-
-
-## Stars
-
-[![Star History Chart](https://api.star-history.com/svg?repos=suyuan32/simple-admin-core&type=Date)](https://github.com/suyuan32/simple-admin-core)
-
 
 ## Maintainer
 
