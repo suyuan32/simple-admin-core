@@ -115,12 +115,6 @@ you should first purchase the appropriate license (https://simple-admin-official
 
 ### [Simple Admin Document](https://doc.ryansu.tech)
 
-
-## Stars
-
-[![Star History Chart](https://api.star-history.com/svg?repos=suyuan32/simple-admin-core&type=Date)](https://github.com/suyuan32/simple-admin-core)
-
-
 ## Maintainer
 
 [@Ryan Su](https://github.com/suyuan32)

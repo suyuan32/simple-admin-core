@@ -91,10 +91,6 @@ Simple Admin 有完善的开发部署工具， 十分适合高并发、高可靠
 
 ### [Simple Admin 中文文档](https://doc.ryansu.tech/zh)
 
-## Stars
-
-[![Star History Chart](https://api.star-history.com/svg?repos=suyuan32/simple-admin-core&type=Date)](https://github.com/suyuan32/simple-admin-core)
-
 ## 维护者
 
 [@Ryan Su](https://github.com/suyuan32)
