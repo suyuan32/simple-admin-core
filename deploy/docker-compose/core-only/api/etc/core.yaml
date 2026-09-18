@@ -4,7 +4,7 @@ Port: 9100
 Timeout: 6000
 
 Auth:
-  AccessSecret: jS6VKDtsJf3z1n2VKDtsJf3z1n2
+  AccessSecret: # CHANGE_ME: set your own JWT secret
   AccessExpire: 259200
 
 Log:
